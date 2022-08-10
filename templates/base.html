@@ -1,0 +1,16 @@
+<!-- templates/base.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}Django Auth Tutorial{% endblock %}</title>
+</head>
+<body>
+  <main>
+    <h1> Header from base.html </h1>
+    {% block content %}
+    {% endblock %}
+    <h1> Footer from base.html </h1>
+  </main>
+</body>
+</html>
