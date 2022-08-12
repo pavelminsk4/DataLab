@@ -1,0 +1,35 @@
+@font-face {
+    font-family: 'Poppins';
+    src: url("../fonts/Poppins-Regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: 'Poppins-Bold';
+    src: url("../fonts/Poppins-Bold.ttf") format("truetype");
+}
+
+body {
+    margin: 0;
+
+    font-family: 'Poppins', sans-serif;
+}
+
+.auth {
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 20px;
+}
+
+.hint, .submit-form, input::placeholder {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 200;
+    font-size: 14px;
+    line-height: 21px;
+}
+
+.input-label {
+   font-weight: 600;
+   font-size: 14px;
+   line-height: 110%;
+}
+
