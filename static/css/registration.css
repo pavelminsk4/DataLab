@@ -166,14 +166,6 @@ input:focus {
     margin-right: 7px;
 }
 
-.prev-page {
-    cursor: pointer;
-
-    text-decoration: none;
-
-    color: #4490FF;
-}
-
 
 @media screen and (min-width: 1400px) {
     .logo {

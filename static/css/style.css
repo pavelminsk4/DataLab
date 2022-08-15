@@ -38,9 +38,15 @@ p {
 }
 
 .links {
+    cursor: pointer;
+
+    text-decoration: none;
+
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
     line-height: 120%;
+
+    color: #4490FF;
 }
 
