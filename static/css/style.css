@@ -27,9 +27,16 @@ body {
     line-height: 21px;
 }
 
-.input-label {
+.input-label, .control-label {
    font-weight: 600;
    font-size: 14px;
    line-height: 110%;
+}
+
+.links {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 120%;
 }
 

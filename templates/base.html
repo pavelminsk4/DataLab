@@ -1,16 +1,26 @@
+{% load static %}
+
 <!-- templates/base.html -->
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
-  <title>{% block title %}Django Auth Tutorial{% endblock %}</title>
+  <link rel="stylesheet" href="{% static "css/style.css" %}" />
+  <link rel="stylesheet" href="{% static "css/registration.css" %}" />
 </head>
 <body>
   <main>
-    <h1> Header from base.html </h1>
-    {% block content %}
-    {% endblock %}
-    <h1> Footer from base.html </h1>
+      <div class="login-wrapper">
+          <section class="form-section">
+              <img class="logo" src="/../static/img/logo.svg" alt="logo"/>
+              <div class="form-wrapper">
+          {% block content %}
+
+          {% endblock %}
+              </div>
+          </section>
+          <img class="dashboard" src="/../static/img/dashboard.png" alt=""/>
+      </div>
   </main>
 </body>
 </html>
