@@ -14,6 +14,10 @@ body {
     font-family: 'Poppins', sans-serif;
 }
 
+p {
+    margin: 0;
+}
+
 .auth {
     font-weight: 700;
     font-size: 28px;
@@ -27,9 +31,22 @@ body {
     line-height: 21px;
 }
 
-.input-label {
+.input-label, .control-label {
    font-weight: 600;
    font-size: 14px;
    line-height: 110%;
+}
+
+.links {
+    cursor: pointer;
+
+    text-decoration: none;
+
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 120%;
+
+    color: #4490FF;
 }
 
