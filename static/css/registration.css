@@ -145,6 +145,8 @@ input:focus {
 
 .confirm-form {
     justify-content: flex-end;
+
+    margin-top: 20px;
 }
 
 .login-button {
