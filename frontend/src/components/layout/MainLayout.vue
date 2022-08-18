@@ -1,7 +1,12 @@
 <template>
   <div class="main-layout-wrapper">
-    <MainHeader />
     <BackgroundIcon class="bg-icon" />
+
+    <div class="content">
+      <MainHeader />
+
+      <slot></slot>
+    </div>
   </div>
 </template>
 
@@ -22,18 +27,19 @@ export default {
   .main-layout-wrapper {
     position: relative;
 
-    display: flex;
-    justify-content: center;
-
-    width: 100%;
-    height: 100%;
+    height: 100vh;
+    padding: 0 69px 0 79px;
 
     background-color: var(--primary-bg-color);
+  }
 
-    .bg-icon {
-      position: absolute;
+  .bg-icon {
+    position: absolute;
+    top:40%;
+    left:50%;
 
-      width: 66vw;
-    }
+    width: 66vw;
+
+    transform:translate(-50%, -50%);
   }
 </style>

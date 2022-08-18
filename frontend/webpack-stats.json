@@ -965,15 +965,1505 @@
       "name": "app.d22671ab21e0fcdc.hot-update.json",
       "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.d22671ab21e0fcdc.hot-update.json",
       "publicPath": "http://localhost:8080/app.d22671ab21e0fcdc.hot-update.json"
+    },
+    "app.089affa01e4cc199.hot-update.js": {
+      "name": "app.089affa01e4cc199.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.089affa01e4cc199.hot-update.js",
+      "publicPath": "http://localhost:8080/app.089affa01e4cc199.hot-update.js"
+    },
+    "app.089affa01e4cc199.hot-update.json": {
+      "name": "app.089affa01e4cc199.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.089affa01e4cc199.hot-update.json",
+      "publicPath": "http://localhost:8080/app.089affa01e4cc199.hot-update.json"
+    },
+    "app.6c20d86b06f8d0fd.hot-update.js": {
+      "name": "app.6c20d86b06f8d0fd.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.6c20d86b06f8d0fd.hot-update.js",
+      "publicPath": "http://localhost:8080/app.6c20d86b06f8d0fd.hot-update.js"
+    },
+    "app.6c20d86b06f8d0fd.hot-update.json": {
+      "name": "app.6c20d86b06f8d0fd.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.6c20d86b06f8d0fd.hot-update.json",
+      "publicPath": "http://localhost:8080/app.6c20d86b06f8d0fd.hot-update.json"
+    },
+    "app.00df64e05d2da2fc.hot-update.js": {
+      "name": "app.00df64e05d2da2fc.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.00df64e05d2da2fc.hot-update.js",
+      "publicPath": "http://localhost:8080/app.00df64e05d2da2fc.hot-update.js"
+    },
+    "app.00df64e05d2da2fc.hot-update.json": {
+      "name": "app.00df64e05d2da2fc.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.00df64e05d2da2fc.hot-update.json",
+      "publicPath": "http://localhost:8080/app.00df64e05d2da2fc.hot-update.json"
+    },
+    "app.6323130e56763cca.hot-update.js": {
+      "name": "app.6323130e56763cca.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.6323130e56763cca.hot-update.js",
+      "publicPath": "http://localhost:8080/app.6323130e56763cca.hot-update.js"
+    },
+    "app.6323130e56763cca.hot-update.json": {
+      "name": "app.6323130e56763cca.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.6323130e56763cca.hot-update.json",
+      "publicPath": "http://localhost:8080/app.6323130e56763cca.hot-update.json"
+    },
+    "app.c886f7dc96f21dba.hot-update.js": {
+      "name": "app.c886f7dc96f21dba.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.c886f7dc96f21dba.hot-update.js",
+      "publicPath": "http://localhost:8080/app.c886f7dc96f21dba.hot-update.js"
+    },
+    "app.c886f7dc96f21dba.hot-update.json": {
+      "name": "app.c886f7dc96f21dba.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.c886f7dc96f21dba.hot-update.json",
+      "publicPath": "http://localhost:8080/app.c886f7dc96f21dba.hot-update.json"
+    },
+    "app.d2c4a6972baae882.hot-update.js": {
+      "name": "app.d2c4a6972baae882.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.d2c4a6972baae882.hot-update.js",
+      "publicPath": "http://localhost:8080/app.d2c4a6972baae882.hot-update.js"
+    },
+    "app.d2c4a6972baae882.hot-update.json": {
+      "name": "app.d2c4a6972baae882.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.d2c4a6972baae882.hot-update.json",
+      "publicPath": "http://localhost:8080/app.d2c4a6972baae882.hot-update.json"
+    },
+    "app.6d2cb6dc90af09bb.hot-update.js": {
+      "name": "app.6d2cb6dc90af09bb.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.6d2cb6dc90af09bb.hot-update.js",
+      "publicPath": "http://localhost:8080/app.6d2cb6dc90af09bb.hot-update.js"
+    },
+    "app.6d2cb6dc90af09bb.hot-update.json": {
+      "name": "app.6d2cb6dc90af09bb.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.6d2cb6dc90af09bb.hot-update.json",
+      "publicPath": "http://localhost:8080/app.6d2cb6dc90af09bb.hot-update.json"
+    },
+    "app.9b8dbe342c57e57b.hot-update.js": {
+      "name": "app.9b8dbe342c57e57b.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.9b8dbe342c57e57b.hot-update.js",
+      "publicPath": "http://localhost:8080/app.9b8dbe342c57e57b.hot-update.js"
+    },
+    "app.9b8dbe342c57e57b.hot-update.json": {
+      "name": "app.9b8dbe342c57e57b.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.9b8dbe342c57e57b.hot-update.json",
+      "publicPath": "http://localhost:8080/app.9b8dbe342c57e57b.hot-update.json"
+    },
+    "app.19ec7bd0b5cc8b92.hot-update.js": {
+      "name": "app.19ec7bd0b5cc8b92.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.19ec7bd0b5cc8b92.hot-update.js",
+      "publicPath": "http://localhost:8080/app.19ec7bd0b5cc8b92.hot-update.js"
+    },
+    "app.19ec7bd0b5cc8b92.hot-update.json": {
+      "name": "app.19ec7bd0b5cc8b92.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.19ec7bd0b5cc8b92.hot-update.json",
+      "publicPath": "http://localhost:8080/app.19ec7bd0b5cc8b92.hot-update.json"
+    },
+    "app.91f26b7e1744f02e.hot-update.js": {
+      "name": "app.91f26b7e1744f02e.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.91f26b7e1744f02e.hot-update.js",
+      "publicPath": "http://localhost:8080/app.91f26b7e1744f02e.hot-update.js"
+    },
+    "app.91f26b7e1744f02e.hot-update.json": {
+      "name": "app.91f26b7e1744f02e.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.91f26b7e1744f02e.hot-update.json",
+      "publicPath": "http://localhost:8080/app.91f26b7e1744f02e.hot-update.json"
+    },
+    "app.e64fb0929f95d7b6.hot-update.js": {
+      "name": "app.e64fb0929f95d7b6.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.e64fb0929f95d7b6.hot-update.js",
+      "publicPath": "http://localhost:8080/app.e64fb0929f95d7b6.hot-update.js"
+    },
+    "app.e64fb0929f95d7b6.hot-update.json": {
+      "name": "app.e64fb0929f95d7b6.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.e64fb0929f95d7b6.hot-update.json",
+      "publicPath": "http://localhost:8080/app.e64fb0929f95d7b6.hot-update.json"
+    },
+    "app.48db3d36f8d0318f.hot-update.js": {
+      "name": "app.48db3d36f8d0318f.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.48db3d36f8d0318f.hot-update.js",
+      "publicPath": "http://localhost:8080/app.48db3d36f8d0318f.hot-update.js"
+    },
+    "app.48db3d36f8d0318f.hot-update.json": {
+      "name": "app.48db3d36f8d0318f.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.48db3d36f8d0318f.hot-update.json",
+      "publicPath": "http://localhost:8080/app.48db3d36f8d0318f.hot-update.json"
+    },
+    "app.9db1bcd2d8846e8f.hot-update.js": {
+      "name": "app.9db1bcd2d8846e8f.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.9db1bcd2d8846e8f.hot-update.js",
+      "publicPath": "http://localhost:8080/app.9db1bcd2d8846e8f.hot-update.js"
+    },
+    "app.9db1bcd2d8846e8f.hot-update.json": {
+      "name": "app.9db1bcd2d8846e8f.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.9db1bcd2d8846e8f.hot-update.json",
+      "publicPath": "http://localhost:8080/app.9db1bcd2d8846e8f.hot-update.json"
+    },
+    "app.42e4ae374005c701.hot-update.js": {
+      "name": "app.42e4ae374005c701.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.42e4ae374005c701.hot-update.js",
+      "publicPath": "http://localhost:8080/app.42e4ae374005c701.hot-update.js"
+    },
+    "app.42e4ae374005c701.hot-update.json": {
+      "name": "app.42e4ae374005c701.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.42e4ae374005c701.hot-update.json",
+      "publicPath": "http://localhost:8080/app.42e4ae374005c701.hot-update.json"
+    },
+    "app.2b009ccd54da3146.hot-update.js": {
+      "name": "app.2b009ccd54da3146.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.2b009ccd54da3146.hot-update.js",
+      "publicPath": "http://localhost:8080/app.2b009ccd54da3146.hot-update.js"
+    },
+    "app.2b009ccd54da3146.hot-update.json": {
+      "name": "app.2b009ccd54da3146.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.2b009ccd54da3146.hot-update.json",
+      "publicPath": "http://localhost:8080/app.2b009ccd54da3146.hot-update.json"
+    },
+    "app.6514b5f446afc9f5.hot-update.js": {
+      "name": "app.6514b5f446afc9f5.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.6514b5f446afc9f5.hot-update.js",
+      "publicPath": "http://localhost:8080/app.6514b5f446afc9f5.hot-update.js"
+    },
+    "app.6514b5f446afc9f5.hot-update.json": {
+      "name": "app.6514b5f446afc9f5.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.6514b5f446afc9f5.hot-update.json",
+      "publicPath": "http://localhost:8080/app.6514b5f446afc9f5.hot-update.json"
+    },
+    "app.0ccd3d022e771c57.hot-update.js": {
+      "name": "app.0ccd3d022e771c57.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.0ccd3d022e771c57.hot-update.js",
+      "publicPath": "http://localhost:8080/app.0ccd3d022e771c57.hot-update.js"
+    },
+    "app.0ccd3d022e771c57.hot-update.json": {
+      "name": "app.0ccd3d022e771c57.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.0ccd3d022e771c57.hot-update.json",
+      "publicPath": "http://localhost:8080/app.0ccd3d022e771c57.hot-update.json"
+    },
+    "app.1422b8976fff77ed.hot-update.js": {
+      "name": "app.1422b8976fff77ed.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.1422b8976fff77ed.hot-update.js",
+      "publicPath": "http://localhost:8080/app.1422b8976fff77ed.hot-update.js"
+    },
+    "app.1422b8976fff77ed.hot-update.json": {
+      "name": "app.1422b8976fff77ed.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.1422b8976fff77ed.hot-update.json",
+      "publicPath": "http://localhost:8080/app.1422b8976fff77ed.hot-update.json"
+    },
+    "app.511715a67fffc171.hot-update.js": {
+      "name": "app.511715a67fffc171.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.511715a67fffc171.hot-update.js",
+      "publicPath": "http://localhost:8080/app.511715a67fffc171.hot-update.js"
+    },
+    "app.511715a67fffc171.hot-update.json": {
+      "name": "app.511715a67fffc171.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.511715a67fffc171.hot-update.json",
+      "publicPath": "http://localhost:8080/app.511715a67fffc171.hot-update.json"
+    },
+    "app.d3434236553750c3.hot-update.js": {
+      "name": "app.d3434236553750c3.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.d3434236553750c3.hot-update.js",
+      "publicPath": "http://localhost:8080/app.d3434236553750c3.hot-update.js"
+    },
+    "app.d3434236553750c3.hot-update.json": {
+      "name": "app.d3434236553750c3.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.d3434236553750c3.hot-update.json",
+      "publicPath": "http://localhost:8080/app.d3434236553750c3.hot-update.json"
+    },
+    "app.1222b27d2887c5f7.hot-update.js": {
+      "name": "app.1222b27d2887c5f7.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.1222b27d2887c5f7.hot-update.js",
+      "publicPath": "http://localhost:8080/app.1222b27d2887c5f7.hot-update.js"
+    },
+    "app.1222b27d2887c5f7.hot-update.json": {
+      "name": "app.1222b27d2887c5f7.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.1222b27d2887c5f7.hot-update.json",
+      "publicPath": "http://localhost:8080/app.1222b27d2887c5f7.hot-update.json"
+    },
+    "app.c5a70ab3408380e9.hot-update.js": {
+      "name": "app.c5a70ab3408380e9.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.c5a70ab3408380e9.hot-update.js",
+      "publicPath": "http://localhost:8080/app.c5a70ab3408380e9.hot-update.js"
+    },
+    "app.c5a70ab3408380e9.hot-update.json": {
+      "name": "app.c5a70ab3408380e9.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.c5a70ab3408380e9.hot-update.json",
+      "publicPath": "http://localhost:8080/app.c5a70ab3408380e9.hot-update.json"
+    },
+    "app.a5b04d0125ca3adc.hot-update.js": {
+      "name": "app.a5b04d0125ca3adc.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.a5b04d0125ca3adc.hot-update.js",
+      "publicPath": "http://localhost:8080/app.a5b04d0125ca3adc.hot-update.js"
+    },
+    "app.a5b04d0125ca3adc.hot-update.json": {
+      "name": "app.a5b04d0125ca3adc.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.a5b04d0125ca3adc.hot-update.json",
+      "publicPath": "http://localhost:8080/app.a5b04d0125ca3adc.hot-update.json"
+    },
+    "app.483095d433430158.hot-update.js": {
+      "name": "app.483095d433430158.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.483095d433430158.hot-update.js",
+      "publicPath": "http://localhost:8080/app.483095d433430158.hot-update.js"
+    },
+    "app.483095d433430158.hot-update.json": {
+      "name": "app.483095d433430158.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.483095d433430158.hot-update.json",
+      "publicPath": "http://localhost:8080/app.483095d433430158.hot-update.json"
+    },
+    "app.77c23f075727c0ab.hot-update.js": {
+      "name": "app.77c23f075727c0ab.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.77c23f075727c0ab.hot-update.js",
+      "publicPath": "http://localhost:8080/app.77c23f075727c0ab.hot-update.js"
+    },
+    "app.77c23f075727c0ab.hot-update.json": {
+      "name": "app.77c23f075727c0ab.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.77c23f075727c0ab.hot-update.json",
+      "publicPath": "http://localhost:8080/app.77c23f075727c0ab.hot-update.json"
+    },
+    "app.f7c9b3c12818b51d.hot-update.js": {
+      "name": "app.f7c9b3c12818b51d.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.f7c9b3c12818b51d.hot-update.js",
+      "publicPath": "http://localhost:8080/app.f7c9b3c12818b51d.hot-update.js"
+    },
+    "app.f7c9b3c12818b51d.hot-update.json": {
+      "name": "app.f7c9b3c12818b51d.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.f7c9b3c12818b51d.hot-update.json",
+      "publicPath": "http://localhost:8080/app.f7c9b3c12818b51d.hot-update.json"
+    },
+    "app.f6b8bc2e4e76cb6e.hot-update.js": {
+      "name": "app.f6b8bc2e4e76cb6e.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.f6b8bc2e4e76cb6e.hot-update.js",
+      "publicPath": "http://localhost:8080/app.f6b8bc2e4e76cb6e.hot-update.js"
+    },
+    "app.f6b8bc2e4e76cb6e.hot-update.json": {
+      "name": "app.f6b8bc2e4e76cb6e.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.f6b8bc2e4e76cb6e.hot-update.json",
+      "publicPath": "http://localhost:8080/app.f6b8bc2e4e76cb6e.hot-update.json"
+    },
+    "app.83c148daa98151ea.hot-update.js": {
+      "name": "app.83c148daa98151ea.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.83c148daa98151ea.hot-update.js",
+      "publicPath": "http://localhost:8080/app.83c148daa98151ea.hot-update.js"
+    },
+    "app.83c148daa98151ea.hot-update.json": {
+      "name": "app.83c148daa98151ea.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.83c148daa98151ea.hot-update.json",
+      "publicPath": "http://localhost:8080/app.83c148daa98151ea.hot-update.json"
+    },
+    "app.d44275143e25be99.hot-update.js": {
+      "name": "app.d44275143e25be99.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.d44275143e25be99.hot-update.js",
+      "publicPath": "http://localhost:8080/app.d44275143e25be99.hot-update.js"
+    },
+    "app.d44275143e25be99.hot-update.json": {
+      "name": "app.d44275143e25be99.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.d44275143e25be99.hot-update.json",
+      "publicPath": "http://localhost:8080/app.d44275143e25be99.hot-update.json"
+    },
+    "app.efa43a5a11500cd5.hot-update.js": {
+      "name": "app.efa43a5a11500cd5.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.efa43a5a11500cd5.hot-update.js",
+      "publicPath": "http://localhost:8080/app.efa43a5a11500cd5.hot-update.js"
+    },
+    "app.efa43a5a11500cd5.hot-update.json": {
+      "name": "app.efa43a5a11500cd5.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.efa43a5a11500cd5.hot-update.json",
+      "publicPath": "http://localhost:8080/app.efa43a5a11500cd5.hot-update.json"
+    },
+    "app.6cc2dc84e60e7595.hot-update.js": {
+      "name": "app.6cc2dc84e60e7595.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.6cc2dc84e60e7595.hot-update.js",
+      "publicPath": "http://localhost:8080/app.6cc2dc84e60e7595.hot-update.js"
+    },
+    "app.6cc2dc84e60e7595.hot-update.json": {
+      "name": "app.6cc2dc84e60e7595.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.6cc2dc84e60e7595.hot-update.json",
+      "publicPath": "http://localhost:8080/app.6cc2dc84e60e7595.hot-update.json"
+    },
+    "app.c2035e4f941c25c7.hot-update.js": {
+      "name": "app.c2035e4f941c25c7.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.c2035e4f941c25c7.hot-update.js",
+      "publicPath": "http://localhost:8080/app.c2035e4f941c25c7.hot-update.js"
+    },
+    "app.c2035e4f941c25c7.hot-update.json": {
+      "name": "app.c2035e4f941c25c7.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.c2035e4f941c25c7.hot-update.json",
+      "publicPath": "http://localhost:8080/app.c2035e4f941c25c7.hot-update.json"
+    },
+    "app.2ab6d776ba8e877b.hot-update.js": {
+      "name": "app.2ab6d776ba8e877b.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.2ab6d776ba8e877b.hot-update.js",
+      "publicPath": "http://localhost:8080/app.2ab6d776ba8e877b.hot-update.js"
+    },
+    "app.2ab6d776ba8e877b.hot-update.json": {
+      "name": "app.2ab6d776ba8e877b.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.2ab6d776ba8e877b.hot-update.json",
+      "publicPath": "http://localhost:8080/app.2ab6d776ba8e877b.hot-update.json"
+    },
+    "app.2d3bbc63d077a4c1.hot-update.js": {
+      "name": "app.2d3bbc63d077a4c1.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.2d3bbc63d077a4c1.hot-update.js",
+      "publicPath": "http://localhost:8080/app.2d3bbc63d077a4c1.hot-update.js"
+    },
+    "app.2d3bbc63d077a4c1.hot-update.json": {
+      "name": "app.2d3bbc63d077a4c1.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.2d3bbc63d077a4c1.hot-update.json",
+      "publicPath": "http://localhost:8080/app.2d3bbc63d077a4c1.hot-update.json"
+    },
+    "app.c1bc29e3868ea270.hot-update.js": {
+      "name": "app.c1bc29e3868ea270.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.c1bc29e3868ea270.hot-update.js",
+      "publicPath": "http://localhost:8080/app.c1bc29e3868ea270.hot-update.js"
+    },
+    "app.c1bc29e3868ea270.hot-update.json": {
+      "name": "app.c1bc29e3868ea270.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.c1bc29e3868ea270.hot-update.json",
+      "publicPath": "http://localhost:8080/app.c1bc29e3868ea270.hot-update.json"
+    },
+    "app.fc97f23fdc6388dc.hot-update.js": {
+      "name": "app.fc97f23fdc6388dc.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.fc97f23fdc6388dc.hot-update.js",
+      "publicPath": "http://localhost:8080/app.fc97f23fdc6388dc.hot-update.js"
+    },
+    "app.fc97f23fdc6388dc.hot-update.json": {
+      "name": "app.fc97f23fdc6388dc.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.fc97f23fdc6388dc.hot-update.json",
+      "publicPath": "http://localhost:8080/app.fc97f23fdc6388dc.hot-update.json"
+    },
+    "app.abe913e399759c10.hot-update.js": {
+      "name": "app.abe913e399759c10.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.abe913e399759c10.hot-update.js",
+      "publicPath": "http://localhost:8080/app.abe913e399759c10.hot-update.js"
+    },
+    "app.abe913e399759c10.hot-update.json": {
+      "name": "app.abe913e399759c10.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.abe913e399759c10.hot-update.json",
+      "publicPath": "http://localhost:8080/app.abe913e399759c10.hot-update.json"
+    },
+    "app.775444304eebca63.hot-update.js": {
+      "name": "app.775444304eebca63.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.775444304eebca63.hot-update.js",
+      "publicPath": "http://localhost:8080/app.775444304eebca63.hot-update.js"
+    },
+    "app.775444304eebca63.hot-update.json": {
+      "name": "app.775444304eebca63.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.775444304eebca63.hot-update.json",
+      "publicPath": "http://localhost:8080/app.775444304eebca63.hot-update.json"
+    },
+    "app.b86e49283a4723cc.hot-update.js": {
+      "name": "app.b86e49283a4723cc.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.b86e49283a4723cc.hot-update.js",
+      "publicPath": "http://localhost:8080/app.b86e49283a4723cc.hot-update.js"
+    },
+    "app.b86e49283a4723cc.hot-update.json": {
+      "name": "app.b86e49283a4723cc.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.b86e49283a4723cc.hot-update.json",
+      "publicPath": "http://localhost:8080/app.b86e49283a4723cc.hot-update.json"
+    },
+    "app.127f1e2f44bb7927.hot-update.js": {
+      "name": "app.127f1e2f44bb7927.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.127f1e2f44bb7927.hot-update.js",
+      "publicPath": "http://localhost:8080/app.127f1e2f44bb7927.hot-update.js"
+    },
+    "app.127f1e2f44bb7927.hot-update.json": {
+      "name": "app.127f1e2f44bb7927.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.127f1e2f44bb7927.hot-update.json",
+      "publicPath": "http://localhost:8080/app.127f1e2f44bb7927.hot-update.json"
+    },
+    "app.4436226a052eca98.hot-update.js": {
+      "name": "app.4436226a052eca98.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.4436226a052eca98.hot-update.js",
+      "publicPath": "http://localhost:8080/app.4436226a052eca98.hot-update.js"
+    },
+    "app.4436226a052eca98.hot-update.json": {
+      "name": "app.4436226a052eca98.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.4436226a052eca98.hot-update.json",
+      "publicPath": "http://localhost:8080/app.4436226a052eca98.hot-update.json"
+    },
+    "app.de8dad4c1a273194.hot-update.js": {
+      "name": "app.de8dad4c1a273194.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.de8dad4c1a273194.hot-update.js",
+      "publicPath": "http://localhost:8080/app.de8dad4c1a273194.hot-update.js"
+    },
+    "app.de8dad4c1a273194.hot-update.json": {
+      "name": "app.de8dad4c1a273194.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.de8dad4c1a273194.hot-update.json",
+      "publicPath": "http://localhost:8080/app.de8dad4c1a273194.hot-update.json"
+    },
+    "app.e08a73587a28c494.hot-update.js": {
+      "name": "app.e08a73587a28c494.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.e08a73587a28c494.hot-update.js",
+      "publicPath": "http://localhost:8080/app.e08a73587a28c494.hot-update.js"
+    },
+    "app.e08a73587a28c494.hot-update.json": {
+      "name": "app.e08a73587a28c494.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.e08a73587a28c494.hot-update.json",
+      "publicPath": "http://localhost:8080/app.e08a73587a28c494.hot-update.json"
+    },
+    "app.e4434bc920f7d22b.hot-update.js": {
+      "name": "app.e4434bc920f7d22b.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.e4434bc920f7d22b.hot-update.js",
+      "publicPath": "http://localhost:8080/app.e4434bc920f7d22b.hot-update.js"
+    },
+    "app.e4434bc920f7d22b.hot-update.json": {
+      "name": "app.e4434bc920f7d22b.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.e4434bc920f7d22b.hot-update.json",
+      "publicPath": "http://localhost:8080/app.e4434bc920f7d22b.hot-update.json"
+    },
+    "app.f6dbaa94cd249009.hot-update.js": {
+      "name": "app.f6dbaa94cd249009.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.f6dbaa94cd249009.hot-update.js",
+      "publicPath": "http://localhost:8080/app.f6dbaa94cd249009.hot-update.js"
+    },
+    "app.f6dbaa94cd249009.hot-update.json": {
+      "name": "app.f6dbaa94cd249009.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.f6dbaa94cd249009.hot-update.json",
+      "publicPath": "http://localhost:8080/app.f6dbaa94cd249009.hot-update.json"
+    },
+    "app.fcb6bfcc3924482d.hot-update.js": {
+      "name": "app.fcb6bfcc3924482d.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.fcb6bfcc3924482d.hot-update.js",
+      "publicPath": "http://localhost:8080/app.fcb6bfcc3924482d.hot-update.js"
+    },
+    "app.fcb6bfcc3924482d.hot-update.json": {
+      "name": "app.fcb6bfcc3924482d.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.fcb6bfcc3924482d.hot-update.json",
+      "publicPath": "http://localhost:8080/app.fcb6bfcc3924482d.hot-update.json"
+    },
+    "app.308c3c2f4696a046.hot-update.js": {
+      "name": "app.308c3c2f4696a046.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.308c3c2f4696a046.hot-update.js",
+      "publicPath": "http://localhost:8080/app.308c3c2f4696a046.hot-update.js"
+    },
+    "app.308c3c2f4696a046.hot-update.json": {
+      "name": "app.308c3c2f4696a046.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.308c3c2f4696a046.hot-update.json",
+      "publicPath": "http://localhost:8080/app.308c3c2f4696a046.hot-update.json"
+    },
+    "app.a48324bda6edc18d.hot-update.js": {
+      "name": "app.a48324bda6edc18d.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.a48324bda6edc18d.hot-update.js",
+      "publicPath": "http://localhost:8080/app.a48324bda6edc18d.hot-update.js"
+    },
+    "app.a48324bda6edc18d.hot-update.json": {
+      "name": "app.a48324bda6edc18d.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.a48324bda6edc18d.hot-update.json",
+      "publicPath": "http://localhost:8080/app.a48324bda6edc18d.hot-update.json"
+    },
+    "app.051e858a50477646.hot-update.js": {
+      "name": "app.051e858a50477646.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.051e858a50477646.hot-update.js",
+      "publicPath": "http://localhost:8080/app.051e858a50477646.hot-update.js"
+    },
+    "app.051e858a50477646.hot-update.json": {
+      "name": "app.051e858a50477646.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.051e858a50477646.hot-update.json",
+      "publicPath": "http://localhost:8080/app.051e858a50477646.hot-update.json"
+    },
+    "app.cbffa7974eb01148.hot-update.js": {
+      "name": "app.cbffa7974eb01148.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.cbffa7974eb01148.hot-update.js",
+      "publicPath": "http://localhost:8080/app.cbffa7974eb01148.hot-update.js"
+    },
+    "app.cbffa7974eb01148.hot-update.json": {
+      "name": "app.cbffa7974eb01148.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.cbffa7974eb01148.hot-update.json",
+      "publicPath": "http://localhost:8080/app.cbffa7974eb01148.hot-update.json"
+    },
+    "app.babfe55b91aa1e20.hot-update.js": {
+      "name": "app.babfe55b91aa1e20.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.babfe55b91aa1e20.hot-update.js",
+      "publicPath": "http://localhost:8080/app.babfe55b91aa1e20.hot-update.js"
+    },
+    "app.babfe55b91aa1e20.hot-update.json": {
+      "name": "app.babfe55b91aa1e20.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.babfe55b91aa1e20.hot-update.json",
+      "publicPath": "http://localhost:8080/app.babfe55b91aa1e20.hot-update.json"
+    },
+    "app.148f7cd1ae74eb23.hot-update.js": {
+      "name": "app.148f7cd1ae74eb23.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.148f7cd1ae74eb23.hot-update.js",
+      "publicPath": "http://localhost:8080/app.148f7cd1ae74eb23.hot-update.js"
+    },
+    "app.148f7cd1ae74eb23.hot-update.json": {
+      "name": "app.148f7cd1ae74eb23.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.148f7cd1ae74eb23.hot-update.json",
+      "publicPath": "http://localhost:8080/app.148f7cd1ae74eb23.hot-update.json"
+    },
+    "app.f3f82f72f402c4e8.hot-update.js": {
+      "name": "app.f3f82f72f402c4e8.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.f3f82f72f402c4e8.hot-update.js",
+      "publicPath": "http://localhost:8080/app.f3f82f72f402c4e8.hot-update.js"
+    },
+    "app.f3f82f72f402c4e8.hot-update.json": {
+      "name": "app.f3f82f72f402c4e8.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.f3f82f72f402c4e8.hot-update.json",
+      "publicPath": "http://localhost:8080/app.f3f82f72f402c4e8.hot-update.json"
+    },
+    "app.45ad7eb67aa77f75.hot-update.js": {
+      "name": "app.45ad7eb67aa77f75.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.45ad7eb67aa77f75.hot-update.js",
+      "publicPath": "http://localhost:8080/app.45ad7eb67aa77f75.hot-update.js"
+    },
+    "app.45ad7eb67aa77f75.hot-update.json": {
+      "name": "app.45ad7eb67aa77f75.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.45ad7eb67aa77f75.hot-update.json",
+      "publicPath": "http://localhost:8080/app.45ad7eb67aa77f75.hot-update.json"
+    },
+    "app.4412b9ba704f5917.hot-update.js": {
+      "name": "app.4412b9ba704f5917.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.4412b9ba704f5917.hot-update.js",
+      "publicPath": "http://localhost:8080/app.4412b9ba704f5917.hot-update.js"
+    },
+    "app.4412b9ba704f5917.hot-update.json": {
+      "name": "app.4412b9ba704f5917.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.4412b9ba704f5917.hot-update.json",
+      "publicPath": "http://localhost:8080/app.4412b9ba704f5917.hot-update.json"
+    },
+    "app.822cdcc8d87451dd.hot-update.js": {
+      "name": "app.822cdcc8d87451dd.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.822cdcc8d87451dd.hot-update.js",
+      "publicPath": "http://localhost:8080/app.822cdcc8d87451dd.hot-update.js"
+    },
+    "app.822cdcc8d87451dd.hot-update.json": {
+      "name": "app.822cdcc8d87451dd.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.822cdcc8d87451dd.hot-update.json",
+      "publicPath": "http://localhost:8080/app.822cdcc8d87451dd.hot-update.json"
+    },
+    "app.f021f68c136ab9c7.hot-update.js": {
+      "name": "app.f021f68c136ab9c7.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.f021f68c136ab9c7.hot-update.js",
+      "publicPath": "http://localhost:8080/app.f021f68c136ab9c7.hot-update.js"
+    },
+    "app.f021f68c136ab9c7.hot-update.json": {
+      "name": "app.f021f68c136ab9c7.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.f021f68c136ab9c7.hot-update.json",
+      "publicPath": "http://localhost:8080/app.f021f68c136ab9c7.hot-update.json"
+    },
+    "app.ef2e03d48265a6f3.hot-update.js": {
+      "name": "app.ef2e03d48265a6f3.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.ef2e03d48265a6f3.hot-update.js",
+      "publicPath": "http://localhost:8080/app.ef2e03d48265a6f3.hot-update.js"
+    },
+    "app.ef2e03d48265a6f3.hot-update.json": {
+      "name": "app.ef2e03d48265a6f3.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.ef2e03d48265a6f3.hot-update.json",
+      "publicPath": "http://localhost:8080/app.ef2e03d48265a6f3.hot-update.json"
+    },
+    "app.aa7ed9f20188f904.hot-update.js": {
+      "name": "app.aa7ed9f20188f904.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.aa7ed9f20188f904.hot-update.js",
+      "publicPath": "http://localhost:8080/app.aa7ed9f20188f904.hot-update.js"
+    },
+    "app.aa7ed9f20188f904.hot-update.json": {
+      "name": "app.aa7ed9f20188f904.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.aa7ed9f20188f904.hot-update.json",
+      "publicPath": "http://localhost:8080/app.aa7ed9f20188f904.hot-update.json"
+    },
+    "app.c27c3eee1efa8696.hot-update.js": {
+      "name": "app.c27c3eee1efa8696.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.c27c3eee1efa8696.hot-update.js",
+      "publicPath": "http://localhost:8080/app.c27c3eee1efa8696.hot-update.js"
+    },
+    "app.c27c3eee1efa8696.hot-update.json": {
+      "name": "app.c27c3eee1efa8696.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.c27c3eee1efa8696.hot-update.json",
+      "publicPath": "http://localhost:8080/app.c27c3eee1efa8696.hot-update.json"
+    },
+    "app.5ae6f015694fa4f4.hot-update.js": {
+      "name": "app.5ae6f015694fa4f4.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.5ae6f015694fa4f4.hot-update.js",
+      "publicPath": "http://localhost:8080/app.5ae6f015694fa4f4.hot-update.js"
+    },
+    "app.5ae6f015694fa4f4.hot-update.json": {
+      "name": "app.5ae6f015694fa4f4.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.5ae6f015694fa4f4.hot-update.json",
+      "publicPath": "http://localhost:8080/app.5ae6f015694fa4f4.hot-update.json"
+    },
+    "app.b277ac76a6400ddc.hot-update.js": {
+      "name": "app.b277ac76a6400ddc.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.b277ac76a6400ddc.hot-update.js",
+      "publicPath": "http://localhost:8080/app.b277ac76a6400ddc.hot-update.js"
+    },
+    "app.b277ac76a6400ddc.hot-update.json": {
+      "name": "app.b277ac76a6400ddc.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.b277ac76a6400ddc.hot-update.json",
+      "publicPath": "http://localhost:8080/app.b277ac76a6400ddc.hot-update.json"
+    },
+    "app.3542251873b5ee38.hot-update.js": {
+      "name": "app.3542251873b5ee38.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.3542251873b5ee38.hot-update.js",
+      "publicPath": "http://localhost:8080/app.3542251873b5ee38.hot-update.js"
+    },
+    "app.3542251873b5ee38.hot-update.json": {
+      "name": "app.3542251873b5ee38.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.3542251873b5ee38.hot-update.json",
+      "publicPath": "http://localhost:8080/app.3542251873b5ee38.hot-update.json"
+    },
+    "app.b4d9823bdd9a3c8e.hot-update.js": {
+      "name": "app.b4d9823bdd9a3c8e.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.b4d9823bdd9a3c8e.hot-update.js",
+      "publicPath": "http://localhost:8080/app.b4d9823bdd9a3c8e.hot-update.js"
+    },
+    "app.b4d9823bdd9a3c8e.hot-update.json": {
+      "name": "app.b4d9823bdd9a3c8e.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.b4d9823bdd9a3c8e.hot-update.json",
+      "publicPath": "http://localhost:8080/app.b4d9823bdd9a3c8e.hot-update.json"
+    },
+    "app.4ad7dfe9cf7f0ac6.hot-update.js": {
+      "name": "app.4ad7dfe9cf7f0ac6.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.4ad7dfe9cf7f0ac6.hot-update.js",
+      "publicPath": "http://localhost:8080/app.4ad7dfe9cf7f0ac6.hot-update.js"
+    },
+    "app.4ad7dfe9cf7f0ac6.hot-update.json": {
+      "name": "app.4ad7dfe9cf7f0ac6.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.4ad7dfe9cf7f0ac6.hot-update.json",
+      "publicPath": "http://localhost:8080/app.4ad7dfe9cf7f0ac6.hot-update.json"
+    },
+    "app.275c45ae4c490bc4.hot-update.js": {
+      "name": "app.275c45ae4c490bc4.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.275c45ae4c490bc4.hot-update.js",
+      "publicPath": "http://localhost:8080/app.275c45ae4c490bc4.hot-update.js"
+    },
+    "app.275c45ae4c490bc4.hot-update.json": {
+      "name": "app.275c45ae4c490bc4.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.275c45ae4c490bc4.hot-update.json",
+      "publicPath": "http://localhost:8080/app.275c45ae4c490bc4.hot-update.json"
+    },
+    "app.3084bab575db2e78.hot-update.js": {
+      "name": "app.3084bab575db2e78.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.3084bab575db2e78.hot-update.js",
+      "publicPath": "http://localhost:8080/app.3084bab575db2e78.hot-update.js"
+    },
+    "app.3084bab575db2e78.hot-update.json": {
+      "name": "app.3084bab575db2e78.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.3084bab575db2e78.hot-update.json",
+      "publicPath": "http://localhost:8080/app.3084bab575db2e78.hot-update.json"
+    },
+    "app.bc7807aae036aaf3.hot-update.js": {
+      "name": "app.bc7807aae036aaf3.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.bc7807aae036aaf3.hot-update.js",
+      "publicPath": "http://localhost:8080/app.bc7807aae036aaf3.hot-update.js"
+    },
+    "app.bc7807aae036aaf3.hot-update.json": {
+      "name": "app.bc7807aae036aaf3.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.bc7807aae036aaf3.hot-update.json",
+      "publicPath": "http://localhost:8080/app.bc7807aae036aaf3.hot-update.json"
+    },
+    "app.e75360d09d7c3eec.hot-update.js": {
+      "name": "app.e75360d09d7c3eec.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.e75360d09d7c3eec.hot-update.js",
+      "publicPath": "http://localhost:8080/app.e75360d09d7c3eec.hot-update.js"
+    },
+    "app.e75360d09d7c3eec.hot-update.json": {
+      "name": "app.e75360d09d7c3eec.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.e75360d09d7c3eec.hot-update.json",
+      "publicPath": "http://localhost:8080/app.e75360d09d7c3eec.hot-update.json"
+    },
+    "app.9ec069418d456a5d.hot-update.js": {
+      "name": "app.9ec069418d456a5d.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.9ec069418d456a5d.hot-update.js",
+      "publicPath": "http://localhost:8080/app.9ec069418d456a5d.hot-update.js"
+    },
+    "app.9ec069418d456a5d.hot-update.json": {
+      "name": "app.9ec069418d456a5d.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.9ec069418d456a5d.hot-update.json",
+      "publicPath": "http://localhost:8080/app.9ec069418d456a5d.hot-update.json"
+    },
+    "app.ec7ebfa6a9a7bcaf.hot-update.js": {
+      "name": "app.ec7ebfa6a9a7bcaf.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.ec7ebfa6a9a7bcaf.hot-update.js",
+      "publicPath": "http://localhost:8080/app.ec7ebfa6a9a7bcaf.hot-update.js"
+    },
+    "app.ec7ebfa6a9a7bcaf.hot-update.json": {
+      "name": "app.ec7ebfa6a9a7bcaf.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.ec7ebfa6a9a7bcaf.hot-update.json",
+      "publicPath": "http://localhost:8080/app.ec7ebfa6a9a7bcaf.hot-update.json"
+    },
+    "app.40f68b9eb7f67466.hot-update.js": {
+      "name": "app.40f68b9eb7f67466.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.40f68b9eb7f67466.hot-update.js",
+      "publicPath": "http://localhost:8080/app.40f68b9eb7f67466.hot-update.js"
+    },
+    "app.40f68b9eb7f67466.hot-update.json": {
+      "name": "app.40f68b9eb7f67466.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.40f68b9eb7f67466.hot-update.json",
+      "publicPath": "http://localhost:8080/app.40f68b9eb7f67466.hot-update.json"
+    },
+    "app.30abbb7f96b46b81.hot-update.js": {
+      "name": "app.30abbb7f96b46b81.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.30abbb7f96b46b81.hot-update.js",
+      "publicPath": "http://localhost:8080/app.30abbb7f96b46b81.hot-update.js"
+    },
+    "app.30abbb7f96b46b81.hot-update.json": {
+      "name": "app.30abbb7f96b46b81.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.30abbb7f96b46b81.hot-update.json",
+      "publicPath": "http://localhost:8080/app.30abbb7f96b46b81.hot-update.json"
+    },
+    "app.1a753be2850a7026.hot-update.js": {
+      "name": "app.1a753be2850a7026.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.1a753be2850a7026.hot-update.js",
+      "publicPath": "http://localhost:8080/app.1a753be2850a7026.hot-update.js"
+    },
+    "app.1a753be2850a7026.hot-update.json": {
+      "name": "app.1a753be2850a7026.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.1a753be2850a7026.hot-update.json",
+      "publicPath": "http://localhost:8080/app.1a753be2850a7026.hot-update.json"
+    },
+    "app.6ef515355c002561.hot-update.js": {
+      "name": "app.6ef515355c002561.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.6ef515355c002561.hot-update.js",
+      "publicPath": "http://localhost:8080/app.6ef515355c002561.hot-update.js"
+    },
+    "app.6ef515355c002561.hot-update.json": {
+      "name": "app.6ef515355c002561.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.6ef515355c002561.hot-update.json",
+      "publicPath": "http://localhost:8080/app.6ef515355c002561.hot-update.json"
+    },
+    "app.213eb5eca3500992.hot-update.js": {
+      "name": "app.213eb5eca3500992.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.213eb5eca3500992.hot-update.js",
+      "publicPath": "http://localhost:8080/app.213eb5eca3500992.hot-update.js"
+    },
+    "app.213eb5eca3500992.hot-update.json": {
+      "name": "app.213eb5eca3500992.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.213eb5eca3500992.hot-update.json",
+      "publicPath": "http://localhost:8080/app.213eb5eca3500992.hot-update.json"
+    },
+    "app.58dd883d1527c037.hot-update.js": {
+      "name": "app.58dd883d1527c037.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.58dd883d1527c037.hot-update.js",
+      "publicPath": "http://localhost:8080/app.58dd883d1527c037.hot-update.js"
+    },
+    "app.58dd883d1527c037.hot-update.json": {
+      "name": "app.58dd883d1527c037.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.58dd883d1527c037.hot-update.json",
+      "publicPath": "http://localhost:8080/app.58dd883d1527c037.hot-update.json"
+    },
+    "app.790127545a9972b8.hot-update.js": {
+      "name": "app.790127545a9972b8.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.790127545a9972b8.hot-update.js",
+      "publicPath": "http://localhost:8080/app.790127545a9972b8.hot-update.js"
+    },
+    "app.790127545a9972b8.hot-update.json": {
+      "name": "app.790127545a9972b8.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.790127545a9972b8.hot-update.json",
+      "publicPath": "http://localhost:8080/app.790127545a9972b8.hot-update.json"
+    },
+    "app.db31665ce4ff8bf7.hot-update.js": {
+      "name": "app.db31665ce4ff8bf7.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.db31665ce4ff8bf7.hot-update.js",
+      "publicPath": "http://localhost:8080/app.db31665ce4ff8bf7.hot-update.js"
+    },
+    "app.db31665ce4ff8bf7.hot-update.json": {
+      "name": "app.db31665ce4ff8bf7.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.db31665ce4ff8bf7.hot-update.json",
+      "publicPath": "http://localhost:8080/app.db31665ce4ff8bf7.hot-update.json"
+    },
+    "app.ca6c29504217822e.hot-update.js": {
+      "name": "app.ca6c29504217822e.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.ca6c29504217822e.hot-update.js",
+      "publicPath": "http://localhost:8080/app.ca6c29504217822e.hot-update.js"
+    },
+    "app.ca6c29504217822e.hot-update.json": {
+      "name": "app.ca6c29504217822e.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.ca6c29504217822e.hot-update.json",
+      "publicPath": "http://localhost:8080/app.ca6c29504217822e.hot-update.json"
+    },
+    "app.0fee5b7121c4bdf3.hot-update.js": {
+      "name": "app.0fee5b7121c4bdf3.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.0fee5b7121c4bdf3.hot-update.js",
+      "publicPath": "http://localhost:8080/app.0fee5b7121c4bdf3.hot-update.js"
+    },
+    "app.0fee5b7121c4bdf3.hot-update.json": {
+      "name": "app.0fee5b7121c4bdf3.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.0fee5b7121c4bdf3.hot-update.json",
+      "publicPath": "http://localhost:8080/app.0fee5b7121c4bdf3.hot-update.json"
+    },
+    "app.575944586ab87027.hot-update.js": {
+      "name": "app.575944586ab87027.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.575944586ab87027.hot-update.js",
+      "publicPath": "http://localhost:8080/app.575944586ab87027.hot-update.js"
+    },
+    "app.575944586ab87027.hot-update.json": {
+      "name": "app.575944586ab87027.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.575944586ab87027.hot-update.json",
+      "publicPath": "http://localhost:8080/app.575944586ab87027.hot-update.json"
+    },
+    "app.de2b39fdde0112bf.hot-update.js": {
+      "name": "app.de2b39fdde0112bf.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.de2b39fdde0112bf.hot-update.js",
+      "publicPath": "http://localhost:8080/app.de2b39fdde0112bf.hot-update.js"
+    },
+    "app.de2b39fdde0112bf.hot-update.json": {
+      "name": "app.de2b39fdde0112bf.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.de2b39fdde0112bf.hot-update.json",
+      "publicPath": "http://localhost:8080/app.de2b39fdde0112bf.hot-update.json"
+    },
+    "app.d5766181dff6585e.hot-update.js": {
+      "name": "app.d5766181dff6585e.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.d5766181dff6585e.hot-update.js",
+      "publicPath": "http://localhost:8080/app.d5766181dff6585e.hot-update.js"
+    },
+    "app.d5766181dff6585e.hot-update.json": {
+      "name": "app.d5766181dff6585e.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.d5766181dff6585e.hot-update.json",
+      "publicPath": "http://localhost:8080/app.d5766181dff6585e.hot-update.json"
+    },
+    "app.de2ebdd443ac2830.hot-update.js": {
+      "name": "app.de2ebdd443ac2830.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.de2ebdd443ac2830.hot-update.js",
+      "publicPath": "http://localhost:8080/app.de2ebdd443ac2830.hot-update.js"
+    },
+    "app.de2ebdd443ac2830.hot-update.json": {
+      "name": "app.de2ebdd443ac2830.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.de2ebdd443ac2830.hot-update.json",
+      "publicPath": "http://localhost:8080/app.de2ebdd443ac2830.hot-update.json"
+    },
+    "app.f211ad4eabf2ae94.hot-update.js": {
+      "name": "app.f211ad4eabf2ae94.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.f211ad4eabf2ae94.hot-update.js",
+      "publicPath": "http://localhost:8080/app.f211ad4eabf2ae94.hot-update.js"
+    },
+    "app.f211ad4eabf2ae94.hot-update.json": {
+      "name": "app.f211ad4eabf2ae94.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.f211ad4eabf2ae94.hot-update.json",
+      "publicPath": "http://localhost:8080/app.f211ad4eabf2ae94.hot-update.json"
+    },
+    "app.d679b0e86e3c7035.hot-update.js": {
+      "name": "app.d679b0e86e3c7035.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.d679b0e86e3c7035.hot-update.js",
+      "publicPath": "http://localhost:8080/app.d679b0e86e3c7035.hot-update.js"
+    },
+    "app.d679b0e86e3c7035.hot-update.json": {
+      "name": "app.d679b0e86e3c7035.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.d679b0e86e3c7035.hot-update.json",
+      "publicPath": "http://localhost:8080/app.d679b0e86e3c7035.hot-update.json"
+    },
+    "app.1accef23ded90fa0.hot-update.js": {
+      "name": "app.1accef23ded90fa0.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.1accef23ded90fa0.hot-update.js",
+      "publicPath": "http://localhost:8080/app.1accef23ded90fa0.hot-update.js"
+    },
+    "app.1accef23ded90fa0.hot-update.json": {
+      "name": "app.1accef23ded90fa0.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.1accef23ded90fa0.hot-update.json",
+      "publicPath": "http://localhost:8080/app.1accef23ded90fa0.hot-update.json"
+    },
+    "app.3f62a9f5e070b0d6.hot-update.js": {
+      "name": "app.3f62a9f5e070b0d6.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.3f62a9f5e070b0d6.hot-update.js",
+      "publicPath": "http://localhost:8080/app.3f62a9f5e070b0d6.hot-update.js"
+    },
+    "app.3f62a9f5e070b0d6.hot-update.json": {
+      "name": "app.3f62a9f5e070b0d6.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.3f62a9f5e070b0d6.hot-update.json",
+      "publicPath": "http://localhost:8080/app.3f62a9f5e070b0d6.hot-update.json"
+    },
+    "app.93eb727c5830520d.hot-update.js": {
+      "name": "app.93eb727c5830520d.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.93eb727c5830520d.hot-update.js",
+      "publicPath": "http://localhost:8080/app.93eb727c5830520d.hot-update.js"
+    },
+    "app.93eb727c5830520d.hot-update.json": {
+      "name": "app.93eb727c5830520d.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.93eb727c5830520d.hot-update.json",
+      "publicPath": "http://localhost:8080/app.93eb727c5830520d.hot-update.json"
+    },
+    "app.c38c718345a2e238.hot-update.js": {
+      "name": "app.c38c718345a2e238.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.c38c718345a2e238.hot-update.js",
+      "publicPath": "http://localhost:8080/app.c38c718345a2e238.hot-update.js"
+    },
+    "app.c38c718345a2e238.hot-update.json": {
+      "name": "app.c38c718345a2e238.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.c38c718345a2e238.hot-update.json",
+      "publicPath": "http://localhost:8080/app.c38c718345a2e238.hot-update.json"
+    },
+    "app.d82603bad3162fb3.hot-update.js": {
+      "name": "app.d82603bad3162fb3.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.d82603bad3162fb3.hot-update.js",
+      "publicPath": "http://localhost:8080/app.d82603bad3162fb3.hot-update.js"
+    },
+    "app.d82603bad3162fb3.hot-update.json": {
+      "name": "app.d82603bad3162fb3.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.d82603bad3162fb3.hot-update.json",
+      "publicPath": "http://localhost:8080/app.d82603bad3162fb3.hot-update.json"
+    },
+    "app.d4029acaf04b1282.hot-update.js": {
+      "name": "app.d4029acaf04b1282.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.d4029acaf04b1282.hot-update.js",
+      "publicPath": "http://localhost:8080/app.d4029acaf04b1282.hot-update.js"
+    },
+    "app.d4029acaf04b1282.hot-update.json": {
+      "name": "app.d4029acaf04b1282.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.d4029acaf04b1282.hot-update.json",
+      "publicPath": "http://localhost:8080/app.d4029acaf04b1282.hot-update.json"
+    },
+    "app.2d804250b1229248.hot-update.js": {
+      "name": "app.2d804250b1229248.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.2d804250b1229248.hot-update.js",
+      "publicPath": "http://localhost:8080/app.2d804250b1229248.hot-update.js"
+    },
+    "app.2d804250b1229248.hot-update.json": {
+      "name": "app.2d804250b1229248.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.2d804250b1229248.hot-update.json",
+      "publicPath": "http://localhost:8080/app.2d804250b1229248.hot-update.json"
+    },
+    "app.28305cce35ce7b69.hot-update.js": {
+      "name": "app.28305cce35ce7b69.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.28305cce35ce7b69.hot-update.js",
+      "publicPath": "http://localhost:8080/app.28305cce35ce7b69.hot-update.js"
+    },
+    "app.28305cce35ce7b69.hot-update.json": {
+      "name": "app.28305cce35ce7b69.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.28305cce35ce7b69.hot-update.json",
+      "publicPath": "http://localhost:8080/app.28305cce35ce7b69.hot-update.json"
+    },
+    "app.78172ce85fe5bd0b.hot-update.js": {
+      "name": "app.78172ce85fe5bd0b.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.78172ce85fe5bd0b.hot-update.js",
+      "publicPath": "http://localhost:8080/app.78172ce85fe5bd0b.hot-update.js"
+    },
+    "app.78172ce85fe5bd0b.hot-update.json": {
+      "name": "app.78172ce85fe5bd0b.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.78172ce85fe5bd0b.hot-update.json",
+      "publicPath": "http://localhost:8080/app.78172ce85fe5bd0b.hot-update.json"
+    },
+    "app.1f3c7a631395f316.hot-update.js": {
+      "name": "app.1f3c7a631395f316.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.1f3c7a631395f316.hot-update.js",
+      "publicPath": "http://localhost:8080/app.1f3c7a631395f316.hot-update.js"
+    },
+    "app.1f3c7a631395f316.hot-update.json": {
+      "name": "app.1f3c7a631395f316.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.1f3c7a631395f316.hot-update.json",
+      "publicPath": "http://localhost:8080/app.1f3c7a631395f316.hot-update.json"
+    },
+    "app.90c50456e59bbdfb.hot-update.js": {
+      "name": "app.90c50456e59bbdfb.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.90c50456e59bbdfb.hot-update.js",
+      "publicPath": "http://localhost:8080/app.90c50456e59bbdfb.hot-update.js"
+    },
+    "app.90c50456e59bbdfb.hot-update.json": {
+      "name": "app.90c50456e59bbdfb.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.90c50456e59bbdfb.hot-update.json",
+      "publicPath": "http://localhost:8080/app.90c50456e59bbdfb.hot-update.json"
+    },
+    "app.025a2f862d77f1fb.hot-update.js": {
+      "name": "app.025a2f862d77f1fb.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.025a2f862d77f1fb.hot-update.js",
+      "publicPath": "http://localhost:8080/app.025a2f862d77f1fb.hot-update.js"
+    },
+    "app.025a2f862d77f1fb.hot-update.json": {
+      "name": "app.025a2f862d77f1fb.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.025a2f862d77f1fb.hot-update.json",
+      "publicPath": "http://localhost:8080/app.025a2f862d77f1fb.hot-update.json"
+    },
+    "app.10752801563d594a.hot-update.js": {
+      "name": "app.10752801563d594a.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.10752801563d594a.hot-update.js",
+      "publicPath": "http://localhost:8080/app.10752801563d594a.hot-update.js"
+    },
+    "app.10752801563d594a.hot-update.json": {
+      "name": "app.10752801563d594a.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.10752801563d594a.hot-update.json",
+      "publicPath": "http://localhost:8080/app.10752801563d594a.hot-update.json"
+    },
+    "app.ad511247ee95950f.hot-update.js": {
+      "name": "app.ad511247ee95950f.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.ad511247ee95950f.hot-update.js",
+      "publicPath": "http://localhost:8080/app.ad511247ee95950f.hot-update.js"
+    },
+    "app.ad511247ee95950f.hot-update.json": {
+      "name": "app.ad511247ee95950f.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.ad511247ee95950f.hot-update.json",
+      "publicPath": "http://localhost:8080/app.ad511247ee95950f.hot-update.json"
+    },
+    "app.f4baed1967e82c25.hot-update.js": {
+      "name": "app.f4baed1967e82c25.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.f4baed1967e82c25.hot-update.js",
+      "publicPath": "http://localhost:8080/app.f4baed1967e82c25.hot-update.js"
+    },
+    "app.f4baed1967e82c25.hot-update.json": {
+      "name": "app.f4baed1967e82c25.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.f4baed1967e82c25.hot-update.json",
+      "publicPath": "http://localhost:8080/app.f4baed1967e82c25.hot-update.json"
+    },
+    "app.b35174f10d270317.hot-update.js": {
+      "name": "app.b35174f10d270317.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.b35174f10d270317.hot-update.js",
+      "publicPath": "http://localhost:8080/app.b35174f10d270317.hot-update.js"
+    },
+    "app.b35174f10d270317.hot-update.json": {
+      "name": "app.b35174f10d270317.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.b35174f10d270317.hot-update.json",
+      "publicPath": "http://localhost:8080/app.b35174f10d270317.hot-update.json"
+    },
+    "app.3814ae096eff4b36.hot-update.js": {
+      "name": "app.3814ae096eff4b36.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.3814ae096eff4b36.hot-update.js",
+      "publicPath": "http://localhost:8080/app.3814ae096eff4b36.hot-update.js"
+    },
+    "app.3814ae096eff4b36.hot-update.json": {
+      "name": "app.3814ae096eff4b36.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.3814ae096eff4b36.hot-update.json",
+      "publicPath": "http://localhost:8080/app.3814ae096eff4b36.hot-update.json"
+    },
+    "app.044144fb718422cd.hot-update.js": {
+      "name": "app.044144fb718422cd.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.044144fb718422cd.hot-update.js",
+      "publicPath": "http://localhost:8080/app.044144fb718422cd.hot-update.js"
+    },
+    "app.044144fb718422cd.hot-update.json": {
+      "name": "app.044144fb718422cd.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.044144fb718422cd.hot-update.json",
+      "publicPath": "http://localhost:8080/app.044144fb718422cd.hot-update.json"
+    },
+    "app.1f16ed3ebb61260a.hot-update.js": {
+      "name": "app.1f16ed3ebb61260a.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.1f16ed3ebb61260a.hot-update.js",
+      "publicPath": "http://localhost:8080/app.1f16ed3ebb61260a.hot-update.js"
+    },
+    "app.1f16ed3ebb61260a.hot-update.json": {
+      "name": "app.1f16ed3ebb61260a.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.1f16ed3ebb61260a.hot-update.json",
+      "publicPath": "http://localhost:8080/app.1f16ed3ebb61260a.hot-update.json"
+    },
+    "app.1f41ff1e30c49245.hot-update.js": {
+      "name": "app.1f41ff1e30c49245.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.1f41ff1e30c49245.hot-update.js",
+      "publicPath": "http://localhost:8080/app.1f41ff1e30c49245.hot-update.js"
+    },
+    "app.1f41ff1e30c49245.hot-update.json": {
+      "name": "app.1f41ff1e30c49245.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.1f41ff1e30c49245.hot-update.json",
+      "publicPath": "http://localhost:8080/app.1f41ff1e30c49245.hot-update.json"
+    },
+    "app.09fd3786379675f5.hot-update.js": {
+      "name": "app.09fd3786379675f5.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.09fd3786379675f5.hot-update.js",
+      "publicPath": "http://localhost:8080/app.09fd3786379675f5.hot-update.js"
+    },
+    "app.09fd3786379675f5.hot-update.json": {
+      "name": "app.09fd3786379675f5.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.09fd3786379675f5.hot-update.json",
+      "publicPath": "http://localhost:8080/app.09fd3786379675f5.hot-update.json"
+    },
+    "app.1b5e8b5891278900.hot-update.js": {
+      "name": "app.1b5e8b5891278900.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.1b5e8b5891278900.hot-update.js",
+      "publicPath": "http://localhost:8080/app.1b5e8b5891278900.hot-update.js"
+    },
+    "app.1b5e8b5891278900.hot-update.json": {
+      "name": "app.1b5e8b5891278900.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.1b5e8b5891278900.hot-update.json",
+      "publicPath": "http://localhost:8080/app.1b5e8b5891278900.hot-update.json"
+    },
+    "app.0048b34128606f1f.hot-update.js": {
+      "name": "app.0048b34128606f1f.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.0048b34128606f1f.hot-update.js",
+      "publicPath": "http://localhost:8080/app.0048b34128606f1f.hot-update.js"
+    },
+    "app.0048b34128606f1f.hot-update.json": {
+      "name": "app.0048b34128606f1f.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.0048b34128606f1f.hot-update.json",
+      "publicPath": "http://localhost:8080/app.0048b34128606f1f.hot-update.json"
+    },
+    "app.d482d737cb638121.hot-update.js": {
+      "name": "app.d482d737cb638121.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.d482d737cb638121.hot-update.js",
+      "publicPath": "http://localhost:8080/app.d482d737cb638121.hot-update.js"
+    },
+    "app.d482d737cb638121.hot-update.json": {
+      "name": "app.d482d737cb638121.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.d482d737cb638121.hot-update.json",
+      "publicPath": "http://localhost:8080/app.d482d737cb638121.hot-update.json"
+    },
+    "app.1e7fc75c1314c37e.hot-update.js": {
+      "name": "app.1e7fc75c1314c37e.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.1e7fc75c1314c37e.hot-update.js",
+      "publicPath": "http://localhost:8080/app.1e7fc75c1314c37e.hot-update.js"
+    },
+    "app.1e7fc75c1314c37e.hot-update.json": {
+      "name": "app.1e7fc75c1314c37e.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.1e7fc75c1314c37e.hot-update.json",
+      "publicPath": "http://localhost:8080/app.1e7fc75c1314c37e.hot-update.json"
+    },
+    "app.d0b47a66185b29e5.hot-update.js": {
+      "name": "app.d0b47a66185b29e5.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.d0b47a66185b29e5.hot-update.js",
+      "publicPath": "http://localhost:8080/app.d0b47a66185b29e5.hot-update.js"
+    },
+    "app.d0b47a66185b29e5.hot-update.json": {
+      "name": "app.d0b47a66185b29e5.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.d0b47a66185b29e5.hot-update.json",
+      "publicPath": "http://localhost:8080/app.d0b47a66185b29e5.hot-update.json"
+    },
+    "app.e49616e32467a633.hot-update.js": {
+      "name": "app.e49616e32467a633.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.e49616e32467a633.hot-update.js",
+      "publicPath": "http://localhost:8080/app.e49616e32467a633.hot-update.js"
+    },
+    "app.e49616e32467a633.hot-update.json": {
+      "name": "app.e49616e32467a633.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.e49616e32467a633.hot-update.json",
+      "publicPath": "http://localhost:8080/app.e49616e32467a633.hot-update.json"
+    },
+    "app.6703e883d62a681e.hot-update.js": {
+      "name": "app.6703e883d62a681e.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.6703e883d62a681e.hot-update.js",
+      "publicPath": "http://localhost:8080/app.6703e883d62a681e.hot-update.js"
+    },
+    "app.6703e883d62a681e.hot-update.json": {
+      "name": "app.6703e883d62a681e.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.6703e883d62a681e.hot-update.json",
+      "publicPath": "http://localhost:8080/app.6703e883d62a681e.hot-update.json"
+    },
+    "app.edb332e5226ae7bf.hot-update.js": {
+      "name": "app.edb332e5226ae7bf.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.edb332e5226ae7bf.hot-update.js",
+      "publicPath": "http://localhost:8080/app.edb332e5226ae7bf.hot-update.js"
+    },
+    "app.edb332e5226ae7bf.hot-update.json": {
+      "name": "app.edb332e5226ae7bf.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.edb332e5226ae7bf.hot-update.json",
+      "publicPath": "http://localhost:8080/app.edb332e5226ae7bf.hot-update.json"
+    },
+    "app.d47abcadf39623b6.hot-update.js": {
+      "name": "app.d47abcadf39623b6.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.d47abcadf39623b6.hot-update.js",
+      "publicPath": "http://localhost:8080/app.d47abcadf39623b6.hot-update.js"
+    },
+    "app.d47abcadf39623b6.hot-update.json": {
+      "name": "app.d47abcadf39623b6.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.d47abcadf39623b6.hot-update.json",
+      "publicPath": "http://localhost:8080/app.d47abcadf39623b6.hot-update.json"
+    },
+    "app.e3a82ef7d94c4ddb.hot-update.js": {
+      "name": "app.e3a82ef7d94c4ddb.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.e3a82ef7d94c4ddb.hot-update.js",
+      "publicPath": "http://localhost:8080/app.e3a82ef7d94c4ddb.hot-update.js"
+    },
+    "app.e3a82ef7d94c4ddb.hot-update.json": {
+      "name": "app.e3a82ef7d94c4ddb.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.e3a82ef7d94c4ddb.hot-update.json",
+      "publicPath": "http://localhost:8080/app.e3a82ef7d94c4ddb.hot-update.json"
+    },
+    "app.03482ec10958e2ae.hot-update.js": {
+      "name": "app.03482ec10958e2ae.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.03482ec10958e2ae.hot-update.js",
+      "publicPath": "http://localhost:8080/app.03482ec10958e2ae.hot-update.js"
+    },
+    "app.03482ec10958e2ae.hot-update.json": {
+      "name": "app.03482ec10958e2ae.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.03482ec10958e2ae.hot-update.json",
+      "publicPath": "http://localhost:8080/app.03482ec10958e2ae.hot-update.json"
+    },
+    "app.41d29a02d24c12de.hot-update.js": {
+      "name": "app.41d29a02d24c12de.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.41d29a02d24c12de.hot-update.js",
+      "publicPath": "http://localhost:8080/app.41d29a02d24c12de.hot-update.js"
+    },
+    "app.41d29a02d24c12de.hot-update.json": {
+      "name": "app.41d29a02d24c12de.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.41d29a02d24c12de.hot-update.json",
+      "publicPath": "http://localhost:8080/app.41d29a02d24c12de.hot-update.json"
+    },
+    "app.ea9f8bc6ca8f10f5.hot-update.js": {
+      "name": "app.ea9f8bc6ca8f10f5.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.ea9f8bc6ca8f10f5.hot-update.js",
+      "publicPath": "http://localhost:8080/app.ea9f8bc6ca8f10f5.hot-update.js"
+    },
+    "app.ea9f8bc6ca8f10f5.hot-update.json": {
+      "name": "app.ea9f8bc6ca8f10f5.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.ea9f8bc6ca8f10f5.hot-update.json",
+      "publicPath": "http://localhost:8080/app.ea9f8bc6ca8f10f5.hot-update.json"
+    },
+    "app.66a7482520791d7c.hot-update.js": {
+      "name": "app.66a7482520791d7c.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.66a7482520791d7c.hot-update.js",
+      "publicPath": "http://localhost:8080/app.66a7482520791d7c.hot-update.js"
+    },
+    "app.66a7482520791d7c.hot-update.json": {
+      "name": "app.66a7482520791d7c.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.66a7482520791d7c.hot-update.json",
+      "publicPath": "http://localhost:8080/app.66a7482520791d7c.hot-update.json"
+    },
+    "app.916de26db773ad8f.hot-update.js": {
+      "name": "app.916de26db773ad8f.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.916de26db773ad8f.hot-update.js",
+      "publicPath": "http://localhost:8080/app.916de26db773ad8f.hot-update.js"
+    },
+    "app.916de26db773ad8f.hot-update.json": {
+      "name": "app.916de26db773ad8f.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.916de26db773ad8f.hot-update.json",
+      "publicPath": "http://localhost:8080/app.916de26db773ad8f.hot-update.json"
+    },
+    "app.48e7d9c29b80f9f7.hot-update.js": {
+      "name": "app.48e7d9c29b80f9f7.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.48e7d9c29b80f9f7.hot-update.js",
+      "publicPath": "http://localhost:8080/app.48e7d9c29b80f9f7.hot-update.js"
+    },
+    "app.48e7d9c29b80f9f7.hot-update.json": {
+      "name": "app.48e7d9c29b80f9f7.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.48e7d9c29b80f9f7.hot-update.json",
+      "publicPath": "http://localhost:8080/app.48e7d9c29b80f9f7.hot-update.json"
+    },
+    "app.0785663265908c8e.hot-update.js": {
+      "name": "app.0785663265908c8e.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.0785663265908c8e.hot-update.js",
+      "publicPath": "http://localhost:8080/app.0785663265908c8e.hot-update.js"
+    },
+    "app.0785663265908c8e.hot-update.json": {
+      "name": "app.0785663265908c8e.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.0785663265908c8e.hot-update.json",
+      "publicPath": "http://localhost:8080/app.0785663265908c8e.hot-update.json"
+    },
+    "app.e87e3db000398937.hot-update.js": {
+      "name": "app.e87e3db000398937.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.e87e3db000398937.hot-update.js",
+      "publicPath": "http://localhost:8080/app.e87e3db000398937.hot-update.js"
+    },
+    "app.e87e3db000398937.hot-update.json": {
+      "name": "app.e87e3db000398937.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.e87e3db000398937.hot-update.json",
+      "publicPath": "http://localhost:8080/app.e87e3db000398937.hot-update.json"
+    },
+    "app.79d579a1ad8df9b6.hot-update.js": {
+      "name": "app.79d579a1ad8df9b6.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.79d579a1ad8df9b6.hot-update.js",
+      "publicPath": "http://localhost:8080/app.79d579a1ad8df9b6.hot-update.js"
+    },
+    "app.79d579a1ad8df9b6.hot-update.json": {
+      "name": "app.79d579a1ad8df9b6.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.79d579a1ad8df9b6.hot-update.json",
+      "publicPath": "http://localhost:8080/app.79d579a1ad8df9b6.hot-update.json"
+    },
+    "app.01ac1a882288dd9e.hot-update.js": {
+      "name": "app.01ac1a882288dd9e.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.01ac1a882288dd9e.hot-update.js",
+      "publicPath": "http://localhost:8080/app.01ac1a882288dd9e.hot-update.js"
+    },
+    "app.01ac1a882288dd9e.hot-update.json": {
+      "name": "app.01ac1a882288dd9e.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.01ac1a882288dd9e.hot-update.json",
+      "publicPath": "http://localhost:8080/app.01ac1a882288dd9e.hot-update.json"
+    },
+    "app.1714d991b8e50302.hot-update.js": {
+      "name": "app.1714d991b8e50302.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.1714d991b8e50302.hot-update.js",
+      "publicPath": "http://localhost:8080/app.1714d991b8e50302.hot-update.js"
+    },
+    "app.1714d991b8e50302.hot-update.json": {
+      "name": "app.1714d991b8e50302.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.1714d991b8e50302.hot-update.json",
+      "publicPath": "http://localhost:8080/app.1714d991b8e50302.hot-update.json"
+    },
+    "app.314a2e42d2e199ba.hot-update.js": {
+      "name": "app.314a2e42d2e199ba.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.314a2e42d2e199ba.hot-update.js",
+      "publicPath": "http://localhost:8080/app.314a2e42d2e199ba.hot-update.js"
+    },
+    "app.314a2e42d2e199ba.hot-update.json": {
+      "name": "app.314a2e42d2e199ba.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.314a2e42d2e199ba.hot-update.json",
+      "publicPath": "http://localhost:8080/app.314a2e42d2e199ba.hot-update.json"
+    },
+    "app.7a597adcba907813.hot-update.js": {
+      "name": "app.7a597adcba907813.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.7a597adcba907813.hot-update.js",
+      "publicPath": "http://localhost:8080/app.7a597adcba907813.hot-update.js"
+    },
+    "app.7a597adcba907813.hot-update.json": {
+      "name": "app.7a597adcba907813.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.7a597adcba907813.hot-update.json",
+      "publicPath": "http://localhost:8080/app.7a597adcba907813.hot-update.json"
+    },
+    "app.b4abf20c4e326b34.hot-update.js": {
+      "name": "app.b4abf20c4e326b34.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.b4abf20c4e326b34.hot-update.js",
+      "publicPath": "http://localhost:8080/app.b4abf20c4e326b34.hot-update.js"
+    },
+    "app.b4abf20c4e326b34.hot-update.json": {
+      "name": "app.b4abf20c4e326b34.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.b4abf20c4e326b34.hot-update.json",
+      "publicPath": "http://localhost:8080/app.b4abf20c4e326b34.hot-update.json"
+    },
+    "app.e8ac35cff9184422.hot-update.js": {
+      "name": "app.e8ac35cff9184422.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.e8ac35cff9184422.hot-update.js",
+      "publicPath": "http://localhost:8080/app.e8ac35cff9184422.hot-update.js"
+    },
+    "app.e8ac35cff9184422.hot-update.json": {
+      "name": "app.e8ac35cff9184422.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.e8ac35cff9184422.hot-update.json",
+      "publicPath": "http://localhost:8080/app.e8ac35cff9184422.hot-update.json"
+    },
+    "app.4560747472ad90e3.hot-update.js": {
+      "name": "app.4560747472ad90e3.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.4560747472ad90e3.hot-update.js",
+      "publicPath": "http://localhost:8080/app.4560747472ad90e3.hot-update.js"
+    },
+    "app.4560747472ad90e3.hot-update.json": {
+      "name": "app.4560747472ad90e3.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.4560747472ad90e3.hot-update.json",
+      "publicPath": "http://localhost:8080/app.4560747472ad90e3.hot-update.json"
+    },
+    "app.e9964ba4b9299226.hot-update.js": {
+      "name": "app.e9964ba4b9299226.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.e9964ba4b9299226.hot-update.js",
+      "publicPath": "http://localhost:8080/app.e9964ba4b9299226.hot-update.js"
+    },
+    "app.e9964ba4b9299226.hot-update.json": {
+      "name": "app.e9964ba4b9299226.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.e9964ba4b9299226.hot-update.json",
+      "publicPath": "http://localhost:8080/app.e9964ba4b9299226.hot-update.json"
+    },
+    "app.7804e5ce52446bb7.hot-update.js": {
+      "name": "app.7804e5ce52446bb7.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.7804e5ce52446bb7.hot-update.js",
+      "publicPath": "http://localhost:8080/app.7804e5ce52446bb7.hot-update.js"
+    },
+    "app.7804e5ce52446bb7.hot-update.json": {
+      "name": "app.7804e5ce52446bb7.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.7804e5ce52446bb7.hot-update.json",
+      "publicPath": "http://localhost:8080/app.7804e5ce52446bb7.hot-update.json"
+    },
+    "app.119f1b5e4b372039.hot-update.js": {
+      "name": "app.119f1b5e4b372039.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.119f1b5e4b372039.hot-update.js",
+      "publicPath": "http://localhost:8080/app.119f1b5e4b372039.hot-update.js"
+    },
+    "app.119f1b5e4b372039.hot-update.json": {
+      "name": "app.119f1b5e4b372039.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.119f1b5e4b372039.hot-update.json",
+      "publicPath": "http://localhost:8080/app.119f1b5e4b372039.hot-update.json"
+    },
+    "app.f73930b4edf69a6a.hot-update.js": {
+      "name": "app.f73930b4edf69a6a.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.f73930b4edf69a6a.hot-update.js",
+      "publicPath": "http://localhost:8080/app.f73930b4edf69a6a.hot-update.js"
+    },
+    "app.f73930b4edf69a6a.hot-update.json": {
+      "name": "app.f73930b4edf69a6a.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.f73930b4edf69a6a.hot-update.json",
+      "publicPath": "http://localhost:8080/app.f73930b4edf69a6a.hot-update.json"
+    },
+    "app.5f100cc5d167d029.hot-update.js": {
+      "name": "app.5f100cc5d167d029.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.5f100cc5d167d029.hot-update.js",
+      "publicPath": "http://localhost:8080/app.5f100cc5d167d029.hot-update.js"
+    },
+    "app.5f100cc5d167d029.hot-update.json": {
+      "name": "app.5f100cc5d167d029.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.5f100cc5d167d029.hot-update.json",
+      "publicPath": "http://localhost:8080/app.5f100cc5d167d029.hot-update.json"
+    },
+    "app.b88cba7de5126cee.hot-update.js": {
+      "name": "app.b88cba7de5126cee.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.b88cba7de5126cee.hot-update.js",
+      "publicPath": "http://localhost:8080/app.b88cba7de5126cee.hot-update.js"
+    },
+    "app.b88cba7de5126cee.hot-update.json": {
+      "name": "app.b88cba7de5126cee.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.b88cba7de5126cee.hot-update.json",
+      "publicPath": "http://localhost:8080/app.b88cba7de5126cee.hot-update.json"
+    },
+    "app.7de5cc98168f1757.hot-update.js": {
+      "name": "app.7de5cc98168f1757.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.7de5cc98168f1757.hot-update.js",
+      "publicPath": "http://localhost:8080/app.7de5cc98168f1757.hot-update.js"
+    },
+    "app.7de5cc98168f1757.hot-update.json": {
+      "name": "app.7de5cc98168f1757.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.7de5cc98168f1757.hot-update.json",
+      "publicPath": "http://localhost:8080/app.7de5cc98168f1757.hot-update.json"
+    },
+    "app.90c6e9e48f601dc4.hot-update.js": {
+      "name": "app.90c6e9e48f601dc4.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.90c6e9e48f601dc4.hot-update.js",
+      "publicPath": "http://localhost:8080/app.90c6e9e48f601dc4.hot-update.js"
+    },
+    "app.90c6e9e48f601dc4.hot-update.json": {
+      "name": "app.90c6e9e48f601dc4.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.90c6e9e48f601dc4.hot-update.json",
+      "publicPath": "http://localhost:8080/app.90c6e9e48f601dc4.hot-update.json"
+    },
+    "app.2a72b92ccdd3809c.hot-update.js": {
+      "name": "app.2a72b92ccdd3809c.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.2a72b92ccdd3809c.hot-update.js",
+      "publicPath": "http://localhost:8080/app.2a72b92ccdd3809c.hot-update.js"
+    },
+    "app.2a72b92ccdd3809c.hot-update.json": {
+      "name": "app.2a72b92ccdd3809c.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.2a72b92ccdd3809c.hot-update.json",
+      "publicPath": "http://localhost:8080/app.2a72b92ccdd3809c.hot-update.json"
+    },
+    "app.c08a0ecc9c7447e5.hot-update.js": {
+      "name": "app.c08a0ecc9c7447e5.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.c08a0ecc9c7447e5.hot-update.js",
+      "publicPath": "http://localhost:8080/app.c08a0ecc9c7447e5.hot-update.js"
+    },
+    "app.c08a0ecc9c7447e5.hot-update.json": {
+      "name": "app.c08a0ecc9c7447e5.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.c08a0ecc9c7447e5.hot-update.json",
+      "publicPath": "http://localhost:8080/app.c08a0ecc9c7447e5.hot-update.json"
+    },
+    "app.e80e70685e9d922b.hot-update.js": {
+      "name": "app.e80e70685e9d922b.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.e80e70685e9d922b.hot-update.js",
+      "publicPath": "http://localhost:8080/app.e80e70685e9d922b.hot-update.js"
+    },
+    "app.e80e70685e9d922b.hot-update.json": {
+      "name": "app.e80e70685e9d922b.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.e80e70685e9d922b.hot-update.json",
+      "publicPath": "http://localhost:8080/app.e80e70685e9d922b.hot-update.json"
+    },
+    "app.ee8da7849c07bb74.hot-update.js": {
+      "name": "app.ee8da7849c07bb74.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.ee8da7849c07bb74.hot-update.js",
+      "publicPath": "http://localhost:8080/app.ee8da7849c07bb74.hot-update.js"
+    },
+    "app.ee8da7849c07bb74.hot-update.json": {
+      "name": "app.ee8da7849c07bb74.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.ee8da7849c07bb74.hot-update.json",
+      "publicPath": "http://localhost:8080/app.ee8da7849c07bb74.hot-update.json"
+    },
+    "app.1e6075d446e448ea.hot-update.js": {
+      "name": "app.1e6075d446e448ea.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.1e6075d446e448ea.hot-update.js",
+      "publicPath": "http://localhost:8080/app.1e6075d446e448ea.hot-update.js"
+    },
+    "app.1e6075d446e448ea.hot-update.json": {
+      "name": "app.1e6075d446e448ea.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.1e6075d446e448ea.hot-update.json",
+      "publicPath": "http://localhost:8080/app.1e6075d446e448ea.hot-update.json"
+    },
+    "app.dfa3afe8b43dfb1e.hot-update.js": {
+      "name": "app.dfa3afe8b43dfb1e.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.dfa3afe8b43dfb1e.hot-update.js",
+      "publicPath": "http://localhost:8080/app.dfa3afe8b43dfb1e.hot-update.js"
+    },
+    "app.dfa3afe8b43dfb1e.hot-update.json": {
+      "name": "app.dfa3afe8b43dfb1e.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.dfa3afe8b43dfb1e.hot-update.json",
+      "publicPath": "http://localhost:8080/app.dfa3afe8b43dfb1e.hot-update.json"
+    },
+    "app.7e5b1323b92fda05.hot-update.js": {
+      "name": "app.7e5b1323b92fda05.hot-update.js",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.7e5b1323b92fda05.hot-update.js",
+      "publicPath": "http://localhost:8080/app.7e5b1323b92fda05.hot-update.js"
+    },
+    "app.7e5b1323b92fda05.hot-update.json": {
+      "name": "app.7e5b1323b92fda05.hot-update.json",
+      "path": "/Users/dpk/WebstormProjects/anova/frontend/dist/app.7e5b1323b92fda05.hot-update.json",
+      "publicPath": "http://localhost:8080/app.7e5b1323b92fda05.hot-update.json"
     }
   },
   "chunks": {
     "app": [
       "js/app.js",
-      "app.d22671ab21e0fcdc.hot-update.js"
+      "app.7e5b1323b92fda05.hot-update.js"
     ]
   },
   "publicPath": "http://localhost:8080/",
-  "error": "ESLintError",
-  "message": "[eslint] \n/Users/dpk/WebstormProjects/anova/frontend/src/components/navigation/MainHeader.vue\n  15:8  error  'UserWithoutPhoto' is defined but never used  no-unused-vars\n  22:5  error  'UserWithoutPhotoIcon' is not defined         no-undef\n\n✖ 2 problems (2 errors, 0 warnings)\n"
+  "error": "ModuleBuildError",
+  "message": "Module build failed (from ./node_modules/postcss-loader/dist/cjs.js):\nSyntaxError\n\n(139:3) /Users/dpk/WebstormProjects/anova/frontend/src/components/workspace/ProjectItem.vue Unknown word\n\n  137 | .add-btn:hover .add-icon::before {\n  138 |   left: 15px;\n> 139 |   heigh\n      |   ^\n  140 | }\n  141 | \n"
 }

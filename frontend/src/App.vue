@@ -9,6 +9,14 @@ export default {
 </script>
 
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+
+  * {
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+  }
+
   body {
     margin: 0;
     padding: 0;
@@ -21,6 +29,6 @@ export default {
     --primary-button-color: #055FFC;
 
     --primary-bg-color: #1D1E1F;
-    --secondary-bg-color: #2D2D31;
+    --secondary-bg-color: #242529;
   }
 </style>

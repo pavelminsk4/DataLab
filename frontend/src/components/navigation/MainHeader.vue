@@ -41,12 +41,13 @@ export default {
 
 <style scoped>
   .header {
+    box-sizing: border-box;
+
     display: flex;
     justify-content: space-between;
 
-    width: 100%;
     height: 82px;
-    padding: 13px 69px 29px 80px;
+    padding: 13px 0 29px 0;
   }
 
   .logo {
