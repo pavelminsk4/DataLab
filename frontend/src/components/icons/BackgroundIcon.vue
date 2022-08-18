@@ -1,0 +1,9 @@
+<template>
+  <svg width="919" height="714" viewBox="0 0 919 714" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g opacity="0.6">
+      <circle opacity="0.7" cx="459.5" cy="405.5" r="284" stroke="#0F4DB9" stroke-opacity="0.25"/>
+      <circle opacity="0.7" cx="459.5" cy="405.5" r="376" stroke="#0F4DB9" stroke-opacity="0.25"/>
+      <circle opacity="0.7" cx="459.5" cy="405.5" r="459" stroke="#0F4DB9" stroke-opacity="0.25"/>
+    </g>
+  </svg>
+</template>
