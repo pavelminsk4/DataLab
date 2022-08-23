@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+<h1> Project List</h1>
+<ul>
+  {% for project in list %}
+    <li>
+      <td>
+        <tr>{{ project.title }}</tr>
+        <tr>{{ project.creator }}</tr>
+        <tr>{{ project.created_at }}</tr>
+        <tr>
+          <a href="/projects/{{ project.id }}/delete">Delete</a>
+        </tr>
+        <tr>
+          <a href="/projects/create">Create</a>
+        </tr>
+      </td>
+    </li>
+    <hr>
+  {% endfor %}
+</ul>
+
+<b>Current time: </b>  {% now "P" %}
+
+{% endblock %}
