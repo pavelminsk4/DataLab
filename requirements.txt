@@ -1,5 +1,5 @@
 Django==4.0.6
-django-webpack5-loader==0.9.1
+django-webpack-loader
 gunicorn==20.1.0
 django-crispy-forms==1.14.0
 Pillow==9.2.0
