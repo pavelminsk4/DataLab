@@ -1,6 +1,6 @@
 <template>
   <MainLayout>
-    <h1 class="title">Workspace</h1>
+    <h1 class="title">Dashboard</h1>
     <span class="hint">Keep all your projects in order by arranging them by topic</span>
 
     <div class="sort-wrapper">
@@ -14,12 +14,12 @@
 
 <script>
 import MainLayout from "@/components/layout/MainLayout";
-import ProjectItem from "@/components/workspace/ProjectItem";
+import ProjectItem from "@/components/dashboard/ProjectItem";
 
 import SortIcon from '../icons/SortIcon'
 
 export default {
-  name: "WorkspaceList",
+  name: "DashboardList",
   components: {
     MainLayout,
     SortIcon,

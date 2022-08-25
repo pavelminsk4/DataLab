@@ -16,25 +16,38 @@
       <div class="company-logo">
         Logo
       </div>
+      <BaseButton @click="logout" class="logout">Logout</BaseButton>
     </div>
   </header>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+import { action } from '../../../store/constants'
+
 import BaseInput from "@/components/BaseInput";
 import LogoIcon from '../icons/LogoIcon'
 import UserWithoutPhotoIcon from '../icons/UserWithoutPhotoIcon'
 import ActiveBellIcon from '../icons/ActiveBellIcon'
 import ArrowDownIcon from '../icons/ArrowDownIcon'
+import BaseButton from "@/components/buttons/BaseButton";
 
 export default {
   name: "MainHeader",
   components: {
+    BaseButton,
     LogoIcon,
     BaseInput,
     UserWithoutPhotoIcon,
     ActiveBellIcon,
     ArrowDownIcon
+  },
+  methods: {
+    ...mapActions([action.LOGOUT]),
+
+    async logout() {
+      await this[action.LOGOUT]()
+    }
   }
 }
 </script>
@@ -98,5 +111,9 @@ export default {
     background-color: var(--primary-button-color);
 
     font-size: 8px;
+  }
+
+  .logout {
+    margin: 7px 0 0 10px;
   }
 </style>
