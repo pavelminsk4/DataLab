@@ -1,5 +1,7 @@
+{% extends "base.html" %}
 {% load static %}
 
+{% block content %}
 <!DOCTYPE html>
   <html>
   <head>
@@ -9,14 +11,7 @@
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
   </head>
   <body>
-
-  {% block content %}
-  <div class="login-wrapper">
-      <section class="form-section">
-          <img class="logo" src="../../static/img/logo.svg" alt="logo"/>
-          <div class="form-wrapper">
               <h1 class="auth">Log in</h1>
-
               {% if form.errors %}
               <p class="hint">Your username and password didn't match. Please try again.</p>
               {% endif %}
@@ -59,10 +54,6 @@
                       <input type="hidden" name="next" value="{{ next }}">
                   </div>
               </form>
-          </div>
-      </section>
-      <img class="dashboard" src="../../static/img/dashboard.png" alt=""/>
-  </div>
   {% endblock %}
 
   <script>
