@@ -12,7 +12,7 @@ from .forms import ProjectForm
 def index(request):
   list = Project.objects.filter(creator=request.user)
   context = {'list':list}
-  return render(request, 'index.html', context)
+  return render(request, 'project/index.html', context)
   
 def create(request):
   if request.method == 'POST':
