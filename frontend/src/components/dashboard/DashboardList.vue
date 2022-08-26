@@ -27,6 +27,9 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
+import { action, get } from '@store/constants'
+
 import SortIcon from '@components/icons/SortIcon'
 import PlusIcon from '@components/icons/PlusIcon'
 
@@ -42,6 +45,17 @@ export default {
     BaseButton,
     MainLayout,
     ProjectItem,
+  },
+  computed: {
+    ...mapGetters({
+      projects: get.PROJECTS,
+    })
+  },
+  async created() {
+      await this[action.GET_PROJECTS]()
+  },
+  methods: {
+    ...mapActions([action.GET_PROJECTS])
   }
 }
 </script>

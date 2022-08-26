@@ -12,5 +12,16 @@ export default {
         } finally {
             commit(mutator.SET_LOADING, false)
         }
+    },
+    async [action.GET_PROJECTS]({ commit }) {
+        commit(mutator.SET_LOADING, true)
+        try {
+            const projects = await api.getProjects()
+            commit(mutator.SET_PROJECTS, projects)
+        } catch (e) {
+            console.log(e)
+        } finally {
+            commit(mutator.SET_LOADING, false)
+        }
     }
 }

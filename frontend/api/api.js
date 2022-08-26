@@ -10,5 +10,9 @@ const fetch = async (action, resource, payload = null, config = null) => {
 export default {
     async logout() {
         return fetch('get', '/accounts/logout/')
+    },
+
+    async getProjects() {
+        return fetch('get', '/api/projects/')
     }
 }
