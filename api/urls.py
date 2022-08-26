@@ -1,17 +1,15 @@
-from django.urls import include, path
-from rest_framework import routers
+from django.urls import path
 from . import views
 
-router = routers.DefaultRouter()
-router.register(r'users', views.UserViewSet)
-
-proj = routers.DefaultRouter()
-proj.register(r'projects', views.UserViewSet)
-
-# Wire up our API using automatic URL routing.
-# Additionally, we include login URLs for the browsable API.
 urlpatterns = [
-    path('', include(router.urls)),
-    path('', include(proj.urls)),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path("projects/",views.ListProjectAPIView.as_view(),name="projects_list"),
+    path("project/create/", views.CreateProjectAPIView.as_view(),name="project_create"),
+    path("project/update/<int:pk>/",views.UpdateProjectAPIView.as_view(),name="project_update"),
+    path("project/delete/<int:pk>/",views.DeleteProjectAPIView.as_view(),name="project_delete"),
+
+    path("users/",views.UserList.as_view(),name="users_list"),
+    path("user/create/", views.UserCreate.as_view(),name="user_create"),
+    path("user/update/<int:pk>/",views.UserUpdate.as_view(),name="user_update"),
+    path("user/delete/<int:pk>/",views.UserDelete.as_view(),name="user_delete"),
+
 ]
