@@ -3,27 +3,10 @@ from rest_framework.generics import ListAPIView
 from rest_framework.generics import CreateAPIView
 from rest_framework.generics import DestroyAPIView
 from rest_framework.generics import UpdateAPIView
-from .serializers import UserSerializer
-from .serializers import ProjectSerializer
+from .serializers import UserSerializer, WorkspaceSerializer
+from .serializers import ProjectSerializer, Workspace
 from django.contrib.auth.models import User
-from project.models import Project
-
-# === Project API ====================
-class ListProjectAPIView(ListAPIView):
-  queryset = Project.objects.all()
-  serializer_class = ProjectSerializer
-
-class CreateProjectAPIView(CreateAPIView):
-  queryset = Project.objects.all()
-  serializer_class = ProjectSerializer
-
-class UpdateProjectAPIView(UpdateAPIView):
-  queryset = Project.objects.all()
-  serializer_class = ProjectSerializer
-
-class DeleteProjectAPIView(DestroyAPIView):
-  queryset = Project.objects.all()
-  serializer_class = ProjectSerializer
+from project.models import Project, Workspace
 
 # ==== User API =======================
 
@@ -42,3 +25,39 @@ class UserUpdate(UpdateAPIView):
 class UserDelete(DestroyAPIView):
   queryset = User.objects.all()
   serializer_class = UserSerializer
+
+# === Project API ====================
+
+class ListProjectAPIView(ListAPIView):
+  queryset = Project.objects.all()
+  serializer_class = ProjectSerializer
+
+class CreateProjectAPIView(CreateAPIView):
+  queryset = Project.objects.all()
+  serializer_class = ProjectSerializer
+
+class UpdateProjectAPIView(UpdateAPIView):
+  queryset = Project.objects.all()
+  serializer_class = ProjectSerializer
+
+class DeleteProjectAPIView(DestroyAPIView):
+  queryset = Project.objects.all()
+  serializer_class = ProjectSerializer
+
+# === Workspace API ===========
+
+class WorkspaceList(ListAPIView):
+  queryset = Workspace.objects.all()
+  serializer_class = WorkspaceSerializer
+
+class WorkspaceCreate(CreateAPIView):
+  queryset = Workspace.objects.all()
+  serializer_class = WorkspaceSerializer
+
+class WorkspaceUpdate(UpdateAPIView):
+  queryset = Workspace.objects.all()
+  serializer_class = WorkspaceSerializer
+
+class WorkspaceDelete(DestroyAPIView):
+  queryset = Workspace.objects.all()
+  serializer_class = WorkspaceSerializer
