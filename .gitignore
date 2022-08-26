@@ -4,5 +4,6 @@ core/__pycache__/*
 
 # Project
 .env
+collectstatic
 
 db.sqlite3
