@@ -138,3 +138,10 @@ WEBPACK_LOADER = {
     'IGNORE': [r'.+\.hot-update.js', r'.+\.map'],
   }
 }
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        #rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.AllowAny'
+    ]
+}
