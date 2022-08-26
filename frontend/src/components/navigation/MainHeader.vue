@@ -60,7 +60,7 @@ export default {
     display: flex;
     justify-content: space-between;
 
-    height: 82px;
+    height: 94px;
     padding: 13px 0 29px 0;
   }
 

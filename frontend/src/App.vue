@@ -27,6 +27,7 @@ export default {
     --secondary-text-color: #9198A7;
 
     --primary-button-color: #055FFC;
+    --secondary-bitton-color: #222A36;
 
     --primary-bg-color: #1D1E1F;
     --secondary-bg-color: #242529;

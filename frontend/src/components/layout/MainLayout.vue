@@ -32,6 +32,10 @@ export default {
     background-color: var(--primary-bg-color);
   }
 
+  .content {
+    z-index: 2;
+  }
+
   .bg-icon {
     position: absolute;
     top:40%;
@@ -39,6 +43,7 @@ export default {
 
     width: 66vw;
 
+    z-index: 1;
     transform:translate(-50%, -50%);
   }
 </style>
