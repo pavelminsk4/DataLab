@@ -34,7 +34,9 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'project.apps.ProjectConfig',
     'crispy_forms',
-    'webpack_loader'
+    'webpack_loader',
+    'rest_framework',
+    'api.apps.ApiConfig',
 ]
 
 MIDDLEWARE = [
