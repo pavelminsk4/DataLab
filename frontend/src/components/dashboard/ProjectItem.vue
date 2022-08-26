@@ -3,7 +3,7 @@
     <div class="project-title-wrapper">
       <div class="title">South Arabia and India and smthng</div>
 
-      <div><PointsIcon/></div>
+      <div class="points-icon"><PointsIcon /></div>
     </div>
 
     <div class="cart-button-wrapper">
@@ -29,7 +29,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .project-cart-wrapper {
   display: flex;
   flex-direction: column;
@@ -43,8 +43,14 @@ export default {
   border-radius: 15px;
   box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
 
+  background-color: var(--secondary-bg-color);
   cursor: pointer;
-  background: var(--secondary-bg-color);
+
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  &:hover {
+    background: linear-gradient(140deg, rgba(45,45,49,1) 30%, rgba(5,68,179,1) 78%);
+  }
 }
 
 .project-title-wrapper {
@@ -76,46 +82,69 @@ export default {
 
   border-radius: 100%;
 
-  background-color: red;
+  background-color: white;
 
   font-size: 10px;
 }
 
+.points-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+
+  height: 25px;
+  width: 25px;
+
+  color: var(--secondary-text-color);
+
+  transition: all 0.3s;
+}
+
+.points-icon:hover {
+  border-radius: 100%;
+
+  background-color: var(--primary-button-color);
+
+  svg {
+    color: var(--primary-text-color);
+  }
+}
+
 .icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   width: 30px;
   height: 30px;
-  background: var(--primary-bg-color);
-  border-radius: 25px;
-  overflow: hidden;
-  position: relative;
+
+  border: none;
+  border-radius: 100%;
+
+  background-color: var(--icon-bg-color);
+
   cursor: pointer;
-  font-weight: 500;
-  font-family: inherit;
-}
-
-.plus-icon {
-  position: absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%, -50%);
-}
-
-.add-btn:hover {
-  width: 120px;
-}
-
-.add-btn:hover .plus-icon {
-  position: absolute;
-  top:50%;
-  left:15%;
-  transform:translate(-50%, -50%);
+  transition: all 0.5s;
 }
 
 .btn-txt {
-  opacity: 0;
+  display: none;
 }
 
-.add-btn:hover .btn-txt {
-  opacity: 1;
+.icon-btn:hover {
+  width: 74px;
+
+  border-radius: 15px;
+
+  background-color: var(--primary-button-color);
+
+  .btn-txt {
+    display: block;
+
+    margin-left: 8px;
+
+    color: var(--primary-text-color);
+  }
 }
 </style>

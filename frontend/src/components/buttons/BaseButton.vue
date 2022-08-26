@@ -33,6 +33,6 @@ export default {
  }
 
  .not-background {
-   background: var(--secondary-bitton-color);
+   background: var(--secondary-button-color);
  }
 </style>
