@@ -1,4 +1,4 @@
-import WorkspaceList from "@/components/dashboard/DashboardList";
+import WorkspaceList from '@components/dashboard/DashboardList'
 
 export const routes = [
   {

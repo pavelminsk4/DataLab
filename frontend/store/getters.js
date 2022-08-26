@@ -1,4 +1,4 @@
-import { get } from './constants'
+import { get } from '@store/constants'
 
 export default {
     [get.LOADING](state) {

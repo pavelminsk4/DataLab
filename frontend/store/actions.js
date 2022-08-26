@@ -1,5 +1,5 @@
-import api from '../api/api'
-import { action, mutator } from './constants'
+import api from '@api/api'
+import { action, mutator } from '@store/constants'
 
 export default {
     async [action.LOGOUT]({ commit }) {

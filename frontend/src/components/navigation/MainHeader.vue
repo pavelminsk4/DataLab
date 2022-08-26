@@ -23,14 +23,15 @@
 
 <script>
 import { mapActions } from 'vuex'
-import { action } from '../../../store/constants'
+import { action } from '@store/constants'
 
-import BaseInput from "@/components/BaseInput";
-import LogoIcon from '../icons/LogoIcon'
-import UserWithoutPhotoIcon from '../icons/UserWithoutPhotoIcon'
-import ActiveBellIcon from '../icons/ActiveBellIcon'
-import ArrowDownIcon from '../icons/ArrowDownIcon'
-import BaseButton from "@/components/buttons/BaseButton";
+import BaseInput from '@components/BaseInput'
+import BaseButton from '@components/buttons/BaseButton'
+
+import LogoIcon from '@components/icons/LogoIcon'
+import ArrowDownIcon from '@components/icons/ArrowDownIcon'
+import ActiveBellIcon from '@components/icons/ActiveBellIcon'
+import UserWithoutPhotoIcon from '@components/icons/UserWithoutPhotoIcon'
 
 export default {
   name: "MainHeader",

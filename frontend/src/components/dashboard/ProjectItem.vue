@@ -18,8 +18,8 @@
 </template>
 
 <script>
-import PointsIcon from '../icons/PointsIcon'
-import PlusIcon from '../icons/PlusIcon'
+import PlusIcon from '@components/icons/PlusIcon'
+import PointsIcon from '@components/icons/PointsIcon'
 
 export default {
   name: "ProjectItem",

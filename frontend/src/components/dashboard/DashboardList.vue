@@ -13,16 +13,15 @@
 </template>
 
 <script>
-import MainLayout from "@/components/layout/MainLayout";
-import ProjectItem from "@/components/dashboard/ProjectItem";
-
-import SortIcon from '../icons/SortIcon'
+import SortIcon from '@components/icons/SortIcon'
+import MainLayout from '@components/layout/MainLayout'
+import ProjectItem from '@components/dashboard/ProjectItem'
 
 export default {
   name: "DashboardList",
   components: {
-    MainLayout,
     SortIcon,
+    MainLayout,
     ProjectItem
   }
 }

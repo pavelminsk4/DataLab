@@ -11,9 +11,8 @@
 </template>
 
 <script>
-import MainHeader from "@/components/navigation/MainHeader";
-
-import BackgroundIcon from '../icons/BackgroundIcon'
+import MainHeader from '@components/navigation/MainHeader'
+import BackgroundIcon from '@components/icons/BackgroundIcon'
 
 export default {
   name: "MainLayout",

@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import SearchIcon from './icons/SearchIcon'
+import SearchIcon from '@components/icons/SearchIcon'
 
 export default {
   name: 'BaseInput',
