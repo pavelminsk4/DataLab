@@ -1,6 +1,8 @@
 <template>
-  <button :class="isNotBackground ? 'not-background' : ''"
-          class="base-button"
+  <button :class="[
+              'base-button',
+              isNotBackground && 'not-background'
+          ]"
   >
       <slot></slot>
   </button>
