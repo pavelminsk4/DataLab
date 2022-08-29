@@ -1,7 +1,5 @@
 <template>
   <div class="main-layout-wrapper">
-    <BackgroundIcon class="bg-icon" />
-
     <div class="content">
       <MainHeader />
 
@@ -11,14 +9,12 @@
 </template>
 
 <script>
-import MainHeader from "@/components/navigation/MainHeader";
-
-import BackgroundIcon from '../icons/BackgroundIcon'
+import MainHeader from '@components/navigation/MainHeader'
 
 export default {
   name: "MainLayout",
   components: {
-    BackgroundIcon, MainHeader
+     MainHeader
   }
 }
 </script>
@@ -30,7 +26,13 @@ export default {
     height: 100vh;
     padding: 0 69px 0 79px;
 
+    background: url(../../assets/img.svg) 50% 50% no-repeat;
     background-color: var(--primary-bg-color);
+    background-size: 919px 100%;
+  }
+
+  .content {
+    z-index: 2;
   }
 
   .bg-icon {
@@ -40,6 +42,7 @@ export default {
 
     width: 66vw;
 
+    z-index: 1;
     transform:translate(-50%, -50%);
   }
 </style>

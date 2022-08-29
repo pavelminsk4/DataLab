@@ -1,17 +1,41 @@
 <template>
   <div class="input-wrapper">
-    <SearchIcon class="icon" />
-    <input class="input" placeholder="Type to search"/>
+    <SearchIcon v-if="isSearch" class="icon" />
+    <input v-bind="$attrs"
+           :value="modelValue"
+           :class="[
+              'input',
+              isSearch && 'input-search'
+           ]"
+           :placeholder="placeholder"
+           @input="handleInput"
+    />
   </div>
 </template>
 
 <script>
-import SearchIcon from './icons/SearchIcon'
+import SearchIcon from '@components/icons/SearchIcon'
 
 export default {
   name: 'BaseInput',
+  props: {
+    modelValue: String,
+    isSearch: {
+      type: Boolean,
+      default: false
+    },
+    placeholder: {
+      type: String,
+      default: 'Enter text'
+    }
+  },
   components: {
     SearchIcon
+  },
+  methods: {
+    handleInput(e) {
+      this.$emit('update:modelValue', e.target.value)
+    }
   }
 }
 </script>
@@ -24,16 +48,19 @@ export default {
     align-items: center;
 
     height: 40px;
+    width: 262px;
+
+    border: 1px solid var(--input-border-color);
+    box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
+    border-radius: 10px;
+
+    background-color: var(--secondary-bg-color);
   }
 
   .input {
-    width: 262px;
-    height: 40px;
-    padding-left: 32px;
+    padding-left: 16px;
 
-    border: 1px solid #2D2D31;
-    box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
-    border-radius: 10px;
+    border: none;
 
     outline: none;
     color: var(--primary-text-color);
@@ -42,6 +69,10 @@ export default {
 
   .input::placeholder {
     color: var(--secondary-text-color);
+  }
+
+  .input-search {
+    padding-left: 32px;
   }
 
   .icon {

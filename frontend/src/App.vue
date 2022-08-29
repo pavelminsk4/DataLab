@@ -27,6 +27,11 @@ export default {
     --secondary-text-color: #9198A7;
 
     --primary-button-color: #055FFC;
+    --secondary-button-color: #222A36;
+
+    --icon-bg-color: #1A1C1E;
+
+    --input-border-color: #2D2D31;
 
     --primary-bg-color: #1D1E1F;
     --secondary-bg-color: #242529;

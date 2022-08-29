@@ -1,5 +1,9 @@
 <template>
-  <button v-bind="$attrs" :disabled="disabled" class="base-button">
+  <button :class="[
+              'base-button',
+              isNotBackground && 'not-background'
+          ]"
+  >
       <slot></slot>
   </button>
 </template>
@@ -8,15 +12,18 @@
 export default {
   name: 'BaseButton',
   props: {
-    disabled: { type: Boolean, default: false }
+    isNotBackground: {
+      type: Boolean,
+      default: false
+    }
   }
 }
 </script>
 
 <style>
  .base-button {
-   outline: none;
    cursor: pointer;
+   outline: none;
 
    height: 40px;
 
@@ -25,5 +32,9 @@ export default {
 
    color: var(--primary-text-color);
    background: var(--primary-button-color);
+ }
+
+ .not-background {
+   background: var(--secondary-button-color);
  }
 </style>

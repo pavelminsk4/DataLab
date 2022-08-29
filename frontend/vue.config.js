@@ -14,6 +14,9 @@ module.exports = {
         .use(BundleTracker, [{filename: '../frontend/webpack-stats.json'}])
 
     config.resolve.alias
-        .set('__STATIC__', 'static')
+        .set('@api', path.resolve(__dirname, './api/'))
+        .set('@components', path.resolve(__dirname, './src/components'))
+        .set('@store', path.resolve(__dirname, './store/'))
+        .set('@router', path.resolve(__dirname, './router/'))
   }
 }
