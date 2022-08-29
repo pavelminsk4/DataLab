@@ -4,6 +4,7 @@
         v-if="isOpenModal"
         modal-frame-style="max-width: 518px; height: auto;"
         @close="toggleModal"
+        @create-workspace="createWorkspace"
     />
     <div v-if="workspaces"  class="create-project-wrapper">
       <div>
@@ -29,7 +30,11 @@
       </div>
     </div>
     <div class="items-wrapper">
-      <ProjectItem v-for="(item, index) in workspaces" :key="index" />
+      <ProjectItem
+          v-for="(item, index) in workspaces"
+          :key="index"
+          :title="item.title"
+      />
     </div>
   </MainLayout>
 </template>
@@ -70,9 +75,22 @@ export default {
     await this[action.GET_WORKSPACES]()
   },
   methods: {
-    ...mapActions([action.GET_WORKSPACES]),
+    ...mapActions([action.GET_WORKSPACES, action.CREATE_WORKSPACE]),
     toggleModal() {
       return this.isOpenModal = !this.isOpenModal
+    },
+    async createWorkspace(title, description) {
+      try {
+        this.loading = true
+        await this[action.CREATE_WORKSPACE]({
+          title,
+          description
+        })
+        await this[action.GET_WORKSPACES]()
+        await this.toggleModal()
+      } catch (error) {
+        this.loading = false
+      }
     }
   }
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="project-cart-wrapper">
     <div class="project-title-wrapper">
-      <div class="title">South Arabia and India and smthng</div>
+      <div class="title">{{ title }}</div>
 
       <PointsIcon class="points-icon" />
     </div>
@@ -25,6 +25,12 @@ export default {
   name: "ProjectItem",
   components: {
     PointsIcon, PlusIcon
+  },
+  props: {
+    title: {
+      type: String,
+      default: ''
+    }
   }
 }
 </script>
@@ -56,6 +62,7 @@ export default {
 
 .project-title-wrapper {
   display: flex;
+  justify-content: space-between;
 
   color: var(--primary-text-color);
 }

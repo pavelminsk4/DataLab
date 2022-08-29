@@ -5,14 +5,11 @@
     <BaseInput v-model="title" class="input"/>
     <h2>Description</h2>
     <BaseInput v-model="description" class="input"/>
-    <BaseButton class="button" @click="createWorkspace">Add Workspace</BaseButton>
+    <BaseButton class="button" @click="addWorkspace">Add Workspace</BaseButton>
   </BaseModal>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
-import { action } from '@store/constants'
-
 import BaseInput from '@components/BaseInput'
 import BaseModal from '@components/modals/BaseModal'
 import BaseButton from '@components/buttons/BaseButton'
@@ -31,18 +28,9 @@ export default {
     }
   },
   methods: {
-    ...mapActions([action.CREATE_WORKSPACE]),
-    async createWorkspace() {
-      try {
-        this.loading = true
-        await this[action.CREATE_WORKSPACE]({
-          title: this.title,
-          description: this.description
-        })
-      } catch (error) {
-        this.loading = false
-      }
-    },
+    addWorkspace() {
+      this.$emit('create-workspace', this.title, this.description)
+    }
   }
 }
 </script>
