@@ -23,5 +23,15 @@ export default {
         } finally {
             commit(mutator.SET_LOADING, false)
         }
+    },
+    async [action.CREATE_WORKSPACE]({ commit }, workspace) {
+        commit(mutator.SET_LOADING, true)
+        try {
+            await api.createWorkspace(workspace)
+        } catch (e) {
+            console.log(e)
+        } finally {
+            commit(mutator.SET_LOADING, false)
+        }
     }
 }

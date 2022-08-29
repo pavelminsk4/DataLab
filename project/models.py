@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 class Workspace(models.Model):
   title = models.CharField(max_length=100)
   description = models.CharField(max_length=1000)
-  members = models.ManyToManyField(User)
+  members = models.ManyToManyField(User,null=True,blank=True)
 
 class Project(models.Model):
   title = models.CharField(max_length=100)

@@ -1,4 +1,5 @@
 import axios from 'axios'
+import CSRF_TOKEN from "../csrf_token";
 
 const endpoint = (resource) => `${resource}`
 
@@ -14,5 +15,15 @@ export default {
 
     async getProjects() {
         return fetch('get', '/api/projects/')
+    },
+
+    async createWorkspace(workspace) {
+        const config = {
+            headers: {
+                "content-type": "application/json",
+                "X-CSRFToken": CSRF_TOKEN
+            }
+        }
+        return fetch('post', '/api/workspace/create/', workspace, config)
     }
 }

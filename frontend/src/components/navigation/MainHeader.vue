@@ -2,7 +2,9 @@
   <header class="header">
     <section class="section-search">
       <LogoIcon class="logo" />
-      <BaseInput />
+      <BaseInput :is-search="true"
+                 :placeholder="'Type to search'"
+      />
     </section>
 
     <div class="section-company">

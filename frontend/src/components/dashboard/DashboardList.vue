@@ -1,5 +1,10 @@
 <template>
   <MainLayout>
+    <NewWorkspaceModal
+        v-if="isOpenModal"
+        modal-frame-style="max-width: 518px; height: auto;"
+        @close="toggleModal"
+    />
     <div class="create-project-wrapper">
       <div>
         <h1 class="title">Dashboard</h1>
@@ -15,6 +20,7 @@
         <BaseButton
             class="add-project-button"
             :is-not-background="true"
+            @click="toggleModal"
         >
           <PlusIcon class="add-workspace-button" />
           Add workspace
@@ -36,6 +42,7 @@ import PlusIcon from '@components/icons/PlusIcon'
 import MainLayout from '@components/layout/MainLayout'
 import ProjectItem from '@components/dashboard/ProjectItem'
 import BaseButton from '@components/buttons/BaseButton'
+import NewWorkspaceModal from '@components/modals/NewWorkspaceModal'
 
 export default {
   name: "DashboardList",
@@ -45,6 +52,12 @@ export default {
     BaseButton,
     MainLayout,
     ProjectItem,
+    NewWorkspaceModal
+  },
+  data() {
+    return {
+      isOpenModal: false
+    }
   },
   computed: {
     ...mapGetters({
@@ -55,7 +68,10 @@ export default {
       await this[action.GET_PROJECTS]()
   },
   methods: {
-    ...mapActions([action.GET_PROJECTS])
+    ...mapActions([action.GET_PROJECTS]),
+    toggleModal() {
+      return this.isOpenModal = !this.isOpenModal
+    }
   }
 }
 </script>
