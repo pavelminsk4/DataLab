@@ -5,7 +5,7 @@
         modal-frame-style="max-width: 518px; height: auto;"
         @close="toggleModal"
     />
-    <div class="create-project-wrapper">
+    <div v-if="workspaces"  class="create-project-wrapper">
       <div>
         <h1 class="title">Dashboard</h1>
         <span class="hint">Keep all your projects in order by arranging them by topic</span>
@@ -28,7 +28,9 @@
         <BaseButton class="create-new-button">Create new project</BaseButton>
       </div>
     </div>
-    <ProjectItem />
+    <div class="items-wrapper">
+      <ProjectItem v-for="(item, index) in workspaces" :key="index" />
+    </div>
   </MainLayout>
 </template>
 
@@ -61,14 +63,14 @@ export default {
   },
   computed: {
     ...mapGetters({
-      projects: get.PROJECTS,
+      workspaces: get.WORKSPACES,
     })
   },
   async created() {
-      await this[action.GET_PROJECTS]()
+    await this[action.GET_WORKSPACES]()
   },
   methods: {
-    ...mapActions([action.GET_PROJECTS]),
+    ...mapActions([action.GET_WORKSPACES]),
     toggleModal() {
       return this.isOpenModal = !this.isOpenModal
     }
@@ -146,5 +148,12 @@ export default {
 
   .create-new-button {
     width: 178px;
+  }
+
+  .items-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+
+    margin: 0 -24px 0;
   }
 </style>

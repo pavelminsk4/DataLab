@@ -17,6 +17,10 @@ export default {
         return fetch('get', '/api/projects/')
     },
 
+    async getWorkspaces() {
+        return fetch('get', '/api/workspaces/')
+    },
+
     async createWorkspace(workspace) {
         const config = {
             headers: {

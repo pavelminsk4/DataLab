@@ -13,6 +13,7 @@ export default {
             commit(mutator.SET_LOADING, false)
         }
     },
+
     async [action.GET_PROJECTS]({ commit }) {
         commit(mutator.SET_LOADING, true)
         try {
@@ -24,6 +25,19 @@ export default {
             commit(mutator.SET_LOADING, false)
         }
     },
+
+    async [action.GET_WORKSPACES]({ commit }) {
+        commit(mutator.SET_LOADING, true)
+        try {
+            const workspaces = await api.getWorkspaces()
+            commit(mutator.SET_WORKSPACES, workspaces)
+        } catch (e) {
+            console.log(e)
+        } finally {
+            commit(mutator.SET_LOADING, false)
+        }
+    },
+
     async [action.CREATE_WORKSPACE]({ commit }, workspace) {
         commit(mutator.SET_LOADING, true)
         try {
