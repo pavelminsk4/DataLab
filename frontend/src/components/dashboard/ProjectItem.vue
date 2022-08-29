@@ -3,7 +3,7 @@
     <div class="project-title-wrapper">
       <div class="title">South Arabia and India and smthng</div>
 
-      <div class="points-icon"><PointsIcon /></div>
+      <PointsIcon class="points-icon" />
     </div>
 
     <div class="cart-button-wrapper">
@@ -88,13 +88,7 @@ export default {
 }
 
 .points-icon {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   flex-shrink: 0;
-
-  height: 25px;
-  width: 25px;
 
   color: var(--secondary-text-color);
 
@@ -104,11 +98,8 @@ export default {
 .points-icon:hover {
   border-radius: 100%;
 
+  color: var(--primary-text-color);
   background-color: var(--primary-button-color);
-
-  svg {
-    color: var(--primary-text-color);
-  }
 }
 
 .icon-btn {
