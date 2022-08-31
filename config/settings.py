@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'webpack_loader',
     'rest_framework',
     'api.apps.ApiConfig',
+    'import_export',
 ]
 
 MIDDLEWARE = [
