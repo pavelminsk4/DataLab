@@ -13,6 +13,7 @@ class ProjectSerializer(serializers.ModelSerializer):
     fields = "__all__"
 
 class WorkspaceSerializer(serializers.ModelSerializer):
+  projects = ProjectSerializer(many=True)
   class Meta:
     model = Workspace
-    fields = "__all__"
+    fields = ['title', 'description', 'members', 'company', 'projects']
