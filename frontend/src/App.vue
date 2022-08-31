@@ -35,5 +35,8 @@ body {
 
   --primary-bg-color: #1d1e1f;
   --secondary-bg-color: #242529;
+
+  --box-shadow-color: #0b56d9;
+  --progress-line: #34353b;
 }
 </style>

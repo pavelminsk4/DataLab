@@ -48,4 +48,15 @@ export default {
       commit(mutator.SET_LOADING, false)
     }
   },
+
+  async [action.CREATE_PROJECT]({commit}, newProject) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      await api.createNewProject(newProject)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
 }

@@ -28,7 +28,9 @@
           <PlusIcon class="add-workspace-button" />
           Add workspace
         </BaseButton>
-        <BaseButton class="create-new-button">Create new project</BaseButton>
+        <BaseButton class="create-new-button" @click="createProject">
+          Create new project
+        </BaseButton>
       </div>
     </div>
     <div class="items-wrapper">
@@ -93,6 +95,12 @@ export default {
       } catch (error) {
         this.loading = false
       }
+    },
+    createProject() {
+      this.loading = true
+      this.$router.push({
+        name: 'CreateProject',
+      })
     },
   },
 }

@@ -1,11 +1,9 @@
 const BundleTracker = require('webpack-bundle-tracker')
 const path = require('path')
 
-
-
 module.exports = {
   publicPath:
-    process.env.NODE_ENV === 'production'
+    process.env.NODE_ENV === 'productio   n'
       ? '/static/dist/'
       : 'http://localhost:8080',
 

@@ -30,4 +30,14 @@ export default {
     }
     return fetch('post', '/api/workspace/create/', workspace, config)
   },
+
+  async createNewProject(newProject) {
+    const config = {
+      headers: {
+        'content-type': 'application/json',
+        'X-CSRFToken': CSRF_TOKEN,
+      },
+    }
+    return fetch('post', '/api/project/create/', newProject, config)
+  },
 }

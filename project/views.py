@@ -15,16 +15,8 @@ def index(request):
   return render(request, 'project/index.html', context)
   
 def create(request):
-  if request.method == 'POST':
-    form = ProjectForm(request.POST)
-    if form.is_valid():
-      rss = form.save()
-      return redirect('/projects')
-
-  else: 
     form = ProjectForm()
-    return render(request, 'project/create.html', {'form': form})
-
+    return render(request, 'project/create.html')
 
 def delete(request, pk):
   try:

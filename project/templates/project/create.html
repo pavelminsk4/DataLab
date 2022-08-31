@@ -1,7 +1,5 @@
-<h1>Create new Project</h1>
+{% load render_bundle from webpack_loader %}
+{% render_bundle 'app' 'css' %}
 
-<form action="" method="post" novalidate>
-  {% csrf_token %}
-  {{ form.as_p }}
-  <input id="submit" type="submit" value="Save the Project">
-</form>
+<div id="app"></div>
+{% render_bundle 'app' 'js' %}
