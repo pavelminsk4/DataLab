@@ -12,37 +12,37 @@
 import MainHeader from '@components/navigation/MainHeader'
 
 export default {
-  name: "MainLayout",
+  name: 'MainLayout',
   components: {
-     MainHeader
-  }
+    MainHeader,
+  },
 }
 </script>
 
 <style lang="scss" scoped>
-  .main-layout-wrapper {
-    position: relative;
+.main-layout-wrapper {
+  position: relative;
 
-    height: 100vh;
-    padding: 0 69px 0 79px;
+  height: 100vh;
+  padding: 0 69px 0 79px;
 
-    background: url(../../assets/img.svg) 50% 50% no-repeat;
-    background-color: var(--primary-bg-color);
-    background-size: 919px 100%;
-  }
+  background: url(../../assets/img.svg) 50% 50% no-repeat;
+  background-color: var(--primary-bg-color);
+  background-size: 919px 100%;
+}
 
-  .content {
-    z-index: 2;
-  }
+.content {
+  z-index: 2;
+}
 
-  .bg-icon {
-    position: absolute;
-    top:40%;
-    left:50%;
+.bg-icon {
+  position: absolute;
+  top: 40%;
+  left: 50%;
 
-    width: 66vw;
+  width: 66vw;
 
-    z-index: 1;
-    transform:translate(-50%, -50%);
-  }
+  z-index: 1;
+  transform: translate(-50%, -50%);
+}
 </style>

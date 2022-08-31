@@ -22,16 +22,17 @@ import PlusIcon from '@components/icons/PlusIcon'
 import PointsIcon from '@components/icons/PointsIcon'
 
 export default {
-  name: "ProjectItem",
+  name: 'ProjectItem',
   components: {
-    PointsIcon, PlusIcon
+    PointsIcon,
+    PlusIcon,
   },
   props: {
     title: {
       type: String,
-      default: ''
-    }
-  }
+      default: '',
+    },
+  },
 }
 </script>
 
@@ -46,7 +47,7 @@ export default {
   padding: 16px 21px 13px 18px;
   margin: 0 12px 25px 12px;
 
-  border: 1px solid #2D2D31;
+  border: 1px solid #2d2d31;
   border-radius: 15px;
   box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
 
@@ -56,7 +57,7 @@ export default {
   transition: all 0.9s;
 
   &:hover {
-    background: radial-gradient(circle at right, #055FFC, transparent);
+    background: radial-gradient(circle at right, #055ffc, transparent);
   }
 }
 

@@ -1,10 +1,11 @@
 <template>
   <div @click="clickedOut">
     <div
-        id="modal"
-        class="base-modal-wrapper"
-        aria-labelledby="Modal"
-        aria-modal="true">
+      id="modal"
+      class="base-modal-wrapper"
+      aria-labelledby="Modal"
+      aria-modal="true"
+    >
       <div :style="modalFrameStyle" class="base-modal">
         <div class="base-modal-content">
           <button type="button" class="close" @click="$emit('close')">
@@ -25,10 +26,10 @@ import IconCross from '@components/icons/IconCross'
 
 export default {
   name: 'BaseModal',
-  components: { IconCross },
+  components: {IconCross},
   props: {
-    closeIconClass: { type: String, default: '' },
-    modalFrameStyle: { type: String, default: '' }
+    closeIconClass: {type: String, default: ''},
+    modalFrameStyle: {type: String, default: ''},
   },
   created() {
     document.addEventListener('keydown', this.pressedEsc)
@@ -62,8 +63,8 @@ export default {
       } else {
         document.body.classList.remove('overflow-hidden')
       }
-    }
-  }
+    },
+  },
 }
 </script>
 

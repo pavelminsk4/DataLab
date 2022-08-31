@@ -1,15 +1,17 @@
 <template>
   <MainLayout>
     <NewWorkspaceModal
-        v-if="isOpenModal"
-        modal-frame-style="max-width: 518px; height: auto;"
-        @close="toggleModal"
-        @create-workspace="createWorkspace"
+      v-if="isOpenModal"
+      modal-frame-style="max-width: 518px; height: auto;"
+      @close="toggleModal"
+      @create-workspace="createWorkspace"
     />
-    <div v-if="workspaces"  class="create-project-wrapper">
+    <div v-if="workspaces" class="create-project-wrapper">
       <div>
         <h1 class="title">Dashboard</h1>
-        <span class="hint">Keep all your projects in order by arranging them by topic</span>
+        <span class="hint"
+          >Keep all your projects in order by arranging them by topic</span
+        >
 
         <div class="sort-wrapper">
           <span class="hint">Sort by</span>
@@ -19,9 +21,9 @@
 
       <div class="create-project-buttons">
         <BaseButton
-            class="add-project-button"
-            :is-not-background="true"
-            @click="toggleModal"
+          class="add-project-button"
+          :is-not-background="true"
+          @click="toggleModal"
         >
           <PlusIcon class="add-workspace-button" />
           Add workspace
@@ -31,17 +33,17 @@
     </div>
     <div class="items-wrapper">
       <ProjectItem
-          v-for="(item, index) in workspaces"
-          :key="index"
-          :title="item.title"
+        v-for="(item, index) in workspaces"
+        :key="index"
+        :title="item.title"
       />
     </div>
   </MainLayout>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
-import { action, get } from '@store/constants'
+import {mapActions, mapGetters} from 'vuex'
+import {action, get} from '@store/constants'
 
 import SortIcon from '@components/icons/SortIcon'
 import PlusIcon from '@components/icons/PlusIcon'
@@ -52,24 +54,24 @@ import BaseButton from '@components/buttons/BaseButton'
 import NewWorkspaceModal from '@components/modals/NewWorkspaceModal'
 
 export default {
-  name: "DashboardList",
+  name: 'DashboardList',
   components: {
     SortIcon,
     PlusIcon,
     BaseButton,
     MainLayout,
     ProjectItem,
-    NewWorkspaceModal
+    NewWorkspaceModal,
   },
   data() {
     return {
-      isOpenModal: false
+      isOpenModal: false,
     }
   },
   computed: {
     ...mapGetters({
       workspaces: get.WORKSPACES,
-    })
+    }),
   },
   async created() {
     await this[action.GET_WORKSPACES]()
@@ -77,101 +79,101 @@ export default {
   methods: {
     ...mapActions([action.GET_WORKSPACES, action.CREATE_WORKSPACE]),
     toggleModal() {
-      return this.isOpenModal = !this.isOpenModal
+      return (this.isOpenModal = !this.isOpenModal)
     },
     async createWorkspace(title, description) {
       try {
         this.loading = true
         await this[action.CREATE_WORKSPACE]({
           title,
-          description
+          description,
         })
         await this[action.GET_WORKSPACES]()
         await this.toggleModal()
       } catch (error) {
         this.loading = false
       }
-    }
-  }
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
-  .title {
-    margin: 0 0 8px;
+.title {
+  margin: 0 0 8px;
 
-    color: var(--primary-text-color);
+  color: var(--primary-text-color);
 
-    font-style: normal;
-    font-weight: 600;
-    font-size: 36px;
-    line-height: 42px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 42px;
+}
+
+.hint {
+  color: var(--secondary-text-color);
+
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.create-project-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.sort-wrapper {
+  display: flex;
+
+  margin: 34px 0 22px;
+
+  color: var(--primary-text-color);
+
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.sort-option {
+  display: flex;
+  align-items: center;
+
+  margin-left: 15px;
+}
+
+.sort-icon {
+  margin-left: 7px;
+}
+
+.create-project-buttons {
+  display: flex;
+}
+
+.add-project-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 179px;
+
+  margin-right: 10px;
+
+  .add-workspace-button {
+    margin-right: 12px;
   }
+}
 
-  .hint {
-    color: var(--secondary-text-color);
+.create-new-button {
+  width: 178px;
+}
 
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 20px;
-  }
+.items-wrapper {
+  display: flex;
+  flex-wrap: wrap;
 
-  .create-project-wrapper {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .sort-wrapper {
-    display: flex;
-
-    margin: 34px 0 22px;
-
-    color: var(--primary-text-color);
-
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 20px;
-  }
-
-  .sort-option {
-    display: flex;
-    align-items: center;
-
-    margin-left: 15px;
-  }
-
-  .sort-icon {
-    margin-left: 7px;
-  }
-
-  .create-project-buttons {
-    display: flex;
-  }
-
-  .add-project-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    width: 179px;
-
-    margin-right: 10px;
-
-    .add-workspace-button {
-      margin-right: 12px;
-    }
-  }
-
-  .create-new-button {
-    width: 178px;
-  }
-
-  .items-wrapper {
-    display: flex;
-    flex-wrap: wrap;
-
-    margin: 0 -24px 0;
-  }
+  margin: 0 -24px 0;
+}
 </style>

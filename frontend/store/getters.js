@@ -1,15 +1,15 @@
-import { get } from '@store/constants'
+import {get} from '@store/constants'
 
 export default {
-    [get.LOADING](state) {
-        return state.loading
-    },
+  [get.LOADING](state) {
+    return state.loading
+  },
 
-    [get.PROJECTS](state) {
-        return state.projects
-    },
+  [get.PROJECTS](state) {
+    return state.projects
+  },
 
-    [get.WORKSPACES](state) {
-        return state.workspaces
-    }
+  [get.WORKSPACES](state) {
+    return state.workspaces
+  },
 }

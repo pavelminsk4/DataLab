@@ -1,10 +1,6 @@
 <template>
-  <button :class="[
-              'base-button',
-              isNotBackground && 'not-background'
-          ]"
-  >
-      <slot></slot>
+  <button :class="['base-button', isNotBackground && 'not-background']">
+    <slot></slot>
   </button>
 </template>
 
@@ -14,27 +10,27 @@ export default {
   props: {
     isNotBackground: {
       type: Boolean,
-      default: false
-    }
-  }
+      default: false,
+    },
+  },
 }
 </script>
 
 <style>
- .base-button {
-   cursor: pointer;
-   outline: none;
+.base-button {
+  cursor: pointer;
+  outline: none;
 
-   height: 40px;
+  height: 40px;
 
-   border: none;
-   border-radius: 8px;
+  border: none;
+  border-radius: 8px;
 
-   color: var(--primary-text-color);
-   background: var(--primary-button-color);
- }
+  color: var(--primary-text-color);
+  background: var(--primary-button-color);
+}
 
- .not-background {
-   background: var(--secondary-button-color);
- }
+.not-background {
+  background: var(--secondary-button-color);
+}
 </style>

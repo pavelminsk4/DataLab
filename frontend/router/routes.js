@@ -4,6 +4,6 @@ export const routes = [
   {
     name: 'Home',
     path: '',
-    component: WorkspaceList
-  }
+    component: WorkspaceList,
+  },
 ]
