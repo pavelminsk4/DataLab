@@ -1,36 +1,43 @@
 <template>
-  <MainLayout>
-    <component :is="projectSteps" @next-step="nextStep()" />
-  </MainLayout>
+  <div class="back-button" @click="backToHome">
+    <ArrowLeftIcon class="arrow-back" />
+    Back
+  </div>
+
+  <div class="create-project-title">
+    <H1 class="title">Define the search</H1>
+    <div class="progress-bar-wrapper">
+      <div class="progress-bar">
+        <div class="progress-item">1</div>
+        <div class="progress-line"></div>
+        <div class="progress-item">2</div>
+      </div>
+      <BaseButton class="next-button" @click="$emit('next-step')">
+        Save Project
+      </BaseButton>
+    </div>
+  </div>
+  <div class="hint">Search by keywords and phrases</div>
+
+  <section class="key-word-section"></section>
 </template>
 
 <script>
-import MainLayout from '@components/layout/MainLayout'
-import CreateProjectFirstStep from '@components/project/CreateProjectFirstStep'
-import CreateProjectSecondStep from '@components/project/CreateProjectSecondStep'
+import BaseButton from '@components/buttons/BaseButton'
+
+import ArrowLeftIcon from '@components/icons/ArrowLeftIcon'
 
 export default {
-  name: 'CreateProjectScreen',
+  name: 'CreateProjectSecondStep',
   components: {
-    MainLayout,
-    CreateProjectFirstStep,
-    CreateProjectSecondStep,
-  },
-  data() {
-    return {
-      isNextStep: false,
-    }
-  },
-  computed: {
-    projectSteps() {
-      return this.isNextStep
-        ? 'CreateProjectSecondStep'
-        : 'CreateProjectFirstStep'
-    },
+    BaseButton,
+    ArrowLeftIcon,
   },
   methods: {
-    nextStep() {
-      this.isNextStep = !this.isNextStep
+    backToHome() {
+      this.$router.push({
+        name: 'Home',
+      })
     },
   },
 }
