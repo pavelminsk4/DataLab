@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from rest_framework.generics import ListAPIView, CreateAPIView, DestroyAPIView, UpdateAPIView, RetrieveAPIView
-from .serializers import UserSerializer, WorkspaceSerializer, ProjectSerializer
+from .serializers import UserSerializer, WorkspaceSerializer, ProjectSerializer, WorkspaceCreateSerializer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import ProjectSerializer, Workspace
@@ -59,10 +59,9 @@ class SingleWorkspace(RetrieveAPIView):
     queryset = Workspace.objects.all()
     serializer_class = WorkspaceSerializer
 
-
 class WorkspaceCreate(CreateAPIView):
   queryset = Workspace.objects.all()
-  serializer_class = WorkspaceSerializer
+  serializer_class = WorkspaceCreateSerializer
 
 class WorkspaceUpdate(UpdateAPIView):
   queryset = Workspace.objects.all()
