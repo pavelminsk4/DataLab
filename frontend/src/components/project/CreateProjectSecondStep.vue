@@ -19,17 +19,28 @@
   </div>
   <div class="hint">Search by keywords and phrases</div>
 
-  <section class="key-word-section"></section>
+  <section class="key-word-section">
+    <div class="mode-wrapper">
+      <div class="mode-title mode-active">Simple mode</div>
+      <div class="mode-title">Expert mode</div>
+    </div>
+
+    <div class="second-title">Define the main keywords (OR)</div>
+
+    <BaseTag />
+  </section>
 </template>
 
 <script>
 import BaseButton from '@components/buttons/BaseButton'
 
 import ArrowLeftIcon from '@components/icons/ArrowLeftIcon'
+import BaseTag from '@/components/BaseTag'
 
 export default {
   name: 'CreateProjectSecondStep',
   components: {
+    BaseTag,
     BaseButton,
     ArrowLeftIcon,
   },
@@ -112,5 +123,43 @@ export default {
   color: var(--secondary-text-color);
 
   font-size: 14px;
+}
+
+.key-word-section {
+  width: 515px;
+  margin-top: 30px;
+}
+
+.mode-wrapper {
+  display: flex;
+
+  margin-bottom: 20px;
+
+  border-bottom: 1px solid var(--input-border-color);
+}
+
+.mode-title {
+  padding-bottom: 10px;
+
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+
+  &:first-child {
+    margin-right: 55px;
+  }
+}
+
+.mode-active {
+  border-bottom: 2px solid var(--primary-button-color);
+
+  font-weight: 500;
+  color: var(--primary-text-color);
+}
+
+.second-title {
+  margin-bottom: 12px;
+
+  font-size: 14px;
+  color: var(--primary-text-color);
 }
 </style>
