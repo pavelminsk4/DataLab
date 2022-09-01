@@ -21,15 +21,24 @@
 
     <div class="radio-buttons">
       <BaseRadio
-        v-for="(item, index) in tests"
+        v-for="(item, index) in deliveryChannels"
         :key="index"
         class="radio-button"
-        :label="item.test"
+        :label="item.name"
         :value="selectedValue"
         :checked="item"
         @change="changeValue(item)"
       >
-        <template v-slot:default> {{ item.test }} </template>
+        <template v-slot:default>
+          <div class="radio-title">
+            {{ item.name }}
+            <component :is="item.icon + 'RadioButton'" v-bind="$attrs" />
+          </div>
+        </template>
+
+        <template v-slot:description>
+          <div class="radio-description">{{ item.description }}</div>
+        </template>
       </BaseRadio>
     </div>
   </section>
@@ -42,6 +51,9 @@ import {action, get} from '@store/constants'
 import BaseInput from '@components/BaseInput'
 import BaseSelect from '@components/BaseSelect'
 import BaseRadio from '@components/BaseRadio'
+import SocialRadioButton from '@components/icons/SocialRadioButton'
+import OnlineRadioButton from '@components/icons/OnlineRadioButton'
+import PremiumRadioButton from '@components/icons/PremiumRadioButton'
 
 export default {
   name: 'CreateProjectFirstStep',
@@ -49,12 +61,31 @@ export default {
     BaseInput,
     BaseSelect,
     BaseRadio,
+    OnlineRadioButton,
+    PremiumRadioButton,
+    SocialRadioButton,
   },
   data() {
     return {
       plan_on_driving: null,
       activePlan: '',
-      tests: [{test: 24}, {test: 36}, {test: 48}],
+      deliveryChannels: [
+        {
+          name: 'Social',
+          description: 'Delivers data from Twitter and Facebook',
+          icon: 'Social',
+        },
+        {
+          name: 'Online',
+          description: 'Delivers results from Twitter and news',
+          icon: 'Online',
+        },
+        {
+          name: 'Premium',
+          description: 'Delivers results from Radio and TV',
+          icon: 'Premium',
+        },
+      ],
       selectedValue: '',
       workspace: null,
     }
@@ -71,21 +102,14 @@ export default {
     await this[action.GET_WORKSPACES]()
   },
   methods: {
-    ...mapActions([action.TEST, action.GET_WORKSPACES]),
+    ...mapActions([action.GET_WORKSPACES]),
     backToHome() {
       this.$router.push({
         name: 'Home',
       })
     },
     changeValue(newValue) {
-      this[action.TEST](newValue)
       this.selectedValue = newValue
-    },
-    async test() {
-      await this[action.TEST](this.workspace)
-    },
-    navigateToOrder(orderId) {
-      this.$router.push({name: 'CreateProjectScreen2', query: {orderId}})
     },
   },
 }
@@ -169,10 +193,27 @@ export default {
   background-color: var(--box-shadow-color);
   outline: none;
 }
+
+.radio-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.radio-description {
+  margin-top: 7px;
+
+  font-size: 14px;
+  color: var(--secondary-text-color);
+}
 </style>
 
 <style>
 .input-field > input {
   width: 475px;
+}
+
+.selected > .radio-description {
+  color: var(--primary-text-color);
 }
 </style>

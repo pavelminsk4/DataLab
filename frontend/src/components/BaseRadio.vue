@@ -56,6 +56,7 @@ export default {
 
 .input-radio {
   width: 0;
+  height: 0;
 }
 
 .selected {
