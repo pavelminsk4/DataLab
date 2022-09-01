@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from rest_framework.generics import ListAPIView, CreateAPIView, DestroyAPIView, UpdateAPIView, RetrieveAPIView
 from .serializers import UserSerializer, WorkspaceSerializer, ProjectSerializer
+from rest_framework.response import Response
+from rest_framework.views import APIView
 from .serializers import ProjectSerializer, Workspace
 from django.contrib.auth.models import User
 from project.models import Project, Workspace
@@ -69,3 +71,8 @@ class WorkspaceUpdate(UpdateAPIView):
 class WorkspaceDelete(DestroyAPIView):
   queryset = Workspace.objects.all()
   serializer_class = WorkspaceSerializer
+
+class LoggedInUserView(APIView):
+  def get(self, request):
+    serializer = UserSerializer(self.request.user)
+    return Response(serializer.data)
