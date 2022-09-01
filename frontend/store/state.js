@@ -1,6 +1,7 @@
 const state = {
-    loading: false,
-    projects: []
+  loading: false,
+  projects: [],
+  workspaces: [],
 }
 
 export default state
