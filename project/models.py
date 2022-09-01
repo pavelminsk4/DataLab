@@ -28,3 +28,6 @@ class Project(models.Model):
   arabic_name = models.CharField(max_length=100, null=True, blank=True)
   english_name = models.CharField(max_length=100, null=True, blank=True)
   workspase = models.ForeignKey(Workspace, related_name='projects', blank=True, null=True, on_delete=models.CASCADE)
+  social = models.BooleanField(default=False)
+  online = models.BooleanField(default=False)
+  premium = models.BooleanField(default=False)
