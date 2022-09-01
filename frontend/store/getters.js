@@ -12,4 +12,8 @@ export default {
   [get.WORKSPACES](state) {
     return state.workspaces
   },
+
+  [get.USER_ID](state) {
+    return state.userId
+  },
 }

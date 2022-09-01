@@ -1,41 +1,37 @@
 <template>
   <MainLayout>
-    <div class="back-button" @click="backToHome">
-      <ArrowLeftIcon class="arrow-back" />
-      Back
-    </div>
-
-    <div class="create-project-title">
-      <H1 class="title">Create Project</H1>
-      <div class="progress-bar-wrapper">
-        <div class="progress-bar">
-          <div class="progress-item">1</div>
-          <div class="progress-line"></div>
-          <div class="progress-item">2</div>
-        </div>
-        <BaseButton class="next-button"> Next </BaseButton>
-      </div>
-    </div>
-    <div class="hint">Name the project and choose source Type</div>
-
-    <CreateProjectFirstStep />
+    <component :is="projectSteps" @next-step="nextStep()" />
   </MainLayout>
 </template>
 
 <script>
-import ArrowLeftIcon from '@components/icons/ArrowLeftIcon'
-
 import MainLayout from '@components/layout/MainLayout'
-import BaseButton from '@components/buttons/BaseButton'
 import CreateProjectFirstStep from '@components/project/CreateProjectFirstStep'
+import CreateProjectSecondStep from '@components/project/CreateProjectSecondStep'
 
 export default {
   name: 'CreateProjectScreen',
   components: {
-    BaseButton,
     MainLayout,
-    ArrowLeftIcon,
     CreateProjectFirstStep,
+    CreateProjectSecondStep,
+  },
+  data() {
+    return {
+      isNextStep: false,
+    }
+  },
+  computed: {
+    projectSteps() {
+      return this.isNextStep
+        ? 'CreateProjectSecondStep'
+        : 'CreateProjectFirstStep'
+    },
+  },
+  methods: {
+    nextStep() {
+      this.isNextStep = !this.isNextStep
+    },
   },
 }
 </script>

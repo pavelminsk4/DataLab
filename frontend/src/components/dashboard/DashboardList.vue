@@ -2,6 +2,7 @@
   <MainLayout>
     <NewWorkspaceModal
       v-if="isOpenModal"
+      :member="member"
       modal-frame-style="max-width: 518px; height: auto;"
       @close="toggleModal"
       @create-workspace="createWorkspace"
@@ -73,22 +74,29 @@ export default {
   computed: {
     ...mapGetters({
       workspaces: get.WORKSPACES,
+      member: get.USER_ID,
     }),
   },
   async created() {
     await this[action.GET_WORKSPACES]()
+    await this[action.GET_USER_INFORMATION]()
   },
   methods: {
-    ...mapActions([action.GET_WORKSPACES, action.CREATE_WORKSPACE]),
+    ...mapActions([
+      action.GET_WORKSPACES,
+      action.CREATE_WORKSPACE,
+      action.GET_USER_INFORMATION,
+    ]),
     toggleModal() {
       return (this.isOpenModal = !this.isOpenModal)
     },
-    async createWorkspace(title, description) {
+    async createWorkspace(title, description, members) {
       try {
         this.loading = true
         await this[action.CREATE_WORKSPACE]({
           title,
           description,
+          members,
         })
         await this[action.GET_WORKSPACES]()
         await this.toggleModal()

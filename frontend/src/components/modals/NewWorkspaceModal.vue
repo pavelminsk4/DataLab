@@ -28,9 +28,22 @@ export default {
       description: '',
     }
   },
+  props: {
+    member: {
+      type: [Number, String],
+      default: '',
+    },
+  },
+  computed: {
+    members() {
+      let members = []
+      members.push(this.member)
+      return members
+    },
+  },
   methods: {
     addWorkspace() {
-      this.$emit('create-workspace', this.title, this.description)
+      this.$emit('create-workspace', this.title, this.description, this.members)
     },
   },
 }
