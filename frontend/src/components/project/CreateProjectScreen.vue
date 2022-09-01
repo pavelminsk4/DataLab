@@ -13,57 +13,34 @@
           <div class="progress-line"></div>
           <div class="progress-item">2</div>
         </div>
-        <BaseButton class="next-button">Next</BaseButton>
+        <BaseButton class="next-button"> Next </BaseButton>
       </div>
     </div>
     <div class="hint">Name the project and choose source Type</div>
 
-    <section class="form-section">
-      <div>
-        <h4 class="project-name">Name</h4>
-        <BaseInput class="input-field" :placeholder="'Project Name'" />
-
-        <h4 class="project-name">Workspace</h4>
-        <BaseSelect class="select" />
-
-        <h4 class="project-name">Description</h4>
-        <textarea
-          class="description-field"
-          placeholder="Some words about your project"
-        />
-      </div>
-    </section>
+    <CreateProjectFirstStep />
   </MainLayout>
 </template>
 
 <script>
 import ArrowLeftIcon from '@components/icons/ArrowLeftIcon'
 
-import BaseInput from '@components/BaseInput'
 import MainLayout from '@components/layout/MainLayout'
 import BaseButton from '@components/buttons/BaseButton'
-import BaseSelect from '@/components/BaseSelect'
+import CreateProjectFirstStep from '@components/project/CreateProjectFirstStep'
 
 export default {
   name: 'CreateProjectScreen',
   components: {
-    BaseSelect,
-    BaseInput,
     BaseButton,
     MainLayout,
     ArrowLeftIcon,
-  },
-  methods: {
-    backToHome() {
-      this.$router.push({
-        name: 'Home',
-      })
-    },
+    CreateProjectFirstStep,
   },
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .back-button {
   cursor: pointer;
 
@@ -132,69 +109,5 @@ export default {
   color: var(--secondary-text-color);
 
   font-size: 14px;
-}
-
-.project-name {
-  margin: 25px 0 12px;
-
-  font-size: 14px;
-
-  color: var(--primary-text-color);
-}
-
-.form-section {
-  margin-top: 40px;
-}
-
-.select {
-  width: 475px;
-}
-
-.input-field {
-  width: 475px;
-}
-
-.description-field {
-  width: 475px;
-  height: 132px;
-  padding: 12px 16px;
-
-  border: 1px solid var(--input-border-color);
-  box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
-  border-radius: 10px;
-  background: var(--secondary-bg-color);
-
-  color: var(--primary-text-color);
-
-  resize: none;
-}
-
-.description-field::placeholder {
-  color: var(--secondary-text-color);
-}
-
-.description-field::-webkit-scrollbar {
-  width: 10px;
-}
-
-.description-field::-webkit-scrollbar-track {
-  border-radius: 10px;
-
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-}
-
-.description-field::-webkit-scrollbar-thumb {
-  width: 8px;
-
-  border-radius: 10px;
-
-  background-color: var(--box-shadow-color);
-  outline: none;
-}
-</style>
-
-<style>
-.input-field > input {
-  width: 475px;
 }
 </style>

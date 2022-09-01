@@ -13,7 +13,7 @@
       <ul class="select-list">
         <li
           :class="[{current: item === value}, 'select-item']"
-          v-for="item in list"
+          v-for="item in selectList"
           :key="item"
           @click="select(item)"
         >
@@ -28,12 +28,22 @@
 import ArrowDownIcon from '@/components/icons/ArrowDownIcon'
 export default {
   components: {ArrowDownIcon},
+  props: {
+    list: {
+      type: Array,
+      default: null,
+    },
+  },
   data() {
     return {
       value: 'Select Workspace',
-      list: ['Orange', 'Apple', 'Kiwi', 'Lemon', 'Pineapple'],
       visible: false,
     }
+  },
+  computed: {
+    selectList() {
+      return ['Create new Workspace', ...this.list]
+    },
   },
   methods: {
     toggle() {
