@@ -12,4 +12,8 @@ export default {
   [mutator.SET_WORKSPACES](state, workspaces) {
     state.workspaces = workspaces
   },
+
+  [mutator.SET_USER_INFORMATION](state, userId) {
+    state.userId = userId
+  },
 }
