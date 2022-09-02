@@ -24,6 +24,10 @@ class UserUpdate(UpdateAPIView):
 class UserDelete(DestroyAPIView):
   queryset = User.objects.all()
   serializer_class = UserSerializer
+class LoggedInUserView(APIView):
+  def get(self, request):
+    serializer = UserSerializer(self.request.user)
+    return Response(serializer.data)
 
 # === Project API ====================
 
@@ -71,7 +75,3 @@ class WorkspaceDelete(DestroyAPIView):
   queryset = Workspace.objects.all()
   serializer_class = WorkspaceSerializer
 
-class LoggedInUserView(APIView):
-  def get(self, request):
-    serializer = UserSerializer(self.request.user)
-    return Response(serializer.data)
