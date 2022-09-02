@@ -6,7 +6,7 @@ export default {
     commit(mutator.SET_LOADING, true)
     try {
       await api.logout()
-      window.location.href = 'accounts/login'
+      window.location.href = '/accounts/login'
     } catch (e) {
       console.log(e)
     } finally {
@@ -38,6 +38,18 @@ export default {
     }
   },
 
+  async [action.GET_USER_INFORMATION]({commit}) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const user = await api.getLoggedUser()
+      commit(mutator.SET_USER_INFORMATION, user.id)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
   async [action.CREATE_WORKSPACE]({commit}, workspace) {
     commit(mutator.SET_LOADING, true)
     try {
@@ -60,26 +72,7 @@ export default {
     }
   },
 
-  async [action.CREATE_PROJECT]({commit}, newProject) {
-    commit(mutator.SET_LOADING, true)
-    try {
-      await api.createNewProject(newProject)
-    } catch (e) {
-      console.log(e)
-    } finally {
-      commit(mutator.SET_LOADING, false)
-    }
-  },
-
-  async [action.GET_USER_INFORMATION]({commit}) {
-    commit(mutator.SET_LOADING, true)
-    try {
-      const user = await api.getLoggedUser()
-      commit(mutator.SET_USER_INFORMATION, user.id)
-    } catch (e) {
-      console.log(e)
-    } finally {
-      commit(mutator.SET_LOADING, false)
-    }
+  async [action.UPDATE_NEW_PROJECT]({commit}, projectInformation) {
+    commit(mutator.SET_NEW_PROJECT, projectInformation)
   },
 }

@@ -1,7 +1,7 @@
 <template>
   <header class="header">
     <section class="section-search">
-      <LogoIcon class="logo" />
+      <LogoIcon class="logo" @click="goToDashboard" />
       <BaseInput :is-search="true" :placeholder="'Type to search'" />
     </section>
 
@@ -46,6 +46,12 @@ export default {
     async logout() {
       await this[action.LOGOUT]()
     },
+
+    goToDashboard() {
+      this.$router.push({
+        name: 'Home',
+      })
+    },
   },
 }
 </script>
@@ -62,6 +68,8 @@ export default {
 }
 
 .logo {
+  cursor: pointer;
+
   width: 75px;
   height: 30px;
   margin: 5px 65px 0 0;

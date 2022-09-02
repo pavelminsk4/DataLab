@@ -12,9 +12,7 @@
         <div class="progress-line"></div>
         <div class="progress-item">2</div>
       </div>
-      <BaseButton class="next-button" @click="$emit('next-step')">
-        Next
-      </BaseButton>
+      <BaseButton class="next-button" @click="nextStep"> Next </BaseButton>
     </div>
   </div>
   <div class="hint">Name the project and choose source Type</div>
@@ -22,19 +20,26 @@
   <section class="form-section">
     <div>
       <h4 class="project-name">Name</h4>
-      <BaseInput class="input-field" :placeholder="'Project Name'" />
+      <BaseInput
+        class="input-field"
+        :placeholder="'Project Name'"
+        v-model="nameProject"
+      />
 
       <h4 class="project-name">Workspace</h4>
       <BaseSelect
         v-model="workspace"
+        :value="workspace"
         class="select"
         :list="headingsWorkspaces"
+        @select-option="selectWorkspace"
       />
 
       <h4 class="project-name">Description</h4>
       <textarea
         class="description-field"
         placeholder="Some words about your project"
+        v-model="description"
       />
     </div>
 
@@ -46,6 +51,8 @@
         :label="item.name"
         :value="selectedValue"
         :checked="item"
+        :is-background="true"
+        v-model="selectedValue"
         @change="changeValue(item)"
       >
         <template v-slot:default>
@@ -91,8 +98,6 @@ export default {
   },
   data() {
     return {
-      plan_on_driving: null,
-      activePlan: '',
       deliveryChannels: [
         {
           name: 'Social',
@@ -110,6 +115,8 @@ export default {
           icon: 'Premium',
         },
       ],
+      nameProject: '',
+      description: '',
       selectedValue: '',
       workspace: null,
     }
@@ -120,6 +127,17 @@ export default {
     }),
     headingsWorkspaces() {
       return this.workspaces.map((el) => el.title)
+    },
+    chanelType() {
+      if (this.selectedValue.name === 'Online') {
+        return {online: true}
+      } else if (this.selectedValue.name === 'Social') {
+        return {social: true}
+      } else if (this.selectedValue.name === 'Premium') {
+        return {premium: true}
+      }
+
+      return {}
     },
   },
   async created() {
@@ -134,6 +152,18 @@ export default {
       this.$router.push({
         name: 'Home',
       })
+    },
+    nextStep() {
+      this.$emit(
+        'next-step',
+        this.nameProject,
+        this.description,
+        this.chanelType,
+        this.workspace
+      )
+    },
+    selectWorkspace(option) {
+      this.workspace = option
     },
   },
 }
@@ -299,6 +329,16 @@ export default {
 
   font-size: 14px;
   color: var(--secondary-text-color);
+}
+
+@media screen and (max-width: 1300px) {
+  .form-section {
+    flex-direction: column;
+  }
+
+  .radio-buttons {
+    margin: 30px -15px 30px;
+  }
 }
 </style>
 

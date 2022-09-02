@@ -56,6 +56,7 @@ export default {
 }
 
 .input {
+  width: 100%;
   padding-left: 16px;
 
   border: none;

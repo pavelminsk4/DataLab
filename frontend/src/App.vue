@@ -20,6 +20,11 @@ export default {
 body {
   margin: 0;
   padding: 0;
+
+  min-height: fit-content;
+  background: url(http://localhost:8080/img/img.1694ddef.svg) 50% 50% no-repeat;
+  background-color: var(--primary-bg-color);
+  background-size: 919px 100%;
 }
 
 :root {
@@ -40,5 +45,6 @@ body {
   --progress-line: #34353b;
 
   --tag-color: #30f47e;
+  --key-word-color: #e7a747;
 }
 </style>

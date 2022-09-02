@@ -1,5 +1,7 @@
 <template>
-  <label class="radio" :class="{selected: Object.is(checked, value)}">
+  <label
+    :class="[{selected: Object.is(checked, value)}, isBackground && 'radio']"
+  >
     <input
       class="input-radio"
       type="radio"
@@ -19,6 +21,7 @@ export default {
     label: {type: String, default: undefined},
     value: {type: [String, Number, Object], required: true},
     name: {type: String, required: false},
+    isBackground: {type: Boolean, default: false},
   },
   model: {
     prop: 'checked',
@@ -29,7 +32,6 @@ export default {
       get() {
         return this.value
       },
-
       set() {
         this.$emit('change', this.label)
       },
