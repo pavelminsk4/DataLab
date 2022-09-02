@@ -1,12 +1,22 @@
 <template>
   <div class="base-tag">
-    <div v-for="(tag, index) in tags" :key="index" class="input-tag">
+    <div
+      v-for="(tag, index) in tags"
+      :key="index"
+      :class="['input-tag', isMainField ? 'input-main' : 'input-key']"
+    >
       {{ tag }}
-      <DeleteTagButton @click="removeTag(index)" class="delete-tag" />
+      <DeleteTagButton
+        @click="removeTag(index)"
+        :class="[
+          'delete-tag',
+          isMainField ? 'delete-tag-main' : 'delete-tag-key',
+        ]"
+      />
     </div>
     <input
       type="text"
-      placeholder="lol"
+      :placeholder="placeholder"
       @keydown="addTag"
       @keydown.delete="removeLastTag"
       class="input-text"
@@ -19,6 +29,16 @@ import DeleteTagButton from '@/components/icons/DeleteTagButton'
 export default {
   name: 'BaseTag',
   components: {DeleteTagButton},
+  props: {
+    placeholder: {
+      type: String,
+      default: 'Enter text',
+    },
+    isMainField: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data() {
     return {
       tags: ['hello', 'hey'],
@@ -62,7 +82,7 @@ export default {
   border-radius: 10px;
   background: var(--secondary-bg-color);
 
-  overflow-x: auto;
+  overflow: auto;
 }
 
 .base-tag::-webkit-scrollbar {
@@ -93,15 +113,32 @@ export default {
   padding: 4px 8px 5px 10px;
 
   border-radius: 8px;
+}
+
+.input-main {
   background: rgba(51, 204, 112, 0.2);
 
   color: var(--tag-color);
+}
+
+.input-key {
+  background: rgba(231, 167, 71, 0.2);
+
+  color: var(--key-word-color);
 }
 
 .delete-tag {
   cursor: pointer;
 
   margin-left: 12px;
+}
+
+.delete-tag-key {
+  color: var(--key-word-color);
+}
+
+.delete-tag-main {
+  color: var(--tag-color);
 }
 
 .input-text {

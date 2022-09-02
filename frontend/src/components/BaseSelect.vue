@@ -59,7 +59,6 @@ export default {
 <style lang="scss" scoped>
 .selector {
   position: relative;
-  z-index: 1;
 
   border: 1px solid var(--input-border-color);
   box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
@@ -100,8 +99,7 @@ export default {
   margin: 0;
   width: 100%;
 
-  border: 1px solid var(--primary-button-color);
-  border-top: none;
+  outline: 1px solid var(--primary-button-color);
   box-shadow: 0 3px 4px rgba(5, 95, 252, 0.49);
   border-radius: 0 0 10px 10px;
   background-color: var(--secondary-bg-color);

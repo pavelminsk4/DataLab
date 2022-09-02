@@ -46,6 +46,7 @@
         :label="item.name"
         :value="selectedValue"
         :checked="item"
+        :is-background="true"
         @change="changeValue(item)"
       >
         <template v-slot:default>

@@ -40,5 +40,6 @@ body {
   --progress-line: #34353b;
 
   --tag-color: #30f47e;
+  --key-word-color: #e7a747;
 }
 </style>
