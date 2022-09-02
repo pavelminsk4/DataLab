@@ -23,12 +23,7 @@ export default {
 .main-layout-wrapper {
   position: relative;
 
-  height: 100vh;
   padding: 0 69px 0 79px;
-
-  background: url(../../assets/img.svg) 50% 50% no-repeat;
-  background-color: var(--primary-bg-color);
-  background-size: 919px 100%;
 }
 
 .content {

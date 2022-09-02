@@ -44,7 +44,7 @@
           @change="changeValue(item)"
         >
           <template v-slot:default>
-            <div class="not-check"><CheckRadioIcon /></div>
+            <div class="not-check"><CheckRadioIcon class="check-icon" /></div>
             {{ item.value }}
           </template>
         </BaseRadio>
@@ -64,7 +64,7 @@
 
       <div class="radio-wrapper">
         <BaseRadio
-          v-for="(item, index) in alexaRanking"
+          v-for="(item, index) in countriesGroup"
           :key="index"
           :checked="item"
           :value="selectedValue"
@@ -72,7 +72,7 @@
           @change="changeValue(item)"
         >
           <template v-slot:default>
-            <div class="not-check"><CheckRadioIcon /></div>
+            <div class="not-check"><CheckRadioIcon class="check-icon" /></div>
             {{ item.value }}
           </template>
         </BaseRadio>
@@ -108,6 +108,7 @@ export default {
   data() {
     return {
       alexaRanking: [{value: '10%'}, {value: '20%'}, {value: '30%'}],
+      countriesGroup: [{value: 'GCC'}, {value: 'OPEC'}, {value: 'G20'}],
       selectedValue: '',
       country: null,
       countryArray: [1, 2],
@@ -198,6 +199,8 @@ export default {
   margin-right: 25px;
 
   color: var(--primary-text-color);
+
+  cursor: pointer;
 }
 
 .not-check {
@@ -211,6 +214,8 @@ export default {
 
   border: 1px solid var(--secondary-text-color);
   border-radius: 50px;
+
+  cursor: pointer;
 }
 
 .radio-wrapper {
@@ -223,6 +228,10 @@ export default {
 .select,
 .input {
   margin: 12px 0 25px;
+}
+
+.check-icon {
+  display: none;
 }
 </style>
 
@@ -238,5 +247,9 @@ export default {
 .radio-wrapper > .selected .not-check {
   border: none;
   background: var(--primary-button-color);
+}
+
+.radio-wrapper > .selected .check-icon {
+  display: flex;
 }
 </style>

@@ -50,6 +50,7 @@ export default {
       this.visible = !this.visible
     },
     select(option) {
+      this.$emit('select-option', option)
       this.value = option
     },
   },

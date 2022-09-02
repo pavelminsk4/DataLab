@@ -132,6 +132,7 @@ export default {
   width: 100%;
   padding: 50px 20px 20px;
 
+  background: var(--icon-bg-color);
   color: var(--primary-text-color);
 }
 

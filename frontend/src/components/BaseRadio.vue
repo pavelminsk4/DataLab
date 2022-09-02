@@ -32,7 +32,6 @@ export default {
       get() {
         return this.value
       },
-
       set() {
         this.$emit('change', this.label)
       },

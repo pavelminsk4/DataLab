@@ -12,7 +12,7 @@
         <div class="progress-line"></div>
         <div class="progress-item">2</div>
       </div>
-      <BaseButton class="next-button" @click="$emit('next-step')">
+      <BaseButton class="next-button" @click="$emit('save-project')">
         Save Project
       </BaseButton>
     </div>

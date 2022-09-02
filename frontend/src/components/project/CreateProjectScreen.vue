@@ -1,10 +1,17 @@
 <template>
   <MainLayout>
-    <component :is="projectSteps" @next-step="nextStep()" />
+    <component
+      :is="projectSteps"
+      @next-step="nextStep"
+      @save-project="saveProject"
+    />
   </MainLayout>
 </template>
 
 <script>
+import {mapActions, mapGetters, mapState} from 'vuex'
+import {action, get} from '@store/constants'
+
 import MainLayout from '@components/layout/MainLayout'
 import CreateProjectFirstStep from '@components/project/CreateProjectFirstStep'
 import CreateProjectSecondStep from '@components/project/CreateProjectSecondStep'
@@ -22,6 +29,10 @@ export default {
     }
   },
   computed: {
+    ...mapState(['newProject']),
+    ...mapGetters({
+      workspaces: get.WORKSPACES,
+    }),
     projectSteps() {
       return this.isNextStep
         ? 'CreateProjectSecondStep'
@@ -29,8 +40,32 @@ export default {
     },
   },
   methods: {
-    nextStep() {
+    ...mapActions([action.UPDATE_NEW_PROJECT, action.CREATE_PROJECT]),
+    async updateProject(projectInformation) {
+      await this[action.UPDATE_NEW_PROJECT](projectInformation)
+    },
+    async createProject(projectInformation) {
+      await this[action.CREATE_PROJECT](projectInformation)
+    },
+    nextStep(nameProject, workspace, chanelType) {
+      this.loading = true
+      this.updateProject({
+        title: nameProject,
+        note: 'text',
+        workspace: workspace,
+        ...chanelType,
+      })
       this.isNextStep = !this.isNextStep
+    },
+    saveProject() {
+      this.loading = true
+      this.createProject({
+        ...this.newProject,
+        creator: 1,
+      })
+      this.$router.push({
+        name: 'Home',
+      })
     },
   },
 }
