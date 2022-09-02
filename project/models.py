@@ -41,14 +41,6 @@ class Project(models.Model):
   def __str__(self):
     return self.title
 class Feedlinks(models.Model):
-
-  category1 = (
-          ('news', 'News'),
-          ('magazine', 'Magazine'),
-          ('blog', 'Blog'),
-          ('forum', 'Forum'),
-          )
-
   url = models.URLField(max_length=200,null=True,blank=True,unique=True)
   source = models.CharField("Source",max_length=200, null=True, blank=True)
   page = models.CharField("Page",max_length=200,null=True,blank=True)
@@ -67,9 +59,6 @@ class Feedlinks(models.Model):
   languagecode = models.CharField("Language Code",max_length=2,null=True,blank=True)
   sourceurl = models.URLField(max_length=200,null=True,blank=True)
   issourcefeed = models.BooleanField(default=False)
-  
-  class Meta:
-      indexes = [models.Index(fields=['url', ]), models.Index(fields=['errornotes', ])]
 
   def __str__(self):
     return self.url
