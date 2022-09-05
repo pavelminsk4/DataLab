@@ -8,10 +8,13 @@
       <title>{% block title %}{% endblock %}</title>
       <link rel="stylesheet" href="{% static "css/style.css" %}" />
       <link rel="stylesheet" href="{% static "css/registration.css" %}" />
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
   </head>
   <body>
               <h1 class="auth">Log in</h1>
+
+              <p class='hint'>Welcome back! Please log in to your account</p>
+
               {% if form.errors %}
               <p class="hint">Your username and password didn't match. Please try again.</p>
               {% endif %}
@@ -29,8 +32,8 @@
                   {% csrf_token %}
 
                   <div class="input-field">
-                      <label class="input-label" for="username">E-mail</label>
-                      <input class="input-form" type="text" id="id_username" name="username" placeholder="Enter your e-mail"
+                      <label class="input-label" for="username">Username</label>
+                      <input class="input-form" type="text" id="id_username" name="username" placeholder="Enter your username"
                              required>
                   </div>
 
@@ -41,7 +44,10 @@
                       </div>
                       <input class="input-form" type="password" id="id_password" name="password" placeholder="Enter password"
                              required>
-                      <i class="bi bi-eye-slash eye-password" id="togglePassword"></i>
+                      <div id="toggle_password">
+                          <img class="open-eye eye-password" id="open_eye" src="../../static/img/OpenEye.svg" alt="open-eye" />
+                          <img class="close-eye eye-password" id="close_eye" src="../../static/img/CloseEye.svg" alt="close-eye" />
+                      </div>
                   </div>
 
                   <div class="submit-form">
@@ -55,16 +61,5 @@
                   </div>
               </form>
   {% endblock %}
-
-  <script>
-      const togglePassword = document.querySelector("#togglePassword");
-      const password = document.querySelector("#id_password");
-
-      togglePassword.addEventListener("click", function () {
-          const type = password.getAttribute("type") === "password" ? "text" : "password";
-          password.setAttribute("type", type);
-          this.classList.toggle("bi-eye");
-      });
-  </script>
   </body>
   </html>

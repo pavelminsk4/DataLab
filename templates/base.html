@@ -7,6 +7,7 @@
   <meta charset="utf-8">
   <link rel="stylesheet" href="{% static "css/style.css" %}" />
   <link rel="stylesheet" href="{% static "css/registration.css" %}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
 </head>
 <body>
   <main>
@@ -23,4 +24,35 @@
       </div>
   </main>
 </body>
+
+<script>
+    const togglePassword = document.querySelector("#toggle_password");
+    const password = document.querySelector("#id_password");
+    const openEye = document.querySelector('#open_eye')
+    const closeEye = document.querySelector('#close_eye')
+
+    togglePassword.addEventListener("click", function () {
+        const type = password.getAttribute("type") === "password" ? "text" : "password";
+        password.setAttribute("type", type);
+        closeEye.classList.toggle("toggle-close")
+        openEye.classList.toggle("toggle-open")
+    });
+
+    function ValidateEmail(inputText) {
+        let emailField = document.querySelector("#id_email")
+        let wrongBlock = document.querySelector("#wrong_email")
+        let mailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+        function add() {
+            if(!inputText.toLowerCase().match(mailFormat)) {
+                emailField.classList.remove("wrong-email")
+                wrongBlock.classList.remove("wrong-email-text")
+            }
+
+            emailField.classList.remove("wrong-email")
+            wrongBlock.classList.remove("wrong-email-text")
+        }
+        return add()
+    }
+</script>
 </html>
