@@ -67,8 +67,11 @@ input, .input-form, .emailinput {
     background: #FFFFFF;
 }
 
+.wrong-email {
+    border: 1px solid #FF9494;
+}
+
 input::placeholder {
-    box-shadow: 0 4px 16px rgba(211, 218, 231, 0.2);
     border-radius: 4px;
 
     color: #9198A7;
@@ -79,15 +82,20 @@ input:focus {
     outline: 0;
 }
 
+.wrong-email > input:focus {
+    border: 1px solid #FF9494;
+}
+
 .forgot-password-link {
     text-decoration: none;
 
+    font-weight: 300;
     color: #4490FF;
 }
 
 .eye-password {
     position: absolute;
-    top: 39px;
+    top: 42px;
     right: 17px;
 
     color: #9198A7;
@@ -151,11 +159,18 @@ input:focus {
     margin-top: 20px;
 }
 
+form {
+    position: relative;
+}
+
 .login-button {
+    cursor: pointer;
+
     align-self: flex-end;
 
     height: 44px;
     width: 148px;
+    padding-left: 0;
 
     outline: inherit;
 
@@ -166,8 +181,49 @@ input:focus {
     background: #4490FF;
 }
 
+.login-button:hover {
+    background: rgba(5, 95, 252, 0.6);
+}
+
+.wrong-email-block {
+    display: none;
+}
+
+.wrong-email-text {
+    position: absolute;
+    bottom: 110px;
+    right: 15px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-weight: 400;
+    font-size: 10px;
+    color: #FF9494;
+}
+
+.img-warning {
+    height: 14px;
+    width: 14px;
+    margin-left: 4px;
+}
+
 .arrow {
     margin-right: 7px;
+}
+
+
+.open-eye {
+    display: none;
+}
+
+.toggle-open {
+    display: flex;
+}
+
+.toggle-close {
+    display: none;
 }
 
 

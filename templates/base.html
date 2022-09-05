@@ -23,4 +23,35 @@
       </div>
   </main>
 </body>
+
+<script>
+    const togglePassword = document.querySelector("#toggle_password");
+    const password = document.querySelector("#id_password");
+    const openEye = document.querySelector('#open_eye')
+    const closeEye = document.querySelector('#close_eye')
+
+    togglePassword.addEventListener("click", function () {
+        const type = password.getAttribute("type") === "password" ? "text" : "password";
+        password.setAttribute("type", type);
+        closeEye.classList.toggle("toggle-close")
+        openEye.classList.toggle("toggle-open")
+    });
+
+    function validateEmail(inputText) {
+        let emailField = document.querySelector("#id_email")
+        let wrongBlock = document.querySelector("#wrong_email")
+        let mailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+        function updateFieldStatus() {
+            if(!inputText.toLowerCase().match(mailFormat)) {
+                emailField.classList.remove("wrong-email")
+                wrongBlock.classList.remove("wrong-email-text")
+            }
+
+            emailField.classList.remove("wrong-email")
+            wrongBlock.classList.remove("wrong-email-text")
+        }
+        return updateFieldStatus()
+    }
+</script>
 </html>
