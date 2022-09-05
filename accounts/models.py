@@ -15,7 +15,7 @@ class Profile(models.Model):
     phone = models.CharField("Phon No",max_length=100,null=True)
     jobtitle = models.CharField("Job Title",max_length=100,null=True)
     department = models.ForeignKey(department,blank=True,null=True,on_delete=models.CASCADE,related_name='department_users',verbose_name ='Department') #new
-
+    photo = models.ImageField(upload_to='static/user_image')
 
     def __str__(self):
         return str(self.user)
