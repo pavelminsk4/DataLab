@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'api.apps.ApiConfig',
     'import_export',
+    'django_crontab',
 ]
 
 MIDDLEWARE = [
@@ -146,3 +147,7 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.AllowAny'
     ]
 }
+
+CRONJOBS = [
+    ('* * * * *', 'project.cron.feed_receiver')
+]
