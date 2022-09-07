@@ -16,7 +16,7 @@ class WorkspaceSerializer(serializers.ModelSerializer):
   projects = ProjectSerializer(many=True)
   class Meta:
     model = Workspace
-    fields = ['title', 'description', 'members', 'company', 'projects']
+    fields = ['id', 'title', 'description', 'members', 'company', 'projects']
 
 class WorkspaceCreateSerializer(serializers.ModelSerializer):
   class Meta:
