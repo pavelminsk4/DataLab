@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'api.apps.ApiConfig',
     'import_export',
     'django_crontab',
+    'workspace.apps.WorkspaceConfig',
 ]
 
 MIDDLEWARE = [
