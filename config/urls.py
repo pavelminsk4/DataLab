@@ -8,4 +8,5 @@ urlpatterns = [
     path('accounts/', include('accounts.urls',namespace='accounts')),
     path('projects/', include('project.urls')),
     path('api/', include('api.urls')),
+    path('workspace/', include('workspace.urls', namespace='workspace')),
 ]
