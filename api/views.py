@@ -5,7 +5,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import ProjectSerializer, Workspace
 from django.contrib.auth.models import User
-from project.models import Project, Workspace
+from project.models import Project, Workspace, Post
+from django.http import JsonResponse
 
 # ==== User API =======================
 
@@ -74,3 +75,11 @@ class WorkspaceUpdate(UpdateAPIView):
 class WorkspaceDelete(DestroyAPIView):
   queryset = Workspace.objects.all()
   serializer_class = WorkspaceSerializer
+
+# === Search API =====
+
+def search(request):
+  key = request.GET.get("fname")
+  posts = Post.objects.filter(entry_title__contains=key).values('entry_title')
+  posts_list=list(posts)
+  return JsonResponse(posts_list,safe = False)

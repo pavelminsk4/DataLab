@@ -19,4 +19,6 @@ urlpatterns = [
   path("workspace/update/<int:pk>/",views.WorkspaceUpdate.as_view(),name="workspace_update"),
   path("workspace/delete/<int:pk>/",views.WorkspaceDelete.as_view(),name="workspace_delete"),
   path("workspace/<int:pk>", views.SingleWorkspace.as_view(), name="single_workspace"),
+  # Search
+  path("search", views.search, name='search'),
   ]
