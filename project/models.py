@@ -24,7 +24,7 @@ class Workspace(models.Model):
 
 class Project(models.Model):
   title = models.CharField(max_length=100)
-  creator = models.ForeignKey(User, on_delete=models.CASCADE)
+  creator = models.ForeignKey(User,related_name='creator', on_delete=models.CASCADE)
   created_at = models.DateTimeField(auto_now_add=True)
   note = models.CharField(max_length=200, null=True, blank=True)
   keywords = models.CharField(max_length=200, null=True, blank=True)
@@ -37,6 +37,7 @@ class Project(models.Model):
   social = models.BooleanField(default=False)
   online = models.BooleanField(default=False)
   premium = models.BooleanField(default=False)
+  members = models.ManyToManyField(User,related_name='members',null=True,blank=True)
 
   def __str__(self):
     return self.title
