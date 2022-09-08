@@ -74,4 +74,3 @@ class WorkspaceUpdate(UpdateAPIView):
 class WorkspaceDelete(DestroyAPIView):
   queryset = Workspace.objects.all()
   serializer_class = WorkspaceSerializer
-
