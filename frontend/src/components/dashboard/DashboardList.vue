@@ -7,7 +7,7 @@
       @close="toggleModal"
       @create-workspace="createWorkspace"
     />
-    <div v-if="workspaces" class="create-project-wrapper">
+    <div class="create-project-wrapper">
       <div>
         <h1 class="title">Dashboard</h1>
         <span class="hint"
@@ -39,6 +39,7 @@
         v-for="(item, index) in workspaces"
         :key="index"
         :title="item.title"
+        @click="navigateToWorkspace(item.id)"
       />
     </div>
   </MainLayout>
@@ -88,7 +89,7 @@ export default {
       action.GET_USER_INFORMATION,
     ]),
     toggleModal() {
-      return (this.isOpenModal = !this.isOpenModal)
+      this.isOpenModal = !this.isOpenModal
     },
     async createWorkspace(title, description, members) {
       try {
@@ -109,6 +110,10 @@ export default {
       this.$router.push({
         name: 'CreateProject',
       })
+    },
+    navigateToWorkspace(id) {
+      this.loading = true
+      this.$router.push({name: 'Workspace', params: {workspaceId: id}})
     },
   },
 }
