@@ -11,6 +11,8 @@
         <div class="progress-item">1</div>
         <div class="progress-line"></div>
         <div class="progress-item">2</div>
+        <div class="progress-line"></div>
+        <div class="progress-item">3</div>
       </div>
       <BaseButton class="next-button" @click="nextStep"> Next </BaseButton>
     </div>
@@ -24,15 +26,6 @@
         class="input-field"
         :placeholder="'Project Name'"
         v-model="nameProject"
-      />
-
-      <h4 class="project-name">Workspace</h4>
-      <BaseSelect
-        v-model="workspace"
-        :value="workspace"
-        class="select"
-        :list="headingsWorkspaces"
-        @select-option="selectWorkspace"
       />
 
       <h4 class="project-name">Description</h4>
@@ -58,10 +51,12 @@
         <template v-slot:default>
           <div class="radio-title">
             {{ item.name }}
-            <component
-              :is="checkSelectOption(selectedProxy.name, item)"
-              v-bind="$attrs"
-            />
+            <div class="icon-section">
+              <component
+                :is="checkSelectOption(selectedProxy.name, item)"
+                v-bind="$attrs"
+              />
+            </div>
           </div>
         </template>
 
@@ -123,7 +118,6 @@ export default {
       nameProject: '',
       description: '',
       selectedValue: {},
-      workspace: null,
     }
   },
   computed: {
@@ -137,9 +131,6 @@ export default {
       set(val) {
         this.selectedValue = val
       },
-    },
-    headingsWorkspaces() {
-      return this.workspaces.map((el) => el.title)
     },
     chanelType() {
       if (this.selectedValue.name === 'Online') {
@@ -167,16 +158,7 @@ export default {
       })
     },
     nextStep() {
-      this.$emit(
-        'next-step',
-        this.nameProject,
-        this.description,
-        this.chanelType,
-        this.workspace
-      )
-    },
-    selectWorkspace(option) {
-      this.workspace = option
+      this.$emit('next-step', this.nameProject, this.chanelType)
     },
     checkSelectOption(selectedItem, item) {
       return selectedItem === item.name
@@ -290,10 +272,6 @@ export default {
   margin-top: 40px;
 }
 
-.select {
-  width: 475px;
-}
-
 .input-field {
   width: 475px;
 }
@@ -367,5 +345,17 @@ export default {
 
 .selected > .radio-description {
   color: var(--primary-text-color);
+}
+
+.icon-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 34px;
+  width: 34px;
+
+  border: 1px solid #9198a7;
+  border-radius: 29px;
 }
 </style>

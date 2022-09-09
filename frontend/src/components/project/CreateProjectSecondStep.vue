@@ -11,9 +11,11 @@
         <div class="progress-item">1</div>
         <div class="progress-line"></div>
         <div class="progress-item">2</div>
+        <div class="progress-line"></div>
+        <div class="progress-item">3</div>
       </div>
       <BaseButton class="next-button" @click="$emit('save-project')">
-        Save Project
+        Save Workspace
       </BaseButton>
     </div>
   </div>
