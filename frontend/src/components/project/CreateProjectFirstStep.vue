@@ -28,15 +28,6 @@
         v-model="nameProject"
       />
 
-      <h4 class="project-name">Workspace</h4>
-      <BaseSelect
-        v-model="workspace"
-        :value="workspace"
-        class="select"
-        :list="headingsWorkspaces"
-        @select-option="selectWorkspace"
-      />
-
       <h4 class="project-name">Description</h4>
       <textarea
         class="description-field"
@@ -127,7 +118,6 @@ export default {
       nameProject: '',
       description: '',
       selectedValue: {},
-      workspace: null,
     }
   },
   computed: {
@@ -141,12 +131,6 @@ export default {
       set(val) {
         this.selectedValue = val
       },
-    },
-    headingsWorkspaces() {
-      return this.workspaces.map((el) => el.title)
-    },
-    workspaceId() {
-      return this.workspaces.filter((el) => el.title === this.workspace)[0].id
     },
     chanelType() {
       if (this.selectedValue.name === 'Online') {
@@ -174,15 +158,7 @@ export default {
       })
     },
     nextStep() {
-      this.$emit(
-        'next-step',
-        this.nameProject,
-        this.chanelType,
-        this.workspaceId
-      )
-    },
-    selectWorkspace(option) {
-      this.workspace = option
+      this.$emit('next-step', this.nameProject, this.chanelType)
     },
     checkSelectOption(selectedItem, item) {
       return selectedItem === item.name
@@ -294,10 +270,6 @@ export default {
   justify-content: space-between;
 
   margin-top: 40px;
-}
-
-.select {
-  width: 475px;
 }
 
 .input-field {

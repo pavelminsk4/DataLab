@@ -2,7 +2,6 @@
   <header class="header">
     <section class="section-search">
       <LogoIcon class="logo" @click="goToDashboard" />
-      <BaseInput :is-search="true" :placeholder="'Type to search'" />
     </section>
 
     <div class="section-company">
@@ -22,7 +21,6 @@
 import {mapActions} from 'vuex'
 import {action} from '@store/constants'
 
-import BaseInput from '@components/BaseInput'
 import BaseButton from '@components/buttons/BaseButton'
 
 import LogoIcon from '@components/icons/LogoIcon'
@@ -35,7 +33,6 @@ export default {
   components: {
     BaseButton,
     LogoIcon,
-    BaseInput,
     UserWithoutPhotoIcon,
     ActiveBellIcon,
     ArrowDownIcon,
