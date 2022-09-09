@@ -5,7 +5,7 @@
       :member="member"
       @next-step="nextStep"
       @save-project="saveProject"
-      @create-workspace="createWorkspace"
+      @create-project-step="createWorkspace"
     />
   </MainLayout>
 </template>
@@ -30,6 +30,9 @@ export default {
   data() {
     return {
       step: 1,
+      title: '',
+      description: '',
+      members: [],
     }
   },
   computed: {
@@ -67,37 +70,35 @@ export default {
     async createWorkspace(title, description, members) {
       try {
         this.loading = true
-        await this[action.CREATE_WORKSPACE]({
-          title,
-          description,
-          members,
-        })
+        this.title = title
+        this.description = description
+        this.members = members
         this.step = 2
-        await this[action.GET_WORKSPACES]()
       } catch (error) {
         this.loading = false
       }
     },
-    nextStep(nameProject, chanelType, workspace) {
+    nextStep(nameProject, chanelType) {
       this.loading = true
       this.updateProject({
         title: nameProject,
         note: 'text',
-        workspase: workspace,
         ...chanelType,
       })
       this.step = 3
     },
-    saveProject() {
+    async saveProject() {
       this.loading = true
-      this.createProject({
-        ...this.newProject,
-        keywords: 'test',
-        creator: 1,
+      this[action.CREATE_WORKSPACE]({
+        title: this.title,
+        description: this.description,
+        members: this.members,
+        projects: [{...this.newProject, keywords: 'test', creator: 1}],
       })
       this.$router.push({
         name: 'Home',
       })
+      await this[action.GET_WORKSPACES]()
     },
   },
 }

@@ -18,7 +18,6 @@ const state = {
     online: false,
     premium: false,
     creator: null,
-    workspace: null,
   },
 }
 

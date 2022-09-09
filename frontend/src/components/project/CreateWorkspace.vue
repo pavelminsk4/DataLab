@@ -14,7 +14,7 @@
         <div class="progress-line"></div>
         <div class="progress-item">3</div>
       </div>
-      <BaseButton class="next-button" @click="addWorkspace"> Next </BaseButton>
+      <BaseButton class="next-button" @click="createProject"> Next </BaseButton>
     </div>
   </div>
 
@@ -68,8 +68,13 @@ export default {
     },
   },
   methods: {
-    addWorkspace() {
-      this.$emit('create-workspace', this.title, this.description, this.members)
+    createProject() {
+      this.$emit(
+        'create-project-step',
+        this.title,
+        this.description,
+        this.members
+      )
     },
     backToHome() {
       this.$router.push({
