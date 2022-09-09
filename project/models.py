@@ -33,7 +33,7 @@ class Project(models.Model):
   image = models.ImageField(null=True, blank=True, upload_to='images')
   arabic_name = models.CharField(max_length=100, null=True, blank=True)
   english_name = models.CharField(max_length=100, null=True, blank=True)
-  workspase = models.ForeignKey(Workspace, related_name='projects', blank=True, null=True, on_delete=models.CASCADE)
+  workspace = models.ForeignKey(Workspace, related_name='projects', blank=True, null=True, on_delete=models.CASCADE)
   social = models.BooleanField(default=False)
   online = models.BooleanField(default=False)
   premium = models.BooleanField(default=False)
