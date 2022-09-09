@@ -54,20 +54,19 @@
         <td>{{ item.creator }}</td>
         <td>USERS</td>
         <td>{{ projectCreationDate(item.created_at) }}</td>
-        <td>
-          <TableSettingsButton :id="item.id" />
-        </td>
+        <td><TableSettingsButton :id="item.id" /></td>
       </tr>
     </tbody>
   </table>
 </template>
 
 <script>
+import PointsIcon from '@/components/icons/PointsIcon'
 import SocialRadioIcon from '@components/icons/SocialRadioIcon'
 import OnlineRadioIcon from '@components/icons/OnlineRadioIcon'
 import PremiumRadioIcon from '@components/icons/PremiumRadioIcon'
 import CheckRadioIcon from '@components/icons/CheckRadioIcon'
-import TableSettingsButton from '@/components/buttons/TableSettingsButton'
+import TableSettingsButton from '@components/buttons/TableSettingsButton'
 
 export default {
   name: 'BaseTable',
@@ -77,10 +76,12 @@ export default {
     PremiumRadioIcon,
     OnlineRadioIcon,
     SocialRadioIcon,
+    PointsIcon,
   },
   data() {
     return {
       selectedProjects: [],
+      isOpenSettings: false,
     }
   },
   props: {
@@ -117,6 +118,9 @@ export default {
     secondKeyword(keywords) {
       return keywords ? keywords.split(' ').splice(1, 1).join(' ') : ''
     },
+    toggleModal() {
+      this.isOpenSettings = !this.isOpenSettings
+    },
   },
 }
 </script>
@@ -145,7 +149,7 @@ export default {
       }
 
       th:first-child {
-        padding: 0 0 0 20px;
+        padding: 0 0 0 29px;
       }
     }
   }

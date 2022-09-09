@@ -23,7 +23,7 @@ export default {
 .main-layout-wrapper {
   position: relative;
 
-  padding: 0 69px 0 79px;
+  padding: 0 69px 60px 79px;
 }
 
 .content {
