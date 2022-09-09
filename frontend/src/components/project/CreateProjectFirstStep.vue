@@ -11,6 +11,8 @@
         <div class="progress-item">1</div>
         <div class="progress-line"></div>
         <div class="progress-item">2</div>
+        <div class="progress-line"></div>
+        <div class="progress-item">3</div>
       </div>
       <BaseButton class="next-button" @click="nextStep"> Next </BaseButton>
     </div>
@@ -58,10 +60,12 @@
         <template v-slot:default>
           <div class="radio-title">
             {{ item.name }}
-            <component
-              :is="checkSelectOption(selectedProxy.name, item)"
-              v-bind="$attrs"
-            />
+            <div class="icon-section">
+              <component
+                :is="checkSelectOption(selectedProxy.name, item)"
+                v-bind="$attrs"
+              />
+            </div>
           </div>
         </template>
 
@@ -141,6 +145,9 @@ export default {
     headingsWorkspaces() {
       return this.workspaces.map((el) => el.title)
     },
+    workspaceId() {
+      return this.workspaces.filter((el) => el.title === this.workspace)[0].id
+    },
     chanelType() {
       if (this.selectedValue.name === 'Online') {
         return {online: true}
@@ -170,9 +177,8 @@ export default {
       this.$emit(
         'next-step',
         this.nameProject,
-        this.description,
         this.chanelType,
-        this.workspace
+        this.workspaceId
       )
     },
     selectWorkspace(option) {
@@ -367,5 +373,17 @@ export default {
 
 .selected > .radio-description {
   color: var(--primary-text-color);
+}
+
+.icon-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 34px;
+  width: 34px;
+
+  border: 1px solid #9198a7;
+  border-radius: 29px;
 }
 </style>

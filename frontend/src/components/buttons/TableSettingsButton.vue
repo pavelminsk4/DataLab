@@ -1,6 +1,6 @@
 <template>
   <div class="settings-container" ref="settings-wrapper">
-    <div v-if="isOpenElement" class="options-container">
+    <div v-if="isOpenSettings" class="options-container">
       <div class="option">
         <FolderIcon />
         Move to
@@ -21,16 +21,16 @@
 <script>
 import PointsIcon from '@components/icons/PointsIcon'
 import FolderIcon from '@components/icons/FolderIcon'
-import DuplicateIcon from '@components/icons/DuplicateIcon'
 import DeleteIcon from '@components/icons/DeleteIcon'
+import DuplicateIcon from '@components/icons/DuplicateIcon'
 
 export default {
   name: 'TableSettingsButton',
   components: {
     DeleteIcon,
-    DuplicateIcon,
     FolderIcon,
     PointsIcon,
+    DuplicateIcon,
   },
   props: {
     id: {
@@ -40,7 +40,7 @@ export default {
   },
   data() {
     return {
-      isOpenElement: false,
+      isOpenSettings: false,
     }
   },
   created() {
@@ -48,13 +48,13 @@ export default {
   },
   methods: {
     openSettings() {
-      this.isOpenElement = !this.isOpenElement
+      this.isOpenSettings = !this.isOpenSettings
     },
     close() {
       const elements = document.querySelectorAll('.settings-container')
 
       if (!Array.from(elements).find((el) => el.contains(event.target))) {
-        this.isOpenElement = false
+        this.isOpenSettings = false
       }
     },
   },

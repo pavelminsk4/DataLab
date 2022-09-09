@@ -2,8 +2,10 @@
   <MainLayout>
     <component
       :is="projectSteps"
+      :member="member"
       @next-step="nextStep"
       @save-project="saveProject"
+      @create-workspace="createWorkspace"
     />
   </MainLayout>
 </template>
@@ -13,6 +15,7 @@ import {mapActions, mapGetters, mapState} from 'vuex'
 import {action, get} from '@store/constants'
 
 import MainLayout from '@components/layout/MainLayout'
+import CreateWorkspace from '@/components/project/CreateWorkspace'
 import CreateProjectFirstStep from '@components/project/CreateProjectFirstStep'
 import CreateProjectSecondStep from '@components/project/CreateProjectSecondStep'
 
@@ -20,47 +23,76 @@ export default {
   name: 'CreateProjectScreen',
   components: {
     MainLayout,
+    CreateWorkspace,
     CreateProjectFirstStep,
     CreateProjectSecondStep,
   },
   data() {
     return {
-      isNextStep: false,
+      step: 1,
     }
   },
   computed: {
     ...mapState(['newProject']),
     ...mapGetters({
       workspaces: get.WORKSPACES,
+      member: get.USER_ID,
     }),
     projectSteps() {
-      return this.isNextStep
-        ? 'CreateProjectSecondStep'
-        : 'CreateProjectFirstStep'
+      if (this.step === 2) {
+        return 'CreateProjectFirstStep'
+      } else if (this.step === 3) {
+        return 'CreateProjectSecondStep'
+      }
+      return 'CreateWorkspace'
     },
   },
+  async created() {
+    await this[action.GET_USER_INFORMATION]()
+  },
   methods: {
-    ...mapActions([action.UPDATE_NEW_PROJECT, action.CREATE_PROJECT]),
+    ...mapActions([
+      action.UPDATE_NEW_PROJECT,
+      action.CREATE_PROJECT,
+      action.CREATE_WORKSPACE,
+      action.GET_WORKSPACES,
+      action.GET_USER_INFORMATION,
+    ]),
     async updateProject(projectInformation) {
       await this[action.UPDATE_NEW_PROJECT](projectInformation)
     },
     async createProject(projectInformation) {
       await this[action.CREATE_PROJECT](projectInformation)
     },
-    nextStep(nameProject, workspace, chanelType) {
+    async createWorkspace(title, description, members) {
+      try {
+        this.loading = true
+        await this[action.CREATE_WORKSPACE]({
+          title,
+          description,
+          members,
+        })
+        this.step = 2
+        await this[action.GET_WORKSPACES]()
+      } catch (error) {
+        this.loading = false
+      }
+    },
+    nextStep(nameProject, chanelType, workspace) {
       this.loading = true
       this.updateProject({
         title: nameProject,
         note: 'text',
-        workspace: workspace,
+        workspase: workspace,
         ...chanelType,
       })
-      this.isNextStep = !this.isNextStep
+      this.step = 3
     },
     saveProject() {
       this.loading = true
       this.createProject({
         ...this.newProject,
+        keywords: 'test',
         creator: 1,
       })
       this.$router.push({

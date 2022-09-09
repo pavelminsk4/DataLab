@@ -2,7 +2,7 @@
   <MainLayout>
     <div v-if="workspace" class="create-project-wrapper">
       <div>
-        <h1 class="title">Title</h1>
+        <h1 class="title">{{ workspace.title }}</h1>
         <span class="hint">
           Select the project you want to work on or create a new search
         </span>
@@ -13,7 +13,9 @@
         </div>
       </div>
 
-      <BaseButton class="create-new-button"> Create new project </BaseButton>
+      <BaseButton class="create-new-button" @click="createProject">
+        Create new project
+      </BaseButton>
     </div>
 
     <BaseTable :values="workspace?.projects" />
@@ -49,6 +51,12 @@ export default {
   },
   methods: {
     ...mapActions([action.GET_WORKSPACES]),
+    createProject() {
+      this.loading = true
+      this.$router.push({
+        name: 'CreateProject',
+      })
+    },
   },
 }
 </script>

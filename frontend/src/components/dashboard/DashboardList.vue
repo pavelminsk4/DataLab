@@ -1,12 +1,5 @@
 <template>
   <MainLayout>
-    <NewWorkspaceModal
-      v-if="isOpenModal"
-      :member="member"
-      modal-frame-style="max-width: 518px; height: auto;"
-      @close="toggleModal"
-      @create-workspace="createWorkspace"
-    />
     <div class="create-project-wrapper">
       <div>
         <h1 class="title">Dashboard</h1>
@@ -20,19 +13,9 @@
         </div>
       </div>
 
-      <div class="create-project-buttons">
-        <BaseButton
-          class="add-project-button"
-          :is-not-background="true"
-          @click="toggleModal"
-        >
-          <PlusIcon class="add-workspace-button" />
-          Add workspace
-        </BaseButton>
-        <BaseButton class="create-new-button" @click="createProject">
-          Create new project
-        </BaseButton>
-      </div>
+      <BaseButton class="create-new-button" @click="createWorkspace">
+        Create new workspace
+      </BaseButton>
     </div>
     <div class="items-wrapper">
       <ProjectItem
@@ -50,27 +33,18 @@ import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
 import SortIcon from '@components/icons/SortIcon'
-import PlusIcon from '@components/icons/PlusIcon'
 
 import MainLayout from '@components/layout/MainLayout'
 import ProjectItem from '@components/dashboard/ProjectItem'
 import BaseButton from '@components/buttons/BaseButton'
-import NewWorkspaceModal from '@components/modals/NewWorkspaceModal'
 
 export default {
   name: 'DashboardList',
   components: {
     SortIcon,
-    PlusIcon,
     BaseButton,
     MainLayout,
     ProjectItem,
-    NewWorkspaceModal,
-  },
-  data() {
-    return {
-      isOpenModal: false,
-    }
   },
   computed: {
     ...mapGetters({
@@ -88,24 +62,7 @@ export default {
       action.CREATE_WORKSPACE,
       action.GET_USER_INFORMATION,
     ]),
-    toggleModal() {
-      this.isOpenModal = !this.isOpenModal
-    },
-    async createWorkspace(title, description, members) {
-      try {
-        this.loading = true
-        await this[action.CREATE_WORKSPACE]({
-          title,
-          description,
-          members,
-        })
-        await this[action.GET_WORKSPACES]()
-        await this.toggleModal()
-      } catch (error) {
-        this.loading = false
-      }
-    },
-    createProject() {
+    createWorkspace() {
       this.loading = true
       this.$router.push({
         name: 'CreateProject',
@@ -167,24 +124,6 @@ export default {
 
 .sort-icon {
   margin-left: 7px;
-}
-
-.create-project-buttons {
-  display: flex;
-}
-
-.add-project-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  width: 179px;
-
-  margin-right: 10px;
-
-  .add-workspace-button {
-    margin-right: 12px;
-  }
 }
 
 .create-new-button {
