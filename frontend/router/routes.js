@@ -1,5 +1,6 @@
 import WorkspaceList from '@components/dashboard/DashboardList'
-import CreateProjectScreen from '@/components/project/CreateProjectScreen'
+import CreateProjectScreen from '@components/project/CreateProjectScreen'
+import WorkspaceScreen from '@components/workspace/WorkspaceScreen'
 
 export const routes = [
   {
@@ -12,5 +13,11 @@ export const routes = [
     name: 'CreateProject',
     path: '/projects/create',
     component: CreateProjectScreen,
+  },
+
+  {
+    name: 'Workspace',
+    path: '/workspace/:workspaceId',
+    component: WorkspaceScreen,
   },
 ]

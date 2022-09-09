@@ -49,16 +49,19 @@
         :key="index"
         class="radio-button"
         :label="item.name"
-        :value="selectedValue"
+        :value="selectedProxy"
         :checked="item"
         :is-background="true"
-        v-model="selectedValue"
+        v-model="selectedProxy"
         @change="changeValue(item)"
       >
         <template v-slot:default>
           <div class="radio-title">
             {{ item.name }}
-            <component :is="item.icon + 'RadioButton'" v-bind="$attrs" />
+            <component
+              :is="checkSelectOption(selectedProxy.name, item)"
+              v-bind="$attrs"
+            />
           </div>
         </template>
 
@@ -78,11 +81,12 @@ import BaseInput from '@components/BaseInput'
 import BaseSelect from '@components/BaseSelect'
 import BaseRadio from '@components/BaseRadio'
 import BaseButton from '@components/buttons/BaseButton'
-import SocialRadioButton from '@components/icons/SocialRadioButton'
-import OnlineRadioButton from '@components/icons/OnlineRadioButton'
-import PremiumRadioButton from '@components/icons/PremiumRadioButton'
 
+import SocialRadioIcon from '@/components/icons/SocialRadioIcon'
+import OnlineRadioIcon from '@/components/icons/OnlineRadioIcon'
+import PremiumRadioIcon from '@/components/icons/PremiumRadioIcon'
 import ArrowLeftIcon from '@components/icons/ArrowLeftIcon'
+import SelectRadioIcon from '@components/icons/SelectRadioIcon'
 
 export default {
   name: 'CreateProjectFirstStep',
@@ -92,9 +96,10 @@ export default {
     BaseRadio,
     BaseButton,
     ArrowLeftIcon,
-    OnlineRadioButton,
-    PremiumRadioButton,
-    SocialRadioButton,
+    OnlineRadioIcon,
+    PremiumRadioIcon,
+    SocialRadioIcon,
+    SelectRadioIcon,
   },
   data() {
     return {
@@ -117,7 +122,7 @@ export default {
       ],
       nameProject: '',
       description: '',
-      selectedValue: '',
+      selectedValue: {},
       workspace: null,
     }
   },
@@ -125,6 +130,14 @@ export default {
     ...mapGetters({
       workspaces: get.WORKSPACES,
     }),
+    selectedProxy: {
+      get() {
+        return this.selectedValue
+      },
+      set(val) {
+        this.selectedValue = val
+      },
+    },
     headingsWorkspaces() {
       return this.workspaces.map((el) => el.title)
     },
@@ -164,6 +177,11 @@ export default {
     },
     selectWorkspace(option) {
       this.workspace = option
+    },
+    checkSelectOption(selectedItem, item) {
+      return selectedItem === item.name
+        ? 'SelectRadioIcon'
+        : item.icon + 'RadioIcon'
     },
   },
 }
