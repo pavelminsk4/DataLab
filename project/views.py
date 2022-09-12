@@ -14,9 +14,9 @@ def index(request):
   context = {'list':list}
   return render(request, 'project/index.html', context)
   
-def create(request):
-    form = ProjectForm()
-    return render(request, 'project/create.html')
+# def create(request):    # move to workspace app
+#     form = ProjectForm()
+#     return render(request, 'project/create.html')
 
 def delete(request, pk):
   try:
