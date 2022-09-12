@@ -5,13 +5,13 @@ import WorkspaceScreen from '@components/workspace/WorkspaceScreen'
 export const routes = [
   {
     name: 'Home',
-    path: '',
+    path: '/dashboard',
     component: WorkspaceList,
   },
 
   {
     name: 'CreateProject',
-    path: '/projects/create',
+    path: '/workspace/create',
     component: CreateProjectScreen,
   },
 

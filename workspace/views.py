@@ -9,3 +9,8 @@ def detail(request, pk):
   workspace = Workspace.objects.get(id=pk)
   context = {'workspace':workspace}
   return render(request, 'workspace/detail.html', context)
+
+@login_required
+def create(request):
+  return render(request, 'workspace/create.html')
+

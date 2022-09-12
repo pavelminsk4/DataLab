@@ -6,7 +6,7 @@ app_name = 'project'
 
 urlpatterns = [
   path('', views.index, name='index'),
-  path('create', views.create, name='create'),
+  #path('create', views.create, name='create'), #move to workspace app
   path('<pk>/delete', views.delete, name='delete'),
   path('<pk>', views.detail.as_view(), name='project_detail'),
 ]

@@ -12,7 +12,7 @@ class LoginTests(StaticLiveServerTestCase):
 
   def test_log_in(self):
     user1 = User.objects.create_user(username='admin', password='admin')
-    self.selenium.get('%s%s' % (self.live_server_url, '/'))
+    self.selenium.get('%s%s' % (self.live_server_url, '/dashboard'))
     assert 'Log in' in self.selenium.page_source
     user_name = self.selenium.find_element('id', 'id_username')
     password = self.selenium.find_element('id', 'id_password')
@@ -43,7 +43,7 @@ class WorkspaceTests(StaticLiveServerTestCase):
     self.selenium.get(self.live_server_url + '')  #selenium will set cookie domain based on current page domain
     self.selenium.add_cookie({'name': 'sessionid', 'value': cookie.value, 'secure': False, 'path': '/'})
     self.selenium.refresh() #need to update page for logged in user    
-    self.selenium.get('%s%s' % (self.live_server_url, '/'))
+    self.selenium.get('%s%s' % (self.live_server_url, '/dashboard'))
     assert 'workspace1' and 'workspace2' in self.selenium.page_source
     assert not 'workspace3' in self.selenium.page_source
     self.selenium.close()
