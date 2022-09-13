@@ -11,7 +11,7 @@ export const routes = [
 
   {
     name: 'CreateProject',
-    path: '/workspace/create/lol/keke',
+    path: '/workspace/create',
     component: CreateProjectScreen,
   },
 
