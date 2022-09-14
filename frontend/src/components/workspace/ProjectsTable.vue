@@ -65,7 +65,7 @@ import PointsIcon from '@/components/icons/PointsIcon'
 import SocialRadioIcon from '@components/icons/SocialRadioIcon'
 import OnlineRadioIcon from '@components/icons/OnlineRadioIcon'
 import PremiumRadioIcon from '@components/icons/PremiumRadioIcon'
-import CheckRadioIcon from '@components/icons/CheckRadioIcon'
+import CheckRadioIcon from '@/components/icons/CheckIcon'
 import TableSettingsButton from '@components/buttons/TableSettingsButton'
 
 export default {
