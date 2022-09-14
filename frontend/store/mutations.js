@@ -17,7 +17,7 @@ export default {
     state.userId = userId
   },
 
-  [mutator.SET_NEW_PROJECT](state, projectInformation) {
-    state.newProject = {...state.newProject, ...projectInformation}
+  [mutator.SET_NEW_WORKSPACE](state, workspaceInfo) {
+    state.newWorkspace = {...state.newWorkspace, ...workspaceInfo}
   },
 }

@@ -5,6 +5,13 @@ const state = {
   workspace: '',
   userId: '',
   channelType: '',
+  newWorkspace: {
+    title: '',
+    description: '',
+    members: [],
+    company: null,
+    projects: [],
+  },
   newProject: {
     title: '',
     note: '',

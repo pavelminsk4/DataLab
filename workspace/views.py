@@ -11,6 +11,6 @@ def detail(request, pk):
   return render(request, 'workspace/detail.html', context)
 
 @login_required
-def create(request, pk):
+def create(request):
   return render(request, 'workspace/create.html')
 

@@ -1,8 +1,16 @@
 import WorkspaceList from '@components/dashboard/DashboardList'
-import CreateProjectScreen from '@components/project/CreateProjectScreen'
 import WorkspaceScreen from '@components/workspace/WorkspaceScreen'
 
+import CreateProjectScreen from '@components/workspace/new/CreateProjectScreen'
+import CreateWorkspaceScreen from '@components/workspace/new/CreateWorkspaceScreen'
+import CreateWorkspaceView from '@components/workspace/CreateWorkspaceView'
+
 export const routes = [
+  {
+    path: '/',
+    component: WorkspaceList,
+  },
+
   {
     name: 'Home',
     path: '/dashboard',
@@ -10,14 +18,26 @@ export const routes = [
   },
 
   {
-    name: 'CreateProject',
-    path: '/workspace/create',
-    component: CreateProjectScreen,
+    name: 'CreateWorkspace',
+    path: '/workspace/new/',
+    component: CreateWorkspaceView,
+    children: [
+      {
+        name: 'Step1',
+        path: 'step1',
+        component: CreateWorkspaceScreen,
+      },
+      {
+        name: 'Step2',
+        path: 'step2',
+        component: CreateProjectScreen,
+      },
+    ],
   },
 
   {
     name: 'Workspace',
-    path: '/workspace/:workspaceId',
+    path: '/workspace/:workspaceId/',
     component: WorkspaceScreen,
   },
 ]

@@ -6,7 +6,7 @@ export default {
     commit(mutator.SET_LOADING, true)
     try {
       await api.logout()
-      window.location.href = '/accounts/login'
+      window.location.href = '/accounts/login/'
     } catch (e) {
       console.log(e)
     } finally {
@@ -72,7 +72,7 @@ export default {
     }
   },
 
-  async [action.UPDATE_NEW_PROJECT]({commit}, projectInformation) {
-    commit(mutator.SET_NEW_PROJECT, projectInformation)
+  async [action.UPDATE_NEW_WORKSPACE]({commit}, workspaceInfo) {
+    commit(mutator.SET_NEW_WORKSPACE, workspaceInfo)
   },
 }
