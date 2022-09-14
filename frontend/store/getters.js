@@ -16,4 +16,8 @@ export default {
   [get.USER_ID](state) {
     return state.userId
   },
+
+  [get.KEYWORDS](state) {
+    return state.keywords
+  },
 }

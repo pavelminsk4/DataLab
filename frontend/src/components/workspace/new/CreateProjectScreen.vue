@@ -1,89 +1,78 @@
 <template>
-  <StepsLayout>
-    <template #navigation>
-      <StepsNav
-        :step="step"
-        :title="'Create Project'"
-        :hint="'Name the project and choose source Type'"
-        :is-not-active-button="!this.projectName"
-        @create-project="createProject"
+  <StepsNav
+    :step="step"
+    :title="'Create Project'"
+    :hint="'Name the project and choose source Type'"
+    :is-active-button="!!this.projectName"
+    @next-step="nextStep"
+  />
+
+  <section class="form-section">
+    <div>
+      <h4 class="project-name">Name</h4>
+      <BaseInput
+        class="input-field"
+        :placeholder="'Project Name'"
+        v-model="projectName"
       />
-    </template>
 
-    <template #form>
-      <section class="form-section">
-        <div>
-          <h4 class="project-name">Name</h4>
-          <BaseInput
-            class="input-field"
-            :placeholder="'Project Name'"
-            v-model="projectName"
-          />
+      <h4 class="project-name">Description</h4>
+      <textarea
+        class="description-field"
+        placeholder="Some words about your project"
+        v-model="description"
+      />
+    </div>
 
-          <h4 class="project-name">Description</h4>
-          <textarea
-            class="description-field"
-            placeholder="Some words about your project"
-            v-model="description"
-          />
-        </div>
+    <div class="radio-buttons">
+      <BaseRadio
+        v-for="(item, index) in typesOfSources"
+        :key="index"
+        class="radio-button"
+        :label="item.name"
+        :value="selectedProxy"
+        :checked="item"
+        :is-background="true"
+        @change="changeValue(item)"
+      >
+        <template #default>
+          <div class="radio-title">
+            {{ item.name }}
+            <div class="icon-section">
+              <component :is="checkSelectOption(selectedProxy.name, item)" />
+            </div>
+          </div>
+        </template>
 
-        <div class="radio-buttons">
-          <BaseRadio
-            v-for="(item, index) in typesOfSources"
-            :key="index"
-            class="radio-button"
-            :label="item.name"
-            :value="selectedProxy"
-            :checked="item"
-            :is-background="true"
-            v-model="selectedProxy"
-            @change="changeValue(item)"
-          >
-            <template v-slot:default>
-              <div class="radio-title">
-                {{ item.name }}
-                <div class="icon-section">
-                  <component
-                    :is="checkSelectOption(selectedProxy.name, item)"
-                    v-bind="$attrs"
-                  />
-                </div>
-              </div>
-            </template>
-
-            <template v-slot:description>
-              <div class="radio-description">{{ item.description }}</div>
-            </template>
-          </BaseRadio>
-        </div>
-      </section>
-    </template>
-  </StepsLayout>
+        <template #description>
+          <div class="radio-description">{{ item.description }}</div>
+        </template>
+      </BaseRadio>
+    </div>
+  </section>
 </template>
 
 <script>
 import {mapActions} from 'vuex'
 import {action} from '@store/constants'
 
-import BaseInput from '@/components/BaseInput'
-import BaseSelect from '@/components/BaseSelect'
-import BaseRadio from '@/components/BaseRadio'
-import BaseButton from '@/components/buttons/BaseButton'
+import BaseInput from '@components/BaseInput'
+import BaseSelect from '@components/BaseSelect'
+import BaseRadio from '@components/BaseRadio'
+import BaseButton from '@components/buttons/BaseButton'
 
-import SocialRadioIcon from '@/components/icons/SocialRadioIcon'
-import OnlineRadioIcon from '@/components/icons/OnlineRadioIcon'
-import PremiumRadioIcon from '@/components/icons/PremiumRadioIcon'
-import ArrowLeftIcon from '@/components/icons/ArrowLeftIcon'
-import SelectRadioIcon from '@/components/icons/SelectRadioIcon'
-import StepsLayout from '@/components/layout/StepsLayout'
-import StepsNav from '@/components/navigation/StepsNav'
+import StepsNav from '@components/navigation/StepsNav'
+
+import ArrowLeftIcon from '@components/icons/ArrowLeftIcon'
+import SelectRadioIcon from '@components/icons/SelectRadioIcon'
+import SocialRadioIcon from '@components/icons/SocialRadioIcon'
+import OnlineRadioIcon from '@components/icons/OnlineRadioIcon'
+import PremiumRadioIcon from '@components/icons/PremiumRadioIcon'
 
 export default {
   name: 'CreateProjectScreen',
   components: {
     StepsNav,
-    StepsLayout,
     BaseInput,
     BaseSelect,
     BaseRadio,
@@ -136,7 +125,7 @@ export default {
     changeValue(newValue) {
       this.selectedValue = newValue
     },
-    createProject() {
+    nextStep() {
       try {
         this[action.UPDATE_NEW_WORKSPACE]({
           projects: [

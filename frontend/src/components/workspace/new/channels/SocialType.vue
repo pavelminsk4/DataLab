@@ -36,8 +36,8 @@
       class="radio-btn"
       @change="changeValue(item)"
     >
-      <template v-slot:default>
-        <div class="not-check"><CheckRadioIcon class="check-icon" /></div>
+      <template #default>
+        <div class="btn-checked"><CheckRadioIcon class="checked-icon" /></div>
         {{ item.value }}
       </template>
     </BaseRadio>
@@ -115,7 +115,7 @@ export default {
   cursor: pointer;
 }
 
-.not-check {
+.btn-checked {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -142,7 +142,7 @@ export default {
   margin: 12px 0 25px;
 }
 
-.check-icon {
+.checked-icon {
   display: none;
 }
 </style>
@@ -156,12 +156,12 @@ export default {
   background: none;
 }
 
-.radio-wrapper > .selected .not-check {
+.radio-wrapper > .selected .btn-checked {
   border: none;
   background: var(--primary-button-color);
 }
 
-.radio-wrapper > .selected .check-icon {
+.radio-wrapper > .selected .checked-icon {
   display: flex;
 }
 </style>

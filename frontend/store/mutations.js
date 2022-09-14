@@ -20,4 +20,12 @@ export default {
   [mutator.SET_NEW_WORKSPACE](state, workspaceInfo) {
     state.newWorkspace = {...state.newWorkspace, ...workspaceInfo}
   },
+
+  [mutator.SET_KEYWORDS_LIST](state, keywords) {
+    state.keywords = [...state.keywords, ...keywords]
+  },
+
+  [mutator.DELETE_KEYWORDS_LIST](state, index) {
+    state.keywords.splice(index, 1)
+  },
 }

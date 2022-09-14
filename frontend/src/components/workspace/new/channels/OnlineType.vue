@@ -31,7 +31,7 @@
       class="radio-btn"
       @change="changeValue(item)"
     >
-      <template v-slot:default>
+      <template #default>
         <div class="not-check"><CheckRadioIcon class="check-icon" /></div>
         {{ item.value }}
       </template>
@@ -40,18 +40,19 @@
 </template>
 
 <script>
-import BaseRadio from '@/components/BaseRadio'
-import CheckRadioIcon from '@/components/icons/CheckIcon'
-import BaseSelect from '@/components/BaseSelect'
-import BaseInput from '@/components/BaseInput'
+import BaseInput from '@components/BaseInput'
+import BaseRadio from '@components/BaseRadio'
+import BaseSelect from '@components/BaseSelect'
+
+import CheckRadioIcon from '@components/icons/CheckIcon'
 
 export default {
   name: 'OnlineType',
   components: {
     BaseInput,
+    BaseRadio,
     BaseSelect,
     CheckRadioIcon,
-    BaseRadio,
   },
   data() {
     return {

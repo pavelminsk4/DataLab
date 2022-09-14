@@ -75,4 +75,12 @@ export default {
   async [action.UPDATE_NEW_WORKSPACE]({commit}, workspaceInfo) {
     commit(mutator.SET_NEW_WORKSPACE, workspaceInfo)
   },
+
+  async [action.UPDATE_KEYWORDS_LIST]({commit}, keywords) {
+    commit(mutator.SET_KEYWORDS_LIST, keywords)
+  },
+
+  async [action.CLEAR_KEYWORDS_LIST]({commit}, index) {
+    commit(mutator.DELETE_KEYWORDS_LIST, index)
+  },
 }

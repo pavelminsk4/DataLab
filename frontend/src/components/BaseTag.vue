@@ -25,7 +25,11 @@
 </template>
 
 <script>
-import DeleteTagButton from '@/components/icons/DeleteTagButton'
+import {mapActions} from 'vuex'
+import {action} from '@store/constants'
+
+import DeleteTagButton from '@components/icons/DeleteTagButton'
+
 export default {
   name: 'BaseTag',
   components: {DeleteTagButton},
@@ -38,30 +42,40 @@ export default {
       type: Boolean,
       default: false,
     },
+    value: {
+      type: String,
+      default: '',
+    },
   },
   data() {
     return {
-      tags: ['hello', 'hey'],
+      tags: [],
     }
   },
   methods: {
-    addTag(event) {
+    ...mapActions([action.UPDATE_KEYWORDS_LIST, action.CLEAR_KEYWORDS_LIST]),
+    async updateKeywords(keywords) {
+      await this[action.UPDATE_KEYWORDS_LIST](keywords)
+    },
+    async addTag(event) {
       if (event.code === 'Comma' || event.code === 'Enter') {
         event.preventDefault()
         let val = event.target.value.trim()
 
         if (val.length > 0) {
           this.tags.push(val)
+          await this.updateKeywords([val])
           event.target.value = ''
         }
       }
     },
-    removeTag(index) {
+    async removeTag(index) {
       this.tags.splice(index, 1)
+      await this[action.CLEAR_KEYWORDS_LIST](index)
     },
-    removeLastTag(event) {
+    async removeLastTag(event) {
       if (event.target.value.length === 0) {
-        this.removeTag(this.tags.length - 1)
+        await this.removeTag(this.tags.length - 1)
       }
     },
   },

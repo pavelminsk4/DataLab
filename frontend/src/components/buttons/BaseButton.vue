@@ -48,7 +48,7 @@ export default {
   opacity: 0.5;
   cursor: not-allowed;
 
-  color: #ffffff;
-  background: #3e4047;
+  color: var(--primary-text-color);
+  background: var(--disabled-color);
 }
 </style>

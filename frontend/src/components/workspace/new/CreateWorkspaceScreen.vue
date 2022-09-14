@@ -1,29 +1,23 @@
 <template>
-  <StepsLayout>
-    <template #navigation>
-      <StepsNav
-        :step="step"
-        :title="'The Workspace'"
-        :hint="'Create a new workspace on your Dashboard'"
-        :is-not-active-button="!this.title"
-        @next-step="nextStep"
-      />
-    </template>
+  <StepsNav
+    :step="step"
+    :title="'The Workspace'"
+    :hint="'Create a new workspace on your Dashboard'"
+    :is-active-button="!!this.title"
+    @next-step="nextStep"
+  />
 
-    <template #form>
-      <div class="workspace-wrapper">
-        <h4 class="project-name">Name</h4>
-        <BaseInput v-model="title" class="input-field" />
+  <div class="workspace-wrapper">
+    <h4 class="project-name">Name</h4>
+    <BaseInput v-model="title" class="input-field" />
 
-        <h4 class="project-name">Description</h4>
-        <textarea
-          class="description-field"
-          v-model="description"
-          placeholder="Some words about Workspace"
-        />
-      </div>
-    </template>
-  </StepsLayout>
+    <h4 class="project-name">Description</h4>
+    <textarea
+      class="description-field"
+      v-model="description"
+      placeholder="Some words about Workspace"
+    />
+  </div>
 </template>
 
 <script>
@@ -32,11 +26,10 @@ import {action} from '@store/constants'
 
 import BaseInput from '@components/BaseInput'
 import StepsNav from '@components/navigation/StepsNav'
-import StepsLayout from '@components/layout/StepsLayout'
 
 export default {
   name: 'CreateWorkspaceScreen',
-  components: {StepsNav, BaseInput, StepsLayout},
+  components: {StepsNav, BaseInput},
   component: {
     BaseInput,
   },

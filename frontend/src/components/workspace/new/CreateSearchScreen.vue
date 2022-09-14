@@ -1,79 +1,96 @@
 <template>
-  <StepsLayout>
-    <template #navigation>
-      <StepsNav
-        :step="step"
-        :title="'Define the search'"
-        :hint="'Search by keywords and phrases'"
-        :button-name="'Create Project'"
+  <StepsNav
+    :step="step"
+    :title="'Define the search'"
+    :hint="'Search by keywords and phrases'"
+    :button-name="'Create Project'"
+    @next-step="createWorkspaceAndProject"
+  />
+
+  <div class="mode-wrapper">
+    <div class="mode-title mode-active">Simple mode</div>
+    <div class="mode-title">Expert mode</div>
+  </div>
+
+  <div class="second-title">Define the main keywords (OR)</div>
+  <BaseTag v-model="tags" class="tags" :is-main-field="true" />
+
+  <section class="additional-key-words">
+    <div class="additional-key-block">
+      <div class="second-title">
+        Add Additional keywords <br />
+        (And)
+      </div>
+      <BaseTag class="additional-key" />
+    </div>
+
+    <div>
+      <div class="second-title">
+        Exclude Irrelevant keywords <br />
+        (And Not)
+      </div>
+      <BaseTag
+        class="additional-key"
+        :placeholder="'Enter Keywords and Phrases seperated by comas'"
       />
-    </template>
+    </div>
+  </section>
 
-    <template #form>
-      <div class="mode-wrapper">
-        <div class="mode-title mode-active">Simple mode</div>
-        <div class="mode-title">Expert mode</div>
-      </div>
+  <div class="filters-title">Refine youre search with additional filters</div>
 
-      <div class="second-title">Define the main keywords (OR)</div>
-      <BaseTag class="tags" :is-main-field="true" />
-
-      <div class="additional-key-words">
-        <div class="additional-key-block">
-          <div class="second-title">
-            Add Additional keywords <br />
-            (And)
-          </div>
-          <BaseTag class="additional-key" />
-        </div>
-
-        <div>
-          <div class="second-title">
-            Exclude Irrelevant keywords <br />
-            (And Not)
-          </div>
-          <BaseTag
-            class="additional-key"
-            :placeholder="'Enter Keywords and Phrases seperated by comas'"
-          />
-        </div>
-      </div>
-
-      <div class="filters-title">
-        Refine youre search with additional filters
-      </div>
-
-      <section class="key-word-section">
-        <OnlineType />
-      </section>
-    </template>
-  </StepsLayout>
+  <section class="key-word-section">
+    <OnlineType />
+  </section>
 </template>
 
 <script>
-import OnlineType from '@/components/workspace/new/channels/OnlineType'
-import BaseTag from '@/components/BaseTag'
-import StepsLayout from '@/components/layout/StepsLayout'
-import StepsNav from '@/components/navigation/StepsNav'
+import {mapActions, mapState} from 'vuex'
+import {action} from '@store/constants'
+
+import BaseTag from '@components/BaseTag'
+import StepsNav from '@components/navigation/StepsNav'
+
+import OnlineType from '@components/workspace/new/channels/OnlineType'
 
 export default {
   name: 'CreateProjectSecondStep',
   components: {
     StepsNav,
-    StepsLayout,
     BaseTag,
     OnlineType,
   },
+  data() {
+    return {
+      tags: [],
+    }
+  },
   computed: {
+    ...mapState(['newWorkspace']),
     step() {
       return this.$route.name
     },
   },
   methods: {
-    backToHome() {
-      this.$router.push({
-        name: 'Home',
-      })
+    ...mapActions([
+      action.UPDATE_NEW_WORKSPACE,
+      action.CREATE_WORKSPACE,
+      action.GET_WORKSPACES,
+    ]),
+    createWorkspaceAndProject() {
+      try {
+        this[action.UPDATE_NEW_WORKSPACE]({
+          projects: [{}],
+        })
+        this[action.CREATE_WORKSPACE]({
+          ...this.newWorkspace,
+        })
+        this[action.GET_WORKSPACES]()
+        this.$router.push({
+          name: 'Home',
+        })
+      } catch (e) {
+        console.log(e)
+      }
     },
   },
 }

@@ -5,12 +5,12 @@
   </div>
 
   <div class="create-project-title">
-    <H1 class="title">{{ title }}</H1>
+    <h1 class="title">{{ title }}</h1>
     <div class="progress-bar-wrapper">
       <div class="progress-bar">
         <div
           v-for="(item, index) in progressBarData"
-          :key="index"
+          :key="'step' + index"
           :class="['progress-item', step === item.name && 'active-item']"
         >
           <CheckIcon v-if="item.isFinished" />
@@ -18,7 +18,7 @@
         </div>
       </div>
       <BaseButton
-        :is-disabled="isNotActiveButton"
+        :is-disabled="!isActiveButton"
         class="next-button"
         @click="goToNextStep"
       >
@@ -31,13 +31,14 @@
 </template>
 
 <script>
-import ArrowLeftIcon from '@/components/icons/ArrowLeftIcon'
-import BaseButton from '@/components/buttons/BaseButton'
-import CheckIcon from '@/components/icons/CheckIcon'
+import BaseButton from '@components/buttons/BaseButton'
+
+import CheckIcon from '@components/icons/CheckIcon'
+import ArrowLeftIcon from '@components/icons/ArrowLeftIcon'
 
 export default {
   name: 'StepsNav',
-  components: {CheckIcon, BaseButton, ArrowLeftIcon},
+  components: {BaseButton, CheckIcon, ArrowLeftIcon},
   props: {
     title: {
       type: String,
@@ -49,11 +50,11 @@ export default {
     },
     step: {
       type: String,
-      default: '',
+      required: true,
     },
-    isNotActiveButton: {
+    isActiveButton: {
       type: Boolean,
-      default: false,
+      default: true,
     },
     buttonName: {
       type: String,
@@ -89,11 +90,7 @@ export default {
     },
 
     goToNextStep() {
-      if (this.step === 'Step1') {
-        this.$emit('next-step')
-      } else if (this.step === 'Step2') {
-        this.$emit('create-project')
-      }
+      this.$emit('next-step')
     },
   },
 }
@@ -148,7 +145,7 @@ export default {
   height: 24px;
 
   border-radius: 100%;
-  background-color: #3e4047;
+  background-color: var(--disabled-color);
 
   color: var(--primary-text-color);
 

@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import CheckRadioIcon from '@/components/icons/CheckIcon'
+import CheckRadioIcon from '@components/icons/CheckIcon'
 
 export default {
   name: 'BaseCheckbox',
@@ -59,9 +59,9 @@ export default {
   height: 20px;
   width: 20px;
 
-  border: 1px solid #9198a7;
+  border: 1px solid var(--secondary-text-color);
   border-radius: 4px;
-  background-color: #2d2d31;
+  background-color: var(--input-border-color);
 }
 
 .title {
@@ -71,16 +71,16 @@ export default {
   font-weight: 400;
   font-size: 14px;
   line-height: 20px;
-  color: #ffffff;
+  color: var(--primary-text-color);
 }
 
 .container:hover input ~ .checkmark {
-  background-color: #242529;
+  background-color: var(--secondary-bg-color);
 }
 
 .container input:checked ~ .checkmark {
   border: none;
-  background-color: #055ffc;
+  background-color: var(--primary-button-color);
 }
 
 .container input ~ .checkmark > .checkmark-icon {

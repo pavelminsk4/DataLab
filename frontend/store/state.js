@@ -5,6 +5,7 @@ const state = {
   workspace: '',
   userId: '',
   channelType: '',
+  keywords: [],
   newWorkspace: {
     title: '',
     description: '',
