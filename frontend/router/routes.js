@@ -1,6 +1,7 @@
 import WorkspaceList from '@components/dashboard/DashboardList'
 import WorkspaceScreen from '@components/workspace/WorkspaceScreen'
 
+import CreateSearchScreen from '@/components/workspace/new/CreateSearchScreen'
 import CreateProjectScreen from '@components/workspace/new/CreateProjectScreen'
 import CreateWorkspaceScreen from '@components/workspace/new/CreateWorkspaceScreen'
 import CreateWorkspaceView from '@components/workspace/CreateWorkspaceView'
@@ -31,6 +32,11 @@ export const routes = [
         name: 'Step2',
         path: 'step2',
         component: CreateProjectScreen,
+      },
+      {
+        name: 'Step3',
+        path: 'step3',
+        component: CreateSearchScreen,
       },
     ],
   },

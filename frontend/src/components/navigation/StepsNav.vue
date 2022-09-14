@@ -91,6 +91,8 @@ export default {
     goToNextStep() {
       if (this.step === 'Step1') {
         this.$emit('next-step')
+      } else if (this.step === 'Step2') {
+        this.$emit('create-project')
       }
     },
   },
