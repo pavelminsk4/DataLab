@@ -6,6 +6,7 @@ const state = {
   userId: '',
   channelType: '',
   keywords: [],
+  searchData: [],
   newWorkspace: {
     title: '',
     description: '',
@@ -16,7 +17,7 @@ const state = {
   newProject: {
     title: '',
     note: '',
-    keywords: '',
+    keywords: [],
     ignore_keywords: '',
     max_items: '',
     image: null,

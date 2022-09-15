@@ -1,9 +1,9 @@
 import WorkspaceList from '@components/dashboard/DashboardList'
-import WorkspaceScreen from '@components/workspace/WorkspaceScreen'
+import WorkspaceView from '@/components/workspace/WorkspaceView'
 
-import CreateSearchScreen from '@components/workspace/new/CreateSearchScreen'
-import CreateProjectScreen from '@components/workspace/new/CreateProjectScreen'
-import CreateWorkspaceScreen from '@components/workspace/new/CreateWorkspaceScreen'
+import CreateSearchScreen from '@/components/workspace/screens/CreateSearchScreen'
+import CreateProjectScreen from '@/components/workspace/screens/CreateProjectScreen'
+import CreateWorkspaceScreen from '@/components/workspace/screens/CreateWorkspaceScreen'
 import CreateWorkspaceView from '@components/workspace/CreateWorkspaceView'
 
 export const routes = [
@@ -44,6 +44,6 @@ export const routes = [
   {
     name: 'Workspace',
     path: '/workspace/:workspaceId',
-    component: WorkspaceScreen,
+    component: WorkspaceView,
   },
 ]

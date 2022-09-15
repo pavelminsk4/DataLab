@@ -20,4 +20,12 @@ export default {
   [get.KEYWORDS](state) {
     return state.keywords
   },
+
+  [get.NEW_PROJECT](state) {
+    return state.newProject
+  },
+
+  [get.SEARCH_DATA](state) {
+    return state.searchData
+  },
 }
