@@ -7,6 +7,7 @@ from .serializers import ProjectSerializer, Workspace
 from django.contrib.auth.models import User
 from project.models import Project, Workspace, Post
 from django.http import JsonResponse
+#from django.views.decorators.csrf import csrf_exempt
 
 # ==== User API =======================
 
@@ -78,8 +79,12 @@ class WorkspaceDelete(DestroyAPIView):
 
 # === Search API =====
 
+#@csrf_exempt
 def search(request):
-  key = request.GET.get("fname")
+  key = request.POST.get("fname")
+  print("------->key")
+  print(key)
+  print("------<")
   posts = Post.objects.filter(entry_title__contains=key).values('entry_title')
   posts_list=list(posts)
   return JsonResponse(posts_list,safe = False)
