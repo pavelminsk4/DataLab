@@ -86,6 +86,8 @@ class WorkspaceDelete(DestroyAPIView):
 def search(request):
   body = json.loads(request.body)
   keys = body['keywords']
-  posts = Post.objects.filter(reduce(lambda x,y: x | y, [Q(entry_title__contains=key) for key in keys])).values('entry_title')
+  posts = Post.objects.filter(reduce(lambda x,y: x | y, [Q(entry_title__contains=key) for key in keys])).values(
+    'entry_title', 'entry_published', 'entry_summary', 'entry_media_thumbnail_url', 'feed_language'
+  )
   posts_list=list(posts)
   return JsonResponse(posts_list,safe = False)
