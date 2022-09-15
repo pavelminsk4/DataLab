@@ -24,8 +24,8 @@
 import {mapActions} from 'vuex'
 import {action} from '@store/constants'
 
-import BaseInput from '@components/BaseInput'
-import StepsNav from '@components/navigation/StepsNav'
+import BaseInput from '@/components/BaseInput'
+import StepsNav from '@/components/navigation/StepsNav'
 
 export default {
   name: 'CreateWorkspaceScreen',

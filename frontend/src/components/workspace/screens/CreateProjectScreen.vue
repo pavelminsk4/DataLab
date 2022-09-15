@@ -56,18 +56,18 @@
 import {mapActions} from 'vuex'
 import {action} from '@store/constants'
 
-import BaseInput from '@components/BaseInput'
-import BaseSelect from '@components/BaseSelect'
-import BaseRadio from '@components/BaseRadio'
-import BaseButton from '@components/buttons/BaseButton'
+import BaseInput from '@/components/BaseInput'
+import BaseSelect from '@/components/BaseSelect'
+import BaseRadio from '@/components/BaseRadio'
+import BaseButton from '@/components/buttons/BaseButton'
 
-import StepsNav from '@components/navigation/StepsNav'
+import StepsNav from '@/components/navigation/StepsNav'
 
-import ArrowLeftIcon from '@components/icons/ArrowLeftIcon'
-import SelectRadioIcon from '@components/icons/SelectRadioIcon'
-import SocialRadioIcon from '@components/icons/SocialRadioIcon'
-import OnlineRadioIcon from '@components/icons/OnlineRadioIcon'
-import PremiumRadioIcon from '@components/icons/PremiumRadioIcon'
+import ArrowLeftIcon from '@/components/icons/ArrowLeftIcon'
+import SelectRadioIcon from '@/components/icons/SelectRadioIcon'
+import SocialRadioIcon from '@/components/icons/SocialRadioIcon'
+import OnlineRadioIcon from '@/components/icons/OnlineRadioIcon'
+import PremiumRadioIcon from '@/components/icons/PremiumRadioIcon'
 
 export default {
   name: 'CreateProjectScreen',
@@ -121,20 +121,17 @@ export default {
     },
   },
   methods: {
-    ...mapActions([action.UPDATE_NEW_WORKSPACE]),
+    ...mapActions([action.UPDATE_PROJECT_STATE]),
     changeValue(newValue) {
       this.selectedValue = newValue
     },
     nextStep() {
       try {
-        this[action.UPDATE_NEW_WORKSPACE]({
-          projects: [
-            {
-              title: this.projectName,
-              description: this.description,
-              source: this.selectedValue.name,
-            },
-          ],
+        this[action.UPDATE_PROJECT_STATE]({
+          creator: 1,
+          title: this.projectName,
+          description: this.description,
+          source: this.selectedValue.name,
         })
         this.$router.push({
           name: 'Step3',

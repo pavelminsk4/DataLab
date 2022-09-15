@@ -7,54 +7,68 @@
     @next-step="createWorkspaceAndProject"
   />
 
-  <div class="mode-wrapper">
-    <div class="mode-title mode-active">Simple mode</div>
-    <div class="mode-title">Expert mode</div>
+  <div class="search-settings-wrapper">
+    <section class="key-words-settings">
+      <div class="mode-wrapper">
+        <div class="mode-title mode-active">Simple mode</div>
+        <div class="mode-title">Expert mode</div>
+      </div>
+
+      <div class="second-title">Define the main keywords (OR)</div>
+      <BaseTag v-model="tags" class="tags" :is-main-field="true" />
+
+      <section class="additional-key-words">
+        <div class="additional-key-block">
+          <div class="second-title">
+            Add Additional keywords <br />
+            (And)
+          </div>
+          <BaseTag class="additional-key" />
+        </div>
+
+        <div>
+          <div class="second-title">
+            Exclude Irrelevant keywords <br />
+            (And Not)
+          </div>
+          <BaseTag
+            class="additional-key"
+            :placeholder="'Enter Keywords and Phrases seperated by comas'"
+          />
+        </div>
+      </section>
+
+      <div class="filters-title">
+        Refine youre search with additional filters
+      </div>
+
+      <BaseButton @click="showResults" class="apply-settings">
+        Apply Settings
+      </BaseButton>
+
+      <OnlineType class="key-word-section" />
+    </section>
+
+    <SearchResults />
   </div>
-
-  <div class="second-title">Define the main keywords (OR)</div>
-  <BaseTag v-model="tags" class="tags" :is-main-field="true" />
-
-  <section class="additional-key-words">
-    <div class="additional-key-block">
-      <div class="second-title">
-        Add Additional keywords <br />
-        (And)
-      </div>
-      <BaseTag class="additional-key" />
-    </div>
-
-    <div>
-      <div class="second-title">
-        Exclude Irrelevant keywords <br />
-        (And Not)
-      </div>
-      <BaseTag
-        class="additional-key"
-        :placeholder="'Enter Keywords and Phrases seperated by comas'"
-      />
-    </div>
-  </section>
-
-  <div class="filters-title">Refine youre search with additional filters</div>
-
-  <section class="key-word-section">
-    <OnlineType />
-  </section>
 </template>
 
 <script>
 import {mapActions, mapState} from 'vuex'
 import {action} from '@store/constants'
 
-import BaseTag from '@components/BaseTag'
-import StepsNav from '@components/navigation/StepsNav'
+import BaseTag from '@/components/BaseTag'
+import StepsNav from '@/components/navigation/StepsNav'
 
-import OnlineType from '@components/workspace/new/channels/OnlineType'
+import OnlineType from '@/components/workspace/sources/OnlineType'
+import SearchResults from '@/components/SearchResults'
+import BaseButton from '@/components/buttons/BaseButton'
 
 export default {
   name: 'CreateProjectSecondStep',
   components: {
+    BaseButton,
+    SearchResults,
     StepsNav,
     BaseTag,
     OnlineType,
@@ -65,25 +79,37 @@ export default {
     }
   },
   computed: {
-    ...mapState(['newWorkspace']),
+    ...mapState(['newWorkspace', 'keywords', 'newProject']),
     step() {
       return this.$route.name
     },
   },
   methods: {
     ...mapActions([
+      action.UPDATE_PROJECT_STATE,
       action.UPDATE_NEW_WORKSPACE,
       action.CREATE_WORKSPACE,
       action.GET_WORKSPACES,
+      action.POST_SEARCH,
     ]),
+    showResults() {
+      try {
+        this[action.POST_SEARCH]({keywords: this.keywords})
+      } catch (e) {
+        console.log(e)
+      }
+    },
+
     createWorkspaceAndProject() {
       try {
+        this[action.UPDATE_PROJECT_STATE]({
+          keywords: [...this.keywords],
+        })
         this[action.UPDATE_NEW_WORKSPACE]({
-          projects: [{}],
+          projects: [this.newProject],
         })
-        this[action.CREATE_WORKSPACE]({
-          ...this.newWorkspace,
-        })
+        this[action.CREATE_WORKSPACE](this.newWorkspace)
+        console.log(this.newWorkspace)
         this[action.GET_WORKSPACES]()
         this.$router.push({
           name: 'Home',
@@ -122,6 +148,11 @@ export default {
 
   font-weight: 500;
   color: var(--primary-text-color);
+}
+
+.search-settings-wrapper {
+  display: flex;
+  justify-content: space-between;
 }
 
 .second-title {
@@ -168,8 +199,18 @@ export default {
   color: var(--primary-text-color);
 }
 
+.key-words-settings {
+  display: flex;
+  flex-direction: column;
+}
+
+.apply-settings {
+  align-self: flex-end;
+}
+
 .alexa-ranking {
   width: 250px;
+  margin-bottom: 20px;
 }
 
 .radio-btn {
