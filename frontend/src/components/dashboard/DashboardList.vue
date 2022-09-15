@@ -65,7 +65,7 @@ export default {
     createWorkspace() {
       this.loading = true
       this.$router.push({
-        name: 'CreateProject',
+        name: 'Step1',
       })
     },
     navigateToWorkspace(id) {

@@ -1,5 +1,11 @@
 <template>
-  <button :class="['base-button', isNotBackground && 'not-background']">
+  <button
+    :class="[
+      'base-button',
+      isNotBackground && 'not-background',
+      isDisabled && 'disabled',
+    ]"
+  >
     <slot></slot>
   </button>
 </template>
@@ -9,6 +15,10 @@ export default {
   name: 'BaseButton',
   props: {
     isNotBackground: {
+      type: Boolean,
+      default: false,
+    },
+    isDisabled: {
       type: Boolean,
       default: false,
     },
@@ -32,5 +42,13 @@ export default {
 
 .not-background {
   background: var(--secondary-button-color);
+}
+
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+
+  color: var(--primary-text-color);
+  background: var(--disabled-color);
 }
 </style>

@@ -1,23 +1,11 @@
 <template>
-  <div class="back-button" @click="backToHome">
-    <ArrowLeftIcon class="arrow-back" />
-    Back
-  </div>
-
-  <div class="create-project-title">
-    <H1 class="title">Create Project</H1>
-    <div class="progress-bar-wrapper">
-      <div class="progress-bar">
-        <div class="progress-item">1</div>
-        <div class="progress-line"></div>
-        <div class="progress-item">2</div>
-        <div class="progress-line"></div>
-        <div class="progress-item">3</div>
-      </div>
-      <BaseButton class="next-button" @click="nextStep"> Next </BaseButton>
-    </div>
-  </div>
-  <div class="hint">Name the project and choose source Type</div>
+  <StepsNav
+    :step="step"
+    :title="'Create Project'"
+    :hint="'Name the project and choose source Type'"
+    :is-active-button="!!this.projectName"
+    @next-step="nextStep"
+  />
 
   <section class="form-section">
     <div>
@@ -25,7 +13,7 @@
       <BaseInput
         class="input-field"
         :placeholder="'Project Name'"
-        v-model="nameProject"
+        v-model="projectName"
       />
 
       <h4 class="project-name">Description</h4>
@@ -38,29 +26,25 @@
 
     <div class="radio-buttons">
       <BaseRadio
-        v-for="(item, index) in deliveryChannels"
+        v-for="(item, index) in typesOfSources"
         :key="index"
         class="radio-button"
         :label="item.name"
         :value="selectedProxy"
         :checked="item"
         :is-background="true"
-        v-model="selectedProxy"
         @change="changeValue(item)"
       >
-        <template v-slot:default>
+        <template #default>
           <div class="radio-title">
             {{ item.name }}
             <div class="icon-section">
-              <component
-                :is="checkSelectOption(selectedProxy.name, item)"
-                v-bind="$attrs"
-              />
+              <component :is="checkSelectOption(selectedProxy.name, item)" />
             </div>
           </div>
         </template>
 
-        <template v-slot:description>
+        <template #description>
           <div class="radio-description">{{ item.description }}</div>
         </template>
       </BaseRadio>
@@ -69,23 +53,26 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
-import {action, get} from '@store/constants'
+import {mapActions} from 'vuex'
+import {action} from '@store/constants'
 
 import BaseInput from '@components/BaseInput'
 import BaseSelect from '@components/BaseSelect'
 import BaseRadio from '@components/BaseRadio'
 import BaseButton from '@components/buttons/BaseButton'
 
-import SocialRadioIcon from '@/components/icons/SocialRadioIcon'
-import OnlineRadioIcon from '@/components/icons/OnlineRadioIcon'
-import PremiumRadioIcon from '@/components/icons/PremiumRadioIcon'
+import StepsNav from '@components/navigation/StepsNav'
+
 import ArrowLeftIcon from '@components/icons/ArrowLeftIcon'
 import SelectRadioIcon from '@components/icons/SelectRadioIcon'
+import SocialRadioIcon from '@components/icons/SocialRadioIcon'
+import OnlineRadioIcon from '@components/icons/OnlineRadioIcon'
+import PremiumRadioIcon from '@components/icons/PremiumRadioIcon'
 
 export default {
-  name: 'CreateProjectFirstStep',
+  name: 'CreateProjectScreen',
   components: {
+    StepsNav,
     BaseInput,
     BaseSelect,
     BaseRadio,
@@ -98,7 +85,7 @@ export default {
   },
   data() {
     return {
-      deliveryChannels: [
+      typesOfSources: [
         {
           name: 'Social',
           description: 'Delivers data from Twitter and Facebook',
@@ -115,15 +102,15 @@ export default {
           icon: 'Premium',
         },
       ],
-      nameProject: '',
+      projectName: '',
       description: '',
       selectedValue: {},
     }
   },
   computed: {
-    ...mapGetters({
-      workspaces: get.WORKSPACES,
-    }),
+    step() {
+      return this.$route.name
+    },
     selectedProxy: {
       get() {
         return this.selectedValue
@@ -132,33 +119,29 @@ export default {
         this.selectedValue = val
       },
     },
-    chanelType() {
-      if (this.selectedValue.name === 'Online') {
-        return {online: true}
-      } else if (this.selectedValue.name === 'Social') {
-        return {social: true}
-      } else if (this.selectedValue.name === 'Premium') {
-        return {premium: true}
-      }
-
-      return {}
-    },
-  },
-  async created() {
-    await this[action.GET_WORKSPACES]()
   },
   methods: {
-    ...mapActions([action.GET_WORKSPACES]),
+    ...mapActions([action.UPDATE_NEW_WORKSPACE]),
     changeValue(newValue) {
       this.selectedValue = newValue
     },
-    backToHome() {
-      this.$router.push({
-        name: 'Home',
-      })
-    },
     nextStep() {
-      this.$emit('next-step', this.nameProject, this.chanelType)
+      try {
+        this[action.UPDATE_NEW_WORKSPACE]({
+          projects: [
+            {
+              title: this.projectName,
+              description: this.description,
+              source: this.selectedValue.name,
+            },
+          ],
+        })
+        this.$router.push({
+          name: 'Step3',
+        })
+      } catch (e) {
+        console.log(e)
+      }
     },
     checkSelectOption(selectedItem, item) {
       return selectedItem === item.name
@@ -170,76 +153,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.back-button {
-  cursor: pointer;
-
-  color: var(--secondary-text-color);
-}
-
-.arrow-back {
-  margin-right: 6px;
-}
-
-.title {
-  margin: 5px 0 2px;
-
-  color: var(--primary-text-color);
-
-  font-size: 36px;
-}
-
-.create-project-title {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.progress-bar-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.progress-bar {
-  display: flex;
-  align-items: center;
-
-  margin-right: 40px;
-}
-
-.progress-item {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 24px;
-  height: 24px;
-
-  border-radius: 100%;
-  border: 1px solid var(--primary-button-color);
-  box-shadow: 0 0 3px var(--box-shadow-color);
-
-  color: var(--primary-text-color);
-  background-color: var(--primary-bg-color);
-}
-
-.progress-line {
-  width: 34px;
-  height: 2px;
-
-  background-color: var(--progress-line);
-}
-
-.next-button {
-  width: 114px;
-}
-
-.hint {
-  color: var(--secondary-text-color);
-
-  font-size: 14px;
-}
-
 .project-name {
   margin: 25px 0 12px;
 
