@@ -29,6 +29,7 @@ const state = {
     premium: false,
     creator: null,
     source: '',
+    workspace: null,
   },
 }
 

@@ -40,4 +40,33 @@ export default {
   [mutator.SET_CURRENT_STEP](state, step) {
     state.currentStep = step
   },
+
+  [mutator.RESET_STATE](state) {
+    state.currentStep = 'Step1'
+    state.keywords = []
+    state.searchData = []
+    state.newWorkspace = {
+      title: '',
+      description: '',
+      members: [],
+      company: null,
+      projects: [],
+    }
+    state.newProject = {
+      title: '',
+      note: '',
+      keywords: [],
+      ignore_keywords: '',
+      max_items: '',
+      image: null,
+      arabic_name: '',
+      english_name: '',
+      social: false,
+      online: false,
+      premium: false,
+      creator: null,
+      source: '',
+      workspace: null,
+    }
+  },
 }
