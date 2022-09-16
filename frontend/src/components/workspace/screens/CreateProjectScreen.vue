@@ -1,10 +1,21 @@
 <template>
   <StepsNav
+    v-if="currentStep === 'Step2'"
     :step="step"
     :title="'Create Project'"
     :hint="'Name the project and choose source Type'"
     :is-active-button="!!this.projectName"
     @next-step="nextStep"
+  />
+
+  <StepsNav
+    v-else
+    :step="step"
+    :title="'Create Project'"
+    :hint="'Name the project and choose source Type'"
+    :is-existing-workspace="true"
+    :is-active-button="!!this.projectName"
+    @next-step="nextStepForExistingWorkspace"
   />
 
   <section class="form-section">
@@ -53,7 +64,7 @@
 </template>
 
 <script>
-import {mapActions} from 'vuex'
+import {mapActions, mapState} from 'vuex'
 import {action} from '@store/constants'
 
 import BaseInput from '@/components/BaseInput'
@@ -108,6 +119,7 @@ export default {
     }
   },
   computed: {
+    ...mapState(['currentStep']),
     step() {
       return this.$route.name
     },
@@ -125,6 +137,11 @@ export default {
     changeValue(newValue) {
       this.selectedValue = newValue
     },
+    checkSelectOption(selectedItem, item) {
+      return selectedItem === item.name
+        ? 'SelectRadioIcon'
+        : item.icon + 'RadioIcon'
+    },
     nextStep() {
       try {
         this[action.UPDATE_CURRENT_STEP]('Step3')
@@ -141,10 +158,22 @@ export default {
         console.log(e)
       }
     },
-    checkSelectOption(selectedItem, item) {
-      return selectedItem === item.name
-        ? 'SelectRadioIcon'
-        : item.icon + 'RadioIcon'
+    nextStepForExistingWorkspace() {
+      try {
+        this[action.UPDATE_CURRENT_STEP]('ProjectStep2')
+        this[action.UPDATE_PROJECT_STATE]({
+          creator: 1,
+          title: this.projectName,
+          description: this.description,
+          source: this.selectedValue.name,
+          workspace: this.$route.params.workspaceId,
+        })
+        this.$router.push({
+          name: 'ProjectStep2',
+        })
+      } catch (e) {
+        console.log(e)
+      }
     },
   },
 }

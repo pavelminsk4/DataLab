@@ -60,27 +60,44 @@ export default {
       type: String,
       default: 'Next',
     },
+    isExistingWorkspace: {
+      type: Boolean,
+      default: false,
+    },
   },
-  data() {
-    return {
-      progressBarData: [
-        {
-          name: 'Step1',
-          value: 1,
-          isFinished: false,
-        },
-        {
-          name: 'Step2',
-          value: 2,
-          isFinished: false,
-        },
-        {
-          name: 'Step3',
-          value: 3,
-          isFinished: false,
-        },
-      ],
-    }
+  computed: {
+    progressBarData() {
+      return this.isExistingWorkspace
+        ? [
+            {
+              name: 'ProjectStep1',
+              value: 1,
+              isFinished: false,
+            },
+            {
+              name: 'ProjectStep2',
+              value: 2,
+              isFinished: false,
+            },
+          ]
+        : [
+            {
+              name: 'Step1',
+              value: 1,
+              isFinished: false,
+            },
+            {
+              name: 'Step2',
+              value: 2,
+              isFinished: false,
+            },
+            {
+              name: 'Step3',
+              value: 3,
+              isFinished: false,
+            },
+          ]
+    },
   },
   methods: {
     backToHome() {

@@ -61,6 +61,17 @@ export default {
     }
   },
 
+  async [action.CREATE_PROJECT]({commit}, projectData) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      await api.createNewProject(projectData)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
   async [action.UPDATE_PROJECT_STATE]({commit}, newProject) {
     commit(mutator.SET_NEW_PROJECT, newProject)
   },
@@ -75,6 +86,10 @@ export default {
 
   async [action.UPDATE_CURRENT_STEP]({commit}, step) {
     commit(mutator.SET_CURRENT_STEP, step)
+  },
+
+  async [action.CLEAR_STATE]({commit}) {
+    commit(mutator.RESET_STATE)
   },
 
   async [action.CLEAR_KEYWORDS_LIST]({commit}, index) {

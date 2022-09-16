@@ -29,8 +29,8 @@
 </template>
 
 <script>
-import {mapActions, mapGetters, mapState} from 'vuex'
-import {action, get} from '@store/constants'
+import {mapActions, mapState} from 'vuex'
+import {action} from '@store/constants'
 
 import SortIcon from '@components/icons/SortIcon'
 
@@ -47,11 +47,7 @@ export default {
     ProjectItem,
   },
   computed: {
-    ...mapState(['userId']),
-    ...mapGetters({
-      workspaces: get.WORKSPACES,
-      member: get.USER_ID,
-    }),
+    ...mapState(['userId', 'workspaces']),
   },
   async created() {
     if (!this.userId) {

@@ -46,6 +46,9 @@ export default {
       description: '',
     }
   },
+  created() {
+    this[action.CLEAR_STATE]()
+  },
   computed: {
     step() {
       return this.$route.name
@@ -57,7 +60,11 @@ export default {
     },
   },
   methods: {
-    ...mapActions([action.UPDATE_NEW_WORKSPACE, action.UPDATE_CURRENT_STEP]),
+    ...mapActions([
+      action.UPDATE_NEW_WORKSPACE,
+      action.UPDATE_CURRENT_STEP,
+      action.CLEAR_STATE,
+    ]),
     nextStep() {
       try {
         this[action.UPDATE_CURRENT_STEP]('Step2')

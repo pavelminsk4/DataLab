@@ -23,8 +23,8 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
-import {action, get} from '@store/constants'
+import {mapActions, mapState} from 'vuex'
+import {action} from '@store/constants'
 
 import SortIcon from '@components/icons/SortIcon'
 
@@ -36,9 +36,7 @@ export default {
   name: 'WorkspaceView',
   components: {BaseTable, MainLayout, BaseButton, SortIcon},
   computed: {
-    ...mapGetters({
-      workspaces: get.WORKSPACES,
-    }),
+    ...mapState(['workspaces']),
     workspaceId() {
       return this.$route.params.workspaceId
     },
@@ -52,9 +50,8 @@ export default {
   methods: {
     ...mapActions([action.GET_WORKSPACES]),
     createProject() {
-      this.loading = true
       this.$router.push({
-        name: 'CreateProject',
+        name: 'ProjectStep1',
       })
     },
   },
