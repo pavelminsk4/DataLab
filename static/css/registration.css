@@ -289,6 +289,10 @@ form {
         display: none;
     }
 
+    .screen-title-wrapper {
+        display: none;
+    }
+
     .form-section {
         display: flex;
         flex-direction: column;

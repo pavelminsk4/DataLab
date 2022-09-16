@@ -77,7 +77,7 @@ export default {
   flex-direction: column;
   align-items: flex-start;
 
-  width: 100%;
+  width: 50%;
   margin: 0 40px 0 108px;
 
   color: var(--primary-text-color);
