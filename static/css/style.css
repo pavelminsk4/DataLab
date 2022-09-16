@@ -52,6 +52,8 @@
   body {
     margin: 0;
 
+    color: #ffffff;
+    background: #1D1E1F;
     font-family: 'Poppins', sans-serif;
 }
 
@@ -63,6 +65,7 @@ p {
     font-weight: 700;
     font-size: 28px;
     line-height: 20px;
+    color: #FFFFFF;
 }
 
 .hint, .submit-form, input::placeholder {
@@ -76,6 +79,7 @@ p {
    font-weight: 600;
    font-size: 14px;
    line-height: 110%;
+   color: #FFFFFF;
 }
 
 .links {
@@ -88,6 +92,6 @@ p {
     font-size: 14px;
     line-height: 120%;
 
-    color: #4490FF;
+    color: #055FFC;
 }
 
