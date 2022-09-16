@@ -13,4 +13,4 @@ class SearchTests(APITestCase):
     url = reverse('search')
     response = self.client.post(url, data, format='json')
     self.assertEqual(response.status_code, status.HTTP_200_OK)
-    self.assertEqual(json.loads(response.content), [{'entry_title':'RUS Putin'}])  
+    self.assertEqual(json.loads(response.content), [{'entry_media_thumbnail_url': None, 'entry_published': None, 'entry_summary': None, 'entry_title':'RUS Putin', 'feed_language': None}])  
