@@ -10,7 +10,7 @@ from django.http import JsonResponse
 import json
 from django.db.models import Q
 from functools import reduce
-from django.views.decorators.csrf import csrf_exempt
+#from django.views.decorators.csrf import csrf_exempt
 
 # ==== User API =======================
 
@@ -82,7 +82,7 @@ class WorkspaceDelete(DestroyAPIView):
 
 # === Search API =====
 
-@csrf_exempt
+#@csrf_exempt
 def search(request):
   body = json.loads(request.body)
   keys = body['keywords']

@@ -28,7 +28,6 @@ class Project(models.Model):
   creator = models.ForeignKey(User,related_name='creator', on_delete=models.CASCADE)
   created_at = models.DateTimeField(auto_now_add=True)
   note = models.CharField(max_length=200, null=True, blank=True)
-#  keywords = models.CharField(max_length=200, null=True, blank=True)
   keywords = ArrayField(models.CharField(max_length=200), blank=True, null=True)
   ignore_keywords = models.CharField(max_length=200, null=True, blank=True)
   max_items = models.CharField(max_length=200, null=True, blank=True)
@@ -39,6 +38,7 @@ class Project(models.Model):
   social = models.BooleanField(default=False)
   online = models.BooleanField(default=False)
   premium = models.BooleanField(default=False)
+  source = models.CharField(max_length=100, null=True, blank=True)
   members = models.ManyToManyField(User,related_name='members',null=True,blank=True)
 
   def __str__(self):
