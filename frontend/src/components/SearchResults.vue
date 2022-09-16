@@ -7,21 +7,27 @@
         :key="'result' + index"
         class="search-result-card"
       >
-        <div>Checkbox</div>
-
         <section class="search-info-wrapper">
           <div class="result-img">
-            <img :src="item.entry_media_thumbnail_url" class="img" />
+            <BaseCheckbox class="status" />
+            <img
+              v-if="item.entry_media_thumbnail_url !== 'None'"
+              :src="item.entry_media_thumbnail_url"
+              class="img"
+            />
+            <NoImageIcon v-else class="no-image" />
           </div>
+
           <div class="search-info">
+            <div class="status">Positive</div>
             <div class="title" tabindex="0">{{ item.entry_title }}</div>
             <div class="description" tabindex="0">{{ item.entry_summary }}</div>
             <div class="general-information">
-              <div>
+              <div class="general-item">
                 {{ resultLanguage(item.feed_language) }}
               </div>
-              <div>
-                {{ item.entry_published }}
+              <div class="general-item">
+                {{ dateOfCreation(item.entry_published) }}
               </div>
             </div>
           </div>
@@ -36,8 +42,12 @@
 import {mapState} from 'vuex'
 import {langCodes} from '@/lib/language-codes'
 
+import NoImageIcon from '@/components/icons/NoImageIcon'
+import BaseCheckbox from '@/components/BaseCheckbox'
+
 export default {
   name: 'SearchResults',
+  components: {BaseCheckbox, NoImageIcon},
   computed: {
     ...mapState(['searchData']),
   },
@@ -49,6 +59,13 @@ export default {
         }
       }
       return ''
+    },
+    dateOfCreation(date) {
+      return new Date(date).toLocaleDateString('en-US', {
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric',
+      })
     },
   },
 }
@@ -100,6 +117,10 @@ export default {
   }
 }
 
+.status {
+  margin-bottom: 12px;
+}
+
 .search-info {
   display: flex;
   flex-direction: column;
@@ -144,5 +165,21 @@ export default {
 
 .general-information {
   display: flex;
+
+  margin-top: 10px;
+
+  .general-item {
+    margin-right: 10px;
+
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 20px;
+    color: var(--secondary-text-color);
+  }
+}
+
+.no-image {
+  width: 50px;
+  height: 50px;
 }
 </style>

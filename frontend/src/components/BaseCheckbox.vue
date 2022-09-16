@@ -25,8 +25,6 @@ export default {
 
   display: block;
 
-  margin: 0 40px 20px 0;
-
   font-size: 22px;
 
   cursor: pointer;
@@ -48,7 +46,6 @@ export default {
 }
 
 .checkmark {
-  position: absolute;
   top: 0;
   left: 0;
 
@@ -93,9 +90,5 @@ export default {
 
 .container input:checked ~ .checkmark:after {
   display: block;
-}
-
-.container-header {
-  margin-bottom: 30px;
 }
 </style>
