@@ -100,7 +100,6 @@ export default {
     commit(mutator.SET_LOADING, true)
     try {
       const response = await api.postSearch(data)
-      console.log(response)
       commit(mutator.SET_SEARCH_DATA, response)
     } catch (e) {
       console.log(e)

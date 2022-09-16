@@ -44,7 +44,7 @@
           </div>
           <BaseTag
             class="additional-key"
-            :placeholder="'Enter Keywords and Phrases seperated by comas'"
+            :placeholder="'Enter Keywords and Phrases'"
           />
         </div>
       </section>
@@ -53,11 +53,11 @@
         Refine youre search with additional filters
       </div>
 
+      <OnlineType class="key-word-section" />
+
       <BaseButton @click="showResults" class="apply-settings">
         Apply Settings
       </BaseButton>
-
-      <OnlineType class="key-word-section" />
     </section>
 
     <SearchResults />
@@ -181,7 +181,6 @@ export default {
 
 .search-settings-wrapper {
   display: flex;
-  justify-content: space-between;
 }
 
 .second-title {

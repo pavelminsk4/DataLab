@@ -19,7 +19,7 @@
           </div>
 
           <div class="search-info">
-            <div class="status">Positive</div>
+            <div class="status">Negative</div>
             <div class="title" tabindex="0">{{ item.entry_title }}</div>
             <div class="description" tabindex="0">{{ item.entry_summary }}</div>
             <div class="general-information">
@@ -77,8 +77,8 @@ export default {
   flex-direction: column;
   align-items: flex-start;
 
-  max-width: 50%;
-  margin-left: 108px;
+  width: 100%;
+  margin: 0 40px 0 108px;
 
   color: var(--primary-text-color);
 }
@@ -88,7 +88,7 @@ export default {
 }
 
 .search-result-cards {
-  max-width: 100%;
+  width: 100%;
 }
 
 .search-result-card {
@@ -119,6 +119,8 @@ export default {
 
 .status {
   margin-bottom: 12px;
+
+  color: #f94747;
 }
 
 .search-info {
