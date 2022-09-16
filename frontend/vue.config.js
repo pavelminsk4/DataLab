@@ -17,6 +17,7 @@ module.exports = {
     config.resolve.alias
       .set('@api', path.resolve(__dirname, './api/'))
       .set('@components', path.resolve(__dirname, './src/components'))
+      .set('@lib', path.resolve(__dirname, './src/lib'))
       .set('@store', path.resolve(__dirname, './store/'))
       .set('@router', path.resolve(__dirname, './router/'))
       .set('@assets', path.resolve(__dirname, './src/assets'))

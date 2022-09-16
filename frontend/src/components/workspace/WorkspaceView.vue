@@ -30,10 +30,10 @@ import SortIcon from '@components/icons/SortIcon'
 
 import MainLayout from '@components/layout/MainLayout'
 import BaseButton from '@components/buttons/BaseButton'
-import BaseTable from '@components/workspace/ProjectsTable'
+import BaseTable from '@/components/ProjectsTable'
 
 export default {
-  name: 'WorkspaceScreen',
+  name: 'WorkspaceView',
   components: {BaseTable, MainLayout, BaseButton, SortIcon},
   computed: {
     ...mapGetters({

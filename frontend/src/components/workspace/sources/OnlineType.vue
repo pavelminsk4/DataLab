@@ -40,11 +40,11 @@
 </template>
 
 <script>
-import BaseInput from '@components/BaseInput'
-import BaseRadio from '@components/BaseRadio'
-import BaseSelect from '@components/BaseSelect'
+import BaseInput from '@/components/BaseInput'
+import BaseRadio from '@/components/BaseRadio'
+import BaseSelect from '@/components/BaseSelect'
 
-import CheckRadioIcon from '@components/icons/CheckIcon'
+import CheckRadioIcon from '@/components/icons/CheckIcon'
 
 export default {
   name: 'OnlineType',

@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
+import {mapActions, mapGetters, mapState} from 'vuex'
 import {action, get} from '@store/constants'
 
 import SortIcon from '@components/icons/SortIcon'
@@ -47,14 +47,17 @@ export default {
     ProjectItem,
   },
   computed: {
+    ...mapState(['userId']),
     ...mapGetters({
       workspaces: get.WORKSPACES,
       member: get.USER_ID,
     }),
   },
   async created() {
+    if (!this.userId) {
+      await this[action.GET_USER_INFORMATION]()
+    }
     await this[action.GET_WORKSPACES]()
-    await this[action.GET_USER_INFORMATION]()
   },
   methods: {
     ...mapActions([

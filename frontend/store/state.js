@@ -1,11 +1,13 @@
 const state = {
   loading: false,
+  currentStep: 'Step1',
   projects: [],
   workspaces: [],
   workspace: '',
   userId: '',
   channelType: '',
   keywords: [],
+  searchData: [],
   newWorkspace: {
     title: '',
     description: '',
@@ -16,7 +18,7 @@ const state = {
   newProject: {
     title: '',
     note: '',
-    keywords: '',
+    keywords: [],
     ignore_keywords: '',
     max_items: '',
     image: null,
@@ -26,6 +28,7 @@ const state = {
     online: false,
     premium: false,
     creator: null,
+    source: '',
   },
 }
 

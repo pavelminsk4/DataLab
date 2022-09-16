@@ -61,15 +61,8 @@ export default {
     }
   },
 
-  async [action.CREATE_PROJECT]({commit}, newProject) {
-    commit(mutator.SET_LOADING, true)
-    try {
-      await api.createNewProject(newProject)
-    } catch (e) {
-      console.log(e)
-    } finally {
-      commit(mutator.SET_LOADING, false)
-    }
+  async [action.UPDATE_PROJECT_STATE]({commit}, newProject) {
+    commit(mutator.SET_NEW_PROJECT, newProject)
   },
 
   async [action.UPDATE_NEW_WORKSPACE]({commit}, workspaceInfo) {
@@ -80,7 +73,24 @@ export default {
     commit(mutator.SET_KEYWORDS_LIST, keywords)
   },
 
+  async [action.UPDATE_CURRENT_STEP]({commit}, step) {
+    commit(mutator.SET_CURRENT_STEP, step)
+  },
+
   async [action.CLEAR_KEYWORDS_LIST]({commit}, index) {
     commit(mutator.DELETE_KEYWORDS_LIST, index)
+  },
+
+  async [action.POST_SEARCH]({commit}, data) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const response = await api.postSearch(data)
+      console.log(response)
+      commit(mutator.SET_SEARCH_DATA, response)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
   },
 }

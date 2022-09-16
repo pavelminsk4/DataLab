@@ -44,4 +44,17 @@ export default {
     }
     return fetch('post', '/api/project/create/', newProject, config)
   },
+
+  async postSearch(request) {
+    const config = {
+      headers: {
+        'content-type': 'application/json',
+        'X-CSRFToken': CSRF_TOKEN,
+      },
+    }
+
+    const response = fetch('post', '/api/search', request, config)
+
+    return response
+  },
 }

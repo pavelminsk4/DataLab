@@ -17,6 +17,10 @@ export default {
     state.userId = userId
   },
 
+  [mutator.SET_NEW_PROJECT](state, newProject) {
+    state.newProject = {...state.newProject, ...newProject}
+  },
+
   [mutator.SET_NEW_WORKSPACE](state, workspaceInfo) {
     state.newWorkspace = {...state.newWorkspace, ...workspaceInfo}
   },
@@ -27,5 +31,13 @@ export default {
 
   [mutator.DELETE_KEYWORDS_LIST](state, index) {
     state.keywords.splice(index, 1)
+  },
+
+  [mutator.SET_SEARCH_DATA](state, data) {
+    state.searchData = [...data]
+  },
+
+  [mutator.SET_CURRENT_STEP](state, step) {
+    state.currentStep = step
   },
 }
