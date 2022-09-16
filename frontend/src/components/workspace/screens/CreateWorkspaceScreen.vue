@@ -57,9 +57,10 @@ export default {
     },
   },
   methods: {
-    ...mapActions([action.UPDATE_NEW_WORKSPACE]),
-    async nextStep() {
+    ...mapActions([action.UPDATE_NEW_WORKSPACE, action.UPDATE_CURRENT_STEP]),
+    nextStep() {
       try {
+        this[action.UPDATE_CURRENT_STEP]('Step2')
         this[action.UPDATE_NEW_WORKSPACE]({
           title: this.title,
           description: this.description,

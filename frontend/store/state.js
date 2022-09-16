@@ -1,5 +1,6 @@
 const state = {
   loading: false,
+  currentStep: 'Step1',
   projects: [],
   workspaces: [],
   workspace: '',
@@ -27,6 +28,7 @@ const state = {
     online: false,
     premium: false,
     creator: null,
+    source: '',
   },
 }
 

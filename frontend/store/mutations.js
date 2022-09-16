@@ -36,4 +36,8 @@ export default {
   [mutator.SET_SEARCH_DATA](state, data) {
     state.searchData = [...data]
   },
+
+  [mutator.SET_CURRENT_STEP](state, step) {
+    state.currentStep = step
+  },
 }

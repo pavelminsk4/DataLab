@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.postgres.fields import ArrayField
 
 class Company(models.Model):
   name = models.CharField(max_length=100)
@@ -27,7 +28,8 @@ class Project(models.Model):
   creator = models.ForeignKey(User,related_name='creator', on_delete=models.CASCADE)
   created_at = models.DateTimeField(auto_now_add=True)
   note = models.CharField(max_length=200, null=True, blank=True)
-  keywords = models.CharField(max_length=200, null=True, blank=True)
+#  keywords = models.CharField(max_length=200, null=True, blank=True)
+  keywords = ArrayField(models.CharField(max_length=200), blank=True, null=True)
   ignore_keywords = models.CharField(max_length=200, null=True, blank=True)
   max_items = models.CharField(max_length=200, null=True, blank=True)
   image = models.ImageField(null=True, blank=True, upload_to='images')

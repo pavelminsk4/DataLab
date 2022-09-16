@@ -45,10 +45,10 @@
         <td>{{ item.title }}</td>
         <td>
           <span :class="item.keywords && 'keyword'">{{
-            firstKeyword(item.keywords)
+            item.keywords[0]
           }}</span>
-          <span :class="secondKeyword(item.keywords) !== '' && 'keyword'">{{
-            secondKeyword(item.keywords)
+          <span :class="item.keywords[1] !== '' && 'keyword'">{{
+            item.keywords[1]
           }}</span>
         </td>
         <td>{{ item.creator }}</td>
@@ -112,12 +112,6 @@ export default {
       } else {
         return 'Premium'
       }
-    },
-    firstKeyword(keywords) {
-      return keywords ? keywords.split(' ').splice(0, 1).join(' ') : ''
-    },
-    secondKeyword(keywords) {
-      return keywords ? keywords.split(' ').splice(1, 1).join(' ') : ''
     },
     toggleModal() {
       this.isOpenSettings = !this.isOpenSettings

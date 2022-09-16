@@ -73,6 +73,10 @@ export default {
     commit(mutator.SET_KEYWORDS_LIST, keywords)
   },
 
+  async [action.UPDATE_CURRENT_STEP]({commit}, step) {
+    commit(mutator.SET_CURRENT_STEP, step)
+  },
+
   async [action.CLEAR_KEYWORDS_LIST]({commit}, index) {
     commit(mutator.DELETE_KEYWORDS_LIST, index)
   },

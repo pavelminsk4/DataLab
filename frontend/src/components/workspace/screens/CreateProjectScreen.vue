@@ -121,12 +121,13 @@ export default {
     },
   },
   methods: {
-    ...mapActions([action.UPDATE_PROJECT_STATE]),
+    ...mapActions([action.UPDATE_PROJECT_STATE, action.UPDATE_CURRENT_STEP]),
     changeValue(newValue) {
       this.selectedValue = newValue
     },
     nextStep() {
       try {
+        this[action.UPDATE_CURRENT_STEP]('Step3')
         this[action.UPDATE_PROJECT_STATE]({
           creator: 1,
           title: this.projectName,
