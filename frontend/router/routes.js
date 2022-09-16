@@ -9,6 +9,8 @@ import CreateWorkspaceScreen from '@/components/workspace/screens/CreateWorkspac
 import CreateWorkspaceView from '@/components/workspace/CreateWorkspaceView'
 import CreateProjectView from '@/components/project/CreateProjectView'
 
+import ProjectReports from '@/components/project/screens/ProjectReports'
+
 export const routes = [
   {
     path: '/',
@@ -69,7 +71,6 @@ export const routes = [
         path: 'project-step-2',
         component: CreateSearchScreen,
         beforeEnter: (to, from, next) => {
-          console.log(to, store.state.currentStep)
           if (to.name !== store.state.currentStep)
             next({
               name: 'ProjectStep1',
@@ -86,5 +87,11 @@ export const routes = [
     name: 'Workspace',
     path: '/workspace/:workspaceId',
     component: WorkspaceView,
+  },
+
+  {
+    name: 'ProjectReports',
+    path: '/workspace/:workspaceId/project/:projectId',
+    component: ProjectReports,
   },
 ]

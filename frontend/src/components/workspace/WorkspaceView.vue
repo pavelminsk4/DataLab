@@ -18,7 +18,10 @@
       </BaseButton>
     </div>
 
-    <BaseTable :values="workspace?.projects" />
+    <ProjectsTable
+      @go-to-project="goToProjectSettings"
+      :values="workspace?.projects"
+    />
   </MainLayout>
 </template>
 
@@ -30,11 +33,11 @@ import SortIcon from '@components/icons/SortIcon'
 
 import MainLayout from '@components/layout/MainLayout'
 import BaseButton from '@components/buttons/BaseButton'
-import BaseTable from '@/components/ProjectsTable'
+import ProjectsTable from '@/components/ProjectsTable'
 
 export default {
   name: 'WorkspaceView',
-  components: {BaseTable, MainLayout, BaseButton, SortIcon},
+  components: {ProjectsTable, MainLayout, BaseButton, SortIcon},
   computed: {
     ...mapState(['workspaces']),
     workspaceId() {
@@ -52,6 +55,15 @@ export default {
     createProject() {
       this.$router.push({
         name: 'ProjectStep1',
+      })
+    },
+    goToProjectSettings(id) {
+      this.$router.push({
+        name: 'ProjectReports',
+        params: {
+          workspaceId: this.workspaceId,
+          projectId: id,
+        },
       })
     },
   },

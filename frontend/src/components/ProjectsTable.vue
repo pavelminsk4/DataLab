@@ -19,7 +19,11 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="(item, index) in values" :key="index">
+      <tr
+        v-for="(item, index) in values"
+        :key="index"
+        @click="goToProject(item.id)"
+      >
         <td>
           <label class="container">
             <input
@@ -115,6 +119,10 @@ export default {
     },
     toggleModal() {
       this.isOpenSettings = !this.isOpenSettings
+    },
+
+    goToProject(id) {
+      this.$emit('go-to-project', id)
     },
   },
 }
