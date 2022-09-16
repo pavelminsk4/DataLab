@@ -1,10 +1,21 @@
 <template>
   <StepsNav
+    v-if="this.currentStep === 'Step3'"
     :step="step"
     :title="'Define the search'"
     :hint="'Search by keywords and phrases'"
     :button-name="'Create Project'"
     @next-step="createWorkspaceAndProject"
+  />
+
+  <StepsNav
+    v-else
+    :step="step"
+    :title="'Define the search'"
+    :hint="'Search by keywords and phrases'"
+    :is-existing-workspace="true"
+    :button-name="'Create Project'"
+    @next-step="createProject"
   />
 
   <div class="search-settings-wrapper">
@@ -79,7 +90,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['newWorkspace', 'keywords', 'newProject']),
+    ...mapState(['newWorkspace', 'keywords', 'newProject', 'currentStep']),
     step() {
       return this.$route.name
     },
@@ -89,8 +100,10 @@ export default {
       action.UPDATE_PROJECT_STATE,
       action.UPDATE_NEW_WORKSPACE,
       action.CREATE_WORKSPACE,
+      action.CREATE_PROJECT,
       action.GET_WORKSPACES,
       action.POST_SEARCH,
+      action.CLEAR_STATE,
     ]),
     showResults() {
       try {
@@ -109,10 +122,26 @@ export default {
           projects: [this.newProject],
         })
         this[action.CREATE_WORKSPACE](this.newWorkspace)
-        console.log(this.newWorkspace)
-        this[action.GET_WORKSPACES]()
+        this[action.CLEAR_STATE]()
         this.$router.push({
           name: 'Home',
+        })
+      } catch (e) {
+        console.log(e)
+      }
+    },
+    createProject() {
+      try {
+        this[action.UPDATE_PROJECT_STATE]({
+          keywords: [...this.keywords],
+        })
+        this[action.CREATE_PROJECT](this.newProject)
+        this[action.CLEAR_STATE]()
+        this.$router.push({
+          name: 'Workspace',
+          params: {
+            workspaceId: this.$route.params.workspaceId,
+          },
         })
       } catch (e) {
         console.log(e)
