@@ -22,7 +22,8 @@
         v-for="(item, index) in workspaces"
         :key="index"
         :title="item.title"
-        @click="navigateToWorkspace(item.id)"
+        @add-new-project="addNewProject(item.id)"
+        @navigate-to-workspace="navigateToWorkspace(item.id)"
       />
     </div>
   </MainLayout>
@@ -60,6 +61,7 @@ export default {
       action.GET_WORKSPACES,
       action.CREATE_WORKSPACE,
       action.GET_USER_INFORMATION,
+      action.UPDATE_CURRENT_STEP,
     ]),
     createWorkspace() {
       this.loading = true
@@ -70,6 +72,13 @@ export default {
     navigateToWorkspace(id) {
       this.loading = true
       this.$router.push({name: 'Workspace', params: {workspaceId: id}})
+    },
+    addNewProject(id) {
+      this[action.UPDATE_CURRENT_STEP]('ProjectStep1')
+      this.$router.push({
+        name: 'ProjectStep1',
+        params: {workspaceId: id},
+      })
     },
   },
 }

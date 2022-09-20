@@ -1,5 +1,5 @@
 <template>
-  <div class="project-cart-wrapper transition">
+  <div class="project-cart-wrapper transition" @click="openWorkspace">
     <div class="project-title-wrapper">
       <div class="title">{{ title }}</div>
 
@@ -9,7 +9,7 @@
     <div class="cart-button-wrapper">
       <div class="test-user">User</div>
 
-      <button class="new-project">
+      <button class="new-project" @click="addNewProject">
         <span class="button-text">new</span>
         <span class="circle" aria-hidden="true"><PlusIcon /></span>
       </button>
@@ -31,6 +31,14 @@ export default {
     title: {
       type: String,
       default: '',
+    },
+  },
+  methods: {
+    openWorkspace() {
+      this.$emit('navigate-to-workspace')
+    },
+    addNewProject() {
+      this.$emit('add-new-project')
     },
   },
 }
@@ -141,6 +149,8 @@ button {
 button.new-project {
   width: 74px;
   height: 30px;
+
+  z-index: 2;
 }
 
 button.new-project .circle {
