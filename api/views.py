@@ -10,6 +10,7 @@ from django.http import JsonResponse
 import json
 from django.db.models import Q
 from functools import reduce
+from  nltk.sentiment import SentimentIntensityAnalyzer
 #from django.views.decorators.csrf import csrf_exempt
 
 # ==== User API =======================
@@ -81,13 +82,26 @@ class WorkspaceDelete(DestroyAPIView):
   serializer_class = WorkspaceSerializer
 
 # === Search API =====
+def get_string_from_score(sentiments):
+  if sentiments['neg'] > sentiments['neu'] and sentiments['neg'] > sentiments['pos']:
+      res = 'negative'
+  elif sentiments['neu'] > sentiments['pos']:
+    res = 'neutral'
+  else:
+    res = 'positive'
+  return res
+
+def add_sentiment_score(posts):
+  for post in posts:
+    sentiments = SentimentIntensityAnalyzer().polarity_scores(post['entry_summary'])
+    post['sentiment'] = get_string_from_score(sentiments)
+  return posts
 
 #@csrf_exempt
 def search(request):
   body = json.loads(request.body)
   keys = body['keywords']
-  posts = Post.objects.filter(reduce(lambda x,y: x | y, [Q(entry_title__contains=key) for key in keys])).values(
-    'entry_title', 'entry_published', 'entry_summary', 'entry_media_thumbnail_url', 'feed_language'
-  )
+  posts = Post.objects.filter(reduce(lambda x,y: x | y, [Q(entry_title__contains=key) for key in keys])).values('entry_title', 'entry_published', 'entry_summary', 'entry_media_thumbnail_url', 'feed_language')
+  add_sentiment_score(posts)
   posts_list=list(posts)
   return JsonResponse(posts_list,safe = False)

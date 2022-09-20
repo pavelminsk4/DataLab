@@ -7,10 +7,10 @@ import json
 
 class SearchTests(APITestCase):
   def test_search(self):
-    Post.objects.create(entry_title='USA Abama')
-    Post.objects.create(entry_title='RUS Putin')
-    data = {'keywords': ['Putin', 'abama'] }
+    Post.objects.create(entry_title='Good News', entry_summary='Good')
+    Post.objects.create(entry_title='Bad post', entry_summary='The Best')
+    data = {'keywords': ['Good', 'Post'] }
     url = reverse('search')
     response = self.client.post(url, data, format='json')
     self.assertEqual(response.status_code, status.HTTP_200_OK)
-    self.assertEqual(json.loads(response.content), [{'entry_media_thumbnail_url': None, 'entry_published': None, 'entry_summary': None, 'entry_title':'RUS Putin', 'feed_language': None}])  
+    self.assertEqual(json.loads(response.content), [{'entry_media_thumbnail_url': None, 'entry_published': None, 'entry_summary': 'Good', 'entry_title':'Good News', 'feed_language': None, 'sentiment': 'positive'}])  
