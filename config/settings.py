@@ -38,8 +38,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'api.apps.ApiConfig',
     'import_export',
-    'django_crontab',
     'workspace.apps.WorkspaceConfig',
+    'django_celery_beat',
+    'django_celery_results',
 ]
 
 MIDDLEWARE = [
@@ -149,10 +150,6 @@ REST_FRAMEWORK = {
     ]
 }
 
-CRONJOBS = [
-    ('* * * * *', 'project.cron.feed_receiver')
-]
-
 #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_BACKEND = env('EMAIL_BACKEND')
 EMAIL_HOST = env('EMAIL_HOST')
@@ -161,3 +158,15 @@ EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = env('EMAIL_PORT')
 EMAIL_USE_TLS = env('EMAIL_USE_TLS')
 DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
+
+# REDIS related settings 
+REDIS_HOST = 'localhost'
+REDIS_PORT = '6379'
+BROKER_URL = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
+BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600} 
+CELERY_RESULT_BACKEND = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
+
+
+CELERY_RESULT_BACKEND = "django-db"
+CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_REDIS_URL', 'redis://localhost:6379')
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers.DatabaseScheduler'
