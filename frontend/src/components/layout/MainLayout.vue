@@ -40,4 +40,12 @@ export default {
   z-index: 1;
   transform: translate(-50%, -50%);
 }
+
+@media (max-width: 800px) {
+  .main-layout-wrapper {
+    position: relative;
+
+    padding: 0 30px 30px 30px;
+  }
+}
 </style>

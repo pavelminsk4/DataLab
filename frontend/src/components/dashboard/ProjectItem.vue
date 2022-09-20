@@ -1,5 +1,5 @@
 <template>
-  <div class="project-cart-wrapper">
+  <div class="project-cart-wrapper transition">
     <div class="project-title-wrapper">
       <div class="title">{{ title }}</div>
 
@@ -9,9 +9,9 @@
     <div class="cart-button-wrapper">
       <div class="test-user">User</div>
 
-      <button class="icon-btn">
-        <PlusIcon class="plus-icon" />
-        <div class="btn-txt">new</div>
+      <button class="new-project">
+        <span class="button-text">new</span>
+        <span class="circle" aria-hidden="true"><PlusIcon /></span>
       </button>
     </div>
   </div>
@@ -41,23 +41,24 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  flex-shrink: 1;
 
-  width: 230px;
+  width: calc((100% / 5) - (4rem / 5));
   height: 130px;
   padding: 16px 21px 13px 18px;
-  margin: 0 12px 25px 12px;
 
   border: 1px solid #2d2d31;
   border-radius: 15px;
   box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
 
-  background-color: var(--secondary-bg-color);
   cursor: pointer;
 
-  transition: all 0.9s;
+  background: linear-gradient(to left, rgba(5, 95, 252, 0.7), #242529, #242529);
+  background-size: 200%;
+  transition: 0.5s;
 
   &:hover {
-    background: radial-gradient(circle at right, #055ffc, transparent);
+    background-position: right;
   }
 }
 
@@ -69,6 +70,10 @@ export default {
 }
 
 .title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
   font-style: normal;
   font-weight: 600;
   font-size: 16px;
@@ -111,53 +116,83 @@ export default {
   background-color: var(--primary-button-color);
 }
 
-.icon-btn {
+button {
+  position: relative;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+
+  padding: 0;
+
+  border: 0;
+  background: transparent;
+
+  font-size: inherit;
+  font-family: inherit;
+
+  cursor: pointer;
+  outline: none;
+  vertical-align: middle;
+  text-decoration: none;
+  transition: 3s;
+}
+
+button.new-project {
+  width: 74px;
+  height: 30px;
+}
+
+button.new-project .circle {
+  position: relative;
+
   display: flex;
   align-items: center;
-  justify-content: center;
 
+  padding: 0 5px 0 9px;
+  margin: 0;
   width: 30px;
   height: 30px;
 
-  border: none;
-  border-radius: 100%;
+  background: var(--icon-bg-color);
+  border-radius: 1.625rem;
 
-  background-color: var(--icon-bg-color);
+  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+}
 
-  cursor: pointer;
-  transition: all 0.9s;
+button.new-project .button-text {
+  position: absolute;
+  top: 50%;
+  left: 60%;
+  transform: translate(-50%, -50%);
 
-  svg {
-    flex-shrink: 0;
-  }
+  text-align: center;
 
-  .btn-txt {
-    position: absolute;
-    overflow: hidden;
-    opacity: 0;
+  opacity: 0;
+  z-index: 2;
+  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+}
+
+button:hover .circle {
+  width: 100%;
+  background: var(--primary-button-color);
+}
+
+button:hover .button-text {
+  opacity: 1;
+  color: var(--primary-text-color);
+}
+
+@media screen and (max-width: 1080px) {
+  .project-cart-wrapper {
+    width: calc((100% / 4) - (3rem / 4));
   }
 }
 
-.icon-btn:hover {
-  width: fit-content;
-
-  border-radius: 15px;
-
-  background-color: var(--primary-button-color);
-
-  svg {
-    margin-left: 9px;
-  }
-
-  .btn-txt {
-    position: relative;
-    opacity: 1;
-
-    margin: 0 15px 0 8px;
-
-    color: var(--primary-text-color);
-
-    transition: all 0.9s;
+@media screen and (max-width: 750px) {
+  .project-cart-wrapper {
+    width: calc((100% / 2) - (2rem / 3));
+    height: 160px;
   }
 }
 </style>

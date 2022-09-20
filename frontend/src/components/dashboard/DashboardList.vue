@@ -132,7 +132,6 @@ export default {
 .items-wrapper {
   display: flex;
   flex-wrap: wrap;
-
-  margin: 0 -24px 0;
+  gap: 1rem;
 }
 </style>
