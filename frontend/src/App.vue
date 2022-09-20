@@ -37,6 +37,8 @@ body {
   --icon-bg-color: #1a1c1e;
 
   --input-border-color: #2d2d31;
+  --modal-border-color: #404046;
+  --modal-line-color: #2e2f34;
 
   --primary-bg-color: #1d1e1f;
   --secondary-bg-color: #242529;

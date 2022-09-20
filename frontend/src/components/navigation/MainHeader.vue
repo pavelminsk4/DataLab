@@ -1,18 +1,23 @@
 <template>
   <header class="header">
-    <section class="section-search">
-      <LogoIcon class="logo" @click="goToDashboard" />
-    </section>
+    <LogoIcon class="logo" @click="goToDashboard" />
 
     <div class="section-company">
-      <UserWithoutPhotoIcon class="user-icon" />
+      <UserWithoutPhotoIcon />
       <ActiveBellIcon class="bell-icon" />
-      <div class="company-dropdown">
-        Company Name
-        <ArrowDownIcon class="arrow-down" />
-      </div>
+      <div class="name">Company Name</div>
+      <section class="dropdown-wrapper">
+        <ArrowDownIcon
+          @click="openDropdown"
+          :class="[isOpenDropdown && 'arrow-open-dropdown', 'arrow-down']"
+        />
+
+        <div v-if="isOpenDropdown" class="dropdown">
+          <div class="item">Settings</div>
+          <div @click="logout" class="item">Logout</div>
+        </div>
+      </section>
       <div class="company-logo">Logo</div>
-      <BaseButton @click="logout" class="logout">Logout</BaseButton>
     </div>
   </header>
 </template>
@@ -20,8 +25,6 @@
 <script>
 import {mapActions} from 'vuex'
 import {action} from '@store/constants'
-
-import BaseButton from '@components/buttons/BaseButton'
 
 import LogoIcon from '@components/icons/LogoIcon'
 import ArrowDownIcon from '@components/icons/ArrowDownIcon'
@@ -31,11 +34,18 @@ import UserWithoutPhotoIcon from '@components/icons/UserWithoutPhotoIcon'
 export default {
   name: 'MainHeader',
   components: {
-    BaseButton,
     LogoIcon,
     UserWithoutPhotoIcon,
     ActiveBellIcon,
     ArrowDownIcon,
+  },
+  data() {
+    return {
+      isOpenDropdown: false,
+    }
+  },
+  created() {
+    document.addEventListener('click', this.closeDropdown)
   },
   methods: {
     ...mapActions([action.LOGOUT]),
@@ -49,19 +59,30 @@ export default {
         name: 'Home',
       })
     },
+    openDropdown() {
+      this.isOpenDropdown = !this.isOpenDropdown
+    },
+    closeDropdown() {
+      const elements = document.querySelectorAll('.dropdown-wrapper')
+
+      if (!Array.from(elements).find((el) => el.contains(event.target))) {
+        this.isOpenDropdown = false
+      }
+    },
   },
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .header {
   box-sizing: border-box;
 
   display: flex;
+  align-items: center;
   justify-content: space-between;
 
-  height: 94px;
-  padding: 13px 0 29px 0;
+  height: 66px;
+  margin-bottom: 28px;
 }
 
 .logo {
@@ -69,34 +90,85 @@ export default {
 
   width: 75px;
   height: 30px;
-  margin: 5px 65px 0 0;
-}
-
-.section-search {
-  display: flex;
 }
 
 .section-company {
   display: flex;
 }
 
-.user-icon {
-  margin: 10px 43px 0 0;
-}
-
 .bell-icon {
-  margin: 10px 55px 0 0;
+  margin: 0 55px 0 43px;
 }
 
-.company-dropdown {
-  height: fit-content;
-  margin: 12px 11px 0 0;
+.name {
+  display: flex;
+  align-items: center;
 
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
   color: var(--primary-text-color);
 }
 
+.dropdown-wrapper {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  .dropdown {
+    position: absolute;
+    top: 40px;
+    right: 2px;
+
+    display: flex;
+    flex-direction: column;
+
+    background: var(--progress-line);
+    border: 1px solid var(--modal-border-color);
+    border-radius: 10px;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 20px;
+    color: var(--primary-text-color);
+
+    .item {
+      cursor: pointer;
+
+      padding: 9px 24px 8px;
+
+      &:hover {
+        color: var(--primary-button-color);
+      }
+
+      &:first-child {
+        border-bottom: 1px solid var(--modal-line-color);
+      }
+    }
+  }
+}
+
 .arrow-down {
-  margin-left: 6px;
+  cursor: pointer;
+
+  width: 10px;
+  height: 10px;
+
+  margin: 0 11px 0 7px;
+
+  color: var(--primary-text-color);
+
+  &:hover {
+    color: var(--primary-button-color);
+  }
+}
+
+.arrow-open-dropdown {
+  transform: rotate(180deg);
+  color: var(--primary-button-color);
 }
 
 .company-logo {
@@ -106,7 +178,6 @@ export default {
 
   height: 36px;
   width: 36px;
-  margin-top: 7px;
 
   border-radius: 100%;
 
