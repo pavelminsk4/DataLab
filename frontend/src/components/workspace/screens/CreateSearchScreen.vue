@@ -123,6 +123,7 @@ export default {
         })
         this[action.CREATE_WORKSPACE](this.newWorkspace)
         this[action.CLEAR_STATE]()
+        this[action.GET_WORKSPACES]()
         this.$router.push({
           name: 'Home',
         })
@@ -137,6 +138,7 @@ export default {
         })
         this[action.CREATE_PROJECT](this.newProject)
         this[action.CLEAR_STATE]()
+        this[action.GET_WORKSPACES]()
         this.$router.push({
           name: 'Workspace',
           params: {
