@@ -39,11 +39,8 @@
         </td>
         <td>
           <div class="type">
-            <component
-              class="type-icon"
-              :is="channelTypeIcon(item.online, item.social)"
-            />
-            {{ channelTypeName(item.online, item.social) }}
+            <component class="type-icon" :is="item.source + 'RadioIcon'" />
+            {{ item.source }}
           </div>
         </td>
         <td>{{ item.title }}</td>
@@ -99,28 +96,6 @@ export default {
     projectCreationDate(date) {
       return new Date(date).toLocaleDateString('ro-RO')
     },
-    channelTypeIcon(online, social) {
-      if (online) {
-        return 'OnlineRadioIcon'
-      } else if (social) {
-        return 'SocialRadioIcon'
-      } else {
-        return 'PremiumRadioIcon'
-      }
-    },
-    channelTypeName(online, social) {
-      if (online) {
-        return 'Online'
-      } else if (social) {
-        return 'Social'
-      } else {
-        return 'Premium'
-      }
-    },
-    toggleModal() {
-      this.isOpenSettings = !this.isOpenSettings
-    },
-
     goToProject(id) {
       this.$emit('go-to-project', id)
     },

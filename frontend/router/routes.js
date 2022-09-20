@@ -1,6 +1,6 @@
 import store from '@store'
 
-import WorkspaceList from '@/components/dashboard/DashboardList'
+import DashboardList from '@/components/dashboard/DashboardList'
 import WorkspaceView from '@/components/workspace/WorkspaceView'
 
 import CreateSearchScreen from '@/components/workspace/screens/CreateSearchScreen'
@@ -14,13 +14,13 @@ import ProjectReports from '@/components/project/screens/ProjectReports'
 export const routes = [
   {
     path: '/',
-    component: WorkspaceList,
+    component: DashboardList,
   },
 
   {
     name: 'Home',
     path: '/dashboard',
-    component: WorkspaceList,
+    component: DashboardList,
   },
 
   {

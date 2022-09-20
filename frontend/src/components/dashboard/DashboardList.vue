@@ -50,10 +50,10 @@ export default {
     ...mapState(['userId', 'workspaces']),
   },
   async created() {
+    await this[action.GET_WORKSPACES]()
     if (!this.userId) {
       await this[action.GET_USER_INFORMATION]()
     }
-    await this[action.GET_WORKSPACES]()
   },
   methods: {
     ...mapActions([
