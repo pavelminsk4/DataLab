@@ -9,17 +9,25 @@
       >
         <section class="search-info-wrapper">
           <div class="result-img">
-            <BaseCheckbox class="status" />
+            <BaseCheckbox class="status-checkbox" />
             <img
               v-if="item.entry_media_thumbnail_url !== 'None'"
               :src="item.entry_media_thumbnail_url"
               class="img"
             />
-            <NoImageIcon v-else class="no-image" />
+            <NoImageIcon v-else class="default-image" />
           </div>
 
           <div class="search-info">
-            <div class="status">Negative</div>
+            <div
+              :class="[
+                item.sentiment === 'positive' && 'status-positive',
+                item.sentiment === 'negative' && 'status-negative',
+                'status-default',
+              ]"
+            >
+              {{ capitalizeFirstLetter(item.sentiment) }}
+            </div>
             <div class="title" tabindex="0">{{ item.entry_title }}</div>
             <div class="description" tabindex="0">{{ item.entry_summary }}</div>
             <div class="general-information">
@@ -66,6 +74,9 @@ export default {
         day: 'numeric',
         year: 'numeric',
       })
+    },
+    capitalizeFirstLetter(string) {
+      return string.charAt(0).toUpperCase() + string.slice(1)
     },
   },
 }
@@ -117,10 +128,49 @@ export default {
   }
 }
 
-.status {
+.status-checkbox {
+  color: var(--secondary-text-color);
+
+  margin-bottom: 12px;
+}
+
+.status-default {
+  position: relative;
+
+  color: var(--secondary-text-color);
+
+  padding-left: 12px;
   margin-bottom: 12px;
 
-  color: #f94747;
+  &:before {
+    position: absolute;
+    top: 50%;
+    left: 4px;
+    transform: translate(-50%, -50%);
+
+    content: '';
+    width: 6px;
+    height: 6px;
+
+    border-radius: 100%;
+    background-color: var(--secondary-text-color);
+  }
+}
+
+.status-positive {
+  color: var(--tag-color);
+
+  &:before {
+    background-color: var(--tag-color);
+  }
+}
+
+.status-negative {
+  color: var(--negative-status);
+
+  &:before {
+    background-color: var(--negative-status);
+  }
 }
 
 .search-info {
@@ -180,8 +230,8 @@ export default {
   }
 }
 
-.no-image {
-  width: 50px;
+.default-image {
+  width: 71px;
   height: 50px;
 }
 </style>

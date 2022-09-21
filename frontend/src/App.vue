@@ -50,5 +50,7 @@ body {
 
   --tag-color: #30f47e;
   --key-word-color: #e7a747;
+
+  --negative-status: #f94747;
 }
 </style>
