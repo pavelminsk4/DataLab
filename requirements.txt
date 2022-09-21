@@ -15,3 +15,5 @@ redis==4.3.4
 
 django-celery-beat
 django-celery-results
+
+nltk
