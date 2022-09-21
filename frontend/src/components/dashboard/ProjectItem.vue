@@ -1,15 +1,15 @@
 <template>
-  <div class="project-cart-wrapper transition" @click="openWorkspace">
+  <div class="project-cart-wrapper transition" @click.self="openWorkspace">
     <div class="project-title-wrapper">
       <div class="title">{{ title }}</div>
 
-      <PointsIcon class="points-icon" />
+      <PointsIcon @click.self="openModal" class="points-icon" />
     </div>
 
     <div class="cart-button-wrapper">
       <div class="test-user">User</div>
 
-      <button class="new-project" @click="addNewProject">
+      <button class="new-project" @click.self="addNewProject">
         <span class="button-text">new</span>
         <span class="circle" aria-hidden="true"><PlusIcon /></span>
       </button>
@@ -32,6 +32,10 @@ export default {
       type: String,
       default: '',
     },
+    id: {
+      type: Number,
+      required: true,
+    },
   },
   methods: {
     openWorkspace() {
@@ -39,6 +43,9 @@ export default {
     },
     addNewProject() {
       this.$emit('add-new-project')
+    },
+    openModal() {
+      this.$emit('open-modal', this.id)
     },
   },
 }
@@ -115,6 +122,7 @@ export default {
   color: var(--secondary-text-color);
 
   transition: all 0.3s;
+  z-index: 3;
 }
 
 .points-icon:hover {

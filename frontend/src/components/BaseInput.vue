@@ -1,5 +1,5 @@
 <template>
-  <div class="input-wrapper">
+  <div :class="['input-wrapper', isSettings && 'settings-input']">
     <SearchIcon v-if="isSearch" class="icon" />
     <input
       v-bind="$attrs"
@@ -22,6 +22,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    isSettings: {
+      type: Boolean,
+      default: false,
+    },
     placeholder: {
       type: String,
       default: 'Enter text',
@@ -38,7 +42,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .input-wrapper {
   position: relative;
 
@@ -55,11 +59,17 @@ export default {
   background-color: var(--secondary-bg-color);
 }
 
+input:focus {
+  border: 1px solid var(--primary-button-color);
+}
+
 .input {
   width: 100%;
+  height: 100%;
   padding-left: 16px;
 
   border: none;
+  border-radius: 10px;
 
   outline: none;
   color: var(--primary-text-color);
@@ -72,6 +82,18 @@ export default {
 
 .input-search {
   padding-left: 32px;
+}
+
+.settings-input {
+  width: 100%;
+
+  background: #34353b;
+  border: 1px solid #404046;
+  border-radius: 10px;
+
+  input {
+    background: #34353b;
+  }
 }
 
 .icon {
