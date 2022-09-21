@@ -3,13 +3,13 @@
     <div class="project-title-wrapper">
       <div class="title">{{ title }}</div>
 
-      <PointsIcon @click.self="openModal" class="points-icon" />
+      <PointsIcon @click="openModal" class="points-icon" />
     </div>
 
     <div class="cart-button-wrapper">
       <div class="test-user">User</div>
 
-      <button class="new-project" @click.self="addNewProject">
+      <button class="new-project" @click="addNewProject">
         <span class="button-text">new</span>
         <span class="circle" aria-hidden="true"><PlusIcon /></span>
       </button>

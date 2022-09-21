@@ -35,14 +35,14 @@ export default {
     return fetch('post', '/api/workspace/create/', workspace, config)
   },
 
-  async updateWorkspace(workspaceId, data) {
+  async updateWorkspace({workspaceId, data}) {
     const config = {
       headers: {
         'content-type': 'application/json',
         'X-CSRFToken': CSRF_TOKEN,
       },
     }
-    return fetch('post', `/api/workspace/update/${workspaceId}/`, data, config)
+    return fetch('put', `/api/workspace/update/${workspaceId}/`, data, config)
   },
 
   async createNewProject(newProject) {

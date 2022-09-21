@@ -75,7 +75,7 @@ export default {
   async [action.UPDATE_OLD_WORKSPACE]({commit}, {workspaceId, data}) {
     commit(mutator.SET_LOADING, true)
     try {
-      await api.updateWorkspace(workspaceId, data)
+      await api.updateWorkspace({workspaceId, data})
     } catch (e) {
       console.log(e)
     } finally {

@@ -90,7 +90,7 @@ export default {
         this.settingName === e.target.innerText ? 'General' : e.target.innerText
     },
     saveSettings() {
-      this.$emit('save-settings')
+      this.$emit('save-settings', this.title, this.description)
     },
   },
 }

@@ -69,7 +69,7 @@ export default {
     ...mapState(['userId', 'workspaces']),
   },
   async created() {
-    await this[action.GET_WORKSPACES]()
+    this[action.GET_WORKSPACES]()
     if (!this.userId) {
       await this[action.GET_USER_INFORMATION]()
     }
@@ -103,10 +103,10 @@ export default {
       this.isOpenModal = !this.isOpenModal
       this.workspaceId = id
     },
-    saveSettings() {
+    saveSettings(title, description) {
       this[action.UPDATE_OLD_WORKSPACE]({
         workspaceId: this.workspaceId,
-        data: {title: this.title, description: this.description},
+        data: {title: title, description: description},
       })
       this.toggleModal()
     },

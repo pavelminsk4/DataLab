@@ -59,13 +59,8 @@ export default {
   background-color: var(--secondary-bg-color);
 }
 
-input:focus {
-  border: 1px solid var(--primary-button-color);
-}
-
 .input {
   width: 100%;
-  height: 100%;
   padding-left: 16px;
 
   border: none;
