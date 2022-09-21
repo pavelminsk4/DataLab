@@ -1,5 +1,13 @@
 <template>
   <MainLayout>
+    <SettingsWorkspaceModal
+      v-if="isOpenModal"
+      :workspace-id="1"
+      modal-frame-style="width: 510px;"
+      @close="toggleModal"
+      @save-settings="saveSettings"
+    />
+
     <div class="create-project-wrapper">
       <div>
         <h1 class="title">Dashboard</h1>
@@ -22,7 +30,10 @@
         v-for="(item, index) in workspaces"
         :key="index"
         :title="item.title"
-        @click="navigateToWorkspace(item.id)"
+        :id="item.id"
+        @open-modal="toggleModal"
+        @add-new-project="addNewProject(item.id)"
+        @navigate-to-workspace="navigateToWorkspace(item.id)"
       />
     </div>
   </MainLayout>
@@ -37,20 +48,28 @@ import SortIcon from '@components/icons/SortIcon'
 import MainLayout from '@components/layout/MainLayout'
 import ProjectItem from '@components/dashboard/ProjectItem'
 import BaseButton from '@components/buttons/BaseButton'
+import SettingsWorkspaceModal from '@/components/modals/SettingsWorkspaceModal'
 
 export default {
   name: 'DashboardList',
   components: {
+    SettingsWorkspaceModal,
     SortIcon,
     BaseButton,
     MainLayout,
     ProjectItem,
   },
+  data() {
+    return {
+      isOpenModal: false,
+      workspaceId: null,
+    }
+  },
   computed: {
     ...mapState(['userId', 'workspaces']),
   },
   async created() {
-    await this[action.GET_WORKSPACES]()
+    this[action.GET_WORKSPACES]()
     if (!this.userId) {
       await this[action.GET_USER_INFORMATION]()
     }
@@ -60,6 +79,8 @@ export default {
       action.GET_WORKSPACES,
       action.CREATE_WORKSPACE,
       action.GET_USER_INFORMATION,
+      action.UPDATE_CURRENT_STEP,
+      action.UPDATE_OLD_WORKSPACE,
     ]),
     createWorkspace() {
       this.loading = true
@@ -70,6 +91,24 @@ export default {
     navigateToWorkspace(id) {
       this.loading = true
       this.$router.push({name: 'Workspace', params: {workspaceId: id}})
+    },
+    addNewProject(id) {
+      this[action.UPDATE_CURRENT_STEP]('ProjectStep1')
+      this.$router.push({
+        name: 'ProjectStep1',
+        params: {workspaceId: id},
+      })
+    },
+    toggleModal(id) {
+      this.isOpenModal = !this.isOpenModal
+      this.workspaceId = id
+    },
+    saveSettings(title, description) {
+      this[action.UPDATE_OLD_WORKSPACE]({
+        workspaceId: this.workspaceId,
+        data: {title: title, description: description},
+      })
+      this.toggleModal()
     },
   },
 }
@@ -132,7 +171,6 @@ export default {
 .items-wrapper {
   display: flex;
   flex-wrap: wrap;
-
-  margin: 0 -24px 0;
+  gap: 1rem;
 }
 </style>

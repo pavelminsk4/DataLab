@@ -127,6 +127,7 @@ export default {
         this.$router.push({
           name: 'Home',
         })
+        this[action.GET_WORKSPACES]()
       } catch (e) {
         console.log(e)
       }

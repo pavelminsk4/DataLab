@@ -44,6 +44,7 @@ export default {
   width: 100%;
   height: 50px;
   padding: 0 69px 0 79px;
+  margin: -28px 0 29px;
 
   background-color: var(--primary-button-color);
 }

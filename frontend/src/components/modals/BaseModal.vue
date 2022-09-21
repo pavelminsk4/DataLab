@@ -86,6 +86,9 @@ export default {
 
   outline: 0;
   transition: opacity 0.15s linear;
+
+  background-color: rgba(0, 0, 0, 0.7);
+  box-shadow: 0px 4px 10px rgba(16, 16, 16, 0.25);
 }
 
 .base-modal {
@@ -130,9 +133,9 @@ export default {
 
   height: 100%;
   width: 100%;
-  padding: 50px 20px 20px;
+  padding: 30px 50px 68px;
 
-  background: var(--icon-bg-color);
+  background: var(--secondary-bg-color);
   color: var(--primary-text-color);
 }
 
