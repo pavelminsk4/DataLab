@@ -11,7 +11,7 @@ import json
 from django.db.models import Q
 from functools import reduce
 from  nltk.sentiment import SentimentIntensityAnalyzer
-#from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import csrf_exempt
 
 # ==== User API =======================
 
@@ -93,15 +93,43 @@ def get_string_from_score(sentiments):
 
 def add_sentiment_score(posts):
   for post in posts:
-    sentiments = SentimentIntensityAnalyzer().polarity_scores(post['entry_summary'])
+    sentiments = SentimentIntensityAnalyzer().polarity_scores(post['entry_title'])
     post['sentiment'] = get_string_from_score(sentiments)
   return posts
 
-#@csrf_exempt
+def keywords_posts(keys):
+  posts = Post.objects.filter(reduce(lambda x,y: x | y, [Q(entry_title__contains=key) for key in keys]))
+  return posts
+
+def exclude_keywords_posts(posts, exceptions):
+  to_be_removed = []
+  for post in posts:
+    for word in exceptions:
+      if word in post.entry_title:
+        to_be_removed.append(post.id)
+        break
+  posts = posts.exclude(id__in=to_be_removed)
+  return posts
+
+def additional_keywords_posts(keys, additions):
+  posts = Post.objects.filter(reduce(lambda x,y: x | y, [Q(entry_title__contains=key) for key in keys]))
+  for word in additions:
+    posts = posts.filter(entry_title__contains=word)
+  return posts
+
+@csrf_exempt
 def search(request):
   body = json.loads(request.body)
   keys = body['keywords']
-  posts = Post.objects.filter(reduce(lambda x,y: x | y, [Q(entry_title__contains=key) for key in keys])).values('entry_title', 'entry_published', 'entry_summary', 'entry_media_thumbnail_url', 'feed_language')
+  exceptions = body['exceptions']
+  additions = body['additions']
+  if additions!=[]:
+    posts = additional_keywords_posts(keys, additions)
+  else:
+    posts = keywords_posts(keys)
+  if exceptions!=[]:
+    posts = exclude_keywords_posts(posts, exceptions)
+  posts = posts.values('entry_title', 'entry_published', 'entry_summary', 'entry_media_thumbnail_url', 'feed_language')
   add_sentiment_score(posts)
   posts_list=list(posts)
-  return JsonResponse(posts_list,safe = False)
+  return JsonResponse(posts_list, safe = False)
