@@ -1,24 +1,17 @@
 <template>
   <MainLayout>
-    <SettingsNav />
-
-    <ReportsScreen />
+    <ReportsScreen v-if="false" />
+    <AlertsScreen />
   </MainLayout>
 </template>
 
 <script>
 import MainLayout from '@/components/layout/MainLayout'
-import SettingsNav from '@/components/navigation/SettingsNav'
 import ReportsScreen from '@/components/project/screens/ReportsScreen'
+import AlertsScreen from '@/components/project/screens/AlertsScreen'
 
 export default {
   name: 'ProjectReports',
-  components: {ReportsScreen, SettingsNav, MainLayout},
+  components: {AlertsScreen, ReportsScreen, MainLayout},
 }
 </script>
-
-<style scoped>
-.project-nav {
-  margin-top: 30px;
-}
-</style>

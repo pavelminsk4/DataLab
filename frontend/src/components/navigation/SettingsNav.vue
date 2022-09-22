@@ -11,17 +11,20 @@
         Back to Dashboard
       </div>
 
-      <h1 class="title">{{ title }}Project name</h1>
+      <h1 class="title">{{ projectName }}</h1>
 
       <div class="hint">
-        Set up alerts for your project with highly customized filters
+        {{ hint }}
       </div>
     </div>
-    <BaseButton class="button"> Save </BaseButton>
+    <BaseButton class="button"><slot></slot></BaseButton>
   </div>
 </template>
 
 <script>
+import {mapActions, mapState} from 'vuex'
+import {action} from '@store/constants'
+
 import BaseButton from '@components/buttons/BaseButton'
 
 import ArrowLeftIcon from '@components/icons/ArrowLeftIcon'
@@ -31,6 +34,10 @@ export default {
   components: {BaseButton, ArrowLeftIcon},
   props: {
     title: {
+      type: String,
+      default: '',
+    },
+    hint: {
       type: String,
       default: '',
     },
@@ -56,7 +63,33 @@ export default {
       ],
     }
   },
+  created() {
+    if (!this.workspaces.length) {
+      this[action.GET_WORKSPACES]()
+    }
+  },
+  computed: {
+    ...mapState(['workspaces']),
+    workspaceId() {
+      return this.$route.params.workspaceId
+    },
+    projectId() {
+      return this.$route.params.projectId
+    },
+    currentWorkspace() {
+      return this.workspaces.filter((el) => el.id === +this.workspaceId)
+    },
+    currentProject() {
+      return this.currentWorkspace[0]?.projects.filter(
+        (el) => el.id === +this.projectId
+      )[0]
+    },
+    projectName() {
+      return this.currentProject?.title
+    },
+  },
   methods: {
+    ...mapActions([action.GET_WORKSPACES]),
     backToHome() {
       this.$router.push({
         name: 'Home',
@@ -116,10 +149,10 @@ export default {
   font-size: 14px;
   line-height: 20px;
   color: var(--primary-button-color);
-}
 
-.arrow-back {
-  color: var(--primary-button-color);
+  .arrow-back {
+    margin-right: 6px;
+  }
 }
 
 .title {

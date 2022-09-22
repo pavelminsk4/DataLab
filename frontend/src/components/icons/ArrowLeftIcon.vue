@@ -8,7 +8,7 @@
   >
     <path
       d="M4.53564 1.46448L1.00011 5.00001L4.53564 8.53555"
-      stroke="#9198A7"
+      stroke="currentColor"
       stroke-linecap="square"
     />
   </svg>

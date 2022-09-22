@@ -9,7 +9,7 @@ import CreateWorkspaceScreen from '@/components/workspace/screens/CreateWorkspac
 import CreateWorkspaceView from '@/components/workspace/CreateWorkspaceView'
 import CreateProjectView from '@/components/project/CreateProjectView'
 
-import ProjectReports from '@/components/project/screens/ProjectReports'
+import ProjectSettingsView from '@/components/project/ProjectSettingsView'
 
 export const routes = [
   {
@@ -47,11 +47,11 @@ export const routes = [
         name: 'Step3',
         path: 'step3',
         component: CreateSearchScreen,
-        // beforeEnter: (to, from, next) => {
-        //   if (to.name !== store.state.currentStep) next({name: 'Step1'})
-        //
-        //   next()
-        // },
+        beforeEnter: (to, from, next) => {
+          if (to.name !== store.state.currentStep) next({name: 'Step1'})
+
+          next()
+        },
       },
     ],
   },
@@ -92,6 +92,6 @@ export const routes = [
   {
     name: 'ProjectReports',
     path: '/workspace/:workspaceId/project/:projectId',
-    component: ProjectReports,
+    component: ProjectSettingsView,
   },
 ]
