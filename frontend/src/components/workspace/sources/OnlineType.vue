@@ -1,23 +1,31 @@
 <template>
   <div class="filters-wrapper">
-    <div class="alexa-ranking">
-      <span class="second-title">Country</span>
+    <div class="filters-settings-items">
+      <div class="items-container">
+        <span class="second-title">Country</span>
 
-      <BaseSelect class="select" v-model="country" :list="countryArray" />
+        <BaseSelect class="select" v-model="country" :list="countryArray" />
+      </div>
 
-      <span class="second-title">Language</span>
+      <div class="items-container">
+        <span class="second-title">City</span>
 
-      <BaseSelect class="select" v-model="country" :list="countryArray" />
+        <BaseInput class="input" />
+      </div>
     </div>
 
-    <div class="alexa-ranking">
-      <span class="second-title">City</span>
+    <div class="filters-settings-items">
+      <div class="items-container">
+        <span class="second-title">Language</span>
 
-      <BaseInput class="input" />
+        <BaseSelect class="select" v-model="country" :list="countryArray" />
+      </div>
 
-      <span class="second-title">Source</span>
+      <div class="items-container">
+        <span class="second-title">Source</span>
 
-      <BaseInput class="input" />
+        <BaseInput class="input" />
+      </div>
     </div>
   </div>
   <span class="second-title">Sentiment</span>
@@ -78,6 +86,7 @@ export default {
 <style lang="scss" scoped>
 .filters-wrapper {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
 }
 
@@ -88,8 +97,17 @@ export default {
   color: var(--primary-text-color);
 }
 
-.alexa-ranking {
-  width: 250px;
+.filters-settings-items {
+  display: flex;
+  flex: 1;
+}
+
+.items-container {
+  flex: 1;
+
+  &:first-child {
+    margin-right: 16px;
+  }
 }
 
 .radio-btn {
@@ -131,6 +149,16 @@ export default {
 
 .check-icon {
   display: none;
+}
+
+@media screen and (max-width: 1050px) {
+  .filters-settings-items {
+    flex-direction: column;
+
+    .items-container {
+      margin: 0;
+    }
+  }
 }
 </style>
 

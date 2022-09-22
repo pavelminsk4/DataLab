@@ -93,7 +93,7 @@ export default {
   align-items: flex-start;
 
   width: 50%;
-  margin: 0 40px 0 108px;
+  margin-left: 108px;
 
   color: var(--primary-text-color);
 }
@@ -119,13 +119,34 @@ export default {
 }
 
 .search-result-cards {
+  overflow: auto;
+
+  height: 1000px;
   width: 100%;
+
+  &::-webkit-scrollbar {
+    height: 5px;
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: var(--secondary-bg-color);
+    border: 1px solid var(--input-border-color);
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    height: 4px;
+
+    background: var(--secondary-text-color);
+    border-radius: 10px;
+  }
 }
 
 .search-result-card {
   max-width: 100%;
 
-  margin-bottom: 10px;
+  margin: 0 10px 10px 0;
   padding: 12px 21px 17px 20px;
 
   background: var(--secondary-bg-color);

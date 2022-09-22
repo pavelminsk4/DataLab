@@ -102,7 +102,11 @@ export default {
 }
 
 .alexa-ranking {
-  width: 250px;
+  flex: 1;
+
+  &:first-child {
+    margin-right: 16px;
+  }
 }
 
 .radio-btn {
