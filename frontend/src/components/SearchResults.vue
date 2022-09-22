@@ -1,6 +1,8 @@
 <template>
   <div class="search-result-wrapper">
-    <div class="filters">Filters</div>
+    <div class="filters">
+      <div>{{ searchData.length }} results</div>
+    </div>
     <div v-if="searchData.length" class="search-result-cards">
       <div
         v-for="(item, index) in searchData"
@@ -95,7 +97,14 @@ export default {
 }
 
 .filters {
+  display: flex;
+
   margin-bottom: 25px;
+
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--secondary-text-color);
 }
 
 .search-result-cards {

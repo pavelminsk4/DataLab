@@ -172,6 +172,8 @@ export default {
 .delete-tag {
   cursor: pointer;
 
+  flex-shrink: 0;
+
   margin-left: 12px;
 }
 
