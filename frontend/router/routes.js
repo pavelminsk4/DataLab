@@ -9,7 +9,7 @@ import CreateWorkspaceScreen from '@/components/workspace/screens/CreateWorkspac
 import CreateWorkspaceView from '@/components/workspace/CreateWorkspaceView'
 import CreateProjectView from '@/components/project/CreateProjectView'
 
-import ProjectReports from '@/components/project/screens/ProjectReports'
+import ProjectSettingsView from '@/components/project/ProjectSettingsView'
 
 export const routes = [
   {
@@ -92,6 +92,6 @@ export const routes = [
   {
     name: 'ProjectReports',
     path: '/workspace/:workspaceId/project/:projectId',
-    component: ProjectReports,
+    component: ProjectSettingsView,
   },
 ]

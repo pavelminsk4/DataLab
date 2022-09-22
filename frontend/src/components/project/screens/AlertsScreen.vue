@@ -1,21 +1,22 @@
 <template>
+  <SettingsNav
+    :hint="'Set up alerts for your project with highly customized filters'"
+  >
+    <PlusIcon class="button-icon" />Add Alert
+  </SettingsNav>
+
   <table class="table">
     <thead>
       <tr>
         <th>
           <label class="container container-header">
             <input v-model="selectedProjects" type="checkbox" />
-            <span class="checkmark"
-              ><CheckRadioIcon class="checkmark-icon"
-            /></span>
+            <span class="checkmark"></span>
           </label>
         </th>
-        <th>TYPE</th>
         <th>NAME</th>
-        <th>KEYWORDS</th>
-        <th>CREATOR</th>
+        <th>FILTERS</th>
         <th>ASSIGNED USERS</th>
-        <th>DATE</th>
       </tr>
     </thead>
     <tbody>
@@ -32,9 +33,7 @@
               type="checkbox"
               :id="item.id"
             />
-            <span class="checkmark">
-              <CheckRadioIcon class="checkmark-icon" />
-            </span>
+            <span class="checkmark"> </span>
           </label>
         </td>
         <td>
@@ -55,55 +54,27 @@
         <td>{{ item.creator }}</td>
         <td>USERS</td>
         <td>{{ projectCreationDate(item.created_at) }}</td>
-        <td><TableSettingsButton :id="item.id" /></td>
+        <td></td>
       </tr>
     </tbody>
   </table>
 </template>
-
 <script>
-import TableSettingsButton from '@/components/buttons/TableSettingsButton'
+import SettingsNav from '@/components/navigation/SettingsNav'
 
-import PointsIcon from '@/components/icons/PointsIcon'
-import CheckRadioIcon from '@/components/icons/CheckIcon'
-import SocialRadioIcon from '@/components/icons/SocialRadioIcon'
-import OnlineRadioIcon from '@/components/icons/OnlineRadioIcon'
-import PremiumRadioIcon from '@/components/icons/PremiumRadioIcon'
+import PlusIcon from '@/components/icons/PlusIcon'
 
 export default {
-  name: 'BaseTable',
-  components: {
-    TableSettingsButton,
-    CheckRadioIcon,
-    PremiumRadioIcon,
-    OnlineRadioIcon,
-    SocialRadioIcon,
-    PointsIcon,
-  },
-  data() {
-    return {
-      selectedProjects: [],
-      isOpenSettings: false,
-    }
-  },
-  props: {
-    values: {
-      type: Array,
-      default: () => [],
-    },
-  },
-  methods: {
-    projectCreationDate(date) {
-      return new Date(date).toLocaleDateString('ro-RO')
-    },
-    goToProject(id) {
-      this.$emit('go-to-project', id)
-    },
-  },
+  name: 'AlertsScreen',
+  components: {PlusIcon, SettingsNav},
 }
 </script>
 
 <style lang="scss" scoped>
+.button-icon {
+  margin-right: 7px;
+}
+
 .table {
   width: 100%;
 

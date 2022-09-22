@@ -1,6 +1,9 @@
 <template>
   <div class="search-result-wrapper">
-    <div class="filters">Filters</div>
+    <div class="filters">
+      <div>{{ searchData.length }} results</div>
+    </div>
+    <div v-if="loading" class="spinner-wrapper"><BaseSpinner /></div>
     <div v-if="searchData.length" class="search-result-cards">
       <div
         v-for="(item, index) in searchData"
@@ -9,17 +12,25 @@
       >
         <section class="search-info-wrapper">
           <div class="result-img">
-            <BaseCheckbox class="status" />
+            <BaseCheckbox class="status-checkbox" />
             <img
               v-if="item.entry_media_thumbnail_url !== 'None'"
               :src="item.entry_media_thumbnail_url"
               class="img"
             />
-            <NoImageIcon v-else class="no-image" />
+            <NoImageIcon v-else class="default-image" />
           </div>
 
           <div class="search-info">
-            <div class="status">Negative</div>
+            <div
+              :class="[
+                item.sentiment === 'positive' && 'status-positive',
+                item.sentiment === 'negative' && 'status-negative',
+                'status-default',
+              ]"
+            >
+              {{ capitalizeFirstLetter(item.sentiment) }}
+            </div>
             <div class="title" tabindex="0">{{ item.entry_title }}</div>
             <div class="description" tabindex="0">{{ item.entry_summary }}</div>
             <div class="general-information">
@@ -34,7 +45,7 @@
         </section>
       </div>
     </div>
-    <div v-else>No results.</div>
+    <div v-if="!searchData.length && !loading">No results.</div>
   </div>
 </template>
 
@@ -42,14 +53,15 @@
 import {mapState} from 'vuex'
 import {langCodes} from '@/lib/language-codes'
 
-import NoImageIcon from '@/components/icons/NoImageIcon'
+import BaseSpinner from '@/components/BaseSpinner'
 import BaseCheckbox from '@/components/BaseCheckbox'
+import NoImageIcon from '@/components/icons/NoImageIcon'
 
 export default {
   name: 'SearchResults',
-  components: {BaseCheckbox, NoImageIcon},
+  components: {BaseCheckbox, BaseSpinner, NoImageIcon},
   computed: {
-    ...mapState(['searchData']),
+    ...mapState(['searchData', 'loading']),
   },
   methods: {
     resultLanguage(langCode) {
@@ -67,6 +79,9 @@ export default {
         year: 'numeric',
       })
     },
+    capitalizeFirstLetter(string) {
+      return string.charAt(0).toUpperCase() + string.slice(1)
+    },
   },
 }
 </script>
@@ -78,23 +93,60 @@ export default {
   align-items: flex-start;
 
   width: 50%;
-  margin: 0 40px 0 108px;
+  margin-left: 108px;
 
   color: var(--primary-text-color);
 }
 
 .filters {
+  display: flex;
+
   margin-bottom: 25px;
+
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--secondary-text-color);
+}
+
+.spinner-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 100%;
+  margin-bottom: 40px;
 }
 
 .search-result-cards {
+  overflow: auto;
+
+  height: 1000px;
   width: 100%;
+
+  &::-webkit-scrollbar {
+    height: 5px;
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: var(--secondary-bg-color);
+    border: 1px solid var(--input-border-color);
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    height: 4px;
+
+    background: var(--secondary-text-color);
+    border-radius: 10px;
+  }
 }
 
 .search-result-card {
   max-width: 100%;
 
-  margin-bottom: 10px;
+  margin: 0 10px 10px 0;
   padding: 12px 21px 17px 20px;
 
   background: var(--secondary-bg-color);
@@ -117,10 +169,49 @@ export default {
   }
 }
 
-.status {
+.status-checkbox {
+  color: var(--secondary-text-color);
+
+  margin-bottom: 12px;
+}
+
+.status-default {
+  position: relative;
+
+  color: var(--secondary-text-color);
+
+  padding-left: 12px;
   margin-bottom: 12px;
 
-  color: #f94747;
+  &:before {
+    position: absolute;
+    top: 50%;
+    left: 4px;
+    transform: translate(-50%, -50%);
+
+    content: '';
+    width: 6px;
+    height: 6px;
+
+    border-radius: 100%;
+    background-color: var(--secondary-text-color);
+  }
+}
+
+.status-positive {
+  color: var(--tag-color);
+
+  &:before {
+    background-color: var(--tag-color);
+  }
+}
+
+.status-negative {
+  color: var(--negative-status);
+
+  &:before {
+    background-color: var(--negative-status);
+  }
 }
 
 .search-info {
@@ -180,8 +271,8 @@ export default {
   }
 }
 
-.no-image {
-  width: 50px;
+.default-image {
+  width: 71px;
   height: 50px;
 }
 </style>

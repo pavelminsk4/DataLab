@@ -26,7 +26,7 @@
       </div>
 
       <div class="second-title">Define the main keywords (OR)</div>
-      <BaseTag v-model="tags" class="tags" :is-main-field="true" />
+      <BaseTag v-model="tags" :is-main-field="true" />
 
       <section class="additional-key-words">
         <div class="additional-key-block">
@@ -37,7 +37,7 @@
           <BaseTag class="additional-key" />
         </div>
 
-        <div>
+        <div class="additional-key-block">
           <div class="second-title">
             Exclude Irrelevant keywords <br />
             (And Not)
@@ -159,7 +159,6 @@ export default {
   display: flex;
 
   margin: 30px 0 20px 0;
-  width: 516px;
 
   border-bottom: 1px solid var(--input-border-color);
 }
@@ -184,6 +183,7 @@ export default {
 
 .search-settings-wrapper {
   display: flex;
+  justify-content: space-between;
 }
 
 .second-title {
@@ -198,25 +198,25 @@ export default {
   justify-content: space-between;
 }
 
-.tags {
-  width: 516px;
-}
-
 .additional-key-words {
   display: flex;
 
+  width: 100%;
   margin: 26px 0 40px;
 }
 
 .additional-key-block {
-  margin-right: 13px;
+  flex: 1;
+
+  &:first-child {
+    margin-right: 16px;
+  }
 }
 
 .additional-key {
   align-items: flex-start;
   flex-wrap: wrap;
 
-  width: 250px;
   height: 110px;
 
   padding-top: 10px;
@@ -233,15 +233,12 @@ export default {
 .key-words-settings {
   display: flex;
   flex-direction: column;
+
+  width: 50%;
 }
 
 .apply-settings {
   align-self: flex-end;
-}
-
-.alexa-ranking {
-  width: 250px;
-  margin-bottom: 20px;
 }
 
 .radio-btn {
@@ -349,5 +346,19 @@ export default {
 .key-word-section {
   width: 515px;
   margin-top: 30px;
+}
+
+@media screen and (max-width: 1180px) {
+  .additional-key-words {
+    flex-direction: column;
+
+    .additional-key-block {
+      margin: 0;
+
+      &:first-child {
+        margin-bottom: 20px;
+      }
+    }
+  }
 }
 </style>

@@ -76,6 +76,8 @@ export default {
     transform: rotateZ(0deg) translateY(0px);
     transition-duration: 0.3s;
     transition-timing-function: cubic-bezier(0.59, 1.39, 0.37, 1.01);
+
+    color: var(--primary-text-color);
   }
 
   .expanded {
