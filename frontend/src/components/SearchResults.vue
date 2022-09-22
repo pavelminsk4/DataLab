@@ -3,6 +3,7 @@
     <div class="filters">
       <div>{{ searchData.length }} results</div>
     </div>
+    <div v-if="loading" class="spinner-wrapper"><BaseSpinner /></div>
     <div v-if="searchData.length" class="search-result-cards">
       <div
         v-for="(item, index) in searchData"
@@ -44,7 +45,7 @@
         </section>
       </div>
     </div>
-    <div v-else>No results.</div>
+    <div v-if="!searchData.length && !loading">No results.</div>
   </div>
 </template>
 
@@ -52,14 +53,15 @@
 import {mapState} from 'vuex'
 import {langCodes} from '@/lib/language-codes'
 
-import NoImageIcon from '@/components/icons/NoImageIcon'
+import BaseSpinner from '@/components/BaseSpinner'
 import BaseCheckbox from '@/components/BaseCheckbox'
+import NoImageIcon from '@/components/icons/NoImageIcon'
 
 export default {
   name: 'SearchResults',
-  components: {BaseCheckbox, NoImageIcon},
+  components: {BaseCheckbox, BaseSpinner, NoImageIcon},
   computed: {
-    ...mapState(['searchData']),
+    ...mapState(['searchData', 'loading']),
   },
   methods: {
     resultLanguage(langCode) {
@@ -105,6 +107,15 @@ export default {
   font-size: 14px;
   line-height: 20px;
   color: var(--secondary-text-color);
+}
+
+.spinner-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 100%;
+  margin-bottom: 40px;
 }
 
 .search-result-cards {
