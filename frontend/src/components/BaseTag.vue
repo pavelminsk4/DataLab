@@ -6,9 +6,7 @@
       :class="['input-tag', isMainField ? 'input-main' : 'input-key']"
     >
       <div class="tag-container">
-        <input type="checkbox" :id="tag" />
-        <div class="tag-container-word">{{ tag }}</div>
-        <label :for="tag">...</label>
+        {{ tag }}
       </div>
 
       <DeleteTagButton
@@ -127,14 +125,10 @@ export default {
   align-items: center;
   justify-content: center;
 
-  margin-left: 10px;
+  margin-right: 10px;
   padding: 0 8px 0 10px;
 
   border-radius: 8px;
-
-  &:first-child {
-    margin-left: 0;
-  }
 }
 
 .tag-container {
@@ -197,19 +191,5 @@ export default {
   background: none;
 
   color: var(--primary-text-color);
-}
-
-.tag-container-word {
-  overflow: hidden;
-
-  max-width: 46px;
-}
-
-input[type='checkbox'] {
-  display: none;
-}
-
-input[type='checkbox']:checked + .tag-container-word {
-  max-width: 100%;
 }
 </style>
