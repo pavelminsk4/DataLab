@@ -3,7 +3,7 @@
     <div class="project-title-wrapper">
       <div class="title">{{ title }}</div>
 
-      <PointsIcon @click="openModal" class="points-icon" />
+      <PointsIcon @click.self="openModal" class="points-icon" />
     </div>
 
     <div class="cart-button-wrapper">

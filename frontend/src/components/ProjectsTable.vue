@@ -180,6 +180,10 @@ export default {
       border-bottom: 1px solid #2d2d31;
       border-bottom-right-radius: 15px;
     }
+
+    tr:last-child td {
+      border-bottom: 1px solid #2d2d31;
+    }
   }
 }
 

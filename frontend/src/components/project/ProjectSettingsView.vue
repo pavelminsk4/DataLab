@@ -2,27 +2,23 @@
   <MainLayout>
     <SettingsNav />
 
-    <div class="settings-content">
-      <slot></slot>
-    </div>
+    <ReportsScreen />
   </MainLayout>
 </template>
 
 <script>
 import MainLayout from '@/components/layout/MainLayout'
 import SettingsNav from '@/components/navigation/SettingsNav'
+import ReportsScreen from '@/components/project/screens/ReportsScreen'
 
 export default {
-  name: 'ProjectSettingsLayout',
-  components: {
-    SettingsNav,
-    MainLayout,
-  },
+  name: 'ProjectReports',
+  components: {ReportsScreen, SettingsNav, MainLayout},
 }
 </script>
 
 <style scoped>
-.settings-content {
-  margin-top: 80px;
+.project-nav {
+  margin-top: 30px;
 }
 </style>
