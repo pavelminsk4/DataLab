@@ -47,11 +47,11 @@ export const routes = [
         name: 'Step3',
         path: 'step3',
         component: CreateSearchScreen,
-        // beforeEnter: (to, from, next) => {
-        //   if (to.name !== store.state.currentStep) next({name: 'Step1'})
-        //
-        //   next()
-        // },
+        beforeEnter: (to, from, next) => {
+          if (to.name !== store.state.currentStep) next({name: 'Step1'})
+
+          next()
+        },
       },
     ],
   },
