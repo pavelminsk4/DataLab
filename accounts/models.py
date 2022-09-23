@@ -3,10 +3,16 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-
-
 class department(models.Model):
     departmentname = models.CharField("Department Name",max_length=25,null=True) #new
+    description = models.CharField(max_length=200, default='None')
+    max_users = models.IntegerField(default=1)
+    max_projects = models.IntegerField(default=1)
+    max_online_feeds = models.IntegerField(default=1)
+    max_social_feeds = models.IntegerField(default=1)
+    max_twitter_data = models.IntegerField(default=1)
+    logo = models.ImageField(upload_to='static/department_logo', null=True, blank=True)
+
     def __str__(self):
         return str(self.departmentname)
 
