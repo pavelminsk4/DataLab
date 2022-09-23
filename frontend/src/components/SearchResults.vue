@@ -115,7 +115,7 @@ export default {
   justify-content: center;
 
   min-width: 100%;
-  margin-bottom: 40px;
+  margin-bottom: 80px;
 }
 
 .search-result-cards {

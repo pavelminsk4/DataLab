@@ -26,7 +26,7 @@
       </div>
 
       <div class="second-title">Define the main keywords (OR)</div>
-      <BaseTag v-model="tags" :is-main-field="true" />
+      <BaseTag v-model="mainTags" :is-main-field="true" />
 
       <section class="additional-key-words">
         <div class="additional-key-block">
@@ -34,7 +34,12 @@
             Add Additional keywords <br />
             (And)
           </div>
-          <BaseTag class="additional-key" />
+          <BaseTag
+            v-model="additionalTags"
+            :textarea="true"
+            :is-additional-keywords="true"
+            class="additional-key"
+          />
         </div>
 
         <div class="additional-key-block">
@@ -43,6 +48,8 @@
             (And Not)
           </div>
           <BaseTag
+            v-model="excludeTags"
+            :is-irrelevant-keywords="true"
             class="additional-key"
             :placeholder="'Enter Keywords and Phrases'"
           />
@@ -86,11 +93,13 @@ export default {
   },
   data() {
     return {
-      tags: [],
+      mainTags: [],
+      additionalTags: [],
+      excludeTags: [],
     }
   },
   computed: {
-    ...mapState(['newWorkspace', 'keywords', 'newProject', 'currentStep']),
+    ...mapState(['newWorkspace', 'newProject', 'currentStep']),
     step() {
       return this.$route.name
     },
@@ -107,7 +116,11 @@ export default {
     ]),
     showResults() {
       try {
-        this[action.POST_SEARCH]({keywords: this.keywords})
+        this[action.POST_SEARCH]({
+          keywords: this.mainTags,
+          additions: this.additionalTags,
+          exceptions: this.excludeTags,
+        })
       } catch (e) {
         console.log(e)
       }
@@ -116,7 +129,9 @@ export default {
     createWorkspaceAndProject() {
       try {
         this[action.UPDATE_PROJECT_STATE]({
-          keywords: [...this.keywords],
+          keywords: [...this.mainTags],
+          additional_keywords: [...this.additionalTags],
+          ignore_keywords: [...this.additionalTags],
         })
         this[action.UPDATE_NEW_WORKSPACE]({
           projects: [this.newProject],
@@ -135,7 +150,9 @@ export default {
     createProject() {
       try {
         this[action.UPDATE_PROJECT_STATE]({
-          keywords: [...this.keywords],
+          keywords: [...this.mainTags],
+          additional_keywords: [...this.additionalTags],
+          ignore_keywords: [...this.additionalTags],
         })
         this[action.CREATE_PROJECT](this.newProject)
         this[action.CLEAR_STATE]()
