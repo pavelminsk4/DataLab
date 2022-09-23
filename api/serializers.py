@@ -1,11 +1,24 @@
 from django.contrib.auth.models import User
 from project.models import Project, Workspace
+from accounts.models import Profile, department
 from rest_framework import serializers
+from drf_writable_nested.serializers import WritableNestedModelSerializer
 
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = "__all__"
+class DepartmentSerializer(WritableNestedModelSerializer):
+  class Meta:
+    model = department
+    fields = '__all__'
+class ProfileSerializer(WritableNestedModelSerializer):
+  department = DepartmentSerializer()
+  class Meta:
+    model = Profile
+    fields = '__all__'
+class UserSerializer(WritableNestedModelSerializer):
+  user_profile = ProfileSerializer()
+  class Meta:
+    model = User
+    fields = "__all__"
+ 
 
 class ProjectSerializer(serializers.ModelSerializer):
   users = UserSerializer
