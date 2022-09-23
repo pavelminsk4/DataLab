@@ -1,92 +1,159 @@
 <template>
-  <div class="base-tag">
+  <div class="tag-input">
     <div
       v-for="(tag, index) in tags"
-      :key="index"
-      :class="['input-tag', isMainField ? 'input-main' : 'input-key']"
+      :key="tag"
+      :class="[
+        {
+          duplicate: tag === duplicate,
+          tag: tagsClass.length == 0,
+        },
+        'tag-value',
+        isAdditionalKeywords && 'additional-keyword',
+        isIrrelevantKeywords && 'irrelevant-keyword',
+      ]"
     >
-      <div class="tag-container">
-        {{ tag }}
-      </div>
-
-      <DeleteTagButton
-        @click="removeTag(index)"
-        :class="[
-          'delete-tag',
-          isMainField ? 'delete-tag-main' : 'delete-tag-key',
-        ]"
-      />
+      {{ tag }}
+      <DeleteTagButton class="delete" @click="removeTag(index)" />
     </div>
-    <input
+
+    <textarea
+      v-if="textarea"
+      v-model="newTag"
       type="text"
-      :placeholder="placeholder"
-      @keydown="addTag"
-      @keydown.delete="removeLastTag"
-      class="input-text"
+      :list="id"
+      autocomplete="off"
+      @keydown.enter="addTag(newTag)"
+      @keydown.prevent.tab="addTag(newTag)"
+      @keydown.delete="newTag.length || removeTag(tags.length - 1)"
+      @input="addTagIfDelem(newTag)"
+      :style="{'padding-left': `${paddingLeft}px`}"
+      class="input"
+    />
+
+    <input
+      v-else
+      v-model="newTag"
+      type="text"
+      :list="id"
+      autocomplete="off"
+      @keydown.enter="addTag(newTag)"
+      @keydown.prevent.tab="addTag(newTag)"
+      @keydown.delete="newTag.length || removeTag(tags.length - 1)"
+      @input="addTagIfDelem(newTag)"
+      :style="{'padding-left': `${paddingLeft}px`}"
+      class="input"
     />
   </div>
 </template>
 
 <script>
-import {mapActions} from 'vuex'
-import {action} from '@store/constants'
-
-import DeleteTagButton from '@components/icons/DeleteTagButton'
+import {ref, watch, nextTick, onMounted} from 'vue'
+import DeleteTagButton from '@/components/icons/DeleteTagButton'
 
 export default {
   name: 'BaseTag',
   components: {DeleteTagButton},
   props: {
-    placeholder: {
-      type: String,
-      default: 'Enter text',
-    },
-    isMainField: {
+    modelValue: {type: Array, default: () => []},
+    allowCustom: {type: Boolean, default: true},
+    tagClass: {type: String, default: ''},
+    isAdditionalKeywords: {
       type: Boolean,
       default: false,
     },
-    value: {
-      type: String,
-      default: '',
+    isIrrelevantKeywords: {
+      type: Boolean,
+      default: false,
     },
-  },
-  data() {
-    return {
-      tags: [],
-    }
-  },
-  methods: {
-    ...mapActions([action.UPDATE_KEYWORDS_LIST, action.CLEAR_KEYWORDS_LIST]),
-    async updateKeywords(keywords) {
-      await this[action.UPDATE_KEYWORDS_LIST](keywords)
+    textarea: {
+      type: Boolean,
+      default: false,
     },
-    async addTag(event) {
-      if (event.code === 'Comma' || event.code === 'Enter') {
-        event.preventDefault()
-        let val = event.target.value.trim()
-
-        if (val.length > 0) {
-          this.tags.push(val)
-          await this.updateKeywords([val])
-          event.target.value = ''
+    customDelimiter: {
+      type: [String, Array],
+      default: () => [],
+      validator: (val) => {
+        if (typeof val == 'string') return val.length == 1
+        for (let i = 0; i < val.length; i++) {
+          if (typeof val[i] != 'string' || val[i].length != 1) return false
         }
+        return true
+      },
+    },
+  },
+  setup(props, {emit}) {
+    // Tags
+    const tags = ref(props.modelValue)
+    const tagsClass = ref(props.tagClass)
+    const newTag = ref('')
+    const id = Math.random().toString(36).substring(7)
+    const customDelimiter = [
+      ...new Set(
+        (typeof props.customDelimiter == 'string'
+          ? [props.customDelimiter]
+          : props.customDelimiter
+        ).filter((it) => it.length == 1)
+      ),
+    ]
+    // handling duplicates
+    const duplicate = ref(null)
+    const handleDuplicate = (tag) => {
+      duplicate.value = tag
+      setTimeout(() => (duplicate.value = null), 1000)
+      newTag.value = ''
+    }
+
+    const addTag = (tag) => {
+      tag = tag.trim()
+      if (!tag) return // prevent empty tag
+      // only allow predefined tags when allowCustom is false
+      if (!props.allowCustom) {
+        //   display not a valid tag
+        return
       }
-    },
-    async removeTag(index) {
-      this.tags.splice(index, 1)
-      await this[action.CLEAR_KEYWORDS_LIST](index)
-    },
-    async removeLastTag(event) {
-      if (event.target.value.length === 0) {
-        await this.removeTag(this.tags.length - 1)
+      // return early if duplicate
+      if (tags.value.includes(tag)) {
+        handleDuplicate(tag)
+        return
       }
-    },
+      tags.value.push(tag)
+      newTag.value = '' // reset newTag
+    }
+    const addTagIfDelem = (tag) => {
+      if (!customDelimiter || customDelimiter.length == 0) return
+      if (customDelimiter.includes(tag.charAt(tag.length - 1)))
+        addTag(tag.substr(0, tag.length - 1))
+    }
+    const removeTag = (index) => {
+      tags.value.splice(index, 1)
+    }
+
+    const onTagsChange = () => {
+      emit('update:modelValue', tags.value)
+    }
+    // eslint-disable-next-line vue/valid-next-tick
+    watch(tags, () => nextTick(onTagsChange), {deep: true})
+    onMounted(onTagsChange)
+
+    return {
+      tags,
+      tagsClass,
+      newTag,
+      addTag,
+      addTagIfDelem,
+      removeTag,
+      id,
+      duplicate,
+    }
   },
 }
 </script>
 
 <style lang="scss" scoped>
-.base-tag {
+.tag-input {
+  position: relative;
+
   display: flex;
   align-items: center;
 
@@ -100,6 +167,35 @@ export default {
   background: var(--secondary-bg-color);
 
   overflow: auto;
+
+  .input {
+    width: 100%;
+
+    border: none;
+    outline: none;
+    background: none;
+
+    color: var(--primary-text-color);
+  }
+
+  .tag-value {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+
+    margin-right: 10px;
+    padding: 0 8px 0 10px;
+
+    border-radius: 8px;
+
+    color: var(--tag-color);
+    background-color: rgba(51, 204, 112, 0.2);
+
+    .delete {
+      cursor: pointer;
+    }
+  }
 
   &::-webkit-scrollbar {
     height: 5px;
@@ -120,78 +216,61 @@ export default {
   }
 }
 
-.input-tag {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.tag-input .duplicate {
+  color: var(--primary-text-color);
 
-  margin-right: 10px;
-  padding: 0 8px 0 10px;
-
-  border-radius: 8px;
+  background: var(--box-shadow-color);
+  animation: shake 1s;
 }
 
-.tag-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  width: 100%;
-
-  box-sizing: border-box;
-
-  white-space: nowrap;
-
-  &::-webkit-scrollbar {
-    height: 3px;
-  }
-
-  &::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px grey;
-    border-radius: 100px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: var(--progress-line);
-    border-radius: 10px;
-  }
-}
-
-.input-main {
-  background: rgba(51, 204, 112, 0.2);
-
-  color: var(--tag-color);
-}
-
-.input-key {
+.tag-input .additional-keyword {
   background: rgba(231, 167, 71, 0.2);
 
   color: var(--key-word-color);
 }
 
-.delete-tag {
-  cursor: pointer;
+.tag-input .irrelevant-keyword {
+  background: rgba(231, 71, 71, 0.2);
 
-  flex-shrink: 0;
-
-  margin-left: 12px;
+  color: var(--negative-status);
 }
 
-.delete-tag-key {
-  color: var(--key-word-color);
+@keyframes shake {
+  10%,
+  90% {
+    transform: scale(0.9) translate3d(-1px, 0, 0);
+  }
+  20%,
+  80% {
+    transform: scale(0.9) translate3d(2px, 0, 0);
+  }
+  30%,
+  50%,
+  70% {
+    transform: scale(0.9) translate3d(-4px, 0, 0);
+  }
+  40%,
+  60% {
+    transform: scale(0.9) translate3d(4px, 0, 0);
+  }
 }
-
-.delete-tag-main {
-  color: var(--tag-color);
-}
-
-.input-text {
-  min-width: 100%;
-
-  border: none;
-  outline: none;
-  background: none;
-
-  color: var(--primary-text-color);
+@keyframes shake1 {
+  10%,
+  90% {
+    transform: scale(0.99) translate3d(-1px, 0, 0);
+  }
+  20%,
+  80% {
+    transform: scale(0.98) translate3d(2px, 0, 0);
+  }
+  30%,
+  50%,
+  70% {
+    transform: scale(1) translate3d(-4px, 0, 0);
+  }
+  40%,
+  60% {
+    transform: scale(0.98) translate3d(4px, 0, 0);
+  }
 }
 </style>

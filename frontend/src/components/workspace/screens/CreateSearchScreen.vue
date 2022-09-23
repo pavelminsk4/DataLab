@@ -36,6 +36,7 @@
           </div>
           <BaseTag
             v-model="additionalTags"
+            :textarea="true"
             :is-additional-keywords="true"
             class="additional-key"
           />
@@ -115,7 +116,6 @@ export default {
     ]),
     showResults() {
       try {
-        console.log(this.mainTags, this.additionalTags, this.excludeTags)
         this[action.POST_SEARCH]({
           keywords: this.mainTags,
           additions: this.additionalTags,
