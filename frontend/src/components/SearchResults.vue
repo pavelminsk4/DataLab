@@ -2,6 +2,11 @@
   <div class="search-result-wrapper">
     <div class="filters">
       <div>{{ searchData.length }} results</div>
+      <Datepicker
+        v-model="selectedDate"
+        @update:modelValue="handleDate"
+        range
+      ></Datepicker>
     </div>
     <div v-if="loading" class="spinner-wrapper"><BaseSpinner /></div>
     <div v-if="searchData.length" class="search-result-cards">
@@ -57,9 +62,17 @@ import BaseSpinner from '@/components/BaseSpinner'
 import BaseCheckbox from '@/components/BaseCheckbox'
 import NoImageIcon from '@/components/icons/NoImageIcon'
 
+import Datepicker from '@vuepic/vue-datepicker'
+import '@vuepic/vue-datepicker/dist/main.css'
+
 export default {
   name: 'SearchResults',
-  components: {BaseCheckbox, BaseSpinner, NoImageIcon},
+  components: {BaseCheckbox, BaseSpinner, NoImageIcon, Datepicker},
+  data() {
+    return {
+      selectedDate: [new Date(), new Date()],
+    }
+  },
   computed: {
     ...mapState(['searchData', 'loading']),
   },
@@ -81,6 +94,9 @@ export default {
     },
     capitalizeFirstLetter(string) {
       return string.charAt(0).toUpperCase() + string.slice(1)
+    },
+    handleDate(modelData) {
+      this.selectedDate = modelData
     },
   },
 }
