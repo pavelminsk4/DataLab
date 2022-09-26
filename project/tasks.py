@@ -1,14 +1,26 @@
 from celery import shared_task
 from datetime import datetime
 import feedparser
-from project.models import Feedlinks, Post
+from project.models import Feedlinks, Post, Speech
 from django.core.paginator import Paginator
 import ssl
+from langcodes import *
 
 def split_links(amount_posts_in_sample):
   all_posts = Feedlinks.objects.all()
   p = Paginator(all_posts, amount_posts_in_sample)
   return p
+
+def add_language(language_code):
+  title = Language.get(language_code).display_name()
+  print('---->speech')
+  print(language_code)
+  print(title)
+  print('---------<')
+  if not Speech.objects.filter(language=title):
+    Speech.objects.create(language=title)
+  return Speech.objects.filter(language=title).first()
+
 
 @shared_task
 def post_creator():
@@ -293,9 +305,10 @@ def post_creator():
                 my_feed_subtitle_detail = 'None'
 
             try:
-                my_feed_language = ff['language']
+                #my_feed_language = ff['language']
+                my_feed_language = add_language(ff['language'])
             except:
-                my_feed_language = 'None'
+                my_feed_language = Speech.objects.get(language='Language not specified')
 
             try:
                 my_feed_rights = ff['rights']

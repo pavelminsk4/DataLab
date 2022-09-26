@@ -33,4 +33,3 @@ def delete(request, pk):
 class detail(DetailView):
   model = Project
   success_url = reverse_lazy('index')
-

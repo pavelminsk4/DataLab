@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'workspace.apps.WorkspaceConfig',
     'django_celery_beat',
     'django_celery_results',
+    'countries_plus',
 ]
 
 MIDDLEWARE = [
