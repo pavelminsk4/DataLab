@@ -1,17 +1,18 @@
 from django.shortcuts import render
 from rest_framework.generics import ListAPIView, CreateAPIView, DestroyAPIView, UpdateAPIView, RetrieveAPIView
-from .serializers import UserSerializer, WorkspaceSerializer, ProjectSerializer, WorkspaceCreateSerializer
+from .serializers import SpeechSerializer, UserSerializer, WorkspaceSerializer, ProjectSerializer, WorkspaceCreateSerializer, CountrySerializer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import ProjectSerializer, Workspace
 from django.contrib.auth.models import User
-from project.models import Project, Workspace, Post
+from project.models import Project, Workspace, Post, Speech
 from django.http import JsonResponse
 import json
 from django.db.models import Q
 from functools import reduce
 from  nltk.sentiment import SentimentIntensityAnalyzer
 from django.views.decorators.csrf import csrf_exempt
+from countries_plus.models import Country
 
 # ==== User API =======================
 
@@ -123,6 +124,9 @@ def search(request):
   keys = body['keywords']
   exceptions = body['exceptions']
   additions = body['additions']
+  #country = body['country']
+  #language = body['language']
+  #sentiment = body['sentiment']
   if additions!=[]:
     posts = additional_keywords_posts(keys, additions)
   else:
@@ -133,3 +137,13 @@ def search(request):
   add_sentiment_score(posts)
   posts_list=list(posts)
   return JsonResponse(posts_list, safe = False)
+
+# === Countries API ==========
+
+class CountriesList(ListAPIView):
+  queryset = Country.objects.all()
+  serializer_class = CountrySerializer
+
+class SpeechesList(ListAPIView):
+  queryset = Speech.objects.all().order_by('language')
+  serializer_class = SpeechSerializer

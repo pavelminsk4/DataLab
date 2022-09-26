@@ -67,6 +67,12 @@ class Feedlinks(models.Model):
   def __str__(self):
     return self.url
 
+class Speech(models.Model):
+  language = models.CharField('language', max_length=50)
+
+  def __str__(self):
+    return self.language
+    
 class Post(models.Model):
   #feedlink =  models.ForeignKey(feedlinks,on_delete=models.CASCADE,related_name='feedlink_feedsin',verbose_name ='Feed Link')
   entry_title = models.TextField("entry_title",null=True,blank=True)
@@ -129,7 +135,7 @@ class Post(models.Model):
   feed_image_links = models.TextField("feed_image_links",null=True,blank=True)
   feed_subtitle = models.TextField("feed_subtitle",null=True,blank=True)
   feed_subtitle_detail = models.TextField("feed_subtitle_detail",null=True,blank=True)
-  feed_language = models.TextField("feed_language",null=True,blank=True)
+  feed_language = models.ForeignKey(Speech, related_name="speech", on_delete=models.CASCADE)
   feed_rights = models.TextField("feed_rights",null=True,blank=True)
   feed_rights_detail = models.TextField("feed_rights_detail",null=True,blank=True)
   feed_updated = models.TextField("feed_updated",null=True,blank=True)

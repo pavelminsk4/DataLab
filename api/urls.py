@@ -21,4 +21,8 @@ urlpatterns = [
   path("workspace/<int:pk>", views.SingleWorkspace.as_view(), name="single_workspace"),
   # Search
   path("search", views.search, name='search'),
+  # Countries
+  path('countries', views.CountriesList.as_view(), name='countries_list'),
+  # Speeches
+  path('speeches', views.SpeechesList.as_view(), name='speeches_list'),
   ]

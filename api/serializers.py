@@ -1,8 +1,9 @@
 from django.contrib.auth.models import User
-from project.models import Project, Workspace
+from project.models import Project, Workspace, Speech
 from accounts.models import Profile, department
 from rest_framework import serializers
 from drf_writable_nested.serializers import WritableNestedModelSerializer
+from countries_plus.models import Country
 
 class DepartmentSerializer(WritableNestedModelSerializer):
   class Meta:
@@ -45,3 +46,13 @@ class WorkspaceCreateSerializer(serializers.ModelSerializer):
     workspace.members.set(validated_data["members"])
     workspace.projects.add(project)
     return workspace
+
+class CountrySerializer(WritableNestedModelSerializer):
+  class Meta:
+    model = Country
+    fields = ['name']
+
+class SpeechSerializer(WritableNestedModelSerializer):
+  class Meta:
+    model = Speech
+    fields = ['language']

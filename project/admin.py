@@ -1,11 +1,12 @@
 from django.contrib import admin
-from .models import Project, Workspace, Company, Feedlinks, Post
+from .models import Project, Workspace, Company, Feedlinks, Post, Speech
 from import_export.admin import ImportExportModelAdmin
 from import_export import resources
 
 admin.site.register(Project)
 admin.site.register(Workspace)
 admin.site.register(Company)
+admin.site.register(Speech)
 
 # === Feedlinks Import-Export
 class FeedlinksResource(resources.ModelResource):
