@@ -405,4 +405,18 @@ export default {
     color: var(--primary-text-color);
   }
 }
+
+.dp__menu {
+  border-radius: 8px !important;
+  border: 1px solid var(--primary-button-color) !important;
+
+  .dp__instance_calendar {
+    border-radius: 8px !important;
+  }
+
+  .dp__action_row {
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+}
 </style>
