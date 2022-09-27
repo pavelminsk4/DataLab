@@ -133,7 +133,7 @@ def search(request):
     posts = keywords_posts(keys)
   if exceptions!=[]:
     posts = exclude_keywords_posts(posts, exceptions)
-  posts = posts.values('entry_title', 'entry_published', 'entry_summary', 'entry_media_thumbnail_url', 'feed_language')
+  posts = posts.values('entry_title', 'entry_published', 'entry_summary', 'entry_media_thumbnail_url', 'feed_language__language')
   add_sentiment_score(posts)
   posts_list=list(posts)
   return JsonResponse(posts_list, safe = False)
