@@ -25,6 +25,10 @@ export default {
     return fetch('get', '/api/logged_in_user')
   },
 
+  async getCountries() {
+    return fetch('get', '/api/countries')
+  },
+
   async createWorkspace(workspace) {
     const config = {
       headers: {

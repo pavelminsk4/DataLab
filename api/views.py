@@ -127,6 +127,7 @@ def search(request):
   #country = body['country']
   #language = body['language']
   #sentiment = body['sentiment']
+  date_range = body['date_range']
   if additions!=[]:
     posts = additional_keywords_posts(keys, additions)
   else:

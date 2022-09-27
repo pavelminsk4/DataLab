@@ -1,10 +1,15 @@
 <template>
-  <div class="filters-wrapper">
+  <div v-if="allCountries" class="filters-wrapper">
     <div class="filters-settings-items">
       <div class="items-container">
-        <span class="second-title">Country</span>
+        <span class="second-title">Country {{ country }}</span>
 
-        <BaseSelect class="select" v-model="country" :list="countryArray" />
+        <v-select
+          class="select"
+          label="'Select'"
+          v-model="country"
+          :options="allCountries"
+        />
       </div>
 
       <div class="items-container">
@@ -18,7 +23,7 @@
       <div class="items-container">
         <span class="second-title">Language</span>
 
-        <BaseSelect class="select" v-model="country" :list="countryArray" />
+        <BaseSelect class="select" v-model="country" :list="countries" />
       </div>
 
       <div class="items-container">
@@ -48,11 +53,17 @@
 </template>
 
 <script>
+import {mapActions, mapGetters} from 'vuex'
+import {action, get} from '@store/constants'
+
 import BaseInput from '@/components/BaseInput'
 import BaseRadio from '@/components/BaseRadio'
 import BaseSelect from '@/components/BaseSelect'
 
 import CheckRadioIcon from '@/components/icons/CheckIcon'
+
+import vSelect from 'vue-select'
+import 'vue-select/dist/vue-select.css'
 
 export default {
   name: 'OnlineType',
@@ -61,23 +72,37 @@ export default {
     BaseRadio,
     BaseSelect,
     CheckRadioIcon,
+    vSelect,
   },
   data() {
     return {
-      alexaRanking: [{value: '10%'}, {value: '20%'}, {value: '30%'}],
       sentiments: [
         {value: 'Negative'},
         {value: 'Neutral'},
         {value: 'Positive'},
       ],
       selectedValue: '',
-      country: null,
+      country: '',
       countryArray: [1, 2],
     }
   },
+  created() {
+    this[action.GET_COUNTRIES]()
+  },
+  computed: {
+    ...mapGetters({countries: get.COUNTRIES}),
+    allCountries() {
+      return this.countries.map((el) => el.name)
+    },
+  },
   methods: {
+    ...mapActions([action.GET_COUNTRIES]),
     changeValue(newValue) {
       this.selectedValue = newValue
+    },
+    selectCountry(country, el) {
+      console.log(this.country)
+      this.country = el
     },
   },
 }

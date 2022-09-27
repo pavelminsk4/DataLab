@@ -28,4 +28,8 @@ export default {
   [get.SEARCH_DATA](state) {
     return state.searchData
   },
+
+  [get.COUNTRIES](state) {
+    return state.countries
+  },
 }

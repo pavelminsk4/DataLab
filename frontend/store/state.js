@@ -8,6 +8,7 @@ const state = {
   channelType: '',
   keywords: [],
   searchData: [],
+  countries: [],
   newWorkspace: {
     title: '',
     description: '',

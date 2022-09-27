@@ -8,7 +8,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
 
 * {
@@ -53,6 +53,57 @@ body {
 
   --negative-status: #f94747;
 
-  --dp-background-color: var(--input-border-color);
+  /* v-select */
+  --vs-search-input-placeholder-color: var(--secondary-text-color);
+
+  --vs-border-radius: 10px;
+
+  --vs-dropdown-bg: var(--secondary-bg-color);
+  --vs-dropdown-color: var(--primary-text-color);
+  --vs-dropdown-box-shadow: 0 0 4px rgba(5, 95, 252, 0.49), 0;
+  --vs-dropdown-option-padding: 11px 19px;
+
+  --vs-dropdown-option--active-bg: var(--primary-button-color);
+  --vs-dropdown-option--active-color: var(--primary-text-color);
+
+  --vs-dropdown-option--deselect-bg: #fb5858;
+  --vs-dropdown-option--deselect-color: #fff;
+}
+
+.v-select {
+  .vs__dropdown-toggle {
+    background-color: var(--secondary-bg-color);
+
+    .vs__selected-options {
+      padding-left: 19px;
+
+      color: var(--primary-text-color);
+    }
+  }
+
+  .vs__dropdown-menu {
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    border: 1px solid var(--primary-button-color);
+    border-top: 0;
+
+    &::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: var(--secondary-bg-color);
+      border: 1px solid var(--input-border-color);
+      border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      height: 4px;
+
+      background: var(--secondary-text-color);
+      border-radius: 10px;
+    }
+  }
 }
 </style>

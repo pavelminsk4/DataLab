@@ -50,6 +50,18 @@ export default {
     }
   },
 
+  async [action.GET_COUNTRIES]({commit}) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const countries = await api.getCountries()
+      commit(mutator.SET_COUNTRIES, countries)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
   async [action.CREATE_WORKSPACE]({commit}, workspace) {
     commit(mutator.SET_LOADING, true)
     try {
