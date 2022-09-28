@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import {mapActions, mapGetters, mapState} from 'vuex'
+import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
 import SortIcon from '@components/icons/SortIcon'
@@ -67,7 +67,6 @@ export default {
   },
   computed: {
     ...mapGetters({workspaces: get.WORKSPACES}),
-    ...mapState(['userId']),
     numberOfWorkspaces() {
       return this.workspaces.length
     },
@@ -79,15 +78,11 @@ export default {
     ) {
       await this[action.GET_WORKSPACES]()
     }
-    if (!this.userId) {
-      await this[action.GET_USER_INFORMATION]()
-    }
   },
   methods: {
     ...mapActions([
       action.GET_WORKSPACES,
       action.CREATE_WORKSPACE,
-      action.GET_USER_INFORMATION,
       action.UPDATE_CURRENT_STEP,
       action.UPDATE_OLD_WORKSPACE,
     ]),

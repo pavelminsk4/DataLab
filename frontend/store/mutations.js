@@ -13,8 +13,8 @@ export default {
     state.workspaces = workspaces
   },
 
-  [mutator.SET_USER_INFORMATION](state, userId) {
-    state.userId = userId
+  [mutator.SET_USER_INFORMATION](state, userInfo) {
+    state.userInfo = userInfo
   },
 
   [mutator.SET_NEW_PROJECT](state, newProject) {

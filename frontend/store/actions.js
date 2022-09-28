@@ -41,8 +41,8 @@ export default {
   async [action.GET_USER_INFORMATION]({commit}) {
     commit(mutator.SET_LOADING, true)
     try {
-      const user = await api.getLoggedUser()
-      commit(mutator.SET_USER_INFORMATION, user.id)
+      const userInfo = await api.getLoggedUser()
+      commit(mutator.SET_USER_INFORMATION, userInfo)
     } catch (e) {
       console.log(e)
     } finally {

@@ -13,8 +13,8 @@ export default {
     return state.workspaces
   },
 
-  [get.USER_ID](state) {
-    return state.userId
+  [get.USER_INFO](state) {
+    return state.userInfo
   },
 
   [get.KEYWORDS](state) {

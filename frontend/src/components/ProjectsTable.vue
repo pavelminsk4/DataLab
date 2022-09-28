@@ -45,12 +45,15 @@
         </td>
         <td>{{ item.title }}</td>
         <td>
-          <span :class="item.keywords && 'keyword'">{{
-            item.keywords[0]
-          }}</span>
-          <span :class="item.keywords[1] !== '' && 'keyword'">{{
-            item.keywords[1]
-          }}</span>
+          <div v-if="item.keywords[0]" :class="item.keywords && 'keyword'">
+            {{ item.keywords[0] }}
+          </div>
+          <div
+            v-if="item.keywords[1]"
+            :class="item.keywords[1] !== '' && 'keyword'"
+          >
+            {{ item.keywords[1] }}
+          </div>
         </td>
         <td>{{ item.creator }}</td>
         <td>USERS</td>

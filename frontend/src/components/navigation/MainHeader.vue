@@ -5,7 +5,7 @@
     <div class="section-company">
       <UserWithoutPhotoIcon />
       <ActiveBellIcon class="bell-icon" />
-      <div class="name">Company Name</div>
+      <div class="name">{{ companyName }}</div>
       <section class="dropdown-wrapper">
         <ArrowDownIcon
           @click="openDropdown"
@@ -17,14 +17,14 @@
           <div @click="logout" class="item">Logout</div>
         </div>
       </section>
-      <div class="company-logo">Logo</div>
+      <img :src="logoImg" class="company-logo" />
     </div>
   </header>
 </template>
 
 <script>
-import {mapActions} from 'vuex'
-import {action} from '@store/constants'
+import {mapActions, mapGetters} from 'vuex'
+import {action, get} from '@store/constants'
 
 import LogoIcon from '@components/icons/LogoIcon'
 import ArrowDownIcon from '@components/icons/ArrowDownIcon'
@@ -46,9 +46,22 @@ export default {
   },
   created() {
     document.addEventListener('click', this.closeDropdown)
+
+    if (!this.userInfo.length) {
+      this[action.GET_USER_INFORMATION]()
+    }
+  },
+  computed: {
+    ...mapGetters({userInfo: get.USER_INFO}),
+    companyName() {
+      return this.userInfo?.user_profile?.department?.departmentname
+    },
+    logoImg() {
+      return this.userInfo?.user_profile?.department?.logo
+    },
   },
   methods: {
-    ...mapActions([action.LOGOUT]),
+    ...mapActions([action.LOGOUT, action.GET_USER_INFORMATION]),
 
     async logout() {
       await this[action.LOGOUT]()
