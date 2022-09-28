@@ -1,10 +1,15 @@
 <template>
-  <div class="filters-wrapper">
+  <div v-if="allCountries" class="filters-wrapper">
     <div class="filters-settings-items">
       <div class="items-container">
-        <span class="second-title">Country</span>
+        <span class="second-title">Country {{ country }}</span>
 
-        <BaseSelect class="select" v-model="country" :list="countryArray" />
+        <BaseSelect
+          class="select"
+          v-model="country"
+          :list="allCountries"
+          @select-option="selectCountry"
+        />
       </div>
 
       <div class="items-container">
@@ -18,7 +23,12 @@
       <div class="items-container">
         <span class="second-title">Language</span>
 
-        <BaseSelect class="select" v-model="country" :list="countryArray" />
+        <BaseSelect
+          class="select"
+          v-model="language"
+          :list="allLanguages"
+          @select-option="selectLanguage"
+        />
       </div>
 
       <div class="items-container">
@@ -33,7 +43,7 @@
   <div class="radio-wrapper">
     <BaseRadio
       v-for="(item, index) in sentiments"
-      :key="index"
+      :key="item + index"
       :checked="item"
       :value="selectedValue"
       class="radio-btn"
@@ -41,13 +51,16 @@
     >
       <template #default>
         <div class="not-check"><CheckRadioIcon class="check-icon" /></div>
-        {{ item.value }}
+        {{ item }}
       </template>
     </BaseRadio>
   </div>
 </template>
 
 <script>
+import {mapActions, mapGetters} from 'vuex'
+import {action, get} from '@store/constants'
+
 import BaseInput from '@/components/BaseInput'
 import BaseRadio from '@/components/BaseRadio'
 import BaseSelect from '@/components/BaseSelect'
@@ -64,20 +77,50 @@ export default {
   },
   data() {
     return {
-      alexaRanking: [{value: '10%'}, {value: '20%'}, {value: '30%'}],
-      sentiments: [
-        {value: 'Negative'},
-        {value: 'Neutral'},
-        {value: 'Positive'},
-      ],
+      sentiments: ['Negative', 'Neutral', 'Positive'],
       selectedValue: '',
-      country: null,
+      country: '',
+      language: '',
       countryArray: [1, 2],
     }
   },
+  created() {
+    this[action.GET_COUNTRIES]()
+    this[action.GET_LANGUAGES]()
+  },
+  computed: {
+    ...mapGetters({countries: get.COUNTRIES, languages: get.LANGUAGES}),
+    allCountries() {
+      return this.countries.map((el) => el.name)
+    },
+    allLanguages() {
+      return this.languages.map((el) => el.language)
+    },
+  },
   methods: {
+    ...mapActions([
+      action.GET_COUNTRIES,
+      action.GET_LANGUAGES,
+      action.UPDATE_ADDITIONAL_FILTERS,
+    ]),
     changeValue(newValue) {
       this.selectedValue = newValue
+    },
+    selectCountry(val) {
+      try {
+        this.country = val
+        this[action.UPDATE_ADDITIONAL_FILTERS]({country: this.country})
+      } catch (e) {
+        console.log(e)
+      }
+    },
+    selectLanguage(val) {
+      try {
+        this.language = val
+        this[action.UPDATE_ADDITIONAL_FILTERS]({language: this.language})
+      } catch (e) {
+        console.log(e)
+      }
     },
   },
 }

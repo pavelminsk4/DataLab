@@ -13,7 +13,7 @@
       <ul class="select-list">
         <li
           :class="[{current: item === value}, 'select-item']"
-          v-for="item in selectList"
+          v-for="item in list"
           :key="item"
           @click="select(item)"
         >
@@ -36,14 +36,9 @@ export default {
   },
   data() {
     return {
-      value: 'Select Workspace',
+      value: 'Select option',
       visible: false,
     }
-  },
-  computed: {
-    selectList() {
-      return ['Create new Workspace', ...this.list]
-    },
   },
   methods: {
     toggle() {
@@ -70,7 +65,7 @@ export default {
 
   .arrow {
     position: absolute;
-    right: 28px;
+    right: 18px;
     top: 40%;
 
     transform: rotateZ(0deg) translateY(0px);
@@ -92,6 +87,10 @@ export default {
     color: var(--secondary-text-color);
     font-size: 14px;
   }
+
+  .label > span {
+    padding-left: 10px;
+  }
 }
 
 .select-list {
@@ -101,8 +100,10 @@ export default {
   padding: 0;
   margin: 0;
   width: 100%;
+  height: 250px;
 
   outline: 1px solid var(--primary-button-color);
+  border-top: 1px solid var(--modal-line-color);
   box-shadow: 0 3px 4px rgba(5, 95, 252, 0.49);
   border-radius: 0 0 10px 10px;
   background-color: var(--secondary-bg-color);
@@ -110,10 +111,29 @@ export default {
   font-size: 14px;
 
   list-style-type: none;
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    height: 5px;
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: var(--secondary-bg-color);
+    border: 1px solid var(--input-border-color);
+    border-radius: 0 10px 10px 0;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    height: 4px;
+
+    background: var(--secondary-text-color);
+    border-radius: 10px;
+  }
 }
 
 .select-item {
-  padding: 9px;
+  padding: 9px 9px 9px 19px;
 
   color: var(--primary-text-color);
 

@@ -72,8 +72,8 @@
 </template>
 
 <script>
-import {mapActions, mapState} from 'vuex'
-import {action} from '@store/constants'
+import {mapActions, mapGetters, mapState} from 'vuex'
+import {action, get} from '@store/constants'
 
 import BaseTag from '@/components/BaseTag'
 import StepsNav from '@/components/navigation/StepsNav'
@@ -100,6 +100,9 @@ export default {
   },
   computed: {
     ...mapState(['newWorkspace', 'newProject', 'currentStep']),
+    ...mapGetters({
+      additionalFilters: get.ADDITIONAL_FILTERS,
+    }),
     step() {
       return this.$route.name
     },
@@ -120,6 +123,7 @@ export default {
           keywords: this.mainTags,
           additions: this.additionalTags,
           exceptions: this.excludeTags,
+          ...this.additionalFilters,
         })
       } catch (e) {
         console.log(e)

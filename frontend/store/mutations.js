@@ -29,16 +29,28 @@ export default {
     state.keywords = [...state.keywords, ...keywords]
   },
 
-  [mutator.DELETE_KEYWORDS_LIST](state, index) {
-    state.keywords.splice(index, 1)
-  },
-
   [mutator.SET_SEARCH_DATA](state, data) {
     state.searchData = [...data]
   },
 
   [mutator.SET_CURRENT_STEP](state, step) {
     state.currentStep = step
+  },
+
+  [mutator.SET_COUNTRIES](state, countries) {
+    state.countries = countries
+  },
+
+  [mutator.SET_LANGUAGES](state, languages) {
+    state.languages = languages
+  },
+
+  [mutator.DELETE_KEYWORDS_LIST](state, index) {
+    state.keywords.splice(index, 1)
+  },
+
+  [mutator.SET_ADDITIONAL_FILTERS](state, data) {
+    state.additionalFilters = {...state.additionalFilters, ...data}
   },
 
   [mutator.RESET_STATE](state) {

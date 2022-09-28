@@ -50,6 +50,30 @@ export default {
     }
   },
 
+  async [action.GET_COUNTRIES]({commit}) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const countries = await api.getCountries()
+      commit(mutator.SET_COUNTRIES, countries)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
+  async [action.GET_LANGUAGES]({commit}) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const languages = await api.getLanguages()
+      commit(mutator.SET_LANGUAGES, languages)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
   async [action.CREATE_WORKSPACE]({commit}, workspace) {
     commit(mutator.SET_LOADING, true)
     try {
@@ -97,6 +121,10 @@ export default {
 
   async [action.UPDATE_CURRENT_STEP]({commit}, step) {
     commit(mutator.SET_CURRENT_STEP, step)
+  },
+
+  async [action.UPDATE_ADDITIONAL_FILTERS]({commit}, data) {
+    commit(mutator.SET_ADDITIONAL_FILTERS, data)
   },
 
   async [action.CLEAR_STATE]({commit}) {

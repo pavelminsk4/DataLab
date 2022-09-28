@@ -5,6 +5,7 @@
     <input
       class="input-radio"
       type="radio"
+      v-bind="$attrs"
       :value="label"
       :name="name"
       v-model="radioButtonValue"
@@ -32,8 +33,8 @@ export default {
       get() {
         return this.value
       },
-      set() {
-        this.$emit('change', this.label)
+      set(val) {
+        this.$emit('change', val)
       },
     },
   },
