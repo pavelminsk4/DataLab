@@ -53,11 +53,11 @@ import SettingsWorkspaceModal from '@/components/modals/SettingsWorkspaceModal'
 export default {
   name: 'DashboardList',
   components: {
-    SettingsWorkspaceModal,
     SortIcon,
     BaseButton,
     MainLayout,
     ProjectItem,
+    SettingsWorkspaceModal,
   },
   data() {
     return {

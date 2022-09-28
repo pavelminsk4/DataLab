@@ -65,6 +65,9 @@ export default {
       default: false,
     },
   },
+  emits: {
+    'next-step': null,
+  },
   computed: {
     progressBarData() {
       return this.isExistingWorkspace

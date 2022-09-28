@@ -22,7 +22,6 @@ body {
   padding: 0;
 
   min-height: fit-content;
-  background: url(http://localhost:8080/img/img.1694ddef.svg) 50% 50% no-repeat;
   background-color: var(--primary-bg-color);
   background-size: 919px 100%;
 }

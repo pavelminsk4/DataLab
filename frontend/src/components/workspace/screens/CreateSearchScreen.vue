@@ -60,7 +60,7 @@
         Refine youre search with additional filters
       </div>
 
-      <OnlineType class="key-word-section" />
+      <OnlineType />
 
       <BaseButton @click="showResults" class="apply-settings">
         Apply Settings
@@ -83,7 +83,7 @@ import SearchResults from '@/components/SearchResults'
 import BaseButton from '@/components/buttons/BaseButton'
 
 export default {
-  name: 'CreateProjectSecondStep',
+  name: 'CreateSearchScreen',
   components: {
     BaseButton,
     SearchResults,
@@ -362,11 +362,6 @@ export default {
   color: var(--secondary-text-color);
 
   font-size: 14px;
-}
-
-.key-word-section {
-  width: 515px;
-  margin-top: 30px;
 }
 
 @media screen and (max-width: 1180px) {

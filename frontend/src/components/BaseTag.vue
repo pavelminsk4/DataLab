@@ -27,7 +27,6 @@
       @keydown.prevent.tab="addTag(newTag)"
       @keydown.delete="newTag.length || removeTag(tags.length - 1)"
       @input="addTagIfDelem(newTag)"
-      :style="{'padding-left': `${paddingLeft}px`}"
       placeholder="Enter text"
       class="input"
     />
@@ -42,7 +41,6 @@
       @keydown.prevent.tab="addTag(newTag)"
       @keydown.delete="newTag.length || removeTag(tags.length - 1)"
       @input="addTagIfDelem(newTag)"
-      :style="{'padding-left': `${paddingLeft}px`}"
       placeholder="Enter text"
       class="input"
     />
