@@ -4,12 +4,7 @@
       <div class="items-container">
         <span class="second-title">Country {{ country }}</span>
 
-        <v-select
-          class="select"
-          label="'Select'"
-          v-model="country"
-          :options="allCountries"
-        />
+        <BaseSelect class="select" v-model="country" :list="allCountries" />
       </div>
 
       <div class="items-container">
@@ -23,7 +18,7 @@
       <div class="items-container">
         <span class="second-title">Language</span>
 
-        <BaseSelect class="select" v-model="country" :list="countries" />
+        <BaseSelect class="select" v-model="country" :list="allCountries" />
       </div>
 
       <div class="items-container">
@@ -62,9 +57,6 @@ import BaseSelect from '@/components/BaseSelect'
 
 import CheckRadioIcon from '@/components/icons/CheckIcon'
 
-import vSelect from 'vue-select'
-import 'vue-select/dist/vue-select.css'
-
 export default {
   name: 'OnlineType',
   components: {
@@ -72,7 +64,6 @@ export default {
     BaseRadio,
     BaseSelect,
     CheckRadioIcon,
-    vSelect,
   },
   data() {
     return {
@@ -101,8 +92,11 @@ export default {
       this.selectedValue = newValue
     },
     selectCountry(country, el) {
-      console.log(this.country)
       this.country = el
+    },
+    test(option) {
+      this.country = option
+      console.log(this.country, option)
     },
   },
 }
