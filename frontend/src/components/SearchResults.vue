@@ -65,7 +65,7 @@
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import {mapActions, mapState} from 'vuex'
 import {langCodes} from '@/lib/language-codes'
 
 import BaseSpinner from '@/components/BaseSpinner'
@@ -75,6 +75,7 @@ import NoImageIcon from '@/components/icons/NoImageIcon'
 import Datepicker from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
 import CalendarIcon from '@/components/icons/CalendarIcon'
+import {action} from '@store/constants'
 
 export default {
   name: 'SearchResults',
@@ -94,6 +95,7 @@ export default {
     ...mapState(['searchData', 'loading']),
   },
   methods: {
+    ...mapActions([action.UPDATE_ADDITIONAL_FILTERS]),
     resultLanguage(langCode) {
       for (let key in langCodes) {
         if (key === langCode) {
@@ -113,7 +115,14 @@ export default {
       return string.charAt(0).toUpperCase() + string.slice(1)
     },
     handleDate(modelData) {
-      this.selectedDate = modelData
+      try {
+        this.selectedDate = modelData
+        this[action.UPDATE_ADDITIONAL_FILTERS]([
+          {data_range: this.selectedDate},
+        ])
+      } catch (e) {
+        console.log(e)
+      }
     },
     format(date) {
       const formattedDate = date.map((el) =>

@@ -43,7 +43,7 @@
   <div class="radio-wrapper">
     <BaseRadio
       v-for="(item, index) in sentiments"
-      :key="index"
+      :key="item + index"
       :checked="item"
       :value="selectedValue"
       class="radio-btn"
@@ -51,7 +51,7 @@
     >
       <template #default>
         <div class="not-check"><CheckRadioIcon class="check-icon" /></div>
-        {{ item.value }}
+        {{ item }}
       </template>
     </BaseRadio>
   </div>
@@ -77,11 +77,7 @@ export default {
   },
   data() {
     return {
-      sentiments: [
-        {value: 'Negative'},
-        {value: 'Neutral'},
-        {value: 'Positive'},
-      ],
+      sentiments: ['Negative', 'Neutral', 'Positive'],
       selectedValue: '',
       country: '',
       language: '',
@@ -102,15 +98,29 @@ export default {
     },
   },
   methods: {
-    ...mapActions([action.GET_COUNTRIES, action.GET_LANGUAGES]),
+    ...mapActions([
+      action.GET_COUNTRIES,
+      action.GET_LANGUAGES,
+      action.UPDATE_ADDITIONAL_FILTERS,
+    ]),
     changeValue(newValue) {
       this.selectedValue = newValue
     },
     selectCountry(val) {
-      this.country = val
+      try {
+        this.country = val
+        this[action.UPDATE_ADDITIONAL_FILTERS]([{country: this.country}])
+      } catch (e) {
+        console.log(e)
+      }
     },
     selectLanguage(val) {
-      this.language = val
+      try {
+        this.language = val
+        this[action.UPDATE_ADDITIONAL_FILTERS]([{language: this.language}])
+      } catch (e) {
+        console.log(e)
+      }
     },
   },
 }

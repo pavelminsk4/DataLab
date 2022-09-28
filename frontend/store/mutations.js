@@ -49,6 +49,10 @@ export default {
     state.keywords.splice(index, 1)
   },
 
+  [mutator.SET_ADDITIONAL_FILTERS](state, data) {
+    state.additionalFilters = [...state.additionalFilters, ...data]
+  },
+
   [mutator.RESET_STATE](state) {
     state.currentStep = 'Step1'
     state.keywords = []

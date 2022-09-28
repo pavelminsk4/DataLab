@@ -32,9 +32,7 @@
       v-for="(item, index) in sentiments"
       :key="index"
       :checked="item"
-      :value="selectedValue"
       class="radio-btn"
-      @change="changeValue(item)"
     >
       <template #default>
         <div class="btn-checked"><CheckRadioIcon class="checked-icon" /></div>
@@ -66,18 +64,12 @@ export default {
         {value: 'Neutral'},
         {value: 'Positive'},
       ],
-      selectedValue: '',
       country: null,
       follow: null,
       countryArray: [1, 2],
       tweets: [1, 2],
       followers: [1, 2],
     }
-  },
-  methods: {
-    changeValue(newValue) {
-      this.selectedValue = newValue
-    },
   },
 }
 </script>

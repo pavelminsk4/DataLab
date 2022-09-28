@@ -123,6 +123,10 @@ export default {
     commit(mutator.SET_CURRENT_STEP, step)
   },
 
+  async [action.UPDATE_ADDITIONAL_FILTERS]({commit}, data) {
+    commit(mutator.SET_ADDITIONAL_FILTERS, data)
+  },
+
   async [action.CLEAR_STATE]({commit}) {
     commit(mutator.RESET_STATE)
   },
