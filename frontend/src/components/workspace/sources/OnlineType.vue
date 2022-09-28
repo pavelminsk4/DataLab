@@ -109,7 +109,7 @@ export default {
     selectCountry(val) {
       try {
         this.country = val
-        this[action.UPDATE_ADDITIONAL_FILTERS]([{country: this.country}])
+        this[action.UPDATE_ADDITIONAL_FILTERS]({country: this.country})
       } catch (e) {
         console.log(e)
       }
@@ -117,7 +117,7 @@ export default {
     selectLanguage(val) {
       try {
         this.language = val
-        this[action.UPDATE_ADDITIONAL_FILTERS]([{language: this.language}])
+        this[action.UPDATE_ADDITIONAL_FILTERS]({language: this.language})
       } catch (e) {
         console.log(e)
       }

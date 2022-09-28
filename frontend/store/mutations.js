@@ -50,7 +50,7 @@ export default {
   },
 
   [mutator.SET_ADDITIONAL_FILTERS](state, data) {
-    state.additionalFilters = [...state.additionalFilters, ...data]
+    state.additionalFilters = {...state.additionalFilters, ...data}
   },
 
   [mutator.RESET_STATE](state) {
