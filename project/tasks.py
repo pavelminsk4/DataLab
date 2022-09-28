@@ -308,7 +308,7 @@ def post_creator():
                 #my_feed_language = ff['language']
                 my_feed_language = add_language(ff['language'])
             except:
-                my_feed_language = Speech.objects.get(language='Language not specified')
+                my_feed_language = Speech.objects.get_or_create(language='Language not specified')[0]
 
             try:
                 my_feed_rights = ff['rights']

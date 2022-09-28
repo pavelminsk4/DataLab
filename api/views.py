@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import ProjectSerializer, Workspace
 from django.contrib.auth.models import User
-from project.models import Project, Workspace, Post, Speech
+from project.models import Project, Workspace, Post, Speech, Feedlinks
 from django.http import JsonResponse
 import json
 from django.db.models import Q
@@ -118,7 +118,7 @@ def additional_keywords_posts(keys, additions):
     posts = posts.filter(entry_title__contains=word)
   return posts
 
-@csrf_exempt
+#@csrf_exempt
 def search(request):
   body = json.loads(request.body)
   keys = body['keywords']
@@ -147,3 +147,10 @@ class CountriesList(ListAPIView):
 class SpeechesList(ListAPIView):
   queryset = Speech.objects.all().order_by('language')
   serializer_class = SpeechSerializer
+
+# === Sources API ========
+
+def sources(request):
+  set = Feedlinks.objects.all().values('source1').distinct()
+  sources_list = list(set)
+  return JsonResponse(sources_list, safe = False)

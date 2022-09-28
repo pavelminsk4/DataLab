@@ -25,4 +25,6 @@ urlpatterns = [
   path('countries', views.CountriesList.as_view(), name='countries_list'),
   # Speeches
   path('speeches', views.SpeechesList.as_view(), name='speeches_list'),
+  # Sources
+  path('sources', views.sources, name='sources_list'),
   ]
