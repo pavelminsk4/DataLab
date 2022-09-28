@@ -9,6 +9,7 @@ const state = {
   keywords: [],
   searchData: [],
   countries: [],
+  languages: [],
   newWorkspace: {
     title: '',
     description: '',

@@ -32,4 +32,8 @@ export default {
   [get.COUNTRIES](state) {
     return state.countries
   },
+
+  [get.LANGUAGES](state) {
+    return state.languages
+  },
 }

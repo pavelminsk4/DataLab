@@ -62,6 +62,18 @@ export default {
     }
   },
 
+  async [action.GET_LANGUAGES]({commit}) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const languages = await api.getLanguages()
+      commit(mutator.SET_LANGUAGES, languages)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
   async [action.CREATE_WORKSPACE]({commit}, workspace) {
     commit(mutator.SET_LOADING, true)
     try {

@@ -29,6 +29,10 @@ export default {
     return fetch('get', '/api/countries')
   },
 
+  async getLanguages() {
+    return fetch('get', '/api/speeches')
+  },
+
   async createWorkspace(workspace) {
     const config = {
       headers: {

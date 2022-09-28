@@ -4,7 +4,12 @@
       <div class="items-container">
         <span class="second-title">Country {{ country }}</span>
 
-        <BaseSelect class="select" v-model="country" :list="allCountries" />
+        <BaseSelect
+          class="select"
+          v-model="country"
+          :list="allCountries"
+          @select-option="selectCountry"
+        />
       </div>
 
       <div class="items-container">
@@ -18,7 +23,12 @@
       <div class="items-container">
         <span class="second-title">Language</span>
 
-        <BaseSelect class="select" v-model="country" :list="allCountries" />
+        <BaseSelect
+          class="select"
+          v-model="language"
+          :list="allLanguages"
+          @select-option="selectLanguage"
+        />
       </div>
 
       <div class="items-container">
@@ -74,29 +84,33 @@ export default {
       ],
       selectedValue: '',
       country: '',
+      language: '',
       countryArray: [1, 2],
     }
   },
   created() {
     this[action.GET_COUNTRIES]()
+    this[action.GET_LANGUAGES]()
   },
   computed: {
-    ...mapGetters({countries: get.COUNTRIES}),
+    ...mapGetters({countries: get.COUNTRIES, languages: get.LANGUAGES}),
     allCountries() {
       return this.countries.map((el) => el.name)
     },
+    allLanguages() {
+      return this.languages.map((el) => el.language)
+    },
   },
   methods: {
-    ...mapActions([action.GET_COUNTRIES]),
+    ...mapActions([action.GET_COUNTRIES, action.GET_LANGUAGES]),
     changeValue(newValue) {
       this.selectedValue = newValue
     },
-    selectCountry(country, el) {
-      this.country = el
+    selectCountry(val) {
+      this.country = val
     },
-    test(option) {
-      this.country = option
-      console.log(this.country, option)
+    selectLanguage(val) {
+      this.language = val
     },
   },
 }
