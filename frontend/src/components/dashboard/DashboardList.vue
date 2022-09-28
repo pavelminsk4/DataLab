@@ -25,7 +25,7 @@
         Create new workspace
       </BaseButton>
     </div>
-    <div class="items-wrapper">
+    <div v-if="workspaces" class="items-wrapper">
       <ProjectItem
         v-for="(item, index) in workspaces"
         :key="index"
@@ -40,8 +40,8 @@
 </template>
 
 <script>
-import {mapActions, mapState} from 'vuex'
-import {action} from '@store/constants'
+import {mapActions, mapGetters, mapState} from 'vuex'
+import {action, get} from '@store/constants'
 
 import SortIcon from '@components/icons/SortIcon'
 
@@ -66,10 +66,19 @@ export default {
     }
   },
   computed: {
-    ...mapState(['userId', 'workspaces']),
+    ...mapGetters({workspaces: get.WORKSPACES}),
+    ...mapState(['userId']),
+    numberOfWorkspaces() {
+      return this.workspaces.length
+    },
   },
   async created() {
-    this[action.GET_WORKSPACES]()
+    if (
+      !this.workspaces.length ||
+      this.workspaces.length !== this.numberOfWorkspaces
+    ) {
+      await this[action.GET_WORKSPACES]()
+    }
     if (!this.userId) {
       await this[action.GET_USER_INFORMATION]()
     }

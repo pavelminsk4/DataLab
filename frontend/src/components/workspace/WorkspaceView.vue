@@ -47,8 +47,10 @@ export default {
       return this.workspaces.find((el) => el.id === +this.workspaceId)
     },
   },
-  async created() {
-    await this[action.GET_WORKSPACES]()
+  created() {
+    if (!this.workspaces.length) {
+      this[action.GET_WORKSPACES]()
+    }
   },
   methods: {
     ...mapActions([action.GET_WORKSPACES]),

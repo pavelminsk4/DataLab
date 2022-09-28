@@ -99,7 +99,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['newWorkspace', 'newProject', 'currentStep']),
+    ...mapState(['newWorkspace', 'newProject', 'currentStep', 'workspaces']),
     ...mapGetters({
       additionalFilters: get.ADDITIONAL_FILTERS,
     }),
@@ -109,8 +109,9 @@ export default {
   },
   methods: {
     ...mapActions([
-      action.UPDATE_PROJECT_STATE,
+      action.UPDATE_WORKSPACES_STATE,
       action.UPDATE_NEW_WORKSPACE,
+      action.UPDATE_PROJECT_STATE,
       action.CREATE_WORKSPACE,
       action.CREATE_PROJECT,
       action.GET_WORKSPACES,
@@ -141,12 +142,14 @@ export default {
           projects: [this.newProject],
         })
         this[action.CREATE_WORKSPACE](this.newWorkspace)
+        this[action.UPDATE_WORKSPACES_STATE]([
+          ...this.workspaces,
+          this.newWorkspace,
+        ])
         this[action.CLEAR_STATE]()
-        this[action.GET_WORKSPACES]()
         this.$router.push({
           name: 'Home',
         })
-        this[action.GET_WORKSPACES]()
       } catch (e) {
         console.log(e)
       }

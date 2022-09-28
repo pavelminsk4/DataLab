@@ -57,6 +57,7 @@ export default {
     state.currentStep = 'Step1'
     state.keywords = []
     state.searchData = []
+    state.additionalFilters = null
     state.newWorkspace = {
       title: '',
       description: '',

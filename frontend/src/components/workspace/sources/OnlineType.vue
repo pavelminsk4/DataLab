@@ -85,8 +85,13 @@ export default {
     }
   },
   created() {
-    this[action.GET_COUNTRIES]()
-    this[action.GET_LANGUAGES]()
+    if (!this.countries.length) {
+      this[action.GET_COUNTRIES]()
+    }
+
+    if (!this.languages.length) {
+      this[action.GET_LANGUAGES]()
+    }
   },
   computed: {
     ...mapGetters({countries: get.COUNTRIES, languages: get.LANGUAGES}),
