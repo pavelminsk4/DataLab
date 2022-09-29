@@ -110,6 +110,9 @@ export default {
     ]),
     changeValue(newValue) {
       this.selectedValue = newValue
+      this[action.UPDATE_ADDITIONAL_FILTERS]({
+        sentiment: this.selectedValue.toLocaleLowerCase(),
+      })
     },
     selectCountry(val) {
       try {
