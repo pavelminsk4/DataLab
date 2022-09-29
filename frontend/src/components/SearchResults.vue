@@ -142,8 +142,7 @@ export default {
   flex-direction: column;
   align-items: flex-start;
 
-  width: 50%;
-  margin-left: 108px;
+  width: 43vw;
 
   color: var(--primary-text-color);
 }
@@ -327,6 +326,21 @@ export default {
 .default-image {
   width: 71px;
   height: 50px;
+}
+
+@media screen and (max-width: 1000px) {
+  .search-result-wrapper {
+    align-items: flex-end;
+  }
+
+  .filters {
+    align-items: flex-end;
+    flex-direction: column;
+  }
+
+  .search-result-card {
+    margin: 0 0 10px 0;
+  }
 }
 </style>
 

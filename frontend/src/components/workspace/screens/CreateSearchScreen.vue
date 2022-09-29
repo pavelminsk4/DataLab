@@ -4,6 +4,7 @@
     :step="step"
     :title="'Define the search'"
     :hint="'Search by keywords and phrases'"
+    :button-width="141"
     :button-name="'Create Project'"
     @next-step="createWorkspaceAndProject"
   />
@@ -14,6 +15,7 @@
     :title="'Define the search'"
     :hint="'Search by keywords and phrases'"
     :is-existing-workspace="true"
+    :button-width="141"
     :button-name="'Create Project'"
     @next-step="createProject"
   />
@@ -208,6 +210,7 @@ export default {
 .search-settings-wrapper {
   display: flex;
   justify-content: space-between;
+  gap: 108px;
 }
 
 .second-title {
@@ -258,11 +261,13 @@ export default {
   display: flex;
   flex-direction: column;
 
-  width: 50%;
+  width: 37vw;
 }
 
 .apply-settings {
   align-self: flex-end;
+
+  width: 140px;
 }
 
 .radio-btn {
@@ -357,10 +362,6 @@ export default {
   background-color: var(--progress-line);
 }
 
-.next-button {
-  width: 114px;
-}
-
 .hint {
   color: var(--secondary-text-color);
 
@@ -378,6 +379,12 @@ export default {
         margin-bottom: 20px;
       }
     }
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .search-settings-wrapper {
+    gap: 20px;
   }
 }
 </style>

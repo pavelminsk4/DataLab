@@ -19,6 +19,7 @@
       </div>
       <BaseButton
         :is-disabled="!isActiveButton"
+        :style="`width: ${buttonWidth}`"
         class="next-button"
         @click="goToNextStep"
       >
@@ -63,6 +64,10 @@ export default {
     isExistingWorkspace: {
       type: Boolean,
       default: false,
+    },
+    buttonWidth: {
+      type: Number,
+      default: 114,
     },
   },
   emits: {
@@ -189,10 +194,6 @@ export default {
 .active-item {
   border: 1px solid var(--primary-button-color);
   box-shadow: 0 0 3px var(--box-shadow-color);
-}
-
-.next-button {
-  width: 114px;
 }
 
 .hint {

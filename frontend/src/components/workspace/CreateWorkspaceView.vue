@@ -76,10 +76,6 @@ export default {
   background-color: var(--progress-line);
 }
 
-.next-button {
-  width: 114px;
-}
-
 .hint {
   color: var(--secondary-text-color);
 
