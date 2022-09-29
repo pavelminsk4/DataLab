@@ -9,46 +9,170 @@ from django.contrib.auth.models import User
 import json
 
 class SearchTests(APITestCase):
-  global url
+  global url, ex1, ex2, ex3, ex4
   url = reverse('search')
+  ex1 = {
+    'entry_title':'First post title',
+    'entry_published': None,
+    'entry_summary': 'First post body',
+    'entry_media_thumbnail_url': None,
+    'feed_language__language': 'English (United States)',
+    'sentiment': 'neutral',
+    'entry_author':'Elon Musk',
+    'feedlink__country':'USA',
+    }
+  ex2 = {
+    'entry_title':'Second post title',
+    'entry_published':None,
+    'entry_summary':'Second post body',
+    'entry_media_thumbnail_url':None,
+    'feed_language__language':'Lithuanian (Lithuania)',
+    'sentiment':'neutral',
+    'entry_author':'Tim Cook',
+    'feedlink__country':'China',
+    }
+  ex3 = {
+    'entry_title':'Third post',
+    'entry_published':None,
+    'entry_summary':'Third post body',
+    'entry_media_thumbnail_url':None,
+    'feed_language__language':'Italian (Italy)',
+    'sentiment':'neutral',
+    'entry_author':'Bill Gates',
+    'feedlink__country':'China',
+    }
+  ex4 = {
+    'entry_title':'Fourth post',
+    'entry_published':None,
+    'entry_summary':'Fourth post body',
+    'entry_media_thumbnail_url':None,
+    'feed_language__language':'Arabic',
+    'sentiment':'neutral',
+    'entry_author':'Steve Jobs',
+    'feedlink__country':'China',
+    }
 
   def db_seeder(self):
-    Speech.objects.create(id=1, language='English (United States)')
-    Speech.objects.create(id=2, language='Lithuanian (Lithuania)')
-    Speech.objects.create(id=3, language='Italian (Italy)')
-    Speech.objects.create(id=4, language='Arabic')
-    Post.objects.create(entry_title='First post title', entry_summary='First post body', feed_language_id=1)
-    Post.objects.create(entry_title='Second post title', entry_summary='Second post body', feed_language_id=2)
-    Post.objects.create(entry_title='Third post', entry_summary='Third post body', feed_language_id=3)
-    Post.objects.create(entry_title='Fourth post', entry_summary='Fourth post body', feed_language_id=4)
+    flink1 = Feedlinks.objects.create(country='USA')
+    flink2 = Feedlinks.objects.create(country='China')
+    sp1 = Speech.objects.create(language='English (United States)')
+    sp2 = Speech.objects.create(language='Lithuanian (Lithuania)')
+    sp3 = Speech.objects.create(language='Italian (Italy)')
+    sp4 = Speech.objects.create(language='Arabic')
+    Post.objects.create(feedlink=flink1, entry_title='First post title', entry_summary='First post body', feed_language=sp1, entry_author='Elon Musk')
+    Post.objects.create(feedlink=flink2, entry_title='Second post title', entry_summary='Second post body', feed_language=sp2, entry_author='Tim Cook')
+    Post.objects.create(feedlink=flink2, entry_title='Third post', entry_summary='Third post body', feed_language=sp3, entry_author='Bill Gates')
+    Post.objects.create(feedlink=flink2, entry_title='Fourth post', entry_summary='Fourth post body', feed_language=sp4, entry_author='Steve Jobs')
 
-  def test_search(self):
+  def test_search_with_keywords(self):
     self.db_seeder()
-    data = {'keywords':['First', 'Post'], 'exceptions':[], 'additions':[]}
+    data = {'keywords':['First', 'Post'], 'exceptions':[], 'additions':[], 'country':[], 'language':[], 'sentiment':[], 'date_range':[], 'source':[], 'author':[]}
     response = self.client.post(url, data, format='json')
     self.assertEqual(response.status_code, status.HTTP_200_OK)
-    self.assertEqual(json.loads(response.content), [{'entry_media_thumbnail_url': None, 'entry_published': None, 'entry_summary': 'First post body', 'entry_title':'First post title', 'sentiment': 'neutral', 'feed_language__language': 'English (United States)'}])  
+    self.assertEqual(json.loads(response.content), [ex1])  
  
   def test_search_with_exclusion_words(self):
     self.db_seeder()
-    data = {'keywords':['post'], 'exceptions':['First'], 'additions':[]}
+    data = {'keywords':['post'], 'exceptions':['First'], 'additions':[], 'country':[], 'language':[], 'sentiment':[], 'date_range':[], 'source':[], 'author':[]}
     response = self.client.post(url, data, format='json')
-    self.assertEqual(len(json.loads(response.content)), 3)
+    self.assertEqual(response.status_code, status.HTTP_200_OK)
+    self.assertEqual(json.loads(response.content), [ex2,ex3,ex4])
     self.assertEqual(len(Post.objects.all()), 4)
 
   def test_search_with_additional_words(self):
     self.db_seeder()
-    data = {'keywords':['post'], 'exceptions':[], 'additions':['Third']}
+    data = {'keywords':['post'], 'exceptions':[], 'additions':['Third'], 'country':[], 'language':[], 'sentiment':[], 'date_range':[], 'source':[], 'author':[]}
     response = self.client.post(url, data, format='json')
-    self.assertEqual(json.loads(response.content),  [{'entry_media_thumbnail_url': None, 'entry_published': None, 'entry_summary': 'Third post body', 'entry_title':'Third post', 'sentiment': 'neutral', 'feed_language__language': 'Italian (Italy)'}] )
+    self.assertEqual(json.loads(response.content), [ex3])
     self.assertEqual(len(Post.objects.all()), 4)
 
   def test_serch_with_exclusion_and_additional_words(self):
-     self.db_seeder()
-     data = {'keywords':['post'], 'exceptions':['First'], 'additions':['title']}
-     response = self.client.post(url, data, format='json')
-     self.assertEqual(json.loads(response.content), [{'entry_media_thumbnail_url': None, 'entry_published': None, 'entry_summary': 'Second post body', 'entry_title':'Second post title', 'sentiment': 'neutral', 'feed_language__language': 'Lithuanian (Lithuania)'}])
-     self.assertEqual(len(Post.objects.all()), 4)
+    self.db_seeder()
+    data = {'keywords':['post'], 'exceptions':['First'], 'additions':['title'], 'country':[], 'language':[], 'sentiment':[], 'date_range':[], 'source':[], 'author':[]}
+    response = self.client.post(url, data, format='json')
+    self.assertEqual(json.loads(response.content), [ex2])
+    self.assertEqual(len(Post.objects.all()), 4)
+
+  def test_search_by_country(self):
+    self.db_seeder()
+    data = {'keywords':['post'], 'exceptions':[], 'additions':[], 'country':['USA'], 'language':[], 'sentiment':[], 'date_range':[], 'source':[], 'author':[]}
+    response = self.client.post(url, data, format='json')
+    self.assertEqual(response.status_code, status.HTTP_200_OK)
+    self.assertEqual(json.loads(response.content), [ex1])
+
+  def test_search_by_language(self):
+    self.db_seeder()
+    data = {'keywords':['post'], 'exceptions':[], 'additions':[], 'country':[], 'language':['Arabic'], 'sentiment':[], 'date_range':[], 'source':[], 'author':[]}
+    response = self.client.post(url, data, format='json')
+    self.assertEqual(response.status_code, status.HTTP_200_OK)
+    self.assertEqual(json.loads(response.content), [ex4])
+
+  def test_search_filtering_by_sentiment(self):
+    self.db_seeder()
+    data = {
+      'keywords':['post'],
+      'exceptions':[], 
+      'additions':[],
+      'country':[],
+      'language':[],
+      'sentiment':['positive'],
+      'date':[],
+      'date_range':[],
+      'source':[],
+      'author':[],
+      }
+    response = self.client.post(url, data, format='json')
+    self.assertEqual(response.status_code, status.HTTP_200_OK)
+    self.assertEqual(json.loads(response.content), [ex4])
+
+  def test_serarch_filtering_by_date(self):
+    self.db_seeder()
+    data = {
+      'keywords':['post'],
+      'exceptions':[],
+      'additions':[],
+      'country':[],
+      'language':[],
+      'sentiment':[],
+      'date_range':['2022-09-14T06:44:00.000Z', '2022-09-30T06:44:00.000Z'],
+      'source':[],
+      'author':[],
+    }
+    response = self.client.post(url, data, format='json')
+    self.assertEqual(response.status_code, status.HTTP_200_OK)
+    self.assertEqual(json.loads(response.content), [])
+
+  def test_search_by_source(self):
+    self.db_seeder()
+    data = {
+      'keywords':['post'],
+      'exceptions':[],
+      'additions':[],
+      'country':[],
+      'language':[],
+      'sentiment':[],
+      'date_range':[],
+      'source':['BBC'],
+      'author':[],
+    }
+    response = self.client.post(url, data, format='json')
+    self.assertEqual(response.status_code, status.HTTP_200_OK)
+    
+  def test_search_by_author(self):
+    self.db_seeder()
+    data = {
+      'keywords':['post'],
+      'exceptions':[],
+      'additions':[],
+      'country':[],
+      'language':[],
+      'sentiment':[],
+      'date_range':[],
+      'source':[],
+      'author':['Elon Musk'],
+    }
+    response = self.client.post(url, data, format='json')
+    self.assertEqual(response.status_code, status.HTTP_200_OK)
 
 class CurrentUserTests(APITestCase):
   def test_logged_in_user(self):
