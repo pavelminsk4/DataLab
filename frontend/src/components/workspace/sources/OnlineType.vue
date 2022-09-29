@@ -2,20 +2,21 @@
   <div v-if="allCountries" class="filters-wrapper">
     <div class="filters-settings-items">
       <div class="items-container">
-        <span class="second-title">Country {{ country }}</span>
+        <span class="second-title">Country</span>
 
         <BaseSelect
-          class="select"
           v-model="country"
+          :placeholder="'Select country'"
           :list="allCountries"
           @select-option="selectCountry"
+          class="select"
         />
       </div>
 
       <div class="items-container">
-        <span class="second-title">City</span>
+        <span class="second-title">Author</span>
 
-        <BaseInput class="input" />
+        <BaseSelect class="select" :placeholder="'Select author'" />
       </div>
     </div>
 
@@ -26,6 +27,7 @@
         <BaseSelect
           class="select"
           v-model="language"
+          :placeholder="'Select language'"
           :list="allLanguages"
           @select-option="selectLanguage"
         />
@@ -34,7 +36,7 @@
       <div class="items-container">
         <span class="second-title">Source</span>
 
-        <BaseInput class="input" />
+        <BaseSelect class="select" :placeholder="'Select Source'" />
       </div>
     </div>
   </div>
@@ -61,7 +63,6 @@
 import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
-import BaseInput from '@/components/BaseInput'
 import BaseRadio from '@/components/BaseRadio'
 import BaseSelect from '@/components/BaseSelect'
 
@@ -70,7 +71,6 @@ import CheckRadioIcon from '@/components/icons/CheckIcon'
 export default {
   name: 'OnlineType',
   components: {
-    BaseInput,
     BaseRadio,
     BaseSelect,
     CheckRadioIcon,
