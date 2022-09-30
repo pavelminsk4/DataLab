@@ -135,10 +135,6 @@ export default {
     commit(mutator.SET_NEW_PROJECT, newProject)
   },
 
-  async [action.UPDATE_WORKSPACES_STATE]({commit}, data) {
-    commit(mutator.SET_WORKSPACES, data)
-  },
-
   async [action.UPDATE_NEW_WORKSPACE]({commit}, workspaceInfo) {
     commit(mutator.SET_NEW_WORKSPACE, workspaceInfo)
   },

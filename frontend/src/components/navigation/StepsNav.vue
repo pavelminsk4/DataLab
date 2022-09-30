@@ -7,7 +7,9 @@
   <div class="create-project-title">
     <div class="title-wrapper">
       <h1 class="title">{{ title }}</h1>
-      <div class="source-type"><OnlineRadioIcon class="icon" />Online</div>
+      <div v-if="newProject.source" class="source-type">
+        <OnlineRadioIcon class="icon" />{{ newProject.source }}
+      </div>
     </div>
     <div class="progress-bar-wrapper">
       <div class="progress-bar">
@@ -35,6 +37,8 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
+
 import BaseButton from '@components/buttons/BaseButton'
 
 import CheckIcon from '@components/icons/CheckIcon'
@@ -78,6 +82,7 @@ export default {
     'next-step': null,
   },
   computed: {
+    ...mapState(['newProject']),
     progressBarData() {
       return this.isExistingWorkspace
         ? [
