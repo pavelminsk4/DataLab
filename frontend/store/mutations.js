@@ -13,8 +13,8 @@ export default {
     state.workspaces = workspaces
   },
 
-  [mutator.SET_USER_INFORMATION](state, userId) {
-    state.userId = userId
+  [mutator.SET_USER_INFORMATION](state, userInfo) {
+    state.userInfo = userInfo
   },
 
   [mutator.SET_NEW_PROJECT](state, newProject) {
@@ -57,6 +57,7 @@ export default {
     state.currentStep = 'Step1'
     state.keywords = []
     state.searchData = []
+    state.additionalFilters = null
     state.newWorkspace = {
       title: '',
       description: '',

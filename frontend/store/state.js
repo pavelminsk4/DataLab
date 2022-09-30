@@ -4,7 +4,7 @@ const state = {
   projects: [],
   workspaces: [],
   workspace: '',
-  userId: '',
+  userInfo: [],
   channelType: '',
   keywords: [],
   searchData: [],

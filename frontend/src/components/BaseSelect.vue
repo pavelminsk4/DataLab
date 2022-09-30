@@ -6,7 +6,8 @@
     @click="toggle()"
   >
     <div class="label">
-      <span>{{ value }}</span>
+      <div v-if="!value" class="placeholder">{{ placeholder }}</div>
+      <div>{{ value }}</div>
     </div>
     <ArrowDownIcon class="arrow" :class="{expanded: visible}" />
     <div :class="{hidden: !visible, visible}">
@@ -33,10 +34,14 @@ export default {
       type: Array,
       default: null,
     },
+    placeholder: {
+      type: String,
+      default: 'Select option',
+    },
   },
   data() {
     return {
-      value: 'Select option',
+      value: '',
       visible: false,
     }
   },
@@ -82,14 +87,14 @@ export default {
   .label {
     display: block;
 
-    padding: 9px;
+    padding: 9px 9px 9px 15px;
 
-    color: var(--secondary-text-color);
+    color: var(--primary-text-color);
     font-size: 14px;
-  }
 
-  .label > span {
-    padding-left: 10px;
+    .placeholder {
+      color: var(--secondary-text-color);
+    }
   }
 }
 
@@ -100,7 +105,7 @@ export default {
   padding: 0;
   margin: 0;
   width: 100%;
-  height: 250px;
+  max-height: 250px;
 
   outline: 1px solid var(--primary-button-color);
   border-top: 1px solid var(--modal-line-color);

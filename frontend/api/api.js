@@ -43,16 +43,6 @@ export default {
     return fetch('post', '/api/workspace/create/', workspace, config)
   },
 
-  async updateWorkspace({workspaceId, data}) {
-    const config = {
-      headers: {
-        'content-type': 'application/json',
-        'X-CSRFToken': CSRF_TOKEN,
-      },
-    }
-    return fetch('put', `/api/workspace/update/${workspaceId}/`, data, config)
-  },
-
   async createNewProject(newProject) {
     const config = {
       headers: {
@@ -71,8 +61,16 @@ export default {
       },
     }
 
-    const response = fetch('post', '/api/search', request, config)
+    return fetch('post', '/api/search', request, config)
+  },
 
-    return response
+  async updateWorkspace({workspaceId, data}) {
+    const config = {
+      headers: {
+        'content-type': 'application/json',
+        'X-CSRFToken': CSRF_TOKEN,
+      },
+    }
+    return fetch('put', `/api/workspace/update/${workspaceId}/`, data, config)
   },
 }

@@ -25,7 +25,7 @@
         Create new workspace
       </BaseButton>
     </div>
-    <div class="items-wrapper">
+    <div v-if="workspaces" class="items-wrapper">
       <ProjectItem
         v-for="(item, index) in workspaces"
         :key="index"
@@ -40,8 +40,8 @@
 </template>
 
 <script>
-import {mapActions, mapState} from 'vuex'
-import {action} from '@store/constants'
+import {mapActions, mapGetters} from 'vuex'
+import {action, get} from '@store/constants'
 
 import SortIcon from '@components/icons/SortIcon'
 
@@ -53,11 +53,11 @@ import SettingsWorkspaceModal from '@/components/modals/SettingsWorkspaceModal'
 export default {
   name: 'DashboardList',
   components: {
-    SettingsWorkspaceModal,
     SortIcon,
     BaseButton,
     MainLayout,
     ProjectItem,
+    SettingsWorkspaceModal,
   },
   data() {
     return {
@@ -66,19 +66,23 @@ export default {
     }
   },
   computed: {
-    ...mapState(['userId', 'workspaces']),
+    ...mapGetters({workspaces: get.WORKSPACES}),
+    numberOfWorkspaces() {
+      return this.workspaces.length
+    },
   },
   async created() {
-    this[action.GET_WORKSPACES]()
-    if (!this.userId) {
-      await this[action.GET_USER_INFORMATION]()
+    if (
+      !this.workspaces.length ||
+      this.workspaces.length !== this.numberOfWorkspaces
+    ) {
+      await this[action.GET_WORKSPACES]()
     }
   },
   methods: {
     ...mapActions([
       action.GET_WORKSPACES,
       action.CREATE_WORKSPACE,
-      action.GET_USER_INFORMATION,
       action.UPDATE_CURRENT_STEP,
       action.UPDATE_OLD_WORKSPACE,
     ]),

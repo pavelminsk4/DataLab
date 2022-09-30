@@ -27,7 +27,6 @@
       @keydown.prevent.tab="addTag(newTag)"
       @keydown.delete="newTag.length || removeTag(tags.length - 1)"
       @input="addTagIfDelem(newTag)"
-      :style="{'padding-left': `${paddingLeft}px`}"
       placeholder="Enter text"
       class="input"
     />
@@ -42,7 +41,6 @@
       @keydown.prevent.tab="addTag(newTag)"
       @keydown.delete="newTag.length || removeTag(tags.length - 1)"
       @input="addTagIfDelem(newTag)"
-      :style="{'padding-left': `${paddingLeft}px`}"
       placeholder="Enter text"
       class="input"
     />
@@ -85,7 +83,6 @@ export default {
     },
   },
   setup(props, {emit}) {
-    // Tags
     const tags = ref(props.modelValue)
     const tagsClass = ref(props.tagClass)
     const newTag = ref('')
@@ -98,7 +95,6 @@ export default {
         ).filter((it) => it.length == 1)
       ),
     ]
-    // handling duplicates
     const duplicate = ref(null)
     const handleDuplicate = (tag) => {
       duplicate.value = tag
@@ -108,19 +104,16 @@ export default {
 
     const addTag = (tag) => {
       tag = tag.trim()
-      if (!tag) return // prevent empty tag
-      // only allow predefined tags when allowCustom is false
+      if (!tag) return
       if (!props.allowCustom) {
-        //   display not a valid tag
         return
       }
-      // return early if duplicate
       if (tags.value.includes(tag)) {
         handleDuplicate(tag)
         return
       }
       tags.value.push(tag)
-      newTag.value = '' // reset newTag
+      newTag.value = ''
     }
     const addTagIfDelem = (tag) => {
       if (!customDelimiter || customDelimiter.length == 0) return

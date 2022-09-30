@@ -32,6 +32,7 @@ export default {
   outline: none;
 
   height: 40px;
+  width: 100%;
 
   border: none;
   border-radius: 8px;

@@ -4,6 +4,7 @@
     :step="step"
     :title="'Define the search'"
     :hint="'Search by keywords and phrases'"
+    :button-width="141"
     :button-name="'Create Project'"
     @next-step="createWorkspaceAndProject"
   />
@@ -14,6 +15,7 @@
     :title="'Define the search'"
     :hint="'Search by keywords and phrases'"
     :is-existing-workspace="true"
+    :button-width="141"
     :button-name="'Create Project'"
     @next-step="createProject"
   />
@@ -60,7 +62,7 @@
         Refine youre search with additional filters
       </div>
 
-      <OnlineType class="key-word-section" />
+      <OnlineType />
 
       <BaseButton @click="showResults" class="apply-settings">
         Apply Settings
@@ -83,7 +85,7 @@ import SearchResults from '@/components/SearchResults'
 import BaseButton from '@/components/buttons/BaseButton'
 
 export default {
-  name: 'CreateProjectSecondStep',
+  name: 'CreateSearchScreen',
   components: {
     BaseButton,
     SearchResults,
@@ -99,7 +101,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['newWorkspace', 'newProject', 'currentStep']),
+    ...mapState(['newWorkspace', 'newProject', 'currentStep', 'workspaces']),
     ...mapGetters({
       additionalFilters: get.ADDITIONAL_FILTERS,
     }),
@@ -109,8 +111,9 @@ export default {
   },
   methods: {
     ...mapActions([
-      action.UPDATE_PROJECT_STATE,
+      action.UPDATE_WORKSPACES_STATE,
       action.UPDATE_NEW_WORKSPACE,
+      action.UPDATE_PROJECT_STATE,
       action.CREATE_WORKSPACE,
       action.CREATE_PROJECT,
       action.GET_WORKSPACES,
@@ -123,7 +126,10 @@ export default {
           keywords: this.mainTags,
           additions: this.additionalTags,
           exceptions: this.excludeTags,
-          ...this.additionalFilters,
+          country: this.additionalFilters?.country || [],
+          language: this.additionalFilters?.language || [],
+          sentiment: this.additionalFilters?.sentiment || [],
+          date_range: this.additionalFilters?.date_range || [],
         })
       } catch (e) {
         console.log(e)
@@ -141,12 +147,14 @@ export default {
           projects: [this.newProject],
         })
         this[action.CREATE_WORKSPACE](this.newWorkspace)
+        this[action.UPDATE_WORKSPACES_STATE]([
+          ...this.workspaces,
+          this.newWorkspace,
+        ])
         this[action.CLEAR_STATE]()
-        this[action.GET_WORKSPACES]()
         this.$router.push({
           name: 'Home',
         })
-        this[action.GET_WORKSPACES]()
       } catch (e) {
         console.log(e)
       }
@@ -205,6 +213,7 @@ export default {
 .search-settings-wrapper {
   display: flex;
   justify-content: space-between;
+  gap: 108px;
 }
 
 .second-title {
@@ -255,11 +264,13 @@ export default {
   display: flex;
   flex-direction: column;
 
-  width: 50%;
+  width: 37vw;
 }
 
 .apply-settings {
   align-self: flex-end;
+
+  width: 140px;
 }
 
 .radio-btn {
@@ -354,19 +365,10 @@ export default {
   background-color: var(--progress-line);
 }
 
-.next-button {
-  width: 114px;
-}
-
 .hint {
   color: var(--secondary-text-color);
 
   font-size: 14px;
-}
-
-.key-word-section {
-  width: 515px;
-  margin-top: 30px;
 }
 
 @media screen and (max-width: 1180px) {
@@ -380,6 +382,12 @@ export default {
         margin-bottom: 20px;
       }
     }
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .search-settings-wrapper {
+    gap: 20px;
   }
 }
 </style>
