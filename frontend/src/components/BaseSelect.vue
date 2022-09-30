@@ -12,9 +12,12 @@
     <ArrowDownIcon class="arrow" :class="{expanded: visible}" />
     <div :class="{hidden: !visible, visible}">
       <ul class="select-list">
+        <li @click="select('Reject selection')" class="select-item">
+          Reject selection
+        </li>
         <li
           :class="[{current: item === value}, 'select-item']"
-          v-for="item in list"
+          v-for="item in selectList"
           :key="item"
           @click="select(item)"
         >
@@ -44,6 +47,11 @@ export default {
       value: '',
       visible: false,
     }
+  },
+  computed: {
+    selectList() {
+      return this.list
+    },
   },
   methods: {
     toggle() {
@@ -116,7 +124,8 @@ export default {
   font-size: 14px;
 
   list-style-type: none;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
 
   &::-webkit-scrollbar {
     height: 5px;

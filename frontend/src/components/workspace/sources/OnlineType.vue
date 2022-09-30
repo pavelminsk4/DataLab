@@ -134,7 +134,11 @@ export default {
     },
     selectCountry(val) {
       try {
-        this.country = val
+        if (val === 'Reject selection') {
+          this.country = []
+        } else {
+          this.country = val
+        }
         this[action.UPDATE_ADDITIONAL_FILTERS]({country: this.country})
       } catch (e) {
         console.log(e)
@@ -142,7 +146,11 @@ export default {
     },
     selectLanguage(val) {
       try {
-        this.language = val
+        if (val === 'Reject selection') {
+          this.language = []
+        } else {
+          this.language = val
+        }
         this[action.UPDATE_ADDITIONAL_FILTERS]({language: this.language})
       } catch (e) {
         console.log(e)
@@ -150,7 +158,11 @@ export default {
     },
     selectSource(val) {
       try {
-        this.source = val
+        if (val === 'Reject selection') {
+          this.source = []
+        } else {
+          this.source = val
+        }
         this[action.UPDATE_ADDITIONAL_FILTERS]({source: this.source})
       } catch (e) {
         console.log(e)

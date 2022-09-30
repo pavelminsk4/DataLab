@@ -1,14 +1,19 @@
 <template>
   <label
-    :class="[{selected: Object.is(checked, value)}, isBackground && 'radio']"
+    :class="[
+      {selected: Object.is(checked, value)},
+      isBackground && 'radio',
+      isDisabled && 'disabled',
+    ]"
   >
     <input
-      class="input-radio"
-      type="radio"
+      v-model="radioButtonValue"
       v-bind="$attrs"
       :value="label"
       :name="name"
-      v-model="radioButtonValue"
+      :disabled="isDisabled"
+      type="radio"
+      class="input-radio"
     />
     <slot name="default" />
     <slot name="description" />
@@ -23,6 +28,7 @@ export default {
     value: {type: [String, Number, Object], required: true},
     name: {type: String, required: false},
     isBackground: {type: Boolean, default: false},
+    isDisabled: {type: Boolean, default: false},
   },
   model: {
     prop: 'checked',
@@ -64,5 +70,9 @@ export default {
 
 .selected {
   background: var(--primary-button-color);
+}
+
+.disabled {
+  cursor: not-allowed;
 }
 </style>

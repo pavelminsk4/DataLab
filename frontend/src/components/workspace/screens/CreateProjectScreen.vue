@@ -44,6 +44,7 @@
         :value="selectedProxy"
         :checked="item"
         :is-background="true"
+        :is-disabled="item.name !== 'Online'"
         @change="changeValue(item)"
       >
         <template #default>

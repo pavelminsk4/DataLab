@@ -111,7 +111,6 @@ export default {
   },
   methods: {
     ...mapActions([
-      action.UPDATE_WORKSPACES_STATE,
       action.UPDATE_NEW_WORKSPACE,
       action.UPDATE_PROJECT_STATE,
       action.CREATE_WORKSPACE,
@@ -149,11 +148,8 @@ export default {
           projects: [this.newProject],
         })
         this[action.CREATE_WORKSPACE](this.newWorkspace)
-        this[action.UPDATE_WORKSPACES_STATE]([
-          ...this.workspaces,
-          this.newWorkspace,
-        ])
         this[action.CLEAR_STATE]()
+        this[action.GET_WORKSPACES]()
         this.$router.push({
           name: 'Home',
         })
