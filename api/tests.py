@@ -7,49 +7,54 @@ from accounts.models import department
 from countries_plus.models import Country
 from django.contrib.auth.models import User
 import json
+from datetime import datetime
 
 class SearchTests(APITestCase):
   global url, ex1, ex2, ex3, ex4
   url = reverse('search')
   ex1 = {
     'entry_title':'First post title',
-    'entry_published': None,
+    'entry_published':'2022-09-03T06:37:00Z',
     'entry_summary': 'First post body',
     'entry_media_thumbnail_url': None,
     'feed_language__language': 'English (United States)',
     'sentiment': 'neutral',
     'entry_author':'Elon Musk',
     'feedlink__country':'USA',
+    'feedlink__source1': None,
     }
   ex2 = {
     'entry_title':'Second post title',
-    'entry_published':None,
+    'entry_published':'2022-10-03T06:37:00Z',
     'entry_summary':'Second post body',
     'entry_media_thumbnail_url':None,
     'feed_language__language':'Lithuanian (Lithuania)',
     'sentiment':'neutral',
     'entry_author':'Tim Cook',
     'feedlink__country':'China',
+    'feedlink__source1': None,
     }
   ex3 = {
     'entry_title':'Third post',
-    'entry_published':None,
+    'entry_published':'2022-10-03T06:37:00Z',
     'entry_summary':'Third post body',
     'entry_media_thumbnail_url':None,
     'feed_language__language':'Italian (Italy)',
     'sentiment':'neutral',
     'entry_author':'Bill Gates',
     'feedlink__country':'China',
+    'feedlink__source1': None,
     }
   ex4 = {
     'entry_title':'Fourth post',
-    'entry_published':None,
+    'entry_published':'2022-10-03T06:37:00Z',
     'entry_summary':'Fourth post body',
     'entry_media_thumbnail_url':None,
     'feed_language__language':'Arabic',
     'sentiment':'neutral',
     'entry_author':'Steve Jobs',
     'feedlink__country':'China',
+    'feedlink__source1': None,
     }
 
   def db_seeder(self):
@@ -59,10 +64,10 @@ class SearchTests(APITestCase):
     sp2 = Speech.objects.create(language='Lithuanian (Lithuania)')
     sp3 = Speech.objects.create(language='Italian (Italy)')
     sp4 = Speech.objects.create(language='Arabic')
-    Post.objects.create(feedlink=flink1, entry_title='First post title', entry_summary='First post body', feed_language=sp1, entry_author='Elon Musk')
-    Post.objects.create(feedlink=flink2, entry_title='Second post title', entry_summary='Second post body', feed_language=sp2, entry_author='Tim Cook')
-    Post.objects.create(feedlink=flink2, entry_title='Third post', entry_summary='Third post body', feed_language=sp3, entry_author='Bill Gates')
-    Post.objects.create(feedlink=flink2, entry_title='Fourth post', entry_summary='Fourth post body', feed_language=sp4, entry_author='Steve Jobs')
+    Post.objects.create(feedlink=flink1, entry_title='First post title', entry_summary='First post body', feed_language=sp1, entry_author='Elon Musk', entry_published=datetime(2022, 9, 3, 6, 37))
+    Post.objects.create(feedlink=flink2, entry_title='Second post title', entry_summary='Second post body', feed_language=sp2, entry_author='Tim Cook', entry_published=datetime(2022, 10, 3, 6, 37))
+    Post.objects.create(feedlink=flink2, entry_title='Third post', entry_summary='Third post body', feed_language=sp3, entry_author='Bill Gates', entry_published=datetime(2022, 10, 3, 6, 37))
+    Post.objects.create(feedlink=flink2, entry_title='Fourth post', entry_summary='Fourth post body', feed_language=sp4, entry_author='Steve Jobs', entry_published=datetime(2022, 10, 3, 6, 37))
 
   def test_search_with_keywords(self):
     self.db_seeder()
@@ -134,13 +139,13 @@ class SearchTests(APITestCase):
       'country':[],
       'language':[],
       'sentiment':[],
-      'date_range':['2022-09-14T06:44:00.000Z', '2022-09-30T06:44:00.000Z'],
+      'date_range':['2022-09-02T06:44:00.000Z', '2022-09-30T06:44:00.000Z'],
       'source':[],
       'author':[],
     }
     response = self.client.post(url, data, format='json')
     self.assertEqual(response.status_code, status.HTTP_200_OK)
-    self.assertEqual(json.loads(response.content), [])
+    self.assertEqual(json.loads(response.content), [ex1])
 
   def test_search_by_source(self):
     self.db_seeder()

@@ -147,7 +147,7 @@ def search(request):
     posts = posts.filter(entry_author=author)
   if date_range!=[]:
     interval = [parser.parse(date_range[0]), parser.parse(date_range[1])]
-    posts = posts.filter(creationdate__range=interval)
+    posts = posts.filter(entry_published__range=interval)
   posts = posts.values('entry_title', 'entry_published', 'entry_summary', 'entry_media_thumbnail_url', 'feed_language__language', 'entry_author', 'feedlink__country', 'feedlink__source1')
   add_sentiment_score(posts)
   posts_list=list(posts)

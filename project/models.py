@@ -91,7 +91,7 @@ class Post(models.Model):
   entry_summary_detail_language = models.TextField("entry_Summary_detail_language",null=True,blank=True)
   entry_summary_detail_base = models.TextField("entry_title_Summary_base",null=True,blank=True)
   entry_summary_detail_value = models.TextField("entry_title_Summary_value",null=True,blank=True)
-  entry_published = models.TextField("Published",null=True,blank=True)
+  entry_published = models.DateTimeField()
   entry_published_parsed = models.TextField("Published Parsed",null=True,blank=True)
   entry_id = models.TextField("Entry ID",null=True,blank=True)
   entry_guidislink = models.TextField("Guidislink",null=True,blank=True)
