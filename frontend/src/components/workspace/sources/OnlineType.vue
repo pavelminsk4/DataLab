@@ -36,7 +36,13 @@
       <div class="items-container">
         <span class="second-title">Source</span>
 
-        <BaseSelect class="select" :placeholder="'Select Source'" />
+        <BaseSelect
+          class="select"
+          v-model="source"
+          :placeholder="'Select Source'"
+          :list="allSources"
+          @select-option="selectSource"
+        />
       </div>
     </div>
   </div>
@@ -81,7 +87,7 @@ export default {
       selectedValue: '',
       country: '',
       language: '',
-      countryArray: [1, 2],
+      source: '',
     }
   },
   created() {
@@ -92,20 +98,32 @@ export default {
     if (!this.languages.length) {
       this[action.GET_LANGUAGES]()
     }
+
+    if (!this.sources.length) {
+      this[action.GET_SOURCES]()
+    }
   },
   computed: {
-    ...mapGetters({countries: get.COUNTRIES, languages: get.LANGUAGES}),
+    ...mapGetters({
+      countries: get.COUNTRIES,
+      languages: get.LANGUAGES,
+      sources: get.SOURCES,
+    }),
     allCountries() {
       return this.countries.map((el) => el.name)
     },
     allLanguages() {
       return this.languages.map((el) => el.language)
     },
+    allSources() {
+      return this.sources.map((el) => el.source1)
+    },
   },
   methods: {
     ...mapActions([
       action.GET_COUNTRIES,
       action.GET_LANGUAGES,
+      action.GET_SOURCES,
       action.UPDATE_ADDITIONAL_FILTERS,
     ]),
     changeValue(newValue) {
@@ -126,6 +144,14 @@ export default {
       try {
         this.language = val
         this[action.UPDATE_ADDITIONAL_FILTERS]({language: this.language})
+      } catch (e) {
+        console.log(e)
+      }
+    },
+    selectSource(val) {
+      try {
+        this.source = val
+        this[action.UPDATE_ADDITIONAL_FILTERS]({source: this.source})
       } catch (e) {
         console.log(e)
       }

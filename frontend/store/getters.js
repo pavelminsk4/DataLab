@@ -37,6 +37,10 @@ export default {
     return state.languages
   },
 
+  [get.SOURCES](state) {
+    return state.sources
+  },
+
   [get.ADDITIONAL_FILTERS](state) {
     return state.additionalFilters
   },

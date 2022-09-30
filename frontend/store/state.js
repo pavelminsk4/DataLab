@@ -10,6 +10,7 @@ const state = {
   searchData: [],
   countries: [],
   languages: [],
+  sources: [],
   additionalFilters: {},
   newWorkspace: {
     title: '',
