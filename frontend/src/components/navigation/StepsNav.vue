@@ -5,7 +5,10 @@
   </div>
 
   <div class="create-project-title">
-    <h1 class="title">{{ title }}</h1>
+    <div class="title-wrapper">
+      <h1 class="title">{{ title }}</h1>
+      <div class="source-type"><OnlineRadioIcon class="icon" />Online</div>
+    </div>
     <div class="progress-bar-wrapper">
       <div class="progress-bar">
         <div
@@ -36,10 +39,11 @@ import BaseButton from '@components/buttons/BaseButton'
 
 import CheckIcon from '@components/icons/CheckIcon'
 import ArrowLeftIcon from '@components/icons/ArrowLeftIcon'
+import OnlineRadioIcon from '@/components/icons/OnlineRadioIcon'
 
 export default {
   name: 'StepsNav',
-  components: {BaseButton, CheckIcon, ArrowLeftIcon},
+  components: {OnlineRadioIcon, BaseButton, CheckIcon, ArrowLeftIcon},
   props: {
     title: {
       type: String,
@@ -138,12 +142,37 @@ export default {
   align-items: center;
 }
 
-.title {
-  margin: 5px 0 2px;
+.title-wrapper {
+  display: flex;
+  align-items: center;
 
-  color: var(--primary-text-color);
+  .title {
+    margin: 5px 0 2px;
 
-  font-size: 36px;
+    color: var(--primary-text-color);
+
+    font-size: 36px;
+  }
+
+  .source-type {
+    margin-left: 23px;
+    padding: 4px 12px 4px 17px;
+
+    border-radius: 9px;
+    background-color: rgba(5, 95, 252, 0.1);
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    color: var(--primary-text-color);
+
+    .icon {
+      width: 15px;
+      height: 15px;
+      margin-right: 7px;
+    }
+  }
 }
 
 .progress-bar-wrapper {
