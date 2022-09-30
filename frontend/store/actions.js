@@ -74,6 +74,18 @@ export default {
     }
   },
 
+  async [action.GET_SOURCES]({commit}) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const sources = await api.getSources()
+      commit(mutator.SET_SOURCES, sources)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
   async [action.CREATE_WORKSPACE]({commit}, workspace) {
     commit(mutator.SET_LOADING, true)
     try {

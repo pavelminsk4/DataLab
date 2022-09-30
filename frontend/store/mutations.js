@@ -45,6 +45,10 @@ export default {
     state.languages = languages
   },
 
+  [mutator.SET_SOURCES](state, sources) {
+    state.sources = sources
+  },
+
   [mutator.DELETE_KEYWORDS_LIST](state, index) {
     state.keywords.splice(index, 1)
   },

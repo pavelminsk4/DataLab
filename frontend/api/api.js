@@ -33,6 +33,10 @@ export default {
     return fetch('get', '/api/speeches')
   },
 
+  async getSources() {
+    return fetch('get', '/api/sources')
+  },
+
   async createWorkspace(workspace) {
     const config = {
       headers: {
