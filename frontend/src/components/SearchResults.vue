@@ -117,7 +117,7 @@ export default {
     handleDate(modelData) {
       try {
         this.selectedDate = modelData
-        this[action.UPDATE_ADDITIONAL_FILTERS]({data_range: this.selectedDate})
+        this[action.UPDATE_ADDITIONAL_FILTERS]({date_range: this.selectedDate})
       } catch (e) {
         console.log(e)
       }
