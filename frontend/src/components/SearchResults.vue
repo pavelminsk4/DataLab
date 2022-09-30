@@ -50,7 +50,13 @@
             <div class="description" tabindex="0">{{ item.entry_summary }}</div>
             <div class="general-information">
               <div class="general-item">
-                {{ resultLanguage(item.feed_language) }}
+                {{ item.feedlink__source1 }}
+              </div>
+              <div class="general-item">
+                {{ item.feedlink__country }}
+              </div>
+              <div class="general-item">
+                {{ item.feed_language__language }}
               </div>
               <div class="general-item">
                 {{ dateOfCreation(item.entry_published) }}
@@ -66,7 +72,6 @@
 
 <script>
 import {mapActions, mapState} from 'vuex'
-import {langCodes} from '@/lib/language-codes'
 
 import BaseSpinner from '@/components/BaseSpinner'
 import BaseCheckbox from '@/components/BaseCheckbox'
@@ -96,14 +101,6 @@ export default {
   },
   methods: {
     ...mapActions([action.UPDATE_ADDITIONAL_FILTERS]),
-    resultLanguage(langCode) {
-      for (let key in langCodes) {
-        if (key === langCode) {
-          return langCodes[key]
-        }
-      }
-      return ''
-    },
     dateOfCreation(date) {
       return new Date(date).toLocaleDateString('en-US', {
         month: 'long',
@@ -314,12 +311,29 @@ export default {
   margin-top: 10px;
 
   .general-item {
-    margin-right: 10px;
+    position: relative;
+
+    margin-right: 20px;
 
     font-weight: 400;
     font-size: 10px;
     line-height: 20px;
     color: var(--secondary-text-color);
+
+    &:not(:last-child):before {
+      position: absolute;
+      top: 50%;
+      right: -13px;
+      transform: translate(-50%, -50%);
+
+      content: '';
+
+      width: 4px;
+      height: 4px;
+
+      border-radius: 100%;
+      background-color: var(--secondary-text-color);
+    }
   }
 }
 
