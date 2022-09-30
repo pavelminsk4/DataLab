@@ -130,6 +130,8 @@ export default {
           language: this.additionalFilters?.language || [],
           sentiment: this.additionalFilters?.sentiment || [],
           date_range: this.additionalFilters?.date_range || [],
+          source: this.additionalFilters?.source || [],
+          author: this.additionalFilters?.author || [],
         })
       } catch (e) {
         console.log(e)
