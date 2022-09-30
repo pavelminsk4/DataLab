@@ -117,6 +117,8 @@ export default {
 }
 
 .points-icon {
+  pointer-events: stroke;
+
   flex-shrink: 0;
 
   color: var(--secondary-text-color);

@@ -124,7 +124,8 @@ export default {
   font-size: 14px;
 
   list-style-type: none;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
 
   &::-webkit-scrollbar {
     height: 5px;

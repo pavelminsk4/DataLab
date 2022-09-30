@@ -1,5 +1,6 @@
 <template>
   <div class="main-layout-wrapper">
+    <BackgroundIcon class="background-icon" />
     <div class="content">
       <MainHeader />
 
@@ -10,10 +11,12 @@
 
 <script>
 import MainHeader from '@components/navigation/MainHeader'
+import BackgroundIcon from '@/components/icons/BackgroundIcon'
 
 export default {
   name: 'MainLayout',
   components: {
+    BackgroundIcon,
     MainHeader,
   },
 }
@@ -24,6 +27,17 @@ export default {
   position: relative;
 
   padding: 0 69px 160px 79px;
+}
+
+.background-icon {
+  position: absolute;
+  right: 50%;
+  left: 50%;
+  transform: translate(-50%, 0);
+
+  max-height: 100vh;
+
+  z-index: -1;
 }
 
 .content {
