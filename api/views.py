@@ -13,6 +13,7 @@ from functools import reduce
 from  nltk.sentiment import SentimentIntensityAnalyzer
 from django.views.decorators.csrf import csrf_exempt
 from countries_plus.models import Country
+from dateutil import parser
 
 # ==== User API =======================
 
@@ -124,17 +125,30 @@ def search(request):
   keys = body['keywords']
   exceptions = body['exceptions']
   additions = body['additions']
-  #country = body['country']
-  #language = body['language']
-  #sentiment = body['sentiment']
-  #date_range = body['date_range']
+  country = body['country']
+  language = body['language']
+  source = body['source']
+  author = body['author']
+  sentiment = body['sentiment']
+  date_range = body['date_range']
   if additions!=[]:
     posts = additional_keywords_posts(keys, additions)
   else:
     posts = keywords_posts(keys)
   if exceptions!=[]:
     posts = exclude_keywords_posts(posts, exceptions)
-  posts = posts.values('entry_title', 'entry_published', 'entry_summary', 'entry_media_thumbnail_url', 'feed_language__language')
+  if country!=[]:
+     posts = posts.filter(feedlink__country=country[0])
+  if language!=[]:
+     posts = posts.filter(feed_language__language=language[0])
+  if source!=[]:
+    posts = posts.filter(feedlink__source1=source)
+  if author!=[]:
+    posts = posts.filter(entry_author=author)
+  if date_range!=[]:
+    interval = [parser.parse(date_range[0]), parser.parse(date_range[1])]
+    posts = posts.filter(creationdate__range=interval)
+  posts = posts.values('entry_title', 'entry_published', 'entry_summary', 'entry_media_thumbnail_url', 'feed_language__language', 'entry_author', 'feedlink__country')
   add_sentiment_score(posts)
   posts_list=list(posts)
   return JsonResponse(posts_list, safe = False)

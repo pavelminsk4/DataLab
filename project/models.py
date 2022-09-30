@@ -74,7 +74,7 @@ class Speech(models.Model):
     return self.language
     
 class Post(models.Model):
-  #feedlink =  models.ForeignKey(feedlinks,on_delete=models.CASCADE,related_name='feedlink_feedsin',verbose_name ='Feed Link')
+  feedlink =  models.ForeignKey(Feedlinks,on_delete=models.CASCADE,related_name='feedlink_feedsin',verbose_name ='Feed Link')
   entry_title = models.TextField("entry_title",null=True,blank=True)
   entry_title_detail_type = models.TextField("entry_title_detail_type",null=True,blank=True)
   entry_title_detail_language = models.TextField("entry_title_detail_language",null=True,blank=True)
