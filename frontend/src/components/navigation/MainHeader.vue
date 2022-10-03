@@ -3,8 +3,6 @@
     <LogoIcon class="logo" @click="goToDashboard" />
 
     <div class="section-company">
-      <UserWithoutPhotoIcon />
-      <ActiveBellIcon class="bell-icon" />
       <div class="name">{{ companyName }}</div>
       <section class="dropdown-wrapper">
         <ArrowDownIcon
@@ -28,15 +26,11 @@ import {action, get} from '@store/constants'
 
 import LogoIcon from '@components/icons/LogoIcon'
 import ArrowDownIcon from '@components/icons/ArrowDownIcon'
-import ActiveBellIcon from '@components/icons/ActiveBellIcon'
-import UserWithoutPhotoIcon from '@components/icons/UserWithoutPhotoIcon'
 
 export default {
   name: 'MainHeader',
   components: {
     LogoIcon,
-    UserWithoutPhotoIcon,
-    ActiveBellIcon,
     ArrowDownIcon,
   },
   data() {
@@ -107,10 +101,6 @@ export default {
 
 .section-company {
   display: flex;
-}
-
-.bell-icon {
-  margin: 0 55px 0 43px;
 }
 
 .name {
