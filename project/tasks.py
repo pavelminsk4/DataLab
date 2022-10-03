@@ -5,6 +5,8 @@ from project.models import Feedlinks, Post, Speech
 from django.core.paginator import Paginator
 import ssl
 from langcodes import *
+from dateutil import parser
+from  nltk.sentiment import SentimentIntensityAnalyzer
 
 def split_links(amount_posts_in_sample):
   all_posts = Feedlinks.objects.all()
@@ -13,24 +15,36 @@ def split_links(amount_posts_in_sample):
 
 def add_language(language_code):
   title = Language.get(language_code).display_name()
-  print('---->speech')
-  print(language_code)
-  print(title)
-  print('---------<')
   if not Speech.objects.filter(language=title):
     Speech.objects.create(language=title)
   return Speech.objects.filter(language=title).first()
 
+def get_string_from_score(sentiments):
+  if sentiments['neg'] > sentiments['neu'] and sentiments['neg'] > sentiments['pos']:
+      res = 'negative'
+  elif sentiments['neu'] > sentiments['pos']:
+    res = 'neutral'
+  else:
+    res = 'positive'
+  return res
+
+def add_sentiment_score(title):
+  sentiments = SentimentIntensityAnalyzer().polarity_scores(title)
+  sentiment = get_string_from_score(sentiments)
+  return sentiment
 
 @shared_task
 def post_creator():
   ssl._create_default_https_context = ssl._create_unverified_context #fix SSL issue in local machine
   datas = []
   i = 0
-  for sample in split_links(50):
+  for sample in split_links(1):
     for feed in sample:
+        print('---->i')
+        print(i)
+        print('---------<')
+        i += 1
         try:
-            i += 1
             url = feed.url
             f = feedparser.parse(url)
             fe = f.entries
@@ -38,6 +52,7 @@ def post_creator():
             for ent in fe:
                 if not Post.objects.filter(entry_title=ent.title):
                     my_feedlink = feed
+                    my_sentiment = add_sentiment_score(ent.title)
                     try:
                         my_title = ent.title
                     except:
@@ -79,9 +94,9 @@ def post_creator():
                     except:
                         my_link = 'None'
                     try:
-                        my_published = ent.published
+                        my_published = parser.parse(ent.published)
                     except:
-                        my_published = 'None'
+                        my_published = datetime.now()
                     try:
                         my_published_parsed = ent.published_parsed
                     except:
@@ -252,27 +267,6 @@ def post_creator():
                         my_feed_image_title = ff['image']['title']
                     except:
                         my_feed_image_title = 'None'
-                    #=============================================================================
-                    # try:
-                    #     my_feed_image_title_detail_type = ff['image']['title_detail']['type']
-                    # except:
-                    #     my_feed_image_title_detail_type = 'None'
-
-                    # try:
-                    #     my_feed_image_title_detail_language = ff['image']['title_detail']['language']
-                    # except:
-                    #     my_feed_image_title_detail_language = 'None'
-
-                    # try:
-                    #     my_feed_image_title_detail_base = ff['image']['title_detail']['base']
-                    # except:
-                    #     my_feed_image_title_detail_base = 'None'
-
-                    # try:
-                    #     my_feed_image_title_detail_value = ff['image']['title_detail']['value']
-                    # except:
-                    #     my_feed_image_title_detail_value = 'None'
-                    #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
                     my_feed_image_title_detail_type = 'None'
                     my_feed_image_title_detail_language = 'None'
@@ -305,7 +299,6 @@ def post_creator():
                         my_feed_subtitle_detail = 'None'
 
                     try:
-                        #my_feed_language = ff['language']
                         my_feed_language = add_language(ff['language'])
                     except:
                         my_feed_language = Speech.objects.get_or_create(language='Language not specified')[0]
@@ -334,7 +327,6 @@ def post_creator():
                         my_feed_published = ff['published']
                     except:
                         my_feed_published = datetime.now()
-
                     try:
                         my_feed_published_parsed = ff['published_parsed']
                     except:
@@ -387,6 +379,7 @@ def post_creator():
                     snippet = {
                     "feedlink" : my_feedlink,
                     "entry_title" : my_title,
+                    "sentiment": my_sentiment,
                     "entry_title_detail_type": my_title_detail_type,
                     "entry_title_detail_base": my_title_detail_base,
                     "entry_title_detail_value": my_title_detail_value,
@@ -457,11 +450,15 @@ def post_creator():
                     }
                     print('---->')
                     print(snippet)
-                    print(i)
                     print('-----<')
                     datas.append(snippet)
         except:
             print('Something went wrong!!!')
-    django_list = [Post(**vals) for vals in datas] 
-    Post.objects.bulk_create(django_list)
+            pass
+    try:
+        django_list = [Post(**vals) for vals in datas] 
+        Post.objects.bulk_create(django_list)
+    except:
+        print('error!!!')
+        pass
     datas = []

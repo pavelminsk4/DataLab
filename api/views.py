@@ -84,21 +84,6 @@ class WorkspaceDelete(DestroyAPIView):
   serializer_class = WorkspaceSerializer
 
 # === Search API =====
-def get_string_from_score(sentiments):
-  if sentiments['neg'] > sentiments['neu'] and sentiments['neg'] > sentiments['pos']:
-      res = 'negative'
-  elif sentiments['neu'] > sentiments['pos']:
-    res = 'neutral'
-  else:
-    res = 'positive'
-  return res
-
-def add_sentiment_score(posts):
-  for post in posts:
-    sentiments = SentimentIntensityAnalyzer().polarity_scores(post['entry_title'])
-    post['sentiment'] = get_string_from_score(sentiments)
-  return posts
-
 def keywords_posts(keys):
   posts = Post.objects.filter(reduce(lambda x,y: x | y, [Q(entry_title__contains=key) for key in keys]))
   return posts
@@ -138,18 +123,19 @@ def search(request):
   if exceptions!=[]:
     posts = exclude_keywords_posts(posts, exceptions)
   if country!=[]:
-     posts = posts.filter(feedlink__country=country[0])
+     posts = posts.filter(feedlink__country=country)
   if language!=[]:
-     posts = posts.filter(feed_language__language=language[0])
+     posts = posts.filter(feed_language__language=language)
   if source!=[]:
-    posts = posts.filter(feedlink__source1=source)
+    posts = posts.filter(feedlink__source1=source[0])
   if author!=[]:
-    posts = posts.filter(entry_author=author)
+    posts = posts.filter(entry_author=author[0])
   if date_range!=[]:
     interval = [parser.parse(date_range[0]), parser.parse(date_range[1])]
-    posts = posts.filter(creationdate__range=interval)
-  posts = posts.values('entry_title', 'entry_published', 'entry_summary', 'entry_media_thumbnail_url', 'feed_language__language', 'entry_author', 'feedlink__country', 'feedlink__source1')
-  add_sentiment_score(posts)
+    posts = posts.filter(entry_published__range=interval)
+  if sentiment!=[]:
+    posts = posts.filter(sentiment=sentiment) 
+  posts = posts.values('entry_title', 'entry_published', 'entry_summary', 'entry_media_thumbnail_url', 'feed_language__language', 'entry_author', 'feedlink__country', 'feedlink__source1', 'sentiment')
   posts_list=list(posts)
   return JsonResponse(posts_list, safe = False)
 
