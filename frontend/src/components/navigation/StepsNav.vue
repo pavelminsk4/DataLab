@@ -18,10 +18,11 @@
           :key="'step' + index"
           :class="['progress-item', step === item.name && 'active-item']"
         >
-          <div class="step-hint">{{ item.hint }}</div>
-
-          <CheckIcon v-if="currStep > item.value" />
-          <span v-else>{{ item.value }}</span>
+          <Steps
+            :hint="item.hint"
+            :current-step="currStep"
+            :value="item.value"
+          />
         </div>
       </div>
       <BaseButton
@@ -43,13 +44,18 @@ import {mapState} from 'vuex'
 
 import BaseButton from '@components/buttons/BaseButton'
 
-import CheckIcon from '@components/icons/CheckIcon'
 import ArrowLeftIcon from '@components/icons/ArrowLeftIcon'
 import OnlineRadioIcon from '@/components/icons/OnlineRadioIcon'
+import Steps from '@/components/navigation/Steps'
 
 export default {
   name: 'StepsNav',
-  components: {OnlineRadioIcon, BaseButton, CheckIcon, ArrowLeftIcon},
+  components: {
+    Steps,
+    OnlineRadioIcon,
+    BaseButton,
+    ArrowLeftIcon,
+  },
   props: {
     title: {
       type: String,
@@ -234,34 +240,6 @@ export default {
       height: 2px;
 
       background-color: var(--progress-line);
-    }
-  }
-
-  .step-hint {
-    position: absolute;
-
-    padding: 12px 17px;
-
-    border-radius: 10px;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.22);
-    background-color: var(--primary-text-color);
-
-    color: var(--secondary-button-color);
-
-    &::after {
-      content: '';
-
-      position: absolute;
-      left: 50%;
-      right: 50%;
-      bottom: -10px;
-      transform: translate(-50%, 0) rotate(-135deg);
-
-      box-sizing: border-box;
-      border-top: solid 6px var(--primary-text-color);
-      border-left: solid 30px var(--primary-text-color);
-      border-top-left-radius: 5px;
-      border-bottom: solid 30px transparent;
     }
   }
 }
