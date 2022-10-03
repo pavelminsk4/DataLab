@@ -16,7 +16,7 @@ class Company(models.Model):
   
 class Workspace(models.Model):
   title = models.CharField(max_length=100)
-  description = models.CharField(max_length=1000)
+  description = models.CharField(max_length=1000, null=True, blank=True)
   members = models.ManyToManyField(User,null=True,blank=True)
   company = models.ForeignKey(Company, blank=True, null=True, on_delete=models.CASCADE)
 
