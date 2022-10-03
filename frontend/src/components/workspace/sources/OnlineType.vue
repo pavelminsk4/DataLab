@@ -9,7 +9,7 @@
           :name="'country'"
           :placeholder="'Select country'"
           :list="countries"
-          @select-option="selectCountry"
+          @select-option="selectItem"
           class="select"
         />
       </div>
@@ -22,7 +22,7 @@
           :name="'author'"
           :list="authors"
           :placeholder="'Select author'"
-          @select-option="selectAuthor"
+          @select-option="selectItem"
           class="select"
         />
       </div>
@@ -37,7 +37,7 @@
           :name="'language'"
           :placeholder="'Select language'"
           :list="languages"
-          @select-option="selectLanguage"
+          @select-option="selectItem"
           class="select"
         />
       </div>
@@ -50,7 +50,7 @@
           :name="'source'"
           :placeholder="'Select Source'"
           :list="sources"
-          @select-option="selectSource"
+          @select-option="selectItem"
           class="select"
         />
       </div>
@@ -146,46 +146,16 @@ export default {
         })
       }
     },
-    selectCountry(val) {
+    selectItem(name, val) {
       try {
-        this.country = val
-        this.addAdditionalFilter({country: this.country})
+        this[name] = val
+        if (val === 'Reject selection') {
+          this[action.UPDATE_ADDITIONAL_FILTERS]({[name]: []})
+        } else {
+          this[action.UPDATE_ADDITIONAL_FILTERS]({[name]: val})
+        }
       } catch (e) {
         console.log(e)
-      }
-    },
-    selectLanguage(val) {
-      try {
-        this.language = val
-        this.addAdditionalFilter({language: this.language})
-      } catch (e) {
-        console.log(e)
-      }
-    },
-    selectSource(val) {
-      try {
-        this.source = val
-        this.addAdditionalFilter({source: this.source})
-      } catch (e) {
-        console.log(e)
-      }
-    },
-    selectAuthor(val) {
-      try {
-        this.author = val
-        this.addAdditionalFilter({author: this.author})
-      } catch (e) {
-        console.log(e)
-      }
-    },
-    addAdditionalFilter(newFilter) {
-      const keys = Object.keys(newFilter)
-
-      if (Object.values(newFilter)[0] === 'Reject selection') {
-        newFilter[keys[0]] = []
-        this[action.UPDATE_ADDITIONAL_FILTERS](newFilter)
-      } else {
-        this[action.UPDATE_ADDITIONAL_FILTERS](newFilter)
       }
     },
   },

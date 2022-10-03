@@ -65,7 +65,7 @@ export default {
       this.visible = !this.visible
     },
     select(option) {
-      this.$emit('select-option', option)
+      this.$emit('select-option', this.name, option)
       this.value = option
     },
     close() {
