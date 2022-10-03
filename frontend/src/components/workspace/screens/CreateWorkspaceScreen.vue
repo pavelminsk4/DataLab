@@ -21,8 +21,8 @@
 </template>
 
 <script>
-import {mapActions} from 'vuex'
-import {action} from '@store/constants'
+import {mapActions, mapGetters} from 'vuex'
+import {action, get} from '@store/constants'
 
 import BaseInput from '@/components/BaseInput'
 import StepsNav from '@/components/navigation/StepsNav'
@@ -32,12 +32,6 @@ export default {
   components: {StepsNav, BaseInput},
   component: {
     BaseInput,
-  },
-  props: {
-    member: {
-      type: [Number, String],
-      default: '1',
-    },
   },
 
   data() {
@@ -50,13 +44,15 @@ export default {
     this[action.CLEAR_STATE]()
   },
   computed: {
+    ...mapGetters({
+      user: get.USER_INFO,
+    }),
     step() {
       return this.$route.name
     },
     members() {
       let members = []
-      members.push(this.member)
-      return members
+      return members.push(this.user.id)
     },
   },
   methods: {

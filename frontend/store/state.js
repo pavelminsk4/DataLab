@@ -11,6 +11,7 @@ const state = {
   countries: [],
   languages: [],
   sources: [],
+  authors: [],
   additionalFilters: {},
   newWorkspace: {
     title: '',

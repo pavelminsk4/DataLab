@@ -1,14 +1,15 @@
 <template>
-  <div v-if="allCountries" class="filters-wrapper">
+  <div class="filters-wrapper">
     <div class="filters-settings-items">
       <div class="items-container">
         <span class="second-title">Country</span>
 
         <BaseSelect
           v-model="country"
+          :name="'country'"
           :placeholder="'Select country'"
-          :list="allCountries"
-          @select-option="selectCountry"
+          :list="countries"
+          @select-option="selectItem"
           class="select"
         />
       </div>
@@ -16,7 +17,14 @@
       <div class="items-container">
         <span class="second-title">Author</span>
 
-        <BaseSelect class="select" :placeholder="'Select author'" />
+        <BaseSelect
+          v-model="author"
+          :name="'author'"
+          :list="authors"
+          :placeholder="'Select author'"
+          @select-option="selectItem"
+          class="select"
+        />
       </div>
     </div>
 
@@ -25,11 +33,12 @@
         <span class="second-title">Language</span>
 
         <BaseSelect
-          class="select"
           v-model="language"
+          :name="'language'"
           :placeholder="'Select language'"
-          :list="allLanguages"
-          @select-option="selectLanguage"
+          :list="languages"
+          @select-option="selectItem"
+          class="select"
         />
       </div>
 
@@ -37,11 +46,12 @@
         <span class="second-title">Source</span>
 
         <BaseSelect
-          class="select"
           v-model="source"
+          :name="'source'"
           :placeholder="'Select Source'"
-          :list="allSources"
-          @select-option="selectSource"
+          :list="sources"
+          @select-option="selectItem"
+          class="select"
         />
       </div>
     </div>
@@ -83,11 +93,12 @@ export default {
   },
   data() {
     return {
-      sentiments: ['Negative', 'Neutral', 'Positive'],
+      sentiments: ['Negative', 'Neutral', 'Positive', 'All sentiments'],
       selectedValue: '',
       country: '',
       language: '',
       source: '',
+      author: '',
     }
   },
   created() {
@@ -102,68 +113,47 @@ export default {
     if (!this.sources.length) {
       this[action.GET_SOURCES]()
     }
+
+    if (!this.authors.length) {
+      this[action.GET_AUTHORS]()
+    }
   },
   computed: {
     ...mapGetters({
       countries: get.COUNTRIES,
       languages: get.LANGUAGES,
       sources: get.SOURCES,
+      authors: get.AUTHORS,
     }),
-    allCountries() {
-      return this.countries.map((el) => el.name)
-    },
-    allLanguages() {
-      return this.languages.map((el) => el.language)
-    },
-    allSources() {
-      return this.sources.map((el) => el.source1)
-    },
   },
   methods: {
     ...mapActions([
+      action.GET_SOURCES,
+      action.GET_AUTHORS,
       action.GET_COUNTRIES,
       action.GET_LANGUAGES,
-      action.GET_SOURCES,
       action.UPDATE_ADDITIONAL_FILTERS,
     ]),
     changeValue(newValue) {
       this.selectedValue = newValue
-      this[action.UPDATE_ADDITIONAL_FILTERS]({
-        sentiment: this.selectedValue.toLocaleLowerCase(),
-      })
-    },
-    selectCountry(val) {
-      try {
-        if (val === 'Reject selection') {
-          this.country = []
-        } else {
-          this.country = val
-        }
-        this[action.UPDATE_ADDITIONAL_FILTERS]({country: this.country})
-      } catch (e) {
-        console.log(e)
+      if (newValue === 'All sentiments') {
+        this[action.UPDATE_ADDITIONAL_FILTERS]({
+          sentiment: [],
+        })
+      } else {
+        this[action.UPDATE_ADDITIONAL_FILTERS]({
+          sentiment: this.selectedValue.toLocaleLowerCase(),
+        })
       }
     },
-    selectLanguage(val) {
+    selectItem(name, val) {
       try {
+        this[name] = val
         if (val === 'Reject selection') {
-          this.language = []
+          this[action.UPDATE_ADDITIONAL_FILTERS]({[name]: []})
         } else {
-          this.language = val
+          this[action.UPDATE_ADDITIONAL_FILTERS]({[name]: val})
         }
-        this[action.UPDATE_ADDITIONAL_FILTERS]({language: this.language})
-      } catch (e) {
-        console.log(e)
-      }
-    },
-    selectSource(val) {
-      try {
-        if (val === 'Reject selection') {
-          this.source = []
-        } else {
-          this.source = val
-        }
-        this[action.UPDATE_ADDITIONAL_FILTERS]({source: this.source})
       } catch (e) {
         console.log(e)
       }
@@ -202,7 +192,7 @@ export default {
 .radio-btn {
   display: flex;
 
-  margin-right: 25px;
+  margin: 0 25px 8px 0;
 
   color: var(--primary-text-color);
 
@@ -227,6 +217,7 @@ export default {
 .radio-wrapper {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
 
   margin: 10px 0 25px;
 }

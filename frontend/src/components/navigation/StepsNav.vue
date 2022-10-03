@@ -101,6 +101,7 @@ export default {
             },
             {
               name: 'ProjectStep2',
+              hint: 'Keywords',
               value: 2,
             },
           ]
@@ -177,6 +178,9 @@ export default {
   }
 
   .source-type {
+    display: flex;
+    align-items: center;
+
     margin-left: 23px;
     padding: 4px 12px 4px 17px;
 

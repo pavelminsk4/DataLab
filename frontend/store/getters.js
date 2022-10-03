@@ -30,15 +30,19 @@ export default {
   },
 
   [get.COUNTRIES](state) {
-    return state.countries
+    return state.countries.map((el) => el.name)
   },
 
   [get.LANGUAGES](state) {
-    return state.languages
+    return state.languages.map((el) => el.language)
   },
 
   [get.SOURCES](state) {
-    return state.sources
+    return state.sources.map((el) => el.source1)
+  },
+
+  [get.AUTHORS](state) {
+    return state.authors.map((el) => el.entry_author)
   },
 
   [get.ADDITIONAL_FILTERS](state) {
