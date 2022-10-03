@@ -203,7 +203,7 @@ class SourcesTests(APITestCase):
     url = reverse('sources_list')
     response = self.client.get(url)
     self.assertEqual(response.status_code, status.HTTP_200_OK)
-    self.assertEqual(json.loads(response.content), [{'source1': 'TNT'}, {'source1': 'BBC'}])
+    self.assertEqual(json.loads(response.content), [{'source1': 'BBC'}, {'source1': 'TNT'}])
 
 class SpeechesTests(APITestCase):
   def test_speeches_list(self):
@@ -227,3 +227,14 @@ class CountriesTests(APITestCase):
     response = self.client.get(url)
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     self.assertEqual(json.loads(response.content), [{'name': 'Afghanistan'}])
+
+class AuthorsTests(APITestCase):
+  def test_authors_list(self):
+    flink = Feedlinks.objects.create(country='China', source1='CNN')
+    sp = Speech.objects.create(language='English (United States)')
+    Post.objects.create(feedlink=flink, entry_title='First post title', entry_summary='First post body', feed_language=sp, entry_author='Elon Musk', entry_published=datetime(2022, 9, 3, 6, 37), sentiment='neutral')
+    Post.objects.create(feedlink=flink, entry_title='Second post title', entry_summary='Second post body', feed_language=sp, entry_author='Tim Cook', entry_published=datetime(2022, 10, 3, 6, 37), sentiment='neutral')
+    url = reverse('authors_list')
+    response = self.client.get(url)
+    self.assertEqual(response.status_code, status.HTTP_200_OK)
+    self.assertEqual(json.loads(response.content), [{'entry_author': 'Elon Musk'}, {'entry_author': 'Tim Cook'}])

@@ -152,6 +152,11 @@ class SpeechesList(ListAPIView):
 # === Sources API ========
 
 def sources(request):
-  set = Feedlinks.objects.all().values('source1').distinct()
+  set = Feedlinks.objects.all().values('source1').distinct().order_by('source1')
   sources_list = list(set)
   return JsonResponse(sources_list, safe = False)
+
+def authors(request):
+  set = Post.objects.all().values('entry_author').distinct().order_by('entry_author')
+  authors_list = list(set)
+  return JsonResponse(authors_list, safe = False)
