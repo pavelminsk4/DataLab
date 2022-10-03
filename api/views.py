@@ -127,9 +127,9 @@ def search(request):
   if language!=[]:
      posts = posts.filter(feed_language__language=language)
   if source!=[]:
-    posts = posts.filter(feedlink__source1=source[0])
+    posts = posts.filter(feedlink__source1=source)
   if author!=[]:
-    posts = posts.filter(entry_author=author[0])
+    posts = posts.filter(entry_author=author)
   if date_range!=[]:
     interval = [parser.parse(date_range[0]), parser.parse(date_range[1])]
     posts = posts.filter(entry_published__range=interval)

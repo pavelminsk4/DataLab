@@ -21,7 +21,7 @@ class SearchTests(APITestCase):
     'sentiment': 'neutral',
     'entry_author':'Elon Musk',
     'feedlink__country':'USA',
-    'feedlink__source1': None,
+    'feedlink__source1': 'BBC',
     }
   ex2 = {
     'entry_title':'Second post title',
@@ -32,7 +32,7 @@ class SearchTests(APITestCase):
     'sentiment':'neutral',
     'entry_author':'Tim Cook',
     'feedlink__country':'China',
-    'feedlink__source1': None,
+    'feedlink__source1': 'CNN',
     }
   ex3 = {
     'entry_title':'Third post',
@@ -43,7 +43,7 @@ class SearchTests(APITestCase):
     'sentiment':'neutral',
     'entry_author':'Bill Gates',
     'feedlink__country':'China',
-    'feedlink__source1': None,
+    'feedlink__source1': 'CNN',
     }
   ex4 = {
     'entry_title':'Fourth post',
@@ -54,12 +54,12 @@ class SearchTests(APITestCase):
     'sentiment':'positive',
     'entry_author':'Steve Jobs',
     'feedlink__country':'China',
-    'feedlink__source1': None,
+    'feedlink__source1': 'CNN',
     }
 
   def db_seeder(self):
-    flink1 = Feedlinks.objects.create(country='USA')
-    flink2 = Feedlinks.objects.create(country='China')
+    flink1 = Feedlinks.objects.create(country='USA', source1='BBC')
+    flink2 = Feedlinks.objects.create(country='China', source1='CNN')
     sp1 = Speech.objects.create(language='English (United States)')
     sp2 = Speech.objects.create(language='Lithuanian (Lithuania)')
     sp3 = Speech.objects.create(language='Italian (Italy)')
@@ -157,11 +157,12 @@ class SearchTests(APITestCase):
       'language':[],
       'sentiment':[],
       'date_range':[],
-      'source':['BBC'],
+      'source':'CNN',
       'author':[],
     }
     response = self.client.post(url, data, format='json')
     self.assertEqual(response.status_code, status.HTTP_200_OK)
+    self.assertEqual(json.loads(response.content), [ex2, ex3, ex4])
     
   def test_search_by_author(self):
     self.db_seeder()
@@ -174,10 +175,11 @@ class SearchTests(APITestCase):
       'sentiment':[],
       'date_range':[],
       'source':[],
-      'author':['Elon Musk'],
+      'author':'Elon Musk',
     }
     response = self.client.post(url, data, format='json')
     self.assertEqual(response.status_code, status.HTTP_200_OK)
+    self.assertEqual(json.loads(response.content), [ex1])
 
 class CurrentUserTests(APITestCase):
   def test_logged_in_user(self):
