@@ -135,6 +135,10 @@ export default {
   cursor: pointer;
 
   color: var(--secondary-text-color);
+
+  &:hover {
+    color: var(--primary-button-color);
+  }
 }
 
 .arrow-back {

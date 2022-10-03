@@ -4,7 +4,7 @@
     :step="step"
     :title="'Create Project'"
     :hint="'Name the project and choose source Type'"
-    :is-active-button="!!this.projectName"
+    :is-active-button="!!projectName && !!selectedValue.name"
     @next-step="nextStep"
   />
 
@@ -14,7 +14,7 @@
     :title="'Create Project'"
     :hint="'Name the project and choose source Type'"
     :is-existing-workspace="true"
-    :is-active-button="!!this.projectName"
+    :is-active-button="!!projectName && !!selectedValue.name"
     @next-step="nextStepForExistingWorkspace"
   />
 
