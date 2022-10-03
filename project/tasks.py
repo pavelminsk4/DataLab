@@ -6,6 +6,7 @@ from django.core.paginator import Paginator
 import ssl
 from langcodes import *
 from dateutil import parser
+from  nltk.sentiment import SentimentIntensityAnalyzer
 
 def split_links(amount_posts_in_sample):
   all_posts = Feedlinks.objects.all()
@@ -18,6 +19,19 @@ def add_language(language_code):
     Speech.objects.create(language=title)
   return Speech.objects.filter(language=title).first()
 
+def get_string_from_score(sentiments):
+  if sentiments['neg'] > sentiments['neu'] and sentiments['neg'] > sentiments['pos']:
+      res = 'negative'
+  elif sentiments['neu'] > sentiments['pos']:
+    res = 'neutral'
+  else:
+    res = 'positive'
+  return res
+
+def add_sentiment_score(title):
+  sentiments = SentimentIntensityAnalyzer().polarity_scores(title)
+  sentiment = get_string_from_score(sentiments)
+  return sentiment
 
 @shared_task
 def post_creator():
@@ -38,6 +52,7 @@ def post_creator():
             for ent in fe:
                 if not Post.objects.filter(entry_title=ent.title):
                     my_feedlink = feed
+                    my_sentiment = add_sentiment_score(ent.title)
                     try:
                         my_title = ent.title
                     except:
@@ -364,6 +379,7 @@ def post_creator():
                     snippet = {
                     "feedlink" : my_feedlink,
                     "entry_title" : my_title,
+                    "sentiment": my_sentiment,
                     "entry_title_detail_type": my_title_detail_type,
                     "entry_title_detail_base": my_title_detail_base,
                     "entry_title_detail_value": my_title_detail_value,

@@ -51,7 +51,7 @@ class SearchTests(APITestCase):
     'entry_summary':'Fourth post body',
     'entry_media_thumbnail_url':None,
     'feed_language__language':'Arabic',
-    'sentiment':'neutral',
+    'sentiment':'positive',
     'entry_author':'Steve Jobs',
     'feedlink__country':'China',
     'feedlink__source1': None,
@@ -64,10 +64,10 @@ class SearchTests(APITestCase):
     sp2 = Speech.objects.create(language='Lithuanian (Lithuania)')
     sp3 = Speech.objects.create(language='Italian (Italy)')
     sp4 = Speech.objects.create(language='Arabic')
-    Post.objects.create(feedlink=flink1, entry_title='First post title', entry_summary='First post body', feed_language=sp1, entry_author='Elon Musk', entry_published=datetime(2022, 9, 3, 6, 37))
-    Post.objects.create(feedlink=flink2, entry_title='Second post title', entry_summary='Second post body', feed_language=sp2, entry_author='Tim Cook', entry_published=datetime(2022, 10, 3, 6, 37))
-    Post.objects.create(feedlink=flink2, entry_title='Third post', entry_summary='Third post body', feed_language=sp3, entry_author='Bill Gates', entry_published=datetime(2022, 10, 3, 6, 37))
-    Post.objects.create(feedlink=flink2, entry_title='Fourth post', entry_summary='Fourth post body', feed_language=sp4, entry_author='Steve Jobs', entry_published=datetime(2022, 10, 3, 6, 37))
+    Post.objects.create(feedlink=flink1, entry_title='First post title', entry_summary='First post body', feed_language=sp1, entry_author='Elon Musk', entry_published=datetime(2022, 9, 3, 6, 37), sentiment='neutral')
+    Post.objects.create(feedlink=flink2, entry_title='Second post title', entry_summary='Second post body', feed_language=sp2, entry_author='Tim Cook', entry_published=datetime(2022, 10, 3, 6, 37), sentiment='neutral')
+    Post.objects.create(feedlink=flink2, entry_title='Third post', entry_summary='Third post body', feed_language=sp3, entry_author='Bill Gates', entry_published=datetime(2022, 10, 3, 6, 37), sentiment='neutral')
+    Post.objects.create(feedlink=flink2, entry_title='Fourth post', entry_summary='Fourth post body', feed_language=sp4, entry_author='Steve Jobs', entry_published=datetime(2022, 10, 3, 6, 37), sentiment='positive')
 
   def test_search_with_keywords(self):
     self.db_seeder()
@@ -100,14 +100,14 @@ class SearchTests(APITestCase):
 
   def test_search_by_country(self):
     self.db_seeder()
-    data = {'keywords':['post'], 'exceptions':[], 'additions':[], 'country':['USA'], 'language':[], 'sentiment':[], 'date_range':[], 'source':[], 'author':[]}
+    data = {'keywords':['post'], 'exceptions':[], 'additions':[], 'country':'USA', 'language':[], 'sentiment':[], 'date_range':[], 'source':[], 'author':[]}
     response = self.client.post(url, data, format='json')
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     self.assertEqual(json.loads(response.content), [ex1])
 
   def test_search_by_language(self):
     self.db_seeder()
-    data = {'keywords':['post'], 'exceptions':[], 'additions':[], 'country':[], 'language':['Arabic'], 'sentiment':[], 'date_range':[], 'source':[], 'author':[]}
+    data = {'keywords':['post'], 'exceptions':[], 'additions':[], 'country':[], 'language':'Arabic', 'sentiment':[], 'date_range':[], 'source':[], 'author':[]}
     response = self.client.post(url, data, format='json')
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     self.assertEqual(json.loads(response.content), [ex4])
@@ -120,7 +120,7 @@ class SearchTests(APITestCase):
       'additions':[],
       'country':[],
       'language':[],
-      'sentiment':['positive'],
+      'sentiment':'positive',
       'date':[],
       'date_range':[],
       'source':[],
