@@ -52,7 +52,8 @@ export default {
     },
     members() {
       let members = []
-      return members.push(this.user.id)
+      members.push(this.user.id)
+      return members
     },
   },
   methods: {
