@@ -1,5 +1,5 @@
 <template>
-  <div v-if="allCountries" class="filters-wrapper">
+  <div class="filters-wrapper">
     <div class="filters-settings-items">
       <div class="items-container">
         <span class="second-title">Country</span>
@@ -8,7 +8,7 @@
           v-model="country"
           :name="'country'"
           :placeholder="'Select country'"
-          :list="allCountries"
+          :list="countries"
           @select-option="selectCountry"
           class="select"
         />
@@ -18,8 +18,11 @@
         <span class="second-title">Author</span>
 
         <BaseSelect
+          v-model="author"
           :name="'author'"
+          :list="authors"
           :placeholder="'Select author'"
+          @select-option="selectAuthor"
           class="select"
         />
       </div>
@@ -33,7 +36,7 @@
           v-model="language"
           :name="'language'"
           :placeholder="'Select language'"
-          :list="allLanguages"
+          :list="languages"
           @select-option="selectLanguage"
           class="select"
         />
@@ -46,7 +49,7 @@
           v-model="source"
           :name="'source'"
           :placeholder="'Select Source'"
-          :list="allSources"
+          :list="sources"
           @select-option="selectSource"
           class="select"
         />
@@ -90,11 +93,12 @@ export default {
   },
   data() {
     return {
-      sentiments: ['Negative', 'Neutral', 'Positive'],
+      sentiments: ['Negative', 'Neutral', 'Positive', 'All sentiments'],
       selectedValue: '',
       country: '',
       language: '',
       source: '',
+      author: '',
     }
   },
   created() {
@@ -109,70 +113,79 @@ export default {
     if (!this.sources.length) {
       this[action.GET_SOURCES]()
     }
+
+    if (!this.authors.length) {
+      this[action.GET_AUTHORS]()
+    }
   },
   computed: {
     ...mapGetters({
       countries: get.COUNTRIES,
       languages: get.LANGUAGES,
       sources: get.SOURCES,
+      authors: get.AUTHORS,
     }),
-    allCountries() {
-      return this.countries.map((el) => el.name)
-    },
-    allLanguages() {
-      return this.languages.map((el) => el.language)
-    },
-    allSources() {
-      return this.sources.map((el) => el.source1)
-    },
   },
   methods: {
     ...mapActions([
+      action.GET_SOURCES,
+      action.GET_AUTHORS,
       action.GET_COUNTRIES,
       action.GET_LANGUAGES,
-      action.GET_SOURCES,
       action.UPDATE_ADDITIONAL_FILTERS,
     ]),
     changeValue(newValue) {
       this.selectedValue = newValue
-      this[action.UPDATE_ADDITIONAL_FILTERS]({
-        sentiment: this.selectedValue.toLocaleLowerCase(),
-      })
+      if (newValue === 'All sentiments') {
+        this[action.UPDATE_ADDITIONAL_FILTERS]({
+          sentiment: [],
+        })
+      } else {
+        this[action.UPDATE_ADDITIONAL_FILTERS]({
+          sentiment: this.selectedValue.toLocaleLowerCase(),
+        })
+      }
     },
     selectCountry(val) {
       try {
-        if (val === 'Reject selection') {
-          this.country = []
-        } else {
-          this.country = val
-        }
-        this[action.UPDATE_ADDITIONAL_FILTERS]({country: this.country})
+        this.country = val
+        this.addAdditionalFilter({country: this.country})
       } catch (e) {
         console.log(e)
       }
     },
     selectLanguage(val) {
       try {
-        if (val === 'Reject selection') {
-          this.language = []
-        } else {
-          this.language = val
-        }
-        this[action.UPDATE_ADDITIONAL_FILTERS]({language: this.language})
+        this.language = val
+        this.addAdditionalFilter({language: this.language})
       } catch (e) {
         console.log(e)
       }
     },
     selectSource(val) {
       try {
-        if (val === 'Reject selection') {
-          this.source = []
-        } else {
-          this.source = val
-        }
-        this[action.UPDATE_ADDITIONAL_FILTERS]({source: this.source})
+        this.source = val
+        this.addAdditionalFilter({source: this.source})
       } catch (e) {
         console.log(e)
+      }
+    },
+    selectAuthor(val) {
+      try {
+        this.author = val
+        this.addAdditionalFilter({author: this.author})
+      } catch (e) {
+        console.log(e)
+      }
+    },
+    addAdditionalFilter(newFilter) {
+      const keys = Object.keys(newFilter)
+
+      if (Object.values(newFilter)[0] === 'Reject selection') {
+        newFilter[keys[0]] = []
+        this[action.UPDATE_ADDITIONAL_FILTERS](newFilter)
+      } else {
+        this[action.UPDATE_ADDITIONAL_FILTERS](newFilter)
       }
     },
   },
@@ -209,7 +222,7 @@ export default {
 .radio-btn {
   display: flex;
 
-  margin-right: 25px;
+  margin: 0 25px 8px 0;
 
   color: var(--primary-text-color);
 
@@ -234,6 +247,7 @@ export default {
 .radio-wrapper {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
 
   margin: 10px 0 25px;
 }

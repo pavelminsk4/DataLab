@@ -49,6 +49,10 @@ export default {
     state.sources = sources
   },
 
+  [mutator.SET_AUTHORS](state, authors) {
+    state.authors = authors
+  },
+
   [mutator.DELETE_KEYWORDS_LIST](state, index) {
     state.keywords.splice(index, 1)
   },

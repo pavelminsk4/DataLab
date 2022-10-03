@@ -37,6 +37,10 @@ export default {
     return fetch('get', '/api/sources')
   },
 
+  async getAuthors() {
+    return fetch('get', '/api/authors')
+  },
+
   async createWorkspace(workspace) {
     const config = {
       headers: {
