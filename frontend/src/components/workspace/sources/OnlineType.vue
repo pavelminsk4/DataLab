@@ -6,6 +6,7 @@
 
         <BaseSelect
           v-model="country"
+          :name="'country'"
           :placeholder="'Select country'"
           :list="allCountries"
           @select-option="selectCountry"
@@ -16,7 +17,11 @@
       <div class="items-container">
         <span class="second-title">Author</span>
 
-        <BaseSelect class="select" :placeholder="'Select author'" />
+        <BaseSelect
+          :name="'author'"
+          :placeholder="'Select author'"
+          class="select"
+        />
       </div>
     </div>
 
@@ -25,11 +30,12 @@
         <span class="second-title">Language</span>
 
         <BaseSelect
-          class="select"
           v-model="language"
+          :name="'language'"
           :placeholder="'Select language'"
           :list="allLanguages"
           @select-option="selectLanguage"
+          class="select"
         />
       </div>
 
@@ -37,11 +43,12 @@
         <span class="second-title">Source</span>
 
         <BaseSelect
-          class="select"
           v-model="source"
+          :name="'source'"
           :placeholder="'Select Source'"
           :list="allSources"
           @select-option="selectSource"
+          class="select"
         />
       </div>
     </div>

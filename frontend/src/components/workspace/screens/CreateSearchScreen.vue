@@ -24,11 +24,14 @@
     <section class="key-words-settings">
       <div class="mode-wrapper">
         <div class="mode-title mode-active">Simple mode</div>
-        <div class="mode-title">Expert mode</div>
       </div>
 
       <div class="second-title">Define the main keywords (OR)</div>
-      <BaseTag v-model="mainTags" :is-main-field="true" />
+      <BaseTag
+        v-model="mainTags"
+        :is-main-field="true"
+        :placeholder="'Enter main keywords'"
+      />
 
       <section class="additional-key-words">
         <div class="additional-key-block">
@@ -40,6 +43,7 @@
             v-model="additionalTags"
             :textarea="true"
             :is-additional-keywords="true"
+            :placeholder="'Enter additional keywords'"
             class="additional-key"
           />
         </div>
@@ -53,7 +57,7 @@
             v-model="excludeTags"
             :is-irrelevant-keywords="true"
             class="additional-key"
-            :placeholder="'Enter Keywords and Phrases'"
+            :placeholder="'Enter irrelevant keywords'"
           />
         </div>
       </section>

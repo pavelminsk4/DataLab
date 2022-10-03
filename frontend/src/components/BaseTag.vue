@@ -17,22 +17,7 @@
       <DeleteTagButton class="delete" @click="removeTag(index)" />
     </div>
 
-    <textarea
-      v-if="textarea"
-      v-model="newTag"
-      type="text"
-      :list="id"
-      autocomplete="off"
-      @keydown.enter="addTag(newTag)"
-      @keydown.prevent.tab="addTag(newTag)"
-      @keydown.delete="newTag.length || removeTag(tags.length - 1)"
-      @input="addTagIfDelem(newTag)"
-      placeholder="Enter text"
-      class="input"
-    />
-
     <input
-      v-else
       v-model="newTag"
       type="text"
       :list="id"
@@ -41,7 +26,7 @@
       @keydown.prevent.tab="addTag(newTag)"
       @keydown.delete="newTag.length || removeTag(tags.length - 1)"
       @input="addTagIfDelem(newTag)"
-      placeholder="Enter text"
+      :placeholder="placeholder"
       class="input"
     />
   </div>
@@ -61,6 +46,10 @@ export default {
     isAdditionalKeywords: {
       type: Boolean,
       default: false,
+    },
+    placeholder: {
+      type: String,
+      default: 'Enter text',
     },
     isIrrelevantKeywords: {
       type: Boolean,
@@ -165,6 +154,7 @@ export default {
 
   .input {
     width: 100%;
+    min-width: 40px;
 
     border: none;
     outline: none;
@@ -211,14 +201,9 @@ export default {
   }
 }
 
-.tag-input .duplicate {
-  color: var(--primary-text-color);
-
-  background: var(--box-shadow-color);
-  animation: shake 1s;
-}
-
 .tag-input .additional-keyword {
+  margin-bottom: 5px;
+
   background: rgba(231, 167, 71, 0.2);
 
   color: var(--key-word-color);
@@ -228,6 +213,13 @@ export default {
   background: rgba(231, 71, 71, 0.2);
 
   color: var(--negative-status);
+}
+
+.tag-input .duplicate {
+  color: var(--primary-text-color);
+
+  background: var(--negative-status);
+  animation: shake 1s;
 }
 
 @keyframes shake {

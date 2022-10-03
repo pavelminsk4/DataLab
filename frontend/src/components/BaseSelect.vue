@@ -1,6 +1,6 @@
 <template>
   <div
-    :class="['selector', {open: visible}]"
+    :class="['selector', {open: visible}, `selector-${name}`]"
     :data-value="value"
     :data-list="list"
     @click="toggle()"
@@ -41,12 +41,19 @@ export default {
       type: String,
       default: 'Select option',
     },
+    name: {
+      type: String,
+      required: true,
+    },
   },
   data() {
     return {
       value: '',
       visible: false,
     }
+  },
+  created() {
+    document.addEventListener('click', this.close)
   },
   computed: {
     selectList() {
@@ -60,6 +67,13 @@ export default {
     select(option) {
       this.$emit('select-option', option)
       this.value = option
+    },
+    close() {
+      const elements = document.querySelectorAll(`.selector-${this.name}`)
+
+      if (!Array.from(elements).find((el) => el.contains(event.target))) {
+        this.visible = false
+      }
     },
   },
 }
