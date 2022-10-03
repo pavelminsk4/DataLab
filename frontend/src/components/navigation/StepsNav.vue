@@ -18,8 +18,8 @@
           :key="'step' + index"
           :class="['progress-item', step === item.name && 'active-item']"
         >
-          <CheckIcon v-if="item.isFinished" />
-          <span v-else>{{ item.value }}</span>
+          <span v-if="item.value > currStep">{{ item.value }}</span>
+          <CheckIcon v-else />
         </div>
       </div>
       <BaseButton
@@ -82,38 +82,39 @@ export default {
     'next-step': null,
   },
   computed: {
-    ...mapState(['newProject']),
+    ...mapState(['newProject', 'currentStep']),
     progressBarData() {
       return this.isExistingWorkspace
         ? [
             {
               name: 'ProjectStep1',
               value: 1,
-              isFinished: false,
             },
             {
               name: 'ProjectStep2',
               value: 2,
-              isFinished: false,
             },
           ]
         : [
             {
               name: 'Step1',
               value: 1,
-              isFinished: false,
             },
             {
               name: 'Step2',
               value: 2,
-              isFinished: false,
             },
             {
               name: 'Step3',
               value: 3,
-              isFinished: false,
             },
           ]
+    },
+    currStep() {
+      return this.currentStep
+        .split('')
+        .splice(this.currentStep.length - 1, 1)
+        .join()
     },
   },
   methods: {
