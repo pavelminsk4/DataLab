@@ -3,7 +3,7 @@
     :step="step"
     :title="'The Workspace'"
     :hint="'Create a new workspace on your Dashboard'"
-    :is-active-button="!!this.title"
+    :is-active-button="!!title"
     @next-step="nextStep"
   />
 

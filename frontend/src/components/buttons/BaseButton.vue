@@ -5,6 +5,7 @@
       isNotBackground && 'not-background',
       isDisabled && 'disabled',
     ]"
+    :disabled="isDisabled"
   >
     <slot></slot>
   </button>

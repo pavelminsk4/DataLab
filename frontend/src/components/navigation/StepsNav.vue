@@ -18,8 +18,11 @@
           :key="'step' + index"
           :class="['progress-item', step === item.name && 'active-item']"
         >
-          <CheckIcon v-if="item.isFinished" />
-          <span v-else>{{ item.value }}</span>
+          <Steps
+            :hint="item.hint"
+            :current-step="currStep"
+            :value="item.value"
+          />
         </div>
       </div>
       <BaseButton
@@ -41,13 +44,18 @@ import {mapState} from 'vuex'
 
 import BaseButton from '@components/buttons/BaseButton'
 
-import CheckIcon from '@components/icons/CheckIcon'
 import ArrowLeftIcon from '@components/icons/ArrowLeftIcon'
 import OnlineRadioIcon from '@/components/icons/OnlineRadioIcon'
+import Steps from '@/components/navigation/Steps'
 
 export default {
   name: 'StepsNav',
-  components: {OnlineRadioIcon, BaseButton, CheckIcon, ArrowLeftIcon},
+  components: {
+    Steps,
+    OnlineRadioIcon,
+    BaseButton,
+    ArrowLeftIcon,
+  },
   props: {
     title: {
       type: String,
@@ -82,38 +90,43 @@ export default {
     'next-step': null,
   },
   computed: {
-    ...mapState(['newProject']),
+    ...mapState(['newProject', 'currentStep']),
     progressBarData() {
       return this.isExistingWorkspace
         ? [
             {
               name: 'ProjectStep1',
+              hint: 'Source Type',
               value: 1,
-              isFinished: false,
             },
             {
               name: 'ProjectStep2',
               value: 2,
-              isFinished: false,
             },
           ]
         : [
             {
               name: 'Step1',
+              hint: 'Create Workspace',
               value: 1,
-              isFinished: false,
             },
             {
               name: 'Step2',
+              hint: 'Source Type',
               value: 2,
-              isFinished: false,
             },
             {
               name: 'Step3',
+              hint: 'Keywords',
               value: 3,
-              isFinished: false,
             },
           ]
+    },
+    currStep() {
+      return this.currentStep
+        .split('')
+        .splice(this.currentStep.length - 1, 1)
+        .join()
     },
   },
   methods: {
@@ -135,6 +148,10 @@ export default {
   cursor: pointer;
 
   color: var(--secondary-text-color);
+
+  &:hover {
+    color: var(--primary-button-color);
+  }
 }
 
 .arrow-back {
@@ -205,6 +222,8 @@ export default {
 
   border-radius: 100%;
   background-color: var(--disabled-color);
+
+  cursor: pointer;
 
   color: var(--primary-text-color);
 
