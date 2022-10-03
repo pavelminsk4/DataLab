@@ -18,8 +18,10 @@
           :key="'step' + index"
           :class="['progress-item', step === item.name && 'active-item']"
         >
-          <span v-if="item.value > currStep">{{ item.value }}</span>
-          <CheckIcon v-else />
+          <div class="step-hint">{{ item.hint }}</div>
+
+          <CheckIcon v-if="currStep > item.value" />
+          <span v-else>{{ item.value }}</span>
         </div>
       </div>
       <BaseButton
@@ -88,6 +90,7 @@ export default {
         ? [
             {
               name: 'ProjectStep1',
+              hint: 'Source Type',
               value: 1,
             },
             {
@@ -98,14 +101,17 @@ export default {
         : [
             {
               name: 'Step1',
+              hint: 'Create Workspace',
               value: 1,
             },
             {
               name: 'Step2',
+              hint: 'Source Type',
               value: 2,
             },
             {
               name: 'Step3',
+              hint: 'Keywords',
               value: 3,
             },
           ]
@@ -211,6 +217,8 @@ export default {
   border-radius: 100%;
   background-color: var(--disabled-color);
 
+  cursor: pointer;
+
   color: var(--primary-text-color);
 
   &:not(:last-child) {
@@ -226,6 +234,34 @@ export default {
       height: 2px;
 
       background-color: var(--progress-line);
+    }
+  }
+
+  .step-hint {
+    position: absolute;
+
+    padding: 12px 17px;
+
+    border-radius: 10px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.22);
+    background-color: var(--primary-text-color);
+
+    color: var(--secondary-button-color);
+
+    &::after {
+      content: '';
+
+      position: absolute;
+      left: 50%;
+      right: 50%;
+      bottom: -10px;
+      transform: translate(-50%, 0) rotate(-135deg);
+
+      box-sizing: border-box;
+      border-top: solid 6px var(--primary-text-color);
+      border-left: solid 30px var(--primary-text-color);
+      border-top-left-radius: 5px;
+      border-bottom: solid 30px transparent;
     }
   }
 }
