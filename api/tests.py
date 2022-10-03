@@ -21,7 +21,7 @@ class SearchTests(APITestCase):
     'sentiment': 'neutral',
     'entry_author':'Elon Musk',
     'feedlink__country':'USA',
-    'feedlink__source1': None,
+    'feedlink__source1': 'BBC',
     }
   ex2 = {
     'entry_title':'Second post title',
@@ -32,7 +32,7 @@ class SearchTests(APITestCase):
     'sentiment':'neutral',
     'entry_author':'Tim Cook',
     'feedlink__country':'China',
-    'feedlink__source1': None,
+    'feedlink__source1': 'CNN',
     }
   ex3 = {
     'entry_title':'Third post',
@@ -43,7 +43,7 @@ class SearchTests(APITestCase):
     'sentiment':'neutral',
     'entry_author':'Bill Gates',
     'feedlink__country':'China',
-    'feedlink__source1': None,
+    'feedlink__source1': 'CNN',
     }
   ex4 = {
     'entry_title':'Fourth post',
@@ -54,12 +54,12 @@ class SearchTests(APITestCase):
     'sentiment':'positive',
     'entry_author':'Steve Jobs',
     'feedlink__country':'China',
-    'feedlink__source1': None,
+    'feedlink__source1': 'CNN',
     }
 
   def db_seeder(self):
-    flink1 = Feedlinks.objects.create(country='USA')
-    flink2 = Feedlinks.objects.create(country='China')
+    flink1 = Feedlinks.objects.create(country='USA', source1='BBC')
+    flink2 = Feedlinks.objects.create(country='China', source1='CNN')
     sp1 = Speech.objects.create(language='English (United States)')
     sp2 = Speech.objects.create(language='Lithuanian (Lithuania)')
     sp3 = Speech.objects.create(language='Italian (Italy)')
@@ -157,11 +157,12 @@ class SearchTests(APITestCase):
       'language':[],
       'sentiment':[],
       'date_range':[],
-      'source':['BBC'],
+      'source':'CNN',
       'author':[],
     }
     response = self.client.post(url, data, format='json')
     self.assertEqual(response.status_code, status.HTTP_200_OK)
+    self.assertEqual(json.loads(response.content), [ex2, ex3, ex4])
     
   def test_search_by_author(self):
     self.db_seeder()
@@ -174,10 +175,11 @@ class SearchTests(APITestCase):
       'sentiment':[],
       'date_range':[],
       'source':[],
-      'author':['Elon Musk'],
+      'author':'Elon Musk',
     }
     response = self.client.post(url, data, format='json')
     self.assertEqual(response.status_code, status.HTTP_200_OK)
+    self.assertEqual(json.loads(response.content), [ex1])
 
 class CurrentUserTests(APITestCase):
   def test_logged_in_user(self):
@@ -201,7 +203,7 @@ class SourcesTests(APITestCase):
     url = reverse('sources_list')
     response = self.client.get(url)
     self.assertEqual(response.status_code, status.HTTP_200_OK)
-    self.assertEqual(json.loads(response.content), [{'source1': 'TNT'}, {'source1': 'BBC'}])
+    self.assertEqual(json.loads(response.content), [{'source1': 'BBC'}, {'source1': 'TNT'}])
 
 class SpeechesTests(APITestCase):
   def test_speeches_list(self):
@@ -225,3 +227,14 @@ class CountriesTests(APITestCase):
     response = self.client.get(url)
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     self.assertEqual(json.loads(response.content), [{'name': 'Afghanistan'}])
+
+class AuthorsTests(APITestCase):
+  def test_authors_list(self):
+    flink = Feedlinks.objects.create(country='China', source1='CNN')
+    sp = Speech.objects.create(language='English (United States)')
+    Post.objects.create(feedlink=flink, entry_title='First post title', entry_summary='First post body', feed_language=sp, entry_author='Elon Musk', entry_published=datetime(2022, 9, 3, 6, 37), sentiment='neutral')
+    Post.objects.create(feedlink=flink, entry_title='Second post title', entry_summary='Second post body', feed_language=sp, entry_author='Tim Cook', entry_published=datetime(2022, 10, 3, 6, 37), sentiment='neutral')
+    url = reverse('authors_list')
+    response = self.client.get(url)
+    self.assertEqual(response.status_code, status.HTTP_200_OK)
+    self.assertEqual(json.loads(response.content), [{'entry_author': 'Elon Musk'}, {'entry_author': 'Tim Cook'}])

@@ -127,9 +127,9 @@ def search(request):
   if language!=[]:
      posts = posts.filter(feed_language__language=language)
   if source!=[]:
-    posts = posts.filter(feedlink__source1=source[0])
+    posts = posts.filter(feedlink__source1=source)
   if author!=[]:
-    posts = posts.filter(entry_author=author[0])
+    posts = posts.filter(entry_author=author)
   if date_range!=[]:
     interval = [parser.parse(date_range[0]), parser.parse(date_range[1])]
     posts = posts.filter(entry_published__range=interval)
@@ -152,6 +152,11 @@ class SpeechesList(ListAPIView):
 # === Sources API ========
 
 def sources(request):
-  set = Feedlinks.objects.all().values('source1').distinct()
+  set = Feedlinks.objects.all().values('source1').distinct().order_by('source1')
   sources_list = list(set)
   return JsonResponse(sources_list, safe = False)
+
+def authors(request):
+  set = Post.objects.all().values('entry_author').distinct().order_by('entry_author')
+  authors_list = list(set)
+  return JsonResponse(authors_list, safe = False)

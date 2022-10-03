@@ -23,10 +23,10 @@ class UserSerializer(WritableNestedModelSerializer):
 
 class ProjectSerializer(serializers.ModelSerializer):
   users = UserSerializer
-  description = serializers.CharField(max_length=1000, allow_blank=True)
+  note = serializers.CharField(max_length=1000, allow_blank=True)
   class Meta:
     model = Project
-    fields = "__all__"
+    fields = '__all__'
 
 class WorkspaceSerializer(serializers.ModelSerializer):
   projects = ProjectSerializer(many=True, required=False)
@@ -36,13 +36,14 @@ class WorkspaceSerializer(serializers.ModelSerializer):
     fields = ['id', 'title', 'description', 'members', 'company', 'projects']
 
 class WorkspaceCreateSerializer(serializers.ModelSerializer):
-  projects = ProjectSerializer(many=True)
+  projects = ProjectSerializer(many=True, required=False)
+  description = serializers.CharField(max_length=1000, allow_blank=True)
   class Meta:
     model = Workspace
     fields = '__all__'
 
   def create(self, validated_data):
-    workspace = Workspace.objects.create(title=validated_data['title'], description=validated_data['description'])
+    workspace = Workspace.objects.create(title=validated_data['title'], description=validated_data['description'] or None)
     project = Project.objects.create(**validated_data['projects'][0])
     workspace.members.set(validated_data["members"])
     workspace.projects.add(project)
