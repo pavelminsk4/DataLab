@@ -1,9 +1,9 @@
 <template>
-  <div class="project-cart-wrapper transition" @click.self="openWorkspace">
+  <div class="project-cart-wrapper transition" @click="openWorkspace">
     <div class="project-title-wrapper">
       <div class="title">{{ title }}</div>
 
-      <PointsIcon @click.self="openModal" class="points-icon" />
+      <PointsIcon @click="openModal" class="points-icon" />
     </div>
 
     <div class="cart-button-wrapper">
@@ -43,9 +43,11 @@ export default {
     },
     addNewProject() {
       this.$emit('add-new-project')
+      event.stopPropagation()
     },
     openModal() {
       this.$emit('open-modal', this.id)
+      event.stopPropagation()
     },
   },
 }
