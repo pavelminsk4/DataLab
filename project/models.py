@@ -19,6 +19,7 @@ class Workspace(models.Model):
   description = models.CharField(max_length=1000, null=True, blank=True)
   members = models.ManyToManyField(User,null=True,blank=True)
   company = models.ForeignKey(Company, blank=True, null=True, on_delete=models.CASCADE)
+  created_at = models.DateTimeField(auto_now_add=True)
 
   def __str__(self):
     return self.title
