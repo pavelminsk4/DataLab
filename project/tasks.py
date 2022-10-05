@@ -7,6 +7,7 @@ import ssl
 from langcodes import *
 from dateutil import parser
 from  nltk.sentiment import SentimentIntensityAnalyzer
+from bs4 import BeautifulSoup
 import socket
 socket.setdefaulttimeout(5)
 
@@ -108,7 +109,7 @@ def post_creator():
             except:
                 my_published_parsed = 'None'
             try:
-                my_summary = ent.summary
+                my_summary = BeautifulSoup(ent.summary).text
             except:
                 my_summary = 'None'
 

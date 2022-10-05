@@ -23,4 +23,5 @@ django-countries-plus==2.1.0
 
 langcodes==3.3.0
 language_data
-#langcodes[data]==3.3.0
+
+bs4
