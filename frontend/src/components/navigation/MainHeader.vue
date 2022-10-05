@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
+import {mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
 import LogoIcon from '@components/icons/LogoIcon'
@@ -40,10 +40,6 @@ export default {
   },
   created() {
     document.addEventListener('click', this.closeDropdown)
-
-    if (!this.userInfo.length) {
-      this[action.GET_USER_INFORMATION]()
-    }
   },
   computed: {
     ...mapGetters({userInfo: get.USER_INFO}),
@@ -55,8 +51,6 @@ export default {
     },
   },
   methods: {
-    ...mapActions([action.LOGOUT, action.GET_USER_INFORMATION]),
-
     async logout() {
       await this[action.LOGOUT]()
     },
