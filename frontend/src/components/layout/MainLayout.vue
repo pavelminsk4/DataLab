@@ -40,7 +40,7 @@ export default {
 .main-layout-wrapper {
   position: relative;
 
-  padding: 0 69px 160px 79px;
+  padding: 0 69px 100px 79px;
 }
 
 .background-icon {

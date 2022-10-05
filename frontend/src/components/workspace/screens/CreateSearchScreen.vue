@@ -141,7 +141,7 @@ export default {
       }
     },
 
-    createWorkspaceAndProject() {
+    async createWorkspaceAndProject() {
       try {
         this[action.UPDATE_PROJECT_STATE]({
           keywords: [...this.mainTags],
@@ -153,15 +153,15 @@ export default {
         })
         this[action.CREATE_WORKSPACE](this.newWorkspace)
         this[action.CLEAR_STATE]()
-        this[action.GET_WORKSPACES]()
-        this.$router.push({
+        await this.$router.push({
           name: 'Home',
         })
+        await this[action.GET_WORKSPACES]()
       } catch (e) {
         console.log(e)
       }
     },
-    createProject() {
+    async createProject() {
       try {
         this[action.UPDATE_PROJECT_STATE]({
           keywords: [...this.mainTags],
@@ -170,13 +170,13 @@ export default {
         })
         this[action.CREATE_PROJECT](this.newProject)
         this[action.CLEAR_STATE]()
-        this[action.GET_WORKSPACES]()
-        this.$router.push({
+        await this.$router.push({
           name: 'Workspace',
           params: {
             workspaceId: this.$route.params.workspaceId,
           },
         })
+        await this[action.GET_WORKSPACES]()
       } catch (e) {
         console.log(e)
       }

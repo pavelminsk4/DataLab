@@ -27,7 +27,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 .base-button {
   cursor: pointer;
   outline: none;
@@ -40,6 +40,10 @@ export default {
 
   color: var(--primary-text-color);
   background: var(--primary-button-color);
+
+  &:hover {
+    background: rgba(5, 95, 252, 0.6);
+  }
 }
 
 .not-background {
