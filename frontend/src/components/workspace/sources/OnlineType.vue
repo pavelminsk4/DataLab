@@ -9,6 +9,7 @@
           :name="'country'"
           :placeholder="'Select country'"
           :list="countries"
+          :is-search="true"
           @select-option="selectItem"
           class="select"
         />
@@ -22,6 +23,7 @@
           :name="'author'"
           :list="authors"
           :placeholder="'Select author'"
+          :is-search="true"
           @select-option="selectItem"
           class="select"
         />
@@ -37,6 +39,7 @@
           :name="'language'"
           :placeholder="'Select language'"
           :list="languages"
+          :is-search="true"
           @select-option="selectItem"
           class="select"
         />
@@ -50,6 +53,7 @@
           :name="'source'"
           :placeholder="'Select Source'"
           :list="sources"
+          :is-search="true"
           @select-option="selectItem"
           class="select"
         />

@@ -6,8 +6,17 @@
     @click="toggle()"
   >
     <div class="label">
-      <div v-if="!value" class="placeholder">{{ placeholder }}</div>
-      <div>{{ value }}</div>
+      <input
+        v-if="isSearch"
+        v-model="search"
+        :placeholder="placeholder"
+        type="text"
+        class="select-search"
+      />
+      <div v-else-if="!value && !isSearch" class="placeholder">
+        {{ placeholder }}
+      </div>
+      <div v-else-if="!isSearch">{{ value }}</div>
     </div>
     <ArrowDownIcon class="arrow" :class="{expanded: visible}" />
     <div :class="{hidden: !visible, visible}">
@@ -45,10 +54,15 @@ export default {
       type: String,
       required: true,
     },
+    isSearch: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
       value: '',
+      search: '',
       visible: false,
     }
   },
@@ -57,7 +71,9 @@ export default {
   },
   computed: {
     selectList() {
-      return this.list
+      return this.list.filter((item) => {
+        return item?.toLowerCase().includes(this.search?.toLowerCase())
+      })
     },
   },
   methods: {
@@ -67,6 +83,7 @@ export default {
     select(option) {
       this.$emit('select-option', this.name, option)
       this.value = option
+      this.search = option
     },
     close() {
       const elements = document.querySelectorAll(`.selector-${this.name}`)
@@ -158,6 +175,17 @@ export default {
     background: var(--secondary-text-color);
     border-radius: 10px;
   }
+}
+
+.select-search {
+  outline: none;
+
+  min-width: 100%;
+
+  border: none;
+  background: var(--secondary-bg-color);
+
+  color: var(--primary-text-color);
 }
 
 .select-item {

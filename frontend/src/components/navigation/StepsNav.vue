@@ -146,6 +146,8 @@ export default {
 
 <style lang="scss" scoped>
 .back-button {
+  max-width: fit-content;
+
   cursor: pointer;
 
   color: var(--secondary-text-color);
