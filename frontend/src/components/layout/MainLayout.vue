@@ -10,6 +10,9 @@
 </template>
 
 <script>
+import {mapActions, mapState} from 'vuex'
+import {action} from '@store/constants'
+
 import MainHeader from '@components/navigation/MainHeader'
 import BackgroundIcon from '@/components/icons/BackgroundIcon'
 
@@ -19,6 +22,17 @@ export default {
     BackgroundIcon,
     MainHeader,
   },
+  created() {
+    if (!Object.keys(this.userInfo).length) {
+      this[action.GET_USER_INFORMATION]()
+    }
+  },
+  computed: {
+    ...mapState(['userInfo']),
+  },
+  methods: {
+    ...mapActions([action.LOGOUT, action.GET_USER_INFORMATION]),
+  },
 }
 </script>
 
@@ -26,7 +40,7 @@ export default {
 .main-layout-wrapper {
   position: relative;
 
-  padding: 0 69px 160px 79px;
+  padding: 0 69px 100px 79px;
 }
 
 .background-icon {

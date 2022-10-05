@@ -1,13 +1,25 @@
 <template>
-  <div class="project-cart-wrapper transition" @click.self="openWorkspace">
+  <div class="project-cart-wrapper transition" @click="openWorkspace">
     <div class="project-title-wrapper">
       <div class="title">{{ title }}</div>
 
-      <PointsIcon @click.self="openModal" class="points-icon" />
+      <PointsIcon @click="openModal" class="points-icon" />
     </div>
 
     <div class="cart-button-wrapper">
-      <div class="test-user">User</div>
+      <div class="cart-image-wrapper">
+        <img
+          v-for="(item, index) in members.slice(0, 4)"
+          :key="'photo' + index"
+          :src="item?.user_profile.photo"
+          :style="`z-index=${index + 1}`"
+          class="cart-image"
+        />
+
+        <div v-if="members.length > 4" class="members-count">
+          +{{ members.length }}
+        </div>
+      </div>
 
       <button class="new-project" @click="addNewProject">
         <span class="button-text">new</span>
@@ -36,6 +48,10 @@ export default {
       type: Number,
       required: true,
     },
+    members: {
+      type: [Array, Object],
+      required: true,
+    },
   },
   methods: {
     openWorkspace() {
@@ -43,9 +59,11 @@ export default {
     },
     addNewProject() {
       this.$emit('add-new-project')
+      event.stopPropagation()
     },
     openModal() {
       this.$emit('open-modal', this.id)
+      event.stopPropagation()
     },
   },
 }
@@ -101,19 +119,52 @@ export default {
   align-items: center;
 }
 
-.test-user {
+.cart-image-wrapper {
   display: flex;
-  align-items: center;
-  justify-content: center;
 
-  width: 22px;
-  height: 22px;
+  .cart-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 0;
+    flex-shrink: 0;
 
-  border-radius: 100%;
+    width: 22px;
+    height: 22px;
 
-  background-color: white;
+    border-radius: 100%;
+    border: 1px solid var(--secondary-text-color);
 
-  font-size: 10px;
+    background-color: white;
+
+    font-size: 10px;
+
+    &:not(:first-child) {
+      margin-left: -10px;
+    }
+  }
+
+  .members-count {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    flex-grow: 0;
+
+    width: 22px;
+    height: 22px;
+    margin-left: 8px;
+
+    border-radius: 100%;
+    border: 1px dashed var(--secondary-text-color);
+
+    color: var(--secondary-text-color);
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 20px;
+  }
 }
 
 .points-icon {

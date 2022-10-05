@@ -27,10 +27,11 @@
     </div>
     <div v-if="workspaces" class="items-wrapper">
       <ProjectItem
-        v-for="(item, index) in workspaces"
+        v-for="(item, index) in sortWorkspaces"
         :key="index"
         :title="item.title"
         :id="item.id"
+        :members="item.members"
         @open-modal="toggleModal"
         @add-new-project="addNewProject(item.id)"
         @navigate-to-workspace="navigateToWorkspace(item.id)"
@@ -65,12 +66,6 @@ export default {
       workspaceId: null,
     }
   },
-  computed: {
-    ...mapGetters({workspaces: get.WORKSPACES}),
-    numberOfWorkspaces() {
-      return this.workspaces.length
-    },
-  },
   async created() {
     if (
       !this.workspaces.length ||
@@ -79,6 +74,15 @@ export default {
       await this[action.GET_WORKSPACES]()
     }
   },
+  computed: {
+    ...mapGetters({workspaces: get.WORKSPACES}),
+    numberOfWorkspaces() {
+      return this.workspaces.length
+    },
+    sortWorkspaces() {
+      return this.sortingByLastDate(this.workspaces)
+    },
+  },
   methods: {
     ...mapActions([
       action.GET_WORKSPACES,
@@ -86,6 +90,11 @@ export default {
       action.UPDATE_CURRENT_STEP,
       action.UPDATE_OLD_WORKSPACE,
     ]),
+    sortingByLastDate(workspacesList) {
+      return workspacesList.sort(function (a, b) {
+        return new Date(b.created_at) - new Date(a.created_at)
+      })
+    },
     createWorkspace() {
       this.loading = true
       this.$router.push({
@@ -176,5 +185,28 @@ export default {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
+
+  overflow: auto;
+
+  height: 500px;
+  padding-right: 15px;
+
+  &::-webkit-scrollbar {
+    height: 5px;
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: var(--secondary-bg-color);
+    border: 1px solid var(--input-border-color);
+    border-radius: 0 10px 10px 0;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    height: 4px;
+
+    background: var(--secondary-text-color);
+    border-radius: 10px;
+  }
 }
 </style>
