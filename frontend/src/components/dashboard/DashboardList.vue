@@ -31,6 +31,7 @@
         :key="index"
         :title="item.title"
         :id="item.id"
+        :members="item.members"
         @open-modal="toggleModal"
         @add-new-project="addNewProject(item.id)"
         @navigate-to-workspace="navigateToWorkspace(item.id)"
