@@ -27,7 +27,7 @@
     </div>
     <div v-if="workspaces" class="items-wrapper">
       <ProjectItem
-        v-for="(item, index) in workspaces"
+        v-for="(item, index) in sortWorkspaces"
         :key="index"
         :title="item.title"
         :id="item.id"
@@ -65,12 +65,6 @@ export default {
       workspaceId: null,
     }
   },
-  computed: {
-    ...mapGetters({workspaces: get.WORKSPACES}),
-    numberOfWorkspaces() {
-      return this.workspaces.length
-    },
-  },
   async created() {
     if (
       !this.workspaces.length ||
@@ -79,6 +73,15 @@ export default {
       await this[action.GET_WORKSPACES]()
     }
   },
+  computed: {
+    ...mapGetters({workspaces: get.WORKSPACES}),
+    numberOfWorkspaces() {
+      return this.workspaces.length
+    },
+    sortWorkspaces() {
+      return this.sortingByLastDate(this.workspaces)
+    },
+  },
   methods: {
     ...mapActions([
       action.GET_WORKSPACES,
@@ -86,6 +89,11 @@ export default {
       action.UPDATE_CURRENT_STEP,
       action.UPDATE_OLD_WORKSPACE,
     ]),
+    sortingByLastDate(workspacesList) {
+      return workspacesList.sort(function (a, b) {
+        return new Date(b.created_at) - new Date(a.created_at)
+      })
+    },
     createWorkspace() {
       this.loading = true
       this.$router.push({
