@@ -120,7 +120,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['currentStep']),
+    ...mapState(['currentStep', 'userInfo']),
     step() {
       return this.$route.name
     },
@@ -147,7 +147,7 @@ export default {
       try {
         this[action.UPDATE_CURRENT_STEP]('Step3')
         this[action.UPDATE_PROJECT_STATE]({
-          creator: 1,
+          creator: this.userInfo.id,
           title: this.projectName,
           description: this.description,
           source: this.selectedValue.name,
@@ -163,7 +163,7 @@ export default {
       try {
         this[action.UPDATE_CURRENT_STEP]('ProjectStep2')
         this[action.UPDATE_PROJECT_STATE]({
-          creator: 1,
+          creator: this.userInfo.id,
           title: this.projectName,
           description: this.description,
           source: this.selectedValue.name,
