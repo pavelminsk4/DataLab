@@ -20,6 +20,7 @@
     "sass-loader": "^13.0.2",
     "vue": "^3.2.13",
     "vue-router": "^4.0.13",
+    "vue3-grid-layout": "^1.0.0",
     "vuex": "^4.0.2",
     "webpack-bundle-tracker": "^1.6.0"
   },

@@ -6,15 +6,18 @@
       :hint="'Search by keywords and phrases '"
       :is-show-button="false"
     />
+
+    <WidgetsView />
   </div>
 </template>
 
 <script>
 import NavigationBar from '@/components/navigation/NavigationBar'
+import WidgetsView from '@/components/widgets/WidgetsView'
 
 export default {
   name: 'AnalyticsScreen',
-  components: {NavigationBar},
+  components: {WidgetsView, NavigationBar},
   props: {
     currentProject: {
       type: [Array, Object],
