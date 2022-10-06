@@ -1,41 +1,34 @@
 <template>
   <div class="back-button" @click="backToHome">
     <ArrowLeftIcon class="arrow-back" />
-    Back
+    Back to dashboard
   </div>
 
   <div class="create-project-title">
     <div class="title-wrapper">
       <h1 class="title">{{ title }}</h1>
-      <div v-if="newProject.source" class="source-type">
+      <div v-if="newProject.source || currentProject" class="source-type">
         <OnlineRadioIcon class="icon" />{{ newProject.source }}
       </div>
     </div>
     <div class="progress-bar-wrapper">
-      <div class="progress-bar">
-        <div
-          v-for="(item, index) in progressBarData"
-          :key="'step' + index"
-          :class="['progress-item', step === item.name && 'active-item']"
-        >
-          <Steps
-            :hint="item.hint"
-            :current-step="currStep"
-            :value="item.value"
-          />
-        </div>
-      </div>
+      <Steps
+        v-if="step"
+        :step="step"
+        :current-step="currStep"
+        :is-existing-workspace="isExistingWorkspace"
+      />
       <BaseButton
+        v-if="isShowButton"
         :is-disabled="!isActiveButton"
         :style="`width: ${buttonWidth}`"
         class="next-button"
         @click="goToNextStep"
       >
-        {{ buttonName }}
+        {{ buttonName }} <slot></slot>
       </BaseButton>
     </div>
   </div>
-
   <div class="hint">{{ hint }}</div>
 </template>
 
@@ -49,7 +42,7 @@ import OnlineRadioIcon from '@/components/icons/OnlineRadioIcon'
 import Steps from '@/components/navigation/Steps'
 
 export default {
-  name: 'StepsNav',
+  name: 'NavigationBar',
   components: {
     Steps,
     OnlineRadioIcon,
@@ -67,9 +60,13 @@ export default {
     },
     step: {
       type: String,
-      required: true,
+      required: false,
     },
     isActiveButton: {
+      type: Boolean,
+      default: true,
+    },
+    isShowButton: {
       type: Boolean,
       default: true,
     },
@@ -85,44 +82,17 @@ export default {
       type: Number,
       default: 114,
     },
+    currentProject: {
+      type: String,
+      default: '',
+    },
   },
   emits: {
     'next-step': null,
+    'click-button': null,
   },
   computed: {
     ...mapState(['newProject', 'currentStep']),
-    progressBarData() {
-      return this.isExistingWorkspace
-        ? [
-            {
-              name: 'ProjectStep1',
-              hint: 'Source Type',
-              value: 1,
-            },
-            {
-              name: 'ProjectStep2',
-              hint: 'Keywords',
-              value: 2,
-            },
-          ]
-        : [
-            {
-              name: 'Step1',
-              hint: 'Create Workspace',
-              value: 1,
-            },
-            {
-              name: 'Step2',
-              hint: 'Source Type',
-              value: 2,
-            },
-            {
-              name: 'Step3',
-              hint: 'Keywords',
-              value: 3,
-            },
-          ]
-    },
     currStep() {
       return this.currentStep
         .split('')
@@ -139,6 +109,7 @@ export default {
 
     goToNextStep() {
       this.$emit('next-step')
+      this.$emit('click-button')
     },
   },
 }
@@ -207,47 +178,6 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.progress-bar {
-  display: flex;
-  align-items: center;
-
-  margin-right: 40px;
-}
-
-.progress-item {
-  position: relative;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 24px;
-  height: 24px;
-
-  border-radius: 100%;
-  background-color: var(--disabled-color);
-
-  cursor: pointer;
-
-  color: var(--primary-text-color);
-
-  &:not(:last-child) {
-    margin-right: 38px;
-
-    &::before {
-      position: absolute;
-      left: 24px;
-
-      content: '';
-
-      width: 38px;
-      height: 2px;
-
-      background-color: var(--progress-line);
-    }
-  }
 }
 
 .active-item {

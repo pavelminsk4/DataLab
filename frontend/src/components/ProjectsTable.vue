@@ -269,6 +269,7 @@ export default {
 }
 
 .keyword {
+  width: fit-content;
   padding: 2px 12px;
 
   border-radius: 8px;

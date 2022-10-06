@@ -26,12 +26,20 @@ export default {
     if (!Object.keys(this.userInfo).length) {
       this[action.GET_USER_INFORMATION]()
     }
+
+    if (!this.workspaces.length) {
+      this[action.GET_WORKSPACES]()
+    }
   },
   computed: {
-    ...mapState(['userInfo']),
+    ...mapState(['userInfo', 'workspaces']),
   },
   methods: {
-    ...mapActions([action.LOGOUT, action.GET_USER_INFORMATION]),
+    ...mapActions([
+      action.LOGOUT,
+      action.GET_USER_INFORMATION,
+      action.GET_WORKSPACES,
+    ]),
   },
 }
 </script>

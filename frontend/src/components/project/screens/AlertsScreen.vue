@@ -1,10 +1,4 @@
 <template>
-  <SettingsNav
-    :hint="'Set up alerts for your project with highly customized filters'"
-  >
-    <PlusIcon class="button-icon" />Add Alert
-  </SettingsNav>
-
   <table class="table">
     <thead>
       <tr>
@@ -60,13 +54,11 @@
   </table>
 </template>
 <script>
-import SettingsNav from '@/components/navigation/SettingsNav'
-
 import PlusIcon from '@/components/icons/PlusIcon'
 
 export default {
   name: 'AlertsScreen',
-  components: {PlusIcon, SettingsNav},
+  components: {PlusIcon},
 }
 </script>
 

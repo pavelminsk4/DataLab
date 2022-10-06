@@ -1,5 +1,5 @@
 <template>
-  <StepsNav
+  <NavigationBar
     v-if="currentStep === 'Step2'"
     :step="step"
     :title="'Create Project'"
@@ -8,7 +8,7 @@
     @next-step="nextStep"
   />
 
-  <StepsNav
+  <NavigationBar
     v-else
     :step="step"
     :title="'Create Project'"
@@ -73,7 +73,7 @@ import BaseSelect from '@/components/BaseSelect'
 import BaseRadio from '@/components/BaseRadio'
 import BaseButton from '@/components/buttons/BaseButton'
 
-import StepsNav from '@/components/navigation/StepsNav'
+import NavigationBar from '@/components/navigation/NavigationBar'
 
 import ArrowLeftIcon from '@/components/icons/ArrowLeftIcon'
 import SelectRadioIcon from '@/components/icons/SelectRadioIcon'
@@ -84,7 +84,7 @@ import PremiumRadioIcon from '@/components/icons/PremiumRadioIcon'
 export default {
   name: 'CreateProjectScreen',
   components: {
-    StepsNav,
+    NavigationBar,
     BaseInput,
     BaseSelect,
     BaseRadio,
@@ -120,7 +120,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['currentStep']),
+    ...mapState(['currentStep', 'userInfo']),
     step() {
       return this.$route.name
     },
@@ -147,7 +147,7 @@ export default {
       try {
         this[action.UPDATE_CURRENT_STEP]('Step3')
         this[action.UPDATE_PROJECT_STATE]({
-          creator: 1,
+          creator: this.userInfo.id,
           title: this.projectName,
           description: this.description,
           source: this.selectedValue.name,
@@ -163,7 +163,7 @@ export default {
       try {
         this[action.UPDATE_CURRENT_STEP]('ProjectStep2')
         this[action.UPDATE_PROJECT_STATE]({
-          creator: 1,
+          creator: this.userInfo.id,
           title: this.projectName,
           description: this.description,
           source: this.selectedValue.name,

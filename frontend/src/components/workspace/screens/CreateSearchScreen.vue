@@ -1,5 +1,5 @@
 <template>
-  <StepsNav
+  <NavigationBar
     v-if="this.currentStep === 'Step3'"
     :step="step"
     :title="'Define the search'"
@@ -9,7 +9,7 @@
     @next-step="createWorkspaceAndProject"
   />
 
-  <StepsNav
+  <NavigationBar
     v-else
     :step="step"
     :title="'Define the search'"
@@ -82,7 +82,7 @@ import {mapActions, mapGetters, mapState} from 'vuex'
 import {action, get} from '@store/constants'
 
 import BaseTag from '@/components/BaseTag'
-import StepsNav from '@/components/navigation/StepsNav'
+import NavigationBar from '@/components/navigation/NavigationBar'
 
 import OnlineType from '@/components/workspace/sources/OnlineType'
 import SearchResults from '@/components/SearchResults'
@@ -93,7 +93,7 @@ export default {
   components: {
     BaseButton,
     SearchResults,
-    StepsNav,
+    NavigationBar,
     BaseTag,
     OnlineType,
   },
