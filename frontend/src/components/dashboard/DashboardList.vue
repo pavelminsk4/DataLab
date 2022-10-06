@@ -66,19 +66,8 @@ export default {
       workspaceId: null,
     }
   },
-  async created() {
-    if (
-      !this.workspaces.length ||
-      this.workspaces.length !== this.numberOfWorkspaces
-    ) {
-      await this[action.GET_WORKSPACES]()
-    }
-  },
   computed: {
     ...mapGetters({workspaces: get.WORKSPACES}),
-    numberOfWorkspaces() {
-      return this.workspaces.length
-    },
     sortWorkspaces() {
       return this.sortingByLastDate(this.workspaces)
     },
@@ -188,7 +177,7 @@ export default {
 
   overflow: auto;
 
-  height: 500px;
+  max-height: 500px;
   padding-right: 15px;
 
   &::-webkit-scrollbar {

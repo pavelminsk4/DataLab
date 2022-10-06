@@ -17,11 +17,15 @@
         />
 
         <div v-if="members.length > 4" class="members-count">
-          +{{ members.length }}
+          +{{ members.length - 4 }}
         </div>
       </div>
 
-      <button class="new-project" @click="addNewProject">
+      <button
+        :style="`z-index=${members.length + 1}`"
+        class="new-project"
+        @click="addNewProject"
+      >
         <span class="button-text">new</span>
         <span class="circle" aria-hidden="true"><PlusIcon /></span>
       </button>
@@ -114,12 +118,16 @@ export default {
 }
 
 .cart-button-wrapper {
+  position: relative;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .cart-image-wrapper {
+  position: relative;
+
   display: flex;
 
   .cart-image {
@@ -167,6 +175,14 @@ export default {
   }
 }
 
+.new-project {
+  position: absolute;
+  right: 0;
+
+  width: 74px;
+  height: 30px;
+}
+
 .points-icon {
   pointer-events: stroke;
 
@@ -207,13 +223,6 @@ button {
   transition: 3s;
 }
 
-button.new-project {
-  width: 74px;
-  height: 30px;
-
-  z-index: 2;
-}
-
 button.new-project .circle {
   position: relative;
 
@@ -222,7 +231,7 @@ button.new-project .circle {
 
   padding: 0 5px 0 9px;
   margin: 0;
-  width: 30px;
+  width: 32px;
   height: 30px;
 
   background: var(--icon-bg-color);

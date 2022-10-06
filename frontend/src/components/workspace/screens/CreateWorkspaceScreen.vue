@@ -1,5 +1,5 @@
 <template>
-  <StepsNav
+  <NavigationBar
     :step="step"
     :title="'The Workspace'"
     :hint="'Create a new workspace on your Dashboard'"
@@ -25,11 +25,11 @@ import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
 import BaseInput from '@/components/BaseInput'
-import StepsNav from '@/components/navigation/StepsNav'
+import NavigationBar from '@/components/navigation/NavigationBar'
 
 export default {
   name: 'CreateWorkspaceScreen',
-  components: {StepsNav, BaseInput},
+  components: {NavigationBar, BaseInput},
   component: {
     BaseInput,
   },
