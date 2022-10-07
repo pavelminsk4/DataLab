@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django_celery_beat',
     'django_celery_results',
     'countries_plus',
+    'widgets.apps.WidgetsConfig',
 ]
 
 MIDDLEWARE = [

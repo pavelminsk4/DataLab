@@ -12,6 +12,7 @@ urlpatterns = [
     path('accounts/', include('accounts.urls',namespace='accounts')),
     path('projects/', include('project.urls')),
     path('api/', include('api.urls')),
+    path('api/widgets', include('widgets.urls', namespace='widgets')),
     path('workspace/', include('workspace.urls', namespace='workspace')),
     re_path('^.*$', TemplateView.as_view(template_name="index.html")),
 ]
