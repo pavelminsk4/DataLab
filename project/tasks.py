@@ -9,7 +9,7 @@ from dateutil import parser
 from  nltk.sentiment import SentimentIntensityAnalyzer
 from bs4 import BeautifulSoup
 import socket
-socket.setdefaulttimeout(5)
+socket.setdefaulttimeout(3)
 
 def split_links(amount_posts_in_sample):
   all_posts = Feedlinks.objects.all()
@@ -38,7 +38,7 @@ def add_sentiment_score(title):
 
 @shared_task
 def post_creator():
-  ssl._create_default_https_context = ssl._create_unverified_context #fix SSL issue in local machine
+  #ssl._create_default_https_context = ssl._create_unverified_context #fix SSL issue in local machine
   datas = []
   i = 0
   for sample in split_links(1):
@@ -57,6 +57,9 @@ def post_creator():
         fe = f.entries
         ff = f.feed
         for ent in fe:
+          print('------------>')
+          print(ent)
+          print('---------<')
           if not Post.objects.filter(entry_title=ent.title):
             my_feedlink = feed
             my_sentiment = add_sentiment_score(ent.title)
@@ -459,8 +462,11 @@ def post_creator():
             print(snippet)
             print('-----<')
             datas.append(snippet)
-      except:
+      except Exception as e:
         print('Something went wrong!!!')
+        print('-------->e')
+        print(e)
+        print('-------<')
         pass
     try:
       django_list = [Post(**vals) for vals in datas] 

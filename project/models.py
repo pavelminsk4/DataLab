@@ -160,6 +160,9 @@ class Post(models.Model):
   usersentiment = models.DecimalField(max_digits=4, decimal_places=2,default=0)
   updatedsentiment = models.DecimalField(max_digits=4, decimal_places=2,default=0)
   is_sentiment = models.BooleanField(default=False)
+
+  class Meta:
+    indexes = [models.Index(fields=['entry_title', ]), ]
   
   def __str__(self):
     return self.entry_title
