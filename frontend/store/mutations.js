@@ -61,6 +61,10 @@ export default {
     state.additionalFilters = {...state.additionalFilters, ...data}
   },
 
+  [mutator.SET_SUMMARY_WIDGET](state, data) {
+    state.summary = {...data}
+  },
+
   [mutator.RESET_STATE](state) {
     state.currentStep = 'Step1'
     state.keywords = []

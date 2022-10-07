@@ -8,7 +8,7 @@
       <table>
         <tr v-for="(item, index) in widgetMetricsFirst" :key="'metric' + index">
           <td class="metric-name">{{ item.name.toUpperCase() }}</td>
-          <td class="metric-value">1</td>
+          <td class="metric-value">{{ item.value }}</td>
           <td class="metric-count">+1</td>
           <td class="metric-badge">+10%</td>
         </tr>
@@ -22,7 +22,7 @@
           <td class="metric-name summary-name">
             {{ item.name.toUpperCase() }}
           </td>
-          <td class="metric-value">1</td>
+          <td class="metric-value">{{ item.value }}</td>
           <td class="metric-count">+1</td>
           <td class="metric-badge">+10%</td>
         </tr>
@@ -34,21 +34,29 @@
 <script>
 export default {
   name: 'SummaryWidget',
-  data() {
-    return {
-      widgetMetricsFirst: [
-        {name: 'New posts'},
-        {name: 'Source'},
-        {name: 'Authors'},
-        {name: 'Countries'},
-      ],
-      widgetMetricsSecond: [
-        {name: 'Potential reach'},
-        {name: 'Neutral'},
-        {name: 'Negative'},
-        {name: 'Positive'},
-      ],
-    }
+  props: {
+    summaryData: {
+      type: [Array, Object],
+      required: true,
+    },
+  },
+  computed: {
+    widgetMetricsFirst() {
+      return [
+        {name: 'New posts', value: this.summaryData?.posts},
+        {name: 'Source', value: this.summaryData?.sources},
+        {name: 'Authors', value: this.summaryData?.authors},
+        {name: 'Countries', value: this.summaryData?.countries},
+      ]
+    },
+    widgetMetricsSecond() {
+      return [
+        {name: 'Potential reach', value: this.summaryData?.reach},
+        {name: 'Neutral', value: this.summaryData?.neut},
+        {name: 'Negative', value: this.summaryData?.neg},
+        {name: 'Positive', value: this.summaryData?.pos},
+      ]
+    },
   },
 }
 </script>
@@ -82,6 +90,10 @@ export default {
 
     margin-top: 25px;
 
+    table {
+      color: var(--primary-text-color);
+    }
+
     .metric-name {
       width: 100px;
 
@@ -98,10 +110,17 @@ export default {
 
     .metric-value {
       width: 32px;
+
+      font-style: normal;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 22px;
     }
 
     .metric-count {
       width: 21px;
+
+      color: var(--negative-status);
     }
 
     .metric-badge {
@@ -110,7 +129,7 @@ export default {
       border-radius: 29px;
       background-color: rgba(51, 204, 112, 0.2);
 
-      color: var(--primary-text-color);
+      color: var(--tag-color);
     }
   }
 }

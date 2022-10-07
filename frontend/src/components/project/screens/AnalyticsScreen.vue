@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="currentProject">
     <NavigationBar
       v-if="currentProject"
       :title="currentProject.title"
@@ -7,7 +7,7 @@
       :is-show-button="false"
     />
 
-    <WidgetsView />
+    <WidgetsView :project-id="currentProject.id" />
   </div>
 </template>
 
