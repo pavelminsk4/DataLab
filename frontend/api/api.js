@@ -41,6 +41,10 @@ export default {
     return fetch('get', '/api/authors')
   },
 
+  async getSummaryWidget(projectId) {
+    return fetch('get', `/api/widgets/summary_widget/${projectId}`)
+  },
+
   async createWorkspace(workspace) {
     const config = {
       headers: {

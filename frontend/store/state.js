@@ -13,6 +13,7 @@ const state = {
   sources: [],
   authors: [],
   additionalFilters: {},
+  summary: {},
   newWorkspace: {
     title: '',
     description: '',

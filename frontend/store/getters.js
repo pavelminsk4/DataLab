@@ -48,4 +48,8 @@ export default {
   [get.ADDITIONAL_FILTERS](state) {
     return state.additionalFilters
   },
+
+  [get.SUMMARY_WIDGET](state) {
+    return state.summary
+  },
 }

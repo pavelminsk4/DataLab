@@ -98,6 +98,18 @@ export default {
     }
   },
 
+  async [action.GET_SUMMARY_WIDGET]({commit}, projectId) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const summary = await api.getSummaryWidget(projectId)
+      commit(mutator.SET_SUMMARY_WIDGET, summary)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
   async [action.CREATE_WORKSPACE]({commit}, workspace) {
     commit(mutator.SET_LOADING, true)
     try {
