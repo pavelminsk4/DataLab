@@ -2,21 +2,7 @@
   <div class="search-result-wrapper">
     <div class="filters">
       <div>{{ searchData.length }} results</div>
-      <Datepicker
-        v-model="selectedDate"
-        @update:modelValue="handleDate"
-        :clearable="false"
-        :format="format"
-        class="dp-wrapper"
-        inputClassName="dp-custom-input"
-        menuClassName="dp-custom-menu"
-        calendarClassName="dp-custom-calendar"
-        range
-      >
-        <template #input-icon>
-          <CalendarIcon class="dp-icon" />
-        </template>
-      </Datepicker>
+      <BaseCalendar />
     </div>
     <div v-if="loading" class="spinner-wrapper"><BaseSpinner /></div>
     <div v-if="searchData.length" class="search-result-cards">
@@ -71,36 +57,25 @@
 </template>
 
 <script>
-import {mapActions, mapState} from 'vuex'
+import {mapState} from 'vuex'
 
 import BaseSpinner from '@/components/BaseSpinner'
 import BaseCheckbox from '@/components/BaseCheckbox'
 import NoImageIcon from '@/components/icons/NoImageIcon'
-
-import Datepicker from '@vuepic/vue-datepicker'
-import '@vuepic/vue-datepicker/dist/main.css'
-import CalendarIcon from '@/components/icons/CalendarIcon'
-import {action} from '@store/constants'
+import BaseCalendar from '@/components/datepicker/BaseCalendar'
 
 export default {
   name: 'SearchResults',
   components: {
-    CalendarIcon,
+    BaseCalendar,
     BaseCheckbox,
     BaseSpinner,
     NoImageIcon,
-    Datepicker,
-  },
-  data() {
-    return {
-      selectedDate: [new Date(), new Date()],
-    }
   },
   computed: {
     ...mapState(['searchData', 'loading']),
   },
   methods: {
-    ...mapActions([action.UPDATE_ADDITIONAL_FILTERS]),
     dateOfCreation(date) {
       return new Date(date).toLocaleDateString('en-US', {
         month: 'long',
@@ -110,24 +85,6 @@ export default {
     },
     capitalizeFirstLetter(string) {
       return string.charAt(0).toUpperCase() + string.slice(1)
-    },
-    handleDate(modelData) {
-      try {
-        this.selectedDate = modelData
-        this[action.UPDATE_ADDITIONAL_FILTERS]({date_range: this.selectedDate})
-      } catch (e) {
-        console.log(e)
-      }
-    },
-    format(date) {
-      const formattedDate = date.map((el) =>
-        el.toLocaleString('en-US', {
-          month: 'short',
-          day: 'numeric',
-          year: 'numeric',
-        })
-      )
-      return `${formattedDate[0]} - ${formattedDate[1]}`
     },
   },
 }
@@ -354,104 +311,6 @@ export default {
 
   .search-result-card {
     margin: 0 0 10px 0;
-  }
-}
-</style>
-
-<style lang="scss">
-.dp-wrapper {
-  width: 260px;
-  max-width: 100%;
-  margin-left: 37px;
-
-  &:hover {
-    border-color: var(--primary-button-color);
-  }
-}
-
-.dp-icon {
-  margin-left: 25px;
-}
-
-.dp-custom-input {
-  padding-left: 48px;
-
-  box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
-  border: 1px solid var(--input-border-color);
-  border-radius: 8px;
-  background-color: var(--secondary-bg-color);
-
-  font-family: 'Poppins', sans-serif;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 20px;
-  color: var(--primary-text-color);
-
-  &:hover,
-  &:active {
-    border-color: var(--primary-button-color);
-  }
-}
-
-.dp-custom-calendar,
-.dp__arrow_top {
-  border: none;
-  background-color: var(--secondary-bg-color);
-
-  .dp__calendar_item,
-  .dp__calendar_header_item {
-    color: var(--primary-text-color);
-  }
-
-  .dp__calendar_header_separator {
-    background: var(--primary-button-color);
-  }
-
-  .dp__range_between {
-    border: 0;
-    background-color: rgba(16, 16, 16, 0.25);
-  }
-
-  .dp__range_end,
-  .dp__range_start,
-  .dp__active_date {
-    background-color: var(--primary-button-color);
-  }
-}
-
-.dp__selection_preview {
-  color: var(--primary-text-color);
-}
-
-.dp__select {
-  color: var(--primary-button-color);
-}
-
-.dp__action_row,
-.dp__button,
-.dp__instance_calendar {
-  background-color: var(--secondary-bg-color);
-
-  .dp__month_year_row {
-    color: var(--primary-text-color);
-  }
-
-  .dp__month_year_col_nav {
-    color: var(--primary-text-color);
-  }
-}
-
-.dp__menu {
-  border-radius: 8px !important;
-  border: 1px solid var(--primary-button-color) !important;
-
-  .dp__instance_calendar {
-    border-radius: 8px !important;
-  }
-
-  .dp__action_row {
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
   }
 }
 </style>
