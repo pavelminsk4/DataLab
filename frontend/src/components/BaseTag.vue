@@ -6,7 +6,7 @@
       :class="[
         {
           duplicate: tag === duplicate,
-          tag: tagsClass.length == 0,
+          tag: tagsClass.length === 0,
         },
         'tag-value',
         isAdditionalKeywords && 'additional-keyword',
@@ -167,6 +167,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+    white-space: nowrap;
     gap: 12px;
 
     margin-right: 10px;

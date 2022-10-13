@@ -69,7 +69,7 @@
       <OnlineType />
 
       <BaseButton @click="showResults" class="apply-settings">
-        Apply Settings
+        Preview
       </BaseButton>
     </section>
 
