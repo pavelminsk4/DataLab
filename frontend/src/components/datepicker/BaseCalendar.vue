@@ -8,6 +8,8 @@
     @open="openCalendar"
     @closed="openCalendar"
     range
+    inline
+    class="datepicker-wrapper"
   >
     <template #trigger>
       <div class="trigger-wrapper">
@@ -172,6 +174,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.datepicker-wrapper {
+  position: absolute;
+  top: 232px;
+  right: 69px;
+}
+
 .trigger-wrapper {
   display: flex;
   justify-content: center;

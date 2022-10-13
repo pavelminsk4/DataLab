@@ -1,5 +1,10 @@
 <template>
-  <div class="custom-select" :tabindex="tabindex" @blur="open = false">
+  <div
+    :style="`width: ${selectWidth}px`"
+    class="custom-select"
+    :tabindex="tabindex"
+    @blur="open = false"
+  >
     <div class="selected" :class="{open: open}" @click="open = !open">
       <input
         v-model="search"
@@ -7,10 +12,15 @@
         type="text"
         class="select-search"
       />
-      {{ selected }}
+      <CalendarArrowDownIcon :class="['icon', open && 'open-select']" />
     </div>
     <div class="items" :class="{selectHide: !open}">
-      <div v-for="(option, i) of selectList" :key="i" @click="test(option)">
+      <div
+        v-for="(option, i) of selectList"
+        :key="i"
+        @click="test(option)"
+        class="item"
+      >
         {{ option }}
       </div>
     </div>
@@ -18,7 +28,9 @@
 </template>
 
 <script>
+import CalendarArrowDownIcon from '@/components/icons/CalendarArrowDownIcon'
 export default {
+  components: {CalendarArrowDownIcon},
   props: {
     options: {
       type: Array,
@@ -33,6 +45,10 @@ export default {
       type: Number,
       required: false,
       default: 0,
+    },
+    selectWidth: {
+      type: Number,
+      default: 62,
     },
   },
   data() {
@@ -51,7 +67,6 @@ export default {
   },
   computed: {
     selectList() {
-      console.log(this.options)
       return this.options.filter((item) => {
         return item?.toLowerCase().includes(this.search?.toLowerCase())
       })
@@ -67,66 +82,84 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .custom-select {
   position: relative;
-  width: 100%;
   text-align: left;
-  outline: none;
+
+  width: 100%;
   height: 47px;
-  line-height: 47px;
-}
 
-.custom-select .selected {
-  background-color: #0a0a0a;
-  border-radius: 6px;
-  border: 1px solid #666666;
-  color: #fff;
-  padding-left: 1em;
-  cursor: pointer;
-  user-select: none;
-}
+  outline: none;
 
-.custom-select .selected.open {
-  border: 1px solid #ad8225;
-  border-radius: 6px 6px 0px 0px;
-}
+  .selected {
+    position: relative;
 
-.custom-select .selected:after {
-  position: absolute;
-  content: '';
-  top: 22px;
-  right: 1em;
-  width: 0;
-  height: 0;
-  border: 5px solid transparent;
-  border-color: #fff transparent transparent transparent;
-}
+    background-color: var(--secondary-bg-color);
 
-.custom-select .items {
-  color: #fff;
-  border-radius: 0px 0px 6px 6px;
-  overflow: auto;
-  border-right: 1px solid #ad8225;
-  border-left: 1px solid #ad8225;
-  border-bottom: 1px solid #ad8225;
-  position: absolute;
-  background-color: #0a0a0a;
-  left: 0;
-  right: 0;
-  z-index: 1;
-  height: 200px;
-}
+    .select-search {
+      max-width: 100%;
 
-.custom-select .items div {
-  color: #fff;
-  padding-left: 1em;
-  cursor: pointer;
-  user-select: none;
-}
+      outline: none;
+      border: none;
+      background-color: var(--secondary-bg-color);
 
-.custom-select .items div:hover {
-  background-color: #ad8225;
+      color: var(--primary-text-color);
+    }
+
+    .icon {
+      position: absolute;
+      right: 0;
+      top: 38%;
+    }
+
+    .open-select {
+      transform: rotate(180deg);
+    }
+  }
+
+  .items {
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: 1;
+
+    overflow: auto;
+
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+
+    height: 200px;
+
+    color: var(--primary-text-color);
+    background-color: var(--secondary-bg-color);
+
+    font-size: 14px;
+
+    .item {
+      cursor: pointer;
+
+      margin-left: 4px;
+    }
+
+    &::-webkit-scrollbar {
+      height: 5px;
+      width: 5px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: var(--secondary-bg-color);
+      border: 1px solid var(--input-border-color);
+      border-radius: 0 10px 10px 0;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      height: 4px;
+
+      background: var(--secondary-text-color);
+      border-radius: 10px;
+    }
+  }
 }
 
 .selectHide {

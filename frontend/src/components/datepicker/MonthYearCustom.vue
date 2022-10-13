@@ -1,12 +1,11 @@
 <template>
   <div class="month-year-wrapper">
     <div class="custom-month-year-component">
-      <select class="select-input" :value="year" @change="updateYear">
-        <option v-for="y in years" :key="y.value" :value="y.value">
-          {{ y.text }}
-        </option>
-      </select>
-      <BaseCalendarSelect :options="yearsArray" @select-option="selectItem" />
+      <BaseCalendarSelect
+        :options="yearsArray"
+        :default="year"
+        @select-option="selectItem"
+      />
       <select class="select-input" :value="month" @change="updateMonth">
         <option v-for="m in months" :key="m.value" :value="m.value">
           {{ m.text }}
@@ -94,50 +93,4 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss">
-.month-year-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.custom-month-year-component {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-}
-
-.select-input {
-  margin: 5px 3px;
-  padding: 5px;
-  width: auto;
-  border-radius: 4px;
-  border-color: var(--dp-border-color);
-  outline: none;
-}
-
-.icons {
-  display: flex;
-}
-
-.custom-icon {
-  padding: 5px;
-  display: flex;
-  height: 25px;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  width: 25px;
-  color: var(--dp-icon-color);
-  text-align: center;
-  border-radius: 50%;
-
-  svg {
-    height: 20px;
-    width: 20px;
-  }
-
-  &:hover {
-    background: var(--dp-hover-color);
-  }
-}
-</style>
+<style lang="scss"></style>
