@@ -14,7 +14,9 @@
     <template #trigger>
       <div class="trigger-wrapper">
         <CalendarIcon class="dp-icon" />
-        <div>{{ format(selectedDate) }}</div>
+        <div>
+          {{ formatDate(selectedDate[0]) - formatDate(selectedDate[1]) }}
+        </div>
         <ArrowDownIcon :class="[isOpenCalendar && 'open-calendar']" />
       </div>
     </template>
@@ -31,23 +33,28 @@
         </div>
       </div>
 
-      <div>Start date</div>
-      <div>1</div>
-      <TimePickerCustom
-        :name-hours="'hoursStartDate'"
-        :name-minutes="'minutesStartDate'"
-        @update:hours="updateTimePicker"
-        @update:minutes="updateTimePicker"
-      />
+      <div class="right-side-title">Start date</div>
+      <div class="time-picker">
+        <div class="current-date">{{ formatDate(selectedDate[0]) }}</div>
+        <TimePickerCustom
+          :name-hours="'hoursStartDate'"
+          :name-minutes="'minutesStartDate'"
+          @update:hours="updateTimePicker"
+          @update:minutes="updateTimePicker"
+        />
+      </div>
 
-      <div>Ending date</div>
-      <div>2</div>
-      <TimePickerCustom
-        :name-hours="'hoursEndDate'"
-        :name-minutes="'minutesEndDate'"
-        @update:hours="updateTimePicker"
-        @update:minutes="updateTimePicker"
-      />
+      <div class="right-side-title">Ending date</div>
+
+      <div class="time-picker">
+        <div class="current-date">{{ formatDate(selectedDate[1]) }}</div>
+        <TimePickerCustom
+          :name-hours="'hoursEndDate'"
+          :name-minutes="'minutesEndDate'"
+          @update:hours="updateTimePicker"
+          @update:minutes="updateTimePicker"
+        />
+      </div>
     </template>
   </Datepicker>
 </template>
@@ -126,8 +133,6 @@ export default {
   methods: {
     ...mapActions([action.UPDATE_ADDITIONAL_FILTERS]),
     handleDate(modelData) {
-      console.log(this.presetRanges)
-      console.log(this.hoursStartDate, modelData[0].getHours())
       try {
         this.selectedDate = [
           new Date(
@@ -154,15 +159,12 @@ export default {
         console.log(e)
       }
     },
-    format(date) {
-      const formattedDate = date.map((el) =>
-        el.toLocaleString('en-US', {
-          month: 'short',
-          day: 'numeric',
-          year: 'numeric',
-        })
-      )
-      return `${formattedDate[0]} - ${formattedDate[1]}`
+    formatDate(date) {
+      return date.toLocaleString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+      })
     },
     test(range) {
       this.selectedDate = range
@@ -244,6 +246,34 @@ export default {
       color: var(--primary-button-color);
       background-color: rgba(5, 95, 252, 0.1);
     }
+  }
+}
+
+.right-side-title {
+  margin-bottom: 8px;
+
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 110%;
+  color: var(--primary-text-color);
+}
+
+.time-picker {
+  display: flex;
+  align-items: center;
+
+  margin-bottom: 25px;
+
+  .current-date {
+    margin-right: 8px;
+    padding: 10px 16px;
+
+    background: var(--progress-line);
+    border: 1px solid var(--modal-border-color);
+    border-radius: 10px;
+
+    color: var(--primary-text-color);
   }
 }
 </style>
