@@ -218,4 +218,32 @@ export default {
     box-shadow: -4px 4px 20px rgba(16, 16, 16, 0.4);
   }
 }
+
+.dp__calendar_wrap {
+  .dp__calendar_header {
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .dp__calendar_header_separator {
+    height: 0;
+  }
+
+  .dp__calendar {
+    .dp__calendar_row {
+      .dp__calendar_item {
+        .dp__cell_inner {
+          color: var(--primary-text-color);
+        }
+
+        .dp__cell_offset {
+          color: rgba(255, 255, 255, 0.3);
+        }
+      }
+    }
+  }
+}
+
+.dp__sidebar_right {
+  border: none;
+}
 </style>

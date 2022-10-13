@@ -6,6 +6,6 @@
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <path d="M0.5 0L5.5 5L10.5 0H0.5Z" fill="white" fill-opacity="0.56" />
+    <path d="M0.5 0L5.5 5L10.5 0H0.5Z" fill="currentColor" />
   </svg>
 </template>

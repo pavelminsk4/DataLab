@@ -1,7 +1,7 @@
 <template>
   <div
     :style="`width: ${selectWidth}px`"
-    class="custom-select"
+    :class="['custom-select', `selector-${name}`]"
     :tabindex="tabindex"
     @blur="open = false"
   >
@@ -37,7 +37,7 @@ export default {
       default: null,
     },
     default: {
-      type: String,
+      type: [String, Number],
       required: false,
       default: null,
     },
@@ -45,6 +45,10 @@ export default {
       type: Number,
       required: false,
       default: 0,
+    },
+    name: {
+      type: String,
+      required: true,
     },
     selectWidth: {
       type: Number,
@@ -62,7 +66,11 @@ export default {
       search: '',
     }
   },
+  created() {
+    document.addEventListener('click', this.close)
+  },
   mounted() {
+    document.addEventListener('click', this.close)
     this.$emit('input', this.selected)
   },
   computed: {
@@ -77,6 +85,13 @@ export default {
       this.$emit('select-option', option)
       this.selected = option
       this.open = false
+    },
+    close() {
+      const elements = document.querySelectorAll(`.selector-${this.name}`)
+
+      if (!Array.from(elements).find((el) => el.contains(event.target))) {
+        this.open = false
+      }
     },
   },
 }
@@ -111,6 +126,12 @@ export default {
       position: absolute;
       right: 0;
       top: 38%;
+
+      cursor: pointer;
+
+      &:hover {
+        color: #0b56d9;
+      }
     }
 
     .open-select {
