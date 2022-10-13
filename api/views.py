@@ -14,6 +14,7 @@ from  nltk.sentiment import SentimentIntensityAnalyzer
 from django.views.decorators.csrf import csrf_exempt
 from countries_plus.models import Country
 from dateutil import parser
+from django.db.models.functions import ExtractYear
 
 # ==== User API =======================
 
@@ -160,3 +161,8 @@ def authors(request):
   set = Post.objects.all().values('entry_author').distinct().order_by('entry_author')
   authors_list = list(set)
   return JsonResponse(authors_list, safe = False)
+
+def years(request):
+  years = Post.objects.annotate(year=ExtractYear('entry_published')).values('year').distinct().order_by('year')
+  years_list = list(years)
+  return JsonResponse(years_list, safe = False)

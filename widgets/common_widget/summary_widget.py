@@ -55,5 +55,3 @@ def summary_widget(pk):
     'reach':potential_reach
     }
   return JsonResponse(res, safe=False)
-
-
