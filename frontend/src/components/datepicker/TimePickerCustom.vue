@@ -1,5 +1,6 @@
 <template>
   <div class="custom-time-picker-component">
+    <ClockIcon class="icon" />
     <select
       class="select-input"
       :value="hours"
@@ -10,6 +11,7 @@
         {{ h.text }}
       </option>
     </select>
+    <div class="separate">:</div>
     <select
       class="select-input"
       :value="minutes"
@@ -25,8 +27,10 @@
 
 <script>
 import {computed, defineComponent} from 'vue'
+import ClockIcon from '@/components/icons/ClockIcon'
 
 export default defineComponent({
+  components: {ClockIcon},
   emits: ['update:hours', 'update:minutes'],
   props: {
     hoursIncrement: {type: [Number, String], default: 1},
@@ -72,19 +76,44 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-indent: 1px;
+  text-overflow: '';
+}
+
 .custom-time-picker-component {
   display: flex;
   align-items: center;
-  justify-content: center;
-}
 
-.select-input {
-  margin: 5px 3px;
-  padding: 5px;
-  width: 100px;
-  border-radius: 4px;
-  border-color: var(--dp-border-color);
-  outline: none;
+  padding: 9px 13px;
+
+  background: var(--progress-line);
+  border: 1px solid var(--modal-border-color);
+  border-radius: 10px;
+
+  color: var(--primary-text-color);
+
+  .icon {
+    margin-right: 10px;
+  }
+
+  .select-input {
+    outline: none;
+    border: none;
+
+    color: var(--primary-text-color);
+    background-color: var(--progress-line);
+  }
+
+  .separate {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 2px 3px 3px;
+  }
 }
 </style>
