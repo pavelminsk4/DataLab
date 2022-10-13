@@ -16,7 +16,7 @@
         <div
           v-for="(item, index) in presetRanges"
           :key="index + 'year'"
-          @click="test(item.range)"
+          @click="addPeriod(item.range)"
           class="fixed-period"
         >
           {{ item.label }}
@@ -53,10 +53,11 @@
 import {mapActions} from 'vuex'
 import {action} from '@store/constants'
 
-import '@vuepic/vue-datepicker/dist/main.css'
+import TimePickerCustom from '@/components/datepicker/TimePickerCustom'
+import ActionRowCustom from '@/components/datepicker/ActionRowCustom'
+import MonthYearCustom from '@/components/datepicker/MonthYearCustom'
 
 import Datepicker from '@vuepic/vue-datepicker'
-import MonthYearCustom from '@/components/datepicker/MonthYearCustom'
 import {
   endOfMonth,
   startOfMonth,
@@ -64,8 +65,8 @@ import {
   startOfYesterday,
   endOfYesterday,
 } from 'date-fns'
-import TimePickerCustom from '@/components/datepicker/TimePickerCustom'
-import ActionRowCustom from '@/components/datepicker/ActionRowCustom'
+
+import '@vuepic/vue-datepicker/dist/main.css'
 
 export default {
   name: 'BaseCalendar',
@@ -118,7 +119,6 @@ export default {
   methods: {
     ...mapActions([action.UPDATE_ADDITIONAL_FILTERS]),
     handleDate(modelData) {
-      console.log(modelData)
       try {
         this.selectedDate = [
           new Date(
@@ -152,7 +152,7 @@ export default {
         year: 'numeric',
       })
     },
-    test(range) {
+    addPeriod(range) {
       this.selectedDate = range
     },
     openCalendar() {

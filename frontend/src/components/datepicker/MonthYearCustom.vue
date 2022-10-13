@@ -24,13 +24,13 @@
 
 <script>
 import {defineComponent, computed} from 'vue'
+
 import BaseCalendarSelect from '@/components/datepicker/BaseCalendarSelect'
 import CalendarControlIcon from '@/components/icons/CalendarControlIcon'
 
 export default defineComponent({
   components: {CalendarControlIcon, BaseCalendarSelect},
   emits: ['update-month-year'],
-  // Available props
   props: {
     months: {type: Array, default: () => []},
     years: {type: Array, default: () => []},

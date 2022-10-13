@@ -18,7 +18,7 @@
       <div
         v-for="(option, i) of selectList"
         :key="i"
-        @click="test(option)"
+        @click="addOption(option)"
         class="item"
       >
         {{ option }}
@@ -29,6 +29,7 @@
 
 <script>
 import CalendarArrowDownIcon from '@/components/icons/CalendarArrowDownIcon'
+
 export default {
   components: {CalendarArrowDownIcon},
   props: {
@@ -81,7 +82,7 @@ export default {
     },
   },
   methods: {
-    test(option) {
+    addOption(option) {
       this.$emit('select-option', option)
       this.selected = option
       this.open = false

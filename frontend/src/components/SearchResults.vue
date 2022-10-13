@@ -67,8 +67,9 @@ import {mapState} from 'vuex'
 
 import BaseSpinner from '@/components/BaseSpinner'
 import BaseCheckbox from '@/components/BaseCheckbox'
-import NoImageIcon from '@/components/icons/NoImageIcon'
 import BaseCalendar from '@/components/datepicker/BaseCalendar'
+
+import NoImageIcon from '@/components/icons/NoImageIcon'
 import CalendarIcon from '@/components/icons/CalendarIcon'
 import ArrowDownIcon from '@/components/icons/ArrowDownIcon'
 
@@ -90,8 +91,8 @@ export default {
   computed: {
     ...mapState(['searchData', 'loading', 'additionalFilters']),
     calendarDate() {
-      if (this.additionalFilters.date_range?.length) {
-        const currentDate = this.additionalFilters.date_range.map((el) =>
+      if (this.additionalFilters?.date_range?.length) {
+        const currentDate = this.additionalFilters?.date_range.map((el) =>
           this.formatDate(el)
         )
 

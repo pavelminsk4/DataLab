@@ -50,7 +50,6 @@ export default defineComponent({
     nameMinutes: {type: String, required: true},
   },
   setup() {
-    // Generate array of hours
     const hoursArray = computed(() => {
       const arr = []
       for (let i = 0; i < 24; i++) {
@@ -59,7 +58,6 @@ export default defineComponent({
       return arr
     })
 
-    // Generate array of minutes
     const minutesArray = computed(() => {
       const arr = []
       for (let i = 0; i < 60; i++) {
