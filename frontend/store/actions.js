@@ -175,6 +175,10 @@ export default {
     commit(mutator.SET_ADDITIONAL_FILTERS, data)
   },
 
+  async [action.REFRESH_DISPLAY_CALENDAR]({commit}, val) {
+    commit(mutator.SET_DISPLAY_CALENDAR, val)
+  },
+
   async [action.CLEAR_STATE]({commit}) {
     commit(mutator.RESET_STATE)
   },

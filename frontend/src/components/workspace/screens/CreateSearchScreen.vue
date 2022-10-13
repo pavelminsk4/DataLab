@@ -117,6 +117,7 @@ export default {
     ...mapActions([
       action.UPDATE_NEW_WORKSPACE,
       action.UPDATE_PROJECT_STATE,
+      action.UPDATE_KEYWORDS_LIST,
       action.CREATE_WORKSPACE,
       action.CREATE_PROJECT,
       action.GET_WORKSPACES,
@@ -125,6 +126,11 @@ export default {
     ]),
     showResults() {
       try {
+        this[action.UPDATE_KEYWORDS_LIST]({
+          keywords: this.mainTags,
+          additions: this.additionalTags,
+          exceptions: this.excludeTags,
+        })
         this[action.POST_SEARCH]({
           keywords: this.mainTags,
           additions: this.additionalTags,
@@ -272,7 +278,7 @@ export default {
 .apply-settings {
   align-self: flex-end;
 
-  width: 140px;
+  width: 100%;
 }
 
 .radio-btn {

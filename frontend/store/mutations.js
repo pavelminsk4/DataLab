@@ -26,7 +26,7 @@ export default {
   },
 
   [mutator.SET_KEYWORDS_LIST](state, keywords) {
-    state.keywords = [...state.keywords, ...keywords]
+    state.keywords = {...state.keywords, ...keywords}
   },
 
   [mutator.SET_SEARCH_DATA](state, data) {
@@ -93,5 +93,9 @@ export default {
       source: '',
       workspace: null,
     }
+  },
+
+  [mutator.SET_DISPLAY_CALENDAR](state, value) {
+    state.isShowCalendar = value
   },
 }

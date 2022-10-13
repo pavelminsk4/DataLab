@@ -65,7 +65,7 @@
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import {mapActions, mapState} from 'vuex'
 
 import BaseSpinner from '@/components/BaseSpinner'
 import BaseCheckbox from '@/components/BaseCheckbox'
@@ -74,6 +74,7 @@ import BaseCalendar from '@/components/datepicker/BaseCalendar'
 import NoImageIcon from '@/components/icons/NoImageIcon'
 import CalendarIcon from '@/components/icons/CalendarIcon'
 import ArrowDownIcon from '@/components/icons/ArrowDownIcon'
+import {action} from '@store/constants'
 
 export default {
   name: 'SearchResults',
@@ -87,14 +88,19 @@ export default {
   },
   data() {
     return {
-      isShowCalendar: false,
+      isShow: false,
     }
   },
   created() {
     document.addEventListener('click', this.close)
   },
   computed: {
-    ...mapState(['searchData', 'loading', 'additionalFilters']),
+    ...mapState([
+      'searchData',
+      'loading',
+      'additionalFilters',
+      'isShowCalendar',
+    ]),
     calendarDate() {
       if (this.additionalFilters?.date_range?.length) {
         const currentDate = this.additionalFilters?.date_range.map((el) =>
@@ -108,6 +114,7 @@ export default {
     },
   },
   methods: {
+    ...mapActions([action.REFRESH_DISPLAY_CALENDAR]),
     dateOfCreation(date) {
       return new Date(date).toLocaleDateString('en-US', {
         month: 'long',
@@ -126,13 +133,18 @@ export default {
       })
     },
     openCalendar() {
-      this.isShowCalendar = !this.isShowCalendar
+      if (this.isShowCalendar) {
+        this.isShow = false
+      } else {
+        this.isShow = true
+      }
+      this[action.REFRESH_DISPLAY_CALENDAR](this.isShow)
     },
     close() {
       const elements = document.querySelectorAll('.calendar-wrapper')
 
       if (!Array.from(elements).find((el) => el.contains(event.target))) {
-        this.isShowCalendar = false
+        this[action.REFRESH_DISPLAY_CALENDAR](false)
       }
     },
   },

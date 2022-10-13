@@ -1,11 +1,14 @@
 <template>
   <div class="custom-action-row">
-    <BaseButton class="button" @click="$emit('selectDate')">Apply</BaseButton>
+    <BaseButton class="button" @click="applyChanges">Apply</BaseButton>
   </div>
 </template>
 
 <script>
+import {mapActions} from 'vuex'
 import {defineComponent} from 'vue'
+import {action} from '@store/constants'
+
 import BaseButton from '@/components/buttons/BaseButton'
 
 export default defineComponent({
@@ -22,6 +25,13 @@ export default defineComponent({
     },
     monthPicker: {type: Boolean, default: false},
     timePicker: {type: Boolean, default: false},
+  },
+  methods: {
+    ...mapActions([action.REFRESH_DISPLAY_CALENDAR]),
+    applyChanges() {
+      this.$emit('selectDate')
+      this[action.REFRESH_DISPLAY_CALENDAR](false)
+    },
   },
 })
 </script>
