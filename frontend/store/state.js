@@ -6,7 +6,7 @@ const state = {
   workspace: '',
   userInfo: [],
   channelType: '',
-  keywords: [],
+  keywords: {},
   searchData: [],
   countries: [],
   languages: [],
@@ -38,6 +38,7 @@ const state = {
     source: '',
     workspace: null,
   },
+  isShowCalendar: false,
 }
 
 export default state

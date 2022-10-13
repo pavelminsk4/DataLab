@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import {mapActions} from 'vuex'
+import {mapActions, mapState} from 'vuex'
 import {action} from '@store/constants'
 
 import TimePickerCustom from '@/components/datepicker/TimePickerCustom'
@@ -106,6 +106,7 @@ export default {
     }
   },
   computed: {
+    ...mapState(['additionalFilters', 'keywords']),
     monthYearCustom() {
       return MonthYearCustom
     },
@@ -117,7 +118,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions([action.UPDATE_ADDITIONAL_FILTERS]),
+    ...mapActions([action.UPDATE_ADDITIONAL_FILTERS, action.POST_SEARCH]),
     handleDate(modelData) {
       try {
         this.selectedDate = [
@@ -141,6 +142,17 @@ export default {
           ),
         ]
         this[action.UPDATE_ADDITIONAL_FILTERS]({date_range: this.selectedDate})
+        this[action.POST_SEARCH]({
+          keywords: this.keywords?.keywords || [],
+          additions: this.keywords?.additions || [],
+          exceptions: this.keywords?.exceptions || [],
+          country: this.additionalFilters?.country || [],
+          language: this.additionalFilters?.language || [],
+          sentiment: this.additionalFilters?.sentiment || [],
+          date_range: this.additionalFilters?.date_range || [],
+          source: this.additionalFilters?.source || [],
+          author: this.additionalFilters?.author || [],
+        })
       } catch (e) {
         console.log(e)
       }
