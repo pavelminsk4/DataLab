@@ -1,15 +1,15 @@
 <template>
   <div class="custom-action-row">
-    <button class="select-button" @click="$emit('selectDate')">
-      Select Date
-    </button>
+    <BaseButton class="button" @click="$emit('selectDate')">Apply</BaseButton>
   </div>
 </template>
 
 <script>
 import {defineComponent} from 'vue'
+import BaseButton from '@/components/buttons/BaseButton'
 
 export default defineComponent({
+  components: {BaseButton},
   emits: ['selectDate', 'closePicker'],
   props: {
     selectText: {type: String, default: 'Select'},
@@ -26,26 +26,20 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .custom-action-row {
+  position: absolute;
+  right: 40px;
+  bottom: 35px;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
-}
 
-.current-selection {
-  margin: 10px 0 0 0;
-}
+  margin-top: 25px;
 
-.select-button {
-  display: block;
-  background: transparent;
-  border: 1px solid var(--dp-success-color);
-  color: var(--dp-success-color);
-  border-radius: 4px;
-  padding: 5px;
-  margin: 10px;
-  cursor: pointer;
+  .button {
+    width: 235px;
+  }
 }
 </style>

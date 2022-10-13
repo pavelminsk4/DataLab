@@ -11,16 +11,6 @@
     inline
     class="datepicker-wrapper"
   >
-    <template #trigger>
-      <div class="trigger-wrapper">
-        <CalendarIcon class="dp-icon" />
-        <div>
-          {{ formatDate(selectedDate[0]) - formatDate(selectedDate[1]) }}
-        </div>
-        <ArrowDownIcon :class="[isOpenCalendar && 'open-calendar']" />
-      </div>
-    </template>
-
     <template #right-sidebar>
       <div class="fixed-period-wrapper">
         <div
@@ -66,8 +56,6 @@ import {action} from '@store/constants'
 import '@vuepic/vue-datepicker/dist/main.css'
 
 import Datepicker from '@vuepic/vue-datepicker'
-import CalendarIcon from '@/components/icons/CalendarIcon'
-import ArrowDownIcon from '@/components/icons/ArrowDownIcon'
 import MonthYearCustom from '@/components/datepicker/MonthYearCustom'
 import {
   endOfMonth,
@@ -83,14 +71,11 @@ export default {
   name: 'BaseCalendar',
   components: {
     TimePickerCustom,
-    ArrowDownIcon,
-    CalendarIcon,
     Datepicker,
   },
   data() {
     return {
       selectedDate: [new Date(), new Date()],
-      isOpenCalendar: false,
       presetRanges: [
         {
           label: 'Last Week',
@@ -133,6 +118,7 @@ export default {
   methods: {
     ...mapActions([action.UPDATE_ADDITIONAL_FILTERS]),
     handleDate(modelData) {
+      console.log(modelData)
       try {
         this.selectedDate = [
           new Date(
@@ -194,27 +180,8 @@ export default {
 <style lang="scss" scoped>
 .datepicker-wrapper {
   position: absolute;
-  top: 232px;
+  top: 248px;
   right: 69px;
-}
-
-.trigger-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-
-  width: 100%;
-  padding: 10px 16px 10px 25px;
-
-  background: var(--secondary-bg-color);
-  border: 1px solid var(--input-border-color);
-  box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
-  border-radius: 8px;
-
-  color: var(--primary-text-color);
-
-  cursor: pointer;
 }
 
 .open-calendar {
@@ -226,7 +193,7 @@ export default {
   flex-wrap: wrap;
   gap: 8px;
 
-  max-width: 285px;
+  max-width: 235px;
   margin-bottom: 20px;
 
   .fixed-period {
@@ -240,6 +207,11 @@ export default {
     background-color: var(--progress-line);
 
     cursor: pointer;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 20px;
     color: var(--secondary-text-color);
 
     &:hover {
@@ -273,6 +245,9 @@ export default {
     border: 1px solid var(--modal-border-color);
     border-radius: 10px;
 
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
     color: var(--primary-text-color);
   }
 }
@@ -296,6 +271,11 @@ export default {
 .dp__calendar_wrap {
   .dp__calendar_header {
     color: rgba(255, 255, 255, 0.5);
+
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 166%;
   }
 
   .dp__calendar_header_separator {
@@ -307,16 +287,39 @@ export default {
       .dp__calendar_item {
         .dp__range_start,
         .dp__range_end {
-          border-radius: 6px;
-          color: var(--primary-button-color);
+          border: none;
+          background-color: var(--primary-button-color);
+        }
+
+        .dp__range_start {
+          border-top-left-radius: 6px;
+          border-bottom-left-radius: 6px;
+        }
+
+        .dp__range_end {
+          border-top-right-radius: 6px;
+          border-bottom-right-radius: 6px;
         }
 
         .dp__cell_inner {
+          font-style: normal;
+          font-weight: 400;
+          font-size: 12px;
+          line-height: 143%;
           color: var(--primary-text-color);
         }
 
         .dp__cell_offset {
+          font-style: normal;
+          font-weight: 400;
+          font-size: 12px;
+          line-height: 143%;
           color: rgba(255, 255, 255, 0.3);
+        }
+
+        .dp__range_between {
+          border: none;
+          background-color: rgba(5, 95, 252, 0.2);
         }
       }
     }

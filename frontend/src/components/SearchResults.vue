@@ -2,7 +2,13 @@
   <div class="search-result-wrapper">
     <div class="filters">
       <div>{{ searchData.length }} results</div>
-      <BaseCalendar />
+
+      <div class="trigger-wrapper" @click="openCalendar">
+        <CalendarIcon class="dp-icon" />
+        <div>{{ calendarDate }}</div>
+        <ArrowDownIcon :class="[isShowCalendar && 'open-calendar']" />
+      </div>
+      <BaseCalendar v-if="isShowCalendar" />
     </div>
     <div v-if="loading" class="spinner-wrapper"><BaseSpinner /></div>
     <div v-if="searchData.length" class="search-result-cards">
@@ -63,17 +69,37 @@ import BaseSpinner from '@/components/BaseSpinner'
 import BaseCheckbox from '@/components/BaseCheckbox'
 import NoImageIcon from '@/components/icons/NoImageIcon'
 import BaseCalendar from '@/components/datepicker/BaseCalendar'
+import CalendarIcon from '@/components/icons/CalendarIcon'
+import ArrowDownIcon from '@/components/icons/ArrowDownIcon'
 
 export default {
   name: 'SearchResults',
   components: {
+    ArrowDownIcon,
+    CalendarIcon,
     BaseCalendar,
     BaseCheckbox,
     BaseSpinner,
     NoImageIcon,
   },
+  data() {
+    return {
+      isShowCalendar: false,
+    }
+  },
   computed: {
-    ...mapState(['searchData', 'loading']),
+    ...mapState(['searchData', 'loading', 'additionalFilters']),
+    calendarDate() {
+      if (this.additionalFilters.date_range?.length) {
+        const currentDate = this.additionalFilters.date_range.map((el) =>
+          this.formatDate(el)
+        )
+
+        return `${currentDate[0]} - ${currentDate[1]}`
+      } else {
+        return `${this.formatDate(new Date())} - ${this.formatDate(new Date())}`
+      }
+    },
   },
   methods: {
     dateOfCreation(date) {
@@ -85,6 +111,16 @@ export default {
     },
     capitalizeFirstLetter(string) {
       return string.charAt(0).toUpperCase() + string.slice(1)
+    },
+    formatDate(date) {
+      return date.toLocaleString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+      })
+    },
+    openCalendar() {
+      this.isShowCalendar = !this.isShowCalendar
     },
   },
 }
@@ -99,6 +135,33 @@ export default {
   width: 43vw;
 
   color: var(--primary-text-color);
+}
+
+.trigger-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+
+  max-width: 270px;
+  padding: 10px 16px 10px 25px;
+
+  background: var(--secondary-bg-color);
+  border: 1px solid var(--input-border-color);
+  box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
+  border-radius: 8px;
+
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--primary-text-color);
+
+  cursor: pointer;
+}
+
+.open-calendar {
+  transform: rotate(180deg);
 }
 
 .filters {
