@@ -3,12 +3,14 @@
     <div class="filters">
       <div>{{ searchData.length }} results</div>
 
-      <div class="trigger-wrapper" @click="openCalendar">
-        <CalendarIcon class="dp-icon" />
-        <div>{{ calendarDate }}</div>
-        <ArrowDownIcon :class="[isShowCalendar && 'open-calendar']" />
+      <div class="calendar-wrapper">
+        <div class="trigger-wrapper" @click="openCalendar">
+          <CalendarIcon class="dp-icon" />
+          <div>{{ calendarDate }}</div>
+          <ArrowDownIcon :class="[isShowCalendar && 'open-calendar']" />
+        </div>
+        <BaseCalendar v-if="isShowCalendar" />
       </div>
-      <BaseCalendar v-if="isShowCalendar" />
     </div>
     <div v-if="loading" class="spinner-wrapper"><BaseSpinner /></div>
     <div v-if="searchData.length" class="search-result-cards">
@@ -88,6 +90,9 @@ export default {
       isShowCalendar: false,
     }
   },
+  created() {
+    document.addEventListener('click', this.close)
+  },
   computed: {
     ...mapState(['searchData', 'loading', 'additionalFilters']),
     calendarDate() {
@@ -122,6 +127,13 @@ export default {
     },
     openCalendar() {
       this.isShowCalendar = !this.isShowCalendar
+    },
+    close() {
+      const elements = document.querySelectorAll('.calendar-wrapper')
+
+      if (!Array.from(elements).find((el) => el.contains(event.target))) {
+        this.isShowCalendar = false
+      }
     },
   },
 }

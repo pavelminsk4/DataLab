@@ -182,6 +182,7 @@ export default {
   position: absolute;
   top: 248px;
   right: 69px;
+  z-index: 2;
 }
 
 .open-calendar {
