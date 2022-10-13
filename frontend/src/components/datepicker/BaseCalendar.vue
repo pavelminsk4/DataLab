@@ -20,12 +20,16 @@
     </template>
 
     <template #right-sidebar>
-      <span
-        v-for="(item, index) in presetRanges"
-        :key="index + 'year'"
-        @click="test(item.range)"
-        >{{ item.label }}
-      </span>
+      <div class="fixed-period-wrapper">
+        <div
+          v-for="(item, index) in presetRanges"
+          :key="index + 'year'"
+          @click="test(item.range)"
+          class="fixed-period"
+        >
+          {{ item.label }}
+        </div>
+      </div>
 
       <div>Start date</div>
       <div>1</div>
@@ -60,10 +64,10 @@ import ArrowDownIcon from '@/components/icons/ArrowDownIcon'
 import MonthYearCustom from '@/components/datepicker/MonthYearCustom'
 import {
   endOfMonth,
-  endOfYear,
   startOfMonth,
-  startOfYear,
   subMonths,
+  startOfYesterday,
+  endOfYesterday,
 } from 'date-fns'
 import TimePickerCustom from '@/components/datepicker/TimePickerCustom'
 import ActionRowCustom from '@/components/datepicker/ActionRowCustom'
@@ -81,10 +85,18 @@ export default {
       selectedDate: [new Date(), new Date()],
       isOpenCalendar: false,
       presetRanges: [
+        {
+          label: 'Last Week',
+          range: [this.getLastWeeksDate(), new Date()],
+        },
+        {
+          label: 'Yesterday',
+          range: [startOfYesterday(new Date()), endOfYesterday(new Date())],
+        },
         {label: 'Today', range: [new Date(), new Date()]},
         {
-          label: 'This month',
-          range: [startOfMonth(new Date()), endOfMonth(new Date())],
+          label: 'Last 3 month',
+          range: [this.getLastThreeMonthsDate(), new Date()],
         },
         {
           label: 'Last month',
@@ -92,15 +104,6 @@ export default {
             startOfMonth(subMonths(new Date(), 1)),
             endOfMonth(subMonths(new Date(), 1)),
           ],
-        },
-        {
-          label: 'This year',
-          range: [startOfYear(new Date()), endOfYear(new Date())],
-        },
-        {
-          label: 'This year (slot)',
-          range: [startOfYear(new Date()), endOfYear(new Date())],
-          slot: 'yearly',
         },
       ],
       hoursStartDate: '',
@@ -123,6 +126,7 @@ export default {
   methods: {
     ...mapActions([action.UPDATE_ADDITIONAL_FILTERS]),
     handleDate(modelData) {
+      console.log(this.presetRanges)
       console.log(this.hoursStartDate, modelData[0].getHours())
       try {
         this.selectedDate = [
@@ -169,6 +173,18 @@ export default {
     updateTimePicker(value, name) {
       this[name] = value
     },
+    getLastWeeksDate() {
+      const now = new Date()
+
+      return new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7)
+    },
+    getLastThreeMonthsDate() {
+      return new Date(
+        new Date().getFullYear(),
+        new Date().getMonth() - 3,
+        new Date().getDate()
+      )
+    },
   },
 }
 </script>
@@ -202,13 +218,41 @@ export default {
 .open-calendar {
   transform: rotate(180deg);
 }
+
+.fixed-period-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  max-width: 285px;
+  margin-bottom: 20px;
+
+  .fixed-period {
+    display: flex;
+    white-space: nowrap;
+
+    max-width: fit-content;
+    padding: 4px 10px;
+
+    border-radius: 8px;
+    background-color: var(--progress-line);
+
+    cursor: pointer;
+    color: var(--secondary-text-color);
+
+    &:hover {
+      color: var(--primary-button-color);
+      background-color: rgba(5, 95, 252, 0.1);
+    }
+  }
+}
 </style>
 
 <style lang="scss">
 .dp__menu {
   padding: 39px 40px 39px 31px;
 
-  background: red;
+  background: var(--secondary-bg-color);
   border: 1px solid var(--input-border-color);
   box-shadow: -4px 4px 20px rgba(16, 16, 16, 0.4);
   border-radius: 10px;
@@ -231,6 +275,12 @@ export default {
   .dp__calendar {
     .dp__calendar_row {
       .dp__calendar_item {
+        .dp__range_start,
+        .dp__range_end {
+          border-radius: 6px;
+          color: var(--primary-button-color);
+        }
+
         .dp__cell_inner {
           color: var(--primary-text-color);
         }
@@ -244,6 +294,9 @@ export default {
 }
 
 .dp__sidebar_right {
+  margin-left: 35px;
+  padding: 0;
+
   border: none;
 }
 </style>
