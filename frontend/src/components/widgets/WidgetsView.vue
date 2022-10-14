@@ -24,7 +24,11 @@
       :maxW="item.maxW"
       :maxH="item.maxH"
     >
-      <SummaryWidget :summary-data="summary" />
+      <component
+        :is="`${item.widgetName}` + 'Widget'"
+        :summary-data="summary"
+        :volume="volume"
+      />
     </grid-item>
   </grid-layout>
 </template>
@@ -35,11 +39,17 @@ import {action, get} from '@store/constants'
 
 import VueGridLayout from 'vue3-grid-layout'
 import SummaryWidget from '@/components/widgets/SummaryWidget'
+import ContentVolumeWidget from '@/components/widgets/ContentVolumeWidget'
+import VolumeLineWidget from '@/components/widgets/VolumeLineWidget'
+import BarWidget from '@/components/widgets/BarWidget'
 
 export default {
   name: 'WidgetsView',
   components: {
     SummaryWidget,
+    ContentVolumeWidget,
+    VolumeLineWidget,
+    BarWidget,
     GridLayout: VueGridLayout.GridLayout,
     GridItem: VueGridLayout.GridItem,
   },
@@ -63,18 +73,59 @@ export default {
           minH: 6,
           maxW: 2,
           maxH: 6,
+          widgetName: 'Summary',
+        },
+        {
+          x: 0,
+          y: 1,
+          w: 2,
+          h: 10,
+          i: '1',
+          static: false,
+          minW: 2,
+          minH: 5,
+          maxW: 2,
+          maxH: 6,
+          widgetName: 'ContentVolume',
+        },
+        {
+          x: 2,
+          y: 3,
+          w: 2,
+          h: 10,
+          i: '2',
+          static: false,
+          minW: 2,
+          minH: 5,
+          maxW: 2,
+          maxH: 6,
+          widgetName: 'VolumeLine',
+        },
+        {
+          x: 2,
+          y: 3,
+          w: 2,
+          h: 10,
+          i: '3',
+          static: false,
+          minW: 2,
+          minH: 5,
+          maxW: 2,
+          maxH: 6,
+          widgetName: 'Bar',
         },
       ],
     }
   },
   created() {
     this[action.GET_SUMMARY_WIDGET](this.projectId)
+    this[action.GET_VOLUME_WIDGET](this.projectId)
   },
   computed: {
-    ...mapGetters({summary: get.SUMMARY_WIDGET}),
+    ...mapGetters({summary: get.SUMMARY_WIDGET, volume: get.VOLUME_WIDGET}),
   },
   methods: {
-    ...mapActions([action.GET_SUMMARY_WIDGET]),
+    ...mapActions([action.GET_SUMMARY_WIDGET, action.GET_VOLUME_WIDGET]),
   },
 }
 </script>

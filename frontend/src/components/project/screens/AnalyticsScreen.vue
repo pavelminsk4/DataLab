@@ -11,7 +11,8 @@
 
     <div class="navigation-bar">
       <BaseButton class="button" @click="toggleWidgetsModal">
-        <PlusIcon class="icon" />Add Widgets
+        <PlusIcon class="icon" />
+        Add Widgets
       </BaseButton>
     </div>
     <WidgetsView :project-id="currentProject.id" />
