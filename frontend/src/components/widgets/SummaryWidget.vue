@@ -1,9 +1,5 @@
 <template>
-  <section class="summary-widget">
-    <div class="summary-widget__header">
-      <div class="title">Summary</div>
-    </div>
-
+  <WidgetsLayout title="Summary">
     <div class="summary-widget__container">
       <table>
         <tr v-for="(item, index) in widgetMetricsFirst" :key="'metric' + index">
@@ -28,12 +24,14 @@
         </tr>
       </table>
     </div>
-  </section>
+  </WidgetsLayout>
 </template>
 
 <script>
+import WidgetsLayout from '@/components/layout/WidgetsLayout'
 export default {
   name: 'SummaryWidget',
+  components: {WidgetsLayout},
   props: {
     summaryData: {
       type: [Array, Object],
@@ -62,75 +60,52 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.summary-widget {
+.summary-widget__container {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
 
-  min-width: 100%;
-  min-height: 100%;
-  padding: 12px 20px 35px;
+  margin-top: 25px;
 
-  &__header {
-    width: 100%;
-    padding-bottom: 12px;
-
-    border-bottom: 1px solid var(--input-border-color);
-
-    .title {
-      font-style: normal;
-      font-weight: 600;
-      font-size: 16px;
-      line-height: 22px;
-    }
+  table {
+    color: var(--primary-text-color);
   }
 
-  &__container {
-    display: flex;
-    justify-content: space-between;
+  .metric-name {
+    width: 100px;
 
-    margin-top: 25px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 20px;
+    color: var(--secondary-text-color);
+  }
 
-    table {
-      color: var(--primary-text-color);
-    }
+  .summary-name {
+    width: 150px;
+  }
 
-    .metric-name {
-      width: 100px;
+  .metric-value {
+    width: 32px;
 
-      font-style: normal;
-      font-weight: 400;
-      font-size: 12px;
-      line-height: 20px;
-      color: var(--secondary-text-color);
-    }
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+  }
 
-    .summary-name {
-      width: 150px;
-    }
+  .metric-count {
+    width: 21px;
 
-    .metric-value {
-      width: 32px;
+    color: var(--negative-status);
+  }
 
-      font-style: normal;
-      font-weight: 600;
-      font-size: 16px;
-      line-height: 22px;
-    }
+  .metric-badge {
+    padding: 3px 9px;
 
-    .metric-count {
-      width: 21px;
+    border-radius: 29px;
+    background-color: rgba(51, 204, 112, 0.2);
 
-      color: var(--negative-status);
-    }
-
-    .metric-badge {
-      padding: 3px 9px;
-
-      border-radius: 29px;
-      background-color: rgba(51, 204, 112, 0.2);
-
-      color: var(--tag-color);
-    }
+    color: var(--tag-color);
   }
 }
 </style>
