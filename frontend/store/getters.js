@@ -52,4 +52,8 @@ export default {
   [get.SUMMARY_WIDGET](state) {
     return state.summary
   },
+
+  [get.VOLUME_WIDGET](state) {
+    return state.volume
+  },
 }
