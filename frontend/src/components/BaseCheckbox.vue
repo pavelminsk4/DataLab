@@ -1,20 +1,35 @@
 <template>
   <label class="container container-header">
-    <input type="checkbox" />
+    <input type="checkbox" :id="id" v-model="checked" @change="click" />
     <span class="checkmark">
-      <CheckRadioIcon class="checkmark-icon" />
+      <CheckIcon class="checkmark-icon" />
     </span>
-    <div class="title"><slot></slot></div>
+    <div class="title">
+      <slot></slot>
+    </div>
   </label>
 </template>
 
 <script>
-import CheckRadioIcon from '@components/icons/CheckIcon'
-
+import CheckIcon from '@/components/icons/CheckIcon'
 export default {
   name: 'BaseCheckbox',
-  components: {
-    CheckRadioIcon,
+  components: {CheckIcon},
+  props: {
+    modelValue: {type: Boolean, default: false},
+    label: {type: String},
+    id: {type: Number},
+  },
+  emits: ['change'],
+  data() {
+    return {
+      checked: this.modelValue,
+    }
+  },
+  methods: {
+    click() {
+      this.$emit('change', {id: this.id, checked: this.checked})
+    },
   },
 }
 </script>
@@ -23,9 +38,10 @@ export default {
 .container {
   position: relative;
 
-  display: block;
+  display: flex;
 
   font-size: 22px;
+  margin-bottom: 10px;
 
   cursor: pointer;
 
@@ -62,7 +78,7 @@ export default {
 }
 
 .title {
-  margin-left: 27px;
+  margin-left: 10px;
 
   font-style: normal;
   font-weight: 400;

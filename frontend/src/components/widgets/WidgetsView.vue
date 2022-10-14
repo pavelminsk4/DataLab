@@ -102,7 +102,7 @@ export default {
 .vue-grid-item.vue-grid-placeholder {
   border-radius: 8px;
   border: 1px solid var(--input-border-color);
-  background-color: var(--secondary-text-color);
+  background: var(--secondary-text-color);
 }
 
 .vue-resizable-handle {

@@ -29,6 +29,10 @@ export default {
 
 <style lang="scss">
 .base-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   cursor: pointer;
   outline: none;
 

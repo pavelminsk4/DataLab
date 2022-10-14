@@ -87,8 +87,8 @@ export default {
   outline: 0;
   transition: opacity 0.15s linear;
 
-  background-color: rgba(0, 0, 0, 0.7);
-  box-shadow: 0px 4px 10px rgba(16, 16, 16, 0.25);
+  background: rgba(0, 0, 0, 0.7);
+  box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
 }
 
 .base-modal {
