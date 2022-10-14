@@ -110,6 +110,18 @@ export default {
     }
   },
 
+  async [action.GET_VOLUME_WIDGET]({commit}, projectId) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const volume = await api.getVolumeWidget(projectId)
+      commit(mutator.SET_VOLUME_WIDGET, volume)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
   async [action.CREATE_WORKSPACE]({commit}, workspace) {
     commit(mutator.SET_LOADING, true)
     try {

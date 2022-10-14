@@ -65,6 +65,10 @@ export default {
     state.summary = {...data}
   },
 
+  [mutator.SET_VOLUME_WIDGET](state, data) {
+    state.volume = {...data}
+  },
+
   [mutator.RESET_STATE](state) {
     state.currentStep = 'Step1'
     state.keywords = []

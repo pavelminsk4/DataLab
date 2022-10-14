@@ -14,6 +14,7 @@ const state = {
   authors: [],
   additionalFilters: {},
   summary: {},
+  volume: {},
   newWorkspace: {
     title: '',
     description: '',
