@@ -1,7 +1,7 @@
 from celery import shared_task
 from datetime import datetime
 import feedparser
-from project.models import Feedlinks, Post, Speech
+from project.models import Feedlinks, Post, Speech, Status
 from django.core.paginator import Paginator
 import ssl
 from langcodes import *
@@ -49,6 +49,9 @@ def post_creator():
       print(i)
       print('---------<')
       i += 1
+      status = Status.objects.first()  
+      status.progress = i
+      status.save()
       url = feed.url
       try:
         print('----try')
