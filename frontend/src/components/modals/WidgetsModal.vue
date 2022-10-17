@@ -1,6 +1,6 @@
 <template>
   <BaseModal>
-    <section>
+    <section class="widgets-wrapper">
       <div class="title">Widgets</div>
       <BaseCheckbox
         v-for="(item, index) of typesOfWidgets"
@@ -8,8 +8,11 @@
         :label="item.name"
         :id="index"
         @change="onChange"
-        >{{ item.name }}</BaseCheckbox
       >
+        {{ item.name }}
+      </BaseCheckbox>
+
+      <BaseButton class="button">Save</BaseButton>
     </section>
   </BaseModal>
 </template>
@@ -17,10 +20,12 @@
 <script>
 import BaseModal from '@components/modals/BaseModal'
 import BaseCheckbox from '@/components/BaseCheckbox'
+import BaseButton from '@/components/buttons/BaseButton'
 
 export default {
   name: 'WidgetsModal',
   components: {
+    BaseButton,
     BaseCheckbox,
     BaseModal,
   },
@@ -54,6 +59,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.widgets-wrapper {
+  display: flex;
+  flex-direction: column;
+
+  width: 47vw;
+}
+
 .title {
   margin-bottom: 25px;
 
@@ -62,6 +74,12 @@ export default {
   font-size: 36px;
   line-height: 54px;
   color: var(--primary-text-color);
+}
+
+.button {
+  align-self: flex-end;
+
+  width: 103px;
 }
 
 .settings-options {

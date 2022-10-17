@@ -1,31 +1,18 @@
 <template>
   <WidgetsLayout title="Volume">
-    <BarChart
-      :chart-data="config"
-      :options="options"
-      class="volume-chart-wrapper"
-    />
+    <ChartsView :chart-data="chartData" :chart-options="chartOptions" />
   </WidgetsLayout>
 </template>
 
 <script>
-import {BarChart} from 'vue-chart-3'
-import {
-  Chart,
-  BarController,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Tooltip,
-} from 'chart.js'
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
-Chart.register(BarController, CategoryScale, LinearScale, BarElement, Tooltip)
+import ChartsView from '@/components/widgets/charts/ChartsView'
 
 export default {
   name: 'ContentVolumeWidget',
   components: {
+    ChartsView,
     WidgetsLayout,
-    BarChart,
   },
   props: {
     volume: {
@@ -33,39 +20,40 @@ export default {
       default: () => [],
     },
   },
-  data() {
-    return {
-      options: {
-        plugins: {
-          title: {
-            text: 'Bar',
-          },
-        },
-      },
-    }
-  },
   computed: {
     volumeData() {
       return Object.values(this.volume)
     },
-    volumeDate() {
+    volumeLabels() {
       return this.volumeData.map((el) => this.formatDate(el.date))
     },
-    volumeCount() {
+    volumeValue() {
       return this.volumeData.map((el) => el.created_count)
     },
-    config() {
+    chartData() {
       return {
-        labels: this.volumeDate,
+        labels: this.volumeLabels,
+        legend: {
+          display: false,
+        },
         datasets: [
           {
-            label: 'Volume',
-            data: this.volumeCount,
+            data: this.volumeValue,
             backgroundColor: ['rgba(5, 95, 252, 0.2)'],
             borderColor: ['#055FFC'],
             borderWidth: 1,
+            tension: 0.4,
           },
         ],
+      }
+    },
+    chartOptions() {
+      return {
+        plugins: {
+          legend: false,
+        },
+        responsive: true,
+        maintainAspectRatio: false,
       }
     },
   },

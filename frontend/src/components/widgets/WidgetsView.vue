@@ -12,6 +12,7 @@
     <grid-item
       class="widget-item"
       v-for="item in layout"
+      v-show="item.isShow"
       :static="item.static"
       :x="item.x"
       :y="item.y"
@@ -42,10 +43,12 @@ import SummaryWidget from '@/components/widgets/SummaryWidget'
 import ContentVolumeWidget from '@/components/widgets/ContentVolumeWidget'
 import VolumeLineWidget from '@/components/widgets/VolumeLineWidget'
 import BarWidget from '@/components/widgets/BarWidget'
+import ChartsView from '@/components/widgets/charts/ChartsView'
 
 export default {
   name: 'WidgetsView',
   components: {
+    ChartsView,
     SummaryWidget,
     ContentVolumeWidget,
     VolumeLineWidget,
@@ -74,11 +77,12 @@ export default {
           maxW: 2,
           maxH: 6,
           widgetName: 'Summary',
+          isShow: false,
         },
         {
           x: 0,
           y: 1,
-          w: 2,
+          w: 6,
           h: 10,
           i: '1',
           static: false,
@@ -87,6 +91,7 @@ export default {
           maxW: 2,
           maxH: 6,
           widgetName: 'ContentVolume',
+          isShow: true,
         },
         {
           x: 2,
@@ -100,6 +105,7 @@ export default {
           maxW: 2,
           maxH: 6,
           widgetName: 'VolumeLine',
+          isShow: false,
         },
         {
           x: 2,
@@ -113,6 +119,7 @@ export default {
           maxW: 2,
           maxH: 6,
           widgetName: 'Bar',
+          isShow: false,
         },
       ],
     }
