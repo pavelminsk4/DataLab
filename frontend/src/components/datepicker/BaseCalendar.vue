@@ -1,6 +1,6 @@
 <template>
   <Datepicker
-    v-model="selectedDate"
+    v-model="selectedDateProxy"
     :month-year-component="monthYearCustom"
     :enableTimePicker="false"
     :action-row-component="actionRowCustom"
@@ -25,7 +25,7 @@
 
       <div class="right-side-title">Start date</div>
       <div class="time-picker">
-        <div class="current-date">{{ formatDate(selectedDate[0]) }}</div>
+        <div class="current-date">{{ formatDate(selectedDateProxy[0]) }}</div>
         <TimePickerCustom
           :name-hours="'hoursStartDate'"
           :name-minutes="'minutesStartDate'"
@@ -37,7 +37,7 @@
       <div class="right-side-title">Ending date</div>
 
       <div class="time-picker">
-        <div class="current-date">{{ formatDate(selectedDate[1]) }}</div>
+        <div class="current-date">{{ formatDate(selectedDateProxy[1]) }}</div>
         <TimePickerCustom
           :name-hours="'hoursEndDate'"
           :name-minutes="'minutesEndDate'"
@@ -110,6 +110,14 @@ export default {
     monthYearCustom() {
       return MonthYearCustom
     },
+    selectedDateProxy: {
+      get() {
+        return this.additionalFilters.date_range || this.selectedDate
+      },
+      set(val) {
+        this[action.UPDATE_ADDITIONAL_FILTERS]({date_range: val})
+      },
+    },
     timePickerCustom() {
       return TimePickerCustom
     },
@@ -165,7 +173,7 @@ export default {
       })
     },
     addPeriod(range) {
-      this.selectedDate = range
+      this.selectedDateProxy = range
     },
     openCalendar() {
       this.isOpenCalendar = !this.isOpenCalendar
