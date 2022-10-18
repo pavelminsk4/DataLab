@@ -35,11 +35,7 @@ export default {
     ...mapState(['userInfo', 'workspaces']),
   },
   methods: {
-    ...mapActions([
-      action.LOGOUT,
-      action.GET_USER_INFORMATION,
-      action.GET_WORKSPACES,
-    ]),
+    ...mapActions([action.GET_USER_INFORMATION, action.GET_WORKSPACES]),
   },
 }
 </script>

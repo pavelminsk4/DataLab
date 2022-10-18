@@ -11,7 +11,6 @@
         />
 
         <div v-if="isOpenDropdown" class="dropdown">
-          <div class="item">Settings</div>
           <div @click="logout" class="item">Logout</div>
         </div>
       </section>
@@ -21,7 +20,7 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
+import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
 import LogoIcon from '@components/icons/LogoIcon'
@@ -51,8 +50,9 @@ export default {
     },
   },
   methods: {
-    async logout() {
-      await this[action.LOGOUT]()
+    ...mapActions([action.LOGOUT]),
+    logout() {
+      this[action.LOGOUT]()
     },
 
     goToDashboard() {
