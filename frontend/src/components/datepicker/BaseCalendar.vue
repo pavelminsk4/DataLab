@@ -76,7 +76,7 @@ export default {
   },
   data() {
     return {
-      selectedDate: [new Date(), new Date()],
+      selectedDate: [this.getLastWeeksDate(), new Date()],
       presetRanges: [
         {
           label: 'Last Week',
@@ -144,8 +144,8 @@ export default {
         this[action.UPDATE_ADDITIONAL_FILTERS]({date_range: this.selectedDate})
         this[action.POST_SEARCH]({
           keywords: this.keywords?.keywords || [],
-          additions: this.keywords?.additions || [],
-          exceptions: this.keywords?.exceptions || [],
+          additions: this.keywords?.additional_keywords || [],
+          exceptions: this.keywords?.ignore_keywords || [],
           country: this.additionalFilters?.country || [],
           language: this.additionalFilters?.language || [],
           sentiment: this.additionalFilters?.sentiment || [],

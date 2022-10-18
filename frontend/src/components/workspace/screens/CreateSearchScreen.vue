@@ -28,9 +28,10 @@
 
       <div class="second-title">Define the main keywords (OR)</div>
       <BaseTag
-        v-model="mainTags"
+        @update:modelValue="updateCollection"
         :is-main-field="true"
-        :placeholder="'Enter main keywords'"
+        name="keywords"
+        placeholder="Enter main keywords"
       />
 
       <section class="additional-key-words">
@@ -40,10 +41,11 @@
             (And)
           </div>
           <BaseTag
-            v-model="additionalTags"
+            @update:modelValue="updateCollection"
             :textarea="true"
             :is-additional-keywords="true"
-            :placeholder="'Enter additional keywords'"
+            name="additional_keywords"
+            placeholder="Enter additional keywords"
             class="additional-key"
           />
         </div>
@@ -54,10 +56,11 @@
             (And Not)
           </div>
           <BaseTag
-            v-model="excludeTags"
+            @update:modelValue="updateCollection"
             :is-irrelevant-keywords="true"
             class="additional-key"
-            :placeholder="'Enter irrelevant keywords'"
+            name="ignore_keywords"
+            placeholder="Enter irrelevant keywords"
           />
         </div>
       </section>
@@ -97,20 +100,22 @@ export default {
     BaseTag,
     OnlineType,
   },
-  data() {
-    return {
-      mainTags: [],
-      additionalTags: [],
-      excludeTags: [],
-    }
-  },
   computed: {
-    ...mapState(['newWorkspace', 'newProject', 'currentStep', 'workspaces']),
+    ...mapState([
+      'newWorkspace',
+      'newProject',
+      'currentStep',
+      'workspaces',
+      'keywords',
+    ]),
     ...mapGetters({
       additionalFilters: get.ADDITIONAL_FILTERS,
     }),
     step() {
       return this.$route.name
+    },
+    defaultDateRange() {
+      return [this.getLastWeeksDate(), new Date()]
     },
   },
   methods: {
@@ -124,21 +129,27 @@ export default {
       action.POST_SEARCH,
       action.CLEAR_STATE,
     ]),
+    updateCollection(name, val) {
+      this[action.UPDATE_KEYWORDS_LIST]({
+        [name]: val,
+      })
+    },
+    getLastWeeksDate() {
+      const now = new Date()
+
+      return new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7)
+    },
     showResults() {
       try {
-        this[action.UPDATE_KEYWORDS_LIST]({
-          keywords: this.mainTags,
-          additions: this.additionalTags,
-          exceptions: this.excludeTags,
-        })
         this[action.POST_SEARCH]({
-          keywords: this.mainTags,
-          additions: this.additionalTags,
-          exceptions: this.excludeTags,
+          keywords: this.keywords?.keywords,
+          additions: this.keywords?.additional_keywords,
+          exceptions: this.keywords?.ignore_keywords,
           country: this.additionalFilters?.country || [],
           language: this.additionalFilters?.language || [],
           sentiment: this.additionalFilters?.sentiment || [],
-          date_range: this.additionalFilters?.date_range || [],
+          date_range:
+            this.additionalFilters?.date_range || this.defaultDateRange,
           source: this.additionalFilters?.source || [],
           author: this.additionalFilters?.author || [],
         })
@@ -150,9 +161,11 @@ export default {
     async createWorkspaceAndProject() {
       try {
         this[action.UPDATE_PROJECT_STATE]({
-          keywords: [...this.mainTags],
-          additional_keywords: [...this.additionalTags],
-          ignore_keywords: [...this.additionalTags],
+          keywords: this.keywords?.keywords,
+          additional_keywords: this.keywords?.additional_keywords,
+          ignore_keywords: this.keywords?.ignore_keywords,
+          date_range:
+            this.additionalFilters?.date_range || this.defaultDateRange,
         })
         this[action.UPDATE_NEW_WORKSPACE]({
           projects: [this.newProject],
@@ -170,9 +183,11 @@ export default {
     async createProject() {
       try {
         this[action.UPDATE_PROJECT_STATE]({
-          keywords: [...this.mainTags],
-          additional_keywords: [...this.additionalTags],
-          ignore_keywords: [...this.additionalTags],
+          keywords: this.keywords?.keywords,
+          additional_keywords: this.keywords?.additional_keywords,
+          ignore_keywords: this.keywords?.ignore_keywords,
+          date_range:
+            this.additionalFilters?.date_range || this.defaultDateRange,
         })
         this[action.CREATE_PROJECT](this.newProject)
         this[action.CLEAR_STATE]()

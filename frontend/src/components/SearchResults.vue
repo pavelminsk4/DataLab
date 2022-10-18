@@ -109,7 +109,9 @@ export default {
 
         return `${currentDate[0]} - ${currentDate[1]}`
       } else {
-        return `${this.formatDate(new Date())} - ${this.formatDate(new Date())}`
+        return `${this.formatDate(this.getLastWeeksDate())} - ${this.formatDate(
+          new Date()
+        )}`
       }
     },
   },
@@ -121,6 +123,11 @@ export default {
         day: 'numeric',
         year: 'numeric',
       })
+    },
+    getLastWeeksDate() {
+      const now = new Date()
+
+      return new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7)
     },
     capitalizeFirstLetter(string) {
       return string.charAt(0).toUpperCase() + string.slice(1)
