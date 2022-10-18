@@ -13,6 +13,9 @@ urlpatterns = [
   path("project/create/", views.CreateProjectAPIView.as_view(),name="project_create"),
   path("project/update/<int:pk>/",views.UpdateProjectAPIView.as_view(),name="project_update"),
   path("project/delete/<int:pk>/",views.DeleteProjectAPIView.as_view(),name="project_delete"),
+  # Widgets List
+  path('projects/<int:pk>/widgets_list', views.ProjectWidgetsAPIView.as_view(), name='widgets_list'),
+  path('projects/<int:pk>/widgets_list/update', views.UpdateProjectsWidgetsAPIView.as_view(), name='update_widgets_list'),
   # Workspace
   path("workspaces/",views.WorkspaceList.as_view(),name="workspaces_list"),
   path("workspace/create/", views.WorkspaceCreate.as_view(),name="workspace_create"),

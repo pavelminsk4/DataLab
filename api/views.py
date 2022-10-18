@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from rest_framework.generics import ListAPIView, CreateAPIView, DestroyAPIView, UpdateAPIView, RetrieveAPIView
-from .serializers import SpeechSerializer, UserSerializer, WorkspaceSerializer, ProjectSerializer, WorkspaceCreateSerializer, CountrySerializer
+from .serializers import SpeechSerializer, UserSerializer, WorkspaceSerializer, ProjectSerializer, WorkspaceCreateSerializer, CountrySerializer, WidgetsListSerializer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import ProjectSerializer, Workspace
@@ -15,6 +15,7 @@ from django.views.decorators.csrf import csrf_exempt
 from countries_plus.models import Country
 from dateutil import parser
 from django.db.models.functions import ExtractYear
+from widgets.models import WidgetsList
 
 # ==== User API =======================
 
@@ -166,3 +167,16 @@ def years(request):
   years = Post.objects.annotate(year=ExtractYear('entry_published')).values('year').distinct().order_by('year')
   years_list = list(years)
   return JsonResponse(years_list, safe = False)
+
+# === Widgets =====
+class ProjectWidgetsAPIView(RetrieveAPIView):
+  serializer_class = WidgetsListSerializer
+  
+  def get_object(self):
+    return WidgetsList.objects.get(project_id=self.kwargs['pk'])
+
+class UpdateProjectsWidgetsAPIView(UpdateAPIView):
+  serializer_class = WidgetsListSerializer
+
+  def get_object(self):
+    return WidgetsList.objects.get(project_id=self.kwargs['pk'])

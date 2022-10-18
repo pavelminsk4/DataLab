@@ -166,3 +166,6 @@ class Post(models.Model):
   
   def __str__(self):
     return self.entry_title
+
+class Status(models.Model):
+  progress = models.IntegerField()

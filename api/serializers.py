@@ -4,6 +4,7 @@ from accounts.models import Profile, department
 from rest_framework import serializers
 from drf_writable_nested.serializers import WritableNestedModelSerializer
 from countries_plus.models import Country
+from widgets.models import WidgetsList
 
 class DepartmentSerializer(WritableNestedModelSerializer):
   class Meta:
@@ -58,3 +59,8 @@ class SpeechSerializer(WritableNestedModelSerializer):
   class Meta:
     model = Speech
     fields = ['language']
+
+class WidgetsListSerializer(WritableNestedModelSerializer):
+  class Meta:
+    model = WidgetsList
+    fields = '__all__'
