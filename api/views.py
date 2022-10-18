@@ -169,11 +169,16 @@ def years(request):
   return JsonResponse(years_list, safe = False)
 
 # === Widgets =====
-class ProjectWidgetsAPIView(RetrieveAPIView):
-  serializer_class = WidgetsListSerializer
-  
-  def get_object(self):
-    return WidgetsList.objects.get(project_id=self.kwargs['pk'])
+#class ProjectWidgetsAPIView(RetrieveAPIView):
+#  serializer_class = WidgetsListSerializer
+#  
+#  def get_object(self):
+#    return WidgetsList.objects.get(project_id=self.kwargs['pk'])
+
+def widgets_list(request, pk):
+  w = WidgetsList.objects.get(project_id=pk)
+  res = {'summary_widget':{'name':'Summary widgets', 'is_active':w.summary_widget}, 'volume_widget':{'name':'Volume widget', 'is_active':w.volume_widget}}
+  return JsonResponse(res, safe = False)
 
 class UpdateProjectsWidgetsAPIView(UpdateAPIView):
   serializer_class = WidgetsListSerializer
