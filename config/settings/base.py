@@ -1,25 +1,17 @@
+from pathlib import Path
 import os
 import environ
 
-from pathlib import Path
+DEBUG = False
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 env = environ.Env()
 env.read_env(os.path.join(BASE_DIR, '.env'))
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-#v!p9&1x##2u#yt)l=o5ihm(=!&(y(w4j5p-_mbm(k&bc1i!jw'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['*']
-
+ALLOWED_HOSTS = ['46.151.214.110', 'localhost']
 
 # Application definition
 
@@ -75,16 +67,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': BASE_DIR / 'db.sqlite3',
-#    }
-#}
 DATABASES = {"default": env.db("DATABASE_URL")}
 
 # Password validation
@@ -105,7 +87,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
@@ -116,7 +97,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
@@ -143,13 +123,6 @@ WEBPACK_LOADER = {
     'POLL_INTERVAL': 0.1,
     'IGNORE': [r'.+\.hot-update.js', r'.+\.map'],
   }
-}
-
-REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
-        #'rest_framework.permissions.AllowAny'
-    ]
 }
 
 #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
