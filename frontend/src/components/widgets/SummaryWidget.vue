@@ -1,5 +1,5 @@
 <template>
-  <WidgetsLayout title="Summary">
+  <WidgetsLayout title="Summary" @delete-widget="$emit('delete-widget')">
     <div class="summary-widget__container">
       <table>
         <tr v-for="(item, index) in widgetMetricsFirst" :key="'metric' + index">

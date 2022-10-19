@@ -30,6 +30,7 @@
         :is="`${item.widgetName}` + 'Widget'"
         :summary-data="summary"
         :volume="volume"
+        @delete-widget="deleteWidget(item.name)"
       />
     </grid-item>
   </grid-layout>
@@ -83,6 +84,7 @@ export default {
           h: 7,
           i: '0',
           static: false,
+          name: 'summary_widget',
           widgetName: 'Summary',
           isShow: this.isActiveWidget('summary_widget'),
         },
@@ -93,6 +95,7 @@ export default {
           h: 12,
           i: '1',
           static: false,
+          name: 'volume_widget',
           widgetName: 'ContentVolume',
           isShow: this.isActiveWidget('volume_widget'),
         },
@@ -100,14 +103,23 @@ export default {
     },
   },
   methods: {
-    isActiveWidget(key) {
-      return this.availableWidgets[key]?.is_active
-    },
     ...mapActions([
       action.GET_SUMMARY_WIDGET,
       action.GET_VOLUME_WIDGET,
       action.GET_AVAILABLE_WIDGETS,
+      action.UPDATE_AVAILABLE_WIDGETS,
     ]),
+    async deleteWidget(name) {
+      await this[action.UPDATE_AVAILABLE_WIDGETS]({
+        projectId: this.projectId,
+        data: {[name]: false},
+      })
+      this.loading = true
+      await this[action.GET_AVAILABLE_WIDGETS](this.projectId)
+    },
+    isActiveWidget(key) {
+      return this.availableWidgets[key]?.is_active
+    },
   },
 }
 </script>
