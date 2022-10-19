@@ -1,6 +1,6 @@
 <template>
   <WidgetsLayout title="Line Chart">
-    <LineChart
+    <Line
       :chart-data="config"
       :options="options"
       class="volume-chart-wrapper"
@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import {LineChart} from 'vue-chart-3'
+import {Line} from 'vue-chartjs'
 import {
   Chart,
   LineController,
@@ -31,7 +31,7 @@ export default {
   name: 'ContentVolumeWidget',
   components: {
     WidgetsLayout,
-    LineChart,
+    Line,
   },
   props: {
     volume: {

@@ -177,7 +177,7 @@ def years(request):
 
 def widgets_list(request, pk):
   w = WidgetsList.objects.get(project_id=pk)
-  res = {'summary_widget':{'name':'Summary widgets', 'is_active':w.summary_widget}, 'volume_widget':{'name':'Volume widget', 'is_active':w.volume_widget}}
+  res = {'summary_widget':{'name':'Summary', 'is_active':w.summary_widget}, 'volume_widget':{'name':'Content volume', 'is_active':w.volume_widget}}
   return JsonResponse(res, safe = False)
 
 class UpdateProjectsWidgetsAPIView(UpdateAPIView):

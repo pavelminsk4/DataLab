@@ -56,4 +56,8 @@ export default {
   [get.VOLUME_WIDGET](state) {
     return state.volume
   },
+
+  [get.AVAILABLE_WIDGETS](state) {
+    return state.availableWidgets
+  },
 }

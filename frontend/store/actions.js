@@ -122,6 +122,18 @@ export default {
     }
   },
 
+  async [action.GET_AVAILABLE_WIDGETS]({commit}, projectId) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const availableWidgets = await api.getListOfDisplayedWidgets(projectId)
+      commit(mutator.SET_AVAILABLE_WIDGETS, availableWidgets)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
   async [action.CREATE_WORKSPACE]({commit}, workspace) {
     commit(mutator.SET_LOADING, true)
     try {
@@ -148,6 +160,17 @@ export default {
     commit(mutator.SET_LOADING, true)
     try {
       await api.updateWorkspace({workspaceId, data})
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
+  async [action.UPDATE_AVAILABLE_WIDGETS]({commit}, {projectId, data}) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      await api.updateAvailableWidgets({projectId, data})
     } catch (e) {
       console.log(e)
     } finally {

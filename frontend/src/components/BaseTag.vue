@@ -43,6 +43,7 @@ export default {
     modelValue: {type: Array, default: () => []},
     allowCustom: {type: Boolean, default: true},
     tagClass: {type: String, default: ''},
+    name: {type: String, default: ''},
     isAdditionalKeywords: {
       type: Boolean,
       default: false,
@@ -114,7 +115,7 @@ export default {
     }
 
     const onTagsChange = () => {
-      emit('update:modelValue', tags.value)
+      emit('update:modelValue', props.name, tags.value)
     }
     // eslint-disable-next-line vue/valid-next-tick
     watch(tags, () => nextTick(onTagsChange), {deep: true})

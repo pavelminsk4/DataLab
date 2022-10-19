@@ -38,8 +38,10 @@ const state = {
     creator: null,
     source: '',
     workspace: null,
+    date_range: null,
   },
   isShowCalendar: false,
+  availableWidgets: null,
 }
 
 export default state

@@ -63,4 +63,5 @@ class SpeechSerializer(WritableNestedModelSerializer):
 class WidgetsListSerializer(WritableNestedModelSerializer):
   class Meta:
     model = WidgetsList
-    fields = '__all__'
+    #fields = '__all__'
+    fields = ['summary_widget', 'volume_widget']

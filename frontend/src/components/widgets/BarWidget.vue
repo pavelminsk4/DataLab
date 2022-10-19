@@ -1,6 +1,6 @@
 <template>
   <WidgetsLayout title="Bar chart">
-    <DoughnutChart
+    <Doughnut
       :chart-data="config"
       :options="options"
       class="volume-chart-wrapper bar-chart"
@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import {DoughnutChart} from 'vue-chart-3'
+import {Doughnut} from 'vue-chartjs'
 import {Chart, DoughnutController, ArcElement} from 'chart.js'
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
 Chart.register(DoughnutController, ArcElement)
@@ -18,7 +18,7 @@ export default {
   name: 'BarWidget',
   components: {
     WidgetsLayout,
-    DoughnutChart,
+    Doughnut,
   },
   props: {
     volume: {
