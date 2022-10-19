@@ -1,6 +1,12 @@
 <template>
   <label class="container container-header">
-    <input type="checkbox" :id="id" v-model="checked" @change="click" />
+    <input
+      type="checkbox"
+      :id="id"
+      v-model="checked"
+      @change="click"
+      :checked="selected"
+    />
     <span class="checkmark">
       <CheckIcon class="checkmark-icon" />
     </span>
@@ -17,6 +23,7 @@ export default {
   components: {CheckIcon},
   props: {
     modelValue: {type: Boolean, default: false},
+    selected: {type: Boolean, default: false},
     label: {type: String},
     id: {type: Number},
   },

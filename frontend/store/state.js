@@ -41,6 +41,7 @@ const state = {
     date_range: null,
   },
   isShowCalendar: false,
+  availableWidgets: null,
 }
 
 export default state

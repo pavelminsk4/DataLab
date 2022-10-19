@@ -112,7 +112,7 @@ export default {
     },
     selectedDateProxy: {
       get() {
-        return this.additionalFilters.date_range || this.selectedDate
+        return this.additionalFilters?.date_range || this.selectedDate
       },
       set(val) {
         this[action.UPDATE_ADDITIONAL_FILTERS]({date_range: val})

@@ -1,7 +1,8 @@
 <template>
   <grid-layout
+    v-if="availableWidgets"
     v-model:layout="layout"
-    :col-num="4.5"
+    :col-num="4"
     :row-height="30"
     is-draggable
     is-resizable
@@ -62,83 +63,58 @@ export default {
       required: true,
     },
   },
-  data() {
-    return {
-      layout: [
+  created() {
+    this[action.GET_SUMMARY_WIDGET](this.projectId)
+    this[action.GET_VOLUME_WIDGET](this.projectId)
+    this[action.GET_AVAILABLE_WIDGETS](this.projectId)
+  },
+  computed: {
+    ...mapGetters({
+      summary: get.SUMMARY_WIDGET,
+      volume: get.VOLUME_WIDGET,
+      availableWidgets: get.AVAILABLE_WIDGETS,
+    }),
+    layout() {
+      return [
         {
           x: 0,
           y: 0,
           w: 2,
-          h: 6,
+          h: 7,
           i: '0',
           static: false,
-          minW: 1.3,
-          minH: 6,
-          maxW: 2,
-          maxH: 6,
           widgetName: 'Summary',
-          isShow: false,
+          isShow: this.isActiveWidget('summary_widget'),
         },
         {
-          x: 0,
+          x: 2,
           y: 1,
-          w: 6,
-          h: 10,
+          w: 2,
+          h: 12,
           i: '1',
           static: false,
-          minW: 2,
-          minH: 5,
-          maxW: 2,
-          maxH: 6,
           widgetName: 'ContentVolume',
-          isShow: true,
+          isShow: this.isActiveWidget('volume_widget'),
         },
-        {
-          x: 2,
-          y: 3,
-          w: 2,
-          h: 10,
-          i: '2',
-          static: false,
-          minW: 2,
-          minH: 5,
-          maxW: 2,
-          maxH: 6,
-          widgetName: 'VolumeLine',
-          isShow: false,
-        },
-        {
-          x: 2,
-          y: 3,
-          w: 2,
-          h: 10,
-          i: '3',
-          static: false,
-          minW: 2,
-          minH: 5,
-          maxW: 2,
-          maxH: 6,
-          widgetName: 'Bar',
-          isShow: false,
-        },
-      ],
-    }
-  },
-  created() {
-    this[action.GET_SUMMARY_WIDGET](this.projectId)
-    this[action.GET_VOLUME_WIDGET](this.projectId)
-  },
-  computed: {
-    ...mapGetters({summary: get.SUMMARY_WIDGET, volume: get.VOLUME_WIDGET}),
+      ]
+    },
   },
   methods: {
-    ...mapActions([action.GET_SUMMARY_WIDGET, action.GET_VOLUME_WIDGET]),
+    isActiveWidget(key) {
+      return this.availableWidgets[key]?.is_active
+    },
+    ...mapActions([
+      action.GET_SUMMARY_WIDGET,
+      action.GET_VOLUME_WIDGET,
+      action.GET_AVAILABLE_WIDGETS,
+    ]),
   },
 }
 </script>
 
 <style lang="scss" scoped>
 .widgets-wrapper {
+  min-width: 100%;
   margin-top: 30px;
 
   .widget-item {

@@ -41,6 +41,10 @@ export default {
     return fetch('get', '/api/authors')
   },
 
+  async getListOfDisplayedWidgets(projectId) {
+    return fetch('get', `/api/projects/${projectId}/widgets_list`)
+  },
+
   async getSummaryWidget(projectId) {
     return fetch('get', `/api/widgets/summary_widget/${projectId}`)
   },
@@ -88,5 +92,20 @@ export default {
       },
     }
     return fetch('put', `/api/workspace/update/${workspaceId}/`, data, config)
+  },
+
+  async updateAvailableWidgets({projectId, data}) {
+    const config = {
+      headers: {
+        'content-type': 'application/json',
+        'X-CSRFToken': CSRF_TOKEN,
+      },
+    }
+    return fetch(
+      'put',
+      `/api/projects/${projectId}/widgets_list/update`,
+      data,
+      config
+    )
   },
 }

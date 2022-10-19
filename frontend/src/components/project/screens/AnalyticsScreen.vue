@@ -1,6 +1,10 @@
 <template>
   <div v-if="currentProject">
-    <WidgetsModal v-if="isOpenWidgetsModal" @close="toggleWidgetsModal" />
+    <WidgetsModal
+      v-if="isOpenWidgetsModal"
+      :project-id="currentProject.id"
+      @close="toggleWidgetsModal"
+    />
 
     <NavigationBar
       v-if="currentProject"
