@@ -164,8 +164,10 @@ export default {
           keywords: this.keywords?.keywords,
           additional_keywords: this.keywords?.additional_keywords,
           ignore_keywords: this.keywords?.ignore_keywords,
-          date_range:
-            this.additionalFilters?.date_range || this.defaultDateRange,
+          start_search_date:
+            this.additionalFilters?.date_range[0] || this.defaultDateRange[0],
+          end_search_date:
+            this.additionalFilters?.date_range[1] || this.defaultDateRange[1],
         })
         this[action.UPDATE_NEW_WORKSPACE]({
           projects: [this.newProject],
@@ -186,8 +188,10 @@ export default {
           keywords: this.keywords?.keywords,
           additional_keywords: this.keywords?.additional_keywords,
           ignore_keywords: this.keywords?.ignore_keywords,
-          date_range:
-            this.additionalFilters?.date_range || this.defaultDateRange,
+          start_search_date:
+            this.additionalFilters?.date_range[0] || this.defaultDateRange[0],
+          end_search_date:
+            this.additionalFilters?.date_range[1] || this.defaultDateRange[1],
         })
         this[action.CREATE_PROJECT](this.newProject)
         this[action.CLEAR_STATE]()
