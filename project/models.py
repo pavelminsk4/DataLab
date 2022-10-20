@@ -42,6 +42,8 @@ class Project(models.Model):
   premium = models.BooleanField(default=False)
   source = models.CharField(max_length=100, null=True, blank=True)
   members = models.ManyToManyField(User,related_name='members',null=True,blank=True)
+  start_search_date = models.DateTimeField()
+  end_search_date = models.DateTimeField()
 
   def __str__(self):
     return self.title
