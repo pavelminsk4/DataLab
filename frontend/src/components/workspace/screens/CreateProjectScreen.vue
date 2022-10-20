@@ -119,6 +119,9 @@ export default {
       selectedValue: {},
     }
   },
+  created() {
+    if (this.step === 'ProjectStep1') this[action.CLEAR_STATE]()
+  },
   computed: {
     ...mapState(['currentStep', 'userInfo']),
     step() {
@@ -134,7 +137,11 @@ export default {
     },
   },
   methods: {
-    ...mapActions([action.UPDATE_PROJECT_STATE, action.UPDATE_CURRENT_STEP]),
+    ...mapActions([
+      action.UPDATE_PROJECT_STATE,
+      action.UPDATE_CURRENT_STEP,
+      action.CLEAR_STATE,
+    ]),
     changeValue(newValue) {
       this.selectedValue = newValue
     },
