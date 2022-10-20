@@ -2,7 +2,11 @@
   <section class="widget-layout-wrapper">
     <div class="widget-layout-wrapper__header">
       <div class="title">{{ title }}</div>
-      <div class="settings" @click="openSettings"><SettingsIcon /></div>
+
+      <div class="setting-buttons">
+        <div class="button" @click="openSettings"><SettingsIcon /></div>
+        <div class="button" @click="deleteWidget"><CloseIcon /></div>
+      </div>
     </div>
     <slot></slot>
   </section>
@@ -10,9 +14,11 @@
 
 <script>
 import SettingsIcon from '@/components/icons/SettingsIcon'
+import CloseIcon from '@/components/icons/CloseIcon'
+
 export default {
   name: 'WidgetsLayout',
-  components: {SettingsIcon},
+  components: {CloseIcon, SettingsIcon},
   props: {
     title: {
       type: String,
@@ -22,6 +28,9 @@ export default {
   methods: {
     openSettings() {
       this.$emit('open-modal')
+    },
+    deleteWidget() {
+      this.$emit('delete-widget')
     },
   },
 }
@@ -35,11 +44,12 @@ export default {
   flex-direction: column;
 
   min-width: 100%;
-  min-height: 100%;
-  padding: 12px 20px 35px;
+  height: 90%;
+  padding: 12px 20px 0;
 
   &__header {
     display: flex;
+    align-items: center;
     justify-content: space-between;
 
     width: 100%;
@@ -54,19 +64,28 @@ export default {
       line-height: 22px;
     }
 
-    .settings {
-      cursor: pointer;
-
+    .setting-buttons {
       display: flex;
-      align-items: center;
-      justify-content: center;
+      gap: 8px;
 
-      width: 40px;
-      height: 40px;
+      .button {
+        cursor: pointer;
 
-      background: var(--secondary-bg-color);
-      border: 1px solid var(--input-border-color);
-      border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 40px;
+        height: 40px;
+
+        background: var(--secondary-bg-color);
+        border: 1px solid var(--input-border-color);
+        border-radius: 10px;
+
+        &:hover {
+          background-color: var(--primary-button-color);
+        }
+      }
     }
   }
 }

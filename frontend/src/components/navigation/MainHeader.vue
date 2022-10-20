@@ -115,6 +115,8 @@ export default {
   align-items: center;
 
   .dropdown {
+    z-index: 1000;
+
     position: absolute;
     top: 40px;
     right: 2px;

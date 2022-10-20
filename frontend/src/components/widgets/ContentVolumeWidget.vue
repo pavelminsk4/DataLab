@@ -5,6 +5,9 @@
 </template>
 
 <script>
+import {mapActions} from 'vuex'
+import {action} from '@store/constants'
+
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
 import ChartsView from '@/components/widgets/charts/ChartsView'
 
@@ -19,6 +22,19 @@ export default {
       type: [Array, Object],
       default: () => [],
     },
+    projectId: {
+      type: [String, Number],
+      required: true,
+    },
+    isOpenWidget: {
+      type: Boolean,
+      required: true,
+    },
+  },
+  created() {
+    if (this.isOpenWidget) {
+      this[action.GET_VOLUME_WIDGET](this.projectId)
+    }
   },
   computed: {
     volumeData() {
@@ -57,7 +73,15 @@ export default {
       }
     },
   },
+  watch: {
+    isOpenWidget() {
+      if (this.isOpenWidget) {
+        this[action.GET_VOLUME_WIDGET](this.projectId)
+      }
+    },
+  },
   methods: {
+    ...mapActions([action.GET_VOLUME_WIDGET]),
     formatDate(date) {
       return new Date(date).toLocaleString('en-US', {
         month: 'short',

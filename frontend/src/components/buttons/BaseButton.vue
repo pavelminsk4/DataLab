@@ -1,19 +1,28 @@
 <template>
   <button
+    v-bind="$attrs"
     :class="[
       'base-button',
       isNotBackground && 'not-background',
-      isDisabled && 'disabled',
+      (isDisabled || isLoading) && 'disabled',
     ]"
-    :disabled="isDisabled"
+    :disabled="isDisabled || isLoading"
   >
-    <slot></slot>
+    <BaseButtonSpinner v-if="isLoading" />
+    <div :class="isLoading && 'opacity'">
+      <slot></slot>
+    </div>
   </button>
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
+import {get} from '@store/constants'
+import BaseButtonSpinner from '@/components/BaseButtonSpinner'
+
 export default {
   name: 'BaseButton',
+  components: {BaseButtonSpinner},
   props: {
     isNotBackground: {
       type: Boolean,
@@ -23,6 +32,9 @@ export default {
       type: Boolean,
       default: false,
     },
+  },
+  computed: {
+    ...mapGetters({isLoading: get.LOADING}),
   },
 }
 </script>
@@ -60,5 +72,9 @@ export default {
 
   color: var(--primary-text-color);
   background: var(--disabled-color);
+}
+
+.opacity {
+  display: none;
 }
 </style>
