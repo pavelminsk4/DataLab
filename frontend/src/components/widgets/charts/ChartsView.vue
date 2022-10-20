@@ -4,7 +4,11 @@
     :chart-data="chartData"
     :chart-options="chartOptions"
   />
-  <BarChart :chart-data="chartData" :chart-options="chartOptions" />
+  <BarChart
+    :chart-data="chartData"
+    :chart-options="chartOptions"
+    class="bar-chart-widget"
+  />
 </template>
 
 <script>
@@ -26,4 +30,9 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.bar-chart-widget {
+  overflow: hidden;
+  height: 100%;
+}
+</style>

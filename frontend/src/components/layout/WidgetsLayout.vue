@@ -44,8 +44,8 @@ export default {
   flex-direction: column;
 
   min-width: 100%;
-  min-height: 100%;
-  padding: 12px 20px 35px;
+  height: 90%;
+  padding: 12px 20px 0;
 
   &__header {
     display: flex;

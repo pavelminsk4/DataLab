@@ -1,60 +1,81 @@
 <template>
   <WidgetsLayout title="Summary" @delete-widget="$emit('delete-widget')">
     <div class="summary-widget__container">
-      <table>
-        <tr v-for="(item, index) in widgetMetricsFirst" :key="'metric' + index">
-          <td class="metric-name">{{ item.name.toUpperCase() }}</td>
-          <td class="metric-value">{{ item.value }}</td>
-          <td class="metric-count">+1</td>
-          <td class="metric-badge">+10%</td>
-        </tr>
-      </table>
-
-      <table>
-        <tr
-          v-for="(item, index) in widgetMetricsSecond"
-          :key="'metric' + index"
-        >
-          <td class="metric-name summary-name">
-            {{ item.name.toUpperCase() }}
-          </td>
-          <td class="metric-value">{{ item.value }}</td>
-          <td class="metric-count">+1</td>
-          <td class="metric-badge">+10%</td>
-        </tr>
-      </table>
+      <div
+        v-for="(item, index) in widgetMetrics"
+        :key="'metrics' + index"
+        class="post-item"
+      >
+        <div class="title">{{ item.name.toUpperCase() }}</div>
+        <div class="values">
+          <div class="value">{{ item.value }}</div>
+          <div :class="['icon', item?.style]"><PostIcon /></div>
+        </div>
+      </div>
     </div>
   </WidgetsLayout>
 </template>
 
 <script>
+import {mapActions} from 'vuex'
+import {action} from '@store/constants'
+
+import PostIcon from '@/components/icons/PostIcon'
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
+
 export default {
   name: 'SummaryWidget',
-  components: {WidgetsLayout},
+  components: {PostIcon, WidgetsLayout},
   props: {
     summaryData: {
       type: [Array, Object],
       required: true,
     },
+    projectId: {
+      type: [String, Number],
+      required: true,
+    },
+    isOpenWidget: {
+      type: Boolean,
+      required: true,
+    },
+  },
+  created() {
+    if (this.isOpenWidget) {
+      this[action.GET_SUMMARY_WIDGET](this.projectId)
+    }
   },
   computed: {
-    widgetMetricsFirst() {
+    widgetMetrics() {
       return [
         {name: 'New posts', value: this.summaryData?.posts},
+        {name: 'Neutral post', value: this.summaryData?.neut, style: 'neutral'},
+        {
+          name: 'Negative post',
+          value: this.summaryData?.neg,
+          style: 'negative',
+        },
+        {
+          name: 'Positive post',
+          value: this.summaryData?.pos,
+          style: 'positive',
+        },
         {name: 'Source', value: this.summaryData?.sources},
-        {name: 'Authors', value: this.summaryData?.authors},
+        {name: 'Potential reach', value: 0},
         {name: 'Countries', value: this.summaryData?.countries},
+        {name: 'Authors', value: this.summaryData?.authors},
       ]
     },
-    widgetMetricsSecond() {
-      return [
-        {name: 'Potential reach', value: this.summaryData?.reach},
-        {name: 'Neutral', value: this.summaryData?.neut},
-        {name: 'Negative', value: this.summaryData?.neg},
-        {name: 'Positive', value: this.summaryData?.pos},
-      ]
+  },
+  watch: {
+    isOpenWidget() {
+      if (this.isOpenWidget) {
+        this[action.GET_SUMMARY_WIDGET](this.projectId)
+      }
     },
+  },
+  methods: {
+    ...mapActions([action.GET_SUMMARY_WIDGET]),
   },
 }
 </script>
@@ -62,50 +83,87 @@ export default {
 <style lang="scss" scoped>
 .summary-widget__container {
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 15px;
 
   margin-top: 25px;
 
-  table {
-    color: var(--primary-text-color);
+  overflow: auto;
+
+  .post-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    width: 136px;
+    height: 97px;
+
+    padding: 15px 23px 15px 20px;
+
+    background: var(--primary-bg-color);
+    border-radius: 8px;
+
+    .title {
+      font-style: normal;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 16px;
+    }
+
+    .values {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .value {
+        font-style: normal;
+        font-weight: 600;
+        font-size: 28px;
+        line-height: 38px;
+      }
+
+      .icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 22px;
+        height: 22px;
+
+        border-radius: 100%;
+        background-color: var(--primary-button-color);
+      }
+
+      .negative {
+        background-color: var(--negative-status);
+      }
+
+      .positive {
+        background-color: var(--tag-color);
+      }
+
+      .neutral {
+        background-color: var(--neutral-status);
+      }
+    }
   }
 
-  .metric-name {
-    width: 100px;
-
-    font-style: normal;
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 20px;
-    color: var(--secondary-text-color);
+  &::-webkit-scrollbar {
+    height: 5px;
+    width: 5px;
   }
 
-  .summary-name {
-    width: 150px;
+  &::-webkit-scrollbar-track {
+    background: var(--secondary-bg-color);
+    border: 1px solid var(--input-border-color);
+    border-radius: 10px;
   }
 
-  .metric-value {
-    width: 32px;
+  &::-webkit-scrollbar-thumb {
+    height: 4px;
 
-    font-style: normal;
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 22px;
-  }
-
-  .metric-count {
-    width: 21px;
-
-    color: var(--negative-status);
-  }
-
-  .metric-badge {
-    padding: 3px 9px;
-
-    border-radius: 29px;
-    background-color: rgba(51, 204, 112, 0.2);
-
-    color: var(--tag-color);
+    background: var(--secondary-text-color);
+    border-radius: 10px;
   }
 }
 </style>

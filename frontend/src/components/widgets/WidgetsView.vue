@@ -30,6 +30,8 @@
         :is="`${item.widgetName}` + 'Widget'"
         :summary-data="summary"
         :volume="volume"
+        :project-id="projectId"
+        :is-open-widget="item.isShow"
         @delete-widget="deleteWidget(item.name)"
       />
     </grid-item>
@@ -65,8 +67,6 @@ export default {
     },
   },
   created() {
-    this[action.GET_SUMMARY_WIDGET](this.projectId)
-    this[action.GET_VOLUME_WIDGET](this.projectId)
     this[action.GET_AVAILABLE_WIDGETS](this.projectId)
   },
   computed: {
@@ -81,7 +81,7 @@ export default {
           x: 0,
           y: 0,
           w: 2,
-          h: 7,
+          h: 9,
           i: '0',
           static: false,
           name: 'summary_widget',
@@ -104,8 +104,6 @@ export default {
   },
   methods: {
     ...mapActions([
-      action.GET_SUMMARY_WIDGET,
-      action.GET_VOLUME_WIDGET,
       action.GET_AVAILABLE_WIDGETS,
       action.UPDATE_AVAILABLE_WIDGETS,
     ]),
@@ -114,7 +112,6 @@ export default {
         projectId: this.projectId,
         data: {[name]: false},
       })
-      this.loading = true
       await this[action.GET_AVAILABLE_WIDGETS](this.projectId)
     },
     isActiveWidget(key) {

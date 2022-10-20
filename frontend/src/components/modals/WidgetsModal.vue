@@ -112,7 +112,6 @@ export default {
         projectId: this.projectId,
         data: this.availableCollection,
       })
-      this.loading = true
       await this[action.GET_AVAILABLE_WIDGETS](this.projectId)
       await this.$emit('close')
     },

@@ -60,7 +60,7 @@
         </section>
       </div>
     </div>
-    <div v-if="!searchData.length && !loading">No results.</div>
+    <div v-if="!loading">No results.</div>
   </div>
 </template>
 
