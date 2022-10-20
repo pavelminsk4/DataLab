@@ -4,8 +4,8 @@ from project.models import Project, Post
 from django.db.models import Q
 from functools import reduce
 
-def keywords_posts(keys):
-  posts = Post.objects.filter(reduce(lambda x,y: x | y, [Q(entry_title__contains=key) for key in keys]))
+def keywords_posts(keys, posts):
+  posts = posts.filter(reduce(lambda x,y: x | y, [Q(entry_title__contains=key) for key in keys]))
   return posts
 
 def exclude_keywords_posts(posts, exceptions):
@@ -18,28 +18,33 @@ def exclude_keywords_posts(posts, exceptions):
   posts = posts.exclude(id__in=to_be_removed)
   return posts
 
-def additional_keywords_posts(keys, additions):
-  posts = Post.objects.filter(reduce(lambda x,y: x | y, [Q(entry_title__contains=key) for key in keys]))
+def additional_keywords_posts(posts, additions):
   for word in additions:
     posts = posts.filter(entry_title__contains=word)
   return posts
 
+def data_range_posts(start_date, end_date):
+  interval = [start_date, end_date]
+  posts = Post.objects.only('id').filter(entry_published__range=interval)
+  return posts
+
 def summary_widget(pk):
   project = get_object_or_404(Project, pk = pk)
-  posts = keywords_posts(project.keywords)
+  posts = data_range_posts(project.start_search_date, project.end_search_date)
+  posts = keywords_posts(project.keywords, posts)
   if project.additional_keywords!=[]:
-    posts = additional_keywords_posts(project.keywords, project.additional_keywords)
+    posts = additional_keywords_posts(posts, project.additional_keywords)
   else:
-    posts = keywords_posts(project.keywords)
+    posts = keywords_posts(project.keywords, posts)
   if project.ignore_keywords!=[]:
     posts = exclude_keywords_posts(posts, project.ignore_keywords)
-  posts_quantity = len(posts)
-  sources_quantity = len(posts.values('feedlink__source1').distinct())
-  authors_quantity = len(posts.values('entry_author').distinct())
-  countries_quantity = len(posts.values('feedlink__country').distinct())
-  languages_quantity = len(posts.values('feed_language').distinct())
-  pos_posts = len(posts.filter(sentiment='positive'))
-  neg_posts = len(posts.filter(sentiment='negative'))
+  posts_quantity = posts.count()
+  sources_quantity = posts.values('feedlink__source1').distinct().count()
+  authors_quantity = posts.values('entry_author').distinct().count()
+  countries_quantity = posts.values('feedlink__country').distinct().count()
+  languages_quantity = posts.values('feed_language').distinct().count()
+  pos_posts = posts.filter(sentiment='positive').count()
+  neg_posts = posts.filter(sentiment='negative').count()
   neut_posts = posts_quantity - pos_posts - neg_posts
   potential_reach = 'blank' 
   res = {

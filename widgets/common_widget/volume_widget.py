@@ -6,8 +6,8 @@ from functools import reduce
 from django.db.models.functions import Trunc
 from django.db.models import Count
 
-def keywords_posts(keys):
-  posts = Post.objects.filter(reduce(lambda x,y: x | y, [Q(entry_title__contains=key) for key in keys]))
+def keywords_posts(keys, posts):
+  posts = posts.filter(reduce(lambda x,y: x | y, [Q(entry_title__contains=key) for key in keys]))
   return posts
 
 def exclude_keywords_posts(posts, exceptions):
@@ -20,19 +20,24 @@ def exclude_keywords_posts(posts, exceptions):
   posts = posts.exclude(id__in=to_be_removed)
   return posts
 
-def additional_keywords_posts(keys, additions):
-  posts = Post.objects.filter(reduce(lambda x,y: x | y, [Q(entry_title__contains=key) for key in keys]))
+def additional_keywords_posts(posts, additions):
   for word in additions:
     posts = posts.filter(entry_title__contains=word)
   return posts
 
+def data_range_posts(start_date, end_date):
+  interval = [start_date, end_date]
+  posts = Post.objects.filter(entry_published__range=interval)
+  return posts
+
 def posts_agregator(project):
-  #project = get_object_or_404(Project, pk = pk)
-  posts = keywords_posts(project.keywords)
+  project = get_object_or_404(Project, pk = project.pk)
+  posts = data_range_posts(project.start_search_date, project.end_search_date)
+  posts = keywords_posts(project.keywords, posts)
   if project.additional_keywords!=[]:
-    posts = additional_keywords_posts(project.keywords, project.additional_keywords)
+    posts = additional_keywords_posts(posts, project.additional_keywords)
   else:
-    posts = keywords_posts(project.keywords)
+    posts = keywords_posts(project.keywords, posts)
   if project.ignore_keywords!=[]:
     posts = exclude_keywords_posts(posts, project.ignore_keywords)
   return posts

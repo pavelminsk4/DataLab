@@ -71,14 +71,34 @@ class SearchTests(APITestCase):
 
   def test_search_with_keywords(self):
     self.db_seeder()
-    data = {'keywords':['First', 'Post'], 'exceptions':[], 'additions':[], 'country':[], 'language':[], 'sentiment':[], 'date_range':[], 'source':[], 'author':[]}
+    data = {
+      'keywords':['First', 'Post'],
+      'exceptions':[],
+      'additions':[],
+      'country':[],
+      'language':[],
+      'sentiment':[],
+      'date_range':['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z'],
+      'source':[],
+      'author':[]
+      }
     response = self.client.post(url, data, format='json')
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     self.assertEqual(json.loads(response.content), [ex1])  
  
   def test_search_with_exclusion_words(self):
     self.db_seeder()
-    data = {'keywords':['post'], 'exceptions':['First'], 'additions':[], 'country':[], 'language':[], 'sentiment':[], 'date_range':[], 'source':[], 'author':[]}
+    data = {
+      'keywords':['post'],
+      'exceptions':['First'],
+      'additions':[],
+      'country':[],
+      'language':[],
+      'sentiment':[],
+      'date_range':['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z'],
+      'source':[],
+      'author':[],
+      }
     response = self.client.post(url, data, format='json')
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     self.assertEqual(json.loads(response.content), [ex2,ex3,ex4])
@@ -86,28 +106,68 @@ class SearchTests(APITestCase):
 
   def test_search_with_additional_words(self):
     self.db_seeder()
-    data = {'keywords':['post'], 'exceptions':[], 'additions':['Third'], 'country':[], 'language':[], 'sentiment':[], 'date_range':[], 'source':[], 'author':[]}
+    data = {
+      'keywords':['post'],
+      'exceptions':[],
+      'additions':['Third'],
+      'country':[],
+      'language':[],
+      'sentiment':[],
+      'date_range':['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z'],
+      'source':[],
+      'author':[],
+      }
     response = self.client.post(url, data, format='json')
     self.assertEqual(json.loads(response.content), [ex3])
     self.assertEqual(len(Post.objects.all()), 4)
 
   def test_serch_with_exclusion_and_additional_words(self):
     self.db_seeder()
-    data = {'keywords':['post'], 'exceptions':['First'], 'additions':['title'], 'country':[], 'language':[], 'sentiment':[], 'date_range':[], 'source':[], 'author':[]}
+    data = {
+      'keywords':['post'],
+      'exceptions':['First'],
+      'additions':['title'],
+      'country':[],
+      'language':[],
+      'sentiment':[],
+      'date_range':['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z'],
+      'source':[],
+      'author':[],
+      }
     response = self.client.post(url, data, format='json')
     self.assertEqual(json.loads(response.content), [ex2])
     self.assertEqual(len(Post.objects.all()), 4)
 
   def test_search_by_country(self):
     self.db_seeder()
-    data = {'keywords':['post'], 'exceptions':[], 'additions':[], 'country':'USA', 'language':[], 'sentiment':[], 'date_range':[], 'source':[], 'author':[]}
+    data = {
+      'keywords':['post'],
+      'exceptions':[],
+      'additions':[],
+      'country':'USA',
+      'language':[],
+      'sentiment':[],
+      'date_range':['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z'],
+      'source':[],
+      'author':[],
+      }
     response = self.client.post(url, data, format='json')
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     self.assertEqual(json.loads(response.content), [ex1])
 
   def test_search_by_language(self):
     self.db_seeder()
-    data = {'keywords':['post'], 'exceptions':[], 'additions':[], 'country':[], 'language':'Arabic', 'sentiment':[], 'date_range':[], 'source':[], 'author':[]}
+    data = {
+      'keywords':['post'],
+      'exceptions':[],
+      'additions':[],
+      'country':[],
+      'language':'Arabic',
+      'sentiment':[],
+      'date_range':['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z'],
+      'source':[],
+      'author':[],
+      }
     response = self.client.post(url, data, format='json')
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     self.assertEqual(json.loads(response.content), [ex4])
@@ -122,7 +182,7 @@ class SearchTests(APITestCase):
       'language':[],
       'sentiment':'positive',
       'date':[],
-      'date_range':[],
+      'date_range':['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z'],
       'source':[],
       'author':[],
       }
@@ -156,7 +216,7 @@ class SearchTests(APITestCase):
       'country':[],
       'language':[],
       'sentiment':[],
-      'date_range':[],
+      'date_range':['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z'],
       'source':'CNN',
       'author':[],
     }
@@ -173,7 +233,7 @@ class SearchTests(APITestCase):
       'country':[],
       'language':[],
       'sentiment':[],
-      'date_range':[],
+      'date_range':['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z'],
       'source':[],
       'author':'Elon Musk',
     }

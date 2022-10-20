@@ -167,6 +167,10 @@ class Post(models.Model):
     indexes = [
       models.Index(fields=['entry_published',]),
       models.Index(fields=['entry_title',]),
+      models.Index(fields=['feedlink',]),
+      models.Index(fields=['entry_author',]),
+      models.Index(fields=['feed_language',]),
+      models.Index(fields=['sentiment',]),
     ]
   
   def __str__(self):
