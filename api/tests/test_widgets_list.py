@@ -10,7 +10,7 @@ from django.contrib.auth.models import User
 class WidgetsListTests(APITestCase):
   def test_widgets_list(self):
     user = User.objects.create_user(username='user')
-    project = Project.objects.create(title='Test', creator=user)
+    project = Project.objects.create(title='Test', creator=user, start_search_date=datetime(2022, 10, 10), end_search_date=datetime(2022, 10, 16))
     url = reverse('widgets_list', kwargs={'pk': project.id})
     response = self.client.get(url)
     self.assertEqual(response.status_code, status.HTTP_200_OK)
