@@ -164,7 +164,10 @@ class Post(models.Model):
   is_sentiment = models.BooleanField(default=False)
 
   class Meta:
-    indexes = [models.Index(fields=['entry_title', ]), ]
+    indexes = [
+      models.Index(fields=['entry_published',]),
+      models.Index(fields=['entry_title',]),
+    ]
   
   def __str__(self):
     return self.entry_title
