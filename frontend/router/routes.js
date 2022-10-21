@@ -70,15 +70,15 @@ export const routes = [
         name: 'ProjectStep2',
         path: 'project-step-2',
         component: CreateSearchScreen,
-        // beforeEnter: (to, from, next) => {
-        //   if (to.name !== store.state.currentStep)
-        //     return next({
-        //       name: 'ProjectStep1',
-        //       params: {workspaceId: to.params.workspaceId},
-        //     })
-        //
-        //   return next()
-        // },
+        beforeEnter: (to, from, next) => {
+          if (to.name !== store.state.currentStep)
+            return next({
+              name: 'ProjectStep1',
+              params: {workspaceId: to.params.workspaceId},
+            })
+
+          return next()
+        },
       },
     ],
   },
