@@ -74,7 +74,6 @@ export default {
   },
   methods: {
     ...mapActions([
-      action.GET_WORKSPACES,
       action.CREATE_WORKSPACE,
       action.UPDATE_CURRENT_STEP,
       action.UPDATE_OLD_WORKSPACE,

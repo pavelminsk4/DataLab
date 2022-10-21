@@ -10,8 +10,8 @@
 </template>
 
 <script>
-import {mapActions, mapState} from 'vuex'
-import {action} from '@store/constants'
+import {mapActions, mapGetters} from 'vuex'
+import {action, get} from '@store/constants'
 
 import MainHeader from '@components/navigation/MainHeader'
 import BackgroundIcon from '@/components/icons/BackgroundIcon'
@@ -26,13 +26,12 @@ export default {
     if (!Object.keys(this.userInfo).length) {
       this[action.GET_USER_INFORMATION]()
     }
-
     if (!this.workspaces.length) {
       this[action.GET_WORKSPACES]()
     }
   },
   computed: {
-    ...mapState(['userInfo', 'workspaces']),
+    ...mapGetters({workspaces: get.WORKSPACES, userInfo: get.USER_INFO}),
   },
   methods: {
     ...mapActions([action.GET_USER_INFORMATION, action.GET_WORKSPACES]),

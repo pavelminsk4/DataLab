@@ -3,14 +3,14 @@
     <div class="custom-month-year-component">
       <BaseCalendarSelect
         :options="yearsArray"
-        :default="year"
+        :value="year"
         :name="'month-year'"
         @select-option="updateYear"
         class="select-year"
       />
       <BaseCalendarSelect
         :options="monthArray"
-        :default="currentMonth"
+        :value="currentMonth(month)"
         :name="'month-year'"
         @select-option="updateMonth"
       />
@@ -69,9 +69,9 @@ export default defineComponent({
       updateMonthYear(month, year)
     }
 
-    const currentMonth = computed(() => {
-      return props.months.filter((el) => el.value === props.month)[0].text
-    })
+    const currentMonth = (month) => {
+      return props.months.filter((el) => el.value === month)[0].text
+    }
 
     const yearsArray = computed(() => {
       return props.years.map((el) => el.text)
