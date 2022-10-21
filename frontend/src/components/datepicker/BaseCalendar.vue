@@ -17,7 +17,10 @@
           v-for="(item, index) in presetRanges"
           :key="index + 'year'"
           @click="addPeriod(item.range)"
-          class="fixed-period"
+          :class="[
+            'fixed-period',
+            isSelectedDefaultRange(item.range) && 'active-range',
+          ]"
         >
           {{ item.label }}
         </div>
@@ -76,11 +79,19 @@ export default {
   },
   data() {
     return {
-      selectedDate: [this.getLastWeeksDate(), new Date()],
-      presetRanges: [
+      hoursStartDate: '',
+      minutesStartDate: '',
+      hoursEndDate: '',
+      minutesEndDate: '',
+    }
+  },
+  computed: {
+    ...mapState(['additionalFilters', 'keywords']),
+    presetRanges() {
+      return [
         {
           label: 'Last Week',
-          range: [this.getLastWeeksDate(), new Date()],
+          range: this.lastWeeksDate,
         },
         {
           label: 'Yesterday',
@@ -98,28 +109,24 @@ export default {
             endOfMonth(subMonths(new Date(), 1)),
           ],
         },
-      ],
-      hoursStartDate: '',
-      minutesStartDate: '',
-      hoursEndDate: '',
-      minutesEndDate: '',
-    }
-  },
-  computed: {
-    ...mapState(['additionalFilters', 'keywords']),
-    monthYearCustom() {
-      return MonthYearCustom
+      ]
     },
     selectedDateProxy: {
       get() {
-        return this.additionalFilters?.date_range || this.selectedDate
+        return this.additionalFilters?.date_range || this.lastWeeksDate
       },
       set(val) {
         this[action.UPDATE_ADDITIONAL_FILTERS]({date_range: val})
       },
     },
+    lastWeeksDate() {
+      return [this.getLastWeeksDate(), new Date()]
+    },
     timePickerCustom() {
       return TimePickerCustom
+    },
+    monthYearCustom() {
+      return MonthYearCustom
     },
     actionRowCustom() {
       return ActionRowCustom
@@ -193,6 +200,15 @@ export default {
         new Date().getDate()
       )
     },
+    isSelectedDefaultRange(val) {
+      let result = []
+      for (let i = 0; i < val.length; i++) {
+        if (Date.parse(this.selectedDateProxy[i]) === Date.parse(val[i])) {
+          result.push(Date.parse(this.selectedDateProxy[i]))
+        }
+      }
+      return result.length === 2
+    },
   },
 }
 </script>
@@ -239,6 +255,11 @@ export default {
       color: var(--primary-button-color);
       background-color: rgba(5, 95, 252, 0.1);
     }
+  }
+
+  .active-range {
+    color: var(--primary-button-color);
+    background-color: rgba(5, 95, 252, 0.1);
   }
 }
 

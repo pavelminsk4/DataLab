@@ -1,10 +1,12 @@
 <template>
   <LineChart
-    v-if="false"
+    v-if="isLineChart"
     :chart-data="chartData"
     :chart-options="chartOptions"
+    class="bar-chart-widget"
   />
   <BarChart
+    v-else
     :chart-data="chartData"
     :chart-options="chartOptions"
     class="bar-chart-widget"
@@ -25,6 +27,15 @@ export default {
     chartOptions: {
       type: Object,
       default: () => {},
+    },
+    volumeValue: {
+      type: [Object, Array],
+      required: true,
+    },
+  },
+  computed: {
+    isLineChart() {
+      return this.volumeValue?.length > 7
     },
   },
 }

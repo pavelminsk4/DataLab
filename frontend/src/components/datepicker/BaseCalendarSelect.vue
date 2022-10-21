@@ -8,7 +8,7 @@
     <div class="selected" :class="{open: open}" @click="open = !open">
       <input
         v-model="search"
-        :placeholder="selected"
+        :placeholder="value"
         type="text"
         class="select-search"
       />
@@ -18,7 +18,7 @@
       <div
         v-for="(option, i) of selectList"
         :key="i"
-        @click="addOption(option)"
+        @change="addOption(option)"
         class="item"
       >
         {{ option }}
@@ -51,6 +51,10 @@ export default {
       type: String,
       required: true,
     },
+    value: {
+      type: [String, Number],
+      required: true,
+    },
     selectWidth: {
       type: Number,
       default: 62,
@@ -68,9 +72,6 @@ export default {
     }
   },
   created() {
-    document.addEventListener('click', this.close)
-  },
-  mounted() {
     document.addEventListener('click', this.close)
     this.$emit('input', this.selected)
   },

@@ -1,7 +1,8 @@
 <template>
-  <div class="back-button" @click="backToHome">
+  <div class="back-button" @click="backToPage">
     <ArrowLeftIcon class="arrow-back" />
-    Back to dashboard
+    <span v-if="!!step">Back to dashboard</span>
+    <span v-else>Back</span>
   </div>
 
   <div class="create-project-title">
@@ -13,7 +14,7 @@
     </div>
     <div class="progress-bar-wrapper">
       <Steps
-        v-if="step"
+        v-if="!!step"
         :step="step"
         :current-step="currStep"
         :is-existing-workspace="isExistingWorkspace"
@@ -101,10 +102,16 @@ export default {
     },
   },
   methods: {
-    backToHome() {
-      this.$router.push({
-        name: 'Home',
-      })
+    backToPage() {
+      if (this.step) {
+        this.$router.push({
+          name: 'Home',
+        })
+      } else {
+        this.$router.push({
+          name: 'Workspace',
+        })
+      }
     },
 
     goToNextStep() {

@@ -1,4 +1,10 @@
 <template>
+  <ContentVolumeSettingsModal
+    v-if="isOpenContentVolumeModal"
+    @close="openModal('isOpenContentVolumeModal')"
+    :volume="volume"
+  />
+
   <grid-layout
     v-if="availableWidgets"
     v-model:layout="layout"
@@ -33,6 +39,7 @@
         :project-id="projectId"
         :is-open-widget="item.isShow"
         @delete-widget="deleteWidget(item.name)"
+        @open-content-volume-modal="openModal(item.isOpenModal)"
       />
     </grid-item>
   </grid-layout>
@@ -45,18 +52,16 @@ import {action, get} from '@store/constants'
 import VueGridLayout from 'vue3-grid-layout'
 import SummaryWidget from '@/components/widgets/SummaryWidget'
 import ContentVolumeWidget from '@/components/widgets/ContentVolumeWidget'
-import VolumeLineWidget from '@/components/widgets/VolumeLineWidget'
-import BarWidget from '@/components/widgets/BarWidget'
 import ChartsView from '@/components/widgets/charts/ChartsView'
+import ContentVolumeSettingsModal from '@/components/widgets/modals/ContentVolumeSettingsModal'
 
 export default {
   name: 'WidgetsView',
   components: {
+    ContentVolumeSettingsModal,
     ChartsView,
     SummaryWidget,
     ContentVolumeWidget,
-    VolumeLineWidget,
-    BarWidget,
     GridLayout: VueGridLayout.GridLayout,
     GridItem: VueGridLayout.GridItem,
   },
@@ -65,6 +70,11 @@ export default {
       type: Number,
       required: true,
     },
+  },
+  data() {
+    return {
+      isOpenContentVolumeModal: false,
+    }
   },
   created() {
     this[action.GET_AVAILABLE_WIDGETS](this.projectId)
@@ -98,6 +108,7 @@ export default {
           name: 'volume_widget',
           widgetName: 'ContentVolume',
           isShow: this.isActiveWidget('volume_widget'),
+          isOpenModal: 'isOpenContentVolumeModal',
         },
       ]
     },
@@ -116,6 +127,9 @@ export default {
     },
     isActiveWidget(key) {
       return this.availableWidgets[key]?.is_active
+    },
+    openModal(val) {
+      this[val] = !this[val]
     },
   },
 }

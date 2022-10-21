@@ -1,6 +1,13 @@
 <template>
-  <WidgetsLayout title="Volume">
-    <ChartsView :chart-data="chartData" :chart-options="chartOptions" />
+  <WidgetsLayout
+    title="Volume"
+    @open-modal="$emit('open-content-volume-modal')"
+  >
+    <ChartsView
+      :chart-data="chartData"
+      :chart-options="chartOptions"
+      :volume-value="volumeValue"
+    />
   </WidgetsLayout>
 </template>
 
