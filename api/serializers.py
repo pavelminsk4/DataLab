@@ -4,7 +4,7 @@ from accounts.models import Profile, department
 from rest_framework import serializers
 from drf_writable_nested.serializers import WritableNestedModelSerializer
 from countries_plus.models import Country
-from widgets.models import WidgetsList
+from widgets.models import WidgetsList, ClippingFeedContentWidget
 
 class DepartmentSerializer(WritableNestedModelSerializer):
   class Meta:
@@ -65,3 +65,8 @@ class WidgetsListSerializer(WritableNestedModelSerializer):
     model = WidgetsList
     #fields = '__all__'
     fields = ['summary_widget', 'volume_widget']
+
+class ClippingFeedContentWidgetSerializer(WritableNestedModelSerializer):
+  class Meta:
+    model = ClippingFeedContentWidget
+    fields = '__all__'

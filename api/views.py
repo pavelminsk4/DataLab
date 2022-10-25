@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from rest_framework.generics import ListAPIView, CreateAPIView, DestroyAPIView, UpdateAPIView, RetrieveAPIView
-from .serializers import SpeechSerializer, UserSerializer, WorkspaceSerializer, ProjectSerializer, WorkspaceCreateSerializer, CountrySerializer, WidgetsListSerializer
+from .serializers import SpeechSerializer, UserSerializer, WorkspaceSerializer, ProjectSerializer, WorkspaceCreateSerializer, CountrySerializer, WidgetsListSerializer, ClippingFeedContentWidgetSerializer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import ProjectSerializer, Workspace
@@ -15,7 +15,7 @@ from django.views.decorators.csrf import csrf_exempt
 from countries_plus.models import Country
 from dateutil import parser
 from django.db.models.functions import ExtractYear
-from widgets.models import WidgetsList
+from widgets.models import ClippingFeedContentWidget, WidgetsList
 
 # ==== User API =======================
 
@@ -186,3 +186,11 @@ class UpdateProjectsWidgetsAPIView(UpdateAPIView):
 
   def get_object(self):
     return WidgetsList.objects.get(project_id=self.kwargs['pk'])
+
+class ClippingFeedContentWidgetCreate(CreateAPIView):
+  queryset = ClippingFeedContentWidget.objects.all()
+  serializer_class = ClippingFeedContentWidgetSerializer
+
+class ClippingFeedContentWidgetDelete(DestroyAPIView):
+  queryset = ClippingFeedContentWidget.objects.all()
+  serializes_class = ClippingFeedContentWidgetSerializer
