@@ -11,7 +11,7 @@ env.read_env(os.path.join(BASE_DIR, '.env'))
 
 SECRET_KEY = 'django-insecure-#v!p9&1x##2u#yt)l=o5ihm(=!&(y(w4j5p-_mbm(k&bc1i!jw'
 
-ALLOWED_HOSTS = ['46.151.214.110', 'localhost']
+ALLOWED_HOSTS = ['46.151.214.110', 'localhost', '46.101.224.115']
 
 # Application definition
 

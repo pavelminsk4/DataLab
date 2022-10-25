@@ -86,8 +86,8 @@ class WorkspaceDelete(DestroyAPIView):
   serializer_class = WorkspaceSerializer
 
 # === Search API =====
-def keywords_posts(keys):
-  posts = Post.objects.filter(reduce(lambda x,y: x | y, [Q(entry_title__contains=key) for key in keys]))
+def keywords_posts(keys, posts):
+  posts = posts.filter(reduce(lambda x,y: x | y, [Q(entry_title__contains=key) for key in keys]))
   return posts
 
 def exclude_keywords_posts(posts, exceptions):
@@ -100,10 +100,14 @@ def exclude_keywords_posts(posts, exceptions):
   posts = posts.exclude(id__in=to_be_removed)
   return posts
 
-def additional_keywords_posts(keys, additions):
-  posts = Post.objects.filter(reduce(lambda x,y: x | y, [Q(entry_title__contains=key) for key in keys]))
+def additional_keywords_posts(posts, additions):
   for word in additions:
     posts = posts.filter(entry_title__contains=word)
+  return posts
+
+def data_range_posts(start_date, end_date):
+  interval = [start_date, end_date]
+  posts = Post.objects.filter(entry_published__range=interval)
   return posts
 
 #@csrf_exempt
@@ -118,25 +122,22 @@ def search(request):
   author = body['author']
   sentiment = body['sentiment']
   date_range = body['date_range']
+  posts = data_range_posts(date_range[0], date_range[1])
+  posts = keywords_posts(keys, posts)
   if additions!=[]:
-    posts = additional_keywords_posts(keys, additions)
-  else:
-    posts = keywords_posts(keys)
+    posts = additional_keywords_posts(posts, additions)
   if exceptions!=[]:
     posts = exclude_keywords_posts(posts, exceptions)
   if country!=[]:
-     posts = posts.filter(feedlink__country=country)
+    posts = posts.filter(feedlink__country=country)
   if language!=[]:
-     posts = posts.filter(feed_language__language=language)
+    posts = posts.filter(feed_language__language=language)
   if source!=[]:
     posts = posts.filter(feedlink__source1=source)
   if author!=[]:
     posts = posts.filter(entry_author=author)
-  if date_range!=[]:
-    interval = [parser.parse(date_range[0]), parser.parse(date_range[1])]
-    posts = posts.filter(entry_published__range=interval)
   if sentiment!=[]:
-    posts = posts.filter(sentiment=sentiment) 
+    posts = posts.filter(sentiment=sentiment)
   posts = posts.values('entry_title', 'entry_published', 'entry_summary', 'entry_media_thumbnail_url', 'feed_language__language', 'entry_author', 'feedlink__country', 'feedlink__source1', 'sentiment')
   posts_list=list(posts)
   return JsonResponse(posts_list, safe = False)
