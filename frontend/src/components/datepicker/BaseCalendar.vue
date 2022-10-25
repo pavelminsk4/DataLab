@@ -5,6 +5,7 @@
     :enableTimePicker="false"
     :action-row-component="actionRowCustom"
     @update:modelValue="handleDate"
+    @internalModelChange="modelChange"
     @open="openCalendar"
     @closed="openCalendar"
     range
@@ -15,11 +16,13 @@
       <div class="fixed-period-wrapper">
         <div
           v-for="(item, index) in presetRanges"
-          :key="index + 'year'"
+          :key="'default-' + index"
           @click="addPeriod(item.range)"
           :class="[
             'fixed-period',
-            isSelectedDefaultRange(item.range) && 'active-range',
+            isSelectedDefaultRange(item.range) &&
+              selectedDate &&
+              'active-range',
           ]"
         >
           {{ item.label }}
@@ -83,6 +86,7 @@ export default {
       minutesStartDate: '',
       hoursEndDate: '',
       minutesEndDate: '',
+      selectedDate: true,
     }
   },
   computed: {
@@ -116,6 +120,7 @@ export default {
         return this.additionalFilters?.date_range || this.lastWeeksDate
       },
       set(val) {
+        this.selectedDate = val
         this[action.UPDATE_ADDITIONAL_FILTERS]({date_range: val})
       },
     },
@@ -179,6 +184,9 @@ export default {
         year: 'numeric',
       })
     },
+    modelChange(date) {
+      this.selectedDate = this.isSelectedDefaultRange(date)
+    },
     addPeriod(range) {
       this.selectedDateProxy = range
     },
@@ -201,13 +209,14 @@ export default {
       )
     },
     isSelectedDefaultRange(val) {
-      let result = []
       for (let i = 0; i < val.length; i++) {
-        if (Date.parse(this.selectedDateProxy[i]) === Date.parse(val[i])) {
-          result.push(Date.parse(this.selectedDateProxy[i]))
-        }
+        return (
+          `${this.selectedDateProxy[i].getYear()} - ${this.selectedDateProxy[
+            i
+          ].getMonth()} - - ${this.selectedDateProxy[i].getDate()}` ===
+          `${val[i].getYear()} - ${val[i].getMonth()} - - ${val[i].getDate()}`
+        )
       }
-      return result.length === 2
     },
   },
 }
