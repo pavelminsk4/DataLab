@@ -13,6 +13,7 @@
         :value="currentMonth(month)"
         :name="'month-year'"
         @select-option="updateMonth"
+        :selectWidth="95"
       />
     </div>
     <div class="icons">
@@ -28,12 +29,12 @@ import {defineComponent, computed} from 'vue'
 import BaseCalendarSelect from '@/components/datepicker/BaseCalendarSelect'
 import CalendarControlIcon from '@/components/icons/CalendarControlIcon'
 
+import {months, years} from '@/lib/constants'
+
 export default defineComponent({
   components: {CalendarControlIcon, BaseCalendarSelect},
   emits: ['update-month-year'],
   props: {
-    months: {type: Array, default: () => []},
-    years: {type: Array, default: () => []},
     filters: {type: Object, default: null},
     monthPicker: {type: Boolean, default: false},
     month: {type: Number, default: 0},
@@ -50,7 +51,7 @@ export default defineComponent({
       let year = props.year
       if (props.month === 11) {
         month = 0
-        year = props.year + 1
+        year = +props.year + 1
       } else {
         month += 1
       }
@@ -70,28 +71,27 @@ export default defineComponent({
     }
 
     const currentMonth = (month) => {
-      return props.months.filter((el) => el.value === month)[0].text
+      return months.filter((el) => el.value === month)[0].text
     }
 
     const yearsArray = computed(() => {
-      return props.years.map((el) => el.text)
+      return years.map((el) => el.text)
     })
 
     const monthArray = computed(() => {
-      return props.months.map((el) => el.text)
+      return months.map((el) => el.text)
     })
 
     const updateMonth = (option) => {
-      console.log(option)
       const selectedMonth = computed(() => {
-        return props.months.filter((el) => el.text === option)
+        return months.filter((el) => el.text === option)
       })
 
       updateMonthYear(selectedMonth.value[0].value, props.year)
     }
 
     const updateYear = (option) => {
-      updateMonthYear(props.month, option)
+      updateMonthYear(props.month, +option)
     }
 
     return {

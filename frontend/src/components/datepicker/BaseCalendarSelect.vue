@@ -7,18 +7,20 @@
   >
     <div class="selected" :class="{open: open}" @click="open = !open">
       <input
+        v-if="isSearch"
         v-model="search"
         :placeholder="value"
         type="text"
         class="select-search"
       />
+      <div v-else>{{ value }}</div>
       <CalendarArrowDownIcon :class="['icon', open && 'open-select']" />
     </div>
     <div class="items" :class="{selectHide: !open}">
       <div
         v-for="(option, i) of selectList"
         :key="i"
-        @change="addOption(option)"
+        @click="addOption(option)"
         class="item"
       >
         {{ option }}
@@ -58,6 +60,10 @@ export default {
     selectWidth: {
       type: Number,
       default: 62,
+    },
+    isSearch: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {
@@ -112,7 +118,14 @@ export default {
   .selected {
     position: relative;
 
+    color: var(--primary-text-color);
     background-color: var(--secondary-bg-color);
+
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 150%;
+    letter-spacing: 0.15px;
 
     .select-search {
       max-width: 100%;
@@ -122,6 +135,10 @@ export default {
       background-color: var(--secondary-bg-color);
 
       color: var(--primary-text-color);
+
+      &::placeholder {
+        color: var(--primary-text-color);
+      }
     }
 
     .icon {
@@ -152,7 +169,7 @@ export default {
     border-bottom-right-radius: 8px;
     border-bottom-left-radius: 8px;
 
-    height: 200px;
+    max-height: 200px;
 
     color: var(--primary-text-color);
     background-color: var(--secondary-bg-color);
@@ -163,6 +180,8 @@ export default {
       cursor: pointer;
 
       margin-left: 4px;
+
+      color: var(--primary-text-color);
     }
 
     &::-webkit-scrollbar {
