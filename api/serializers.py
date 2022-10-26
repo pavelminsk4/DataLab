@@ -64,7 +64,7 @@ class WidgetsListSerializer(WritableNestedModelSerializer):
   class Meta:
     model = WidgetsList
     #fields = '__all__'
-    fields = ['summary_widget', 'volume_widget', 'clipping_feed_content_widget']
+    fields = ['summary_widget', 'volume_widget', 'clipping_feed_content_widget', 'top_10_authors_by_volume_widget']
 
 class ClippingFeedContentWidgetSerializer(WritableNestedModelSerializer):
   class Meta:
