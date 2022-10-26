@@ -1,5 +1,5 @@
 from django.db import models
-from project.models import Project
+from project.models import Project, Post
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
@@ -15,3 +15,7 @@ class WidgetsList(models.Model):
 def create_widgets_list(sender, instance, created, **kwargs):
     if created:
         WidgetsList.objects.create(project=instance)
+
+class ClippingFeedContentWidget(models.Model):
+  project = models.ForeignKey(Project,on_delete=models.CASCADE,verbose_name ='Project')
+  post = models.ForeignKey(Post,on_delete=models.CASCADE,verbose_name ='Post', related_name='posts')
