@@ -2,12 +2,21 @@
   <MainLayout>
     <div class="settings-nav-wrapper">
       <div v-for="(item, index) in settings" :key="'setting' + index">
-        <div class="nav-title">{{ item.name }}</div>
+        <div
+          :class="['nav-item', item.name === settingName && 'active-setting']"
+          @click="openSetting(item.name)"
+        >
+          <component :is="item.name + 'Icon'" />
+
+          {{ item.name }}
+        </div>
       </div>
     </div>
-    <ReportsScreen v-if="false" />
-    <AlertsScreen v-if="false" />
-    <AnalyticsScreen :current-project="currentProject" class="screen-wrapper" />
+    <component
+      :is="settingName + 'Screen'"
+      :current-project="currentProject"
+      class="screen-wrapper"
+    />
   </MainLayout>
 </template>
 
@@ -20,11 +29,28 @@ import ReportsScreen from '@/components/project/screens/ReportsScreen'
 import AlertsScreen from '@/components/project/screens/AlertsScreen'
 import AnalyticsScreen from '@/components/project/screens/AnalyticsScreen'
 
+import AnalyticsIcon from '@/components/icons/AnalyticsIcon'
+import SearchIcon from '@/components/icons/SearchIcon'
+import AlertsIcon from '@/components/icons/AlertsIcon'
+import ReportsIcon from '@/components/icons/ReportsIcon'
+import SettingsIcon from '@/components/icons/SettingsIcon'
+
 export default {
   name: 'ProjectReports',
-  components: {AnalyticsScreen, AlertsScreen, ReportsScreen, MainLayout},
+  components: {
+    AnalyticsScreen,
+    AlertsScreen,
+    ReportsScreen,
+    MainLayout,
+    AnalyticsIcon,
+    SearchIcon,
+    AlertsIcon,
+    ReportsIcon,
+    SettingsIcon,
+  },
   data() {
     return {
+      settingName: 'Analytics',
       settings: [
         {
           name: 'Analytics',
@@ -71,6 +97,10 @@ export default {
   },
   methods: {
     ...mapActions([action.GET_WORKSPACES]),
+    openSetting(val) {
+      this.settingName = val
+      console.log(this.settingName)
+    },
   },
 }
 </script>
@@ -90,8 +120,14 @@ export default {
 
   background-color: var(--primary-button-color);
 
-  .nav-title {
-    margin-right: 34px;
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 8px 22px 10px 13px;
+
+    cursor: pointer;
 
     font-style: normal;
     font-weight: 400;
@@ -99,6 +135,12 @@ export default {
     line-height: 22px;
 
     color: #ffffff;
+  }
+
+  .active-setting {
+    border-radius: 8px;
+
+    background: rgba(34, 42, 54, 0.4);
   }
 }
 

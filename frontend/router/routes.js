@@ -9,7 +9,7 @@ import CreateSearchScreen from '@/components/workspace/screens/CreateSearchScree
 import CreateProjectScreen from '@/components/workspace/screens/CreateProjectScreen'
 import CreateWorkspaceScreen from '@/components/workspace/screens/CreateWorkspaceScreen'
 
-import ProjectSettingsView from '@/components/project/ProjectSettingsView'
+import ProjectExtraSettingsView from '@/components/project/ProjectExtraSettingsView'
 
 export const routes = [
   {
@@ -92,6 +92,6 @@ export const routes = [
   {
     name: 'ProjectReports',
     path: '/workspace/:workspaceId/project/:projectId',
-    component: ProjectSettingsView,
+    component: ProjectExtraSettingsView,
   },
 ]
