@@ -9,7 +9,7 @@
           <div>{{ calendarDate }}</div>
           <ArrowDownIcon :class="[isShowCalendar && 'open-calendar']" />
         </div>
-        <BaseCalendar v-if="isShowCalendar" />
+        <BaseCalendar v-if="isShowCalendar" :current-project="currentProject" />
       </div>
     </div>
     <div v-if="loading" class="spinner-wrapper"><BaseSpinner /></div>
@@ -60,7 +60,7 @@
         </section>
       </div>
     </div>
-    <div v-if="!loading">No results.</div>
+    <div v-if="!loading && !searchData.length">No results.</div>
   </div>
 </template>
 
@@ -85,6 +85,12 @@ export default {
     BaseCheckbox,
     BaseSpinner,
     NoImageIcon,
+  },
+  props: {
+    currentProject: {
+      type: [Array, Object],
+      required: false,
+    },
   },
   data() {
     return {

@@ -17,12 +17,20 @@ export default {
     return state.userInfo
   },
 
+  [get.CURRENT_STEP](state) {
+    return state.currentStep
+  },
+
   [get.KEYWORDS](state) {
     return state.keywords
   },
 
   [get.NEW_PROJECT](state) {
     return state.newProject
+  },
+
+  [get.NEW_WORKSPACE](state) {
+    return state.newWorkspace
   },
 
   [get.SEARCH_DATA](state) {

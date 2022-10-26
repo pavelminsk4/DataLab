@@ -56,7 +56,6 @@ export default {
         'X-CSRFToken': CSRF_TOKEN,
       },
     }
-    console.log(value)
     return fetch(
       'put',
       `/api/widgets/volume_widget/${projectId}`,
@@ -104,6 +103,16 @@ export default {
       },
     }
     return fetch('put', `/api/workspace/update/${workspaceId}/`, data, config)
+  },
+
+  async updateProject({projectId, data}) {
+    const config = {
+      headers: {
+        'content-type': 'application/json',
+        'X-CSRFToken': CSRF_TOKEN,
+      },
+    }
+    return fetch('put', `/api/project/update/${projectId}/`, data, config)
   },
 
   async updateAvailableWidgets({projectId, data}) {

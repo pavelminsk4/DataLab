@@ -20,14 +20,16 @@
         :is-existing-workspace="isExistingWorkspace"
       />
       <BaseButton
-        v-if="isShowButton"
+        v-if="!!step"
         :is-disabled="!isActiveButton"
         :style="`width: ${buttonWidth}`"
         class="next-button"
         @click="goToNextStep"
       >
-        {{ buttonName }} <slot></slot>
+        {{ buttonName }}
       </BaseButton>
+
+      <slot></slot>
     </div>
   </div>
   <div class="hint">{{ hint }}</div>
@@ -64,10 +66,6 @@ export default {
       required: false,
     },
     isActiveButton: {
-      type: Boolean,
-      default: true,
-    },
-    isShowButton: {
       type: Boolean,
       default: true,
     },

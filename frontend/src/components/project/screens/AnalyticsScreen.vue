@@ -10,7 +10,6 @@
       v-if="currentProject"
       :title="currentProject.title"
       :hint="'Search by keywords and phrases '"
-      :is-show-button="false"
     />
 
     <div class="navigation-bar">
