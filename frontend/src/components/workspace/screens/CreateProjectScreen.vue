@@ -2,8 +2,8 @@
   <NavigationBar
     v-if="currentStep === 'Step2'"
     :step="step"
-    :title="'Create Project'"
-    :hint="'Name the project and choose source Type'"
+    title="Create Project"
+    hint="Name the project and choose source Type"
     :is-active-button="!!projectName && !!selectedValue.name"
     @next-step="nextStep"
   />
@@ -11,8 +11,8 @@
   <NavigationBar
     v-else
     :step="step"
-    :title="'Create Project'"
-    :hint="'Name the project and choose source Type'"
+    title="Create Project"
+    hint="Name the project and choose source Type"
     :is-existing-workspace="true"
     :is-active-button="!!projectName && !!selectedValue.name"
     @next-step="nextStepForExistingWorkspace"

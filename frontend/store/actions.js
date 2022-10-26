@@ -167,6 +167,17 @@ export default {
     }
   },
 
+  async [action.UPDATE_PROJECT]({commit}, {projectId, data}) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      await api.updateProject({projectId, data})
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
   async [action.UPDATE_AVAILABLE_WIDGETS]({commit}, {projectId, data}) {
     commit(mutator.SET_LOADING, true)
     try {

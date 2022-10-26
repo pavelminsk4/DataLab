@@ -2,21 +2,21 @@
   <NavigationBar
     v-if="this.currentStep === 'Step3'"
     :step="step"
-    :title="'Define the search'"
-    :hint="'Search by keywords and phrases'"
+    title="Define the search"
+    hint="Search by keywords and phrases"
     :button-width="141"
-    :button-name="'Create Project'"
+    button-name="Save Project"
     @next-step="createWorkspaceAndProject"
   />
 
   <NavigationBar
     v-else
     :step="step"
-    :title="'Define the search'"
-    :hint="'Search by keywords and phrases'"
+    title="Define the search"
+    hint="Search by keywords and phrases"
     :is-existing-workspace="true"
     :button-width="141"
-    :button-name="'Create Project'"
+    button-name="Create Project"
     @next-step="createProject"
   />
 
@@ -132,10 +132,6 @@ export default {
       }
     },
     async createProject() {
-      console.log(
-        this.defaultDateRange[0],
-        this.additionalFilters?.date_range[0]
-      )
       try {
         this[action.UPDATE_PROJECT_STATE]({
           keywords: this.keywords?.keywords,

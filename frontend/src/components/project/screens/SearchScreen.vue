@@ -4,8 +4,9 @@
       v-if="currentProject"
       :title="currentProject.title"
       hint="Search by keywords and phrases "
-      :is-show-button="false"
-    />
+    >
+      <BaseButton class="button" @click="updateProjectData">Save</BaseButton>
+    </NavigationBar>
 
     <div class="search-settings-wrapper">
       <ProjectKeywords
@@ -27,10 +28,11 @@ import {action, get} from '@store/constants'
 import NavigationBar from '@/components/navigation/NavigationBar'
 import ProjectKeywords from '@/components/workspace/ProjectKeywords'
 import SearchResults from '@/components/SearchResults'
+import BaseButton from '@/components/buttons/BaseButton'
 
 export default {
   name: 'SearchScreen',
-  components: {SearchResults, ProjectKeywords, NavigationBar},
+  components: {BaseButton, SearchResults, ProjectKeywords, NavigationBar},
   props: {
     currentProject: {
       type: [Array, Object],
@@ -65,6 +67,7 @@ export default {
   methods: {
     ...mapActions([
       action.POST_SEARCH,
+      action.UPDATE_PROJECT,
       action.UPDATE_KEYWORDS_LIST,
       action.UPDATE_ADDITIONAL_FILTERS,
     ]),
@@ -94,8 +97,39 @@ export default {
         console.log(e)
       }
     },
+    updateProjectData: function () {
+      try {
+        this[action.UPDATE_PROJECT]({
+          projectId: this.currentProject?.id,
+          data: {
+            title: this.currentProject?.title,
+            note: this.currentProject?.note,
+            keywords: this.currentKeywords || this.keywords?.keywords,
+            additional_keywords:
+              this.currentAdditionalKeywords ||
+              this.keywords?.additional_keywords,
+            ignore_keywords:
+              this.currentExcludeKeywords || this.keywords?.ignore_keywords,
+            max_items: '',
+            image: null,
+            arabic_name: '',
+            english_name: '',
+            creator: this.currentProject?.creator,
+            source: this.currentProject?.source,
+            workspace: this.currentProject?.workspace,
+            start_search_date:
+              this.additionalFilters?.date_range[0] ||
+              this.currentProject?.start_search_date,
+            end_search_date:
+              this.additionalFilters?.date_range[1] ||
+              this.currentProject?.end_search_date,
+          },
+        })
+      } catch (e) {
+        console.log(e)
+      }
+    },
     updateCollection(name, val) {
-      console.log(name, val)
       this[action.UPDATE_KEYWORDS_LIST]({
         [name]: val,
       })
@@ -109,5 +143,9 @@ export default {
   display: flex;
   justify-content: space-between;
   gap: 108px;
+}
+
+.button {
+  width: 105px;
 }
 </style>
