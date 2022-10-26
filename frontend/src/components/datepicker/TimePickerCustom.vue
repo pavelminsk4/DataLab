@@ -86,6 +86,7 @@ select {
   display: flex;
   align-items: center;
 
+  width: 100%;
   padding: 9px 13px;
 
   background: var(--progress-line);

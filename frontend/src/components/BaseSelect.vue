@@ -21,7 +21,11 @@
     <ArrowDownIcon class="arrow" :class="{expanded: visible}" />
     <div :class="{hidden: !visible, visible}">
       <ul class="select-list">
-        <li @click="select('Reject selection')" class="select-item">
+        <li
+          v-if="isRejectSelection"
+          @click="select('Reject selection')"
+          class="select-item"
+        >
           Reject selection
         </li>
         <li
@@ -58,6 +62,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    isRejectSelection: {
+      type: Boolean,
+      default: true,
+    },
   },
   data() {
     return {
@@ -71,9 +79,13 @@ export default {
   },
   computed: {
     selectList() {
-      return this.list.filter((item) => {
-        return item?.toLowerCase().includes(this.search?.toLowerCase())
-      })
+      if (this.isSearch) {
+        return this.list.filter((item) => {
+          return item?.toLowerCase().includes(this.search?.toLowerCase())
+        })
+      }
+
+      return this.list
     },
   },
   methods: {

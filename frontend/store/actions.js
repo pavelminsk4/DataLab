@@ -110,10 +110,10 @@ export default {
     }
   },
 
-  async [action.GET_VOLUME_WIDGET]({commit}, projectId) {
+  async [action.GET_VOLUME_WIDGET]({commit}, {projectId, value}) {
     commit(mutator.SET_LOADING, true)
     try {
-      const volume = await api.getVolumeWidget(projectId)
+      const volume = await api.getVolumeWidget({projectId, value})
       commit(mutator.SET_VOLUME_WIDGET, volume)
     } catch (e) {
       console.log(e)

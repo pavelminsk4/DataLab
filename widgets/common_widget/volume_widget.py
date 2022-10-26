@@ -5,6 +5,7 @@ from django.db.models import Q
 from functools import reduce
 from django.db.models.functions import Trunc
 from django.db.models import Count
+import json
 
 def keywords_posts(keys, posts):
   posts = posts.filter(reduce(lambda x,y: x | y, [Q(entry_title__contains=key) for key in keys]))
@@ -46,11 +47,12 @@ def volume(request, pk):
   project = get_object_or_404(Project, pk=pk)
   posts = posts_agregator(project)
   #smpl_freq = request.smpl_freq
-  smpl_freq = 'day'
+  #smpl_freq = 'day'
   #smpl_freq = 'week'
   #smpl_freq = 'quarter'
   #smpl_freq = 'month'
   #smpl_freq = 'year'
+  smpl_freq = json.loads(request.body)
   posts_per_smpl_freq = posts.annotate(date=Trunc('entry_published', smpl_freq)).values("date").annotate(created_count=Count('id')).order_by("date")
   res = list(posts_per_smpl_freq)
   return JsonResponse(res, safe = False)

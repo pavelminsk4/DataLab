@@ -175,7 +175,7 @@ export default {
   align-items: center;
   gap: 8px;
 
-  max-width: 270px;
+  max-width: 100%;
   padding: 10px 16px 10px 25px;
 
   background: var(--secondary-bg-color);
