@@ -4,37 +4,63 @@
 
     <div class="settings-wrapper">
       <section class="chart-wrapper">
-        <ChartsView :chart-data="chartData" :chart-options="chartOptions" />
+        <ChartsView
+          :chart-data="chartData"
+          :chart-options="chartOptions"
+          :volume-value="volumeValue"
+        />
       </section>
 
       <div class="options-wrapper">
         <div class="title-general">General</div>
 
-        <div class="title">Widget Title</div>
-        <BaseInput class="input-title" />
+        <div class="title">Date Aggregation Period</div>
+        <BaseSelect
+          v-model="aggregationPeriod"
+          :list="aggregationPeriods"
+          :is-reject-selection="false"
+          @select-option="selectItem"
+          name="aggregation-period"
+          class="option"
+        />
 
-        <div class="title">Widget Description</div>
-        <textarea class="description-field" placeholder="Description" />
+        <BaseButton @click="saveOptions">Save</BaseButton>
       </div>
     </div>
   </BaseModal>
 </template>
 
 <script>
+import {mapActions} from 'vuex'
+import {action} from '@store/constants'
+
 import BaseModal from '@/components/modals/BaseModal'
 import ChartsView from '@/components/widgets/charts/ChartsView'
-import BaseInput from '@/components/BaseInput'
+import BaseSelect from '@/components/BaseSelect'
+import BaseButton from '@/components/buttons/BaseButton'
 
 export default {
   name: 'ContentVolumeSettingsModal',
-  components: {BaseInput, ChartsView, BaseModal},
+  components: {BaseButton, BaseSelect, ChartsView, BaseModal},
   props: {
     volume: {
       type: [Array, Object],
       required: true,
     },
+    projectId: {
+      type: Number,
+      required: true,
+    },
+  },
+  data() {
+    return {
+      aggregationPeriod: '',
+    }
   },
   computed: {
+    aggregationPeriods() {
+      return ['Hour', 'Day', 'Month', 'Year']
+    },
     volumeData() {
       return Object.values(this.volume)
     },
@@ -72,11 +98,28 @@ export default {
     },
   },
   methods: {
+    ...mapActions([action.GET_VOLUME_WIDGET]),
     formatDate(date) {
       return new Date(date).toLocaleString('en-US', {
         month: 'short',
         day: 'numeric',
         year: 'numeric',
+      })
+    },
+    selectItem(name, val) {
+      try {
+        this[action.GET_VOLUME_WIDGET]({
+          projectId: this.projectId,
+          value: val.toLowerCase(),
+        })
+      } catch (e) {
+        console.log(e)
+      }
+    },
+    saveOptions() {
+      this[action.GET_VOLUME_WIDGET]({
+        projectId: this.projectId,
+        value: this.aggregationPeriod.toLowerCase(),
       })
     },
   },
@@ -130,23 +173,9 @@ export default {
       line-height: 110%;
     }
 
-    .input-title {
+    .option {
       margin-bottom: 25px;
     }
   }
-}
-.description-field {
-  width: 475px;
-  height: 132px;
-  padding: 12px 16px;
-
-  border: 1px solid var(--input-border-color);
-  box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
-  border-radius: 10px;
-  background: var(--secondary-bg-color);
-
-  color: var(--primary-text-color);
-
-  resize: none;
 }
 </style>

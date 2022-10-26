@@ -3,6 +3,7 @@
     v-if="isOpenContentVolumeModal"
     @close="openModal('isOpenContentVolumeModal')"
     :volume="volume"
+    :project-id="projectId"
   />
 
   <grid-layout

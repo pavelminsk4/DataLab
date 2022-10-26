@@ -49,8 +49,20 @@ export default {
     return fetch('get', `/api/widgets/summary_widget/${projectId}`)
   },
 
-  async getVolumeWidget(projectId) {
-    return fetch('get', `/api/widgets/volume_widget/${projectId}`)
+  async getVolumeWidget({projectId, value}) {
+    const config = {
+      headers: {
+        'content-type': 'application/json',
+        'X-CSRFToken': CSRF_TOKEN,
+      },
+    }
+    console.log(value)
+    return fetch(
+      'put',
+      `/api/widgets/volume_widget/${projectId}`,
+      value,
+      config
+    )
   },
 
   async createWorkspace(workspace) {

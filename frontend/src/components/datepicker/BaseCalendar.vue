@@ -296,6 +296,8 @@ export default {
     border: 1px solid var(--modal-border-color);
     border-radius: 10px;
 
+    white-space: nowrap;
+
     font-weight: 400;
     font-size: 14px;
     line-height: 20px;

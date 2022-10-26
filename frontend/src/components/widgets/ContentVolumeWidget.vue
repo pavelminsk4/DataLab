@@ -40,7 +40,7 @@ export default {
   },
   created() {
     if (this.isOpenWidget) {
-      this[action.GET_VOLUME_WIDGET](this.projectId)
+      this[action.GET_VOLUME_WIDGET]({projectId: this.projectId, value: 'day'})
     }
   },
   computed: {
@@ -83,7 +83,10 @@ export default {
   watch: {
     isOpenWidget() {
       if (this.isOpenWidget) {
-        this[action.GET_VOLUME_WIDGET](this.projectId)
+        this[action.GET_VOLUME_WIDGET]({
+          projectId: this.projectId,
+          value: 'day',
+        })
       }
     },
   },

@@ -32,6 +32,7 @@ body {
 
   --primary-button-color: #055ffc;
   --secondary-button-color: #222a36;
+  --hover-button-color: #29303d;
 
   --icon-bg-color: #1a1c1e;
 
