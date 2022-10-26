@@ -66,6 +66,10 @@ export default {
       type: Boolean,
       default: true,
     },
+    currentValue: {
+      type: String,
+      required: false,
+    },
   },
   data() {
     return {
@@ -79,6 +83,14 @@ export default {
   },
   computed: {
     selectList() {
+      if (this.isSearch && !!this.currentValue) {
+        let selectionList = this.list
+        selectionList.push(this.currentValue)
+        return selectionList.filter((item) => {
+          return item?.toLowerCase().includes(this.search?.toLowerCase())
+        })
+      }
+
       if (this.isSearch) {
         return this.list.filter((item) => {
           return item?.toLowerCase().includes(this.search?.toLowerCase())

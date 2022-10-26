@@ -27,6 +27,7 @@ import {action} from '@store/constants'
 import MainLayout from '@/components/layout/MainLayout'
 import ReportsScreen from '@/components/project/screens/ReportsScreen'
 import AlertsScreen from '@/components/project/screens/AlertsScreen'
+import SearchScreen from '@/components/project/screens/SearchScreen'
 import AnalyticsScreen from '@/components/project/screens/AnalyticsScreen'
 
 import AnalyticsIcon from '@/components/icons/AnalyticsIcon'
@@ -39,6 +40,7 @@ export default {
   name: 'ProjectReports',
   components: {
     AnalyticsScreen,
+    SearchScreen,
     AlertsScreen,
     ReportsScreen,
     MainLayout,
@@ -57,15 +59,6 @@ export default {
         },
         {
           name: 'Search',
-        },
-        {
-          name: 'Alerts',
-        },
-        {
-          name: 'Reports',
-        },
-        {
-          name: 'Settings',
         },
       ],
     }
@@ -99,13 +92,12 @@ export default {
     ...mapActions([action.GET_WORKSPACES]),
     openSetting(val) {
       this.settingName = val
-      console.log(this.settingName)
     },
   },
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .settings-nav-wrapper {
   position: absolute;
   left: 0;

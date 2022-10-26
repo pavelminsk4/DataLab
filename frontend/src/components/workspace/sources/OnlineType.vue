@@ -95,6 +95,12 @@ export default {
     BaseSelect,
     CheckRadioIcon,
   },
+  props: {
+    currentCountry: {
+      type: String,
+      required: false,
+    },
+  },
   data() {
     return {
       sentiments: ['Negative', 'Neutral', 'Positive', 'All sentiments'],

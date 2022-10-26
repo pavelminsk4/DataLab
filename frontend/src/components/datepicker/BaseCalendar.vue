@@ -80,6 +80,12 @@ export default {
     TimePickerCustom,
     Datepicker,
   },
+  props: {
+    currentProject: {
+      type: [Object, Array],
+      required: false,
+    },
+  },
   data() {
     return {
       hoursStartDate: '',

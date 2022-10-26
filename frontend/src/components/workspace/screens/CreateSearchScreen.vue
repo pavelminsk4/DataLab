@@ -21,95 +21,46 @@
   />
 
   <div class="search-settings-wrapper">
-    <section class="key-words-settings">
-      <div class="mode-wrapper">
-        <div class="mode-title mode-active">Simple mode</div>
-      </div>
-
-      <div class="second-title">Define the main keywords (OR)</div>
-      <BaseTag
-        @update:modelValue="updateCollection"
-        :is-main-field="true"
-        name="keywords"
-        placeholder="Enter main keywords"
-      />
-
-      <section class="additional-key-words">
-        <div class="additional-key-block">
-          <div class="second-title">
-            Add Additional keywords <br />
-            (And)
-          </div>
-          <BaseTag
-            @update:modelValue="updateCollection"
-            :textarea="true"
-            :is-additional-keywords="true"
-            name="additional_keywords"
-            placeholder="Enter additional keywords"
-            class="additional-key"
-          />
-        </div>
-
-        <div class="additional-key-block">
-          <div class="second-title">
-            Exclude Irrelevant keywords <br />
-            (And Not)
-          </div>
-          <BaseTag
-            @update:modelValue="updateCollection"
-            :is-irrelevant-keywords="true"
-            class="additional-key"
-            name="ignore_keywords"
-            placeholder="Enter irrelevant keywords"
-          />
-        </div>
-      </section>
-
-      <div class="filters-title">
-        Refine youre search with additional filters
-      </div>
-
-      <OnlineType />
-
-      <BaseButton @click="showResults" class="apply-settings">
-        Preview
-      </BaseButton>
-    </section>
+    <ProjectKeywords
+      @show-result="showResults"
+      @update-collection="updateCollection"
+    />
 
     <SearchResults />
   </div>
 </template>
 
 <script>
-import {mapActions, mapGetters, mapState} from 'vuex'
+import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
-import BaseTag from '@/components/BaseTag'
 import NavigationBar from '@/components/navigation/NavigationBar'
 
-import OnlineType from '@/components/workspace/sources/OnlineType'
 import SearchResults from '@/components/SearchResults'
-import BaseButton from '@/components/buttons/BaseButton'
+import ProjectKeywords from '@/components/workspace/ProjectKeywords'
 
 export default {
   name: 'CreateSearchScreen',
   components: {
-    BaseButton,
+    ProjectKeywords,
     SearchResults,
     NavigationBar,
-    BaseTag,
-    OnlineType,
+  },
+  created() {
+    if (this.defaultDateRange.length) {
+      this[action.UPDATE_ADDITIONAL_FILTERS]({
+        date_range: this.defaultDateRange,
+      })
+    }
   },
   computed: {
-    ...mapState([
-      'newWorkspace',
-      'newProject',
-      'currentStep',
-      'workspaces',
-      'keywords',
-    ]),
     ...mapGetters({
       additionalFilters: get.ADDITIONAL_FILTERS,
+      keywords: get.KEYWORDS,
+      workspaces: get.WORKSPACES,
+      currentStep: get.CURRENT_STEP,
+      newProject: get.NEW_PROJECT,
+      newWorkspace: get.NEW_WORKSPACE,
     }),
     step() {
       return this.$route.name
@@ -120,6 +71,7 @@ export default {
   },
   methods: {
     ...mapActions([
+      action.UPDATE_ADDITIONAL_FILTERS,
       action.UPDATE_NEW_WORKSPACE,
       action.UPDATE_PROJECT_STATE,
       action.UPDATE_KEYWORDS_LIST,
@@ -148,8 +100,7 @@ export default {
           country: this.additionalFilters?.country || [],
           language: this.additionalFilters?.language || [],
           sentiment: this.additionalFilters?.sentiment || [],
-          date_range:
-            this.additionalFilters?.date_range || this.defaultDateRange,
+          date_range: this.additionalFilters?.date_range,
           source: this.additionalFilters?.source || [],
           author: this.additionalFilters?.author || [],
         })
@@ -164,10 +115,8 @@ export default {
           keywords: this.keywords?.keywords,
           additional_keywords: this.keywords?.additional_keywords,
           ignore_keywords: this.keywords?.ignore_keywords,
-          start_search_date:
-            this.additionalFilters?.date_range[0] || this.defaultDateRange[0],
-          end_search_date:
-            this.additionalFilters?.date_range[1] || this.defaultDateRange[1],
+          start_search_date: this.additionalFilters?.date_range[0],
+          end_search_date: this.additionalFilters?.date_range[1],
         })
         this[action.UPDATE_NEW_WORKSPACE]({
           projects: [this.newProject],
@@ -183,15 +132,17 @@ export default {
       }
     },
     async createProject() {
+      console.log(
+        this.defaultDateRange[0],
+        this.additionalFilters?.date_range[0]
+      )
       try {
         this[action.UPDATE_PROJECT_STATE]({
           keywords: this.keywords?.keywords,
           additional_keywords: this.keywords?.additional_keywords,
           ignore_keywords: this.keywords?.ignore_keywords,
-          start_search_date:
-            this.additionalFilters?.date_range[0] || this.defaultDateRange[0],
-          end_search_date:
-            this.additionalFilters?.date_range[1] || this.defaultDateRange[1],
+          start_search_date: this.additionalFilters?.date_range[0],
+          end_search_date: this.additionalFilters?.date_range[1],
         })
         this[action.CREATE_PROJECT](this.newProject)
         this[action.CLEAR_STATE]()
@@ -211,93 +162,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.mode-wrapper {
-  display: flex;
-
-  margin: 30px 0 20px 0;
-
-  border-bottom: 1px solid var(--input-border-color);
-}
-
-.mode-title {
-  padding-bottom: 10px;
-
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.8);
-
-  &:first-child {
-    margin-right: 55px;
-  }
-}
-
-.mode-active {
-  border-bottom: 2px solid var(--primary-button-color);
-
-  font-weight: 500;
-  color: var(--primary-text-color);
-}
-
 .search-settings-wrapper {
   display: flex;
   justify-content: space-between;
   gap: 108px;
-}
-
-.second-title {
-  margin-bottom: 12px;
-
-  font-size: 14px;
-  color: var(--primary-text-color);
-}
-
-.filters-wrapper {
-  display: flex;
-  justify-content: space-between;
-}
-
-.additional-key-words {
-  display: flex;
-
-  width: 100%;
-  margin: 26px 0 40px;
-}
-
-.additional-key-block {
-  flex: 1;
-
-  &:first-child {
-    margin-right: 16px;
-  }
-}
-
-.additional-key {
-  align-items: flex-start;
-  flex-wrap: wrap;
-
-  height: 110px;
-
-  padding-top: 10px;
-}
-
-.filters-title {
-  margin-bottom: 25px;
-
-  font-weight: 600;
-  font-size: 16px;
-  color: var(--primary-text-color);
-}
-
-.key-words-settings {
-  display: flex;
-  flex-direction: column;
-
-  width: 37vw;
-}
-
-.apply-settings {
-  align-self: flex-end;
-
-  width: 100%;
 }
 
 .radio-btn {
@@ -396,20 +264,6 @@ export default {
   color: var(--secondary-text-color);
 
   font-size: 14px;
-}
-
-@media screen and (max-width: 1180px) {
-  .additional-key-words {
-    flex-direction: column;
-
-    .additional-key-block {
-      margin: 0;
-
-      &:first-child {
-        margin-bottom: 20px;
-      }
-    }
-  }
 }
 
 @media screen and (max-width: 1000px) {

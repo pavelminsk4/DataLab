@@ -56,7 +56,6 @@ export default {
         'X-CSRFToken': CSRF_TOKEN,
       },
     }
-    console.log(value)
     return fetch(
       'put',
       `/api/widgets/volume_widget/${projectId}`,
