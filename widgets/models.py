@@ -7,6 +7,7 @@ class WidgetsList(models.Model):
   project = models.OneToOneField(Project, on_delete=models.CASCADE, related_name='widget_list', editable=False)
   summary_widget = models.BooleanField(default=False)
   volume_widget = models.BooleanField(default=False)
+  clipping_feed_content_widget = models.BooleanField(default=False)
 
   def __str__(self):
     return str(self.project)

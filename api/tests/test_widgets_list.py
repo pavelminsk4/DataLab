@@ -15,21 +15,25 @@ class WidgetsListTests(APITestCase):
     response = self.client.get(url)
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     res = {
-      "summary_widget": 
-        {"name": "Summary", "is_active": False}, 
-      "volume_widget":
-        {"name": "Content volume", "is_active": False}
+      'summary_widget': 
+        {'name': 'Summary', 'is_active': False}, 
+      'volume_widget':
+        {'name': 'Content volume', 'is_active': False},
+      'clipping_feed_content_widget':
+        {'name': 'Clipping feed content', 'is_active': False},
       }
     self.assertEqual(json.loads(response.content), res)
     url2 = reverse('update_widgets_list', kwargs={'pk':project.id})
-    data = {"summary_widget": True,"volume_widget": False}
+    data = {"summary_widget":True, "volume_widget":False, 'clipping_feed_content_widget':True}
     self.client.put(url2, data, format='json')
     response = self.client.get(url)
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     res = {
-      "summary_widget": 
-        {"name": "Summary", "is_active": True}, 
-      "volume_widget":
-        {"name": "Content volume", "is_active": False}
+      'summary_widget': 
+        {'name': 'Summary', 'is_active': True}, 
+      'volume_widget':
+        {'name': 'Content volume', "is_active": False},
+      'clipping_feed_content_widget':
+        {'name': 'Clipping feed content', 'is_active': True},
       }
     self.assertEqual(json.loads(response.content), res)  
