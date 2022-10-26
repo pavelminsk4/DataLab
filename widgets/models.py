@@ -8,6 +8,7 @@ class WidgetsList(models.Model):
   summary_widget = models.BooleanField(default=False)
   volume_widget = models.BooleanField(default=False)
   clipping_feed_content_widget = models.BooleanField(default=False)
+  top_10_authors_by_volume_widget = models.BooleanField(default=False)
 
   def __str__(self):
     return str(self.project)

@@ -191,6 +191,10 @@ def widgets_list(request, pk):
       {
         'name':'Clipping feed content', 'is_active':w.clipping_feed_content_widget
       },
+    'top_10_authors_by_volume_widget':
+      {
+        'name':'Top 10 authors by volume', 'is_active':w.top_10_authors_by_volume_widget
+      },
     }
   return JsonResponse(res, safe = False)
 
