@@ -16,7 +16,10 @@
         @show-result="showResults"
         @update-collection="updateCollection"
       />
-      <SearchResults :current-project="currentProject" />
+      <SearchResults
+        :current-project="currentProject"
+        :is-checkbox-clipping-widget="true"
+      />
     </div>
   </div>
 </template>

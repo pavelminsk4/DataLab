@@ -6,6 +6,11 @@
     :project-id="projectId"
   />
 
+  <SummaryModal
+    v-if="isOpenSummaryModal"
+    @close="openModal('isOpenSummaryModal')"
+  />
+
   <grid-layout
     v-if="availableWidgets"
     v-model:layout="layout"
@@ -41,6 +46,7 @@
         :is-open-widget="item.isShow"
         @delete-widget="deleteWidget(item.name)"
         @open-content-volume-modal="openModal(item.isOpenModal)"
+        @open-summary-modal="openModal(item.isOpenModal)"
       />
     </grid-item>
   </grid-layout>
@@ -53,14 +59,16 @@ import {action, get} from '@store/constants'
 import VueGridLayout from 'vue3-grid-layout'
 import SummaryWidget from '@/components/widgets/SummaryWidget'
 import ContentVolumeWidget from '@/components/widgets/ContentVolumeWidget'
-import ChartsView from '@/components/widgets/charts/ChartsView'
+import ClippingFeedContentWidget from '@/components/widgets/ClippingFeedContentWidget'
 import ContentVolumeSettingsModal from '@/components/widgets/modals/ContentVolumeSettingsModal'
+import SummaryModal from '@/components/widgets/modals/SummaryModal'
 
 export default {
   name: 'WidgetsView',
   components: {
+    SummaryModal,
+    ClippingFeedContentWidget,
     ContentVolumeSettingsModal,
-    ChartsView,
     SummaryWidget,
     ContentVolumeWidget,
     GridLayout: VueGridLayout.GridLayout,
@@ -75,6 +83,7 @@ export default {
   data() {
     return {
       isOpenContentVolumeModal: false,
+      isOpenSummaryModal: false,
     }
   },
   created() {
@@ -98,6 +107,7 @@ export default {
           name: 'summary_widget',
           widgetName: 'Summary',
           isShow: this.isActiveWidget('summary_widget'),
+          isOpenModal: 'isOpenSummaryModal',
         },
         {
           x: 2,
@@ -110,6 +120,17 @@ export default {
           widgetName: 'ContentVolume',
           isShow: this.isActiveWidget('volume_widget'),
           isOpenModal: 'isOpenContentVolumeModal',
+        },
+        {
+          x: 2,
+          y: 1,
+          w: 2,
+          h: 20,
+          i: '2',
+          static: false,
+          name: 'clipping_feed_content_widget',
+          widgetName: 'ClippingFeedContent',
+          isShow: this.isActiveWidget('clipping_feed_content_widget'),
         },
       ]
     },

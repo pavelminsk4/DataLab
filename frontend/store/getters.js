@@ -65,6 +65,10 @@ export default {
     return state.volume
   },
 
+  [get.CLIPPING_FEED_CONTENT_WIDGET](state) {
+    return state.clippingFeedContent
+  },
+
   [get.AVAILABLE_WIDGETS](state) {
     return state.availableWidgets
   },

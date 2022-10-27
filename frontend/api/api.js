@@ -49,6 +49,13 @@ export default {
     return fetch('get', `/api/widgets/summary_widget/${projectId}`)
   },
 
+  async getClippingFeedContentWidget(projectId) {
+    return fetch(
+      'get',
+      `/api/widgets/clipping_feed_content_widget/${projectId}`
+    )
+  },
+
   async getVolumeWidget({projectId, value}) {
     const config = {
       headers: {
@@ -82,6 +89,21 @@ export default {
       },
     }
     return fetch('post', '/api/project/create/', newProject, config)
+  },
+
+  async createClippingFeedContent(data) {
+    const config = {
+      headers: {
+        'content-type': 'application/json',
+        'X-CSRFToken': CSRF_TOKEN,
+      },
+    }
+    return fetch(
+      'post',
+      '/api/clipping_feed_content_widget/create',
+      data,
+      config
+    )
   },
 
   async postSearch(request) {

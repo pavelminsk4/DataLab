@@ -4,7 +4,9 @@
       <div class="title">{{ title }}</div>
 
       <div class="setting-buttons">
-        <div class="button" @click="openSettings"><SettingsIcon /></div>
+        <div v-if="isShowSettings" class="button" @click="openSettings">
+          <SettingsIcon />
+        </div>
         <div class="button" @click="deleteWidget"><CloseIcon /></div>
       </div>
     </div>
@@ -23,6 +25,10 @@ export default {
     title: {
       type: String,
       default: '',
+    },
+    isShowSettings: {
+      type: Boolean,
+      default: true,
     },
   },
   methods: {

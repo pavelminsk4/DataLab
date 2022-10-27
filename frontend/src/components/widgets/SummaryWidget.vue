@@ -1,5 +1,9 @@
 <template>
-  <WidgetsLayout title="Summary" @delete-widget="$emit('delete-widget')">
+  <WidgetsLayout
+    title="Summary"
+    @delete-widget="$emit('delete-widget')"
+    @open-modal="$emit('open-summary-modal')"
+  >
     <div class="summary-widget__container">
       <div
         v-for="(item, index) in widgetMetrics"
