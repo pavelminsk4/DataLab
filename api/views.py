@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from rest_framework.generics import ListAPIView, CreateAPIView, DestroyAPIView, UpdateAPIView, RetrieveAPIView
+from rest_framework.generics import ListAPIView, CreateAPIView, DestroyAPIView, UpdateAPIView, RetrieveAPIView, ListCreateAPIView
 from .serializers import SpeechSerializer, UserSerializer, WorkspaceSerializer, ProjectSerializer, WorkspaceCreateSerializer, CountrySerializer, WidgetsListSerializer, ClippingFeedContentWidgetSerializer
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -16,6 +16,7 @@ from countries_plus.models import Country
 from dateutil import parser
 from django.db.models.functions import ExtractYear
 from widgets.models import ClippingFeedContentWidget, WidgetsList
+from rest_framework import status
 
 # ==== User API =======================
 
@@ -204,10 +205,17 @@ class UpdateProjectsWidgetsAPIView(UpdateAPIView):
   def get_object(self):
     return WidgetsList.objects.get(project_id=self.kwargs['pk'])
 
-class ClippingFeedContentWidgetCreate(CreateAPIView):
-  queryset = ClippingFeedContentWidget.objects.all()
-  serializer_class = ClippingFeedContentWidgetSerializer
-
 class ClippingFeedContentWidgetDelete(DestroyAPIView):
   queryset = ClippingFeedContentWidget.objects.all()
   serializes_class = ClippingFeedContentWidgetSerializer
+
+class ClippingFeedContentWidgetCreate(ListCreateAPIView):
+  serializer_class = ClippingFeedContentWidgetSerializer
+  queryset = ClippingFeedContentWidget.objects.all()
+
+  def create(self, request, *args, **kwargs):
+    serializer = self.get_serializer(data=request.data, many=True)
+    serializer.is_valid(raise_exception=True)
+    self.perform_create(serializer)
+    headers = self.get_success_headers(serializer.data)
+    return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)

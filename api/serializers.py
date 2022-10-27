@@ -66,7 +66,13 @@ class WidgetsListSerializer(WritableNestedModelSerializer):
     #fields = '__all__'
     fields = ['summary_widget', 'volume_widget', 'clipping_feed_content_widget', 'top_10_authors_by_volume_widget']
 
-class ClippingFeedContentWidgetSerializer(WritableNestedModelSerializer):
+class ClippingFeedContentWidgetListSerializer(serializers.ListSerializer):
+  def create(self, validated_data):
+    users = [ClippingFeedContentWidget(**item) for item in validated_data]
+    return ClippingFeedContentWidget.objects.bulk_create(users)
+    
+class ClippingFeedContentWidgetSerializer(serializers.ModelSerializer):
   class Meta:
     model = ClippingFeedContentWidget
     fields = '__all__'
+    list_serializer_class = ClippingFeedContentWidgetListSerializer
