@@ -15,6 +15,7 @@ const state = {
   additionalFilters: {},
   summary: {},
   volume: {},
+  clippingFeedContent: [],
   newWorkspace: {
     title: '',
     description: '',

@@ -18,7 +18,7 @@
       />
       <SearchResults
         :current-project="currentProject"
-        :is-clipping-widget="true"
+        :is-checkbox-clipping-widget="true"
       />
     </div>
   </div>

@@ -69,6 +69,10 @@ export default {
     state.volume = {...data}
   },
 
+  [mutator.SET_CLIPPING_FEED_CONTENT_WIDGET](state, data) {
+    state.clippingFeedContent = [...data]
+  },
+
   [mutator.SET_AVAILABLE_WIDGETS](state, data) {
     state.availableWidgets = {...data}
   },

@@ -134,6 +134,20 @@ export default {
     }
   },
 
+  async [action.GET_CLIPPING_FEED_CONTENT_WIDGET]({commit}, projectId) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const clippingFeedContent = await api.getClippingFeedContentWidget(
+        projectId
+      )
+      commit(mutator.SET_CLIPPING_FEED_CONTENT_WIDGET, clippingFeedContent)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
   async [action.CREATE_WORKSPACE]({commit}, workspace) {
     commit(mutator.SET_LOADING, true)
     try {
@@ -149,6 +163,17 @@ export default {
     commit(mutator.SET_LOADING, true)
     try {
       await api.createNewProject(projectData)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
+  async [action.CREATE_CLIPPING_FEED_CONTENT_WIDGET]({commit}, data) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      await api.createClippingFeedContent(data)
     } catch (e) {
       console.log(e)
     } finally {

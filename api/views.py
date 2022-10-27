@@ -139,7 +139,7 @@ def search(request):
     posts = posts.filter(entry_author=author)
   if sentiment!=[]:
     posts = posts.filter(sentiment=sentiment)
-  posts = posts.values('entry_title', 'entry_published', 'entry_summary', 'entry_media_thumbnail_url', 'feed_language__language', 'entry_author', 'feedlink__country', 'feedlink__source1', 'sentiment')
+  posts = posts.values('id', 'entry_title', 'entry_published', 'entry_summary', 'entry_media_thumbnail_url', 'feed_language__language', 'entry_author', 'feedlink__country', 'feedlink__source1', 'sentiment')
   posts_list=list(posts)
   return JsonResponse(posts_list, safe = False)
 

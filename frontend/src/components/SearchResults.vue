@@ -1,7 +1,7 @@
 <template>
   <div class="search-result-wrapper">
     <div class="filters">
-      <div v-if="isClippingWidget" class="clipping-wrapper">
+      <div v-if="isCheckboxClippingWidget" class="clipping-wrapper">
         <BaseCheckbox />
         <ArrowDownIcon
           @click="openClippingDropdown"
@@ -9,7 +9,9 @@
         />
 
         <div v-if="isOpenClippingDropdown" class="dropdown">
-          <div class="item"><ClippingIcon /> Clipping</div>
+          <div class="item" @click="createClippingWidget">
+            <ClippingIcon /> Clipping
+          </div>
         </div>
       </div>
 
@@ -30,7 +32,6 @@
       <BaseClippingCard
         v-for="(item, index) in searchData"
         :key="'result' + index"
-        :search-data="searchData"
         :img="item.entry_media_thumbnail_url"
         :sentiment="item.sentiment"
         :title="item.entry_title"
@@ -39,7 +40,9 @@
         :country="item.feedlink__country"
         :language="item.feed_language__language"
         :published="item.entry_published"
-        :is-clipping-widget="isClippingWidget"
+        :id="item.id"
+        :is-checkbox-clipping-widget="true"
+        @add-element="onChange"
       />
     </div>
     <div v-if="!loading && !searchData.length">No results.</div>
@@ -75,7 +78,7 @@ export default {
       type: [Array, Object],
       required: false,
     },
-    isClippingWidget: {
+    isCheckboxClippingWidget: {
       type: Boolean,
       default: false,
     },
@@ -84,6 +87,7 @@ export default {
     return {
       isShow: false,
       isOpenClippingDropdown: false,
+      clippingElements: [],
     }
   },
   created() {
@@ -109,9 +113,21 @@ export default {
         )}`
       }
     },
+    clippingArray() {
+      let clipping = []
+
+      for (let el of this.clippingElements) {
+        clipping.push({project: this.currentProject.id, post: el})
+      }
+
+      return clipping
+    },
   },
   methods: {
-    ...mapActions([action.REFRESH_DISPLAY_CALENDAR]),
+    ...mapActions([
+      action.REFRESH_DISPLAY_CALENDAR,
+      action.CREATE_CLIPPING_FEED_CONTENT_WIDGET,
+    ]),
     getLastWeeksDate() {
       const now = new Date()
 
@@ -141,6 +157,21 @@ export default {
     },
     openClippingDropdown() {
       this.isOpenClippingDropdown = !this.isOpenClippingDropdown
+    },
+    onChange(args) {
+      const {id, checked} = args
+      if (checked) {
+        this.clippingElements.push(id)
+      } else {
+        let element = this.clippingElements.indexOf(id)
+        this.removeSelectedFilter(element)
+      }
+    },
+    removeSelectedFilter(index) {
+      this.clippingElements.splice(index, 1)
+    },
+    createClippingWidget() {
+      this[action.CREATE_CLIPPING_FEED_CONTENT_WIDGET](this.clippingArray)
     },
   },
 }

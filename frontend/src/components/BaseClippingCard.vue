@@ -1,16 +1,23 @@
 <template>
-  <div class="search-result-card">
+  <div
+    :class="['search-result-card', isClippingWidget && 'search-clipping-card']"
+  >
     <section class="search-info-wrapper">
       <div class="result-img">
-        <BaseCheckbox v-if="isClippingWidget" class="status-checkbox" />
+        <BaseCheckbox
+          v-if="isCheckboxClippingWidget"
+          class="status-checkbox"
+          :id="id"
+          @change="onChange"
+        />
         <img
           v-if="img !== 'None'"
           :src="img"
-          :class="['img', !isClippingWidget && 'img-margin']"
+          :class="['img', !isCheckboxClippingWidget && 'img-margin']"
         />
         <NoImageIcon
           v-else
-          :class="['default-image', !isClippingWidget && 'img-margin']"
+          :class="['default-image', !isCheckboxClippingWidget && 'img-margin']"
         />
       </div>
 
@@ -53,6 +60,10 @@ export default {
   name: 'BaseClippingCard',
   components: {NoImageIcon, BaseCheckbox},
   props: {
+    isCheckboxClippingWidget: {
+      type: Boolean,
+      default: false,
+    },
     isClippingWidget: {
       type: Boolean,
       default: false,
@@ -89,6 +100,10 @@ export default {
       type: String,
       required: false,
     },
+    id: {
+      type: Number,
+      required: false,
+    },
   },
   methods: {
     capitalizeFirstLetter(string) {
@@ -100,6 +115,9 @@ export default {
         day: 'numeric',
         year: 'numeric',
       })
+    },
+    onChange(val) {
+      this.$emit('add-element', val)
     },
   },
 }
@@ -116,6 +134,12 @@ export default {
   border-radius: 10px;
   border: 1px solid var(--input-border-color);
   box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
+}
+
+.search-clipping-card {
+  border-radius: 0;
+  border: none;
+  box-shadow: none;
 }
 
 .search-info-wrapper {
