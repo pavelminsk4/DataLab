@@ -138,14 +138,10 @@ export default {
       cursor: pointer;
 
       padding: 9px 24px 8px;
+    }
 
-      &:hover {
-        color: var(--primary-button-color);
-      }
-
-      &:first-child {
-        border-bottom: 1px solid var(--modal-line-color);
-      }
+    &:hover {
+      background-color: var(--primary-button-color);
     }
   }
 }

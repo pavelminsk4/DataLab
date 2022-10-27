@@ -10,9 +10,7 @@
     <span class="checkmark">
       <CheckIcon class="checkmark-icon" />
     </span>
-    <div class="title">
-      <slot></slot>
-    </div>
+    <slot></slot>
   </label>
 </template>
 
@@ -48,7 +46,6 @@ export default {
   display: flex;
 
   font-size: 22px;
-  margin-bottom: 10px;
 
   cursor: pointer;
 
@@ -84,17 +81,8 @@ export default {
   background-color: var(--input-border-color);
 }
 
-.title {
-  margin-left: 10px;
-
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 20px;
-  color: var(--primary-text-color);
-}
-
 .container:hover input ~ .checkmark {
+  border-color: var(--primary-text-color);
   background-color: var(--secondary-bg-color);
 }
 
