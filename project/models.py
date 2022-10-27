@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.postgres.fields import ArrayField
+from django.contrib.postgres.indexes import GinIndex
 
 class Company(models.Model):
   name = models.CharField(max_length=100)
@@ -171,6 +172,11 @@ class Post(models.Model):
       models.Index(fields=['entry_author',]),
       models.Index(fields=['feed_language',]),
       models.Index(fields=['sentiment',]),
+      GinIndex(
+        name='entry_title_gin_index',
+        fields=['entry_title'],
+        opclasses=['gin_trgm_ops'],
+      ),
     ]
   
   def __str__(self):
