@@ -4,7 +4,9 @@ from accounts.models import Profile, department
 from rest_framework import serializers
 from drf_writable_nested.serializers import WritableNestedModelSerializer
 from countries_plus.models import Country
-from widgets.models import WidgetsList, ClippingFeedContentWidget
+from widgets.common_widget.top_10_authors_by_volume_widget import top_10_auth_by_vol_widget
+from widgets.models import WidgetsList, WidgetsList2, ClippingFeedContentWidget, WidgetDescription
+from widgets.views import clipping_feed_content_widget
 
 class DepartmentSerializer(WritableNestedModelSerializer):
   class Meta:
@@ -60,11 +62,20 @@ class SpeechSerializer(WritableNestedModelSerializer):
     model = Speech
     fields = ['language']
 
-class WidgetsListSerializer(WritableNestedModelSerializer):
+class WidgetDescriptionSerializer(WritableNestedModelSerializer):
   class Meta:
-    model = WidgetsList
-    #fields = '__all__'
-    fields = ['summary_widget', 'volume_widget', 'clipping_feed_content_widget', 'top_10_authors_by_volume_widget']
+    model = WidgetDescription
+    fields = '__all__'
+
+class WidgetsListSerializer(WritableNestedModelSerializer):
+  summary_widget = WidgetDescriptionSerializer()
+  volume_widget = WidgetDescriptionSerializer()
+  clipping_feed_content_widget = WidgetDescriptionSerializer()
+  top_10_authors_by_volume_widget = WidgetDescriptionSerializer()
+  class Meta:
+    model = WidgetsList2
+    fields = '__all__'
+    #fields = ['summary_widget', 'volume_widget', 'clipping_feed_content_widget', 'top_10_authors_by_volume_widget']
 
 class ClippingFeedContentWidgetListSerializer(serializers.ListSerializer):
   def create(self, validated_data):
