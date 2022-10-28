@@ -15,9 +15,9 @@ class CountriesTests(APITestCase):
     sp = Speech.objects.create(language='English (United States)')
     pr1 = Project.objects.create(title='Project1', keywords=['Keyword'], start_search_date=datetime(2022, 10, 10), end_search_date=datetime(2022, 10, 16), creator=user)
     pr2 = Project.objects.create(title='Project2', keywords=['Apple'], start_search_date=datetime(2022, 10, 10), end_search_date=datetime(2022, 10, 16), creator=user)
-    post1 = Post.objects.create(feedlink=flink, entry_title='First post title', feed_language=sp, entry_published=datetime(2021, 9, 3, 6, 37))
-    post2 = Post.objects.create(feedlink=flink, entry_title='Second post title', feed_language=sp, entry_published=datetime(2022, 9, 3, 6, 37))
-    post3 = Post.objects.create(feedlink=flink, entry_title='Third post title', feed_language=sp, entry_published=datetime(2023, 9, 3, 6, 37))
+    post1 = Post.objects.create(id=1, feedlink=flink, entry_title='First post title', feed_language=sp, entry_published=datetime(2021, 9, 3, 6, 37))
+    post2 = Post.objects.create(id=2, feedlink=flink, entry_title='Second post title', feed_language=sp, entry_published=datetime(2022, 9, 3, 6, 37))
+    post3 = Post.objects.create(id=3, feedlink=flink, entry_title='Third post title', feed_language=sp, entry_published=datetime(2023, 9, 3, 6, 37))
     clipped_post1 = ClippingFeedContentWidget.objects.create(project=pr1, post=post1)
     clipped_post2 = ClippingFeedContentWidget.objects.create(project=pr1, post=post2)
     clipped_post3 = ClippingFeedContentWidget.objects.create(project=pr2, post=post3)
@@ -26,6 +26,7 @@ class CountriesTests(APITestCase):
     response = self.client.get(url)
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     pst1 = {
+        'post__id':2,
         'post__entry_title':'Second post title',
         'post__entry_published':"2022-09-03T06:37:00Z",
         'post__entry_summary':None,
@@ -37,6 +38,7 @@ class CountriesTests(APITestCase):
         'post__sentiment':"neutral",
       }
     pst2 = {
+        'post__id':1,
         'post__entry_title':'First post title',
         'post__entry_published':"2021-09-03T06:37:00Z",
         'post__entry_summary':None,
