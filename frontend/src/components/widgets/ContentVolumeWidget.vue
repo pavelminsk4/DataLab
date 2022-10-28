@@ -6,7 +6,8 @@
     <ChartsView
       :chart-data="chartData"
       :chart-options="chartOptions"
-      :volume-value="volumeValue"
+      :is-line="isLineChart"
+      :is-bar="isBarChart"
     />
   </WidgetsLayout>
 </template>
@@ -49,6 +50,12 @@ export default {
     },
     volumeLabels() {
       return this.volumeData.map((el) => this.formatDate(el.date))
+    },
+    isLineChart() {
+      return this.volumeValue?.length > 7
+    },
+    isBarChart() {
+      return this.volumeValue?.length <= 7
     },
     volumeValue() {
       return this.volumeData.map((el) => el.created_count)

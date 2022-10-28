@@ -16,6 +16,7 @@ const state = {
   summary: {},
   volume: {},
   clippingFeedContent: [],
+  topAuthors: [],
   newWorkspace: {
     title: '',
     description: '',

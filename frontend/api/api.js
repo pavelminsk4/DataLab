@@ -71,6 +71,10 @@ export default {
     )
   },
 
+  async getTopAuthors(projectId) {
+    return fetch('get', `/api/widgets/top_10_authors_by_volume/${projectId}`)
+  },
+
   async createWorkspace(workspace) {
     const config = {
       headers: {
