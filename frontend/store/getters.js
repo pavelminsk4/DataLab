@@ -72,4 +72,8 @@ export default {
   [get.AVAILABLE_WIDGETS](state) {
     return state.availableWidgets
   },
+
+  [get.TOP_AUTHORS](state) {
+    return state.topAuthors
+  },
 }

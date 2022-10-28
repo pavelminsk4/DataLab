@@ -1,24 +1,31 @@
 <template>
   <LineChart
-    v-if="isLineChart"
+    v-if="isLine"
     :chart-data="chartData"
     :chart-options="chartOptions"
     class="bar-chart-widget"
   />
   <BarChart
-    v-else
+    v-if="isBar"
     :chart-data="chartData"
     :chart-options="chartOptions"
     class="bar-chart-widget"
+  />
+  <DoughnutChart
+    v-if="isDoughnut"
+    :chart-data="chartData"
+    :chart-options="chartOptions"
   />
 </template>
 
 <script>
 import LineChart from '@/components/widgets/charts/LineChart'
 import BarChart from '@/components/widgets/charts/BarChart'
+import DoughnutChart from '@/components/widgets/charts/DoughnutChart'
+
 export default {
   name: 'ChartsView',
-  components: {BarChart, LineChart},
+  components: {DoughnutChart, BarChart, LineChart},
   props: {
     chartData: {
       type: Object,
@@ -28,14 +35,17 @@ export default {
       type: Object,
       default: () => {},
     },
-    volumeValue: {
-      type: [Object, Array],
-      required: true,
+    isDoughnut: {
+      type: Boolean,
+      default: false,
     },
-  },
-  computed: {
-    isLineChart() {
-      return this.volumeValue?.length > 7
+    isLine: {
+      type: Boolean,
+      default: false,
+    },
+    isBar: {
+      type: Boolean,
+      default: false,
     },
   },
 }

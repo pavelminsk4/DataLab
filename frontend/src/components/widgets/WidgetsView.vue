@@ -60,6 +60,8 @@ import VueGridLayout from 'vue3-grid-layout'
 import SummaryWidget from '@/components/widgets/SummaryWidget'
 import ContentVolumeWidget from '@/components/widgets/ContentVolumeWidget'
 import ClippingFeedContentWidget from '@/components/widgets/ClippingFeedContentWidget'
+import Top10AuthorsByVolumeWidget from '@/components/widgets/Top10AuthorsByVolumeWidget'
+
 import ContentVolumeSettingsModal from '@/components/widgets/modals/ContentVolumeSettingsModal'
 import SummaryModal from '@/components/widgets/modals/SummaryModal'
 
@@ -71,6 +73,7 @@ export default {
     ContentVolumeSettingsModal,
     SummaryWidget,
     ContentVolumeWidget,
+    Top10AuthorsByVolumeWidget,
     GridLayout: VueGridLayout.GridLayout,
     GridItem: VueGridLayout.GridItem,
   },
@@ -131,6 +134,17 @@ export default {
           name: 'clipping_feed_content_widget',
           widgetName: 'ClippingFeedContent',
           isShow: this.isActiveWidget('clipping_feed_content_widget'),
+        },
+        {
+          x: 0,
+          y: 1,
+          w: 2,
+          h: 10,
+          i: '3',
+          static: false,
+          name: 'top_10_authors_by_volume_widget',
+          widgetName: 'Top10AuthorsByVolume',
+          isShow: this.isActiveWidget('top_10_authors_by_volume_widget'),
         },
       ]
     },

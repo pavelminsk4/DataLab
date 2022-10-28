@@ -7,7 +7,8 @@
         <ChartsView
           :chart-data="chartData"
           :chart-options="chartOptions"
-          :volume-value="volumeValue"
+          :is-line="isLineChart"
+          :is-bar="isBarChart"
         />
       </section>
 
@@ -69,6 +70,12 @@ export default {
     },
     volumeValue() {
       return this.volumeData.map((el) => el.created_count)
+    },
+    isLineChart() {
+      return this.volumeValue?.length > 7
+    },
+    isBarChart() {
+      return this.volumeValue?.length <= 7
     },
     chartData() {
       return {

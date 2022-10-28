@@ -73,6 +73,10 @@ export default {
     state.clippingFeedContent = [...data]
   },
 
+  [mutator.SET_TOP_AUTHORS_WIDGET](state, data) {
+    state.topAuthors = [...data]
+  },
+
   [mutator.SET_AVAILABLE_WIDGETS](state, data) {
     state.availableWidgets = {...data}
   },
