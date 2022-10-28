@@ -42,6 +42,7 @@
         :published="item.entry_published"
         :id="item.id"
         :is-checkbox-clipping-widget="true"
+        :clipping-element="selectedClippingElement(item.id)"
         @add-element="onChange"
       />
     </div>
@@ -81,6 +82,10 @@ export default {
     isCheckboxClippingWidget: {
       type: Boolean,
       default: false,
+    },
+    clippingContent: {
+      type: [Array, Object],
+      required: false,
     },
   },
   data() {
@@ -126,7 +131,9 @@ export default {
   methods: {
     ...mapActions([
       action.REFRESH_DISPLAY_CALENDAR,
+      action.DELETE_CLIPPING_FEED_CONTENT,
       action.CREATE_CLIPPING_FEED_CONTENT_WIDGET,
+      action.GET_CLIPPING_FEED_CONTENT_WIDGET,
     ]),
     getLastWeeksDate() {
       const now = new Date()
@@ -164,14 +171,19 @@ export default {
         this.clippingElements.push(id)
       } else {
         let element = this.clippingElements.indexOf(id)
-        this.removeSelectedFilter(element)
+        this.removeSelectedFilter(element, id)
       }
     },
-    removeSelectedFilter(index) {
+    removeSelectedFilter(index, id) {
+      this[action.DELETE_CLIPPING_FEED_CONTENT](id)
       this.clippingElements.splice(index, 1)
+      this[action.GET_CLIPPING_FEED_CONTENT_WIDGET](this.currentProject.id)
     },
     createClippingWidget() {
       this[action.CREATE_CLIPPING_FEED_CONTENT_WIDGET](this.clippingArray)
+    },
+    selectedClippingElement(id) {
+      return this.clippingContent.some((el) => el.post__id === id)
     },
   },
 }

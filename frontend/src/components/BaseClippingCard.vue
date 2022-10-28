@@ -8,6 +8,7 @@
           v-if="isCheckboxClippingWidget"
           class="status-checkbox"
           :id="id"
+          :model-value="clippingElement"
           @change="onChange"
         />
         <img
@@ -102,6 +103,10 @@ export default {
     },
     id: {
       type: Number,
+      required: false,
+    },
+    clippingElement: {
+      type: Boolean,
       required: false,
     },
   },
