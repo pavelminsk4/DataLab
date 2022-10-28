@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'django_celery_results',
     'countries_plus',
     'widgets.apps.WidgetsConfig',
+    'django.contrib.postgres',
 ]
 
 MIDDLEWARE = [
