@@ -1,6 +1,6 @@
 <template>
   <BaseModal modal-frame-style="width: 90vw; height: 80vh;">
-    <div class="main-title">Content Volume</div>
+    <div class="main-title">{{ contentVolumeWidget.title }}</div>
 
     <div class="settings-wrapper">
       <section class="chart-wrapper">
@@ -14,6 +14,16 @@
 
       <div class="options-wrapper">
         <div class="title-general">General</div>
+
+        <div class="title">Widget Title</div>
+        <BaseInput v-model="title" class="input-title" />
+
+        <div class="title">Widget Description</div>
+        <textarea
+          class="description-field"
+          placeholder="Some words about Widgets"
+          v-model="description"
+        />
 
         <div class="title">Date Aggregation Period</div>
         <BaseSelect
@@ -32,17 +42,18 @@
 </template>
 
 <script>
-import {mapActions} from 'vuex'
-import {action} from '@store/constants'
+import {mapActions, mapGetters} from 'vuex'
+import {action, get} from '@store/constants'
 
 import BaseModal from '@/components/modals/BaseModal'
 import ChartsView from '@/components/widgets/charts/ChartsView'
 import BaseSelect from '@/components/BaseSelect'
 import BaseButton from '@/components/buttons/BaseButton'
+import BaseInput from '@/components/BaseInput'
 
 export default {
   name: 'ContentVolumeSettingsModal',
-  components: {BaseButton, BaseSelect, ChartsView, BaseModal},
+  components: {BaseInput, BaseButton, BaseSelect, ChartsView, BaseModal},
   props: {
     volume: {
       type: [Array, Object],
@@ -56,11 +67,17 @@ export default {
   data() {
     return {
       aggregationPeriod: '',
+      title: '',
+      description: '',
     }
   },
   computed: {
+    ...mapGetters({widgets: get.AVAILABLE_WIDGETS}),
     aggregationPeriods() {
       return ['Hour', 'Day', 'Month', 'Year']
+    },
+    contentVolumeWidget() {
+      return this.widgets['volume_widget']
     },
     volumeData() {
       return Object.values(this.volume)
@@ -105,7 +122,11 @@ export default {
     },
   },
   methods: {
-    ...mapActions([action.GET_VOLUME_WIDGET]),
+    ...mapActions([
+      action.GET_VOLUME_WIDGET,
+      action.UPDATE_AVAILABLE_WIDGETS,
+      action.GET_AVAILABLE_WIDGETS,
+    ]),
     formatDate(date) {
       return new Date(date).toLocaleString('en-US', {
         month: 'short',
@@ -115,6 +136,7 @@ export default {
     },
     selectItem(name, val) {
       try {
+        this.aggregationPeriod = val
         this[action.GET_VOLUME_WIDGET]({
           projectId: this.projectId,
           value: val.toLowerCase(),
@@ -123,11 +145,23 @@ export default {
         console.log(e)
       }
     },
-    saveOptions() {
-      this[action.GET_VOLUME_WIDGET]({
+    async saveOptions() {
+      await this[action.UPDATE_AVAILABLE_WIDGETS]({
         projectId: this.projectId,
-        value: this.aggregationPeriod.toLowerCase(),
+        data: {
+          volume_widget: {
+            id: this.contentVolumeWidget.id,
+            title: this.title || this.contentVolumeWidget.title,
+            description:
+              this.description || this.contentVolumeWidget.description,
+            aggregation_period:
+              this.aggregationPeriod.toLowerCase() ||
+              this.contentVolumeWidget.aggregation_period,
+          },
+        },
       })
+      await this[action.GET_AVAILABLE_WIDGETS](this.projectId)
+      await this.$emit('close')
     },
   },
 }
@@ -141,6 +175,48 @@ export default {
   font-weight: 600;
   font-size: 36px;
   line-height: 54px;
+}
+
+.input-title {
+  width: 100%;
+}
+
+.description-field {
+  width: 100%;
+  height: 132px;
+  padding: 12px 16px;
+
+  border: 1px solid var(--input-border-color);
+  box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
+  border-radius: 10px;
+  background: var(--secondary-bg-color);
+
+  color: var(--primary-text-color);
+
+  resize: none;
+}
+
+.description-field::placeholder {
+  color: var(--secondary-text-color);
+}
+
+.description-field::-webkit-scrollbar {
+  width: 10px;
+}
+
+.description-field::-webkit-scrollbar-track {
+  border-radius: 10px;
+
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+.description-field::-webkit-scrollbar-thumb {
+  width: 8px;
+
+  border-radius: 10px;
+
+  background-color: var(--box-shadow-color);
+  outline: none;
 }
 
 .settings-wrapper {
@@ -162,7 +238,7 @@ export default {
 
     .title-general {
       padding-bottom: 10px;
-      margin-bottom: 40px;
+      margin-bottom: 15px;
 
       border-bottom: 1px solid var(--primary-button-color);
 
@@ -172,7 +248,7 @@ export default {
     }
 
     .title {
-      margin-bottom: 12px;
+      margin: 25px 0 12px;
 
       font-style: normal;
       font-weight: 500;

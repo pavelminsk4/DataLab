@@ -149,7 +149,7 @@ export default {
       },
     }
     return fetch(
-      'put',
+      'patch',
       `/api/projects/${projectId}/widgets_list/update`,
       data,
       config

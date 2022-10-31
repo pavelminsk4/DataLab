@@ -74,8 +74,8 @@ class WidgetsListSerializer(WritableNestedModelSerializer):
   top_10_authors_by_volume_widget = WidgetDescriptionSerializer()
   class Meta:
     model = WidgetsList2
-    fields = '__all__'
-    #fields = ['summary_widget', 'volume_widget', 'clipping_feed_content_widget', 'top_10_authors_by_volume_widget']
+    #fields = '__all__'
+    fields = ['summary_widget', 'volume_widget', 'clipping_feed_content_widget', 'top_10_authors_by_volume_widget']
 
 class ClippingFeedContentWidgetListSerializer(serializers.ListSerializer):
   def create(self, validated_data):

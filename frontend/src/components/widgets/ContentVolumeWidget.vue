@@ -13,8 +13,8 @@
 </template>
 
 <script>
-import {mapActions} from 'vuex'
-import {action} from '@store/constants'
+import {mapActions, mapGetters} from 'vuex'
+import {action, get} from '@store/constants'
 
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
 import ChartsView from '@/components/widgets/charts/ChartsView'
@@ -41,10 +41,14 @@ export default {
   },
   created() {
     if (this.isOpenWidget) {
-      this[action.GET_VOLUME_WIDGET]({projectId: this.projectId, value: 'day'})
+      this[action.GET_VOLUME_WIDGET]({
+        projectId: this.projectId,
+        value: this.widgets['volume_widget'].aggregation_period,
+      })
     }
   },
   computed: {
+    ...mapGetters({widgets: get.AVAILABLE_WIDGETS}),
     volumeData() {
       return Object.values(this.volume)
     },
