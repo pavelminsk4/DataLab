@@ -1,6 +1,6 @@
 <template>
   <WidgetsLayout
-    title="Summary"
+    :title="availableWidgets['summary_widget'].title"
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-summary-modal')"
   >
@@ -21,8 +21,8 @@
 </template>
 
 <script>
-import {mapActions} from 'vuex'
-import {action} from '@store/constants'
+import {mapActions, mapGetters} from 'vuex'
+import {action, get} from '@store/constants'
 
 import PostIcon from '@/components/icons/PostIcon'
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
@@ -50,6 +50,7 @@ export default {
     }
   },
   computed: {
+    ...mapGetters({availableWidgets: get.AVAILABLE_WIDGETS}),
     widgetMetrics() {
       return [
         {name: 'New posts', value: this.summaryData?.posts},
@@ -79,7 +80,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions([action.GET_SUMMARY_WIDGET]),
+    ...mapActions([action.GET_SUMMARY_WIDGET, action.GET_AVAILABLE_WIDGETS]),
   },
 }
 </script>

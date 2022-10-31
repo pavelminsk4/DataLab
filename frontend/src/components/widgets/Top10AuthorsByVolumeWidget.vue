@@ -1,7 +1,7 @@
 <template>
   <WidgetsLayout
     v-if="topAuthors"
-    title="Top 10 authors by volume"
+    :title="widgets['top_10_authors_by_volume_widget'].title"
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-summary-modal')"
   >
@@ -35,6 +35,7 @@ export default {
   computed: {
     ...mapGetters({
       topAuthors: get.TOP_AUTHORS,
+      widgets: get.AVAILABLE_WIDGETS,
     }),
     value() {
       return this.topAuthors.map((el) => el.author_posts_count)
