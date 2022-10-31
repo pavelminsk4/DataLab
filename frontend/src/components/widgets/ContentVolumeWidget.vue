@@ -1,6 +1,6 @@
 <template>
   <WidgetsLayout
-    title="Volume"
+    :title="this.widgets['volume_widget'].title"
     @open-modal="$emit('open-content-volume-modal')"
   >
     <ChartsView
