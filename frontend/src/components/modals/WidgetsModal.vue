@@ -5,13 +5,13 @@
       <BaseCheckbox
         v-for="(item, index) of widgetNames"
         :key="index"
-        :label="item.name"
+        :label="item.title"
         :id="index"
         :model-value="item.is_active"
         @change="onChange"
         class="checkbox"
       >
-        <span class="name">{{ item.name }}</span>
+        <span class="name">{{ item.title }}</span>
       </BaseCheckbox>
 
       <BaseButton class="button" @click="saveCollectionWidgets">
@@ -55,7 +55,7 @@ export default {
     widgetNames() {
       if (this.widgets) {
         const availableWidgets = Object.values(this.widgets)
-        return availableWidgets.filter((el) => el.name)
+        return availableWidgets.filter((el) => el.title)
       }
 
       return []
@@ -78,11 +78,15 @@ export default {
       const widgetsKeys = Object.keys(this.widgets)
       const notActiveWidgets = Object.assign(
         {},
-        ...widgetsKeys.map((el) => ({[el]: false}))
+        ...widgetsKeys.map((el) => ({
+          [el]: {is_active: false, id: this.widgets[el].id},
+        }))
       )
       const activeWidgets = Object.assign(
         {},
-        ...this.collectionProxy.map((el) => ({[el]: true}))
+        ...this.collectionProxy.map((el) => ({
+          [el]: {is_active: true, id: this.widgets[el].id},
+        }))
       )
       return {...notActiveWidgets, ...activeWidgets}
     },

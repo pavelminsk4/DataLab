@@ -1,5 +1,10 @@
 <template>
-  <WidgetsLayout v-if="topAuthors" title="Top 10 authors by volume">
+  <WidgetsLayout
+    v-if="topAuthors"
+    title="Top 10 authors by volume"
+    @delete-widget="$emit('delete-widget')"
+    @open-modal="$emit('open-summary-modal')"
+  >
     <ChartsView
       :is-doughnut="true"
       :chart-data="chartData"

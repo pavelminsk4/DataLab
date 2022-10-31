@@ -8,7 +8,14 @@
 
   <SummaryModal
     v-if="isOpenSummaryModal"
+    :project-id="projectId"
     @close="openModal('isOpenSummaryModal')"
+  />
+
+  <TopAuthorsSettingsModal
+    v-if="isOpenTop10AuthorsModal"
+    :project-id="projectId"
+    @close="openModal('isOpenTop10AuthorsModal')"
   />
 
   <grid-layout
@@ -62,8 +69,9 @@ import ContentVolumeWidget from '@/components/widgets/ContentVolumeWidget'
 import ClippingFeedContentWidget from '@/components/widgets/ClippingFeedContentWidget'
 import Top10AuthorsByVolumeWidget from '@/components/widgets/Top10AuthorsByVolumeWidget'
 
+import TopAuthorsSettingsModal from '@/components/widgets/modals/TopAuthorsSettingsModal'
 import ContentVolumeSettingsModal from '@/components/widgets/modals/ContentVolumeSettingsModal'
-import SummaryModal from '@/components/widgets/modals/SummaryModal'
+import SummaryModal from '@/components/widgets/modals/SummarySettingsModal'
 
 export default {
   name: 'WidgetsView',
@@ -71,6 +79,7 @@ export default {
     SummaryModal,
     ClippingFeedContentWidget,
     ContentVolumeSettingsModal,
+    TopAuthorsSettingsModal,
     SummaryWidget,
     ContentVolumeWidget,
     Top10AuthorsByVolumeWidget,
@@ -87,6 +96,7 @@ export default {
     return {
       isOpenContentVolumeModal: false,
       isOpenSummaryModal: false,
+      isOpenTop10AuthorsModal: false,
     }
   },
   created() {
@@ -145,6 +155,7 @@ export default {
           name: 'top_10_authors_by_volume_widget',
           widgetName: 'Top10AuthorsByVolume',
           isShow: this.isActiveWidget('top_10_authors_by_volume_widget'),
+          isOpenModal: 'isOpenTop10AuthorsModal',
         },
       ]
     },
@@ -157,7 +168,7 @@ export default {
     async deleteWidget(name) {
       await this[action.UPDATE_AVAILABLE_WIDGETS]({
         projectId: this.projectId,
-        data: {[name]: false},
+        data: {[name]: {is_active: false, id: this.availableWidgets[name].id}},
       })
       await this[action.GET_AVAILABLE_WIDGETS](this.projectId)
     },
