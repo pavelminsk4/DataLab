@@ -15,7 +15,7 @@ from django.views.decorators.csrf import csrf_exempt
 from countries_plus.models import Country
 from dateutil import parser
 from django.db.models.functions import ExtractYear
-from widgets.models import ClippingFeedContentWidget, WidgetsList
+from widgets.models import ClippingFeedContentWidget, WidgetsList2
 from rest_framework import status
 
 # ==== User API =======================
@@ -170,40 +170,40 @@ def years(request):
   years_list = list(years)
   return JsonResponse(years_list, safe = False)
 
-# === Widgets =====
-#class ProjectWidgetsAPIView(RetrieveAPIView):
-#  serializer_class = WidgetsListSerializer
-#  
-#  def get_object(self):
-#    return WidgetsList.objects.get(project_id=self.kwargs['pk'])
+#=== Widgets =====
+class ProjectWidgetsAPIView(RetrieveAPIView):
+ serializer_class = WidgetsListSerializer
+ 
+ def get_object(self):
+   return WidgetsList2.objects.get(project_id=self.kwargs['pk'])
 
-def widgets_list(request, pk):
-  w = WidgetsList.objects.get(project_id=pk)
-  res = {
-    'summary_widget':
-      {
-        'name':'Summary', 'is_active':w.summary_widget
-      },
-    'volume_widget':
-      {
-        'name':'Content volume', 'is_active':w.volume_widget
-      },
-    'clipping_feed_content_widget':
-      {
-        'name':'Clipping feed content', 'is_active':w.clipping_feed_content_widget
-      },
-    'top_10_authors_by_volume_widget':
-      {
-        'name':'Top 10 authors by volume', 'is_active':w.top_10_authors_by_volume_widget
-      },
-    }
-  return JsonResponse(res, safe = False)
+# def widgets_list(request, pk):
+#   w = WidgetsList2.objects.get(project_id=pk)
+#   res = {
+#     'summary_widget':
+#       {
+#         'name':'Summary', 'is_active':w.summary_widget.is_active
+#       },
+#     'volume_widget':
+#       {
+#         'name':'Content volume', 'is_active':w.volume_widget.is_active
+#       },
+#     'clipping_feed_content_widget':
+#       {
+#         'name':'Clipping feed content', 'is_active':w.clipping_feed_content_widget.is_active
+#       },
+#     'top_10_authors_by_volume_widget':
+#       {
+#         'name':'Top 10 authors by volume', 'is_active':w.top_10_authors_by_volume_widget.is_active
+#       },
+#     }
+#   return JsonResponse(res, safe = False)
 
 class UpdateProjectsWidgetsAPIView(UpdateAPIView):
   serializer_class = WidgetsListSerializer
 
   def get_object(self):
-    return WidgetsList.objects.get(project_id=self.kwargs['pk'])
+    return WidgetsList2.objects.get(project_id=self.kwargs['pk'])
 
 class ClippingFeedContentWidgetDelete(DestroyAPIView):
   queryset = ClippingFeedContentWidget.objects.all()
