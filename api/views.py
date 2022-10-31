@@ -206,8 +206,11 @@ class UpdateProjectsWidgetsAPIView(UpdateAPIView):
     return WidgetsList2.objects.get(project_id=self.kwargs['pk'])
 
 class ClippingFeedContentWidgetDelete(DestroyAPIView):
-  queryset = ClippingFeedContentWidget.objects.all()
   serializes_class = ClippingFeedContentWidgetSerializer
+  
+  def get_object(self):
+    return ClippingFeedContentWidget.objects.filter(post_id=self.kwargs['post_pk'], project_id=self.kwargs['proj_pk'])
+  #queryset = ClippingFeedContentWidget.objects.all()
 
 class ClippingFeedContentWidgetCreate(ListCreateAPIView):
   serializer_class = ClippingFeedContentWidgetSerializer
