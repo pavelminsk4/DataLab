@@ -15,7 +15,6 @@ class WidgetsListTests(APITestCase):
     response = self.client.get(url)
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     res = {
-      'id': 4,
       'summary_widget':
         {
           'id': WidgetDescription.objects.all()[0].id,
@@ -48,13 +47,11 @@ class WidgetsListTests(APITestCase):
           'description': 'Description',
           'aggregation_period': 'day'
         },
-      'project': 1,
-    }
+      }
     self.assertEqual(json.loads(response.content), res)
     url2 = reverse('update_widgets_list', kwargs={'pk':project.id})
     data = {
-      'id':4,
-      "summary_widget": 
+      'summary_widget': 
         {
           'id':13,
           "is_active": True,
@@ -86,13 +83,11 @@ class WidgetsListTests(APITestCase):
           'description': 'Description',
           'aggregation_period':'day',
         },
-      'porject':1,
-    }
+      }
     self.client.put(url2, data, format='json')
     response = self.client.get(url)
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     res = {
-      'id': 4,
       'summary_widget':
         {
           'id': 13,
@@ -125,6 +120,5 @@ class WidgetsListTests(APITestCase):
           'description': 'Description',
           'aggregation_period': 'day',
         },
-      'project': 1,
-    }
+      }
     self.assertEqual(json.loads(response.content), res)  

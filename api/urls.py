@@ -37,5 +37,5 @@ urlpatterns = [
   path('years', views.years, name='years_range'),
   # ClippingFeedContentWidget
   path('clipping_feed_content_widget/create', views.ClippingFeedContentWidgetCreate.as_view(), name='cl_fd_cont_widg_create'),
-  path('clipping_feed_content_widget/delete/<int:pk>', views.ClippingFeedContentWidgetDelete.as_view(), name='cl_fd_cont_widg_delete'),
+  path('projects/<int:proj_pk>/clipping_feed_content_widget/delete/<int:post_pk>', views.ClippingFeedContentWidgetDelete.as_view(), name='cl_fd_cont_widg_delete'),
   ]
