@@ -186,7 +186,7 @@ export default {
       this[action.CREATE_CLIPPING_FEED_CONTENT_WIDGET](this.clippingArray)
     },
     selectedClippingElement(id) {
-      return this.clippingContent.some((el) => el.post__id === id)
+      return this.clippingContent?.some((el) => el.post__id === id)
     },
   },
 }
