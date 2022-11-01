@@ -155,4 +155,18 @@ export default {
       config
     )
   },
+
+  async deleteClippingFeedContentPost(projectId, postId) {
+    const config = {
+      headers: {
+        'content-type': 'application/json',
+        'X-CSRFToken': CSRF_TOKEN,
+      },
+    }
+    return fetch(
+      'delete',
+      `/api/projects/${projectId}/clipping_feed_content_widget/delete/${postId}`,
+      config
+    )
+  },
 }

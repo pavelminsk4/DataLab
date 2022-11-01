@@ -138,7 +138,7 @@ export default {
           x: 2,
           y: 1,
           w: 2,
-          h: 20,
+          h: 15,
           i: '2',
           static: false,
           name: 'clipping_feed_content_widget',

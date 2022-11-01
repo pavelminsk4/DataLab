@@ -8,6 +8,7 @@
           v-if="isCheckboxClippingWidget"
           class="status-checkbox"
           :id="id"
+          :model-value="clippingElement"
           @change="onChange"
         />
         <img
@@ -49,16 +50,26 @@
         </div>
       </div>
     </section>
+
+    <CloseIcon
+      v-if="isClippingWidget"
+      @click="deleteClippingFeedPost"
+      class="delete-clipping-feed-element"
+    />
   </div>
 </template>
 
 <script>
+import {mapActions} from 'vuex'
+import {action} from '@store/constants'
+
 import BaseCheckbox from '@/components/BaseCheckbox'
 import NoImageIcon from '@/components/icons/NoImageIcon'
+import CloseIcon from '@/components/icons/CloseIcon'
 
 export default {
   name: 'BaseClippingCard',
-  components: {NoImageIcon, BaseCheckbox},
+  components: {CloseIcon, NoImageIcon, BaseCheckbox},
   props: {
     isCheckboxClippingWidget: {
       type: Boolean,
@@ -104,8 +115,31 @@ export default {
       type: Number,
       required: false,
     },
+    postId: {
+      type: Number,
+      required: false,
+    },
+    projectId: {
+      type: Number,
+      required: false,
+    },
+    clippingElement: {
+      type: Boolean,
+      required: false,
+    },
   },
   methods: {
+    ...mapActions([
+      action.DELETE_CLIPPING_FEED_CONTENT,
+      action.GET_CLIPPING_FEED_CONTENT_WIDGET,
+    ]),
+    async deleteClippingFeedPost() {
+      await this[action.DELETE_CLIPPING_FEED_CONTENT]({
+        projectId: this.projectId,
+        postId: this.postId,
+      })
+      await this[action.GET_CLIPPING_FEED_CONTENT_WIDGET](this.projectId)
+    },
     capitalizeFirstLetter(string) {
       return string.charAt(0).toUpperCase() + string.slice(1)
     },
@@ -125,6 +159,8 @@ export default {
 
 <style lang="scss" scoped>
 .search-result-card {
+  position: relative;
+
   max-width: 100%;
 
   margin: 0 10px 10px 0;
@@ -266,6 +302,16 @@ export default {
     border-radius: 100%;
     background-color: var(--secondary-text-color);
   }
+}
+
+.delete-clipping-feed-element {
+  position: absolute;
+  top: 12px;
+  right: 0;
+
+  cursor: pointer;
+
+  color: var(--secondary-text-color);
 }
 
 .status-positive {

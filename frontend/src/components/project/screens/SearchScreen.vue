@@ -19,6 +19,7 @@
       <SearchResults
         :current-project="currentProject"
         :is-checkbox-clipping-widget="true"
+        :clipping-content="clippingContent"
       />
     </div>
   </div>
@@ -51,11 +52,14 @@ export default {
     })
 
     this.showResults()
+
+    this[action.GET_CLIPPING_FEED_CONTENT_WIDGET](this.currentProject.id)
   },
   computed: {
     ...mapGetters({
       additionalFilters: get.ADDITIONAL_FILTERS,
       keywords: get.KEYWORDS,
+      clippingContent: get.CLIPPING_FEED_CONTENT_WIDGET,
     }),
     currentKeywords() {
       return this.currentProject?.keywords
@@ -73,6 +77,7 @@ export default {
       action.UPDATE_PROJECT,
       action.UPDATE_KEYWORDS_LIST,
       action.UPDATE_ADDITIONAL_FILTERS,
+      action.GET_CLIPPING_FEED_CONTENT_WIDGET,
     ]),
     showResults() {
       try {

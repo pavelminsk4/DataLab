@@ -238,6 +238,17 @@ export default {
     }
   },
 
+  async [action.DELETE_CLIPPING_FEED_CONTENT]({commit}, {projectId, postId}) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      await api.deleteClippingFeedContentPost(projectId, postId)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
   async [action.UPDATE_PROJECT_STATE]({commit}, newProject) {
     commit(mutator.SET_NEW_PROJECT, newProject)
   },
