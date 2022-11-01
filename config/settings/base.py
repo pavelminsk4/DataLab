@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'countries_plus',
     'widgets.apps.WidgetsConfig',
     'django.contrib.postgres',
+    'reports.apps.ReportsConfig',
 ]
 
 MIDDLEWARE = [
