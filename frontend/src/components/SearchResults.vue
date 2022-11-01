@@ -174,8 +174,11 @@ export default {
         this.removeSelectedFilter(element, id)
       }
     },
-    removeSelectedFilter(index, id) {
-      this[action.DELETE_CLIPPING_FEED_CONTENT](id)
+    async removeSelectedFilter(index, id) {
+      await this[action.DELETE_CLIPPING_FEED_CONTENT]({
+        projectId: this.currentProject.id,
+        postId: id,
+      })
       this.clippingElements.splice(index, 1)
       this[action.GET_CLIPPING_FEED_CONTENT_WIDGET](this.currentProject.id)
     },

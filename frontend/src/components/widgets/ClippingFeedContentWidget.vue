@@ -5,6 +5,10 @@
     :is-show-settings="false"
   >
     <div class="clipping-wrapper">
+      <div v-if="!clippingData.length" class="no-selected">
+        Clipping feed content is not selected.
+      </div>
+
       <BaseClippingCard
         v-for="(item, index) in clippingData"
         :key="'result' + index"
@@ -16,6 +20,8 @@
         :country="item.post__feedlink__country"
         :language="item.post__feed_language__language"
         :published="item.post__entry_published"
+        :post-id="item.post__id"
+        :project-id="projectId"
         :is-clipping-widget="true"
       />
     </div>
@@ -55,6 +61,10 @@ export default {
 <style lang="scss" scoped>
 .clipping-wrapper {
   overflow: auto;
+
+  .no-selected {
+    margin-top: 20px;
+  }
 
   &::-webkit-scrollbar {
     height: 5px;

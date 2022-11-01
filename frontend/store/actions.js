@@ -238,10 +238,10 @@ export default {
     }
   },
 
-  async [action.DELETE_CLIPPING_FEED_CONTENT]({commit}, postId) {
+  async [action.DELETE_CLIPPING_FEED_CONTENT]({commit}, {projectId, postId}) {
     commit(mutator.SET_LOADING, true)
     try {
-      await api.deleteClippingFeedContentPost(postId)
+      await api.deleteClippingFeedContentPost(projectId, postId)
     } catch (e) {
       console.log(e)
     } finally {

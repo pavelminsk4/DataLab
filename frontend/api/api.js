@@ -156,7 +156,7 @@ export default {
     )
   },
 
-  async deleteClippingFeedContentPost(postId) {
+  async deleteClippingFeedContentPost(projectId, postId) {
     const config = {
       headers: {
         'content-type': 'application/json',
@@ -164,9 +164,8 @@ export default {
       },
     }
     return fetch(
-      'get',
-      `/api/clipping_feed_content_widget/delete/`,
-      postId,
+      'delete',
+      `/api/projects/${projectId}/clipping_feed_content_widget/delete/${postId}`,
       config
     )
   },
