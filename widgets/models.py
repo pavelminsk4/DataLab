@@ -52,5 +52,13 @@ def create_widget_description(sender, instance, created, **kwargs):
     instance.save()
 
 class ClippingFeedContentWidget(models.Model):
-  project = models.ForeignKey(Project,on_delete=models.CASCADE,verbose_name ='Project')
+  project = models.ForeignKey(Project,on_delete=models.CASCADE,verbose_name='Project')
   post = models.ForeignKey(Post,on_delete=models.CASCADE,verbose_name ='Post', related_name='posts')
+
+class Dimensions(models.Model):
+  title = models.CharField(max_length=50)
+  description = models.TextField()
+
+class ProjectDimensions(models.Model):
+  project = models.ForeignKey(Project, on_delete=models.CASCADE, verbose_name='Project') 
+  dimension = models.ForeignKey(Dimensions,on_delete=models.CASCADE,verbose_name='Dimension')
