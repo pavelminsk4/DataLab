@@ -1,5 +1,9 @@
 from django.urls import path
 from . import views
+from rest_framework import routers
+from .views import *
+
+router = routers.SimpleRouter()
 
 urlpatterns = [
   # User
@@ -38,4 +42,11 @@ urlpatterns = [
   # ClippingFeedContentWidget
   path('clipping_feed_content_widget/create', views.ClippingFeedContentWidgetCreate.as_view(), name='cl_fd_cont_widg_create'),
   path('projects/<int:proj_pk>/clipping_feed_content_widget/delete/<int:post_pk>', views.ClippingFeedContentWidgetDelete.as_view(), name='cl_fd_cont_widg_delete'),
+  # Dimensions
+  path('projects/<int:pk>/dimensions', views.ProjectDimensionsList.as_view(), name='project_dimensions'),
   ]
+
+router.register('dimensions', DimensionViewSet)
+router.register('project_dimensions', ProjectDimensionsViewSet)
+
+urlpatterns += router.urls

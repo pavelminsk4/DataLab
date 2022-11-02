@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from rest_framework.generics import ListAPIView, CreateAPIView, DestroyAPIView, UpdateAPIView, RetrieveAPIView, ListCreateAPIView
-from .serializers import SpeechSerializer, UserSerializer, WorkspaceSerializer, ProjectSerializer, WorkspaceCreateSerializer, CountrySerializer, WidgetsListSerializer, ClippingFeedContentWidgetSerializer
+from .serializers import SpeechSerializer, UserSerializer, WorkspaceSerializer, ProjectSerializer, WorkspaceCreateSerializer, CountrySerializer, WidgetsListSerializer, ClippingFeedContentWidgetSerializer, DimensionsSerializer, ProjectDimensionsSerializer, ProjectDimensionsListSerializer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import ProjectSerializer, Workspace
@@ -15,8 +15,9 @@ from django.views.decorators.csrf import csrf_exempt
 from countries_plus.models import Country
 from dateutil import parser
 from django.db.models.functions import ExtractYear
-from widgets.models import ClippingFeedContentWidget, WidgetsList2
+from widgets.models import ClippingFeedContentWidget, WidgetsList2, Dimensions, ProjectDimensions
 from rest_framework import status
+from rest_framework import viewsets
 
 # ==== User API =======================
 
@@ -222,3 +223,19 @@ class ClippingFeedContentWidgetCreate(ListCreateAPIView):
     self.perform_create(serializer)
     headers = self.get_success_headers(serializer.data)
     return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
+# === Dimensions ======
+ 
+class ProjectDimensionsList(ListAPIView):
+ serializer_class = ProjectDimensionsListSerializer
+ 
+ def get_queryset(self):
+   return ProjectDimensions.objects.filter(project_id=self.kwargs['pk'])
+
+class DimensionViewSet(viewsets.ModelViewSet):
+  serializer_class = DimensionsSerializer
+  queryset = Dimensions.objects.all()
+
+class ProjectDimensionsViewSet(viewsets.ModelViewSet):
+  serializer_class = ProjectDimensionsSerializer
+  queryset = ProjectDimensions.objects.all()

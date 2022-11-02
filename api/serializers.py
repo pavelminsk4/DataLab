@@ -5,7 +5,7 @@ from rest_framework import serializers
 from drf_writable_nested.serializers import WritableNestedModelSerializer
 from countries_plus.models import Country
 from widgets.common_widget.top_10_authors_by_volume_widget import top_10_auth_by_vol_widget
-from widgets.models import WidgetsList, WidgetsList2, ClippingFeedContentWidget, WidgetDescription
+from widgets.models import WidgetsList, WidgetsList2, ClippingFeedContentWidget, WidgetDescription, Dimensions, ProjectDimensions
 from widgets.views import clipping_feed_content_widget
 
 class DepartmentSerializer(WritableNestedModelSerializer):
@@ -87,3 +87,19 @@ class ClippingFeedContentWidgetSerializer(serializers.ModelSerializer):
     model = ClippingFeedContentWidget
     fields = '__all__'
     list_serializer_class = ClippingFeedContentWidgetListSerializer
+
+class DimensionsSerializer(WritableNestedModelSerializer):
+  class Meta:
+    model = Dimensions
+    fields = '__all__'
+
+class ProjectDimensionsSerializer(WritableNestedModelSerializer):
+  class Meta:
+    model = ProjectDimensions
+    fields = '__all__'
+
+class ProjectDimensionsListSerializer(WritableNestedModelSerializer):
+  dimension = DimensionsSerializer()
+  class Meta:
+    model = ProjectDimensions
+    fields = '__all__'
