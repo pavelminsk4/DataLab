@@ -113,13 +113,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss">
-.volume-chart-wrapper {
-  position: absolute !important;
-  bottom: 0;
-
-  width: 90%;
-  max-height: 84%;
-}
-</style>
