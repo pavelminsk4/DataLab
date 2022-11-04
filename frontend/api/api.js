@@ -75,6 +75,10 @@ export default {
     return fetch('get', `/api/widgets/top_10_authors_by_volume/${projectId}`)
   },
 
+  async getDimensions() {
+    return fetch('get', '/api/dimensions/')
+  },
+
   async createWorkspace(workspace) {
     const config = {
       headers: {

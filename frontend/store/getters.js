@@ -76,4 +76,8 @@ export default {
   [get.TOP_AUTHORS](state) {
     return state.topAuthors
   },
+
+  [get.DIMENSIONS](state) {
+    return state.dimensions
+  },
 }

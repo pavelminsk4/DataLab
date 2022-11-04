@@ -81,6 +81,10 @@ export default {
     state.availableWidgets = {...data}
   },
 
+  [mutator.SET_DIMENSIONS](state, data) {
+    state.dimensions = [...data]
+  },
+
   [mutator.RESET_STATE](state) {
     state.currentStep = 'Step1'
     state.keywords = []
