@@ -9,6 +9,7 @@
     :styles="styles"
     :width="width"
     :height="height"
+    ref="doughnut"
   />
 </template>
 

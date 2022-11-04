@@ -3,7 +3,12 @@
     <WidgetsModal
       v-if="isOpenWidgetsModal"
       :project-id="currentProject.id"
-      @close="toggleWidgetsModal"
+      @close="toggleWidgetsModal('isOpenWidgetsModal')"
+    />
+
+    <AllDimensionsModal
+      v-if="isOpenDimensionModal"
+      @close="toggleWidgetsModal('isOpenDimensionModal')"
     />
 
     <NavigationBar
@@ -13,7 +18,17 @@
     />
 
     <div class="navigation-bar">
-      <BaseButton class="button" @click="toggleWidgetsModal">
+      <div
+        class="dimensions-button"
+        @click="toggleWidgetsModal('isOpenDimensionModal')"
+      >
+        <DimensionsIcon />
+      </div>
+
+      <BaseButton
+        class="button"
+        @click="toggleWidgetsModal('isOpenWidgetsModal')"
+      >
         <PlusIcon class="icon" />
         Add Widgets
       </BaseButton>
@@ -28,10 +43,20 @@ import WidgetsView from '@/components/widgets/WidgetsView'
 import BaseButton from '@/components/buttons/BaseButton'
 import PlusIcon from '@/components/icons/PlusIcon'
 import WidgetsModal from '@/components/modals/WidgetsModal'
+import DimensionsIcon from '@/components/icons/DimensionsIcon'
+import AllDimensionsModal from '@/components/widgets/modals/AllDimensionsModal'
 
 export default {
   name: 'AnalyticsScreen',
-  components: {WidgetsModal, PlusIcon, BaseButton, WidgetsView, NavigationBar},
+  components: {
+    AllDimensionsModal,
+    DimensionsIcon,
+    WidgetsModal,
+    PlusIcon,
+    BaseButton,
+    WidgetsView,
+    NavigationBar,
+  },
   props: {
     currentProject: {
       type: [Array, Object],
@@ -41,11 +66,12 @@ export default {
   data() {
     return {
       isOpenWidgetsModal: false,
+      isOpenDimensionModal: false,
     }
   },
   methods: {
-    toggleWidgetsModal() {
-      this.isOpenWidgetsModal = !this.isOpenWidgetsModal
+    toggleWidgetsModal(val) {
+      this[val] = !this[val]
     },
   },
 }
@@ -65,5 +91,20 @@ export default {
       margin-right: 10px;
     }
   }
+}
+
+.dimensions-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+
+  margin-right: 10px;
+  width: 40px;
+  height: 40px;
+
+  background: #29303d;
+  border-radius: 8px;
 }
 </style>
