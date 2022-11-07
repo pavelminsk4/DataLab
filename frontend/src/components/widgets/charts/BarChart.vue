@@ -94,20 +94,19 @@ export default {
             backgroundColor: 'rgba(255, 255, 255, 0.96)',
             displayColors: false,
           },
-          scales: {
-            yAxes: [
-              {
-                ticks: {
-                  beginAtZero: true,
-                },
-              },
-            ],
-            xAxes: [
-              {
-                // Change here
-                barPercentage: 0.2,
-              },
-            ],
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            grid: {
+              color: 'rgba(145, 152, 167, 0.1)',
+            },
+          },
+          x: {
+            beginAtZero: true,
+            grid: {
+              display: false,
+            },
           },
         },
       },
