@@ -6,74 +6,44 @@
     @open-modal="$emit('open-summary-modal')"
   >
     <div class="top-authors-wrapper">
-      <div class="legend-box">
-        <table class="general-legend">
-          <td
-            v-for="(item, index) in topAuthorsVolume.slice(0, 2)"
+      <div class="legends">
+        <div class="legend-wrapper">
+          <div
+            v-for="(item, index) in topAuthorsVolume.slice(0, 4)"
             :key="item.entry_author + index"
             @click="toggleData($event.target, item)"
             @mouseover="handleHover($event, item)"
             @mouseleave="handleLeave"
-            class="legend"
+            class="legend-item"
           >
-            <span :style="`color: ${item.color}`" class="legend-percent">
-              {{ percentageIndicator(item.author_posts_count) }}
-            </span>
-            {{ item.entry_author }}
-          </td>
-          <td
-            v-for="(item, index) in topAuthorsVolume.slice(2, 4)"
-            :key="item.entry_author + index"
-            @click="toggleData($event.target, item)"
-            @mouseover="handleHover($event, item)"
-            @mouseleave="handleLeave"
-            class="legend"
-          >
-            <span
+            <div
               :style="`color: ${item.color}; font-size: 18px; white-space: nowrap;`"
               class="legend-percent"
             >
               {{ percentageIndicator(item.author_posts_count) }}
-            </span>
+            </div>
             {{ item.entry_author }}
-          </td>
-        </table>
-        <table class="secondary-legend">
-          <td
-            v-for="(item, index) in topAuthorsVolume.slice(4, 7)"
+          </div>
+        </div>
+
+        <div class="legends-additional-wrapper">
+          <div
+            v-for="(item, index) in topAuthorsVolume.slice(4, 9)"
             :key="item.entry_author + index"
             @click="toggleData($event.target, item)"
             @mouseover="handleHover($event, item)"
             @mouseleave="handleLeave"
-            class="min-legend"
+            class="legend-item"
           >
-            <span
+            <div
               :style="`color: ${item.color}; font-size: 18px; white-space: nowrap;`"
               class="legend-percent"
             >
               {{ percentageIndicator(item.author_posts_count) }}
-            </span>
+            </div>
             {{ item.entry_author }}
-          </td>
-        </table>
-        <table class="secondary-legend">
-          <td
-            v-for="(item, index) in topAuthorsVolume.slice(7, 9)"
-            :key="item.entry_author + index"
-            @click="toggleData($event.target, item)"
-            @mouseover="handleHover($event, item)"
-            @mouseleave="handleLeave"
-            class="min-legend"
-          >
-            <span
-              :style="`color: ${item.color}; font-size: 18px; white-space: nowrap;`"
-              class="legend-percent"
-            >
-              {{ percentageIndicator(item.author_posts_count) }}
-            </span>
-            {{ item.entry_author }}
-          </td>
-        </table>
+          </div>
+        </div>
       </div>
 
       <div class="doughnut-wrapper">
@@ -251,11 +221,10 @@ export default {
 }
 
 .top-authors-wrapper {
-  position: relative;
+  display: grid;
+  grid-template-columns: 50% 50%;
 
-  display: flex;
-  justify-content: center;
-  gap: 50px;
+  overflow: hidden;
 
   .legend-box {
     display: flex;
@@ -345,6 +314,34 @@ export default {
     }
   }
 }
+.legends {
+  display: flex;
+  flex-direction: column;
+
+  .legend-wrapper {
+    display: grid;
+    grid-template-columns: 160px 160px;
+    grid-template-rows: 50px 50px;
+
+    margin: 35px 0 20px;
+
+    .legend-item {
+      display: grid;
+      grid-template-columns: 80px 80px;
+    }
+  }
+
+  .legends-additional-wrapper {
+    display: grid;
+    grid-template-columns: 125px 125px 125px;
+    grid-template-rows: 70px 70px 70px;
+
+    .legend-item {
+      display: grid;
+    }
+  }
+}
+
 .doughnut-wrapper {
   position: relative;
 
@@ -399,9 +396,7 @@ export default {
 }
 
 .top-authors-wrapper {
-  overflow-y: hidden;
   overflow-x: auto;
-  height: 100%;
 
   &::-webkit-scrollbar {
     height: 5px;
