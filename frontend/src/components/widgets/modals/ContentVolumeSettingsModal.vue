@@ -5,10 +5,11 @@
     <div class="settings-wrapper">
       <section class="chart-wrapper">
         <ChartsView
-          :chart-data="chartData"
-          :chart-options="chartOptions"
           :is-line="isLineChart"
           :is-bar="isBarChart"
+          :chart-labels="volumeLabels"
+          :chart-value="volumeValue"
+          class="charts"
         />
       </section>
 

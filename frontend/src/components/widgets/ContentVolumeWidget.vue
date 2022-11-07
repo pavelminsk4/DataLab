@@ -8,23 +8,45 @@
       :chart-options="chartOptions"
       :is-line="isLineChart"
       :is-bar="isBarChart"
+      :chart-labels="volumeLabels"
+      :chart-value="volumeValue"
     />
   </WidgetsLayout>
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
+import {mapActions, mapGetters} from 'vuex'
 
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
 import ChartsView from '@/components/widgets/charts/ChartsView'
 
+import {
+  Chart as ChartJS,
+  Title,
+  Tooltip,
+  Legend,
+  LineElement,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  Filler,
+} from 'chart.js'
+
+ChartJS.register(
+  Title,
+  Tooltip,
+  Legend,
+  LineElement,
+  LinearScale,
+  CategoryScale,
+  PointElement,
+  Filler
+)
+
 export default {
   name: 'ContentVolumeWidget',
-  components: {
-    ChartsView,
-    WidgetsLayout,
-  },
+  components: {WidgetsLayout, ChartsView},
   props: {
     volume: {
       type: [Array, Object],
@@ -47,6 +69,47 @@ export default {
       })
     }
   },
+  data() {
+    return {
+      chartOptions: {
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: {
+          easing: 'easeInOutQuad',
+          duration: 520,
+        },
+        onHover: (event, chartElement) => {
+          const target = event.native ? event.native.target : event.target
+          target.style.cursor = chartElement[0] ? 'pointer' : 'default'
+        },
+        plugins: {
+          legend: {
+            display: false,
+          },
+          tooltip: {
+            yAlign: 'bottom',
+            titleColor: '#151515',
+            bodyColor: '#151515',
+            backgroundColor: 'rgba(255, 255, 255, 0.96)',
+            displayColors: false,
+          },
+          customTitle: {
+            y: {
+              display: true,
+              text: 'Numbers',
+            },
+            x: {
+              display: true,
+              text: 'Month',
+              offsetX: 5,
+              offsetY: 5,
+              font: '12px Comic Sans MS',
+            },
+          },
+        },
+      },
+    }
+  },
   computed: {
     ...mapGetters({widgets: get.AVAILABLE_WIDGETS}),
     volumeData() {
@@ -67,27 +130,31 @@ export default {
     chartData() {
       return {
         labels: this.volumeLabels,
-        legend: {
-          display: false,
-        },
         datasets: [
           {
+            borderColor: '#055FFC',
+            pointStyle: 'circle',
+            pointRadius: 5,
+            pointBackgroundColor: '#055FFC',
+            pointBorderWidth: 1,
+            pointBorderColor: '#FFFFFF',
+            borderWidth: 3,
+            radius: 0.3,
+            fill: true,
+            backgroundColor: (ctx) => {
+              const canvas = ctx.chart.ctx
+              const gradient = canvas.createLinearGradient(0, 0, 0, 460)
+
+              gradient.addColorStop(0, 'rgba(5, 95, 252, 0.5)')
+              gradient.addColorStop(0.5, 'rgba(5, 95, 252, 0.25)')
+              gradient.addColorStop(1, 'rgba(5, 95, 252, 0)')
+
+              return gradient
+            },
+            tension: 0.25,
             data: this.volumeValue,
-            backgroundColor: ['rgba(5, 95, 252, 0.2)'],
-            borderColor: ['#055FFC'],
-            borderWidth: 1,
-            tension: 0.4,
           },
         ],
-      }
-    },
-    chartOptions() {
-      return {
-        plugins: {
-          legend: false,
-        },
-        responsive: true,
-        maintainAspectRatio: false,
       }
     },
   },
