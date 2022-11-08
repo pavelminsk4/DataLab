@@ -33,13 +33,13 @@ export default {
     Bar,
   },
   props: {
-    chartData: {
-      type: Object,
-      default: () => {},
+    chartValue: {
+      type: Array,
+      default: () => [],
     },
-    chartOptions: {
-      type: Object,
-      default: () => {},
+    chartLabels: {
+      type: Array,
+      default: () => [],
     },
     chartId: {
       type: String,
@@ -68,6 +68,77 @@ export default {
     plugins: {
       type: Array,
       default: () => [],
+    },
+  },
+  data() {
+    return {
+      chartOptions: {
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: {
+          easing: 'easeInOutQuad',
+          duration: 520,
+        },
+        onHover: (event, chartElement) => {
+          const target = event.native ? event.native.target : event.target
+          target.style.cursor = chartElement[0] ? 'pointer' : 'default'
+        },
+        plugins: {
+          legend: {
+            display: false,
+          },
+          tooltip: {
+            yAlign: 'bottom',
+            titleColor: '#151515',
+            bodyColor: '#151515',
+            backgroundColor: 'rgba(255, 255, 255, 0.96)',
+            displayColors: false,
+          },
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            grid: {
+              color: 'rgba(145, 152, 167, 0.1)',
+            },
+          },
+          x: {
+            beginAtZero: true,
+            grid: {
+              display: false,
+            },
+          },
+        },
+      },
+    }
+  },
+  computed: {
+    chartData() {
+      return {
+        labels: this.chartLabels,
+        datasets: [
+          {
+            borderColor: '#055FFC',
+            pointStyle: 'circle',
+            borderWidth: 0,
+            borderRadius: 6,
+            barPercentage: 0.5,
+            fill: true,
+            backgroundColor: (ctx) => {
+              const canvas = ctx.chart.ctx
+              const gradient = canvas.createLinearGradient(0, 0, 0, 460)
+
+              gradient.addColorStop(0, 'rgba(5, 95, 252, 0.8)')
+              gradient.addColorStop(0.5, 'rgba(5, 95, 252, 0.5)')
+              gradient.addColorStop(1, 'rgba(5, 95, 252, 0)')
+
+              return gradient
+            },
+            tension: 0.25,
+            data: this.chartValue,
+          },
+        ],
+      }
     },
   },
 }

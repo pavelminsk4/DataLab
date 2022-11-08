@@ -1,32 +1,34 @@
 <template>
   <LineChart
     v-if="isLine"
-    :chart-data="chartData"
-    :chart-options="chartOptions"
+    :chart-value="chartValue"
+    :chart-labels="chartLabels"
     class="bar-chart-widget"
   />
   <BarChart
     v-if="isBar"
-    :chart-data="chartData"
-    :chart-options="chartOptions"
+    :chart-value="chartValue"
+    :chart-labels="chartLabels"
     class="bar-chart-widget"
-  />
-  <DoughnutChart
-    v-if="isDoughnut"
-    :chart-data="chartData"
-    :chart-options="chartOptions"
   />
 </template>
 
 <script>
 import LineChart from '@/components/widgets/charts/LineChart'
 import BarChart from '@/components/widgets/charts/BarChart'
-import DoughnutChart from '@/components/widgets/charts/DoughnutChart'
 
 export default {
   name: 'ChartsView',
-  components: {DoughnutChart, BarChart, LineChart},
+  components: {BarChart, LineChart},
   props: {
+    chartValue: {
+      type: Array,
+      default: () => [],
+    },
+    chartLabels: {
+      type: Array,
+      default: () => [],
+    },
     chartData: {
       type: Object,
       default: () => {},
@@ -55,5 +57,6 @@ export default {
 .bar-chart-widget {
   overflow: hidden;
   height: 100%;
+  width: 100%;
 }
 </style>

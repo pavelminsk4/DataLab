@@ -4,11 +4,13 @@
 
     <div class="settings-wrapper">
       <section class="chart-wrapper">
+        <div class="chart-title">Content Volume</div>
         <ChartsView
-          :chart-data="chartData"
-          :chart-options="chartOptions"
           :is-line="isLineChart"
           :is-bar="isBarChart"
+          :chart-labels="volumeLabels"
+          :chart-value="volumeValue"
+          class="charts"
         />
       </section>
 
@@ -221,12 +223,31 @@ export default {
 
 .settings-wrapper {
   display: flex;
+  gap: 52px;
 
   min-width: 100%;
 
   .chart-wrapper {
     display: flex;
+    flex-direction: column;
     flex: 1;
+
+    padding: 18px 50px 34px 26px;
+
+    background: #242529;
+    border: 1px solid #2d2d31;
+    box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
+    border-radius: 10px;
+
+    .chart-title {
+      margin-bottom: 25px;
+
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 110%;
+      color: var(--primary-text-color);
+    }
   }
 
   .options-wrapper {
