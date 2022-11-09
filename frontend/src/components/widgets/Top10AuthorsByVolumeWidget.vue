@@ -11,7 +11,8 @@
           <div
             v-for="(item, index) in topAuthorsVolume.slice(0, 4)"
             :key="item.entry_author + index"
-            @click="toggleData($event.target, item)"
+            :id="getId(item)"
+            @click="toggleData($event.target, item, getId(item))"
             @mouseover="handleHover($event, item)"
             @mouseleave="handleLeave"
             class="legend-item"
@@ -22,26 +23,27 @@
             >
               {{ percentageIndicator(item.author_posts_count) }}
             </div>
-            {{ item.entry_author }}
+            <div class="author">{{ item.entry_author }}</div>
           </div>
         </div>
 
         <div class="legends-additional-wrapper">
           <div
-            v-for="(item, index) in topAuthorsVolume.slice(4, 9)"
+            v-for="(item, index) in topAuthorsVolume.slice(4, 10)"
             :key="item.entry_author + index"
-            @click="toggleData($event.target, item)"
+            :id="getId(item)"
+            @click="toggleData($event.target, item, getId(item))"
             @mouseover="handleHover($event, item)"
             @mouseleave="handleLeave"
             class="legend-item"
           >
             <div
-              :style="`color: ${item.color}; font-size: 18px; white-space: nowrap;`"
+              :style="`color: ${item.color}; font-size: 14px; white-space: nowrap; font-weight: 600;`"
               class="legend-percent"
             >
               {{ percentageIndicator(item.author_posts_count) }}
             </div>
-            {{ item.entry_author }}
+            <div class="author">{{ item.entry_author }}</div>
           </div>
         </div>
       </div>
@@ -201,15 +203,23 @@ export default {
       )
       this.$refs.doughnut.chart.update()
     },
-    toggleData(button, item) {
+    toggleData(button, item, id) {
+      const element = document.getElementById(id)
+
       const index = this.topAuthorsVolume.indexOf(item)
       this.$refs.doughnut.chart.toggleDataVisibility(index)
       this.$refs.doughnut.chart.update()
-      if (this.$refs.doughnut.chart.getDataVisibility(index)) {
-        button.classList.remove('hidden')
+      if (
+        this.$refs.doughnut.chart.getDataVisibility(index) &&
+        !Array.from(element).find((el) => el.contains(event.target))
+      ) {
+        element.classList.remove('hidden')
       } else {
-        button.classList.add('hidden')
+        element.classList.add('hidden')
       }
+    },
+    getId(item) {
+      return this.topAuthorsVolume.indexOf(item)
     },
   },
 }
@@ -223,8 +233,9 @@ export default {
 .top-authors-wrapper {
   display: grid;
   grid-template-columns: 50% 50%;
+  align-items: center;
 
-  overflow: hidden;
+  overflow-y: hidden;
 
   .legend-box {
     display: flex;
@@ -318,26 +329,84 @@ export default {
   display: flex;
   flex-direction: column;
 
+  width: fit-content;
+
+  overflow: hidden;
+
   .legend-wrapper {
     display: grid;
     grid-template-columns: 160px 160px;
-    grid-template-rows: 50px 50px;
+    grid-template-rows: auto auto;
 
-    margin: 35px 0 20px;
+    margin: 0 0 20px;
 
     .legend-item {
       display: grid;
-      grid-template-columns: 80px 80px;
+      grid-template-columns: 75px auto;
+
+      min-height: 40px;
+      margin-right: 10px;
+
+      cursor: pointer;
+
+      font-size: 14px;
+
+      .author {
+        display: block;
+
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+
+      &:hover {
+        .author {
+          white-space: normal;
+          overflow: revert;
+        }
+      }
     }
   }
 
   .legends-additional-wrapper {
     display: grid;
-    grid-template-columns: 125px 125px 125px;
-    grid-template-rows: 70px 70px 70px;
+    grid-template-columns: 110px 110px 110px;
+    grid-template-rows: auto auto;
 
     .legend-item {
       display: grid;
+      grid-template-rows: 22px auto;
+
+      margin: 0 5px 5px 0;
+
+      cursor: pointer;
+
+      font-style: normal;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 20px;
+
+      .author {
+        display: block;
+
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+
+      &:hover {
+        .author {
+          white-space: normal;
+          overflow: revert;
+        }
+      }
+
+      .legend-percent {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 20px;
+      }
     }
   }
 }
@@ -348,6 +417,8 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+
+  width: fit-content;
 
   .circle-wrapper {
     position: absolute;
@@ -396,7 +467,7 @@ export default {
 }
 
 .top-authors-wrapper {
-  overflow-x: auto;
+  width: fit-content;
 
   &::-webkit-scrollbar {
     height: 5px;
@@ -416,11 +487,17 @@ export default {
     border-radius: 10px;
   }
 }
+
+@media screen and (min-width: 1400px) {
+  .top-authors-wrapper {
+    overflow: hidden;
+  }
+}
 </style>
 
 <style>
 #doughnut-chart {
   height: 320px;
-  width: 275px;
+  width: 310px;
 }
 </style>
