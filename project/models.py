@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.postgres.fields import ArrayField
 from django.contrib.postgres.indexes import GinIndex
+from reports.models import Templates
 
 class Company(models.Model):
   name = models.CharField(max_length=100)
@@ -27,7 +28,7 @@ class Workspace(models.Model):
 
 class Project(models.Model):
   title = models.CharField(max_length=100)
-  creator = models.ForeignKey(User,related_name='creator', on_delete=models.CASCADE)
+  creator = models.ForeignKey(User,related_name='creator', on_delete=models.SET_NULL, null=True)
   created_at = models.DateTimeField(auto_now_add=True)
   note = models.CharField(max_length=200, null=True, blank=True)
   keywords = ArrayField(models.CharField(max_length=200), blank=True, null=True)
@@ -45,6 +46,7 @@ class Project(models.Model):
   members = models.ManyToManyField(User,related_name='members',blank=True)
   start_search_date = models.DateTimeField()
   end_search_date = models.DateTimeField()
+  report_template = models.ForeignKey(Templates, related_name='template', on_delete=models.SET_NULL, null=True)
 
   def __str__(self):
     return self.title
