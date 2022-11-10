@@ -14,3 +14,7 @@ venv
 collectstatic
 
 db.sqlite3
+
+# Folder for storing temporary report generation files
+tmp
+static/report_templates
