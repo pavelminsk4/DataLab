@@ -124,10 +124,10 @@ export default {
 .selector {
   position: relative;
 
-  border: 1px solid var(--input-border-color);
+  border: 1px solid #2e2f34;
   box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
   border-radius: 10px;
-  background: var(--secondary-bg-color);
+  background: rgba(46, 47, 52, 0.5);
 
   cursor: pointer;
 

@@ -79,6 +79,10 @@ export default {
     return fetch('get', '/api/dimensions/')
   },
 
+  async getTemplates() {
+    return fetch('get', '/api/templates/')
+  },
+
   async createWorkspace(workspace) {
     const config = {
       headers: {
@@ -96,7 +100,7 @@ export default {
         'X-CSRFToken': CSRF_TOKEN,
       },
     }
-    return fetch('post', '/api/project/create/', newProject, config)
+    return fetch('post', '/api/projects/', newProject, config)
   },
 
   async createClippingFeedContent(data) {
@@ -142,7 +146,7 @@ export default {
         'X-CSRFToken': CSRF_TOKEN,
       },
     }
-    return fetch('put', `/api/project/update/${projectId}/`, data, config)
+    return fetch('patch', `/api/projects/${projectId}/`, data, config)
   },
 
   async updateAvailableWidgets({projectId, data}) {

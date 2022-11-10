@@ -172,6 +172,19 @@ export default {
     }
   },
 
+  async [action.GET_TEMPLATES]({commit}) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const templates = await api.getTemplates()
+      console.log(templates)
+      commit(mutator.SET_TEMPLATES, templates)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
   async [action.CREATE_WORKSPACE]({commit}, workspace) {
     commit(mutator.SET_LOADING, true)
     try {
