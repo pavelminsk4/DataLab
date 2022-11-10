@@ -15,7 +15,7 @@ class TestsProjectsAPI(APITestCase):
     pr1.save()
     pr2.created_at = datetime(2022, 10, 17)
     pr2.save()
-    url = reverse('projects_list')
+    url = reverse('project-list')
     response = self.client.get(url)
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     res1 = {
@@ -39,6 +39,7 @@ class TestsProjectsAPI(APITestCase):
       "workspace": None,
       "members": [],
       "created_at": "2022-10-17T00:00:00Z",
+      "report_template": None,
     }
     res2 = {
       "id": pr2.id,
@@ -61,5 +62,6 @@ class TestsProjectsAPI(APITestCase):
       "workspace": None,
       "members": [],
       "created_at": "2022-10-17T00:00:00Z",
+      'report_template': None,
     }
     self.assertEqual(json.loads(response.content), [res1, res2])

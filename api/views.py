@@ -60,6 +60,10 @@ class DeleteProjectAPIView(DestroyAPIView):
   queryset = Project.objects.all()
   serializer_class = ProjectSerializer
 
+class ProjectsViewSet(viewsets.ModelViewSet):
+  queryset = Project.objects.all()
+  serializer_class = ProjectSerializer
+
 # === Workspace API ===========
 
 class WorkspaceList(ListAPIView):
@@ -211,7 +215,7 @@ class ProjectDimensionsList(ListAPIView):
  def get_queryset(self):
    return ProjectDimensions.objects.filter(project_id=self.kwargs['pk'])
 
-class DimensionViewSet(viewsets.ModelViewSet):
+class DimensionsViewSet(viewsets.ModelViewSet):
   serializer_class = DimensionsSerializer
   queryset = Dimensions.objects.all()
 
