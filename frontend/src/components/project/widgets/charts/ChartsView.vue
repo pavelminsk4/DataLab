@@ -14,8 +14,8 @@
 </template>
 
 <script>
-import LineChart from '@/components/widgets/charts/LineChart'
-import BarChart from '@/components/widgets/charts/BarChart'
+import LineChart from '@/components/project/widgets/charts/LineChart'
+import BarChart from '@/components/project/widgets/charts/BarChart'
 
 export default {
   name: 'ChartsView',

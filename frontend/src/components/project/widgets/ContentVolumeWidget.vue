@@ -19,7 +19,7 @@ import {action, get} from '@store/constants'
 import {mapActions, mapGetters} from 'vuex'
 
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
-import ChartsView from '@/components/widgets/charts/ChartsView'
+import ChartsView from '@/components/project/widgets/charts/ChartsView'
 
 import {
   Chart as ChartJS,

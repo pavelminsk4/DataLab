@@ -62,6 +62,8 @@ export default {
 .clipping-wrapper {
   overflow: auto;
 
+  max-width: 100%;
+
   .no-selected {
     margin-top: 20px;
   }

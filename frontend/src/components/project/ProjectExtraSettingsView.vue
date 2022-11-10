@@ -33,7 +33,7 @@ import AnalyticsScreen from '@/components/project/screens/AnalyticsScreen'
 import AnalyticsIcon from '@/components/icons/AnalyticsIcon'
 import SearchIcon from '@/components/icons/SearchIcon'
 import AlertsIcon from '@/components/icons/AlertsIcon'
-import ReportsIcon from '@/components/icons/ReportsIcon'
+import ReportsIcon from '@/components/icons/ReportsUploadIcon'
 import SettingsIcon from '@/components/icons/SettingsIcon'
 
 export default {

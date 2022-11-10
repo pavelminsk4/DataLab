@@ -86,7 +86,7 @@ import {action, get} from '@store/constants'
 import BaseRadio from '@/components/BaseRadio'
 import BaseSelect from '@/components/BaseSelect'
 
-import CheckRadioIcon from '@/components/icons/CheckIcon'
+import CheckRadioIcon from '@/components/icons/CheckRadioIcon'
 
 export default {
   name: 'OnlineType',

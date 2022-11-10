@@ -48,20 +48,25 @@ export default {
 
   display: flex;
   flex-direction: column;
+  align-items: center;
 
   min-width: 100%;
   height: 90%;
-  padding: 12px 20px 0;
+  padding: 65px 20px 0;
 
   &__header {
+    position: fixed;
+    top: 12px;
+    left: 25px;
+    right: 25px;
+
     display: flex;
     align-items: center;
     justify-content: space-between;
 
-    width: 100%;
-    padding-bottom: 12px;
-
     border-bottom: 1px solid var(--input-border-color);
+
+    padding-bottom: 12px;
 
     .title {
       font-style: normal;
@@ -93,6 +98,30 @@ export default {
         }
       }
     }
+  }
+
+  &::-webkit-scrollbar {
+    height: 5px;
+    width: 5px;
+
+    cursor: pointer;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: var(--secondary-bg-color);
+    border: 1px solid var(--input-border-color);
+    border-radius: 0 10px 10px 0;
+
+    cursor: pointer;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    height: 4px;
+
+    background: var(--secondary-text-color);
+    border-radius: 10px;
+
+    cursor: pointer;
   }
 }
 </style>
