@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from rest_framework.generics import ListAPIView, CreateAPIView, DestroyAPIView, UpdateAPIView, RetrieveAPIView, ListCreateAPIView
-from .serializers import SpeechSerializer, UserSerializer, WorkspaceSerializer, ProjectSerializer, WorkspaceCreateSerializer, CountrySerializer, WidgetsListSerializer, ClippingFeedContentWidgetSerializer, DimensionsSerializer, ProjectDimensionsSerializer, ProjectDimensionsListSerializer
+#from .serializers import SpeechSerializer, UserSerializer, WorkspaceSerializer, ProjectSerializer, WorkspaceCreateSerializer, CountrySerializer, WidgetsListSerializer, ClippingFeedContentWidgetSerializer, DimensionsSerializer, ProjectDimensionsSerializer, ProjectDimensionsListSerializer
+from .serializers import *
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import ProjectSerializer, Workspace
@@ -178,28 +179,6 @@ class ProjectWidgetsAPIView(RetrieveAPIView):
  def get_object(self):
    return WidgetsList2.objects.get(project_id=self.kwargs['pk'])
 
-# def widgets_list(request, pk):
-#   w = WidgetsList2.objects.get(project_id=pk)
-#   res = {
-#     'summary_widget':
-#       {
-#         'name':'Summary', 'is_active':w.summary_widget.is_active
-#       },
-#     'volume_widget':
-#       {
-#         'name':'Content volume', 'is_active':w.volume_widget.is_active
-#       },
-#     'clipping_feed_content_widget':
-#       {
-#         'name':'Clipping feed content', 'is_active':w.clipping_feed_content_widget.is_active
-#       },
-#     'top_10_authors_by_volume_widget':
-#       {
-#         'name':'Top 10 authors by volume', 'is_active':w.top_10_authors_by_volume_widget.is_active
-#       },
-#     }
-#   return JsonResponse(res, safe = False)
-
 class UpdateProjectsWidgetsAPIView(UpdateAPIView):
   serializer_class = WidgetsListSerializer
 
@@ -239,3 +218,9 @@ class DimensionViewSet(viewsets.ModelViewSet):
 class ProjectDimensionsViewSet(viewsets.ModelViewSet):
   serializer_class = ProjectDimensionsSerializer
   queryset = ProjectDimensions.objects.all()
+
+# ==== Templates ====
+
+class TemplatesViewSet(viewsets.ModelViewSet):
+  serializer_class = TemplatesSerializer
+  queryset = Templates.objects.all()

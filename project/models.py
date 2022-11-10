@@ -18,7 +18,7 @@ class Company(models.Model):
 class Workspace(models.Model):
   title = models.CharField(max_length=100)
   description = models.CharField(max_length=1000, null=True, blank=True)
-  members = models.ManyToManyField(User,null=True,blank=True)
+  members = models.ManyToManyField(User, blank=True)
   company = models.ForeignKey(Company, blank=True, null=True, on_delete=models.CASCADE)
   created_at = models.DateTimeField(auto_now_add=True)
 
@@ -42,7 +42,7 @@ class Project(models.Model):
   online = models.BooleanField(default=False)
   premium = models.BooleanField(default=False)
   source = models.CharField(max_length=100, null=True, blank=True)
-  members = models.ManyToManyField(User,related_name='members',null=True,blank=True)
+  members = models.ManyToManyField(User,related_name='members',blank=True)
   start_search_date = models.DateTimeField()
   end_search_date = models.DateTimeField()
 

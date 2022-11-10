@@ -4,9 +4,8 @@ from accounts.models import Profile, department
 from rest_framework import serializers
 from drf_writable_nested.serializers import WritableNestedModelSerializer
 from countries_plus.models import Country
-from widgets.common_widget.top_10_authors_by_volume_widget import top_10_auth_by_vol_widget
 from widgets.models import WidgetsList, WidgetsList2, ClippingFeedContentWidget, WidgetDescription, Dimensions, ProjectDimensions
-from widgets.views import clipping_feed_content_widget
+from reports.models import Templates
 
 class DepartmentSerializer(WritableNestedModelSerializer):
   class Meta:
@@ -102,4 +101,9 @@ class ProjectDimensionsListSerializer(WritableNestedModelSerializer):
   dimension = DimensionsSerializer()
   class Meta:
     model = ProjectDimensions
+    fields = '__all__'
+
+class TemplatesSerializer(WritableNestedModelSerializer):
+  class Meta:
+    model = Templates
     fields = '__all__'

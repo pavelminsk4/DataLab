@@ -48,5 +48,6 @@ urlpatterns = [
 
 router.register('dimensions', DimensionViewSet)
 router.register('project_dimensions', ProjectDimensionsViewSet)
+router.register('templates', TemplatesViewSet)
 
 urlpatterns += router.urls
