@@ -18,6 +18,7 @@ const state = {
   clippingFeedContent: [],
   topAuthors: [],
   dimensions: [],
+  templates: [],
   newWorkspace: {
     title: '',
     description: '',

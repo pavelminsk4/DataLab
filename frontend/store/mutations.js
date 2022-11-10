@@ -85,6 +85,10 @@ export default {
     state.dimensions = [...data]
   },
 
+  [mutator.SET_TEMPLATES](state, data) {
+    state.templates = [...data]
+  },
+
   [mutator.RESET_STATE](state) {
     state.currentStep = 'Step1'
     state.keywords = []

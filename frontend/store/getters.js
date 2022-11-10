@@ -80,4 +80,8 @@ export default {
   [get.DIMENSIONS](state) {
     return state.dimensions
   },
+
+  [get.TEMPLATES](state) {
+    return state.templates
+  },
 }
