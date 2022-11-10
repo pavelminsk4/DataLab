@@ -3,15 +3,14 @@
     v-bind="$attrs"
     :class="[
       'base-button',
+      isLoading && 'opacity',
       isNotBackground && 'not-background',
       (isDisabled || isLoading) && 'disabled',
     ]"
     :disabled="isDisabled || isLoading"
   >
     <BaseButtonSpinner v-if="isLoading" />
-    <div :class="isLoading && 'opacity'">
-      <slot></slot>
-    </div>
+    <slot></slot>
   </button>
 </template>
 

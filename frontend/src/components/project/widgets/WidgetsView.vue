@@ -64,14 +64,14 @@ import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
 import VueGridLayout from 'vue3-grid-layout'
-import SummaryWidget from '@/components/widgets/SummaryWidget'
-import ContentVolumeWidget from '@/components/widgets/ContentVolumeWidget'
-import ClippingFeedContentWidget from '@/components/widgets/ClippingFeedContentWidget'
-import Top10AuthorsByVolumeWidget from '@/components/widgets/Top10AuthorsByVolumeWidget'
+import SummaryWidget from '@/components/project/widgets/SummaryWidget'
+import ContentVolumeWidget from '@/components/project/widgets/ContentVolumeWidget'
+import ClippingFeedContentWidget from '@/components/project/widgets/ClippingFeedContentWidget'
+import Top10AuthorsByVolumeWidget from '@/components/project/widgets/Top10AuthorsByVolumeWidget'
 
-import TopAuthorsSettingsModal from '@/components/widgets/modals/TopAuthorsSettingsModal'
-import ContentVolumeSettingsModal from '@/components/widgets/modals/ContentVolumeSettingsModal'
-import SummaryModal from '@/components/widgets/modals/SummarySettingsModal'
+import TopAuthorsSettingsModal from '@/components/project/widgets/modals/TopAuthorsSettingsModal'
+import ContentVolumeSettingsModal from '@/components/project/widgets/modals/ContentVolumeSettingsModal'
+import SummaryModal from '@/components/project/widgets/modals/SummarySettingsModal'
 
 export default {
   name: 'WidgetsView',

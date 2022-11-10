@@ -25,7 +25,7 @@
 import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
-import BaseModal from '@components/modals/BaseModal'
+import BaseModal from '@/components/modals/BaseModal'
 import BaseCheckbox from '@/components/BaseCheckbox'
 import BaseButton from '@/components/buttons/BaseButton'
 

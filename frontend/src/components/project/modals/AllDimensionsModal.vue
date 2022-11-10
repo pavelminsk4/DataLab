@@ -1,6 +1,6 @@
 <template>
   <BaseModal modal-frame-style="width: 40vw; height: 80vh;">
-    <div class="title">Widgets Dimentions</div>
+    <div class="title">Widgets Dimensions</div>
     <div class="dimensions-wrapper">
       <div
         v-for="(item, index) in dimensions"

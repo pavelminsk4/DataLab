@@ -48,7 +48,7 @@ import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
 import BaseModal from '@/components/modals/BaseModal'
-import ChartsView from '@/components/widgets/charts/ChartsView'
+import ChartsView from '@/components/project/widgets/charts/ChartsView'
 import BaseSelect from '@/components/BaseSelect'
 import BaseButton from '@/components/buttons/BaseButton'
 import BaseInput from '@/components/BaseInput'
