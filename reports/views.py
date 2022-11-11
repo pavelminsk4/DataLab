@@ -30,9 +30,9 @@ def export_period(project_id):
   period = start_d + ' - ' + end_d
   return period
 
-def convert_docx_to_pdf(docx_path, pdf_path):
+def convert_docx_to_pdf(docx_path, report_path):
   doc = aw.Document(docx_path)
-  doc.save(pdf_path)
+  doc.save(report_path)
 
 def filling_template(template_path, project_id):
   document = Document(template_path)
@@ -87,16 +87,18 @@ def filling_template(template_path, project_id):
   document.save('tmp/temp.docx')
 
 def instantly_report(request, pk):
-  template_path = str(Project.objects.get(id=pk).report_template.layout_file)
+  proj = Project.objects.get(id=pk)
+  format = proj.report_format
+  template_path = str(proj.report_template.layout_file)
   docx_path='tmp/temp.docx'
-  pdf_path='tmp/temp.pdf'
+  report_path='tmp/temp.' + format
   prepare_widget_image(pk)
   filling_template(template_path, pk)
-  convert_docx_to_pdf(docx_path, pdf_path)
-  response = FileResponse(open(pdf_path, 'rb'))
+  convert_docx_to_pdf(docx_path, report_path)
+  response = FileResponse(open(report_path, 'rb'))
   response.headers = {
-      'Content-Type': 'application/pdf',
-      'Content-Disposition': 'attachment;filename="report.pdf"',
+      'Content-Type': 'application/%s'%(format),
+      'Content-Disposition': 'attachment;filename="report.%s"'%(format),
   }
   response.as_attachment = True
   return response
