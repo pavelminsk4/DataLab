@@ -47,9 +47,15 @@ class Project(models.Model):
   start_search_date = models.DateTimeField()
   end_search_date = models.DateTimeField()
   report_template = models.ForeignKey(Templates, related_name='template', on_delete=models.SET_NULL, null=True)
+  report_format = models.CharField(max_length=3, default='pdf')
+  report_table_content = models.BooleanField(default=True)
+  report_widgets = models.BooleanField(default=True)
+  report_content = models.BooleanField(default=True)
+  report_language = models.CharField(max_length=10, default='English')
 
   def __str__(self):
     return self.title
+
 class Feedlinks(models.Model):
   url = models.URLField(max_length=200,null=True,blank=True,unique=True)
   source = models.CharField("Source",max_length=200, null=True, blank=True)

@@ -40,6 +40,11 @@ class TestsProjectsAPI(APITestCase):
       "members": [],
       "created_at": "2022-10-17T00:00:00Z",
       "report_template": None,
+      "report_format":'pdf',
+      "report_table_content": True,
+      "report_widgets": True,
+      "report_content": True,
+      "report_language": 'English',
     }
     res2 = {
       "id": pr2.id,
@@ -62,6 +67,11 @@ class TestsProjectsAPI(APITestCase):
       "workspace": None,
       "members": [],
       "created_at": "2022-10-17T00:00:00Z",
-      'report_template': None,
+      "report_template": None,
+      "report_format":'pdf',
+      "report_table_content": True,
+      "report_widgets": True,
+      "report_content": True,
+      "report_language": 'English',
     }
     self.assertEqual(json.loads(response.content), [res1, res2])
