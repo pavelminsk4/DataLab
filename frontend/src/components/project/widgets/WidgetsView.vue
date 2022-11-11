@@ -56,6 +56,13 @@
         @open-summary-modal="openModal(item.isOpenModal)"
       />
     </grid-item>
+
+    <grid-item class="widget-item" :x="0" :y="0" :i="10" w="auto" h="auto">
+      <SearchResults
+        :is-show-calendar="false"
+        :currentProject="currentProject"
+      />
+    </grid-item>
   </grid-layout>
 </template>
 
@@ -72,10 +79,12 @@ import Top10AuthorsByVolumeWidget from '@/components/project/widgets/Top10Author
 import TopAuthorsSettingsModal from '@/components/project/widgets/modals/TopAuthorsSettingsModal'
 import ContentVolumeSettingsModal from '@/components/project/widgets/modals/ContentVolumeSettingsModal'
 import SummaryModal from '@/components/project/widgets/modals/SummarySettingsModal'
+import SearchResults from '@/components/SearchResults'
 
 export default {
   name: 'WidgetsView',
   components: {
+    SearchResults,
     SummaryModal,
     ClippingFeedContentWidget,
     ContentVolumeSettingsModal,
@@ -90,6 +99,10 @@ export default {
     projectId: {
       type: Number,
       required: true,
+    },
+    currentProject: {
+      type: [Array, Object],
+      required: false,
     },
   },
   data() {
@@ -111,7 +124,7 @@ export default {
     layout() {
       return [
         {
-          x: 0,
+          x: 2,
           y: 0,
           w: 2,
           h: 9,
@@ -136,18 +149,7 @@ export default {
         },
         {
           x: 2,
-          y: 1,
-          w: 2,
-          h: 15,
-          i: '2',
-          static: false,
-          name: 'clipping_feed_content_widget',
-          widgetName: 'ClippingFeedContent',
-          isShow: this.isActiveWidget('clipping_feed_content_widget'),
-        },
-        {
-          x: 0,
-          y: 1,
+          y: 2,
           w: 2,
           h: 11,
           maxW: 2,
@@ -160,6 +162,17 @@ export default {
           widgetName: 'Top10AuthorsByVolume',
           isShow: this.isActiveWidget('top_10_authors_by_volume_widget'),
           isOpenModal: 'isOpenTop10AuthorsModal',
+        },
+        {
+          x: 2,
+          y: 3,
+          w: 2,
+          h: 15,
+          i: '2',
+          static: false,
+          name: 'clipping_feed_content_widget',
+          widgetName: 'ClippingFeedContent',
+          isShow: this.isActiveWidget('clipping_feed_content_widget'),
         },
       ]
     },

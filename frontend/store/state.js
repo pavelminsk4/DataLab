@@ -45,7 +45,7 @@ const state = {
     start_search_date: null,
     end_search_date: null,
   },
-  isShowCalendar: false,
+  isShowCalendarContents: false,
   availableWidgets: null,
 }
 

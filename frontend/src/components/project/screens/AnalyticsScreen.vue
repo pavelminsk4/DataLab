@@ -57,7 +57,11 @@
         Add Widgets
       </BaseButton>
     </div>
-    <WidgetsView :project-id="currentProject.id" />
+
+    <WidgetsView
+      :project-id="currentProject.id"
+      :currentProject="currentProject"
+    />
   </div>
 </template>
 
