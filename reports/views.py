@@ -87,7 +87,7 @@ def filling_template(template_path, project_id):
   document.save('tmp/temp.docx')
 
 def instantly_report(request, pk):
-  template_path = str(Templates.objects.first().layout_file)
+  template_path = str(Project.objects.get(id=pk).report_template.layout_file)
   docx_path='tmp/temp.docx'
   pdf_path='tmp/temp.pdf'
   prepare_widget_image(pk)
