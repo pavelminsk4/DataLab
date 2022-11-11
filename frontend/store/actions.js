@@ -176,7 +176,6 @@ export default {
     commit(mutator.SET_LOADING, true)
     try {
       const templates = await api.getTemplates()
-      console.log(templates)
       commit(mutator.SET_TEMPLATES, templates)
     } catch (e) {
       console.log(e)

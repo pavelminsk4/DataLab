@@ -120,6 +120,6 @@ export default {
   },
 
   [mutator.SET_DISPLAY_CALENDAR](state, value) {
-    state.isShowCalendar = value
+    state.isShowCalendarContents = value
   },
 }

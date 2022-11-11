@@ -17,13 +17,16 @@
 
       <div>{{ searchData.length }} results</div>
 
-      <div class="calendar-wrapper">
+      <div v-if="isShowCalendar" class="calendar-wrapper">
         <div class="trigger-wrapper" @click="openCalendar">
           <CalendarIcon class="dp-icon" />
           <div>{{ calendarDate }}</div>
-          <ArrowDownIcon :class="[isShowCalendar && 'open-calendar']" />
+          <ArrowDownIcon :class="[isShowCalendarContents && 'open-calendar']" />
         </div>
-        <BaseCalendar v-if="isShowCalendar" :current-project="currentProject" />
+        <BaseCalendar
+          v-if="isShowCalendarContents"
+          :current-project="currentProject"
+        />
       </div>
     </div>
     <div v-if="loading" class="spinner-wrapper"><BaseSpinner /></div>
@@ -87,6 +90,10 @@ export default {
       type: [Array, Object],
       required: false,
     },
+    isShowCalendar: {
+      type: Boolean,
+      default: true,
+    },
   },
   data() {
     return {
@@ -103,7 +110,7 @@ export default {
       'searchData',
       'loading',
       'additionalFilters',
-      'isShowCalendar',
+      'isShowCalendarContents',
     ]),
     calendarDate() {
       if (this.additionalFilters?.date_range?.length) {
@@ -148,7 +155,7 @@ export default {
       })
     },
     openCalendar() {
-      if (this.isShowCalendar) {
+      if (this.isShowCalendarContents) {
         this.isShow = false
       } else {
         this.isShow = true
