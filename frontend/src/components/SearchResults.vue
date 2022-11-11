@@ -15,7 +15,7 @@
         </div>
       </div>
 
-      <div>{{ searchData.length }} results</div>
+      <div>{{ numberOfPosts }} results</div>
 
       <div v-if="isShowCalendar" class="calendar-wrapper">
         <div class="trigger-wrapper" @click="openCalendar">
@@ -51,11 +51,39 @@
         @add-element="onChange"
       />
     </div>
+    <section class="dropdown-wrapper">
+      {{ countPosts }}
+      <ArrowDownIcon
+        @click="openDropdown"
+        :class="[isOpenDropdown && 'arrow-open-dropdown', 'arrow-down']"
+      />
+
+      <div v-if="isOpenDropdown" class="dropdown">
+        <div
+          v-for="(item, index) in postsOnPage"
+          :key="'drop' + index"
+          class="item"
+          @click="updatePostsCount(item)"
+        >
+          {{ item }}
+        </div>
+      </div>
+    </section>
+    <VPagination
+      v-model="page"
+      :pages="this.numberOfPages"
+      :range-size="1"
+      active-color="#DCEDFF"
+      @update:modelValue="pageChangeHandler"
+    />
     <div v-if="!loading && !searchData.length">No results.</div>
   </div>
 </template>
 
 <script>
+import VPagination from '@hennge/vue3-pagination'
+import '@hennge/vue3-pagination/dist/vue3-pagination.css'
+
 import {mapActions, mapState} from 'vuex'
 import {action} from '@store/constants'
 
@@ -78,6 +106,7 @@ export default {
     CalendarIcon,
     BaseCalendar,
     BaseSpinner,
+    VPagination,
   },
   props: {
     currentProject: {
@@ -102,6 +131,10 @@ export default {
       isShow: false,
       isOpenClippingDropdown: false,
       clippingElements: [],
+      isOpenDropdown: false,
+      page: 1,
+      countPosts: 20,
+      postsOnPage: [20, 50, 100],
     }
   },
   created() {
@@ -113,6 +146,8 @@ export default {
       'loading',
       'additionalFilters',
       'isShowCalendarContents',
+      'numberOfPages',
+      'numberOfPosts',
     ]),
     calendarDate() {
       if (this.additionalFilters?.date_range?.length) {
@@ -138,6 +173,17 @@ export default {
     },
   },
   methods: {
+    updatePostsCount(val) {
+      this.countPosts = val
+      this.isOpenDropdown = !this.isOpenDropdown
+      this.$emit('update-posts-count', this.page, this.countPosts)
+    },
+    async pageChangeHandler() {
+      await this.$emit('update-page', this.page, this.countPosts)
+    },
+    openDropdown() {
+      this.isOpenDropdown = !this.isOpenDropdown
+    },
     ...mapActions([
       action.REFRESH_DISPLAY_CALENDAR,
       action.DELETE_CLIPPING_FEED_CONTENT,
@@ -267,10 +313,10 @@ export default {
       cursor: pointer;
 
       padding: 9px 16px 8px;
-    }
 
-    &:hover {
-      background-color: var(--primary-button-color);
+      &:hover {
+        background-color: var(--primary-button-color);
+      }
     }
   }
 }
@@ -302,6 +348,43 @@ export default {
   transform: rotate(180deg);
 }
 
+.dropdown-wrapper {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  .dropdown {
+    z-index: 1000;
+
+    position: absolute;
+    top: 40px;
+    right: 2px;
+
+    display: flex;
+    flex-direction: column;
+
+    background: var(--progress-line);
+    border: 1px solid var(--modal-border-color);
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 20px;
+    color: var(--primary-text-color);
+
+    .item {
+      cursor: pointer;
+
+      padding: 9px 24px 8px;
+
+      &:hover {
+        background-color: var(--primary-button-color);
+      }
+    }
+  }
+}
+
 .filters {
   display: flex;
   align-items: center;
@@ -314,6 +397,26 @@ export default {
   font-size: 14px;
   line-height: 20px;
   color: var(--secondary-text-color);
+}
+
+.arrow-open-dropdown {
+  transform: rotate(180deg);
+  color: var(--primary-button-color);
+}
+
+.arrow-down {
+  cursor: pointer;
+
+  width: 10px;
+  height: 10px;
+
+  margin: 0 11px 0 7px;
+
+  color: var(--primary-text-color);
+
+  &:hover {
+    color: var(--primary-button-color);
+  }
 }
 
 .spinner-wrapper {

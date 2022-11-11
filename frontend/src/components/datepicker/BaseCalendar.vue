@@ -178,6 +178,8 @@ export default {
           date_range: this.additionalFilters?.date_range || [],
           source: this.additionalFilters?.source || [],
           author: this.additionalFilters?.author || [],
+          posts_per_page: 20,
+          page_number: 1,
         })
       } catch (e) {
         console.log(e)

@@ -26,7 +26,10 @@
       @update-collection="updateCollection"
     />
 
-    <SearchResults />
+    <SearchResults
+      @update-page="showResults"
+      @update-posts-count="showResults"
+    />
   </div>
 </template>
 
@@ -91,7 +94,7 @@ export default {
 
       return new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7)
     },
-    showResults() {
+    showResults(pageNumber, numberOfPosts) {
       try {
         this[action.POST_SEARCH]({
           keywords: this.keywords?.keywords,
@@ -103,6 +106,8 @@ export default {
           date_range: this.additionalFilters?.date_range,
           source: this.additionalFilters?.source || [],
           author: this.additionalFilters?.author || [],
+          posts_per_page: numberOfPosts,
+          page_number: pageNumber,
         })
       } catch (e) {
         console.log(e)

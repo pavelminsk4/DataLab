@@ -20,6 +20,8 @@
         :current-project="currentProject"
         :is-checkbox-clipping-widget="true"
         :clipping-content="clippingContent"
+        @update-page="showResults"
+        @update-posts-count="showResults"
       />
     </div>
   </div>
@@ -79,7 +81,7 @@ export default {
       action.UPDATE_ADDITIONAL_FILTERS,
       action.GET_CLIPPING_FEED_CONTENT_WIDGET,
     ]),
-    showResults() {
+    showResults(pageNumber, numberOfPosts) {
       try {
         this[action.POST_SEARCH]({
           keywords: this.currentKeywords || this.keywords?.keywords,
@@ -100,6 +102,8 @@ export default {
           ],
           source: [],
           author: this.currentProject?.author || [],
+          posts_per_page: numberOfPosts,
+          page_number: pageNumber,
         })
       } catch (e) {
         console.log(e)
