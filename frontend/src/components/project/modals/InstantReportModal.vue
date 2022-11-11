@@ -84,6 +84,22 @@
         </div>
       </div>
     </div>
+
+    <!--    <div class="content-properties-wrapper">-->
+    <!--      <div class="content-properties-title">Content Properties</div>-->
+
+    <!--      <div class="properties-checkboxes">-->
+    <!--        <BaseCheckbox-->
+    <!--          v-for="(item, index) in contentProperties"-->
+    <!--          :key="'layoutEl' + index"-->
+    <!--          :id="item"-->
+    <!--          @change="onChangeProperties"-->
+    <!--          class="checkbox"-->
+    <!--        >-->
+    <!--          <span class="name">{{ item }}</span>-->
+    <!--        </BaseCheckbox>-->
+    <!--      </div>-->
+    <!--    </div>-->
   </BaseModal>
 </template>
 
@@ -118,15 +134,49 @@ export default {
     return {
       template: '',
       layoutElements: [
-        {value: 'Table Content'},
-        {value: 'Widgets'},
-        {value: 'Content'},
+        {value: 'Table Content', key: 'report_table_content'},
+        {value: 'Widgets', key: 'report_widgets'},
+        {value: 'Content', key: 'report_content'},
       ],
       format: ['PDF', 'DOC'],
       language: ['English', 'Arabic'],
+      contentProperties: [
+        'Content Title',
+        'Author Name',
+        'Content Sentiment',
+        'Clout Score',
+        'Source Global Rank',
+        ' Source Brand Name',
+        'Content (first sentence)',
+        'Content Synopsis',
+        'Time Published',
+        'Media Channel',
+        'Content Potential Reach',
+        'Source Icon',
+        'Source Country',
+        'Followers',
+        'Source Audience',
+        'Content Featured Image',
+        'Content (first Paragraph)',
+        'Post User Categories',
+        'Author Picture',
+        'Media Channel Type',
+        'Content AVE',
+        'Content Sentiment',
+        'Source Name',
+        'Source Location',
+        'Source Domestik Rank',
+        'Source Site Name',
+        'Content (excerpt)',
+        'Content Synopsis Tite',
+        'Screen Capture',
+        'Post Related Articles',
+      ],
       selectedFormat: '',
       selectedLanguage: '',
       collectionProxy: [],
+      collectionProperties: [],
+      layoutKeys: [],
     }
   },
   created() {
@@ -151,17 +201,32 @@ export default {
         projectId: this.projectId,
         data: {
           report_template: this.template.id,
+          report_format: this.selectedFormat,
+          report_language: this.selectedLanguage,
+          ...this.layoutKeys,
         },
       })
     },
     onChange(args) {
       const {id, checked} = args
       if (checked) {
-        this.collectionProxy.push(id)
+        this.collectionProxy.push(args)
       } else {
         let element = this.collectionProxy.indexOf(id)
         this.removeSelectedFilter(element, id)
       }
+    },
+    onChangeProperties(args) {
+      const {id, checked} = args
+      if (checked) {
+        this.collectionProperties.push(id)
+      } else {
+        let element = this.collectionProperties.indexOf(id)
+        this.removeSelected(element, id)
+      }
+    },
+    removeSelected(index) {
+      this.collectionProperties.splice(index, 1)
     },
     removeSelectedFilter(index) {
       this.collectionProxy.splice(index, 1)
@@ -224,6 +289,42 @@ export default {
     .general-item {
       margin-right: 60px;
     }
+  }
+}
+
+.content-properties-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+
+  max-width: 100%;
+  max-height: fit-content;
+  padding: 30px;
+
+  background: #1d1e1f;
+  border-radius: 15px;
+
+  .content-properties-title {
+    min-width: 100%;
+    padding-bottom: 18px;
+    margin-bottom: 22px;
+
+    border-bottom: 1px solid var(--input-border-color);
+
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+    color: var(--primary-text-color);
+  }
+
+  .properties-checkboxes {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 15px 30px;
+
+    max-height: 400px;
   }
 }
 

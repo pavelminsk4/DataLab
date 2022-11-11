@@ -66,6 +66,9 @@
 </template>
 
 <script>
+import {mapActions, mapGetters} from 'vuex'
+import {action, get} from '@store/constants'
+
 import NavigationBar from '@/components/navigation/NavigationBar'
 import WidgetsView from '@/components/project/widgets/WidgetsView'
 import BaseButton from '@/components/buttons/BaseButton'
@@ -105,13 +108,65 @@ export default {
       isOpenInstantReportModal: false,
     }
   },
+  created() {
+    this[action.UPDATE_ADDITIONAL_FILTERS]({
+      date_range: [
+        new Date(this.currentProject.start_search_date),
+        new Date(this.currentProject.end_search_date),
+      ],
+    })
+
+    this.showResults()
+  },
+  computed: {
+    ...mapGetters({
+      additionalFilters: get.ADDITIONAL_FILTERS,
+      keywords: get.KEYWORDS,
+    }),
+    currentKeywords() {
+      return this.currentProject?.keywords
+    },
+    currentAdditionalKeywords() {
+      return this.currentProject?.additional_keywords
+    },
+    currentExcludeKeywords() {
+      return this.currentProject?.ignore_keywords
+    },
+  },
   methods: {
+    ...mapActions([action.POST_SEARCH, action.UPDATE_ADDITIONAL_FILTERS]),
     toggleWidgetsModal(val) {
       this[val] = !this[val]
     },
     openInstantTemplate(downloadReportModal, instantModal) {
       this.toggleWidgetsModal(downloadReportModal)
       this.toggleWidgetsModal(instantModal)
+    },
+    showResults() {
+      try {
+        this[action.POST_SEARCH]({
+          keywords: this.currentKeywords || this.keywords?.keywords,
+          additions:
+            this.currentAdditionalKeywords ||
+            this.keywords?.additional_keywords,
+          exceptions:
+            this.currentExcludeKeywords || this.keywords?.ignore_keywords,
+          country: this.currentProject?.country || [],
+          language: this.currentProject?.language || [],
+          sentiment: this.currentProject?.sentiment || [],
+          date_range: [
+            this.additionalFilters?.date_range[0] ||
+              this.currentProject?.start_search_date,
+
+            this.additionalFilters?.date_range[1] ||
+              this.currentProject?.end_search_date,
+          ],
+          source: [],
+          author: this.currentProject?.author || [],
+        })
+      } catch (e) {
+        console.log(e)
+      }
     },
   },
 }
