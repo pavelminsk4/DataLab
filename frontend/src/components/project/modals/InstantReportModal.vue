@@ -1,5 +1,5 @@
 <template>
-  <BaseModal modal-frame-style="width: auto; height: 45vh;">
+  <BaseModal modal-frame-style="width: auto; height: auto;">
     <div class="title">Template settings</div>
 
     <div class="wrapper-buttons">
@@ -25,19 +25,89 @@
         Download
       </a>
     </div>
+
+    <div class="layout-settings-wrapper">
+      <div class="layout-elements">
+        <div class="settings-name">Layout Elements</div>
+        <BaseCheckbox
+          v-for="(item, index) in layoutElements"
+          :key="'layoutEl' + index"
+          :id="item.value"
+          @change="onChange"
+          class="checkbox"
+        >
+          <span class="name">{{ item.value }}</span>
+        </BaseCheckbox>
+      </div>
+
+      <div class="general-settings">
+        <div class="general-item">
+          <div class="settings-name">Format</div>
+          <div class="radio-wrapper">
+            <BaseRadio
+              v-for="(item, index) in format"
+              :key="item + index"
+              :checked="item"
+              :value="selectedFormat"
+              class="radio-btn"
+              @change="changeFormatValue(item)"
+            >
+              <template #default>
+                <div class="not-check">
+                  <CheckRadioIcon class="check-icon" />
+                </div>
+                {{ item }}
+              </template>
+            </BaseRadio>
+          </div>
+        </div>
+
+        <div class="general-item">
+          <div class="settings-name">Language</div>
+          <div class="radio-wrapper">
+            <BaseRadio
+              v-for="(item, index) in language"
+              :key="item + index"
+              :checked="item"
+              :value="selectedLanguage"
+              class="radio-btn"
+              @change="changeLangValue(item)"
+            >
+              <template #default>
+                <div class="not-check">
+                  <CheckRadioIcon class="check-icon" />
+                </div>
+                {{ item }}
+              </template>
+            </BaseRadio>
+          </div>
+        </div>
+      </div>
+    </div>
   </BaseModal>
 </template>
 
 <script>
-import BaseModal from '@/components/modals/BaseModal'
-import BaseButton from '@/components/buttons/BaseButton'
 import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
+
 import BaseSelect from '@/components/BaseSelect'
+import BaseModal from '@/components/modals/BaseModal'
+import BaseButton from '@/components/buttons/BaseButton'
+import BaseCheckbox from '@/components/BaseCheckbox'
+import BaseRadio from '@/components/BaseRadio'
+import CheckRadioIcon from '@/components/icons/CheckRadioIcon'
 
 export default {
   name: 'InstantReportModal',
-  components: {BaseSelect, BaseButton, BaseModal},
+  components: {
+    CheckRadioIcon,
+    BaseRadio,
+    BaseCheckbox,
+    BaseSelect,
+    BaseButton,
+    BaseModal,
+  },
   props: {
     projectId: {
       type: [Number, String],
@@ -47,6 +117,16 @@ export default {
   data() {
     return {
       template: '',
+      layoutElements: [
+        {value: 'Table Content'},
+        {value: 'Widgets'},
+        {value: 'Content'},
+      ],
+      format: ['PDF', 'DOC'],
+      language: ['English', 'Arabic'],
+      selectedFormat: '',
+      selectedLanguage: '',
+      collectionProxy: [],
     }
   },
   created() {
@@ -74,6 +154,24 @@ export default {
         },
       })
     },
+    onChange(args) {
+      const {id, checked} = args
+      if (checked) {
+        this.collectionProxy.push(id)
+      } else {
+        let element = this.collectionProxy.indexOf(id)
+        this.removeSelectedFilter(element, id)
+      }
+    },
+    removeSelectedFilter(index) {
+      this.collectionProxy.splice(index, 1)
+    },
+    changeFormatValue(newValue) {
+      this.selectedFormat = newValue
+    },
+    changeLangValue(newValue) {
+      this.selectedLanguage = newValue
+    },
   },
 }
 </script>
@@ -86,6 +184,47 @@ export default {
   font-weight: 600;
   font-size: 36px;
   line-height: 54px;
+}
+
+.layout-settings-wrapper {
+  display: flex;
+  gap: 14px;
+
+  margin: 15px 0;
+
+  .settings-name {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .layout-elements {
+    flex-shrink: 0;
+
+    padding: 32px;
+
+    background: #1d1e1f;
+    border-radius: 15px;
+
+    .checkbox {
+      margin-top: 11px;
+    }
+  }
+
+  .general-settings {
+    display: flex;
+
+    width: 100%;
+    padding: 32px;
+
+    background: #1d1e1f;
+    border-radius: 15px;
+
+    .general-item {
+      margin-right: 60px;
+    }
+  }
 }
 
 .wrapper-buttons {
@@ -122,5 +261,59 @@ export default {
       background: rgba(5, 95, 252, 0.6);
     }
   }
+}
+
+.radio-btn {
+  display: flex;
+
+  margin: 12px 0 0;
+
+  color: var(--primary-text-color);
+
+  cursor: pointer;
+}
+
+.name {
+  margin-left: 10px;
+
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.check-icon {
+  display: none;
+}
+
+.not-check {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  margin-right: 7px;
+  border: 1px solid var(--secondary-text-color);
+  border-radius: 50px;
+  cursor: pointer;
+}
+</style>
+
+<style>
+.additional-key > .input-tag {
+  margin-bottom: 10px;
+}
+
+.radio-wrapper > .selected {
+  background: none;
+}
+
+.radio-wrapper > .selected .not-check {
+  border: none;
+  background: var(--primary-button-color);
+}
+
+.radio-wrapper > .selected .check-icon {
+  display: flex;
 }
 </style>

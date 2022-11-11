@@ -23,7 +23,7 @@ export default {
     modelValue: {type: Boolean, default: false},
     selected: {type: Boolean, default: false},
     label: {type: String},
-    id: {type: Number},
+    id: {type: [Number, String]},
   },
   emits: ['change'],
   data() {
