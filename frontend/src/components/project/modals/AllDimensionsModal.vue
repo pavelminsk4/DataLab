@@ -4,12 +4,15 @@
     <div class="dimensions-wrapper">
       <div
         v-for="(item, index) in dimensions"
-        :key="'d' + index"
+        :key="'dimension' + index"
         class="dimension"
       >
-        {{ item.title }}
+        <div>{{ item.title }}</div>
+        <BaseCheckbox :id="item.id" @change="onChange" />
       </div>
     </div>
+
+    <BaseButton class="button"> Save </BaseButton>
   </BaseModal>
 </template>
 
@@ -17,10 +20,17 @@
 import BaseModal from '@/components/modals/BaseModal'
 import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
+import BaseCheckbox from '@/components/BaseCheckbox'
+import BaseButton from '@/components/buttons/BaseButton'
 
 export default {
   name: 'AllDimensionsModal',
-  components: {BaseModal},
+  components: {BaseButton, BaseCheckbox, BaseModal},
+  data() {
+    return {
+      collectionProxy: [],
+    }
+  },
   computed: {
     ...mapGetters({
       dimensions: get.DIMENSIONS,
@@ -31,6 +41,20 @@ export default {
   },
   methods: {
     ...mapActions([action.GET_DIMENSIONS]),
+    onChange(args) {
+      const {id, checked} = args
+      if (checked) {
+        this.collectionProxy.push(args)
+      } else {
+        let element = this.collectionProxy.indexOf(id)
+        this.removeSelectedFilter(element, id)
+      }
+
+      console.log(this.collectionProxy)
+    },
+    removeSelectedFilter(index) {
+      this.collectionProxy.splice(index, 1)
+    },
   },
 }
 </script>
@@ -55,6 +79,9 @@ export default {
 }
 
 .dimension {
+  display: flex;
+  justify-content: space-between;
+
   cursor: pointer;
 
   padding-bottom: 16px;
@@ -66,5 +93,10 @@ export default {
   font-weight: 400;
   font-size: 14px;
   line-height: 20px;
+}
+
+.button {
+  width: 100%;
+  margin-top: 22px;
 }
 </style>
