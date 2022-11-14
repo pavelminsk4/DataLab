@@ -12,7 +12,7 @@
       <BaseClippingCard
         v-for="(item, index) in clippingData"
         :key="'result' + index"
-        :img="item.post__entry_media_thumbnail_url"
+        :img="cardImg(item)"
         :sentiment="item.post__sentiment"
         :title="item.post__entry_title"
         :entry-link="item.post__entry_links_href"
@@ -56,6 +56,15 @@ export default {
   },
   methods: {
     ...mapActions([action.GET_CLIPPING_FEED_CONTENT_WIDGET]),
+    cardImg(item) {
+      let images = [
+        item.post__entry_media_content_url,
+        item.post__entry_media_thumbnail_url,
+        item.post__feed_image_href,
+        item.post__feed_image_link,
+      ]
+      return images.filter((el) => el !== 'None')[0] || 'None'
+    },
   },
 }
 </script>

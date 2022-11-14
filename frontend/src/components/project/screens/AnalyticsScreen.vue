@@ -209,5 +209,9 @@ export default {
 
   background: #29303d;
   border-radius: 8px;
+
+  &:hover {
+    background: var(--secondary-button-color);
+  }
 }
 </style>
