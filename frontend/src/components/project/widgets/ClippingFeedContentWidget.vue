@@ -16,6 +16,7 @@
         :sentiment="item.post__sentiment"
         :title="item.post__entry_title"
         :entry-link="item.post__entry_links_href"
+        :source-link="item.post__feedlink__sourceurl"
         :summary="item.post__entry_summary"
         :source="item.post__feedlink__source1"
         :country="item.post__feedlink__country"
