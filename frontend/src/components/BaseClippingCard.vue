@@ -32,12 +32,18 @@
         >
           {{ capitalizeFirstLetter(sentiment) }}
         </div>
-        <div class="title" tabindex="0">{{ title }}</div>
+        <a class="title" tabindex="0" :href="entryLink" target="_blank">{{
+          title
+        }}</a>
         <div class="description" tabindex="0">{{ summary }}</div>
         <div class="general-information">
-          <div class="general-item">
+          <a
+            class="general-item source-link"
+            :href="'https://' + sourceLink"
+            target="_blank"
+          >
             {{ source }}
-          </div>
+          </a>
           <div class="general-item">
             {{ country }}
           </div>
@@ -83,11 +89,19 @@ export default {
       type: String,
       required: false,
     },
+    entryLink: {
+      type: String,
+      required: false,
+    },
     summary: {
       type: String,
       required: false,
     },
     source: {
+      type: String,
+      required: false,
+    },
+    sourceLink: {
       type: String,
       required: false,
     },
@@ -215,6 +229,7 @@ export default {
     .title {
       cursor: pointer;
 
+      text-decoration: none;
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;
@@ -224,9 +239,11 @@ export default {
       font-weight: 600;
       font-size: 16px;
       line-height: 22px;
+      color: inherit;
     }
 
-    .title:focus {
+    .title:hover {
+      color: var(--primary-button-color);
       white-space: normal;
     }
 
@@ -259,6 +276,8 @@ export default {
 
     margin-right: 20px;
 
+    text-decoration: none;
+
     font-weight: 400;
     font-size: 10px;
     line-height: 20px;
@@ -278,6 +297,10 @@ export default {
       border-radius: 100%;
       background-color: var(--secondary-text-color);
     }
+  }
+
+  .source-link:hover {
+    color: var(--primary-button-color);
   }
 }
 

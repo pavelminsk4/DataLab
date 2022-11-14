@@ -38,6 +38,8 @@
         :img="item.entry_media_thumbnail_url"
         :sentiment="item.sentiment"
         :title="item.entry_title"
+        :entry-link="item.entry_links_href"
+        :source-link="item.feedlink__sourceurl"
         :summary="item.entry_summary"
         :source="item.feedlink__source1"
         :country="item.feedlink__country"

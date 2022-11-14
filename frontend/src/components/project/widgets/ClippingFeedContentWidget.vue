@@ -15,6 +15,7 @@
         :img="item.post__entry_media_thumbnail_url"
         :sentiment="item.post__sentiment"
         :title="item.post__entry_title"
+        :entry-link="item.post__entry_links_href"
         :summary="item.post__entry_summary"
         :source="item.post__feedlink__source1"
         :country="item.post__feedlink__country"
