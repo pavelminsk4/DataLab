@@ -163,6 +163,8 @@ export default {
           ],
           source: [],
           author: this.currentProject?.author || [],
+          posts_per_page: 20,
+          page_number: 1,
         })
       } catch (e) {
         console.log(e)

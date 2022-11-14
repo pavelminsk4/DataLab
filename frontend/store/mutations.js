@@ -33,6 +33,14 @@ export default {
     state.searchData = [...data]
   },
 
+  [mutator.SET_NUMBER_OF_PAGES](state, number) {
+    state.numberOfPages = number
+  },
+
+  [mutator.SET_NUMBER_OF_POSTS](state, number) {
+    state.numberOfPosts = number
+  },
+
   [mutator.SET_CURRENT_STEP](state, step) {
     state.currentStep = step
   },

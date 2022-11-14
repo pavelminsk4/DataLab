@@ -19,6 +19,7 @@ from django.db.models.functions import ExtractYear
 from widgets.models import ClippingFeedContentWidget, WidgetsList2, Dimensions, ProjectDimensions
 from rest_framework import status
 from rest_framework import viewsets
+from django.core.paginator import Paginator
 
 # ==== User API =======================
 
@@ -129,6 +130,8 @@ def search(request):
   author = body['author']
   sentiment = body['sentiment']
   date_range = body['date_range']
+  posts_per_page = body['posts_per_page']
+  page_number = body['page_number']
   posts = data_range_posts(date_range[0], date_range[1])
   posts = keywords_posts(keys, posts)
   if additions!=[]:
@@ -146,9 +149,10 @@ def search(request):
   if sentiment!=[]:
     posts = posts.filter(sentiment=sentiment)
   posts = posts.values('id', 'entry_title', 'entry_published', 'entry_summary', 'entry_media_thumbnail_url', 'entry_media_content_url', 'feed_image_href', 'feed_image_link', 'feed_language__language', 'entry_author', 'entry_links_href', 'feedlink__country', 'feedlink__source1', 'feedlink__sourceurl',  'sentiment')
-  posts_list=list(posts)
-  return JsonResponse(posts_list, safe = False)
-
+  p = Paginator(posts, posts_per_page)
+  posts_list=list(p.page(page_number))
+  res = { 'num_pages': p.num_pages, 'num_posts_': p.count, 'posts': posts_list }
+  return JsonResponse(res, safe = False)
 # === Countries API ==========
 
 class CountriesList(ListAPIView):

@@ -8,6 +8,8 @@ const state = {
   channelType: '',
   keywords: {},
   searchData: [],
+  numberOfPages: null,
+  numberOfPosts: null,
   countries: [],
   languages: [],
   sources: [],

@@ -254,7 +254,9 @@ export default {
     commit(mutator.SET_LOADING, true)
     try {
       const response = await api.postSearch(data)
-      commit(mutator.SET_SEARCH_DATA, response)
+      commit(mutator.SET_SEARCH_DATA, response.posts)
+      commit(mutator.SET_NUMBER_OF_POSTS, response.num_posts_)
+      commit(mutator.SET_NUMBER_OF_PAGES, response.num_pages)
     } catch (e) {
       console.log(e)
     } finally {
