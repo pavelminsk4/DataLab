@@ -3,11 +3,18 @@ from project.models import Project, Post
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+class Dimensions(models.Model):
+  title = models.CharField(max_length=50)
+  description = models.TextField(blank=True)
+
+  def __str__(self):
+    return str(self.title)
 class WidgetDescription(models.Model):
   is_active = models.BooleanField(default=False)
   title = models.CharField(default='Title', max_length=30)
   description = models.TextField(default='Description')
   aggregation_period = models.CharField(default='day', max_length=10)
+  linked_dimensions = models.ManyToManyField(Dimensions)
 
 class WidgetsList(models.Model):
   project = models.OneToOneField(Project, on_delete=models.CASCADE, related_name='widget_list', editable=False)
@@ -38,12 +45,20 @@ def create_widgets_list(sender, instance, created, **kwargs):
 def create_widget_description(sender, instance, created, **kwargs):
   if created:
     wd1 = WidgetDescription.objects.create(title='Summary')
+    wd1.linked_dimensions.add(Dimensions.objects.get_or_create(title='Author')) # List of permited dimensions ???
+    wd1.linked_dimensions.add(Dimensions.objects.get_or_create(title='Language')) # Second permited dimension 
     wd1.save()
     wd2 = WidgetDescription.objects.create(title='Content volume')
+    wd2.linked_dimensions.add(Dimensions.objects.get_or_create(title='Author')) # List of permited dimensions ???
+    wd2.linked_dimensions.add(Dimensions.objects.get_or_create(title='Ci')) # Second permited dimension
     wd2.save()
     wd3 = WidgetDescription.objects.create(title='Clipping feed content')
+    wd3.linked_dimensions.add(Dimensions.objects.get_or_create(title='Author')) # List of permited dimensions ???
+    wd3.linked_dimensions.add(Dimensions.objects.get_or_create(title='City')) # Second permited dimension
     wd3.save()
     wd4 = WidgetDescription.objects.create(title='Top 10 authors by volume')
+    wd4.linked_dimensions.add(Dimensions.objects.get_or_create(title='Author')) # List of permited dimensions ???
+    wd4.linked_dimensions.add(Dimensions.objects.get_or_create(title='City')) # Second permited dimension
     wd4.save()
     instance.summary_widget = wd1
     instance.volume_widget = wd2
@@ -55,9 +70,6 @@ class ClippingFeedContentWidget(models.Model):
   project = models.ForeignKey(Project,on_delete=models.CASCADE,verbose_name='Project')
   post = models.ForeignKey(Post,on_delete=models.CASCADE,verbose_name ='Post', related_name='posts')
 
-class Dimensions(models.Model):
-  title = models.CharField(max_length=50)
-  description = models.TextField()
 
 class ProjectDimensions(models.Model):
   project = models.ForeignKey(Project, on_delete=models.CASCADE, verbose_name='Project') 
