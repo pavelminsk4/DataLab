@@ -35,9 +35,11 @@
       <BaseClippingCard
         v-for="(item, index) in searchData"
         :key="'result' + index"
-        :img="item.entry_media_thumbnail_url"
+        :img="cardImg(item)"
         :sentiment="item.sentiment"
         :title="item.entry_title"
+        :entry-link="item.entry_links_href"
+        :source-link="item.feedlink__sourceurl"
         :summary="item.entry_summary"
         :source="item.feedlink__source1"
         :country="item.feedlink__country"
@@ -194,6 +196,15 @@ export default {
     },
     selectedClippingElement(id) {
       return this.clippingContent?.some((el) => el.post__id === id)
+    },
+    cardImg(item) {
+      let images = [
+        item.entry_media_content_url,
+        item.entry_media_thumbnail_url,
+        item.feed_image_href,
+        item.feed_image_link,
+      ]
+      return images.filter((el) => el !== 'None')[0] || 'None'
     },
   },
 }
