@@ -106,8 +106,8 @@ export default {
           date_range: this.additionalFilters?.date_range,
           source: this.additionalFilters?.source || [],
           author: this.additionalFilters?.author || [],
-          posts_per_page: numberOfPosts || 20,
-          page_number: pageNumber || 1,
+          posts_per_page: numberOfPosts,
+          page_number: pageNumber,
         })
       } catch (e) {
         console.log(e)

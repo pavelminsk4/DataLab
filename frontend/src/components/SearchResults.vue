@@ -46,41 +46,36 @@
         :language="item.feed_language__language"
         :published="item.entry_published"
         :id="item.id"
-        :is-checkbox-clipping-widget="isCheckboxClippingWidget"
+        :is-checkbox-clipping-widget="true"
         :clipping-element="selectedClippingElement(item.id)"
         @add-element="onChange"
       />
     </div>
-    <div class="pagination-wrapper">
-      <section class="dropdown-wrapper">
-        <div @click="openDropdown">
-          {{ countPosts }}
-          <ArrowDownIcon
-            :class="[isOpenDropdown && 'arrow-open-dropdown', 'arrow-down']"
-          />
-        </div>
-
-        <div v-if="isOpenDropdown" class="dropdown">
-          <div
-            v-for="(item, index) in postsOnPage"
-            :key="'drop' + index"
-            class="item"
-            @click="updatePostsCount(item)"
-          >
-            {{ item }}
-          </div>
-        </div>
-      </section>
-      <VPagination
-        v-model="page"
-        :pages="this.numberOfPages"
-        :range-size="1"
-        active-color="#055FFC"
-        :container-class="'pagination'"
-        :page-class="'page-item'"
-        @update:modelValue="pageChangeHandler"
+    <section class="dropdown-wrapper">
+      {{ countPosts }}
+      <ArrowDownIcon
+        @click="openDropdown"
+        :class="[isOpenDropdown && 'arrow-open-dropdown', 'arrow-down']"
       />
-    </div>
+
+      <div v-if="isOpenDropdown" class="dropdown">
+        <div
+          v-for="(item, index) in postsOnPage"
+          :key="'drop' + index"
+          class="item"
+          @click="updatePostsCount(item)"
+        >
+          {{ item }}
+        </div>
+      </div>
+    </section>
+    <VPagination
+      v-model="page"
+      :pages="this.numberOfPages"
+      :range-size="1"
+      active-color="#DCEDFF"
+      @update:modelValue="pageChangeHandler"
+    />
     <div v-if="!loading && !searchData.length">No results.</div>
   </div>
 </template>
@@ -272,14 +267,6 @@ export default {
   color: var(--primary-text-color);
 }
 
-.pagination-wrapper {
-  display: flex;
-  justify-content: space-between;
-
-  width: 100%;
-  padding: 20px;
-}
-
 .clipping-wrapper {
   position: relative;
 
@@ -366,23 +353,12 @@ export default {
 
   display: flex;
   align-items: center;
-  justify-content: center;
-
-  width: 61px;
-  height: 34px;
-
-  cursor: pointer;
-
-  background: #242529;
-  border: 1px solid #2d2d31;
-  box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
-  border-radius: 6px;
 
   .dropdown {
     z-index: 1000;
 
     position: absolute;
-    top: 34px;
+    top: 40px;
     right: 2px;
 
     display: flex;
@@ -434,7 +410,7 @@ export default {
   width: 10px;
   height: 10px;
 
-  margin: 0 0 0 7px;
+  margin: 0 11px 0 7px;
 
   color: var(--primary-text-color);
 
@@ -489,57 +465,6 @@ export default {
 
   .search-result-card {
     margin: 0 0 10px 0;
-  }
-}
-</style>
-
-<style lang="scss">
-.pagination {
-  display: flex;
-  gap: 4px;
-
-  .PaginationControl {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    width: 34px;
-    height: 34px;
-
-    background: #242529;
-    border: 1px solid #2d2d31;
-    box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
-    border-radius: 6px;
-
-    color: var(--primary-text-color);
-
-    .Control {
-      fill: #333333;
-    }
-
-    .Control-active {
-      fill: var(--primary-text-color);
-    }
-  }
-
-  .Page {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    width: 34px;
-    height: 34px;
-
-    background: #242529 !important;
-    border: 1px solid #2d2d31;
-    box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
-    border-radius: 6px;
-
-    color: var(--primary-text-color);
-  }
-
-  .Page-active {
-    background: #055ffc !important;
   }
 }
 </style>

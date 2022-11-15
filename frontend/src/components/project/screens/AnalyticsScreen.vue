@@ -61,8 +61,6 @@
     <WidgetsView
       :project-id="currentProject.id"
       :currentProject="currentProject"
-      @update-page="showResults"
-      @update-posts="showResults"
     />
   </div>
 </template>
@@ -144,7 +142,7 @@ export default {
       this.toggleWidgetsModal(downloadReportModal)
       this.toggleWidgetsModal(instantModal)
     },
-    showResults(pageNumber, numberOfPosts) {
+    showResults() {
       try {
         this[action.POST_SEARCH]({
           keywords: this.currentKeywords || this.keywords?.keywords,
@@ -157,14 +155,16 @@ export default {
           language: this.currentProject?.language || [],
           sentiment: this.currentProject?.sentiment || [],
           date_range: [
-            this.currentProject?.start_search_date,
+            this.additionalFilters?.date_range[0] ||
+              this.currentProject?.start_search_date,
 
-            this.currentProject?.end_search_date,
+            this.additionalFilters?.date_range[1] ||
+              this.currentProject?.end_search_date,
           ],
           source: [],
           author: this.currentProject?.author || [],
-          posts_per_page: numberOfPosts || 20,
-          page_number: pageNumber || 1,
+          posts_per_page: 20,
+          page_number: 1,
         })
       } catch (e) {
         console.log(e)
