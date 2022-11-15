@@ -9,6 +9,7 @@ class Dimensions(models.Model):
 
   def __str__(self):
     return str(self.title)
+
 class WidgetDescription(models.Model):
   is_active = models.BooleanField(default=False)
   title = models.CharField(default='Title', max_length=30)
@@ -45,20 +46,20 @@ def create_widgets_list(sender, instance, created, **kwargs):
 def create_widget_description(sender, instance, created, **kwargs):
   if created:
     wd1 = WidgetDescription.objects.create(title='Summary')
-    wd1.linked_dimensions.add(Dimensions.objects.get_or_create(title='Author')) # List of permited dimensions ???
-    wd1.linked_dimensions.add(Dimensions.objects.get_or_create(title='Language')) # Second permited dimension 
+    wd1.linked_dimensions.add(Dimensions.objects.get_or_create(title='Author')[0]) # List of permited dimensions ???
+    wd1.linked_dimensions.add(Dimensions.objects.get_or_create(title='Language')[0]) # Second permited dimension 
     wd1.save()
     wd2 = WidgetDescription.objects.create(title='Content volume')
-    wd2.linked_dimensions.add(Dimensions.objects.get_or_create(title='Author')) # List of permited dimensions ???
-    wd2.linked_dimensions.add(Dimensions.objects.get_or_create(title='Ci')) # Second permited dimension
+    wd2.linked_dimensions.add(Dimensions.objects.get_or_create(title='Author')[0]) # List of permited dimensions ???
+    wd2.linked_dimensions.add(Dimensions.objects.get_or_create(title='Ci')[0]) # Second permited dimension
     wd2.save()
     wd3 = WidgetDescription.objects.create(title='Clipping feed content')
-    wd3.linked_dimensions.add(Dimensions.objects.get_or_create(title='Author')) # List of permited dimensions ???
-    wd3.linked_dimensions.add(Dimensions.objects.get_or_create(title='City')) # Second permited dimension
+    wd3.linked_dimensions.add(Dimensions.objects.get_or_create(title='Author')[0]) # List of permited dimensions ???
+    wd3.linked_dimensions.add(Dimensions.objects.get_or_create(title='City')[0]) # Second permited dimension
     wd3.save()
     wd4 = WidgetDescription.objects.create(title='Top 10 authors by volume')
-    wd4.linked_dimensions.add(Dimensions.objects.get_or_create(title='Author')) # List of permited dimensions ???
-    wd4.linked_dimensions.add(Dimensions.objects.get_or_create(title='City')) # Second permited dimension
+    wd4.linked_dimensions.add(Dimensions.objects.get_or_create(title='Author')[0]) # List of permited dimensions ???
+    wd4.linked_dimensions.add(Dimensions.objects.get_or_create(title='City')[0]) # Second permited dimension
     wd4.save()
     instance.summary_widget = wd1
     instance.volume_widget = wd2

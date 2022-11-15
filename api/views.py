@@ -44,23 +44,6 @@ class LoggedInUserView(APIView):
     return Response(serializer.data)
 
 # === Project API ====================
-
-class ListProjectAPIView(ListAPIView):
-  queryset = Project.objects.all()
-  serializer_class = ProjectSerializer
-
-class CreateProjectAPIView(CreateAPIView):
-  queryset = Project.objects.all()
-  serializer_class = ProjectSerializer
-
-class UpdateProjectAPIView(UpdateAPIView):
-  queryset = Project.objects.all()
-  serializer_class = ProjectSerializer
-
-class DeleteProjectAPIView(DestroyAPIView):
-  queryset = Project.objects.all()
-  serializer_class = ProjectSerializer
-
 class ProjectsViewSet(viewsets.ModelViewSet):
   queryset = Project.objects.all()
   serializer_class = ProjectSerializer
@@ -151,7 +134,7 @@ def search(request):
   posts = posts.values('id', 'entry_title', 'entry_published', 'entry_summary', 'entry_media_thumbnail_url', 'entry_media_content_url', 'feed_image_href', 'feed_image_link', 'feed_language__language', 'entry_author', 'entry_links_href', 'feedlink__country', 'feedlink__source1', 'feedlink__sourceurl',  'sentiment')
   p = Paginator(posts, posts_per_page)
   posts_list=list(p.page(page_number))
-  res = { 'num_pages': p.num_pages, 'num_posts_': p.count, 'posts': posts_list }
+  res = { 'num_pages': p.num_pages, 'num_posts': p.count, 'posts': posts_list }
   return JsonResponse(res, safe = False)
 # === Countries API ==========
 
@@ -223,9 +206,19 @@ class DimensionsViewSet(viewsets.ModelViewSet):
   serializer_class = DimensionsSerializer
   queryset = Dimensions.objects.all()
 
-class ProjectDimensionsViewSet(viewsets.ModelViewSet):
+# === ProjectDimensions ====
+class ProjectDimensionsCreate(ListCreateAPIView):
   serializer_class = ProjectDimensionsSerializer
   queryset = ProjectDimensions.objects.all()
+
+  def create(self, request, *args, **kwargs):
+    data = request.data
+    serializer = self.get_serializer(data=data, many=True)
+    serializer.is_valid(raise_exception=True)
+    exist_proj_dimen = ProjectDimensions.objects.filter(project_id=data[0]['project']).delete()
+    self.perform_create(serializer)
+    headers = self.get_success_headers(serializer.data)
+    return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
 # ==== Templates ====
 

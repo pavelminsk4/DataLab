@@ -18,11 +18,16 @@ class SearchTests(APITestCase):
     'entry_published':'2022-09-03T06:37:00Z',
     'entry_summary': 'First post body',
     'entry_media_thumbnail_url': None,
+    'entry_media_content_url':None,
+    'entry_links_href':None,
+    'feed_image_href':None,
+    'feed_image_link':None,
     'feed_language__language': 'English (United States)',
     'sentiment': 'neutral',
     'entry_author':'Elon Musk',
     'feedlink__country':'USA',
     'feedlink__source1': 'BBC',
+    'feedlink__sourceurl':None,
     }
   ex2 = {
     'id':2,
@@ -30,11 +35,16 @@ class SearchTests(APITestCase):
     'entry_published':'2022-10-03T06:37:00Z',
     'entry_summary':'Second post body',
     'entry_media_thumbnail_url':None,
+    'entry_media_content_url':None,
+    'entry_links_href':None,
+    'feed_image_href':None,
+    'feed_image_link':None,
     'feed_language__language':'Lithuanian (Lithuania)',
     'sentiment':'neutral',
     'entry_author':'Tim Cook',
     'feedlink__country':'China',
     'feedlink__source1': 'CNN',
+    'feedlink__sourceurl':None,
     }
   ex3 = {
     'id':3,
@@ -42,11 +52,16 @@ class SearchTests(APITestCase):
     'entry_published':'2022-10-03T06:37:00Z',
     'entry_summary':'Third post body',
     'entry_media_thumbnail_url':None,
+    'entry_media_content_url':None,
+    'entry_links_href':None,
+    'feed_image_href':None,
+    'feed_image_link':None,
     'feed_language__language':'Italian (Italy)',
     'sentiment':'neutral',
     'entry_author':'Bill Gates',
     'feedlink__country':'China',
     'feedlink__source1': 'CNN',
+      'feedlink__sourceurl':None,
     }
   ex4 = {
     'id':4,
@@ -54,11 +69,16 @@ class SearchTests(APITestCase):
     'entry_published':'2022-10-03T06:37:00Z',
     'entry_summary':'Fourth post body',
     'entry_media_thumbnail_url':None,
+    'entry_media_content_url':None,
+    'entry_links_href':None,
+    'feed_image_href':None,
+    'feed_image_link':None,
     'feed_language__language':'Arabic',
     'sentiment':'positive',
     'entry_author':'Steve Jobs',
     'feedlink__country':'China',
     'feedlink__source1': 'CNN',
+    'feedlink__sourceurl':None,
     }
 
   def db_seeder(self):
@@ -84,11 +104,13 @@ class SearchTests(APITestCase):
       'sentiment':[],
       'date_range':['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z'],
       'source':[],
-      'author':[]
+      'author':[],
+      'posts_per_page':20,
+      'page_number':1, 
       }
     response = self.client.post(url, data, format='json')
     self.assertEqual(response.status_code, status.HTTP_200_OK)
-    self.assertEqual(json.loads(response.content), [ex1])  
+    self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':1, 'posts':[ex1]})  
  
   def test_search_with_exclusion_words(self):
     self.db_seeder()
@@ -102,10 +124,12 @@ class SearchTests(APITestCase):
       'date_range':['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z'],
       'source':[],
       'author':[],
+      'posts_per_page':20,
+      'page_number':1,
       }
     response = self.client.post(url, data, format='json')
     self.assertEqual(response.status_code, status.HTTP_200_OK)
-    self.assertEqual(json.loads(response.content), [ex2,ex3,ex4])
+    self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':3, 'posts':[ex2,ex3,ex4]})
     self.assertEqual(len(Post.objects.all()), 4)
 
   def test_search_with_additional_words(self):
@@ -120,9 +144,11 @@ class SearchTests(APITestCase):
       'date_range':['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z'],
       'source':[],
       'author':[],
+      'posts_per_page':20,
+      'page_number':1,
       }
     response = self.client.post(url, data, format='json')
-    self.assertEqual(json.loads(response.content), [ex3])
+    self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':1, 'posts':[ex3]})
     self.assertEqual(len(Post.objects.all()), 4)
 
   def test_serch_with_exclusion_and_additional_words(self):
@@ -137,9 +163,11 @@ class SearchTests(APITestCase):
       'date_range':['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z'],
       'source':[],
       'author':[],
+      'posts_per_page':20,
+      'page_number':1,
       }
     response = self.client.post(url, data, format='json')
-    self.assertEqual(json.loads(response.content), [ex2])
+    self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':1, 'posts':[ex2]})
     self.assertEqual(len(Post.objects.all()), 4)
 
   def test_search_by_country(self):
@@ -154,10 +182,12 @@ class SearchTests(APITestCase):
       'date_range':['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z'],
       'source':[],
       'author':[],
+      'posts_per_page':20,
+      'page_number':1,
       }
     response = self.client.post(url, data, format='json')
     self.assertEqual(response.status_code, status.HTTP_200_OK)
-    self.assertEqual(json.loads(response.content), [ex1])
+    self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':1, 'posts':[ex1]})
 
   def test_search_by_language(self):
     self.db_seeder()
@@ -171,10 +201,12 @@ class SearchTests(APITestCase):
       'date_range':['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z'],
       'source':[],
       'author':[],
+      'posts_per_page':20,
+      'page_number':1,
       }
     response = self.client.post(url, data, format='json')
     self.assertEqual(response.status_code, status.HTTP_200_OK)
-    self.assertEqual(json.loads(response.content), [ex4])
+    self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':1, 'posts':[ex4]})
 
   def test_search_filtering_by_sentiment(self):
     self.db_seeder()
@@ -189,10 +221,12 @@ class SearchTests(APITestCase):
       'date_range':['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z'],
       'source':[],
       'author':[],
+      'posts_per_page':20,
+      'page_number':1,
       }
     response = self.client.post(url, data, format='json')
     self.assertEqual(response.status_code, status.HTTP_200_OK)
-    self.assertEqual(json.loads(response.content), [ex4])
+    self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':1, 'posts':[ex4]})
 
   def test_serarch_filtering_by_date(self):
     self.db_seeder()
@@ -206,10 +240,12 @@ class SearchTests(APITestCase):
       'date_range':['2022-09-02T06:44:00.000Z', '2022-09-30T06:44:00.000Z'],
       'source':[],
       'author':[],
+      'posts_per_page':20,
+      'page_number':1,
     }
     response = self.client.post(url, data, format='json')
     self.assertEqual(response.status_code, status.HTTP_200_OK)
-    self.assertEqual(json.loads(response.content), [ex1])
+    self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':1, 'posts':[ex1]})
 
   def test_search_by_source(self):
     self.db_seeder()
@@ -223,10 +259,12 @@ class SearchTests(APITestCase):
       'date_range':['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z'],
       'source':'CNN',
       'author':[],
+      'posts_per_page':20,
+      'page_number':1,
     }
     response = self.client.post(url, data, format='json')
     self.assertEqual(response.status_code, status.HTTP_200_OK)
-    self.assertEqual(json.loads(response.content), [ex2, ex3, ex4])
+    self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':3, 'posts':[ex2, ex3, ex4]})
     
   def test_search_by_author(self):
     self.db_seeder()
@@ -240,10 +278,12 @@ class SearchTests(APITestCase):
       'date_range':['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z'],
       'source':[],
       'author':'Elon Musk',
+      'posts_per_page':20,
+      'page_number':1,
     }
     response = self.client.post(url, data, format='json')
     self.assertEqual(response.status_code, status.HTTP_200_OK)
-    self.assertEqual(json.loads(response.content), [ex1])
+    self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':1, 'posts':[ex1]})
 
 class CurrentUserTests(APITestCase):
   def test_logged_in_user(self):
