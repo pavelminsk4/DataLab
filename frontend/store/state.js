@@ -10,6 +10,7 @@ const state = {
   searchData: [],
   numberOfPages: null,
   numberOfPosts: null,
+  searchPage: 1,
   countries: [],
   languages: [],
   sources: [],
