@@ -61,6 +61,8 @@
       <SearchResults
         :is-show-calendar="false"
         :currentProject="currentProject"
+        @update-page="updatePage"
+        @update-posts-count="updatePosts"
       />
     </grid-item>
   </grid-layout>
@@ -188,6 +190,12 @@ export default {
         data: {[name]: {is_active: false, id: this.availableWidgets[name].id}},
       })
       await this[action.GET_AVAILABLE_WIDGETS](this.projectId)
+    },
+    updatePage(page, posts) {
+      this.$emit('update-page', page, posts)
+    },
+    updatePosts(page, posts) {
+      this.$emit('update-page', page, posts)
     },
     isActiveWidget(key) {
       return this.availableWidgets[key]?.is_active
