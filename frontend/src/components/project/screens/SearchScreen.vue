@@ -102,8 +102,8 @@ export default {
           ],
           source: [],
           author: this.currentProject?.author || [],
-          posts_per_page: numberOfPosts,
-          page_number: pageNumber,
+          posts_per_page: numberOfPosts || 20,
+          page_number: pageNumber || 1,
         })
       } catch (e) {
         console.log(e)
