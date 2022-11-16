@@ -51,7 +51,9 @@ def create_widget_description(sender, instance, created, **kwargs):
     wd1.save()
     wd2 = WidgetDescription.objects.create(title='Content volume')
     wd2.linked_dimensions.add(Dimensions.objects.get_or_create(title='Author')[0]) # List of permited dimensions ???
-    wd2.linked_dimensions.add(Dimensions.objects.get_or_create(title='Ci')[0]) # Second permited dimension
+    wd2.linked_dimensions.add(Dimensions.objects.get_or_create(title='Country')[0])
+    wd2.linked_dimensions.add(Dimensions.objects.get_or_create(title='Language')[0]) # Second permited dimension
+    wd2.linked_dimensions.add(Dimensions.objects.get_or_create(title='All Data')[0])
     wd2.save()
     wd3 = WidgetDescription.objects.create(title='Clipping feed content')
     wd3.linked_dimensions.add(Dimensions.objects.get_or_create(title='Author')[0]) # List of permited dimensions ???
