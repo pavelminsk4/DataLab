@@ -215,7 +215,7 @@ class ProjectDimensionsCreate(ListCreateAPIView):
     data = request.data
     serializer = self.get_serializer(data=data, many=True)
     serializer.is_valid(raise_exception=True)
-    exist_proj_dimen = ProjectDimensions.objects.filter(project_id=data[0]['project']).delete()
+    ProjectDimensions.objects.filter(project_id=kwargs['pk']).delete()
     self.perform_create(serializer)
     headers = self.get_success_headers(serializer.data)
     return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)

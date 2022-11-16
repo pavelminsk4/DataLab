@@ -38,13 +38,11 @@ urlpatterns = [
   path('clipping_feed_content_widget/create', views.ClippingFeedContentWidgetCreate.as_view(), name='cl_fd_cont_widg_create'),
   path('projects/<int:proj_pk>/clipping_feed_content_widget/delete/<int:post_pk>', views.ClippingFeedContentWidgetDelete.as_view(), name='cl_fd_cont_widg_delete'),
   # Dimensions
-  path('projects/<int:pk>/dimensions', views.ProjectDimensionsList.as_view(), name='project_dimensions'),
-  # ProjectDimensions
-  path('project_dimensions', views.ProjectDimensionsCreate.as_view(), name='project_dimensions_create'),
+  path('projects/<int:pk>/dimensions', views.ProjectDimensionsList.as_view(), name='project_dimensions_list'), # Selected dimensions for certain project
+  path('projects/<int:pk>/dimensions_create', views.ProjectDimensionsCreate.as_view(), name='project_dimensions_create'),
   ]
 
 router.register('dimensions', DimensionsViewSet)
-#router.register('project_dimensions', ProjectDimensionsViewSet)
 router.register('templates', TemplatesViewSet)
 router.register('projects', ProjectsViewSet)
 
