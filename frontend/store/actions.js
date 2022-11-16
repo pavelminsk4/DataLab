@@ -184,6 +184,18 @@ export default {
     }
   },
 
+  async [action.GET_SELECTED_DIMENSIONS]({commit}, projectId) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const selectedDimensions = await api.getSelectedDimensions(projectId)
+      commit(mutator.SET_SELECTED_DIMENSIONS, selectedDimensions)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
   async [action.CREATE_WORKSPACE]({commit}, workspace) {
     commit(mutator.SET_LOADING, true)
     try {
@@ -255,8 +267,19 @@ export default {
     try {
       const response = await api.postSearch(data)
       commit(mutator.SET_SEARCH_DATA, response.posts)
-      commit(mutator.SET_NUMBER_OF_POSTS, response.num_posts_)
+      commit(mutator.SET_NUMBER_OF_POSTS, response.num_posts)
       commit(mutator.SET_NUMBER_OF_PAGES, response.num_pages)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
+  async [action.POST_DIMENSIONS]({commit}, data) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      await api.postDimensions(data)
     } catch (e) {
       console.log(e)
     } finally {

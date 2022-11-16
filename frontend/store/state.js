@@ -11,6 +11,7 @@ const state = {
   numberOfPages: null,
   numberOfPosts: null,
   searchPage: 1,
+  selectedDimensions: null,
   countries: [],
   languages: [],
   sources: [],

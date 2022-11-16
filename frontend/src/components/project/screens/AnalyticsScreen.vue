@@ -8,7 +8,9 @@
 
     <AllDimensionsModal
       v-if="isOpenDimensionModal"
+      :project-id="currentProject.id"
       @close="toggleWidgetsModal('isOpenDimensionModal')"
+      @close-modal="toggleWidgetsModal('isOpenDimensionModal')"
     />
 
     <DownloadReportModal

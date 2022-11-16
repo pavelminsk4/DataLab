@@ -1,5 +1,8 @@
 <template>
-  <BaseModal modal-frame-style="width: 40vw; height: 80vh;">
+  <BaseModal
+    v-if="selectedDimensions"
+    modal-frame-style="width: 40vw; height: 80vh;"
+  >
     <div class="title">Widgets Dimensions</div>
     <div class="dimensions-wrapper">
       <div
@@ -8,11 +11,15 @@
         class="dimension"
       >
         <div>{{ item.title }}</div>
-        <BaseCheckbox :id="item.id" @change="onChange" />
+        <BaseCheckbox
+          :id="item.id"
+          :model-value="isDisplayDimension(item.id)"
+          @change="onChange"
+        />
       </div>
     </div>
 
-    <BaseButton class="button"> Save </BaseButton>
+    <BaseButton @click="addGeneralDimensions" class="button"> Save </BaseButton>
   </BaseModal>
 </template>
 
@@ -26,34 +33,56 @@ import BaseButton from '@/components/buttons/BaseButton'
 export default {
   name: 'AllDimensionsModal',
   components: {BaseButton, BaseCheckbox, BaseModal},
+  props: {
+    projectId: {
+      type: [String, Number],
+      required: false,
+    },
+  },
   data() {
     return {
       collectionProxy: [],
     }
   },
+  created() {
+    this[action.GET_DIMENSIONS]()
+    this[action.GET_SELECTED_DIMENSIONS](this.projectId)
+  },
   computed: {
     ...mapGetters({
       dimensions: get.DIMENSIONS,
+      selectedDimensions: get.SELECTED_DIMENSIONS,
     }),
-  },
-  created() {
-    this[action.GET_DIMENSIONS]()
+    displayedDimensions() {
+      return this.selectedDimensions.map((el) => el.dimension)
+    },
   },
   methods: {
-    ...mapActions([action.GET_DIMENSIONS]),
+    ...mapActions([
+      action.GET_DIMENSIONS,
+      action.POST_DIMENSIONS,
+      action.GET_SELECTED_DIMENSIONS,
+    ]),
     onChange(args) {
       const {id, checked} = args
       if (checked) {
-        this.collectionProxy.push(args)
+        this.collectionProxy.push({dimension: id, project: this.projectId})
       } else {
         let element = this.collectionProxy.indexOf(id)
         this.removeSelectedFilter(element, id)
       }
 
-      console.log(this.collectionProxy)
+      console.log(this.displayedDimensions)
+    },
+    addGeneralDimensions() {
+      this[action.POST_DIMENSIONS](this.collectionProxy)
+      this.$emit('close-modal')
     },
     removeSelectedFilter(index) {
       this.collectionProxy.splice(index, 1)
+    },
+    isDisplayDimension(id) {
+      return this.displayedDimensions.some((el) => el.id === id)
     },
   },
 }

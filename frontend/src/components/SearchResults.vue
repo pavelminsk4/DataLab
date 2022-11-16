@@ -51,7 +51,7 @@
         @add-element="onChange"
       />
     </div>
-    <div class="pagination-wrapper">
+    <div v-if="searchData.length" class="pagination-wrapper">
       <section class="dropdown-wrapper">
         <div @click="openDropdown">
           {{ countPosts }}
