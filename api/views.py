@@ -21,8 +21,9 @@ from rest_framework import status
 from rest_framework import viewsets
 from django.core.paginator import Paginator
 
-# ==== User API =======================
+from widgets.common_widget.volume_widget import *
 
+# ==== User API =======================
 class UserList(ListAPIView):
   queryset = User.objects.all()
   serializer_class = UserSerializer
@@ -204,7 +205,7 @@ class ProjectDimensionsList(ListAPIView):
 
 class DimensionsViewSet(viewsets.ModelViewSet):
   serializer_class = DimensionsSerializer
-  queryset = Dimensions.objects.all()
+  queryset = Dimensions.objects.all().order_by('title')
 
 # === ProjectDimensions ====
 class ProjectDimensionsCreate(ListCreateAPIView):
@@ -225,3 +226,12 @@ class ProjectDimensionsCreate(ListCreateAPIView):
 class TemplatesViewSet(viewsets.ModelViewSet):
   serializer_class = TemplatesSerializer
   queryset = Templates.objects.all()
+
+# === Dimension Authors ===
+
+def dimension_authors(request, pk):
+  project = get_object_or_404(Project, pk=pk)
+  posts = posts_agregator(project)
+  authors = posts.order_by('entry_author').values('entry_author').distinct()
+  authors_list = list(authors)
+  return JsonResponse(authors_list, safe = False)
