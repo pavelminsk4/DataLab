@@ -5,7 +5,7 @@ from widgets.models import WidgetsList2
 from django.shortcuts import get_object_or_404
 from docx import Document
 from docx.shared import Inches
-from .chartjs import prepare_widget_image
+from .chartjs import prepare_widget_images
 import aspose.words as aw
 
 lic = aw.License()
@@ -92,7 +92,7 @@ def instantly_report(request, pk):
   template_path = str(proj.report_template.layout_file)
   docx_path='tmp/temp.docx'
   report_path='tmp/temp.' + format
-  prepare_widget_image(pk)
+  prepare_widget_images(pk)
   filling_template(template_path, pk)
   convert_docx_to_pdf(docx_path, report_path)
   response = FileResponse(open(report_path, 'rb'))
