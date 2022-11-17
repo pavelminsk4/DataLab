@@ -23,6 +23,12 @@
           @save-changes="saveChanges"
           @get-widget-params="updateAggregationPeriod"
         />
+
+        <DimensionsScreen
+          v-else
+          :active-dimensions="contentVolumeWidget"
+          :project-id="projectId"
+        />
       </div>
     </div>
   </BaseModal>
@@ -36,10 +42,12 @@ import BaseModal from '@/components/modals/BaseModal'
 import ChartsView from '@/components/project/widgets/charts/ChartsView'
 import BasicSettingsScreen from '@/components/project/widgets/modals/screens/BasicSettingsScreen'
 import SettingsButtons from '@/components/project/widgets/modals/SettingsButtons'
+import DimensionsScreen from '@/components/project/widgets/modals/screens/DimensionsScreen'
 
 export default {
   name: 'ContentVolumeSettingsModal',
   components: {
+    DimensionsScreen,
     SettingsButtons,
     BasicSettingsScreen,
     ChartsView,
@@ -61,7 +69,9 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({widgets: get.AVAILABLE_WIDGETS}),
+    ...mapGetters({
+      widgets: get.AVAILABLE_WIDGETS,
+    }),
     aggregationPeriods() {
       return ['Hour', 'Day', 'Month', 'Year']
     },

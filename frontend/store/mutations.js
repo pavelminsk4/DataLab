@@ -93,6 +93,10 @@ export default {
     state.dimensions = [...data]
   },
 
+  [mutator.SET_SELECTED_DIMENSIONS](state, data) {
+    state.selectedDimensions = [...data]
+  },
+
   [mutator.SET_TEMPLATES](state, data) {
     state.templates = [...data]
   },

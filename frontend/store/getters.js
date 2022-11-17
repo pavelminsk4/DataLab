@@ -81,6 +81,10 @@ export default {
     return state.dimensions
   },
 
+  [get.SELECTED_DIMENSIONS](state) {
+    return state.selectedDimensions
+  },
+
   [get.TEMPLATES](state) {
     return state.templates
   },

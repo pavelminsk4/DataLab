@@ -83,6 +83,10 @@ export default {
     return fetch('get', '/api/templates/')
   },
 
+  async getSelectedDimensions(projectId) {
+    return fetch('get', `/api/projects/${projectId}/dimensions`)
+  },
+
   async createWorkspace(workspace) {
     const config = {
       headers: {
@@ -127,6 +131,22 @@ export default {
     }
 
     return fetch('post', '/api/search', request, config)
+  },
+
+  async postDimensions({projectId, data}) {
+    const config = {
+      headers: {
+        'content-type': 'application/json',
+        'X-CSRFToken': CSRF_TOKEN,
+      },
+    }
+
+    return fetch(
+      'post',
+      `/api/projects/${projectId}/dimensions_create`,
+      data,
+      config
+    )
   },
 
   async updateWorkspace({workspaceId, data}) {
