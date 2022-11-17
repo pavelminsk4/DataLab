@@ -133,7 +133,7 @@ export default {
     return fetch('post', '/api/search', request, config)
   },
 
-  async postDimensions(data) {
+  async postDimensions({projectId, data}) {
     const config = {
       headers: {
         'content-type': 'application/json',
@@ -141,7 +141,12 @@ export default {
       },
     }
 
-    return fetch('post', '/api/project_dimensions', data, config)
+    return fetch(
+      'post',
+      `/api/projects/${projectId}/dimensions_create`,
+      data,
+      config
+    )
   },
 
   async updateWorkspace({workspaceId, data}) {

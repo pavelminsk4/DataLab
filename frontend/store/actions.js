@@ -276,10 +276,10 @@ export default {
     }
   },
 
-  async [action.POST_DIMENSIONS]({commit}, data) {
+  async [action.POST_DIMENSIONS]({commit}, {projectId, data}) {
     commit(mutator.SET_LOADING, true)
     try {
-      await api.postDimensions(data)
+      await api.postDimensions({projectId, data})
     } catch (e) {
       console.log(e)
     } finally {

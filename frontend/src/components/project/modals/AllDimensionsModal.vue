@@ -13,7 +13,8 @@
         <div>{{ item.title }}</div>
         <BaseCheckbox
           :id="item.id"
-          :model-value="isDisplayDimension(item.id)"
+          :selected="isDisplayDimensions(item.id)"
+          :model-value="isDisplayDimensions(item.id)"
           @change="onChange"
         />
       </div>
@@ -39,22 +40,32 @@ export default {
       required: false,
     },
   },
-  data() {
-    return {
-      collectionProxy: [],
+  async created() {
+    if (!this.dimensions.length) {
+      this[action.GET_DIMENSIONS]()
     }
-  },
-  created() {
-    this[action.GET_DIMENSIONS]()
     this[action.GET_SELECTED_DIMENSIONS](this.projectId)
   },
   computed: {
     ...mapGetters({
       dimensions: get.DIMENSIONS,
       selectedDimensions: get.SELECTED_DIMENSIONS,
+      loading: get.LOADING,
     }),
-    displayedDimensions() {
-      return this.selectedDimensions.map((el) => el.dimension)
+    collectionProxy: {
+      get() {
+        let collection = []
+        for (let key of this.selectedDimensions) {
+          collection.push({
+            dimension: key.dimension.id,
+            project: this.projectId,
+          })
+        }
+        return collection || []
+      },
+      set(val) {
+        this.collection = val
+      },
     },
   },
   methods: {
@@ -71,18 +82,19 @@ export default {
         let element = this.collectionProxy.indexOf(id)
         this.removeSelectedFilter(element, id)
       }
-
-      console.log(this.displayedDimensions)
     },
     addGeneralDimensions() {
-      this[action.POST_DIMENSIONS](this.collectionProxy)
+      this[action.POST_DIMENSIONS]({
+        projectId: this.projectId,
+        data: this.collectionProxy || [{}],
+      })
       this.$emit('close-modal')
     },
     removeSelectedFilter(index) {
       this.collectionProxy.splice(index, 1)
     },
-    isDisplayDimension(id) {
-      return this.displayedDimensions.some((el) => el.id === id)
+    isDisplayDimensions(id) {
+      return this.collectionProxy.some((el) => el.dimension === id)
     },
   },
 }
