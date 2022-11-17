@@ -60,12 +60,12 @@ def filling_template(template_path, project_id):
             if proj.clipping_feed_content_widget.is_active:
               cell.add_paragraph('\u2704' + '   ' + proj.clipping_feed_content_widget.title, style='pTOC1')
               cell.add_paragraph('Description: ' + proj.clipping_feed_content_widget.aggregation_period, style='pTOC2')
-  if proj.summary_widget.is_active:
-    table = document.add_table(rows=1, cols=1)
-    hdr_cells = table.rows[0].cells
-    hdr_cells[0].add_paragraph('Summary Widget', style='pExportTitle')
-    document.add_picture('tmp/summary_widget.png', width=Inches(6.6))
-    document.add_page_break()
+  # if proj.summary_widget.is_active:
+  #   table = document.add_table(rows=1, cols=1)
+  #   hdr_cells = table.rows[0].cells
+  #   hdr_cells[0].add_paragraph('Summary Widget', style='pExportTitle')
+  #   document.add_picture('tmp/summary_widget.png', width=Inches(6.6))
+  #   document.add_page_break()
   if proj.top_10_authors_by_volume_widget.is_active:
     table = document.add_table(rows=1, cols=1)
     hdr_cells = table.rows[0].cells
@@ -78,12 +78,12 @@ def filling_template(template_path, project_id):
     hdr_cells[0].add_paragraph('Volume Widget', style='pExportTitle')
     document.add_picture('tmp/volume_widget.png', width=Inches(6.6))
     document.add_page_break()
-  if proj.clipping_feed_content_widget.is_active:
-    table = document.add_table(rows=1, cols=1)
-    hdr_cells = table.rows[0].cells
-    hdr_cells[0].add_paragraph('Clipping Feed Content Widget', style='pExportTitle')
-    document.add_picture('tmp/clipping_feed_content_widget.png', width=Inches(6.6))
-    document.add_page_break()
+  # if proj.clipping_feed_content_widget.is_active:
+  #   table = document.add_table(rows=1, cols=1)
+  #   hdr_cells = table.rows[0].cells
+  #   hdr_cells[0].add_paragraph('Clipping Feed Content Widget', style='pExportTitle')
+  #   document.add_picture('tmp/clipping_feed_content_widget.png', width=Inches(6.6))
+  #   document.add_page_break()
   document.save('tmp/temp.docx')
 
 def instantly_report(request, pk):

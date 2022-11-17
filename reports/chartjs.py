@@ -1,119 +1,66 @@
 from quickchart import QuickChart
+from widgets.common_widget.volume_widget import *
+from project.models import *
 
 def prepare_widget_image(project_id):
+  proj = Project.objects.get(id=project_id)
+  posts = posts_agregator(proj)
+  smpl_freq = 'day'
+  posts_per_smpl_freq = posts.annotate(date=Trunc('entry_published', smpl_freq)).values("date").annotate(created_count=Count('id')).order_by("date")
+  res = list(posts_per_smpl_freq)
+  labels = []
+  data = []
+  type = 'line'
+  for each in res:
+    labels.append(each['date'].strftime("%x"))
+    data.append(each['created_count'])
   chart = QuickChart()
   chart.width = 900
   chart.height = 450
   chart.config = {
-      "type": "pie",
+      "type": type,
       "data":{
-          "labels": ['test', 'lol', 'kek'],
+          "labels": labels,
           "datasets": [
             {
-              "borderColor": '#055FFC',
-              "pointStyle": 'circle',
-              "borderWidth": 0,
-              "borderRadius": 6,
-              "barPercentage": 0.5,
-              "fill": True,
-              "tension": 0.25,
-              "data": [1,2,3],
-          
+              'label': proj.title ,
+              "data": data,
+              'lineTension': 0.4,
             },
           ],
         },
-      "options": {
-          "responsive": True,
-          "maintainAspectRatio": False,
-          "animation": {
-            "easing": 'easeInOutQuad',
-            "duration": 520,
+      'options': {
+        'legend': {
+          'position': 'bottom',
           },
-          "plugins": {
-            "legend": {
-              "display": False,
-            },
-            "tooltip": {
-              "yAlign": 'bottom',
-              "titleColor": '#151515',
-              "bodyColor": '#151515',
-              "backgroundColor": 'rgba(255, 255, 255, 0.96)',
-              "displayColors": False,
-            },
-          },
-          "scales": {
-            "y": {
-              "beginAtZero": True,
-              "grid": {
-                "color": 'rgba(145, 152, 167, 0.1)',
+        'scales': {
+            'xAxes': [
+              {
+                'scaleLabel': {
+                  'display': 'true',
+                  'labelString': 'Current Published Time'
+                },
               },
-            },
-            "x": {
-              "beginAtZero": True,
-              "grid": {
-                "display": False,
+            ],
+            'yAxes': [
+              {
+                  'scaleLabel': {
+                    'display': 'true',
+                    'labelString': 'Number of Articles',
+                },
               },
-            },
+            ],
           },
-      },
-  }
-  chart.to_file('tmp/summary_widget.png')
-  chart.to_file('tmp/top_10_authors_by_volume_widget.png')
-  chart = QuickChart()
-  chart.width = 900
-  chart.height = 450
-  chart.config = {
-      "type": "bar",
-      "data":{
-          "labels": ['test', 'lol', 'kek'],
-          "datasets": [
-            {
-              "borderColor": '#055FFC',
-              "pointStyle": 'circle',
-              "borderWidth": 0,
-              "borderRadius": 6,
-              "barPercentage": 0.5,
-              "fill": True,
-              "tension": 0.25,
-              "data": [1,2,3],
-          
-            },
-          ],
-        },
-      "options": {
-          "responsive": True,
-          "maintainAspectRatio": False,
-          "animation": {
-            "easing": 'easeInOutQuad',
-            "duration": 520,
-          },
-          "plugins": {
-            "legend": {
-              "display": False,
-            },
-            "tooltip": {
-              "yAlign": 'bottom',
-              "titleColor": '#151515',
-              "bodyColor": '#151515',
-              "backgroundColor": 'rgba(255, 255, 255, 0.96)',
-              "displayColors": False,
-            },
-          },
-          "scales": {
-            "y": {
-              "beginAtZero": True,
-              "grid": {
-                "color": 'rgba(145, 152, 167, 0.1)',
-              },
-            },
-            "x": {
-              "beginAtZero": True,
-              "grid": {
-                "display": False,
-              },
-            },
-          },
-      },
-  }
+        'plugins': {
+          'datalabels': {
+            'display': 'true',
+            'align': 'top',
+            'backgroundColor': '#ccc',
+            'color':'black',
+            'borderRadius': 3
+           },
+          }
+        }
+      }
   chart.to_file('tmp/volume_widget.png')
   chart.to_file('tmp/clipping_feed_content_widget.png')
