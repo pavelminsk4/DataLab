@@ -79,7 +79,7 @@ export default {
       if (checked) {
         this.collectionProxy.push({dimension: id, project: this.projectId})
       } else {
-        let element = this.collectionProxy.indexOf(id)
+        let element = this.collectionProxy.find((el) => el.dimension === id)
         this.removeSelectedFilter(element, id)
       }
     },
