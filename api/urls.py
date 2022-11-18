@@ -42,7 +42,8 @@ urlpatterns = [
   path('projects/<int:pk>/dimensions_create', views.ProjectDimensionsCreate.as_view(), name='project_dimensions_create'),
   
   # Data for dimensions on the widget
-  path('projects/<int:pk>/dimension_authors', views.dimension_authors ,name='dimension_authors')
+  path('projects/<int:pk>/dimension_authors', views.dimension_authors ,name='di_authors'),
+  path('projects/<int:pk>/dimension_languages', views.dimension_languages, name='dim_languages'),
   ]
 
 router.register('dimensions', DimensionsViewSet)
