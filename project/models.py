@@ -56,6 +56,7 @@ class Project(models.Model):
   language_filter = models.CharField(max_length=50, blank=True)
   country_filter = models.CharField(max_length=50, blank=True)
   source_filter = models.CharField(max_length=50, blank=True)
+  sentiment_filter = models.CharField(max_length=10, blank=True)
 
   def __str__(self):
     return self.title

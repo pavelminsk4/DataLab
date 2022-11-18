@@ -41,15 +41,21 @@ def posts_agregator(project):
     posts = keywords_posts(project.keywords, posts)
   if project.ignore_keywords!=[]:
     posts = exclude_keywords_posts(posts, project.ignore_keywords)
+  if project.country_filter!='':
+    posts = posts.filter(feedlink__country=project.country_filter)
+  if project.language_filter!='':
+    posts = posts.filter(feed_language__language=project.language_filter)
+  if project.source_filter!='':
+    posts = posts.filter(feedlink__source1=project.source_filter)
+  if project.author_filter!='':
+    posts = posts.filter(entry_author=project.author_filter)
+  if project.sentiment_filter!='':
+    posts = posts.filter(sentiment=project.sentiment_filter)
   return posts
 
 def volume(request, pk):
   project = get_object_or_404(Project, pk=pk)
   posts = posts_agregator(project)
-  #smpl_freq = request.smpl_freq
-  #smpl_freq = 'day'
-  #smpl_freq = 'week'
-  #smpl_freq = 'quarter'
   #smpl_freq = 'month'
   #smpl_freq = 'year'
   smpl_freq = json.loads(request.body)
