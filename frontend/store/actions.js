@@ -196,6 +196,42 @@ export default {
     }
   },
 
+  async [action.GET_DIMENSION_AUTHORS]({commit}, projectId) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const dimensionAuthors = await api.getDimensionAuthors(projectId)
+      commit(mutator.SET_DIMENSION_AUTHORS, dimensionAuthors)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
+  async [action.GET_DIMENSION_LANGUAGES]({commit}, projectId) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const dimensionLanguages = await api.getDimensionLanguages(projectId)
+      commit(mutator.SET_DIMENSION_LANGUAGES, dimensionLanguages)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
+  async [action.GET_DIMENSION_COUNTRIES]({commit}, projectId) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const dimensionCountries = await api.getDimensionCountries(projectId)
+      commit(mutator.SET_DIMENSION_COUNTRIES, dimensionCountries)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
   async [action.CREATE_WORKSPACE]({commit}, workspace) {
     commit(mutator.SET_LOADING, true)
     try {

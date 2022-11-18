@@ -101,6 +101,18 @@ export default {
     state.templates = [...data]
   },
 
+  [mutator.SET_DIMENSION_AUTHORS](state, data) {
+    state.dimensionAuthors = [...data]
+  },
+
+  [mutator.SET_DIMENSION_LANGUAGES](state, data) {
+    state.dimensionLanguages = [...data]
+  },
+
+  [mutator.SET_DIMENSION_COUNTRIES](state, data) {
+    state.dimensionCountries = [...data]
+  },
+
   [mutator.RESET_STATE](state) {
     state.currentStep = 'Step1'
     state.keywords = []
