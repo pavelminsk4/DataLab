@@ -235,3 +235,10 @@ def dimension_authors(request, pk):
   authors = posts.order_by('entry_author').values('entry_author').distinct()
   authors_list = list(authors)
   return JsonResponse(authors_list, safe = False)
+
+def dimension_languages(request, pk):
+  project = get_object_or_404(Project, pk=pk)
+  posts = posts_agregator(project)
+  languages = posts.values('feed_language__language').distinct()
+  languagess_list = list(languages)
+  return JsonResponse(languagess_list, safe = False)
