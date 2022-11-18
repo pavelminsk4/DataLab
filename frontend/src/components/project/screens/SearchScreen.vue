@@ -75,6 +75,7 @@ export default {
   },
   methods: {
     ...mapActions([
+      action.CLEAR_STATE,
       action.POST_SEARCH,
       action.UPDATE_PROJECT,
       action.UPDATE_KEYWORDS_LIST,
@@ -82,6 +83,7 @@ export default {
       action.GET_CLIPPING_FEED_CONTENT_WIDGET,
     ]),
     showResults(pageNumber, numberOfPosts) {
+      console.log(this.currentProject)
       try {
         this[action.POST_SEARCH]({
           keywords: this.currentKeywords || this.keywords?.keywords,
@@ -90,9 +92,18 @@ export default {
             this.keywords?.additional_keywords,
           exceptions:
             this.currentExcludeKeywords || this.keywords?.ignore_keywords,
-          country: this.currentProject?.country || [],
-          language: this.currentProject?.language || [],
-          sentiment: this.currentProject?.sentiment || [],
+          country:
+            this.additionalFilters?.country ||
+            this.currentProject?.country_filter ||
+            [],
+          language:
+            this.additionalFilters?.language ||
+            this.currentProject?.language_filter ||
+            [],
+          sentiment:
+            this.additionalFilters?.sentiment ||
+            this.currentProject?.sentiment_filter ||
+            [],
           date_range: [
             this.additionalFilters?.date_range[0] ||
               this.currentProject?.start_search_date,
@@ -100,8 +111,14 @@ export default {
             this.additionalFilters?.date_range[1] ||
               this.currentProject?.end_search_date,
           ],
-          source: [],
-          author: this.currentProject?.author || [],
+          source:
+            this.additionalFilters?.source ||
+            this.currentProject.source_filter ||
+            [],
+          author:
+            this.additionalFilters?.author ||
+            this.currentProject?.author_filter ||
+            [],
           posts_per_page: numberOfPosts || 20,
           page_number: pageNumber || 1,
         })
@@ -135,8 +152,30 @@ export default {
             end_search_date:
               this.additionalFilters?.date_range[1] ||
               this.currentProject?.end_search_date,
+            source_filter:
+              this.additionalFilters?.source ||
+              this.currentProject?.source_filter ||
+              '',
+            author_filter:
+              this.additionalFilters?.author ||
+              this.currentProject?.author_filter ||
+              '',
+            language_filter:
+              this.additionalFilters?.language ||
+              this.currentProject?.language_filter ||
+              '',
+            sentiment_filter:
+              this.additionalFilters?.sentiment ||
+              this.currentProject?.sentiment_filter ||
+              '',
+            country_filter:
+              this.additionalFilters?.country ||
+              this.currentProject?.country_filter ||
+              '',
           },
         })
+
+        this[action.CLEAR_STATE]()
       } catch (e) {
         console.log(e)
       }

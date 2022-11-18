@@ -155,16 +155,16 @@ export default {
             this.keywords?.additional_keywords,
           exceptions:
             this.currentExcludeKeywords || this.keywords?.ignore_keywords,
-          country: this.currentProject?.country || [],
-          language: this.currentProject?.language || [],
-          sentiment: this.currentProject?.sentiment || [],
+          country: this.currentProject?.country_filter || [],
+          language: this.currentProject?.author_filter || [],
+          sentiment: this.currentProject?.author_filter || [],
           date_range: [
             this.currentProject?.start_search_date,
 
             this.currentProject?.end_search_date,
           ],
-          source: [],
-          author: this.currentProject?.author || [],
+          source: this.currentProject?.author_filter || [],
+          author: this.currentProject?.author_filter || [],
           posts_per_page: numberOfPosts || 20,
           page_number: pageNumber || 1,
         })

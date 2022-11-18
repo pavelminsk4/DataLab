@@ -1,5 +1,5 @@
 <template>
-  <section class="dimensions-list">
+  <section v-if="dimensions.length" class="dimensions-list">
     <DimensionsItem
       v-for="(item, index) in dimensions"
       :key="'dimension' + index"
@@ -8,6 +8,8 @@
       :select-list="selectedList(item.dimension.title)"
     />
   </section>
+
+  <div v-else class="no-dimensions">Select the type of dimensions!</div>
 </template>
 
 <script>
@@ -76,5 +78,13 @@ export default {
   border: 1px solid var(--input-border-color);
   box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
   border-radius: 10px;
+}
+
+.no-dimensions {
+  margin: 10px 0;
+
+  font-style: normal;
+  font-size: 18px;
+  font-weight: 400;
 }
 </style>
