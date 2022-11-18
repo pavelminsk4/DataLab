@@ -85,6 +85,18 @@ export default {
     return state.selectedDimensions
   },
 
+  [get.DIMENSION_LANGUAGES](state) {
+    return state.dimensionLanguages
+  },
+
+  [get.DIMENSION_COUNTRIES](state) {
+    return state.dimensionCountries
+  },
+
+  [get.DIMENSION_AUTHORS](state) {
+    return state.dimensionAuthors
+  },
+
   [get.TEMPLATES](state) {
     return state.templates
   },

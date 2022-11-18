@@ -13,7 +13,11 @@
       />
     </section>
 
-    <BaseSelect v-if="isOpenDropDown && !isDisabled" class="select" />
+    <BaseSelect
+      v-if="isOpenDropDown && !isDisabled"
+      class="select"
+      :list="selectList"
+    />
   </div>
 </template>
 
@@ -35,6 +39,10 @@ export default {
     isDisabled: {
       type: Boolean,
       required: true,
+    },
+    selectList: {
+      type: [Array, Object],
+      required: false,
     },
   },
   data() {

@@ -87,6 +87,18 @@ export default {
     return fetch('get', `/api/projects/${projectId}/dimensions`)
   },
 
+  async getDimensionAuthors(projectId) {
+    return fetch('get', `/api/projects/${projectId}/dimension_authors`)
+  },
+
+  async getDimensionLanguages(projectId) {
+    return fetch('get', `/api/projects/${projectId}/dimension_languages`)
+  },
+
+  async getDimensionCountries(projectId) {
+    return fetch('get', `/api/projects/${projectId}/dimension_countries`)
+  },
+
   async createWorkspace(workspace) {
     const config = {
       headers: {

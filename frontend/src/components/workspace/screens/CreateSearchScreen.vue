@@ -122,6 +122,11 @@ export default {
           ignore_keywords: this.keywords?.ignore_keywords,
           start_search_date: this.additionalFilters?.date_range[0],
           end_search_date: this.additionalFilters?.date_range[1],
+          source_filter: this.additionalFilters?.source || '',
+          author_filter: this.additionalFilters?.author || '',
+          language_filter: this.additionalFilters?.language || '',
+          sentiment_filter: this.additionalFilters?.sentiment || '',
+          country_filter: this.additionalFilters?.country || '',
         })
         this[action.UPDATE_NEW_WORKSPACE]({
           projects: [this.newProject],
@@ -144,6 +149,11 @@ export default {
           ignore_keywords: this.keywords?.ignore_keywords,
           start_search_date: this.additionalFilters?.date_range[0],
           end_search_date: this.additionalFilters?.date_range[1],
+          source_filter: this.additionalFilters?.source || '',
+          author_filter: this.additionalFilters?.author || '',
+          language_filter: this.additionalFilters?.language || '',
+          sentiment_filter: this.additionalFilters?.sentiment || '',
+          country_filter: this.additionalFilters?.country || '',
         })
         this[action.CREATE_PROJECT](this.newProject)
         this[action.CLEAR_STATE]()
