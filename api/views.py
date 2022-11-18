@@ -242,3 +242,11 @@ def dimension_languages(request, pk):
   languages = posts.values('feed_language__language').distinct()
   languagess_list = list(languages)
   return JsonResponse(languagess_list, safe = False)
+
+def dimension_countries(requset, pk):
+  project = get_object_or_404(Project, pk=pk)
+  posts = posts_agregator(project)
+  countries = posts.values('feedlink__country').distinct()
+  print(len(countries))
+  countries_list = list(countries)
+  return JsonResponse(countries_list, safe = False)

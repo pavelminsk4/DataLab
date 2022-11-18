@@ -52,6 +52,10 @@ class Project(models.Model):
   report_widgets = models.BooleanField(default=True)
   report_content = models.BooleanField(default=True)
   report_language = models.CharField(max_length=10, default='English')
+  author_filter = models.CharField(max_length=50, blank=True)
+  language_filter = models.CharField(max_length=50, blank=True)
+  country_filter = models.CharField(max_length=50, blank=True)
+  source_filter = models.CharField(max_length=50, blank=True)
 
   def __str__(self):
     return self.title
