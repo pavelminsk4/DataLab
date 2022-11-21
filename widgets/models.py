@@ -15,7 +15,7 @@ class WidgetDescription(models.Model):
   title = models.CharField(default='Title', max_length=30)
   description = models.TextField(default='Description')
   aggregation_period = models.CharField(default='day', max_length=10)
-  linked_dimensions = models.ManyToManyField(Dimensions)
+  linked_dimensions = models.ManyToManyField(Dimensions, blank=True)
   author_dim_pivot = models.CharField(max_length=30, default=None, null=True, blank=True)
   country_dim_pivot = models.CharField(max_length=30, default=None, null=True, blank=True)
   source_dim_pivot = models.CharField(max_length=30, default=None, null=True, blank=True)

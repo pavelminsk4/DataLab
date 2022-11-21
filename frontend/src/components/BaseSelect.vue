@@ -105,7 +105,7 @@ export default {
       this.visible = !this.visible
     },
     select(option) {
-      this.$emit('select-option', this.name, option)
+      this.$emit('select-option', this.name, option, this.visible)
       this.value = option
       this.search = option
     },
@@ -235,6 +235,10 @@ export default {
 
 .hidden {
   visibility: hidden;
+
+  .select-list {
+    height: 0;
+  }
 }
 
 .visible {

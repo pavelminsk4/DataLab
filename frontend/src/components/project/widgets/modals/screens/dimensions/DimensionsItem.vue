@@ -2,6 +2,7 @@
   <div
     :class="[
       'dimensions-list__item',
+      isSelectListOpen && 'open-select-list',
       isOpenDropDown && !isDisabled && 'dimensions-list__item-active',
       isDisabled && 'item-disabled',
     ]"
@@ -16,7 +17,10 @@
     <BaseSelect
       v-if="isOpenDropDown && !isDisabled"
       class="select"
+      :name="title"
       :list="selectList"
+      @select-option="selectDimension"
+      @click="toggleSelectList"
     />
   </div>
 </template>
@@ -48,11 +52,23 @@ export default {
   data() {
     return {
       isOpenDropDown: false,
+      isSelectListOpen: false,
     }
   },
   methods: {
     toggleDropdown() {
       this.isOpenDropDown = !this.isOpenDropDown
+    },
+    toggleSelectList() {
+      this.isSelectListOpen = !this.isSelectListOpen
+    },
+    selectDimension(name, option, visible) {
+      if (option === 'Reject selection') {
+        this.$emit('update-widget-view', name, null)
+      } else {
+        this.$emit('update-widget-view', name, option)
+      }
+      this.isSelectListOpen = visible
     },
   },
 }
@@ -88,6 +104,10 @@ export default {
   border-bottom: none;
 
   animation: rotateMenu 300ms ease-in-out forwards;
+}
+
+.open-select-list {
+  height: inherit;
 }
 
 .item-disabled {

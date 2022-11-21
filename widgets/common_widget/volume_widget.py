@@ -40,16 +40,17 @@ def posts_agregator(project):
   else:
     posts = keywords_posts(project.keywords, posts)
   if project.ignore_keywords!=[]:
+
     posts = exclude_keywords_posts(posts, project.ignore_keywords)
-  if project.country_filter!='':
+  if project.country_filter!=None:
     posts = posts.filter(feedlink__country=project.country_filter)
-  if project.language_filter!='':
+  if project.language_filter!=None:
     posts = posts.filter(feed_language__language=project.language_filter)
-  if project.source_filter!='':
+  if project.source_filter!=None:
     posts = posts.filter(feedlink__source1=project.source_filter)
-  if project.author_filter!='':
+  if project.author_filter!=None:
     posts = posts.filter(entry_author=project.author_filter)
-  if project.sentiment_filter!='':
+  if project.sentiment_filter!=None:
     posts = posts.filter(sentiment=project.sentiment_filter)
   return posts
 
