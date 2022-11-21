@@ -28,7 +28,7 @@ def data_range_posts(start_date, end_date):
   posts = Post.objects.only('id').filter(entry_published__range=interval)
   return posts
 
-def summary_widget(pk):
+def calculate_summary_widget(pk):
   project = get_object_or_404(Project, pk = pk)
   posts = data_range_posts(project.start_search_date, project.end_search_date)
   posts = keywords_posts(project.keywords, posts)
@@ -47,7 +47,7 @@ def summary_widget(pk):
   neg_posts = posts.filter(sentiment='negative').count()
   neut_posts = posts_quantity - pos_posts - neg_posts
   potential_reach = 'blank' 
-  res = {
+  return {
     'posts':posts_quantity,
     'sources':sources_quantity,
     'authors':authors_quantity,
@@ -58,4 +58,7 @@ def summary_widget(pk):
     'neut':neut_posts,
     'reach':potential_reach
     }
+
+def summary_widget(pk):
+  res = calculate_summary_widget(pk)
   return JsonResponse(res, safe=False)

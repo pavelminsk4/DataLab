@@ -1,5 +1,6 @@
 from quickchart import QuickChart
 from widgets.common_widget.volume_widget import *
+from widgets.common_widget.summary_widget import *
 from project.models import *
 
 def create_vol_widget_image(project_id):
@@ -111,7 +112,28 @@ def create_top_10_authors_wid_image(project_id):
   }
   qc.to_file('tmp/top_10_authors_by_volume_widget.png')
 
+def create_summary_widget_image(project_id):
+  from PIL import Image
+  from PIL import ImageDraw
+  from PIL import ImageFont
+  res = calculate_summary_widget(project_id)
+  # Open an Image
+  img = Image.open('tmp/mask.png')
+  # Call draw Method to add 2D graphics in an image
+  I1 = ImageDraw.Draw(img)
+  myFont = ImageFont.truetype('FreeMono.ttf', 20)
+  # Add Text to an image
+  I1.text((105, 63), str(res['languages']), font=myFont, fill=(255, 255, 255))
+  I1.text((105, 180), str(res['posts']), font=myFont, fill=(255, 255, 255))
+  I1.text((435, 63), str(res['countries']), font=myFont, fill=(255, 255, 255))
+  I1.text((760, 63), str(res['sources']), font=myFont, fill=(255, 255, 255))
+  I1.text((435, 180), str(res['reach']), font=myFont, fill=(255, 255, 255))
+  # Display edited image
+  #img.show()
+  # Save the edited image
+  img.save("tmp/summary_widget.png")
+
 def prepare_widget_images(project_id):
+  create_summary_widget_image(project_id)
   create_vol_widget_image(project_id)
   create_top_10_authors_wid_image(project_id)
-
