@@ -160,7 +160,7 @@ export default {
       try {
         this[name] = val
         if (val === 'Reject selection') {
-          this[action.UPDATE_ADDITIONAL_FILTERS]({[name]: ''})
+          this[action.UPDATE_ADDITIONAL_FILTERS]({[name]: null})
         } else {
           this[action.UPDATE_ADDITIONAL_FILTERS]({[name]: val})
         }

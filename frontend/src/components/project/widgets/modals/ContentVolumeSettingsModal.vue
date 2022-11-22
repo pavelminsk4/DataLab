@@ -25,9 +25,13 @@
         />
 
         <DimensionsScreen
-          v-else
+          v-if="panelName === 'Dimensions'"
           :active-dimensions="contentVolumeWidget"
           :project-id="projectId"
+          :widget-author="contentVolumeWidget.author_dim_pivot"
+          :widget-country="contentVolumeWidget.country_dim_pivot"
+          :widget-language="contentVolumeWidget.language_dim_pivot"
+          @save-dimensions-settings="saveDimensions"
         />
       </div>
     </div>
@@ -137,13 +141,23 @@ export default {
       try {
         this[action.GET_VOLUME_WIDGET]({
           projectId: this.projectId,
-          value: val.toLowerCase(),
+          value: {
+            smpl_freq: val.toLowerCase(),
+            author_dim_pivot: this.contentVolumeWidget.author_dim_pivot || null,
+            language_dim_pivot:
+              this.contentVolumeWidget.language_dim_pivot || null,
+            country_dim_pivot:
+              this.contentVolumeWidget.country_dim_pivot || null,
+            sentiment_dim_pivot:
+              this.contentVolumeWidget.sentiment_dim_pivot || null,
+            source_dim_pivot: this.contentVolumeWidget.source_dim_pivot || null,
+          },
         })
       } catch (e) {
         console.log(e)
       }
     },
-    saveChanges(title, description, agreggationPeriod) {
+    saveChanges(title, description, aggregationPeriod) {
       this[action.UPDATE_AVAILABLE_WIDGETS]({
         projectId: this.projectId,
         data: {
@@ -151,9 +165,9 @@ export default {
             id: this.contentVolumeWidget.id,
             title: title || this.contentVolumeWidget.title,
             description: description || this.contentVolumeWidget.description,
-            aggregation_period:
-              agreggationPeriod.toLowerCase() ||
-              this.contentVolumeWidget.aggregation_period,
+            smpl_freq:
+              aggregationPeriod.toLowerCase() ||
+              this.contentVolumeWidget.smpl_freq,
           },
         },
       })
@@ -162,6 +176,33 @@ export default {
     },
     updateSettingPanel(val) {
       this.panelName = val
+    },
+    saveDimensions(author, language, country) {
+      if (author || author === '') {
+        author = author || this.contentVolumeWidget.author_dim_pivot
+      }
+      if (language || language === '') {
+        language = language || this.contentVolumeWidget.language_dim_pivot
+      }
+      if (country || country === '') {
+        country = country || this.contentVolumeWidget.country_dim_pivot
+      }
+
+      this[action.UPDATE_AVAILABLE_WIDGETS]({
+        projectId: this.projectId,
+        data: {
+          volume_widget: {
+            id: this.contentVolumeWidget.id,
+            smpl_freq: this.contentVolumeWidget.aggregation_period,
+            author_dim_pivot: author,
+            language_dim_pivot: language,
+            country_dim_pivot: country,
+            sentiment_dim_pivot: this.contentVolumeWidget.sentiment_dim_pivot,
+            source_dim_pivot: this.contentVolumeWidget.source_dim_pivot,
+          },
+        },
+      })
+      this[action.GET_AVAILABLE_WIDGETS](this.projectId)
     },
   },
 }
@@ -185,6 +226,7 @@ export default {
   display: flex;
   gap: 52px;
 
+  height: 350px;
   min-width: 100%;
 
   .chart-wrapper {

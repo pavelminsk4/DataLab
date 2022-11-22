@@ -65,7 +65,19 @@ export default {
     if (this.isOpenWidget) {
       this[action.GET_VOLUME_WIDGET]({
         projectId: this.projectId,
-        value: this.widgets['volume_widget'].aggregation_period,
+        value: {
+          author_dim_pivot:
+            this.widgets['volume_widget'].author_dim_pivot || null,
+          language_dim_pivot:
+            this.widgets['volume_widget'].language_dim_pivot || null,
+          country_dim_pivot:
+            this.widgets['volume_widget'].country_dim_pivot || null,
+          sentiment_dim_pivot:
+            this.widgets['volume_widget'].sentiment_dim_pivot || null,
+          source_dim_pivot:
+            this.widgets['volume_widget'].source_dim_pivot || null,
+          smpl_freq: this.widgets['volume_widget'].aggregation_period,
+        },
       })
     }
   },
@@ -163,7 +175,19 @@ export default {
       if (this.isOpenWidget) {
         this[action.GET_VOLUME_WIDGET]({
           projectId: this.projectId,
-          value: 'day',
+          value: {
+            smpl_freq: this.widgets['volume_widget'].aggregation_period,
+            author_dim_pivot:
+              this.widgets['volume_widget'].author_dim_pivot || null,
+            language_dim_pivot:
+              this.widgets['volume_widget'].language_dim_pivot || null,
+            country_dim_pivot:
+              this.widgets['volume_widget'].country_dim_pivot || null,
+            sentiment_dim_pivot:
+              this.widgets['volume_widget'].sentiment_dim_pivot || null,
+            source_dim_pivot:
+              this.widgets['volume_widget'].source_dim_pivot || null,
+          },
         })
       }
     },
