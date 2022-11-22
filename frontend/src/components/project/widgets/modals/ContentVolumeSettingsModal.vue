@@ -28,6 +28,9 @@
           v-if="panelName === 'Dimensions'"
           :active-dimensions="contentVolumeWidget"
           :project-id="projectId"
+          :widget-author="contentVolumeWidget.author_dim_pivot"
+          :widget-country="contentVolumeWidget.country_dim_pivot"
+          :widget-language="contentVolumeWidget.language_dim_pivot"
           @save-dimensions-settings="saveDimensions"
         />
       </div>
@@ -175,10 +178,16 @@ export default {
       this.panelName = val
     },
     saveDimensions(author, language, country) {
-      if (author) {
+      if (author || author === '') {
         author = author || this.contentVolumeWidget.author_dim_pivot
       }
-      console.log(author, language, country)
+      if (language || language === '') {
+        language = language || this.contentVolumeWidget.language_dim_pivot
+      }
+      if (country || country === '') {
+        country = country || this.contentVolumeWidget.country_dim_pivot
+      }
+
       this[action.UPDATE_AVAILABLE_WIDGETS]({
         projectId: this.projectId,
         data: {
@@ -186,10 +195,8 @@ export default {
             id: this.contentVolumeWidget.id,
             smpl_freq: this.contentVolumeWidget.aggregation_period,
             author_dim_pivot: author,
-            language_dim_pivot:
-              language || this.contentVolumeWidget.language_dim_pivot,
-            country_dim_pivot:
-              country || this.contentVolumeWidget.country_dim_pivot,
+            language_dim_pivot: language,
+            country_dim_pivot: country,
             sentiment_dim_pivot: this.contentVolumeWidget.sentiment_dim_pivot,
             source_dim_pivot: this.contentVolumeWidget.source_dim_pivot,
           },

@@ -19,6 +19,8 @@
       class="select"
       :name="title"
       :list="selectList"
+      :is-search="true"
+      :current-value="selectedValue"
       @select-option="selectDimension"
       @click="toggleSelectList"
     />
@@ -46,6 +48,10 @@ export default {
     },
     selectList: {
       type: [Array, Object],
+      required: false,
+    },
+    selectedValue: {
+      type: [String, Number],
       required: false,
     },
   },

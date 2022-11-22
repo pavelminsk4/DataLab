@@ -66,7 +66,6 @@ export default {
       this[action.GET_VOLUME_WIDGET]({
         projectId: this.projectId,
         value: {
-          smpl_freq: this.widgets['volume_widget'].aggregation_period,
           author_dim_pivot:
             this.widgets['volume_widget'].author_dim_pivot || null,
           language_dim_pivot:
@@ -77,6 +76,7 @@ export default {
             this.widgets['volume_widget'].sentiment_dim_pivot || null,
           source_dim_pivot:
             this.widgets['volume_widget'].source_dim_pivot || null,
+          smpl_freq: this.widgets['volume_widget'].aggregation_period,
         },
       })
     }
@@ -176,7 +176,7 @@ export default {
         this[action.GET_VOLUME_WIDGET]({
           projectId: this.projectId,
           value: {
-            smpl_freq: this.widgets['volume_widget'].smpl_freq,
+            smpl_freq: this.widgets['volume_widget'].aggregation_period,
             author_dim_pivot:
               this.widgets['volume_widget'].author_dim_pivot || null,
             language_dim_pivot:

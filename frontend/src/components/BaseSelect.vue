@@ -79,14 +79,17 @@ export default {
     }
   },
   created() {
+    if (this.currentValue) {
+      this.search = this.currentValue
+      this.value = this.currentValue
+    }
+
     document.addEventListener('click', this.close)
   },
   computed: {
     selectList() {
       if (this.isSearch && !!this.currentValue) {
-        let selectionList = this.list
-        selectionList.push(this.currentValue)
-        return selectionList.filter((item) => {
+        return this.list.filter((item) => {
           return item?.toLowerCase().includes(this.search?.toLowerCase())
         })
       }
