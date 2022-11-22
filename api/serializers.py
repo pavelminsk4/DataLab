@@ -6,6 +6,7 @@ from drf_writable_nested.serializers import WritableNestedModelSerializer
 from countries_plus.models import Country
 from widgets.models import WidgetsList, WidgetsList2, ClippingFeedContentWidget, WidgetDescription, Dimensions, ProjectDimensions
 from reports.models import Templates
+from alerts.models import Alert
 
 class DepartmentSerializer(WritableNestedModelSerializer):
   class Meta:
@@ -106,4 +107,10 @@ class ProjectDimensionsListSerializer(WritableNestedModelSerializer):
 class TemplatesSerializer(WritableNestedModelSerializer):
   class Meta:
     model = Templates
+    fields = '__all__'
+
+class AlertsSerializer(WritableNestedModelSerializer):
+  user = UserSerializer(many=True)
+  class Meta:
+    model = Alert
     fields = '__all__'

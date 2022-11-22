@@ -3,6 +3,7 @@ from rest_framework.generics import ListAPIView, CreateAPIView, DestroyAPIView, 
 #from .serializers import SpeechSerializer, UserSerializer, WorkspaceSerializer, ProjectSerializer, WorkspaceCreateSerializer, CountrySerializer, WidgetsListSerializer, ClippingFeedContentWidgetSerializer, DimensionsSerializer, ProjectDimensionsSerializer, ProjectDimensionsListSerializer
 from .serializers import *
 from rest_framework.response import Response
+from rest_framework.decorators import action
 from rest_framework.views import APIView
 from .serializers import ProjectSerializer, Workspace
 from django.contrib.auth.models import User
@@ -17,6 +18,7 @@ from countries_plus.models import Country
 from dateutil import parser
 from django.db.models.functions import ExtractYear
 from widgets.models import ClippingFeedContentWidget, WidgetsList2, Dimensions, ProjectDimensions
+from alerts.models import Alert
 from rest_framework import status
 from rest_framework import viewsets
 from django.core.paginator import Paginator
@@ -48,6 +50,13 @@ class LoggedInUserView(APIView):
 class ProjectsViewSet(viewsets.ModelViewSet):
   queryset = Project.objects.all()
   serializer_class = ProjectSerializer
+
+  @action(detail=True)
+  def alerts(self, request, pk=None):
+    project = self.get_object()
+    alerts = project.alerts.all().values()
+    alerts_list = list(alerts)
+    return JsonResponse(alerts_list, safe=False)
 
 # === Workspace API ===========
 
@@ -247,6 +256,11 @@ def dimension_countries(requset, pk):
   project = get_object_or_404(Project, pk=pk)
   posts = posts_agregator(project)
   countries = posts.values('feedlink__country').distinct()
-  print(len(countries))
   countries_list = list(countries)
   return JsonResponse(countries_list, safe = False)
+
+# === Alerts ====
+
+class AlertsViewSet(viewsets.ModelViewSet):
+  serializer_class = AlertsSerializer
+  queryset = Alert.objects.all()

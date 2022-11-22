@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'widgets.apps.WidgetsConfig',
     'django.contrib.postgres',
     'reports.apps.ReportsConfig',
+    'alerts.apps.AlertsConfig',
 ]
 
 MIDDLEWARE = [

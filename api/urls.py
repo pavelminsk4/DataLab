@@ -51,5 +51,6 @@ urlpatterns = [
 router.register('dimensions', DimensionsViewSet)
 router.register('templates', TemplatesViewSet)
 router.register('projects', ProjectsViewSet)
+router.register('alerts', AlertsViewSet)
 
 urlpatterns += router.urls
