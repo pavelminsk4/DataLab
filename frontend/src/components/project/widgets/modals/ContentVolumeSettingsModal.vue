@@ -202,7 +202,20 @@ export default {
           },
         },
       })
+      this[action.GET_VOLUME_WIDGET]({
+        projectId: this.projectId,
+        value: {
+          id: this.contentVolumeWidget.id,
+          smpl_freq: this.contentVolumeWidget.aggregation_period,
+          author_dim_pivot: author,
+          language_dim_pivot: language,
+          country_dim_pivot: country,
+          sentiment_dim_pivot: this.contentVolumeWidget.sentiment_dim_pivot,
+          source_dim_pivot: this.contentVolumeWidget.source_dim_pivot,
+        },
+      })
       this[action.GET_AVAILABLE_WIDGETS](this.projectId)
+      this.$emit('close')
     },
   },
 }
