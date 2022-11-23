@@ -83,7 +83,6 @@ export default {
       action.GET_CLIPPING_FEED_CONTENT_WIDGET,
     ]),
     showResults(pageNumber, numberOfPosts) {
-      console.log(this.currentProject)
       try {
         this[action.POST_SEARCH]({
           keywords: this.currentKeywords || this.keywords?.keywords,
