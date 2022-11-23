@@ -47,7 +47,9 @@ export default {
     },
   },
   created() {
-    this[action.GET_CLIPPING_FEED_CONTENT_WIDGET](this.projectId)
+    if (!this.clippingData.length) {
+      this[action.GET_CLIPPING_FEED_CONTENT_WIDGET](this.projectId)
+    }
   },
   computed: {
     ...mapGetters({

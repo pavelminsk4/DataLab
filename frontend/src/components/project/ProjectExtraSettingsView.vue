@@ -158,7 +158,7 @@ export default {
 
     padding: 10px;
 
-    border-radius: 10px;
+    border-radius: 6px;
 
     background-color: var(--primary-text-color);
 

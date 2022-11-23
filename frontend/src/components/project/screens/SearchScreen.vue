@@ -55,13 +55,16 @@ export default {
 
     this.showResults()
 
-    this[action.GET_CLIPPING_FEED_CONTENT_WIDGET](this.currentProject.id)
+    if (!this.clippingContent.length) {
+      this[action.GET_CLIPPING_FEED_CONTENT_WIDGET](this.currentProject.id)
+    }
   },
   computed: {
     ...mapGetters({
       additionalFilters: get.ADDITIONAL_FILTERS,
       keywords: get.KEYWORDS,
       clippingContent: get.CLIPPING_FEED_CONTENT_WIDGET,
+      searchData: get.SEARCH_DATA,
     }),
     currentKeywords() {
       return this.currentProject?.keywords

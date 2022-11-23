@@ -115,7 +115,9 @@ export default {
     }
   },
   created() {
-    this[action.GET_AVAILABLE_WIDGETS](this.projectId)
+    if (!this.availableWidgets) {
+      this[action.GET_AVAILABLE_WIDGETS](this.projectId)
+    }
   },
   computed: {
     ...mapGetters({

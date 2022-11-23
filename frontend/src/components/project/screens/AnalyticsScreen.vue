@@ -126,6 +126,7 @@ export default {
     ...mapGetters({
       additionalFilters: get.ADDITIONAL_FILTERS,
       keywords: get.KEYWORDS,
+      searchData: get.SEARCH_DATA,
     }),
     currentKeywords() {
       return this.currentProject?.keywords

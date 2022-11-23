@@ -134,6 +134,7 @@ export default {
       languages: get.LANGUAGES,
       sources: get.SOURCES,
       authors: get.AUTHORS,
+      loading: get.LOADING,
     }),
   },
   methods: {

@@ -101,7 +101,9 @@ export default {
     }
   },
   created() {
-    this[action.GET_TOP_AUTHORS_WIDGET](this.projectId)
+    if (!this.topAuthors.length) {
+      this[action.GET_TOP_AUTHORS_WIDGET](this.projectId)
+    }
   },
   computed: {
     ...mapGetters({
