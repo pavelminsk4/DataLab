@@ -45,6 +45,11 @@ class TestsProjectsAPI(APITestCase):
       "report_widgets": True,
       "report_content": True,
       "report_language": 'English',
+      "author_filter": None,
+      "language_filter": None,
+      "country_filter": None,
+      "source_filter": None,
+      "sentiment_filter": None,
     }
     res2 = {
       "id": pr2.id,
@@ -73,5 +78,10 @@ class TestsProjectsAPI(APITestCase):
       "report_widgets": True,
       "report_content": True,
       "report_language": 'English',
+      "author_filter": None,
+      "language_filter": None,
+      "country_filter": None,
+      "source_filter": None,
+      "sentiment_filter": None,
     }
     self.assertEqual(json.loads(response.content), [res1, res2])
