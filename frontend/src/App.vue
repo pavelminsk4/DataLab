@@ -38,6 +38,7 @@ body {
 
   --input-border-color: #2d2d31;
   --modal-border-color: #404046;
+  --sidebar-border-color: #2c2c2c;
   --modal-line-color: #2e2f34;
 
   --primary-bg-color: #1d1e1f;

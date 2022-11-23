@@ -1,6 +1,6 @@
 <template>
-  <header class="header">
-    <LogoIcon class="logo" @click="goToDashboard" />
+  <header :class="['header', !isVisibleLogo && 'is-not-visible-logo']">
+    <LogoIcon v-if="isVisibleLogo" class="logo" @click="goToDashboard" />
 
     <div class="section-company">
       <div class="name">{{ companyName }}</div>
@@ -31,6 +31,12 @@ export default {
   components: {
     LogoIcon,
     ArrowDownIcon,
+  },
+  props: {
+    isVisibleLogo: {
+      type: Boolean,
+      default: true,
+    },
   },
   data() {
     return {
@@ -84,6 +90,10 @@ export default {
 
   height: 66px;
   margin-bottom: 28px;
+}
+
+.is-not-visible-logo {
+  justify-content: end;
 }
 
 .logo {
