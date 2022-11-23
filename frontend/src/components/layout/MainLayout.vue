@@ -1,8 +1,10 @@
 <template>
-  <div class="main-layout-wrapper">
+  <div
+    :class="['main-layout-wrapper', isProjectExtraSettings && 'extra-settings']"
+  >
     <BackgroundIcon class="background-icon" />
     <div class="content">
-      <MainHeader />
+      <MainHeader :is-visible-logo="isVisibleLogo" />
 
       <slot></slot>
     </div>
@@ -21,6 +23,16 @@ export default {
   components: {
     BackgroundIcon,
     MainHeader,
+  },
+  props: {
+    isProjectExtraSettings: {
+      type: Boolean,
+      default: false,
+    },
+    isVisibleLogo: {
+      type: Boolean,
+      default: true,
+    },
   },
   created() {
     if (!Object.keys(this.userInfo).length) {
@@ -44,6 +56,10 @@ export default {
   position: relative;
 
   padding: 0 69px 100px 79px;
+}
+
+.extra-settings {
+  padding: 0 69px 100px 124px;
 }
 
 .background-icon {

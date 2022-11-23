@@ -17,6 +17,7 @@
     "eslint-config-prettier": "8.3.0",
     "eslint-plugin-prettier": "^4.2.1",
     "js-cookie": "^3.0.1",
+    "lottie-web": "^5.9.6",
     "node-sass": "^7.0.1",
     "prettier-config-standard": "^5.0.0",
     "sass-loader": "^13.0.2",

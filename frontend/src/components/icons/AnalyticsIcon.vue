@@ -1,22 +1,50 @@
 <template>
-  <svg
-    width="16"
-    height="14"
-    viewBox="0 0 16 14"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      d="M0 8C0 7.44772 0.447715 7 1 7H3C3.55228 7 4 7.44772 4 8V13C4 13.5523 3.55228 14 3 14H1C0.447715 14 0 13.5523 0 13V8Z"
-      fill="white"
-    />
-    <path
-      d="M6 4C6 3.44772 6.44772 3 7 3H9C9.55228 3 10 3.44772 10 4V13C10 13.5523 9.55228 14 9 14H7C6.44772 14 6 13.5523 6 13V4Z"
-      fill="white"
-    />
-    <path
-      d="M12 1C12 0.447716 12.4477 0 13 0H15C15.5523 0 16 0.447715 16 1V13C16 13.5523 15.5523 14 15 14H13C12.4477 14 12 13.5523 12 13V1Z"
-      fill="white"
-    />
-  </svg>
+  <div
+    ref="lavContainer"
+    :style="{
+      overflow: 'hidden',
+    }"
+    @mouseenter="playAnimation"
+    @focus="playAnimation"
+    @blur="stopAnimation"
+    @mouseleave="stopAnimation"
+  />
 </template>
+
+<script>
+import lottie from 'lottie-web'
+
+export default {
+  props: {
+    // This will be the icon json file
+    json: {
+      type: Object,
+      required: true,
+    },
+    loop: {
+      type: Boolean,
+      default: true,
+    },
+  },
+
+  mounted() {
+    // When the component is mounted, lottie will do it's work creating a svg and renders the icon.
+    this.anim = lottie.loadAnimation({
+      container: this.$refs.lavContainer,
+      renderer: 'svg',
+      animationData: this.json,
+      autoplay: false, // Prevents playing on load
+      loop: this.loop, // Option whether you want to keep playing
+    })
+  },
+
+  methods: {
+    playAnimation() {
+      this.anim.play() // Starts animation
+    },
+    stopAnimation() {
+      this.anim.stop() // Stops animation
+    },
+  },
+}
+</script>

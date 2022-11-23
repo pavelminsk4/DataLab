@@ -1,22 +1,20 @@
 <template>
-  <MainLayout>
+  <MainLayout :is-project-extra-settings="true" :is-visible-logo="false">
     <div class="settings-nav-wrapper">
-      <div v-for="(item, index) in settings" :key="'setting' + index">
-        <div
-          :class="['nav-item', item.name === settingName && 'active-setting']"
-          @click="openSetting(item.name)"
-        >
-          <component :is="item.name + 'Icon'" />
+      <LogoIcon class="logo" @click="goToDashboard" />
 
-          {{ item.name }}
-        </div>
+      <div
+        v-for="(item, index) in settings"
+        :key="'setting' + index"
+        :class="['nav-item', item.name === settingName && 'active-setting']"
+        @click="openSetting(item.name)"
+      >
+        <AnalyticsIcon :json="item.value" />
+
+        <div class="tooltip">{{ item.name }}</div>
       </div>
     </div>
-    <component
-      :is="settingName + 'Screen'"
-      :current-project="currentProject"
-      class="screen-wrapper"
-    />
+    <component :is="settingName + 'Screen'" :current-project="currentProject" />
   </MainLayout>
 </template>
 
@@ -35,10 +33,15 @@ import SearchIcon from '@/components/icons/SearchIcon'
 import AlertsIcon from '@/components/icons/AlertsIcon'
 import ReportsIcon from '@/components/icons/ReportsUploadIcon'
 import SettingsIcon from '@/components/icons/SettingsIcon'
+import LogoIcon from '@/components/icons/LogoIcon'
+
+import Analytics from '@/components/icons/animation/Analytics.json'
+import Search from '@/components/icons/animation/Search.json'
 
 export default {
   name: 'ProjectReports',
   components: {
+    LogoIcon,
     AnalyticsScreen,
     SearchScreen,
     AlertsScreen,
@@ -56,9 +59,11 @@ export default {
       settings: [
         {
           name: 'Analytics',
+          value: Analytics,
         },
         {
           name: 'Search',
+          value: Search,
         },
       ],
     }
@@ -93,6 +98,11 @@ export default {
     openSetting(val) {
       this.settingName = val
     },
+    goToDashboard() {
+      this.$router.push({
+        name: 'Home',
+      })
+    },
   },
 }
 </script>
@@ -100,43 +110,82 @@ export default {
 <style lang="scss" scoped>
 .settings-nav-wrapper {
   position: absolute;
-  left: 0;
+  top: 16px;
+  left: 24px;
 
   display: flex;
+  flex-direction: column;
   align-items: center;
 
-  width: 100%;
-  height: 50px;
-  padding: 0 69px 0 79px;
-  margin: -28px 0 0;
+  width: 72px;
+  height: 700px;
 
-  background-color: var(--primary-button-color);
+  border: 1px solid var(--sidebar-border-color);
+  border-radius: 15px;
+  background-color: var(--secondary-bg-color);
+
+  .logo {
+    cursor: pointer;
+
+    width: 54px;
+    margin: 18px 10px 94px;
+  }
 
   .nav-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-
-    padding: 8px 22px 10px 13px;
+    position: relative;
 
     cursor: pointer;
+
+    width: 35px;
+    height: 35px;
+    padding: 5px;
+    margin-bottom: 30px;
+  }
+
+  .active-setting {
+    border-radius: 6px;
+    background-color: var(--primary-button-color);
+  }
+
+  .tooltip {
+    position: absolute;
+    top: 0;
+    left: 50px;
+    z-index: 1;
+
+    visibility: hidden;
+    text-align: center;
+
+    padding: 10px;
+
+    border-radius: 10px;
+
+    background-color: var(--primary-text-color);
 
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
-    line-height: 22px;
+    line-height: 110%;
 
-    color: #ffffff;
+    &::after {
+      content: '';
+
+      position: absolute;
+      top: 48%;
+      left: 0;
+      transform: translate(-50%, -50%) rotate(230deg);
+
+      margin-left: 2px;
+
+      border-width: 5px;
+      border-style: solid;
+      border-top-right-radius: 2px;
+      color: var(--primary-text-color);
+    }
   }
 
-  .active-setting {
-    border-radius: 8px;
-
-    background: rgba(34, 42, 54, 0.4);
+  .nav-item:hover .tooltip {
+    visibility: visible;
   }
-}
-
-.screen-wrapper {
-  margin-top: 80px;
 }
 </style>
