@@ -62,7 +62,7 @@ export default {
     },
   },
   created() {
-    if (this.isOpenWidget && !this.volume) {
+    if (this.isOpenWidget && !this.volume.length) {
       this[action.GET_VOLUME_WIDGET]({
         projectId: this.projectId,
         value: {
