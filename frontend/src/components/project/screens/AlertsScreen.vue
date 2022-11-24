@@ -18,12 +18,13 @@
             /></span>
           </label>
         </th>
+        <th>NAME</th>
         <th>CONDITIONS</th>
         <th>ASSIGNED USERS</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
+      <tr v-for="(item, index) in alerts" :key="'alert' + index">
         <td>
           <label class="container">
             <input type="checkbox" />
@@ -32,6 +33,15 @@
             </span>
           </label>
         </td>
+        <td>
+          {{ item.title }}
+        </td>
+        <td>
+          <span>{{ item.how_many_posts_to_send }}</span>
+          <span>{{ item.triggered_on_every_n_new_posts }}</span>
+        </td>
+        <td>user</td>
+        <td><TableSettingsButton :id="item.id" /></td>
       </tr>
     </tbody>
   </table>
@@ -42,13 +52,20 @@ import {action, get} from '@store/constants'
 
 import BaseButton from '@/components/buttons/BaseButton'
 import NavigationBar from '@/components/navigation/NavigationBar'
+import TableSettingsButton from '@/components/buttons/TableSettingsButton'
 
 import PlusIcon from '@/components/icons/PlusIcon'
 import CheckRadioIcon from '@/components/icons/CheckRadioIcon'
 
 export default {
   name: 'AlertsScreen',
-  components: {PlusIcon, BaseButton, NavigationBar, CheckRadioIcon},
+  components: {
+    PlusIcon,
+    BaseButton,
+    NavigationBar,
+    CheckRadioIcon,
+    TableSettingsButton,
+  },
   props: {
     currentProject: {
       type: [Array, Object],
@@ -105,7 +122,8 @@ export default {
 
   tbody {
     tr {
-      background: #242529;
+      background: var(--secondary-bg-color);
+      transition: background-color 2s;
 
       td {
         padding: 20px 0;
@@ -117,6 +135,16 @@ export default {
         font-size: 14px;
         line-height: 20px;
         color: var(--primary-text-color);
+      }
+
+      &:hover {
+        background: rgb(5, 95, 252);
+        background: linear-gradient(
+          90deg,
+          rgba(5, 95, 252, 0.85) 0%,
+          rgba(44, 44, 44, 1) 33%
+        );
+        transition: background-size 1s, background-color 1s;
       }
     }
 
@@ -236,20 +264,8 @@ export default {
   align-items: center;
 }
 
-.keyword {
-  padding: 2px 12px;
-
-  border-radius: 8px;
-  background: rgba(51, 204, 112, 0.2);
-
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 20px;
-
-  color: #30f47e;
-}
-
-.keyword:first-child {
-  margin-right: 6px;
+.button {
+  width: 136px;
+  gap: 8px;
 }
 </style>

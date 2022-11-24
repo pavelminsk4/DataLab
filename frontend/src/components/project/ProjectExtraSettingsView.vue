@@ -32,8 +32,9 @@ import MainLayout from '@/components/layout/MainLayout'
 import AnalyticsIcon from '@/components/icons/AnalyticsIcon'
 import LogoIcon from '@/components/icons/LogoIcon'
 
-import Analytics from '@/components/icons/animation/Analytics.json'
+import Alerts from '@/components/icons/animation/Alerts.json'
 import Search from '@/components/icons/animation/Search.json'
+import Analytics from '@/components/icons/animation/Analytics.json'
 
 export default {
   name: 'ProjectReports',
@@ -56,7 +57,7 @@ export default {
         },
         {
           name: 'Alerts',
-          value: Search,
+          value: Alerts,
         },
       ],
     }
