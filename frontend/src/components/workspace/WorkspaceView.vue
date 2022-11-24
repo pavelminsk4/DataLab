@@ -61,7 +61,7 @@ export default {
     },
     goToProjectSettings(id) {
       this.$router.push({
-        name: 'ProjectReports',
+        name: 'Analytics',
         params: {
           workspaceId: this.workspaceId,
           projectId: id,

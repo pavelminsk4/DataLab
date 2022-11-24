@@ -1,5 +1,9 @@
 <template>
-  <MainLayout :is-project-extra-settings="true" :is-visible-logo="false">
+  <MainLayout
+    v-if="currentProject"
+    :is-project-extra-settings="true"
+    :is-visible-logo="false"
+  >
     <div class="settings-nav-wrapper">
       <LogoIcon class="logo" @click="goToDashboard" />
 
@@ -14,7 +18,8 @@
         <div class="tooltip">{{ item.name }}</div>
       </div>
     </div>
-    <component :is="settingName + 'Screen'" :current-project="currentProject" />
+
+    <router-view :current-project="currentProject"></router-view>
   </MainLayout>
 </template>
 
@@ -23,16 +28,8 @@ import {mapActions, mapState} from 'vuex'
 import {action} from '@store/constants'
 
 import MainLayout from '@/components/layout/MainLayout'
-import ReportsScreen from '@/components/project/screens/ReportsScreen'
-import AlertsScreen from '@/components/project/screens/AlertsScreen'
-import SearchScreen from '@/components/project/screens/SearchScreen'
-import AnalyticsScreen from '@/components/project/screens/AnalyticsScreen'
 
 import AnalyticsIcon from '@/components/icons/AnalyticsIcon'
-import SearchIcon from '@/components/icons/SearchIcon'
-import AlertsIcon from '@/components/icons/AlertsIcon'
-import ReportsIcon from '@/components/icons/ReportsUploadIcon'
-import SettingsIcon from '@/components/icons/SettingsIcon'
 import LogoIcon from '@/components/icons/LogoIcon'
 
 import Analytics from '@/components/icons/animation/Analytics.json'
@@ -42,20 +39,12 @@ export default {
   name: 'ProjectReports',
   components: {
     LogoIcon,
-    AnalyticsScreen,
-    SearchScreen,
-    AlertsScreen,
-    ReportsScreen,
     MainLayout,
     AnalyticsIcon,
-    SearchIcon,
-    AlertsIcon,
-    ReportsIcon,
-    SettingsIcon,
   },
   data() {
     return {
-      settingName: 'Analytics',
+      settingName: this.$route.name,
       settings: [
         {
           name: 'Analytics',
@@ -97,6 +86,9 @@ export default {
     ...mapActions([action.GET_WORKSPACES]),
     openSetting(val) {
       this.settingName = val
+      this.$router.push({
+        name: this.settingName,
+      })
     },
     goToDashboard() {
       this.$router.push({
