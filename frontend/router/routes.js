@@ -14,6 +14,7 @@ import ProjectExtraSettingsView from '@/components/project/ProjectExtraSettingsV
 import SearchScreen from '@/components/project/screens/SearchScreen'
 import AlertsScreen from '@/components/project/screens/AlertsScreen'
 import AnalyticsScreen from '@/components/project/screens/AnalyticsScreen'
+import AlertSettingsScreen from '@/components/project/screens/AlertSettingsScreen'
 
 export const routes = [
   {
@@ -112,6 +113,16 @@ export const routes = [
         name: 'Alerts',
         path: 'alerts',
         component: AlertsScreen,
+      },
+      {
+        name: 'NewAlert',
+        path: 'create-new-alert',
+        component: AlertSettingsScreen,
+      },
+      {
+        name: 'UpdateAlert',
+        path: 'update/:alertId/alert',
+        component: AlertSettingsScreen,
       },
     ],
   },

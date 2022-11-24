@@ -138,6 +138,16 @@ export default {
     )
   },
 
+  async createAlert(data) {
+    const config = {
+      headers: {
+        'content-type': 'application/json',
+        'X-CSRFToken': CSRF_TOKEN,
+      },
+    }
+    return fetch('post', '/api/alerts/', data, config)
+  },
+
   async postSearch(request) {
     const config = {
       headers: {

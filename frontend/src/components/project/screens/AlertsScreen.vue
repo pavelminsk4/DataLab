@@ -4,7 +4,9 @@
     :title="currentProject.title"
     hint="Set up alerts for your project with highly customized filters"
   >
-    <BaseButton class="button"><PlusIcon /> Add Alert</BaseButton>
+    <BaseButton @click="goToCreateAlert" class="button">
+      <PlusIcon /> Add Alert
+    </BaseButton>
   </NavigationBar>
 
   <table class="table">
@@ -12,7 +14,7 @@
       <tr>
         <th>
           <label class="container container-header">
-            <input v-model="selectedProjects" type="checkbox" />
+            <input type="checkbox" />
             <span class="checkmark"
               ><CheckRadioIcon class="checkmark-icon"
             /></span>
@@ -24,7 +26,11 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="(item, index) in alerts" :key="'alert' + index">
+      <tr
+        v-for="(item, index) in alerts"
+        :key="'alert' + index"
+        @click="goToUpdateAlert(item.id)"
+      >
         <td>
           <label class="container">
             <input type="checkbox" />
@@ -82,6 +88,19 @@ export default {
   },
   methods: {
     ...mapActions([action.GET_ALERTS]),
+    goToCreateAlert() {
+      this.$router.push({
+        name: 'NewAlert',
+      })
+    },
+    goToUpdateAlert(id) {
+      this.$router.push({
+        name: 'UpdateAlert',
+        params: {
+          alertId: id,
+        },
+      })
+    },
   },
 }
 </script>
