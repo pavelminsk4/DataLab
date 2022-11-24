@@ -110,7 +110,6 @@ class TemplatesSerializer(WritableNestedModelSerializer):
     fields = '__all__'
 
 class AlertsSerializer(WritableNestedModelSerializer):
-  user = UserSerializer(many=True)
   class Meta:
     model = Alert
     fields = '__all__'
