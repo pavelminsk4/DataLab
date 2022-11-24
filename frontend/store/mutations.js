@@ -113,6 +113,10 @@ export default {
     state.dimensionCountries = [...data]
   },
 
+  [mutator.SET_ALERTS](state, data) {
+    state.alerts = [...data]
+  },
+
   [mutator.RESET_STATE](state) {
     state.currentStep = 'Step1'
     state.keywords = []

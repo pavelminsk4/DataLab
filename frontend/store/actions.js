@@ -232,6 +232,18 @@ export default {
     }
   },
 
+  async [action.GET_ALERTS]({commit}, projectId) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const alerts = await api.getAlerts(projectId)
+      commit(mutator.SET_ALERTS, alerts)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
   async [action.CREATE_WORKSPACE]({commit}, workspace) {
     commit(mutator.SET_LOADING, true)
     try {

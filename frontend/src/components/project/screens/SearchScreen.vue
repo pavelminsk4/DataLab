@@ -55,13 +55,16 @@ export default {
 
     this.showResults()
 
-    this[action.GET_CLIPPING_FEED_CONTENT_WIDGET](this.currentProject.id)
+    if (!this.clippingContent.length) {
+      this[action.GET_CLIPPING_FEED_CONTENT_WIDGET](this.currentProject.id)
+    }
   },
   computed: {
     ...mapGetters({
       additionalFilters: get.ADDITIONAL_FILTERS,
       keywords: get.KEYWORDS,
       clippingContent: get.CLIPPING_FEED_CONTENT_WIDGET,
+      searchData: get.SEARCH_DATA,
     }),
     currentKeywords() {
       return this.currentProject?.keywords
@@ -94,15 +97,15 @@ export default {
           country:
             this.additionalFilters?.country ||
             this.currentProject?.country_filter ||
-            null,
+            [],
           language:
             this.additionalFilters?.language ||
             this.currentProject?.language_filter ||
-            null,
+            [],
           sentiment:
             this.additionalFilters?.sentiment ||
             this.currentProject?.sentiment_filter ||
-            null,
+            [],
           date_range: [
             this.additionalFilters?.date_range[0] ||
               this.currentProject?.start_search_date,
@@ -113,11 +116,11 @@ export default {
           source:
             this.additionalFilters?.source ||
             this.currentProject.source_filter ||
-            null,
+            [],
           author:
             this.additionalFilters?.author ||
             this.currentProject?.author_filter ||
-            null,
+            [],
           posts_per_page: numberOfPosts || 20,
           page_number: pageNumber || 1,
         })

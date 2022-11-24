@@ -45,12 +45,15 @@ export default {
     },
   },
   created() {
-    if (this.isOpenWidget) {
+    if (this.isOpenWidget && !this.summary.length) {
       this[action.GET_SUMMARY_WIDGET](this.projectId)
     }
   },
   computed: {
-    ...mapGetters({availableWidgets: get.AVAILABLE_WIDGETS}),
+    ...mapGetters({
+      availableWidgets: get.AVAILABLE_WIDGETS,
+      summary: get.SUMMARY_WIDGET,
+    }),
     widgetMetrics() {
       return [
         {name: 'New posts', value: this.summaryData?.posts},

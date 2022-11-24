@@ -62,7 +62,7 @@ export default {
     },
   },
   created() {
-    if (this.isOpenWidget) {
+    if (this.isOpenWidget && !this.volume) {
       this[action.GET_VOLUME_WIDGET]({
         projectId: this.projectId,
         value: {
@@ -123,7 +123,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({widgets: get.AVAILABLE_WIDGETS}),
+    ...mapGetters({widgets: get.AVAILABLE_WIDGETS, volume: get.VOLUME_WIDGET}),
     volumeData() {
       return Object.values(this.volume)
     },

@@ -99,6 +99,10 @@ export default {
     return fetch('get', `/api/projects/${projectId}/dimension_countries`)
   },
 
+  async getAlerts(projectId) {
+    return fetch('get', `/api/projects/${projectId}/alerts/`)
+  },
+
   async createWorkspace(workspace) {
     const config = {
       headers: {

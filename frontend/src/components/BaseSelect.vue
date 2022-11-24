@@ -20,7 +20,7 @@
     </div>
     <ArrowDownIcon class="arrow" :class="{expanded: visible}" />
     <div :class="{hidden: !visible, visible}">
-      <ul class="select-list">
+      <ul v-if="visible" class="select-list">
         <li
           v-if="isRejectSelection"
           @click="select('Reject selection')"

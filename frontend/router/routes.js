@@ -11,6 +11,10 @@ import CreateWorkspaceScreen from '@/components/workspace/screens/CreateWorkspac
 
 import ProjectExtraSettingsView from '@/components/project/ProjectExtraSettingsView'
 
+import SearchScreen from '@/components/project/screens/SearchScreen'
+import AlertsScreen from '@/components/project/screens/AlertsScreen'
+import AnalyticsScreen from '@/components/project/screens/AnalyticsScreen'
+
 export const routes = [
   {
     path: '/',
@@ -91,7 +95,24 @@ export const routes = [
 
   {
     name: 'ProjectReports',
-    path: '/workspace/:workspaceId/project/:projectId',
+    path: '/workspace/:workspaceId/project/:projectId/',
     component: ProjectExtraSettingsView,
+    children: [
+      {
+        name: 'Analytics',
+        path: 'analytics',
+        component: AnalyticsScreen,
+      },
+      {
+        name: 'Search',
+        path: 'search-settings',
+        component: SearchScreen,
+      },
+      {
+        name: 'Alerts',
+        path: 'alerts',
+        component: AlertsScreen,
+      },
+    ],
   },
 ]

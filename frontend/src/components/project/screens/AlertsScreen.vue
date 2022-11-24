@@ -1,64 +1,88 @@
 <template>
+  <NavigationBar
+    v-if="currentProject"
+    :title="currentProject.title"
+    hint="Set up alerts for your project with highly customized filters"
+  >
+    <BaseButton class="button"><PlusIcon /> Add Alert</BaseButton>
+  </NavigationBar>
+
   <table class="table">
     <thead>
       <tr>
         <th>
           <label class="container container-header">
             <input v-model="selectedProjects" type="checkbox" />
-            <span class="checkmark"></span>
+            <span class="checkmark"
+              ><CheckRadioIcon class="checkmark-icon"
+            /></span>
           </label>
         </th>
         <th>NAME</th>
-        <th>FILTERS</th>
+        <th>CONDITIONS</th>
         <th>ASSIGNED USERS</th>
       </tr>
     </thead>
     <tbody>
-      <tr
-        v-for="(item, index) in values"
-        :key="index"
-        @click="goToProject(item.id)"
-      >
+      <tr v-for="(item, index) in alerts" :key="'alert' + index">
         <td>
           <label class="container">
-            <input
-              v-model="selectedProjects"
-              :value="item.id"
-              type="checkbox"
-              :id="item.id"
-            />
-            <span class="checkmark"> </span>
+            <input type="checkbox" />
+            <span class="checkmark">
+              <CheckRadioIcon class="checkmark-icon" />
+            </span>
           </label>
         </td>
         <td>
-          <div class="type">
-            <component class="type-icon" :is="item.source + 'RadioIcon'" />
-            {{ item.source }}
-          </div>
+          {{ item.title }}
         </td>
-        <td>{{ item.title }}</td>
         <td>
-          <span :class="item.keywords && 'keyword'">{{
-            item.keywords[0]
-          }}</span>
-          <span :class="item.keywords[1] !== '' && 'keyword'">{{
-            item.keywords[1]
-          }}</span>
+          <span>{{ item.how_many_posts_to_send }}</span>
+          <span>{{ item.triggered_on_every_n_new_posts }}</span>
         </td>
-        <td>{{ item.creator }}</td>
-        <td>USERS</td>
-        <td>{{ projectCreationDate(item.created_at) }}</td>
-        <td></td>
+        <td>user</td>
+        <td><TableSettingsButton :id="item.id" /></td>
       </tr>
     </tbody>
   </table>
 </template>
 <script>
+import {mapActions, mapGetters} from 'vuex'
+import {action, get} from '@store/constants'
+
+import BaseButton from '@/components/buttons/BaseButton'
+import NavigationBar from '@/components/navigation/NavigationBar'
+import TableSettingsButton from '@/components/buttons/TableSettingsButton'
+
 import PlusIcon from '@/components/icons/PlusIcon'
+import CheckRadioIcon from '@/components/icons/CheckRadioIcon'
 
 export default {
   name: 'AlertsScreen',
-  components: {PlusIcon},
+  components: {
+    PlusIcon,
+    BaseButton,
+    NavigationBar,
+    CheckRadioIcon,
+    TableSettingsButton,
+  },
+  props: {
+    currentProject: {
+      type: [Array, Object],
+      required: true,
+    },
+  },
+  created() {
+    this[action.GET_ALERTS](this.currentProject.id)
+  },
+  computed: {
+    ...mapGetters({
+      alerts: get.ALERTS,
+    }),
+  },
+  methods: {
+    ...mapActions([action.GET_ALERTS]),
+  },
 }
 </script>
 
@@ -69,6 +93,7 @@ export default {
 
 .table {
   width: 100%;
+  margin-top: 40px;
 
   border-collapse: separate;
   border-spacing: 0;
@@ -97,7 +122,8 @@ export default {
 
   tbody {
     tr {
-      background: #242529;
+      background: var(--secondary-bg-color);
+      transition: background-color 2s;
 
       td {
         padding: 20px 0;
@@ -109,6 +135,16 @@ export default {
         font-size: 14px;
         line-height: 20px;
         color: var(--primary-text-color);
+      }
+
+      &:hover {
+        background: rgb(5, 95, 252);
+        background: linear-gradient(
+          90deg,
+          rgba(5, 95, 252, 0.85) 0%,
+          rgba(44, 44, 44, 1) 33%
+        );
+        transition: background-size 1s, background-color 1s;
       }
     }
 
@@ -228,20 +264,8 @@ export default {
   align-items: center;
 }
 
-.keyword {
-  padding: 2px 12px;
-
-  border-radius: 8px;
-  background: rgba(51, 204, 112, 0.2);
-
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 20px;
-
-  color: #30f47e;
-}
-
-.keyword:first-child {
-  margin-right: 6px;
+.button {
+  width: 136px;
+  gap: 8px;
 }
 </style>
