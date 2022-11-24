@@ -54,6 +54,7 @@ const state = {
   },
   isShowCalendarContents: false,
   availableWidgets: null,
+  alerts: [],
 }
 
 export default state

@@ -1,64 +1,71 @@
 <template>
+  <NavigationBar
+    v-if="currentProject"
+    :title="currentProject.title"
+    hint="Set up alerts for your project with highly customized filters"
+  >
+    <BaseButton class="button"><PlusIcon /> Add Alert</BaseButton>
+  </NavigationBar>
+
   <table class="table">
     <thead>
       <tr>
         <th>
           <label class="container container-header">
             <input v-model="selectedProjects" type="checkbox" />
-            <span class="checkmark"></span>
+            <span class="checkmark"
+              ><CheckRadioIcon class="checkmark-icon"
+            /></span>
           </label>
         </th>
-        <th>NAME</th>
-        <th>FILTERS</th>
+        <th>CONDITIONS</th>
         <th>ASSIGNED USERS</th>
       </tr>
     </thead>
     <tbody>
-      <tr
-        v-for="(item, index) in values"
-        :key="index"
-        @click="goToProject(item.id)"
-      >
+      <tr>
         <td>
           <label class="container">
-            <input
-              v-model="selectedProjects"
-              :value="item.id"
-              type="checkbox"
-              :id="item.id"
-            />
-            <span class="checkmark"> </span>
+            <input type="checkbox" />
+            <span class="checkmark">
+              <CheckRadioIcon class="checkmark-icon" />
+            </span>
           </label>
         </td>
-        <td>
-          <div class="type">
-            <component class="type-icon" :is="item.source + 'RadioIcon'" />
-            {{ item.source }}
-          </div>
-        </td>
-        <td>{{ item.title }}</td>
-        <td>
-          <span :class="item.keywords && 'keyword'">{{
-            item.keywords[0]
-          }}</span>
-          <span :class="item.keywords[1] !== '' && 'keyword'">{{
-            item.keywords[1]
-          }}</span>
-        </td>
-        <td>{{ item.creator }}</td>
-        <td>USERS</td>
-        <td>{{ projectCreationDate(item.created_at) }}</td>
-        <td></td>
       </tr>
     </tbody>
   </table>
 </template>
 <script>
+import {mapActions, mapGetters} from 'vuex'
+import {action, get} from '@store/constants'
+
+import BaseButton from '@/components/buttons/BaseButton'
+import NavigationBar from '@/components/navigation/NavigationBar'
+
 import PlusIcon from '@/components/icons/PlusIcon'
+import CheckRadioIcon from '@/components/icons/CheckRadioIcon'
 
 export default {
   name: 'AlertsScreen',
-  components: {PlusIcon},
+  components: {PlusIcon, BaseButton, NavigationBar, CheckRadioIcon},
+  props: {
+    currentProject: {
+      type: [Array, Object],
+      required: true,
+    },
+  },
+  created() {
+    this[action.GET_ALERTS](this.currentProject.id)
+  },
+  computed: {
+    ...mapGetters({
+      alerts: get.ALERTS,
+    }),
+  },
+  methods: {
+    ...mapActions([action.GET_ALERTS]),
+  },
 }
 </script>
 
@@ -69,6 +76,7 @@ export default {
 
 .table {
   width: 100%;
+  margin-top: 40px;
 
   border-collapse: separate;
   border-spacing: 0;

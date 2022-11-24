@@ -81,6 +81,10 @@ export default {
     return state.dimensions
   },
 
+  [get.ALERTS](state) {
+    return state.alerts
+  },
+
   [get.SELECTED_DIMENSIONS](state) {
     return state.selectedDimensions
   },

@@ -54,6 +54,10 @@ export default {
           name: 'Search',
           value: Search,
         },
+        {
+          name: 'Alerts',
+          value: Search,
+        },
       ],
     }
   },
