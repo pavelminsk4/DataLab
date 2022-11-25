@@ -3,7 +3,7 @@
     v-if="topAuthors"
     :title="widgets['top_10_authors_by_volume_widget'].title"
     @delete-widget="$emit('delete-widget')"
-    @open-modal="$emit('open-summary-modal')"
+    @open-modal="$emit('open-settings-modal')"
   >
     <div class="top-authors-wrapper">
       <div class="legends">

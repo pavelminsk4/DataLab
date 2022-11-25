@@ -2,7 +2,7 @@
   <WidgetsLayout
     :title="availableWidgets['summary_widget'].title"
     @delete-widget="$emit('delete-widget')"
-    @open-modal="$emit('open-summary-modal')"
+    @open-modal="$emit('open-settings-modal')"
   >
     <div class="summary-widget__container">
       <div
