@@ -54,7 +54,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({widgets: get.AVAILABLE_WIDGETS}),
+    ...mapGetters({widgets: get.AVAILABLE_WIDGETS, loading: get.LOADING}),
     topAuthors() {
       return this.widgets['top_10_authors_by_volume_widget']
     },
@@ -95,7 +95,7 @@ export default {
       this[action.GET_AVAILABLE_WIDGETS](this.projectId)
       this.$emit('close')
     },
-    saveDimensions(author, language, country) {
+    async saveDimensions(author, language, country) {
       if (author || author === '') {
         author = author || this.topAuthors.author_dim_pivot
       }
@@ -106,7 +106,7 @@ export default {
         country = country || this.topAuthors.country_dim_pivot
       }
 
-      this[action.UPDATE_AVAILABLE_WIDGETS]({
+      await this[action.UPDATE_AVAILABLE_WIDGETS]({
         projectId: this.projectId,
         data: {
           top_10_authors_by_volume_widget: {
@@ -120,8 +120,10 @@ export default {
           },
         },
       })
-      this[action.GET_AVAILABLE_WIDGETS](this.projectId)
-      this[action.GET_TOP_AUTHORS_WIDGET](this.projectId)
+
+      this.loading = true
+      await this[action.GET_AVAILABLE_WIDGETS](this.projectId)
+      await this[action.GET_TOP_AUTHORS_WIDGET](this.projectId)
       this.$emit('close')
     },
     updateSettingPanel(val) {
