@@ -1,22 +1,23 @@
 <template>
   <BaseModal modal-frame-style="width: 50vw;">
-    <div class="main-title">{{ summaryWidget.title }}</div>
+    <div class="main-title">{{ clippingContent.title }}</div>
 
     <div class="general-wrapper-settings">
       <SettingsButtons @update-setting-panel="updateSettingPanel" />
 
       <BasicSettingsScreen
         v-if="panelName === 'General'"
+        :aggregation-periods="aggregationPeriods"
         @save-changes="saveChanges"
       />
 
       <DimensionsScreen
         v-if="panelName === 'Dimensions'"
-        :active-dimensions="summaryWidget"
+        :active-dimensions="clippingContent"
         :project-id="projectId"
-        :widget-author="summaryWidget.author_dim_pivot"
-        :widget-country="summaryWidget.country_dim_pivot"
-        :widget-language="summaryWidget.language_dim_pivot"
+        :widget-author="clippingContent.author_dim_pivot"
+        :widget-country="clippingContent.country_dim_pivot"
+        :widget-language="clippingContent.language_dim_pivot"
         @save-dimensions-settings="saveDimensions"
       />
     </div>
@@ -24,16 +25,15 @@
 </template>
 
 <script>
+import BaseModal from '@/components/modals/BaseModal'
 import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
-
-import BaseModal from '@/components/modals/BaseModal'
 import SettingsButtons from '@/components/project/widgets/modals/SettingsButtons'
 import BasicSettingsScreen from '@/components/project/widgets/modals/screens/BasicSettingsScreen'
 import DimensionsScreen from '@/components/project/widgets/modals/screens/DimensionsScreen'
 
 export default {
-  name: 'SummarySettingsModal',
+  name: 'ClippingContentModal',
   components: {
     DimensionsScreen,
     BasicSettingsScreen,
@@ -48,81 +48,84 @@ export default {
   },
   data() {
     return {
-      aggregationPeriod: '',
       title: '',
       description: '',
       panelName: 'General',
     }
   },
   computed: {
-    ...mapGetters({widgets: get.AVAILABLE_WIDGETS}),
-    summaryWidget() {
-      return this.widgets['summary_widget']
+    ...mapGetters({widgets: get.AVAILABLE_WIDGETS, loading: get.LOADING}),
+    clippingContent() {
+      return this.widgets['clipping_widget']
+    },
+    aggregationPeriods() {
+      return ['Hour', 'Day', 'Month', 'Year']
     },
   },
   methods: {
     ...mapActions([
-      action.GET_SUMMARY_WIDGET,
       action.UPDATE_AVAILABLE_WIDGETS,
       action.GET_AVAILABLE_WIDGETS,
+      action.GET_CLIPPING_WIDGET,
     ]),
-    async saveOptions() {
-      await this[action.UPDATE_AVAILABLE_WIDGETS]({
-        projectId: this.projectId,
-        data: {
-          summary_widget: {
-            id: this.summaryWidget.id,
-            title: this.title || this.summaryWidget.title,
-            description: this.description || this.summaryWidget.description,
-          },
-        },
-      })
-      await this[action.GET_AVAILABLE_WIDGETS](this.projectId)
-      await this.$emit('close')
-    },
     saveChanges(title, description, aggregationPeriod) {
       this[action.UPDATE_AVAILABLE_WIDGETS]({
         projectId: this.projectId,
         data: {
-          summary_widget: {
-            id: this.summaryWidget.id,
-            title: title || this.summaryWidget.title,
-            description: description || this.summaryWidget.description,
+          clipping_widget: {
+            id: this.clippingContent.id,
+            title: title || this.clippingContent.title,
+            description: description || this.clippingContent.description,
             smpl_freq:
-              aggregationPeriod.toLowerCase() || this.summaryWidget.smpl_freq,
+              aggregationPeriod.toLowerCase() || this.clippingContent.smpl_freq,
           },
         },
       })
       this[action.GET_AVAILABLE_WIDGETS](this.projectId)
       this.$emit('close')
     },
-    saveDimensions(author, language, country) {
-      if (author || author === '') {
-        author = author || this.summaryWidget.author_dim_pivot
-      }
-      if (language || language === '') {
-        language = language || this.summaryWidget.language_dim_pivot
-      }
-      if (country || country === '') {
-        country = country || this.summaryWidget.country_dim_pivot
-      }
-
-      this[action.UPDATE_AVAILABLE_WIDGETS]({
+    async saveOptions() {
+      await this[action.UPDATE_AVAILABLE_WIDGETS]({
         projectId: this.projectId,
         data: {
-          summary_widget: {
-            id: this.summaryWidget.id,
-            smpl_freq: this.summaryWidget.aggregation_period,
-            author_dim_pivot: author,
-            language_dim_pivot: language,
-            country_dim_pivot: country,
-            sentiment_dim_pivot: this.summaryWidget.sentiment_dim_pivot,
-            source_dim_pivot: this.summaryWidget.source_dim_pivot,
+          clipping_widget: {
+            id: this.clippingContent.id,
+            title: this.title || this.clippingContent.title,
+            description: this.description || this.clippingContent.description,
           },
         },
       })
-      this[action.GET_AVAILABLE_WIDGETS](this.projectId)
-      this[action.GET_SUMMARY_WIDGET](this.projectId)
+      await this[action.GET_AVAILABLE_WIDGETS](this.projectId)
+      await this.$emit('close')
+    },
+    async saveDimensions(author, language, country) {
+      if (author || author === '') {
+        author = author || this.clippingContent.author_dim_pivot
+      }
+      if (language || language === '') {
+        language = language || this.clippingContent.language_dim_pivot
+      }
+      if (country || country === '') {
+        country = country || this.clippingContent.country_dim_pivot
+      }
+
+      await this[action.UPDATE_AVAILABLE_WIDGETS]({
+        projectId: this.projectId,
+        data: {
+          clipping_widget: {
+            id: this.clippingContent.id,
+            smpl_freq: this.clippingContent.aggregation_period,
+            author_dim_pivot: author,
+            language_dim_pivot: language,
+            country_dim_pivot: country,
+            sentiment_dim_pivot: this.clippingContent.sentiment_dim_pivot,
+            source_dim_pivot: this.clippingContent.source_dim_pivot,
+          },
+        },
+      })
+      await this[action.GET_AVAILABLE_WIDGETS](this.projectId)
+      this.loading = true
+      await this[action.GET_CLIPPING_WIDGET](this.projectId)
       this.$emit('close')
     },
     updateSettingPanel(val) {

@@ -160,6 +160,18 @@ export default {
     }
   },
 
+  async [action.GET_CLIPPING_WIDGET]({commit}, projectId) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const clipping = await api.getClippingWidget(projectId)
+      commit(mutator.SET_CLIPPING_WIDGET, clipping)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
   async [action.GET_DIMENSIONS]({commit}) {
     commit(mutator.SET_LOADING, true)
     try {

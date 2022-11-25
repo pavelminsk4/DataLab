@@ -23,6 +23,7 @@ const state = {
   summary: {},
   volume: {},
   clippingFeedContent: [],
+  clipping: [],
   topAuthors: [],
   dimensions: [],
   templates: [],

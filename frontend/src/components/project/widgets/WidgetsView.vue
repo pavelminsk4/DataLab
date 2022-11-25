@@ -24,6 +24,12 @@
     @close="openModal('isOpenClippingFeedContentModal')"
   />
 
+  <ClippingContentModal
+    v-if="isOpenClippingContentModal"
+    :project-id="projectId"
+    @close="openModal('isOpenClippingContentModal')"
+  />
+
   <grid-layout
     v-if="availableWidgets"
     v-model:layout="layout"
@@ -80,6 +86,7 @@ import {action, get} from '@store/constants'
 import VueGridLayout from 'vue3-grid-layout'
 import SearchResults from '@/components/SearchResults'
 import SummaryWidget from '@/components/project/widgets/SummaryWidget'
+import ClippingContentWidget from '@/components/project/widgets/ClippingContentWidget'
 import ContentVolumeWidget from '@/components/project/widgets/ContentVolumeWidget'
 import ClippingFeedContentWidget from '@/components/project/widgets/ClippingFeedContentWidget'
 import Top10AuthorsByVolumeWidget from '@/components/project/widgets/Top10AuthorsByVolumeWidget'
@@ -88,11 +95,13 @@ import TopAuthorsSettingsModal from '@/components/project/widgets/modals/TopAuth
 import ContentVolumeSettingsModal from '@/components/project/widgets/modals/ContentVolumeSettingsModal'
 import SummarySettingsModal from '@/components/project/widgets/modals/SummarySettingsModal'
 import ClippingFeedContentModal from '@/components/project/widgets/modals/ClippingFeedContentModal'
+import ClippingContentModal from '@/components/project/widgets/modals/ClippingContentModal'
 
 export default {
   name: 'WidgetsView',
   components: {
     ClippingFeedContentModal,
+    ClippingContentModal,
     SearchResults,
     SummarySettingsModal,
     ClippingFeedContentWidget,
@@ -101,6 +110,7 @@ export default {
     SummaryWidget,
     ContentVolumeWidget,
     Top10AuthorsByVolumeWidget,
+    ClippingContentWidget,
     GridLayout: VueGridLayout.GridLayout,
     GridItem: VueGridLayout.GridItem,
   },
@@ -120,6 +130,7 @@ export default {
       isOpenSummaryModal: false,
       isOpenTop10AuthorsModal: false,
       isOpenClippingFeedContentModal: false,
+      isOpenClippingContentModal: false,
     }
   },
   created() {
@@ -181,6 +192,18 @@ export default {
           w: 2,
           h: 15,
           i: '2',
+          static: false,
+          name: 'clipping_widget',
+          widgetName: 'ClippingContent',
+          isShow: this.isActiveWidget('clipping_widget'),
+          isOpenModal: 'isOpenClippingContentModal',
+        },
+        {
+          x: 2,
+          y: 4,
+          w: 2,
+          h: 15,
+          i: '4',
           static: false,
           name: 'clipping_feed_content_widget',
           widgetName: 'ClippingFeedContent',
