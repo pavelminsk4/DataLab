@@ -113,6 +113,8 @@ export default {
     }
   },
   created() {
+    this[action.GET_AVAILABLE_WIDGETS](this.currentProject.id)
+
     this[action.UPDATE_ADDITIONAL_FILTERS]({
       date_range: [
         new Date(this.currentProject.start_search_date),
@@ -139,7 +141,11 @@ export default {
     },
   },
   methods: {
-    ...mapActions([action.POST_SEARCH, action.UPDATE_ADDITIONAL_FILTERS]),
+    ...mapActions([
+      action.POST_SEARCH,
+      action.UPDATE_ADDITIONAL_FILTERS,
+      action.GET_AVAILABLE_WIDGETS,
+    ]),
     toggleWidgetsModal(val) {
       this[val] = !this[val]
     },
