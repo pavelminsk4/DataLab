@@ -55,7 +55,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({widgets: get.AVAILABLE_WIDGETS}),
+    ...mapGetters({widgets: get.AVAILABLE_WIDGETS, loading: get.LOADING}),
     summaryWidget() {
       return this.widgets['summary_widget']
     },
@@ -96,7 +96,7 @@ export default {
       this[action.GET_AVAILABLE_WIDGETS](this.projectId)
       this.$emit('close')
     },
-    saveDimensions(author, language, country) {
+    async saveDimensions(author, language, country) {
       if (author || author === '') {
         author = author || this.summaryWidget.author_dim_pivot
       }
@@ -107,7 +107,7 @@ export default {
         country = country || this.summaryWidget.country_dim_pivot
       }
 
-      this[action.UPDATE_AVAILABLE_WIDGETS]({
+      await this[action.UPDATE_AVAILABLE_WIDGETS]({
         projectId: this.projectId,
         data: {
           summary_widget: {
@@ -121,8 +121,10 @@ export default {
           },
         },
       })
-      this[action.GET_AVAILABLE_WIDGETS](this.projectId)
-      this[action.GET_SUMMARY_WIDGET](this.projectId)
+      this.loading = true
+
+      await this[action.GET_AVAILABLE_WIDGETS](this.projectId)
+      await this[action.GET_SUMMARY_WIDGET](this.projectId)
       this.$emit('close')
     },
     updateSettingPanel(val) {
