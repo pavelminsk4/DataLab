@@ -38,6 +38,21 @@ def calculate_summary_widget(pk):
     posts = keywords_posts(project.keywords, posts)
   if project.ignore_keywords!=[]:
     posts = exclude_keywords_posts(posts, project.ignore_keywords)
+  author_dim_pivot = project.widgets_list_2.clipping_widget.author_dim_pivot
+  country_dim_pivot = project.widgets_list_2.clipping_widget.country_dim_pivot
+  language_dim_pivot = project.widgets_list_2.clipping_widget.language_dim_pivot
+  source_dim_pivot = project.widgets_list_2.clipping_widget.source_dim_pivot
+  sentiment_dim_pivot =project.widgets_list_2.clipping_widget.sentiment_dim_pivot
+  if author_dim_pivot!=None:
+   posts = posts.filter(entry_author=author_dim_pivot)
+  if country_dim_pivot!=None:
+   posts = posts.filter(feedlink__country=country_dim_pivot)
+  if language_dim_pivot!=None:
+   posts = posts.filter(feed_language__language=language_dim_pivot)
+  if source_dim_pivot!=None:
+   posts = posts.filter(feedlink__source1=source_dim_pivot)
+  if sentiment_dim_pivot!=None:
+   posts = posts.filter(sentiment=sentiment_dim_pivot)
   posts_quantity = posts.count()
   sources_quantity = posts.values('feedlink__source1').distinct().count()
   authors_quantity = posts.values('entry_author').distinct().count()
