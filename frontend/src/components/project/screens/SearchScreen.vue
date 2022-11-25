@@ -178,6 +178,8 @@ export default {
         })
 
         this[action.CLEAR_STATE]()
+
+        this.showResults()
       } catch (e) {
         console.log(e)
       }
