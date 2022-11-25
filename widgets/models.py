@@ -33,7 +33,7 @@ class WidgetsList(models.Model):
     return str(self.project)
 
 class WidgetsList2(models.Model):
-  project = models.OneToOneField(Project, on_delete=models.CASCADE, related_name='project', editable=False)
+  project = models.OneToOneField(Project, on_delete=models.CASCADE, related_name='widgets_list_2', editable=False)
   summary_widget = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='sum_widg_description', null=True)
   volume_widget = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='vol_widg_description', null=True)
   clipping_feed_content_widget = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='cl_fd_cont_widg_description',null=True)
