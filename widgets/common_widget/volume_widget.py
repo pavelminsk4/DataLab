@@ -40,7 +40,6 @@ def posts_agregator(project):
   else:
     posts = keywords_posts(project.keywords, posts)
   if project.ignore_keywords!=[]:
-
     posts = exclude_keywords_posts(posts, project.ignore_keywords)
   if project.country_filter!=None:
     posts = posts.filter(feedlink__country=project.country_filter)
