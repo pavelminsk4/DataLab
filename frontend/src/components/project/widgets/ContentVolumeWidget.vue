@@ -1,7 +1,7 @@
 <template>
   <WidgetsLayout
     :title="this.widgets['volume_widget'].title"
-    @open-modal="$emit('open-content-volume-modal')"
+    @open-modal="$emit('open-settings-modal')"
   >
     <ChartsView
       :chart-data="chartData"

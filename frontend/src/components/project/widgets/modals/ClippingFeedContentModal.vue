@@ -1,6 +1,6 @@
 <template>
   <BaseModal modal-frame-style="width: 50vw;">
-    <div class="main-title">{{ topAuthors.title }}</div>
+    <div class="main-title">{{ clippingFeedContent.title }}</div>
 
     <div class="settings-wrapper">
       <div class="options-wrapper">
@@ -26,13 +26,13 @@
 import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
+import BaseInput from '@/components/BaseInput'
 import BaseModal from '@/components/modals/BaseModal'
 import BaseButton from '@/components/buttons/BaseButton'
-import BaseInput from '@/components/BaseInput'
 
 export default {
-  name: 'TopAuthorsSettingsModal',
-  components: {BaseInput, BaseButton, BaseModal},
+  name: 'ClippingFeedContentModal',
+  components: {BaseButton, BaseInput, BaseModal},
   props: {
     projectId: {
       type: Number,
@@ -47,8 +47,8 @@ export default {
   },
   computed: {
     ...mapGetters({widgets: get.AVAILABLE_WIDGETS}),
-    topAuthors() {
-      return this.widgets['top_10_authors_by_volume_widget']
+    clippingFeedContent() {
+      return this.widgets['clipping_feed_content_widget']
     },
   },
   methods: {
@@ -60,10 +60,11 @@ export default {
       await this[action.UPDATE_AVAILABLE_WIDGETS]({
         projectId: this.projectId,
         data: {
-          top_10_authors_by_volume_widget: {
-            id: this.topAuthors.id,
-            title: this.title || this.topAuthors.title,
-            description: this.description || this.topAuthors.description,
+          clipping_feed_content_widget: {
+            id: this.clippingFeedContent.id,
+            title: this.title || this.clippingFeedContent.title,
+            description:
+              this.description || this.clippingFeedContent.description,
           },
         },
       })

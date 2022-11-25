@@ -1,8 +1,8 @@
 <template>
   <WidgetsLayout
     v-if="clippingData"
-    title="Clipping Feed Content"
-    :is-show-settings="false"
+    @open-modal="$emit('open-settings-modal')"
+    :title="widgets['clipping_feed_content_widget'].title"
   >
     <div class="clipping-wrapper">
       <div v-if="!clippingData.length" class="no-selected">
@@ -54,6 +54,7 @@ export default {
   computed: {
     ...mapGetters({
       clippingData: get.CLIPPING_FEED_CONTENT_WIDGET,
+      widgets: get.AVAILABLE_WIDGETS,
     }),
   },
   methods: {

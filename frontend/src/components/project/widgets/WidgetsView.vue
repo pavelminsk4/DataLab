@@ -6,7 +6,7 @@
     :project-id="projectId"
   />
 
-  <SummaryModal
+  <SummarySettingsModal
     v-if="isOpenSummaryModal"
     :project-id="projectId"
     @close="openModal('isOpenSummaryModal')"
@@ -16,6 +16,12 @@
     v-if="isOpenTop10AuthorsModal"
     :project-id="projectId"
     @close="openModal('isOpenTop10AuthorsModal')"
+  />
+
+  <ClippingFeedContentModal
+    v-if="isOpenClippingFeedContentModal"
+    :project-id="projectId"
+    @close="openModal('isOpenClippingFeedContentModal')"
   />
 
   <grid-layout
@@ -52,8 +58,7 @@
         :project-id="projectId"
         :is-open-widget="item.isShow"
         @delete-widget="deleteWidget(item.name)"
-        @open-content-volume-modal="openModal(item.isOpenModal)"
-        @open-summary-modal="openModal(item.isOpenModal)"
+        @open-settings-modal="openModal(item.isOpenModal)"
       />
     </grid-item>
 
@@ -73,6 +78,7 @@ import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
 import VueGridLayout from 'vue3-grid-layout'
+import SearchResults from '@/components/SearchResults'
 import SummaryWidget from '@/components/project/widgets/SummaryWidget'
 import ContentVolumeWidget from '@/components/project/widgets/ContentVolumeWidget'
 import ClippingFeedContentWidget from '@/components/project/widgets/ClippingFeedContentWidget'
@@ -80,14 +86,15 @@ import Top10AuthorsByVolumeWidget from '@/components/project/widgets/Top10Author
 
 import TopAuthorsSettingsModal from '@/components/project/widgets/modals/TopAuthorsSettingsModal'
 import ContentVolumeSettingsModal from '@/components/project/widgets/modals/ContentVolumeSettingsModal'
-import SummaryModal from '@/components/project/widgets/modals/SummarySettingsModal'
-import SearchResults from '@/components/SearchResults'
+import SummarySettingsModal from '@/components/project/widgets/modals/SummarySettingsModal'
+import ClippingFeedContentModal from '@/components/project/widgets/modals/ClippingFeedContentModal'
 
 export default {
   name: 'WidgetsView',
   components: {
+    ClippingFeedContentModal,
     SearchResults,
-    SummaryModal,
+    SummarySettingsModal,
     ClippingFeedContentWidget,
     ContentVolumeSettingsModal,
     TopAuthorsSettingsModal,
@@ -112,6 +119,7 @@ export default {
       isOpenContentVolumeModal: false,
       isOpenSummaryModal: false,
       isOpenTop10AuthorsModal: false,
+      isOpenClippingFeedContentModal: false,
     }
   },
   created() {
@@ -177,6 +185,7 @@ export default {
           name: 'clipping_feed_content_widget',
           widgetName: 'ClippingFeedContent',
           isShow: this.isActiveWidget('clipping_feed_content_widget'),
+          isOpenModal: 'isOpenClippingFeedContentModal',
         },
       ]
     },
