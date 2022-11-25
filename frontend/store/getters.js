@@ -69,6 +69,10 @@ export default {
     return state.clippingFeedContent
   },
 
+  [get.CLIPPING_WIDGET](state) {
+    return state.clipping
+  },
+
   [get.AVAILABLE_WIDGETS](state) {
     return state.availableWidgets
   },
