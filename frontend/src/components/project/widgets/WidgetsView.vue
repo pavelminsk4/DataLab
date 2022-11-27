@@ -68,10 +68,12 @@
       />
     </grid-item>
 
-    <grid-item class="widget-item" :x="0" :y="0" :i="10" w="auto" h="auto">
+    <grid-item class="widget-item" :x="0" :y="0" :i="10" :w="2" :h="29">
       <SearchResults
         :is-show-calendar="false"
+        :is-checkbox-clipping-widget="true"
         :currentProject="currentProject"
+        :clipping-content="clippingData"
         @update-page="updatePage"
         @update-posts-count="updatePosts"
       />
@@ -124,6 +126,7 @@ export default {
       required: false,
     },
   },
+  emits: ['update-page', 'update-posts-count'],
   data() {
     return {
       isOpenContentVolumeModal: false,
@@ -137,12 +140,17 @@ export default {
     if (!this.availableWidgets) {
       this[action.GET_AVAILABLE_WIDGETS](this.projectId)
     }
+
+    if (!this.clippingData.length) {
+      this[action.GET_CLIPPING_FEED_CONTENT_WIDGET](this.projectId)
+    }
   },
   computed: {
     ...mapGetters({
       summary: get.SUMMARY_WIDGET,
       volume: get.VOLUME_WIDGET,
       availableWidgets: get.AVAILABLE_WIDGETS,
+      clippingData: get.CLIPPING_FEED_CONTENT_WIDGET,
     }),
     layout() {
       return [
@@ -217,6 +225,7 @@ export default {
     ...mapActions([
       action.GET_AVAILABLE_WIDGETS,
       action.UPDATE_AVAILABLE_WIDGETS,
+      action.GET_CLIPPING_FEED_CONTENT_WIDGET,
     ]),
     async deleteWidget(name) {
       await this[action.UPDATE_AVAILABLE_WIDGETS]({
@@ -229,7 +238,7 @@ export default {
       this.$emit('update-page', page, posts)
     },
     updatePosts(page, posts) {
-      this.$emit('update-page', page, posts)
+      this.$emit('update-posts-count', page, posts)
     },
     isActiveWidget(key) {
       return this.availableWidgets[key]?.is_active
@@ -270,5 +279,8 @@ export default {
 
 .vue-resizable-handle {
   background: var(--secondary-text-color);
+}
+.search-result-wrapper {
+  padding: 20px;
 }
 </style>

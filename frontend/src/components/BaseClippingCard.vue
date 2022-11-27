@@ -9,6 +9,7 @@
           class="status-checkbox"
           :id="id"
           :model-value="clippingElement"
+          :selected="clippingElement"
           @change="onChange"
         />
         <img
@@ -139,7 +140,7 @@ export default {
     },
     clippingElement: {
       type: Boolean,
-      required: false,
+      default: false,
     },
   },
   methods: {
@@ -155,7 +156,7 @@ export default {
       await this[action.GET_CLIPPING_FEED_CONTENT_WIDGET](this.projectId)
     },
     capitalizeFirstLetter(string) {
-      return string.charAt(0).toUpperCase() + string.slice(1)
+      return string?.charAt(0)?.toUpperCase() + string?.slice(1)
     },
     dateOfCreation(date) {
       return new Date(date).toLocaleDateString('en-US', {

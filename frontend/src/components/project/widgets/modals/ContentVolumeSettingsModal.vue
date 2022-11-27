@@ -19,7 +19,9 @@
 
         <BasicSettingsScreen
           v-if="panelName === 'General'"
-          :aggregation-periods="aggregationPeriods"
+          :period="contentVolumeWidget.aggregation_period"
+          :widget-title="contentVolumeWidget.title"
+          :widget-description="contentVolumeWidget.description"
           @save-changes="saveChanges"
           @get-widget-params="updateAggregationPeriod"
         />
@@ -76,9 +78,6 @@ export default {
     ...mapGetters({
       widgets: get.AVAILABLE_WIDGETS,
     }),
-    aggregationPeriods() {
-      return ['Hour', 'Day', 'Month', 'Year']
-    },
     contentVolumeWidget() {
       return this.widgets['volume_widget']
     },
@@ -165,9 +164,9 @@ export default {
             id: this.contentVolumeWidget.id,
             title: title || this.contentVolumeWidget.title,
             description: description || this.contentVolumeWidget.description,
-            smpl_freq:
+            aggregation_period:
               aggregationPeriod.toLowerCase() ||
-              this.contentVolumeWidget.smpl_freq,
+              this.contentVolumeWidget.aggregation_period,
           },
         },
       })

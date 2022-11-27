@@ -17,8 +17,8 @@
         @update-collection="updateCollection"
       />
       <SearchResults
-        :current-project="currentProject"
         :is-checkbox-clipping-widget="true"
+        :current-project="currentProject"
         :clipping-content="clippingContent"
         @update-page="showResults"
         @update-posts-count="showResults"

@@ -7,6 +7,9 @@
 
       <BasicSettingsScreen
         v-if="panelName === 'General'"
+        :period="topAuthors.aggregation_period"
+        :widget-title="topAuthors.title"
+        :widget-description="topAuthors.description"
         @save-changes="saveChanges"
       />
 
@@ -79,7 +82,7 @@ export default {
       await this[action.GET_AVAILABLE_WIDGETS](this.projectId)
       await this.$emit('close')
     },
-    saveChanges(title, description, aggregationPeriod) {
+    async saveChanges(title, description, aggregationPeriod) {
       this[action.UPDATE_AVAILABLE_WIDGETS]({
         projectId: this.projectId,
         data: {
@@ -92,7 +95,8 @@ export default {
           },
         },
       })
-      this[action.GET_AVAILABLE_WIDGETS](this.projectId)
+      await this[action.GET_TOP_AUTHORS_WIDGET](this.projectId)
+      await this[action.GET_AVAILABLE_WIDGETS](this.projectId)
       this.$emit('close')
     },
     async saveDimensions(author, language, country) {

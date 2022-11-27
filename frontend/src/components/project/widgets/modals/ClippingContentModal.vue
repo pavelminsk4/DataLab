@@ -7,7 +7,9 @@
 
       <BasicSettingsScreen
         v-if="panelName === 'General'"
-        :aggregation-periods="aggregationPeriods"
+        :period="clippingContent.aggregation_period"
+        :widget-title="clippingContent.title"
+        :widget-description="clippingContent.description"
         @save-changes="saveChanges"
       />
 
@@ -58,9 +60,6 @@ export default {
     clippingContent() {
       return this.widgets['clipping_widget']
     },
-    aggregationPeriods() {
-      return ['Hour', 'Day', 'Month', 'Year']
-    },
   },
   methods: {
     ...mapActions([
@@ -68,7 +67,7 @@ export default {
       action.GET_AVAILABLE_WIDGETS,
       action.GET_CLIPPING_WIDGET,
     ]),
-    saveChanges(title, description, aggregationPeriod) {
+    async saveChanges(title, description, aggregationPeriod) {
       this[action.UPDATE_AVAILABLE_WIDGETS]({
         projectId: this.projectId,
         data: {
@@ -81,22 +80,9 @@ export default {
           },
         },
       })
-      this[action.GET_AVAILABLE_WIDGETS](this.projectId)
-      this.$emit('close')
-    },
-    async saveOptions() {
-      await this[action.UPDATE_AVAILABLE_WIDGETS]({
-        projectId: this.projectId,
-        data: {
-          clipping_widget: {
-            id: this.clippingContent.id,
-            title: this.title || this.clippingContent.title,
-            description: this.description || this.clippingContent.description,
-          },
-        },
-      })
+      await this[action.GET_CLIPPING_WIDGET](this.projectId)
       await this[action.GET_AVAILABLE_WIDGETS](this.projectId)
-      await this.$emit('close')
+      this.$emit('close')
     },
     async saveDimensions(author, language, country) {
       if (author || author === '') {

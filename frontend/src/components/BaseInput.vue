@@ -17,7 +17,10 @@ import SearchIcon from '@components/icons/SearchIcon'
 export default {
   name: 'BaseInput',
   props: {
-    modelValue: String,
+    modelValue: {
+      type: String,
+      required: true,
+    },
     isSearch: {
       type: Boolean,
       default: false,

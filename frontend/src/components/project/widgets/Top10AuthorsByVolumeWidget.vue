@@ -237,6 +237,8 @@ export default {
   grid-template-columns: 50% 50%;
   align-items: center;
 
+  min-width: 100%;
+
   overflow-y: hidden;
 
   .legend-box {
@@ -334,6 +336,7 @@ export default {
   width: fit-content;
 
   overflow: hidden;
+  z-index: 2;
 
   .legend-wrapper {
     display: grid;
@@ -421,6 +424,8 @@ export default {
   justify-content: center;
 
   width: fit-content;
+
+  z-index: 1;
 
   .circle-wrapper {
     position: absolute;

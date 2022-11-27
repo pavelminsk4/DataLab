@@ -64,7 +64,7 @@
       :project-id="currentProject.id"
       :currentProject="currentProject"
       @update-page="showResults"
-      @update-posts="showResults"
+      @update-posts-count="showResults"
     />
   </div>
 </template>
@@ -104,6 +104,7 @@ export default {
       required: false,
     },
   },
+  emits: ['update-page', 'update-posts-count'],
   data() {
     return {
       isOpenWidgetsModal: false,
