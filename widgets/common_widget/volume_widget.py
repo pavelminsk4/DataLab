@@ -72,7 +72,7 @@ def volume(request, pk):
   if source_dim_pivot!=None:
     posts = posts.filter(feedlink__source1=source_dim_pivot)
   if language_dim_pivot!=None:
-    posts = posts.filter(feed_language=language_dim_pivot)
+    posts = posts.filter(feed_language__language=language_dim_pivot)
   if sentiment_dim_pivot!=None:
     posts = posts.filter(sentiment=sentiment_dim_pivot)
   posts_per_smpl_freq = posts.annotate(date=Trunc('entry_published', smpl_freq)).values("date").annotate(created_count=Count('id')).order_by("date")
