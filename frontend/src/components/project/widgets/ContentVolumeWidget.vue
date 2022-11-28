@@ -123,7 +123,10 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({widgets: get.AVAILABLE_WIDGETS, volume: get.VOLUME_WIDGET}),
+    ...mapGetters({
+      widgets: get.AVAILABLE_WIDGETS,
+      volumeWidgetData: get.VOLUME_WIDGET,
+    }),
     volumeData() {
       return Object.values(this.volume)
     },

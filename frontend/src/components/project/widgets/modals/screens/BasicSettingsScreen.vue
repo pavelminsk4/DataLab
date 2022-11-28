@@ -15,6 +15,7 @@
       v-model="aggregationPeriod"
       :list="aggregationPeriods"
       :is-reject-selection="false"
+      :current-value="capitalizeFirstLater(period)"
       @select-option="selectItem"
       name="aggregation-period"
       class="option"
@@ -33,16 +34,25 @@ export default {
   name: 'BasicSettingsScreen',
   components: {BaseButton, BaseSelect, BaseInput},
   props: {
-    aggregationPeriods: {
-      type: [Object, Array],
+    widgetTitle: {
+      type: String,
+      required: false,
+    },
+    widgetDescription: {
+      type: String,
+      required: false,
+    },
+    period: {
+      type: String,
       required: false,
     },
   },
   data() {
     return {
+      title: this.widgetTitle,
+      description: this.widgetDescription,
       aggregationPeriod: '',
-      title: '',
-      description: '',
+      aggregationPeriods: ['Hour', 'Day', 'Month', 'Year'],
     }
   },
   methods: {
@@ -61,6 +71,9 @@ export default {
         this.description,
         this.aggregationPeriod
       )
+    },
+    capitalizeFirstLater(string) {
+      return string.charAt(0).toUpperCase() + string.slice(1)
     },
   },
 }

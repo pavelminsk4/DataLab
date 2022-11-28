@@ -64,7 +64,7 @@
       :project-id="currentProject.id"
       :currentProject="currentProject"
       @update-page="showResults"
-      @update-posts="showResults"
+      @update-posts-count="showResults"
     />
   </div>
 </template>
@@ -104,6 +104,7 @@ export default {
       required: false,
     },
   },
+  emits: ['update-page', 'update-posts-count'],
   data() {
     return {
       isOpenWidgetsModal: false,
@@ -113,6 +114,8 @@ export default {
     }
   },
   created() {
+    this[action.GET_AVAILABLE_WIDGETS](this.currentProject.id)
+
     this[action.UPDATE_ADDITIONAL_FILTERS]({
       date_range: [
         new Date(this.currentProject.start_search_date),
@@ -139,7 +142,11 @@ export default {
     },
   },
   methods: {
-    ...mapActions([action.POST_SEARCH, action.UPDATE_ADDITIONAL_FILTERS]),
+    ...mapActions([
+      action.POST_SEARCH,
+      action.UPDATE_ADDITIONAL_FILTERS,
+      action.GET_AVAILABLE_WIDGETS,
+    ]),
     toggleWidgetsModal(val) {
       this[val] = !this[val]
     },

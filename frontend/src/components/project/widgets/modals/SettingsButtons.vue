@@ -17,6 +17,12 @@
 <script>
 export default {
   name: 'SettingsButtons',
+  props: {
+    isOnlyGeneral: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data() {
     return {
       panelSettingsName: 'General',
@@ -25,11 +31,7 @@ export default {
   },
   methods: {
     toggleSettingsPanel(e) {
-      this.panelSettingsName =
-        this.panelSettingsName === e.target.innerText
-          ? null
-          : e.target.innerText
-
+      this.panelSettingsName = e.target.innerText
       this.$emit('update-setting-panel', this.panelSettingsName)
     },
   },

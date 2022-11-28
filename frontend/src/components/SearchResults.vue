@@ -131,6 +131,7 @@ export default {
       default: true,
     },
   },
+  emits: ['update-page', 'update-posts-count'],
   data() {
     return {
       isShow: false,
@@ -183,8 +184,8 @@ export default {
       this.isOpenDropdown = !this.isOpenDropdown
       this.$emit('update-posts-count', this.page, this.countPosts)
     },
-    async pageChangeHandler() {
-      await this.$emit('update-page', this.page, this.countPosts)
+    pageChangeHandler() {
+      this.$emit('update-page', this.page, this.countPosts)
     },
     openDropdown() {
       this.isOpenDropdown = !this.isOpenDropdown
@@ -242,11 +243,14 @@ export default {
       this.clippingElements.splice(index, 1)
       this[action.GET_CLIPPING_FEED_CONTENT_WIDGET](this.currentProject.id)
     },
-    createClippingWidget() {
-      this[action.CREATE_CLIPPING_FEED_CONTENT_WIDGET](this.clippingArray)
+    async createClippingWidget() {
+      await this[action.CREATE_CLIPPING_FEED_CONTENT_WIDGET](this.clippingArray)
+      await this[action.GET_CLIPPING_FEED_CONTENT_WIDGET](
+        this.currentProject.id
+      )
     },
     selectedClippingElement(id) {
-      return this.clippingContent?.some((el) => el.post__id === id)
+      return this.clippingContent.some((el) => el.post__id === id)
     },
     cardImg(item) {
       let images = [
@@ -328,6 +332,7 @@ export default {
       padding: 9px 16px 8px;
 
       &:hover {
+        border-radius: 10px;
         background-color: var(--primary-button-color);
       }
     }
