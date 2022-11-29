@@ -156,4 +156,12 @@ export default {
   [mutator.SET_DISPLAY_CALENDAR](state, value) {
     state.isShowCalendarContents = value
   },
+
+  [mutator.SET_NEW_PROJECT_ID](state, id) {
+    state.newProjectId = id
+  },
+
+  [mutator.SET_NEW_WORKSPACE_ID](state, id) {
+    state.newWorkspaceId = id
+  },
 }

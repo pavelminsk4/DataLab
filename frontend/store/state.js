@@ -10,6 +10,8 @@ const state = {
   searchData: [],
   numberOfPages: 0,
   numberOfPosts: 0,
+  newProjectId: null,
+  newWorkspaceId: null,
   searchPage: 1,
   selectedDimensions: null,
   dimensionAuthors: null,
