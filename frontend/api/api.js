@@ -56,10 +56,6 @@ export default {
     )
   },
 
-  async getClippingWidget(projectId) {
-    return fetch('get', `/api/widgets/clipping_widget/${projectId}`)
-  },
-
   async getVolumeWidget({projectId, value}) {
     const config = {
       headers: {
