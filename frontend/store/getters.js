@@ -69,10 +69,6 @@ export default {
     return state.clippingFeedContent
   },
 
-  [get.CLIPPING_WIDGET](state) {
-    return state.clipping
-  },
-
   [get.AVAILABLE_WIDGETS](state) {
     return state.availableWidgets
   },
@@ -107,5 +103,13 @@ export default {
 
   [get.TEMPLATES](state) {
     return state.templates
+  },
+
+  [get.NEW_PROJECT_ID](state) {
+    return state.newProjectId
+  },
+
+  [get.NEW_WORKSPACE_ID](state) {
+    return state.newWorkspaceId
   },
 }

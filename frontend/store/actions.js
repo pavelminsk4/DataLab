@@ -160,18 +160,6 @@ export default {
     }
   },
 
-  async [action.GET_CLIPPING_WIDGET]({commit}, projectId) {
-    commit(mutator.SET_LOADING, true)
-    try {
-      const clipping = await api.getClippingWidget(projectId)
-      commit(mutator.SET_CLIPPING_WIDGET, clipping)
-    } catch (e) {
-      console.log(e)
-    } finally {
-      commit(mutator.SET_LOADING, false)
-    }
-  },
-
   async [action.GET_DIMENSIONS]({commit}) {
     commit(mutator.SET_LOADING, true)
     try {
@@ -259,7 +247,9 @@ export default {
   async [action.CREATE_WORKSPACE]({commit}, workspace) {
     commit(mutator.SET_LOADING, true)
     try {
-      await api.createWorkspace(workspace)
+      const response = await api.createWorkspace(workspace)
+      commit(mutator.SET_NEW_WORKSPACE_ID, response.id)
+      commit(mutator.SET_NEW_PROJECT_ID, response.projects[0].id)
     } catch (e) {
       console.log(e)
     } finally {
@@ -270,7 +260,8 @@ export default {
   async [action.CREATE_PROJECT]({commit}, projectData) {
     commit(mutator.SET_LOADING, true)
     try {
-      await api.createNewProject(projectData)
+      const response = await api.createNewProject(projectData)
+      commit(mutator.SET_NEW_PROJECT_ID, response.id)
     } catch (e) {
       console.log(e)
     } finally {

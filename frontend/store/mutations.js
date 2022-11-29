@@ -81,10 +81,6 @@ export default {
     state.clippingFeedContent = [...data]
   },
 
-  [mutator.SET_CLIPPING_WIDGET](state, data) {
-    state.clipping = [...data]
-  },
-
   [mutator.SET_TOP_AUTHORS_WIDGET](state, data) {
     state.topAuthors = [...data]
   },
@@ -126,6 +122,8 @@ export default {
     state.keywords = []
     state.searchData = []
     state.additionalFilters = null
+    state.numberOfPages = 0
+    state.numberOfPosts = 0
     state.newWorkspace = {
       title: '',
       description: '',
@@ -153,5 +151,13 @@ export default {
 
   [mutator.SET_DISPLAY_CALENDAR](state, value) {
     state.isShowCalendarContents = value
+  },
+
+  [mutator.SET_NEW_PROJECT_ID](state, id) {
+    state.newProjectId = id
+  },
+
+  [mutator.SET_NEW_WORKSPACE_ID](state, id) {
+    state.newWorkspaceId = id
   },
 }

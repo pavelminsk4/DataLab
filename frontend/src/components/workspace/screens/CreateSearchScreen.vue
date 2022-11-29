@@ -64,6 +64,8 @@ export default {
       currentStep: get.CURRENT_STEP,
       newProject: get.NEW_PROJECT,
       newWorkspace: get.NEW_WORKSPACE,
+      newProjectId: get.NEW_PROJECT_ID,
+      newWorkspaceId: get.NEW_WORKSPACE_ID,
     }),
     step() {
       return this.$route.name
@@ -131,10 +133,14 @@ export default {
         this[action.UPDATE_NEW_WORKSPACE]({
           projects: [this.newProject],
         })
-        this[action.CREATE_WORKSPACE](this.newWorkspace)
-        this[action.CLEAR_STATE]()
+        await this[action.CREATE_WORKSPACE](this.newWorkspace)
+        await this[action.CLEAR_STATE]()
         await this.$router.push({
-          name: 'Home',
+          name: 'Analytics',
+          params: {
+            workspaceId: this.newWorkspaceId,
+            projectId: this.newProjectId,
+          },
         })
         await this[action.GET_WORKSPACES]()
       } catch (e) {
@@ -155,12 +161,13 @@ export default {
           sentiment_filter: this.additionalFilters?.sentiment || null,
           country_filter: this.additionalFilters?.country || null,
         })
-        this[action.CREATE_PROJECT](this.newProject)
-        this[action.CLEAR_STATE]()
+        await this[action.CREATE_PROJECT](this.newProject)
+        await this[action.CLEAR_STATE]()
         await this.$router.push({
-          name: 'Workspace',
+          name: 'Analytics',
           params: {
             workspaceId: this.$route.params.workspaceId,
+            projectId: this.newProjectId,
           },
         })
         await this[action.GET_WORKSPACES]()
