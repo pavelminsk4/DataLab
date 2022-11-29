@@ -126,6 +126,8 @@ export default {
     state.keywords = []
     state.searchData = []
     state.additionalFilters = null
+    state.numberOfPages = 0
+    state.numberOfPosts = 0
     state.newWorkspace = {
       title: '',
       description: '',

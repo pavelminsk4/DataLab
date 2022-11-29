@@ -124,7 +124,7 @@ export default {
     },
     clippingContent: {
       type: [Array, Object],
-      required: false,
+      default: () => [],
     },
     isShowCalendar: {
       type: Boolean,
