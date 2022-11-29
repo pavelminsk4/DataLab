@@ -106,7 +106,7 @@ export default {
 
 <style lang="scss" scoped>
 .settings-nav-wrapper {
-  position: absolute;
+  position: fixed;
   top: 16px;
   left: 24px;
 
@@ -115,7 +115,7 @@ export default {
   align-items: center;
 
   width: 72px;
-  height: 700px;
+  height: 96vh;
 
   border: 1px solid var(--sidebar-border-color);
   border-radius: 15px;
