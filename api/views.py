@@ -164,7 +164,8 @@ def sources(request):
   return JsonResponse(sources_list, safe = False)
 
 def authors(request):
-  set = Post.objects.all().values('entry_author').distinct().order_by('entry_author')
+  first_letters = request.body
+  set = Post.objects.filter(entry_author__startswith=first_letters).values('entry_author').distinct().order_by('entry_author')
   authors_list = list(set)
   return JsonResponse(authors_list, safe = False)
 
@@ -239,9 +240,10 @@ class TemplatesViewSet(viewsets.ModelViewSet):
 # === Dimension Authors ===
 
 def dimension_authors(request, pk):
+  first_letters = request.body
   project = get_object_or_404(Project, pk=pk)
   posts = posts_agregator(project)
-  authors = posts.order_by('entry_author').values('entry_author').distinct()
+  authors = posts.filter(entry_author__startswith=first_letters).order_by('entry_author').values('entry_author').distinct()
   authors_list = list(authors)
   return JsonResponse(authors_list, safe = False)
 
