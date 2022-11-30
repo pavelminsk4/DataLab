@@ -202,7 +202,12 @@ export default {
     margin-right: 18px;
 
     .img {
+      object-fit: cover;
+
       width: inherit;
+      height: 100%;
+
+      border-radius: 4px;
     }
 
     .img-margin {
@@ -231,10 +236,7 @@ export default {
       cursor: pointer;
 
       text-decoration: none;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
-
+      white-space: pre-wrap;
       margin-bottom: 10px;
 
       font-weight: 600;
@@ -245,7 +247,6 @@ export default {
 
     .title:hover {
       color: var(--primary-button-color);
-      white-space: normal;
     }
 
     .description {
