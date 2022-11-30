@@ -159,13 +159,20 @@ class SpeechesList(ListAPIView):
 # === Sources API ========
 
 def sources(request):
-  set = Feedlinks.objects.all().values('source1').distinct().order_by('source1')
+  first_letters = json.loads(request.body)
+  if first_letters!='':
+    set = Feedlinks.objects.filter(source1__startswith=first_letters).values('source1').distinct().order_by('source1')
+  else:
+    set = []
   sources_list = list(set)
   return JsonResponse(sources_list, safe = False)
 
 def authors(request):
   first_letters = json.loads(request.body)
-  set = Post.objects.filter(entry_author__startswith=first_letters).values('entry_author').distinct().order_by('entry_author')
+  if first_letters!='':
+    set = Post.objects.filter(entry_author__startswith=first_letters).values('entry_author').distinct().order_by('entry_author')
+  else:
+    set = []
   authors_list = list(set)
   return JsonResponse(authors_list, safe = False)
 
