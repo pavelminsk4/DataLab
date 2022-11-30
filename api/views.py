@@ -164,7 +164,7 @@ def sources(request):
   return JsonResponse(sources_list, safe = False)
 
 def authors(request):
-  first_letters = request.body
+  first_letters = json.loads(request.body)
   set = Post.objects.filter(entry_author__startswith=first_letters).values('entry_author').distinct().order_by('entry_author')
   authors_list = list(set)
   return JsonResponse(authors_list, safe = False)

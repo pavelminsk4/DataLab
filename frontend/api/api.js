@@ -37,8 +37,15 @@ export default {
     return fetch('get', '/api/sources')
   },
 
-  async getAuthors() {
-    return fetch('get', '/api/authors')
+  async getAuthors(word) {
+    const config = {
+      headers: {
+        'content-type': 'application/json',
+        'X-CSRFToken': CSRF_TOKEN,
+      },
+    }
+
+    return fetch('post', '/api/authors', word, config)
   },
 
   async getListOfDisplayedWidgets(projectId) {

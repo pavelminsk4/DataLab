@@ -86,10 +86,10 @@ export default {
     }
   },
 
-  async [action.GET_AUTHORS]({commit}) {
+  async [action.GET_AUTHORS]({commit}, word) {
     commit(mutator.SET_LOADING, true)
     try {
-      const authors = await api.getAuthors()
+      const authors = await api.getAuthors(word)
       commit(mutator.SET_AUTHORS, authors)
     } catch (e) {
       console.log(e)

@@ -29,7 +29,9 @@
         />
       </div>
     </div>
-    <div v-if="loading" class="spinner-wrapper"><BaseSpinner /></div>
+    <div v-if="loading && searchLoading" class="spinner-wrapper">
+      <BaseSpinner />
+    </div>
 
     <div v-if="searchData.length" class="search-result-cards">
       <BaseClippingCard
@@ -81,7 +83,9 @@
         @update:modelValue="pageChangeHandler"
       />
     </div>
-    <div v-if="!loading && !searchData.length">No results.</div>
+    <div v-if="!loading && !searchData.length && searchLoading">
+      No results.
+    </div>
   </div>
 </template>
 
@@ -129,6 +133,10 @@ export default {
     isShowCalendar: {
       type: Boolean,
       default: true,
+    },
+    searchLoading: {
+      type: Boolean,
+      default: false,
     },
   },
   emits: ['update-page', 'update-posts-count'],

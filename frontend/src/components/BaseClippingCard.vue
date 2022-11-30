@@ -52,6 +52,7 @@
             {{ language }}
           </div>
           <div class="general-item">
+            <CalendarIcon />
             {{ dateOfCreation(published) }}
           </div>
         </div>
@@ -73,10 +74,11 @@ import {action} from '@store/constants'
 import BaseCheckbox from '@/components/BaseCheckbox'
 import NoImageIcon from '@/components/icons/NoImageIcon'
 import CloseIcon from '@/components/icons/CloseIcon'
+import CalendarIcon from '@/components/icons/CalendarIcon'
 
 export default {
   name: 'BaseClippingCard',
-  components: {CloseIcon, NoImageIcon, BaseCheckbox},
+  components: {CalendarIcon, CloseIcon, NoImageIcon, BaseCheckbox},
   props: {
     isCheckboxClippingWidget: {
       type: Boolean,
@@ -276,6 +278,10 @@ export default {
   .general-item {
     position: relative;
 
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
     margin-right: 20px;
 
     text-decoration: none;
@@ -313,6 +319,8 @@ export default {
 
   padding-left: 12px;
   margin-bottom: 12px;
+
+  font-size: 12px;
 
   &:before {
     position: absolute;

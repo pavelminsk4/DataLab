@@ -25,6 +25,7 @@
           :placeholder="'Select author'"
           :is-search="true"
           @select-option="selectItem"
+          @update-results="getSearchResult"
           class="select"
         />
       </div>
@@ -123,10 +124,6 @@ export default {
     if (!this.sources.length) {
       this[action.GET_SOURCES]()
     }
-
-    if (!this.authors.length) {
-      this[action.GET_AUTHORS]()
-    }
   },
   computed: {
     ...mapGetters({
@@ -134,7 +131,6 @@ export default {
       languages: get.LANGUAGES,
       sources: get.SOURCES,
       authors: get.AUTHORS,
-      loading: get.LOADING,
     }),
   },
   methods: {
@@ -168,6 +164,10 @@ export default {
       } catch (e) {
         console.log(e)
       }
+    },
+
+    getSearchResult(searchValue) {
+      this[action.GET_AUTHORS](searchValue)
     },
   },
 }
