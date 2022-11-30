@@ -3,14 +3,13 @@
     v-bind="$attrs"
     :class="[
       'base-button',
-      isLoading && 'opacity',
       isNotBackground && 'not-background',
-      (isDisabled || isLoading) && 'disabled',
+      (isDisabled || (isLoading && buttonLoading)) && 'disabled',
     ]"
-    :disabled="isDisabled || isLoading"
+    :disabled="isDisabled || (isLoading && buttonLoading)"
   >
-    <BaseButtonSpinner v-if="isLoading" />
-    <slot></slot>
+    <BaseButtonSpinner v-if="isLoading && buttonLoading" />
+    <slot v-else></slot>
   </button>
 </template>
 
@@ -28,6 +27,10 @@ export default {
       default: false,
     },
     isDisabled: {
+      type: Boolean,
+      default: false,
+    },
+    buttonLoading: {
       type: Boolean,
       default: false,
     },
@@ -71,9 +74,5 @@ export default {
 
   color: var(--primary-text-color);
   background: var(--disabled-color);
-}
-
-.opacity {
-  display: none;
 }
 </style>

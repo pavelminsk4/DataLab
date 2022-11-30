@@ -5,6 +5,7 @@
     title="Define the search"
     hint="Search by keywords and phrases"
     :button-width="141"
+    :button-loading="buttonLoading"
     button-name="Save Project"
     @next-step="createWorkspaceAndProject"
   />
@@ -16,6 +17,7 @@
     hint="Search by keywords and phrases"
     :is-existing-workspace="true"
     :button-width="141"
+    :button-loading="buttonLoading"
     button-name="Create Project"
     @next-step="createProject"
   />
@@ -29,6 +31,7 @@
     <SearchResults
       @update-page="showResults"
       @update-posts-count="showResults"
+      :search-loading="searchLoading"
     />
   </div>
 </template>
@@ -48,6 +51,12 @@ export default {
     ProjectKeywords,
     SearchResults,
     NavigationBar,
+  },
+  data() {
+    return {
+      searchLoading: false,
+      buttonLoading: false,
+    }
   },
   created() {
     if (this.defaultDateRange.length) {
@@ -98,6 +107,7 @@ export default {
     },
     showResults(pageNumber, numberOfPosts) {
       try {
+        this.searchLoading = true
         this[action.POST_SEARCH]({
           keywords: this.keywords?.keywords,
           additions: this.keywords?.additional_keywords,
@@ -111,6 +121,7 @@ export default {
           posts_per_page: numberOfPosts || 20,
           page_number: pageNumber || 1,
         })
+        this.searchLoading = false
       } catch (e) {
         console.log(e)
       }
@@ -118,6 +129,7 @@ export default {
 
     async createWorkspaceAndProject() {
       try {
+        this.buttonLoading = true
         this[action.UPDATE_PROJECT_STATE]({
           keywords: this.keywords?.keywords,
           additional_keywords: this.keywords?.additional_keywords,
@@ -135,6 +147,7 @@ export default {
         })
         await this[action.CREATE_WORKSPACE](this.newWorkspace)
         await this[action.CLEAR_STATE]()
+        this.buttonLoading = false
         await this.$router.push({
           name: 'Analytics',
           params: {
@@ -149,6 +162,7 @@ export default {
     },
     async createProject() {
       try {
+        this.buttonLoading = true
         this[action.UPDATE_PROJECT_STATE]({
           keywords: this.keywords?.keywords,
           additional_keywords: this.keywords?.additional_keywords,
@@ -163,6 +177,7 @@ export default {
         })
         await this[action.CREATE_PROJECT](this.newProject)
         await this[action.CLEAR_STATE]()
+        this.buttonLoading = false
         await this.$router.push({
           name: 'Analytics',
           params: {

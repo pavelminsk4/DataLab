@@ -23,6 +23,7 @@
         v-if="!!step"
         :is-disabled="!isActiveButton"
         :style="`width: ${buttonWidth}`"
+        :button-loading="buttonLoading"
         class="next-button"
         @click="goToNextStep"
       >
@@ -84,6 +85,10 @@ export default {
     currentProject: {
       type: String,
       default: '',
+    },
+    buttonLoading: {
+      type: Boolean,
+      default: false,
     },
   },
   emits: {

@@ -10,6 +10,7 @@
         v-if="isSearch"
         v-model="search"
         :placeholder="placeholder"
+        @update:modelValue="updateSearchWord"
         type="text"
         class="select-search"
       />
@@ -118,6 +119,9 @@ export default {
       if (!Array.from(elements).find((el) => el.contains(event.target))) {
         this.visible = false
       }
+    },
+    updateSearchWord() {
+      this.$emit('update-results', this.search)
     },
   },
 }
