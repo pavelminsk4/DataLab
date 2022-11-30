@@ -57,6 +57,7 @@ class Project(models.Model):
   country_filter = models.CharField(max_length=50, blank=True, null=True)
   source_filter = models.CharField(max_length=50, blank=True, null=True)
   sentiment_filter = models.CharField(max_length=10, blank=True, null=True)
+  members = models.ManyToManyField(User, related_name='projects', blank=True, null=True)
 
   def __str__(self):
     return self.title
