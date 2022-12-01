@@ -7,7 +7,7 @@
         <BaseSelect
           v-model="country"
           :name="'country'"
-          :placeholder="'Select country'"
+          :placeholder="'Enter the country'"
           :list="countries"
           :is-search="true"
           :is-reject-selection="false"
@@ -24,7 +24,7 @@
           v-model="author"
           :name="'author'"
           :list="authors"
-          :placeholder="'Select author'"
+          :placeholder="'Enter the author'"
           :is-search="true"
           :is-reject-selection="false"
           @select-option="selectItem"
@@ -41,7 +41,7 @@
         <BaseSelect
           v-model="language"
           :name="'language'"
-          :placeholder="'Select language'"
+          :placeholder="'Enter the language'"
           :list="languages"
           :is-search="true"
           :is-reject-selection="false"
@@ -57,7 +57,7 @@
         <BaseSelect
           v-model="source"
           :name="'source'"
-          :placeholder="'Select Source'"
+          :placeholder="'Enter the source'"
           :list="sources"
           :is-search="true"
           :is-reject-selection="false"
