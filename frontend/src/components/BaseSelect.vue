@@ -3,7 +3,6 @@
     :class="['selector', {open: visible}, `selector-${name}`]"
     :data-value="value"
     :data-list="list"
-    @click="toggle()"
   >
     <div class="label">
       <input
@@ -11,6 +10,7 @@
         v-model="search"
         :placeholder="placeholder"
         @update:modelValue="updateSearchWord"
+        @focus="visible = true"
         type="text"
         class="select-search"
       />
@@ -19,7 +19,11 @@
       </div>
       <div v-else-if="!isSearch">{{ value }}</div>
     </div>
-    <ArrowDownIcon class="arrow" :class="{expanded: visible}" />
+    <ArrowDownIcon
+      class="arrow"
+      :class="{expanded: visible}"
+      @click="toggle()"
+    />
     <div :class="{hidden: !visible, visible}">
       <ul v-if="visible" class="select-list">
         <li
@@ -112,6 +116,7 @@ export default {
       this.$emit('select-option', this.name, option, this.visible)
       this.value = option
       this.search = option
+      this.visible = false
     },
     close() {
       const elements = document.querySelectorAll(`.selector-${this.name}`)
@@ -121,6 +126,7 @@ export default {
       }
     },
     updateSearchWord() {
+      this.visible = true
       this.$emit('update-results', this.search)
     },
   },

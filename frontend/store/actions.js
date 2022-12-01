@@ -50,10 +50,10 @@ export default {
     }
   },
 
-  async [action.GET_COUNTRIES]({commit}) {
+  async [action.GET_COUNTRIES]({commit}, word) {
     commit(mutator.SET_LOADING, true)
     try {
-      const countries = await api.getCountries()
+      const countries = await api.getCountries(word)
       commit(mutator.SET_COUNTRIES, countries)
     } catch (e) {
       console.log(e)
@@ -62,10 +62,10 @@ export default {
     }
   },
 
-  async [action.GET_LANGUAGES]({commit}) {
+  async [action.GET_LANGUAGES]({commit}, word) {
     commit(mutator.SET_LOADING, true)
     try {
-      const languages = await api.getLanguages()
+      const languages = await api.getLanguages(word)
       commit(mutator.SET_LANGUAGES, languages)
     } catch (e) {
       console.log(e)
@@ -74,10 +74,10 @@ export default {
     }
   },
 
-  async [action.GET_SOURCES]({commit}) {
+  async [action.GET_SOURCES]({commit}, word) {
     commit(mutator.SET_LOADING, true)
     try {
-      const sources = await api.getSources()
+      const sources = await api.getSources(word)
       commit(mutator.SET_SOURCES, sources)
     } catch (e) {
       console.log(e)

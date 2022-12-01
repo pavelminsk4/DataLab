@@ -152,7 +152,7 @@ class CountriesList(ListAPIView):
   serializer_class = CountrySerializer
 
   def get_queryset(self):
-    if self.request.body:
+    if self.kwargs['frst_letters']:
       return Country.objects.filter(name__startswith=self.kwargs['frst_letters'])
     else:
       return Country.objects.none()
@@ -161,7 +161,7 @@ class SpeechesList(ListAPIView):
   serializer_class = SpeechSerializer
 
   def get_queryset(self):
-    if self.request.body:
+    if self.kwargs['frst_letters']:
       return Speech.objects.filter(language__startswith=self.kwargs['frst_letters'])
     else:
       return Speech.objects.none()

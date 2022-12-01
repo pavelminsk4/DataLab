@@ -25,16 +25,37 @@ export default {
     return fetch('get', '/api/logged_in_user')
   },
 
-  async getCountries() {
-    return fetch('get', '/api/countries')
+  async getCountries(word) {
+    const config = {
+      headers: {
+        'content-type': 'application/json',
+        'X-CSRFToken': CSRF_TOKEN,
+      },
+    }
+
+    return fetch('get', `/api/countries/${word}`, config)
   },
 
-  async getLanguages() {
-    return fetch('get', '/api/speeches')
+  async getLanguages(word) {
+    const config = {
+      headers: {
+        'content-type': 'application/json',
+        'X-CSRFToken': CSRF_TOKEN,
+      },
+    }
+
+    return fetch('get', `/api/speeches/${word}`, config)
   },
 
-  async getSources() {
-    return fetch('get', '/api/sources')
+  async getSources(word) {
+    const config = {
+      headers: {
+        'content-type': 'application/json',
+        'X-CSRFToken': CSRF_TOKEN,
+      },
+    }
+
+    return fetch('post', '/api/sources', word, config)
   },
 
   async getAuthors(word) {

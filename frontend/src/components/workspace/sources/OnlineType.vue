@@ -10,7 +10,9 @@
           :placeholder="'Select country'"
           :list="countries"
           :is-search="true"
+          :is-reject-selection="false"
           @select-option="selectItem"
+          @update-results="getCountryResult"
           class="select"
         />
       </div>
@@ -24,8 +26,9 @@
           :list="authors"
           :placeholder="'Select author'"
           :is-search="true"
+          :is-reject-selection="false"
           @select-option="selectItem"
-          @update-results="getSearchResult"
+          @update-results="getAuthorsResult"
           class="select"
         />
       </div>
@@ -41,7 +44,9 @@
           :placeholder="'Select language'"
           :list="languages"
           :is-search="true"
+          :is-reject-selection="false"
           @select-option="selectItem"
+          @update-results="getLanguageResult"
           class="select"
         />
       </div>
@@ -55,7 +60,9 @@
           :placeholder="'Select Source'"
           :list="sources"
           :is-search="true"
+          :is-reject-selection="false"
           @select-option="selectItem"
+          @update-results="getSourceResult"
           class="select"
         />
       </div>
@@ -112,19 +119,6 @@ export default {
       author: '',
     }
   },
-  created() {
-    if (!this.countries.length) {
-      this[action.GET_COUNTRIES]()
-    }
-
-    if (!this.languages.length) {
-      this[action.GET_LANGUAGES]()
-    }
-
-    if (!this.sources.length) {
-      this[action.GET_SOURCES]()
-    }
-  },
   computed: {
     ...mapGetters({
       countries: get.COUNTRIES,
@@ -166,8 +160,24 @@ export default {
       }
     },
 
-    getSearchResult(searchValue) {
+    capitalizeFirstLetter(string) {
+      return string?.charAt(0)?.toUpperCase() + string?.slice(1)
+    },
+
+    getAuthorsResult(searchValue) {
       this[action.GET_AUTHORS](searchValue)
+    },
+
+    getSourceResult(searchValue) {
+      this[action.GET_SOURCES](searchValue)
+    },
+
+    getCountryResult(searchValue) {
+      this[action.GET_COUNTRIES](this.capitalizeFirstLetter(searchValue))
+    },
+
+    getLanguageResult(searchValue) {
+      this[action.GET_LANGUAGES](this.capitalizeFirstLetter(searchValue))
     },
   },
 }
