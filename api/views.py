@@ -149,12 +149,22 @@ def search(request):
 # === Countries API ==========
 
 class CountriesList(ListAPIView):
-  queryset = Country.objects.all()
   serializer_class = CountrySerializer
 
+  def get_queryset(self):
+    if self.request.body!='':
+      return Country.objects.filter(name__startswith=self.request.body)
+    else:
+      return Country.objects.none()
+
 class SpeechesList(ListAPIView):
-  queryset = Speech.objects.all().order_by('language')
   serializer_class = SpeechSerializer
+
+  def get_queryset(self):
+    if self.request.body!='':
+      return Speech.objects.filter(language__startswith=self.request.body)
+    else:
+      return Speech.objects.none()
 
 # === Sources API ========
 
