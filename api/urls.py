@@ -25,9 +25,9 @@ urlpatterns = [
   # Search
   path("search", views.search, name='search'),
   # Countries
-  path('countries', views.CountriesList.as_view(), name='countries_list'),
+  path('countries/<str:frst_letters>', views.CountriesList.as_view(), name='countries_list'),
   # Speeches
-  path('speeches', views.SpeechesList.as_view(), name='speeches_list'),
+  path('speeches/<str:frst_letters>', views.SpeechesList.as_view(), name='speeches_list'),
   # Sources
   path('sources', views.sources, name='sources_list'),
   # Authors
