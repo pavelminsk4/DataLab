@@ -33,7 +33,7 @@ export default {
       },
     }
 
-    return fetch('get', `/api/countries/${word}`, config)
+    return fetch('get', `/api/countries/countries?search=${word}`, config)
   },
 
   async getLanguages(word) {
@@ -44,7 +44,7 @@ export default {
       },
     }
 
-    return fetch('get', `/api/speeches/${word}`, config)
+    return fetch('get', `/api/speeches/speeches?search=${word}`, config)
   },
 
   async getSources(word) {

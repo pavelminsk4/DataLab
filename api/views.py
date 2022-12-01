@@ -22,6 +22,7 @@ from alerts.models import Alert
 from rest_framework import status
 from rest_framework import viewsets
 from django.core.paginator import Paginator
+from rest_framework import filters
 
 from widgets.common_widget.volume_widget import *
 
@@ -149,22 +150,16 @@ def search(request):
 # === Countries API ==========
 
 class CountriesList(ListAPIView):
-  serializer_class = CountrySerializer
-
-  def get_queryset(self):
-    if self.kwargs['frst_letters']:
-      return Country.objects.filter(name__startswith=self.kwargs['frst_letters'])
-    else:
-      return Country.objects.none()
+      serializer_class = CountrySerializer
+      queryset = Country.objects.all()
+      filter_backends = [filters.SearchFilter]
+      search_fields = ['^name']
 
 class SpeechesList(ListAPIView):
   serializer_class = SpeechSerializer
-
-  def get_queryset(self):
-    if self.kwargs['frst_letters']:
-      return Speech.objects.filter(language__startswith=self.kwargs['frst_letters'])
-    else:
-      return Speech.objects.none()
+  queryset = Speech.objects.all()
+  filter_backends = [filters.SearchFilter]
+  search_fields = ['^language']
 
 # === Sources API ========
 
