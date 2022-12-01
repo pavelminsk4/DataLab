@@ -164,14 +164,14 @@ export default {
           exceptions:
             this.currentExcludeKeywords || this.keywords?.ignore_keywords,
           country: this.currentProject?.country_filter || [],
-          language: this.currentProject?.author_filter || [],
-          sentiment: this.currentProject?.author_filter || [],
+          language: this.currentProject?.language_filter || [],
+          sentiment: this.currentProject?.sentiment_filter || [],
           date_range: [
             this.currentProject?.start_search_date,
 
             this.currentProject?.end_search_date,
           ],
-          source: this.currentProject?.author_filter || [],
+          source: this.currentProject?.source_filter || [],
           author: this.currentProject?.author_filter || [],
           posts_per_page: numberOfPosts || 20,
           page_number: pageNumber || 1,
