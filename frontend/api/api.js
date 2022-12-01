@@ -33,8 +33,15 @@ export default {
     return fetch('get', '/api/speeches')
   },
 
-  async getSources() {
-    return fetch('get', '/api/sources')
+  async getSources(word) {
+    const config = {
+      headers: {
+        'content-type': 'application/json',
+        'X-CSRFToken': CSRF_TOKEN,
+      },
+    }
+
+    return fetch('post', '/api/sources', word, config)
   },
 
   async getAuthors(word) {

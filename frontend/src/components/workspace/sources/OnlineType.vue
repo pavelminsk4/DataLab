@@ -25,7 +25,7 @@
           :placeholder="'Select author'"
           :is-search="true"
           @select-option="selectItem"
-          @update-results="getSearchResult"
+          @update-results="getAuthorsResult"
           class="select"
         />
       </div>
@@ -56,6 +56,7 @@
           :list="sources"
           :is-search="true"
           @select-option="selectItem"
+          @update-results="getSourceResult"
           class="select"
         />
       </div>
@@ -120,10 +121,6 @@ export default {
     if (!this.languages.length) {
       this[action.GET_LANGUAGES]()
     }
-
-    if (!this.sources.length) {
-      this[action.GET_SOURCES]()
-    }
   },
   computed: {
     ...mapGetters({
@@ -166,8 +163,12 @@ export default {
       }
     },
 
-    getSearchResult(searchValue) {
+    getAuthorsResult(searchValue) {
       this[action.GET_AUTHORS](searchValue)
+    },
+
+    getSourceResult(searchValue) {
+      this[action.GET_SOURCES](searchValue)
     },
   },
 }

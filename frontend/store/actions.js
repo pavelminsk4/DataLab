@@ -74,10 +74,10 @@ export default {
     }
   },
 
-  async [action.GET_SOURCES]({commit}) {
+  async [action.GET_SOURCES]({commit}, word) {
     commit(mutator.SET_LOADING, true)
     try {
-      const sources = await api.getSources()
+      const sources = await api.getSources(word)
       commit(mutator.SET_SOURCES, sources)
     } catch (e) {
       console.log(e)
