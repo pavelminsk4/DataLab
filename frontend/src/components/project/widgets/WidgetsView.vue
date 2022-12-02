@@ -26,7 +26,7 @@
 
   <grid-layout
     v-if="availableWidgets"
-    v-model:layout="layout"
+    v-model:layout="layoutProxy"
     :col-num="4"
     :row-height="30"
     is-draggable
@@ -37,7 +37,7 @@
   >
     <grid-item
       class="widget-item"
-      v-for="item in layout"
+      v-for="item in layoutProxy"
       v-show="item.isShow"
       :static="item.static"
       :x="item.x"
@@ -52,18 +52,18 @@
       :maxH="item.maxH"
     >
       <component
+        v-if="item.isWidget"
         :is="`${item.widgetName}` + 'Widget'"
         :summary-data="summary"
         :volume="volume"
         :project-id="projectId"
         :is-open-widget="item.isShow"
-        @delete-widget="deleteWidget(item.name)"
+        @delete-widget="deleteWidget(item.name, item.i)"
         @open-settings-modal="openModal(item.isOpenModal)"
       />
-    </grid-item>
 
-    <grid-item class="widget-item" :x="0" :y="0" :i="10" :w="2" :h="29">
       <SearchResults
+        v-else
         :is-show-calendar="false"
         :is-checkbox-clipping-widget="true"
         :currentProject="currentProject"
@@ -123,6 +123,7 @@ export default {
       isOpenSummaryModal: false,
       isOpenTop10AuthorsModal: false,
       isOpenClippingFeedContentModal: false,
+      layout: [],
     }
   },
   created() {
@@ -141,61 +142,47 @@ export default {
       availableWidgets: get.AVAILABLE_WIDGETS,
       clippingData: get.CLIPPING_FEED_CONTENT_WIDGET,
     }),
-    layout() {
-      return [
-        {
-          x: 2,
-          y: 0,
-          w: 2,
-          h: 9,
-          i: '0',
-          static: false,
-          name: 'summary_widget',
-          widgetName: 'Summary',
-          isShow: this.isActiveWidget('summary_widget'),
-          isOpenModal: 'isOpenSummaryModal',
-        },
-        {
-          x: 2,
-          y: 1,
-          w: 2,
-          h: 12,
-          i: '1',
-          static: false,
-          name: 'volume_widget',
-          widgetName: 'ContentVolume',
-          isShow: this.isActiveWidget('volume_widget'),
-          isOpenModal: 'isOpenContentVolumeModal',
-        },
-        {
-          x: 2,
-          y: 2,
-          w: 2,
-          h: 11,
-          maxW: 2,
-          minW: 2,
-          maxH: 11,
-          minH: 11,
-          i: '3',
-          static: false,
-          name: 'top_10_authors_by_volume_widget',
-          widgetName: 'Top10AuthorsByVolume',
-          isShow: this.isActiveWidget('top_10_authors_by_volume_widget'),
-          isOpenModal: 'isOpenTop10AuthorsModal',
-        },
-        {
-          x: 2,
-          y: 3,
-          w: 2,
-          h: 15,
-          i: '2',
-          static: false,
-          name: 'clipping_feed_content_widget',
-          widgetName: 'ClippingFeedContent',
-          isShow: this.isActiveWidget('clipping_feed_content_widget'),
-          isOpenModal: 'isOpenClippingFeedContentModal',
-        },
-      ]
+    layoutProxy: {
+      get() {
+        let layout = [
+          {
+            x: 0,
+            y: 0,
+            w: 2,
+            h: 29,
+            i: '10',
+            static: false,
+            name: 'ertet',
+            widgetName: 'rtet',
+            isShow: true,
+            isOpenModal: 'ters',
+            isWidget: false,
+          },
+        ]
+
+        for (let key in this.availableWidgets) {
+          if (this.availableWidgets[key].is_active) {
+            layout.push({
+              x: 2,
+              y: this.newValue(layout.length),
+              w: 2,
+              h: this.widgetSettings(key).h,
+              i: this.elementIndex(layout.length),
+              static: false,
+              name: key,
+              widgetName: this.widgetSettings(key).name,
+              isShow: this.isActiveWidget(key),
+              isOpenModal: this.widgetSettings(key).openModal,
+              isWidget: true,
+            })
+          }
+        }
+
+        return layout
+      },
+      set(val) {
+        this.layout = val
+      },
     },
   },
   methods: {
@@ -204,7 +191,45 @@ export default {
       action.UPDATE_AVAILABLE_WIDGETS,
       action.GET_CLIPPING_FEED_CONTENT_WIDGET,
     ]),
-    async deleteWidget(name) {
+    widgetSettings(key) {
+      switch (key) {
+        case 'summary_widget':
+          return {
+            name: 'Summary',
+            openModal: 'isOpenSummaryModal',
+            h: 9,
+          }
+        case 'clipping_feed_content_widget':
+          return {
+            name: 'ClippingFeedContent',
+            openModal: 'isOpenClippingFeedContentModal',
+            h: 15,
+          }
+        case 'top_10_authors_by_volume_widget':
+          return {
+            name: 'Top10AuthorsByVolume',
+            openModal: 'isOpenTop10AuthorsModal',
+            h: 11,
+          }
+        case 'volume_widget':
+          return {
+            name: 'ContentVolume',
+            openModal: 'isOpenContentVolumeModal',
+            h: 12,
+          }
+      }
+    },
+    newValue(val) {
+      return val > 1 ? val - 1 : 0
+    },
+    elementIndex(val) {
+      let index = val + 1
+      return String(index)
+    },
+    async deleteWidget(name, val) {
+      const index = this.layout.map((item) => item.i).indexOf(val)
+      this.layout.splice(index, 1)
+
       await this[action.UPDATE_AVAILABLE_WIDGETS]({
         projectId: this.projectId,
         data: {[name]: {is_active: false, id: this.availableWidgets[name].id}},
