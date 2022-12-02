@@ -368,6 +368,7 @@ export default {
         .author {
           white-space: normal;
           overflow: revert;
+          word-break: break-all;
         }
       }
     }
