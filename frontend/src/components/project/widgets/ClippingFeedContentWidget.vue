@@ -22,6 +22,7 @@
         :country="item.post__feedlink__country"
         :language="item.post__feed_language__language"
         :published="item.post__entry_published"
+        :potential-reach="item.post__feedlink__alexaglobalrank"
         :post-id="item.post__id"
         :project-id="projectId"
         :is-clipping-widget="true"

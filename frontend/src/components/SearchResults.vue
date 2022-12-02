@@ -46,6 +46,7 @@
         :source="item.feedlink__source1"
         :country="item.feedlink__country"
         :language="item.feed_language__language"
+        :potential-reach="item.feedlink__alexaglobalrank"
         :published="item.entry_published"
         :id="item.id"
         :is-checkbox-clipping-widget="isCheckboxClippingWidget"

@@ -57,6 +57,10 @@
             {{ language }}
           </div>
           <div class="general-item">
+            <PotentialReachIcon />
+            {{ potentialReach }}
+          </div>
+          <div class="general-item">
             <CalendarIcon />
             {{ dateOfCreation(published) }}
           </div>
@@ -80,10 +84,17 @@ import BaseCheckbox from '@/components/BaseCheckbox'
 import NoImageIcon from '@/components/icons/NoImageIcon'
 import CloseIcon from '@/components/icons/CloseIcon'
 import CalendarIcon from '@/components/icons/CalendarIcon'
+import PotentialReachIcon from '@/components/icons/PotentialReachIcon'
 
 export default {
   name: 'BaseClippingCard',
-  components: {CalendarIcon, CloseIcon, NoImageIcon, BaseCheckbox},
+  components: {
+    PotentialReachIcon,
+    CalendarIcon,
+    CloseIcon,
+    NoImageIcon,
+    BaseCheckbox,
+  },
   props: {
     isCheckboxClippingWidget: {
       type: Boolean,
@@ -118,6 +129,10 @@ export default {
       required: false,
     },
     language: {
+      type: String,
+      required: false,
+    },
+    potentialReach: {
       type: String,
       required: false,
     },
@@ -281,6 +296,7 @@ export default {
 
 .general-information {
   display: flex;
+  flex-wrap: wrap;
 
   margin-top: 10px;
 
