@@ -34,6 +34,7 @@ def clp_widget(pk):
     'feedlink__country',
     'feedlink__source1',
     'feedlink__sourceurl',
+    'feedlink_alexaglobalrank',
     'sentiment',
     )
   res = list(posts)

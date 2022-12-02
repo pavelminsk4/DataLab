@@ -142,7 +142,23 @@ def search(request):
     posts = posts.filter(entry_author=author)
   if sentiment!=[]:
     posts = posts.filter(sentiment=sentiment)
-  posts = posts.values('id', 'entry_title', 'entry_published', 'entry_summary', 'entry_media_thumbnail_url', 'entry_media_content_url', 'feed_image_href', 'feed_image_link', 'feed_language__language', 'entry_author', 'entry_links_href', 'feedlink__country', 'feedlink__source1', 'feedlink__sourceurl',  'sentiment')
+  posts = posts.values(
+    'id',
+    'entry_title',
+    'entry_published',
+    'entry_summary',
+    'entry_media_thumbnail_url',
+    'entry_media_content_url',
+    'feed_image_href',
+    'feed_image_link',
+    'feed_language__language',
+    'entry_author', 'entry_links_href',
+    'feedlink__country',
+    'feedlink__source1',
+    'feedlink__sourceurl',
+    'feedlink__alexaglobalrank',
+    'sentiment',
+    )
   p = Paginator(posts, posts_per_page)
   posts_list=list(p.page(page_number))
   res = { 'num_pages': p.num_pages, 'num_posts': p.count, 'posts': posts_list }
