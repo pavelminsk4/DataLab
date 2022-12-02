@@ -50,6 +50,7 @@
         :id="item.id"
         :is-checkbox-clipping-widget="isCheckboxClippingWidget"
         :clipping-element="selectedClippingElement(item.id)"
+        :current-project="currentProject"
         @add-element="onChange"
       />
     </div>

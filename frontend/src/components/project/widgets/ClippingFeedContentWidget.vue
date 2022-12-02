@@ -25,6 +25,7 @@
         :post-id="item.post__id"
         :project-id="projectId"
         :is-clipping-widget="true"
+        :current-project="currentProject"
       />
     </div>
   </WidgetsLayout>
@@ -43,6 +44,10 @@ export default {
   props: {
     projectId: {
       type: Number,
+      required: true,
+    },
+    currentProject: {
+      type: [Array, Object],
       required: true,
     },
   },

@@ -33,9 +33,14 @@
         >
           {{ capitalizeFirstLetter(sentiment) }}
         </div>
-        <a class="title" tabindex="0" :href="entryLink" target="_blank">{{
-          title
-        }}</a>
+        <a
+          class="title"
+          id="titleCard"
+          tabindex="0"
+          :href="entryLink"
+          target="_blank"
+          >{{ title }}</a
+        >
         <div class="description" tabindex="0">{{ summary }}</div>
         <div class="general-information">
           <a
@@ -143,6 +148,10 @@ export default {
     clippingElement: {
       type: Boolean,
       default: false,
+    },
+    currentProject: {
+      type: [Array, Object],
+      required: true,
     },
   },
   methods: {
@@ -361,5 +370,9 @@ export default {
   &:before {
     background-color: var(--negative-status);
   }
+}
+
+.keyword {
+  color: var(--keyword);
 }
 </style>
