@@ -61,7 +61,7 @@ def calculate_summary_widget(pk):
   pos_posts = posts.filter(sentiment='positive').count()
   neg_posts = posts.filter(sentiment='negative').count()
   neut_posts = posts_quantity - pos_posts - neg_posts
-  potential_reach = 'blank' 
+  potential_reach = posts.order_by('-feedlink__alexaglobalrank')[0].feedlink.alexaglobalrank
   return {
     'posts':posts_quantity,
     'sources':sources_quantity,

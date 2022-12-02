@@ -19,6 +19,7 @@ def cl_fd_cont_widg(request, pk):
     'post__feedlink__country',
     'post__feedlink__source1',
     'post__feedlink__sourceurl',
+    'post__feedlink__alexaglobalrank',
     'post__sentiment',
     )
   res = list(posts)
