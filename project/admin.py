@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Project, Workspace, Company, Feedlinks, Post, Speech, Status
+from .models import Project, Workspace, Company, Feedlinks, Post, Speech, Status, TempFeedLinks
 from import_export.admin import ImportExportModelAdmin
 from import_export import resources
 
@@ -15,7 +15,7 @@ class FeedlinksResource(resources.ModelResource):
     model = Feedlinks
 
 class FeedlinksAdmin(ImportExportModelAdmin):
-   resource_class = FeedlinksResource
+  resource_class = FeedlinksResource
 
 admin.site.register(Feedlinks, FeedlinksAdmin )
 
@@ -28,3 +28,14 @@ class PostAdmin(ImportExportModelAdmin):
   resource_class = PostResource
 
 admin.site.register(Post, PostAdmin)
+
+# ==== TempFeedLinks ===
+
+class TempFeedLinksResource(resources.ModelResource):
+  class Meta:
+    model = TempFeedLinks
+
+class TempFeedLinksAdmin(ImportExportModelAdmin):
+  resource_class = TempFeedLinksResource
+
+admin.site.register(TempFeedLinks, TempFeedLinksAdmin)
