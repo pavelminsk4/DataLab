@@ -29,8 +29,8 @@
     v-model:layout="layoutProxy"
     :col-num="4"
     :row-height="30"
+    :is-resizable="false"
     is-draggable
-    is-resizable
     vertical-compact
     use-css-transforms
     class="widgets-wrapper"
@@ -58,6 +58,7 @@
         :volume="volume"
         :project-id="projectId"
         :is-open-widget="item.isShow"
+        :current-project="currentProject"
         @delete-widget="deleteWidget(item.name, item.i)"
         @open-settings-modal="openModal(item.isOpenModal)"
       />
@@ -152,10 +153,10 @@ export default {
             h: 29,
             i: '10',
             static: false,
-            name: 'ertet',
-            widgetName: 'rtet',
+            name: 'search',
+            widgetName: 'search',
             isShow: true,
-            isOpenModal: 'ters',
+            isOpenModal: 'search',
             isWidget: false,
           },
         ]
@@ -280,7 +281,7 @@ export default {
 }
 
 .vue-resizable-handle {
-  background: var(--secondary-text-color);
+  background: var(--secondary-text-color) !important;
 }
 .search-result-wrapper {
   padding: 20px;

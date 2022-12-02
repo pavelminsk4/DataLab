@@ -138,9 +138,7 @@ export default {
     changeValue(newValue) {
       this.selectedValue = newValue
       if (newValue === 'All sentiments') {
-        this[action.UPDATE_ADDITIONAL_FILTERS]({
-          sentiment: [],
-        })
+        this[action.UPDATE_ADDITIONAL_FILTERS]([])
       } else {
         this[action.UPDATE_ADDITIONAL_FILTERS]({
           sentiment: this.selectedValue.toLocaleLowerCase(),

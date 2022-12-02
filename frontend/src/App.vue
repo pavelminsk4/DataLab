@@ -56,5 +56,7 @@ body {
   --neutral-status: #f6aa37;
 
   --dp-background-color: var(--input-border-color);
+
+  --keyword: #f82a6c;
 }
 </style>

@@ -33,9 +33,14 @@
         >
           {{ capitalizeFirstLetter(sentiment) }}
         </div>
-        <a class="title" tabindex="0" :href="entryLink" target="_blank">{{
-          title
-        }}</a>
+        <a
+          class="title"
+          id="titleCard"
+          tabindex="0"
+          :href="entryLink"
+          target="_blank"
+          >{{ title }}</a
+        >
         <div class="description" tabindex="0">{{ summary }}</div>
         <div class="general-information">
           <a
@@ -50,6 +55,10 @@
           </div>
           <div class="general-item">
             {{ language }}
+          </div>
+          <div class="general-item">
+            <PotentialReachIcon />
+            {{ potentialReach }}
           </div>
           <div class="general-item">
             <CalendarIcon />
@@ -75,10 +84,17 @@ import BaseCheckbox from '@/components/BaseCheckbox'
 import NoImageIcon from '@/components/icons/NoImageIcon'
 import CloseIcon from '@/components/icons/CloseIcon'
 import CalendarIcon from '@/components/icons/CalendarIcon'
+import PotentialReachIcon from '@/components/icons/PotentialReachIcon'
 
 export default {
   name: 'BaseClippingCard',
-  components: {CalendarIcon, CloseIcon, NoImageIcon, BaseCheckbox},
+  components: {
+    PotentialReachIcon,
+    CalendarIcon,
+    CloseIcon,
+    NoImageIcon,
+    BaseCheckbox,
+  },
   props: {
     isCheckboxClippingWidget: {
       type: Boolean,
@@ -116,6 +132,10 @@ export default {
       type: String,
       required: false,
     },
+    potentialReach: {
+      type: String,
+      required: false,
+    },
     published: {
       type: String,
       required: false,
@@ -143,6 +163,10 @@ export default {
     clippingElement: {
       type: Boolean,
       default: false,
+    },
+    currentProject: {
+      type: [Array, Object],
+      required: true,
     },
   },
   methods: {
@@ -272,6 +296,7 @@ export default {
 
 .general-information {
   display: flex;
+  flex-wrap: wrap;
 
   margin-top: 10px;
 
@@ -361,5 +386,9 @@ export default {
   &:before {
     background-color: var(--negative-status);
   }
+}
+
+.keyword {
+  color: var(--keyword);
 }
 </style>

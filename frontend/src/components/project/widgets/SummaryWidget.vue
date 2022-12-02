@@ -69,7 +69,7 @@ export default {
           style: 'positive',
         },
         {name: 'Source', value: this.summaryData?.sources},
-        {name: 'Potential reach', value: 0},
+        {name: 'Potential reach', value: this.summaryData?.reach},
         {name: 'Countries', value: this.summaryData?.countries},
         {name: 'Authors', value: this.summaryData?.authors},
       ]
@@ -126,7 +126,7 @@ export default {
       .value {
         font-style: normal;
         font-weight: 600;
-        font-size: 28px;
+        font-size: 1rem;
         line-height: 38px;
       }
 
@@ -134,6 +134,8 @@ export default {
         display: flex;
         align-items: center;
         justify-content: center;
+        flex-shrink: 0;
+        flex-grow: 0;
 
         width: 22px;
         height: 22px;
