@@ -81,9 +81,14 @@ class Feedlinks(models.Model):
   languagecode = models.CharField("Language Code",max_length=2,null=True,blank=True)
   sourceurl = models.URLField(max_length=200,null=True,blank=True)
   issourcefeed = models.BooleanField(default=False)
+  alexaglobalrank = models.BigIntegerField(default=0)
 
   def __str__(self):
     return self.url
+
+class TempFeedLinks(models.Model):
+  url = models.URLField(max_length=200,null=True,blank=True,unique=True)
+  alexaglobalrank = models.BigIntegerField()
 
 class Speech(models.Model):
   language = models.CharField('language', max_length=50)
