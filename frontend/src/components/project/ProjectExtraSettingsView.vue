@@ -123,9 +123,11 @@ export default {
 
   .logo {
     cursor: pointer;
+    opacity: 0;
 
-    width: 54px;
-    margin: 18px 10px 94px;
+    width: 0;
+    height: 0;
+    margin: 18px 10px 50px;
   }
 
   .nav-item {
