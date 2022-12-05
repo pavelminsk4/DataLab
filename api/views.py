@@ -179,7 +179,7 @@ class SpeechesList(ListAPIView):
 
 class AuthorList(ListAPIView):
   serializer_class = PostsSerializer
-  queryset = Post.objects.all()
+  queryset = Post.objects.distinct('entry_author')
   filter_backends = [filters.SearchFilter]
   search_fields = ['^entry_author']
 
