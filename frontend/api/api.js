@@ -66,7 +66,7 @@ export default {
       },
     }
 
-    return fetch('post', '/api/authors', word, config)
+    return fetch('get', `/api/authors/authors?search=${word}`, config)
   },
 
   async getListOfDisplayedWidgets(projectId) {
