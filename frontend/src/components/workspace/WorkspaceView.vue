@@ -2,6 +2,10 @@
   <MainLayout>
     <div v-if="workspace" class="create-project-wrapper">
       <div>
+        <div class="back-button" @click="backToPage">
+          <ArrowLeftIcon class="arrow-back" />
+          <span>Back to dashboard</span>
+        </div>
         <h1 class="title">{{ workspace.title }}</h1>
         <span class="hint">
           Select the project you want to work on or create a new search
@@ -34,10 +38,11 @@ import SortIcon from '@components/icons/SortIcon'
 import MainLayout from '@components/layout/MainLayout'
 import BaseButton from '@components/buttons/BaseButton'
 import ProjectsTable from '@/components/ProjectsTable'
+import ArrowLeftIcon from '@/components/icons/ArrowLeftIcon'
 
 export default {
   name: 'WorkspaceView',
-  components: {ProjectsTable, MainLayout, BaseButton, SortIcon},
+  components: {ArrowLeftIcon, ProjectsTable, MainLayout, BaseButton, SortIcon},
   computed: {
     ...mapState(['workspaces']),
     workspaceId() {
@@ -68,6 +73,12 @@ export default {
         },
       })
     },
+
+    backToPage() {
+      this.$router.push({
+        name: 'Home',
+      })
+    },
   },
 }
 </script>
@@ -77,6 +88,22 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.back-button {
+  max-width: fit-content;
+
+  cursor: pointer;
+
+  color: var(--secondary-text-color);
+
+  .arrow-back {
+    margin-right: 5px;
+  }
+
+  &:hover {
+    color: var(--primary-button-color);
+  }
 }
 
 .title {
