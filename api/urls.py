@@ -31,7 +31,7 @@ urlpatterns = [
   # Sources
   path('sources', views.sources, name='sources_list'),
   # Authors
-  path('authors', views.authors, name='authors_list'),
+  path('authors/<str:frst_letters>', views.AuthorList.as_view(), name='authors_list'),
   # Years range
   path('years', views.years, name='years_range'),
   # ClippingFeedContentWidget

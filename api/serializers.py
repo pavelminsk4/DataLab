@@ -7,6 +7,7 @@ from countries_plus.models import Country
 from widgets.models import WidgetsList, WidgetsList2, ClippingFeedContentWidget, WidgetDescription, Dimensions, ProjectDimensions
 from reports.models import Templates
 from alerts.models import Alert
+from project.models import Post
 
 class DepartmentSerializer(WritableNestedModelSerializer):
   class Meta:
@@ -114,3 +115,8 @@ class AlertsSerializer(WritableNestedModelSerializer):
   class Meta:
     model = Alert
     fields = '__all__'
+
+class PostsSerializer(WritableNestedModelSerializer):
+  class Meta:
+    model = Post
+    fields = ['entry_author']    

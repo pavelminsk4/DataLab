@@ -177,6 +177,12 @@ class SpeechesList(ListAPIView):
   filter_backends = [filters.SearchFilter]
   search_fields = ['^language']
 
+class AuthorList(ListAPIView):
+  serializer_class = PostsSerializer
+  queryset = Post.objects.all()
+  filter_backends = [filters.SearchFilter]
+  search_fields = ['^entry_author']
+
 # === Sources API ========
 
 def sources(request):
@@ -187,15 +193,6 @@ def sources(request):
     set = []
   sources_list = list(set)
   return JsonResponse(sources_list, safe = False)
-
-def authors(request):
-  first_letters = json.loads(request.body)
-  if first_letters!='':
-    set = Post.objects.filter(entry_author__startswith=first_letters).values('entry_author').distinct().order_by('entry_author')
-  else:
-    set = []
-  authors_list = list(set)
-  return JsonResponse(authors_list, safe = False)
 
 def years(request):
   years = Post.objects.annotate(year=ExtractYear('entry_published')).values('year').distinct().order_by('year')
