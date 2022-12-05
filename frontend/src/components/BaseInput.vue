@@ -8,6 +8,8 @@
       :placeholder="placeholder"
       @input="handleInput"
     />
+
+    <slot></slot>
   </div>
 </template>
 

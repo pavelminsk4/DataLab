@@ -1,5 +1,6 @@
 <template>
   <NavigationBar
+    v-if="projectId"
     :title="currentProject.title"
     hint="Set up alerts for your project with highly customized filters"
   >
@@ -9,7 +10,7 @@
   <div class="create-alert-wrapper">
     <div class="title">Alert Title</div>
 
-    <BaseInput v-model="title" />
+    <BaseInput :model-value="title" placeholder="Alert Title" />
 
     <div class="title">Alert e-mail</div>
 
@@ -18,12 +19,28 @@
     <div class="additional-settings">
       <div>
         <div class="title">Trigger on every N new posts</div>
-        <BaseInput v-model="trigger" />
+        <BaseInput v-model="trigger">
+          <div class="arrows-wrapper">
+            <ArrowDownIcon
+              @click="increase('trigger')"
+              class="arrow-input arrow-increase"
+            />
+            <ArrowDownIcon @click="decrease('trigger')" class="arrow-input" />
+          </div>
+        </BaseInput>
       </div>
 
       <div>
         <div class="title">How many posts to send</div>
-        <BaseInput v-model="posts" />
+        <BaseInput v-model="posts">
+          <div class="arrows-wrapper">
+            <ArrowDownIcon
+              @click="increase('posts')"
+              class="arrow-input arrow-increase"
+            />
+            <ArrowDownIcon @click="decrease('posts')" class="arrow-input" />
+          </div>
+        </BaseInput>
       </div>
     </div>
   </div>
@@ -36,10 +53,11 @@ import {action, get} from '@store/constants'
 import BaseButton from '@/components/buttons/BaseButton'
 import NavigationBar from '@/components/navigation/NavigationBar'
 import BaseInput from '@/components/BaseInput'
+import ArrowDownIcon from '@/components/icons/ArrowDownIcon'
 
 export default {
   name: 'AlertSettingsScreen',
-  components: {BaseInput, BaseButton, NavigationBar},
+  components: {ArrowDownIcon, BaseInput, BaseButton, NavigationBar},
   data() {
     return {
       title: '',
@@ -48,17 +66,19 @@ export default {
       posts: '',
     }
   },
-  created() {
+  async created() {
     if (!this.workspaces.length) {
-      this[action.GET_WORKSPACES]()
+      await this[action.GET_WORKSPACES]()
     }
 
     if (!this.alerts.length) {
-      this[action.GET_ALERTS](this.currentProject.id)
+      await this[action.GET_ALERTS](this.projectId)
     }
 
     if (this.$route.name === 'UpdateAlert') {
-      this.title = this.currentAlert.title
+      this.title = this.currentAlert?.title
+      this.trigger = this.currentAlert?.triggered_on_every_n_new_posts
+      this.posts = this.currentAlert?.how_many_posts_to_send
     }
   },
   computed: {
@@ -84,7 +104,7 @@ export default {
       return this.$route.params.alertId
     },
     currentAlert() {
-      return this.alerts.filter((el) => +el.id === +this.alertId)
+      return this.alerts.filter((el) => +el.id === +this.alertId)[0]
     },
   },
   methods: {
@@ -106,6 +126,12 @@ export default {
       this.$router.push({
         name: 'Alerts',
       })
+    },
+    increase(val) {
+      this[val] = this[val] + 1
+    },
+    decrease(val) {
+      this[val] = this[val] - 1
     },
   },
 }
@@ -133,5 +159,32 @@ export default {
 
 .button {
   width: 116px;
+}
+.arrows-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+
+  margin-right: 18px;
+
+  cursor: pointer;
+
+  .arrow-input {
+    color: var(--primary-text-color);
+
+    &:hover {
+      color: var(--primary-button-color);
+    }
+  }
+
+  .arrow-increase {
+    margin-left: 0.5px;
+    transform: rotate(180deg);
+
+    &:hover {
+      color: var(--primary-button-color);
+    }
+  }
 }
 </style>
