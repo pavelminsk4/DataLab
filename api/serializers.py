@@ -8,6 +8,7 @@ from widgets.models import WidgetsList, WidgetsList2, ClippingFeedContentWidget,
 from reports.models import Templates
 from alerts.models import Alert
 from project.models import Post
+from rest_framework.validators import UniqueTogetherValidator
 
 class DepartmentSerializer(WritableNestedModelSerializer):
   class Meta:
@@ -116,7 +117,11 @@ class AlertsSerializer(WritableNestedModelSerializer):
     model = Alert
     fields = '__all__'
 
-class PostsSerializer(WritableNestedModelSerializer):
+class PostsSerializer(serializers.Serializer):
   class Meta:
-    model = Post
-    fields = ['entry_author']    
+    validators = [
+            UniqueTogetherValidator(
+                queryset=Post.objects.all(),
+                fields=['entry_author']
+            )
+        ]
