@@ -98,9 +98,10 @@ export default {
 
 .logo {
   cursor: pointer;
+  opacity: 0;
 
-  width: 75px;
-  height: 30px;
+  width: 0;
+  height: 0;
 }
 
 .section-company {
