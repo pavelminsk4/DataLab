@@ -11,8 +11,9 @@
     <div class="search-settings-wrapper">
       <ProjectKeywords
         :main-keywords="currentKeywords"
-        :additional-keywords="currentAdditionalKeywords"
         :exclude-keywords="currentExcludeKeywords"
+        :additional-keywords="currentAdditionalKeywords"
+        :current-project="currentProject"
         @show-result="showResults"
         @update-collection="updateCollection"
       />

@@ -10,6 +10,7 @@
           :placeholder="'Enter the country'"
           :list="countries"
           :is-search="true"
+          :current-value="country"
           :is-reject-selection="false"
           @select-option="selectItem"
           @update-results="getCountryResult"
@@ -25,6 +26,7 @@
           :name="'author'"
           :list="authors"
           :placeholder="'Enter the author'"
+          :current-value="author"
           :is-search="true"
           :is-reject-selection="false"
           @select-option="selectItem"
@@ -44,6 +46,7 @@
           :placeholder="'Enter the language'"
           :list="languages"
           :is-search="true"
+          :current-value="languages"
           :is-reject-selection="false"
           @select-option="selectItem"
           @update-results="getLanguageResult"
@@ -60,6 +63,7 @@
           :placeholder="'Enter the source'"
           :list="sources"
           :is-search="true"
+          :current-value="source"
           :is-reject-selection="false"
           @select-option="selectItem"
           @update-results="getSourceResult"
@@ -104,9 +108,9 @@ export default {
     CheckRadioIcon,
   },
   props: {
-    currentCountry: {
-      type: String,
-      required: false,
+    currentProject: {
+      type: [Array, Object],
+      default: () => [],
     },
   },
   data() {
@@ -117,6 +121,17 @@ export default {
       language: '',
       source: '',
       author: '',
+    }
+  },
+  created() {
+    if (this.currentProject) {
+      this.country = this.currentProject.country_filter
+      this.language = this.currentProject.language_filter
+      this.source = this.currentProject.source_filter
+      this.author = this.currentProject.author_filter
+      this.selectedValue = this.capitalizeFirstLetter(
+        this.currentProject.sentiment_filter
+      )
     }
   },
   computed: {

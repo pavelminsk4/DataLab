@@ -48,7 +48,7 @@
 
     <div class="filters-title">Refine youre search with additional filters</div>
 
-    <OnlineType />
+    <OnlineType :current-project="currentProject" />
 
     <BaseButton @click="showResults" class="apply-settings">
       Preview
@@ -77,9 +77,9 @@ export default {
       type: Array,
       default: () => [],
     },
-    country: {
-      type: String,
-      required: false,
+    currentProject: {
+      type: [Array, Object],
+      default: () => [],
     },
   },
   methods: {
