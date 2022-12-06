@@ -291,6 +291,17 @@ export default {
     }
   },
 
+  async [action.UPDATE_NEW_ALERT]({commit}, {data, alertId}) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      await api.updateAlert({data, alertId})
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
   async [action.UPDATE_OLD_WORKSPACE]({commit}, {workspaceId, data}) {
     commit(mutator.SET_LOADING, true)
     try {
