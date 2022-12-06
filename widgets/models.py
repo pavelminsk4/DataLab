@@ -38,6 +38,7 @@ class WidgetsList2(models.Model):
   volume_widget = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='vol_widg_description', null=True)
   clipping_feed_content_widget = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='cl_fd_cont_widg_description',null=True)
   top_10_authors_by_volume_widget = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='top_10_auth_by_vol_widg_description',null=True)
+  top_10_brands_widget = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='top_10_brands_widg_description', null=True)
   #clipping_widget = models.ForeignKey(WidgetDescription, on_delete=models.SET_NULL, related_name='clippint_widg_description', null=True)
 
   def __str__(self):
@@ -69,6 +70,12 @@ def create_widget_description(sender, instance, created, **kwargs):
     wd4.linked_dimensions.add(Dimensions.objects.get_or_create(title='Author')[0]) # List of permited dimensions ???
     wd4.linked_dimensions.add(Dimensions.objects.get_or_create(title='City')[0]) # Second permited dimension
     wd4.save()
+    wd5 = WidgetDescription.objects.create(title='Top 10 brands by volume')
+    wd5.linked_dimensions.add(Dimensions.objects.get_or_create(title='Country')[0])
+    wd5.linked_dimensions.add(Dimensions.objects.get_or_create(title='Author')[0])
+    wd5.linked_dimensions.add(Dimensions.objects.get_or_create(title='Language')[0])
+    wd5.linked_dimensions.add(Dimensions.objects.get_or_create(title='Sentiment')[0])
+    wd5.save()
     # wd5 = WidgetDescription.objects.create(title='Clipping Widget')
     # wd5.linked_dimensions.add(Dimensions.objects.get_or_create(title='Country')[0])
     # wd5.linked_dimensions.add(Dimensions.objects.get_or_create(title='Author')[0])
@@ -81,6 +88,7 @@ def create_widget_description(sender, instance, created, **kwargs):
     instance.volume_widget = wd2
     instance.clipping_feed_content_widget = wd3
     instance.top_10_authors_by_volume_widget = wd4
+    instance.top_10_brands_widget = wd5
     # instance.clipping_widget = wd5
     instance.save()
 
