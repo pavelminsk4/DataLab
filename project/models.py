@@ -196,6 +196,11 @@ class Post(models.Model):
         fields=['entry_title'],
         opclasses=['gin_trgm_ops'],
       ),
+      GinIndex(
+        name='entry_author_gin_index',
+        fields=['entry_author'],
+        opclasses=['gin_trgm_ops'], 
+      ),
     ]
   
   def __str__(self):
