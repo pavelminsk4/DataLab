@@ -8,8 +8,8 @@ from django.urls import reverse
 from datetime import datetime
 import json
 
-class CountriesTests(APITestCase):
-  def test_countries_list(self):
+class WidgetTests(APITestCase):
+  def test_widgett(self):
     user = User.objects.create(username='John')
     flink = Feedlinks.objects.create()
     sp = Speech.objects.create(language='English (United States)')
@@ -41,6 +41,7 @@ class CountriesTests(APITestCase):
         'post__feedlink__source1':None,
         'post__feedlink__sourceurl':None,
         'post__sentiment':"neutral",
+        'post__feedlink__alexaglobalrank':0,
       }
     pst2 = {
         'post__id':1,
@@ -58,5 +59,6 @@ class CountriesTests(APITestCase):
         'post__feedlink__source1':None,
         'post__feedlink__sourceurl':None,
         'post__sentiment':"neutral",
+        'post__feedlink__alexaglobalrank':0,
       }
     self.assertEqual(json.loads(response.content), [pst2, pst1])

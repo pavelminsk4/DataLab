@@ -35,6 +35,5 @@ class MainFlowTests(StaticLiveServerTestCase):
     next_button.click()
     create_pr_button = self.selenium.find_element(By. CLASS_NAME, 'next-button')
     create_pr_button.click()
-    self.selenium.refresh()
-    assert 'First Workspace' in self.selenium.page_source
+    assert 'Define the search' in self.selenium.page_source
     self.selenium.close()
