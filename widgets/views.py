@@ -7,6 +7,7 @@ from .common_widget.summary_widget import summary_widget
 from .common_widget.volume_widget import volume
 from .common_widget.clipping_feed_content_widget import cl_fd_cont_widg
 from .common_widget.top_10_authors_by_volume_widget import top_10_auth_by_vol_widget
+from .common_widget.top_10_brands_widget import top_10_brands
 from .common_widget.clipping_widget import clp_widget
 # from .common_widget.sentiment_for_period import sentiment_for_period
 
@@ -27,3 +28,6 @@ def top_10_authors_by_volume(request, pk):
 
 def clipping_widget(request, pk):
   return clp_widget(pk)
+
+def top_10_brands_widget(request, pk):
+  return top_10_brands(pk)  
