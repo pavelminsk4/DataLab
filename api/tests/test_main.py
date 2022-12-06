@@ -28,6 +28,7 @@ class SearchTests(APITestCase):
     'feedlink__country':'USA',
     'feedlink__source1': 'BBC',
     'feedlink__sourceurl':None,
+    'feedlink__alexaglobalrank': 0,
     }
   ex2 = {
     'id':2,
@@ -45,6 +46,7 @@ class SearchTests(APITestCase):
     'feedlink__country':'China',
     'feedlink__source1': 'CNN',
     'feedlink__sourceurl':None,
+    'feedlink__alexaglobalrank': 0,
     }
   ex3 = {
     'id':3,
@@ -61,7 +63,8 @@ class SearchTests(APITestCase):
     'entry_author':'Bill Gates',
     'feedlink__country':'China',
     'feedlink__source1': 'CNN',
-      'feedlink__sourceurl':None,
+    'feedlink__sourceurl':None,
+    'feedlink__alexaglobalrank': 0,
     }
   ex4 = {
     'id':4,
@@ -79,6 +82,7 @@ class SearchTests(APITestCase):
     'feedlink__country':'China',
     'feedlink__source1': 'CNN',
     'feedlink__sourceurl':None,
+    'feedlink__alexaglobalrank': 0,
     }
 
   def db_seeder(self):
@@ -305,19 +309,20 @@ class SourcesTests(APITestCase):
   def test_sources_list(self):
     Feedlinks.objects.bulk_create([Feedlinks(source1='BBC'), Feedlinks(source1='TNT')])
     url = reverse('sources_list')
-    response = self.client.get(url)
+    response = self.client.post(url, 'B', format='json')
     self.assertEqual(response.status_code, status.HTTP_200_OK)
-    self.assertEqual(json.loads(response.content), [{'source1': 'BBC'}, {'source1': 'TNT'}])
+    self.assertEqual(json.loads(response.content), [{'source1': 'BBC'}])
 
 class SpeechesTests(APITestCase):
   def test_speeches_list(self):
     user = User.objects.create(username='John')
     self.client.force_authenticate(user=user)
     Speech.objects.bulk_create([Speech(language='Italy'), Speech(language='Albanian')])
-    url = reverse('speeches_list')
+    #url = reverse('speeches_list', kwargs={'frst_letters':"speeches?search=Alb"}) # automatically replases ? on  %3F
+    url = '/api/speeches/speeches?search=Alb'
     response = self.client.get(url)
     self.assertEqual(response.status_code, status.HTTP_200_OK)
-    self.assertEqual(json.loads(response.content), [{'language': 'Albanian'}, {'language': 'Italy'}])
+    self.assertEqual(json.loads(response.content), [{'language': 'Albanian'}])
 
 class CountriesTests(APITestCase):
   def create_country(self):
@@ -327,7 +332,8 @@ class CountriesTests(APITestCase):
     user = User.objects.create(username='Fox')
     self.client.force_authenticate(user=user)
     self.create_country()
-    url = reverse('countries_list')
+    #url = reverse('countries_list', kwargs={'frst_letters':'countries?search=A'})
+    url = '/api/countries/countries?search=A'
     response = self.client.get(url)
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     self.assertEqual(json.loads(response.content), [{'name': 'Afghanistan'}])
@@ -338,7 +344,8 @@ class AuthorsTests(APITestCase):
     sp = Speech.objects.create(language='English (United States)')
     Post.objects.create(feedlink=flink, entry_title='First post title', entry_summary='First post body', feed_language=sp, entry_author='Elon Musk', entry_published=datetime(2022, 9, 3, 6, 37), sentiment='neutral')
     Post.objects.create(feedlink=flink, entry_title='Second post title', entry_summary='Second post body', feed_language=sp, entry_author='Tim Cook', entry_published=datetime(2022, 10, 3, 6, 37), sentiment='neutral')
-    url = reverse('authors_list')
+    #url = reverse('authors_list', kwargs={'frst_letters':'authors?search=E'})
+    url = '/api/authors/authors?search=E'
     response = self.client.get(url)
     self.assertEqual(response.status_code, status.HTTP_200_OK)
-    self.assertEqual(json.loads(response.content), [{'entry_author': 'Elon Musk'}, {'entry_author': 'Tim Cook'}])
+    self.assertEqual(json.loads(response.content), [{'entry_author': 'Elon Musk'}])

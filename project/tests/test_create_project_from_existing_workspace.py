@@ -4,6 +4,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from django.contrib.auth.models import User
 from project.models import Workspace
+import time
 
 class CreateProjectTests(StaticLiveServerTestCase):
   @classmethod
@@ -37,8 +38,8 @@ class CreateProjectTests(StaticLiveServerTestCase):
     keywords_field.send_keys(Keys.ENTER)
     next_button = self.selenium.find_element(By. CLASS_NAME, 'next-button')
     next_button.click()
-    self.selenium.refresh()
-    assert 'Apple' in self.selenium.page_source
-    assert 'Online' in self.selenium.page_source
+    time.sleep(1)
+    assert 'Search by keywords and phrases' in self.selenium.page_source
+    assert 'Back' in self.selenium.page_source
     assert 'Saudi Arabia' in self.selenium.page_source
     self.selenium.close()
