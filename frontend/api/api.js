@@ -176,6 +176,16 @@ export default {
     return fetch('post', '/api/alerts/', data, config)
   },
 
+  async updateAlert({data, alertId}) {
+    const config = {
+      headers: {
+        'content-type': 'application/json',
+        'X-CSRFToken': CSRF_TOKEN,
+      },
+    }
+    return fetch('patch', `/api/alerts/${alertId}/`, data, config)
+  },
+
   async postSearch(request) {
     const config = {
       headers: {

@@ -4,13 +4,13 @@
     :title="currentProject.title"
     hint="Set up alerts for your project with highly customized filters"
   >
-    <BaseButton @click="createAlert" class="button"> Save </BaseButton>
+    <BaseButton @click="saveChanges" class="button"> Save </BaseButton>
   </NavigationBar>
 
   <div class="create-alert-wrapper">
     <div class="title">Alert Title</div>
 
-    <BaseInput :model-value="title" placeholder="Alert Title" />
+    <BaseInput v-model="title" placeholder="Alert Title" />
 
     <div class="title">Alert e-mail</div>
 
@@ -84,6 +84,7 @@ export default {
   computed: {
     ...mapGetters({
       workspaces: get.WORKSPACES,
+      loading: get.LOADING,
       alerts: get.ALERTS,
     }),
     workspaceId() {
@@ -111,6 +112,7 @@ export default {
     ...mapActions([
       action.GET_WORKSPACES,
       action.CREATE_NEW_ALERT,
+      action.UPDATE_NEW_ALERT,
       action.GET_ALERTS,
     ]),
     createAlert() {
@@ -122,10 +124,38 @@ export default {
         project: this.projectId,
         user: [...this.currentProject.members],
       })
-
-      this.$router.push({
-        name: 'Alerts',
+    },
+    updateAlert() {
+      this[action.UPDATE_NEW_ALERT]({
+        data: {
+          title: this.title,
+          triggered_on_every_n_new_posts: this.trigger,
+          how_many_posts_to_send: this.posts,
+          alert_condition: '',
+          project: this.projectId,
+          user: [...this.currentProject.members],
+        },
+        alertId: this.alertId,
       })
+    },
+    saveChanges() {
+      if (this.$route.name === 'NewAlert') {
+        this.createAlert()
+
+        this[action.GET_ALERTS](this.projectId)
+
+        this.$router.push({
+          name: 'Alerts',
+        })
+      } else {
+        this.updateAlert()
+
+        this[action.GET_ALERTS](this.projectId)
+
+        this.$router.push({
+          name: 'Alerts',
+        })
+      }
     },
     increase(val) {
       this[val] = this[val] + 1
