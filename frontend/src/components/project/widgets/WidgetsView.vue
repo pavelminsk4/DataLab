@@ -18,6 +18,12 @@
     @close="openModal('isOpenTop10AuthorsModal')"
   />
 
+  <TopBrandsSettingsModal
+    v-if="isOpenTopBrandsModal"
+    :project-id="projectId"
+    @close="openModal('isOpenTopBrandsModal')"
+  />
+
   <ClippingFeedContentModal
     v-if="isOpenClippingFeedContentModal"
     :project-id="projectId"
@@ -85,16 +91,19 @@ import SearchResults from '@/components/SearchResults'
 import SummaryWidget from '@/components/project/widgets/SummaryWidget'
 import ContentVolumeWidget from '@/components/project/widgets/ContentVolumeWidget'
 import ClippingFeedContentWidget from '@/components/project/widgets/ClippingFeedContentWidget'
+import Top10BrandsWidget from '@/components/project/widgets/Top10BrandsWidget'
 import Top10AuthorsByVolumeWidget from '@/components/project/widgets/Top10AuthorsByVolumeWidget'
 
 import TopAuthorsSettingsModal from '@/components/project/widgets/modals/TopAuthorsSettingsModal'
 import ContentVolumeSettingsModal from '@/components/project/widgets/modals/ContentVolumeSettingsModal'
 import SummarySettingsModal from '@/components/project/widgets/modals/SummarySettingsModal'
 import ClippingFeedContentModal from '@/components/project/widgets/modals/ClippingFeedContentModal'
+import TopBrandsSettingsModal from '@/components/project/widgets/modals/TopBrandsSettingsModal'
 
 export default {
   name: 'WidgetsView',
   components: {
+    TopBrandsSettingsModal,
     ClippingFeedContentModal,
     SearchResults,
     SummarySettingsModal,
@@ -103,6 +112,7 @@ export default {
     TopAuthorsSettingsModal,
     SummaryWidget,
     ContentVolumeWidget,
+    Top10BrandsWidget,
     Top10AuthorsByVolumeWidget,
     GridLayout: VueGridLayout.GridLayout,
     GridItem: VueGridLayout.GridItem,
@@ -124,6 +134,7 @@ export default {
       isOpenSummaryModal: false,
       isOpenTop10AuthorsModal: false,
       isOpenClippingFeedContentModal: false,
+      isOpenTopBrandsModal: false,
       layout: [],
     }
   },
@@ -217,6 +228,12 @@ export default {
             name: 'ContentVolume',
             openModal: 'isOpenContentVolumeModal',
             h: 12,
+          }
+        case 'top_10_brands_widget':
+          return {
+            name: 'Top10Brands',
+            openModal: 'isOpenTopBrandsModal',
+            h: 11,
           }
       }
     },

@@ -103,6 +103,14 @@ export default {
     return fetch('get', `/api/widgets/top_10_authors_by_volume/${projectId}`)
   },
 
+  async getTopBrands(projectId) {
+    return fetch('get', `/api/widgets/top_10_brands_widget/${projectId}`)
+  },
+
+  async getTopCountries(projectId) {
+    return fetch('get', `/api/widgets/top_10_countries_widget/${projectId}`)
+  },
+
   async getDimensions() {
     return fetch('get', '/api/dimensions/')
   },
