@@ -1,16 +1,17 @@
 <template>
   <div
-    :class="['selector', {open: visible}, `selector-${name}`]"
+    :class="['selector', {open: list.length && visible}, `selector-${name}`]"
     :data-value="value"
     :data-list="list"
   >
     <div class="label">
       <input
         v-if="isSearch"
-        v-model="search"
+        v-bind="$attrs"
+        :value="modelValue"
+        :class="['input', isSearch && 'input-search']"
         :placeholder="placeholder"
-        @update:modelValue="updateSearchWord"
-        @focus="visible = true"
+        @input="handleInput"
         type="text"
         class="select-search"
       />
@@ -19,13 +20,8 @@
       </div>
       <div v-else-if="!isSearch">{{ value }}</div>
     </div>
-    <ArrowDownIcon
-      class="arrow"
-      :class="{expanded: visible}"
-      @click="toggle()"
-    />
     <div :class="{hidden: !visible, visible}">
-      <ul v-if="visible" class="select-list">
+      <ul v-if="visible && list.length" class="select-list">
         <li
           v-if="isRejectSelection"
           @click="select('Reject selection')"
@@ -47,9 +43,8 @@
 </template>
 
 <script>
-import ArrowDownIcon from '@/components/icons/ArrowDownIcon'
 export default {
-  components: {ArrowDownIcon},
+  emits: ['update:modelValue', 'select-option'],
   props: {
     list: {
       type: Array,
@@ -60,6 +55,10 @@ export default {
       default: 'Select option',
     },
     name: {
+      type: String,
+      required: true,
+    },
+    modelValue: {
       type: String,
       required: true,
     },
@@ -74,6 +73,10 @@ export default {
     currentValue: {
       type: String,
       required: false,
+    },
+    isClearSelectedValue: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {
@@ -93,15 +96,15 @@ export default {
   },
   computed: {
     selectList() {
-      if (this.isSearch && !!this.currentValue) {
+      if (this.isSearch && !!this.modelValue) {
         return this.list.filter((item) => {
-          return item?.toLowerCase().includes(this.search?.toLowerCase())
+          return item?.toLowerCase().includes(this.modelValue?.toLowerCase())
         })
       }
 
       if (this.isSearch) {
         return this.list.filter((item) => {
-          return item?.toLowerCase().includes(this.search?.toLowerCase())
+          return item?.toLowerCase().includes(this.modelValue?.toLowerCase())
         })
       }
 
@@ -109,8 +112,9 @@ export default {
     },
   },
   methods: {
-    toggle() {
-      this.visible = !this.visible
+    handleInput(e) {
+      this.visible = true
+      this.$emit('update:modelValue', e.target.value, this.name)
     },
     select(option) {
       this.$emit('select-option', this.name, option, this.visible)
@@ -125,9 +129,13 @@ export default {
         this.visible = false
       }
     },
-    updateSearchWord() {
-      this.visible = true
-      this.$emit('update-results', this.search)
+  },
+  watch: {
+    isClearSelectedValue() {
+      if (this.isClearSelectedValue) {
+        this.value = ''
+        this.search = ''
+      }
     },
   },
 }
@@ -144,18 +152,6 @@ export default {
 
   cursor: pointer;
 
-  .arrow {
-    position: absolute;
-    right: 18px;
-    top: 40%;
-
-    transform: rotateZ(0deg) translateY(0px);
-    transition-duration: 0.3s;
-    transition-timing-function: cubic-bezier(0.59, 1.39, 0.37, 1.01);
-
-    color: var(--primary-text-color);
-  }
-
   .expanded {
     transform: rotateZ(180deg) translateY(2px);
   }
@@ -163,7 +159,7 @@ export default {
   .label {
     display: block;
 
-    padding: 9px 9px 9px 15px;
+    padding: 9px 35px 9px 15px;
 
     color: var(--primary-text-color);
     font-size: 14px;
@@ -220,7 +216,7 @@ export default {
   min-width: 100%;
 
   border: none;
-  background: var(--secondary-bg-color);
+  background: transparent;
 
   color: var(--primary-text-color);
 }
