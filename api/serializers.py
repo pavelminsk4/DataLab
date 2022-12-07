@@ -85,6 +85,7 @@ class WidgetsListSerializer(WritableNestedModelSerializer):
       'clipping_feed_content_widget',
       'top_10_authors_by_volume_widget',
       'top_10_brands_widget',
+      'top_10_countries_widget',
     ]
 
 class ClippingFeedContentWidgetListSerializer(serializers.ListSerializer):
