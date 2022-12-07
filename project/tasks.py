@@ -6,7 +6,7 @@ from django.core.paginator import Paginator
 import ssl
 from langcodes import *
 from dateutil import parser
-from  nltk.sentiment import SentimentIntensityAnalyzer
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from bs4 import BeautifulSoup
 import socket
 socket.setdefaulttimeout(3)
@@ -23,12 +23,12 @@ def add_language(language_code):
   return Speech.objects.filter(language=title).first()
 
 def get_string_from_score(sentiments):
-  if sentiments['neg'] > sentiments['neu'] and sentiments['neg'] > sentiments['pos']:
-      res = 'negative'
-  elif sentiments['neu'] > sentiments['pos']:
-    res = 'neutral'
-  else:
+  if sentiments['compound'] >= 0.05:
     res = 'positive'
+  elif sentiments['compound'] <= - 0.05:
+    res = 'negative'
+  else :
+    res = 'neutral'  
   return res
 
 def add_sentiment_score(title):
