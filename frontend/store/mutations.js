@@ -61,6 +61,14 @@ export default {
     state.authors = authors
   },
 
+  [mutator.SET_TOP_COUNTRIES_WIDGET](state, countries) {
+    state.topCountries = countries
+  },
+
+  [mutator.SET_TOP_BRANDS_WIDGET](state, brands) {
+    state.topBrands = brands
+  },
+
   [mutator.DELETE_KEYWORDS_LIST](state, index) {
     state.keywords.splice(index, 1)
   },

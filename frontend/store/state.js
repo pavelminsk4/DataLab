@@ -26,6 +26,8 @@ const state = {
   volume: {},
   clippingFeedContent: [],
   topAuthors: [],
+  topBrands: [],
+  topCountries: [],
   dimensions: [],
   templates: [],
   newWorkspace: {

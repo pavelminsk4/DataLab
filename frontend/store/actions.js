@@ -160,6 +160,30 @@ export default {
     }
   },
 
+  async [action.GET_TOP_BRANDS_WIDGET]({commit}, projectId) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const topBrands = await api.getTopBrands(projectId)
+      commit(mutator.SET_TOP_BRANDS_WIDGET, topBrands)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
+  async [action.GET_TOP_COUNTRIES_WIDGET]({commit}, projectId) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const topCountries = await api.getCountries(projectId)
+      commit(mutator.SET_TOP_COUNTRIES_WIDGET, topCountries)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
   async [action.GET_DIMENSIONS]({commit}) {
     commit(mutator.SET_LOADING, true)
     try {

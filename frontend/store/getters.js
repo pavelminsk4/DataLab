@@ -77,6 +77,14 @@ export default {
     return state.topAuthors
   },
 
+  [get.TOP_COUNTRIES](state) {
+    return state.topCountries
+  },
+
+  [get.TOP_BRANDS](state) {
+    return state.topBrands
+  },
+
   [get.DIMENSIONS](state) {
     return state.dimensions
   },
