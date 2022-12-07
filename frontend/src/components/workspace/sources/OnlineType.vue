@@ -4,7 +4,7 @@
       <div class="items-container">
         <span class="second-title">Country</span>
 
-        <BaseSelect
+        <BaseSearchField
           v-model="country"
           name="country"
           :placeholder="'Enter the country'"
@@ -21,7 +21,7 @@
       <div class="items-container">
         <span class="second-title">Author</span>
 
-        <BaseSelect
+        <BaseSearchField
           v-model="author"
           name="author"
           :list="authors"
@@ -41,7 +41,7 @@
       <div class="items-container">
         <span class="second-title">Language</span>
 
-        <BaseSelect
+        <BaseSearchField
           v-model="language"
           name="language"
           placeholder="Enter the language"
@@ -59,7 +59,7 @@
       <div class="items-container">
         <span class="second-title">Source</span>
 
-        <BaseSelect
+        <BaseSearchField
           v-model="source"
           name="source"
           placeholder="Enter the source"
@@ -99,7 +99,7 @@ import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
 import BaseRadio from '@/components/BaseRadio'
-import BaseSelect from '@/components/BaseSelect'
+import BaseSearchField from '@/components/BaseSearchField'
 
 import CheckRadioIcon from '@/components/icons/CheckRadioIcon'
 
@@ -107,7 +107,7 @@ export default {
   name: 'OnlineType',
   components: {
     BaseRadio,
-    BaseSelect,
+    BaseSearchField,
     CheckRadioIcon,
   },
   props: {

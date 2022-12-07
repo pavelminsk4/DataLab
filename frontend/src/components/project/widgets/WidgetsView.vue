@@ -24,6 +24,12 @@
     @close="openModal('isOpenTopBrandsModal')"
   />
 
+  <TopCountriesSettingsWidget
+    v-if="isOpenTopCountriesModal"
+    :project-id="projectId"
+    @close="openModal('isOpenTopCountriesModal')"
+  />
+
   <ClippingFeedContentModal
     v-if="isOpenClippingFeedContentModal"
     :project-id="projectId"
@@ -92,6 +98,7 @@ import SummaryWidget from '@/components/project/widgets/SummaryWidget'
 import ContentVolumeWidget from '@/components/project/widgets/ContentVolumeWidget'
 import ClippingFeedContentWidget from '@/components/project/widgets/ClippingFeedContentWidget'
 import Top10BrandsWidget from '@/components/project/widgets/Top10BrandsWidget'
+import Top10CountriesWidget from '@/components/project/widgets/Top10CountriesWidget'
 import Top10AuthorsByVolumeWidget from '@/components/project/widgets/Top10AuthorsByVolumeWidget'
 
 import TopAuthorsSettingsModal from '@/components/project/widgets/modals/TopAuthorsSettingsModal'
@@ -99,10 +106,12 @@ import ContentVolumeSettingsModal from '@/components/project/widgets/modals/Cont
 import SummarySettingsModal from '@/components/project/widgets/modals/SummarySettingsModal'
 import ClippingFeedContentModal from '@/components/project/widgets/modals/ClippingFeedContentModal'
 import TopBrandsSettingsModal from '@/components/project/widgets/modals/TopBrandsSettingsModal'
+import TopCountriesSettingsWidget from '@/components/project/widgets/modals/TopCountriesSettingsModal'
 
 export default {
   name: 'WidgetsView',
   components: {
+    TopCountriesSettingsWidget,
     TopBrandsSettingsModal,
     ClippingFeedContentModal,
     SearchResults,
@@ -113,6 +122,7 @@ export default {
     SummaryWidget,
     ContentVolumeWidget,
     Top10BrandsWidget,
+    Top10CountriesWidget,
     Top10AuthorsByVolumeWidget,
     GridLayout: VueGridLayout.GridLayout,
     GridItem: VueGridLayout.GridItem,
@@ -135,6 +145,7 @@ export default {
       isOpenTop10AuthorsModal: false,
       isOpenClippingFeedContentModal: false,
       isOpenTopBrandsModal: false,
+      isOpenTopCountriesModal: false,
       layout: [],
     }
   },
@@ -234,6 +245,12 @@ export default {
             name: 'Top10Brands',
             openModal: 'isOpenTopBrandsModal',
             h: 11,
+          }
+        case 'top_10_countries_widget':
+          return {
+            name: 'Top10Countries',
+            openModal: 'isOpenTopCountriesModal',
+            h: 13,
           }
       }
     },
