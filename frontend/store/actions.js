@@ -175,7 +175,7 @@ export default {
   async [action.GET_TOP_COUNTRIES_WIDGET]({commit}, projectId) {
     commit(mutator.SET_LOADING, true)
     try {
-      const topCountries = await api.getCountries(projectId)
+      const topCountries = await api.getTopCountries(projectId)
       commit(mutator.SET_TOP_COUNTRIES_WIDGET, topCountries)
     } catch (e) {
       console.log(e)
