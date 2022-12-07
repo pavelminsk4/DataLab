@@ -11,8 +11,9 @@
     <div class="search-settings-wrapper">
       <ProjectKeywords
         :main-keywords="currentKeywords"
-        :additional-keywords="currentAdditionalKeywords"
         :exclude-keywords="currentExcludeKeywords"
+        :additional-keywords="currentAdditionalKeywords"
+        :current-project="currentProject"
         @show-result="showResults"
         @update-collection="updateCollection"
       />
@@ -53,11 +54,12 @@ export default {
       ],
     })
 
-    this.showResults()
-
     if (!this.clippingContent.length) {
       this[action.GET_CLIPPING_FEED_CONTENT_WIDGET](this.currentProject.id)
     }
+  },
+  mounted() {
+    this.showResults()
   },
   computed: {
     ...mapGetters({
@@ -80,6 +82,7 @@ export default {
     ...mapActions([
       action.CLEAR_STATE,
       action.POST_SEARCH,
+      action.GET_WORKSPACES,
       action.UPDATE_PROJECT,
       action.UPDATE_KEYWORDS_LIST,
       action.UPDATE_ADDITIONAL_FILTERS,
@@ -94,14 +97,8 @@ export default {
             this.keywords?.additional_keywords,
           exceptions:
             this.currentExcludeKeywords || this.keywords?.ignore_keywords,
-          country:
-            this.additionalFilters?.country ||
-            this.currentProject?.country_filter ||
-            [],
-          language:
-            this.additionalFilters?.language ||
-            this.currentProject?.language_filter ||
-            [],
+          country: this.additionalFilters?.country || [],
+          language: this.additionalFilters?.language || [],
           sentiment:
             this.additionalFilters?.sentiment ||
             this.currentProject?.sentiment_filter ||
@@ -113,14 +110,8 @@ export default {
             this.additionalFilters?.date_range[1] ||
               this.currentProject?.end_search_date,
           ],
-          source:
-            this.additionalFilters?.source ||
-            this.currentProject.source_filter ||
-            [],
-          author:
-            this.additionalFilters?.author ||
-            this.currentProject?.author_filter ||
-            [],
+          source: this.additionalFilters?.source || [],
+          author: this.additionalFilters?.author || [],
           posts_per_page: numberOfPosts || 20,
           page_number: pageNumber || 1,
         })
@@ -154,32 +145,20 @@ export default {
             end_search_date:
               this.additionalFilters?.date_range[1] ||
               this.currentProject?.end_search_date,
-            source_filter:
-              this.additionalFilters?.source ||
-              this.currentProject?.source_filter ||
-              null,
-            author_filter:
-              this.additionalFilters?.author ||
-              this.currentProject?.author_filter ||
-              null,
-            language_filter:
-              this.additionalFilters?.language ||
-              this.currentProject?.language_filter ||
-              null,
+            source_filter: this.additionalFilters?.source || null,
+            author_filter: this.additionalFilters?.author || null,
+            language_filter: this.additionalFilters?.language || null,
             sentiment_filter:
               this.additionalFilters?.sentiment ||
               this.currentProject?.sentiment_filter ||
               null,
-            country_filter:
-              this.additionalFilters?.country ||
-              this.currentProject?.country_filter ||
-              null,
+            country_filter: this.additionalFilters?.country || null,
           },
         })
 
-        this[action.CLEAR_STATE]()
-
         this.showResults()
+
+        this[action.GET_WORKSPACES]()
       } catch (e) {
         console.log(e)
       }

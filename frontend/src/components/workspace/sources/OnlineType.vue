@@ -6,13 +6,14 @@
 
         <BaseSelect
           v-model="country"
-          :name="'country'"
+          name="country"
           :placeholder="'Enter the country'"
           :list="countries"
           :is-search="true"
+          :current-value="country"
           :is-reject-selection="false"
           @select-option="selectItem"
-          @update-results="getCountryResult"
+          @update:modelValue="getResult"
           class="select"
         />
       </div>
@@ -22,13 +23,15 @@
 
         <BaseSelect
           v-model="author"
-          :name="'author'"
+          name="author"
           :list="authors"
           :placeholder="'Enter the author'"
+          :current-value="author"
           :is-search="true"
           :is-reject-selection="false"
+          :is-clear-selected-value="clearValue"
           @select-option="selectItem"
-          @update-results="getAuthorsResult"
+          @update:modelValue="getResult"
           class="select"
         />
       </div>
@@ -40,13 +43,15 @@
 
         <BaseSelect
           v-model="language"
-          :name="'language'"
-          :placeholder="'Enter the language'"
+          name="language"
+          placeholder="Enter the language"
           :list="languages"
           :is-search="true"
+          :current-value="languages"
           :is-reject-selection="false"
+          :is-clear-selected-value="clearValue"
           @select-option="selectItem"
-          @update-results="getLanguageResult"
+          @update:modelValue="getResult"
           class="select"
         />
       </div>
@@ -56,13 +61,15 @@
 
         <BaseSelect
           v-model="source"
-          :name="'source'"
-          :placeholder="'Enter the source'"
+          name="source"
+          placeholder="Enter the source"
           :list="sources"
           :is-search="true"
+          :current-value="source"
           :is-reject-selection="false"
+          :is-clear-selected-value="clearValue"
           @select-option="selectItem"
-          @update-results="getSourceResult"
+          @update:modelValue="getResult"
           class="select"
         />
       </div>
@@ -104,20 +111,39 @@ export default {
     CheckRadioIcon,
   },
   props: {
-    currentCountry: {
-      type: String,
-      required: false,
+    currentProject: {
+      type: [Array, Object],
+      default: () => [],
     },
   },
   data() {
     return {
       sentiments: ['Negative', 'Neutral', 'Positive', 'All sentiments'],
       selectedValue: '',
+      clearValue: false,
       country: '',
       language: '',
       source: '',
       author: '',
     }
+  },
+  created() {
+    if (this.currentProject) {
+      this.country = this.currentProject.country_filter
+      this.language = this.currentProject.language_filter
+      this.source = this.currentProject.source_filter
+      this.author = this.currentProject.author_filter
+      this.selectedValue = this.capitalizeFirstLetter(
+        this.currentProject.sentiment_filter
+      )
+    }
+
+    this[action.UPDATE_ADDITIONAL_FILTERS]({
+      country: this.currentProject.country_filter,
+      language: this.currentProject.language_filter,
+      source: this.currentProject.source_filter,
+      author: this.currentProject.author_filter,
+    })
   },
   computed: {
     ...mapGetters({
@@ -125,6 +151,8 @@ export default {
       languages: get.LANGUAGES,
       sources: get.SOURCES,
       authors: get.AUTHORS,
+      keywords: get.KEYWORDS,
+      additionalFilters: get.ADDITIONAL_FILTERS,
     }),
   },
   methods: {
@@ -162,20 +190,40 @@ export default {
       return string?.charAt(0)?.toUpperCase() + string?.slice(1)
     },
 
-    getAuthorsResult(searchValue) {
-      this[action.GET_AUTHORS](searchValue)
-    },
+    getResult(searchValue, name) {
+      try {
+        this[name] = searchValue
+        this[action.UPDATE_ADDITIONAL_FILTERS]({[name]: searchValue})
 
-    getSourceResult(searchValue) {
-      this[action.GET_SOURCES](searchValue)
+        switch (name) {
+          case 'country':
+            return this[action.GET_COUNTRIES](
+              this.capitalizeFirstLetter(searchValue)
+            )
+          case 'language':
+            return this[action.GET_LANGUAGES](
+              this.capitalizeFirstLetter(searchValue)
+            )
+          case 'author':
+            return this[action.GET_AUTHORS](searchValue)
+          case 'source':
+            return this[action.GET_SOURCES](searchValue)
+        }
+      } catch (e) {
+        console.log(e)
+      }
     },
-
-    getCountryResult(searchValue) {
-      this[action.GET_COUNTRIES](this.capitalizeFirstLetter(searchValue))
-    },
-
-    getLanguageResult(searchValue) {
-      this[action.GET_LANGUAGES](this.capitalizeFirstLetter(searchValue))
+  },
+  watch: {
+    async keywords() {
+      if (!this.keywords.keywords.length) {
+        this.clearValue = true
+        this.country = ''
+        this.language = ''
+        this.source = ''
+        this.author = ''
+        this.selectedValue = ''
+      }
     },
   },
 }
