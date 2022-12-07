@@ -96,6 +96,7 @@ def create_widget_description(sender, instance, created, **kwargs):
     instance.clipping_feed_content_widget = wd3
     instance.top_10_authors_by_volume_widget = wd4
     instance.top_10_brands_widget = wd5
+    instance.top_10_countries_widget = wd6
     # instance.clipping_widget = wd5
     instance.save()
 
