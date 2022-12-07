@@ -5,6 +5,7 @@ from . import views
 app_name = 'widgets'
 
 urlpatterns = [
+  path('top_10_countries_widget/<int:pk>', views.top_10_countries_widget, name='top_10_countries_widget'),
   path('top_10_brands_widget/<int:pk>', views.top_10_brands_widget, name='top_10_brands_widget'),
   path('summary_widget/<int:pk>', views.sum_widget, name='summary_widget'),
   path('volume_widget/<int:pk>', views.vol_widget, name='volume_widget'),
