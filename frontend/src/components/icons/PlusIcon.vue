@@ -10,13 +10,13 @@
       fill-rule="evenodd"
       clip-rule="evenodd"
       d="M5.1998 12.8999L5.1998 0.899902L6.7998 0.899902L6.7998 12.8999L5.1998 12.8999Z"
-      fill="white"
+      fill="currentColor"
     />
     <path
       fill-rule="evenodd"
       clip-rule="evenodd"
       d="M0 6.0001L12 6.0001V7.6001L0 7.6001V6.0001Z"
-      fill="white"
+      fill="currentColor"
     />
   </svg>
 </template>
