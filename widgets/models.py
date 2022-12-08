@@ -40,6 +40,7 @@ class WidgetsList2(models.Model):
   top_10_authors_by_volume_widget = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='top_10_auth_by_vol_widg_description',null=True)
   top_10_brands_widget = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='top_10_brands_widg_description', null=True)
   top_10_countries_widget = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='top_10_countries_widg_description', null=True)
+  top_10_languages_widget = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='top_10_languages_widg_description', null=True)
   #clipping_widget = models.ForeignKey(WidgetDescription, on_delete=models.SET_NULL, related_name='clippint_widg_description', null=True)
 
   def __str__(self):
@@ -83,6 +84,11 @@ def create_widget_description(sender, instance, created, **kwargs):
     wd6.linked_dimensions.add(Dimensions.objects.get_or_create(title='Language')[0])
     wd6.linked_dimensions.add(Dimensions.objects.get_or_create(title='Sentiment')[0])
     wd6.save()
+    wd7 = WidgetDescription.objects.create(title='Top 10 languages')
+    wd7.linked_dimensions.add(Dimensions.objects.get_or_create(title='Source')[0])
+    wd7.linked_dimensions.add(Dimensions.objects.get_or_create(title='Author')[0])
+    wd7.linked_dimensions.add(Dimensions.objects.get_or_create(title='Country')[0])
+    wd7.save()
     # wd5 = WidgetDescription.objects.create(title='Clipping Widget')
     # wd5.linked_dimensions.add(Dimensions.objects.get_or_create(title='Country')[0])
     # wd5.linked_dimensions.add(Dimensions.objects.get_or_create(title='Author')[0])
@@ -97,6 +103,7 @@ def create_widget_description(sender, instance, created, **kwargs):
     instance.top_10_authors_by_volume_widget = wd4
     instance.top_10_brands_widget = wd5
     instance.top_10_countries_widget = wd6
+    instance.top_10_languages_widget = wd7
     # instance.clipping_widget = wd5
     instance.save()
 
