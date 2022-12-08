@@ -31,3 +31,6 @@ python-docx # Reads, creates and writes docx
 quickchart-io==1.0.1 #A Python client for the quickchart.io image charts web service.
 
 rollbar==0.16.2
+
+vaderSentiment==3.3.2
+vader-multi==3.2.2.1 # multiple languages for vader
