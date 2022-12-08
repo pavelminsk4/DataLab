@@ -136,7 +136,7 @@ export default {
   },
 
   async getAlerts(projectId) {
-    return fetch('get', `/api/projects/${projectId}/alerts/`)
+    return fetch('get', `/api/projects/${projectId}/alerts`)
   },
 
   async createWorkspace(workspace) {
@@ -191,7 +191,7 @@ export default {
         'X-CSRFToken': CSRF_TOKEN,
       },
     }
-    return fetch('patch', `/api/alerts/${alertId}/`, data, config)
+    return fetch('put', `/api/alerts/${alertId}/`, data, config)
   },
 
   async postSearch(request) {

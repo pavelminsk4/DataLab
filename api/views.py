@@ -52,12 +52,12 @@ class ProjectsViewSet(viewsets.ModelViewSet):
   queryset = Project.objects.all()
   serializer_class = ProjectSerializer
 
-  @action(detail=True)
-  def alerts(self, request, pk=None):
-    project = self.get_object()
-    alerts = project.alerts.all().values()
-    alerts_list = list(alerts)
-    return JsonResponse(alerts_list, safe=False)
+  #action(detail=True)
+  #def alerts(self, request, pk=None):
+  #  project = self.get_object()
+  #  alerts = project.alerts.all().values()
+  #  alerts_list = list(alerts)
+  #  return JsonResponse(alerts_list, safe=False)
 
 # === Workspace API ===========
 
@@ -291,3 +291,8 @@ def dimension_countries(requset, pk):
 class AlertsViewSet(viewsets.ModelViewSet):
   serializer_class = AlertsSerializer
   queryset = Alert.objects.all()
+
+class ProjAlertsViewSet(ListAPIView):
+  serializer_class = AlertsSerializer
+  def get_queryset(self):
+    return Alert.objects.filter(project_id=self.kwargs['pk'])
