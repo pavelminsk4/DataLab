@@ -9,7 +9,7 @@
     </BaseButton>
   </NavigationBar>
 
-  <table class="table">
+  <table v-if="alerts.length" class="table">
     <thead>
       <tr>
         <th>
@@ -51,6 +51,8 @@
       </tr>
     </tbody>
   </table>
+
+  <div class="no-alerts" v-else>No alerts created.</div>
 </template>
 <script>
 import {mapActions, mapGetters} from 'vuex'
@@ -203,6 +205,15 @@ export default {
       border-bottom: 1px solid #2d2d31;
     }
   }
+}
+
+.no-alerts {
+  margin-top: 40px;
+
+  color: var(--primary-text-color);
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 150%;
 }
 
 .container {

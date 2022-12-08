@@ -1,12 +1,22 @@
 <template>
   <div>
     <NavigationBar
-      v-if="currentAlert"
-      :title="currentAlert.title"
+      v-if="currentProject"
+      :title="currentAlert?.title || currentProject?.title"
       hint="Set up alerts for your project with highly customized filters"
     >
-      <BaseButton @click="saveChanges" class="button"> Save </BaseButton>
-      <BaseButton @click="updateAlert" class="button">
+      <BaseButton
+        v-if="this.$route.name === 'NewAlert'"
+        @click="saveChanges"
+        class="button"
+      >
+        Save
+      </BaseButton>
+      <BaseButton
+        v-if="this.$route.name === 'UpdateAlert'"
+        @click="updateAlert"
+        class="button"
+      >
         Update Alert
       </BaseButton>
     </NavigationBar>
