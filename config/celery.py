@@ -21,12 +21,12 @@ app.autodiscover_tasks()
 app.conf.beat_schedule = {
   'postcreator-task-crontab': {
     'task': 'project.tasks.post_creator',
-    'schedule': crontab(hour=env('HOUR'), minute=env('MIN'), day_of_week='*'),
+    'schedule': crontab(hour=15, minute=20, day_of_week='*'),
     'args': (),
   },
   'alert-sender-task-crontab':{
     'task': 'alerts.tasks.alert_sender',
-    'schedule': crontab(hour=1, minute=20, day_of_week='*'),
+    'schedule': crontab(hour='*', minute='*', day_of_week='*'),
     'args': (),
   },
 }

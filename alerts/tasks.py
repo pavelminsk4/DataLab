@@ -6,6 +6,13 @@ from django.shortcuts import get_object_or_404
 from functools import reduce
 from django.db.models import Q
 
+import smtplib
+from email.message import EmailMessage
+
+
+EMAIL_ADDRESS = 'pg@krononsoft.com'
+EMAIL_PASSWORD = 'kpxflckfwzevshkh'
+
 def keywords_posts(keys, posts):
   posts = posts.filter(reduce(lambda x,y: x | y, [Q(entry_title__contains=key) for key in keys]))
   return posts
@@ -58,7 +65,26 @@ def check_new_posts(alert):
     alert.privious_posts_count = total_posts_count
     alert.save()
     return True
-  return False
+  #return False
+  return True
+
+def fill_part_of_sample(p):
+  return f'''<div style="display: inline-block; float: left; gap: 20px">
+            <div style="height: 1px; background-color: #666666"; margin-top: 20px; margin-bottom: 20px></div>
+            <div style="color: #666666">{str(p.entry_published.ctime())}</div>
+            <h1 style="color: #000000">{p.entry_title}</h1>
+            <section style="color: #545454; font-size: 14px">
+              {p.entry_summary}
+            </section>
+            <div style="color: #31b800; font-size: 16px"; margin-top: 20px; margin-bottom: 20px>{p.feedlink.source1} {p.feed_language.language}</div>
+            <a href="{p.entry_link}">
+              <button style="padding: 10px; width: 120px">View Post</button>
+            </a>
+            <div style="height: 1px; background-color: #666666"; margin-top: 20px; margin-bottom: 20px></div>
+          </div>'''
+
+def last_getted_posts():
+  return Post.objects.all()[:5]
 
 @shared_task
 def alert_sender():
@@ -67,10 +93,27 @@ def alert_sender():
     if check_new_posts(alert):
       users = alert.user.all()
       mails_list = list(users.values_list('email', flat=True))
-      send_mail(
-        'Subject: Allert from your Anova project.',
-        'There are new posts corresponding to the parameters in your project.',
-        'from@example.com',
-        mails_list,
-        fail_silently=False,
-      )
+      posts = last_getted_posts()
+
+      msg = EmailMessage()
+      msg['Subject'] = 'Subject: Allert from your Anova project.'
+      msg['From'] = EMAIL_ADDRESS
+      msg['To'] = mails_list
+      
+      part_of_smpl = ''''''
+      for p in posts:
+        print(part_of_smpl)
+        part_of_smpl = part_of_smpl + fill_part_of_sample(p)
+      smpl = f'''
+      <!DOCTYPE html>
+      <html>
+      <body style="background-color: #ffffff">
+        {part_of_smpl}
+      </body>
+      </html>
+      '''
+      msg.set_content(smpl, subtype='html')
+
+      with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
+        smtp.login(EMAIL_ADDRESS, EMAIL_PASSWORD) 
+        smtp.send_message(msg)
