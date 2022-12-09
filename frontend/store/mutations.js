@@ -69,6 +69,10 @@ export default {
     state.topBrands = brands
   },
 
+  [mutator.SET_TOP_LANGUAGES_WIDGET](state, languages) {
+    state.topLanguages = languages
+  },
+
   [mutator.DELETE_KEYWORDS_LIST](state, index) {
     state.keywords.splice(index, 1)
   },

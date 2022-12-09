@@ -30,6 +30,12 @@
     @close="openModal('isOpenTopCountriesModal')"
   />
 
+  <TopLanguagesModal
+    v-if="isOpenTopLanguagesModal"
+    :project-id="projectId"
+    @close="openModal('isOpenTopLanguagesModal')"
+  />
+
   <ClippingFeedContentModal
     v-if="isOpenClippingFeedContentModal"
     :project-id="projectId"
@@ -99,6 +105,7 @@ import ContentVolumeWidget from '@/components/project/widgets/ContentVolumeWidge
 import ClippingFeedContentWidget from '@/components/project/widgets/ClippingFeedContentWidget'
 import Top10BrandsWidget from '@/components/project/widgets/Top10BrandsWidget'
 import Top10CountriesWidget from '@/components/project/widgets/Top10CountriesWidget'
+import Top10LanguagesWidget from '@/components/project/widgets/Top10LanguagesWidget'
 import Top10AuthorsByVolumeWidget from '@/components/project/widgets/Top10AuthorsByVolumeWidget'
 
 import TopAuthorsSettingsModal from '@/components/project/widgets/modals/TopAuthorsSettingsModal'
@@ -107,10 +114,12 @@ import SummarySettingsModal from '@/components/project/widgets/modals/SummarySet
 import ClippingFeedContentModal from '@/components/project/widgets/modals/ClippingFeedContentModal'
 import TopBrandsSettingsModal from '@/components/project/widgets/modals/TopBrandsSettingsModal'
 import TopCountriesSettingsWidget from '@/components/project/widgets/modals/TopCountriesSettingsModal'
+import TopLanguagesModal from '@/components/project/widgets/modals/TopLanguagesModal'
 
 export default {
   name: 'WidgetsView',
   components: {
+    TopLanguagesModal,
     TopCountriesSettingsWidget,
     TopBrandsSettingsModal,
     ClippingFeedContentModal,
@@ -124,6 +133,7 @@ export default {
     Top10BrandsWidget,
     Top10CountriesWidget,
     Top10AuthorsByVolumeWidget,
+    Top10LanguagesWidget,
     GridLayout: VueGridLayout.GridLayout,
     GridItem: VueGridLayout.GridItem,
   },
@@ -146,6 +156,7 @@ export default {
       isOpenClippingFeedContentModal: false,
       isOpenTopBrandsModal: false,
       isOpenTopCountriesModal: false,
+      isOpenTopLanguagesModal: false,
       layout: [],
     }
   },
@@ -251,6 +262,12 @@ export default {
             name: 'Top10Countries',
             openModal: 'isOpenTopCountriesModal',
             h: 13,
+          }
+        case 'top_10_languages_widget':
+          return {
+            name: 'Top10Languages',
+            openModal: 'isOpenTopLanguagesModal',
+            h: 12,
           }
       }
     },
