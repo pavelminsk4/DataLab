@@ -184,6 +184,18 @@ export default {
     }
   },
 
+  async [action.GET_TOP_LANGUAGES_WIDGET]({commit}, projectId) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const topLanguages = await api.getTopLanguages(projectId)
+      commit(mutator.SET_TOP_LANGUAGES_WIDGET, topLanguages)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
   async [action.GET_DIMENSIONS]({commit}) {
     commit(mutator.SET_LOADING, true)
     try {

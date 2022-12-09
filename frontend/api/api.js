@@ -111,6 +111,10 @@ export default {
     return fetch('get', `/api/widgets/top_10_countries_widget/${projectId}`)
   },
 
+  async getTopLanguages(projectId) {
+    return fetch('get', `/api/widgets/top_10_languages_widget/${projectId}`)
+  },
+
   async getDimensions() {
     return fetch('get', '/api/dimensions/')
   },

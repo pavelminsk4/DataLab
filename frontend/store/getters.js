@@ -85,6 +85,10 @@ export default {
     return state.topBrands
   },
 
+  [get.TOP_LANGUAGES](state) {
+    return state.topLanguages
+  },
+
   [get.DIMENSIONS](state) {
     return state.dimensions
   },
