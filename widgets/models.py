@@ -12,7 +12,7 @@ class Dimensions(models.Model):
 
 class WidgetDescription(models.Model):
   is_active = models.BooleanField(default=False)
-  title = models.CharField(default='Title', max_length=30)
+  title = models.CharField(default='Title', max_length=50)
   description = models.TextField(default='Description')
   aggregation_period = models.CharField(default='day', max_length=10)
   linked_dimensions = models.ManyToManyField(Dimensions, blank=True)
@@ -41,6 +41,7 @@ class WidgetsList2(models.Model):
   top_10_brands_widget = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='top_10_brands_widg_description', null=True)
   top_10_countries_widget = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='top_10_countries_widg_description', null=True)
   top_10_languages_widget = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='top_10_languages_widg_description', null=True)
+  content_volume_top_10_source_widget = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='content_volume_top_10_source_widget', null=True)
   #clipping_widget = models.ForeignKey(WidgetDescription, on_delete=models.SET_NULL, related_name='clippint_widg_description', null=True)
 
   def __str__(self):
@@ -89,6 +90,11 @@ def create_widget_description(sender, instance, created, **kwargs):
     wd7.linked_dimensions.add(Dimensions.objects.get_or_create(title='Author')[0])
     wd7.linked_dimensions.add(Dimensions.objects.get_or_create(title='Country')[0])
     wd7.save()
+    wd8 = WidgetDescription.objects.create(title='Content Volume by Top 10 sources')
+    wd8.linked_dimensions.add(Dimensions.objects.get_or_create(title='Language')[0])
+    wd8.linked_dimensions.add(Dimensions.objects.get_or_create(title='Author')[0])
+    wd8.linked_dimensions.add(Dimensions.objects.get_or_create(title='Country')[0])
+    wd8.save()
     # wd5 = WidgetDescription.objects.create(title='Clipping Widget')
     # wd5.linked_dimensions.add(Dimensions.objects.get_or_create(title='Country')[0])
     # wd5.linked_dimensions.add(Dimensions.objects.get_or_create(title='Author')[0])
@@ -104,6 +110,7 @@ def create_widget_description(sender, instance, created, **kwargs):
     instance.top_10_brands_widget = wd5
     instance.top_10_countries_widget = wd6
     instance.top_10_languages_widget = wd7
+    instance.content_volume_top_10_source_widget = wd8
     # instance.clipping_widget = wd5
     instance.save()
 
