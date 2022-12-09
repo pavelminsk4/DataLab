@@ -8,10 +8,13 @@ from django.db.models import Q
 
 import smtplib
 from email.message import EmailMessage
+from pathlib import Path
+import os
+import environ
 
-
-EMAIL_ADDRESS = 'pg@krononsoft.com'
-EMAIL_PASSWORD = 'kpxflckfwzevshkh'
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
+env = environ.Env()
+env.read_env(os.path.join(BASE_DIR, '.env'))
 
 def keywords_posts(keys, posts):
   posts = posts.filter(reduce(lambda x,y: x | y, [Q(entry_title__contains=key) for key in keys]))
@@ -61,12 +64,12 @@ def check_new_posts(alert):
   triger_on_every_new_posts = alert.triggered_on_every_n_new_posts
   previous_posts_count = alert.privious_posts_count
   total_posts_count = len(posts_agregator(alert.project))
-  if total_posts_count - previous_posts_count >= triger_on_every_new_posts:
+  delta = total_posts_count - previous_posts_count
+  if delta >= triger_on_every_new_posts:
     alert.privious_posts_count = total_posts_count
     alert.save()
-    return True
-  #return False
-  return True
+    return delta
+  return False
 
 def fill_part_of_sample(p):
   return f'''<div style="display: inline-block; float: left; gap: 20px">
@@ -83,26 +86,23 @@ def fill_part_of_sample(p):
             <div style="height: 1px; background-color: #666666"; margin-top: 20px; margin-bottom: 20px></div>
           </div>'''
 
-def last_getted_posts():
-  return Post.objects.all()[:5]
-
 @shared_task
 def alert_sender():
   alerts = Alert.objects.all()
   for alert in alerts:
-    if check_new_posts(alert):
+    delta = check_new_posts(alert)
+    if delta >= alert.triggered_on_every_n_new_posts:
+      posts = posts_agregator(alert.project).order_by('-creationdate')[:alert.how_many_posts_to_send]
       users = alert.user.all()
       mails_list = list(users.values_list('email', flat=True))
-      posts = last_getted_posts()
 
       msg = EmailMessage()
       msg['Subject'] = 'Subject: Allert from your Anova project.'
-      msg['From'] = EMAIL_ADDRESS
+      msg['From'] = 'Datalab'
       msg['To'] = mails_list
-      
+
       part_of_smpl = ''''''
       for p in posts:
-        print(part_of_smpl)
         part_of_smpl = part_of_smpl + fill_part_of_sample(p)
       smpl = f'''
       <!DOCTYPE html>
@@ -115,5 +115,5 @@ def alert_sender():
       msg.set_content(smpl, subtype='html')
 
       with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
-        smtp.login(EMAIL_ADDRESS, EMAIL_PASSWORD) 
+        smtp.login(env('EMAIL_HOST_USER'), env('EMAIL_HOST_PASSWORD'))
         smtp.send_message(msg)
