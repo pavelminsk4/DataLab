@@ -142,6 +142,7 @@ import SummarySettingsModal from '@/components/project/widgets/modals/SummarySet
 import ClippingFeedContentModal from '@/components/project/widgets/modals/ClippingFeedContentModal'
 import TopBrandsSettingsModal from '@/components/project/widgets/modals/TopBrandsSettingsModal'
 import TopCountriesSettingsWidget from '@/components/project/widgets/modals/TopCountriesSettingsModal'
+import ContentVolumeTopSourcesWidget from '@/components/project/widgets/ContentVolumeTopSourcesWidget'
 import TopLanguagesModal from '@/components/project/widgets/modals/TopLanguagesModal'
 import SentimentTopSourcesModal from '@/components/project/widgets/modals/SentimentTopSourcesModal'
 import SentimentTopCountriesModal from '@/components/project/widgets/modals/SentimentTopCountriesModal'
@@ -174,6 +175,7 @@ export default {
     SentimentTopSourcesWidget,
     Top10AuthorsByVolumeWidget,
     Top10LanguagesWidget,
+    ContentVolumeTopSourcesWidget,
     GridLayout: VueGridLayout.GridLayout,
     GridItem: VueGridLayout.GridItem,
   },
@@ -335,6 +337,11 @@ export default {
           return {
             name: 'SentimentTopLanguages',
             openModal: 'isOpenSentimentLanguagesModal',
+          }
+        case 'content_volume_top_10_source_widget':
+          return {
+            name: 'ContentVolumeTopSources',
+            openModal: 'isOpenTopLanguagesModal',
             h: 12,
           }
       }

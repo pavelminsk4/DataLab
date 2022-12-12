@@ -73,6 +73,10 @@ export default {
     state.topLanguages = languages
   },
 
+  [mutator.SET_CONTENT_VOLUME_TOP_SOURCES](state, contentVolumeSources) {
+    state.contentVolumeTopSources = contentVolumeSources
+  },
+
   [mutator.DELETE_KEYWORDS_LIST](state, index) {
     state.keywords.splice(index, 1)
   },

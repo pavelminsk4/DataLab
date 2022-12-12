@@ -105,6 +105,10 @@ export default {
     return state.sentimentTopAuthors
   },
 
+  [get.CONTENT_VOLUME_TOP_SOURCES](state) {
+    return state.contentVolumeTopSources
+  },
+
   [get.DIMENSIONS](state) {
     return state.dimensions
   },

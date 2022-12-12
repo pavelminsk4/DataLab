@@ -248,6 +248,20 @@ export default {
     }
   },
 
+  async [action.GET_CONTENT_VOLUME_TOP_SOURCES]({commit}, projectId) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const contentVolumeTopSources = await api.getContentVolumeTop10Sources(
+        projectId
+      )
+      commit(mutator.SET_CONTENT_VOLUME_TOP_SOURCES, contentVolumeTopSources)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
   async [action.GET_DIMENSIONS]({commit}) {
     commit(mutator.SET_LOADING, true)
     try {

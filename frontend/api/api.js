@@ -143,6 +143,13 @@ export default {
     )
   },
 
+  async getContentVolumeTop10Sources(projectId) {
+    return fetch(
+      'get',
+      `/api/widgets/content_volume_top_10_source_widget/${projectId}`
+    )
+  },
+
   async getDimensions() {
     return fetch('get', '/api/dimensions/')
   },
