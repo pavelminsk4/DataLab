@@ -9,6 +9,7 @@
     :styles="styles"
     :width="width"
     :height="height"
+    class="bar-chart"
   />
 </template>
 
@@ -33,7 +34,7 @@ export default {
     Bar,
   },
   props: {
-    chartValue: {
+    chartValues: {
       type: Array,
       default: () => [],
     },
@@ -84,6 +85,9 @@ export default {
           target.style.cursor = chartElement[0] ? 'pointer' : 'default'
         },
         plugins: {
+          datalabels: {
+            display: false,
+          },
           legend: {
             display: false,
           },
@@ -135,7 +139,7 @@ export default {
               return gradient
             },
             tension: 0.25,
-            data: this.chartValue,
+            data: this.chartValues,
           },
         ],
       }
@@ -143,3 +147,11 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.bar-chart {
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+}
+</style>

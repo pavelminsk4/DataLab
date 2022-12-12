@@ -3,13 +3,15 @@
     :title="this.widgets['volume_widget'].title"
     @open-modal="$emit('open-settings-modal')"
   >
-    <ChartsView
-      :chart-data="chartData"
-      :chart-options="chartOptions"
-      :is-line="isLineChart"
-      :is-bar="isBarChart"
+    <LineChart
+      v-if="isLineChart"
+      :chart-values="volumeValues"
       :chart-labels="volumeLabels"
-      :chart-value="volumeValue"
+    />
+    <BarChart
+      v-else
+      :chart-values="volumeValues"
+      :chart-labels="volumeLabels"
     />
   </WidgetsLayout>
 </template>
@@ -19,34 +21,12 @@ import {action, get} from '@store/constants'
 import {mapActions, mapGetters} from 'vuex'
 
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
-import ChartsView from '@/components/project/widgets/charts/ChartsView'
-
-import {
-  Chart as ChartJS,
-  Title,
-  Tooltip,
-  Legend,
-  LineElement,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  Filler,
-} from 'chart.js'
-
-ChartJS.register(
-  Title,
-  Tooltip,
-  Legend,
-  LineElement,
-  LinearScale,
-  CategoryScale,
-  PointElement,
-  Filler
-)
+import LineChart from '@/components/project/widgets/charts/LineChart'
+import BarChart from '@/components/project/widgets/charts/BarChart'
 
 export default {
   name: 'ContentVolumeWidget',
-  components: {WidgetsLayout, ChartsView},
+  components: {BarChart, LineChart, WidgetsLayout},
   props: {
     volume: {
       type: [Array, Object],
@@ -81,47 +61,6 @@ export default {
       })
     }
   },
-  data() {
-    return {
-      chartOptions: {
-        responsive: true,
-        maintainAspectRatio: false,
-        animation: {
-          easing: 'easeInOutQuad',
-          duration: 520,
-        },
-        onHover: (event, chartElement) => {
-          const target = event.native ? event.native.target : event.target
-          target.style.cursor = chartElement[0] ? 'pointer' : 'default'
-        },
-        plugins: {
-          legend: {
-            display: false,
-          },
-          tooltip: {
-            yAlign: 'bottom',
-            titleColor: '#151515',
-            bodyColor: '#151515',
-            backgroundColor: 'rgba(255, 255, 255, 0.96)',
-            displayColors: false,
-          },
-          customTitle: {
-            y: {
-              display: true,
-              text: 'Numbers',
-            },
-            x: {
-              display: true,
-              text: 'Month',
-              offsetX: 5,
-              offsetY: 5,
-              font: '12px Comic Sans MS',
-            },
-          },
-        },
-      },
-    }
-  },
   computed: {
     ...mapGetters({
       widgets: get.AVAILABLE_WIDGETS,
@@ -134,43 +73,10 @@ export default {
       return this.volumeData.map((el) => this.formatDate(el.date))
     },
     isLineChart() {
-      return this.volumeValue?.length > 7
+      return this.volumeValues?.length > 7
     },
-    isBarChart() {
-      return this.volumeValue?.length <= 7
-    },
-    volumeValue() {
+    volumeValues() {
       return this.volumeData.map((el) => el.created_count)
-    },
-    chartData() {
-      return {
-        labels: this.volumeLabels,
-        datasets: [
-          {
-            borderColor: '#055FFC',
-            pointStyle: 'circle',
-            pointRadius: 5,
-            pointBackgroundColor: '#055FFC',
-            pointBorderWidth: 1,
-            pointBorderColor: '#FFFFFF',
-            borderWidth: 3,
-            radius: 0.3,
-            fill: true,
-            backgroundColor: (ctx) => {
-              const canvas = ctx.chart.ctx
-              const gradient = canvas.createLinearGradient(0, 0, 0, 460)
-
-              gradient.addColorStop(0, 'rgba(5, 95, 252, 0.5)')
-              gradient.addColorStop(0.5, 'rgba(5, 95, 252, 0.25)')
-              gradient.addColorStop(1, 'rgba(5, 95, 252, 0)')
-
-              return gradient
-            },
-            tension: 0.25,
-            data: this.volumeValue,
-          },
-        ],
-      }
     },
   },
   watch: {
