@@ -243,7 +243,7 @@ export default {
           return {
             name: 'Top10AuthorsByVolume',
             openModal: 'isOpenTop10AuthorsModal',
-            h: 11,
+            h: 12,
           }
         case 'volume_widget':
           return {
@@ -255,7 +255,7 @@ export default {
           return {
             name: 'Top10Brands',
             openModal: 'isOpenTopBrandsModal',
-            h: 11,
+            h: 12,
           }
         case 'top_10_countries_widget':
           return {

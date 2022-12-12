@@ -4,11 +4,11 @@
     :chart-data="chartData"
     :chart-id="chartId"
     :dataset-id-key="datasetIdKey"
-    :plugins="plugins"
     :css-classes="cssClasses"
     :styles="styles"
     :width="width"
     :height="height"
+    class="line-chart"
   />
 </template>
 
@@ -24,6 +24,7 @@ import {
   LinearScale,
   CategoryScale,
   PointElement,
+  Filler,
 } from 'chart.js'
 
 ChartJS.register(
@@ -33,7 +34,8 @@ ChartJS.register(
   LineElement,
   LinearScale,
   CategoryScale,
-  PointElement
+  PointElement,
+  Filler
 )
 
 export default {
@@ -42,15 +44,11 @@ export default {
     Line,
   },
   props: {
-    chartValue: {
+    chartValues: {
       type: Array,
       default: () => [],
     },
     chartLabels: {
-      type: Array,
-      default: () => [],
-    },
-    plugins: {
       type: Array,
       default: () => [],
     },
@@ -79,9 +77,39 @@ export default {
       default: () => {},
     },
   },
-  data() {
-    return {
-      chartOptions: {
+  computed: {
+    chartData() {
+      return {
+        labels: this.chartLabels,
+        datasets: [
+          {
+            borderColor: '#055FFC',
+            pointStyle: 'circle',
+            pointRadius: 3,
+            pointBackgroundColor: '#055FFC',
+            pointBorderWidth: 1,
+            pointBorderColor: '#FFFFFF',
+            borderWidth: 3,
+            radius: 0.3,
+            fill: true,
+            backgroundColor: (ctx) => {
+              const canvas = ctx.chart.ctx
+              const gradient = canvas.createLinearGradient(0, 0, 0, 460)
+
+              gradient.addColorStop(0, 'rgba(5, 95, 252, 0.5)')
+              gradient.addColorStop(0.5, 'rgba(5, 95, 252, 0.25)')
+              gradient.addColorStop(1, 'rgba(5, 95, 252, 0)')
+
+              return gradient
+            },
+            tension: 0.25,
+            data: this.chartValues,
+          },
+        ],
+      }
+    },
+    chartOptions() {
+      return {
         responsive: true,
         maintainAspectRatio: false,
         animation: {
@@ -93,6 +121,9 @@ export default {
           target.style.cursor = chartElement[0] ? 'pointer' : 'default'
         },
         plugins: {
+          datalabels: {
+            display: false,
+          },
           legend: {
             display: false,
           },
@@ -117,40 +148,16 @@ export default {
             },
           },
         },
-      },
-    }
-  },
-  computed: {
-    chartData() {
-      return {
-        labels: this.chartLabels,
-        datasets: [
-          {
-            borderColor: '#055FFC',
-            pointStyle: 'circle',
-            pointRadius: 5,
-            pointBackgroundColor: '#055FFC',
-            pointBorderWidth: 1,
-            pointBorderColor: '#FFFFFF',
-            borderWidth: 3,
-            radius: 0.3,
-            fill: true,
-            backgroundColor: (ctx) => {
-              const canvas = ctx.chart.ctx
-              const gradient = canvas.createLinearGradient(0, 0, 0, 460)
-
-              gradient.addColorStop(0, 'rgba(5, 95, 252, 0.5)')
-              gradient.addColorStop(0.5, 'rgba(5, 95, 252, 0.25)')
-              gradient.addColorStop(1, 'rgba(5, 95, 252, 0)')
-
-              return gradient
-            },
-            tension: 0.25,
-            data: this.chartValue,
-          },
-        ],
       }
     },
   },
 }
 </script>
+
+<style scoped>
+.line-chart {
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+}
+</style>

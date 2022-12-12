@@ -5,12 +5,15 @@
     <div class="settings-wrapper">
       <section class="chart-wrapper">
         <div class="chart-title">Content Volume</div>
-        <ChartsView
-          :is-line="isLineChart"
-          :is-bar="isBarChart"
+        <LineChart
+          v-if="isLineChart"
+          :chart-values="volumeValue"
           :chart-labels="volumeLabels"
-          :chart-value="volumeValue"
-          class="charts"
+        />
+        <BarChart
+          v-else
+          :chart-values="volumeValue"
+          :chart-labels="volumeLabels"
         />
       </section>
 
@@ -45,19 +48,21 @@ import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
 import BaseModal from '@/components/modals/BaseModal'
-import ChartsView from '@/components/project/widgets/charts/ChartsView'
-import BasicSettingsScreen from '@/components/project/widgets/modals/screens/BasicSettingsScreen'
+import BarChart from '@/components/project/widgets/charts/BarChart'
+import LineChart from '@/components/project/widgets/charts/LineChart'
 import SettingsButtons from '@/components/project/widgets/modals/SettingsButtons'
 import DimensionsScreen from '@/components/project/widgets/modals/screens/DimensionsScreen'
+import BasicSettingsScreen from '@/components/project/widgets/modals/screens/BasicSettingsScreen'
 
 export default {
   name: 'ContentVolumeSettingsModal',
   components: {
-    DimensionsScreen,
-    SettingsButtons,
-    BasicSettingsScreen,
-    ChartsView,
+    BarChart,
+    LineChart,
     BaseModal,
+    SettingsButtons,
+    DimensionsScreen,
+    BasicSettingsScreen,
   },
   props: {
     volume: {
@@ -92,35 +97,6 @@ export default {
     },
     isLineChart() {
       return this.volumeValue?.length > 7
-    },
-    isBarChart() {
-      return this.volumeValue?.length <= 7
-    },
-    chartData() {
-      return {
-        labels: this.volumeLabels,
-        legend: {
-          display: false,
-        },
-        datasets: [
-          {
-            data: this.volumeValue,
-            backgroundColor: ['rgba(5, 95, 252, 0.2)'],
-            borderColor: ['#055FFC'],
-            borderWidth: 1,
-            tension: 0.4,
-          },
-        ],
-      }
-    },
-    chartOptions() {
-      return {
-        plugins: {
-          legend: false,
-        },
-        responsive: true,
-        maintainAspectRatio: false,
-      }
     },
   },
   methods: {

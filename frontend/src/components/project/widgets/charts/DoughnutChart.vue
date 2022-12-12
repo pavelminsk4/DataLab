@@ -10,6 +10,7 @@
     :width="width"
     :height="height"
     ref="doughnut"
+    class="doughnut-chart-widget"
   />
 </template>
 
@@ -25,7 +26,16 @@ import {
   CategoryScale,
 } from 'chart.js'
 
-ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale)
+import ChartDataLabels from 'chartjs-plugin-datalabels'
+
+ChartJS.register(
+  Title,
+  Tooltip,
+  Legend,
+  ArcElement,
+  CategoryScale,
+  ChartDataLabels
+)
 
 export default {
   name: 'DoughnutChart',
@@ -33,14 +43,6 @@ export default {
     Doughnut,
   },
   props: {
-    chartData: {
-      type: Object,
-      default: () => {},
-    },
-    chartOptions: {
-      type: Object,
-      default: () => {},
-    },
     chartId: {
       type: String,
       default: 'doughnut-chart',
@@ -69,8 +71,82 @@ export default {
       type: Array,
       default: () => [],
     },
+    labels: {
+      type: Array,
+      default: () => [],
+    },
+    values: {
+      type: Array,
+      default: () => [],
+    },
+  },
+  computed: {
+    chartData() {
+      return {
+        labels: this.labels,
+        datasets: [
+          {
+            backgroundColor: [
+              '#055FFC',
+              '#7A9EF9',
+              '#47F9B9',
+              '#47F979',
+              '#95F947',
+              '#F5F947',
+              '#F6AA37',
+              '#F63737',
+              '#F63787',
+              '#D930F4',
+            ],
+            cutout: '75%',
+            borderColor: 'transparent',
+            spacing: 10,
+            data: this.values,
+            options: {
+              plugins: {
+                datalabels: {
+                  display: false,
+                },
+              },
+            },
+          },
+        ],
+      }
+    },
+    chartOptions() {
+      return {
+        plugins: {
+          legend: {
+            position: 'right',
+            labels: {
+              color: 'white',
+              font: {
+                size: 12,
+              },
+            },
+          },
+          datalabels: {
+            color: 'white',
+            textAlign: 'center',
+            font: {
+              size: 8,
+            },
+          },
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+      }
+    },
   },
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.doughnut-chart-widget {
+  width: 100%;
+  max-height: 100%;
+  margin-top: 25px;
+
+  cursor: pointer;
+}
+</style>
