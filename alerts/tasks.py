@@ -6,6 +6,16 @@ from django.shortcuts import get_object_or_404
 from functools import reduce
 from django.db.models import Q
 
+import smtplib
+from email.message import EmailMessage
+from pathlib import Path
+import os
+import environ
+
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
+env = environ.Env()
+env.read_env(os.path.join(BASE_DIR, '.env'))
+
 def keywords_posts(keys, posts):
   posts = posts.filter(reduce(lambda x,y: x | y, [Q(entry_title__contains=key) for key in keys]))
   return posts
@@ -54,23 +64,56 @@ def check_new_posts(alert):
   triger_on_every_new_posts = alert.triggered_on_every_n_new_posts
   previous_posts_count = alert.privious_posts_count
   total_posts_count = len(posts_agregator(alert.project))
-  if total_posts_count - previous_posts_count >= triger_on_every_new_posts:
+  delta = total_posts_count - previous_posts_count
+  if delta >= triger_on_every_new_posts:
     alert.privious_posts_count = total_posts_count
     alert.save()
-    return True
+    return delta
   return False
+
+def fill_part_of_sample(p):
+  return f'''<div style="display: inline-block; float: left; gap: 20px">
+            <div style="height: 1px; background-color: #666666"; margin-top: 20px; margin-bottom: 20px></div>
+            <div style="color: #666666">{str(p.entry_published.ctime())}</div>
+            <h1 style="color: #000000">{p.entry_title}</h1>
+            <section style="color: #545454; font-size: 14px">
+              {p.entry_summary}
+            </section>
+            <div style="color: #31b800; font-size: 16px"; margin-top: 20px; margin-bottom: 20px>{p.feedlink.source1} {p.feed_language.language}</div>
+            <a href="{p.entry_link}">
+              <button style="padding: 10px; width: 120px">View Post</button>
+            </a>
+            <div style="height: 1px; background-color: #666666"; margin-top: 20px; margin-bottom: 20px></div>
+          </div>'''
 
 @shared_task
 def alert_sender():
   alerts = Alert.objects.all()
   for alert in alerts:
-    if check_new_posts(alert):
+    delta = check_new_posts(alert)
+    if delta >= alert.triggered_on_every_n_new_posts:
+      posts = posts_agregator(alert.project).order_by('-creationdate')[:alert.how_many_posts_to_send]
       users = alert.user.all()
       mails_list = list(users.values_list('email', flat=True))
-      send_mail(
-        'Subject: Allert from your Anova project.',
-        'There are new posts corresponding to the parameters in your project.',
-        'from@example.com',
-        mails_list,
-        fail_silently=False,
-      )
+
+      msg = EmailMessage()
+      msg['Subject'] = 'Subject: Allert from your Anova project.'
+      msg['From'] = 'Datalab'
+      msg['To'] = mails_list
+
+      part_of_smpl = ''''''
+      for p in posts:
+        part_of_smpl = part_of_smpl + fill_part_of_sample(p)
+      smpl = f'''
+      <!DOCTYPE html>
+      <html>
+      <body style="background-color: #ffffff">
+        {part_of_smpl}
+      </body>
+      </html>
+      '''
+      msg.set_content(smpl, subtype='html')
+
+      with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
+        smtp.login(env('EMAIL_HOST_USER'), env('EMAIL_HOST_PASSWORD'))
+        smtp.send_message(msg)
