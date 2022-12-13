@@ -115,6 +115,13 @@ export default {
     return fetch('get', `/api/widgets/top_10_languages_widget/${projectId}`)
   },
 
+  async getSentimentTopSources(projectId) {
+    return fetch(
+      'get',
+      `/api/widgets/sentiment_top_10_sources_widget/${projectId}`
+    )
+  },
+
   async getDimensions() {
     return fetch('get', '/api/dimensions/')
   },

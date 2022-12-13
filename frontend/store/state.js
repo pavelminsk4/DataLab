@@ -29,6 +29,7 @@ const state = {
   topBrands: [],
   topCountries: [],
   topLanguages: [],
+  sentimentTopSources: {},
   dimensions: [],
   templates: [],
   newWorkspace: {

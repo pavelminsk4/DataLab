@@ -89,6 +89,10 @@ export default {
     return state.topLanguages
   },
 
+  [get.SENTIMENT_TOP_SOURCES](state) {
+    return state.sentimentTopSources
+  },
+
   [get.DIMENSIONS](state) {
     return state.dimensions
   },

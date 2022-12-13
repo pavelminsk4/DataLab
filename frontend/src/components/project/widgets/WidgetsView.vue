@@ -42,6 +42,12 @@
     @close="openModal('isOpenClippingFeedContentModal')"
   />
 
+  <SentimentTopSourcesModal
+    v-if="isOpenSentimentSourcesModal"
+    :project-id="projectId"
+    @close="openModal('isOpenSentimentSourcesModal')"
+  />
+
   <grid-layout
     v-if="availableWidgets"
     v-model:layout="layoutProxy"
@@ -102,6 +108,7 @@ import VueGridLayout from 'vue3-grid-layout'
 import SearchResults from '@/components/SearchResults'
 import SummaryWidget from '@/components/project/widgets/SummaryWidget'
 import ContentVolumeWidget from '@/components/project/widgets/ContentVolumeWidget'
+import SentimentTopSourcesWidget from '@/components/project/widgets/SentimentTopSourcesWidget'
 import ClippingFeedContentWidget from '@/components/project/widgets/ClippingFeedContentWidget'
 import Top10BrandsWidget from '@/components/project/widgets/Top10BrandsWidget'
 import Top10CountriesWidget from '@/components/project/widgets/Top10CountriesWidget'
@@ -115,10 +122,12 @@ import ClippingFeedContentModal from '@/components/project/widgets/modals/Clippi
 import TopBrandsSettingsModal from '@/components/project/widgets/modals/TopBrandsSettingsModal'
 import TopCountriesSettingsWidget from '@/components/project/widgets/modals/TopCountriesSettingsModal'
 import TopLanguagesModal from '@/components/project/widgets/modals/TopLanguagesModal'
+import SentimentTopSourcesModal from '@/components/project/widgets/modals/SentimentTopSourcesModal'
 
 export default {
   name: 'WidgetsView',
   components: {
+    SentimentTopSourcesModal,
     TopLanguagesModal,
     TopCountriesSettingsWidget,
     TopBrandsSettingsModal,
@@ -132,6 +141,7 @@ export default {
     ContentVolumeWidget,
     Top10BrandsWidget,
     Top10CountriesWidget,
+    SentimentTopSourcesWidget,
     Top10AuthorsByVolumeWidget,
     Top10LanguagesWidget,
     GridLayout: VueGridLayout.GridLayout,
@@ -157,6 +167,7 @@ export default {
       isOpenTopBrandsModal: false,
       isOpenTopCountriesModal: false,
       isOpenTopLanguagesModal: false,
+      isOpenSentimentSourcesModal: false,
       layout: [],
     }
   },
@@ -267,6 +278,12 @@ export default {
           return {
             name: 'Top10Languages',
             openModal: 'isOpenTopLanguagesModal',
+            h: 12,
+          }
+        case 'sentiment_top_10_sources_widget':
+          return {
+            name: 'SentimentTopSources',
+            openModal: 'isOpenSentimentSourcesModal',
             h: 12,
           }
       }
