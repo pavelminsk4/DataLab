@@ -459,7 +459,8 @@ def post_creator():
             'feed_tags_list':my_feed_tags_list,
             'feed_ttl':my_feed_ttl,
             'feed_docs':my_feed_docs,
-            'feed_generator_detail':my_feed_generator_detail
+            'feed_generator_detail':my_feed_generator_detail,
+            'is_sentiment':True,
             }
             print('---->')
             print(snippet)
