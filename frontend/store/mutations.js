@@ -97,6 +97,14 @@ export default {
     state.topAuthors = [...data]
   },
 
+  [mutator.SET_SENTIMENT_TOP_SOURCES](state, data) {
+    state.sentimentTopSources = {...data}
+  },
+
+  [mutator.SET_SENTIMENT_TOP_COUNTRIES](state, data) {
+    state.sentimentTopCountries = {...data}
+  },
+
   [mutator.SET_AVAILABLE_WIDGETS](state, data) {
     state.availableWidgets = {...data}
   },

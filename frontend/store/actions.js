@@ -196,6 +196,32 @@ export default {
     }
   },
 
+  async [action.GET_SENTIMENT_TOP_SOURCES]({commit}, projectId) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const sentimentTopSources = await api.getSentimentTopSources(projectId)
+      commit(mutator.SET_SENTIMENT_TOP_SOURCES, sentimentTopSources)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
+  async [action.GET_SENTIMENT_TOP_COUNTRIES]({commit}, projectId) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const sentimentTopCountries = await api.getSentimentTopCountries(
+        projectId
+      )
+      commit(mutator.SET_SENTIMENT_TOP_COUNTRIES, sentimentTopCountries)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
   async [action.GET_DIMENSIONS]({commit}) {
     commit(mutator.SET_LOADING, true)
     try {

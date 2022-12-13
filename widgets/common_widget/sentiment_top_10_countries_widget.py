@@ -64,13 +64,14 @@ def sentiment_top_10_countries(pk):
 
   posts = posts_agregator(project)
   top_countries = posts.values('feedlink__country').annotate(brand_count=Count('feedlink__country')).order_by('-brand_count').values_list('feedlink__country', flat=True)[:10]
-  results = [{country: list(posts.filter(feedlink__country=country).values('sentiment').annotate(sentiment_count=Count('sentiment')).order_by('-sentiment_count'))} for country in top_countries]
+  results = {country: list(posts.filter(feedlink__country=country).values('sentiment').annotate(sentiment_count=Count('sentiment')).order_by('-sentiment_count')) for country in top_countries}
   for i in range(len(results)):
-    sentiments = ['negative', 'neutral', 'positive']
-    for j in range(len(results[i][top_countries[i]])):
-      for sen in sentiments:
-        if sen in results[i][top_countries[i]][j].get('sentiment'):
-          sentiments.remove(sen)
-    for sen in sentiments:
-      results[i][top_countries[i]].append({'sentiment': sen, 'sentiment_count': 0})
+   print(results)
+   sentiments = ['negative', 'neutral', 'positive']
+   for j in range(len(results[top_countries[i]])):
+     for sen in sentiments:
+       if sen in results[top_countries[i]][j].get('sentiment'):
+         sentiments.remove(sen)
+   for sen in sentiments:
+     results[top_countries[i]].append({'sentiment': sen, 'sentiment_count': 0})
   return JsonResponse(results, safe = False)
