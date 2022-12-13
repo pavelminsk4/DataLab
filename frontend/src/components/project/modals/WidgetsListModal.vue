@@ -14,6 +14,8 @@
         <span class="name">{{ item.title }}</span>
       </BaseCheckbox>
 
+      {{ test() }}
+
       <BaseButton class="button" @click="saveCollectionWidgets">
         Save
       </BaseButton>
@@ -99,6 +101,9 @@ export default {
     removeSelectedFilter(index) {
       this.collectionProxy.splice(index, 1)
     },
+    test() {
+      console.log(this.collectionProxy)
+    },
     onChange(args) {
       const {id, checked} = args
       const item = Object.keys(this.widgets)[id]
@@ -107,9 +112,11 @@ export default {
           this.collectionProxy.push(item)
         }
       } else {
-        this.collectionProxy = this.collectionProxy.filter((i, index) =>
-          this.removeSelectedFilter(index)
-        )
+        this.collectionProxy.filter((i, index) => {
+          if (i === item) {
+            this.removeSelectedFilter(index)
+          }
+        })
       }
     },
     async saveCollectionWidgets() {
