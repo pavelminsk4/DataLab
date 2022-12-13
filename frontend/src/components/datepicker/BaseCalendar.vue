@@ -68,6 +68,8 @@ import {
   endOfMonth,
   startOfMonth,
   subMonths,
+  startOfToday,
+  endOfToday,
   startOfYesterday,
   endOfYesterday,
 } from 'date-fns'
@@ -101,13 +103,16 @@ export default {
       return [
         {
           label: 'Last Week',
-          range: this.lastWeeksDate,
+          range: this.lastWeekDate,
         },
         {
           label: 'Yesterday',
-          range: [startOfYesterday(new Date()), endOfYesterday(new Date())],
+          range: [startOfYesterday(), endOfYesterday()],
         },
-        {label: 'Today', range: [new Date(), new Date()]},
+        {
+          label: 'Today',
+          range: [startOfToday(), endOfToday()],
+        },
         {
           label: 'Last 3 month',
           range: [this.getLastThreeMonthsDate(), new Date()],
@@ -123,15 +128,15 @@ export default {
     },
     selectedDateProxy: {
       get() {
-        return this.additionalFilters?.date_range || this.lastWeeksDate
+        return this.additionalFilters?.date_range || this.lastWeekDate
       },
       set(val) {
         this.selectedDate = val
         this[action.UPDATE_ADDITIONAL_FILTERS]({date_range: val})
       },
     },
-    lastWeeksDate() {
-      return [this.getLastWeeksDate(), new Date()]
+    lastWeekDate() {
+      return [this.getLastWeekDate(), endOfToday()]
     },
     timePickerCustom() {
       return TimePickerCustom
@@ -204,10 +209,10 @@ export default {
     updateTimePicker(value, name) {
       this[name] = value
     },
-    getLastWeeksDate() {
+    getLastWeekDate() {
       const now = new Date()
 
-      return new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7)
+      return new Date(now.getFullYear(), now.getMonth(), now.getDate() - 6)
     },
     getLastThreeMonthsDate() {
       return new Date(
