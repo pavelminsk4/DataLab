@@ -236,6 +236,7 @@ button.new-project .circle {
 
   background: var(--icon-bg-color);
   border-radius: 1.625rem;
+  color: var(--primary-text-color);
 
   transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
 }

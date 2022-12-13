@@ -1,6 +1,6 @@
 <template>
   <div v-if="currentProject">
-    <WidgetsModal
+    <WidgetsListModal
       v-if="isOpenWidgetsModal"
       :project-id="currentProject.id"
       @close="toggleWidgetsModal('isOpenWidgetsModal')"
@@ -77,7 +77,7 @@ import NavigationBar from '@/components/navigation/NavigationBar'
 import WidgetsView from '@/components/project/widgets/WidgetsView'
 import BaseButton from '@/components/buttons/BaseButton'
 import PlusIcon from '@/components/icons/PlusIcon'
-import WidgetsModal from '@/components/project/modals/WidgetsModal'
+import WidgetsListModal from '@/components/project/modals/WidgetsListModal'
 import DimensionsIcon from '@/components/icons/DimensionsIcon'
 import AllDimensionsModal from '@/components/project/modals/AllDimensionsModal'
 import ReportsUploadIcon from '@/components/icons/ReportsUploadIcon'
@@ -92,7 +92,7 @@ export default {
     ReportsUploadIcon,
     AllDimensionsModal,
     DimensionsIcon,
-    WidgetsModal,
+    WidgetsListModal,
     PlusIcon,
     BaseButton,
     WidgetsView,
