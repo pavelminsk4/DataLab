@@ -48,6 +48,12 @@
     @close="openModal('isOpenSentimentSourcesModal')"
   />
 
+  <SentimentTopCountriesModal
+    v-if="isOpenSentimentCountriesModal"
+    :project-id="projectId"
+    @close="openModal('isOpenSentimentCountriesModal')"
+  />
+
   <grid-layout
     v-if="availableWidgets"
     v-model:layout="layoutProxy"
@@ -109,6 +115,7 @@ import SearchResults from '@/components/SearchResults'
 import SummaryWidget from '@/components/project/widgets/SummaryWidget'
 import ContentVolumeWidget from '@/components/project/widgets/ContentVolumeWidget'
 import SentimentTopSourcesWidget from '@/components/project/widgets/SentimentTopSourcesWidget'
+import SentimentTopCountriesWidget from '@/components/project/widgets/SentimentTopCountriesWidget'
 import ClippingFeedContentWidget from '@/components/project/widgets/ClippingFeedContentWidget'
 import Top10BrandsWidget from '@/components/project/widgets/Top10BrandsWidget'
 import Top10CountriesWidget from '@/components/project/widgets/Top10CountriesWidget'
@@ -123,10 +130,12 @@ import TopBrandsSettingsModal from '@/components/project/widgets/modals/TopBrand
 import TopCountriesSettingsWidget from '@/components/project/widgets/modals/TopCountriesSettingsModal'
 import TopLanguagesModal from '@/components/project/widgets/modals/TopLanguagesModal'
 import SentimentTopSourcesModal from '@/components/project/widgets/modals/SentimentTopSourcesModal'
+import SentimentTopCountriesModal from '@/components/project/widgets/modals/SentimentTopCountriesModal'
 
 export default {
   name: 'WidgetsView',
   components: {
+    SentimentTopCountriesModal,
     SentimentTopSourcesModal,
     TopLanguagesModal,
     TopCountriesSettingsWidget,
@@ -141,6 +150,7 @@ export default {
     ContentVolumeWidget,
     Top10BrandsWidget,
     Top10CountriesWidget,
+    SentimentTopCountriesWidget,
     SentimentTopSourcesWidget,
     Top10AuthorsByVolumeWidget,
     Top10LanguagesWidget,
@@ -168,6 +178,7 @@ export default {
       isOpenTopCountriesModal: false,
       isOpenTopLanguagesModal: false,
       isOpenSentimentSourcesModal: false,
+      isOpenSentimentCountriesModal: false,
       layout: [],
     }
   },
@@ -284,6 +295,12 @@ export default {
           return {
             name: 'SentimentTopSources',
             openModal: 'isOpenSentimentSourcesModal',
+            h: 12,
+          }
+        case 'sentiment_top_10_countries_widget':
+          return {
+            name: 'SentimentTopCountries',
+            openModal: 'isOpenSentimentCountriesModal',
             h: 12,
           }
       }

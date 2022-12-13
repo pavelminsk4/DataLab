@@ -122,6 +122,13 @@ export default {
     )
   },
 
+  async getSentimentTopCountries(projectId) {
+    return fetch(
+      'get',
+      `/api/widgets/sentiment_top_10_countries_widget/${projectId}`
+    )
+  },
+
   async getDimensions() {
     return fetch('get', '/api/dimensions/')
   },

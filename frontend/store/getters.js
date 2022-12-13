@@ -93,6 +93,10 @@ export default {
     return state.sentimentTopSources
   },
 
+  [get.SENTIMENT_TOP_COUNTRIES](state) {
+    return state.sentimentTopCountries
+  },
+
   [get.DIMENSIONS](state) {
     return state.dimensions
   },

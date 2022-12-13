@@ -30,6 +30,7 @@ const state = {
   topCountries: [],
   topLanguages: [],
   sentimentTopSources: {},
+  sentimentTopCountries: {},
   dimensions: [],
   templates: [],
   newWorkspace: {
