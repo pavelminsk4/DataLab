@@ -35,14 +35,9 @@ def additional_keywords_posts(posts, additions):
     posts = posts.filter(entry_title__contains=word)
   return posts
 
-def data_range_posts(start_date, end_date):
-  interval = [start_date, end_date]
-  posts = Post.objects.filter(entry_published__range=interval)
-  return posts
-
 def posts_agregator(project):
   project = get_object_or_404(Project, pk = project.pk)
-  posts = data_range_posts(project.start_search_date, project.end_search_date)
+  posts = Post.objects.all()
   posts = keywords_posts(project.keywords, posts)
   if project.additional_keywords!=[]:
     posts = additional_keywords_posts(posts, project.additional_keywords)
@@ -63,7 +58,7 @@ def posts_agregator(project):
 def check_new_posts(alert):
   triger_on_every_new_posts = alert.triggered_on_every_n_new_posts
   previous_posts_count = alert.privious_posts_count
-  total_posts_count = len(posts_agregator(alert.project))
+  total_posts_count = posts_agregator(alert.project).count()
   delta = total_posts_count - previous_posts_count
   if delta >= triger_on_every_new_posts:
     alert.privious_posts_count = total_posts_count
