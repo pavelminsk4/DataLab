@@ -43,6 +43,7 @@ class WidgetsList2(models.Model):
   top_10_languages_widget = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='top_10_languages_widg_description', null=True)
   content_volume_top_10_source_widget = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='content_volume_top_10_source_widget', null=True)
   sentiment_top_10_sources_widget = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='sentiment_top_10_sources_widget', null=True)
+  sentiment_top_10_countries_widget = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='sentiment_top_10_countries_widget', null=True)
   #clipping_widget = models.ForeignKey(WidgetDescription, on_delete=models.SET_NULL, related_name='clippint_widg_description', null=True)
 
   def __str__(self):
@@ -101,6 +102,11 @@ def create_widget_description(sender, instance, created, **kwargs):
     wd9.linked_dimensions.add(Dimensions.objects.get_or_create(title='Author')[0])
     wd9.linked_dimensions.add(Dimensions.objects.get_or_create(title='Country')[0])
     wd9.save()
+    wd10 = WidgetDescription.objects.create(title='Sentiment top 10 countries widget')
+    wd10.linked_dimensions.add(Dimensions.objects.get_or_create(title='Language')[0])
+    wd10.linked_dimensions.add(Dimensions.objects.get_or_create(title='Author')[0])
+    wd10.linked_dimensions.add(Dimensions.objects.get_or_create(title='Source')[0])
+    wd10.save()
     # wd5 = WidgetDescription.objects.create(title='Clipping Widget')
     # wd5.linked_dimensions.add(Dimensions.objects.get_or_create(title='Country')[0])
     # wd5.linked_dimensions.add(Dimensions.objects.get_or_create(title='Author')[0])
@@ -118,6 +124,7 @@ def create_widget_description(sender, instance, created, **kwargs):
     instance.top_10_languages_widget = wd7
     instance.content_volume_top_10_source_widget = wd8
     instance.sentiment_top_10_sources_widget = wd9
+    instance.sentiment_top_10_countries_widget = wd10
     # instance.clipping_widget = wd5
     instance.save()
 
