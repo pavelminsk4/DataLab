@@ -30,16 +30,16 @@ def data_range_posts(start_date, end_date):
   posts = Post.objects.filter(entry_published__range=interval)
   return posts
 
-def author_filter_posts(author, posts):
-  posts = posts.filter(entry_author=author)
+def source_filter_posts(source, posts):
+  posts = posts.filter(feedlink__source1=source)
   return posts
 
 def language_filter_posts(language, posts):
   posts = posts.filter(feed_language__language=language)
   return posts  
 
-def source_filter_posts(source, posts):
-  posts = posts.filter(feedlink__source1=source)
+def country_filter_posts(country, posts):
+  posts = posts.filter(feedlink__country=country)
   return posts  
 
 def posts_agregator(project):
@@ -52,26 +52,25 @@ def posts_agregator(project):
   if project.ignore_keywords!=[]:
     posts = exclude_keywords_posts(posts, project.ignore_keywords)
   if project.author_filter:
-    posts = author_filter_posts(project.author_filter, posts)
+    posts = source_filter_posts(project.source_filter, posts)
   if project.language_filter:
     posts = language_filter_posts(project.language_filter, posts)
-  if project.source_filter: 
-    posts = source_filter_posts(project.source_filter, posts)
+  if project.country_filter: 
+    posts = country_filter_posts(project.country_filter, posts)
   return posts
   
-def sentiment_top_10_countries(pk):
+def sentiment_top_10_authors(pk):
   project = Project.objects.get(id=pk)
-
   posts = posts_agregator(project)
-  top_countries = posts.values('feedlink__country').annotate(brand_count=Count('feedlink__country')).order_by('-brand_count').values_list('feedlink__country', flat=True)[:10]
-  results = {country: list(posts.filter(feedlink__country=country).values('sentiment').annotate(sentiment_count=Count('sentiment')).order_by('-sentiment_count')) for country in top_countries}
+  top_authors = posts.values('entry_author').annotate(brand_count=Count('entry_author')).order_by('-brand_count').values_list('entry_author', flat=True)[:10]
+  results = {author: list(posts.filter(entry_author=author).values('sentiment').annotate(sentiment_count=Count('sentiment')).order_by('-sentiment_count')) for author in top_authors}
   for i in range(len(results)):
-    print(results)
-    sentiments = ['negative', 'neutral', 'positive']
-    for j in range(len(results[top_countries[i]])):
-      for sen in sentiments:
-        if sen in results[top_countries[i]][j].get('sentiment'):
-          sentiments.remove(sen)
-    for sen in sentiments:
-      results[top_countries[i]].append({'sentiment': sen, 'sentiment_count': 0})
+   print(results)
+   sentiments = ['negative', 'neutral', 'positive']
+   for j in range(len(results[top_authors[i]])):
+     for sen in sentiments:
+       if sen in results[top_authors[i]][j].get('sentiment'):
+         sentiments.remove(sen)
+   for sen in sentiments:
+     results[top_authors[i]].append({'sentiment': sen, 'sentiment_count': 0})
   return JsonResponse(results, safe = False)

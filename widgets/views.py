@@ -13,6 +13,8 @@ from .common_widget.top_10_languages_widget import top_10_languages
 from .common_widget.content_volume_top_10_source_widget import content_volume_top_10_source
 from .common_widget.sentiment_top_10_sources_widget import sentiment_top_10_sources
 from .common_widget.sentiment_top_10_countries_widget import sentiment_top_10_countries
+from .common_widget.sentiment_top_10_authors_widget import sentiment_top_10_authors
+from .common_widget.sentiment_top_10_languages_widget import sentiment_top_10_languages
 from .common_widget.clipping_widget import clp_widget
 # from .common_widget.sentiment_for_period import sentiment_for_period
 
@@ -50,4 +52,10 @@ def sentiment_top_10_sources_widget(request, pk):
   return sentiment_top_10_sources(pk)
 
 def sentiment_top_10_countries_widget(request, pk):
-  return sentiment_top_10_countries(pk)  
+  return sentiment_top_10_countries(pk)
+
+def sentiment_top_10_authors_widget(request, pk):
+  return sentiment_top_10_authors(pk)
+
+def sentiment_top_10_languages_widget(request, pk):
+  return sentiment_top_10_languages(pk)
