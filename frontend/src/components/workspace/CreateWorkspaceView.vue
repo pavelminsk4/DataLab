@@ -20,6 +20,7 @@ export default {
   cursor: pointer;
 
   color: var(--secondary-text-color);
+  font-size: 14px;
 }
 
 .arrow-back {

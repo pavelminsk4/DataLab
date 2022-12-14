@@ -1,5 +1,11 @@
 <template>
-  <div :class="['input-wrapper', isSettings && 'settings-input']">
+  <div
+    :class="[
+      'input-wrapper',
+      isSettings && 'settings-input',
+      isError && 'error',
+    ]"
+  >
     <SearchIcon v-if="isSearch" class="icon" />
     <input
       v-bind="$attrs"
@@ -9,12 +15,18 @@
       @input="handleInput"
     />
 
+    <div v-if="isError" class="error-container">
+      {{ errorMessage }}
+      <ErrorIcon class="error-icon" />
+    </div>
+
     <slot></slot>
   </div>
 </template>
 
 <script>
 import SearchIcon from '@components/icons/SearchIcon'
+import ErrorIcon from '@/components/icons/ErrorIcon'
 
 export default {
   name: 'BaseInput',
@@ -35,8 +47,17 @@ export default {
       type: String,
       default: 'Enter text',
     },
+    isError: {
+      type: Boolean,
+      default: false,
+    },
+    errorMessage: {
+      type: String,
+      default: 'Error',
+    },
   },
   components: {
+    ErrorIcon,
     SearchIcon,
   },
   methods: {
@@ -102,5 +123,27 @@ export default {
 
   width: 16px;
   height: 16px;
+}
+
+.error {
+  border: 1px solid var(--negative-status);
+  border-radius: 10px;
+
+  .error-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    white-space: nowrap;
+
+    color: var(--negative-status);
+
+    .error-icon {
+      margin-right: 15px;
+    }
+
+    font-size: 12px;
+  }
 }
 </style>

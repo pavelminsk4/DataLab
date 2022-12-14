@@ -31,6 +31,8 @@ const state = {
   topLanguages: [],
   sentimentTopSources: {},
   sentimentTopCountries: {},
+  sentimentTopLanguages: {},
+  sentimentTopAuthors: {},
   dimensions: [],
   templates: [],
   newWorkspace: {

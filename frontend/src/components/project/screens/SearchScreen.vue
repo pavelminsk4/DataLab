@@ -5,7 +5,13 @@
       :title="currentProject.title"
       hint="Search by keywords and phrases "
     >
-      <BaseButton class="button" @click="updateProjectData">Save</BaseButton>
+      <BaseButton
+        class="button"
+        @click="updateProjectData"
+        :is-disabled="!currentKeywords.length"
+      >
+        Save
+      </BaseButton>
     </NavigationBar>
 
     <div class="search-settings-wrapper">
@@ -119,7 +125,7 @@ export default {
         console.log(e)
       }
     },
-    updateProjectData: function () {
+    updateProjectData() {
       try {
         this[action.UPDATE_PROJECT]({
           projectId: this.currentProject?.id,

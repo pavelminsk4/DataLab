@@ -222,6 +222,32 @@ export default {
     }
   },
 
+  async [action.GET_SENTIMENT_TOP_LANGUAGES]({commit}, projectId) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const sentimentTopLanguages = await api.getSentimentTopLanguages(
+        projectId
+      )
+      commit(mutator.SET_SENTIMENT_TOP_LANGUAGES, sentimentTopLanguages)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
+  async [action.GET_SENTIMENT_TOP_AUTHORS]({commit}, projectId) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const sentimentTopAuthors = await api.getSentimentTopAuthors(projectId)
+      commit(mutator.SET_SENTIMENT_TOP_AUTHORS, sentimentTopAuthors)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
   async [action.GET_DIMENSIONS]({commit}) {
     commit(mutator.SET_LOADING, true)
     try {
@@ -463,5 +489,13 @@ export default {
 
   async [action.CLEAR_KEYWORDS_LIST]({commit}, index) {
     commit(mutator.DELETE_KEYWORDS_LIST, index)
+  },
+
+  async [action.CLEAR_STATE]({commit}) {
+    commit(mutator.RESET_STATE)
+  },
+
+  async [action.CLEAR_SEARCH_LIST]({commit}) {
+    commit(mutator.RESET_SEARCH_LIST)
   },
 }

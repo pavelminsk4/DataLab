@@ -105,6 +105,14 @@ export default {
     state.sentimentTopCountries = {...data}
   },
 
+  [mutator.SET_SENTIMENT_TOP_LANGUAGES](state, data) {
+    state.sentimentTopLanguages = {...data}
+  },
+
+  [mutator.SET_SENTIMENT_TOP_AUTHORS](state, data) {
+    state.sentimentTopAuthors = {...data}
+  },
+
   [mutator.SET_AVAILABLE_WIDGETS](state, data) {
     state.availableWidgets = {...data}
   },
@@ -167,6 +175,12 @@ export default {
       source: '',
       workspace: null,
     }
+  },
+
+  [mutator.RESET_SEARCH_LIST](state) {
+    state.searchData = []
+    state.numberOfPosts = 0
+    state.numberOfPages = null
   },
 
   [mutator.SET_DISPLAY_CALENDAR](state, value) {

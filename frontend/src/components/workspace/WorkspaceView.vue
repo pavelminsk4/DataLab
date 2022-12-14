@@ -91,11 +91,13 @@ export default {
 }
 
 .back-button {
+  margin-bottom: 15px;
   max-width: fit-content;
 
   cursor: pointer;
 
   color: var(--secondary-text-color);
+  font-size: 14px;
 
   .arrow-back {
     margin-right: 5px;
