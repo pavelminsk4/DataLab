@@ -9,7 +9,7 @@
       @update:modelValue="updateCollection"
       @start-search="showResults"
       :model-value="mainKeywords"
-      error-message="Enter a keyword and press 'Enter'"
+      error-message="Required field"
       :is-error="isErrorMainField"
       :is-main-field="true"
       name="keywords"
@@ -63,6 +63,8 @@
 import BaseTag from '@/components/BaseTag'
 import OnlineType from '@/components/workspace/sources/OnlineType'
 import BaseButton from '@/components/buttons/BaseButton'
+import {mapGetters} from 'vuex'
+import {get} from '@store/constants'
 
 export default {
   name: 'ProjectKeywords',
@@ -89,6 +91,11 @@ export default {
     return {
       isErrorMainField: false,
     }
+  },
+  computed: {
+    ...mapGetters({
+      searchData: get.SEARCH_DATA,
+    }),
   },
   methods: {
     updateCollection(name, value) {

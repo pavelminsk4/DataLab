@@ -97,6 +97,14 @@ export default {
     return state.sentimentTopCountries
   },
 
+  [get.SENTIMENT_TOP_LANGUAGES](state) {
+    return state.sentimentTopLanguages
+  },
+
+  [get.SENTIMENT_TOP_AUTHORS](state) {
+    return state.sentimentTopAuthors
+  },
+
   [get.DIMENSIONS](state) {
     return state.dimensions
   },

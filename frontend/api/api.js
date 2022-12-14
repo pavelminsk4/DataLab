@@ -129,6 +129,20 @@ export default {
     )
   },
 
+  async getSentimentTopLanguages(projectId) {
+    return fetch(
+      'get',
+      `/api/widgets/sentiment_top_10_languages_widget/${projectId}`
+    )
+  },
+
+  async getSentimentTopAuthors(projectId) {
+    return fetch(
+      'get',
+      `/api/widgets/sentiment_top_10_authors_widget/${projectId}`
+    )
+  },
+
   async getDimensions() {
     return fetch('get', '/api/dimensions/')
   },

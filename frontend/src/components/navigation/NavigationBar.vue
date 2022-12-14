@@ -2,7 +2,7 @@
   <div class="back-button" @click="backToPage">
     <ArrowLeftIcon class="arrow-back" />
     <span v-if="!!step">Back to dashboard</span>
-    <span v-else>Back</span>
+    <span v-else>Back to workspace</span>
   </div>
 
   <div class="create-project-title">
@@ -136,6 +136,7 @@ export default {
   cursor: pointer;
 
   color: var(--secondary-text-color);
+  font-size: 14px;
 
   &:hover {
     color: var(--primary-button-color);
