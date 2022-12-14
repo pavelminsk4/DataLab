@@ -66,7 +66,6 @@ def sentiment_top_10_countries(pk):
   top_countries = posts.values('feedlink__country').annotate(brand_count=Count('feedlink__country')).order_by('-brand_count').values_list('feedlink__country', flat=True)[:10]
   results = {country: list(posts.filter(feedlink__country=country).values('sentiment').annotate(sentiment_count=Count('sentiment')).order_by('-sentiment_count')) for country in top_countries}
   for i in range(len(results)):
-    print(results)
     sentiments = ['negative', 'neutral', 'positive']
     for j in range(len(results[top_countries[i]])):
       for sen in sentiments:

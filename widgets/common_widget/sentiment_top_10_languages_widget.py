@@ -65,7 +65,6 @@ def sentiment_top_10_languages(pk):
   top_languages = posts.values('feed_language__language').annotate(brand_count=Count('feed_language__language')).order_by('-brand_count').values_list('feed_language__language', flat=True)[:10]
   results = {language: list(posts.filter(feed_language__language=language).values('sentiment').annotate(sentiment_count=Count('sentiment')).order_by('-sentiment_count')) for language in top_languages}
   for i in range(len(results)):
-   print(results)
    sentiments = ['negative', 'neutral', 'positive']
    for j in range(len(results[top_languages[i]])):
      for sen in sentiments:

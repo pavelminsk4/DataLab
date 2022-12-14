@@ -6,7 +6,7 @@
     hint="Search by keywords and phrases"
     :button-width="141"
     :button-loading="buttonLoading"
-    :is-active-button="!searchData.length"
+    :is-active-button="!!keywords.keywords?.length"
     button-name="Save Project"
     @next-step="createWorkspaceAndProject"
   />
@@ -19,7 +19,7 @@
     :is-existing-workspace="true"
     :button-width="141"
     :button-loading="buttonLoading"
-    :is-active-button="!searchData.length"
+    :is-active-button="!!keywords.keywords?.length"
     button-name="Create Project"
     @next-step="createProject"
   />
