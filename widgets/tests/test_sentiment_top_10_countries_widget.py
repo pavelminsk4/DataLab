@@ -29,24 +29,20 @@ class SentimentTop10CountriesWidgetTests(APITestCase):
     url = reverse('widgets:sentiment_top_10_countries_widget', kwargs={'pk':pr1.pk})
     response = self.client.get(url)
     self.assertEqual(response.status_code, status.HTTP_200_OK)
-    res = [
-            {'USA': [
-                      {'sentiment': 'negative', 'sentiment_count': 2},
-                      {'sentiment': 'neutral', 'sentiment_count': 1},
-                      {'sentiment': 'positive', 'sentiment_count': 1}
-                    ]
-            },
-            {'Canada': [
+    res = {'USA': [
+                    {'sentiment': 'negative', 'sentiment_count': 2},
+                    {'sentiment': 'neutral', 'sentiment_count': 1},
+                    {'sentiment': 'positive', 'sentiment_count': 1}
+                  ],
+           'Canada': [
+                      {'sentiment': 'neutral', 'sentiment_count': 2},
+                      {'sentiment': 'negative', 'sentiment_count': 0},
+                      {'sentiment': 'positive', 'sentiment_count': 0}
+                     ],
+           'England': [
                         {'sentiment': 'neutral', 'sentiment_count': 2},
                         {'sentiment': 'negative', 'sentiment_count': 0},
                         {'sentiment': 'positive', 'sentiment_count': 0}
                       ]
-            },
-            {'England': [
-                          {'sentiment': 'neutral', 'sentiment_count': 2},
-                          {'sentiment': 'negative', 'sentiment_count': 0},
-                          {'sentiment': 'positive', 'sentiment_count': 0}
-                        ]
-            }
-          ]
+          }
     self.assertEqual(json.loads(response.content), res)

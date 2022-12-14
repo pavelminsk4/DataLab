@@ -6,7 +6,7 @@ import json
 from project.models import Post, Project, Speech, Feedlinks
 from django.contrib.auth.models import User
 
-class SentimentTop10SourcesWidgetTests(APITestCase):
+class SentimentTop10AuthorsWidgetTests(APITestCase):
   def test_response_list(self):
     user = User.objects.create(username='Pablo')
     flink1 = Feedlinks.objects.create(country = 'England')
@@ -24,25 +24,25 @@ class SentimentTop10SourcesWidgetTests(APITestCase):
     post7 = Post.objects.create(feedlink=flink4, entry_title='5 post title', feed_language=sp2, entry_published=datetime(2023, 9, 3, 6, 37), entry_author='AFP', sentiment='neutral')
     post8 = Post.objects.create(feedlink=flink4, entry_title='6 post title', feed_language=sp2, entry_published=datetime(2023, 9, 3, 6, 37), entry_author='', sentiment='neutral')
     # test first project with None field
-    pr1 = Project.objects.create(title='Project1', keywords=['post'], additional_keywords=[], ignore_keywords=[], start_search_date=datetime(2020, 10, 10), 
-                                end_search_date=datetime(2023, 10, 16), country_filter='', author_filter='', language_filter='', creator=user)
-    url = reverse('widgets:sentiment_top_10_sources_widget', kwargs={'pk':pr1.pk})
+    pr = Project.objects.create(title='Project1', keywords=['post'], additional_keywords=[], ignore_keywords=[], start_search_date=datetime(2020, 10, 10), 
+                                end_search_date=datetime(2023, 10, 16), source_filter='', author_filter='', language_filter='', creator=user)
+    url = reverse('widgets:sentiment_top_10_authors_widget', kwargs={'pk':pr.pk})
     response = self.client.get(url)
     self.assertEqual(response.status_code, status.HTTP_200_OK)
-    res = {'BBC': [
-                      {'sentiment': 'neutral', 'sentiment_count': 2},
-                      {'sentiment': 'negative', 'sentiment_count': 0},
-                      {'sentiment': 'positive', 'sentiment_count': 0}
-                    ],
-           'Time': [
-                      {'sentiment': 'neutral', 'sentiment_count': 1},
-                      {'sentiment': 'positive', 'sentiment_count': 1},
-                      {'sentiment': 'negative', 'sentiment_count': 0}
-                    ],
-            'null': [
-                      {'sentiment': 'negative', 'sentiment_count': 2},
-                      {'sentiment': 'neutral', 'sentiment_count': 2},
-                      {'sentiment': 'positive', 'sentiment_count': 0}
-                    ]
-            }
+    res = {'': [
+                {'sentiment': 'neutral', 'sentiment_count': 1},
+                {'sentiment': 'negative', 'sentiment_count': 0},
+                {'sentiment': 'positive', 'sentiment_count': 0}
+               ],
+          'AFP': [
+                  {'sentiment': 'neutral', 'sentiment_count': 3},
+                  {'sentiment': 'negative', 'sentiment_count': 2},
+                  {'sentiment': 'positive', 'sentiment_count': 1}
+                 ],
+          'EFE': [
+                  {'sentiment': 'neutral', 'sentiment_count': 1},
+                  {'sentiment': 'negative', 'sentiment_count': 0},
+                  {'sentiment': 'positive', 'sentiment_count': 0}
+                 ]
+          }
     self.assertEqual(json.loads(response.content), res)

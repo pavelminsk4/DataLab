@@ -5,8 +5,6 @@ from django.db.models import Count, Q
 from functools import reduce
 from django.db.models.functions import Trunc
 import json
-import pandas as pd
-from datetime import datetime
 
 def keywords_posts(keys, posts):
   posts = posts.filter(reduce(lambda x,y: x | y, [Q(entry_title__contains=key) for key in keys]))
@@ -64,18 +62,6 @@ def posts_agregator(project):
 def content_volume_top_10_source(pk):
   project = Project.objects.get(id=pk)
   posts = posts_agregator(project)
-  top_brands = list(map(lambda x: x['feedlink__source1'], list(posts.values('feedlink__source1').annotate(brand_count=Count('feedlink__source1')).order_by('-brand_count')[:1])))
-  # results = [{source: list(posts.filter(feedlink__source1=source).annotate(date=Trunc('entry_published', 'day')).values("date").annotate(created_count=Count('id')).order_by("date"))} for source in top_brands]
-  period = pd.date_range(start=project.start_search_date, end=project.end_search_date)
-  print(period)
-  results = [{source: (list(posts.filter(feedlink__source1=source).annotate(date=period[0]).annotate(created_count=Count('id')))) if (posts.filter(feedlink__source1=source).annotate(date=period[0]).annotate(created_count=Count('id'))) is True else {period[0]: 0}} for source in top_brands]
-  print(results)
-  # for i in range(len(results)):
-  #   for j in range(len(results[i][top_brands[i]])):
-  #     for sen in period:
-  #       if sen in results[i][top_brands[i]][j].get('sentiment'):
-  #         period.remove(sen)
-  #   for sen in period:
-  #     results[i][top_brands[i]].append({'sentiment': sen, 'sentiment_count': 0})
-  # results = []
+  top_brands = list(map(lambda x: x['feedlink__source1'], list(posts.values('feedlink__source1').annotate(brand_count=Count('feedlink__source1')).order_by('-brand_count')[:10])))
+  results = [{source: list(posts.filter(feedlink__source1=source).annotate(date=Trunc('entry_published', 'day')).values("date").annotate(created_count=Count('id')).order_by("date"))} for source in top_brands]
   return JsonResponse(results, safe = False)

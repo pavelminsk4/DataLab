@@ -80,6 +80,8 @@ class WidgetsListSerializer(WritableNestedModelSerializer):
   content_volume_top_10_source_widget = WidgetDescriptionSerializer()
   sentiment_top_10_sources_widget = WidgetDescriptionSerializer()
   sentiment_top_10_countries_widget = WidgetDescriptionSerializer()
+  sentiment_top_10_authors_widget = WidgetDescriptionSerializer()
+  sentiment_top_10_languages_widget = WidgetDescriptionSerializer()
   #clipping_widget = WidgetDescriptionSerializer()
   class Meta:
     model = WidgetsList2
@@ -95,6 +97,8 @@ class WidgetsListSerializer(WritableNestedModelSerializer):
       'content_volume_top_10_source_widget',
       'sentiment_top_10_sources_widget',
       'sentiment_top_10_countries_widget',
+      'sentiment_top_10_authors_widget',
+      'sentiment_top_10_languages_widget',
     ]
 
 class ClippingFeedContentWidgetListSerializer(serializers.ListSerializer):
