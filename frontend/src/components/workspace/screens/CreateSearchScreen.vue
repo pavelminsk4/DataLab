@@ -6,6 +6,7 @@
     hint="Search by keywords and phrases"
     :button-width="141"
     :button-loading="buttonLoading"
+    :is-active-button="!searchData.length"
     button-name="Save Project"
     @next-step="createWorkspaceAndProject"
   />
@@ -18,6 +19,7 @@
     :is-existing-workspace="true"
     :button-width="141"
     :button-loading="buttonLoading"
+    :is-active-button="!searchData.length"
     button-name="Create Project"
     @next-step="createProject"
   />
@@ -67,6 +69,7 @@ export default {
   },
   computed: {
     ...mapGetters({
+      searchData: get.SEARCH_DATA,
       additionalFilters: get.ADDITIONAL_FILTERS,
       keywords: get.KEYWORDS,
       workspaces: get.WORKSPACES,
@@ -94,6 +97,7 @@ export default {
       action.GET_WORKSPACES,
       action.POST_SEARCH,
       action.CLEAR_STATE,
+      action.CLEAR_SEARCH_LIST,
     ]),
     updateCollection(name, val) {
       this[action.UPDATE_KEYWORDS_LIST]({
@@ -188,6 +192,13 @@ export default {
         await this[action.GET_WORKSPACES]()
       } catch (e) {
         console.log(e)
+      }
+    },
+  },
+  watch: {
+    keywords() {
+      if (!this.keywords.length) {
+        this[action.CLEAR_SEARCH_LIST]()
       }
     },
   },

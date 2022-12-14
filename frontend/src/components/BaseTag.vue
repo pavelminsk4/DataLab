@@ -1,5 +1,5 @@
 <template>
-  <div class="tag-input">
+  <div :class="['tag-input', isError && 'error']">
     <div
       v-for="(tag, index) in tags"
       :key="tag"
@@ -29,16 +29,22 @@
       :placeholder="placeholder"
       class="input"
     />
+
+    <div v-if="isError" class="error-container">
+      {{ errorMessage }}
+      <ErrorIcon class="error-icon" />
+    </div>
   </div>
 </template>
 
 <script>
 import {ref, watch, nextTick, onMounted} from 'vue'
 import DeleteTagButton from '@/components/icons/DeleteTagButton'
+import ErrorIcon from '@/components/icons/ErrorIcon'
 
 export default {
   name: 'BaseTag',
-  components: {DeleteTagButton},
+  components: {ErrorIcon, DeleteTagButton},
   props: {
     modelValue: {type: Array, default: () => []},
     allowCustom: {type: Boolean, default: true},
@@ -59,6 +65,14 @@ export default {
     textarea: {
       type: Boolean,
       default: false,
+    },
+    isError: {
+      type: Boolean,
+      default: false,
+    },
+    errorMessage: {
+      type: String,
+      default: 'Error',
     },
     customDelimiter: {
       type: [String, Array],
@@ -104,6 +118,7 @@ export default {
       }
       tags.value.push(tag)
       newTag.value = ''
+      emit('start-search')
     }
     const addTagIfDelem = (tag) => {
       if (!customDelimiter || customDelimiter.length == 0) return
@@ -222,6 +237,28 @@ export default {
 
   background: var(--negative-status);
   animation: shake 1s;
+}
+
+.error {
+  border: 1px solid var(--negative-status);
+  border-radius: 10px;
+
+  .error-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    white-space: nowrap;
+
+    color: var(--negative-status);
+
+    .error-icon {
+      margin-right: 15px;
+    }
+
+    font-size: 12px;
+  }
 }
 
 @keyframes shake {

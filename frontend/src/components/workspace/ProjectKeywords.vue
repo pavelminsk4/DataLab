@@ -7,10 +7,13 @@
     <div class="second-title">Define the main keywords (OR)</div>
     <BaseTag
       @update:modelValue="updateCollection"
+      @start-search="showResults"
       :model-value="mainKeywords"
+      error-message="Enter a keyword and press 'Enter'"
+      :is-error="isErrorMainField"
       :is-main-field="true"
       name="keywords"
-      placeholder="Enter main keywords"
+      placeholder="Enter a main keyword and press 'Enter'"
     />
 
     <section class="additional-key-words">
@@ -82,9 +85,20 @@ export default {
       default: () => [],
     },
   },
+  data() {
+    return {
+      isErrorMainField: false,
+    }
+  },
   methods: {
     updateCollection(name, value) {
       this.$emit('update-collection', name, value)
+
+      if (!this.mainKeywords.length && name === 'keywords') {
+        this.isErrorMainField = true
+      } else {
+        this.isErrorMainField = false
+      }
     },
     showResults() {
       this.$emit('show-result')

@@ -21,7 +21,7 @@
       />
       <BaseButton
         v-if="!!step"
-        :is-disabled="!isActiveButton"
+        :is-disabled="isActiveButton"
         :style="`width: ${buttonWidth}`"
         :button-loading="buttonLoading"
         class="next-button"
@@ -37,7 +37,8 @@
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import {get} from '@store/constants'
+import {mapGetters} from 'vuex'
 
 import BaseButton from '@components/buttons/BaseButton'
 
@@ -68,7 +69,7 @@ export default {
     },
     isActiveButton: {
       type: Boolean,
-      default: true,
+      default: false,
     },
     buttonName: {
       type: String,
@@ -96,7 +97,10 @@ export default {
     'click-button': null,
   },
   computed: {
-    ...mapState(['newProject', 'currentStep']),
+    ...mapGetters({
+      newProject: get.NEW_PROJECT,
+      currentStep: get.CURRENT_STEP,
+    }),
     currStep() {
       return this.currentStep
         .split('')
