@@ -21,7 +21,7 @@
       />
       <BaseButton
         v-if="!!step"
-        :is-disabled="isActiveButton"
+        :is-disabled="!isActiveButton"
         :style="`width: ${buttonWidth}`"
         :button-loading="buttonLoading"
         class="next-button"

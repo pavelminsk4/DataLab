@@ -33,7 +33,7 @@ class CreateProjectTests(StaticLiveServerTestCase):
     online_checkbox.click()
     self.assertEqual(next_button.is_enabled(), True)
     next_button.click()
-    keywords_field = self.selenium.find_element(By. CLASS_NAME, "input[placeholder='Enter main keywords']")
+    keywords_field = self.selenium.find_element(By. CLASS_NAME, "input[name='keywords']")
     keywords_field.send_keys('Apple')
     keywords_field.send_keys(Keys.ENTER)
     next_button = self.selenium.find_element(By. CLASS_NAME, 'next-button')

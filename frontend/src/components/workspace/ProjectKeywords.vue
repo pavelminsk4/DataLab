@@ -13,7 +13,7 @@
       :is-error="isErrorMainField"
       :is-main-field="true"
       name="keywords"
-      placeholder="Enter a main keyword and press 'Enter'"
+      placeholder='Enter a main keyword and press "Enter"'
     />
 
     <section class="additional-key-words">

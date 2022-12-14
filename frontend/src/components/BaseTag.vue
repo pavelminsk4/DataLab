@@ -21,6 +21,7 @@
       v-model="newTag"
       type="text"
       :list="id"
+      :name="name"
       autocomplete="off"
       @keydown.enter="addTag(newTag)"
       @keydown.prevent.tab="addTag(newTag)"
