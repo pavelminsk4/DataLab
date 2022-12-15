@@ -16,10 +16,7 @@ from .common_widget.sentiment_top_10_countries_widget import sentiment_top_10_co
 from .common_widget.sentiment_top_10_authors_widget import sentiment_top_10_authors
 from .common_widget.sentiment_top_10_languages_widget import sentiment_top_10_languages
 from .common_widget.clipping_widget import clp_widget
-# from .common_widget.sentiment_for_period import sentiment_for_period
-
-# def sntmnt_for_period(request, pk):
-#   return sentiment_for_period(pk)
+from .common_widget.sentiment_for_period_widget import sentiment_for_period
 
 def sum_widget(request, pk):
   return summary_widget(pk)
@@ -59,3 +56,7 @@ def sentiment_top_10_authors_widget(request, pk):
 
 def sentiment_top_10_languages_widget(request, pk):
   return sentiment_top_10_languages(pk)
+
+
+def sentiment_for_period_widget(request, pk):
+  return sentiment_for_period(pk)
