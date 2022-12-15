@@ -83,5 +83,5 @@ def sentiment_for_period(pk):
         negative += (count_post.get("count_negative") if count_post.get("count_negative") else 0)
         neutral += (count_post.get("count_neutral") if count_post.get("count_neutral") else 0)
         positive += (count_post.get("count_positive") if count_post.get("count_positive") else 0)
-    results.append({str(date): {"negative": negative, "neutral": neutral, "positive": positive}})   
+    results.append({str(date): {"negative": negative, "neutral": neutral, "positive": positive}})
   return JsonResponse(results, safe = False)  

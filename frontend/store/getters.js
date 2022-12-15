@@ -105,6 +105,14 @@ export default {
     return state.sentimentTopAuthors
   },
 
+  [get.SENTIMENT_FOR_PERIOD](state) {
+    return state.sentimentForPeriod
+  },
+
+  [get.CONTENT_VOLUME_TOP_SOURCES](state) {
+    return state.contentVolumeTopSources
+  },
+
   [get.DIMENSIONS](state) {
     return state.dimensions
   },

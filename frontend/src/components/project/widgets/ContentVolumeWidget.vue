@@ -61,6 +61,41 @@ export default {
       })
     }
   },
+  data() {
+    return {
+      plugins: [],
+      chartOptions: {
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: {
+          easing: 'easeInOutQuad',
+          duration: 520,
+        },
+        onHover: (event, chartElement) => {
+          const target = event.native ? event.native.target : event.target
+          target.style.cursor = chartElement[0] ? 'pointer' : 'default'
+        },
+        plugins: {
+          legend: {
+            display: false,
+          },
+          customTitle: {
+            y: {
+              display: true,
+              text: 'Numbers',
+            },
+            x: {
+              display: true,
+              text: 'Month',
+              offsetX: 5,
+              offsetY: 5,
+              font: '12px Comic Sans MS',
+            },
+          },
+        },
+      },
+    }
+  },
   computed: {
     ...mapGetters({
       widgets: get.AVAILABLE_WIDGETS,

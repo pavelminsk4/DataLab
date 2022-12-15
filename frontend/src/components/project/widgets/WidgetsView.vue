@@ -66,6 +66,12 @@
     @close="openModal('isOpenSentimentLanguagesModal')"
   />
 
+  <SentimentForPeriodModal
+    v-if="isOpenSentimentForPeriodModal"
+    :project-id="projectId"
+    @close="openModal('isOpenSentimentForPeriodModal')"
+  />
+
   <grid-layout
     v-if="availableWidgets"
     v-model:layout="layoutProxy"
@@ -130,6 +136,7 @@ import SentimentTopLanguagesWidget from '@/components/project/widgets/SentimentT
 import SentimentTopAuthorsWidget from '@/components/project/widgets/SentimentTopAuthorsWidget'
 import SentimentTopSourcesWidget from '@/components/project/widgets/SentimentTopSourcesWidget'
 import SentimentTopCountriesWidget from '@/components/project/widgets/SentimentTopCountriesWidget'
+import SentimentForPeriodWidget from '@/components/project/widgets/SentimentForPeriodWidget'
 import ClippingFeedContentWidget from '@/components/project/widgets/ClippingFeedContentWidget'
 import Top10BrandsWidget from '@/components/project/widgets/Top10BrandsWidget'
 import Top10CountriesWidget from '@/components/project/widgets/Top10CountriesWidget'
@@ -142,15 +149,18 @@ import SummarySettingsModal from '@/components/project/widgets/modals/SummarySet
 import ClippingFeedContentModal from '@/components/project/widgets/modals/ClippingFeedContentModal'
 import TopBrandsSettingsModal from '@/components/project/widgets/modals/TopBrandsSettingsModal'
 import TopCountriesSettingsWidget from '@/components/project/widgets/modals/TopCountriesSettingsModal'
+import ContentVolumeTopSourcesWidget from '@/components/project/widgets/ContentVolumeTopSourcesWidget'
 import TopLanguagesModal from '@/components/project/widgets/modals/TopLanguagesModal'
 import SentimentTopSourcesModal from '@/components/project/widgets/modals/SentimentTopSourcesModal'
 import SentimentTopCountriesModal from '@/components/project/widgets/modals/SentimentTopCountriesModal'
 import SentimentTopAuthorsModal from '@/components/project/widgets/modals/SentimentTopAuthorsModal'
 import SentimentTopLanguagesModal from '@/components/project/widgets/modals/SentimentTopLanguagesModal'
+import SentimentForPeriodModal from '@/components/project/widgets/modals/SentimentForPeriodModal'
 
 export default {
   name: 'WidgetsView',
   components: {
+    SentimentForPeriodModal,
     SentimentTopLanguagesModal,
     SentimentTopAuthorsModal,
     SentimentTopCountriesModal,
@@ -174,6 +184,8 @@ export default {
     SentimentTopSourcesWidget,
     Top10AuthorsByVolumeWidget,
     Top10LanguagesWidget,
+    SentimentForPeriodWidget,
+    ContentVolumeTopSourcesWidget,
     GridLayout: VueGridLayout.GridLayout,
     GridItem: VueGridLayout.GridItem,
   },
@@ -201,6 +213,7 @@ export default {
       isOpenSentimentCountriesModal: false,
       isOpenSentimentAuthorsModal: false,
       isOpenSentimentLanguagesModal: false,
+      isOpenSentimentForPeriodModal: false,
       layout: [],
     }
   },
@@ -335,6 +348,18 @@ export default {
           return {
             name: 'SentimentTopLanguages',
             openModal: 'isOpenSentimentLanguagesModal',
+            h: 12,
+          }
+        case 'content_volume_top_10_source_widget':
+          return {
+            name: 'ContentVolumeTopSources',
+            openModal: 'isOpenTopLanguagesModal',
+            h: 12,
+          }
+        case 'sentiment_for_period_widget':
+          return {
+            name: 'SentimentForPeriod',
+            openModal: 'isOpenSentimentForPeriodModal',
             h: 12,
           }
       }
