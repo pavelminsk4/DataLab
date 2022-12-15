@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-#from widgets.models import *
 from django_celery_beat.models import PeriodicTask, CrontabSchedule
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -14,23 +13,35 @@ class Templates(models.Model):
 
 class RegularReport(models.Model):
   title = models.CharField(max_length=50)
-  user = models.ManyToManyField(User, blank=True, null=True)
-  email_title = models.TextField(max_length=500)
-  #widget_for_report = models.ManyToManyField()
-  template = models.ForeignKey(Templates, on_delete=models.SET_NULL, null=True)
-  ending_date = models.DateTimeField()
-  type = models.CharField(max_length=10)
-  periodic_task = models.OneToOneField(PeriodicTask, on_delete=models.SET_NULL, null=True)
-  crontab_schedule = models.OneToOneField(CrontabSchedule, on_delete=models.SET_NULL, null=True)
+  project = models.ForeignKey('project.Project', on_delete=models.SET_NULL, null=True, blank=True)
+  user = models.ManyToManyField(User, null=True, blank=True)
+  email_title = models.TextField(max_length=500, null=True, blank=True)
+  template = models.ForeignKey(Templates, on_delete=models.SET_NULL, null=True, blank=True)
+  minute = models.CharField(max_length=2, default='*')
+  hour = models.CharField(max_length=2, default='*')
+  day_of_week = models.CharField(max_length=2, default='*')
+  day_of_month = models.CharField(max_length=2, default='*')
+  ending_date = models.DateTimeField(null=True, blank=True)
+  periodic_task = models.OneToOneField(PeriodicTask, on_delete=models.SET_NULL, null=True, blank=True)
+  crontab_schedule = models.OneToOneField(CrontabSchedule, on_delete=models.SET_NULL, null=True, blank=True)
+
+  def __str__(self):
+    return self.title
 
 @receiver(post_save, sender=RegularReport)
 def create_periodic_task(sender, instance, created, **kwargs):
   if created:
-    periodic_task=PeriodicTask.objects.create()
-    instance.periodic_task = periodic_task.id
-
-@receiver(post_save, sender=RegularReport)
-def create_crontab_schedule(sender, instance, created, **kwargs):
-  if created:
-    crontab_schedule=CrontabSchedule.objects.create()
-    instance.crontab_schedule = crontab_schedule.id
+    crontab_schedule = CrontabSchedule.objects.create(
+      minute = instance.minute,
+      hour = instance.minute,
+      day_of_week = instance.day_of_week,
+      day_of_month = instance.day_of_month,
+    )
+    instance.crontab_schedule = crontab_schedule
+    periodic_task = PeriodicTask.objects.create(
+      crontab = crontab_schedule,
+      name = 'REGULAR_REPORT_' + instance.title,
+      task='reports.tasks.regular_report_sender',
+    )
+    instance.periodic_task = periodic_task
+    instance.save()

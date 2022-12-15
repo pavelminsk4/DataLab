@@ -13,6 +13,10 @@ from docx.shared import Pt
 from docx.oxml.ns import qn
 from docx.oxml.shared import OxmlElement
 
+from .serializers import RegularReportSerializer
+from .models import RegularReport
+from rest_framework import viewsets
+
 #lic = aw.License()
 
 # #Try to set license from the folder with the python script.
@@ -198,3 +202,8 @@ def instantly_report(request, pk):
   }
   response.as_attachment = True
   return response
+
+class RegularReportViewSet(viewsets.ModelViewSet):
+  serializer_class = RegularReportSerializer
+  def get_queryset(self):
+   return RegularReport.objects.filter(project_id=self.kwargs['pk'])
