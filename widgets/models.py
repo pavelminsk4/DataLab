@@ -46,6 +46,7 @@ class WidgetsList2(models.Model):
   sentiment_top_10_countries_widget = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='sentiment_top_10_countries_widget', null=True)
   sentiment_top_10_authors_widget = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='sentiment_top_10_authors_widget', null=True)
   sentiment_top_10_languages_widget = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='sentiment_top_10_languages_widget', null=True)
+  sentiment_for_period_widget = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='sentiment_for_period_widget', null=True)
   #clipping_widget = models.ForeignKey(WidgetDescription, on_delete=models.SET_NULL, related_name='clippint_widg_description', null=True)
 
   def __str__(self):
@@ -119,6 +120,12 @@ def create_widget_description(sender, instance, created, **kwargs):
     wd12.linked_dimensions.add(Dimensions.objects.get_or_create(title='Country')[0])
     wd12.linked_dimensions.add(Dimensions.objects.get_or_create(title='Source')[0])
     wd12.save()
+    wd13 = WidgetDescription.objects.create(title='Sentiment for period widget')
+    wd13.linked_dimensions.add(Dimensions.objects.get_or_create(title='Country')[0])
+    wd13.linked_dimensions.add(Dimensions.objects.get_or_create(title='Country')[0])
+    wd13.linked_dimensions.add(Dimensions.objects.get_or_create(title='Source')[0])
+    wd13.linked_dimensions.add(Dimensions.objects.get_or_create(title='Language')[0])
+    wd13.save()
     # wd5 = WidgetDescription.objects.create(title='Clipping Widget')
     # wd5.linked_dimensions.add(Dimensions.objects.get_or_create(title='Country')[0])
     # wd5.linked_dimensions.add(Dimensions.objects.get_or_create(title='Author')[0])
@@ -139,6 +146,7 @@ def create_widget_description(sender, instance, created, **kwargs):
     instance.sentiment_top_10_countries_widget = wd10
     instance.sentiment_top_10_authors_widget = wd11
     instance.sentiment_top_10_languages_widget = wd12
+    instance.sentiment_for_period_widget = wd13
     # instance.clipping_widget = wd5
     instance.save()
 
