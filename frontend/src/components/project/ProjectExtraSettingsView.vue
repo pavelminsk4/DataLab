@@ -13,7 +13,7 @@
         :class="['nav-item', item.name === settingName && 'active-setting']"
         @click="openSetting(item.name)"
       >
-        <AnalyticsIcon :json="item.value" />
+        <SidebarIcon :json="item.value" />
 
         <div class="tooltip">{{ item.name }}</div>
       </div>
@@ -29,11 +29,12 @@ import {action} from '@store/constants'
 
 import MainLayout from '@/components/layout/MainLayout'
 
-import AnalyticsIcon from '@/components/icons/AnalyticsIcon'
+import SidebarIcon from '@/components/icons/SidebarIcon'
 import LogoIcon from '@/components/icons/LogoIcon'
 
 import Alerts from '@/components/icons/animation/Alerts.json'
 import Search from '@/components/icons/animation/Search.json'
+import Reports from '@/components/icons/animation/Reports.json'
 import Analytics from '@/components/icons/animation/Analytics.json'
 
 export default {
@@ -41,7 +42,7 @@ export default {
   components: {
     LogoIcon,
     MainLayout,
-    AnalyticsIcon,
+    SidebarIcon,
   },
   data() {
     return {
@@ -58,6 +59,10 @@ export default {
         {
           name: 'Alerts',
           value: Alerts,
+        },
+        {
+          name: 'Reports',
+          value: Reports,
         },
       ],
     }

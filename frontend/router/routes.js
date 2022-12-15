@@ -124,6 +124,11 @@ export const routes = [
         path: 'update/:alertId/alert',
         component: AlertSettingsScreen,
       },
+      {
+        name: 'Reports',
+        path: 'reports',
+        component: AlertsScreen,
+      },
     ],
   },
 ]
