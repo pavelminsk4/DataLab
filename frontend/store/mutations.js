@@ -117,6 +117,10 @@ export default {
     state.sentimentTopAuthors = {...data}
   },
 
+  [mutator.SET_SENTIMENT_FOR_PERIOD](state, data) {
+    state.sentimentForPeriod = [...data]
+  },
+
   [mutator.SET_AVAILABLE_WIDGETS](state, data) {
     state.availableWidgets = {...data}
   },

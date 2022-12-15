@@ -3,44 +3,11 @@
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
   >
-    <Line
-      :chart-options="chartOptions"
-      :chart-data="chartData"
-      :chart-id="chartId"
-      :dataset-id-key="datasetIdKey"
-      :plugins="plugins"
-      :css-classes="cssClasses"
-      :styles="styles"
-      :width="width"
-      :height="height"
-    />
+    test
   </WidgetsLayout>
 </template>
 
 <script>
-import {Line} from 'vue-chartjs'
-
-import {
-  Chart as ChartJS,
-  Title,
-  Tooltip,
-  Legend,
-  LineElement,
-  LinearScale,
-  CategoryScale,
-  PointElement,
-} from 'chart.js'
-
-ChartJS.register(
-  Title,
-  Tooltip,
-  Legend,
-  LineElement,
-  LinearScale,
-  CategoryScale,
-  PointElement
-)
-
 import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
@@ -48,7 +15,7 @@ import WidgetsLayout from '@/components/layout/WidgetsLayout'
 
 export default {
   name: 'ContentVolumeTopSources',
-  components: {WidgetsLayout, Line},
+  components: {WidgetsLayout},
   props: {
     projectId: {
       type: [Number, String],
@@ -111,7 +78,12 @@ export default {
         ],
         datasets: [
           {
-            label: this.labels[1],
+            label: [1, 2, 3, 4],
+            backgroundColor: '#f87979',
+            data: [40, 39, 10, 40, 39, 80, 40],
+          },
+          {
+            label: [1, 2, 3, 4],
             backgroundColor: '#f87979',
             data: [40, 39, 10, 40, 39, 80, 40],
           },

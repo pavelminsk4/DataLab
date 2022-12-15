@@ -248,6 +248,18 @@ export default {
     }
   },
 
+  async [action.GET_SENTIMENT_FOR_PERIOD]({commit}, projectId) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const sentimentForPeriod = await api.getSentimentForPeriod(projectId)
+      commit(mutator.SET_SENTIMENT_FOR_PERIOD, sentimentForPeriod)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
   async [action.GET_CONTENT_VOLUME_TOP_SOURCES]({commit}, projectId) {
     commit(mutator.SET_LOADING, true)
     try {
