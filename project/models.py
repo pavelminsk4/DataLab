@@ -208,3 +208,6 @@ class Post(models.Model):
 
 class Status(models.Model):
   progress = models.IntegerField()
+
+  def __str__(self):
+    return self.progress
