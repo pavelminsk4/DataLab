@@ -1,10 +1,20 @@
 <template>
   <WidgetsLayout
+    v-if="sentimentForPeriod"
     :title="availableWidgets['sentiment_for_period_widget'].title"
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
   >
     <MultiLineChart
+      v-if="isLineChart"
+      :chart-labels="labels"
+      :neutral-values="sentiments.neutral"
+      :negative-values="sentiments.negative"
+      :positive-values="sentiments.positive"
+    />
+
+    <PatternsBarChart
+      v-else
       :chart-labels="labels"
       :neutral-values="sentiments.neutral"
       :negative-values="sentiments.negative"
@@ -19,10 +29,11 @@ import {action, get} from '@store/constants'
 
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
 import MultiLineChart from '@/components/project/widgets/charts/MultiLineChart'
+import PatternsBarChart from '@/components/project/widgets/charts/PatternsBarChart'
 
 export default {
   name: 'SentimentForPeriodWidget',
-  components: {MultiLineChart, WidgetsLayout},
+  components: {PatternsBarChart, MultiLineChart, WidgetsLayout},
   props: {
     projectId: {
       type: Number,
@@ -30,16 +41,35 @@ export default {
     },
   },
   created() {
-    this[action.GET_SENTIMENT_FOR_PERIOD](this.projectId)
+    this[action.GET_SENTIMENT_FOR_PERIOD]({
+      projectId: this.projectId,
+      value: {
+        author_dim_pivot:
+          this.availableWidgets['sentiment_for_period_widget']
+            .author_dim_pivot || null,
+        language_dim_pivot:
+          this.availableWidgets['sentiment_for_period_widget']
+            .language_dim_pivot || null,
+        country_dim_pivot:
+          this.availableWidgets['sentiment_for_period_widget']
+            .country_dim_pivot || null,
+        sentiment_dim_pivot:
+          this.availableWidgets['sentiment_for_period_widget']
+            .sentiment_dim_pivot || null,
+        source_dim_pivot:
+          this.availableWidgets['sentiment_for_period_widget']
+            .source_dim_pivot || null,
+        smpl_freq:
+          this.availableWidgets['sentiment_for_period_widget']
+            .aggregation_period,
+      },
+    })
   },
   computed: {
     ...mapGetters({
       availableWidgets: get.AVAILABLE_WIDGETS,
       sentimentForPeriod: get.SENTIMENT_FOR_PERIOD,
     }),
-    sentimentForPeriodValues() {
-      return Object.values(this.sentimentForPeriod)
-    },
     labels() {
       let labelsCollection = []
 
@@ -69,6 +99,9 @@ export default {
         positive: [...positive],
         negative: [...negative],
       }
+    },
+    isLineChart() {
+      return this.labels?.length > 7
     },
   },
   methods: {
