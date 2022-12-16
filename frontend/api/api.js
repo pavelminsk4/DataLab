@@ -143,8 +143,19 @@ export default {
     )
   },
 
-  async getSentimentForPeriod(projectId) {
-    return fetch('get', `/api/widgets/sentiment_for_period_widget/${projectId}`)
+  async getSentimentForPeriod({projectId, value}) {
+    const config = {
+      headers: {
+        'content-type': 'application/json',
+        'X-CSRFToken': CSRF_TOKEN,
+      },
+    }
+    return fetch(
+      'post',
+      `/api/widgets/sentiment_for_period_widget/${projectId}`,
+      value,
+      config
+    )
   },
 
   async getContentVolumeTop10Sources(projectId) {

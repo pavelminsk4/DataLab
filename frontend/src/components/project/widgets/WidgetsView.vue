@@ -2,7 +2,7 @@
   <ContentVolumeSettingsModal
     v-if="isOpenContentVolumeModal"
     @close="openModal('isOpenContentVolumeModal')"
-    :volume="volume"
+    :volume="volumeWidget"
     :project-id="projectId"
   />
 
@@ -69,6 +69,7 @@
   <SentimentForPeriodModal
     v-if="isOpenSentimentForPeriodModal"
     :project-id="projectId"
+    :sentiment-for-period-value="sentimentForPeriodWidget"
     @close="openModal('isOpenSentimentForPeriodModal')"
   />
 
@@ -103,7 +104,7 @@
         v-if="item.isWidget"
         :is="`${item.widgetName}` + 'Widget'"
         :summary-data="summary"
-        :volume="volume"
+        :volume="volumeWidget"
         :project-id="projectId"
         :is-open-widget="item.isShow"
         :current-project="currentProject"
@@ -229,7 +230,8 @@ export default {
   computed: {
     ...mapGetters({
       summary: get.SUMMARY_WIDGET,
-      volume: get.VOLUME_WIDGET,
+      volumeWidget: get.VOLUME_WIDGET,
+      sentimentForPeriodWidget: get.SENTIMENT_FOR_PERIOD,
       availableWidgets: get.AVAILABLE_WIDGETS,
       clippingData: get.CLIPPING_FEED_CONTENT_WIDGET,
     }),

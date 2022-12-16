@@ -248,10 +248,13 @@ export default {
     }
   },
 
-  async [action.GET_SENTIMENT_FOR_PERIOD]({commit}, projectId) {
+  async [action.GET_SENTIMENT_FOR_PERIOD]({commit}, {projectId, value}) {
     commit(mutator.SET_LOADING, true)
     try {
-      const sentimentForPeriod = await api.getSentimentForPeriod(projectId)
+      const sentimentForPeriod = await api.getSentimentForPeriod({
+        projectId,
+        value,
+      })
       commit(mutator.SET_SENTIMENT_FOR_PERIOD, sentimentForPeriod)
     } catch (e) {
       console.log(e)

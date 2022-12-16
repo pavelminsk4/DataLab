@@ -1,27 +1,49 @@
 <template>
-  <BaseModal modal-frame-style="width: 50vw;">
+  <BaseModal modal-frame-style="width: 90vw; height: 80vh;">
     <div class="main-title">{{ sentimentForPeriod.title }}</div>
 
-    <div class="general-wrapper-settings">
-      <SettingsButtons @update-setting-panel="updateSettingPanel" />
+    <div class="settings-wrapper">
+      <section class="chart-wrapper">
+        <div class="chart-title">Sentiment For Period</div>
+        <MultiLineChart
+          v-if="isLineChart"
+          :chart-labels="labels"
+          :neutral-values="sentiments.neutral"
+          :negative-values="sentiments.negative"
+          :positive-values="sentiments.positive"
+          class="multi-line"
+        />
+        <PatternsBarChart
+          v-else
+          :chart-labels="labels"
+          :neutral-values="sentiments.neutral"
+          :negative-values="sentiments.negative"
+          :positive-values="sentiments.positive"
+        />
+      </section>
 
-      <BasicSettingsScreen
-        v-if="panelName === 'General'"
-        :period="sentimentForPeriod.aggregation_period"
-        :widget-title="sentimentForPeriod.title"
-        :widget-description="sentimentForPeriod.description"
-        @save-changes="saveChanges"
-      />
+      <div class="general-wrapper-settings">
+        <SettingsButtons @update-setting-panel="updateSettingPanel" />
 
-      <DimensionsScreen
-        v-if="panelName === 'Dimensions'"
-        :active-dimensions="sentimentForPeriod"
-        :project-id="projectId"
-        :widget-author="sentimentForPeriod.author_dim_pivot"
-        :widget-country="sentimentForPeriod.country_dim_pivot"
-        :widget-language="sentimentForPeriod.language_dim_pivot"
-        @save-dimensions-settings="saveDimensions"
-      />
+        <BasicSettingsScreen
+          v-if="panelName === 'General'"
+          :period="sentimentForPeriod.aggregation_period"
+          :widget-title="sentimentForPeriod.title"
+          :widget-description="sentimentForPeriod.description"
+          @save-changes="saveChanges"
+          @get-widget-params="updateAggregationPeriod"
+        />
+
+        <DimensionsScreen
+          v-if="panelName === 'Dimensions'"
+          :active-dimensions="sentimentForPeriod"
+          :project-id="projectId"
+          :widget-author="sentimentForPeriod.author_dim_pivot"
+          :widget-country="sentimentForPeriod.country_dim_pivot"
+          :widget-language="sentimentForPeriod.language_dim_pivot"
+          @save-dimensions-settings="saveDimensions"
+        />
+      </div>
     </div>
   </BaseModal>
 </template>
@@ -34,16 +56,24 @@ import BaseModal from '@/components/modals/BaseModal'
 import SettingsButtons from '@/components/project/widgets/modals/SettingsButtons'
 import DimensionsScreen from '@/components/project/widgets/modals/screens/DimensionsScreen'
 import BasicSettingsScreen from '@/components/project/widgets/modals/screens/BasicSettingsScreen'
+import MultiLineChart from '@/components/project/widgets/charts/MultiLineChart'
+import PatternsBarChart from '@/components/project/widgets/charts/PatternsBarChart'
 
 export default {
   name: 'SentimentForPeriodModal',
   components: {
+    PatternsBarChart,
+    MultiLineChart,
+    BaseModal,
+    SettingsButtons,
     DimensionsScreen,
     BasicSettingsScreen,
-    SettingsButtons,
-    BaseModal,
   },
   props: {
+    sentimentForPeriodValue: {
+      type: [Array, Object],
+      required: true,
+    },
     projectId: {
       type: Number,
       required: true,
@@ -51,39 +81,84 @@ export default {
   },
   data() {
     return {
-      title: '',
-      description: '',
       panelName: 'General',
     }
   },
   computed: {
-    ...mapGetters({widgets: get.AVAILABLE_WIDGETS, loading: get.LOADING}),
+    ...mapGetters({
+      widgets: get.AVAILABLE_WIDGETS,
+    }),
     sentimentForPeriod() {
       return this.widgets['sentiment_for_period_widget']
+    },
+    labels() {
+      let labelsCollection = []
+
+      this.sentimentForPeriodValue.forEach((el) => {
+        Object.keys(el).forEach((i) => {
+          labelsCollection.push(i)
+        })
+      })
+
+      return labelsCollection.map((el) => this.formatDate(el))
+    },
+    sentiments() {
+      let neutral = []
+      let positive = []
+      let negative = []
+
+      this.sentimentForPeriodValue.forEach((el) => {
+        Object.values(el).forEach((i) => {
+          neutral.push(i.neutral)
+          positive.push(i.positive)
+          negative.push(i.negative)
+        })
+      })
+
+      return {
+        neutral: [...neutral],
+        positive: [...positive],
+        negative: [...negative],
+      }
+    },
+    isLineChart() {
+      return this.labels?.length > 7
     },
   },
   methods: {
     ...mapActions([
+      action.GET_SENTIMENT_FOR_PERIOD,
       action.UPDATE_AVAILABLE_WIDGETS,
       action.GET_AVAILABLE_WIDGETS,
-      action.GET_SENTIMENT_FOR_PERIOD,
     ]),
-    async saveOptions() {
-      await this[action.UPDATE_AVAILABLE_WIDGETS]({
-        projectId: this.projectId,
-        data: {
-          sentiment_for_period_widget: {
-            id: this.sentimentForPeriod.id,
-            title: this.title || this.sentimentForPeriod.title,
-            description:
-              this.description || this.sentimentForPeriod.description,
-          },
-        },
+    formatDate(date) {
+      return new Date(date).toLocaleString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
       })
-      await this[action.GET_AVAILABLE_WIDGETS](this.projectId)
-      await this.$emit('close')
     },
-    async saveChanges(title, description, aggregationPeriod) {
+    updateAggregationPeriod(val) {
+      try {
+        this[action.GET_SENTIMENT_FOR_PERIOD]({
+          projectId: this.projectId,
+          value: {
+            smpl_freq: val.toLowerCase(),
+            author_dim_pivot: this.sentimentForPeriod.author_dim_pivot || null,
+            language_dim_pivot:
+              this.sentimentForPeriod.language_dim_pivot || null,
+            country_dim_pivot:
+              this.sentimentForPeriod.country_dim_pivot || null,
+            sentiment_dim_pivot:
+              this.sentimentForPeriod.sentiment_dim_pivot || null,
+            source_dim_pivot: this.sentimentForPeriod.source_dim_pivot || null,
+          },
+        })
+      } catch (e) {
+        console.log(e)
+      }
+    },
+    saveChanges(title, description, aggregationPeriod) {
       this[action.UPDATE_AVAILABLE_WIDGETS]({
         projectId: this.projectId,
         data: {
@@ -91,17 +166,19 @@ export default {
             id: this.sentimentForPeriod.id,
             title: title || this.sentimentForPeriod.title,
             description: description || this.sentimentForPeriod.description,
-            smpl_freq:
+            aggregation_period:
               aggregationPeriod.toLowerCase() ||
-              this.sentimentForPeriod.smpl_freq,
+              this.sentimentForPeriod.aggregation_period,
           },
         },
       })
-      await this[action.GET_SENTIMENT_FOR_PERIOD](this.projectId)
-      await this[action.GET_AVAILABLE_WIDGETS](this.projectId)
+      this[action.GET_AVAILABLE_WIDGETS](this.projectId)
       this.$emit('close')
     },
-    async saveDimensions(author, language, country) {
+    updateSettingPanel(val) {
+      this.panelName = val
+    },
+    saveDimensions(author, language, country) {
       if (author || author === '') {
         author = author || this.sentimentForPeriod.author_dim_pivot
       }
@@ -112,7 +189,7 @@ export default {
         country = country || this.sentimentForPeriod.country_dim_pivot
       }
 
-      await this[action.UPDATE_AVAILABLE_WIDGETS]({
+      this[action.UPDATE_AVAILABLE_WIDGETS]({
         projectId: this.projectId,
         data: {
           sentiment_for_period_widget: {
@@ -126,14 +203,20 @@ export default {
           },
         },
       })
-
-      this.loading = true
-      await this[action.GET_AVAILABLE_WIDGETS](this.projectId)
-      await this[action.GET_SENTIMENT_FOR_PERIOD](this.projectId)
+      this[action.GET_SENTIMENT_FOR_PERIOD]({
+        projectId: this.projectId,
+        value: {
+          id: this.sentimentForPeriod.id,
+          smpl_freq: this.sentimentForPeriod.aggregation_period,
+          author_dim_pivot: author,
+          language_dim_pivot: language,
+          country_dim_pivot: country,
+          sentiment_dim_pivot: this.sentimentForPeriod.sentiment_dim_pivot,
+          source_dim_pivot: this.sentimentForPeriod.source_dim_pivot,
+        },
+      })
+      this[action.GET_AVAILABLE_WIDGETS](this.projectId)
       this.$emit('close')
-    },
-    updateSettingPanel(val) {
-      this.panelName = val
     },
   },
 }
@@ -149,81 +232,37 @@ export default {
   line-height: 54px;
 }
 
-.input-title {
-  width: 100%;
-}
-
-.description-field {
-  width: 100%;
-  height: 132px;
-  padding: 12px 16px;
-  margin-bottom: 25px;
-
-  border: 1px solid var(--input-border-color);
-  box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
-  border-radius: 10px;
-  background: var(--secondary-bg-color);
-
-  color: var(--primary-text-color);
-
-  resize: none;
-}
-
-.description-field::placeholder {
-  color: var(--secondary-text-color);
-}
-
-.description-field::-webkit-scrollbar {
-  width: 10px;
-}
-
-.description-field::-webkit-scrollbar-track {
-  border-radius: 10px;
-
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-}
-
-.description-field::-webkit-scrollbar-thumb {
-  width: 8px;
-
-  border-radius: 10px;
-
-  background-color: var(--box-shadow-color);
-  outline: none;
+.general-wrapper-settings {
+  flex: 1;
 }
 
 .settings-wrapper {
   display: flex;
+  gap: 52px;
 
+  height: 350px;
   min-width: 100%;
-  .options-wrapper {
+
+  .chart-wrapper {
     display: flex;
     flex-direction: column;
+    flex: 1;
 
-    width: 100%;
+    padding: 18px 50px 34px 26px;
 
-    .title-general {
-      padding-bottom: 10px;
-      margin-bottom: 15px;
+    background: #242529;
+    border: 1px solid #2d2d31;
+    box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
+    border-radius: 10px;
 
-      border-bottom: 1px solid var(--primary-button-color);
-
-      font-weight: 400;
-      font-size: 14px;
-      line-height: 22px;
-    }
-
-    .title {
-      margin: 25px 0 12px;
+    .chart-title {
+      margin-bottom: 25px;
 
       font-style: normal;
       font-weight: 500;
       font-size: 14px;
       line-height: 110%;
-    }
-
-    .option {
-      margin-bottom: 25px;
+      color: var(--primary-text-color);
     }
   }
 }
