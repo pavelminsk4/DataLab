@@ -431,6 +431,28 @@ export default {
     }
   },
 
+  async [action.CREATE_NEW_REGULAR_REPORT]({commit}, {projectId, data}) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      await api.createRegularReport({projectId, data})
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
+  async [action.UPDATE_NEW_REGULAR_REPORT]({commit}, {projectId, data}) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      await api.updateRegularReport({projectId, data})
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
   async [action.UPDATE_OLD_WORKSPACE]({commit}, {workspaceId, data}) {
     commit(mutator.SET_LOADING, true)
     try {

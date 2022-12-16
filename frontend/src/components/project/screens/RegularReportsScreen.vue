@@ -4,7 +4,7 @@
     :title="currentProject.title"
     hint="Set up and manage reports"
   >
-    <BaseButton @click="goToCreateAlert" class="button">
+    <BaseButton @click="goToCreateRegularReport" class="button">
       Create New Report
     </BaseButton>
   </NavigationBar>
@@ -29,7 +29,7 @@
       <tr
         v-for="(item, index) in reports"
         :key="'alert' + index"
-        @click="goToUpdateAlert(item.id)"
+        @click="goToUpdateReport(item.id)"
       >
         <td>
           <label class="container">
@@ -48,7 +48,7 @@
     </tbody>
   </table>
 
-  <div class="no-alerts" v-else>No regular reports created.</div>
+  <div class="no-reports" v-else>No regular reports created.</div>
 </template>
 
 <script>
@@ -62,7 +62,7 @@ import CheckRadioIcon from '@/components/icons/CheckRadioIcon'
 import ClockIcon from '@/components/icons/ClockIcon'
 
 export default {
-  name: 'ReportsScreen',
+  name: 'RegularReportsScreen',
   components: {
     ClockIcon,
     CheckRadioIcon,
@@ -85,16 +85,16 @@ export default {
   },
   methods: {
     ...mapActions([action.GET_REGULAR_REPORTS]),
-    goToCreateAlert() {
+    goToCreateRegularReport() {
       this.$router.push({
-        name: 'NewAlert',
+        name: 'NewRegularReport',
       })
     },
-    goToUpdateAlert(id) {
+    goToUpdateReport(id) {
       this.$router.push({
-        name: 'UpdateAlert',
+        name: 'UpdateRegularReport',
         params: {
-          alertId: id,
+          regularReportId: id,
         },
       })
     },
@@ -202,7 +202,7 @@ export default {
   }
 }
 
-.no-alerts {
+.no-reports {
   margin-top: 40px;
 
   color: var(--primary-text-color);
