@@ -1,5 +1,5 @@
 <template>
-  <table class="table">
+  <table v-if="workspaces" class="table">
     <thead>
       <tr>
         <th>
@@ -55,8 +55,10 @@
             {{ item.keywords[1] }}
           </div>
         </td>
-        <td>{{ item.creator }}</td>
-        <td>USERS</td>
+        <td>
+          <img :src="memberPhoto(item.creator)" class="cart-image" />
+        </td>
+        <td>PHOTO</td>
         <td>{{ projectCreationDate(item.created_at) }}</td>
         <td><TableSettingsButton :id="item.id" /></td>
       </tr>
@@ -65,6 +67,9 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
+import {get} from '@store/constants'
+
 import TableSettingsButton from '@/components/buttons/TableSettingsButton'
 
 import PointsIcon from '@/components/icons/PointsIcon'
@@ -95,7 +100,23 @@ export default {
       default: () => [],
     },
   },
+  computed: {
+    ...mapGetters({
+      workspaces: get.WORKSPACES,
+    }),
+    currentWorkspace() {
+      return this.workspaces.filter(
+        (el) => el.id === +this.$route.params.workspaceId
+      )
+    },
+    members() {
+      return this.currentWorkspace[0].members
+    },
+  },
   methods: {
+    memberPhoto(id) {
+      return this.members.filter((el) => el.id === id)[0].user_profile.photo
+    },
     projectCreationDate(date) {
       return new Date(date).toLocaleDateString('ro-RO')
     },
@@ -266,6 +287,29 @@ export default {
 .type {
   display: flex;
   align-items: center;
+}
+
+.cart-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 0;
+  flex-shrink: 0;
+
+  width: 22px;
+  height: 22px;
+  margin-right: 12px;
+
+  border-radius: 100%;
+  border: 1px solid var(--secondary-text-color);
+
+  background-color: white;
+
+  font-size: 10px;
+
+  &:not(:first-child) {
+    margin-left: -10px;
+  }
 }
 
 .keyword {
