@@ -193,6 +193,10 @@ export default {
     return fetch('get', `/api/projects/${projectId}/alerts`)
   },
 
+  async getRegularReports(projectId) {
+    return fetch('get', `/projects/${projectId}/reports/regular_reports/`)
+  },
+
   async createWorkspace(workspace) {
     const config = {
       headers: {
