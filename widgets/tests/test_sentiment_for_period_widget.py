@@ -27,7 +27,10 @@ class SentimentForPeriodWidgetTests(APITestCase):
     pr = Project.objects.create(title='Project1', keywords=['post'], additional_keywords=[], ignore_keywords=[], start_search_date=datetime(2020, 10, 10), 
                                 end_search_date=datetime(2023, 10, 16), source_filter='', author_filter='', language_filter='', creator=user)
     url = reverse('widgets:sentiment_for_period_widget', kwargs={'pk':pr.pk})
-    response = self.client.get(url)
+    data = {
+            'smpl_freq': "day"
+    }
+    response = self.client.post(url, data, format='json')
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     res = [
             {'2021-09-03 00:00:00+00:00': {'negative': 1, 'neutral': 1, 'positive': 0}},
