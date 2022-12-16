@@ -27,10 +27,19 @@ class ContentVolumeTop10SourcesWidgetTests(APITestCase):
     pr1 = Project.objects.create(title='Project1', keywords=['post'], additional_keywords=[], ignore_keywords=[], start_search_date=datetime(2020, 10, 10), 
                                 end_search_date=datetime(2023, 10, 16), country_filter='', author_filter='', language_filter='', creator=user)
     url = reverse('widgets:content_volume_top_10_source_widget', kwargs={'pk':pr1.pk})
-    response = self.client.get(url)
+    data = {
+            'smpl_freq': "day"
+    }
+    response = self.client.post(url, data, format='json')
     self.assertEqual(response.status_code, status.HTTP_200_OK)
-    res1 = [{'Time': [{'created_count': 2, 'date': '2023-09-03T00:00:00Z'}]},
-            {'null': [{'created_count': 1, 'date': '2021-09-03T00:00:00Z'},
-                      {'created_count': 1, 'date': '2022-09-03T00:00:00Z'},
-                      {'created_count': 4, 'date': '2023-09-03T00:00:00Z'}]}]
+    res1 = [
+            {'Time': [{'date': '2021-09-03 00:00:00+00:00', 'post_count': 0},
+                      {'date': '2022-09-03 00:00:00+00:00', 'post_count': 0},
+                      {'date': '2023-09-03 00:00:00+00:00', 'post_count': 2}
+                      ]},
+            {'null': [{'date': '2021-09-03 00:00:00+00:00', 'post_count': 1},
+                      {'date': '2022-09-03 00:00:00+00:00', 'post_count': 1},
+                      {'date': '2023-09-03 00:00:00+00:00', 'post_count': 4}
+                      ]}
+            ]
     self.assertEqual(json.loads(response.content), res1)

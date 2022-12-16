@@ -43,7 +43,7 @@ def top_10_languages_widget(request, pk):
   return top_10_languages(pk)
 
 def content_volume_top_10_source_widget(request, pk):
-  return content_volume_top_10_source(pk)  
+  return content_volume_top_10_source(request, pk)  
 
 def sentiment_top_10_sources_widget(request, pk):
   return sentiment_top_10_sources(pk)
