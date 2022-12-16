@@ -1,135 +1,115 @@
 <template>
-  <table v-if="workspaces" class="table">
+  <NavigationBar
+    v-if="currentProject"
+    :title="currentProject.title"
+    hint="Set up and manage reports"
+  >
+    <BaseButton @click="goToCreateRegularReport" class="button">
+      Create New Report
+    </BaseButton>
+  </NavigationBar>
+
+  <table v-if="reports.length" class="table">
     <thead>
       <tr>
         <th>
           <label class="container container-header">
-            <input v-model="selectedProjects" type="checkbox" />
+            <input type="checkbox" />
             <span class="checkmark"
               ><CheckRadioIcon class="checkmark-icon"
             /></span>
           </label>
         </th>
-        <th>TYPE</th>
         <th>NAME</th>
-        <th>KEYWORDS</th>
-        <th>CREATOR</th>
-        <th>ASSIGNED USERS</th>
-        <th>DATE</th>
+        <th>TIME</th>
+        <th>RECIPIENT'S</th>
       </tr>
     </thead>
     <tbody>
       <tr
-        v-for="(item, index) in values"
-        :key="index"
-        @click="goToProject(item.id)"
+        v-for="(item, index) in reports"
+        :key="'alert' + index"
+        @click="goToUpdateReport(item.id)"
       >
         <td>
           <label class="container">
-            <input
-              v-model="selectedProjects"
-              :value="item.id"
-              type="checkbox"
-              :id="item.id"
-            />
+            <input type="checkbox" />
             <span class="checkmark">
               <CheckRadioIcon class="checkmark-icon" />
             </span>
           </label>
         </td>
         <td>
-          <div class="type">
-            <component class="type-icon" :is="item.source + 'RadioIcon'" />
-            {{ item.source }}
-          </div>
+          {{ item.title }}
         </td>
-        <td>{{ item.title }}</td>
-        <td>
-          <div v-if="item.keywords[0]" :class="item.keywords && 'keyword'">
-            {{ item.keywords[0] }}
-          </div>
-          <div
-            v-if="item.keywords[1]"
-            :class="item.keywords[1] !== '' && 'keyword'"
-          >
-            {{ item.keywords[1] }}
-          </div>
-        </td>
-        <td>
-          <img :src="memberPhoto(item.creator)" class="cart-image" />
-        </td>
-        <td>PHOTO</td>
-        <td>{{ projectCreationDate(item.created_at) }}</td>
-        <td><TableSettingsButton :id="item.id" /></td>
+        <td><ClockIcon class="clock-icon" />{{ item.hour }}</td>
+        <td>{{ item.user }}</td>
       </tr>
     </tbody>
   </table>
+
+  <div class="no-reports" v-else>No regular reports created.</div>
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
-import {get} from '@store/constants'
+import {mapActions, mapGetters} from 'vuex'
+import {action, get} from '@store/constants'
 
-import TableSettingsButton from '@/components/buttons/TableSettingsButton'
+import BaseButton from '@/components/buttons/BaseButton'
+import NavigationBar from '@/components/navigation/NavigationBar'
 
-import PointsIcon from '@/components/icons/PointsIcon'
-import CheckRadioIcon from '@/components/icons/CheckIcon'
-import SocialRadioIcon from '@/components/icons/SocialRadioIcon'
-import OnlineRadioIcon from '@/components/icons/OnlineRadioIcon'
-import PremiumRadioIcon from '@/components/icons/PremiumRadioIcon'
+import CheckRadioIcon from '@/components/icons/CheckRadioIcon'
+import ClockIcon from '@/components/icons/ClockIcon'
 
 export default {
-  name: 'BaseTable',
+  name: 'RegularReportsScreen',
   components: {
-    TableSettingsButton,
+    ClockIcon,
     CheckRadioIcon,
-    PremiumRadioIcon,
-    OnlineRadioIcon,
-    SocialRadioIcon,
-    PointsIcon,
-  },
-  data() {
-    return {
-      selectedProjects: [],
-      isOpenSettings: false,
-    }
+    BaseButton,
+    NavigationBar,
   },
   props: {
-    values: {
-      type: Array,
-      default: () => [],
+    currentProject: {
+      type: [Array, Object],
+      required: true,
     },
+  },
+  created() {
+    this[action.GET_REGULAR_REPORTS](this.currentProject.id)
   },
   computed: {
     ...mapGetters({
-      workspaces: get.WORKSPACES,
+      reports: get.REGULAR_REPORTS,
     }),
-    currentWorkspace() {
-      return this.workspaces.filter(
-        (el) => el.id === +this.$route.params.workspaceId
-      )
-    },
-    members() {
-      return this.currentWorkspace[0].members
-    },
   },
   methods: {
-    memberPhoto(id) {
-      return this.members.filter((el) => el.id === id)[0].user_profile.photo
+    ...mapActions([action.GET_REGULAR_REPORTS]),
+    goToCreateRegularReport() {
+      this.$router.push({
+        name: 'NewRegularReport',
+      })
     },
-    projectCreationDate(date) {
-      return new Date(date).toLocaleDateString('ro-RO')
-    },
-    goToProject(id) {
-      this.$emit('go-to-project', id)
+    goToUpdateReport(id) {
+      this.$router.push({
+        name: 'UpdateRegularReport',
+        params: {
+          regularReportId: id,
+        },
+      })
     },
   },
 }
 </script>
 
 <style lang="scss" scoped>
+.button-icon {
+  margin-right: 7px;
+}
+
 .table {
   width: 100%;
+  margin-top: 40px;
 
   border-collapse: separate;
   border-spacing: 0;
@@ -158,7 +138,8 @@ export default {
 
   tbody {
     tr {
-      background: #242529;
+      background: var(--secondary-bg-color);
+      transition: background-color 2s;
 
       td {
         padding: 20px 0;
@@ -170,6 +151,16 @@ export default {
         font-size: 14px;
         line-height: 20px;
         color: var(--primary-text-color);
+      }
+
+      &:hover {
+        background: rgb(5, 95, 252);
+        background: linear-gradient(
+          90deg,
+          rgba(5, 95, 252, 0.85) 0%,
+          rgba(44, 44, 44, 1) 33%
+        );
+        transition: background-size 1s, background-color 1s;
       }
     }
 
@@ -209,6 +200,15 @@ export default {
       border-bottom: 1px solid #2d2d31;
     }
   }
+}
+
+.no-reports {
+  margin-top: 40px;
+
+  color: var(--primary-text-color);
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 150%;
 }
 
 .container {
@@ -289,44 +289,12 @@ export default {
   align-items: center;
 }
 
-.cart-image {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-grow: 0;
-  flex-shrink: 0;
-
-  width: 22px;
-  height: 22px;
-  margin-right: 12px;
-
-  border-radius: 100%;
-  border: 1px solid var(--secondary-text-color);
-
-  background-color: white;
-
-  font-size: 10px;
-
-  &:not(:first-child) {
-    margin-left: -10px;
-  }
+.button {
+  width: 176px;
+  gap: 8px;
 }
 
-.keyword {
-  width: fit-content;
-  padding: 2px 12px;
-
-  border-radius: 8px;
-  background: rgba(51, 204, 112, 0.2);
-
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 20px;
-
-  color: #30f47e;
-}
-
-.keyword:first-child {
-  margin-right: 6px;
+.clock-icon {
+  margin-right: 10px;
 }
 </style>

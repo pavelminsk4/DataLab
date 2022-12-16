@@ -7,7 +7,7 @@ from django.shortcuts import get_object_or_404
 from docx import Document
 from docx.shared import Inches, Pt
 from .chartjs import prepare_widget_images
-import aspose.words as aw
+#import aspose.words as aw
 
 from docx.shared import Pt
 from docx.oxml.ns import qn
@@ -17,15 +17,15 @@ from .serializers import RegularReportSerializer
 from .models import RegularReport
 from rest_framework import viewsets
 
-lic = aw.License()
+#lic = aw.License()
 
 #Try to set license from the folder with the python script.
-try :
-    lic.set_license("Aspose.Total.Product.Family.lic")
-    print("License set successfully.")
-except RuntimeError as err :
-    # We do not ship any license with this example, visit the Aspose site to obtain either a temporary or permanent license.
-    print("\nThere was an error setting the license: {0}".format(err))
+#try :
+#    lic.set_license("Aspose.Total.Product.Family.lic")
+#    print("License set successfully.")
+#except RuntimeError as err :
+#    # We do not ship any license with this example, visit the Aspose site to obtain either a temporary or permanent license.
+#    print("\nThere was an error setting the license: {0}".format(err))
 
 def export_title(project_id):
   proj = get_object_or_404(Project, pk=project_id)
@@ -39,9 +39,9 @@ def export_period(project_id):
   period = start_d + ' - ' + end_d
   return period
 
-def convert_docx_to_pdf(docx_path, report_path):
-  doc = aw.Document(docx_path)
-  doc.save(report_path)
+#def convert_docx_to_pdf(docx_path, report_path):
+#  doc = aw.Document(docx_path)
+#  doc.save(report_path)
 
 def filling_template(template_path, project_id):
   document = Document(template_path)
@@ -194,7 +194,7 @@ def instantly_report(request, pk):
   report_path='tmp/temp.' + format
   prepare_widget_images(pk)
   filling_template(template_path, pk)
-  convert_docx_to_pdf(docx_path, report_path)
+#  convert_docx_to_pdf(docx_path, report_path)
   response = FileResponse(open(report_path, 'rb'))
   response.headers = {
       'Content-Type': 'application/%s'%(format),

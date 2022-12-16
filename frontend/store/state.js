@@ -66,6 +66,7 @@ const state = {
   isShowCalendarContents: false,
   availableWidgets: null,
   alerts: [],
+  regularReports: [],
 }
 
 export default state

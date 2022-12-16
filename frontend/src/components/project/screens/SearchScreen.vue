@@ -131,7 +131,7 @@ export default {
           projectId: this.currentProject?.id,
           data: {
             title: this.currentProject?.title,
-            note: this.currentProject?.note,
+            note: this.currentProject?.note || '',
             keywords: this.currentKeywords || this.keywords?.keywords,
             additional_keywords:
               this.currentAdditionalKeywords ||

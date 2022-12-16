@@ -13,6 +13,8 @@ import ProjectExtraSettingsView from '@/components/project/ProjectExtraSettingsV
 
 import SearchScreen from '@/components/project/screens/SearchScreen'
 import AlertsScreen from '@/components/project/screens/AlertsScreen'
+import RegularReportsScreen from '@/components/project/screens/RegularReportsScreen'
+import RegularReportSettingsScreen from '@/components/project/screens/RegularReportSettingsScreen'
 import AnalyticsScreen from '@/components/project/screens/AnalyticsScreen'
 import AlertSettingsScreen from '@/components/project/screens/AlertSettingsScreen'
 
@@ -123,6 +125,21 @@ export const routes = [
         name: 'UpdateAlert',
         path: 'update/:alertId/alert',
         component: AlertSettingsScreen,
+      },
+      {
+        name: 'Reports',
+        path: 'reports',
+        component: RegularReportsScreen,
+      },
+      {
+        name: 'NewRegularReport',
+        path: 'create-new-regular-report',
+        component: RegularReportSettingsScreen,
+      },
+      {
+        name: 'UpdateRegularReport',
+        path: 'update/:regularReportId/regular-report',
+        component: RegularReportSettingsScreen,
       },
     ],
   },

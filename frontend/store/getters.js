@@ -121,6 +121,10 @@ export default {
     return state.alerts
   },
 
+  [get.REGULAR_REPORTS](state) {
+    return state.regularReports
+  },
+
   [get.SELECTED_DIMENSIONS](state) {
     return state.selectedDimensions
   },

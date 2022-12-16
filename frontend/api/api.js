@@ -193,6 +193,10 @@ export default {
     return fetch('get', `/api/projects/${projectId}/alerts`)
   },
 
+  async getRegularReports(projectId) {
+    return fetch('get', `/projects/${projectId}/reports/regular_reports/`)
+  },
+
   async createWorkspace(workspace) {
     const config = {
       headers: {
@@ -228,14 +232,19 @@ export default {
     )
   },
 
-  async createAlert(data) {
+  async createAlert({projectId, data}) {
     const config = {
       headers: {
         'content-type': 'application/json',
         'X-CSRFToken': CSRF_TOKEN,
       },
     }
-    return fetch('post', '/api/alerts/', data, config)
+    return fetch(
+      'post',
+      `/projects/${projectId}/reports/regular_reports/`,
+      data,
+      config
+    )
   },
 
   async updateAlert({data, alertId}) {
@@ -246,6 +255,36 @@ export default {
       },
     }
     return fetch('put', `/api/alerts/${alertId}/`, data, config)
+  },
+
+  async createRegularReport({projectId, data}) {
+    const config = {
+      headers: {
+        'content-type': 'application/json',
+        'X-CSRFToken': CSRF_TOKEN,
+      },
+    }
+    return fetch(
+      'post',
+      `/projects/${projectId}/reports/regular_reports/`,
+      data,
+      config
+    )
+  },
+
+  async updateRegularReport({projectId, data}) {
+    const config = {
+      headers: {
+        'content-type': 'application/json',
+        'X-CSRFToken': CSRF_TOKEN,
+      },
+    }
+    return fetch(
+      'patch',
+      `/projects/${projectId}/reports/regular_reports/`,
+      data,
+      config
+    )
   },
 
   async postSearch(request) {

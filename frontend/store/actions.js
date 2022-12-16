@@ -361,6 +361,18 @@ export default {
     }
   },
 
+  async [action.GET_REGULAR_REPORTS]({commit}, projectId) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const regularReports = await api.getRegularReports(projectId)
+      commit(mutator.SET_REGULAR_REPORTS, regularReports)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
   async [action.CREATE_WORKSPACE]({commit}, workspace) {
     commit(mutator.SET_LOADING, true)
     try {
@@ -412,6 +424,28 @@ export default {
     commit(mutator.SET_LOADING, true)
     try {
       await api.updateAlert({data, alertId})
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
+  async [action.CREATE_NEW_REGULAR_REPORT]({commit}, {projectId, data}) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      await api.createRegularReport({projectId, data})
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
+  async [action.UPDATE_NEW_REGULAR_REPORT]({commit}, {projectId, data}) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      await api.updateRegularReport({projectId, data})
     } catch (e) {
       console.log(e)
     } finally {

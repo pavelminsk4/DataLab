@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django_celery_beat.models import PeriodicTask, CrontabSchedule
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from datetime import datetime
 
 class Templates(models.Model):
   title = models.CharField(max_length=50)
@@ -40,7 +41,7 @@ def create_periodic_task(sender, instance, created, **kwargs):
     instance.crontab_schedule = crontab_schedule
     periodic_task = PeriodicTask.objects.create(
       crontab = crontab_schedule,
-      name = 'REGULAR_REPORT_' + instance.title,
+      name = 'REGULAR_REPORT_' + instance.title + str(datetime.now()),
       task='reports.tasks.regular_report_sender',
     )
     instance.periodic_task = periodic_task
