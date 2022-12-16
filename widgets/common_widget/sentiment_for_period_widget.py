@@ -5,7 +5,6 @@ from django.db.models import Count, Q
 from functools import reduce
 from django.db.models.functions import Trunc
 import json
-import pandas as pd
 from datetime import datetime
 
 def keywords_posts(keys, posts):
