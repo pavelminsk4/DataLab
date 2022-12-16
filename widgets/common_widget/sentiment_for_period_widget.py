@@ -5,7 +5,6 @@ from django.db.models import Count, Q
 from functools import reduce
 from django.db.models.functions import Trunc
 import json
-from datetime import datetime
 
 def keywords_posts(keys, posts):
   posts = posts.filter(reduce(lambda x,y: x | y, [Q(entry_title__contains=key) for key in keys]))
@@ -66,13 +65,14 @@ def posts_agregator(project):
     posts = country_filter_posts(project.source_filter, posts)  
   return posts
   
-def sentiment_for_period(pk):
+def sentiment_for_period(request, pk):
   project = Project.objects.get(id=pk)
   posts = posts_agregator(project)
-  dates = list(posts.annotate(date=Trunc('entry_published', 'day')).values("date"))
-  negative_posts = posts.annotate(date=Trunc('entry_published', 'day')).values("date").filter(sentiment='negative').annotate(count_negative=Count('sentiment')).order_by("date")
-  neutral_posts = posts.annotate(date=Trunc('entry_published', 'day')).values("date").filter(sentiment='neutral').annotate(count_neutral=Count('sentiment')).order_by("date")
-  positive_posts = posts.annotate(date=Trunc('entry_published', 'day')).values("date").filter(sentiment='positive').annotate(count_positive=Count('sentiment')).order_by("date")
+  body = json.loads(request.body)
+  smpl_freq = body['smpl_freq']
+  negative_posts = posts.annotate(date=Trunc('entry_published', smpl_freq)).values("date").filter(sentiment='negative').annotate(count_negative=Count('sentiment')).order_by("date")
+  neutral_posts = posts.annotate(date=Trunc('entry_published', smpl_freq)).values("date").filter(sentiment='neutral').annotate(count_neutral=Count('sentiment')).order_by("date")
+  positive_posts = posts.annotate(date=Trunc('entry_published', smpl_freq)).values("date").filter(sentiment='positive').annotate(count_positive=Count('sentiment')).order_by("date")
   post_by_sentiment = list(negative_posts) + list(neutral_posts) + list(positive_posts)
   results = []
   for date in sorted(list(set(d['date'] for d in post_by_sentiment))):

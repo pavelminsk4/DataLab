@@ -59,4 +59,4 @@ def sentiment_top_10_languages_widget(request, pk):
 
 
 def sentiment_for_period_widget(request, pk):
-  return sentiment_for_period(pk)
+  return sentiment_for_period(request, pk)
