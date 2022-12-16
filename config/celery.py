@@ -24,7 +24,7 @@ app.conf.beat_schedule = {
     'schedule': crontab(hour=15, minute=20, day_of_week='*'),
     'args': (),
   },
-  'alert-sender-task-crontab':{
+  'alert-sender-task-crontab': {
     'task': 'alerts.tasks.alert_sender',
     'schedule': crontab(hour='*', minute='*', day_of_week='*'),
     'args': (),
