@@ -44,11 +44,11 @@ export default {
     Line,
   },
   props: {
-    chartValues: {
+    chartLabels: {
       type: Array,
       default: () => [],
     },
-    chartLabels: {
+    datasets: {
       type: Array,
       default: () => [],
     },
@@ -81,31 +81,7 @@ export default {
     chartData() {
       return {
         labels: this.chartLabels,
-        datasets: [
-          {
-            borderColor: '#055FFC',
-            pointStyle: 'circle',
-            pointRadius: 3,
-            pointBackgroundColor: '#055FFC',
-            pointBorderWidth: 1,
-            pointBorderColor: '#FFFFFF',
-            borderWidth: 3,
-            radius: 0.3,
-            fill: true,
-            backgroundColor: (ctx) => {
-              const canvas = ctx.chart.ctx
-              const gradient = canvas.createLinearGradient(0, 0, 0, 460)
-
-              gradient.addColorStop(0, 'rgba(5, 95, 252, 0.5)')
-              gradient.addColorStop(0.5, 'rgba(5, 95, 252, 0.25)')
-              gradient.addColorStop(1, 'rgba(5, 95, 252, 0)')
-
-              return gradient
-            },
-            tension: 0.25,
-            data: this.chartValues,
-          },
-        ],
+        datasets: this.datasets,
       }
     },
     chartOptions() {

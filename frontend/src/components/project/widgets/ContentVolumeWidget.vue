@@ -5,7 +5,7 @@
   >
     <LineChart
       v-if="isLineChart"
-      :chart-values="volumeValues"
+      :datasets="chartDatasets"
       :chart-labels="volumeLabels"
     />
     <BarChart
@@ -61,41 +61,6 @@ export default {
       })
     }
   },
-  data() {
-    return {
-      plugins: [],
-      chartOptions: {
-        responsive: true,
-        maintainAspectRatio: false,
-        animation: {
-          easing: 'easeInOutQuad',
-          duration: 520,
-        },
-        onHover: (event, chartElement) => {
-          const target = event.native ? event.native.target : event.target
-          target.style.cursor = chartElement[0] ? 'pointer' : 'default'
-        },
-        plugins: {
-          legend: {
-            display: false,
-          },
-          customTitle: {
-            y: {
-              display: true,
-              text: 'Numbers',
-            },
-            x: {
-              display: true,
-              text: 'Month',
-              offsetX: 5,
-              offsetY: 5,
-              font: '12px Comic Sans MS',
-            },
-          },
-        },
-      },
-    }
-  },
   computed: {
     ...mapGetters({
       widgets: get.AVAILABLE_WIDGETS,
@@ -112,6 +77,33 @@ export default {
     },
     volumeValues() {
       return this.volumeData.map((el) => el.created_count)
+    },
+    chartDatasets() {
+      return [
+        {
+          borderColor: '#055FFC',
+          pointStyle: 'circle',
+          pointRadius: 3,
+          pointBackgroundColor: '#055FFC',
+          pointBorderWidth: 1,
+          pointBorderColor: '#FFFFFF',
+          borderWidth: 3,
+          radius: 0.3,
+          fill: true,
+          backgroundColor: (ctx) => {
+            const canvas = ctx.chart.ctx
+            const gradient = canvas.createLinearGradient(0, 0, 0, 460)
+
+            gradient.addColorStop(0, 'rgba(5, 95, 252, 0.5)')
+            gradient.addColorStop(0.5, 'rgba(5, 95, 252, 0.25)')
+            gradient.addColorStop(1, 'rgba(5, 95, 252, 0)')
+
+            return gradient
+          },
+          tension: 0.25,
+          data: this.volumeValues,
+        },
+      ]
     },
   },
   watch: {

@@ -1,13 +1,44 @@
 <template>
   <WidgetsLayout
+    v-if="contentVolumeTopSources"
+    :title="widgets['content_volume_top_10_source_widget'].title"
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
   >
-    test
+    <Line
+      :chart-options="chartOptions"
+      :chart-data="chartData"
+      class="line-chart"
+    />
   </WidgetsLayout>
 </template>
 
 <script>
+import {Line} from 'vue-chartjs'
+
+import {
+  Chart as ChartJS,
+  Title,
+  Tooltip,
+  Legend,
+  LineElement,
+  LinearScale,
+  CategoryScale,
+  PointElement,
+  Filler,
+} from 'chart.js'
+
+ChartJS.register(
+  Title,
+  Tooltip,
+  Legend,
+  LineElement,
+  LinearScale,
+  CategoryScale,
+  PointElement,
+  Filler
+)
+
 import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
@@ -15,49 +46,81 @@ import WidgetsLayout from '@/components/layout/WidgetsLayout'
 
 export default {
   name: 'ContentVolumeTopSources',
-  components: {WidgetsLayout},
+  components: {WidgetsLayout, Line},
   props: {
     projectId: {
       type: [Number, String],
       required: true,
     },
-    chartId: {
-      type: String,
-      default: 'line-chart',
-    },
-    datasetIdKey: {
-      type: String,
-      default: 'label',
-    },
-    width: {
-      type: Number,
-      default: 400,
-    },
-    height: {
-      type: Number,
-      default: 400,
-    },
-    cssClasses: {
-      default: '',
-      type: String,
-    },
-    styles: {
-      type: Object,
-      default: () => {},
-    },
-    plugins: {
-      type: Array,
+    widgets: {
+      type: [Array, Object],
       default: () => [],
     },
   },
   created() {
-    this[action.GET_CONTENT_VOLUME_TOP_SOURCES](this.projectId)
+    this[action.GET_CONTENT_VOLUME_TOP_SOURCES]({
+      projectId: this.projectId,
+      value: {
+        author_dim_pivot:
+          this.widgets['content_volume_top_10_source_widget']
+            .author_dim_pivot || null,
+        language_dim_pivot:
+          this.widgets['content_volume_top_10_source_widget']
+            .language_dim_pivot || null,
+        country_dim_pivot:
+          this.widgets['content_volume_top_10_source_widget']
+            .country_dim_pivot || null,
+        sentiment_dim_pivot:
+          this.widgets['content_volume_top_10_source_widget']
+            .sentiment_dim_pivot || null,
+        source_dim_pivot:
+          this.widgets['content_volume_top_10_source_widget']
+            .source_dim_pivot || null,
+        smpl_freq:
+          this.widgets['content_volume_top_10_source_widget']
+            .aggregation_period,
+      },
+    })
   },
   data() {
     return {
       chartOptions: {
         responsive: true,
         maintainAspectRatio: false,
+        skipNull: true,
+        animation: {
+          easing: 'easeInOutQuad',
+          duration: 520,
+        },
+        onHover: (event, chartElement) => {
+          const target = event.native ? event.native.target : event.target
+          target.style.cursor = chartElement[0] ? 'pointer' : 'default'
+        },
+        plugins: {
+          datalabels: {
+            display: false,
+          },
+          tooltip: {
+            yAlign: 'bottom',
+            titleColor: '#151515',
+            bodyColor: '#151515',
+            backgroundColor: 'rgba(255, 255, 255, 0.96)',
+            displayColors: false,
+          },
+          customTitle: {
+            y: {
+              display: true,
+              text: 'Numbers',
+            },
+            x: {
+              display: true,
+              text: 'Month',
+              offsetX: 5,
+              offsetY: 5,
+              font: '12px Comic Sans MS',
+            },
+          },
+        },
       },
     }
   },
@@ -65,52 +128,78 @@ export default {
     ...mapGetters({
       contentVolumeTopSources: get.CONTENT_VOLUME_TOP_SOURCES,
     }),
+    labels() {
+      let labelsCollection = []
+      let keys = []
+
+      Object.values(this.contentVolumeTopSources).forEach((el) => {
+        keys.push(Object.keys(el))
+        labelsCollection.push(el[keys[0]])
+      })
+
+      console.log(this.chartDatasets)
+
+      return labelsCollection[0]?.map((el) => this.formatDate(el.date))
+    },
+    chartDatasets() {
+      let datasetsValue = []
+      let lineColors = [
+        '#055FFC',
+        '#7A9EF9',
+        '#47F9B9',
+        '#47F979',
+        '#95F947',
+        '#F5F947',
+        '#F6AA37',
+        '#F63737',
+        '#F63787',
+        '#D930F4',
+      ]
+
+      Object.values(this.contentVolumeTopSources).forEach((el, index) => {
+        datasetsValue.push({
+          label: Object.keys(el)[0],
+          borderColor: lineColors[index],
+          pointStyle: 'circle',
+          pointRadius: 3,
+          pointBackgroundColor: lineColors[index],
+          pointBorderWidth: 1,
+          pointBorderColor: '#FFFFFF',
+          borderWidth: 1,
+          radius: 0.3,
+          fill: true,
+          tension: 0.3,
+          data: el[Object.keys(el)].map((el) => el.post_count),
+          skipNull: true,
+        })
+      })
+
+      return datasetsValue
+    },
     chartData() {
       return {
-        labels: [
-          'January',
-          'February',
-          'March',
-          'April',
-          'May',
-          'June',
-          'July',
-        ],
-        datasets: [
-          {
-            label: [1, 2, 3, 4],
-            backgroundColor: '#f87979',
-            data: [40, 39, 10, 40, 39, 80, 40],
-          },
-          {
-            label: [1, 2, 3, 4],
-            backgroundColor: '#f87979',
-            data: [40, 39, 10, 40, 39, 80, 40],
-          },
-        ],
+        labels: this.labels,
+        datasets: this.chartDatasets,
       }
-    },
-    contentVolumeTopSourcesCollection() {
-      let labelsCollection = []
-
-      this.contentVolumeTopSources.forEach((el) => {
-        Object.keys(el).forEach((i) =>
-          labelsCollection.push({
-            name: i,
-            dates: el[i],
-          })
-        )
-      })
-      return labelsCollection
-    },
-    labels() {
-      return this.contentVolumeTopSourcesCollection.map((el) => el.name)
     },
   },
   methods: {
     ...mapActions([action.GET_CONTENT_VOLUME_TOP_SOURCES]),
+    formatDate(date) {
+      return new Date(date).toLocaleString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+      })
+    },
   },
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.line-chart {
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+}
+</style>

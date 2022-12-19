@@ -5,12 +5,10 @@
     <div class="settings-wrapper">
       <section class="chart-wrapper">
         <div class="chart-title">Sentiment For Period</div>
-        <MultiLineChart
+        <LineChart
           v-if="isLineChart"
           :chart-labels="labels"
-          :neutral-values="sentiments.neutral"
-          :negative-values="sentiments.negative"
-          :positive-values="sentiments.positive"
+          :datasets="chartDatasets"
           class="multi-line"
         />
         <PatternsBarChart
@@ -53,17 +51,17 @@ import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
 import BaseModal from '@/components/modals/BaseModal'
+import LineChart from '@/components/project/widgets/charts/LineChart'
 import SettingsButtons from '@/components/project/widgets/modals/SettingsButtons'
+import PatternsBarChart from '@/components/project/widgets/charts/PatternsBarChart'
 import DimensionsScreen from '@/components/project/widgets/modals/screens/DimensionsScreen'
 import BasicSettingsScreen from '@/components/project/widgets/modals/screens/BasicSettingsScreen'
-import MultiLineChart from '@/components/project/widgets/charts/MultiLineChart'
-import PatternsBarChart from '@/components/project/widgets/charts/PatternsBarChart'
 
 export default {
   name: 'SentimentForPeriodModal',
   components: {
+    LineChart,
     PatternsBarChart,
-    MultiLineChart,
     BaseModal,
     SettingsButtons,
     DimensionsScreen,
@@ -123,6 +121,52 @@ export default {
     },
     isLineChart() {
       return this.labels?.length > 7
+    },
+    chartDatasets() {
+      return [
+        {
+          borderColor: '#F6AA37',
+          pointStyle: 'circle',
+          pointRadius: 3,
+          pointBackgroundColor: '#F6AA37',
+          pointBorderWidth: 1,
+          pointBorderColor: '#FFFFFF',
+          borderWidth: 1,
+          radius: 0.3,
+          fill: true,
+          tension: 0.3,
+          data: this.sentiments.neutral,
+          skipNull: true,
+        },
+        {
+          borderColor: '#30F47E',
+          pointStyle: 'circle',
+          pointRadius: 3,
+          pointBackgroundColor: '#30F47E',
+          pointBorderWidth: 1,
+          pointBorderColor: '#FFFFFF',
+          borderWidth: 1,
+          radius: 0.3,
+          fill: true,
+          tension: 0.3,
+          data: this.sentiments.positive,
+          skipNull: true,
+        },
+        {
+          borderColor: '#F94747',
+          pointStyle: 'circle',
+          pointRadius: 3,
+          pointBackgroundColor: '#F94747',
+          pointBorderWidth: 1,
+          pointBorderColor: '#FFFFFF',
+          borderWidth: 1,
+          radius: 0.3,
+          fill: true,
+          tension: 0.3,
+          data: this.sentiments.negative,
+          skipNull: true,
+        },
+      ]
     },
   },
   methods: {
