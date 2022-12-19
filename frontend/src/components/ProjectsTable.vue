@@ -2,14 +2,6 @@
   <table v-if="workspaces" class="table">
     <thead>
       <tr>
-        <th>
-          <label class="container container-header">
-            <input v-model="selectedProjects" type="checkbox" />
-            <span class="checkmark"
-              ><CheckRadioIcon class="checkmark-icon"
-            /></span>
-          </label>
-        </th>
         <th>TYPE</th>
         <th>NAME</th>
         <th>KEYWORDS</th>
@@ -24,19 +16,6 @@
         :key="index"
         @click="goToProject(item.id)"
       >
-        <td>
-          <label class="container">
-            <input
-              v-model="selectedProjects"
-              :value="item.id"
-              type="checkbox"
-              :id="item.id"
-            />
-            <span class="checkmark">
-              <CheckRadioIcon class="checkmark-icon" />
-            </span>
-          </label>
-        </td>
         <td>
           <div class="type">
             <component class="type-icon" :is="item.source + 'RadioIcon'" />
@@ -211,33 +190,6 @@ export default {
   }
 }
 
-.container {
-  position: relative;
-
-  display: block;
-
-  margin: 0 40px 20px 0;
-
-  font-size: 22px;
-
-  cursor: pointer;
-
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-.container input {
-  position: absolute;
-
-  height: 0;
-  width: 0;
-
-  opacity: 0;
-  cursor: pointer;
-}
-
 .checkmark {
   position: absolute;
   top: 0;
@@ -253,31 +205,6 @@ export default {
   border: 1px solid #9198a7;
   border-radius: 4px;
   background-color: #2d2d31;
-}
-
-.container:hover input ~ .checkmark {
-  background-color: #242529;
-}
-
-.container input:checked ~ .checkmark {
-  border: none;
-  background-color: #055ffc;
-}
-
-.container input ~ .checkmark > .checkmark-icon {
-  display: none;
-}
-
-.container input:checked ~ .checkmark > .checkmark-icon {
-  display: block;
-}
-
-.container input:checked ~ .checkmark:after {
-  display: block;
-}
-
-.container-header {
-  margin-bottom: 30px;
 }
 
 .type-icon {

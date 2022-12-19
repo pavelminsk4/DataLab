@@ -278,6 +278,43 @@ export default {
     }
   },
 
+  async [action.GET_CONTENT_VOLUME_TOP_AUTHORS]({commit}, {projectId, value}) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const contentVolumeTopAuthors = await api.getContentVolumeTop10Authors({
+        projectId,
+        value,
+      })
+      commit(mutator.SET_CONTENT_VOLUME_TOP_AUTHORS, contentVolumeTopAuthors)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
+  async [action.GET_CONTENT_VOLUME_TOP_COUNTRIES](
+    {commit},
+    {projectId, value}
+  ) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const contentVolumeTopCountries =
+        await api.getContentVolumeTop10Countries({
+          projectId,
+          value,
+        })
+      commit(
+        mutator.SET_CONTENT_VOLUME_TOP_COUNTRIES,
+        contentVolumeTopCountries
+      )
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
   async [action.GET_DIMENSIONS]({commit}) {
     commit(mutator.SET_LOADING, true)
     try {

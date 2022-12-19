@@ -176,8 +176,8 @@ export default {
       action.UPDATE_NEW_REGULAR_REPORT,
       action.GET_REGULAR_REPORTS,
     ]),
-    createRegularReport() {
-      this[action.CREATE_NEW_REGULAR_REPORT]({
+    async createRegularReport() {
+      await this[action.CREATE_NEW_REGULAR_REPORT]({
         projectId: this.projectId,
         data: {
           title: this.title,
@@ -186,6 +186,9 @@ export default {
           user: [...this.usersId],
         },
       })
+
+      this.loading = true
+      await this[action.GET_REGULAR_REPORTS](this.projectId)
     },
     updateRegularReport() {
       this[action.UPDATE_NEW_REGULAR_REPORT]({
@@ -203,16 +206,11 @@ export default {
         this.createRegularReport()
 
         this.loading = true
-        this[action.GET_REGULAR_REPORTS](this.projectId)
-
-        this.loading = true
         this.$router.push({
           name: 'Reports',
         })
       } else {
         this.updateRegularReport()
-
-        this[action.GET_REGULAR_REPORTS](this.projectId)
 
         this.$router.push({
           name: 'Reports',

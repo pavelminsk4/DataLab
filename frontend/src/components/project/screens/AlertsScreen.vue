@@ -12,14 +12,6 @@
   <table v-if="alerts.length" class="table">
     <thead>
       <tr>
-        <th>
-          <label class="container container-header">
-            <input type="checkbox" />
-            <span class="checkmark"
-              ><CheckRadioIcon class="checkmark-icon"
-            /></span>
-          </label>
-        </th>
         <th>NAME</th>
         <th>CONDITIONS</th>
         <th>ASSIGNED USERS</th>
@@ -31,14 +23,6 @@
         :key="'alert' + index"
         @click="goToUpdateAlert(item.id)"
       >
-        <td>
-          <label class="container">
-            <input type="checkbox" />
-            <span class="checkmark">
-              <CheckRadioIcon class="checkmark-icon" />
-            </span>
-          </label>
-        </td>
         <td>
           {{ item.title }}
         </td>
@@ -63,7 +47,6 @@ import NavigationBar from '@/components/navigation/NavigationBar'
 import TableSettingsButton from '@/components/buttons/TableSettingsButton'
 
 import PlusIcon from '@/components/icons/PlusIcon'
-import CheckRadioIcon from '@/components/icons/CheckRadioIcon'
 
 export default {
   name: 'AlertsScreen',
@@ -71,7 +54,6 @@ export default {
     PlusIcon,
     BaseButton,
     NavigationBar,
-    CheckRadioIcon,
     TableSettingsButton,
   },
   props: {
@@ -214,75 +196,6 @@ export default {
   font-size: 30px;
   font-weight: 400;
   line-height: 150%;
-}
-
-.container {
-  position: relative;
-
-  display: block;
-
-  margin: 0 40px 20px 0;
-
-  font-size: 22px;
-
-  cursor: pointer;
-
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-.container input {
-  position: absolute;
-
-  height: 0;
-  width: 0;
-
-  opacity: 0;
-  cursor: pointer;
-}
-
-.checkmark {
-  position: absolute;
-  top: 0;
-  left: 0;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  height: 20px;
-  width: 20px;
-
-  border: 1px solid #9198a7;
-  border-radius: 4px;
-  background-color: #2d2d31;
-}
-
-.container:hover input ~ .checkmark {
-  background-color: #242529;
-}
-
-.container input:checked ~ .checkmark {
-  border: none;
-  background-color: #055ffc;
-}
-
-.container input ~ .checkmark > .checkmark-icon {
-  display: none;
-}
-
-.container input:checked ~ .checkmark > .checkmark-icon {
-  display: block;
-}
-
-.container input:checked ~ .checkmark:after {
-  display: block;
-}
-
-.container-header {
-  margin-bottom: 30px;
 }
 
 .type-icon {

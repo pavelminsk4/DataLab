@@ -173,6 +173,36 @@ export default {
     )
   },
 
+  async getContentVolumeTop10Authors({projectId, value}) {
+    const config = {
+      headers: {
+        'content-type': 'application/json',
+        'X-CSRFToken': CSRF_TOKEN,
+      },
+    }
+    return fetch(
+      'post',
+      `/api/widgets/content_volume_top_10_authors_widget/${projectId}`,
+      value,
+      config
+    )
+  },
+
+  async getContentVolumeTop10Countries({projectId, value}) {
+    const config = {
+      headers: {
+        'content-type': 'application/json',
+        'X-CSRFToken': CSRF_TOKEN,
+      },
+    }
+    return fetch(
+      'post',
+      `/api/widgets/content_volume_top_10_countries_widget/${projectId}`,
+      value,
+      config
+    )
+  },
+
   async getDimensions() {
     return fetch('get', '/api/dimensions/')
   },
@@ -240,19 +270,14 @@ export default {
     )
   },
 
-  async createAlert({projectId, data}) {
+  async createAlert(data) {
     const config = {
       headers: {
         'content-type': 'application/json',
         'X-CSRFToken': CSRF_TOKEN,
       },
     }
-    return fetch(
-      'post',
-      `/projects/${projectId}/reports/regular_reports/`,
-      data,
-      config
-    )
+    return fetch('post', '/api/alerts/', data, config)
   },
 
   async updateAlert({data, alertId}) {
