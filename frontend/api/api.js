@@ -158,10 +158,18 @@ export default {
     )
   },
 
-  async getContentVolumeTop10Sources(projectId) {
+  async getContentVolumeTop10Sources({projectId, value}) {
+    const config = {
+      headers: {
+        'content-type': 'application/json',
+        'X-CSRFToken': CSRF_TOKEN,
+      },
+    }
     return fetch(
-      'get',
-      `/api/widgets/content_volume_top_10_source_widget/${projectId}`
+      'post',
+      `/api/widgets/content_volume_top_10_source_widget/${projectId}`,
+      value,
+      config
     )
   },
 

@@ -263,12 +263,13 @@ export default {
     }
   },
 
-  async [action.GET_CONTENT_VOLUME_TOP_SOURCES]({commit}, projectId) {
+  async [action.GET_CONTENT_VOLUME_TOP_SOURCES]({commit}, {projectId, value}) {
     commit(mutator.SET_LOADING, true)
     try {
-      const contentVolumeTopSources = await api.getContentVolumeTop10Sources(
-        projectId
-      )
+      const contentVolumeTopSources = await api.getContentVolumeTop10Sources({
+        projectId,
+        value,
+      })
       commit(mutator.SET_CONTENT_VOLUME_TOP_SOURCES, contentVolumeTopSources)
     } catch (e) {
       console.log(e)

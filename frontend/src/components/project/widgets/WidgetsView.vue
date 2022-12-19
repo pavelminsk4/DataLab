@@ -73,6 +73,12 @@
     @close="openModal('isOpenSentimentForPeriodModal')"
   />
 
+  <ContentTop10SourcesModal
+    v-if="isOpenContent10SourcesModal"
+    :project-id="projectId"
+    @close="openModal('isOpenContent10SourcesModal')"
+  />
+
   <grid-layout
     v-if="availableWidgets"
     v-model:layout="layoutProxy"
@@ -107,6 +113,7 @@
         :volume="volumeWidget"
         :project-id="projectId"
         :is-open-widget="item.isShow"
+        :widgets="availableWidgets"
         :current-project="currentProject"
         @delete-widget="deleteWidget(item.name, item.i)"
         @open-settings-modal="openModal(item.isOpenModal)"
@@ -157,10 +164,12 @@ import SentimentTopCountriesModal from '@/components/project/widgets/modals/Sent
 import SentimentTopAuthorsModal from '@/components/project/widgets/modals/SentimentTopAuthorsModal'
 import SentimentTopLanguagesModal from '@/components/project/widgets/modals/SentimentTopLanguagesModal'
 import SentimentForPeriodModal from '@/components/project/widgets/modals/SentimentForPeriodModal'
+import ContentTop10SourcesModal from '@/components/project/widgets/modals/ContentTop10SourcesModal'
 
 export default {
   name: 'WidgetsView',
   components: {
+    ContentTop10SourcesModal,
     SentimentForPeriodModal,
     SentimentTopLanguagesModal,
     SentimentTopAuthorsModal,
@@ -215,6 +224,7 @@ export default {
       isOpenSentimentAuthorsModal: false,
       isOpenSentimentLanguagesModal: false,
       isOpenSentimentForPeriodModal: false,
+      isOpenContent10SourcesModal: false,
       layout: [],
     }
   },
@@ -355,7 +365,7 @@ export default {
         case 'content_volume_top_10_source_widget':
           return {
             name: 'ContentVolumeTopSources',
-            openModal: 'isOpenTopLanguagesModal',
+            openModal: 'isOpenContent10SourcesModal',
             h: 12,
           }
         case 'sentiment_for_period_widget':
