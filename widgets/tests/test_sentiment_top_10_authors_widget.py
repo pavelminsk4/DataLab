@@ -29,20 +29,20 @@ class SentimentTop10AuthorsWidgetTests(APITestCase):
     url = reverse('widgets:sentiment_top_10_authors_widget', kwargs={'pk':pr.pk})
     response = self.client.get(url)
     self.assertEqual(response.status_code, status.HTTP_200_OK)
-    res = {'': [
-                {'sentiment': 'neutral', 'sentiment_count': 1},
-                {'sentiment': 'negative', 'sentiment_count': 0},
-                {'sentiment': 'positive', 'sentiment_count': 0}
-               ],
-          'AFP': [
-                  {'sentiment': 'neutral', 'sentiment_count': 3},
-                  {'sentiment': 'negative', 'sentiment_count': 2},
-                  {'sentiment': 'positive', 'sentiment_count': 1}
+    res = {'AFP': [
+                    {'sentiment': 'neutral', 'sentiment_count': 3},
+                    {'sentiment': 'negative', 'sentiment_count': 2},
+                    {'sentiment': 'positive', 'sentiment_count': 1}
                  ],
           'EFE': [
                   {'sentiment': 'neutral', 'sentiment_count': 1},
                   {'sentiment': 'negative', 'sentiment_count': 0},
                   {'sentiment': 'positive', 'sentiment_count': 0}
-                 ]
+                 ],
+          'Missing in source': [
+                                  {'sentiment': 'neutral', 'sentiment_count': 1},
+                                  {'sentiment': 'negative', 'sentiment_count': 0},
+                                  {'sentiment': 'positive', 'sentiment_count': 0}
+                               ]                     
           }
     self.assertEqual(json.loads(response.content), res)

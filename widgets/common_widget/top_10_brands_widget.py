@@ -60,5 +60,8 @@ def top_10_brands(pk):
   project = Project.objects.get(id=pk)
   posts = posts_agregator(project)
   results = posts.values('feedlink__source1').annotate(brand_count=Count('feedlink__source1')).order_by('-brand_count')[:10]
+  for i in range(len(results)):
+    if (not results[i]['feedlink__source1'] or 'img' in results[i]['feedlink__source1'] or results[i]['feedlink__source1'] == 'None' or results[i]['feedlink__source1'] == 'null'):
+      results[i]['feedlink__source1'] = 'Missing in source'
   res = list(results)
   return JsonResponse(res, safe = False)

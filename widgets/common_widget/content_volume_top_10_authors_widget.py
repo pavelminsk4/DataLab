@@ -80,5 +80,8 @@ def content_volume_top_10_authors(request, pk):
             list_dates.append({"date": date, "post_count": results[elem][top_authors[elem]][i]['created_count']})
       else:
         list_dates.append({"date": date, "post_count": 0})
-    res.append({top_authors[elem]: list_dates})    
+    if (top_authors[elem] == '') or (top_authors[elem] == None) or ('img' in top_authors[elem]) or (top_authors[elem] == 'None') or (top_authors[elem] == 'null') or not top_authors[elem]:    
+      res.append({'Missing in source': list_dates})    
+    else:
+      res.append({top_authors[elem]: list_dates})   
   return JsonResponse(res, safe = False)

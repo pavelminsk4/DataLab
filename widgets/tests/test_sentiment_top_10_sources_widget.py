@@ -39,7 +39,7 @@ class SentimentTop10SourcesWidgetTests(APITestCase):
                       {'sentiment': 'positive', 'sentiment_count': 1},
                       {'sentiment': 'negative', 'sentiment_count': 0}
                     ],
-            'null': [
+           'Missing in source': [
                       {'sentiment': 'negative', 'sentiment_count': 2},
                       {'sentiment': 'neutral', 'sentiment_count': 2},
                       {'sentiment': 'positive', 'sentiment_count': 0}

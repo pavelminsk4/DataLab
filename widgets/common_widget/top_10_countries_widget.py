@@ -42,11 +42,11 @@ def source_filter_posts(source, posts):
 def posts_agregator(project):
   posts = data_range_posts(project.start_search_date, project.end_search_date)
   posts = keywords_posts(project.keywords, posts)
-  if project.additional_keywords!=[]:
+  if project.additional_keywords:
     posts = additional_keywords_posts(posts, project.additional_keywords)
   else:
     posts = keywords_posts(project.keywords, posts)
-  if project.ignore_keywords!=[]:
+  if project.ignore_keywords:
     posts = exclude_keywords_posts(posts, project.ignore_keywords)
   if project.author_filter:
     posts = author_filter_posts(project.author_filter, posts)
@@ -60,5 +60,8 @@ def top_10_countries(pk):
   project = Project.objects.get(id=pk)
   posts = posts_agregator(project)
   results = posts.values('feedlink__country').annotate(country_count=Count('feedlink__country')).order_by('-country_count')[:10]
+  for i in range(len(results)):
+    if (results[i]['feedlink__country'] == None or not results[i]['feedlink__country'] or 'img' in results[i]['feedlink__country'] or results[i]['feedlink__country'] == 'None' or results[i]['feedlink__country'] == 'null'):
+      results[i]['feedlink__country'] = 'Missing in source'
   res = list(results)
   return JsonResponse(res, safe = False)
