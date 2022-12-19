@@ -14,8 +14,6 @@
         <span class="name">{{ item.title }}</span>
       </BaseCheckbox>
 
-      {{ test() }}
-
       <BaseButton class="button" @click="saveCollectionWidgets">
         Save
       </BaseButton>
@@ -100,9 +98,6 @@ export default {
     ]),
     removeSelectedFilter(index) {
       this.collectionProxy.splice(index, 1)
-    },
-    test() {
-      console.log(this.collectionProxy)
     },
     onChange(args) {
       const {id, checked} = args

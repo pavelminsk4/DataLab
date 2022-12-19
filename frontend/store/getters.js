@@ -113,6 +113,14 @@ export default {
     return state.contentVolumeTopSources
   },
 
+  [get.CONTENT_VOLUME_TOP_AUTHORS](state) {
+    return state.contentVolumeTopAuthors
+  },
+
+  [get.CONTENT_VOLUME_TOP_COUNTRIES](state) {
+    return state.contentVolumeTopCountries
+  },
+
   [get.DIMENSIONS](state) {
     return state.dimensions
   },

@@ -1,7 +1,7 @@
 <template>
   <WidgetsLayout
-    v-if="contentVolumeTopSources"
-    :title="widgets['content_volume_top_10_source_widget'].title"
+    v-if="contentVolumeTopAuthors"
+    :title="widgets['content_volume_top_10_authors_widget'].title"
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
   >
@@ -14,14 +14,14 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
+import {mapActions, mapGetters} from 'vuex'
 
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
 import LineChart from '@/components/project/widgets/charts/LineChart'
 
 export default {
-  name: 'ContentVolumeTopSources',
+  name: 'ContentVolumeTopAuthors',
   components: {LineChart, WidgetsLayout},
   props: {
     projectId: {
@@ -34,26 +34,26 @@ export default {
     },
   },
   created() {
-    this[action.GET_CONTENT_VOLUME_TOP_SOURCES]({
+    this[action.GET_CONTENT_VOLUME_TOP_AUTHORS]({
       projectId: this.projectId,
       value: {
         author_dim_pivot:
-          this.widgets['content_volume_top_10_source_widget']
+          this.widgets['content_volume_top_10_authors_widget']
             .author_dim_pivot || null,
         language_dim_pivot:
-          this.widgets['content_volume_top_10_source_widget']
+          this.widgets['content_volume_top_10_authors_widget']
             .language_dim_pivot || null,
         country_dim_pivot:
-          this.widgets['content_volume_top_10_source_widget']
+          this.widgets['content_volume_top_10_authors_widget']
             .country_dim_pivot || null,
         sentiment_dim_pivot:
-          this.widgets['content_volume_top_10_source_widget']
+          this.widgets['content_volume_top_10_authors_widget']
             .sentiment_dim_pivot || null,
         source_dim_pivot:
-          this.widgets['content_volume_top_10_source_widget']
+          this.widgets['content_volume_top_10_authors_widget']
             .source_dim_pivot || null,
         smpl_freq:
-          this.widgets['content_volume_top_10_source_widget']
+          this.widgets['content_volume_top_10_authors_widget']
             .aggregation_period,
       },
     })
@@ -102,13 +102,13 @@ export default {
   },
   computed: {
     ...mapGetters({
-      contentVolumeTopSources: get.CONTENT_VOLUME_TOP_SOURCES,
+      contentVolumeTopAuthors: get.CONTENT_VOLUME_TOP_AUTHORS,
     }),
     labels() {
       let labelsCollection = []
       let keys = []
 
-      Object.values(this.contentVolumeTopSources).forEach((el) => {
+      Object.values(this.contentVolumeTopAuthors).forEach((el) => {
         keys.push(Object.keys(el))
         labelsCollection.push(el[keys[0]])
       })
@@ -130,7 +130,7 @@ export default {
         '#D930F4',
       ]
 
-      Object.values(this.contentVolumeTopSources).forEach((el, index) => {
+      Object.values(this.contentVolumeTopAuthors).forEach((el, index) => {
         datasetsValue.push({
           label: Object.keys(el)[0],
           borderColor: lineColors[index],
@@ -158,7 +158,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions([action.GET_CONTENT_VOLUME_TOP_SOURCES]),
+    ...mapActions([action.GET_CONTENT_VOLUME_TOP_AUTHORS]),
     formatDate(date) {
       return new Date(date).toLocaleString('en-US', {
         month: 'short',

@@ -79,6 +79,18 @@
     @close="openModal('isOpenContent10SourcesModal')"
   />
 
+  <ContentTop10CountriesModal
+    v-if="isOpenContent10CountriesModal"
+    :project-id="projectId"
+    @close="openModal('isOpenContent10CountriesModal')"
+  />
+
+  <ContentTop10AuthorsModal
+    v-if="isOpenContent10AuthorsModal"
+    :project-id="projectId"
+    @close="openModal('isOpenContent10AuthorsModal')"
+  />
+
   <grid-layout
     v-if="availableWidgets"
     v-model:layout="layoutProxy"
@@ -150,6 +162,8 @@ import Top10BrandsWidget from '@/components/project/widgets/Top10BrandsWidget'
 import Top10CountriesWidget from '@/components/project/widgets/Top10CountriesWidget'
 import Top10LanguagesWidget from '@/components/project/widgets/Top10LanguagesWidget'
 import Top10AuthorsByVolumeWidget from '@/components/project/widgets/Top10AuthorsByVolumeWidget'
+import ContentVolumeTopAuthorsWidget from '@/components/project/widgets/ContentVolumeTopAuthorsWidget'
+import ContentVolumeTopCountriesWidget from '@/components/project/widgets/ContentVolumeTopCountriesWidget'
 
 import TopAuthorsSettingsModal from '@/components/project/widgets/modals/TopAuthorsSettingsModal'
 import ContentVolumeSettingsModal from '@/components/project/widgets/modals/ContentVolumeSettingsModal'
@@ -165,10 +179,14 @@ import SentimentTopAuthorsModal from '@/components/project/widgets/modals/Sentim
 import SentimentTopLanguagesModal from '@/components/project/widgets/modals/SentimentTopLanguagesModal'
 import SentimentForPeriodModal from '@/components/project/widgets/modals/SentimentForPeriodModal'
 import ContentTop10SourcesModal from '@/components/project/widgets/modals/ContentTop10SourcesModal'
+import ContentTop10AuthorsModal from '@/components/project/widgets/modals/ContentTop10AuthorsModal'
+import ContentTop10CountriesModal from '@/components/project/widgets/modals/ContentTop10CountriesModal'
 
 export default {
   name: 'WidgetsView',
   components: {
+    ContentTop10AuthorsModal,
+    ContentTop10CountriesModal,
     ContentTop10SourcesModal,
     SentimentForPeriodModal,
     SentimentTopLanguagesModal,
@@ -195,6 +213,8 @@ export default {
     Top10AuthorsByVolumeWidget,
     Top10LanguagesWidget,
     SentimentForPeriodWidget,
+    ContentVolumeTopCountriesWidget,
+    ContentVolumeTopAuthorsWidget,
     ContentVolumeTopSourcesWidget,
     GridLayout: VueGridLayout.GridLayout,
     GridItem: VueGridLayout.GridItem,
@@ -225,6 +245,8 @@ export default {
       isOpenSentimentLanguagesModal: false,
       isOpenSentimentForPeriodModal: false,
       isOpenContent10SourcesModal: false,
+      isOpenContent10CountriesModal: false,
+      isOpenContent10AuthorsModal: false,
       layout: [],
     }
   },
@@ -372,6 +394,18 @@ export default {
           return {
             name: 'SentimentForPeriod',
             openModal: 'isOpenSentimentForPeriodModal',
+            h: 12,
+          }
+        case 'content_volume_top_10_authors_widget':
+          return {
+            name: 'ContentVolumeTopAuthors',
+            openModal: 'isOpenContent10AuthorsModal',
+            h: 12,
+          }
+        case 'content_volume_top_10_countries_widget':
+          return {
+            name: 'ContentVolumeTopCountries',
+            openModal: 'isOpenContent10CountriesModal',
             h: 12,
           }
       }

@@ -77,6 +77,14 @@ export default {
     state.contentVolumeTopSources = contentVolumeSources
   },
 
+  [mutator.SET_CONTENT_VOLUME_TOP_AUTHORS](state, contentVolumeAuthors) {
+    state.contentVolumeTopAuthors = contentVolumeAuthors
+  },
+
+  [mutator.SET_CONTENT_VOLUME_TOP_COUNTRIES](state, contentVolumeCountries) {
+    state.contentVolumeTopCountries = contentVolumeCountries
+  },
+
   [mutator.DELETE_KEYWORDS_LIST](state, index) {
     state.keywords.splice(index, 1)
   },
