@@ -7,7 +7,7 @@ from django.shortcuts import get_object_or_404
 from docx import Document
 from docx.shared import Inches, Pt
 from .chartjs import prepare_widget_images
-#import aspose.words as aw
+import aspose.words as aw
 
 from docx.shared import Pt
 from docx.oxml.ns import qn
