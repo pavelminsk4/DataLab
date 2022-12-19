@@ -270,19 +270,14 @@ export default {
     )
   },
 
-  async createAlert({projectId, data}) {
+  async createAlert(data) {
     const config = {
       headers: {
         'content-type': 'application/json',
         'X-CSRFToken': CSRF_TOKEN,
       },
     }
-    return fetch(
-      'post',
-      `/projects/${projectId}/reports/regular_reports/`,
-      data,
-      config
-    )
+    return fetch('post', '/api/alerts/', data, config)
   },
 
   async updateAlert({data, alertId}) {

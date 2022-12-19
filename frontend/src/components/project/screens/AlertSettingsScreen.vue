@@ -14,7 +14,7 @@
       </BaseButton>
       <BaseButton
         v-if="this.$route.name === 'UpdateAlert'"
-        @click="updateAlert"
+        @click="saveChanges"
         class="button"
       >
         Update Alert
@@ -202,7 +202,7 @@ export default {
       action.UPDATE_NEW_ALERT,
       action.GET_ALERTS,
     ]),
-    createAlert() {
+    async createAlert() {
       this[action.CREATE_NEW_ALERT]({
         title: this.title,
         triggered_on_every_n_new_posts: this.trigger,
@@ -211,6 +211,9 @@ export default {
         project: this.projectId,
         user: [...this.usersId],
       })
+
+      this.loading = false
+      await this[action.GET_ALERTS](this.projectId)
     },
     updateAlert() {
       this[action.UPDATE_NEW_ALERT]({
@@ -225,23 +228,19 @@ export default {
         alertId: this.alertId,
       })
     },
-    saveChanges() {
+    async saveChanges() {
       if (this.$route.name === 'NewAlert') {
-        this.createAlert()
+        await this.createAlert()
 
         this.loading = true
-        this[action.GET_ALERTS](this.projectId)
-
-        this.loading = true
-        this.$router.push({
+        await this.$router.push({
           name: 'Alerts',
         })
       } else {
         this.updateAlert()
 
-        this[action.GET_ALERTS](this.projectId)
-
-        this.$router.push({
+        this.loading = true
+        await this.$router.push({
           name: 'Alerts',
         })
       }
