@@ -80,5 +80,8 @@ def content_volume_top_10_countries(request, pk):
             list_dates.append({"date": date, "post_count": results[elem][top_countries[elem]][i]['created_count']})
       else:
         list_dates.append({"date": date, "post_count": 0})
-    res.append({top_countries[elem]: list_dates})    
+    if (top_countries[elem] == '') or (top_countries[elem] == None) or ('img' in top_countries[elem]) or (top_countries[elem] == 'None') or (top_countries[elem] == 'null') or not top_countries[elem]:    
+      res.append({'Missing in source': list_dates}) 
+    else:
+      res.append({top_countries[elem]: list_dates})    
   return JsonResponse(res, safe = False)

@@ -73,4 +73,10 @@ def sentiment_top_10_countries(pk):
           sentiments.remove(sen)
     for sen in sentiments:
       results[top_countries[i]].append({'sentiment': sen, 'sentiment_count': 0})
-  return JsonResponse(results, safe = False)
+  res = {}
+  for key in results:
+    if key == '' or key == None or 'img' in key or key == 'None' or key == 'null' or not key:
+      res['Missing in source'] = results[key]    
+    else:  
+      res[key] = results[key]      
+  return JsonResponse(res, safe = False)

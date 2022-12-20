@@ -80,5 +80,8 @@ def content_volume_top_10_source(request, pk):
             list_dates.append({"date": date, "post_count": results[elem][top_brands[elem]][i]['created_count']})
       else:
         list_dates.append({"date": date, "post_count": 0})
-    res.append({top_brands[elem]: list_dates})    
+    if (top_brands[elem] == '') or (top_brands[elem] == None) or ('img' in top_brands[elem]) or (top_brands[elem] == 'None') or (top_brands[elem] == 'null') or not top_brands[elem]:     
+      res.append({'Missing in source': list_dates}) 
+    else:
+      res.append({top_brands[elem]: list_dates})    
   return JsonResponse(res, safe = False)
