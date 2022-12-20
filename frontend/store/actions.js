@@ -480,10 +480,13 @@ export default {
     }
   },
 
-  async [action.UPDATE_NEW_REGULAR_REPORT]({commit}, {projectId, data}) {
+  async [action.UPDATE_NEW_REGULAR_REPORT](
+    {commit},
+    {projectId, regularReportId, data}
+  ) {
     commit(mutator.SET_LOADING, true)
     try {
-      await api.updateRegularReport({projectId, data})
+      await api.updateRegularReport({projectId, regularReportId, data})
     } catch (e) {
       console.log(e)
     } finally {

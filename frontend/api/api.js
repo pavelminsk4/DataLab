@@ -305,7 +305,7 @@ export default {
     )
   },
 
-  async updateRegularReport({projectId, data}) {
+  async updateRegularReport({projectId, regularReportId, data}) {
     const config = {
       headers: {
         'content-type': 'application/json',
@@ -314,7 +314,7 @@ export default {
     }
     return fetch(
       'patch',
-      `/projects/${projectId}/reports/regular_reports/`,
+      `/projects/${projectId}/reports/regular_reports/${regularReportId}/`,
       data,
       config
     )

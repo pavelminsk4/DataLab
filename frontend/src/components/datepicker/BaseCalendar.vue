@@ -398,4 +398,26 @@ export default {
 
   border: none;
 }
+
+.dp__month_year_select {
+  color: var(--primary-text-color);
+}
+
+.dp__overlay {
+  background: var(--secondary-bg-color);
+}
+
+.dp__overlay_cell {
+  color: var(--primary-text-color);
+  background: var(--primary-bg-color);
+}
+
+.dp__time_display {
+  color: var(--primary-text-color);
+}
+
+.dp__button_bottom {
+  color: var(--primary-text-color);
+  background-color: var(--primary-button-color);
+}
 </style>

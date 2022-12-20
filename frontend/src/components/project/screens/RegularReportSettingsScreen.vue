@@ -21,42 +21,55 @@
       </BaseButton>
     </NavigationBar>
 
-    <div class="create-report-wrapper">
-      <div class="title">Regular Report Title</div>
-      <BaseInput v-model="title" class="input-title" placeholder="Title" />
+    <section class="create-report-section">
+      <div class="create-report-wrapper">
+        <div class="title">Regular Report Title</div>
+        <BaseInput v-model="title" class="input-title" placeholder="Title" />
 
-      <div class="title">Recipient's email</div>
+        <div class="title">Recipient's email</div>
 
-      <div class="email-wrapper">
-        <div :class="['email-field', visible && 'active-email-field']">
-          <div
-            v-for="(item, index) in selectedUsers || []"
-            :key="item"
-            :class="['selected-user', 'duplicate' && isDuplicate]"
-          >
-            {{ item.email }}
-            <DeleteTagButton @click="removeTag(index)" />
+        <div class="email-wrapper">
+          <div :class="['email-field', visible && 'active-email-field']">
+            <div
+              v-for="(item, index) in selectedUsers || []"
+              :key="item"
+              :class="['selected-user', 'duplicate' && isDuplicate]"
+            >
+              {{ item.email }}
+              <DeleteTagButton @click="removeTag(index)" />
+            </div>
+            <div @click="addUsers" class="add-users-button">
+              Add Users <AddButtonIcon />
+            </div>
           </div>
-          <div @click="addUsers" class="add-users-button">
-            Add Users <AddButtonIcon />
-          </div>
+
+          <ul v-if="visible" class="select-list">
+            <li
+              v-for="(item, index) in projectMembers"
+              :key="item.username + index"
+              class="select-item"
+              @click="select(item)"
+            >
+              {{ item.email }}
+            </li>
+          </ul>
         </div>
 
-        <ul v-if="visible" class="select-list">
-          <li
-            v-for="(item, index) in projectMembers"
-            :key="item.username + index"
-            class="select-item"
-            @click="select(item)"
-          >
-            {{ item.email }}
-          </li>
-        </ul>
+        <div class="title">Email Title</div>
+        <BaseInput
+          v-model="emailTitle"
+          class="input-title"
+          placeholder="Title"
+        />
       </div>
-
-      <div class="title">Email Title</div>
-      <BaseInput v-model="emailTitle" class="input-title" placeholder="Title" />
-    </div>
+      <TimePickerReports
+        @repeat-time="repeatTime"
+        @ending-date="endingDate"
+        @update-ending-date="updateEndingDate"
+        @select-template="addTemplate"
+        :regular-report="currentReport"
+      />
+    </section>
   </div>
 </template>
 
@@ -66,6 +79,7 @@ import {action, get} from '@store/constants'
 
 import BaseButton from '@/components/buttons/BaseButton'
 import NavigationBar from '@/components/navigation/NavigationBar'
+import TimePickerReports from '@/components/project/screens/TimePickerReports'
 import DeleteTagButton from '@/components/icons/DeleteTagButton'
 import AddButtonIcon from '@/components/icons/AddButtonIcon'
 import BaseInput from '@/components/BaseInput'
@@ -73,6 +87,7 @@ import BaseInput from '@/components/BaseInput'
 export default {
   name: 'RegularReportSettingsScreen',
   components: {
+    TimePickerReports,
     BaseInput,
     AddButtonIcon,
     DeleteTagButton,
@@ -83,6 +98,9 @@ export default {
     return {
       title: '',
       emailTitle: '',
+      hour: '*',
+      templateId: null,
+      endingDateValue: null,
       visible: false,
       isDuplicate: false,
       selectedUsers: [],
@@ -176,6 +194,18 @@ export default {
       action.UPDATE_NEW_REGULAR_REPORT,
       action.GET_REGULAR_REPORTS,
     ]),
+    repeatTime(val) {
+      this.hour = val
+    },
+    endingDate(val) {
+      this.endingDateValue = val
+    },
+    updateEndingDate(val) {
+      this.endingDateValue = val
+    },
+    addTemplate(val) {
+      this.templateId = val
+    },
     async createRegularReport() {
       await this[action.CREATE_NEW_REGULAR_REPORT]({
         projectId: this.projectId,
@@ -183,6 +213,9 @@ export default {
           title: this.title,
           project: this.projectId,
           email_title: this.emailTitle,
+          hour: this.hour,
+          ending_date: this.endingDateValue,
+          template: this.templateId,
           user: [...this.usersId],
         },
       })
@@ -193,6 +226,7 @@ export default {
     updateRegularReport() {
       this[action.UPDATE_NEW_REGULAR_REPORT]({
         projectId: this.projectId,
+        regularReportId: this.$route.params.regularReportId,
         data: {
           title: this.title,
           project: this.projectId,
@@ -244,7 +278,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.create-report-section {
+  display: flex;
+  gap: 78px;
+}
+
 .create-report-wrapper {
+  width: 100%;
   margin-top: 40px;
 
   .title {
@@ -419,5 +459,11 @@ export default {
 
 .button-update {
   width: 184px;
+}
+
+@media screen and (max-width: 1050px) {
+  .create-report-section {
+    flex-direction: column;
+  }
 }
 </style>
