@@ -34,7 +34,7 @@ def create_periodic_task(sender, instance, created, **kwargs):
   if created:
     crontab_schedule = CrontabSchedule.objects.create(
       minute = instance.minute,
-      hour = instance.minute,
+      hour = instance.hour,
       day_of_week = instance.day_of_week,
       day_of_month = instance.day_of_month,
     )
