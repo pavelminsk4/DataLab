@@ -42,7 +42,8 @@ def create_periodic_task(sender, instance, created, **kwargs):
     periodic_task = PeriodicTask.objects.create(
       crontab = crontab_schedule,
       name = 'REGULAR_REPORT_' + instance.title + str(datetime.now()),
-      task='reports.tasks.regular_report_sender',
+      task = 'reports.tasks.regular_report_sender',
+      args = [ instance.id ],
     )
     instance.periodic_task = periodic_task
     instance.save()
