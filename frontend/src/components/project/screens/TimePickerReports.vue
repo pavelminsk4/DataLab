@@ -14,90 +14,105 @@
     <section class="time-picker-settings-wrapper">
       <div class="title">Repeat time</div>
       <div v-if="timePickerName === 'Hourly'" class="frequency-sending">
-        Every
-        <BaseInput v-model="hours" class="hours-counter">
-          <div class="arrows-wrapper">
-            <ArrowDownIcon
-              @click="increase('hours')"
-              class="arrow-input arrow-increase"
-            />
-            <ArrowDownIcon
-              @click="decrease('hours')"
-              :class="['arrow-input', hours === 1 && 'disabled']"
-            />
-          </div>
-        </BaseInput>
-        hour
+        <div class="repeat-time-wrapper">
+          Every
+          <BaseInput v-model="hours" class="hours-counter">
+            <div class="arrows-wrapper">
+              <ArrowDownIcon
+                @click="increase('hours')"
+                class="arrow-input arrow-increase"
+              />
+              <ArrowDownIcon
+                @click="decrease('hours')"
+                :class="['arrow-input', hours === 1 && 'disabled']"
+              />
+            </div>
+          </BaseInput>
+          hour
+        </div>
+        <GeneralSettingReport
+          @ending-date="endingDateHourly"
+          @update-ending-date="updateEndingDateHourly"
+          @select-template="selectHourlyTemplate"
+        />
       </div>
 
-      <div class="title">The ending</div>
-      <div class="radio-wrapper">
-        <BaseRadio
-          v-for="(item, index) in endingDate"
-          :key="item + index"
-          :checked="item"
-          :value="selectedValue"
-          class="radio-btn"
-          @change="changeValue(item)"
-        >
-          <template #default>
-            <div class="not-check"><CheckRadioIcon class="check-icon" /></div>
-            {{ item }}
-          </template>
-        </BaseRadio>
-
+      <div v-if="timePickerName === 'Daily'" class="frequency-sending">
         <Datepicker
-          v-if="selectedValue === 'Date'"
-          v-model="hoursDate"
-          :close-on-auto-apply="true"
-          :format="formatDate"
-          :is-24="false"
-          @update:model-value="handleDate"
-          placeholder="Select date"
+          v-model="timePickerValueDaily"
+          @update:model-value="handleTimePickerDaily"
+          time-picker
           auto-apply
-          class="date-picker"
+          :is-24="false"
+          placeholder="Time"
+          menu-class-name="time-picker-menu"
+          class="time-picker"
         >
           <template #input-icon>
-            <CalendarIcon class="input-slot-image" />
+            <ClockIcon class="input-slot-image" />
           </template>
         </Datepicker>
+
+        <GeneralSettingReport
+          @ending-date="endingDateHourly"
+          @update-ending-date="updateEndingDateHourly"
+          @select-template="selectHourlyTemplate"
+        />
       </div>
 
-      <div class="title">Template</div>
-      <BaseSelect
-        v-model="template"
-        placeholder="Select Template"
-        name="template"
-        :list="titleTemplates"
-        :is-reject-selection="false"
-        @select-option="selectItem"
-        class="select"
-      />
+      <div v-if="timePickerName === 'Weekly'" class="frequency-sending">
+        <div class="weekly-wrapper">
+          <div class="week-days">
+            <div
+              v-for="(item, index) in weekDays"
+              :key="item.name + index"
+              @click="chooseDay(item.value)"
+              :class="['day', activeDay === item.value && 'active-day']"
+            >
+              {{ item.name }}
+            </div>
+          </div>
+
+          <Datepicker
+            v-model="timePickerValueWeekly"
+            @update:model-value="handleTimePickerWeekly"
+            time-picker
+            auto-apply
+            :is-24="false"
+            placeholder="Time"
+            menu-class-name="time-picker-menu"
+            class="time-picker"
+          >
+            <template #input-icon>
+              <ClockIcon class="input-slot-image" />
+            </template>
+          </Datepicker>
+        </div>
+
+        <GeneralSettingReport
+          @ending-date="endingDateHourly"
+          @update-ending-date="updateEndingDateHourly"
+          @select-template="selectHourlyTemplate"
+        />
+      </div>
     </section>
   </div>
 </template>
 
 <script>
-import {action, get} from '@store/constants'
-import {mapActions, mapGetters} from 'vuex'
-
-import BaseRadio from '@/components/BaseRadio'
 import BaseInput from '@/components/BaseInput'
+import ClockIcon from '@/components/icons/ClockIcon'
 import ArrowDownIcon from '@/components/icons/ArrowDownIcon'
-import CheckRadioIcon from '@/components/icons/CheckRadioIcon'
-import BaseSelect from '@/components/BaseSelect'
+import GeneralSettingReport from '@/components/project/screens/GeneralSettingReport'
 
 import Datepicker from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
-import CalendarIcon from '@/components/icons/CalendarIcon'
 
 export default {
   name: 'TimePickerReports',
   components: {
-    CalendarIcon,
-    BaseSelect,
-    BaseRadio,
-    CheckRadioIcon,
+    GeneralSettingReport,
+    ClockIcon,
     ArrowDownIcon,
     BaseInput,
     Datepicker,
@@ -111,36 +126,28 @@ export default {
   data() {
     return {
       hours: 1,
-      selectedValue: '',
-      hoursDate: [],
-      template: '',
-      endingDate: ['Never', 'Date'],
-      timePickerName: 'Hourly',
+      timePickerValueDaily: '',
+      timePickerValueWeekly: '',
+      timePickerName: 'Daily',
       timePicker: [
         {name: 'Hourly'},
         {name: 'Daily'},
         {name: 'Weekly'},
         {name: 'Monthly'},
       ],
-      isShowCalendar: false,
+      weekDays: [
+        {name: 'Sun', value: 7},
+        {name: 'Mon', value: 1},
+        {name: 'Tue', value: 2},
+        {name: 'Wed', value: 3},
+        {name: 'Thu', value: 4},
+        {name: 'Fri', value: 5},
+        {name: 'Sat', value: 6},
+      ],
+      activeDay: null,
     }
   },
-  created() {
-    this[action.GET_TEMPLATES]()
-  },
-  computed: {
-    ...mapGetters({
-      templates: get.TEMPLATES,
-    }),
-    titleTemplates() {
-      return this.templates.map((el) => el.title)
-    },
-    calendarDate() {
-      return this.formatDate(new Date())
-    },
-  },
   methods: {
-    ...mapActions([action.GET_TEMPLATES]),
     openAccessories(e) {
       this.timePickerName =
         this.timePickerName === e.target.innerText ? null : e.target.innerText
@@ -153,29 +160,59 @@ export default {
       this[val] = this[val] - 1
       this.$emit('repeat-time', this[val])
     },
-    changeValue(newValue) {
-      this.selectedValue = newValue
-      this.$emit('ending-date', this.selectedValue)
+    handleTimePickerDaily(modelTime) {
+      this.$emit('update-time-daily', modelTime)
     },
-    openCalendar() {
-      this.isShowCalendar = !this.isShowCalendar
+    handleTimePickerWeekly(modelTime) {
+      this.$emit('update-time-weekly', modelTime)
     },
-    handleDate(modelData) {
-      this.$emit('update-ending-date', modelData)
+    chooseDay(val) {
+      this.activeDay = val
+      this.$emit('choose-weekly-day', val)
     },
-    selectItem(name, val) {
-      let currentElement = this.templates.filter((el) => el.title === val)
-      this.$emit('select-template', currentElement[0].id)
+    endingDateHourly(val) {
+      switch (this.timePickerName) {
+        case 'Hourly':
+          return this.$emit('ending-date-hourly', val, 'endingTimeHourly')
+        case 'Daily':
+          return this.$emit('ending-date-hourly', val, 'endingTimeDaily')
+        case 'Weekly':
+          return this.$emit('ending-date-hourly', val, 'endingTimeWeekly')
+        case 'Monthly':
+          return this.$emit('ending-date-hourly', val)
+      }
     },
-    formatDate(date) {
-      return new Date(date).toLocaleString('en-US', {
-        month: 'short',
-        day: 'numeric',
-        year: 'numeric',
-        hour12: true,
-        hour: 'numeric',
-        minute: 'numeric',
-      })
+    updateEndingDateHourly(val) {
+      switch (this.timePickerName) {
+        case 'Hourly':
+          return this.$emit(
+            'update-ending-date-hourly',
+            val,
+            'endingTimeHourly'
+          )
+        case 'Daily':
+          return this.$emit('update-ending-date-hourly', val, 'endingTimeDaily')
+        case 'Weekly':
+          return this.$emit(
+            'update-ending-date-hourly',
+            val,
+            'endingTimeWeekly'
+          )
+        case 'Monthly':
+          return this.$emit('update-ending-date-hourly', val)
+      }
+    },
+    selectHourlyTemplate(val) {
+      switch (this.timePickerName) {
+        case 'Hourly':
+          return this.$emit('select-hourly-template', val, 'hourlyTemplate')
+        case 'Daily':
+          return this.$emit('select-hourly-template', val, 'dailyTemplate')
+        case 'Weekly':
+          return this.$emit('select-hourly-template', val, 'weeklyTemplate')
+        case 'Monthly':
+          return this.$emit('select-hourly-template', val)
+      }
     },
   },
 }
@@ -211,6 +248,18 @@ export default {
   }
 }
 
+.repeat-time-wrapper {
+  display: flex;
+  align-items: flex-end;
+
+  margin: 15px 0 40px;
+
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+}
+
 .time-picker-settings-wrapper {
   position: relative;
 
@@ -226,7 +275,7 @@ export default {
 
   .frequency-sending {
     display: flex;
-    align-items: flex-end;
+    flex-direction: column;
 
     margin: 15px 0 40px;
 
@@ -276,83 +325,58 @@ export default {
   line-height: 110%;
 }
 
-.select {
-  margin-top: 16px;
-}
-
-.check-icon {
-  display: none;
-}
-
-.radio-btn {
-  display: flex;
-
-  margin: 0 25px 8px 0;
-
-  color: var(--primary-text-color);
-
-  cursor: pointer;
-}
-
-.not-check {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 20px;
-  height: 20px;
-  margin-right: 7px;
-
-  border: 1px solid var(--secondary-text-color);
-  border-radius: 50px;
-
-  cursor: pointer;
-}
-
-.radio-wrapper {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-
-  margin: 10px 0 25px;
-}
-
-.radio-wrapper > .selected {
-  background: none;
-}
-
-.radio-wrapper > .selected .not-check {
-  border: none;
-  background: var(--primary-button-color);
-}
-
-.radio-wrapper > .selected .check-icon {
-  display: flex;
-}
-
 .input-slot-image {
-  margin-left: 15px;
+  margin: 0 10px 0 16px;
+}
 
-  color: var(--primary-text-color);
+.time-picker {
+  width: 135px;
+
+  margin-bottom: 40px;
+
+  background: var(--progress-line);
+  border-radius: 10px;
+}
+
+.weekly-wrapper {
+  display: flex;
+
+  .week-days {
+    display: flex;
+    gap: 5px;
+
+    margin-right: 32px;
+
+    .day {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      width: 40px;
+      height: 40px;
+
+      background: var(--progress-line);
+      border: 1px solid var(--modal-border-color);
+      border-radius: 10px;
+
+      cursor: pointer;
+
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 110%;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .active-day {
+      background: var(--primary-button-color);
+    }
+  }
 }
 </style>
 
 <style>
-.dp__input_wrap {
-  width: 240px;
-  height: 40px;
-}
-
-.dp__input_readonly {
-  background: #34353b;
-  border: 1px solid #404046;
-  border-radius: 10px;
-
-  color: var(--primary-text-color);
-}
-
-.dp__arrow_top {
-  border: none;
-  background: #404046;
+.time-picker-menu {
+  padding: 0;
 }
 </style>
