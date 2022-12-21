@@ -64,9 +64,12 @@
       </div>
       <TimePickerReports
         @repeat-time="repeatTime"
-        @ending-date="endingDate"
-        @update-ending-date="updateEndingDate"
-        @select-template="addTemplate"
+        @update-time-daily="updateTimeDaily"
+        @choose-weekly-day="chooseWeeklyDay"
+        @update-time-weekly="updateTimeWeekly"
+        @ending-date-hourly="endingDateHourly"
+        @update-ending-date-hourly="updateEndingDateHourly"
+        @select-hourly-template="selectHourlyTemplate"
         :regular-report="currentReport"
       />
     </section>
@@ -99,8 +102,18 @@ export default {
       title: '',
       emailTitle: '',
       hour: '*',
-      templateId: null,
-      endingDateValue: null,
+      hourlyEnabled: false,
+      endingTimeHourly: '',
+      hourlyTemplate: '',
+      dailyEnabled: false,
+      endingTimeDaily: '',
+      timePickerDailyValue: [],
+      dailyTemplate: '',
+      weeklyEnabled: false,
+      dayOfWeek: '',
+      timePickerWeeklyValue: [],
+      weeklyTemplate: '',
+      endingTimeWeekly: '',
       visible: false,
       isDuplicate: false,
       selectedUsers: [],
@@ -195,16 +208,28 @@ export default {
       action.GET_REGULAR_REPORTS,
     ]),
     repeatTime(val) {
+      this.hourlyEnabled = true
       this.hour = val
     },
-    endingDate(val) {
-      this.endingDateValue = val
+    updateTimeDaily(val) {
+      this.dailyEnabled = true
+      this.timePickerDailyValue = val
     },
-    updateEndingDate(val) {
-      this.endingDateValue = val
+    updateTimeWeekly(val) {
+      this.timePickerWeeklyValue = val
     },
-    addTemplate(val) {
-      this.templateId = val
+    chooseWeeklyDay(val) {
+      this.weeklyEnabled = true
+      this.dayOfWeek = val
+    },
+    endingDateHourly(val, name) {
+      this[name] = val
+    },
+    updateEndingDateHourly(val, name) {
+      this[name] = val
+    },
+    selectHourlyTemplate(val, name) {
+      this[name] = val
     },
     async createRegularReport() {
       await this[action.CREATE_NEW_REGULAR_REPORT]({
@@ -213,9 +238,22 @@ export default {
           title: this.title,
           project: this.projectId,
           email_title: this.emailTitle,
-          hour: this.hour,
-          ending_date: this.endingDateValue,
-          template: this.templateId,
+          h_hour: `*/${this.hour}`,
+          h_minute: 0,
+          hourly_enabled: this.hourlyEnabled,
+          h_ending_date: this.endingTimeHourly,
+          h_template: this.hourlyTemplate,
+          daily_enabled: this.dailyEnabled,
+          d_hour: this.timePickerDailyValue.hours,
+          d_minute: this.timePickerDailyValue.minutes,
+          d_ending_date: this.endingTimeDaily,
+          d_template: this.dailyTemplate,
+          weekly_enabled: this.weeklyEnabled,
+          w_day_of_week: this.dayOfWeek,
+          w_hour: this.timePickerWeeklyValue.hours,
+          w_minute: this.timePickerWeeklyValue.minutes,
+          w_ending_date: this.endingTimeWeekly,
+          w_template: this.weeklyTemplate,
           user: [...this.usersId],
         },
       })
