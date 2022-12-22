@@ -5,7 +5,7 @@
         v-for="button in timePicker"
         :key="button.name"
         :class="[timePickerName === button.name && 'active-button']"
-        @click="openAccessories"
+        @click="toggleTimePickerSettings"
       >
         {{ button.name }}
       </div>
@@ -16,15 +16,15 @@
       <div v-if="timePickerName === 'Hourly'" class="frequency-sending">
         <div class="repeat-time-wrapper">
           Every
-          <BaseInput v-model="hours" class="hours-counter">
+          <BaseInput v-model="hour" class="hours-counter">
             <div class="arrows-wrapper">
               <ArrowDownIcon
-                @click="increase('hours')"
+                @click="increase('hour')"
                 class="arrow-input arrow-increase"
               />
               <ArrowDownIcon
-                @click="decrease('hours')"
-                :class="['arrow-input', hours === 1 && 'disabled']"
+                @click="decrease('hour')"
+                :class="['arrow-input', hour === 1 && 'disabled']"
               />
             </div>
           </BaseInput>
@@ -95,6 +95,48 @@
           @select-template="selectHourlyTemplate"
         />
       </div>
+
+      <div v-if="timePickerName === 'Monthly'" class="frequency-sending">
+        <div class="monthly-wrapper">
+          <div class="repeat-time-wrapper">
+            Every
+            <BaseInput v-model="dayOfMonth" class="hours-counter">
+              <div class="arrows-wrapper">
+                <ArrowDownIcon
+                  @click="increase('dayOfMonth')"
+                  class="arrow-input arrow-increase"
+                />
+                <ArrowDownIcon
+                  @click="decrease('dayOfMonth')"
+                  :class="['arrow-input', dayOfMonth === 1 && 'disabled']"
+                />
+              </div>
+            </BaseInput>
+            day
+          </div>
+
+          <Datepicker
+            v-model="timePickerValueMonthly"
+            @update:model-value="handleTimePickerMonthly"
+            time-picker
+            auto-apply
+            :is-24="false"
+            placeholder="Time"
+            menu-class-name="time-picker-menu"
+            class="time-picker monthly-picker"
+          >
+            <template #input-icon>
+              <ClockIcon class="input-slot-image" />
+            </template>
+          </Datepicker>
+        </div>
+
+        <GeneralSettingReport
+          @ending-date="endingDateHourly"
+          @update-ending-date="updateEndingDateHourly"
+          @select-template="selectHourlyTemplate"
+        />
+      </div>
     </section>
   </div>
 </template>
@@ -125,10 +167,12 @@ export default {
   },
   data() {
     return {
-      hours: 1,
+      hour: 1,
+      dayOfMonth: 1,
       timePickerValueDaily: '',
       timePickerValueWeekly: '',
-      timePickerName: 'Daily',
+      timePickerValueMonthly: '',
+      timePickerName: 'Hourly',
       timePicker: [
         {name: 'Hourly'},
         {name: 'Daily'},
@@ -148,9 +192,8 @@ export default {
     }
   },
   methods: {
-    openAccessories(e) {
-      this.timePickerName =
-        this.timePickerName === e.target.innerText ? null : e.target.innerText
+    toggleTimePickerSettings(e) {
+      this.timePickerName = e.target.innerText
     },
     increase(val) {
       this[val] = this[val] + 1
@@ -162,6 +205,9 @@ export default {
     },
     handleTimePickerDaily(modelTime) {
       this.$emit('update-time-daily', modelTime)
+    },
+    handleTimePickerMonthly(modelTime) {
+      this.$emit('update-time-monthly', modelTime)
     },
     handleTimePickerWeekly(modelTime) {
       this.$emit('update-time-weekly', modelTime)
@@ -179,7 +225,7 @@ export default {
         case 'Weekly':
           return this.$emit('ending-date-hourly', val, 'endingTimeWeekly')
         case 'Monthly':
-          return this.$emit('ending-date-hourly', val)
+          return this.$emit('ending-date-hourly', val, 'endingTimeMonthly')
       }
     },
     updateEndingDateHourly(val) {
@@ -199,7 +245,11 @@ export default {
             'endingTimeWeekly'
           )
         case 'Monthly':
-          return this.$emit('update-ending-date-hourly', val)
+          return this.$emit(
+            'update-ending-date-hourly',
+            val,
+            'endingTimeMonthly'
+          )
       }
     },
     selectHourlyTemplate(val) {
@@ -211,7 +261,7 @@ export default {
         case 'Weekly':
           return this.$emit('select-hourly-template', val, 'weeklyTemplate')
         case 'Monthly':
-          return this.$emit('select-hourly-template', val)
+          return this.$emit('select-hourly-template', val, 'monthlyTemplate')
       }
     },
   },
@@ -338,6 +388,10 @@ export default {
   border-radius: 10px;
 }
 
+.monthly-picker {
+  margin-top: 18px;
+}
+
 .weekly-wrapper {
   display: flex;
 
@@ -373,10 +427,25 @@ export default {
     }
   }
 }
+
+.monthly-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
 </style>
 
 <style>
 .time-picker-menu {
   padding: 0;
+}
+
+.dp__date_hover:hover {
+  color: var(--hover-button-color) !important;
+}
+
+.dp__arrow_bottom {
+  background-color: var(--secondary-bg-color);
+  border: none;
 }
 </style>
