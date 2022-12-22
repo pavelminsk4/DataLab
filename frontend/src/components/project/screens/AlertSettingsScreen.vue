@@ -58,26 +58,37 @@
       <div class="additional-settings">
         <div>
           <div class="title">Trigger on every N new posts</div>
-          <BaseInput v-model="trigger">
-            <div class="arrows-wrapper">
-              <ArrowDownIcon
-                @click="increase('trigger')"
-                class="arrow-input arrow-increase"
-              />
-              <ArrowDownIcon @click="decrease('trigger')" class="arrow-input" />
+          <BaseInput v-model="trigger" inputType="number" placeholder="Number">
+            <div class="control-buttons">
+              <button class="control-button">
+                <ArrowDownIcon
+                  @click="increase('trigger')"
+                  class="arrow-input arrow-increase"
+                />
+              </button>
+              <button class="control-button">
+                <ArrowDownIcon
+                  @click="decrease('trigger')"
+                  class="arrow-input"
+                />
+              </button>
             </div>
           </BaseInput>
         </div>
 
         <div>
           <div class="title">How many posts to send</div>
-          <BaseInput v-model="posts">
-            <div class="arrows-wrapper">
-              <ArrowDownIcon
-                @click="increase('posts')"
-                class="arrow-input arrow-increase"
-              />
-              <ArrowDownIcon @click="decrease('posts')" class="arrow-input" />
+          <BaseInput v-model="posts" inputType="number" placeholder="Number">
+            <div class="control-buttons">
+              <button class="control-button">
+                <ArrowDownIcon
+                  @click="increase('posts')"
+                  class="arrow-input arrow-increase"
+                />
+              </button>
+              <button class="control-button">
+                <ArrowDownIcon @click="decrease('posts')" class="arrow-input" />
+              </button>
             </div>
           </BaseInput>
         </div>
@@ -261,10 +272,10 @@ export default {
       this.usersId.splice(index, 1)
     },
     increase(val) {
-      this[val] = this[val] + 1
+      this[val] = +this[val] + 1
     },
     decrease(val) {
-      this[val] = this[val] - 1
+      this[val] = +this[val] - 1
     },
     close() {
       const selectList = document.querySelectorAll('.email-wrapper')
@@ -300,7 +311,7 @@ export default {
 .button {
   width: 116px;
 }
-.arrows-wrapper {
+.control-buttons {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -309,6 +320,12 @@ export default {
   margin-right: 18px;
 
   cursor: pointer;
+
+  .control-button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+  }
 
   .arrow-input {
     color: var(--primary-text-color);
