@@ -99,7 +99,9 @@ export default {
 
   max-width: 90vw;
   max-height: 90vh;
+  padding: 30px 50px 68px;
 
+  background: var(--secondary-bg-color);
   pointer-events: none;
   transition: transform 0.3s ease-out;
 }
@@ -133,7 +135,6 @@ export default {
 
   height: 100%;
   width: 100%;
-  padding: 30px 50px 68px;
 
   background: var(--secondary-bg-color);
   color: var(--primary-text-color);
