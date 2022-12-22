@@ -16,7 +16,7 @@
       <div v-show="timePickerName === 'Hourly'" class="frequency-sending">
         <div class="repeat-time-wrapper">
           Every
-          <BaseInput v-model="hour" class="hours-counter">
+          <BaseInput v-model="hour" placeholder="0" class="hours-counter">
             <div class="arrows-wrapper">
               <ArrowDownIcon
                 @click="increase('hour')"
@@ -31,9 +31,9 @@
           hour
         </div>
         <GeneralSettingReport
-          @ending-date="endingDateHourly"
-          @update-ending-date="updateEndingDateHourly"
-          @select-template="selectHourlyTemplate"
+          @ending-date="setEndingDate"
+          @update-ending-date="updateEndingDate"
+          @select-template="selectTemplate"
           :current-ending-time-value="regularReport.h_ending_date"
           :current-template-id="regularReport.h_template"
         />
@@ -56,9 +56,9 @@
         </Datepicker>
 
         <GeneralSettingReport
-          @ending-date="endingDateHourly"
-          @update-ending-date="updateEndingDateHourly"
-          @select-template="selectHourlyTemplate"
+          @ending-date="setEndingDate"
+          @update-ending-date="updateEndingDate"
+          @select-template="selectTemplate"
           :current-ending-time-value="regularReport.d_ending_date"
           :current-template-id="regularReport.d_template"
         />
@@ -94,9 +94,9 @@
         </div>
 
         <GeneralSettingReport
-          @ending-date="endingDateHourly"
-          @update-ending-date="updateEndingDateHourly"
-          @select-template="selectHourlyTemplate"
+          @ending-date="setEndingDate"
+          @update-ending-date="updateEndingDate"
+          @select-template="selectTemplate"
           :current-ending-time-value="regularReport.w_ending_date"
           :current-template-id="regularReport.w_template"
         />
@@ -106,7 +106,11 @@
         <div class="monthly-wrapper">
           <div class="repeat-time-wrapper">
             Every
-            <BaseInput v-model="dayOfMonth" class="hours-counter">
+            <BaseInput
+              v-model="dayOfMonth"
+              placeholder="0"
+              class="hours-counter"
+            >
               <div class="arrows-wrapper">
                 <ArrowDownIcon
                   @click="increase('dayOfMonth')"
@@ -138,9 +142,9 @@
         </div>
 
         <GeneralSettingReport
-          @ending-date="endingDateHourly"
-          @update-ending-date="updateEndingDateHourly"
-          @select-template="selectHourlyTemplate"
+          @ending-date="setEndingDate"
+          @update-ending-date="updateEndingDate"
+          @select-template="selectTemplate"
           :current-ending-time-value="regularReport.m_ending_date"
           :current-template-id="regularReport.m_template"
         />
@@ -200,7 +204,7 @@ export default {
     }
   },
   created() {
-    if (this.regularReport) {
+    if (this.regularReport.length) {
       this.hour = this.regularReport.h_hour
       this.activeDay = +this.regularReport.w_day_of_week
       this.dayOfMonth = this.regularReport.m_day_of_month
@@ -246,7 +250,7 @@ export default {
       this.activeDay = val
       this.$emit('choose-weekly-day', val)
     },
-    endingDateHourly(val) {
+    setEndingDate(val) {
       switch (this.timePickerName) {
         case 'Hourly':
           return this.$emit('ending-date-hourly', val, 'endingTimeHourly')
@@ -258,7 +262,7 @@ export default {
           return this.$emit('ending-date-hourly', val, 'endingTimeMonthly')
       }
     },
-    updateEndingDateHourly(val) {
+    updateEndingDate(val) {
       switch (this.timePickerName) {
         case 'Hourly':
           return this.$emit(
@@ -282,7 +286,7 @@ export default {
           )
       }
     },
-    selectHourlyTemplate(val) {
+    selectTemplate(val) {
       switch (this.timePickerName) {
         case 'Hourly':
           return this.$emit('select-hourly-template', val, 'hourlyTemplate')

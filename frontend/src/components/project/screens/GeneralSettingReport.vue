@@ -74,7 +74,7 @@ export default {
   },
   data() {
     return {
-      selectedValue: '',
+      selectedValue: 'Never',
       template: '',
       hoursDate: '',
       endingDate: ['Never', 'Date'],

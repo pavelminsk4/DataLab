@@ -21,7 +21,7 @@
       </BaseButton>
     </NavigationBar>
 
-    <section class="create-report-section">
+    <section v-if="regularReports.length" class="create-report-section">
       <div class="create-report-wrapper">
         <div class="title">Regular Report Title</div>
         <BaseInput v-model="title" class="input-title" placeholder="Title" />
@@ -104,21 +104,21 @@ export default {
       emailTitle: '',
       hour: '*',
       hourlyEnabled: false,
-      endingTimeHourly: '',
+      endingTimeHourly: null,
       hourlyTemplate: '',
       dailyEnabled: false,
-      endingTimeDaily: '',
+      endingTimeDaily: null,
       timePickerDailyValue: [],
       dailyTemplate: '',
       weeklyEnabled: false,
-      dayOfWeek: '',
+      dayOfWeek: '*',
       timePickerWeeklyValue: [],
       weeklyTemplate: '',
-      endingTimeWeekly: '',
+      endingTimeWeekly: null,
       dayOfMonth: '*',
       monthlyEnabled: false,
       timePickerMonthlyValue: [],
-      endingTimeMonthly: '',
+      endingTimeMonthly: null,
       monthlyTemplate: '',
       visible: false,
       isDuplicate: false,
