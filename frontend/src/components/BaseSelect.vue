@@ -181,11 +181,10 @@ export default {
   position: absolute;
   z-index: 1;
   padding: 0;
-  margin: 0;
-  width: 100%;
+  margin: -1px;
+  width: calc(100% + 2px);
   max-height: 250px;
-  outline: 1px solid var(--primary-button-color);
-  border-top: 1px solid var(--modal-line-color);
+  border: 1px solid var(--primary-button-color);
   box-shadow: 0 3px 4px rgba(5, 95, 252, 0.49);
   border-radius: 0 0 10px 10px;
   background-color: var(--secondary-bg-color);
