@@ -126,12 +126,11 @@ export default {
   tbody {
     tr {
       background: var(--secondary-bg-color);
-      transition: background-color 2s;
 
       td {
         padding: 20px 0;
 
-        border-top: 1px solid #2d2d31;
+        border-top: 1px solid var(--border-color);
 
         font-style: normal;
         font-weight: 400;
@@ -141,50 +140,47 @@ export default {
       }
 
       &:hover {
-        background: rgb(5, 95, 252);
-        background: linear-gradient(
-          90deg,
-          rgba(5, 95, 252, 0.85) 0%,
-          rgba(44, 44, 44, 1) 33%
-        );
-        transition: background-size 1s, background-color 1s;
+        background: var(--hover-circle-gradient);
+        background-size: 200%;
+        animation: hover-gradient 0.3s ease;
+        -webkit-animation: hover-gradient 0.3s ease;
       }
     }
 
     td:first-child {
       padding: 15px 0 15px 29px;
 
-      border-left: 1px solid #2d2d31;
+      border-left: 1px solid var(--border-color);
     }
 
     td:last-child {
-      border-right: 1px solid #2d2d31;
+      border-right: 1px solid var(--border-color);
     }
 
     tr:first-child td:first-child {
-      border-left: 1px solid #2d2d31;
+      border-left: 1px solid var(--border-color);
       border-top-left-radius: 15px;
     }
 
     tr:first-child td:last-child {
-      border-right: 1px solid #2d2d31;
+      border-right: 1px solid var(--border-color);
       border-top-right-radius: 15px;
     }
 
     tr:last-child td:first-child {
-      border-left: 1px solid #2d2d31;
-      border-bottom: 1px solid #2d2d31;
+      border-left: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
       border-bottom-left-radius: 15px;
     }
 
     tr:last-child td:last-child {
-      border-right: 1px solid #2d2d31;
-      border-bottom: 1px solid #2d2d31;
+      border-right: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
       border-bottom-right-radius: 15px;
     }
 
     tr:last-child td {
-      border-bottom: 1px solid #2d2d31;
+      border-bottom: 1px solid var(--border-color);
     }
   }
 }

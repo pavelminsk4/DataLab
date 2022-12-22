@@ -114,7 +114,7 @@ export default {
   padding: 37px 46px 31px 33px;
 
   background: #242529;
-  border: 1px solid #2d2d31;
+  border: 1px solid var(--border-color);
   box-shadow: 0px 4px 10px rgba(16, 16, 16, 0.25);
   border-radius: 10px;
 }
@@ -128,7 +128,7 @@ export default {
   padding-bottom: 16px;
   margin-bottom: 16px;
 
-  border-bottom: 1px solid #2d2d31;
+  border-bottom: 1px solid var(--border-color);
 
   font-style: normal;
   font-weight: 400;

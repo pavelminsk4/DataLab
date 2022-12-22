@@ -84,7 +84,7 @@ export default {
   height: 130px;
   padding: 16px 21px 13px 18px;
 
-  border: 1px solid #2d2d31;
+  border: 1px solid var(--border-color);
   border-radius: 15px;
   box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
 
