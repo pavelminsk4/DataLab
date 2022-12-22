@@ -39,6 +39,7 @@
       name="template"
       :list="titleTemplates"
       :is-reject-selection="false"
+      :current-value="currentTemplate[0]?.title"
       @select-option="selectItem"
       class="select"
     />
@@ -60,16 +61,32 @@ import '@vuepic/vue-datepicker/dist/main.css'
 export default {
   name: 'GeneralSettingReport',
   components: {BaseRadio, CheckRadioIcon, BaseSelect, CalendarIcon, Datepicker},
+  props: {
+    currentEndingTimeValue: {
+      type: String,
+      required: false,
+    },
+
+    currentTemplateId: {
+      type: [String, Number],
+      required: false,
+    },
+  },
   data() {
     return {
       selectedValue: '',
       template: '',
-      hoursDate: [],
+      hoursDate: '',
       endingDate: ['Never', 'Date'],
     }
   },
   created() {
     this[action.GET_TEMPLATES]()
+
+    if (this.currentEndingTimeValue) {
+      this.selectedValue = 'Date'
+      this.hoursDate = this.currentEndingTimeValue
+    }
   },
   computed: {
     ...mapGetters({
@@ -77,6 +94,9 @@ export default {
     }),
     titleTemplates() {
       return this.templates.map((el) => el.title)
+    },
+    currentTemplate() {
+      return this.templates.filter((el) => el.id === this.currentTemplateId)
     },
     calendarDate() {
       return this.formatDate(new Date())

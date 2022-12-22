@@ -213,10 +213,10 @@ export default {
       action.UPDATE_NEW_REGULAR_REPORT,
       action.GET_REGULAR_REPORTS,
     ]),
-    repeatTime(val) {
+    repeatTime(val, name) {
       this.hourlyEnabled = true
       this.monthlyEnabled = true
-      this[val] = val
+      this[name] = val
     },
     updateTimeDaily(val) {
       this.dailyEnabled = true
@@ -248,7 +248,7 @@ export default {
           title: this.title,
           project: this.projectId,
           email_title: this.emailTitle,
-          h_hour: `*/${this.hour}`,
+          h_hour: this.hour,
           h_minute: 0,
           hourly_enabled: this.hourlyEnabled,
           h_ending_date: this.endingTimeHourly,

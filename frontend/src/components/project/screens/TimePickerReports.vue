@@ -13,7 +13,7 @@
 
     <section class="time-picker-settings-wrapper">
       <div class="title">Repeat time</div>
-      <div v-if="timePickerName === 'Hourly'" class="frequency-sending">
+      <div v-show="timePickerName === 'Hourly'" class="frequency-sending">
         <div class="repeat-time-wrapper">
           Every
           <BaseInput v-model="hour" class="hours-counter">
@@ -34,10 +34,12 @@
           @ending-date="endingDateHourly"
           @update-ending-date="updateEndingDateHourly"
           @select-template="selectHourlyTemplate"
+          :current-ending-time-value="regularReport.h_ending_date"
+          :current-template-id="regularReport.h_template"
         />
       </div>
 
-      <div v-if="timePickerName === 'Daily'" class="frequency-sending">
+      <div v-show="timePickerName === 'Daily'" class="frequency-sending">
         <Datepicker
           v-model="timePickerValueDaily"
           @update:model-value="handleTimePickerDaily"
@@ -57,10 +59,12 @@
           @ending-date="endingDateHourly"
           @update-ending-date="updateEndingDateHourly"
           @select-template="selectHourlyTemplate"
+          :current-ending-time-value="regularReport.d_ending_date"
+          :current-template-id="regularReport.d_template"
         />
       </div>
 
-      <div v-if="timePickerName === 'Weekly'" class="frequency-sending">
+      <div v-show="timePickerName === 'Weekly'" class="frequency-sending">
         <div class="weekly-wrapper">
           <div class="week-days">
             <div
@@ -93,10 +97,12 @@
           @ending-date="endingDateHourly"
           @update-ending-date="updateEndingDateHourly"
           @select-template="selectHourlyTemplate"
+          :current-ending-time-value="regularReport.w_ending_date"
+          :current-template-id="regularReport.w_template"
         />
       </div>
 
-      <div v-if="timePickerName === 'Monthly'" class="frequency-sending">
+      <div v-show="timePickerName === 'Monthly'" class="frequency-sending">
         <div class="monthly-wrapper">
           <div class="repeat-time-wrapper">
             Every
@@ -135,6 +141,8 @@
           @ending-date="endingDateHourly"
           @update-ending-date="updateEndingDateHourly"
           @select-template="selectHourlyTemplate"
+          :current-ending-time-value="regularReport.m_ending_date"
+          :current-template-id="regularReport.m_template"
         />
       </div>
     </section>
@@ -169,9 +177,9 @@ export default {
     return {
       hour: 1,
       dayOfMonth: 1,
-      timePickerValueDaily: '',
-      timePickerValueWeekly: '',
-      timePickerValueMonthly: '',
+      timePickerValueDaily: {},
+      timePickerValueWeekly: {},
+      timePickerValueMonthly: {},
       timePickerName: 'Hourly',
       timePicker: [
         {name: 'Hourly'},
@@ -191,17 +199,39 @@ export default {
       activeDay: null,
     }
   },
+  created() {
+    if (this.regularReport) {
+      this.hour = this.regularReport.h_hour
+      this.activeDay = +this.regularReport.w_day_of_week
+      this.dayOfMonth = this.regularReport.m_day_of_month
+      this.timePickerValueDaily = {
+        hours: this.regularReport.d_hour,
+        minutes: this.regularReport.d_minute,
+        seconds: 0,
+      }
+      this.timePickerValueWeekly = {
+        hours: this.regularReport.w_hour,
+        minutes: this.regularReport.w_minute,
+        seconds: 0,
+      }
+      this.timePickerValueMonthly = {
+        hours: this.regularReport.m_hour,
+        minutes: this.regularReport.m_minute,
+        seconds: 0,
+      }
+    }
+  },
   methods: {
     toggleTimePickerSettings(e) {
       this.timePickerName = e.target.innerText
     },
     increase(val) {
-      this[val] = this[val] + 1
-      this.$emit('repeat-time', this[val])
+      this[val] = +this[val] + 1
+      this.$emit('repeat-time', this[val], val)
     },
     decrease(val) {
-      this[val] = this[val] - 1
-      this.$emit('repeat-time', this[val])
+      this[val] = +this[val] - 1
+      this.$emit('repeat-time', this[val], val)
     },
     handleTimePickerDaily(modelTime) {
       this.$emit('update-time-daily', modelTime)
