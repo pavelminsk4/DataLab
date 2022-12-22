@@ -69,6 +69,7 @@
         @update-time-weekly="updateTimeWeekly"
         @ending-date-hourly="endingDateHourly"
         @update-ending-date-hourly="updateEndingDateHourly"
+        @update-time-monthly="updatePickerTimeMonthly"
         @select-hourly-template="selectHourlyTemplate"
         :regular-report="currentReport"
       />
@@ -114,6 +115,11 @@ export default {
       timePickerWeeklyValue: [],
       weeklyTemplate: '',
       endingTimeWeekly: '',
+      dayOfMonth: '*',
+      monthlyEnabled: false,
+      timePickerMonthlyValue: [],
+      endingTimeMonthly: '',
+      monthlyTemplate: '',
       visible: false,
       isDuplicate: false,
       selectedUsers: [],
@@ -209,7 +215,8 @@ export default {
     ]),
     repeatTime(val) {
       this.hourlyEnabled = true
-      this.hour = val
+      this.monthlyEnabled = true
+      this[val] = val
     },
     updateTimeDaily(val) {
       this.dailyEnabled = true
@@ -221,6 +228,9 @@ export default {
     chooseWeeklyDay(val) {
       this.weeklyEnabled = true
       this.dayOfWeek = val
+    },
+    updatePickerTimeMonthly(val) {
+      this.timePickerMonthlyValue = val
     },
     endingDateHourly(val, name) {
       this[name] = val
@@ -254,6 +264,12 @@ export default {
           w_minute: this.timePickerWeeklyValue.minutes,
           w_ending_date: this.endingTimeWeekly,
           w_template: this.weeklyTemplate,
+          m_day_of_month: this.dayOfMonth,
+          monthly_enabled: this.monthlyEnabled,
+          m_hour: this.timePickerMonthlyValue.hours,
+          m_minute: this.timePickerMonthlyValue.minutes,
+          m_ending_date: this.endingTimeMonthly,
+          m_template: this.monthlyTemplate,
           user: [...this.usersId],
         },
       })
