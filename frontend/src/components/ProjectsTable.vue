@@ -58,7 +58,7 @@ import OnlineRadioIcon from '@/components/icons/OnlineRadioIcon'
 import PremiumRadioIcon from '@/components/icons/PremiumRadioIcon'
 
 export default {
-  name: 'BaseTable',
+  name: 'ProjectsTable',
   components: {
     TableSettingsButton,
     CheckRadioIcon,
@@ -137,55 +137,62 @@ export default {
 
   tbody {
     tr {
-      background: #242529;
+      background: var(--secondary-bg-color);
+
+      &:hover {
+        background: var(--hover-circle-gradient);
+        background-size: 200%;
+        animation: hover-gradient 0.3s ease;
+        -webkit-animation: hover-gradient 0.3s ease;
+      }
 
       td {
         padding: 20px 0;
 
-        border-top: 1px solid #2d2d31;
+        border-top: 1px solid var(--border-color);
 
         font-style: normal;
         font-weight: 400;
         font-size: 14px;
         line-height: 20px;
         color: var(--primary-text-color);
+
+        &:first-child {
+          padding: 15px 0 15px 29px;
+
+          border-left: 1px solid var(--border-color);
+        }
+
+        &:last-child {
+          border-right: 1px solid var(--border-color);
+        }
       }
     }
 
-    td:first-child {
-      padding: 15px 0 15px 29px;
-
-      border-left: 1px solid #2d2d31;
-    }
-
-    td:last-child {
-      border-right: 1px solid #2d2d31;
-    }
-
-    tr:first-child td:first-child {
-      border-left: 1px solid #2d2d31;
-      border-top-left-radius: 15px;
-    }
-
-    tr:first-child td:last-child {
-      border-right: 1px solid #2d2d31;
-      border-top-right-radius: 15px;
-    }
-
-    tr:last-child td:first-child {
-      border-left: 1px solid #2d2d31;
-      border-bottom: 1px solid #2d2d31;
-      border-bottom-left-radius: 15px;
-    }
-
-    tr:last-child td:last-child {
-      border-right: 1px solid #2d2d31;
-      border-bottom: 1px solid #2d2d31;
-      border-bottom-right-radius: 15px;
+    tr:first-child td {
+      &:first-child {
+        border-left: 1px solid var(--border-color);
+        border-top-left-radius: 15px;
+      }
+      &:last-child {
+        border-right: 1px solid var(--border-color);
+        border-top-right-radius: 15px;
+      }
     }
 
     tr:last-child td {
-      border-bottom: 1px solid #2d2d31;
+      border-bottom: 1px solid var(--border-color);
+
+      &:first-child {
+        border-left: 1px solid var(--border-color);
+        border-bottom: 1px solid var(--border-color);
+        border-bottom-left-radius: 15px;
+      }
+      &:last-child {
+        border-right: 1px solid var(--border-color);
+        border-bottom: 1px solid var(--border-color);
+        border-bottom-right-radius: 15px;
+      }
     }
   }
 }
@@ -204,7 +211,7 @@ export default {
 
   border: 1px solid #9198a7;
   border-radius: 4px;
-  background-color: #2d2d31;
+  background-color: var(--border-color);
 }
 
 .type-icon {

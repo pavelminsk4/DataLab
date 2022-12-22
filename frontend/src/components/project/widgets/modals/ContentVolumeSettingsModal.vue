@@ -252,7 +252,7 @@ export default {
     padding: 18px 50px 34px 26px;
 
     background: #242529;
-    border: 1px solid #2d2d31;
+    border: 1px solid var(--border-color);
     box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
     border-radius: 10px;
 

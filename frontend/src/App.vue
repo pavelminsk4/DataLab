@@ -36,7 +36,8 @@ body {
 
   --icon-bg-color: #1a1c1e;
 
-  --input-border-color: #2d2d31;
+  --border-color: #2d2d31;
+  --input-border-color: var(--border-color);
   --modal-border-color: #404046;
   --sidebar-border-color: #2c2c2c;
   --modal-line-color: #2e2f34;
@@ -58,5 +59,20 @@ body {
   --dp-background-color: var(--input-border-color);
 
   --keyword: #f82a6c;
+
+  --hover-circle-gradient: radial-gradient(
+    circle at 2.5%,
+    rgba(5, 95, 252, 0.8),
+    #1f2022 6.5%
+  );
+}
+
+@keyframes hover-gradient {
+  0% {
+    background-position: 15% 0%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
 }
 </style>

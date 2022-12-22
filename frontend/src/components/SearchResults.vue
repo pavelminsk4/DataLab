@@ -389,7 +389,7 @@ export default {
   cursor: pointer;
 
   background: #242529;
-  border: 1px solid #2d2d31;
+  border: 1px solid var(--border-color);
   box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
   border-radius: 6px;
 
@@ -522,7 +522,7 @@ export default {
     height: 34px;
 
     background: #242529;
-    border: 1px solid #2d2d31;
+    border: 1px solid var(--border-color);
     box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
     border-radius: 6px;
 
@@ -546,7 +546,7 @@ export default {
     height: 34px;
 
     background: #242529;
-    border: 1px solid #2d2d31;
+    border: 1px solid var(--border-color);
     box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
     border-radius: 6px;
 
