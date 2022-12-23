@@ -30,7 +30,9 @@
           <span>{{ item.how_many_posts_to_send }}</span>
           <span>{{ item.triggered_on_every_n_new_posts }}</span>
         </td>
-        <td>user</td>
+        <td>
+          <MembersIconsBar :members="alertsUsers(item.user)" />
+        </td>
       </tr>
     </tbody>
   </table>
@@ -43,6 +45,7 @@ import {action, get} from '@store/constants'
 
 import BaseButton from '@/components/buttons/BaseButton'
 import NavigationBar from '@/components/navigation/NavigationBar'
+import MembersIconsBar from '@components/MembersIconsBar.vue'
 
 import PlusIcon from '@/components/icons/PlusIcon'
 
@@ -52,6 +55,7 @@ export default {
     PlusIcon,
     BaseButton,
     NavigationBar,
+    MembersIconsBar,
   },
   props: {
     currentProject: {
@@ -65,7 +69,16 @@ export default {
   computed: {
     ...mapGetters({
       alerts: get.ALERTS,
+      workspaces: get.WORKSPACES,
     }),
+    currentWorkspace() {
+      return this.workspaces.find(
+        (el) => el.id === +this.$route.params.workspaceId
+      )
+    },
+    workspaceMembers() {
+      return this.currentWorkspace.members
+    },
   },
   methods: {
     ...mapActions([action.GET_ALERTS]),
@@ -81,6 +94,11 @@ export default {
           alertId: id,
         },
       })
+    },
+    alertsUsers(alertsUsersIds) {
+      return this.workspaceMembers.filter((member) =>
+        alertsUsersIds.includes(member.id)
+      )
     },
   },
 }
@@ -139,8 +157,8 @@ export default {
       &:hover {
         background: var(--hover-circle-gradient);
         background-size: 200%;
-        animation: hover-gradient 0.3s ease;
-        -webkit-animation: hover-gradient 0.3s ease;
+        animation: var(--animation-hover-gradient);
+        -webkit-animation: var(--animation-hover-gradient);
       }
     }
 

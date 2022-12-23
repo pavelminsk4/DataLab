@@ -65,6 +65,8 @@ body {
     rgba(5, 95, 252, 0.8),
     #1f2022 6.5%
   );
+
+  --animation-hover-gradient: hover-gradient 0.5s ease;
 }
 
 @keyframes hover-gradient {
