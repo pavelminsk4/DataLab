@@ -118,7 +118,7 @@ export default {
           exceptions: this.keywords?.ignore_keywords,
           country: this.additionalFilters?.country || [],
           language: this.additionalFilters?.language || [],
-          sentiment: this.additionalFilters?.sentiment || [],
+          sentiment: this.additionalFilters?.sentiment || null,
           date_range: this.additionalFilters?.date_range,
           source: this.additionalFilters?.source || [],
           author: this.additionalFilters?.author || [],

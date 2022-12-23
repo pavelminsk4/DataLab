@@ -36,7 +36,7 @@
     </div>
 
     <div class="radio-buttons">
-      <BaseRadio
+      <SourceTypeCard
         v-for="(item, index) in typesOfSources"
         :key="index"
         class="radio-button"
@@ -59,7 +59,7 @@
         <template #description>
           <div class="radio-description">{{ item.description }}</div>
         </template>
-      </BaseRadio>
+      </SourceTypeCard>
     </div>
   </section>
 </template>
@@ -70,7 +70,6 @@ import {action} from '@store/constants'
 
 import BaseInput from '@/components/BaseInput'
 import BaseSelect from '@/components/BaseSelect'
-import BaseRadio from '@/components/BaseRadio'
 import BaseButton from '@/components/buttons/BaseButton'
 
 import NavigationBar from '@/components/navigation/NavigationBar'
@@ -80,14 +79,15 @@ import SelectRadioIcon from '@/components/icons/SelectRadioIcon'
 import SocialRadioIcon from '@/components/icons/SocialRadioIcon'
 import OnlineRadioIcon from '@/components/icons/OnlineRadioIcon'
 import PremiumRadioIcon from '@/components/icons/PremiumRadioIcon'
+import SourceTypeCard from '@/components/SourceTypeCard'
 
 export default {
   name: 'CreateProjectScreen',
   components: {
+    SourceTypeCard,
     NavigationBar,
     BaseInput,
     BaseSelect,
-    BaseRadio,
     BaseButton,
     ArrowLeftIcon,
     OnlineRadioIcon,

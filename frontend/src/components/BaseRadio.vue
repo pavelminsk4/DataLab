@@ -1,78 +1,81 @@
 <template>
-  <label
-    :class="[
-      {selected: Object.is(checked, value)},
-      isBackground && 'radio',
-      isDisabled && 'disabled',
-    ]"
-  >
+  <label class="base-radio-container">
     <input
-      v-model="radioButtonValue"
-      v-bind="$attrs"
-      :value="label"
-      :name="name"
-      :disabled="isDisabled"
       type="radio"
-      class="input-radio"
+      :id="id"
+      :value="value"
+      :checked="modelValue === value"
+      @input="$emit('update:modelValue', $event.target.value)"
+      :name="id"
     />
-    <slot name="default" />
-    <slot name="description" />
+    {{ label }}
+    <span class="checkmark"></span>
   </label>
 </template>
 
 <script>
 export default {
-  props: {
-    checked: {type: [String, Number, Object], default: ''},
-    label: {type: String, default: undefined},
-    value: {type: [String, Number, Object], required: true},
-    name: {type: String, required: false},
-    isBackground: {type: Boolean, default: false},
-    isDisabled: {type: Boolean, default: false},
-  },
-  model: {
-    prop: 'checked',
-    event: 'change',
-  },
-  computed: {
-    radioButtonValue: {
-      get() {
-        return this.value
-      },
-      set(val) {
-        this.$emit('change', val)
-      },
-    },
-  },
+  name: 'BaseRadio',
+  props: ['modelValue', 'label', 'value', 'id'],
 }
 </script>
 
-<style scoped>
-.radio {
+<style lang="scss" scoped>
+.base-radio-container {
+  position: relative;
+
   display: block;
 
-  padding: 12px 20px 25px 20px;
-
-  border-radius: 15px;
-  border: 1px solid var(--input-border-color);
-  box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
-  background: var(--secondary-bg-color);
-
-  color: var(--primary-text-color);
+  padding-left: 30px;
 
   cursor: pointer;
-}
 
-.input-radio {
-  width: 0;
-  height: 0;
-}
+  input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
 
-.selected {
-  background: var(--primary-button-color);
-}
+    &:checked ~ .checkmark {
+      border: none;
+      background-color: var(--primary-button-color);
+    }
 
-.disabled {
-  cursor: not-allowed;
+    &:checked ~ .checkmark:after {
+      display: block;
+    }
+  }
+
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    height: 20px;
+    width: 20px;
+
+    background-color: transparent;
+    border-radius: 50%;
+    border: 1px solid var(--secondary-text-color);
+
+    &:after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      display: none;
+
+      width: 8px;
+      height: 8px;
+
+      border-radius: 50%;
+      background: var(--primary-text-color);
+    }
+  }
+
+  &:hover input ~ .checkmark {
+    background-color: var(--secondary-text-color);
+  }
 }
 </style>

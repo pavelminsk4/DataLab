@@ -21,7 +21,7 @@
       </BaseButton>
     </NavigationBar>
 
-    <section class="create-report-section">
+    <section v-if="regularReports.length" class="create-report-section">
       <div class="create-report-wrapper">
         <div class="title">Regular Report Title</div>
         <BaseInput v-model="title" class="input-title" placeholder="Title" />
@@ -63,6 +63,7 @@
         />
       </div>
       <TimePickerReports
+        :regular-report="currentReport"
         @repeat-time="repeatTime"
         @update-time-daily="updateTimeDaily"
         @choose-weekly-day="chooseWeeklyDay"
@@ -71,7 +72,6 @@
         @update-ending-date-hourly="updateEndingDateHourly"
         @update-time-monthly="updatePickerTimeMonthly"
         @select-hourly-template="selectHourlyTemplate"
-        :regular-report="currentReport"
       />
     </section>
   </div>
@@ -104,21 +104,21 @@ export default {
       emailTitle: '',
       hour: '*',
       hourlyEnabled: false,
-      endingTimeHourly: '',
+      endingTimeHourly: null,
       hourlyTemplate: '',
       dailyEnabled: false,
-      endingTimeDaily: '',
+      endingTimeDaily: null,
       timePickerDailyValue: [],
       dailyTemplate: '',
       weeklyEnabled: false,
-      dayOfWeek: '',
+      dayOfWeek: '*',
       timePickerWeeklyValue: [],
       weeklyTemplate: '',
-      endingTimeWeekly: '',
+      endingTimeWeekly: null,
       dayOfMonth: '*',
       monthlyEnabled: false,
       timePickerMonthlyValue: [],
-      endingTimeMonthly: '',
+      endingTimeMonthly: null,
       monthlyTemplate: '',
       visible: false,
       isDuplicate: false,
@@ -213,10 +213,10 @@ export default {
       action.UPDATE_NEW_REGULAR_REPORT,
       action.GET_REGULAR_REPORTS,
     ]),
-    repeatTime(val) {
+    repeatTime(val, name) {
       this.hourlyEnabled = true
       this.monthlyEnabled = true
-      this[val] = val
+      this[name] = val
     },
     updateTimeDaily(val) {
       this.dailyEnabled = true
@@ -248,7 +248,7 @@ export default {
           title: this.title,
           project: this.projectId,
           email_title: this.emailTitle,
-          h_hour: `*/${this.hour}`,
+          h_hour: this.hour,
           h_minute: 0,
           hourly_enabled: this.hourlyEnabled,
           h_ending_date: this.endingTimeHourly,
