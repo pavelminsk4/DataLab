@@ -1,7 +1,6 @@
 from rest_framework.test import APITestCase
 from rest_framework import status
 from widgets.models import Dimensions
-from datetime import datetime
 from django.urls import reverse
 import json
 

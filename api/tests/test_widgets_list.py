@@ -32,7 +32,7 @@ class WidgetsListTests(APITestCase):
           'aggregation_period': 'day'
         },
       'clipping_feed_content_widget':
-        { 
+        {
           'id': WidgetDescription.objects.all()[2].id,
           'is_active': False,
           'title': 'Clipping feed content',
@@ -51,7 +51,7 @@ class WidgetsListTests(APITestCase):
     self.assertEqual(json.loads(response.content), res)
     url2 = reverse('update_widgets_list', kwargs={'pk':project.id})
     data = {
-      'summary_widget': 
+      'summary_widget':
         {
           'id':13,
           "is_active": True,
@@ -63,7 +63,7 @@ class WidgetsListTests(APITestCase):
         {
           'id':14,
           'is_active': False,
-          'title': 'Content volume', 
+          'title': 'Content volume',
           'description': 'Description',
           'aggregation_period':'day',
         },
@@ -71,7 +71,7 @@ class WidgetsListTests(APITestCase):
         {
           'id':15,
           'is_active': False,
-          'title': 'Clipping feed content', 
+          'title': 'Clipping feed content',
           'description': 'Description',
           'aggregation_period':'day',
         },
@@ -79,7 +79,7 @@ class WidgetsListTests(APITestCase):
         {
           'id':16,
           'is_active': False,
-          'title': 'Top 10 authors by volume', 
+          'title': 'Top 10 authors by volume',
           'description': 'Description',
           'aggregation_period':'day',
         },
@@ -121,4 +121,4 @@ class WidgetsListTests(APITestCase):
           'aggregation_period': 'day',
         },
       }
-    self.assertEqual(json.loads(response.content), res)  
+    self.assertEqual(json.loads(response.content), res)

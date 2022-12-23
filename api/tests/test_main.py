@@ -1,4 +1,3 @@
-from django.test import TestCase
 from rest_framework.test import APITestCase
 from rest_framework import status
 from django.urls import reverse
@@ -110,11 +109,11 @@ class SearchTests(APITestCase):
       'source':[],
       'author':[],
       'posts_per_page':20,
-      'page_number':1, 
+      'page_number':1,
       }
     response = self.client.post(url, data, format='json')
     self.assertEqual(response.status_code, status.HTTP_200_OK)
-    self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':1, 'posts':[ex1]})  
+    self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':1, 'posts':[ex1]}) 
  
   def test_search_with_exclusion_words(self):
     self.db_seeder()
@@ -216,7 +215,7 @@ class SearchTests(APITestCase):
     self.db_seeder()
     data = {
       'keywords':['post'],
-      'exceptions':[], 
+      'exceptions':[],
       'additions':[],
       'country':[],
       'language':[],
@@ -269,7 +268,7 @@ class SearchTests(APITestCase):
     response = self.client.post(url, data, format='json')
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':3, 'posts':[ex2, ex3, ex4]})
-    
+
   def test_search_by_author(self):
     self.db_seeder()
     data = {
@@ -318,7 +317,6 @@ class SpeechesTests(APITestCase):
     user = User.objects.create(username='John')
     self.client.force_authenticate(user=user)
     Speech.objects.bulk_create([Speech(language='Italy'), Speech(language='Albanian')])
-    #url = reverse('speeches_list', kwargs={'frst_letters':"speeches?search=Alb"}) # automatically replases ? on  %3F
     url = '/api/speeches/speeches?search=Alb'
     response = self.client.get(url)
     self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -332,7 +330,6 @@ class CountriesTests(APITestCase):
     user = User.objects.create(username='Fox')
     self.client.force_authenticate(user=user)
     self.create_country()
-    #url = reverse('countries_list', kwargs={'frst_letters':'countries?search=A'})
     url = '/api/countries/countries?search=A'
     response = self.client.get(url)
     self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -344,7 +341,6 @@ class AuthorsTests(APITestCase):
     sp = Speech.objects.create(language='English (United States)')
     Post.objects.create(feedlink=flink, entry_title='First post title', entry_summary='First post body', feed_language=sp, entry_author='Elon Musk', entry_published=datetime(2022, 9, 3, 6, 37), sentiment='neutral')
     Post.objects.create(feedlink=flink, entry_title='Second post title', entry_summary='Second post body', feed_language=sp, entry_author='Tim Cook', entry_published=datetime(2022, 10, 3, 6, 37), sentiment='neutral')
-    #url = reverse('authors_list', kwargs={'frst_letters':'authors?search=E'})
     url = '/api/authors/authors?search=E'
     response = self.client.get(url)
     self.assertEqual(response.status_code, status.HTTP_200_OK)

@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 env = environ.Env()
 env.read_env(os.path.join(BASE_DIR, '.env'))
 
-from .chartjs import prepare_widget_images
+from .chartjs.chartjs import prepare_widget_images
 
 # ====================================================================
 
@@ -188,7 +188,7 @@ def convert_docx_to_pdf(docx_path, report_path):
   doc.save(report_path)
 
 def create_pdf_file(reg_report):
-  template_path = str(reg_report.template.layout_file)
+  template_path = str(reg_report.h_template.layout_file)
   docx_path='tmp/temp_reg_report.docx'
   report_path='tmp/temp_reg_report.' + 'pdf'
   prepare_widget_images(reg_report.project.id)

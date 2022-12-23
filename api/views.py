@@ -1,9 +1,6 @@
-from django.shortcuts import render
 from rest_framework.generics import ListAPIView, CreateAPIView, DestroyAPIView, UpdateAPIView, RetrieveAPIView, ListCreateAPIView
-#from .serializers import SpeechSerializer, UserSerializer, WorkspaceSerializer, ProjectSerializer, WorkspaceCreateSerializer, CountrySerializer, WidgetsListSerializer, ClippingFeedContentWidgetSerializer, DimensionsSerializer, ProjectDimensionsSerializer, ProjectDimensionsListSerializer
 from .serializers import *
 from rest_framework.response import Response
-from rest_framework.decorators import action
 from rest_framework.views import APIView
 from .serializers import ProjectSerializer, Workspace
 from django.contrib.auth.models import User
@@ -12,8 +9,6 @@ from django.http import JsonResponse
 import json
 from django.db.models import Q
 from functools import reduce
-from  nltk.sentiment import SentimentIntensityAnalyzer
-from django.views.decorators.csrf import csrf_exempt
 from countries_plus.models import Country
 from dateutil import parser
 from django.db.models.functions import ExtractYear
@@ -112,7 +107,6 @@ def data_range_posts(start_date, end_date):
   posts = Post.objects.filter(entry_published__range=interval)
   return posts
 
-#@csrf_exempt
 def search(request):
   body = json.loads(request.body)
   keys = body['keywords']

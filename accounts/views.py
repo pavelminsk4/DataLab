@@ -4,7 +4,6 @@ from django.contrib.auth import authenticate,login
 from .models import Profile
 from django.shortcuts import redirect
 from django.urls import reverse
-from django.http import HttpResponseRedirect
 
 def signup(request):
     if request.method=='POST':
@@ -40,7 +39,7 @@ def profile_edit(request):
             myprofile = profileform.save(commit=False)
             myprofile.user = request.user
             myprofile.save()
-            return redirect(revers('accounts:profile'))
+            return redirect(reverse('accounts:profile'))
     else:
         userform = UserForm(instance=request.user)
         profileform = ProfileForm(instance=profile)

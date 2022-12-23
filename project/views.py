@@ -13,10 +13,6 @@ def index(request):
   list = Project.objects.filter(creator=request.user)
   context = {'list':list}
   return render(request, 'project/index.html', context)
-  
-# def create(request):    # move to workspace app
-#     form = ProjectForm()
-#     return render(request, 'project/create.html')
 
 def delete(request, pk):
   try:
