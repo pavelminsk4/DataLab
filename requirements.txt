@@ -34,3 +34,5 @@ rollbar==0.16.2
 
 vaderSentiment==3.3.2
 vader-multi==3.2.2.1 # multiple languages for vader
+
+drf-yasg==1.21.4

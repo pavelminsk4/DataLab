@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.postgres',
     'reports.apps.ReportsConfig',
     'alerts.apps.AlertsConfig',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
