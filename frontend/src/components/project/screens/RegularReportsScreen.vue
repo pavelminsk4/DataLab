@@ -137,8 +137,8 @@ export default {
       &:hover {
         background: var(--hover-circle-gradient);
         background-size: 200%;
-        animation: hover-gradient 0.3s ease;
-        -webkit-animation: hover-gradient 0.3s ease;
+        animation: var(--animation-hover-gradient);
+        -webkit-animation: var(--animation-hover-gradient);
       }
     }
 

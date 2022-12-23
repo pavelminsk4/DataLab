@@ -35,9 +35,17 @@
           </div>
         </td>
         <td>
-          <img :src="memberPhoto(item.creator)" class="cart-image" />
+          <div class="creator">
+            <img
+              :src="currentMember(item.creator).user_profile.photo"
+              class="cart-image"
+            />
+            <div>{{ currentMember(item.creator).username }}</div>
+          </div>
         </td>
-        <td>PHOTO</td>
+        <td>
+          <MembersIconsBar :members="projectMembers(item.members)" />
+        </td>
         <td>{{ projectCreationDate(item.created_at) }}</td>
       </tr>
     </tbody>
@@ -53,6 +61,7 @@ import CheckRadioIcon from '@/components/icons/CheckIcon'
 import SocialRadioIcon from '@/components/icons/SocialRadioIcon'
 import OnlineRadioIcon from '@/components/icons/OnlineRadioIcon'
 import PremiumRadioIcon from '@/components/icons/PremiumRadioIcon'
+import MembersIconsBar from '@components/MembersIconsBar.vue'
 
 export default {
   name: 'ProjectsTable',
@@ -62,6 +71,7 @@ export default {
     OnlineRadioIcon,
     SocialRadioIcon,
     PointsIcon,
+    MembersIconsBar,
   },
   data() {
     return {
@@ -80,17 +90,22 @@ export default {
       workspaces: get.WORKSPACES,
     }),
     currentWorkspace() {
-      return this.workspaces.filter(
+      return this.workspaces.find(
         (el) => el.id === +this.$route.params.workspaceId
       )
     },
     members() {
-      return this.currentWorkspace[0].members
+      return this.currentWorkspace.members
     },
   },
   methods: {
-    memberPhoto(id) {
-      return this.members.filter((el) => el.id === id)[0].user_profile.photo
+    currentMember(id) {
+      return this.members.find((el) => el.id === id)
+    },
+    projectMembers(projectMembersIds) {
+      return this.members.filter((member) =>
+        projectMembersIds.includes(member.id)
+      )
     },
     projectCreationDate(date) {
       return new Date(date).toLocaleDateString('ro-RO')
@@ -138,8 +153,8 @@ export default {
       &:hover {
         background: var(--hover-circle-gradient);
         background-size: 200%;
-        animation: hover-gradient 0.3s ease;
-        -webkit-animation: hover-gradient 0.3s ease;
+        animation: var(--animation-hover-gradient);
+        -webkit-animation: var(--animation-hover-gradient);
       }
 
       td {
@@ -217,6 +232,10 @@ export default {
 .type {
   display: flex;
   align-items: center;
+}
+
+.creator {
+  display: flex;
 }
 
 .cart-image {
