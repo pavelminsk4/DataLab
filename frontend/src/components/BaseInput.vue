@@ -9,6 +9,7 @@
     <SearchIcon v-if="isSearch" class="icon" />
     <input
       v-bind="$attrs"
+      :type="inputType"
       :value="modelValue"
       :class="['input', isSearch && 'input-search']"
       :placeholder="placeholder"
@@ -34,6 +35,10 @@ export default {
     modelValue: {
       type: String,
       required: true,
+    },
+    inputType: {
+      type: String,
+      default: 'text',
     },
     isSearch: {
       type: Boolean,
@@ -95,6 +100,16 @@ export default {
   outline: none;
   color: var(--primary-text-color);
   background-color: var(--secondary-bg-color);
+}
+
+.input[type='number'] {
+  -moz-appearance: textfield;
+
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 }
 
 .input::placeholder {
