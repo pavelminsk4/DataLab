@@ -6,7 +6,7 @@
       <BaseRadio
         v-for="(item, index) in reportTypes"
         :key="item + index"
-        v-model="selectedValueProxy"
+        v-model="selectedValue"
         :id="item + index"
         :checked="item"
         :value="item"
@@ -33,16 +33,6 @@ export default {
       selectedValue: '',
       isRegularReport: false,
     }
-  },
-  computed: {
-    selectedValueProxy: {
-      get() {
-        return this.selectedValue
-      },
-      set(reportType) {
-        this.selectedValue = reportType
-      },
-    },
   },
   methods: {
     openReportSettings() {

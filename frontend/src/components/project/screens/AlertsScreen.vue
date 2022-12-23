@@ -31,7 +31,6 @@
           <span>{{ item.triggered_on_every_n_new_posts }}</span>
         </td>
         <td>user</td>
-        <td><TableSettingsButton :id="item.id" /></td>
       </tr>
     </tbody>
   </table>
@@ -44,7 +43,6 @@ import {action, get} from '@store/constants'
 
 import BaseButton from '@/components/buttons/BaseButton'
 import NavigationBar from '@/components/navigation/NavigationBar'
-import TableSettingsButton from '@/components/buttons/TableSettingsButton'
 
 import PlusIcon from '@/components/icons/PlusIcon'
 
@@ -54,7 +52,6 @@ export default {
     PlusIcon,
     BaseButton,
     NavigationBar,
-    TableSettingsButton,
   },
   props: {
     currentProject: {

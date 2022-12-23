@@ -39,7 +39,6 @@
         </td>
         <td>PHOTO</td>
         <td>{{ projectCreationDate(item.created_at) }}</td>
-        <td><TableSettingsButton :id="item.id" /></td>
       </tr>
     </tbody>
   </table>
@@ -48,8 +47,6 @@
 <script>
 import {mapGetters} from 'vuex'
 import {get} from '@store/constants'
-
-import TableSettingsButton from '@/components/buttons/TableSettingsButton'
 
 import PointsIcon from '@/components/icons/PointsIcon'
 import CheckRadioIcon from '@/components/icons/CheckIcon'
@@ -60,7 +57,6 @@ import PremiumRadioIcon from '@/components/icons/PremiumRadioIcon'
 export default {
   name: 'ProjectsTable',
   components: {
-    TableSettingsButton,
     CheckRadioIcon,
     PremiumRadioIcon,
     OnlineRadioIcon,

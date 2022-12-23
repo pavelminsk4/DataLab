@@ -46,7 +46,7 @@
           <BaseRadio
             v-for="(item, index) in format"
             :key="item + index"
-            v-model="selectedFormatProxy"
+            v-model="selectedFormat"
             :checked="item"
             :value="item"
             :id="item + index"
@@ -61,7 +61,7 @@
           <BaseRadio
             v-for="(item, index) in language"
             :key="item + index"
-            v-model="selectedLanguageProxy"
+            v-model="selectedLanguage"
             :checked="item"
             :value="item"
             :id="item + index"
@@ -157,22 +157,6 @@ export default {
     }),
     titleTemplates() {
       return this.templates.map((el) => el.title)
-    },
-    selectedFormatProxy: {
-      get() {
-        return this.selectedFormat
-      },
-      set(format) {
-        this.selectedFormat = format
-      },
-    },
-    selectedLanguageProxy: {
-      get() {
-        return this.selectedLanguage
-      },
-      set(language) {
-        this.selectedLanguage = language
-      },
     },
   },
   methods: {
