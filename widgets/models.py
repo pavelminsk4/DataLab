@@ -49,7 +49,6 @@ class WidgetsList2(models.Model):
   sentiment_for_period_widget = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='sentiment_for_period_widget', null=True)
   content_volume_top_10_authors_widget = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='content_volume_top_10_authors_widget', null=True)
   content_volume_top_10_countries_widget = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='content_volume_top_10_countries_widget', null=True)
-  #clipping_widget = models.ForeignKey(WidgetDescription, on_delete=models.SET_NULL, related_name='clippint_widg_description', null=True)
 
   def __str__(self):
     return str(self.project)
@@ -138,14 +137,6 @@ def create_widget_description(sender, instance, created, **kwargs):
     wd15.linked_dimensions.add(Dimensions.objects.get_or_create(title='Source')[0])
     wd15.linked_dimensions.add(Dimensions.objects.get_or_create(title='Language')[0])
     wd15.save()
-    # wd5 = WidgetDescription.objects.create(title='Clipping Widget')
-    # wd5.linked_dimensions.add(Dimensions.objects.get_or_create(title='Country')[0])
-    # wd5.linked_dimensions.add(Dimensions.objects.get_or_create(title='Author')[0])
-    # wd5.linked_dimensions.add(Dimensions.objects.get_or_create(title='Language')[0])
-    # wd5.linked_dimensions.add(Dimensions.objects.get_or_create(title='Source')[0])
-    # wd5.linked_dimensions.add(Dimensions.objects.get_or_create(title='Sentiment')[0])
-    # wd5.linked_dimensions.add(Dimensions.objects.get_or_create(title='All Data')[0])
-    # wd5.save()
     instance.summary_widget = wd1
     instance.volume_widget = wd2
     instance.clipping_feed_content_widget = wd3
@@ -161,7 +152,6 @@ def create_widget_description(sender, instance, created, **kwargs):
     instance.sentiment_for_period_widget = wd13
     instance.content_volume_top_10_authors_widget = wd14
     instance.content_volume_top_10_countries_widget = wd15
-    # instance.clipping_widget = wd5
     instance.save()
 
 class ClippingFeedContentWidget(models.Model):

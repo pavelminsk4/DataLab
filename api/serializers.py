@@ -4,27 +4,28 @@ from accounts.models import Profile, department
 from rest_framework import serializers
 from drf_writable_nested.serializers import WritableNestedModelSerializer
 from countries_plus.models import Country
-from widgets.models import WidgetsList, WidgetsList2, ClippingFeedContentWidget, WidgetDescription, Dimensions, ProjectDimensions
+from widgets.models import WidgetsList2, ClippingFeedContentWidget, WidgetDescription, Dimensions, ProjectDimensions
 from reports.models import Templates
 from alerts.models import Alert
 from project.models import Post
-
 
 class DepartmentSerializer(WritableNestedModelSerializer):
   class Meta:
     model = department
     fields = '__all__'
+
 class ProfileSerializer(WritableNestedModelSerializer):
   department = DepartmentSerializer()
   class Meta:
     model = Profile
     fields = '__all__'
+
 class UserSerializer(WritableNestedModelSerializer):
   user_profile = ProfileSerializer()
   class Meta:
     model = User
     fields = "__all__"
- 
+
 class ProjectSerializer(serializers.ModelSerializer):
   users = UserSerializer
   note = serializers.CharField(max_length=1000, allow_blank=True)
@@ -85,10 +86,8 @@ class WidgetsListSerializer(WritableNestedModelSerializer):
   sentiment_for_period_widget = WidgetDescriptionSerializer()
   content_volume_top_10_authors_widget = WidgetDescriptionSerializer()
   content_volume_top_10_countries_widget = WidgetDescriptionSerializer()
-  #clipping_widget = WidgetDescriptionSerializer()
   class Meta:
     model = WidgetsList2
-    #fields = '__all__'
     fields = [
       'summary_widget',
       'volume_widget',
@@ -111,7 +110,7 @@ class ClippingFeedContentWidgetListSerializer(serializers.ListSerializer):
   def create(self, validated_data):
     users = [ClippingFeedContentWidget(**item) for item in validated_data]
     return ClippingFeedContentWidget.objects.bulk_create(users)
-    
+
 class ClippingFeedContentWidgetSerializer(serializers.ModelSerializer):
   class Meta:
     model = ClippingFeedContentWidget

@@ -28,7 +28,7 @@ def get_string_from_score(sentiments):
   elif sentiments['compound'] <= - 0.05:
     res = 'negative'
   else :
-    res = 'neutral'  
+    res = 'neutral'
   return res
 
 def add_sentiment_score(title):
@@ -49,7 +49,7 @@ def post_creator():
       print(i)
       print('---------<')
       i += 1
-      status = Status.objects.first()  
+      status = Status.objects.first()
       status.progress = i
       status.save()
       url = feed.url

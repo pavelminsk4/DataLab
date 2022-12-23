@@ -1,5 +1,4 @@
 from django.db import models
-from accounts.models import department
 from project.models import Project, Post
 from django.contrib.auth.models import User
 from functools import reduce
@@ -57,9 +56,8 @@ def posts_agregator(project):
   if project.author_filter!=None:
     posts = posts.filter(entry_author=project.author_filter)
   if project.sentiment_filter!=None:
-    posts = posts.filter(sentiment=project.sentiment_filter) 
+    posts = posts.filter(sentiment=project.sentiment_filter)
   return posts
-
 
 @receiver(post_save, sender=Alert)
 def define_initial_posts_count(sender, instance, created, **kwargs):

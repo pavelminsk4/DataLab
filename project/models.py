@@ -15,7 +15,7 @@ class Company(models.Model):
 
   def __str__(self):
     return self.name
-  
+
 class Workspace(models.Model):
   title = models.CharField(max_length=100)
   description = models.CharField(max_length=1000, null=True, blank=True)
@@ -95,7 +95,7 @@ class Speech(models.Model):
 
   def __str__(self):
     return self.language
-    
+
 class Post(models.Model):
   feedlink =  models.ForeignKey(Feedlinks,on_delete=models.CASCADE,related_name='feedlink_feedsin',verbose_name ='Feed Link')
   entry_title = models.TextField("entry_title",null=True,blank=True)
@@ -202,7 +202,7 @@ class Post(models.Model):
         opclasses=['gin_trgm_ops'], 
       ),
     ]
-  
+
   def __str__(self):
     return self.entry_title
 

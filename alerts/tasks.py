@@ -1,7 +1,6 @@
 from celery import shared_task
 from .models import Alert
 from project.models import Project, Post
-from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404
 from functools import reduce
 from django.db.models import Q
@@ -52,7 +51,7 @@ def posts_agregator(project):
   if project.author_filter!=None:
     posts = posts.filter(entry_author=project.author_filter)
   if project.sentiment_filter!=None:
-    posts = posts.filter(sentiment=project.sentiment_filter) 
+    posts = posts.filter(sentiment=project.sentiment_filter)
   return posts
 
 def check_new_posts(alert):
