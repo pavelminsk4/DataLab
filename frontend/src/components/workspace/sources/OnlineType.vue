@@ -81,16 +81,13 @@
     <BaseRadio
       v-for="(item, index) in sentiments"
       :key="item + index"
+      v-model="selectedValueProxy"
       :checked="item"
-      :value="selectedValue"
+      :id="item + index"
+      :value="item"
+      :label="item"
       class="radio-btn"
-      @change="changeValue(item)"
-    >
-      <template #default>
-        <div class="not-check"><CheckRadioIcon class="check-icon" /></div>
-        {{ item }}
-      </template>
-    </BaseRadio>
+    />
   </div>
 </template>
 
@@ -101,14 +98,11 @@ import {action, get} from '@store/constants'
 import BaseRadio from '@/components/BaseRadio'
 import BaseSearchField from '@/components/BaseSearchField'
 
-import CheckRadioIcon from '@/components/icons/CheckRadioIcon'
-
 export default {
   name: 'OnlineType',
   components: {
     BaseRadio,
     BaseSearchField,
-    CheckRadioIcon,
   },
   props: {
     currentProject: {
@@ -128,14 +122,11 @@ export default {
     }
   },
   created() {
-    if (this.currentProject) {
+    if (this.currentProject.length) {
       this.country = this.currentProject.country_filter
       this.language = this.currentProject.language_filter
       this.source = this.currentProject.source_filter
       this.author = this.currentProject.author_filter
-      this.selectedValue = this.capitalizeFirstLetter(
-        this.currentProject.sentiment_filter
-      )
     }
 
     this[action.UPDATE_ADDITIONAL_FILTERS]({
@@ -154,6 +145,24 @@ export default {
       keywords: get.KEYWORDS,
       additionalFilters: get.ADDITIONAL_FILTERS,
     }),
+    selectedValueProxy: {
+      get() {
+        return (
+          this.capitalizeFirstLetter(this.currentProject.sentiment_filter) ||
+          this.selectedValue
+        )
+      },
+      set(sentiment) {
+        this.selectedValue = sentiment
+        if (sentiment === 'All sentiments') {
+          this[action.UPDATE_ADDITIONAL_FILTERS]({sentiment: null})
+        } else {
+          this[action.UPDATE_ADDITIONAL_FILTERS]({
+            sentiment: this.selectedValue?.toLocaleLowerCase(),
+          })
+        }
+      },
+    },
   },
   methods: {
     ...mapActions([
@@ -163,16 +172,6 @@ export default {
       action.GET_LANGUAGES,
       action.UPDATE_ADDITIONAL_FILTERS,
     ]),
-    changeValue(newValue) {
-      this.selectedValue = newValue
-      if (newValue === 'All sentiments') {
-        this[action.UPDATE_ADDITIONAL_FILTERS]([])
-      } else {
-        this[action.UPDATE_ADDITIONAL_FILTERS]({
-          sentiment: this.selectedValue.toLocaleLowerCase(),
-        })
-      }
-    },
     selectItem(name, val) {
       try {
         this[name] = val
@@ -266,21 +265,6 @@ export default {
   cursor: pointer;
 }
 
-.not-check {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 20px;
-  height: 20px;
-  margin-right: 7px;
-
-  border: 1px solid var(--secondary-text-color);
-  border-radius: 50px;
-
-  cursor: pointer;
-}
-
 .radio-wrapper {
   display: flex;
   justify-content: space-between;
@@ -292,10 +276,6 @@ export default {
 .select,
 .input {
   margin: 12px 0 25px;
-}
-
-.check-icon {
-  display: none;
 }
 
 @media screen and (max-width: 1050px) {
@@ -312,18 +292,5 @@ export default {
 <style>
 .additional-key > .input-tag {
   margin-bottom: 10px;
-}
-
-.radio-wrapper > .selected {
-  background: none;
-}
-
-.radio-wrapper > .selected .not-check {
-  border: none;
-  background: var(--primary-button-color);
-}
-
-.radio-wrapper > .selected .check-icon {
-  display: flex;
 }
 </style>

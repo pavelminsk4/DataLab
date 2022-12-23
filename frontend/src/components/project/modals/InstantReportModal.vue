@@ -43,63 +43,34 @@
       <div class="general-settings">
         <div class="general-item">
           <div class="settings-name">Format</div>
-          <div class="radio-wrapper">
-            <BaseRadio
-              v-for="(item, index) in format"
-              :key="item + index"
-              :checked="item"
-              :value="selectedFormat"
-              class="radio-btn"
-              @change="changeFormatValue(item)"
-            >
-              <template #default>
-                <div class="not-check">
-                  <CheckRadioIcon class="check-icon" />
-                </div>
-                {{ item }}
-              </template>
-            </BaseRadio>
-          </div>
+          <BaseRadio
+            v-for="(item, index) in format"
+            :key="item + index"
+            v-model="selectedFormatProxy"
+            :checked="item"
+            :value="item"
+            :id="item + index"
+            :label="item"
+            class="radio-btn"
+          />
         </div>
 
         <div class="general-item">
           <div class="settings-name">Language</div>
-          <div class="radio-wrapper">
-            <BaseRadio
-              v-for="(item, index) in language"
-              :key="item + index"
-              :checked="item"
-              :value="selectedLanguage"
-              class="radio-btn"
-              @change="changeLangValue(item)"
-            >
-              <template #default>
-                <div class="not-check">
-                  <CheckRadioIcon class="check-icon" />
-                </div>
-                {{ item }}
-              </template>
-            </BaseRadio>
-          </div>
+
+          <BaseRadio
+            v-for="(item, index) in language"
+            :key="item + index"
+            v-model="selectedLanguageProxy"
+            :checked="item"
+            :value="item"
+            :id="item + index"
+            :label="item"
+            class="radio-btn"
+          />
         </div>
       </div>
     </div>
-
-    <!--    <div class="content-properties-wrapper">-->
-    <!--      <div class="content-properties-title">Content Properties</div>-->
-
-    <!--      <div class="properties-checkboxes">-->
-    <!--        <BaseCheckbox-->
-    <!--          v-for="(item, index) in contentProperties"-->
-    <!--          :key="'layoutEl' + index"-->
-    <!--          :id="item"-->
-    <!--          @change="onChangeProperties"-->
-    <!--          class="checkbox"-->
-    <!--        >-->
-    <!--          <span class="name">{{ item }}</span>-->
-    <!--        </BaseCheckbox>-->
-    <!--      </div>-->
-    <!--    </div>-->
   </BaseModal>
 </template>
 
@@ -107,17 +78,15 @@
 import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
+import BaseRadio from '@/components/BaseRadio'
 import BaseSelect from '@/components/BaseSelect'
 import BaseModal from '@/components/modals/BaseModal'
 import BaseButton from '@/components/buttons/BaseButton'
 import BaseCheckbox from '@/components/BaseCheckbox'
-import BaseRadio from '@/components/BaseRadio'
-import CheckRadioIcon from '@/components/icons/CheckRadioIcon'
 
 export default {
   name: 'InstantReportModal',
   components: {
-    CheckRadioIcon,
     BaseRadio,
     BaseCheckbox,
     BaseSelect,
@@ -189,6 +158,22 @@ export default {
     titleTemplates() {
       return this.templates.map((el) => el.title)
     },
+    selectedFormatProxy: {
+      get() {
+        return this.selectedFormat
+      },
+      set(format) {
+        this.selectedFormat = format
+      },
+    },
+    selectedLanguageProxy: {
+      get() {
+        return this.selectedLanguage
+      },
+      set(language) {
+        this.selectedLanguage = language
+      },
+    },
   },
   methods: {
     ...mapActions([action.GET_TEMPLATES, action.UPDATE_PROJECT]),
@@ -230,12 +215,6 @@ export default {
     },
     removeSelectedFilter(index) {
       this.collectionProxy.splice(index, 1)
-    },
-    changeFormatValue(newValue) {
-      this.selectedFormat = newValue
-    },
-    changeLangValue(newValue) {
-      this.selectedLanguage = newValue
     },
   },
 }
@@ -382,39 +361,10 @@ export default {
   font-size: 14px;
   line-height: 20px;
 }
-
-.check-icon {
-  display: none;
-}
-
-.not-check {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 20px;
-  height: 20px;
-  margin-right: 7px;
-  border: 1px solid var(--secondary-text-color);
-  border-radius: 50px;
-  cursor: pointer;
-}
 </style>
 
 <style>
 .additional-key > .input-tag {
   margin-bottom: 10px;
-}
-
-.radio-wrapper > .selected {
-  background: none;
-}
-
-.radio-wrapper > .selected .not-check {
-  border: none;
-  background: var(--primary-button-color);
-}
-
-.radio-wrapper > .selected .check-icon {
-  display: flex;
 }
 </style>

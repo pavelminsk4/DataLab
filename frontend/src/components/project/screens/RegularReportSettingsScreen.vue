@@ -63,6 +63,7 @@
         />
       </div>
       <TimePickerReports
+        :regular-report="currentReport"
         @repeat-time="repeatTime"
         @update-time-daily="updateTimeDaily"
         @choose-weekly-day="chooseWeeklyDay"
@@ -71,7 +72,6 @@
         @update-ending-date-hourly="updateEndingDateHourly"
         @update-time-monthly="updatePickerTimeMonthly"
         @select-hourly-template="selectHourlyTemplate"
-        :regular-report="currentReport"
       />
     </section>
   </div>

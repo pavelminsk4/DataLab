@@ -31,21 +31,22 @@
           hour
         </div>
         <GeneralSettingReport
+          current-time-picker="Hourly"
+          :current-ending-time-value="regularReport.h_ending_date"
+          :current-template-id="regularReport.h_template"
           @ending-date="setEndingDate"
           @update-ending-date="updateEndingDate"
           @select-template="selectTemplate"
-          :current-ending-time-value="regularReport.h_ending_date"
-          :current-template-id="regularReport.h_template"
         />
       </div>
 
       <div v-show="timePickerName === 'Daily'" class="frequency-sending">
         <Datepicker
           v-model="timePickerValueDaily"
+          :is-24="false"
           @update:model-value="handleTimePickerDaily"
           time-picker
           auto-apply
-          :is-24="false"
           placeholder="Time"
           menu-class-name="time-picker-menu"
           class="time-picker"
@@ -56,11 +57,12 @@
         </Datepicker>
 
         <GeneralSettingReport
+          current-time-picker="Daily"
+          :current-ending-time-value="regularReport.d_ending_date"
+          :current-template-id="regularReport.d_template"
           @ending-date="setEndingDate"
           @update-ending-date="updateEndingDate"
           @select-template="selectTemplate"
-          :current-ending-time-value="regularReport.d_ending_date"
-          :current-template-id="regularReport.d_template"
         />
       </div>
 
@@ -71,7 +73,7 @@
               v-for="(item, index) in weekDays"
               :key="item.name + index"
               @click="chooseDay(item.value)"
-              :class="['day', activeDay === item.value && 'active-day']"
+              :class="['day', activeDayProxy === item.value && 'active-day']"
             >
               {{ item.name }}
             </div>
@@ -79,10 +81,10 @@
 
           <Datepicker
             v-model="timePickerValueWeekly"
+            :is-24="false"
             @update:model-value="handleTimePickerWeekly"
             time-picker
             auto-apply
-            :is-24="false"
             placeholder="Time"
             menu-class-name="time-picker-menu"
             class="time-picker"
@@ -94,11 +96,12 @@
         </div>
 
         <GeneralSettingReport
+          current-time-picker="Weekly"
+          :current-ending-time-value="regularReport.w_ending_date"
+          :current-template-id="regularReport.w_template"
           @ending-date="setEndingDate"
           @update-ending-date="updateEndingDate"
           @select-template="selectTemplate"
-          :current-ending-time-value="regularReport.w_ending_date"
-          :current-template-id="regularReport.w_template"
         />
       </div>
 
@@ -127,10 +130,10 @@
 
           <Datepicker
             v-model="timePickerValueMonthly"
+            :is-24="false"
             @update:model-value="handleTimePickerMonthly"
             time-picker
             auto-apply
-            :is-24="false"
             placeholder="Time"
             menu-class-name="time-picker-menu"
             class="time-picker monthly-picker"
@@ -142,11 +145,12 @@
         </div>
 
         <GeneralSettingReport
+          current-time-picker="Monthly"
+          :current-ending-time-value="regularReport.m_ending_date"
+          :current-template-id="regularReport.m_template"
           @ending-date="setEndingDate"
           @update-ending-date="updateEndingDate"
           @select-template="selectTemplate"
-          :current-ending-time-value="regularReport.m_ending_date"
-          :current-template-id="regularReport.m_template"
         />
       </div>
     </section>
@@ -224,6 +228,16 @@ export default {
         seconds: 0,
       }
     }
+  },
+  computed: {
+    activeDayProxy: {
+      get() {
+        return +this.regularReport.w_day_of_week || this.activeDay
+      },
+      set(val) {
+        this.activeDay = val
+      },
+    },
   },
   methods: {
     toggleTimePickerSettings(e) {

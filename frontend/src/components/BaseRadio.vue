@@ -17,9 +17,6 @@
 export default {
   name: 'BaseRadio',
   props: ['modelValue', 'label', 'value', 'id'],
-  created() {
-    console.log(this.modelValue === this.value)
-  },
 }
 </script>
 
