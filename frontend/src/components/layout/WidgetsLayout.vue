@@ -51,22 +51,24 @@ export default {
   align-items: center;
 
   min-width: 100%;
-  height: 90%;
-  padding: 65px 20px 0;
+  padding: 20px;
+
+  border-radius: 8px;
+  border: 1px solid var(--input-border-color);
+  background-color: var(--secondary-bg-color);
+  box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
+
+  color: var(--primary-text-color);
 
   &__header {
-    position: fixed;
-    top: 12px;
-    left: 25px;
-    right: 25px;
-
     display: flex;
     align-items: center;
     justify-content: space-between;
 
-    border-bottom: 1px solid var(--input-border-color);
-
+    width: 100%;
     padding-bottom: 12px;
+
+    border-bottom: 1px solid var(--input-border-color);
 
     .title {
       font-style: normal;

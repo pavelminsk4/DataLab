@@ -91,57 +91,39 @@
     @close="openModal('isOpenContent10AuthorsModal')"
   />
 
-  <grid-layout
-    v-if="availableWidgets"
-    v-model:layout="layoutProxy"
-    :col-num="4"
-    :row-height="30"
-    :is-resizable="false"
-    is-draggable
-    vertical-compact
-    use-css-transforms
-    class="widgets-wrapper"
-  >
-    <grid-item
-      class="widget-item"
-      v-for="item in layoutProxy"
-      v-show="item.isShow"
-      :static="item.static"
-      :x="item.x"
-      :y="item.y"
-      :w="item.w"
-      :h="item.h"
-      :i="item.i"
-      :key="item.i"
-      :minW="item.minW"
-      :minH="item.minH"
-      :maxW="item.maxW"
-      :maxH="item.maxH"
-    >
-      <component
-        v-if="item.isWidget"
-        :is="`${item.widgetName}` + 'Widget'"
-        :summary-data="summary"
-        :volume="volumeWidget"
-        :project-id="projectId"
-        :is-open-widget="item.isShow"
-        :widgets="availableWidgets"
-        :current-project="currentProject"
-        @delete-widget="deleteWidget(item.name, item.i)"
-        @open-settings-modal="openModal(item.isOpenModal)"
-      />
+  <div v-if="availableWidgets" class="widgets-wrapper">
+    <SearchResults
+      :is-show-calendar="false"
+      :is-checkbox-clipping-widget="true"
+      :currentProject="currentProject"
+      :clipping-content="clippingData"
+      @update-page="updatePage"
+      @update-posts-count="updatePosts"
+      class="analytics-search-results"
+    />
 
-      <SearchResults
-        v-else
-        :is-show-calendar="false"
-        :is-checkbox-clipping-widget="true"
-        :currentProject="currentProject"
-        :clipping-content="clippingData"
-        @update-page="updatePage"
-        @update-posts-count="updatePosts"
-      />
-    </grid-item>
-  </grid-layout>
+    <div class="widget-items">
+      <div
+        class="widget-item"
+        v-for="item in layoutProxy"
+        v-show="item.isShow"
+        :key="item.i"
+      >
+        <component
+          v-if="item.isWidget"
+          :is="`${item.widgetName}` + 'Widget'"
+          :summary-data="summary"
+          :volume="volumeWidget"
+          :project-id="projectId"
+          :is-open-widget="item.isShow"
+          :widgets="availableWidgets"
+          :current-project="currentProject"
+          @delete-widget="deleteWidget(item.name, item.i)"
+          @open-settings-modal="openModal(item.isOpenModal)"
+        />
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -445,35 +427,27 @@ export default {
 
 <style lang="scss" scoped>
 .widgets-wrapper {
+  display: flex;
+  gap: 30px;
+
   min-width: 100%;
   margin-top: 30px;
 
-  .widget-item {
-    border-radius: 8px;
-    border: 1px solid var(--input-border-color);
-    background-color: var(--secondary-bg-color);
-    box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
-
-    color: var(--primary-text-color);
+  .analytics-search-results {
+    flex: 1;
   }
-}
-</style>
 
-<style>
-.vue-grid-layout {
-  margin-left: -10px;
-}
+  .widget-items {
+    display: flex;
+    flex: 1;
+    gap: 20px;
+    flex-direction: column;
 
-.vue-grid-item.vue-grid-placeholder {
-  border-radius: 8px;
-  border: 1px solid var(--input-border-color);
-  background: var(--secondary-text-color);
-}
+    height: 1000px;
+    padding-right: 20px;
+    margin-top: 45px;
 
-.vue-resizable-handle {
-  background: var(--secondary-text-color) !important;
-}
-.search-result-wrapper {
-  padding: 20px;
+    overflow: auto;
+  }
 }
 </style>
