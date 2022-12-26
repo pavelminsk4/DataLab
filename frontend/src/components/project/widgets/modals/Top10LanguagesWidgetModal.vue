@@ -1,25 +1,25 @@
 <template>
   <BaseModal modal-frame-style="width: 50vw;">
-    <div class="main-title">{{ topCountries.title }}</div>
+    <div class="main-title">{{ topLanguages.title }}</div>
 
     <div class="general-wrapper-settings">
       <SettingsButtons @update-setting-panel="updateSettingPanel" />
 
       <BasicSettingsScreen
         v-if="panelName === 'General'"
-        :period="topCountries.aggregation_period"
-        :widget-title="topCountries.title"
-        :widget-description="topCountries.description"
+        :period="topLanguages.aggregation_period"
+        :widget-title="topLanguages.title"
+        :widget-description="topLanguages.description"
         @save-changes="saveChanges"
       />
 
       <DimensionsScreen
         v-if="panelName === 'Dimensions'"
-        :active-dimensions="topCountries"
+        :active-dimensions="topLanguages"
         :project-id="projectId"
-        :widget-author="topCountries.author_dim_pivot"
-        :widget-country="topCountries.country_dim_pivot"
-        :widget-language="topCountries.language_dim_pivot"
+        :widget-author="topLanguages.author_dim_pivot"
+        :widget-country="topLanguages.country_dim_pivot"
+        :widget-language="topLanguages.language_dim_pivot"
         @save-dimensions-settings="saveDimensions"
       />
     </div>
@@ -35,7 +35,7 @@ import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
 export default {
-  name: 'TopCountriesSettingsWidget',
+  name: 'Top10LanguagesWidgetModal',
   components: {
     DimensionsScreen,
     BasicSettingsScreen,
@@ -57,24 +57,24 @@ export default {
   },
   computed: {
     ...mapGetters({widgets: get.AVAILABLE_WIDGETS, loading: get.LOADING}),
-    topCountries() {
-      return this.widgets['top_10_countries_widget']
+    topLanguages() {
+      return this.widgets['top_10_languages_widget']
     },
   },
   methods: {
     ...mapActions([
       action.UPDATE_AVAILABLE_WIDGETS,
       action.GET_AVAILABLE_WIDGETS,
-      action.GET_TOP_BRANDS_WIDGET,
+      action.GET_TOP_LANGUAGES_WIDGET,
     ]),
     async saveOptions() {
       await this[action.UPDATE_AVAILABLE_WIDGETS]({
         projectId: this.projectId,
         data: {
-          top_10_countries_widget: {
-            id: this.topCountries.id,
-            title: this.title || this.topCountries.title,
-            description: this.description || this.topCountries.description,
+          top_10_languages_widget: {
+            id: this.topLanguages.id,
+            title: this.title || this.topLanguages.title,
+            description: this.description || this.topLanguages.description,
           },
         },
       })
@@ -85,48 +85,48 @@ export default {
       this[action.UPDATE_AVAILABLE_WIDGETS]({
         projectId: this.projectId,
         data: {
-          top_10_countries_widget: {
-            id: this.topCountries.id,
-            title: title || this.topCountries.title,
-            description: description || this.topCountries.description,
+          top_10_languages_widget: {
+            id: this.topLanguages.id,
+            title: title || this.topLanguages.title,
+            description: description || this.topLanguages.description,
             smpl_freq:
-              aggregationPeriod.toLowerCase() || this.topCountries.smpl_freq,
+              aggregationPeriod.toLowerCase() || this.topLanguages.smpl_freq,
           },
         },
       })
-      await this[action.GET_TOP_BRANDS_WIDGET](this.projectId)
+      await this[action.GET_TOP_LANGUAGES_WIDGET](this.projectId)
       await this[action.GET_AVAILABLE_WIDGETS](this.projectId)
       this.$emit('close')
     },
     async saveDimensions(author, language, country) {
       if (author || author === '') {
-        author = author || this.topCountries.author_dim_pivot
+        author = author || this.topLanguages.author_dim_pivot
       }
       if (language || language === '') {
-        language = language || this.topCountries.language_dim_pivot
+        language = language || this.topLanguages.language_dim_pivot
       }
       if (country || country === '') {
-        country = country || this.topCountries.country_dim_pivot
+        country = country || this.topLanguages.country_dim_pivot
       }
 
       await this[action.UPDATE_AVAILABLE_WIDGETS]({
         projectId: this.projectId,
         data: {
-          top_10_countries_widget: {
-            id: this.topCountries.id,
-            smpl_freq: this.topCountries.aggregation_period,
+          top_10_languages_widget: {
+            id: this.topLanguages.id,
+            smpl_freq: this.topLanguages.aggregation_period,
             author_dim_pivot: author,
             language_dim_pivot: language,
             country_dim_pivot: country,
-            sentiment_dim_pivot: this.topCountries.sentiment_dim_pivot,
-            source_dim_pivot: this.topCountries.source_dim_pivot,
+            sentiment_dim_pivot: this.topLanguages.sentiment_dim_pivot,
+            source_dim_pivot: this.topLanguages.source_dim_pivot,
           },
         },
       })
 
       this.loading = true
       await this[action.GET_AVAILABLE_WIDGETS](this.projectId)
-      await this[action.GET_TOP_BRANDS_WIDGET](this.projectId)
+      await this[action.GET_TOP_LANGUAGES_WIDGET](this.projectId)
       this.$emit('close')
     },
     updateSettingPanel(val) {

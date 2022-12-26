@@ -22,7 +22,7 @@ import WidgetsLayout from '@/components/layout/WidgetsLayout'
 import PatternsBarChart from '@/components/project/widgets/charts/PatternsBarChart'
 
 export default {
-  name: 'SentimentTopLanguagesWidget',
+  name: 'SentimentTop10LanguagesWidget',
   components: {PatternsBarChart, WidgetsLayout},
   props: {
     projectId: {

@@ -58,7 +58,7 @@ import DimensionsScreen from '@/components/project/widgets/modals/screens/Dimens
 import BasicSettingsScreen from '@/components/project/widgets/modals/screens/BasicSettingsScreen'
 
 export default {
-  name: 'SentimentForPeriodModal',
+  name: 'SentimentForPeriodWidgetModal',
   components: {
     LineChart,
     PatternsBarChart,

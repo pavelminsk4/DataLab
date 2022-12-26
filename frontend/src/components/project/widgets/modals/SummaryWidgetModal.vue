@@ -1,25 +1,25 @@
 <template>
   <BaseModal modal-frame-style="width: 50vw;">
-    <div class="main-title">{{ topLanguages.title }}</div>
+    <div class="main-title">{{ summaryWidget.title }}</div>
 
     <div class="general-wrapper-settings">
       <SettingsButtons @update-setting-panel="updateSettingPanel" />
 
       <BasicSettingsScreen
         v-if="panelName === 'General'"
-        :period="topLanguages.aggregation_period"
-        :widget-title="topLanguages.title"
-        :widget-description="topLanguages.description"
+        :period="summaryWidget.aggregation_period"
+        :widget-title="summaryWidget.title"
+        :widget-description="summaryWidget.description"
         @save-changes="saveChanges"
       />
 
       <DimensionsScreen
         v-if="panelName === 'Dimensions'"
-        :active-dimensions="topLanguages"
+        :active-dimensions="summaryWidget"
         :project-id="projectId"
-        :widget-author="topLanguages.author_dim_pivot"
-        :widget-country="topLanguages.country_dim_pivot"
-        :widget-language="topLanguages.language_dim_pivot"
+        :widget-author="summaryWidget.author_dim_pivot"
+        :widget-country="summaryWidget.country_dim_pivot"
+        :widget-language="summaryWidget.language_dim_pivot"
         @save-dimensions-settings="saveDimensions"
       />
     </div>
@@ -27,15 +27,16 @@
 </template>
 
 <script>
-import DimensionsScreen from '@/components/project/widgets/modals/screens/DimensionsScreen'
-import BasicSettingsScreen from '@/components/project/widgets/modals/screens/BasicSettingsScreen'
-import SettingsButtons from '@/components/project/widgets/modals/SettingsButtons'
-import BaseModal from '@/components/modals/BaseModal'
 import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
+import BaseModal from '@/components/modals/BaseModal'
+import SettingsButtons from '@/components/project/widgets/modals/SettingsButtons'
+import BasicSettingsScreen from '@/components/project/widgets/modals/screens/BasicSettingsScreen'
+import DimensionsScreen from '@/components/project/widgets/modals/screens/DimensionsScreen'
+
 export default {
-  name: 'TopLanguagesModal',
+  name: 'SummaryWidgetModal',
   components: {
     DimensionsScreen,
     BasicSettingsScreen,
@@ -50,6 +51,7 @@ export default {
   },
   data() {
     return {
+      aggregationPeriod: '',
       title: '',
       description: '',
       panelName: 'General',
@@ -57,24 +59,24 @@ export default {
   },
   computed: {
     ...mapGetters({widgets: get.AVAILABLE_WIDGETS, loading: get.LOADING}),
-    topLanguages() {
-      return this.widgets['top_10_languages_widget']
+    summaryWidget() {
+      return this.widgets['summary_widget']
     },
   },
   methods: {
     ...mapActions([
+      action.GET_SUMMARY_WIDGET,
       action.UPDATE_AVAILABLE_WIDGETS,
       action.GET_AVAILABLE_WIDGETS,
-      action.GET_TOP_LANGUAGES_WIDGET,
     ]),
     async saveOptions() {
       await this[action.UPDATE_AVAILABLE_WIDGETS]({
         projectId: this.projectId,
         data: {
-          top_10_languages_widget: {
-            id: this.topLanguages.id,
-            title: this.title || this.topLanguages.title,
-            description: this.description || this.topLanguages.description,
+          summary_widget: {
+            id: this.summaryWidget.id,
+            title: this.title || this.summaryWidget.title,
+            description: this.description || this.summaryWidget.description,
           },
         },
       })
@@ -85,48 +87,49 @@ export default {
       this[action.UPDATE_AVAILABLE_WIDGETS]({
         projectId: this.projectId,
         data: {
-          top_10_languages_widget: {
-            id: this.topLanguages.id,
-            title: title || this.topLanguages.title,
-            description: description || this.topLanguages.description,
+          summary_widget: {
+            id: this.summaryWidget.id,
+            title: title || this.summaryWidget.title,
+            description: description || this.summaryWidget.description,
             smpl_freq:
-              aggregationPeriod.toLowerCase() || this.topLanguages.smpl_freq,
+              aggregationPeriod.toLowerCase() || this.summaryWidget.smpl_freq,
           },
         },
       })
-      await this[action.GET_TOP_LANGUAGES_WIDGET](this.projectId)
+
+      await this[action.GET_SUMMARY_WIDGET](this.projectId)
       await this[action.GET_AVAILABLE_WIDGETS](this.projectId)
       this.$emit('close')
     },
     async saveDimensions(author, language, country) {
       if (author || author === '') {
-        author = author || this.topLanguages.author_dim_pivot
+        author = author || this.summaryWidget.author_dim_pivot
       }
       if (language || language === '') {
-        language = language || this.topLanguages.language_dim_pivot
+        language = language || this.summaryWidget.language_dim_pivot
       }
       if (country || country === '') {
-        country = country || this.topLanguages.country_dim_pivot
+        country = country || this.summaryWidget.country_dim_pivot
       }
 
       await this[action.UPDATE_AVAILABLE_WIDGETS]({
         projectId: this.projectId,
         data: {
-          top_10_languages_widget: {
-            id: this.topLanguages.id,
-            smpl_freq: this.topLanguages.aggregation_period,
+          summary_widget: {
+            id: this.summaryWidget.id,
+            smpl_freq: this.summaryWidget.aggregation_period,
             author_dim_pivot: author,
             language_dim_pivot: language,
             country_dim_pivot: country,
-            sentiment_dim_pivot: this.topLanguages.sentiment_dim_pivot,
-            source_dim_pivot: this.topLanguages.source_dim_pivot,
+            sentiment_dim_pivot: this.summaryWidget.sentiment_dim_pivot,
+            source_dim_pivot: this.summaryWidget.source_dim_pivot,
           },
         },
       })
-
       this.loading = true
+
       await this[action.GET_AVAILABLE_WIDGETS](this.projectId)
-      await this[action.GET_TOP_LANGUAGES_WIDGET](this.projectId)
+      await this[action.GET_SUMMARY_WIDGET](this.projectId)
       this.$emit('close')
     },
     updateSettingPanel(val) {

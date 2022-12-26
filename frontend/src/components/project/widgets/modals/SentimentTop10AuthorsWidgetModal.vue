@@ -1,25 +1,25 @@
 <template>
   <BaseModal modal-frame-style="width: 50vw;">
-    <div class="main-title">{{ summaryWidget.title }}</div>
+    <div class="main-title">{{ sentimentTopAuthors.title }}</div>
 
     <div class="general-wrapper-settings">
       <SettingsButtons @update-setting-panel="updateSettingPanel" />
 
       <BasicSettingsScreen
         v-if="panelName === 'General'"
-        :period="summaryWidget.aggregation_period"
-        :widget-title="summaryWidget.title"
-        :widget-description="summaryWidget.description"
+        :period="sentimentTopAuthors.aggregation_period"
+        :widget-title="sentimentTopAuthors.title"
+        :widget-description="sentimentTopAuthors.description"
         @save-changes="saveChanges"
       />
 
       <DimensionsScreen
         v-if="panelName === 'Dimensions'"
-        :active-dimensions="summaryWidget"
+        :active-dimensions="sentimentTopAuthors"
         :project-id="projectId"
-        :widget-author="summaryWidget.author_dim_pivot"
-        :widget-country="summaryWidget.country_dim_pivot"
-        :widget-language="summaryWidget.language_dim_pivot"
+        :widget-author="sentimentTopAuthors.author_dim_pivot"
+        :widget-country="sentimentTopAuthors.country_dim_pivot"
+        :widget-language="sentimentTopAuthors.language_dim_pivot"
         @save-dimensions-settings="saveDimensions"
       />
     </div>
@@ -32,11 +32,11 @@ import {action, get} from '@store/constants'
 
 import BaseModal from '@/components/modals/BaseModal'
 import SettingsButtons from '@/components/project/widgets/modals/SettingsButtons'
-import BasicSettingsScreen from '@/components/project/widgets/modals/screens/BasicSettingsScreen'
 import DimensionsScreen from '@/components/project/widgets/modals/screens/DimensionsScreen'
+import BasicSettingsScreen from '@/components/project/widgets/modals/screens/BasicSettingsScreen'
 
 export default {
-  name: 'SummarySettingsModal',
+  name: 'SentimentTop10AuthorsWidgetModal',
   components: {
     DimensionsScreen,
     BasicSettingsScreen,
@@ -51,7 +51,6 @@ export default {
   },
   data() {
     return {
-      aggregationPeriod: '',
       title: '',
       description: '',
       panelName: 'General',
@@ -59,24 +58,25 @@ export default {
   },
   computed: {
     ...mapGetters({widgets: get.AVAILABLE_WIDGETS, loading: get.LOADING}),
-    summaryWidget() {
-      return this.widgets['summary_widget']
+    sentimentTopAuthors() {
+      return this.widgets['sentiment_top_10_authors_widget']
     },
   },
   methods: {
     ...mapActions([
-      action.GET_SUMMARY_WIDGET,
       action.UPDATE_AVAILABLE_WIDGETS,
       action.GET_AVAILABLE_WIDGETS,
+      action.GET_SENTIMENT_TOP_AUTHORS,
     ]),
     async saveOptions() {
       await this[action.UPDATE_AVAILABLE_WIDGETS]({
         projectId: this.projectId,
         data: {
-          summary_widget: {
-            id: this.summaryWidget.id,
-            title: this.title || this.summaryWidget.title,
-            description: this.description || this.summaryWidget.description,
+          sentiment_top_10_authors_widget: {
+            id: this.sentimentTopAuthors.id,
+            title: this.title || this.sentimentTopAuthors.title,
+            description:
+              this.description || this.sentimentTopAuthors.description,
           },
         },
       })
@@ -87,49 +87,49 @@ export default {
       this[action.UPDATE_AVAILABLE_WIDGETS]({
         projectId: this.projectId,
         data: {
-          summary_widget: {
-            id: this.summaryWidget.id,
-            title: title || this.summaryWidget.title,
-            description: description || this.summaryWidget.description,
+          sentiment_top_10_authors_widget: {
+            id: this.sentimentTopAuthors.id,
+            title: title || this.sentimentTopAuthors.title,
+            description: description || this.sentimentTopAuthors.description,
             smpl_freq:
-              aggregationPeriod.toLowerCase() || this.summaryWidget.smpl_freq,
+              aggregationPeriod.toLowerCase() ||
+              this.sentimentTopAuthors.smpl_freq,
           },
         },
       })
-
-      await this[action.GET_SUMMARY_WIDGET](this.projectId)
+      await this[action.GET_SENTIMENT_TOP_AUTHORS](this.projectId)
       await this[action.GET_AVAILABLE_WIDGETS](this.projectId)
       this.$emit('close')
     },
     async saveDimensions(author, language, country) {
       if (author || author === '') {
-        author = author || this.summaryWidget.author_dim_pivot
+        author = author || this.sentimentTopAuthors.author_dim_pivot
       }
       if (language || language === '') {
-        language = language || this.summaryWidget.language_dim_pivot
+        language = language || this.sentimentTopAuthors.language_dim_pivot
       }
       if (country || country === '') {
-        country = country || this.summaryWidget.country_dim_pivot
+        country = country || this.sentimentTopAuthors.country_dim_pivot
       }
 
       await this[action.UPDATE_AVAILABLE_WIDGETS]({
         projectId: this.projectId,
         data: {
-          summary_widget: {
-            id: this.summaryWidget.id,
-            smpl_freq: this.summaryWidget.aggregation_period,
+          sentiment_top_10_authors_widget: {
+            id: this.sentimentTopAuthors.id,
+            smpl_freq: this.sentimentTopAuthors.aggregation_period,
             author_dim_pivot: author,
             language_dim_pivot: language,
             country_dim_pivot: country,
-            sentiment_dim_pivot: this.summaryWidget.sentiment_dim_pivot,
-            source_dim_pivot: this.summaryWidget.source_dim_pivot,
+            sentiment_dim_pivot: this.sentimentTopAuthors.sentiment_dim_pivot,
+            source_dim_pivot: this.sentimentTopAuthors.source_dim_pivot,
           },
         },
       })
-      this.loading = true
 
+      this.loading = true
       await this[action.GET_AVAILABLE_WIDGETS](this.projectId)
-      await this[action.GET_SUMMARY_WIDGET](this.projectId)
+      await this[action.GET_SENTIMENT_TOP_AUTHORS](this.projectId)
       this.$emit('close')
     },
     updateSettingPanel(val) {

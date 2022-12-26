@@ -25,7 +25,7 @@ import LineChart from '@/components/project/widgets/charts/LineChart'
 import BarChart from '@/components/project/widgets/charts/BarChart'
 
 export default {
-  name: 'ContentVolumeWidget',
+  name: 'VolumeWidget',
   components: {BarChart, LineChart, WidgetsLayout},
   props: {
     volume: {

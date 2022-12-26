@@ -1,94 +1,11 @@
 <template>
-  <ContentVolumeSettingsModal
-    v-if="isOpenContentVolumeModal"
-    @close="openModal('isOpenContentVolumeModal')"
+  <component
+    :is="currentSettingsModal"
+    v-if="isOpenModalSettings"
+    :project-id="projectId"
     :volume="volumeWidget"
-    :project-id="projectId"
-  />
-
-  <SummarySettingsModal
-    v-if="isOpenSummaryModal"
-    :project-id="projectId"
-    @close="openModal('isOpenSummaryModal')"
-  />
-
-  <TopAuthorsSettingsModal
-    v-if="isOpenTop10AuthorsModal"
-    :project-id="projectId"
-    @close="openModal('isOpenTop10AuthorsModal')"
-  />
-
-  <TopBrandsSettingsModal
-    v-if="isOpenTopBrandsModal"
-    :project-id="projectId"
-    @close="openModal('isOpenTopBrandsModal')"
-  />
-
-  <TopCountriesSettingsWidget
-    v-if="isOpenTopCountriesModal"
-    :project-id="projectId"
-    @close="openModal('isOpenTopCountriesModal')"
-  />
-
-  <TopLanguagesModal
-    v-if="isOpenTopLanguagesModal"
-    :project-id="projectId"
-    @close="openModal('isOpenTopLanguagesModal')"
-  />
-
-  <ClippingFeedContentModal
-    v-if="isOpenClippingFeedContentModal"
-    :project-id="projectId"
-    @close="openModal('isOpenClippingFeedContentModal')"
-  />
-
-  <SentimentTopSourcesModal
-    v-if="isOpenSentimentSourcesModal"
-    :project-id="projectId"
-    @close="openModal('isOpenSentimentSourcesModal')"
-  />
-
-  <SentimentTopCountriesModal
-    v-if="isOpenSentimentCountriesModal"
-    :project-id="projectId"
-    @close="openModal('isOpenSentimentCountriesModal')"
-  />
-
-  <SentimentTopAuthorsModal
-    v-if="isOpenSentimentAuthorsModal"
-    :project-id="projectId"
-    @close="openModal('isOpenSentimentAuthorsModal')"
-  />
-
-  <SentimentTopLanguagesModal
-    v-if="isOpenSentimentLanguagesModal"
-    :project-id="projectId"
-    @close="openModal('isOpenSentimentLanguagesModal')"
-  />
-
-  <SentimentForPeriodModal
-    v-if="isOpenSentimentForPeriodModal"
-    :project-id="projectId"
     :sentiment-for-period-value="sentimentForPeriodWidget"
-    @close="openModal('isOpenSentimentForPeriodModal')"
-  />
-
-  <ContentTop10SourcesModal
-    v-if="isOpenContent10SourcesModal"
-    :project-id="projectId"
-    @close="openModal('isOpenContent10SourcesModal')"
-  />
-
-  <ContentTop10CountriesModal
-    v-if="isOpenContent10CountriesModal"
-    :project-id="projectId"
-    @close="openModal('isOpenContent10CountriesModal')"
-  />
-
-  <ContentTop10AuthorsModal
-    v-if="isOpenContent10AuthorsModal"
-    :project-id="projectId"
-    @close="openModal('isOpenContent10AuthorsModal')"
+    @close="closeModal()"
   />
 
   <div v-if="availableWidgets" class="widgets-wrapper">
@@ -105,20 +22,20 @@
     <div class="widget-items scroll">
       <div
         class="widget-item"
-        v-for="item in layoutProxy"
+        v-for="item in selectedWidgets"
         v-show="item.isShow"
-        :key="item.i"
+        :key="item.name"
       >
         <component
           v-if="item.isWidget"
-          :is="`${item.widgetName}` + 'Widget'"
+          :is="item.widgetName"
           :summary-data="summary"
           :volume="volumeWidget"
           :project-id="projectId"
           :is-open-widget="item.isShow"
           :widgets="availableWidgets"
           :current-project="currentProject"
-          @delete-widget="deleteWidget(item.name, item.i)"
+          @delete-widget="deleteWidget(item.name)"
           @open-settings-modal="openModal(item.isOpenModal)"
         />
       </div>
@@ -130,76 +47,76 @@
 import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
-import VueGridLayout from 'vue3-grid-layout'
 import SearchResults from '@/components/SearchResults'
+
+import VolumeWidget from '@/components/project/widgets/VolumeWidget'
 import SummaryWidget from '@/components/project/widgets/SummaryWidget'
-import ContentVolumeWidget from '@/components/project/widgets/ContentVolumeWidget'
-import SentimentTopLanguagesWidget from '@/components/project/widgets/SentimentTopLanguagesWidget'
-import SentimentTopAuthorsWidget from '@/components/project/widgets/SentimentTopAuthorsWidget'
-import SentimentTopSourcesWidget from '@/components/project/widgets/SentimentTopSourcesWidget'
-import SentimentTopCountriesWidget from '@/components/project/widgets/SentimentTopCountriesWidget'
-import SentimentForPeriodWidget from '@/components/project/widgets/SentimentForPeriodWidget'
-import ClippingFeedContentWidget from '@/components/project/widgets/ClippingFeedContentWidget'
 import Top10BrandsWidget from '@/components/project/widgets/Top10BrandsWidget'
 import Top10CountriesWidget from '@/components/project/widgets/Top10CountriesWidget'
 import Top10LanguagesWidget from '@/components/project/widgets/Top10LanguagesWidget'
+import SentimentForPeriodWidget from '@/components/project/widgets/SentimentForPeriodWidget'
+import ClippingFeedContentWidget from '@/components/project/widgets/ClippingFeedContentWidget'
 import Top10AuthorsByVolumeWidget from '@/components/project/widgets/Top10AuthorsByVolumeWidget'
-import ContentVolumeTopAuthorsWidget from '@/components/project/widgets/ContentVolumeTopAuthorsWidget'
-import ContentVolumeTopCountriesWidget from '@/components/project/widgets/ContentVolumeTopCountriesWidget'
+import SentimentTop10AuthorsWidget from '@/components/project/widgets/SentimentTop10AuthorsWidget'
+import SentimentTop10SourcesWidget from '@/components/project/widgets/SentimentTop10SourcesWidget'
+import SentimentTop10LanguagesWidget from '@/components/project/widgets/SentimentTop10LanguagesWidget'
+import SentimentTop10CountriesWidget from '@/components/project/widgets/SentimentTop10CountriesWidget'
+import ContentVolumeTop10SourceWidget from '@/components/project/widgets/ContentVolumeTop10SourceWidget'
+import ContentVolumeTop10AuthorsWidget from '@/components/project/widgets/ContentVolumeTop10AuthorsWidget'
+import ContentVolumeTop10CountriesWidget from '@/components/project/widgets/ContentVolumeTop10CountriesWidget'
 
-import TopAuthorsSettingsModal from '@/components/project/widgets/modals/TopAuthorsSettingsModal'
-import ContentVolumeSettingsModal from '@/components/project/widgets/modals/ContentVolumeSettingsModal'
-import SummarySettingsModal from '@/components/project/widgets/modals/SummarySettingsModal'
-import ClippingFeedContentModal from '@/components/project/widgets/modals/ClippingFeedContentModal'
-import TopBrandsSettingsModal from '@/components/project/widgets/modals/TopBrandsSettingsModal'
-import TopCountriesSettingsWidget from '@/components/project/widgets/modals/TopCountriesSettingsModal'
-import ContentVolumeTopSourcesWidget from '@/components/project/widgets/ContentVolumeTopSourcesWidget'
-import TopLanguagesModal from '@/components/project/widgets/modals/TopLanguagesModal'
-import SentimentTopSourcesModal from '@/components/project/widgets/modals/SentimentTopSourcesModal'
-import SentimentTopCountriesModal from '@/components/project/widgets/modals/SentimentTopCountriesModal'
-import SentimentTopAuthorsModal from '@/components/project/widgets/modals/SentimentTopAuthorsModal'
-import SentimentTopLanguagesModal from '@/components/project/widgets/modals/SentimentTopLanguagesModal'
-import SentimentForPeriodModal from '@/components/project/widgets/modals/SentimentForPeriodModal'
-import ContentTop10SourcesModal from '@/components/project/widgets/modals/ContentTop10SourcesModal'
-import ContentTop10AuthorsModal from '@/components/project/widgets/modals/ContentTop10AuthorsModal'
-import ContentTop10CountriesModal from '@/components/project/widgets/modals/ContentTop10CountriesModal'
+import VolumeWidgetModal from '@/components/project/widgets/modals/VolumeWidgetModal'
+import SummaryWidgetModal from '@/components/project/widgets/modals/SummaryWidgetModal'
+import Top10BrandsWidgetModal from '@/components/project/widgets/modals/Top10BrandsWidgetModal'
+import Top10CountriesWidgetModal from '@/components/project/widgets/modals/Top10CountriesWidgetModal'
+import Top10LanguagesWidgetModal from '@/components/project/widgets/modals/Top10LanguagesWidgetModal'
+import SentimentForPeriodWidgetModal from '@/components/project/widgets/modals/SentimentForPeriodWidgetModal'
+import ClippingFeedContentWidgetModal from '@/components/project/widgets/modals/ClippingFeedContentWidgetModal'
+import Top10AuthorsByVolumeWidgetModal from '@/components/project/widgets/modals/Top10AuthorsByVolumeWidgetModal'
+import SentimentTop10SourcesWidgetModal from '@/components/project/widgets/modals/SentimentTop10SourcesWidgetModal'
+import SentimentTop10AuthorsWidgetModal from '@/components/project/widgets/modals/SentimentTop10AuthorsWidgetModal'
+import SentimentTop10CountriesWidgetModal from '@/components/project/widgets/modals/SentimentTop10CountriesWidgetModal'
+import SentimentTop10LanguagesWidgetModal from '@/components/project/widgets/modals/SentimentTop10LanguagesWidgetModal'
+import ContentVolumeTop10SourceWidgetModal from '@/components/project/widgets/modals/ContentVolumeTop10SourceWidgetModal'
+import ContentVolumeTop10AuthorsWidgetModal from '@/components/project/widgets/modals/ContentVolumeTop10AuthorsWidgetModal'
+import ContentVolumeTop10CountriesWidgetModal from '@/components/project/widgets/modals/ContentVolumeTop10CountriesWidgetModal'
+
+import {snakeToPascal} from '@lib/utilities'
 
 export default {
   name: 'WidgetsView',
   components: {
-    ContentTop10AuthorsModal,
-    ContentTop10CountriesModal,
-    ContentTop10SourcesModal,
-    SentimentForPeriodModal,
-    SentimentTopLanguagesModal,
-    SentimentTopAuthorsModal,
-    SentimentTopCountriesModal,
-    SentimentTopSourcesModal,
-    TopLanguagesModal,
-    TopCountriesSettingsWidget,
-    TopBrandsSettingsModal,
-    ClippingFeedContentModal,
     SearchResults,
-    SummarySettingsModal,
+    VolumeWidgetModal,
+    SummaryWidgetModal,
+    Top10BrandsWidgetModal,
+    Top10CountriesWidgetModal,
+    Top10LanguagesWidgetModal,
     ClippingFeedContentWidget,
-    ContentVolumeSettingsModal,
-    TopAuthorsSettingsModal,
+    SentimentForPeriodWidgetModal,
+    ClippingFeedContentWidgetModal,
+    Top10AuthorsByVolumeWidgetModal,
+    SentimentTop10SourcesWidgetModal,
+    SentimentTop10AuthorsWidgetModal,
+    SentimentTop10CountriesWidgetModal,
+    SentimentTop10LanguagesWidgetModal,
+    ContentVolumeTop10SourceWidgetModal,
+    ContentVolumeTop10AuthorsWidgetModal,
+    ContentVolumeTop10CountriesWidgetModal,
+    VolumeWidget,
     SummaryWidget,
-    ContentVolumeWidget,
     Top10BrandsWidget,
     Top10CountriesWidget,
-    SentimentTopLanguagesWidget,
-    SentimentTopCountriesWidget,
-    SentimentTopAuthorsWidget,
-    SentimentTopSourcesWidget,
-    Top10AuthorsByVolumeWidget,
     Top10LanguagesWidget,
     SentimentForPeriodWidget,
-    ContentVolumeTopCountriesWidget,
-    ContentVolumeTopAuthorsWidget,
-    ContentVolumeTopSourcesWidget,
-    GridLayout: VueGridLayout.GridLayout,
-    GridItem: VueGridLayout.GridItem,
+    Top10AuthorsByVolumeWidget,
+    SentimentTop10AuthorsWidget,
+    SentimentTop10SourcesWidget,
+    SentimentTop10LanguagesWidget,
+    SentimentTop10CountriesWidget,
+    ContentVolumeTop10SourceWidget,
+    ContentVolumeTop10AuthorsWidget,
+    ContentVolumeTop10CountriesWidget,
   },
   props: {
     projectId: {
@@ -214,22 +131,8 @@ export default {
   emits: ['update-page', 'update-posts-count'],
   data() {
     return {
-      isOpenContentVolumeModal: false,
-      isOpenSummaryModal: false,
-      isOpenTop10AuthorsModal: false,
-      isOpenClippingFeedContentModal: false,
-      isOpenTopBrandsModal: false,
-      isOpenTopCountriesModal: false,
-      isOpenTopLanguagesModal: false,
-      isOpenSentimentSourcesModal: false,
-      isOpenSentimentCountriesModal: false,
-      isOpenSentimentAuthorsModal: false,
-      isOpenSentimentLanguagesModal: false,
-      isOpenSentimentForPeriodModal: false,
-      isOpenContent10SourcesModal: false,
-      isOpenContent10CountriesModal: false,
-      isOpenContent10AuthorsModal: false,
       layout: [],
+      isOpenModalSettings: null,
     }
   },
   created() {
@@ -249,33 +152,23 @@ export default {
       availableWidgets: get.AVAILABLE_WIDGETS,
       clippingData: get.CLIPPING_FEED_CONTENT_WIDGET,
     }),
-    layoutProxy: {
-      get() {
-        let layout = []
-
-        for (let key in this.availableWidgets) {
-          if (this.availableWidgets[key].is_active) {
-            layout.push({
-              x: 2,
-              y: this.newValue(layout.length),
-              w: 2,
-              h: this.widgetSettings(key).h,
-              i: this.elementIndex(layout.length),
-              static: false,
-              name: key,
-              widgetName: this.widgetSettings(key).name,
-              isShow: this.isActiveWidget(key),
-              isOpenModal: this.widgetSettings(key).openModal,
+    currentSettingsModal() {
+      return this.isOpenModalSettings
+    },
+    selectedWidgets() {
+      return Object.keys(this.availableWidgets)
+        .map((widgetName) => {
+          if (this.availableWidgets[widgetName].is_active) {
+            return {
+              name: widgetName,
+              widgetName: snakeToPascal(widgetName),
+              isShow: this.availableWidgets[widgetName]?.is_active,
+              isOpenModal: snakeToPascal(widgetName) + 'Modal',
               isWidget: true,
-            })
+            }
           }
-        }
-
-        return layout
-      },
-      set(val) {
-        this.layout = val
-      },
+        })
+        .filter((widgets) => widgets)
     },
   },
   methods: {
@@ -284,111 +177,7 @@ export default {
       action.UPDATE_AVAILABLE_WIDGETS,
       action.GET_CLIPPING_FEED_CONTENT_WIDGET,
     ]),
-    widgetSettings(key) {
-      switch (key) {
-        case 'summary_widget':
-          return {
-            name: 'Summary',
-            openModal: 'isOpenSummaryModal',
-            h: 9,
-          }
-        case 'clipping_feed_content_widget':
-          return {
-            name: 'ClippingFeedContent',
-            openModal: 'isOpenClippingFeedContentModal',
-            h: 15,
-          }
-        case 'top_10_authors_by_volume_widget':
-          return {
-            name: 'Top10AuthorsByVolume',
-            openModal: 'isOpenTop10AuthorsModal',
-            h: 12,
-          }
-        case 'volume_widget':
-          return {
-            name: 'ContentVolume',
-            openModal: 'isOpenContentVolumeModal',
-            h: 12,
-          }
-        case 'top_10_brands_widget':
-          return {
-            name: 'Top10Brands',
-            openModal: 'isOpenTopBrandsModal',
-            h: 12,
-          }
-        case 'top_10_countries_widget':
-          return {
-            name: 'Top10Countries',
-            openModal: 'isOpenTopCountriesModal',
-            h: 13,
-          }
-        case 'top_10_languages_widget':
-          return {
-            name: 'Top10Languages',
-            openModal: 'isOpenTopLanguagesModal',
-            h: 12,
-          }
-        case 'sentiment_top_10_sources_widget':
-          return {
-            name: 'SentimentTopSources',
-            openModal: 'isOpenSentimentSourcesModal',
-            h: 12,
-          }
-        case 'sentiment_top_10_countries_widget':
-          return {
-            name: 'SentimentTopCountries',
-            openModal: 'isOpenSentimentCountriesModal',
-            h: 12,
-          }
-        case 'sentiment_top_10_authors_widget':
-          return {
-            name: 'SentimentTopAuthors',
-            openModal: 'isOpenSentimentAuthorsModal',
-            h: 12,
-          }
-        case 'sentiment_top_10_languages_widget':
-          return {
-            name: 'SentimentTopLanguages',
-            openModal: 'isOpenSentimentLanguagesModal',
-            h: 12,
-          }
-        case 'content_volume_top_10_source_widget':
-          return {
-            name: 'ContentVolumeTopSources',
-            openModal: 'isOpenContent10SourcesModal',
-            h: 12,
-          }
-        case 'sentiment_for_period_widget':
-          return {
-            name: 'SentimentForPeriod',
-            openModal: 'isOpenSentimentForPeriodModal',
-            h: 12,
-          }
-        case 'content_volume_top_10_authors_widget':
-          return {
-            name: 'ContentVolumeTopAuthors',
-            openModal: 'isOpenContent10AuthorsModal',
-            h: 12,
-          }
-        case 'content_volume_top_10_countries_widget':
-          return {
-            name: 'ContentVolumeTopCountries',
-            openModal: 'isOpenContent10CountriesModal',
-            h: 12,
-          }
-      }
-    },
-    newValue(val) {
-      return val > 1 ? val - 1 : 0
-    },
-    elementIndex(val) {
-      let index = val + 1
-      return String(index)
-    },
-    async deleteWidget(name, val) {
-      const index = this.layout.map((item) => item.i).indexOf(val)
-      this.layout.splice(index, 1)
-
+    async deleteWidget(name) {
       await this[action.UPDATE_AVAILABLE_WIDGETS]({
         projectId: this.projectId,
         data: {[name]: {is_active: false, id: this.availableWidgets[name].id}},
@@ -401,11 +190,11 @@ export default {
     updatePosts(page, posts) {
       this.$emit('update-posts-count', page, posts)
     },
-    isActiveWidget(key) {
-      return this.availableWidgets[key]?.is_active
+    openModal(modalName) {
+      this.isOpenModalSettings = modalName
     },
-    openModal(val) {
-      this[val] = !this[val]
+    closeModal() {
+      this.isOpenModalSettings = null
     },
   },
 }

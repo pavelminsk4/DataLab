@@ -31,7 +31,7 @@ import BaseModal from '@/components/modals/BaseModal'
 import BaseButton from '@/components/buttons/BaseButton'
 
 export default {
-  name: 'ClippingFeedContentModal',
+  name: 'ClippingFeedContentWidgetModal',
   components: {BaseButton, BaseInput, BaseModal},
   props: {
     projectId: {

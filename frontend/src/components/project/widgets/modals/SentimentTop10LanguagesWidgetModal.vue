@@ -1,25 +1,25 @@
 <template>
   <BaseModal modal-frame-style="width: 50vw;">
-    <div class="main-title">{{ sentimentTopCountries.title }}</div>
+    <div class="main-title">{{ sentimentTopLanguages.title }}</div>
 
     <div class="general-wrapper-settings">
       <SettingsButtons @update-setting-panel="updateSettingPanel" />
 
       <BasicSettingsScreen
         v-if="panelName === 'General'"
-        :period="sentimentTopCountries.aggregation_period"
-        :widget-title="sentimentTopCountries.title"
-        :widget-description="sentimentTopCountries.description"
+        :period="sentimentTopLanguages.aggregation_period"
+        :widget-title="sentimentTopLanguages.title"
+        :widget-description="sentimentTopLanguages.description"
         @save-changes="saveChanges"
       />
 
       <DimensionsScreen
         v-if="panelName === 'Dimensions'"
-        :active-dimensions="sentimentTopCountries"
+        :active-dimensions="sentimentTopLanguages"
         :project-id="projectId"
-        :widget-author="sentimentTopCountries.author_dim_pivot"
-        :widget-country="sentimentTopCountries.country_dim_pivot"
-        :widget-language="sentimentTopCountries.language_dim_pivot"
+        :widget-author="sentimentTopLanguages.author_dim_pivot"
+        :widget-country="sentimentTopLanguages.country_dim_pivot"
+        :widget-language="sentimentTopLanguages.language_dim_pivot"
         @save-dimensions-settings="saveDimensions"
       />
     </div>
@@ -32,11 +32,11 @@ import {action, get} from '@store/constants'
 
 import BaseModal from '@/components/modals/BaseModal'
 import SettingsButtons from '@/components/project/widgets/modals/SettingsButtons'
-import BasicSettingsScreen from '@/components/project/widgets/modals/screens/BasicSettingsScreen'
 import DimensionsScreen from '@/components/project/widgets/modals/screens/DimensionsScreen'
+import BasicSettingsScreen from '@/components/project/widgets/modals/screens/BasicSettingsScreen'
 
 export default {
-  name: 'SentimentTopCountriesModal',
+  name: 'SentimentTop10LanguagesWidgetModal',
   components: {
     DimensionsScreen,
     BasicSettingsScreen,
@@ -58,25 +58,25 @@ export default {
   },
   computed: {
     ...mapGetters({widgets: get.AVAILABLE_WIDGETS, loading: get.LOADING}),
-    sentimentTopCountries() {
-      return this.widgets['sentiment_top_10_countries_widget']
+    sentimentTopLanguages() {
+      return this.widgets['sentiment_top_10_languages_widget']
     },
   },
   methods: {
     ...mapActions([
       action.UPDATE_AVAILABLE_WIDGETS,
       action.GET_AVAILABLE_WIDGETS,
-      action.GET_SENTIMENT_TOP_COUNTRIES,
+      action.GET_SENTIMENT_TOP_LANGUAGES,
     ]),
     async saveOptions() {
       await this[action.UPDATE_AVAILABLE_WIDGETS]({
         projectId: this.projectId,
         data: {
-          sentiment_top_10_countries_widget: {
-            id: this.sentimentTopCountries.id,
-            title: this.title || this.sentimentTopCountries.title,
+          sentiment_top_10_languages_widget: {
+            id: this.sentimentTopLanguages.id,
+            title: this.title || this.sentimentTopLanguages.title,
             description:
-              this.description || this.sentimentTopCountries.description,
+              this.description || this.sentimentTopLanguages.description,
           },
         },
       })
@@ -87,49 +87,49 @@ export default {
       this[action.UPDATE_AVAILABLE_WIDGETS]({
         projectId: this.projectId,
         data: {
-          sentiment_top_10_countries_widget: {
-            id: this.sentimentTopCountries.id,
-            title: title || this.sentimentTopCountries.title,
-            description: description || this.sentimentTopCountries.description,
+          sentiment_top_10_languages_widget: {
+            id: this.sentimentTopLanguages.id,
+            title: title || this.sentimentTopLanguages.title,
+            description: description || this.sentimentTopLanguages.description,
             smpl_freq:
               aggregationPeriod.toLowerCase() ||
-              this.sentimentTopCountries.smpl_freq,
+              this.sentimentTopLanguages.smpl_freq,
           },
         },
       })
-      await this[action.GET_SENTIMENT_TOP_COUNTRIES](this.projectId)
+      await this[action.GET_SENTIMENT_TOP_LANGUAGES](this.projectId)
       await this[action.GET_AVAILABLE_WIDGETS](this.projectId)
       this.$emit('close')
     },
     async saveDimensions(author, language, country) {
       if (author || author === '') {
-        author = author || this.sentimentTopCountries.author_dim_pivot
+        author = author || this.sentimentTopLanguages.author_dim_pivot
       }
       if (language || language === '') {
-        language = language || this.sentimentTopCountries.language_dim_pivot
+        language = language || this.sentimentTopLanguages.language_dim_pivot
       }
       if (country || country === '') {
-        country = country || this.sentimentTopCountries.country_dim_pivot
+        country = country || this.sentimentTopLanguages.country_dim_pivot
       }
 
       await this[action.UPDATE_AVAILABLE_WIDGETS]({
         projectId: this.projectId,
         data: {
-          sentiment_top_10_countries_widget: {
-            id: this.sentimentTopCountries.id,
-            smpl_freq: this.sentimentTopCountries.aggregation_period,
+          sentiment_top_10_languages_widget: {
+            id: this.sentimentTopLanguages.id,
+            smpl_freq: this.sentimentTopLanguages.aggregation_period,
             author_dim_pivot: author,
             language_dim_pivot: language,
             country_dim_pivot: country,
-            sentiment_dim_pivot: this.sentimentTopCountries.sentiment_dim_pivot,
-            source_dim_pivot: this.sentimentTopCountries.source_dim_pivot,
+            sentiment_dim_pivot: this.sentimentTopLanguages.sentiment_dim_pivot,
+            source_dim_pivot: this.sentimentTopLanguages.source_dim_pivot,
           },
         },
       })
 
       this.loading = true
       await this[action.GET_AVAILABLE_WIDGETS](this.projectId)
-      await this[action.GET_SENTIMENT_TOP_COUNTRIES](this.projectId)
+      await this[action.GET_SENTIMENT_TOP_LANGUAGES](this.projectId)
       this.$emit('close')
     },
     updateSettingPanel(val) {
