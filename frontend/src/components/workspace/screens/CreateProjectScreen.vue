@@ -29,7 +29,7 @@
 
       <h4 class="project-name">Description</h4>
       <textarea
-        class="description-field"
+        class="description-field scroll"
         placeholder="Some words about your project"
         v-model="description"
       />
@@ -241,25 +241,6 @@ export default {
 
 .description-field::placeholder {
   color: var(--secondary-text-color);
-}
-
-.description-field::-webkit-scrollbar {
-  width: 10px;
-}
-
-.description-field::-webkit-scrollbar-track {
-  border-radius: 10px;
-
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-}
-
-.description-field::-webkit-scrollbar-thumb {
-  width: 8px;
-
-  border-radius: 10px;
-
-  background-color: var(--box-shadow-color);
-  outline: none;
 }
 
 .radio-title {

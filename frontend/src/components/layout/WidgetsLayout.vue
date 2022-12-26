@@ -1,5 +1,5 @@
 <template>
-  <section class="widget-layout-wrapper">
+  <section class="widget-layout-wrapper scroll">
     <div class="widget-layout-wrapper__header">
       <div class="title">{{ title }}</div>
 
@@ -100,30 +100,6 @@ export default {
         }
       }
     }
-  }
-
-  &::-webkit-scrollbar {
-    height: 5px;
-    width: 5px;
-
-    cursor: pointer;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: var(--secondary-bg-color);
-    border: 1px solid var(--input-border-color);
-    border-radius: 0 10px 10px 0;
-
-    cursor: pointer;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    height: 4px;
-
-    background: var(--secondary-text-color);
-    border-radius: 10px;
-
-    cursor: pointer;
   }
 }
 </style>

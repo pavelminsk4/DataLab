@@ -25,7 +25,7 @@
         Create new workspace
       </BaseButton>
     </div>
-    <div v-if="workspaces" class="items-wrapper">
+    <div v-if="workspaces" class="items-wrapper scroll">
       <ProjectItem
         v-for="(item, index) in sortWorkspaces"
         :key="index"
@@ -178,23 +178,5 @@ export default {
 
   max-height: 500px;
   padding-right: 15px;
-
-  &::-webkit-scrollbar {
-    height: 5px;
-    width: 5px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: var(--secondary-bg-color);
-    border: 1px solid var(--input-border-color);
-    border-radius: 0 10px 10px 0;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    height: 4px;
-
-    background: var(--secondary-text-color);
-    border-radius: 10px;
-  }
 }
 </style>

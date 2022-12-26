@@ -1,5 +1,5 @@
 <template>
-  <div :class="['tag-input', isError && 'error']">
+  <div :class="['tag-input scroll', isError && 'error']">
     <div
       v-for="(tag, index) in tags"
       :key="tag"
@@ -198,24 +198,6 @@ export default {
     .delete {
       cursor: pointer;
     }
-  }
-
-  &::-webkit-scrollbar {
-    height: 5px;
-    width: 5px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: var(--secondary-bg-color);
-    border: 1px solid var(--input-border-color);
-    border-radius: 10px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    height: 4px;
-
-    background: var(--secondary-text-color);
-    border-radius: 10px;
   }
 }
 

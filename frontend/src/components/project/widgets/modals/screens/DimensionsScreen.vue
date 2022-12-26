@@ -9,7 +9,7 @@
       </div>
     </div>
 
-    <section class="dimensions-list">
+    <section class="dimensions-list scroll">
       <DimensionsItem
         v-for="(item, index) in dimensions"
         :key="'dimension' + index"
@@ -223,24 +223,6 @@ export default {
   border: 1px solid var(--input-border-color);
   box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
   border-radius: 10px;
-
-  &::-webkit-scrollbar {
-    height: 5px;
-    width: 5px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: var(--secondary-bg-color);
-    border: 1px solid var(--input-border-color);
-    border-radius: 0 10px 10px 0;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    height: 4px;
-
-    background: var(--secondary-text-color);
-    border-radius: 10px;
-  }
 }
 
 .button {

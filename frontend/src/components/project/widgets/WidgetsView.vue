@@ -102,7 +102,7 @@
       class="analytics-search-results"
     />
 
-    <div class="widget-items">
+    <div class="widget-items scroll">
       <div
         class="widget-item"
         v-for="item in layoutProxy"
@@ -251,21 +251,7 @@ export default {
     }),
     layoutProxy: {
       get() {
-        let layout = [
-          {
-            x: 0,
-            y: 0,
-            w: 2,
-            h: 29,
-            i: '10',
-            static: false,
-            name: 'search',
-            widgetName: 'search',
-            isShow: true,
-            isOpenModal: 'search',
-            isWidget: false,
-          },
-        ]
+        let layout = []
 
         for (let key in this.availableWidgets) {
           if (this.availableWidgets[key].is_active) {
@@ -440,8 +426,8 @@ export default {
   .widget-items {
     display: flex;
     flex: 1;
-    gap: 20px;
     flex-direction: column;
+    gap: 20px;
 
     height: 1000px;
     padding-right: 20px;

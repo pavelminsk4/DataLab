@@ -4,7 +4,7 @@
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
   >
-    <div class="summary-widget__container">
+    <div class="summary-widget__container scroll">
       <div
         v-for="(item, index) in widgetMetrics"
         :key="'metrics' + index"
@@ -156,24 +156,6 @@ export default {
         background-color: var(--neutral-status);
       }
     }
-  }
-
-  &::-webkit-scrollbar {
-    height: 5px;
-    width: 5px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: var(--secondary-bg-color);
-    border: 1px solid var(--input-border-color);
-    border-radius: 10px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    height: 4px;
-
-    background: var(--secondary-text-color);
-    border-radius: 10px;
   }
 }
 </style>

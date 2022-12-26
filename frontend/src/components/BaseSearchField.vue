@@ -21,7 +21,7 @@
       <div v-else-if="!isSearch">{{ value }}</div>
     </div>
     <div :class="{hidden: !visible, visible}">
-      <ul v-if="visible && list.length" class="select-list">
+      <ul v-if="visible && list.length" class="select-list scroll">
         <li
           v-if="isRejectSelection"
           @click="select('Reject selection')"
@@ -190,24 +190,6 @@ export default {
   list-style-type: none;
   overflow-y: auto;
   overflow-x: hidden;
-
-  &::-webkit-scrollbar {
-    height: 5px;
-    width: 5px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: var(--secondary-bg-color);
-    border: 1px solid var(--input-border-color);
-    border-radius: 0 10px 10px 0;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    height: 4px;
-
-    background: var(--secondary-text-color);
-    border-radius: 10px;
-  }
 }
 
 .select-search {
