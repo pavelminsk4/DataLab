@@ -124,14 +124,17 @@ export default {
 }
 
 .points-icon {
-  pointer-events: stroke;
+  z-index: 3;
 
   flex-shrink: 0;
 
-  color: var(--secondary-text-color);
+  width: 30px;
+  height: 30px;
 
   transition: all 0.3s;
-  z-index: 3;
+  pointer-events: stroke;
+
+  color: var(--secondary-text-color);
 }
 
 .points-icon:hover {
