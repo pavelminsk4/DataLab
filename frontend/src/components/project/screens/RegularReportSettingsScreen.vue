@@ -200,7 +200,7 @@ export default {
     ...mapActions([
       action.GET_WORKSPACES,
       action.CREATE_NEW_REGULAR_REPORT,
-      action.UPDATE_NEW_REGULAR_REPORT,
+      action.UPDATE_REGULAR_REPORT,
       action.GET_REGULAR_REPORTS,
     ]),
     repeatTime(val, name) {
@@ -245,7 +245,7 @@ export default {
       })
     },
     updateRegularReport() {
-      this[action.UPDATE_NEW_REGULAR_REPORT]({
+      this[action.UPDATE_REGULAR_REPORT]({
         projectId: this.projectId,
         regularReportId: this.$route.params.regularReportId,
         data: {

@@ -15,7 +15,7 @@
     </NavigationBar>
 
     <div class="search-settings-wrapper">
-      <ProjectKeywords
+      <SimpleModeTab
         :main-keywords="currentKeywords"
         :exclude-keywords="currentExcludeKeywords"
         :additional-keywords="currentAdditionalKeywords"
@@ -39,13 +39,13 @@ import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
 import NavigationBar from '@/components/navigation/NavigationBar'
-import ProjectKeywords from '@/components/workspace/ProjectKeywords'
+import SimpleModeTab from '@/components/workspace/SimpleModeTab'
 import SearchResults from '@/components/SearchResults'
 import BaseButton from '@/components/buttons/BaseButton'
 
 export default {
   name: 'SearchScreen',
-  components: {BaseButton, SearchResults, ProjectKeywords, NavigationBar},
+  components: {BaseButton, SearchResults, SimpleModeTab, NavigationBar},
   props: {
     currentProject: {
       type: [Array, Object],

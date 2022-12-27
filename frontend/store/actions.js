@@ -480,7 +480,7 @@ export default {
     }
   },
 
-  async [action.UPDATE_NEW_REGULAR_REPORT](
+  async [action.UPDATE_REGULAR_REPORT](
     {dispatch, commit},
     {projectId, regularReportId, data}
   ) {
