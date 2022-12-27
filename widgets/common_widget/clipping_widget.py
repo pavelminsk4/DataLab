@@ -1,4 +1,4 @@
-from project.models import Project, Post
+from project.models import Project
 from .volume_widget import *
 from django.shortcuts import get_object_or_404
 
@@ -10,15 +10,15 @@ def clp_widget(pk):
   source_dim_pivot = project.widgets_list_2.clipping_widget.source_dim_pivot
   sentiment_dim_pivot =project.widgets_list_2.clipping_widget.sentiment_dim_pivot
   posts = posts_agregator(project)
-  if author_dim_pivot!=None:
+  if author_dim_pivot:
    posts = posts.filter(entry_author=author_dim_pivot)
-  if country_dim_pivot!=None:
+  if country_dim_pivot:
    posts = posts.filter(feedlink__country=country_dim_pivot)
-  if language_dim_pivot!=None:
+  if language_dim_pivot:
    posts = posts.filter(feed_language__language=language_dim_pivot)
-  if source_dim_pivot!=None:
+  if source_dim_pivot:
    posts = posts.filter(feedlink__source1=source_dim_pivot)
-  if sentiment_dim_pivot!=None:
+  if sentiment_dim_pivot:
    posts = posts.filter(sentiment=sentiment_dim_pivot)
   posts = posts.values(
     'entry_title',

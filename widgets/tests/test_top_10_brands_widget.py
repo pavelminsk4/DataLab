@@ -20,12 +20,12 @@ class Top10BrandsWidgetTests(APITestCase):
     post5 = Post.objects.create(feedlink=flink3, entry_title='5 post title', feed_language=sp, entry_published=datetime(2023, 9, 3, 6, 37), entry_author='AFP')
     post6 = Post.objects.create(feedlink=flink3, entry_title='6 post title', feed_language=sp, entry_published=datetime(2023, 9, 3, 6, 37), entry_author='EFE')
     pr = Project.objects.create(title='Project1', keywords=['post'], additional_keywords=[], ignore_keywords=[], start_search_date=datetime(2020, 10, 10), 
-                                end_search_date=datetime(2023, 10, 16), author_filter = 'AFP', language_filter=sp, country_filter='USA', creator=user)
+                                end_search_date=datetime(2023, 10, 16), language_filter=sp, creator=user)
     url = reverse('widgets:top_10_brands_widget', kwargs={'pk':pr.pk})
     response = self.client.get(url)
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     res = [
-      {'feedlink__source1': 'two_source', 'brand_count': 2},
-      {'feedlink__source1': 'third_source', 'brand_count': 1},
-    ]
+            {'brand_count': 2, 'feedlink__source1': 'one_source'},
+            {'brand_count': 2, 'feedlink__source1': 'third_source'},
+            {'brand_count': 2, 'feedlink__source1': 'two_source'}]
     self.assertEqual(json.loads(response.content), res)
