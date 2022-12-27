@@ -9,7 +9,7 @@
       <div :style="modalFrameStyle" class="base-modal">
         <div class="base-modal-content">
           <button type="button" class="close" @click="$emit('close')">
-            <IconCross :class="closeIconClass" />
+            <CrossIcon :class="closeIconClass" />
           </button>
           <div class="base-modal-body scroll">
             <slot></slot>
@@ -22,11 +22,11 @@
 </template>
 
 <script>
-import IconCross from '@components/icons/IconCross'
+import CrossIcon from '@components/icons/CrossIcon'
 
 export default {
   name: 'BaseModal',
-  components: {IconCross},
+  components: {CrossIcon},
   props: {
     closeIconClass: {type: String, default: ''},
     modalFrameStyle: {type: String, default: ''},

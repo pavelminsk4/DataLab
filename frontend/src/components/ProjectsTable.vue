@@ -24,15 +24,7 @@
         </td>
         <td>{{ item.title }}</td>
         <td>
-          <div v-if="item.keywords[0]" :class="item.keywords && 'keyword'">
-            {{ item.keywords[0] }}
-          </div>
-          <div
-            v-if="item.keywords[1]"
-            :class="item.keywords[1] !== '' && 'keyword'"
-          >
-            {{ item.keywords[1] }}
-          </div>
+          <TagsCollapsible v-if="item.keywords.length" :tags="item.keywords" />
         </td>
         <td>
           <div class="creator">
@@ -56,22 +48,23 @@
 import {mapGetters} from 'vuex'
 import {get} from '@store/constants'
 
-import PointsIcon from '@/components/icons/PointsIcon'
 import CheckRadioIcon from '@/components/icons/CheckIcon'
-import SocialRadioIcon from '@/components/icons/SocialRadioIcon'
 import OnlineRadioIcon from '@/components/icons/OnlineRadioIcon'
 import PremiumRadioIcon from '@/components/icons/PremiumRadioIcon'
+import SocialRadioIcon from '@/components/icons/SocialRadioIcon'
+
 import MembersIconsBar from '@components/MembersIconsBar.vue'
+import TagsCollapsible from '@components/TagsCollapsible.vue'
 
 export default {
   name: 'ProjectsTable',
   components: {
     CheckRadioIcon,
-    PremiumRadioIcon,
-    OnlineRadioIcon,
-    SocialRadioIcon,
-    PointsIcon,
     MembersIconsBar,
+    OnlineRadioIcon,
+    PremiumRadioIcon,
+    TagsCollapsible,
+    SocialRadioIcon,
   },
   data() {
     return {
@@ -158,7 +151,7 @@ export default {
       }
 
       td {
-        padding: 20px 0;
+        padding: 20px 5px;
 
         border-top: 1px solid var(--border-color);
 
@@ -169,7 +162,7 @@ export default {
         color: var(--primary-text-color);
 
         &:first-child {
-          padding: 15px 0 15px 29px;
+          padding: 15px 5px 15px 29px;
 
           border-left: 1px solid var(--border-color);
         }
@@ -259,23 +252,5 @@ export default {
   &:not(:first-child) {
     margin-left: -10px;
   }
-}
-
-.keyword {
-  width: fit-content;
-  padding: 2px 12px;
-
-  border-radius: 8px;
-  background: rgba(51, 204, 112, 0.2);
-
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 20px;
-
-  color: #30f47e;
-}
-
-.keyword:first-child {
-  margin-right: 6px;
 }
 </style>

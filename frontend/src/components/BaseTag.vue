@@ -47,10 +47,22 @@ export default {
   name: 'BaseTag',
   components: {ErrorIcon, DeleteTagButton},
   props: {
-    modelValue: {type: Array, default: () => []},
-    allowCustom: {type: Boolean, default: true},
-    tagClass: {type: String, default: ''},
-    name: {type: String, default: ''},
+    modelValue: {
+      type: Array,
+      default: () => [],
+    },
+    allowCustom: {
+      type: Boolean,
+      default: true,
+    },
+    tagClass: {
+      type: String,
+      default: '',
+    },
+    name: {
+      type: String,
+      default: '',
+    },
     isAdditionalKeywords: {
       type: Boolean,
       default: false,
@@ -110,9 +122,7 @@ export default {
     const addTag = (tag) => {
       tag = tag.trim()
       if (!tag) return
-      if (!props.allowCustom) {
-        return
-      }
+      if (!props.allowCustom) return
       if (tags.value.includes(tag)) {
         handleDuplicate(tag)
         return
