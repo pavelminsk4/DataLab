@@ -148,6 +148,7 @@ export default {
       action.GET_AVAILABLE_WIDGETS,
     ]),
     toggleWidgetsModal(val) {
+      this.togglePageScroll(false)
       this[val] = !this[val]
     },
     openInstantTemplate(downloadReportModal, instantModal) {

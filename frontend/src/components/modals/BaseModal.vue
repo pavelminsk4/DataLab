@@ -57,13 +57,6 @@ export default {
       this.togglePageScroll(false)
       this.$emit('close')
     },
-    togglePageScroll(isOpen) {
-      if (isOpen) {
-        document.body.classList.add('overflow-hidden')
-      } else {
-        document.body.classList.remove('overflow-hidden')
-      }
-    },
   },
 }
 </script>
