@@ -8,7 +8,7 @@
     >
       <div :style="modalFrameStyle" class="base-modal">
         <div class="base-modal-content">
-          <button type="button" class="close" @click="$emit('close')">
+          <button type="button" class="close" @click="close">
             <CrossIcon :class="closeIconClass" />
           </button>
           <div class="base-modal-body scroll">
@@ -40,20 +40,20 @@ export default {
   },
   methods: {
     clickedOut(e) {
-      if (e.target.id === 'modal') this.sendClose()
+      if (e.target.id === 'modal') this.close()
     },
     pressedEsc(evt) {
       switch (evt.key) {
         case 'Esc':
         case 'Escape':
           evt.preventDefault()
-          this.sendClose()
+          this.close()
           break
         default:
           return undefined
       }
     },
-    sendClose() {
+    close() {
       this.togglePageScroll(false)
       this.$emit('close')
     },

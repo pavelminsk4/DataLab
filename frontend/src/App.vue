@@ -89,6 +89,10 @@ body {
   }
 }
 
+.overflow-hidden {
+  overflow: hidden;
+}
+
 @keyframes hover-gradient {
   0% {
     background-position: 15% 0%;
