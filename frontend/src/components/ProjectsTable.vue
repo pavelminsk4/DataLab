@@ -2,12 +2,12 @@
   <table v-if="workspaces" class="table">
     <thead>
       <tr>
-        <th>TYPE</th>
-        <th>NAME</th>
-        <th>KEYWORDS</th>
-        <th>CREATOR</th>
-        <th>ASSIGNED USERS</th>
-        <th>DATE</th>
+        <th class="th-type">TYPE</th>
+        <th class="th-name">NAME</th>
+        <th class="th-keywords">KEYWORDS</th>
+        <th class="th-creator">CREATOR</th>
+        <th class="th-assigned-user">ASSIGNED USERS</th>
+        <th class="th-date">DATE</th>
       </tr>
     </thead>
     <tbody>
@@ -119,6 +119,25 @@ export default {
 
   cursor: pointer;
 
+  .th-type {
+    width: 13%;
+  }
+  .th-name {
+    width: 16%;
+  }
+  .th-keywords {
+    width: 20%;
+  }
+  .th-creator {
+    width: 16%;
+  }
+  .th-assigned-user {
+    width: 11%;
+  }
+  .th-date {
+    width: 11%;
+  }
+
   thead {
     tr {
       th {
@@ -160,6 +179,7 @@ export default {
         font-size: 14px;
         line-height: 20px;
         color: var(--primary-text-color);
+        word-break: break-word;
 
         &:first-child {
           padding: 15px 5px 15px 29px;
