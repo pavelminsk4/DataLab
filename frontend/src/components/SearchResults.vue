@@ -33,7 +33,7 @@
       <BaseSpinner />
     </div>
 
-    <div v-if="searchData.length" class="search-result-cards">
+    <div v-if="searchData.length" class="search-result-cards scroll">
       <BaseClippingCard
         v-for="(item, index) in searchData"
         :key="'result' + index"
@@ -472,24 +472,6 @@ export default {
 
   height: 1000px;
   width: 100%;
-
-  &::-webkit-scrollbar {
-    height: 5px;
-    width: 5px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: var(--secondary-bg-color);
-    border: 1px solid var(--input-border-color);
-    border-radius: 10px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    height: 4px;
-
-    background: var(--secondary-text-color);
-    border-radius: 10px;
-  }
 }
 
 @media screen and (max-width: 1000px) {

@@ -1,7 +1,7 @@
 <template>
   <WidgetsLayout
-    v-if="sentimentTopSources"
-    :title="widgets['sentiment_top_10_sources_widget'].title"
+    v-if="sentimentTopAuthors"
+    :title="widgets['sentiment_top_10_authors_widget'].title"
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
   >
@@ -22,8 +22,11 @@ import WidgetsLayout from '@/components/layout/WidgetsLayout'
 import PatternsBarChart from '@/components/project/widgets/charts/PatternsBarChart'
 
 export default {
-  name: 'SentimentTopSourcesWidget',
-  components: {PatternsBarChart, WidgetsLayout},
+  name: 'SentimentTop10AuthorsWidget',
+  components: {
+    WidgetsLayout,
+    PatternsBarChart,
+  },
   props: {
     projectId: {
       type: Number,
@@ -38,24 +41,24 @@ export default {
     }
   },
   created() {
-    if (!this.sentimentTopSources.length) {
-      this[action.GET_SENTIMENT_TOP_SOURCES](this.projectId)
+    if (!this.sentimentTopAuthors.length) {
+      this[action.GET_SENTIMENT_TOP_AUTHORS](this.projectId)
     }
   },
   computed: {
     ...mapGetters({
-      sentimentTopSources: get.SENTIMENT_TOP_SOURCES,
+      sentimentTopAuthors: get.SENTIMENT_TOP_AUTHORS,
       widgets: get.AVAILABLE_WIDGETS,
     }),
     labels() {
-      return Object.keys(this.sentimentTopSources)
+      return Object.keys(this.sentimentTopAuthors)
     },
     sentiment() {
       let neutral = []
       let positive = []
       let negative = []
 
-      Object.values(this.sentimentTopSources).forEach((el) => {
+      Object.values(this.sentimentTopAuthors).forEach((el) => {
         Object.values(el).filter((i) => {
           switch (i.sentiment) {
             case 'neutral':
@@ -75,7 +78,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions([action.GET_SENTIMENT_TOP_SOURCES]),
+    ...mapActions([action.GET_SENTIMENT_TOP_AUTHORS]),
   },
 }
 </script>

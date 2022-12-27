@@ -4,7 +4,7 @@
     @open-modal="$emit('open-settings-modal')"
     :title="widgets['clipping_feed_content_widget'].title"
   >
-    <div class="clipping-wrapper">
+    <div class="clipping-wrapper scroll">
       <div v-if="!clippingData.length" class="no-selected">
         Clipping feed content is not selected.
       </div>
@@ -86,24 +86,6 @@ export default {
 
   .no-selected {
     margin-top: 20px;
-  }
-
-  &::-webkit-scrollbar {
-    height: 5px;
-    width: 5px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: var(--secondary-bg-color);
-    border: 1px solid var(--input-border-color);
-    border-radius: 0 10px 10px 0;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    height: 4px;
-
-    background: var(--secondary-text-color);
-    border-radius: 10px;
   }
 }
 </style>

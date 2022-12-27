@@ -29,7 +29,7 @@
         <div class="title">Recipient's email</div>
 
         <div class="email-wrapper">
-          <div :class="['email-field', visible && 'active-email-field']">
+          <div :class="['email-field scroll', visible && 'active-email-field']">
             <div
               v-for="(item, index) in selectedUsers || []"
               :key="item"
@@ -43,7 +43,7 @@
             </div>
           </div>
 
-          <ul v-if="visible" class="select-list">
+          <ul v-if="visible" class="select-list scroll">
             <li
               v-for="(item, index) in projectMembers"
               :key="item.username + index"
@@ -424,24 +424,6 @@ export default {
         background-color: var(--hover-button-color);
       }
     }
-
-    &::-webkit-scrollbar {
-      height: 5px;
-      width: 5px;
-    }
-
-    &::-webkit-scrollbar-track {
-      background: var(--secondary-bg-color);
-      border: 1px solid var(--input-border-color);
-      border-radius: 0 10px 10px 0;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      height: 4px;
-
-      background: var(--secondary-text-color);
-      border-radius: 10px;
-    }
   }
 
   .active-email-field {
@@ -480,24 +462,6 @@ export default {
       &:hover {
         background: var(--primary-button-color);
       }
-    }
-
-    &::-webkit-scrollbar {
-      height: 5px;
-      width: 5px;
-    }
-
-    &::-webkit-scrollbar-track {
-      background: var(--secondary-bg-color);
-      border: 1px solid var(--input-border-color);
-      border-radius: 0 10px 10px 0;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      height: 4px;
-
-      background: var(--secondary-text-color);
-      border-radius: 10px;
     }
   }
 }

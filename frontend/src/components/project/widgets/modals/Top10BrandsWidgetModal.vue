@@ -36,7 +36,7 @@ import BasicSettingsScreen from '@/components/project/widgets/modals/screens/Bas
 import DimensionsScreen from '@/components/project/widgets/modals/screens/DimensionsScreen'
 
 export default {
-  name: 'TopBrandsSettingsModal',
+  name: 'Top10BrandsWidgetModal',
   components: {
     DimensionsScreen,
     BasicSettingsScreen,
@@ -145,84 +145,5 @@ export default {
   font-weight: 600;
   font-size: 36px;
   line-height: 54px;
-}
-
-.input-title {
-  width: 100%;
-}
-
-.description-field {
-  width: 100%;
-  height: 132px;
-  padding: 12px 16px;
-  margin-bottom: 25px;
-
-  border: 1px solid var(--input-border-color);
-  box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
-  border-radius: 10px;
-  background: var(--secondary-bg-color);
-
-  color: var(--primary-text-color);
-
-  resize: none;
-}
-
-.description-field::placeholder {
-  color: var(--secondary-text-color);
-}
-
-.description-field::-webkit-scrollbar {
-  width: 10px;
-}
-
-.description-field::-webkit-scrollbar-track {
-  border-radius: 10px;
-
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-}
-
-.description-field::-webkit-scrollbar-thumb {
-  width: 8px;
-
-  border-radius: 10px;
-
-  background-color: var(--box-shadow-color);
-  outline: none;
-}
-
-.settings-wrapper {
-  display: flex;
-
-  min-width: 100%;
-  .options-wrapper {
-    display: flex;
-    flex-direction: column;
-
-    width: 100%;
-
-    .title-general {
-      padding-bottom: 10px;
-      margin-bottom: 15px;
-
-      border-bottom: 1px solid var(--primary-button-color);
-
-      font-weight: 400;
-      font-size: 14px;
-      line-height: 22px;
-    }
-
-    .title {
-      margin: 25px 0 12px;
-
-      font-style: normal;
-      font-weight: 500;
-      font-size: 14px;
-      line-height: 110%;
-    }
-
-    .option {
-      margin-bottom: 25px;
-    }
-  }
 }
 </style>

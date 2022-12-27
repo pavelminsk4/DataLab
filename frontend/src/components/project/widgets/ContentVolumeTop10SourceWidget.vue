@@ -21,7 +21,7 @@ import WidgetsLayout from '@/components/layout/WidgetsLayout'
 import LineChart from '@/components/project/widgets/charts/LineChart'
 
 export default {
-  name: 'ContentVolumeTopSources',
+  name: 'ContentVolumeTop10SourceWidget',
   components: {LineChart, WidgetsLayout},
   props: {
     projectId: {

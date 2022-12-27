@@ -5,7 +5,7 @@
 
     <div class="title">Widget Description</div>
     <textarea
-      class="description-field"
+      class="description-field scroll"
       placeholder="Some words about Widgets"
       v-model="description"
     />
@@ -130,27 +130,8 @@ export default {
     resize: none;
   }
 
-  .description-field::placeholder {
+  &::placeholder {
     color: var(--secondary-text-color);
-  }
-
-  .description-field::-webkit-scrollbar {
-    width: 10px;
-  }
-
-  .description-field::-webkit-scrollbar-track {
-    border-radius: 10px;
-
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  }
-
-  .description-field::-webkit-scrollbar-thumb {
-    width: 8px;
-
-    border-radius: 10px;
-
-    background-color: var(--box-shadow-color);
-    outline: none;
   }
 }
 </style>

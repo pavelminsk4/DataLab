@@ -8,7 +8,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap');
 
 * {
@@ -67,6 +67,26 @@ body {
   );
 
   --animation-hover-gradient: hover-gradient 0.5s ease;
+}
+
+.scroll {
+  &::-webkit-scrollbar {
+    height: 5px;
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: var(--secondary-bg-color);
+    border: 1px solid var(--input-border-color);
+    border-radius: 0 10px 10px 0;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    height: 4px;
+
+    background: var(--secondary-text-color);
+    border-radius: 10px;
+  }
 }
 
 @keyframes hover-gradient {
