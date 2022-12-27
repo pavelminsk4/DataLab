@@ -1,4 +1,3 @@
-from project.models import Post, Project
 from widgets.models import ClippingFeedContentWidget
 from django.http import JsonResponse
 
