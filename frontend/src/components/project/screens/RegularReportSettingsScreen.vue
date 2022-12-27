@@ -6,25 +6,32 @@
       hint="Set up report for your project with highly customized filters"
     >
       <BaseButton
-        v-if="this.$route.name === 'NewRegularReport'"
+        v-if="routerName === 'NewRegularReport'"
         @click="saveChanges"
         class="button"
       >
         Save
       </BaseButton>
       <BaseButton
-        v-if="this.$route.name === 'UpdateRegularReport'"
-        @click="updateRegularReport"
+        v-if="routerName === 'UpdateRegularReport'"
+        @click="saveChanges"
         class="button-update"
       >
         Update Regular Report
       </BaseButton>
     </NavigationBar>
 
-    <section v-if="regularReports.length" class="create-report-section">
+    <section
+      v-if="regularReports.length || $route.name === 'NewRegularReport'"
+      class="create-report-section"
+    >
       <div class="create-report-wrapper">
         <div class="title">Regular Report Title</div>
-        <BaseInput v-model="title" class="input-title" placeholder="Title" />
+        <BaseInput
+          v-model="reportData.title"
+          class="input-title"
+          placeholder="Title"
+        />
 
         <div class="title">Recipient's email</div>
 
@@ -57,7 +64,7 @@
 
         <div class="title">Email Title</div>
         <BaseInput
-          v-model="emailTitle"
+          v-model="reportData.email_title"
           class="input-title"
           placeholder="Title"
         />
@@ -100,26 +107,7 @@ export default {
   },
   data() {
     return {
-      title: '',
-      emailTitle: '',
-      hour: '*',
-      hourlyEnabled: false,
-      endingTimeHourly: null,
-      hourlyTemplate: '',
-      dailyEnabled: false,
-      endingTimeDaily: null,
-      timePickerDailyValue: [],
-      dailyTemplate: '',
-      weeklyEnabled: false,
-      dayOfWeek: '*',
-      timePickerWeeklyValue: [],
-      weeklyTemplate: '',
-      endingTimeWeekly: null,
-      dayOfMonth: '*',
-      monthlyEnabled: false,
-      timePickerMonthlyValue: [],
-      endingTimeMonthly: null,
-      monthlyTemplate: '',
+      reportData: {},
       visible: false,
       isDuplicate: false,
       selectedUsers: [],
@@ -135,14 +123,13 @@ export default {
       await this[action.GET_REGULAR_REPORTS](this.projectId)
     }
 
-    if (this.$route.name === 'UpdateRegularReport') {
-      this.title = this.currentReport?.title
-      this.emailTitle = this.currentReport?.email_title
+    if (this.routerName === 'UpdateRegularReport') {
+      this.reportData = this.currentReport
     }
 
     if (
       this.projectMembers.length &&
-      this.$route.name === 'UpdateRegularReport'
+      this.routerName === 'UpdateRegularReport'
     ) {
       this.selectedUsers = [...this.reportUsers]
       this.usersId = [...this.reportUsersId]
@@ -205,105 +192,81 @@ export default {
     reportUsersId() {
       return this.reportUsers.map((el) => el.id)
     },
+    routerName() {
+      return this.$route.name
+    },
   },
   methods: {
     ...mapActions([
       action.GET_WORKSPACES,
       action.CREATE_NEW_REGULAR_REPORT,
-      action.UPDATE_NEW_REGULAR_REPORT,
+      action.UPDATE_REGULAR_REPORT,
       action.GET_REGULAR_REPORTS,
     ]),
     repeatTime(val, name) {
-      this.hourlyEnabled = true
-      this.monthlyEnabled = true
-      this[name] = val
+      this.reportData.hourly_enabled = true
+      this.reportData.monthly_enabled = true
+      this.reportData[name] = val
     },
     updateTimeDaily(val) {
-      this.dailyEnabled = true
-      this.timePickerDailyValue = val
+      this.reportData.daily_enabled = true
+      this.reportData.d_hour = val.hours
+      this.reportData.d_minute = val.minutes
     },
     updateTimeWeekly(val) {
-      this.timePickerWeeklyValue = val
+      this.reportData.w_hour = val.hours
+      this.reportData.w_minute = val.minutes
     },
     chooseWeeklyDay(val) {
-      this.weeklyEnabled = true
-      this.dayOfWeek = val
+      this.reportData.weekly_enabled = true
+      this.reportData.w_day_of_week = val
     },
     updatePickerTimeMonthly(val) {
-      this.timePickerMonthlyValue = val
+      this.reportData.m_hour = val.hours
+      this.reportData.m_minute = val.minutes
     },
     endingDateHourly(val, name) {
-      this[name] = val
+      this.reportData[name] = val
     },
     updateEndingDateHourly(val, name) {
-      this[name] = val
+      this.reportData[name] = val
     },
     selectHourlyTemplate(val, name) {
-      this[name] = val
+      this.reportData[name] = val
     },
-    async createRegularReport() {
-      await this[action.CREATE_NEW_REGULAR_REPORT]({
+    createRegularReport() {
+      this[action.CREATE_NEW_REGULAR_REPORT]({
         projectId: this.projectId,
         data: {
-          title: this.title,
+          ...this.reportData,
           project: this.projectId,
-          email_title: this.emailTitle,
-          h_hour: this.hour,
-          h_minute: 0,
-          hourly_enabled: this.hourlyEnabled,
-          h_ending_date: this.endingTimeHourly,
-          h_template: this.hourlyTemplate,
-          daily_enabled: this.dailyEnabled,
-          d_hour: this.timePickerDailyValue.hours,
-          d_minute: this.timePickerDailyValue.minutes,
-          d_ending_date: this.endingTimeDaily,
-          d_template: this.dailyTemplate,
-          weekly_enabled: this.weeklyEnabled,
-          w_day_of_week: this.dayOfWeek,
-          w_hour: this.timePickerWeeklyValue.hours,
-          w_minute: this.timePickerWeeklyValue.minutes,
-          w_ending_date: this.endingTimeWeekly,
-          w_template: this.weeklyTemplate,
-          m_day_of_month: this.dayOfMonth,
-          monthly_enabled: this.monthlyEnabled,
-          m_hour: this.timePickerMonthlyValue.hours,
-          m_minute: this.timePickerMonthlyValue.minutes,
-          m_ending_date: this.endingTimeMonthly,
-          m_template: this.monthlyTemplate,
           user: [...this.usersId],
         },
       })
-
-      this.loading = true
-      await this[action.GET_REGULAR_REPORTS](this.projectId)
     },
     updateRegularReport() {
-      this[action.UPDATE_NEW_REGULAR_REPORT]({
+      this[action.UPDATE_REGULAR_REPORT]({
         projectId: this.projectId,
         regularReportId: this.$route.params.regularReportId,
         data: {
-          title: this.title,
+          ...this.reportData,
           project: this.projectId,
-          email_title: this.emailTitle,
           user: [...this.usersId],
         },
       })
     },
     saveChanges() {
-      if (this.$route.name === 'NewRegularReport') {
+      if (this.routerName === 'NewRegularReport') {
         this.createRegularReport()
-
-        this.loading = true
-        this.$router.push({
-          name: 'Reports',
-        })
-      } else {
-        this.updateRegularReport()
-
-        this.$router.push({
-          name: 'Reports',
-        })
       }
+
+      if (this.routerName === 'UpdateRegularReport') {
+        this.updateRegularReport()
+      }
+
+      this.$router.push({
+        name: 'Reports',
+      })
     },
     addUsers() {
       this.visible = !this.visible

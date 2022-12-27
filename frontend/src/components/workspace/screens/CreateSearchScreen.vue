@@ -25,7 +25,7 @@
   />
 
   <div class="search-settings-wrapper">
-    <ProjectKeywords
+    <SimpleModeTab
       @show-result="showResults"
       @update-collection="updateCollection"
     />
@@ -45,12 +45,12 @@ import {action, get} from '@store/constants'
 import NavigationBar from '@/components/navigation/NavigationBar'
 
 import SearchResults from '@/components/SearchResults'
-import ProjectKeywords from '@/components/workspace/ProjectKeywords'
+import SimpleModeTab from '@/components/workspace/SimpleModeTab'
 
 export default {
   name: 'CreateSearchScreen',
   components: {
-    ProjectKeywords,
+    SimpleModeTab,
     SearchResults,
     NavigationBar,
   },

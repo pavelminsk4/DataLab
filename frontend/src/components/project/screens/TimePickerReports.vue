@@ -16,15 +16,20 @@
       <div v-show="timePickerName === 'Hourly'" class="frequency-sending">
         <div class="repeat-time-wrapper">
           Every
-          <BaseInput v-model="hour" placeholder="0" class="hours-counter">
+          <BaseInput
+            v-model="hHourProxy"
+            placeholder="0"
+            inputType="number"
+            class="hours-counter"
+          >
             <div class="arrows-wrapper">
               <ArrowDownIcon
-                @click="increase('hour')"
+                @click="increase('h_hour')"
                 class="arrow-input arrow-increase"
               />
               <ArrowDownIcon
-                @click="decrease('hour')"
-                :class="['arrow-input', hour === 1 && 'disabled']"
+                @click="decrease('h_hour')"
+                :class="['arrow-input', hHourProxy === 1 && 'disabled']"
               />
             </div>
           </BaseInput>
@@ -110,18 +115,19 @@
           <div class="repeat-time-wrapper">
             Every
             <BaseInput
-              v-model="dayOfMonth"
+              v-model="mDayOfMonthProxy"
               placeholder="0"
+              inputType="number"
               class="hours-counter"
             >
               <div class="arrows-wrapper">
                 <ArrowDownIcon
-                  @click="increase('dayOfMonth')"
+                  @click="increase('m_day_of_month')"
                   class="arrow-input arrow-increase"
                 />
                 <ArrowDownIcon
-                  @click="decrease('dayOfMonth')"
-                  :class="['arrow-input', dayOfMonth === 1 && 'disabled']"
+                  @click="decrease('m_day_of_month')"
+                  :class="['arrow-input', mDayOfMonthProxy === 1 && 'disabled']"
                 />
               </div>
             </BaseInput>
@@ -165,6 +171,8 @@ import GeneralSettingReport from '@/components/project/screens/GeneralSettingRep
 
 import Datepicker from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
+import {action} from '@store/constants'
+import {mapActions} from 'vuex'
 
 export default {
   name: 'TimePickerReports',
@@ -183,8 +191,8 @@ export default {
   },
   data() {
     return {
-      hour: 1,
-      dayOfMonth: 1,
+      h_hour: 1,
+      m_day_of_month: 1,
       timePickerValueDaily: {},
       timePickerValueWeekly: {},
       timePickerValueMonthly: {},
@@ -207,11 +215,10 @@ export default {
       activeDay: null,
     }
   },
-  created() {
-    if (this.regularReport.length) {
-      this.hour = this.regularReport.h_hour
-      this.activeDay = +this.regularReport.w_day_of_week
-      this.dayOfMonth = this.regularReport.m_day_of_month
+  async created() {
+    await this[action.GET_TEMPLATES]()
+
+    if (this.regularReport) {
       this.timePickerValueDaily = {
         hours: this.regularReport.d_hour,
         minutes: this.regularReport.d_minute,
@@ -238,8 +245,25 @@ export default {
         this.activeDay = val
       },
     },
+    hHourProxy: {
+      get() {
+        return +this.regularReport.h_hour || this.h_hour
+      },
+      set(value) {
+        this.h_hour = value
+      },
+    },
+    mDayOfMonthProxy: {
+      get() {
+        return +this.regularReport.m_day_of_month || this.m_day_of_month
+      },
+      set(value) {
+        this.m_day_of_month = value
+      },
+    },
   },
   methods: {
+    ...mapActions([action.GET_TEMPLATES]),
     toggleTimePickerSettings(e) {
       this.timePickerName = e.target.innerText
     },
@@ -267,49 +291,37 @@ export default {
     setEndingDate(val) {
       switch (this.timePickerName) {
         case 'Hourly':
-          return this.$emit('ending-date-hourly', val, 'endingTimeHourly')
+          return this.$emit('ending-date-hourly', val, 'h_ending_date')
         case 'Daily':
-          return this.$emit('ending-date-hourly', val, 'endingTimeDaily')
+          return this.$emit('ending-date-hourly', val, 'd_ending_date')
         case 'Weekly':
-          return this.$emit('ending-date-hourly', val, 'endingTimeWeekly')
+          return this.$emit('ending-date-hourly', val, 'w_ending_date')
         case 'Monthly':
-          return this.$emit('ending-date-hourly', val, 'endingTimeMonthly')
+          return this.$emit('ending-date-hourly', val, 'm_ending_date')
       }
     },
     updateEndingDate(val) {
       switch (this.timePickerName) {
         case 'Hourly':
-          return this.$emit(
-            'update-ending-date-hourly',
-            val,
-            'endingTimeHourly'
-          )
+          return this.$emit('update-ending-date-hourly', val, 'h_ending_date')
         case 'Daily':
-          return this.$emit('update-ending-date-hourly', val, 'endingTimeDaily')
+          return this.$emit('update-ending-date-hourly', val, 'd_ending_date')
         case 'Weekly':
-          return this.$emit(
-            'update-ending-date-hourly',
-            val,
-            'endingTimeWeekly'
-          )
+          return this.$emit('update-ending-date-hourly', val, 'w_ending_date')
         case 'Monthly':
-          return this.$emit(
-            'update-ending-date-hourly',
-            val,
-            'endingTimeMonthly'
-          )
+          return this.$emit('update-ending-date-hourly', val, 'm_ending_date')
       }
     },
     selectTemplate(val) {
       switch (this.timePickerName) {
         case 'Hourly':
-          return this.$emit('select-hourly-template', val, 'hourlyTemplate')
+          return this.$emit('select-hourly-template', val, 'h_template')
         case 'Daily':
-          return this.$emit('select-hourly-template', val, 'dailyTemplate')
+          return this.$emit('select-hourly-template', val, 'd_template')
         case 'Weekly':
-          return this.$emit('select-hourly-template', val, 'weeklyTemplate')
+          return this.$emit('select-hourly-template', val, 'w_template')
         case 'Monthly':
-          return this.$emit('select-hourly-template', val, 'monthlyTemplate')
+          return this.$emit('select-hourly-template', val, 'm_template')
       }
     },
   },

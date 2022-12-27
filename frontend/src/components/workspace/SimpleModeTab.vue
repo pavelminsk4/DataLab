@@ -67,7 +67,7 @@ import {mapGetters} from 'vuex'
 import {get} from '@store/constants'
 
 export default {
-  name: 'ProjectKeywords',
+  name: 'SimpleModeTab',
   components: {BaseButton, OnlineType, BaseTag},
   props: {
     mainKeywords: {

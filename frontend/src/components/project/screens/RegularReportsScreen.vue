@@ -58,7 +58,9 @@ export default {
     },
   },
   created() {
-    this[action.GET_REGULAR_REPORTS](this.currentProject.id)
+    if (!this.reports.length) {
+      this[action.GET_REGULAR_REPORTS](this.currentProject.id)
+    }
   },
   computed: {
     ...mapGetters({

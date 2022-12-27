@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="templates.length">
     <div class="title">The ending</div>
     <div class="radio-wrapper">
       <BaseRadio
@@ -35,7 +35,7 @@
       name="template"
       :list="titleTemplates"
       :is-reject-selection="false"
-      :current-value="currentTemplate[0]?.title"
+      :current-value="currentTemplate?.title"
       @select-option="selectItem"
       class="select"
     />
@@ -80,8 +80,6 @@ export default {
     }
   },
   created() {
-    this[action.GET_TEMPLATES]()
-
     if (this.currentEndingTimeValue) {
       this.hoursDate = this.currentEndingTimeValue
     }
@@ -94,7 +92,7 @@ export default {
       return this.templates.map((el) => el.title)
     },
     currentTemplate() {
-      return this.templates.filter((el) => el.id === this.currentTemplateId)
+      return this.templates.find((el) => el.id === this.currentTemplateId)
     },
     calendarDate() {
       return this.formatDate(new Date())
