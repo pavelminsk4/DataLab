@@ -188,14 +188,14 @@ def filling_template(template_path, project_id):
         document.add_paragraph('', style='pTableHeaderLeft')     
   document.save('tmp/temp.docx')
 
-def instantly_report(request, pk):
-  proj = Project.objects.get(id=pk)
+def instantly_report(request, proj_pk):
+  proj = Project.objects.get(id=proj_pk)
   format = proj.report_format
   template_path = str(proj.report_template.layout_file)
   docx_path='tmp/temp.docx'
   report_path='tmp/temp.' + format
-  prepare_widget_images(pk)
-  filling_template(template_path, pk)
+  prepare_widget_images(proj_pk)
+  filling_template(template_path, proj_pk)
   convert_docx_to_pdf(docx_path, report_path)
   response = FileResponse(open(report_path, 'rb'))
   response.headers = {
@@ -208,4 +208,4 @@ def instantly_report(request, pk):
 class RegularReportViewSet(viewsets.ModelViewSet):
   serializer_class = RegularReportSerializer
   def get_queryset(self):
-   return RegularReport.objects.filter(project_id=self.kwargs['pk'])
+   return RegularReport.objects.filter(project_id=self.kwargs['proj_pk'])
