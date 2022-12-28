@@ -43,6 +43,6 @@ class InstantReportTests(APITestCase):
     pr.widgets_list_2.sentiment_top_10_languages_widget.is_active = True
     pr.widgets_list_2.sentiment_top_10_sources_widget.is_active = True
     pr.widgets_list_2.clipping_feed_content_widget.is_active = True
-    url = reverse('instantly_report', kwargs={'pk':pr.pk})
+    url = reverse('instantly_report', kwargs={'proj_pk':pr.pk})
     response = self.client.get(url)
     self.assertEqual(response.status_code, status.HTTP_200_OK)
