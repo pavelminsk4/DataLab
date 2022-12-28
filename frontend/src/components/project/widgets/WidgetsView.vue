@@ -5,7 +5,7 @@
     :project-id="projectId"
     :volume="volumeWidget"
     :sentiment-for-period-value="sentimentForPeriodWidget"
-    @close="closeModal()"
+    @close="closeModal"
   />
 
   <div v-if="availableWidgets" class="widgets-wrapper">
@@ -194,6 +194,7 @@ export default {
       this.isOpenModalSettings = modalName
     },
     closeModal() {
+      this.togglePageScroll(false)
       this.isOpenModalSettings = null
     },
   },

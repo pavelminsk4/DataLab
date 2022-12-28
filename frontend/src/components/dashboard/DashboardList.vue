@@ -101,6 +101,7 @@ export default {
       })
     },
     toggleModal(id) {
+      this.togglePageScroll(false)
       this.isOpenModal = !this.isOpenModal
       this.workspaceId = id
     },
