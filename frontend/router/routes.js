@@ -9,6 +9,7 @@ import CreateSearchScreen from '@/components/workspace/screens/CreateSearchScree
 import CreateProjectScreen from '@/components/workspace/screens/CreateProjectScreen'
 import CreateWorkspaceScreen from '@/components/workspace/screens/CreateWorkspaceScreen'
 
+import UserRolesScreen from '@/components/settings/UserRolesScreen'
 import ProjectExtraSettingsView from '@/components/project/ProjectExtraSettingsView'
 
 import SearchScreen from '@/components/project/screens/SearchScreen'
@@ -94,6 +95,12 @@ export const routes = [
     name: 'Workspace',
     path: '/workspace/:workspaceId',
     component: WorkspaceView,
+  },
+
+  {
+    name: 'UserRoles',
+    path: '/user-roles',
+    component: UserRolesScreen,
   },
 
   {
