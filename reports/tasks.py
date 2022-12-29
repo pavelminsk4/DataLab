@@ -8,30 +8,14 @@ from pathlib import Path
 import mimetypes
 import aspose.words as aw
 from docx import Document
-from docx.shared import Inches, Pt
 from widgets.models import *
-from django.shortcuts import get_object_or_404
+
+from .chartjs.chartjs import prepare_widget_images
+from reports.views_filling.filling_for_report import filling_templates_for_instant_and_regular_reports
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 env = environ.Env()
 env.read_env(os.path.join(BASE_DIR, '.env'))
-
-from .chartjs.chartjs import prepare_widget_images
-from reports.views_filling.filling_summary_widget import summarry_widget_image
-from reports.views_filling.filling_volume_widget import volume_widget_image
-from reports.views_filling.filling_top_10_authors_by_volume_widget import top_10_authors_by_volume_widget_image
-from reports.views_filling.filling_top_10_sources_widget import top_10_sources_widget_image
-from reports.views_filling.filling_top_10_countries_widget import top_10_countries_widget_image
-from reports.views_filling.filling_top_10_languages_widget import top_10_languages_widget_image
-from reports.views_filling.filling_sentiment_top_10_sources_widget import sentiment_top_10_sources_widget_image
-from reports.views_filling.filling_sentiment_top_10_authors_widget import sentiment_top_10_authors_widget_image
-from reports.views_filling.filling_sentiment_top_10_countries_widget import sentiment_top_10_countries_widget_image
-from reports.views_filling.filling_sentiment_top_10_languages_widget import sentiment_top_10_languages_widget_image
-from reports.views_filling.filling_sentiment_for_period_widget import sentiment_for_period_widget_image
-from reports.views_filling.filling_content_volume_top_10_source_widget import content_volume_top_10_source_widget_image
-from reports.views_filling.filling_content_volume_top_10_authors_widget import content_volume_top_10_authors_widget_image
-from reports.views_filling.filling_content_volume_top_10_countries_widget import content_volume_top_10_countries_widget_image
-from reports.views_filling.filling_for_report import filling_templates_for_instant_and_regular_reports
 
 # ====================================================================
 
@@ -52,12 +36,15 @@ def create_pdf_file(reg_report):
   prepare_widget_images(reg_report.project.id)
   filling_template(template_path, reg_report.project.pk)
   convert_docx_to_pdf(docx_path, report_path)
+  return report_path
 
 # =====================================================================
 
-def send_email_with(file, recipient_list):
+def send_email_with(file, reg_report, crontab_type):
+  users = reg_report.user.all()
+  recipient_list = list(users.values_list('email', flat=True))
   msg = EmailMessage()
-  msg['Subject'] = 'Subject: Regular Report from your Anova project.'
+  msg['Subject'] = f'''Your {crontab_type} regular {reg_report.title} report from the {reg_report.project.title} Datalab project is here.'''
   msg['From'] = 'Datalab'
   msg['To'] = recipient_list
   mime_type, _ = mimetypes.guess_type(file)
@@ -69,10 +56,7 @@ def send_email_with(file, recipient_list):
     smtp.send_message(msg)
 
 @shared_task
-def regular_report_sender(report_id):
+def regular_report_sender(report_id , crontab_type):
   reg_report = RegularReport.objects.get(id=report_id)
-  users = reg_report.user.all()
-  recipient_list = list(users.values_list('email', flat=True))
-  create_pdf_file(reg_report)
-  file = './tmp/temp_reg_report.pdf'
-  send_email_with(file, recipient_list)
+  file = create_pdf_file(reg_report)
+  send_email_with(file, reg_report, crontab_type)

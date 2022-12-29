@@ -91,7 +91,7 @@ def alert_sender():
       mails_list = list(users.values_list('email', flat=True))
 
       msg = EmailMessage()
-      msg['Subject'] = 'Subject: Allert from your Anova project.'
+      msg['Subject'] = f'''Your {alert.title} alert from the {alert.project.title} Datalab project has been triggered.'''
       msg['From'] = 'Datalab'
       msg['To'] = mails_list
 
