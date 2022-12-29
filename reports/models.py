@@ -72,7 +72,7 @@ def create_periodic_task(sender, instance, created, **kwargs):
         crontab = crontab_schedule,
         name = 'REGULAR_REPORT_' + instance.title + str(datetime.now()),
         task = 'reports.tasks.regular_report_sender',
-        args = [ instance.id ],
+        args = [ instance.id, 'hourly' ],
       )
       instance.hourly_periodic_task = periodic_task
     if instance.daily_enabled:
@@ -87,7 +87,7 @@ def create_periodic_task(sender, instance, created, **kwargs):
         crontab = crontab_schedule,
         name = 'REGULAR_REPORT_' + instance.title + str(datetime.now()),
         task = 'reports.tasks.regular_report_sender',
-        args = [ instance.id ],
+        args = [ instance.id, 'daily' ],
       )
       if instance.weekly_enabled:
         crontab_schedule = CrontabSchedule.objects.create(
@@ -101,7 +101,7 @@ def create_periodic_task(sender, instance, created, **kwargs):
           crontab = crontab_schedule,
           name = 'REGULAR_REPORT_' + instance.title + str(datetime.now()),
           task = 'reports.tasks.regular_report_sender',
-          args = [ instance.id ],
+          args = [ instance.id, 'weekly' ],
         )
       if instance.monthly_enabled:
         crontab_schedule = CrontabSchedule.objects.create(
@@ -115,7 +115,7 @@ def create_periodic_task(sender, instance, created, **kwargs):
           crontab = crontab_schedule,
           name = 'REGULAR_REPORT_' + instance.title + str(datetime.now()),
           task = 'reports.tasks.regular_report_sender',
-          args = [ instance.id ],
+          args = [ instance.id, 'monthly' ],
         )
       instance.monthly_periodic_task = periodic_task
     instance.save()
