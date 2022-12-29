@@ -6,7 +6,7 @@ def create_summary_widget_image(project_id):
   from PIL import Image, ImageDraw, ImageFont
   res = calculate_summary_widget(project_id)
   # Open an Image
-  img = Image.open('tmp/summary_mask.png')
+  img = Image.open('tmp/mask.png')
   # Call draw Method to add 2D graphics in an image
   I1 = ImageDraw.Draw(img)
   myFont = ImageFont.truetype('DejaVuSerif-Bold.ttf', 18)
