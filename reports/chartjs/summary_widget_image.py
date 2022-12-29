@@ -9,7 +9,7 @@ def create_summary_widget_image(project_id):
   img = Image.open('tmp/summary_mask.png')
   # Call draw Method to add 2D graphics in an image
   I1 = ImageDraw.Draw(img)
-  myFont = ImageFont.truetype('DejaVuSerif-Bold.ttf', 24)
+  myFont = ImageFont.truetype('DejaVuSerif-Bold.ttf', 18)
   # Add Text to an image
   I1.text((20, 53), str(res['posts']), font=myFont, fill=(0, 0, 0))
   I1.text((155, 53), str(res['neut']), font=myFont, fill=(0, 0, 0))

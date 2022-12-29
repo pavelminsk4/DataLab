@@ -7,11 +7,9 @@ from docx import Document
 from docx.shared import Inches, Pt
 from reports.chartjs.chartjs import prepare_widget_images
 import aspose.words as aw
-
 from docx.shared import Pt
 from docx.oxml.ns import qn
 from docx.oxml.shared import OxmlElement
-
 from reports.serializers import RegularReportSerializer
 from reports.models import RegularReport
 from rest_framework import viewsets
