@@ -10,16 +10,16 @@ def algorithm_for_count_top_10_widgets(proj, results, field_name, post_counts):
     labels.append(each[field_name])
     data.append(each[post_counts])
   colors = [
-            'rgba(5,95,252,255)',
-            'rgba(122,158,249,255)',
-            'rgba(71,249,185,255)',
-            'rgba(71,249,121,255)',
-            'rgba(149,249,71,255)',
-            'rgba(245,249,71,255)',
+            'rgba(72,139,255,255)',
+            'rgba(165,197,255,255)',
+            'rgba(81,241,145,255)',
+            'rgba(164,234,191,255)',
+            'rgba(156,96,255,255)',
             'rgba(246,170,55,255)',
-            'rgba(246,55,55,255)',
-            'rgba(246,55,135,255)',
-            'rgba(217,48,244,255)',
+            'rgba(253,228,190,255)',
+            'rgba(204,173,255,255)',
+            'rgba(255,49,49,255)',
+            'rgba(252,148,148,255)',
           ],
   qc = QuickChart()
   qc.width = 900
@@ -49,7 +49,7 @@ def algorithm_for_count_top_10_widgets(proj, results, field_name, post_counts):
         'datalabels': {
             'anchor': 'center',
             'align': 'center',
-            'color': 'white',
+            'color': 'black',
             'font': {
             'weight': 'normal',
             },

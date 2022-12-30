@@ -25,7 +25,7 @@ def create_vol_widget_image(project_id):
             {
               'label': proj.title ,
               "data": data,
-              'lineTension': 0.4,
+              'lineTension': 0.6,
             },
           ],
         },
