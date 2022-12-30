@@ -20,7 +20,7 @@ def create_sentiment_for_period_widget_image(project_id):
         positive += (count_post.get("count_positive") if count_post.get("count_positive") else 0)
     results.append({str(date): {"negative": negative, "neutral": neutral, "positive": positive}})
   
-  labels_list = [list(key for key in results[i])[0] for i in range(len(results))]
+  labels_list = [list(key for key in results[i])[0][:10] for i in range(len(results))]
   data_neutral = []
   data_negative = []
   data_positive = []
@@ -40,23 +40,30 @@ def create_sentiment_for_period_widget_image(project_id):
       'labels': labels_list,
       'datasets': [
         {
-          'label': 'negative',
-          'data': data_negative,
-          'backgroundColor': ['rgba(150,109,49,255)'],
-        },
-        {
           'label': 'neutral',
           'data': data_neutral,
-          'backgroundColor': ['rgba(43,151,88,255)'],
+          'backgroundColor': ['rgba(246,170,55,255)'],
+        },
+        {
+          'label': 'negative',
+          'data': data_negative,
+          'backgroundColor': ['rgba(249,71,71,255)'],
         },
         {
           'label': 'positive',
           'data': data_positive,
-          'backgroundColor': ['rgba(125,52,54,255)'],
+          'backgroundColor': ['rgba(48,244,126,255)'],
         },   
       ],   
     },  
     'options': {
+      'scales': {
+        'xAxes': [{
+         'ticks': {
+            'minRotation': 90
+             }
+          }]
+        },  
       'plugins': {
         'roundedBars': True 
             },

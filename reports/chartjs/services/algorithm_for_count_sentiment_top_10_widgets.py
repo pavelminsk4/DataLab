@@ -31,32 +31,38 @@ def algorithm_for_count_sentiment_top_10_widgets(results, top_list):
   qc.width = 900
   qc.height = 450
   qc.config = {
-            'type': 'bar',
-            'data': {
-            'labels': labels_list,
-            'datasets': [
+              'type': 'bar',
+              'data': {
+              'labels': labels_list,
+              'datasets': [
                 {
-                'label': 'negative',
-                'data': data_negative,
-                'backgroundColor': ['rgba(150,109,49,255)'],
-                },
-                {
-                'label': 'neutral',
-                'data': data_neutral,
-                'backgroundColor': ['rgba(43,151,88,255)'],
-                },
-                {
-                'label': 'positive',
-                'data': data_positive,
-                'backgroundColor': ['rgba(125,52,54,255)'],
-                },   
-            ],   
-            },  
-            'options': {
-            'plugins': {
-                'roundedBars': True 
+                  'label': 'neutral',
+                  'data': data_neutral,
+                  'backgroundColor': ['rgba(246,170,55,255)'],
+                  },
+                  {
+                  'label': 'negative',
+                  'data': data_negative,
+                  'backgroundColor': ['rgba(249,71,71,255)'],
+                  },
+                  {
+                  'label': 'positive',
+                  'data': data_positive,
+                  'backgroundColor': ['rgba(48,244,126,255)'],
+                  }   
+              ],   
+              },  
+              'options': {
+                'scales': {
+                      'xAxes': [{
+                        'ticks': {
+                          'minRotation': 90
+                        }
+                      }]
+                    },  
+                'plugins': {
+                    'roundedBars': True 
+                        },
                     },
-                },
-                }
+              }
   return qc
-          
