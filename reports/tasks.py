@@ -44,7 +44,7 @@ def send_email_with(file, reg_report, crontab_type):
   users = reg_report.user.all()
   recipient_list = list(users.values_list('email', flat=True))
   msg = EmailMessage()
-  msg['Subject'] = f'''Your {crontab_type} regular {reg_report.title} report from the {reg_report.project.title} Datalab project is here.'''
+  msg['Subject'] = f'''Your {crontab_type} regular '{reg_report.title}' report from the '{reg_report.project.title}' Datalab project is here.'''
   msg['From'] = 'Datalab'
   msg['To'] = recipient_list
   mime_type, _ = mimetypes.guess_type(file)
