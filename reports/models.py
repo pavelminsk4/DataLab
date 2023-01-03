@@ -4,6 +4,7 @@ from django_celery_beat.models import PeriodicTask, CrontabSchedule
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from datetime import datetime
+import json
 
 class Templates(models.Model):
   title = models.CharField(max_length=50)
@@ -72,7 +73,7 @@ def create_periodic_task(sender, instance, created, **kwargs):
         crontab = crontab_schedule,
         name = 'REGULAR_REPORT_' + instance.title + str(datetime.now()),
         task = 'reports.tasks.regular_report_sender',
-        args = [ instance.id, "hourly" ],
+        args = json.dumps([instance.id, 'hourly']),
       )
       instance.hourly_periodic_task = periodic_task
     if instance.daily_enabled:
@@ -87,7 +88,7 @@ def create_periodic_task(sender, instance, created, **kwargs):
         crontab = crontab_schedule,
         name = 'REGULAR_REPORT_' + instance.title + str(datetime.now()),
         task = 'reports.tasks.regular_report_sender',
-        args = [ instance.id, "daily" ],
+        args = json.dumps([instance.id, 'daily']),
       )
       instance.daily_periodic_task = periodic_task
     if instance.weekly_enabled:
@@ -102,7 +103,7 @@ def create_periodic_task(sender, instance, created, **kwargs):
         crontab = crontab_schedule,
         name = 'REGULAR_REPORT_' + instance.title + str(datetime.now()),
         task = 'reports.tasks.regular_report_sender',
-        args = [ instance.id, "weekly" ],
+        args = json.dumps([instance.id, 'weekly']),
       )
       instance.weekly_periodic_task = periodic_task
     if instance.monthly_enabled:
@@ -117,7 +118,7 @@ def create_periodic_task(sender, instance, created, **kwargs):
         crontab = crontab_schedule,
         name = 'REGULAR_REPORT_' + instance.title + str(datetime.now()),
         task = 'reports.tasks.regular_report_sender',
-        args = [ instance.id, "monthly" ],
+        args = json.dumps([instance.id, 'monthly']),
       )
       instance.monthly_periodic_task = periodic_task
     instance.save()
