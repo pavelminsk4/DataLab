@@ -62,7 +62,7 @@ def create_periodic_task(sender, instance, created, **kwargs):
   if created:
     if instance.hourly_enabled:
       crontab_schedule = CrontabSchedule.objects.create(
-        minute = instance.h_minute,
+        minute = '0',
         hour = '*' if instance.h_hour=='*' else '*/' + str(instance.h_hour),
         day_of_week = instance.h_day_of_week,
         day_of_month = instance.h_day_of_month,
@@ -72,7 +72,7 @@ def create_periodic_task(sender, instance, created, **kwargs):
         crontab = crontab_schedule,
         name = 'REGULAR_REPORT_' + instance.title + str(datetime.now()),
         task = 'reports.tasks.regular_report_sender',
-        args = [ instance.id, 'hourly' ],
+        args = [ instance.id, "hourly" ],
       )
       instance.hourly_periodic_task = periodic_task
     if instance.daily_enabled:
@@ -87,7 +87,7 @@ def create_periodic_task(sender, instance, created, **kwargs):
         crontab = crontab_schedule,
         name = 'REGULAR_REPORT_' + instance.title + str(datetime.now()),
         task = 'reports.tasks.regular_report_sender',
-        args = [ instance.id, 'daily' ],
+        args = [ instance.id, "daily" ],
       )
       instance.daily_periodic_task = periodic_task
     if instance.weekly_enabled:
@@ -102,7 +102,7 @@ def create_periodic_task(sender, instance, created, **kwargs):
         crontab = crontab_schedule,
         name = 'REGULAR_REPORT_' + instance.title + str(datetime.now()),
         task = 'reports.tasks.regular_report_sender',
-        args = [ instance.id, 'weekly' ],
+        args = [ instance.id, "weekly" ],
       )
       instance.weekly_periodic_task = periodic_task
     if instance.monthly_enabled:
@@ -117,7 +117,7 @@ def create_periodic_task(sender, instance, created, **kwargs):
         crontab = crontab_schedule,
         name = 'REGULAR_REPORT_' + instance.title + str(datetime.now()),
         task = 'reports.tasks.regular_report_sender',
-        args = [ instance.id, 'monthly' ],
+        args = [ instance.id, "monthly" ],
       )
       instance.monthly_periodic_task = periodic_task
     instance.save()

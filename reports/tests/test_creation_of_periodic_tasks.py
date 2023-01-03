@@ -38,7 +38,7 @@ class RegularReportTestCase(TestCase):
     self.assertEqual(type(hourly_periodic_task).__name__, 'PeriodicTask')
     self.assertEqual(type(hourly_crontab_schedule).__name__, 'CrontabSchedule')
     self.assertEqual(hourly_crontab_schedule.hour, '*/3')
-    self.assertEqual(hourly_crontab_schedule.minute, '15')
+    self.assertEqual(hourly_crontab_schedule.minute, '0')
     self.assertEqual(hourly_crontab_schedule.day_of_week, '*')
     self.assertEqual(hourly_crontab_schedule.day_of_month, '*')
     self.assertEqual(hourly_crontab_schedule.month_of_year, '*')
