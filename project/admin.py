@@ -14,6 +14,9 @@ class FeedlinksResource(resources.ModelResource):
   class Meta:
     model = Feedlinks
 
+  def skip_row(self, instance, original):
+    return True if Feedlinks.objects.filter(url=instance.url).exists() else False
+
 class FeedlinksAdmin(ImportExportModelAdmin):
   resource_class = FeedlinksResource
 
