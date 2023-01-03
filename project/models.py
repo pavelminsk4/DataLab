@@ -63,7 +63,7 @@ class Project(models.Model):
     return self.title
 
 class Feedlinks(models.Model):
-  url = models.URLField(max_length=200,null=True,blank=True,unique=True)
+  url = models.URLField(max_length=400,null=True,blank=True,unique=True)
   source = models.CharField("Source",max_length=200, null=True, blank=True)
   page = models.CharField("Page",max_length=200,null=True,blank=True)
   creator = models.IntegerField('Creator', default=1)
