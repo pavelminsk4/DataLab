@@ -5,12 +5,12 @@ from django.db.models.functions import Trunc
 import json
 from .filters_for_widgets import posts_agregator
 
-def content_volume_top_10_source(request, pk):
+def content_volume_top_5_source(request, pk):
   project = Project.objects.get(id=pk)
   posts = posts_agregator(project)
   body = json.loads(request.body)
   smpl_freq = body['smpl_freq']
-  top_brands = list(map(lambda x: x['feedlink__source1'], list(posts.values('feedlink__source1').annotate(brand_count=Count('feedlink__source1')).order_by('-brand_count')[:10])))
+  top_brands = list(map(lambda x: x['feedlink__source1'], list(posts.values('feedlink__source1').annotate(brand_count=Count('feedlink__source1')).order_by('-brand_count')[:5])))
   results = [{source: list(posts.filter(feedlink__source1=source).annotate(date=Trunc('entry_published', smpl_freq)).values("date").annotate(created_count=Count('id')).order_by("date"))} for source in top_brands]
   dates = set()
   for elem in range(len(results)):

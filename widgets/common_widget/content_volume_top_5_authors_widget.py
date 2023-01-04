@@ -5,12 +5,12 @@ from django.db.models.functions import Trunc
 import json
 from .filters_for_widgets import posts_agregator
 
-def content_volume_top_10_authors(request, pk):
+def content_volume_top_5_authors(request, pk):
   project = Project.objects.get(id=pk)
   posts = posts_agregator(project)
   body = json.loads(request.body)
   smpl_freq = body['smpl_freq']
-  top_authors = list(map(lambda x: x['entry_author'], list(posts.values('entry_author').annotate(author_count=Count('entry_author')).order_by('-author_count')[:10])))
+  top_authors = list(map(lambda x: x['entry_author'], list(posts.values('entry_author').annotate(author_count=Count('entry_author')).order_by('-author_count')[:5])))
   results = [{author: list(posts.filter(entry_author=author).annotate(date=Trunc('entry_published', smpl_freq)).values("date").annotate(created_count=Count('id')).order_by("date"))} for author in top_authors]
   dates = set()
   for elem in range(len(results)):

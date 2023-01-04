@@ -78,14 +78,14 @@ class WidgetsListSerializer(WritableNestedModelSerializer):
   top_10_brands_widget = WidgetDescriptionSerializer()
   top_10_countries_widget = WidgetDescriptionSerializer()
   top_10_languages_widget = WidgetDescriptionSerializer()
-  content_volume_top_10_source_widget = WidgetDescriptionSerializer()
+  content_volume_top_5_source_widget = WidgetDescriptionSerializer()
   sentiment_top_10_sources_widget = WidgetDescriptionSerializer()
   sentiment_top_10_countries_widget = WidgetDescriptionSerializer()
   sentiment_top_10_authors_widget = WidgetDescriptionSerializer()
   sentiment_top_10_languages_widget = WidgetDescriptionSerializer()
   sentiment_for_period_widget = WidgetDescriptionSerializer()
-  content_volume_top_10_authors_widget = WidgetDescriptionSerializer()
-  content_volume_top_10_countries_widget = WidgetDescriptionSerializer()
+  content_volume_top_5_authors_widget = WidgetDescriptionSerializer()
+  content_volume_top_5_countries_widget = WidgetDescriptionSerializer()
   class Meta:
     model = WidgetsList2
     fields = [
@@ -96,14 +96,14 @@ class WidgetsListSerializer(WritableNestedModelSerializer):
       'top_10_brands_widget',
       'top_10_countries_widget',
       'top_10_languages_widget',
-      'content_volume_top_10_source_widget',
+      'content_volume_top_5_source_widget',
       'sentiment_top_10_sources_widget',
       'sentiment_top_10_countries_widget',
       'sentiment_top_10_authors_widget',
       'sentiment_top_10_languages_widget',
       'sentiment_for_period_widget',
-      'content_volume_top_10_authors_widget',
-      'content_volume_top_10_countries_widget',
+      'content_volume_top_5_authors_widget',
+      'content_volume_top_5_countries_widget',
     ]
 
 class ClippingFeedContentWidgetListSerializer(serializers.ListSerializer):

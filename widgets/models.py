@@ -42,14 +42,14 @@ class WidgetsList2(models.Model):
   top_10_brands_widget = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='top_10_brands_widg_description', null=True)
   top_10_countries_widget = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='top_10_countries_widg_description', null=True)
   top_10_languages_widget = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='top_10_languages_widg_description', null=True)
-  content_volume_top_10_source_widget = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='content_volume_top_10_source_widget', null=True)
+  content_volume_top_5_source_widget = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='content_volume_top_5_source_widget', null=True)
   sentiment_top_10_sources_widget = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='sentiment_top_10_sources_widget', null=True)
   sentiment_top_10_countries_widget = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='sentiment_top_10_countries_widget', null=True)
   sentiment_top_10_authors_widget = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='sentiment_top_10_authors_widget', null=True)
   sentiment_top_10_languages_widget = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='sentiment_top_10_languages_widget', null=True)
   sentiment_for_period_widget = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='sentiment_for_period_widget', null=True)
-  content_volume_top_10_authors_widget = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='content_volume_top_10_authors_widget', null=True)
-  content_volume_top_10_countries_widget = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='content_volume_top_10_countries_widget', null=True)
+  content_volume_top_5_authors_widget = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='content_volume_top_5_authors_widget', null=True)
+  content_volume_top_5_countries_widget = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='content_volume_top_5_countries_widget', null=True)
 
   def __str__(self):
     return str(self.project)
@@ -97,7 +97,7 @@ def create_widget_description(sender, instance, created, **kwargs):
     wd7.linked_dimensions.add(Dimensions.objects.get_or_create(title='Author')[0])
     wd7.linked_dimensions.add(Dimensions.objects.get_or_create(title='Country')[0])
     wd7.save()
-    wd8 = WidgetDescription.objects.create(title='Content Volume by Top 10 sources', default_title='Content Volume by Top 10 sources')
+    wd8 = WidgetDescription.objects.create(title='Content Volume by Top 5 sources', default_title='Content Volume by Top 5 sources')
     wd8.linked_dimensions.add(Dimensions.objects.get_or_create(title='Language')[0])
     wd8.linked_dimensions.add(Dimensions.objects.get_or_create(title='Author')[0])
     wd8.linked_dimensions.add(Dimensions.objects.get_or_create(title='Country')[0])
@@ -128,12 +128,12 @@ def create_widget_description(sender, instance, created, **kwargs):
     wd13.linked_dimensions.add(Dimensions.objects.get_or_create(title='Source')[0])
     wd13.linked_dimensions.add(Dimensions.objects.get_or_create(title='Language')[0])
     wd13.save()
-    wd14 = WidgetDescription.objects.create(title='Content Volume by Top 10 authors', default_title='Content Volume by Top 10 authors')
+    wd14 = WidgetDescription.objects.create(title='Content Volume by Top 5 authors', default_title='Content Volume by Top 5 authors')
     wd14.linked_dimensions.add(Dimensions.objects.get_or_create(title='Country')[0])
     wd14.linked_dimensions.add(Dimensions.objects.get_or_create(title='Source')[0])
     wd14.linked_dimensions.add(Dimensions.objects.get_or_create(title='Language')[0])
     wd14.save()
-    wd15 = WidgetDescription.objects.create(title='Content Volume by Top 10 countries', default_title='Content Volume by Top 10 countries')
+    wd15 = WidgetDescription.objects.create(title='Content Volume by Top 5 countries', default_title='Content Volume by Top 5 countries')
     wd15.linked_dimensions.add(Dimensions.objects.get_or_create(title='Author')[0])
     wd15.linked_dimensions.add(Dimensions.objects.get_or_create(title='Source')[0])
     wd15.linked_dimensions.add(Dimensions.objects.get_or_create(title='Language')[0])
@@ -145,14 +145,14 @@ def create_widget_description(sender, instance, created, **kwargs):
     instance.top_10_brands_widget = wd5
     instance.top_10_countries_widget = wd6
     instance.top_10_languages_widget = wd7
-    instance.content_volume_top_10_source_widget = wd8
+    instance.content_volume_top_5_source_widget = wd8
     instance.sentiment_top_10_sources_widget = wd9
     instance.sentiment_top_10_countries_widget = wd10
     instance.sentiment_top_10_authors_widget = wd11
     instance.sentiment_top_10_languages_widget = wd12
     instance.sentiment_for_period_widget = wd13
-    instance.content_volume_top_10_authors_widget = wd14
-    instance.content_volume_top_10_countries_widget = wd15
+    instance.content_volume_top_5_authors_widget = wd14
+    instance.content_volume_top_5_countries_widget = wd15
     instance.save()
 
 class ClippingFeedContentWidget(models.Model):

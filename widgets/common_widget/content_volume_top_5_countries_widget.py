@@ -5,12 +5,12 @@ from django.db.models.functions import Trunc
 import json
 from .filters_for_widgets import posts_agregator
 
-def content_volume_top_10_countries(request, pk):
+def content_volume_top_5_countries(request, pk):
   project = Project.objects.get(id=pk)
   posts = posts_agregator(project)
   body = json.loads(request.body)
   smpl_freq = body['smpl_freq']
-  top_countries = list(map(lambda x: x['feedlink__country'], list(posts.values('feedlink__country').annotate(country_count=Count('feedlink__country')).order_by('-country_count')[:10])))
+  top_countries = list(map(lambda x: x['feedlink__country'], list(posts.values('feedlink__country').annotate(country_count=Count('feedlink__country')).order_by('-country_count')[:5])))
   results = [{country: list(posts.filter(feedlink__country=country).annotate(date=Trunc('entry_published', smpl_freq)).values("date").annotate(created_count=Count('id')).order_by("date"))} for country in top_countries]
   dates = set()
   for elem in range(len(results)):

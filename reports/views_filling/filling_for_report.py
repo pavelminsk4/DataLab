@@ -9,9 +9,9 @@ from .filling_sentiment_top_10_authors_widget import sentiment_top_10_authors_wi
 from .filling_sentiment_top_10_countries_widget import sentiment_top_10_countries_widget_image
 from .filling_sentiment_top_10_languages_widget import sentiment_top_10_languages_widget_image
 from .filling_sentiment_for_period_widget import sentiment_for_period_widget_image
-from .filling_content_volume_top_10_source_widget import content_volume_top_10_source_widget_image
-from .filling_content_volume_top_10_authors_widget import content_volume_top_10_authors_widget_image
-from .filling_content_volume_top_10_countries_widget import content_volume_top_10_countries_widget_image
+from .filling_content_volume_top_5_source_widget import content_volume_top_5_source_widget_image
+from .filling_content_volume_top_5_authors_widget import content_volume_top_5_authors_widget_image
+from .filling_content_volume_top_5_countries_widget import content_volume_top_5_countries_widget_image
 from docx.shared import Pt, Inches
 from .options import *
 from django.shortcuts import get_object_or_404
@@ -100,17 +100,17 @@ def filling_templates_for_instant_and_regular_reports(document, project_id):
                 run = cell.add_paragraph().add_run(proj.sentiment_for_period_widget.title)
                 font_two(run, cell)
                 cell.add_paragraph()
-            if proj.content_volume_top_10_source_widget.is_active or proj.content_volume_top_10_authors_widget.is_active:
+            if proj.content_volume_top_5_source_widget.is_active or proj.content_volume_top_5_authors_widget.is_active:
               run = cell.add_paragraph().add_run('Content Volume')
               font_one(run, cell)
-              if proj.content_volume_top_10_source_widget.is_active:
-                run = cell.add_paragraph().add_run(proj.content_volume_top_10_source_widget.title)
+              if proj.content_volume_top_5_source_widget.is_active:
+                run = cell.add_paragraph().add_run(proj.content_volume_top_5_source_widget.title)
                 font_two(run, cell)
-              if proj.content_volume_top_10_authors_widget.is_active:
-                run = cell.add_paragraph().add_run(proj.content_volume_top_10_authors_widget.title)
+              if proj.content_volume_top_5_authors_widget.is_active:
+                run = cell.add_paragraph().add_run(proj.content_volume_top_5_authors_widget.title)
                 font_two(run, cell)
-              if proj.content_volume_top_10_countries_widget.is_active:
-                run = cell.add_paragraph().add_run(proj.content_volume_top_10_countries_widget.title)
+              if proj.content_volume_top_5_countries_widget.is_active:
+                run = cell.add_paragraph().add_run(proj.content_volume_top_5_countries_widget.title)
                 font_two(run, cell)
               cell.add_paragraph()  
             if proj.clipping_feed_content_widget.is_active:
@@ -146,12 +146,12 @@ def filling_templates_for_instant_and_regular_reports(document, project_id):
     summarry_widget_image(document, proj)
     document.add_page_break()
 
-  if proj.volume_widget.is_active or proj.content_volume_top_10_source_widget.is_active or proj.content_volume_top_10_authors_widget.is_active or proj.content_volume_top_10_countries_widget.is_active:
+  if proj.volume_widget.is_active or proj.content_volume_top_5_source_widget.is_active or proj.content_volume_top_5_authors_widget.is_active or proj.content_volume_top_5_countries_widget.is_active:
     new_section('Content Volume')
     volume_widget_image(document, proj)
-    content_volume_top_10_source_widget_image(document, proj)
-    content_volume_top_10_authors_widget_image(document, proj)
-    content_volume_top_10_countries_widget_image(document, proj)
+    content_volume_top_5_source_widget_image(document, proj)
+    content_volume_top_5_authors_widget_image(document, proj)
+    content_volume_top_5_countries_widget_image(document, proj)
     document.add_page_break()
   
   if proj.top_10_authors_by_volume_widget.is_active or proj.top_10_brands_widget.is_active or proj.top_10_countries_widget.is_active or proj.top_10_languages_widget.is_active:
