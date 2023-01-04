@@ -34,9 +34,9 @@ class InstantReportTests(APITestCase):
     pr.widgets_list_2.top_10_brands_widget.is_active = True
     pr.widgets_list_2.top_10_countries_widget.is_active = True
     pr.widgets_list_2.top_10_languages_widget.is_active = True
-    pr.widgets_list_2.content_volume_top_10_authors_widget.is_active = True
-    pr.widgets_list_2.content_volume_top_10_countries_widget.is_active = True
-    pr.widgets_list_2.content_volume_top_10_source_widget.is_active = True
+    pr.widgets_list_2.content_volume_top_5_authors_widget.is_active = True
+    pr.widgets_list_2.content_volume_top_5_countries_widget.is_active = True
+    pr.widgets_list_2.content_volume_top_5_source_widget.is_active = True
     pr.widgets_list_2.sentiment_for_period_widget.is_active = True
     pr.widgets_list_2.sentiment_top_10_authors_widget.is_active = True
     pr.widgets_list_2.sentiment_top_10_countries_widget.is_active = True

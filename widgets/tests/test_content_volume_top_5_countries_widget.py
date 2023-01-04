@@ -6,7 +6,7 @@ import json
 from project.models import Post, Project, Speech, Feedlinks
 from django.contrib.auth.models import User
 
-class ContentVolumeTop10AuthorsWidgetTests(APITestCase):
+class ContentVolumeTop5CountriesWidgetTests(APITestCase):
   def test_response_list(self):
     user = User.objects.create(username='Pablo')
     flink1 = Feedlinks.objects.create(country = 'England')
@@ -26,28 +26,26 @@ class ContentVolumeTop10AuthorsWidgetTests(APITestCase):
     # test first project with None field
     pr1 = Project.objects.create(title='Project1', keywords=['post'], additional_keywords=[], ignore_keywords=[], start_search_date=datetime(2020, 10, 10), 
                                 end_search_date=datetime(2023, 10, 16), country_filter='', author_filter='', language_filter='', creator=user)
-    url = reverse('widgets:content_volume_top_10_authors_widget', kwargs={'pk':pr1.pk})
+    url = reverse('widgets:content_volume_top_5_countries_widget', kwargs={'pk':pr1.pk})
     data = {
             'smpl_freq': "day"
     }
     response = self.client.post(url, data, format='json')
     self.assertEqual(response.status_code, status.HTTP_200_OK)
-    res =  [
-            {'AFP': [
-                      {'date': '2021-09-03 00:00:00+00:00', 'post_count': 1},
-                      {'date': '2022-09-03 00:00:00+00:00', 'post_count': 1},
-                      {'date': '2023-09-03 00:00:00+00:00', 'post_count': 4}
-                    ]},
-            {'Missing in source': [  
-                  {'date': '2021-09-03 00:00:00+00:00', 'post_count': 0},
-                  {'date': '2022-09-03 00:00:00+00:00', 'post_count': 0},
-                  {'date': '2023-09-03 00:00:00+00:00', 'post_count': 1}
-                 ]},
-            {'EFE': [
-                      {'date': '2021-09-03 00:00:00+00:00', 'post_count': 0},
-                      {'date': '2022-09-03 00:00:00+00:00', 'post_count': 0},
-                      {'date': '2023-09-03 00:00:00+00:00', 'post_count': 1}
-                    ]}
-              
-           ]
+    res = [{'USA': 
+            [{'date': '2021-09-03 00:00:00+00:00', 'post_count': 0}, 
+             {'date': '2022-09-03 00:00:00+00:00', 'post_count': 0}, 
+             {'date': '2023-09-03 00:00:00+00:00', 'post_count': 4}]
+           },
+           {'Canada': 
+            [{'date': '2021-09-03 00:00:00+00:00', 'post_count': 0}, 
+             {'date': '2022-09-03 00:00:00+00:00', 'post_count': 0}, 
+             {'date': '2023-09-03 00:00:00+00:00', 'post_count': 2}]
+           },
+           {'England': 
+            [{'date': '2021-09-03 00:00:00+00:00', 'post_count': 1}, 
+             {'date': '2022-09-03 00:00:00+00:00', 'post_count': 1}, 
+             {'date': '2023-09-03 00:00:00+00:00', 'post_count': 0}]
+           },
+          ]
     self.assertEqual(json.loads(response.content), res)

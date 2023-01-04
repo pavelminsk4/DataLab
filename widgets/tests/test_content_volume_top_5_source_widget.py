@@ -6,7 +6,7 @@ import json
 from project.models import Post, Project, Speech, Feedlinks
 from django.contrib.auth.models import User
 
-class ContentVolumeTop10SourcesWidgetTests(APITestCase):
+class ContentVolumeTop5SourcesWidgetTests(APITestCase):
   def test_response_list(self):
     user = User.objects.create(username='Pablo')
     flink1 = Feedlinks.objects.create(country = 'England')
@@ -26,7 +26,7 @@ class ContentVolumeTop10SourcesWidgetTests(APITestCase):
     # test first project with None field
     pr1 = Project.objects.create(title='Project1', keywords=['post'], additional_keywords=[], ignore_keywords=[], start_search_date=datetime(2020, 10, 10), 
                                 end_search_date=datetime(2023, 10, 16), country_filter='', author_filter='', language_filter='', creator=user)
-    url = reverse('widgets:content_volume_top_10_source_widget', kwargs={'pk':pr1.pk})
+    url = reverse('widgets:content_volume_top_5_source_widget', kwargs={'pk':pr1.pk})
     data = {
             'smpl_freq': "day"
     }
