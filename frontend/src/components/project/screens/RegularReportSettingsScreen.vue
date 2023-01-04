@@ -61,13 +61,6 @@
             </li>
           </ul>
         </div>
-
-        <div class="title">Email Title</div>
-        <BaseInput
-          v-model="reportData.email_title"
-          class="input-title"
-          placeholder="Title"
-        />
       </div>
       <TimePickerReports
         :regular-report="currentReport"

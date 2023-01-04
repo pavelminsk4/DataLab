@@ -89,8 +89,9 @@ export default {
             id: this.topCountries.id,
             title: title || this.topCountries.title,
             description: description || this.topCountries.description,
-            smpl_freq:
-              aggregationPeriod.toLowerCase() || this.topCountries.smpl_freq,
+            aggregation_period:
+              aggregationPeriod.toLowerCase() ||
+              this.topCountries.aggregation_period,
           },
         },
       })
@@ -114,7 +115,7 @@ export default {
         data: {
           top_10_countries_widget: {
             id: this.topCountries.id,
-            smpl_freq: this.topCountries.aggregation_period,
+            aggregation_period: this.topCountries.aggregation_period,
             author_dim_pivot: author,
             language_dim_pivot: language,
             country_dim_pivot: country,

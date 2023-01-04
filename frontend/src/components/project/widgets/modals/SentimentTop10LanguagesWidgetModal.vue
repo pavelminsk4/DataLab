@@ -91,9 +91,9 @@ export default {
             id: this.sentimentTopLanguages.id,
             title: title || this.sentimentTopLanguages.title,
             description: description || this.sentimentTopLanguages.description,
-            smpl_freq:
+            aggregation_period:
               aggregationPeriod.toLowerCase() ||
-              this.sentimentTopLanguages.smpl_freq,
+              this.sentimentTopLanguages.aggregation_period,
           },
         },
       })
@@ -117,7 +117,7 @@ export default {
         data: {
           sentiment_top_10_languages_widget: {
             id: this.sentimentTopLanguages.id,
-            smpl_freq: this.sentimentTopLanguages.aggregation_period,
+            aggregation_period: this.sentimentTopLanguages.aggregation_period,
             author_dim_pivot: author,
             language_dim_pivot: language,
             country_dim_pivot: country,

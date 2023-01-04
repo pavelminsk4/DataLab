@@ -3,12 +3,10 @@
     <span v-for="tag in displayedTags" :key="tag" class="tag">
       {{ tag }}
     </span>
-    <div
-      v-if="isDisplayedCollapseBtn"
-      class="tag tag-collapse"
-      @click.stop="toggleCollapsed"
-    >
-      <PointsIcon v-if="isCollapsed" class="dots-icon" />
+    <div v-if="isDisplayedCollapseBtn">
+      <div v-if="isCollapsed" class="number-others-tags">
+        +{{ numberOthersTags }}
+      </div>
       <CrossIcon v-else />
     </div>
   </div>
@@ -16,13 +14,12 @@
 
 <script>
 import CrossIcon from '@components/icons/CrossIcon'
-import PointsIcon from '@components/icons/PointsIcon'
 
 const DISPLAYED_TAGS = 2
 
 export default {
   name: 'TagsCollapsible',
-  components: {CrossIcon, PointsIcon},
+  components: {CrossIcon},
   props: {
     tags: {
       type: Array,
@@ -41,6 +38,9 @@ export default {
         ? this.tags.slice(0, DISPLAYED_TAGS)
         : this.tags
     },
+    numberOthersTags() {
+      return this.isDisplayedCollapseBtn ? this.tags.length - DISPLAYED_TAGS : 0
+    },
   },
   methods: {
     toggleCollapsed() {
@@ -53,6 +53,7 @@ export default {
 <style lang="scss" scoped>
 .tags {
   display: flex;
+  align-items: center;
   flex-wrap: wrap;
   margin-bottom: -6px;
 }
@@ -82,7 +83,23 @@ export default {
   align-items: flex-end;
 }
 
-.dots-icon {
-  height: 15px;
+.number-others-tags {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  width: 30px;
+  height: 30px;
+  margin-bottom: 6px;
+
+  border-radius: 50%;
+  border: 1px dashed #5c6e80;
+
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  color: #5c6e80;
 }
 </style>

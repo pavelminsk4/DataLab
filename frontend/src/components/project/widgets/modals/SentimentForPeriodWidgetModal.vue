@@ -187,7 +187,7 @@ export default {
         this[action.GET_SENTIMENT_FOR_PERIOD]({
           projectId: this.projectId,
           value: {
-            smpl_freq: val.toLowerCase(),
+            aggregation_period: val.toLowerCase(),
             author_dim_pivot: this.sentimentForPeriod.author_dim_pivot || null,
             language_dim_pivot:
               this.sentimentForPeriod.language_dim_pivot || null,
@@ -238,7 +238,7 @@ export default {
         data: {
           sentiment_for_period_widget: {
             id: this.sentimentForPeriod.id,
-            smpl_freq: this.sentimentForPeriod.aggregation_period,
+            aggregation_period: this.sentimentForPeriod.aggregation_period,
             author_dim_pivot: author,
             language_dim_pivot: language,
             country_dim_pivot: country,
@@ -251,7 +251,7 @@ export default {
         projectId: this.projectId,
         value: {
           id: this.sentimentForPeriod.id,
-          smpl_freq: this.sentimentForPeriod.aggregation_period,
+          aggregation_period: this.sentimentForPeriod.aggregation_period,
           author_dim_pivot: author,
           language_dim_pivot: language,
           country_dim_pivot: country,

@@ -137,7 +137,7 @@ export default {
         this[action.GET_CONTENT_VOLUME_TOP_SOURCES]({
           projectId: this.projectId,
           value: {
-            smpl_freq: val.toLowerCase(),
+            aggregation_period: val.toLowerCase(),
             author_dim_pivot:
               this.contentTop10SourcesWidget.author_dim_pivot || null,
             language_dim_pivot:
@@ -191,7 +191,8 @@ export default {
         data: {
           content_volume_top_10_source_widget: {
             id: this.contentTop10SourcesWidget.id,
-            smpl_freq: this.contentTop10SourcesWidget.aggregation_period,
+            aggregation_period:
+              this.contentTop10SourcesWidget.aggregation_period,
             author_dim_pivot: author,
             language_dim_pivot: language,
             country_dim_pivot: country,
@@ -205,7 +206,7 @@ export default {
         projectId: this.projectId,
         value: {
           id: this.contentTop10SourcesWidget.id,
-          smpl_freq: this.contentTop10SourcesWidget.aggregation_period,
+          aggregation_period: this.contentTop10SourcesWidget.aggregation_period,
           author_dim_pivot: author,
           language_dim_pivot: language,
           country_dim_pivot: country,

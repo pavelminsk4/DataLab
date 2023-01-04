@@ -91,8 +91,9 @@ export default {
             id: this.summaryWidget.id,
             title: title || this.summaryWidget.title,
             description: description || this.summaryWidget.description,
-            smpl_freq:
-              aggregationPeriod.toLowerCase() || this.summaryWidget.smpl_freq,
+            aggregation_period:
+              aggregationPeriod.toLowerCase() ||
+              this.summaryWidget.aggregation_period,
           },
         },
       })
@@ -117,7 +118,7 @@ export default {
         data: {
           summary_widget: {
             id: this.summaryWidget.id,
-            smpl_freq: this.summaryWidget.aggregation_period,
+            aggregation_period: this.summaryWidget.aggregation_period,
             author_dim_pivot: author,
             language_dim_pivot: language,
             country_dim_pivot: country,

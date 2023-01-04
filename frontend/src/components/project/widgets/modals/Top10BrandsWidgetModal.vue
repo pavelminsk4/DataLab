@@ -90,8 +90,9 @@ export default {
             id: this.topBrands.id,
             title: title || this.topBrands.title,
             description: description || this.topBrands.description,
-            smpl_freq:
-              aggregationPeriod.toLowerCase() || this.topBrands.smpl_freq,
+            aggregation_period:
+              aggregationPeriod.toLowerCase() ||
+              this.topBrands.aggregation_period,
           },
         },
       })
@@ -115,7 +116,7 @@ export default {
         data: {
           top_10_brands_widget: {
             id: this.topBrands.id,
-            smpl_freq: this.topBrands.aggregation_period,
+            aggregation_period: this.topBrands.aggregation_period,
             author_dim_pivot: author,
             language_dim_pivot: language,
             country_dim_pivot: country,

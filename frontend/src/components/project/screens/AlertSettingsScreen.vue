@@ -26,7 +26,7 @@
 
       <BaseInput v-model="title" placeholder="Alert Title" />
 
-      <div class="title">Alert e-mail</div>
+      <div class="title">Recipient's email</div>
 
       <div class="email-wrapper">
         <div :class="['email-field scroll', visible && 'active-email-field']">
