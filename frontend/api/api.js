@@ -167,7 +167,7 @@ export default {
     }
     return fetch(
       'post',
-      `/api/widgets/content_volume_top_10_source_widget/${projectId}`,
+      `/api/widgets/content_volume_top_5_source_widget/${projectId}`,
       value,
       config
     )
@@ -182,7 +182,7 @@ export default {
     }
     return fetch(
       'post',
-      `/api/widgets/content_volume_top_10_authors_widget/${projectId}`,
+      `/api/widgets/content_volume_top_5_authors_widget/${projectId}`,
       value,
       config
     )
@@ -197,7 +197,7 @@ export default {
     }
     return fetch(
       'post',
-      `/api/widgets/content_volume_top_10_countries_widget/${projectId}`,
+      `/api/widgets/content_volume_top_5_countries_widget/${projectId}`,
       value,
       config
     )
