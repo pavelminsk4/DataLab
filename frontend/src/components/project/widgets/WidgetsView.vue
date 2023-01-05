@@ -8,7 +8,7 @@
     @close="closeModal"
   />
 
-  <div v-if="availableWidgets" class="widgets-wrapper">
+  <div class="analytics-wrapper">
     <SearchResults
       :is-show-calendar="false"
       :is-checkbox-clipping-widget="true"
@@ -16,15 +16,30 @@
       :clipping-content="clippingData"
       @update-page="updatePage"
       @update-posts-count="updatePosts"
-      class="analytics-search-results"
+      class="search-results"
     />
 
-    <div class="widget-items scroll">
-      <div
+    <grid-layout
+      v-if="availableWidgets"
+      v-model:layout="selectedWidgets"
+      :col-num="4"
+      :row-height="30"
+      :is-resizable="false"
+      is-draggable
+      vertical-compact
+      use-css-transforms
+      class="widgets-wrapper scroll"
+    >
+      <grid-item
         class="widget-item"
         v-for="item in selectedWidgets"
-        v-show="item.isShow"
-        :key="item.name"
+        :static="item.static"
+        :x="item.x"
+        :y="item.y"
+        :w="item.w"
+        :h="item.h"
+        :i="item.i"
+        :key="item.i"
       >
         <component
           v-if="item.isWidget"
@@ -38,14 +53,17 @@
           @delete-widget="deleteWidget(item.name)"
           @open-settings-modal="openModal(item.isOpenModal)"
         />
-      </div>
-    </div>
+      </grid-item>
+    </grid-layout>
   </div>
 </template>
 
 <script>
 import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
+
+import VueGridLayout from 'vue3-grid-layout'
+import {snakeToPascal} from '@lib/utilities'
 
 import SearchResults from '@/components/SearchResults'
 
@@ -81,8 +99,6 @@ import ContentVolumeTop5SourceWidgetModal from '@/components/project/widgets/mod
 import ContentVolumeTop5AuthorsWidgetModal from '@/components/project/widgets/modals/ContentVolumeTop5AuthorsWidgetModal'
 import ContentVolumeTop5CountriesWidgetModal from '@/components/project/widgets/modals/ContentVolumeTop5CountriesWidgetModal'
 
-import {snakeToPascal} from '@lib/utilities'
-
 export default {
   name: 'WidgetsView',
   components: {
@@ -117,6 +133,8 @@ export default {
     ContentVolumeTop5SourceWidget,
     ContentVolumeTop5AuthorsWidget,
     ContentVolumeTop5CountriesWidget,
+    GridLayout: VueGridLayout.GridLayout,
+    GridItem: VueGridLayout.GridItem,
   },
   props: {
     projectId: {
@@ -152,23 +170,57 @@ export default {
       availableWidgets: get.AVAILABLE_WIDGETS,
       clippingData: get.CLIPPING_FEED_CONTENT_WIDGET,
     }),
+    selectedWidgets: {
+      get() {
+        let layout = []
+
+        Object.keys(this.availableWidgets)
+          .map((widgetName, index) => {
+            if (this.availableWidgets[widgetName].is_active) {
+              return layout.push({
+                x: 0,
+                y: this.getYAxisValue(layout.length),
+                w: 2,
+                h: this.getElementHeight(widgetName),
+                i: index,
+                static: false,
+                name: widgetName,
+                widgetName: snakeToPascal(widgetName),
+                isShow: this.availableWidgets[widgetName]?.is_active,
+                isOpenModal: snakeToPascal(widgetName) + 'Modal',
+                isWidget: true,
+              })
+            }
+          })
+          .filter((widgets) => widgets)
+
+        return layout
+      },
+      set(val) {
+        this.layout = val
+      },
+    },
     currentSettingsModal() {
       return this.isOpenModalSettings
     },
-    selectedWidgets() {
-      return Object.keys(this.availableWidgets)
-        .map((widgetName) => {
-          if (this.availableWidgets[widgetName].is_active) {
-            return {
-              name: widgetName,
-              widgetName: snakeToPascal(widgetName),
-              isShow: this.availableWidgets[widgetName]?.is_active,
-              isOpenModal: snakeToPascal(widgetName) + 'Modal',
-              isWidget: true,
-            }
-          }
-        })
-        .filter((widgets) => widgets)
+    gridElementsHeight() {
+      return {
+        summary_widget: 9,
+        volume_widget: 15,
+        clipping_feed_content_widget: 12,
+        top_10_authors_by_volume_widget: 13,
+        top_10_brands_widget: 13,
+        top_10_countries_widget: 13,
+        top_10_languages_widget: 13,
+        sentiment_top_10_sources_widget: 12,
+        sentiment_top_10_countries_widget: 12,
+        sentiment_top_10_authors_widget: 12,
+        sentiment_top_10_languages_widget: 12,
+        sentiment_for_period_widget: 12,
+        content_volume_top_5_authors_widget: 12,
+        content_volume_top_5_countries_widget: 12,
+        content_volume_top_5_source_widget: 12,
+      }
     },
   },
   methods: {
@@ -177,6 +229,12 @@ export default {
       action.UPDATE_AVAILABLE_WIDGETS,
       action.GET_CLIPPING_FEED_CONTENT_WIDGET,
     ]),
+    getElementHeight(widgetName) {
+      return this.gridElementsHeight[widgetName]
+    },
+    getYAxisValue(val) {
+      return val > 1 ? val - 1 : 0
+    },
     async deleteWidget(name) {
       await this[action.UPDATE_AVAILABLE_WIDGETS]({
         projectId: this.projectId,
@@ -202,28 +260,31 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.analytics-wrapper {
+  display: flex;
+  gap: 40px;
+
+  .search-results {
+    min-width: 50%;
+  }
+}
+
 .widgets-wrapper {
   display: flex;
   gap: 30px;
 
-  min-width: 100%;
+  min-width: 50%;
+  max-height: 1000px;
   margin-top: 30px;
+
+  overflow: auto;
 
   .analytics-search-results {
     flex: 1;
   }
 
-  .widget-items {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    gap: 20px;
-
-    height: 1000px;
-    padding-right: 20px;
-    margin-top: 45px;
-
-    overflow: auto;
+  .widget-item {
+    min-width: 96%;
   }
 }
 </style>

@@ -133,7 +133,7 @@ export default {
       required: false,
     },
     potentialReach: {
-      type: String,
+      type: Number,
       required: false,
     },
     published: {
