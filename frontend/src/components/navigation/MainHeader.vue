@@ -2,19 +2,28 @@
   <header :class="['header', !isVisibleLogo && 'is-not-visible-logo']">
     <LogoIcon v-if="isVisibleLogo" class="logo" @click="goToDashboard" />
 
-    <div class="section-company">
-      <div class="name">{{ companyName }}</div>
-      <section class="dropdown-wrapper">
-        <ArrowDownIcon
-          @click="openDropdown"
-          :class="[isOpenDropdown && 'arrow-open-dropdown', 'arrow-down']"
-        />
+    <div class="header-navigation">
+      <div
+        @click="goToUserRolesPage"
+        :class="['header-tab', isActiveTab && 'active-tab']"
+      >
+        <UserIcon /> Users
+      </div>
 
-        <div v-if="isOpenDropdown" class="dropdown">
-          <div @click="logout" class="item">Logout</div>
-        </div>
-      </section>
-      <img :src="logoImg" class="company-logo" />
+      <div class="section-company">
+        <div class="name">{{ companyName }}</div>
+        <section class="dropdown-wrapper">
+          <ArrowDownIcon
+            @click="openDropdown"
+            :class="[isOpenDropdown && 'arrow-open-dropdown', 'arrow-down']"
+          />
+
+          <div v-if="isOpenDropdown" class="dropdown">
+            <div @click="logout" class="item">Logout</div>
+          </div>
+        </section>
+        <img :src="logoImg" class="company-logo" />
+      </div>
     </div>
   </header>
 </template>
@@ -25,10 +34,12 @@ import {action, get} from '@store/constants'
 
 import LogoIcon from '@components/icons/LogoIcon'
 import ArrowDownIcon from '@components/icons/ArrowDownIcon'
+import UserIcon from '@/components/icons/UserIcon'
 
 export default {
   name: 'MainHeader',
   components: {
+    UserIcon,
     LogoIcon,
     ArrowDownIcon,
   },
@@ -49,10 +60,13 @@ export default {
   computed: {
     ...mapGetters({userInfo: get.USER_INFO}),
     companyName() {
-      return this.userInfo?.user_profile?.department?.departmentname
+      return this.userInfo?.username
     },
     logoImg() {
-      return this.userInfo?.user_profile?.department?.logo
+      return this.userInfo?.user_profile?.photo
+    },
+    isActiveTab() {
+      return this.$route.name === 'UserRoles'
     },
   },
   methods: {
@@ -64,6 +78,11 @@ export default {
     goToDashboard() {
       this.$router.push({
         name: 'Home',
+      })
+    },
+    goToUserRolesPage() {
+      this.$router.push({
+        name: 'UserRoles',
       })
     },
     openDropdown() {
@@ -90,6 +109,36 @@ export default {
 
   height: 66px;
   margin-bottom: 28px;
+}
+
+.header-navigation {
+  display: flex;
+  align-items: center;
+}
+
+.header-tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  height: 38px;
+  width: 90px;
+  margin-right: 35px;
+
+  cursor: pointer;
+
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 150%;
+
+  color: var(--primary-text-color);
+
+  &:hover {
+    border-radius: 10px;
+    background: rgba(5, 95, 252, 0.6);
+  }
 }
 
 .is-not-visible-logo {
@@ -195,5 +244,17 @@ export default {
 
 .logout {
   margin: 7px 0 0 10px;
+}
+
+.active-tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 38px;
+  width: 90px;
+
+  border-radius: 10px;
+  background-color: var(--primary-button-color);
 }
 </style>

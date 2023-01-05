@@ -4,7 +4,7 @@ const state = {
   projects: [],
   workspaces: [],
   workspace: '',
-  userInfo: [],
+  userInfo: null,
   channelType: '',
   keywords: {},
   searchData: [],
@@ -69,6 +69,7 @@ const state = {
   availableWidgets: null,
   alerts: [],
   regularReports: [],
+  companyUsers: [],
 }
 
 export default state

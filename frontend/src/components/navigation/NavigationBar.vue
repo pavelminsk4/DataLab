@@ -1,7 +1,7 @@
 <template>
   <div class="back-button" @click="backToPage">
     <ArrowLeftIcon class="arrow-back" />
-    <span v-if="!!step">Back to dashboard</span>
+    <span v-if="!!step || isBackToDashboard">Back to dashboard</span>
     <span v-else>Back to workspace</span>
   </div>
 
@@ -79,6 +79,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    isBackToDashboard: {
+      type: Boolean,
+      default: false,
+    },
     buttonWidth: {
       type: Number,
       default: 114,
@@ -110,7 +114,7 @@ export default {
   },
   methods: {
     backToPage() {
-      if (this.step) {
+      if (this.step || this.isBackToDashboard) {
         this.$router.push({
           name: 'Home',
         })

@@ -214,4 +214,8 @@ export default {
   [mutator.SET_NEW_WORKSPACE_ID](state, id) {
     state.newWorkspaceId = id
   },
+
+  [mutator.SET_COMPANY_USERS](state, users) {
+    state.companyUsers = users
+  },
 }
