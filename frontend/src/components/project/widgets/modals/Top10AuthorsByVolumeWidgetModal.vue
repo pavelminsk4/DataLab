@@ -90,8 +90,9 @@ export default {
             id: this.topAuthors.id,
             title: title || this.topAuthors.title,
             description: description || this.topAuthors.description,
-            smpl_freq:
-              aggregationPeriod.toLowerCase() || this.topAuthors.smpl_freq,
+            aggregation_period:
+              aggregationPeriod.toLowerCase() ||
+              this.topAuthors.aggregation_period,
           },
         },
       })
@@ -115,7 +116,7 @@ export default {
         data: {
           top_10_authors_by_volume_widget: {
             id: this.topAuthors.id,
-            smpl_freq: this.topAuthors.aggregation_period,
+            aggregation_period: this.topAuthors.aggregation_period,
             author_dim_pivot: author,
             language_dim_pivot: language,
             country_dim_pivot: country,

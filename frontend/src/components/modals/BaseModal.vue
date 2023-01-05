@@ -1,23 +1,21 @@
 <template>
-  <div @click="clickedOut">
-    <div
-      id="modal"
-      class="base-modal-wrapper"
-      aria-labelledby="Modal"
-      aria-modal="true"
-    >
-      <div :style="modalFrameStyle" class="base-modal">
-        <div class="base-modal-content">
-          <button type="button" class="close" @click="close">
-            <CrossIcon :class="closeIconClass" />
-          </button>
-          <div class="base-modal-body scroll">
-            <slot></slot>
-          </div>
+  <div
+    id="modal"
+    class="base-modal-wrapper"
+    aria-labelledby="Modal"
+    aria-modal="true"
+  >
+    <div :style="modalFrameStyle" class="base-modal">
+      <div class="base-modal-content">
+        <button type="button" class="close" @click="close">
+          <CrossIcon :class="closeIconClass" />
+        </button>
+        <div class="base-modal-body scroll">
+          <slot></slot>
         </div>
       </div>
     </div>
-    <div class="base-modal-backdrop"></div>
+    <div class="base-modal-backdrop" @click="close"></div>
   </div>
 </template>
 
@@ -39,9 +37,6 @@ export default {
     document.removeEventListener('keydown', this.pressedEsc)
   },
   methods: {
-    clickedOut(e) {
-      if (e.target.id === 'modal') this.close()
-    },
     pressedEsc(evt) {
       switch (evt.key) {
         case 'Esc':
@@ -66,26 +61,20 @@ export default {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 105;
+  z-index: 104;
 
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
 
-  width: 100%;
-  height: 100%;
-  min-height: 200px;
-
-  outline: 0;
-  transition: opacity 0.15s linear;
-
-  background: rgba(0, 0, 0, 0.7);
-  box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
+  width: 100vw;
+  height: 100vh;
 }
 
 .base-modal {
   position: relative;
+  z-index: 105;
 
   display: flex;
   flex-direction: column;
@@ -95,7 +84,8 @@ export default {
   padding: 30px 50px 68px;
 
   background: var(--secondary-bg-color);
-  pointer-events: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
   transition: transform 0.3s ease-out;
 }
 
@@ -106,8 +96,6 @@ export default {
 }
 
 .base-modal-content {
-  position: relative;
-
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -117,7 +105,6 @@ export default {
 
   background-color: #000000;
   background-clip: padding-box;
-  border-radius: 10px;
 
   outline: 0;
   pointer-events: auto;
@@ -142,8 +129,7 @@ export default {
   width: 100vw;
   height: 100vh;
 
-  background-color: #787878;
-  opacity: 0.9;
+  background: rgba(0, 0, 0, 0.8);
 }
 
 .close {

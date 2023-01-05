@@ -1,7 +1,7 @@
 <template>
   <WidgetsLayout
     v-if="contentVolumeTopAuthors"
-    :title="widgets['content_volume_top_10_authors_widget'].title"
+    :title="widgets['content_volume_top_5_authors_widget'].title"
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
   >
@@ -21,7 +21,7 @@ import WidgetsLayout from '@/components/layout/WidgetsLayout'
 import LineChart from '@/components/project/widgets/charts/LineChart'
 
 export default {
-  name: 'ContentVolumeTop10AuthorsWidget',
+  name: 'ContentVolumeTop5AuthorsWidget',
   components: {LineChart, WidgetsLayout},
   props: {
     projectId: {
@@ -38,22 +38,22 @@ export default {
       projectId: this.projectId,
       value: {
         author_dim_pivot:
-          this.widgets['content_volume_top_10_authors_widget']
+          this.widgets['content_volume_top_5_authors_widget']
             .author_dim_pivot || null,
         language_dim_pivot:
-          this.widgets['content_volume_top_10_authors_widget']
+          this.widgets['content_volume_top_5_authors_widget']
             .language_dim_pivot || null,
         country_dim_pivot:
-          this.widgets['content_volume_top_10_authors_widget']
+          this.widgets['content_volume_top_5_authors_widget']
             .country_dim_pivot || null,
         sentiment_dim_pivot:
-          this.widgets['content_volume_top_10_authors_widget']
+          this.widgets['content_volume_top_5_authors_widget']
             .sentiment_dim_pivot || null,
         source_dim_pivot:
-          this.widgets['content_volume_top_10_authors_widget']
+          this.widgets['content_volume_top_5_authors_widget']
             .source_dim_pivot || null,
         smpl_freq:
-          this.widgets['content_volume_top_10_authors_widget']
+          this.widgets['content_volume_top_5_authors_widget']
             .aggregation_period,
       },
     })

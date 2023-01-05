@@ -45,7 +45,7 @@ import DimensionsScreen from '@/components/project/widgets/modals/screens/Dimens
 import BasicSettingsScreen from '@/components/project/widgets/modals/screens/BasicSettingsScreen'
 
 export default {
-  name: 'ContentVolumeTop10AuthorsWidgetModal',
+  name: 'ContentVolumeTop5AuthorsWidgetModal',
   components: {
     LineChart,
     BaseModal,
@@ -70,7 +70,7 @@ export default {
       contentTop10Authors: get.CONTENT_VOLUME_TOP_AUTHORS,
     }),
     contentTop10AuthorsWidget() {
-      return this.widgets['content_volume_top_10_authors_widget']
+      return this.widgets['content_volume_top_5_authors_widget']
     },
     labels() {
       let labelsCollection = []
@@ -137,7 +137,7 @@ export default {
         this[action.GET_CONTENT_VOLUME_TOP_AUTHORS]({
           projectId: this.projectId,
           value: {
-            smpl_freq: val.toLowerCase(),
+            aggregation_period: val.toLowerCase(),
             author_dim_pivot:
               this.contentTop10AuthorsWidget.author_dim_pivot || null,
             language_dim_pivot:
@@ -158,7 +158,7 @@ export default {
       this[action.UPDATE_AVAILABLE_WIDGETS]({
         projectId: this.projectId,
         data: {
-          content_volume_top_10_authors_widget: {
+          content_volume_top_5_authors_widget: {
             id: this.contentTop10AuthorsWidget.id,
             title: title || this.contentTop10AuthorsWidget.title,
             description:
@@ -189,9 +189,10 @@ export default {
       this[action.UPDATE_AVAILABLE_WIDGETS]({
         projectId: this.projectId,
         data: {
-          content_volume_top_10_authors_widget: {
+          content_volume_top_5_authors_widget: {
             id: this.contentTop10AuthorsWidget.id,
-            smpl_freq: this.contentTop10AuthorsWidget.aggregation_period,
+            aggregation_period:
+              this.contentTop10AuthorsWidget.aggregation_period,
             author_dim_pivot: author,
             language_dim_pivot: language,
             country_dim_pivot: country,
@@ -205,7 +206,7 @@ export default {
         projectId: this.projectId,
         value: {
           id: this.contentTop10AuthorsWidget.id,
-          smpl_freq: this.contentTop10AuthorsWidget.aggregation_period,
+          aggregation_period: this.contentTop10AuthorsWidget.aggregation_period,
           author_dim_pivot: author,
           language_dim_pivot: language,
           country_dim_pivot: country,

@@ -61,9 +61,9 @@ import SentimentTop10AuthorsWidget from '@/components/project/widgets/SentimentT
 import SentimentTop10SourcesWidget from '@/components/project/widgets/SentimentTop10SourcesWidget'
 import SentimentTop10LanguagesWidget from '@/components/project/widgets/SentimentTop10LanguagesWidget'
 import SentimentTop10CountriesWidget from '@/components/project/widgets/SentimentTop10CountriesWidget'
-import ContentVolumeTop10SourceWidget from '@/components/project/widgets/ContentVolumeTop10SourceWidget'
-import ContentVolumeTop10AuthorsWidget from '@/components/project/widgets/ContentVolumeTop10AuthorsWidget'
-import ContentVolumeTop10CountriesWidget from '@/components/project/widgets/ContentVolumeTop10CountriesWidget'
+import ContentVolumeTop5SourceWidget from '@/components/project/widgets/ContentVolumeTop5SourceWidget'
+import ContentVolumeTop5AuthorsWidget from '@/components/project/widgets/ContentVolumeTop5AuthorsWidget'
+import ContentVolumeTop5CountriesWidget from '@/components/project/widgets/ContentVolumeTop5CountriesWidget'
 
 import VolumeWidgetModal from '@/components/project/widgets/modals/VolumeWidgetModal'
 import SummaryWidgetModal from '@/components/project/widgets/modals/SummaryWidgetModal'
@@ -77,9 +77,9 @@ import SentimentTop10SourcesWidgetModal from '@/components/project/widgets/modal
 import SentimentTop10AuthorsWidgetModal from '@/components/project/widgets/modals/SentimentTop10AuthorsWidgetModal'
 import SentimentTop10CountriesWidgetModal from '@/components/project/widgets/modals/SentimentTop10CountriesWidgetModal'
 import SentimentTop10LanguagesWidgetModal from '@/components/project/widgets/modals/SentimentTop10LanguagesWidgetModal'
-import ContentVolumeTop10SourceWidgetModal from '@/components/project/widgets/modals/ContentVolumeTop10SourceWidgetModal'
-import ContentVolumeTop10AuthorsWidgetModal from '@/components/project/widgets/modals/ContentVolumeTop10AuthorsWidgetModal'
-import ContentVolumeTop10CountriesWidgetModal from '@/components/project/widgets/modals/ContentVolumeTop10CountriesWidgetModal'
+import ContentVolumeTop5SourceWidgetModal from '@/components/project/widgets/modals/ContentVolumeTop5SourceWidgetModal'
+import ContentVolumeTop5AuthorsWidgetModal from '@/components/project/widgets/modals/ContentVolumeTop5AuthorsWidgetModal'
+import ContentVolumeTop5CountriesWidgetModal from '@/components/project/widgets/modals/ContentVolumeTop5CountriesWidgetModal'
 
 import {snakeToPascal} from '@lib/utilities'
 
@@ -100,9 +100,9 @@ export default {
     SentimentTop10AuthorsWidgetModal,
     SentimentTop10CountriesWidgetModal,
     SentimentTop10LanguagesWidgetModal,
-    ContentVolumeTop10SourceWidgetModal,
-    ContentVolumeTop10AuthorsWidgetModal,
-    ContentVolumeTop10CountriesWidgetModal,
+    ContentVolumeTop5SourceWidgetModal,
+    ContentVolumeTop5AuthorsWidgetModal,
+    ContentVolumeTop5CountriesWidgetModal,
     VolumeWidget,
     SummaryWidget,
     Top10BrandsWidget,
@@ -114,9 +114,9 @@ export default {
     SentimentTop10SourcesWidget,
     SentimentTop10LanguagesWidget,
     SentimentTop10CountriesWidget,
-    ContentVolumeTop10SourceWidget,
-    ContentVolumeTop10AuthorsWidget,
-    ContentVolumeTop10CountriesWidget,
+    ContentVolumeTop5SourceWidget,
+    ContentVolumeTop5AuthorsWidget,
+    ContentVolumeTop5CountriesWidget,
   },
   props: {
     projectId: {

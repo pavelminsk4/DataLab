@@ -91,9 +91,9 @@ export default {
             id: this.sentimentTopCountries.id,
             title: title || this.sentimentTopCountries.title,
             description: description || this.sentimentTopCountries.description,
-            smpl_freq:
+            aggregation_period:
               aggregationPeriod.toLowerCase() ||
-              this.sentimentTopCountries.smpl_freq,
+              this.sentimentTopCountries.aggregation_period,
           },
         },
       })
@@ -117,7 +117,7 @@ export default {
         data: {
           sentiment_top_10_countries_widget: {
             id: this.sentimentTopCountries.id,
-            smpl_freq: this.sentimentTopCountries.aggregation_period,
+            aggregation_period: this.sentimentTopCountries.aggregation_period,
             author_dim_pivot: author,
             language_dim_pivot: language,
             country_dim_pivot: country,

@@ -89,8 +89,9 @@ export default {
             id: this.topLanguages.id,
             title: title || this.topLanguages.title,
             description: description || this.topLanguages.description,
-            smpl_freq:
-              aggregationPeriod.toLowerCase() || this.topLanguages.smpl_freq,
+            aggregation_period:
+              aggregationPeriod.toLowerCase() ||
+              this.topLanguages.aggregation_period,
           },
         },
       })
@@ -114,7 +115,7 @@ export default {
         data: {
           top_10_languages_widget: {
             id: this.topLanguages.id,
-            smpl_freq: this.topLanguages.aggregation_period,
+            aggregation_period: this.topLanguages.aggregation_period,
             author_dim_pivot: author,
             language_dim_pivot: language,
             country_dim_pivot: country,

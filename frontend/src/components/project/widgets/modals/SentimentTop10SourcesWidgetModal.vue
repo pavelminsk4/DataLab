@@ -91,9 +91,9 @@ export default {
             id: this.sentimentTopSources.id,
             title: title || this.sentimentTopSources.title,
             description: description || this.sentimentTopSources.description,
-            smpl_freq:
+            aggregation_period:
               aggregationPeriod.toLowerCase() ||
-              this.sentimentTopSources.smpl_freq,
+              this.sentimentTopSources.aggregation_period,
           },
         },
       })
@@ -117,7 +117,7 @@ export default {
         data: {
           sentiment_top_10_sources_widget: {
             id: this.sentimentTopSources.id,
-            smpl_freq: this.sentimentTopSources.aggregation_period,
+            aggregation_period: this.sentimentTopSources.aggregation_period,
             author_dim_pivot: author,
             language_dim_pivot: language,
             country_dim_pivot: country,

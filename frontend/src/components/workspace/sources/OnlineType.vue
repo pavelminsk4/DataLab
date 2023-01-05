@@ -106,8 +106,8 @@ export default {
   },
   props: {
     currentProject: {
-      type: [Array, Object],
-      default: () => [],
+      type: Object,
+      required: true,
     },
   },
   data() {
@@ -122,12 +122,10 @@ export default {
     }
   },
   created() {
-    if (this.currentProject.length) {
-      this.country = this.currentProject.country_filter
-      this.language = this.currentProject.language_filter
-      this.source = this.currentProject.source_filter
-      this.author = this.currentProject.author_filter
-    }
+    this.country = this.currentProject?.country_filter || ''
+    this.language = this.currentProject?.language_filter || ''
+    this.source = this.currentProject?.source_filter || ''
+    this.author = this.currentProject?.author_filter || ''
 
     this[action.UPDATE_ADDITIONAL_FILTERS]({
       country: this.currentProject.country_filter,

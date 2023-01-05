@@ -44,7 +44,7 @@ import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
 export default {
-  name: 'ContentVolumeTop10CountriesWidgetModal',
+  name: 'ContentVolumeTop5CountriesWidgetModal',
   components: {
     LineChart,
     BaseModal,
@@ -69,7 +69,7 @@ export default {
       contentTop10Countries: get.CONTENT_VOLUME_TOP_COUNTRIES,
     }),
     contentTop10CountriesWidget() {
-      return this.widgets['content_volume_top_10_countries_widget']
+      return this.widgets['content_volume_top_5_countries_widget']
     },
     labels() {
       let labelsCollection = []
@@ -136,7 +136,7 @@ export default {
         this[action.GET_CONTENT_VOLUME_TOP_COUNTRIES]({
           projectId: this.projectId,
           value: {
-            smpl_freq: val.toLowerCase(),
+            aggregation_period: val.toLowerCase(),
             author_dim_pivot:
               this.contentTop10CountriesWidget.author_dim_pivot || null,
             language_dim_pivot:
@@ -157,7 +157,7 @@ export default {
       this[action.UPDATE_AVAILABLE_WIDGETS]({
         projectId: this.projectId,
         data: {
-          content_volume_top_10_countries_widget: {
+          content_volume_top_5_countries_widget: {
             id: this.contentTop10CountriesWidget.id,
             title: title || this.contentTop10CountriesWidget.title,
             description:
@@ -189,9 +189,10 @@ export default {
       this[action.UPDATE_AVAILABLE_WIDGETS]({
         projectId: this.projectId,
         data: {
-          content_volume_top_10_countries_widget: {
+          content_volume_top_5_countries_widget: {
             id: this.contentTop10CountriesWidget.id,
-            smpl_freq: this.contentTop10CountriesWidget.aggregation_period,
+            aggregation_period:
+              this.contentTop10CountriesWidget.aggregation_period,
             author_dim_pivot: author,
             language_dim_pivot: language,
             country_dim_pivot: country,
@@ -205,7 +206,8 @@ export default {
         projectId: this.projectId,
         value: {
           id: this.contentTop10CountriesWidget.id,
-          smpl_freq: this.contentTop10CountriesWidget.aggregation_period,
+          aggregation_period:
+            this.contentTop10CountriesWidget.aggregation_period,
           author_dim_pivot: author,
           language_dim_pivot: language,
           country_dim_pivot: country,
