@@ -51,6 +51,7 @@ export default {
   align-items: center;
 
   min-width: 100%;
+  max-height: 100%;
   padding: 20px;
 
   border-radius: 8px;
