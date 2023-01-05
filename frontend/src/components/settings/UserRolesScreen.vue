@@ -41,17 +41,21 @@
       <section v-if="isNewUser" class="user-data">
         <section v-if="isNewUser">
           <div class="title">Username</div>
-          <BaseInput v-model="username" class="input" />
+          <BaseInput v-model="username" class="input-field" />
           <div class="title">Password</div>
-          <BaseInput v-model="password" type="password" class="input" />
+          <BaseInput v-model="password" type="password" class="input-field" />
           <div class="title">Confirm password</div>
-          <BaseInput v-model="confirmPassword" type="password" class="input" />
+          <BaseInput
+            v-model="confirmPassword"
+            type="password"
+            class="input-field"
+          />
           <div class="title">Email</div>
-          <BaseInput v-model="email" class="input" />
+          <BaseInput v-model="email" class="input-field" />
           <div class="title">First name</div>
-          <BaseInput v-model="firstName" class="input" />
+          <BaseInput v-model="firstName" class="input-field" />
           <div class="title">Last name</div>
-          <BaseInput v-model="lastName" class="input" />
+          <BaseInput v-model="lastName" class="input-field" />
 
           <BaseButton @click="createNewUser">Add User</BaseButton>
         </section>
@@ -88,7 +92,9 @@ export default {
     }
   },
   async created() {
-    await this[action.GET_USER_INFORMATION]()
+    if (!this.currentUser) {
+      await this[action.GET_USER_INFORMATION]()
+    }
 
     await this[action.GET_COMPANY_USERS](
       this.currentUser?.user_profile?.department.id
@@ -249,7 +255,7 @@ export default {
       color: var(--primary-text-color);
     }
 
-    .input {
+    .input-field {
       margin: 10px 0 25px 0;
     }
   }

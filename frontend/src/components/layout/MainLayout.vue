@@ -35,7 +35,9 @@ export default {
     },
   },
   created() {
-    this[action.GET_USER_INFORMATION]()
+    if (!this.userInfo) {
+      this[action.GET_USER_INFORMATION]()
+    }
 
     if (!this.workspaces.length) {
       this[action.GET_WORKSPACES]()

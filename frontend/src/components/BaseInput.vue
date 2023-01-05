@@ -83,7 +83,7 @@ export default {
   height: 40px;
   width: 262px;
 
-  border: 1px solid var(--input-border-color) !important;
+  border: 1px solid var(--input-border-color);
   box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
   border-radius: 10px;
 
