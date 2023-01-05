@@ -35,9 +35,8 @@ export default {
     },
   },
   created() {
-    if (!Object.keys(this.userInfo).length) {
-      this[action.GET_USER_INFORMATION]()
-    }
+    this[action.GET_USER_INFORMATION]()
+
     if (!this.workspaces.length) {
       this[action.GET_WORKSPACES]()
     }

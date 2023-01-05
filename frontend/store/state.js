@@ -69,6 +69,7 @@ const state = {
   availableWidgets: null,
   alerts: [],
   regularReports: [],
+  companyUsers: [],
 }
 
 export default state

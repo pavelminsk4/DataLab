@@ -3,7 +3,10 @@
     <LogoIcon v-if="isVisibleLogo" class="logo" @click="goToDashboard" />
 
     <div class="header-navigation">
-      <div @click="goToUserRolesPage" class="header-tab">
+      <div
+        @click="goToUserRolesPage"
+        :class="['header-tab', isActiveTab && 'active-tab']"
+      >
         <UserIcon /> Users
       </div>
 
@@ -62,6 +65,9 @@ export default {
     logoImg() {
       return this.userInfo?.user_profile?.photo
     },
+    isActiveTab() {
+      return this.$route.name === 'UserRoles'
+    },
   },
   methods: {
     ...mapActions([action.LOGOUT]),
@@ -113,8 +119,11 @@ export default {
 .header-tab {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 6px;
 
+  height: 38px;
+  width: 90px;
   margin-right: 35px;
 
   cursor: pointer;
@@ -125,6 +134,11 @@ export default {
   line-height: 150%;
 
   color: var(--primary-text-color);
+
+  &:hover {
+    border-radius: 10px;
+    background: rgba(5, 95, 252, 0.6);
+  }
 }
 
 .is-not-visible-logo {
@@ -230,5 +244,17 @@ export default {
 
 .logout {
   margin: 7px 0 0 10px;
+}
+
+.active-tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 38px;
+  width: 90px;
+
+  border-radius: 10px;
+  background-color: var(--primary-button-color);
 }
 </style>

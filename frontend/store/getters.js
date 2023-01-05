@@ -160,4 +160,8 @@ export default {
   [get.NEW_WORKSPACE_ID](state) {
     return state.newWorkspaceId
   },
+
+  [get.COMPANY_USERS](state) {
+    return state.companyUsers
+  },
 }

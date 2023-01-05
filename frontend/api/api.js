@@ -69,6 +69,17 @@ export default {
     return fetch('get', `/api/authors/authors?search=${word}`, config)
   },
 
+  async getCompanyUsers(companyId) {
+    const config = {
+      headers: {
+        'content-type': 'application/json',
+        'X-CSRFToken': CSRF_TOKEN,
+      },
+    }
+
+    return fetch('get', `/api/company_users/${companyId}/`, config)
+  },
+
   async getListOfDisplayedWidgets(projectId) {
     return fetch('get', `/api/projects/${projectId}/widgets_list`)
   },
@@ -278,6 +289,16 @@ export default {
       },
     }
     return fetch('post', '/api/alerts/', data, config)
+  },
+
+  async createUser(data) {
+    const config = {
+      headers: {
+        'content-type': 'application/json',
+        'X-CSRFToken': CSRF_TOKEN,
+      },
+    }
+    return fetch('post', '/api/register/', data, config)
   },
 
   async updateAlert({data, alertId}) {

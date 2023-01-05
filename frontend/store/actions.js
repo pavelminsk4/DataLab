@@ -411,6 +411,18 @@ export default {
     }
   },
 
+  async [action.GET_COMPANY_USERS]({commit}, companyId) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const companyUsers = await api.getCompanyUsers(companyId)
+      commit(mutator.SET_COMPANY_USERS, companyUsers)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
   async [action.CREATE_WORKSPACE]({commit}, workspace) {
     commit(mutator.SET_LOADING, true)
     try {
@@ -473,6 +485,17 @@ export default {
     commit(mutator.SET_LOADING, true)
     try {
       await api.createRegularReport({projectId, data})
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
+  async [action.CREATE_NEW_USER]({commit}, data) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      await api.createUser(data)
     } catch (e) {
       console.log(e)
     } finally {

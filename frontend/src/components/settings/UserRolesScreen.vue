@@ -1,5 +1,5 @@
 <template>
-  <MainLayout>
+  <MainLayout v-if="currentUser">
     <NavigationBar
       title="Users"
       hint="Manage define limits for users"
@@ -15,60 +15,45 @@
         <div class="users-section-header">
           <div class="title">
             <div>Users</div>
-            <div>Count</div>
+            <div>{{ companyUsers.length }}</div>
           </div>
           <BaseButton @click="addNewUser" class="button"> Add User </BaseButton>
         </div>
 
-        <div @click="updateUserData" class="user">
-          <div class="photo">PHOTO</div>
-          <div class="name-wrapper">
-            <div>NAME</div>
-            <div class="hint">ROLE</div>
+        <div class="users-wrapper scroll">
+          <div
+            v-for="(item, index) in companyUsers"
+            :key="'user' + index"
+            class="user"
+          >
+            <img :src="item.user_profile.photo" class="photo" />
+            <div class="name-wrapper">
+              <div>{{ item.first_name + ' ' + item.last_name }}</div>
+              <div class="hint">{{ item.user_profile.jobtitle }}</div>
+            </div>
+            <div class="role">{{ item.user_profile.role }}</div>
           </div>
-          <div class="role">Admin</div>
         </div>
       </section>
 
-      <section v-if="isNewUser || isUserData" class="user-data">
+      <div class="success-message">{{ successMessage }}</div>
+
+      <section v-if="isNewUser" class="user-data">
         <section v-if="isNewUser">
-          <div class="title">Name</div>
-          <BaseInput class="input" />
-          <div class="title">E-mail</div>
-          <BaseInput class="input" />
+          <div class="title">Username</div>
+          <BaseInput v-model="username" class="input" />
+          <div class="title">Password</div>
+          <BaseInput v-model="password" type="password" class="input" />
+          <div class="title">Confirm password</div>
+          <BaseInput v-model="confirmPassword" type="password" class="input" />
+          <div class="title">Email</div>
+          <BaseInput v-model="email" class="input" />
+          <div class="title">First name</div>
+          <BaseInput v-model="firstName" class="input" />
+          <div class="title">Last name</div>
+          <BaseInput v-model="lastName" class="input" />
 
-          <BaseButton>Add User</BaseButton>
-        </section>
-
-        <section v-if="isUserData">
-          <div class="user-card-name">
-            <div class="name">
-              <div>PHOTO</div>
-              <div>NAME</div>
-            </div>
-
-            <div class="delete-button"><CrossIcon /> Delete User</div>
-          </div>
-
-          <div class="user-card-header">
-            <div
-              v-for="button in settingsName"
-              :key="button"
-              :class="[generalSettingsName === button && 'active-user-card']"
-              @click="toggleSettings"
-            >
-              {{ button }}
-            </div>
-          </div>
-
-          <div class="title">Name</div>
-          <BaseInput class="input" />
-          <div class="title">Surname</div>
-          <BaseInput class="input" />
-          <div class="title">E-mail</div>
-          <BaseInput class="input" />
-
-          <BaseButton>Update</BaseButton>
+          <BaseButton @click="createNewUser">Add User</BaseButton>
         </section>
       </section>
     </div>
@@ -76,31 +61,67 @@
 </template>
 
 <script>
+import {mapActions, mapGetters} from 'vuex'
+import {action, get} from '@store/constants'
+
 import MainLayout from '@/components/layout/MainLayout'
 import NavigationBar from '@/components/navigation/NavigationBar'
 import BaseButton from '@/components/buttons/BaseButton'
 import BaseInput from '@/components/BaseInput'
-import CrossIcon from '@/components/icons/CrossIcon'
+
 export default {
   name: 'UserRolesScreen',
-  components: {CrossIcon, BaseInput, BaseButton, NavigationBar, MainLayout},
+  components: {BaseInput, BaseButton, NavigationBar, MainLayout},
   data() {
     return {
       isNewUser: false,
       isUserData: false,
       generalSettingsName: 'General',
       settingsName: ['General', 'Projects'],
+      username: '',
+      password: '',
+      confirmPassword: '',
+      email: '',
+      firstName: '',
+      lastName: '',
+      successMessage: '',
     }
   },
+  async created() {
+    await this[action.GET_USER_INFORMATION]()
+
+    await this[action.GET_COMPANY_USERS](
+      this.currentUser?.user_profile?.department.id
+    )
+  },
+  computed: {
+    ...mapGetters({
+      currentUser: get.USER_INFO,
+      companyUsers: get.COMPANY_USERS,
+    }),
+  },
   methods: {
+    ...mapActions([
+      action.GET_COMPANY_USERS,
+      action.GET_USER_INFORMATION,
+      action.CREATE_NEW_USER,
+    ]),
     addNewUser() {
+      this.successMessage = ''
       this.isNewUser = true
     },
-    updateUserData() {
-      this.isUserData = true
-    },
-    toggleSettings(e) {
-      this.generalSettingsName = e.target.innerText
+    createNewUser() {
+      this[action.CREATE_NEW_USER]({
+        username: this.username,
+        password: this.password,
+        password2: this.confirmPassword,
+        email: this.email,
+        first_name: this.firstName,
+        last_name: this.lastName,
+      })
+
+      this.isNewUser = false
+      this.successMessage = 'User created!'
     },
   },
 }
@@ -133,6 +154,7 @@ export default {
 
   .users-section {
     width: 50%;
+    height: 580px;
     padding: 20px;
 
     background: var(--secondary-bg-color);
@@ -165,10 +187,14 @@ export default {
     .user {
       display: flex;
 
-      cursor: pointer;
+      margin-bottom: 15px;
 
       .photo {
+        width: 36px;
+        height: 36px;
         margin-right: 16px;
+
+        border-radius: 100px;
       }
 
       .name-wrapper {
@@ -193,9 +219,17 @@ export default {
       .role {
         margin-left: auto;
 
+        font-size: 14px;
         color: var(--primary-text-color);
       }
     }
+  }
+
+  .users-wrapper {
+    height: 450px;
+    padding-right: 15px;
+
+    overflow: auto;
   }
 
   .user-data {
@@ -268,5 +302,9 @@ export default {
       color: var(--primary-text-color);
     }
   }
+}
+
+.success-message {
+  color: var(--primary-text-color);
 }
 </style>
