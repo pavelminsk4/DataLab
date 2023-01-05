@@ -46,6 +46,8 @@ urlpatterns = [
   path('projects/<int:pk>/dimension_countries', views.dimension_countries, name='dim_countries'),
   #path('projects/<int:pk>/dimension_source', views.dimension_source, name='dim_source'),
   path('projects/<int:pk>/alerts', views.ProjAlertsViewSet.as_view(), name='proj_alerts'),
+  path('register/', RegisterView.as_view(), name='auth_register'),
+  path('company_users/<int:pk>/', CompanyUsersView.as_view(), name='company_users'),
   ]
 
 router.register('dimensions', DimensionsViewSet)

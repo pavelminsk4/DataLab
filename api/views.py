@@ -21,6 +21,8 @@ from rest_framework import filters
 
 from widgets.common_widget.volume_widget import *
 
+from rest_framework import generics
+
 # ==== User API =======================
 class UserList(ListAPIView):
   queryset = User.objects.all()
@@ -290,3 +292,14 @@ class ProjAlertsViewSet(ListAPIView):
   serializer_class = AlertsSerializer
   def get_queryset(self):
     return Alert.objects.filter(project_id=self.kwargs['pk'])
+
+class RegisterView(generics.CreateAPIView):
+  queryset = User.objects.all()
+  #permission_classes = (AllowAny)
+  serializer_class = RegisterSerializer
+
+class CompanyUsersView(ListAPIView):
+  serializer_class = UserSerializer
+
+  def get_queryset(self):
+    return User.objects.filter(user_profile__department=self.kwargs['pk'])
