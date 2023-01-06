@@ -124,6 +124,7 @@ export default {
           author: this.additionalFilters?.author || [],
           posts_per_page: numberOfPosts || 20,
           page_number: pageNumber || 1,
+          sort_posts: [],
         })
         this.searchLoading = false
       } catch (e) {

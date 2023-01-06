@@ -185,6 +185,7 @@ export default {
           author: this.additionalFilters?.author || [],
           posts_per_page: 20,
           page_number: 1,
+          sort_posts: [],
         })
       } catch (e) {
         console.log(e)

@@ -65,6 +65,7 @@
       :currentProject="currentProject"
       @update-page="showResults"
       @update-posts-count="showResults"
+      @set-sorting-value="setSortingValue"
     />
   </div>
 </template>
@@ -111,6 +112,7 @@ export default {
       isOpenDimensionModal: false,
       isOpenDownloadReportModal: false,
       isOpenInstantReportModal: false,
+      sortValue: '',
     }
   },
   created() {
@@ -147,6 +149,10 @@ export default {
       action.UPDATE_ADDITIONAL_FILTERS,
       action.GET_AVAILABLE_WIDGETS,
     ]),
+    setSortingValue(val) {
+      this.sortValue = val
+      this.showResults()
+    },
     toggleWidgetsModal(val) {
       this.togglePageScroll(false)
       this[val] = !this[val]
@@ -176,6 +182,7 @@ export default {
           author: this.currentProject?.author_filter || [],
           posts_per_page: numberOfPosts || 20,
           page_number: pageNumber || 1,
+          sort_posts: this.sortValue || [],
         })
       } catch (e) {
         console.log(e)

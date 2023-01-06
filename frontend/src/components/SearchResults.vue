@@ -15,7 +15,18 @@
         </div>
       </div>
 
-      <div>{{ numberOfPosts }} results</div>
+      <div v-if="isShowSortingField" class="sorting-wrapper">
+        Sort by
+        <BaseSelect
+          v-model="sortingValueProxy"
+          :list="sortingList"
+          @select-option="selectItem"
+          name="aggregation-period"
+          class="sorting-select"
+        />
+      </div>
+
+      <div class="search-results">{{ numberOfPosts }} results</div>
 
       <div v-if="isShowCalendar" class="calendar-wrapper">
         <div class="trigger-wrapper" @click="openCalendar">
@@ -106,10 +117,12 @@ import BaseClippingCard from '@/components/BaseClippingCard'
 import CalendarIcon from '@/components/icons/CalendarIcon'
 import ArrowDownIcon from '@/components/icons/ArrowDownIcon'
 import ClippingIcon from '@/components/icons/ClippingIcon'
+import BaseSelect from '@/components/BaseSelect'
 
 export default {
   name: 'SearchResults',
   components: {
+    BaseSelect,
     ClippingIcon,
     BaseCheckbox,
     BaseClippingCard,
@@ -140,6 +153,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    isShowSortingField: {
+      type: Boolean,
+      default: false,
+    },
   },
   emits: ['update-page', 'update-posts-count'],
   data() {
@@ -151,10 +168,8 @@ export default {
       page: 1,
       countPosts: 20,
       postsOnPage: [20, 50, 100],
+      sortingValue: '',
     }
-  },
-  created() {
-    document.addEventListener('click', this.close)
   },
   computed: {
     ...mapState([
@@ -165,6 +180,17 @@ export default {
       'numberOfPages',
       'numberOfPosts',
     ]),
+    sortingValueProxy: {
+      get() {
+        return this.sortingValue
+      },
+      set(value) {
+        this.sortingValue = value
+      },
+    },
+    sortingList() {
+      return ['country', 'language', 'source']
+    },
     calendarDate() {
       if (this.additionalFilters?.date_range?.length) {
         const currentDate = this.additionalFilters?.date_range.map((el) =>
@@ -187,6 +213,9 @@ export default {
 
       return clipping
     },
+  },
+  created() {
+    document.addEventListener('click', this.close)
   },
   methods: {
     updatePostsCount(val) {
@@ -271,6 +300,9 @@ export default {
       ]
       return images.filter((el) => el !== 'None')[0] || 'None'
     },
+    selectItem(name, val) {
+      this.$emit('add-sorting-value', val)
+    },
   },
 }
 </script>
@@ -346,6 +378,17 @@ export default {
         background-color: var(--primary-button-color);
       }
     }
+  }
+}
+
+.sorting-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  .sorting-select {
+    width: 160px;
   }
 }
 
@@ -427,7 +470,7 @@ export default {
 .filters {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 20px;
 
   width: 100%;
   margin-bottom: 25px;
@@ -436,6 +479,10 @@ export default {
   font-size: 14px;
   line-height: 20px;
   color: var(--secondary-text-color);
+}
+
+.search-results {
+  margin-left: auto;
 }
 
 .arrow-open-dropdown {

@@ -120,6 +120,7 @@ export default {
           author: this.additionalFilters?.author || [],
           posts_per_page: numberOfPosts || 20,
           page_number: pageNumber || 1,
+          sort_posts: [],
         })
       } catch (e) {
         console.log(e)
@@ -159,6 +160,7 @@ export default {
               this.currentProject?.sentiment_filter ||
               null,
             country_filter: this.additionalFilters?.country || null,
+            sort_posts: [],
           },
         })
 
