@@ -110,6 +110,7 @@ class SearchTests(APITestCase):
       'author':[],
       'posts_per_page':20,
       'page_number':1,
+      'sort_posts':[],
       }
     response = self.client.post(url, data, format='json')
     self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -129,6 +130,7 @@ class SearchTests(APITestCase):
       'author':[],
       'posts_per_page':20,
       'page_number':1,
+      'sort_posts':[],
       }
     response = self.client.post(url, data, format='json')
     self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -149,6 +151,7 @@ class SearchTests(APITestCase):
       'author':[],
       'posts_per_page':20,
       'page_number':1,
+      'sort_posts':[],
       }
     response = self.client.post(url, data, format='json')
     self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':1, 'posts':[ex3]})
@@ -168,6 +171,7 @@ class SearchTests(APITestCase):
       'author':[],
       'posts_per_page':20,
       'page_number':1,
+      'sort_posts':[],
       }
     response = self.client.post(url, data, format='json')
     self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':1, 'posts':[ex2]})
@@ -187,6 +191,7 @@ class SearchTests(APITestCase):
       'author':[],
       'posts_per_page':20,
       'page_number':1,
+      'sort_posts':[],
       }
     response = self.client.post(url, data, format='json')
     self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -206,6 +211,7 @@ class SearchTests(APITestCase):
       'author':[],
       'posts_per_page':20,
       'page_number':1,
+      'sort_posts':[],
       }
     response = self.client.post(url, data, format='json')
     self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -226,6 +232,7 @@ class SearchTests(APITestCase):
       'author':[],
       'posts_per_page':20,
       'page_number':1,
+      'sort_posts':[],
       }
     response = self.client.post(url, data, format='json')
     self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -245,6 +252,7 @@ class SearchTests(APITestCase):
       'author':[],
       'posts_per_page':20,
       'page_number':1,
+      'sort_posts':[],
     }
     response = self.client.post(url, data, format='json')
     self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -264,6 +272,7 @@ class SearchTests(APITestCase):
       'author':[],
       'posts_per_page':20,
       'page_number':1,
+      'sort_posts':[],
     }
     response = self.client.post(url, data, format='json')
     self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -283,6 +292,7 @@ class SearchTests(APITestCase):
       'author':'Elon Musk',
       'posts_per_page':20,
       'page_number':1,
+      'sort_posts':[],
     }
     response = self.client.post(url, data, format='json')
     self.assertEqual(response.status_code, status.HTTP_200_OK)
