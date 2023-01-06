@@ -33,7 +33,7 @@ export default {
   name: 'BaseInput',
   props: {
     modelValue: {
-      type: String,
+      type: [String, Number],
       required: true,
     },
     inputType: {

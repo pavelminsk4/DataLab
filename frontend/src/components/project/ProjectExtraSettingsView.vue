@@ -114,6 +114,7 @@ export default {
   position: fixed;
   top: 16px;
   left: 24px;
+  z-index: 10;
 
   display: flex;
   flex-direction: column;
