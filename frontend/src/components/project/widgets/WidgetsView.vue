@@ -14,8 +14,10 @@
       :is-checkbox-clipping-widget="true"
       :currentProject="currentProject"
       :clipping-content="clippingData"
+      :is-show-sorting-field="true"
       @update-page="updatePage"
       @update-posts-count="updatePosts"
+      @add-sorting-value="addSortingValue"
       class="search-results"
     />
 
@@ -247,6 +249,9 @@ export default {
     },
     updatePosts(page, posts) {
       this.$emit('update-posts-count', page, posts)
+    },
+    addSortingValue(value) {
+      this.$emit('set-sorting-value', value)
     },
     openModal(modalName) {
       this.isOpenModalSettings = modalName

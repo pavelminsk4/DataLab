@@ -4,6 +4,7 @@
 
     <div class="header-navigation">
       <div
+        v-if="userInfo?.user_profile?.role === 'company'"
         @click="goToUserRolesPage"
         :class="['header-tab', isActiveTab && 'active-tab']"
       >

@@ -43,11 +43,15 @@
           <div class="title">Username</div>
           <BaseInput v-model="username" class="input-field" />
           <div class="title">Password</div>
-          <BaseInput v-model="password" type="password" class="input-field" />
+          <BaseInput
+            v-model="password"
+            input-type="password"
+            class="input-field"
+          />
           <div class="title">Confirm password</div>
           <BaseInput
             v-model="confirmPassword"
-            type="password"
+            input-type="password"
             class="input-field"
           />
           <div class="title">Email</div>
