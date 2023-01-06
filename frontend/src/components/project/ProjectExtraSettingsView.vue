@@ -10,7 +10,7 @@
       <div
         v-for="(item, index) in settings"
         :key="'setting' + index"
-        :class="['nav-item', item.name === settingName && 'active-setting']"
+        :class="['nav-item', item.name === routeName && 'active-setting']"
         @click="openSetting(item.name)"
       >
         <SidebarIcon :json="item.value" />
@@ -46,7 +46,6 @@ export default {
   },
   data() {
     return {
-      settingName: this.$route.name,
       settings: [
         {
           name: 'Analytics',
@@ -91,13 +90,15 @@ export default {
     projectName() {
       return this.currentProject?.title
     },
+    routeName() {
+      return this.$route.name
+    },
   },
   methods: {
     ...mapActions([action.GET_WORKSPACES]),
-    openSetting(val) {
-      this.settingName = val
+    openSetting(pathName) {
       this.$router.push({
-        name: this.settingName,
+        name: pathName,
       })
     },
     goToDashboard() {

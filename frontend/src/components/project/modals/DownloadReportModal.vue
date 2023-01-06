@@ -39,6 +39,12 @@ export default {
       if (this.selectedValue === 'Instant') {
         this.$emit('open-instant-template')
       }
+
+      if (this.selectedValue === 'Regular') {
+        this.$router.push({
+          name: 'Reports',
+        })
+      }
     },
   },
 }
