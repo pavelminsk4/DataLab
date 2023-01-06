@@ -470,10 +470,11 @@ export default {
     }
   },
 
-  async [action.UPDATE_NEW_ALERT]({commit}, {data, alertId}) {
+  async [action.UPDATE_ALERT]({commit, dispatch}, {data, alertId}) {
     commit(mutator.SET_LOADING, true)
     try {
       await api.updateAlert({data, alertId})
+      await dispatch(action.GET_ALERTS, data.project)
     } catch (e) {
       console.log(e)
     } finally {

@@ -24,7 +24,12 @@
     <div class="create-alert-wrapper">
       <div class="title">Alert Title</div>
 
-      <BaseInput v-model="title" placeholder="Alert Title" />
+      <BaseInput
+        v-model="titleProxy"
+        placeholder="Alert Title"
+        :isError="!!errorTitle"
+        :errorMessage="errorTitle"
+      />
 
       <div class="title">Recipient's email</div>
 
@@ -58,17 +63,23 @@
       <div class="additional-settings">
         <div>
           <div class="title">Trigger on every N new posts</div>
-          <BaseInput v-model="trigger" inputType="number" placeholder="Number">
+          <BaseInput
+            v-model="triggerProxy"
+            inputType="number"
+            placeholder="Number"
+            :isError="!!errorTrigger"
+            :errorMessage="errorTrigger"
+          >
             <div class="control-buttons">
               <button class="control-button">
                 <ArrowDownIcon
-                  @click="increase('trigger')"
+                  @click="increase('triggerProxy')"
                   class="arrow-input arrow-increase"
                 />
               </button>
               <button class="control-button">
                 <ArrowDownIcon
-                  @click="decrease('trigger')"
+                  @click="decrease('triggerProxy')"
                   class="arrow-input"
                 />
               </button>
@@ -78,16 +89,25 @@
 
         <div>
           <div class="title">How many posts to send</div>
-          <BaseInput v-model="posts" inputType="number" placeholder="Number">
+          <BaseInput
+            v-model="postsProxy"
+            inputType="number"
+            placeholder="Number"
+            :isError="!!errorPosts"
+            :errorMessage="errorPosts"
+          >
             <div class="control-buttons">
               <button class="control-button">
                 <ArrowDownIcon
-                  @click="increase('posts')"
+                  @click="increase('postsProxy')"
                   class="arrow-input arrow-increase"
                 />
               </button>
               <button class="control-button">
-                <ArrowDownIcon @click="decrease('posts')" class="arrow-input" />
+                <ArrowDownIcon
+                  @click="decrease('postsProxy')"
+                  class="arrow-input"
+                />
               </button>
             </div>
           </BaseInput>
@@ -120,37 +140,18 @@ export default {
   },
   data() {
     return {
-      title: '',
+      title: null,
+      errorTitle: null,
       email: '',
-      trigger: '',
-      posts: '',
+      trigger: null,
+      errorTrigger: null,
+      posts: null,
+      errorPosts: null,
       visible: false,
       isDuplicate: false,
       selectedUsers: [],
       usersId: [],
     }
-  },
-  async created() {
-    if (!this.workspaces.length) {
-      await this[action.GET_WORKSPACES]()
-    }
-
-    if (!this.alerts.length) {
-      await this[action.GET_ALERTS](this.projectId)
-    }
-
-    if (this.$route.name === 'UpdateAlert') {
-      this.title = this.currentAlert?.title
-      this.trigger = this.currentAlert?.triggered_on_every_n_new_posts
-      this.posts = this.currentAlert?.how_many_posts_to_send
-    }
-
-    if (this.projectMembers.length && this.$route.name === 'UpdateAlert') {
-      this.selectedUsers = [...this.alertUsers]
-      this.usersId = [...this.alertUsersId]
-    }
-
-    document.addEventListener('click', this.close)
   },
   computed: {
     ...mapGetters({
@@ -205,19 +206,65 @@ export default {
     alertUsersId() {
       return this.alertUsers.map((el) => el.id)
     },
+    titleProxy: {
+      get() {
+        if (this.title !== null) return this.title
+        return this.currentAlert?.title || ''
+      },
+      set(val) {
+        this.title = val
+        if (val) this.errorTitle = null
+      },
+    },
+    triggerProxy: {
+      get() {
+        if (this.trigger !== null) return this.trigger
+        return this.currentAlert?.triggered_on_every_n_new_posts || ''
+      },
+      set(val) {
+        this.trigger = val
+        if (val) this.errorTrigger = null
+      },
+    },
+    postsProxy: {
+      get() {
+        if (this.posts !== null) return this.posts
+        return this.currentAlert?.how_many_posts_to_send || ''
+      },
+      set(val) {
+        this.posts = val
+        if (val) this.errorPosts = null
+      },
+    },
+  },
+  async created() {
+    if (!this.workspaces.length) {
+      await this[action.GET_WORKSPACES]()
+    }
+
+    if (!this.alerts.length) {
+      await this[action.GET_ALERTS](this.projectId)
+    }
+
+    if (this.projectMembers.length && this.$route.name === 'UpdateAlert') {
+      this.selectedUsers = [...this.alertUsers]
+      this.usersId = [...this.alertUsersId]
+    }
+
+    document.addEventListener('click', this.close)
   },
   methods: {
     ...mapActions([
       action.GET_WORKSPACES,
       action.CREATE_NEW_ALERT,
-      action.UPDATE_NEW_ALERT,
+      action.UPDATE_ALERT,
       action.GET_ALERTS,
     ]),
     async createAlert() {
       this[action.CREATE_NEW_ALERT]({
-        title: this.title,
-        triggered_on_every_n_new_posts: this.trigger,
-        how_many_posts_to_send: this.posts,
+        title: this.titleProxy,
+        triggered_on_every_n_new_posts: +this.triggerProxy,
+        how_many_posts_to_send: +this.postsProxy,
         alert_condition: '',
         project: this.projectId,
         user: [...this.usersId],
@@ -227,11 +274,11 @@ export default {
       await this[action.GET_ALERTS](this.projectId)
     },
     updateAlert() {
-      this[action.UPDATE_NEW_ALERT]({
+      this[action.UPDATE_ALERT]({
         data: {
-          title: this.title,
-          triggered_on_every_n_new_posts: this.trigger,
-          how_many_posts_to_send: this.posts,
+          title: this.titleProxy,
+          triggered_on_every_n_new_posts: +this.triggerProxy,
+          how_many_posts_to_send: +this.postsProxy,
           alert_condition: '',
           project: this.projectId,
           user: [...this.usersId],
@@ -240,6 +287,8 @@ export default {
       })
     },
     async saveChanges() {
+      if (!this.validationForm()) return
+
       if (this.$route.name === 'NewAlert') {
         await this.createAlert()
 
@@ -256,8 +305,26 @@ export default {
         })
       }
     },
+    validationForm() {
+      this.errorTitle = this.titleProxy ? null : 'wrong title'
+      this.errorTrigger = this.validationNumberInput(this.triggerProxy)
+        ? null
+        : 'wrong number'
+      this.errorPosts = this.validationNumberInput(this.postsProxy)
+        ? null
+        : 'wrong number'
+
+      return !this.errorTitle && !this.errorTrigger && !this.errorPosts
+    },
     addUsers() {
       this.visible = !this.visible
+    },
+    validationNumberInput(value) {
+      if (typeof value === 'number' || value) {
+        return value >= 0
+      } else {
+        return false
+      }
     },
     select(item) {
       if (this.usersId.includes(item.id)) {
