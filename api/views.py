@@ -122,6 +122,7 @@ def search(request):
   date_range = body['date_range']
   posts_per_page = body['posts_per_page']
   page_number = body['page_number']
+  sort_posts = body['sort_posts']
   posts = data_range_posts(date_range[0], date_range[1])
   posts = keywords_posts(keys, posts)
   if additions!=[]:
@@ -138,6 +139,12 @@ def search(request):
     posts = posts.filter(entry_author=author)
   if sentiment!=[]:
     posts = posts.filter(sentiment=sentiment)
+  if sort_posts == 'source':
+    posts = posts.order_by('feedlink__source1')
+  elif sort_posts == 'country':
+    posts = posts.order_by('feedlink__country')
+  elif sort_posts == 'language':
+    posts = posts.order_by('feed_language__language')   
   posts = posts.values(
     'id',
     'entry_title',
