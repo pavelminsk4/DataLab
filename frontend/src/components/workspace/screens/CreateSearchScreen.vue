@@ -126,9 +126,10 @@ export default {
           page_number: pageNumber || 1,
           sort_posts: [],
         })
-        this.searchLoading = false
       } catch (e) {
         console.log(e)
+      } finally {
+        this.searchLoading = false
       }
     },
 

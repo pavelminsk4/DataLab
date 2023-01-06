@@ -253,6 +253,9 @@ export default {
 
     document.addEventListener('click', this.close)
   },
+  unmounted() {
+    document.removeEventListener('click', this.close)
+  },
   methods: {
     ...mapActions([
       action.GET_WORKSPACES,
@@ -270,7 +273,6 @@ export default {
         user: [...this.usersId],
       })
 
-      this.loading = false
       await this[action.GET_ALERTS](this.projectId)
     },
     updateAlert() {
@@ -292,14 +294,12 @@ export default {
       if (this.$route.name === 'NewAlert') {
         await this.createAlert()
 
-        this.loading = true
         await this.$router.push({
           name: 'Alerts',
         })
       } else {
         this.updateAlert()
 
-        this.loading = true
         await this.$router.push({
           name: 'Alerts',
         })

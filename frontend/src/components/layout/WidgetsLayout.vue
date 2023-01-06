@@ -10,17 +10,22 @@
         <div class="button" @click="deleteWidget"><CloseIcon /></div>
       </div>
     </div>
-    <slot></slot>
+    <BaseSpinner v-if="isLoading" />
+    <slot v-else></slot>
   </section>
 </template>
 
 <script>
-import SettingsIcon from '@/components/icons/SettingsIcon'
+import {mapGetters} from 'vuex'
+import {get} from '@store/constants'
+
+import BaseSpinner from '@/components/BaseSpinner'
 import CloseIcon from '@/components/icons/CloseIcon'
+import SettingsIcon from '@/components/icons/SettingsIcon'
 
 export default {
   name: 'WidgetsLayout',
-  components: {CloseIcon, SettingsIcon},
+  components: {BaseSpinner, CloseIcon, SettingsIcon},
   props: {
     title: {
       type: String,
@@ -30,6 +35,9 @@ export default {
       type: Boolean,
       default: true,
     },
+  },
+  computed: {
+    ...mapGetters({isLoading: get.LOADING}),
   },
   methods: {
     openSettings() {
