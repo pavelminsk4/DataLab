@@ -84,13 +84,11 @@ export default {
       })
     },
     createWorkspace() {
-      this.loading = true
       this.$router.push({
         name: 'Step1',
       })
     },
     navigateToWorkspace(id) {
-      this.loading = true
       this.$router.push({name: 'Workspace', params: {workspaceId: id}})
     },
     addNewProject(id) {

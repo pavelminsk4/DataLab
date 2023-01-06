@@ -40,8 +40,8 @@
         />
       </div>
     </div>
-    <div v-if="loading && searchLoading" class="spinner-wrapper">
-      <BaseSpinner />
+    <div v-if="loading || searchLoading" class="spinner-wrapper">
+      <BaseSpinner :isHaveLabel="true" />
     </div>
 
     <div v-if="searchData.length" class="search-result-cards scroll">
@@ -511,6 +511,8 @@ export default {
   justify-content: center;
 
   min-width: 100%;
+  height: 50vh;
+  min-height: 100px;
   margin-bottom: 80px;
 }
 

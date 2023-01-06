@@ -127,7 +127,6 @@ export default {
           },
         },
       })
-      this.loading = true
 
       await this[action.GET_AVAILABLE_WIDGETS](this.projectId)
       await this[action.GET_SUMMARY_WIDGET](this.projectId)

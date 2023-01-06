@@ -1,6 +1,5 @@
 <template>
   <WidgetsLayout
-    v-if="topBrands"
     :title="widgets['top_10_brands_widget'].title"
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"

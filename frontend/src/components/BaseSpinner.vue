@@ -13,13 +13,19 @@
       <circle class="back" cx="17" cy="17" r="14"></circle>
       <circle class="front" cx="17" cy="17" r="14"></circle>
     </svg>
-    <div class="text" data-text="Searching"></div>
+    <div v-if="isHaveLabel" class="text" data-text="Searching"></div>
   </div>
 </template>
 
 <script>
 export default {
   name: 'BaseSpinner',
+  props: {
+    isHaveLabel: {
+      type: Boolean,
+      default: false,
+    },
+  },
 }
 </script>
 

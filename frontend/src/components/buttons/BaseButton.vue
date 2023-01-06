@@ -6,9 +6,9 @@
       isNotBackground && 'not-background',
       (isDisabled || (isLoading && buttonLoading)) && 'disabled',
     ]"
-    :disabled="isDisabled || (isLoading && buttonLoading)"
+    :disabled="isDisabled || isLoading || buttonLoading"
   >
-    <BaseButtonSpinner v-if="isLoading && buttonLoading" />
+    <BaseButtonSpinner v-if="isLoading || buttonLoading" />
     <slot v-else></slot>
   </button>
 </template>
