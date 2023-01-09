@@ -9,7 +9,7 @@
     <div class="title-wrapper">
       <h1 class="title">{{ title }}</h1>
       <div v-if="newProject.source || currentProject" class="source-type">
-        <OnlineRadioIcon class="icon" />{{ newProject.source }}
+        <OnlineIcon class="icon" />{{ newProject.source }}
       </div>
     </div>
     <div class="progress-bar-wrapper">
@@ -43,14 +43,14 @@ import {mapGetters} from 'vuex'
 import BaseButton from '@components/buttons/BaseButton'
 
 import ArrowLeftIcon from '@components/icons/ArrowLeftIcon'
-import OnlineRadioIcon from '@/components/icons/OnlineRadioIcon'
+import OnlineIcon from '@/components/icons/OnlineIcon'
 import Steps from '@/components/navigation/Steps'
 
 export default {
   name: 'NavigationBar',
   components: {
     Steps,
-    OnlineRadioIcon,
+    OnlineIcon,
     BaseButton,
     ArrowLeftIcon,
   },
@@ -189,6 +189,8 @@ export default {
       width: 15px;
       height: 15px;
       margin-right: 7px;
+
+      color: var(--primary-text-color);
     }
   }
 }

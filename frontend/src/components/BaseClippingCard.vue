@@ -1,37 +1,51 @@
 <template>
   <div
-    :class="['search-result-card', isClippingWidget && 'search-clipping-card']"
+    :class="[
+      'search-result-card',
+      isClippingWidget && 'search-clipping-card',
+      clippingElement && 'clipping-card',
+    ]"
   >
     <section class="search-info-wrapper">
       <div class="result-img">
-        <BaseCheckbox
-          v-if="isCheckboxClippingWidget"
-          class="status-checkbox"
-          :id="id"
-          :model-value="clippingElement"
-          :selected="clippingElement"
-          @change="onChange"
-        />
+        <div class="clipping-wrapper">
+          <ClippingIcon
+            v-if="isCheckboxClippingWidget"
+            :class="[
+              'clipping-icon',
+              clippingElement && 'active-clipping-post',
+            ]"
+            @click="addPost"
+          />
+          <div class="tooltip">Add to clipping widget</div>
+        </div>
         <img
           v-if="img !== 'None'"
           :src="img"
-          :class="['img', !isCheckboxClippingWidget && 'img-margin']"
+          :class="['img', isCheckboxClippingWidget && 'img-margin']"
         />
         <NoImageIcon
           v-else
-          :class="['default-image', !isCheckboxClippingWidget && 'img-margin']"
+          :class="['default-image', isCheckboxClippingWidget && 'img-margin']"
         />
       </div>
 
       <div class="search-info">
-        <div
-          :class="[
-            sentiment === 'positive' && 'status-positive',
-            sentiment === 'negative' && 'status-negative',
-            'status-default',
-          ]"
-        >
-          {{ capitalizeFirstLetter(sentiment) }}
+        <div class="header-card">
+          <div
+            :class="[
+              sentiment === 'positive' && 'status-positive',
+              sentiment === 'negative' && 'status-negative',
+              'status-default',
+            ]"
+          >
+            {{ capitalizeFirstLetter(sentiment) }}
+          </div>
+
+          <div class="card-item">
+            <PotentialReachIcon />
+            {{ potentialReach }}
+          </div>
         </div>
         <a
           class="title"
@@ -39,26 +53,30 @@
           tabindex="0"
           :href="entryLink"
           target="_blank"
-          >{{ title }}</a
         >
+          {{ title }}
+          <OnlineIcon class="type-icon" />
+        </a>
+
         <div class="description" tabindex="0">{{ summary }}</div>
         <div class="general-information">
-          <a
-            class="general-item source-link"
-            :href="'https://' + sourceLink"
-            target="_blank"
-          >
-            {{ source }}
-          </a>
           <div class="general-item">
+            <SourceIcon />
+            <a
+              class="source-link"
+              :href="'https://' + sourceLink"
+              target="_blank"
+            >
+              {{ source }}
+            </a>
+          </div>
+          <div class="general-item">
+            <CountryIcon />
             {{ country }}
           </div>
           <div class="general-item">
+            <LanguageIcon />
             {{ language }}
-          </div>
-          <div class="general-item">
-            <PotentialReachIcon />
-            {{ potentialReach }}
           </div>
           <div class="general-item">
             <CalendarIcon />
@@ -80,20 +98,28 @@
 import {mapActions} from 'vuex'
 import {action} from '@store/constants'
 
-import BaseCheckbox from '@/components/BaseCheckbox'
 import NoImageIcon from '@/components/icons/NoImageIcon'
 import CloseIcon from '@/components/icons/CloseIcon'
 import CalendarIcon from '@/components/icons/CalendarIcon'
 import PotentialReachIcon from '@/components/icons/PotentialReachIcon'
+import LanguageIcon from '@/components/icons/LanguageIcon'
+import CountryIcon from '@/components/icons/CountryIcon'
+import SourceIcon from '@/components/icons/SourceIcon'
+import OnlineIcon from '@/components/icons/OnlineIcon'
+import ClippingIcon from '@/components/icons/ClippingIcon'
 
 export default {
   name: 'BaseClippingCard',
   components: {
+    ClippingIcon,
+    OnlineIcon,
+    SourceIcon,
+    CountryIcon,
+    LanguageIcon,
     PotentialReachIcon,
     CalendarIcon,
     CloseIcon,
     NoImageIcon,
-    BaseCheckbox,
   },
   props: {
     isCheckboxClippingWidget: {
@@ -191,8 +217,8 @@ export default {
         year: 'numeric',
       })
     },
-    onChange(val) {
-      this.$emit('add-element', val)
+    addPost() {
+      this.$emit('add-element', this.id, this.clippingElement)
     },
   },
 }
@@ -219,6 +245,10 @@ export default {
   box-shadow: none;
 }
 
+.clipping-card {
+  background-color: var(--clipping-card);
+}
+
 .search-info-wrapper {
   display: flex;
 
@@ -226,6 +256,75 @@ export default {
     width: 71px;
     height: 71px;
     margin-right: 18px;
+
+    .clipping-wrapper {
+      position: relative;
+
+      .clipping-icon {
+        position: relative;
+
+        margin-left: 28px;
+
+        cursor: pointer;
+
+        &:hover {
+          transform: rotate(30deg);
+        }
+      }
+
+      .active-clipping-post {
+        border: 1px solid var(--primary-text-color);
+        border-radius: 100px;
+
+        transform: rotate(30deg);
+      }
+
+      .tooltip {
+        position: absolute;
+        top: -7px;
+        left: 58px;
+        z-index: 1;
+
+        visibility: hidden;
+        text-align: center;
+        white-space: nowrap;
+
+        padding: 10px;
+
+        border-radius: 6px;
+
+        background-color: var(--primary-text-color);
+
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 110%;
+        color: var(--secondary-button-color);
+
+        &::after {
+          content: '';
+
+          position: absolute;
+          top: 49%;
+          left: -2px;
+          transform: translate(-50%, -50%) rotate(225deg);
+
+          margin-left: 2px;
+
+          border-width: 5px;
+          border-style: solid;
+          border-top-right-radius: 2px;
+
+          color: var(--primary-text-color);
+        }
+      }
+
+      &:hover {
+        .tooltip {
+          visibility: visible;
+        }
+      }
+    }
 
     .img {
       object-fit: cover;
@@ -237,13 +336,7 @@ export default {
     }
 
     .img-margin {
-      margin-top: 43px;
-    }
-
-    .status-checkbox {
-      color: var(--secondary-text-color);
-
-      margin-bottom: 12px;
+      margin-top: 18px;
     }
 
     .default-image {
@@ -258,6 +351,26 @@ export default {
 
     overflow: hidden;
 
+    .header-card {
+      display: flex;
+      justify-content: space-between;
+
+      .card-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+
+        margin-right: 20px;
+
+        text-decoration: none;
+
+        font-weight: 400;
+        font-size: 10px;
+        line-height: 20px;
+        color: var(--secondary-text-color);
+      }
+    }
+
     .title {
       cursor: pointer;
 
@@ -269,6 +382,12 @@ export default {
       font-size: 16px;
       line-height: 22px;
       color: inherit;
+
+      .type-icon {
+        margin-left: 8px;
+
+        color: var(--key-word-color);
+      }
     }
 
     .title:hover {
@@ -309,6 +428,17 @@ export default {
 
     margin-right: 20px;
 
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 20px;
+    color: var(--secondary-text-color);
+
+    &:last-child {
+      margin-left: auto;
+    }
+  }
+
+  .source-link {
     text-decoration: none;
 
     font-weight: 400;
@@ -316,50 +446,27 @@ export default {
     line-height: 20px;
     color: var(--secondary-text-color);
 
-    &:not(:last-child):before {
-      position: absolute;
-      top: 50%;
-      right: -13px;
-      transform: translate(-50%, -50%);
-
-      content: '';
-
-      width: 4px;
-      height: 4px;
-
-      border-radius: 100%;
-      background-color: var(--secondary-text-color);
+    &:hover {
+      color: var(--primary-button-color);
     }
-  }
-
-  .source-link:hover {
-    color: var(--primary-button-color);
   }
 }
 
 .status-default {
   position: relative;
 
-  color: var(--secondary-text-color);
-
-  padding-left: 12px;
+  width: 70px;
+  padding: 0 12px;
   margin-bottom: 12px;
 
+  border-radius: 5px;
+  background-color: rgba(145, 152, 167, 0.2);
+
+  font-style: normal;
+  font-weight: 400;
   font-size: 12px;
-
-  &:before {
-    position: absolute;
-    top: 50%;
-    left: 4px;
-    transform: translate(-50%, -50%);
-
-    content: '';
-    width: 6px;
-    height: 6px;
-
-    border-radius: 100%;
-    background-color: var(--secondary-text-color);
-  }
+  line-height: 20px;
+  color: var(--secondary-text-color);
 }
 
 .delete-clipping-feed-element {
@@ -373,19 +480,17 @@ export default {
 }
 
 .status-positive {
-  color: var(--tag-color);
+  background-color: rgba(48, 244, 126, 0.2);
 
-  &:before {
-    background-color: var(--tag-color);
-  }
+  color: var(--tag-color);
 }
 
 .status-negative {
-  color: var(--negative-status);
+  width: 80px;
 
-  &:before {
-    background-color: var(--negative-status);
-  }
+  background-color: rgba(249, 71, 71, 0.2);
+
+  color: var(--negative-status);
 }
 
 .keyword {

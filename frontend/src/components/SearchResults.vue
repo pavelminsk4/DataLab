@@ -1,20 +1,6 @@
 <template>
   <div class="search-result-wrapper">
     <div class="filters">
-      <div v-if="isCheckboxClippingWidget" class="clipping-wrapper">
-        <BaseCheckbox />
-        <ArrowDownIcon
-          @click="openClippingDropdown"
-          :class="['icon', isOpenClippingDropdown && 'icon-flip']"
-        />
-
-        <div v-if="isOpenClippingDropdown" class="dropdown">
-          <div class="item" @click="createClippingWidget">
-            <ClippingIcon /> Clipping
-          </div>
-        </div>
-      </div>
-
       <div v-if="isShowSortingField" class="sorting-wrapper">
         Sort by
         <BaseSelect
@@ -63,7 +49,7 @@
         :is-checkbox-clipping-widget="isCheckboxClippingWidget"
         :clipping-element="selectedClippingElement(item.id)"
         :current-project="currentProject"
-        @add-element="onChange"
+        @add-element="addClippingElement"
       />
     </div>
     <div v-if="searchData.length" class="pagination-wrapper">
@@ -110,21 +96,17 @@ import {mapActions, mapState} from 'vuex'
 import {action} from '@store/constants'
 
 import BaseSpinner from '@/components/BaseSpinner'
-import BaseCheckbox from '@/components/BaseCheckbox'
 import BaseCalendar from '@/components/datepicker/BaseCalendar'
 import BaseClippingCard from '@/components/BaseClippingCard'
 
 import CalendarIcon from '@/components/icons/CalendarIcon'
 import ArrowDownIcon from '@/components/icons/ArrowDownIcon'
-import ClippingIcon from '@/components/icons/ClippingIcon'
 import BaseSelect from '@/components/BaseSelect'
 
 export default {
   name: 'SearchResults',
   components: {
     BaseSelect,
-    ClippingIcon,
-    BaseCheckbox,
     BaseClippingCard,
     ArrowDownIcon,
     CalendarIcon,
@@ -162,13 +144,13 @@ export default {
   data() {
     return {
       isShow: false,
-      isOpenClippingDropdown: false,
       clippingElements: [],
       isOpenDropdown: false,
       page: 1,
       countPosts: 20,
       postsOnPage: [20, 50, 100],
       sortingValue: '',
+      clippingValue: [],
     }
   },
   computed: {
@@ -203,15 +185,6 @@ export default {
           new Date()
         )}`
       }
-    },
-    clippingArray() {
-      let clipping = []
-
-      for (let el of this.clippingElements) {
-        clipping.push({project: this.currentProject.id, post: el})
-      }
-
-      return clipping
     },
   },
   created() {
@@ -262,31 +235,28 @@ export default {
         this[action.REFRESH_DISPLAY_CALENDAR](false)
       }
     },
-    openClippingDropdown() {
-      this.isOpenClippingDropdown = !this.isOpenClippingDropdown
-    },
-    onChange(args) {
-      const {id, checked} = args
-      if (checked) {
-        this.clippingElements.push(id)
+    addClippingElement(postId, checkedElement) {
+      if (checkedElement) {
+        this.removeSelectedFilter(postId)
       } else {
-        let element = this.clippingElements.indexOf(id)
-        this.removeSelectedFilter(element, id)
+        this.createClippingWidget({
+          project: this.currentProject.id,
+          post: postId,
+        })
       }
     },
-    async removeSelectedFilter(index, id) {
+    async removeSelectedFilter(postId) {
       await this[action.DELETE_CLIPPING_FEED_CONTENT]({
         projectId: this.currentProject.id,
-        postId: id,
+        postId: postId,
       })
-      this.clippingElements.splice(index, 1)
-      this[action.GET_CLIPPING_FEED_CONTENT_WIDGET](this.currentProject.id)
-    },
-    async createClippingWidget() {
-      await this[action.CREATE_CLIPPING_FEED_CONTENT_WIDGET](this.clippingArray)
       await this[action.GET_CLIPPING_FEED_CONTENT_WIDGET](
         this.currentProject.id
       )
+    },
+    async createClippingWidget(newPost) {
+      await this[action.CREATE_CLIPPING_FEED_CONTENT_WIDGET]([newPost])
+      this[action.GET_CLIPPING_FEED_CONTENT_WIDGET](this.currentProject.id)
     },
     selectedClippingElement(id) {
       return this.clippingContent.some((el) => el.post__id === id)
@@ -326,61 +296,6 @@ export default {
   padding: 20px;
 }
 
-.clipping-wrapper {
-  position: relative;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 7px;
-
-  margin-left: 20px;
-
-  .icon {
-    cursor: pointer;
-
-    color: var(--primary-text-color);
-  }
-
-  .icon-flip {
-    transform: rotate(180deg);
-  }
-
-  .dropdown {
-    z-index: 1000;
-
-    position: absolute;
-    top: 25px;
-    left: -2px;
-
-    display: flex;
-
-    background: var(--progress-line);
-    border: 1px solid var(--modal-border-color);
-    border-radius: 10px;
-
-    font-style: normal;
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 20px;
-    color: var(--primary-text-color);
-
-    .item {
-      display: flex;
-      gap: 10px;
-
-      cursor: pointer;
-
-      padding: 9px 16px 8px;
-
-      &:hover {
-        border-radius: 10px;
-        background-color: var(--primary-button-color);
-      }
-    }
-  }
-}
-
 .sorting-wrapper {
   display: flex;
   align-items: center;
@@ -417,54 +332,6 @@ export default {
 
 .open-calendar {
   transform: rotate(180deg);
-}
-
-.dropdown-wrapper {
-  position: relative;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 61px;
-  height: 34px;
-
-  cursor: pointer;
-
-  background: #242529;
-  border: 1px solid var(--border-color);
-  box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
-  border-radius: 6px;
-
-  .dropdown {
-    z-index: 1000;
-
-    position: absolute;
-    top: 34px;
-    right: 2px;
-
-    display: flex;
-    flex-direction: column;
-
-    background: var(--progress-line);
-    border: 1px solid var(--modal-border-color);
-
-    font-style: normal;
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 20px;
-    color: var(--primary-text-color);
-
-    .item {
-      cursor: pointer;
-
-      padding: 9px 24px 8px;
-
-      &:hover {
-        background-color: var(--primary-button-color);
-      }
-    }
-  }
 }
 
 .filters {

@@ -60,6 +60,8 @@ body {
 
   --keyword: #f82a6c;
 
+  --clipping-card: #242733;
+
   --hover-circle-gradient: radial-gradient(
     circle at 2.5%,
     rgba(5, 95, 252, 0.8),
