@@ -72,6 +72,7 @@
         @update-ending-date-hourly="updateEndingDateHourly"
         @update-time-monthly="updatePickerTimeMonthly"
         @select-hourly-template="selectHourlyTemplate"
+        @enable-report-type="enableReportType"
       />
     </section>
   </div>
@@ -197,12 +198,9 @@ export default {
       action.GET_REGULAR_REPORTS,
     ]),
     repeatTime(val, name) {
-      this.reportData.hourly_enabled = true
-      this.reportData.monthly_enabled = true
       this.reportData[name] = val
     },
     updateTimeDaily(val) {
-      this.reportData.daily_enabled = true
       this.reportData.d_hour = val.hours
       this.reportData.d_minute = val.minutes
     },
@@ -211,7 +209,6 @@ export default {
       this.reportData.w_minute = val.minutes
     },
     chooseWeeklyDay(val) {
-      this.reportData.weekly_enabled = true
       this.reportData.w_day_of_week = val
     },
     updatePickerTimeMonthly(val) {
@@ -282,6 +279,9 @@ export default {
       if (!Array.from(selectList).find((el) => el.contains(event.target))) {
         this.visible = false
       }
+    },
+    enableReportType(typeName, value) {
+      this.reportData[typeName] = value
     },
   },
 }
