@@ -17,6 +17,8 @@ from .options import *
 from django.shortcuts import get_object_or_404
 from docx.oxml.shared import OxmlElement
 from docx.oxml.ns import qn
+from docx.enum.table import WD_ALIGN_VERTICAL
+from docx.shared import RGBColor
 
 def export_title(project_id):
   proj = get_object_or_404(Project, pk=project_id)
@@ -186,54 +188,93 @@ def filling_templates_for_instant_and_regular_reports(document, project_id):
         'post__entry_summary',
         )
     for each in posts:
-      title = document.add_table(rows=1, cols=1)
-      for row in title.rows:
-        for cell in row.cells:
-          shade_obj = OxmlElement('w:shd')
-          shade_obj.set(qn('w:fill'), "#c7cacc")
-          cell._tc.get_or_add_tcPr().append(shade_obj)# set silver background color
-      heading_cells = title.rows[0].cells
-      run = heading_cells[0].add_paragraph().add_run(each['post__entry_title'])
-      run.font.size = Pt(11)
-      document.add_paragraph(each['post__entry_summary'], style='pPostContent')  
-      table = document.add_table(rows=4, cols=5)
-      count = 0
+      table = document.add_table(rows=6, cols=5)
+      a = table.cell(0, 0)
+      b = table.cell(0, 4)
+      title = a.merge(b)
+      a = table.cell(1, 0)
+      b = table.cell(1, 4)
+      content = a.merge(b)
+      flag = 0
       for row in table.rows:
-        if count == 0:
+        if flag == 0:
+          row.height = Inches(0.5)
           for cell in row.cells:
             shade_obj = OxmlElement('w:shd')
-            shade_obj.set(qn('w:fill'), "#f0f1f2")
+            shade_obj.set(qn('w:fill'), "#e9eaeb")
             cell._tc.get_or_add_tcPr().append(shade_obj)# set silver background color
-            count += 1
-        else:
+        if flag == 1:
+          row.height = Inches(1.1)
           for cell in row.cells:
             shade_obj = OxmlElement('w:shd')
             shade_obj.set(qn('w:fill'), "#ffffff")
-            cell._tc.get_or_add_tcPr().append(shade_obj)# set silver background color
-            count = 0               
-
-      heading_cells = table.rows[0].cells
-      heading_cells[0].add_paragraph('Media Channel')
-      heading_cells[1].add_paragraph('Language')
-      heading_cells[2].add_paragraph('Potential reach')
-      heading_cells[3].add_paragraph('Sentiment')
-      heading_cells[4].add_paragraph('Source')
-      sec_row = table.rows[1].cells
-      sec_row[0].add_paragraph('Online')
-      sec_row[1].add_paragraph(each['post__feed_language__language'])
-      sec_row[2].add_paragraph(str(each['post__feedlink__alexaglobalrank']))
-      sec_row[3].add_paragraph(each['post__sentiment'])
-      sec_row[4].add_paragraph(each['post__feedlink__source1'])
+            cell._tc.get_or_add_tcPr().append(shade_obj)
+        if flag == 2 or flag == 4:
+          row.height = Inches(0.5)
+          for cell in row.cells:
+              shade_obj = OxmlElement('w:shd')
+              shade_obj.set(qn('w:fill'), "#f0f1f2")
+              cell._tc.get_or_add_tcPr().append(shade_obj)# set silver background color
+        if flag == 3 or flag == 5:
+          row.height = Inches(0.5)
+          for cell in row.cells:
+              shade_obj = OxmlElement('w:shd')
+              shade_obj.set(qn('w:fill'), "#ffffff")
+              cell._tc.get_or_add_tcPr().append(shade_obj)
+        flag += 1
+      title.text = each['post__entry_title'] if each['post__entry_title'] else ''
+      title.vertical_alignment = WD_ALIGN_VERTICAL.CENTER
+      title.paragraphs[0].runs[0].font.size = Pt(12)
+      def font_three(cell):
+        cell.vertical_alignment = WD_ALIGN_VERTICAL.CENTER
+        cell.paragraphs[0].runs[0].font.size = Pt(10)
+        cell.paragraphs[0].runs[0].font.color.rgb = RGBColor(77, 77, 77)
+      def font_four(cell):
+        cell.vertical_alignment = WD_ALIGN_VERTICAL.CENTER
+        cell.paragraphs[0].runs[0].font.size = Pt(11)
+        cell.paragraphs[0].runs[0].font.color.rgb = RGBColor(95, 95, 95)  
+      content.text = each['post__entry_summary'] if each['post__entry_summary'] else ''
+      font_three(content)
       heading_cells = table.rows[2].cells
-      heading_cells[0].add_paragraph('Source country')
-      heading_cells[1].add_paragraph('Domestic Rank')
-      heading_cells[2].add_paragraph('Global Rank')
-      heading_cells[3].add_paragraph('Date')
+      heading_cells[0].text = 'Media Channel'
+      font_four(heading_cells[0])
+      heading_cells[1].text = 'Language'
+      font_four(heading_cells[1])
+      heading_cells[2].text = 'Potential reach'
+      font_four(heading_cells[2])
+      heading_cells[3].text = 'Sentiment'
+      font_four(heading_cells[3])
+      heading_cells[4].text = 'Source'
+      font_four(heading_cells[4])
       sec_row = table.rows[3].cells
-      sec_row[0].add_paragraph(each['post__feedlink__country'])
-      sec_row[1].add_paragraph('1')
-      sec_row[2].add_paragraph('1')
-      sec_row[3].add_paragraph(each['post__entry_published'].strftime("%d.%m.%Y"))
+      sec_row[0].text = 'Online'
+      font_three(sec_row[0])
+      sec_row[1].text = each['post__feed_language__language'] if each['post__feed_language__language'] else ''
+      font_three(sec_row[1])
+      sec_row[2].text = str(each['post__feedlink__alexaglobalrank']) if each['post__feedlink__alexaglobalrank'] else ''
+      font_three(sec_row[2])
+      sec_row[3].text = each['post__sentiment'] if each['post__sentiment'] else ''
+      font_three(sec_row[3])
+      sec_row[4].text = each['post__feedlink__source1'] if each['post__feedlink__source1'] else ''
+      font_three(sec_row[4])
+      heading_cells = table.rows[4].cells
+      heading_cells[0].text = 'Source country'
+      font_four(heading_cells[0])
+      heading_cells[1].text = 'Domestic Rank'
+      font_four(heading_cells[1])
+      heading_cells[2].text = 'Global Rank'
+      font_four(heading_cells[2])
+      heading_cells[3].text = 'Date'
+      font_four(heading_cells[3])
+      sec_row = table.rows[5].cells
+      sec_row[0].text = each['post__feedlink__country'] if each['post__feedlink__country'] else ''
+      font_three(sec_row[0])
+      sec_row[1].text = '1'
+      font_three(sec_row[1])
+      sec_row[2].text = '1'
+      font_three(sec_row[2])
+      sec_row[3].text = each['post__entry_published'].strftime("%d.%m.%Y")
+      font_three(sec_row[3])
       document.add_paragraph()
-      document.add_paragraph()   
+      document.add_paragraph()
   return document
