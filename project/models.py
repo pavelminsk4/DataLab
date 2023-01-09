@@ -82,6 +82,7 @@ class Feedlinks(models.Model):
   sourceurl = models.URLField(max_length=200,null=True,blank=True)
   issourcefeed = models.BooleanField(default=False)
   alexaglobalrank = models.BigIntegerField(default=0)
+  tier = models.IntegerField(default=0)
 
   def __str__(self):
     return self.url
