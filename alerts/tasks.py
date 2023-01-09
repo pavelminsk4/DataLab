@@ -77,27 +77,27 @@ def fill_part_of_sample(p):
       </p>
       <div class="email-post-info">
         <div class="email-post-info-item">
-          <img src="{env('APP_URL')}/static/email_alerts_icons/language.svg" />
+          <img src="{env('APP_URL')}/static/email_alerts_icons/language.png" />
           <span>Language: {p.feed_language.language}</span>
         </div>
         <div class="email-post-info-item">
-          <img src="{env('APP_URL')}/static/email_alerts_icons/language.svg" />
+          <img src="{env('APP_URL')}/static/email_alerts_icons/language.png" />
           <span>Sentiment: {p.sentiment}</span>
         </div>
         <div class="email-post-info-item">
-          <img src="{env('APP_URL')}/static/email_alerts_icons/language.svg" />
+          <img src="{env('APP_URL')}/static/email_alerts_icons/language.png" />
           <span>Source: {p.feedlink.source1}</span>
         </div>
         <div class="email-post-info-item">
-          <img src="{env('APP_URL')}/static/email_alerts_icons/language.svg" />
+          <img src="{env('APP_URL')}/static/email_alerts_icons/language.png" />
           <span>Source country: {p.feedlink.country}</span>
         </div>
         <div class="email-post-info-item">
-          <img src="{env('APP_URL')}/static/email_alerts_icons/language.svg" />
+          <img src="{env('APP_URL')}/static/email_alerts_icons/language.png" />
           <span>Global Rank: {p.feedlink.alexaglobalrank}</span>
         </div>
         <div class="email-post-info-item">
-          <img src="{env('APP_URL')}/static/email_alerts_icons/language.svg" />
+          <img src="{env('APP_URL')}/static/email_alerts_icons/language.png" />
           <span>Date: {str(p.entry_published.ctime())}</span>
         </div>
       </div>
@@ -135,6 +135,7 @@ def alert_sender():
           font-family: 'Poppins', sans-serif;
         }
         .email-datalab-logo {
+          display: block;
           margin: 0 auto 20px;
         }
         .email-post-wrapper {
@@ -204,7 +205,7 @@ def alert_sender():
       </head>
       <body>
         <div class="email-wrapper">
-          <img class="email-datalab-logo" src="{env('APP_URL')}/static/email_alerts_icons/datalab-logo-01.svg" />
+          <img class="email-datalab-logo" src="{env('APP_URL')}/static/email_alerts_icons/datalab-logo-01.png" />
           {part_of_smpl}
           <div class="email-links-wrapper">
             <a href="{env('APP_URL')}" class="email-link">
