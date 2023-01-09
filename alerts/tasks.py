@@ -66,19 +66,46 @@ def check_new_posts(alert):
   return False
 
 def fill_part_of_sample(p):
-  return f'''<div style="display: inline-block; float: left; gap: 20px">
-            <div style="height: 1px; background-color: #666666"; margin-top: 20px; margin-bottom: 20px></div>
-            <div style="color: #666666">{str(p.entry_published.ctime())}</div>
-            <h1 style="color: #000000">{p.entry_title}</h1>
-            <section style="color: #545454; font-size: 14px">
-              {p.entry_summary}
-            </section>
-            <div style="color: #31b800; font-size: 16px"; margin-top: 20px; margin-bottom: 20px>{p.feedlink.source1} {p.feed_language.language}</div>
-            <a href="{p.entry_link}">
-              <button style="padding: 10px; width: 120px">View Post</button>
-            </a>
-            <div style="height: 1px; background-color: #666666"; margin-top: 20px; margin-bottom: 20px></div>
-          </div>'''
+  return f'''
+    <section class="email-post-wrapper">
+      <div class="email-post-date">{str(p.entry_published.ctime())}</div>
+      <h2 class="email-post-title">
+        {p.entry_title}
+      </h2>
+      <p class="email-post-content">
+        {p.entry_summary}
+      </p>
+      <div class="email-post-info">
+        <div class="email-post-info-item">
+          <img src="{env('APP_URL')}/static/email_alerts_icons/language.svg" />
+          <span>Language: {p.feed_language.language}</span>
+        </div>
+        <div class="email-post-info-item">
+          <img src="{env('APP_URL')}/static/email_alerts_icons/language.svg" />
+          <span>Sentiment: {p.sentiment}</span>
+        </div>
+        <div class="email-post-info-item">
+          <img src="{env('APP_URL')}/static/email_alerts_icons/language.svg" />
+          <span>Source: {p.feedlink.source1}</span>
+        </div>
+        <div class="email-post-info-item">
+          <img src="{env('APP_URL')}/static/email_alerts_icons/language.svg" />
+          <span>Source country: {p.feedlink.country}</span>
+        </div>
+        <div class="email-post-info-item">
+          <img src="{env('APP_URL')}/static/email_alerts_icons/language.svg" />
+          <span>Global Rank: {p.feedlink.alexaglobalrank}</span>
+        </div>
+        <div class="email-post-info-item">
+          <img src="{env('APP_URL')}/static/email_alerts_icons/language.svg" />
+          <span>Date: {str(p.entry_published.ctime())}</span>
+        </div>
+      </div>
+      <a href="{p.entry_link}" class="email-post-button">
+        View Post
+      </a>
+    </section>
+  '''
 
 @shared_task
 def alert_sender():
@@ -98,11 +125,93 @@ def alert_sender():
       part_of_smpl = ''''''
       for p in posts:
         part_of_smpl = part_of_smpl + fill_part_of_sample(p)
+
+      styles = '''
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+        .email-wrapper {
+          width: 100%;
+          padding: 15px 10px 20px;
+          background-color: #F0F2F5;
+          font-family: 'Poppins', sans-serif;
+        }
+        .email-datalab-logo {
+          margin: 0 auto 20px;
+        }
+        .email-post-wrapper {
+          max-width: 580px;
+          padding: 16px 12px 28px;
+          margin: 0px auto 20px;
+          background-color: #ffffff;
+          border-radius: 8px;
+        }
+        .email-post-date {
+          margin-bottom: 5px;
+          font-size: 14px;
+          color:#5C6E80;
+        }
+        .email-post-title {
+          margin: 0;
+          font-size: 18px;
+          color: #29333D;
+        }
+        .email-post-content {
+          margin: 12px 0 16px;
+          font-size: 16px;
+          color: #5C6E80;
+        }
+        .email-post-info {
+          margin-bottom: 28px;
+        }
+        .email-post-info-item {
+          display: flex;
+          font-size: 12px;
+          color:#5C6E80;
+        }
+        .email-post-info-item img {
+          margin-right: 6px;
+        }
+        .email-post-button {
+          display: block;
+          padding: 10px;
+          background-color: #055FFC;
+          border-radius: 8px;
+          text-align: center;
+          font-size: 14px;
+          font-weight: 500;
+          text-decoration: none;
+          color: #ffffff !important;
+        }
+        .email-links-wrapper {
+          display: flex;
+          width: fit-content;
+          margin: 0 auto;
+        }
+        .email-link {
+          color: #5C6E80;
+        }
+        .divider {
+          margin: 0 10px;
+          border: 0.5px solid #FFFFFF;
+        }
+      '''
       smpl = f'''
       <!DOCTYPE html>
       <html>
-      <body style="background-color: #ffffff">
-        {part_of_smpl}
+      <head>
+        <style type="text/css">
+          {styles}
+        </style>
+      </head>
+      <body>
+        <div class="email-wrapper">
+          <img class="email-datalab-logo" src="{env('APP_URL')}/static/email_alerts_icons/datalab-logo-01.svg" />
+          {part_of_smpl}
+          <div class="email-links-wrapper">
+            <a href="{env('APP_URL')}" class="email-link">
+              GO TO WEBSITE
+            </a>
+          </div>
+        </div>
       </body>
       </html>
       '''
