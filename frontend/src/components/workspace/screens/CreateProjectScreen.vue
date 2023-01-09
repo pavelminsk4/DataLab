@@ -77,7 +77,7 @@ import NavigationBar from '@/components/navigation/NavigationBar'
 import ArrowLeftIcon from '@/components/icons/ArrowLeftIcon'
 import SelectRadioIcon from '@/components/icons/SelectRadioIcon'
 import SocialRadioIcon from '@/components/icons/SocialRadioIcon'
-import OnlineRadioIcon from '@/components/icons/OnlineRadioIcon'
+import OnlineRadioIcon from '@/components/icons/OnlineIcon'
 import PremiumRadioIcon from '@/components/icons/PremiumRadioIcon'
 import SourceTypeCard from '@/components/SourceTypeCard'
 
@@ -247,6 +247,8 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  color: var(--primary-text-color);
 }
 
 .radio-description {
@@ -286,5 +288,7 @@ export default {
 
   border: 1px solid #9198a7;
   border-radius: 29px;
+
+  color: var(--primary-text-color);
 }
 </style>

@@ -49,7 +49,7 @@ import {mapGetters} from 'vuex'
 import {get} from '@store/constants'
 
 import CheckRadioIcon from '@/components/icons/CheckIcon'
-import OnlineRadioIcon from '@/components/icons/OnlineRadioIcon'
+import OnlineIcon from '@/components/icons/OnlineIcon'
 import PremiumRadioIcon from '@/components/icons/PremiumRadioIcon'
 import SocialRadioIcon from '@/components/icons/SocialRadioIcon'
 
@@ -61,7 +61,7 @@ export default {
   components: {
     CheckRadioIcon,
     MembersIconsBar,
-    OnlineRadioIcon,
+    OnlineIcon,
     PremiumRadioIcon,
     TagsCollapsible,
     SocialRadioIcon,
