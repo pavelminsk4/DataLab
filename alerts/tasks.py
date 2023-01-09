@@ -81,23 +81,23 @@ def fill_part_of_sample(p):
           <span>Language: {p.feed_language.language}</span>
         </div>
         <div class="email-post-info-item">
-          <img src="{env('APP_URL')}/static/email_alerts_icons/language.png" />
+          <img src="{env('APP_URL')}/static/email_alerts_icons/sentiment.png" />
           <span>Sentiment: {p.sentiment}</span>
         </div>
         <div class="email-post-info-item">
-          <img src="{env('APP_URL')}/static/email_alerts_icons/language.png" />
+          <img src="{env('APP_URL')}/static/email_alerts_icons/source.png" />
           <span>Source: {p.feedlink.source1}</span>
         </div>
         <div class="email-post-info-item">
-          <img src="{env('APP_URL')}/static/email_alerts_icons/language.png" />
+          <img src="{env('APP_URL')}/static/email_alerts_icons/location.png" />
           <span>Source country: {p.feedlink.country}</span>
         </div>
         <div class="email-post-info-item">
-          <img src="{env('APP_URL')}/static/email_alerts_icons/language.png" />
+          <img src="{env('APP_URL')}/static/email_alerts_icons/global-rank.png" />
           <span>Global Rank: {p.feedlink.alexaglobalrank}</span>
         </div>
         <div class="email-post-info-item">
-          <img src="{env('APP_URL')}/static/email_alerts_icons/language.png" />
+          <img src="{env('APP_URL')}/static/email_alerts_icons/calendar.png" />
           <span>Date: {str(p.entry_published.ctime())}</span>
         </div>
       </div>
