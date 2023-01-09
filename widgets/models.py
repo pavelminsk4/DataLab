@@ -159,6 +159,11 @@ class ClippingFeedContentWidget(models.Model):
   project = models.ForeignKey(Project,on_delete=models.CASCADE,verbose_name='Project')
   post = models.ForeignKey(Post,on_delete=models.CASCADE,verbose_name ='Post', related_name='posts')
 
+  class Meta:
+    constraints = [
+      models.UniqueConstraint(fields=['project_id', 'post_id'], name='clipping widget uniqueness constraint')
+    ]
+
 
 class ProjectDimensions(models.Model):
   project = models.ForeignKey(Project, on_delete=models.CASCADE, verbose_name='Project') 
