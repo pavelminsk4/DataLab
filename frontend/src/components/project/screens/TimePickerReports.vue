@@ -4,7 +4,10 @@
       <div
         v-for="button in timePicker"
         :key="button.name"
-        :class="[timePickerName === button.name && 'active-button']"
+        :class="[
+          timePickerName === button.name && 'active-button',
+          this[button.value] && 'active-type',
+        ]"
         @click="toggleTimePickerSettings"
       >
         {{ button.name }}
@@ -12,82 +15,64 @@
     </div>
 
     <section class="time-picker-settings-wrapper">
-      <div class="title">Repeat time</div>
       <div v-show="timePickerName === 'Hourly'" class="frequency-sending">
-        <div class="repeat-time-wrapper">
-          Every
-          <BaseInput
-            v-model="hHourProxy"
-            placeholder="0"
-            inputType="number"
-            class="hours-counter"
-          >
-            <div class="arrows-wrapper">
-              <ArrowDownIcon
-                @click="increase('h_hour')"
-                class="arrow-input arrow-increase"
-              />
-              <ArrowDownIcon
-                @click="decrease('h_hour')"
-                :class="['arrow-input', hHourProxy === 1 && 'disabled']"
-              />
-            </div>
-          </BaseInput>
-          hour
+        <div class="switcher-wrapper">
+          Remind every hour
+          <BaseSwitcher
+            :value="hourly_enabled"
+            @input="switchEnabled('hourly_enabled')"
+          />
         </div>
-        <GeneralSettingReport
-          current-time-picker="Hourly"
-          :current-ending-time-value="regularReport.h_ending_date"
-          :current-template-id="regularReport.h_template"
-          @ending-date="setEndingDate"
-          @update-ending-date="updateEndingDate"
-          @select-template="selectTemplate"
-        />
+
+        <div :class="!hourly_enabled && 'disabled-content'">
+          <div class="title">Repeat time</div>
+          <div class="repeat-time-wrapper">
+            Every
+            <BaseInput
+              v-model="hHourProxy"
+              placeholder="0"
+              inputType="number"
+              class="hours-counter"
+            >
+              <div class="arrows-wrapper">
+                <ArrowDownIcon
+                  @click="increase('h_hour')"
+                  class="arrow-input arrow-increase"
+                />
+                <ArrowDownIcon
+                  @click="decrease('h_hour')"
+                  :class="['arrow-input', hHourProxy === 1 && 'disabled']"
+                />
+              </div>
+            </BaseInput>
+            hour
+          </div>
+          <GeneralSettingReport
+            current-time-picker="Hourly"
+            :current-ending-time-value="regularReport.h_ending_date"
+            :current-template-id="regularReport.h_template"
+            @ending-date="setEndingDate"
+            @update-ending-date="updateEndingDate"
+            @select-template="selectTemplate"
+          />
+        </div>
       </div>
 
       <div v-show="timePickerName === 'Daily'" class="frequency-sending">
-        <Datepicker
-          v-model="timePickerValueDaily"
-          :is-24="false"
-          @update:model-value="handleTimePickerDaily"
-          time-picker
-          auto-apply
-          placeholder="Time"
-          menu-class-name="time-picker-menu"
-          class="time-picker"
-        >
-          <template #input-icon>
-            <ClockIcon class="input-slot-image" />
-          </template>
-        </Datepicker>
+        <div class="switcher-wrapper">
+          Remind every day
+          <BaseSwitcher
+            :value="daily_enabled"
+            @input="switchEnabled('daily_enabled')"
+          />
+        </div>
 
-        <GeneralSettingReport
-          current-time-picker="Daily"
-          :current-ending-time-value="regularReport.d_ending_date"
-          :current-template-id="regularReport.d_template"
-          @ending-date="setEndingDate"
-          @update-ending-date="updateEndingDate"
-          @select-template="selectTemplate"
-        />
-      </div>
-
-      <div v-show="timePickerName === 'Weekly'" class="frequency-sending">
-        <div class="weekly-wrapper">
-          <div class="week-days">
-            <div
-              v-for="(item, index) in weekDays"
-              :key="item.name + index"
-              @click="chooseDay(item.value)"
-              :class="['day', activeDayProxy === item.value && 'active-day']"
-            >
-              {{ item.name }}
-            </div>
-          </div>
-
+        <div :class="!daily_enabled && 'disabled-content'">
+          <div class="title">Repeat time</div>
           <Datepicker
-            v-model="timePickerValueWeekly"
+            v-model="timePickerValueDaily"
             :is-24="false"
-            @update:model-value="handleTimePickerWeekly"
+            @update:model-value="handleTimePickerDaily"
             time-picker
             auto-apply
             placeholder="Time"
@@ -98,66 +83,130 @@
               <ClockIcon class="input-slot-image" />
             </template>
           </Datepicker>
+
+          <GeneralSettingReport
+            current-time-picker="Daily"
+            :current-ending-time-value="regularReport.d_ending_date"
+            :current-template-id="regularReport.d_template"
+            @ending-date="setEndingDate"
+            @update-ending-date="updateEndingDate"
+            @select-template="selectTemplate"
+          />
+        </div>
+      </div>
+
+      <div v-show="timePickerName === 'Weekly'" class="frequency-sending">
+        <div class="switcher-wrapper">
+          Remind every week
+          <BaseSwitcher
+            :value="weekly_enabled"
+            @input="switchEnabled('weekly_enabled')"
+          />
         </div>
 
-        <GeneralSettingReport
-          current-time-picker="Weekly"
-          :current-ending-time-value="regularReport.w_ending_date"
-          :current-template-id="regularReport.w_template"
-          @ending-date="setEndingDate"
-          @update-ending-date="updateEndingDate"
-          @select-template="selectTemplate"
-        />
+        <div :class="!weekly_enabled && 'disabled-content'">
+          <div class="title">Repeat time</div>
+          <div class="weekly-wrapper">
+            <div class="week-days">
+              <div
+                v-for="(item, index) in weekDays"
+                :key="item.name + index"
+                @click="chooseDay(item.value)"
+                :class="['day', activeDayProxy === item.value && 'active-day']"
+              >
+                {{ item.name }}
+              </div>
+            </div>
+
+            <Datepicker
+              v-model="timePickerValueWeekly"
+              :is-24="false"
+              @update:model-value="handleTimePickerWeekly"
+              time-picker
+              auto-apply
+              placeholder="Time"
+              menu-class-name="time-picker-menu"
+              class="time-picker"
+            >
+              <template #input-icon>
+                <ClockIcon class="input-slot-image" />
+              </template>
+            </Datepicker>
+          </div>
+
+          <GeneralSettingReport
+            current-time-picker="Weekly"
+            :current-ending-time-value="regularReport.w_ending_date"
+            :current-template-id="regularReport.w_template"
+            @ending-date="setEndingDate"
+            @update-ending-date="updateEndingDate"
+            @select-template="selectTemplate"
+          />
+        </div>
       </div>
 
       <div v-show="timePickerName === 'Monthly'" class="frequency-sending">
-        <div class="monthly-wrapper">
-          <div class="repeat-time-wrapper">
-            Every
-            <BaseInput
-              v-model="mDayOfMonthProxy"
-              placeholder="0"
-              inputType="number"
-              class="hours-counter"
-            >
-              <div class="arrows-wrapper">
-                <ArrowDownIcon
-                  @click="increase('m_day_of_month')"
-                  class="arrow-input arrow-increase"
-                />
-                <ArrowDownIcon
-                  @click="decrease('m_day_of_month')"
-                  :class="['arrow-input', mDayOfMonthProxy === 1 && 'disabled']"
-                />
-              </div>
-            </BaseInput>
-            day
-          </div>
-
-          <Datepicker
-            v-model="timePickerValueMonthly"
-            :is-24="false"
-            @update:model-value="handleTimePickerMonthly"
-            time-picker
-            auto-apply
-            placeholder="Time"
-            menu-class-name="time-picker-menu"
-            class="time-picker monthly-picker"
-          >
-            <template #input-icon>
-              <ClockIcon class="input-slot-image" />
-            </template>
-          </Datepicker>
+        <div class="switcher-wrapper">
+          Remind every month
+          <BaseSwitcher
+            :value="monthly_enabled"
+            @input="switchEnabled('monthly_enabled')"
+          />
         </div>
 
-        <GeneralSettingReport
-          current-time-picker="Monthly"
-          :current-ending-time-value="regularReport.m_ending_date"
-          :current-template-id="regularReport.m_template"
-          @ending-date="setEndingDate"
-          @update-ending-date="updateEndingDate"
-          @select-template="selectTemplate"
-        />
+        <div :class="!monthly_enabled && 'disabled-content'">
+          <div class="title">Repeat time</div>
+          <div class="monthly-wrapper">
+            <div class="repeat-time-wrapper">
+              Every
+              <BaseInput
+                v-model="mDayOfMonthProxy"
+                placeholder="0"
+                inputType="number"
+                class="hours-counter"
+              >
+                <div class="arrows-wrapper">
+                  <ArrowDownIcon
+                    @click="increase('m_day_of_month')"
+                    class="arrow-input arrow-increase"
+                  />
+                  <ArrowDownIcon
+                    @click="decrease('m_day_of_month')"
+                    :class="[
+                      'arrow-input',
+                      mDayOfMonthProxy === 1 && 'disabled',
+                    ]"
+                  />
+                </div>
+              </BaseInput>
+              day
+            </div>
+
+            <Datepicker
+              v-model="timePickerValueMonthly"
+              :is-24="false"
+              @update:model-value="handleTimePickerMonthly"
+              time-picker
+              auto-apply
+              placeholder="Time"
+              menu-class-name="time-picker-menu"
+              class="time-picker monthly-picker"
+            >
+              <template #input-icon>
+                <ClockIcon class="input-slot-image" />
+              </template>
+            </Datepicker>
+          </div>
+
+          <GeneralSettingReport
+            current-time-picker="Monthly"
+            :current-ending-time-value="regularReport.m_ending_date"
+            :current-template-id="regularReport.m_template"
+            @ending-date="setEndingDate"
+            @update-ending-date="updateEndingDate"
+            @select-template="selectTemplate"
+          />
+        </div>
       </div>
     </section>
   </div>
@@ -173,10 +222,12 @@ import Datepicker from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
 import {action} from '@store/constants'
 import {mapActions} from 'vuex'
+import BaseSwitcher from '@/components/BaseSwitcher'
 
 export default {
   name: 'TimePickerReports',
   components: {
+    BaseSwitcher,
     GeneralSettingReport,
     ClockIcon,
     ArrowDownIcon,
@@ -193,15 +244,19 @@ export default {
     return {
       h_hour: 1,
       m_day_of_month: 1,
+      hourly_enabled: this.regularReport.hourly_enabled,
+      daily_enabled: this.regularReport.daily_enabled,
+      weekly_enabled: this.regularReport.weekly_enabled,
+      monthly_enabled: this.regularReport.monthly_enabled,
       timePickerValueDaily: {},
       timePickerValueWeekly: {},
       timePickerValueMonthly: {},
       timePickerName: 'Hourly',
       timePicker: [
-        {name: 'Hourly'},
-        {name: 'Daily'},
-        {name: 'Weekly'},
-        {name: 'Monthly'},
+        {name: 'Hourly', value: 'hourly_enabled'},
+        {name: 'Daily', value: 'daily_enabled'},
+        {name: 'Weekly', value: 'weekly_enabled'},
+        {name: 'Monthly', value: 'monthly_enabled'},
       ],
       weekDays: [
         {name: 'Sun', value: 7},
@@ -264,6 +319,10 @@ export default {
   },
   methods: {
     ...mapActions([action.GET_TEMPLATES]),
+    switchEnabled(type) {
+      this[type] = !this[type]
+      this.$emit('enable-report-type', type, this[type])
+    },
     toggleTimePickerSettings(e) {
       this.timePickerName = e.target.innerText
     },
@@ -356,13 +415,32 @@ export default {
 
     color: var(--primary-text-color);
   }
+
+  .active-type {
+    position: relative;
+
+    &:after {
+      content: ' ';
+
+      position: absolute;
+      top: 35%;
+      right: -18px;
+      transform: translate(-50%, -50%);
+
+      height: 5px;
+      width: 5px;
+
+      border-radius: 100px;
+      background-color: var(--primary-button-color);
+    }
+  }
 }
 
 .repeat-time-wrapper {
   display: flex;
   align-items: flex-end;
 
-  margin: 15px 0 40px;
+  margin: 0 0 40px;
 
   font-style: normal;
   font-weight: 400;
@@ -373,7 +451,7 @@ export default {
 .time-picker-settings-wrapper {
   position: relative;
 
-  padding: 35px;
+  padding: 25px 35px;
   margin-top: 25px;
 
   border-radius: 15px;
@@ -388,6 +466,24 @@ export default {
     flex-direction: column;
 
     margin: 15px 0 40px;
+
+    .switcher-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+
+      margin-bottom: 24px;
+
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+    }
+
+    .disabled-content {
+      pointer-events: none;
+      opacity: 0.4;
+    }
 
     .hours-counter {
       width: 80px;
@@ -429,6 +525,8 @@ export default {
 }
 
 .title {
+  margin-bottom: 15px;
+
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
