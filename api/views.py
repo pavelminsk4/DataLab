@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from project.models import Project, Workspace, Post, Speech, Feedlinks
 from django.http import JsonResponse
 import json
+import re
 from django.db.models import Q
 from functools import reduce
 from countries_plus.models import Country
@@ -162,6 +163,11 @@ def search(request):
     'feedlink__alexaglobalrank',
     'sentiment',
     )
+
+  for post in posts:
+    src = post['feedlink__source1']
+    post['feedlink__source1'] = src if '<img' not in str(src) else re.findall('alt="(.*)"', src)[0]
+
   p = Paginator(posts, posts_per_page)
   posts_list=list(p.page(page_number))
   res = { 'num_pages': p.num_pages, 'num_posts': p.count, 'posts': posts_list }
