@@ -59,6 +59,7 @@ export default {
   align-items: center;
 
   min-width: 100%;
+  height: fit-content;
   max-height: 100%;
   padding: 20px;
 

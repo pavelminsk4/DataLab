@@ -175,6 +175,10 @@ export default {
   display: flex;
   align-items: center;
 
+  cursor: pointer;
+
+  font-size: 12px;
+
   .dropdown {
     z-index: 1000;
 
@@ -184,6 +188,8 @@ export default {
 
     display: flex;
     flex-direction: column;
+
+    cursor: pointer;
 
     background: var(--progress-line);
     border: 1px solid var(--modal-border-color);

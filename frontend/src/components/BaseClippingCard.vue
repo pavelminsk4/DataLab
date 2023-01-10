@@ -17,7 +17,7 @@
             ]"
             @click="addPost"
           />
-          <div class="tooltip">Add to clipping widget</div>
+          <div class="tooltip">{{ clippingTooltip }}</div>
         </div>
         <img
           v-if="img !== 'None'"
@@ -193,6 +193,13 @@ export default {
     currentProject: {
       type: [Array, Object],
       required: true,
+    },
+  },
+  computed: {
+    clippingTooltip() {
+      return this.clippingElement
+        ? 'Delete clipping element'
+        : 'Add to clipping widget'
     },
   },
   methods: {

@@ -60,7 +60,7 @@ export default {
 }
 
 .extra-settings {
-  padding: 0 69px 100px 124px;
+  padding: 0 69px 0 124px;
 }
 
 .background-icon {
