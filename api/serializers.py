@@ -29,6 +29,11 @@ class UserSerializer(WritableNestedModelSerializer):
     model = User
     fields = "__all__"
 
+class UserUpdateSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = User
+    fields = ["first_name", "last_name", "email"]
+
 class ProjectSerializer(serializers.ModelSerializer):
   users = UserSerializer
   note = serializers.CharField(max_length=1000, allow_blank=True)
