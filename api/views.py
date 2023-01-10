@@ -315,7 +315,7 @@ class CompanyUsersView(ListAPIView):
   serializer_class = UserSerializer
 
   def get_queryset(self):
-    return User.objects.filter(user_profile__department=self.kwargs['pk'])
+    return User.objects.filter(user_profile__department=self.kwargs['pk']).order_by('first_name')
 
 class ProfileViewSet(RetrieveUpdateAPIView):
   serializer_class = ProfileUserSerializer

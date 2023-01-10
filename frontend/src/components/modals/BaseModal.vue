@@ -81,7 +81,7 @@ export default {
 
   max-width: 90vw;
   max-height: 90vh;
-  padding: 30px 50px 68px;
+  padding: 30px 50px 50px;
 
   background: var(--secondary-bg-color);
   border-radius: 10px;

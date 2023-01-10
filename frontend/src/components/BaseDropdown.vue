@@ -1,8 +1,10 @@
 <template>
-  <section :class="[`dropdown-wrapper-${id}`, 'dropdown-wrapper']">
+  <section
+    @click="openDropdown"
+    :class="[`dropdown-wrapper-${id}`, 'dropdown-wrapper']"
+  >
     {{ title }}
     <ArrowDownIcon
-      @click="openDropdown"
       :class="[isOpenDropdown && 'arrow-open-dropdown', 'arrow-down']"
     />
 
@@ -35,6 +37,9 @@ export default {
   },
   created() {
     document.addEventListener('click', this.closeDropdown)
+  },
+  unmounted() {
+    document.removeEventListener('click', this.closeDropdown)
   },
   methods: {
     openDropdown() {

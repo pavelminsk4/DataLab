@@ -13,6 +13,7 @@
       :value="modelValue"
       :class="['input', isSearch && 'input-search']"
       :placeholder="placeholder"
+      :autocomplete="autocomplete"
       @input="handleInput"
     />
 
@@ -59,6 +60,10 @@ export default {
     errorMessage: {
       type: String,
       default: 'Error',
+    },
+    autocomplete: {
+      type: String,
+      default: '',
     },
   },
   components: {
