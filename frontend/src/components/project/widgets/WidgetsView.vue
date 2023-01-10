@@ -207,9 +207,9 @@ export default {
     },
     gridElementsHeight() {
       return {
-        summary_widget: 9,
-        volume_widget: 15,
-        clipping_feed_content_widget: 12,
+        summary_widget: 8,
+        volume_widget: 12,
+        clipping_feed_content_widget: this.clippingData.length ? 13 : 3.8,
         top_10_authors_by_volume_widget: 13,
         top_10_brands_widget: 13,
         top_10_countries_widget: 13,
@@ -279,8 +279,8 @@ export default {
   gap: 30px;
 
   min-width: 50%;
-  max-height: 1000px;
-  margin-top: 30px;
+  max-height: 60vh;
+  margin-top: 63px;
 
   overflow: auto;
 
@@ -289,7 +289,15 @@ export default {
   }
 
   .widget-item {
+    top: -10px;
+
     min-width: 96%;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .widgets-wrapper {
+    margin-top: 105px;
   }
 }
 </style>

@@ -1,5 +1,10 @@
 <template>
-  <div class="search-result-wrapper">
+  <div
+    :class="[
+      'search-result-wrapper',
+      routerName === 'Analytics' && 'analytics-page',
+    ]"
+  >
     <div class="filters">
       <div v-if="isShowSortingField" class="sorting-wrapper">
         Sort by
@@ -186,6 +191,9 @@ export default {
         )}`
       }
     },
+    routerName() {
+      return this.$route.name
+    },
   },
   created() {
     document.addEventListener('click', this.close)
@@ -288,12 +296,16 @@ export default {
   color: var(--primary-text-color);
 }
 
+.analytics-page {
+  height: 68vh;
+}
+
 .pagination-wrapper {
   display: flex;
   justify-content: space-between;
 
   width: 100%;
-  padding: 20px;
+  padding: 12px;
 }
 
 .sorting-wrapper {
@@ -416,8 +428,8 @@ export default {
     justify-content: center;
     align-items: center;
 
-    width: 34px;
-    height: 34px;
+    width: 20px;
+    height: 20px;
 
     background: #242529;
     border: 1px solid var(--border-color);
@@ -440,8 +452,8 @@ export default {
     justify-content: center;
     align-items: center;
 
-    width: 34px;
-    height: 34px;
+    width: 20px;
+    height: 20px;
 
     background: #242529;
     border: 1px solid var(--border-color);
