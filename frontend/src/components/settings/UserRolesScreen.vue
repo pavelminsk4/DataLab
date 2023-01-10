@@ -31,7 +31,21 @@
               <div>{{ item.first_name + ' ' + item.last_name }}</div>
               <div class="hint">{{ item.user_profile.jobtitle }}</div>
             </div>
-            <div class="role">{{ item.user_profile.role }}</div>
+            <div class="role">
+              <BaseDropdown
+                :title="currentRole(item.user_profile.role)"
+                :id="index"
+              >
+                <div
+                  v-for="role in userRoles"
+                  :key="role.value"
+                  @click="updateUserRole(role.value, item.email)"
+                  class="user-role"
+                >
+                  {{ role.name }}
+                </div>
+              </BaseDropdown>
+            </div>
           </div>
         </div>
       </section>
@@ -76,10 +90,17 @@ import MainLayout from '@/components/layout/MainLayout'
 import NavigationBar from '@/components/navigation/NavigationBar'
 import BaseButton from '@/components/buttons/BaseButton'
 import BaseInput from '@/components/BaseInput'
+import BaseDropdown from '@/components/BaseDropdown'
 
 export default {
   name: 'UserRolesScreen',
-  components: {BaseInput, BaseButton, NavigationBar, MainLayout},
+  components: {
+    BaseDropdown,
+    BaseInput,
+    BaseButton,
+    NavigationBar,
+    MainLayout,
+  },
   data() {
     return {
       isNewUser: false,
@@ -109,6 +130,15 @@ export default {
       currentUser: get.USER_INFO,
       companyUsers: get.COMPANY_USERS,
     }),
+    userRoles() {
+      return [
+        {name: 'Company', value: 'company'},
+        {name: 'Regular User', value: 'regular_user'},
+        {name: 'Picker', value: 'picker'},
+        {name: 'Writer', value: 'writer'},
+        {name: 'Publisher', value: 'publisher'},
+      ]
+    },
   },
   methods: {
     ...mapActions([
@@ -144,6 +174,21 @@ export default {
       await this[action.GET_COMPANY_USERS](
         this.currentUser?.user_profile?.department.id
       )
+    },
+    updateUserRole(value, email) {
+      this[action.PUT_USER_DEPARTMENT]({
+        email: email,
+        data: {
+          role: value,
+        },
+      })
+
+      this[action.GET_COMPANY_USERS](
+        this.currentUser?.user_profile?.department.id
+      )
+    },
+    currentRole(value) {
+      return this.userRoles.find((el) => el.value === value).name
     },
   },
 }
@@ -323,6 +368,24 @@ export default {
 
       color: var(--primary-text-color);
     }
+  }
+}
+
+.user-role {
+  white-space: nowrap;
+
+  padding: 10px;
+
+  &:hover {
+    background-color: var(--primary-button-color);
+  }
+
+  &:first-child {
+    border-radius: 10px 10px 0 0;
+  }
+
+  &:last-child {
+    border-radius: 0 0 10px 10px;
   }
 }
 
