@@ -504,6 +504,17 @@ export default {
     }
   },
 
+  async [action.PUT_USER_DEPARTMENT]({commit}, {email, data}) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      await api.setUserDepartment({email, data})
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
   async [action.UPDATE_REGULAR_REPORT](
     {dispatch, commit},
     {projectId, regularReportId, data}

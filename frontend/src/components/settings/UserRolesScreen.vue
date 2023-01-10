@@ -115,13 +115,14 @@ export default {
       action.GET_COMPANY_USERS,
       action.GET_USER_INFORMATION,
       action.CREATE_NEW_USER,
+      action.PUT_USER_DEPARTMENT,
     ]),
     addNewUser() {
       this.successMessage = ''
       this.isNewUser = true
     },
-    createNewUser() {
-      this[action.CREATE_NEW_USER]({
+    async createNewUser() {
+      await this[action.CREATE_NEW_USER]({
         username: this.username,
         password: this.password,
         password2: this.confirmPassword,
@@ -130,8 +131,19 @@ export default {
         last_name: this.lastName,
       })
 
+      await this[action.PUT_USER_DEPARTMENT]({
+        email: this.email,
+        data: {
+          department: this.currentUser?.user_profile?.department.id,
+        },
+      })
+
       this.isNewUser = false
       this.successMessage = 'User created!'
+
+      await this[action.GET_COMPANY_USERS](
+        this.currentUser?.user_profile?.department.id
+      )
     },
   },
 }

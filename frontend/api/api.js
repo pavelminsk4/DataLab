@@ -301,6 +301,16 @@ export default {
     return fetch('post', '/api/register/', data, config)
   },
 
+  async setUserDepartment({email, data}) {
+    const config = {
+      headers: {
+        'content-type': 'application/json',
+        'X-CSRFToken': CSRF_TOKEN,
+      },
+    }
+    return fetch('patch', `api/profileuser/${email}/`, data, config)
+  },
+
   async updateAlert({data, alertId}) {
     const config = {
       headers: {
