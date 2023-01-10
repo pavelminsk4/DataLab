@@ -1,5 +1,6 @@
 from widgets.models import ClippingFeedContentWidget
 from django.http import JsonResponse
+import re
 
 def cl_fd_cont_widg(request, pk):
   posts = ClippingFeedContentWidget.objects.filter(project_id=pk).order_by('id')
@@ -21,5 +22,10 @@ def cl_fd_cont_widg(request, pk):
     'post__feedlink__alexaglobalrank',
     'post__sentiment',
     )
+
+  for post in posts:
+    src = post['post__feedlink__source1']
+    post['post__feedlink__source1'] = src if '<img' not in str(src) else re.findall('alt="(.*)"', src)[0]
+
   res = list(posts)
   return JsonResponse(res, safe = False)
