@@ -1,4 +1,4 @@
-from rest_framework.generics import ListAPIView, CreateAPIView, DestroyAPIView, UpdateAPIView, RetrieveAPIView, ListCreateAPIView
+from rest_framework.generics import ListAPIView, CreateAPIView, DestroyAPIView, UpdateAPIView, RetrieveAPIView, ListCreateAPIView, RetrieveUpdateAPIView
 from .serializers import *
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -316,3 +316,9 @@ class CompanyUsersView(ListAPIView):
 
   def get_queryset(self):
     return User.objects.filter(user_profile__department=self.kwargs['pk'])
+
+class ProfileViewSet(RetrieveUpdateAPIView):
+  serializer_class = ProfileUserSerializer
+  lookup_field = 'user__email'
+  def get_queryset(self):
+    return Profile.objects.filter(user__email=self.kwargs['user__email'])
