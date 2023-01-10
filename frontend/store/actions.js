@@ -504,6 +504,36 @@ export default {
     }
   },
 
+  async [action.PUT_USER_DEPARTMENT](
+    {commit, dispatch},
+    {email, data, userId}
+  ) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      await api.setUserDepartment({email, data})
+      await dispatch(action.GET_COMPANY_USERS, userId)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
+  async [action.UPDATE_USER_DATA](
+    {commit, dispatch},
+    {userId, data, currentUserId}
+  ) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      await api.updateUserData({userId, data})
+      await dispatch(action.GET_COMPANY_USERS, currentUserId)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
   async [action.UPDATE_REGULAR_REPORT](
     {dispatch, commit},
     {projectId, regularReportId, data}
@@ -581,6 +611,22 @@ export default {
     commit(mutator.SET_LOADING, true)
     try {
       await api.deleteClippingFeedContentPost(projectId, postId)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
+  async [action.DELETE_USER_FROM_COMPANY](
+    {commit, dispatch},
+    {userId, currentUserId}
+  ) {
+    console.log(userId, currentUserId)
+    commit(mutator.SET_LOADING, true)
+    try {
+      await api.deleteUserFromCompany(userId)
+      await dispatch(action.GET_COMPANY_USERS, currentUserId)
     } catch (e) {
       console.log(e)
     } finally {

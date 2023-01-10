@@ -301,6 +301,16 @@ export default {
     return fetch('post', '/api/register/', data, config)
   },
 
+  async setUserDepartment({email, data}) {
+    const config = {
+      headers: {
+        'content-type': 'application/json',
+        'X-CSRFToken': CSRF_TOKEN,
+      },
+    }
+    return fetch('patch', `api/profileuser/${email}/`, data, config)
+  },
+
   async updateAlert({data, alertId}) {
     const config = {
       headers: {
@@ -309,6 +319,26 @@ export default {
       },
     }
     return fetch('put', `/api/alerts/${alertId}/`, data, config)
+  },
+
+  async updateUserData({userId, data}) {
+    const config = {
+      headers: {
+        'content-type': 'application/json',
+        'X-CSRFToken': CSRF_TOKEN,
+      },
+    }
+    return fetch('put', `/api/user/update/${userId}/`, data, config)
+  },
+
+  async deleteUserFromCompany(userId) {
+    const config = {
+      headers: {
+        'content-type': 'application/json',
+        'X-CSRFToken': CSRF_TOKEN,
+      },
+    }
+    return fetch('delete', `/api/user/delete/${userId}/`, config)
   },
 
   async createRegularReport({projectId, data}) {
