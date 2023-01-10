@@ -12,9 +12,9 @@
   <table v-if="reports.length" class="table">
     <thead>
       <tr>
-        <th>NAME</th>
-        <th>TIME</th>
-        <th>RECIPIENT'S</th>
+        <th class="th-name">NAME</th>
+        <th class="th-types">TYPES</th>
+        <th class="th-recipient">RECIPIENT'S</th>
       </tr>
     </thead>
     <tbody>
@@ -26,8 +26,12 @@
         <td>
           {{ item.title }}
         </td>
-        <td><ClockIcon class="clock-icon" />{{ item.hour }}</td>
-        <td>{{ item.user }}</td>
+        <td>
+          {{ getReportTypes(item) }}
+        </td>
+        <td>
+          <MembersIconsBar :members="alertUsers(item.user)" />
+        </td>
       </tr>
     </tbody>
   </table>
@@ -40,15 +44,14 @@ import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
 import BaseButton from '@/components/buttons/BaseButton'
+import MembersIconsBar from '@components/MembersIconsBar.vue'
 import NavigationBar from '@/components/navigation/NavigationBar'
-
-import ClockIcon from '@/components/icons/ClockIcon'
 
 export default {
   name: 'RegularReportsScreen',
   components: {
-    ClockIcon,
     BaseButton,
+    MembersIconsBar,
     NavigationBar,
   },
   props: {
@@ -57,15 +60,21 @@ export default {
       required: true,
     },
   },
+  computed: {
+    ...mapGetters({
+      reports: get.REGULAR_REPORTS,
+      workspaces: get.WORKSPACES,
+    }),
+    workspaceMembers() {
+      return this.workspaces.find(
+        (el) => el.id === +this.$route.params.workspaceId
+      ).members
+    },
+  },
   created() {
     if (!this.reports.length) {
       this[action.GET_REGULAR_REPORTS](this.currentProject.id)
     }
-  },
-  computed: {
-    ...mapGetters({
-      reports: get.REGULAR_REPORTS,
-    }),
   },
   methods: {
     ...mapActions([action.GET_REGULAR_REPORTS]),
@@ -81,6 +90,19 @@ export default {
           regularReportId: id,
         },
       })
+    },
+    alertUsers(alertUsersIds) {
+      return this.workspaceMembers.filter((user) =>
+        alertUsersIds.includes(user.id)
+      )
+    },
+    getReportTypes(item) {
+      const types = []
+      if (item.hourly_enabled) types.push('Hourly')
+      if (item.daily_enabled) types.push('Daily')
+      if (item.weekly_enabled) types.push('Weekly')
+      if (item.monthly_enabled) types.push('Monthly')
+      return types.join(', ')
     },
   },
 }
@@ -99,6 +121,16 @@ export default {
   border-spacing: 0;
 
   cursor: pointer;
+
+  .th-name {
+    width: 40%;
+  }
+  .th-types {
+    width: 30%;
+  }
+  .th-recipient {
+    width: 30%;
+  }
 
   thead {
     tr {
@@ -125,7 +157,7 @@ export default {
       background: var(--secondary-bg-color);
 
       td {
-        padding: 20px 0;
+        padding: 20px 10px;
 
         border-top: 1px solid var(--border-color);
 
@@ -207,5 +239,12 @@ export default {
 
 .clock-icon {
   margin-right: 10px;
+}
+
+.report-types {
+  display: flex;
+  flex-wrap: wrap;
+
+  font-size: 14px;
 }
 </style>
