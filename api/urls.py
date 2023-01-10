@@ -39,7 +39,6 @@ urlpatterns = [
   # Dimensions
   path('projects/<int:pk>/dimensions', views.ProjectDimensionsList.as_view(), name='project_dimensions_list'), # Selected dimensions for certain project
   path('projects/<int:pk>/dimensions_create', views.ProjectDimensionsCreate.as_view(), name='project_dimensions_create'),
-  
   # Data for dimensions on the widget
   path('projects/<int:pk>/dimension_authors', views.dimension_authors ,name='dim_authors'),
   path('projects/<int:pk>/dimension_languages', views.dimension_languages, name='dim_languages'),
@@ -48,6 +47,8 @@ urlpatterns = [
   path('projects/<int:pk>/alerts', views.ProjAlertsViewSet.as_view(), name='proj_alerts'),
   path('register/', RegisterView.as_view(), name='auth_register'),
   path('company_users/<int:pk>/', CompanyUsersView.as_view(), name='company_users'),
+  # Profile
+  path('profileuser/<str:user__email>/', ProfileViewSet.as_view(), name='profile_users'),
   ]
 
 router.register('dimensions', DimensionsViewSet)

@@ -185,3 +185,8 @@ class RegisterSerializer(serializers.ModelSerializer):
       user.save()
 
       return user
+
+class ProfileUserSerializer(serializers.ModelSerializer):  
+  class Meta:
+    model = Profile
+    fields = '__all__'
