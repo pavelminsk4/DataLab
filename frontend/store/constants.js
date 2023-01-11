@@ -62,6 +62,7 @@ export const action = {
 
 export const mutator = {
   SET_LOADING: 'SET_LOADING',
+  SET_LOADING_WIDGETS: 'SET_LOADING_WIDGETS',
   SET_PROJECT: 'SET_PROJECT',
   SET_PROJECTS: 'SET_PROJECTS',
   SET_WORKSPACES: 'SET_WORKSPACES',
@@ -113,6 +114,7 @@ export const mutator = {
 
 export const get = {
   LOADING: 'LOADING',
+  LOADING_WIDGETS: 'LOADING_WIDGETS',
   PROJECT: 'PROJECT',
   PROJECTS: 'PROJECTS',
   WORKSPACES: 'WORKSPACES',

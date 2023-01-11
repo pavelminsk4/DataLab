@@ -135,7 +135,7 @@ export default {
   },
 
   async [action.GET_CLIPPING_FEED_CONTENT_WIDGET]({commit}, projectId) {
-    commit(mutator.SET_LOADING, true)
+    commit(mutator.SET_LOADING_WIDGETS, {clippingWidget: true})
     try {
       const clippingFeedContent = await api.getClippingFeedContentWidget(
         projectId
@@ -144,7 +144,7 @@ export default {
     } catch (e) {
       console.log(e)
     } finally {
-      commit(mutator.SET_LOADING, false)
+      commit(mutator.SET_LOADING_WIDGETS, {clippingWidget: false})
     }
   },
 
@@ -448,14 +448,15 @@ export default {
     }
   },
 
-  async [action.CREATE_CLIPPING_FEED_CONTENT_WIDGET]({commit}, data) {
-    commit(mutator.SET_LOADING, true)
+  async [action.CREATE_CLIPPING_FEED_CONTENT_WIDGET]({commit, dispatch}, data) {
+    commit(mutator.SET_LOADING_WIDGETS, {clippingWidget: true})
     try {
-      await api.createClippingFeedContent(data)
+      await api.createClippingFeedContent(data.posts)
+      await dispatch(action.GET_CLIPPING_FEED_CONTENT_WIDGET, data.projectId)
     } catch (e) {
       console.log(e)
     } finally {
-      commit(mutator.SET_LOADING, false)
+      commit(mutator.SET_LOADING_WIDGETS, {clippingWidget: false})
     }
   },
 
@@ -607,14 +608,18 @@ export default {
     }
   },
 
-  async [action.DELETE_CLIPPING_FEED_CONTENT]({commit}, {projectId, postId}) {
-    commit(mutator.SET_LOADING, true)
+  async [action.DELETE_CLIPPING_FEED_CONTENT](
+    {commit, dispatch},
+    {projectId, postId}
+  ) {
+    commit(mutator.SET_LOADING_WIDGETS, {clippingWidget: true})
     try {
       await api.deleteClippingFeedContentPost(projectId, postId)
+      await dispatch(action.GET_CLIPPING_FEED_CONTENT_WIDGET, projectId)
     } catch (e) {
       console.log(e)
     } finally {
-      commit(mutator.SET_LOADING, false)
+      commit(mutator.SET_LOADING_WIDGETS, {clippingWidget: false})
     }
   },
 

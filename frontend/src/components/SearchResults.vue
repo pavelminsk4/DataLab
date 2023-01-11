@@ -35,7 +35,10 @@
       <BaseSpinner :isHaveLabel="true" />
     </div>
 
-    <div v-if="searchData.length" class="search-result-cards scroll">
+    <div
+      v-if="!loading && searchData.length"
+      class="search-result-cards scroll"
+    >
       <BaseClippingCard
         v-for="(item, index) in searchData"
         :key="'result' + index"
@@ -57,7 +60,7 @@
         @add-element="addClippingElement"
       />
     </div>
-    <div v-if="searchData.length" class="pagination-wrapper">
+    <div v-if="!loading && searchData.length" class="pagination-wrapper">
       <section class="dropdown-wrapper">
         <div @click="openDropdown">
           {{ countPosts }}
@@ -214,7 +217,6 @@ export default {
       action.REFRESH_DISPLAY_CALENDAR,
       action.DELETE_CLIPPING_FEED_CONTENT,
       action.CREATE_CLIPPING_FEED_CONTENT_WIDGET,
-      action.GET_CLIPPING_FEED_CONTENT_WIDGET,
     ]),
     getLastWeeksDate() {
       const now = new Date()
@@ -258,13 +260,12 @@ export default {
         projectId: this.currentProject.id,
         postId: postId,
       })
-      await this[action.GET_CLIPPING_FEED_CONTENT_WIDGET](
-        this.currentProject.id
-      )
     },
     async createClippingWidget(newPost) {
-      await this[action.CREATE_CLIPPING_FEED_CONTENT_WIDGET]([newPost])
-      this[action.GET_CLIPPING_FEED_CONTENT_WIDGET](this.currentProject.id)
+      await this[action.CREATE_CLIPPING_FEED_CONTENT_WIDGET]({
+        posts: [newPost],
+        projectId: this.currentProject.id,
+      })
     },
     selectedClippingElement(id) {
       return this.clippingContent.some((el) => el.post__id === id)
@@ -360,10 +361,6 @@ export default {
   color: var(--secondary-text-color);
 }
 
-.search-results {
-  margin-left: auto;
-}
-
 .arrow-open-dropdown {
   transform: rotate(180deg);
   color: var(--primary-button-color);
@@ -389,8 +386,8 @@ export default {
   align-items: center;
   justify-content: center;
 
-  min-width: 100%;
-  height: 50vh;
+  width: 100%;
+  height: 100%;
   min-height: 100px;
   margin-bottom: 80px;
 }

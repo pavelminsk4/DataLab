@@ -1,5 +1,8 @@
 const state = {
   loading: false,
+  loadingWidgets: {
+    clippingWidget: false,
+  },
   currentStep: 'Step1',
   projects: [],
   workspaces: [],

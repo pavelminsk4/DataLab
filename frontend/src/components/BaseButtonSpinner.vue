@@ -1,5 +1,5 @@
 <template>
-  <div class="lds-ring">
+  <div class="lds-ring" :style="`--spinner-width: ${widthSpinner}px;`">
     <div></div>
     <div></div>
     <div></div>
@@ -10,6 +10,12 @@
 <script>
 export default {
   name: 'BaseButtonSpinner',
+  props: {
+    widthSpinner: {
+      type: Number,
+      default: 30,
+    },
+  },
 }
 </script>
 
@@ -21,8 +27,8 @@ export default {
   align-items: center;
   justify-content: center;
 
-  width: 100%;
-  height: 100%;
+  width: var(--spinner-width);
+  height: var(--spinner-width);
 }
 .lds-ring div {
   position: absolute;
@@ -30,8 +36,8 @@ export default {
 
   display: block;
 
-  width: 30px;
-  height: 30px;
+  width: 100%;
+  height: 100%;
 
   border: 4px solid var(--primary-text-color);
   border-radius: 50%;
