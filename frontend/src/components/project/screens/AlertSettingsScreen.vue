@@ -50,7 +50,7 @@
 
         <ul v-if="visible" class="select-list scroll">
           <li
-            v-for="(item, index) in projectMembers"
+            v-for="(item, index) in companyUsersEmails"
             :key="item.username + index"
             class="select-item"
             @click="select(item)"
@@ -158,6 +158,8 @@ export default {
       workspaces: get.WORKSPACES,
       loading: get.LOADING,
       alerts: get.ALERTS,
+      currentUser: get.USER_INFO,
+      companyUsers: get.COMPANY_USERS,
     }),
     workspaceId() {
       return this.$route.params.workspaceId
@@ -176,18 +178,6 @@ export default {
         (el) => el.id === +this.projectId
       )[0]
     },
-    projectMembers() {
-      return this.workspaceMembers
-        .filter((i) => this.currentProject.members.includes(i.id))
-        .concat(
-          this.currentProject.members.filter((i) =>
-            this.workspaceMembers.includes(i.id)
-          )
-        )
-    },
-    projectMembersId() {
-      return this.projectMembers.map((el) => el.id)
-    },
     alertId() {
       return this.$route.params.alertId
     },
@@ -195,16 +185,19 @@ export default {
       return this.alerts.filter((el) => +el.id === +this.alertId)[0]
     },
     alertUsers() {
-      return this.projectMembers
+      return this.companyUsers
         .filter((i) => this.currentAlert?.user.includes(i.id))
         .concat(
           this.currentAlert?.user.filter((i) =>
-            this.projectMembers.includes(i.id)
+            this.companyUsers.includes(i.id)
           )
         )
     },
     alertUsersId() {
       return this.alertUsers.map((el) => el.id)
+    },
+    companyUsersEmails() {
+      return this.companyUsers.filter((el) => el.email)
     },
     titleProxy: {
       get() {
@@ -246,7 +239,11 @@ export default {
       await this[action.GET_ALERTS](this.projectId)
     }
 
-    if (this.projectMembers.length && this.$route.name === 'UpdateAlert') {
+    await this[action.GET_COMPANY_USERS](
+      this.currentUser?.user_profile?.department.id
+    )
+
+    if (this.$route.name === 'UpdateAlert') {
       this.selectedUsers = [...this.alertUsers]
       this.usersId = [...this.alertUsersId]
     }
@@ -262,6 +259,7 @@ export default {
       action.CREATE_NEW_ALERT,
       action.UPDATE_ALERT,
       action.GET_ALERTS,
+      action.GET_COMPANY_USERS,
     ]),
     async createAlert() {
       this[action.CREATE_NEW_ALERT]({

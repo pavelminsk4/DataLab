@@ -52,7 +52,7 @@
 
           <ul v-if="visible" class="select-list scroll">
             <li
-              v-for="(item, index) in projectMembers"
+              v-for="(item, index) in companyUsersEmails"
               :key="item.username + index"
               class="select-item"
               @click="select(item)"
@@ -121,10 +121,11 @@ export default {
       this.reportData = this.currentReport
     }
 
-    if (
-      this.projectMembers.length &&
-      this.routerName === 'UpdateRegularReport'
-    ) {
+    await this[action.GET_COMPANY_USERS](
+      this.currentUser?.user_profile?.department.id
+    )
+
+    if (this.routerName === 'UpdateRegularReport') {
       this.selectedUsers = [...this.reportUsers]
       this.usersId = [...this.reportUsersId]
     }
@@ -136,6 +137,8 @@ export default {
       workspaces: get.WORKSPACES,
       loading: get.LOADING,
       regularReports: get.REGULAR_REPORTS,
+      currentUser: get.USER_INFO,
+      companyUsers: get.COMPANY_USERS,
     }),
     workspaceId() {
       return this.$route.params.workspaceId
@@ -146,25 +149,10 @@ export default {
     currentWorkspace() {
       return this.workspaces.filter((el) => el.id === +this.workspaceId)
     },
-    workspaceMembers() {
-      return this.currentWorkspace[0]?.members
-    },
     currentProject() {
       return this.currentWorkspace[0]?.projects.filter(
         (el) => el.id === +this.projectId
       )[0]
-    },
-    projectMembers() {
-      return this.workspaceMembers
-        .filter((i) => this.currentProject.members.includes(i.id))
-        .concat(
-          this.currentProject.members.filter((i) =>
-            this.workspaceMembers.includes(i.id)
-          )
-        )
-    },
-    projectMembersId() {
-      return this.projectMembers.map((el) => el.id)
     },
     regularReportId() {
       return this.$route.params.regularReportId
@@ -175,11 +163,11 @@ export default {
       )[0]
     },
     reportUsers() {
-      return this.projectMembers
+      return this.companyUsers
         .filter((i) => this.currentReport?.user.includes(i.id))
         .concat(
           this.currentReport?.user.filter((i) =>
-            this.projectMembers.includes(i.id)
+            this.companyUsers.includes(i.id)
           )
         )
     },
@@ -189,6 +177,9 @@ export default {
     routerName() {
       return this.$route.name
     },
+    companyUsersEmails() {
+      return this.companyUsers.filter((el) => el.email)
+    },
   },
   methods: {
     ...mapActions([
@@ -196,6 +187,8 @@ export default {
       action.CREATE_NEW_REGULAR_REPORT,
       action.UPDATE_REGULAR_REPORT,
       action.GET_REGULAR_REPORTS,
+      action.GET_COMPANY_USERS,
+      action.GET_USER_INFORMATION,
     ]),
     repeatTime(val, name) {
       this.reportData[name] = val

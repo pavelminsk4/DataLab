@@ -627,7 +627,6 @@ export default {
     {commit, dispatch},
     {userId, currentUserId}
   ) {
-    console.log(userId, currentUserId)
     commit(mutator.SET_LOADING, true)
     try {
       await api.deleteUserFromCompany(userId)
