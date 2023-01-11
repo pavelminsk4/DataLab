@@ -10,7 +10,7 @@
         <div class="button" @click="deleteWidget"><CloseIcon /></div>
       </div>
     </div>
-    <BaseSpinner v-if="isLoading" />
+    <BaseSpinner v-if="isLoading" class="spinner" />
     <slot v-else></slot>
   </section>
 </template>
@@ -60,7 +60,7 @@ export default {
 
   min-width: 100%;
   height: fit-content;
-  max-height: 100%;
+  height: 100%;
   padding: 20px;
 
   border-radius: 8px;
@@ -111,5 +111,9 @@ export default {
       }
     }
   }
+}
+
+.spinner {
+  height: 100%;
 }
 </style>

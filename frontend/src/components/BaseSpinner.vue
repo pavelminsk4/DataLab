@@ -1,5 +1,5 @@
 <template>
-  <div id="wifi-loader">
+  <div class="wifi-loader">
     <svg class="circle-outer" viewBox="0 0 86 86">
       <circle class="back" cx="43" cy="43" r="40"></circle>
       <circle class="front" cx="43" cy="43" r="40"></circle>
@@ -30,7 +30,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#wifi-loader {
+.wifi-loader {
   --background: var(--secondary-button-color);
   --front-color: var(--primary-button-color);
   --back-color: var(--secondary-text-color);

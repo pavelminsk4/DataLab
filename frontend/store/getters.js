@@ -4,6 +4,9 @@ export default {
   [get.LOADING](state) {
     return state.loading
   },
+  [get.LOADING_WIDGETS](state) {
+    return state.loadingWidgets
+  },
 
   [get.PROJECTS](state) {
     return state.projects

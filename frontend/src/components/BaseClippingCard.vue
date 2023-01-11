@@ -11,10 +11,8 @@
         <div class="clipping-wrapper">
           <ClippingIcon
             v-if="isCheckboxClippingWidget"
-            :class="[
-              'clipping-icon',
-              clippingElement && 'active-clipping-post',
-            ]"
+            :isClippingElement="clippingElement"
+            :isLoading="isLoadingClippingWidget"
             @click="addPost"
           />
           <div class="tooltip">{{ clippingTooltip }}</div>
@@ -95,8 +93,8 @@
 </template>
 
 <script>
-import {mapActions} from 'vuex'
-import {action} from '@store/constants'
+import {mapActions, mapGetters} from 'vuex'
+import {action, get} from '@store/constants'
 
 import NoImageIcon from '@/components/icons/NoImageIcon'
 import CloseIcon from '@/components/icons/CloseIcon'
@@ -196,6 +194,10 @@ export default {
     },
   },
   computed: {
+    ...mapGetters({isLoading: get.LOADING_WIDGETS}),
+    isLoadingClippingWidget() {
+      return this.isLoading.clippingWidget
+    },
     clippingTooltip() {
       return this.clippingElement
         ? 'Delete clipping element'
@@ -203,16 +205,12 @@ export default {
     },
   },
   methods: {
-    ...mapActions([
-      action.DELETE_CLIPPING_FEED_CONTENT,
-      action.GET_CLIPPING_FEED_CONTENT_WIDGET,
-    ]),
+    ...mapActions([action.DELETE_CLIPPING_FEED_CONTENT]),
     async deleteClippingFeedPost() {
       await this[action.DELETE_CLIPPING_FEED_CONTENT]({
         projectId: this.projectId,
         postId: this.postId,
       })
-      await this[action.GET_CLIPPING_FEED_CONTENT_WIDGET](this.projectId)
     },
     capitalizeFirstLetter(string) {
       return string?.charAt(0)?.toUpperCase() + string?.slice(1)
@@ -225,6 +223,7 @@ export default {
       })
     },
     addPost() {
+      if (this.isLoadingClippingWidget) return
       this.$emit('add-element', this.id, this.clippingElement)
     },
   },
@@ -266,25 +265,8 @@ export default {
 
     .clipping-wrapper {
       position: relative;
-
-      .clipping-icon {
-        position: relative;
-
-        margin-left: 28px;
-
-        cursor: pointer;
-
-        &:hover {
-          transform: rotate(30deg);
-        }
-      }
-
-      .active-clipping-post {
-        border: 1px solid var(--primary-text-color);
-        border-radius: 100px;
-
-        transform: rotate(30deg);
-      }
+      display: flex;
+      justify-content: center;
 
       .tooltip {
         position: absolute;
