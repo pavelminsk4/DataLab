@@ -45,9 +45,7 @@ export default {
     },
   },
   created() {
-    if (!this.topCountries.length) {
-      this[action.GET_TOP_COUNTRIES_WIDGET](this.projectId)
-    }
+    this[action.GET_TOP_COUNTRIES_WIDGET](this.projectId)
   },
   computed: {
     ...mapGetters({

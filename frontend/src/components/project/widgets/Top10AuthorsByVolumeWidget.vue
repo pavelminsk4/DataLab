@@ -26,9 +26,7 @@ export default {
     },
   },
   created() {
-    if (!this.topAuthors.length) {
-      this[action.GET_TOP_AUTHORS_WIDGET](this.projectId)
-    }
+    this[action.GET_TOP_AUTHORS_WIDGET](this.projectId)
   },
   computed: {
     ...mapGetters({

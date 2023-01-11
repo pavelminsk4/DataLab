@@ -93,7 +93,7 @@
               <PlusIcon class="icon-delete" />Delete User
             </div>
 
-            <BaseModal v-if="isOpenDeleteModal">
+            <BaseModal v-if="isOpenDeleteModal" @close="toggleDeleteModal">
               <div class="question">
                 Are you sure you want to delete the user
                 <span class="mark">
@@ -296,6 +296,7 @@ export default {
     },
     toggleDeleteModal() {
       this.isOpenDeleteModal = !this.isOpenDeleteModal
+      this.togglePageScroll(this.isOpenDeleteModal)
     },
   },
 }
