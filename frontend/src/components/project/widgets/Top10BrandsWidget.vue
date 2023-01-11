@@ -24,9 +24,7 @@ export default {
     },
   },
   created() {
-    if (!this.topBrands.length) {
-      this[action.GET_TOP_BRANDS_WIDGET](this.projectId)
-    }
+    this[action.GET_TOP_BRANDS_WIDGET](this.projectId)
   },
   computed: {
     ...mapGetters({
