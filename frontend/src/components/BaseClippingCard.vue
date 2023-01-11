@@ -198,7 +198,7 @@ export default {
   computed: {
     clippingTooltip() {
       return this.clippingElement
-        ? 'Delete clipping element'
+        ? 'Remove from clipping widget'
         : 'Add to clipping widget'
     },
   },

@@ -77,7 +77,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions([action.GET_REGULAR_REPORTS]),
+    ...mapActions([action.GET_REGULAR_REPORTS, action.GET_COMPANY_USERS]),
     goToCreateRegularReport() {
       this.$router.push({
         name: 'NewRegularReport',
