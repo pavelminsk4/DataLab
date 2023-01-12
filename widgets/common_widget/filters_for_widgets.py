@@ -51,7 +51,7 @@ def posts_agregator(project):
     posts = keywords_posts(project.keywords, posts)
   if project.ignore_keywords!=[]:
     posts = exclude_keywords_posts(posts, project.ignore_keywords)
-  if project.author_filter:
+  if project.source_filter:
     posts = source_filter_posts(project.source_filter, posts)
   if project.language_filter:
     posts = language_filter_posts(project.language_filter, posts)
