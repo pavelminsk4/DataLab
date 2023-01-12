@@ -30,7 +30,7 @@
         v-for="(item, index) in sortWorkspaces"
         :key="index"
         :title="item.title"
-        :id="item.id"
+        :workspace-id="item.id"
         :members="item.members"
         @open-modal="toggleModal(item)"
         @add-new-project="addNewProject(item.id)"

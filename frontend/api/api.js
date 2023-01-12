@@ -341,6 +341,16 @@ export default {
     return fetch('delete', `/api/user/delete/${userId}/`, config)
   },
 
+  async deleteWorkspace(workspaceId) {
+    const config = {
+      headers: {
+        'content-type': 'application/json',
+        'X-CSRFToken': CSRF_TOKEN,
+      },
+    }
+    return fetch('delete', `/api/workspace/delete/${workspaceId}/`, config)
+  },
+
   async createRegularReport({projectId, data}) {
     const config = {
       headers: {

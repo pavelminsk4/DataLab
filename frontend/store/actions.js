@@ -639,6 +639,18 @@ export default {
     }
   },
 
+  async [action.DELETE_WORKSPACE]({commit, dispatch}, workspaceId) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      await api.deleteWorkspace(workspaceId)
+      await dispatch(action.GET_WORKSPACES)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
   async [action.UPDATE_PROJECT_STATE]({commit}, newProject) {
     commit(mutator.SET_NEW_PROJECT, newProject)
   },

@@ -3,7 +3,12 @@
     <div class="project-title-wrapper">
       <div class="title">{{ title }}</div>
 
-      <PointsIcon @click="openModal" class="points-icon" />
+      <BaseTooltipSettings :id="workspaceId">
+        <div @click="openSettingsModal" class="tooltip-item"><EditIcon />Edit</div>
+        <div @click="deleteWorkspace" class="tooltip-item">
+          <DeleteIcon />Delete
+        </div>
+      </BaseTooltipSettings>
     </div>
 
     <div class="cart-button-wrapper">
@@ -22,15 +27,22 @@
 </template>
 
 <script>
+import {mapActions} from 'vuex'
+import {action} from '@store/constants'
+
 import PlusIcon from '@components/icons/PlusIcon'
-import PointsIcon from '@components/icons/PointsIcon'
 import MembersIconsBar from '@components/MembersIconsBar.vue'
+import BaseTooltipSettings from '@/components/BaseTooltipSettings'
+import EditIcon from '@/components/icons/EditIcon'
+import DeleteIcon from '@/components/icons/DeleteIcon'
 
 export default {
   name: 'ProjectItem',
   components: {
+    DeleteIcon,
+    EditIcon,
+    BaseTooltipSettings,
     MembersIconsBar,
-    PointsIcon,
     PlusIcon,
   },
   props: {
@@ -38,7 +50,7 @@ export default {
       type: String,
       default: '',
     },
-    id: {
+    workspaceId: {
       type: Number,
       required: true,
     },
@@ -48,6 +60,7 @@ export default {
     },
   },
   methods: {
+    ...mapActions([action.DELETE_WORKSPACE]),
     openWorkspace() {
       this.$emit('navigate-to-workspace')
     },
@@ -55,8 +68,13 @@ export default {
       this.$emit('add-new-project')
       event.stopPropagation()
     },
-    openModal() {
+    openSettingsModal() {
       this.$emit('open-modal', this.id)
+      event.stopPropagation()
+    },
+    deleteWorkspace() {
+      console.log(this.workspaceId)
+      this[action.DELETE_WORKSPACE](this.workspaceId)
       event.stopPropagation()
     },
   },
@@ -123,27 +141,6 @@ export default {
   height: 30px;
 }
 
-.points-icon {
-  z-index: 3;
-
-  flex-shrink: 0;
-
-  width: 30px;
-  height: 30px;
-
-  transition: all 0.3s;
-  pointer-events: stroke;
-
-  color: var(--secondary-text-color);
-}
-
-.points-icon:hover {
-  border-radius: 100%;
-
-  color: var(--primary-text-color);
-  background-color: var(--primary-button-color);
-}
-
 button {
   position: relative;
 
@@ -205,6 +202,20 @@ button:hover .circle {
 button:hover .button-text {
   opacity: 1;
   color: var(--primary-text-color);
+}
+
+.tooltip-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  &:first-child {
+    margin-bottom: 6px;
+  }
+
+  &:hover {
+    color: var(--primary-button-color);
+  }
 }
 
 @media screen and (max-width: 1080px) {
