@@ -43,8 +43,8 @@ class ProjectSerializer(serializers.ModelSerializer):
 
 class WorkspaceSerializer(WritableNestedModelSerializer):
   projects = ProjectSerializer(many=True, required=False)
-  description = serializers.CharField(max_length=1000, allow_blank=True)
-  members = UserSerializer(many=True)
+  description = serializers.CharField(max_length=1000, allow_blank=True, required=False)
+  members = UserSerializer(many=True, required=False)
   class Meta:
     model = Workspace
     fields = ['id', 'title', 'description', 'members', 'company', 'projects', 'created_at']

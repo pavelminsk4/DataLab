@@ -28,6 +28,13 @@ export default {
     state.newWorkspace = {...state.newWorkspace, ...workspaceInfo}
   },
 
+  [mutator.UPDATE_WORKSPACE](state, workspace) {
+    const currentWorkspaceIdex = state.workspaces.findIndex(
+      (w) => w.id === workspace.id
+    )
+    state.workspaces[currentWorkspaceIdex] = workspace
+  },
+
   [mutator.SET_KEYWORDS_LIST](state, keywords) {
     state.keywords = {...state.keywords, ...keywords}
   },

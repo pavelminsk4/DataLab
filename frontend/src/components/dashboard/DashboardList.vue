@@ -2,7 +2,7 @@
   <MainLayout>
     <SettingsWorkspaceModal
       v-if="isOpenModal"
-      :workspace-id="1"
+      :currentWorkspace="currentWorkspace"
       modal-frame-style="width: 510px;"
       @close="toggleModal"
       @save-settings="saveSettings"
@@ -32,7 +32,7 @@
         :title="item.title"
         :id="item.id"
         :members="item.members"
-        @open-modal="toggleModal"
+        @open-modal="toggleModal(item)"
         @add-new-project="addNewProject(item.id)"
         @navigate-to-workspace="navigateToWorkspace(item.id)"
       />
@@ -63,7 +63,7 @@ export default {
   data() {
     return {
       isOpenModal: false,
-      workspaceId: null,
+      currentWorkspace: null,
     }
   },
   computed: {
@@ -76,7 +76,7 @@ export default {
     ...mapActions([
       action.CREATE_WORKSPACE,
       action.UPDATE_CURRENT_STEP,
-      action.UPDATE_OLD_WORKSPACE,
+      action.UPDATE_WORKSPACE,
     ]),
     sortingByLastDate(workspacesList) {
       return workspacesList.sort(function (a, b) {
@@ -98,15 +98,18 @@ export default {
         params: {workspaceId: id},
       })
     },
-    toggleModal(id) {
-      this.togglePageScroll(false)
+    toggleModal(workspace) {
+      if (workspace) {
+        const {id, title, description, members} = workspace
+        this.currentWorkspace = {id, title, description, members}
+      }
       this.isOpenModal = !this.isOpenModal
-      this.workspaceId = id
+      this.togglePageScroll(false)
     },
     saveSettings(title, description) {
-      this[action.UPDATE_OLD_WORKSPACE]({
-        workspaceId: this.workspaceId,
-        data: {title: title, description: description},
+      this[action.UPDATE_WORKSPACE]({
+        workspaceId: this.currentWorkspace.id,
+        data: {title, description},
       })
       this.toggleModal()
     },
