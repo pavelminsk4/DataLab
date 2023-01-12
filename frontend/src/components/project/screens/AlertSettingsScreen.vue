@@ -25,7 +25,7 @@
       <div class="title">Alert Title</div>
 
       <BaseInput
-        v-model="titleProxy"
+        v-model.trim="titleProxy"
         placeholder="Alert Title"
         :isError="!!errorTitle"
         :errorMessage="errorTitle"

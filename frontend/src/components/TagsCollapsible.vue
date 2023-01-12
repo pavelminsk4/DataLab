@@ -59,6 +59,7 @@ export default {
 }
 
 .tag {
+  overflow: hidden;
   width: fit-content;
   height: 25px;
   padding: 2px 12px;

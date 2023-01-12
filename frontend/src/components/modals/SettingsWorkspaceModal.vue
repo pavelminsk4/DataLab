@@ -61,8 +61,8 @@ export default {
   data() {
     return {
       loading: false,
-      title: '',
-      description: '',
+      newTitle: '',
+      newDescription: '',
       settingName: 'General',
       buttons: [{name: 'General'}, {name: 'Permissions'}],
     }
@@ -72,8 +72,8 @@ export default {
       type: [Number, String],
       default: '',
     },
-    workspaceId: {
-      type: Number,
+    currentWorkspace: {
+      type: Object,
       required: true,
     },
   },
@@ -82,6 +82,22 @@ export default {
       let members = []
       members.push(this.member)
       return members
+    },
+    title: {
+      get() {
+        return this.newTitle || this.currentWorkspace.title
+      },
+      set(val) {
+        this.newTitle = val
+      },
+    },
+    description: {
+      get() {
+        return this.newDescription || this.currentWorkspace.description || ''
+      },
+      set(val) {
+        this.newDescription = val
+      },
     },
   },
   methods: {

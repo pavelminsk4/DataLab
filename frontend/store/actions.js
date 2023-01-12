@@ -550,10 +550,11 @@ export default {
     }
   },
 
-  async [action.UPDATE_OLD_WORKSPACE]({commit}, {workspaceId, data}) {
+  async [action.UPDATE_WORKSPACE]({commit}, {workspaceId, data}) {
     commit(mutator.SET_LOADING, true)
     try {
-      await api.updateWorkspace({workspaceId, data})
+      const responseData = await api.updateWorkspace({workspaceId, data})
+      commit(mutator.UPDATE_WORKSPACE, responseData)
     } catch (e) {
       console.log(e)
     } finally {
