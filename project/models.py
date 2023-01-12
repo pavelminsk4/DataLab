@@ -4,23 +4,11 @@ from django.contrib.postgres.fields import ArrayField
 from django.contrib.postgres.indexes import GinIndex
 from reports.models import Templates
 
-class Company(models.Model):
-  name = models.CharField(max_length=100)
-  description = models.CharField(max_length=200)
-  max_users = models.IntegerField()
-  max_projects = models.IntegerField()
-  max_online_feeds = models.IntegerField()
-  max_social_feeds = models.IntegerField()
-  max_twitter_data = models.IntegerField()
-
-  def __str__(self):
-    return self.name
 
 class Workspace(models.Model):
   title = models.CharField(max_length=100)
   description = models.CharField(max_length=1000, null=True, blank=True)
   members = models.ManyToManyField(User, blank=True)
-  company = models.ForeignKey(Company, blank=True, null=True, on_delete=models.CASCADE)
   created_at = models.DateTimeField(auto_now_add=True)
 
   def __str__(self):

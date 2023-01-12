@@ -302,8 +302,7 @@ class CurrentUserTests(APITestCase):
   def test_logged_in_user(self):
     user = User.objects.create(username='John')
     user2 = User.objects.create(username='Pablo')
-    company = department.objects.create(departmentname='Anadea')
-    user.user_profile.department = company
+    user.user_profile.department = department.objects.create(departmentname='Anadea')
     user.user_profile.jobtitle = 'Boss'
     user.user_profile.phone = '+966-12345678'
     self.client.force_authenticate(user=user)
