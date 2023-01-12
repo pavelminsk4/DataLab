@@ -5,7 +5,7 @@
     </div>
     <PointsIcon
       :class="['points-icon', isOpenSettings && 'active-points']"
-      @click="openSettings"
+      @click.stop="openSettings"
     />
   </div>
 </template>
@@ -35,7 +35,6 @@ export default {
   methods: {
     openSettings() {
       this.isOpenSettings = !this.isOpenSettings
-      event.stopPropagation()
     },
     close() {
       const elements = document.querySelectorAll('.settings-container')
@@ -51,19 +50,21 @@ export default {
 <style lang="scss" scoped>
 .settings-container {
   position: relative;
+
+  width: 30px;
+  height: 30px;
 }
 
 .options-container {
   position: absolute;
-  bottom: -28px;
-  right: 38px;
+  right: 40px;
 
   display: flex;
   flex-direction: column;
 
   white-space: nowrap;
 
-  border-radius: 15px;
+  border-radius: 4px;
   padding: 10px 15px;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.22);
 
@@ -79,7 +80,7 @@ export default {
     content: '';
 
     position: absolute;
-    top: 32%;
+    top: 29%;
     right: -10px;
 
     transform: translate(-50%, -50%) rotate(225deg);

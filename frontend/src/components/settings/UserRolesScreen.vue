@@ -93,26 +93,12 @@
               <PlusIcon class="icon-delete" />Delete User
             </div>
 
-            <BaseModal v-if="isOpenDeleteModal" @close="toggleDeleteModal">
-              <div class="question">
-                Are you sure you want to delete the user
-                <span class="mark">
-                  {{
-                    existingUserData.first_name +
-                    ' ' +
-                    existingUserData.last_name
-                  }}
-                </span>
-                ?
-              </div>
-
-              <div class="modal-buttons">
-                <BaseButton @click="deleteUserFromCompany">Delete</BaseButton>
-                <BaseButton :is-not-background="true" @click="toggleDeleteModal"
-                  >Cancel</BaseButton
-                >
-              </div>
-            </BaseModal>
+            <AreYouSureModal
+              v-if="isOpenDeleteModal"
+              :item-to-delete="userValue"
+              @close="toggleDeleteModal"
+              @delete="deleteUserFromCompany"
+            />
           </div>
 
           <div class="title">Name</div>
@@ -139,12 +125,12 @@ import BaseButton from '@/components/buttons/BaseButton'
 import BaseInput from '@/components/BaseInput'
 import BaseDropdown from '@/components/BaseDropdown'
 import PlusIcon from '@/components/icons/PlusIcon'
-import BaseModal from '@/components/modals/BaseModal'
+import AreYouSureModal from '@/components/modals/AreYouSureModal'
 
 export default {
   name: 'UserRolesScreen',
   components: {
-    BaseModal,
+    AreYouSureModal,
     PlusIcon,
     BaseDropdown,
     BaseInput,
@@ -218,6 +204,15 @@ export default {
       set(value) {
         this.existingUserEmail = value
       },
+    },
+    userValue() {
+      return {
+        type: 'user',
+        name:
+          this.existingUserData.first_name +
+          ' ' +
+          this.existingUserData.last_name,
+      }
     },
   },
   methods: {
@@ -504,18 +499,5 @@ export default {
 
 .success-message {
   color: var(--primary-text-color);
-}
-
-.question {
-  margin-bottom: 35px;
-}
-
-.mark {
-  color: var(--primary-button-color);
-}
-
-.modal-buttons {
-  display: flex;
-  gap: 20px;
 }
 </style>

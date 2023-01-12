@@ -3,9 +3,11 @@
     <div class="project-title-wrapper">
       <div class="title">{{ title }}</div>
 
-      <BaseTooltipSettings :id="workspaceId">
-        <div @click="openSettingsModal" class="tooltip-item"><EditIcon />Edit</div>
-        <div @click="deleteWorkspace" class="tooltip-item">
+      <BaseTooltipSettings :id="id">
+        <div class="tooltip-item" @click.stop="openSettingsModal">
+          <EditIcon />Edit
+        </div>
+        <div class="tooltip-item" @click.stop="toggleDeleteModal">
           <DeleteIcon />Delete
         </div>
       </BaseTooltipSettings>
@@ -24,6 +26,13 @@
       </button>
     </div>
   </div>
+
+  <AreYouSureModal
+    v-if="isOpenDeleteModal"
+    :item-to-delete="workspaceItem"
+    @close="toggleDeleteModal"
+    @delete="deleteWorkspace"
+  />
 </template>
 
 <script>
@@ -35,10 +44,12 @@ import MembersIconsBar from '@components/MembersIconsBar.vue'
 import BaseTooltipSettings from '@/components/BaseTooltipSettings'
 import EditIcon from '@/components/icons/EditIcon'
 import DeleteIcon from '@/components/icons/DeleteIcon'
+import AreYouSureModal from '@/components/modals/AreYouSureModal'
 
 export default {
   name: 'ProjectItem',
   components: {
+    AreYouSureModal,
     DeleteIcon,
     EditIcon,
     BaseTooltipSettings,
@@ -50,7 +61,7 @@ export default {
       type: String,
       default: '',
     },
-    workspaceId: {
+    id: {
       type: Number,
       required: true,
     },
@@ -59,6 +70,15 @@ export default {
       required: true,
     },
   },
+  data() {
+    return {
+      isOpenDeleteModal: false,
+      workspaceItem: {
+        type: 'workspace',
+        name: this.title,
+      },
+    }
+  },
   methods: {
     ...mapActions([action.DELETE_WORKSPACE]),
     openWorkspace() {
@@ -66,16 +86,16 @@ export default {
     },
     addNewProject() {
       this.$emit('add-new-project')
-      event.stopPropagation()
     },
     openSettingsModal() {
       this.$emit('open-modal', this.id)
-      event.stopPropagation()
     },
     deleteWorkspace() {
-      console.log(this.workspaceId)
-      this[action.DELETE_WORKSPACE](this.workspaceId)
-      event.stopPropagation()
+      this[action.DELETE_WORKSPACE](this.id)
+    },
+    toggleDeleteModal() {
+      this.isOpenDeleteModal = !this.isOpenDeleteModal
+      this.togglePageScroll(this.isOpenDeleteModal)
     },
   },
 }

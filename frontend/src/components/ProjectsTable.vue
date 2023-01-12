@@ -39,14 +39,31 @@
           <MembersIconsBar :members="projectMembers(item.members)" />
         </td>
         <td>{{ projectCreationDate(item.created_at) }}</td>
+        <td>
+          <BaseTooltipSettings :id="item.id">
+            <div
+              @click.stop="toggleDeleteModal(item.title, item.id)"
+              class="tooltip-item"
+            >
+              <DeleteIcon />Delete
+            </div>
+          </BaseTooltipSettings>
+        </td>
       </tr>
     </tbody>
   </table>
+
+  <AreYouSureModal
+    v-if="isOpenDeleteModal"
+    :item-to-delete="projectValue"
+    @close="toggleDeleteModal"
+    @delete="deleteProject(projectId)"
+  />
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
-import {get} from '@store/constants'
+import {mapActions, mapGetters} from 'vuex'
+import {action, get} from '@store/constants'
 
 import CheckRadioIcon from '@/components/icons/CheckIcon'
 import OnlineIcon from '@/components/icons/OnlineIcon'
@@ -55,10 +72,16 @@ import SocialRadioIcon from '@/components/icons/SocialRadioIcon'
 
 import MembersIconsBar from '@components/MembersIconsBar.vue'
 import TagsCollapsible from '@components/TagsCollapsible.vue'
+import BaseTooltipSettings from '@/components/BaseTooltipSettings'
+import DeleteIcon from '@/components/icons/DeleteIcon'
+import AreYouSureModal from '@/components/modals/AreYouSureModal'
 
 export default {
   name: 'ProjectsTable',
   components: {
+    AreYouSureModal,
+    DeleteIcon,
+    BaseTooltipSettings,
     CheckRadioIcon,
     MembersIconsBar,
     OnlineIcon,
@@ -66,17 +89,22 @@ export default {
     TagsCollapsible,
     SocialRadioIcon,
   },
-  data() {
-    return {
-      selectedProjects: [],
-      isOpenSettings: false,
-    }
-  },
   props: {
     values: {
       type: Array,
       default: () => [],
     },
+  },
+  data() {
+    return {
+      selectedProjects: [],
+      isOpenSettings: false,
+      isOpenDeleteModal: false,
+      projectId: '',
+      projectValue: {
+        type: 'project',
+      },
+    }
   },
   computed: {
     ...mapGetters({
@@ -92,6 +120,7 @@ export default {
     },
   },
   methods: {
+    ...mapActions([action.DELETE_PROJECT]),
     currentMember(id) {
       return this.members.find((el) => el.id === id)
     },
@@ -105,6 +134,16 @@ export default {
     },
     goToProject(id) {
       this.$emit('go-to-project', id)
+    },
+    deleteProject(id) {
+      this[action.DELETE_PROJECT](id)
+      this.toggleDeleteModal()
+    },
+    toggleDeleteModal(title, id) {
+      this.isOpenDeleteModal = !this.isOpenDeleteModal
+      this.togglePageScroll(this.isOpenDeleteModal)
+      this.projectValue.name = title
+      this.projectId = id
     },
   },
 }
@@ -271,6 +310,16 @@ export default {
 
   &:not(:first-child) {
     margin-left: -10px;
+  }
+}
+
+.tooltip-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  &:hover {
+    color: var(--primary-button-color);
   }
 }
 </style>
