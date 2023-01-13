@@ -197,7 +197,7 @@ class AuthorList(ListAPIView):
 def sources(request):
   first_letters = json.loads(request.body)
   if first_letters!='':
-    set = Feedlinks.objects.filter(source1__startswith=first_letters).values('source1').distinct().order_by('source1')
+    set = Feedlinks.objects.filter(source1__istartswith=first_letters).values('source1').distinct().order_by('source1')
   else:
     set = []
   sources_list = list(set)
