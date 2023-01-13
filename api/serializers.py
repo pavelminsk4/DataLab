@@ -5,7 +5,7 @@ from rest_framework import serializers
 from drf_writable_nested.serializers import WritableNestedModelSerializer
 from countries_plus.models import Country
 from widgets.models import WidgetsList2, ClippingFeedContentWidget, WidgetDescription, Dimensions, ProjectDimensions
-from reports.models import Templates
+from reports.models import Templates, RegularReport
 from alerts.models import Alert
 from project.models import Post
 
@@ -194,4 +194,10 @@ class RegisterSerializer(serializers.ModelSerializer):
 class ProfileUserSerializer(serializers.ModelSerializer):  
   class Meta:
     model = Profile
+    fields = '__all__'
+
+
+class RegularReportSerializer(WritableNestedModelSerializer):
+  class Meta:
+    model = RegularReport
     fields = '__all__'

@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django_celery_beat.models import PeriodicTask, CrontabSchedule
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, pre_delete
 from django.dispatch import receiver
 from datetime import datetime
 import json
@@ -122,3 +122,10 @@ def create_periodic_task(sender, instance, created, **kwargs):
       )
       instance.monthly_periodic_task = periodic_task
     instance.save()
+
+@receiver(pre_delete, sender=RegularReport)
+def delete_periodic_task(sender, instance, **kwargs):
+    instance.hourly_crontab_schedule.delete()
+    instance.daily_crontab_schedule.delete()
+    instance.weekly_crontab_schedule.delete()
+    instance.monthly_crontab_schedule.delete()
