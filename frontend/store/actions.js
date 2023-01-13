@@ -460,10 +460,11 @@ export default {
     }
   },
 
-  async [action.CREATE_NEW_ALERT]({commit}, data) {
+  async [action.CREATE_NEW_ALERT]({commit, dispatch}, {data, projectId}) {
     commit(mutator.SET_LOADING, true)
     try {
       await api.createAlert(data)
+      await dispatch(action.GET_ALERTS, projectId)
     } catch (e) {
       console.log(e)
     } finally {
@@ -483,10 +484,14 @@ export default {
     }
   },
 
-  async [action.CREATE_NEW_REGULAR_REPORT]({commit}, {projectId, data}) {
+  async [action.CREATE_NEW_REGULAR_REPORT](
+    {commit, dispatch},
+    {projectId, data}
+  ) {
     commit(mutator.SET_LOADING, true)
     try {
       await api.createRegularReport({projectId, data})
+      await dispatch(action.GET_REGULAR_REPORTS, projectId)
     } catch (e) {
       console.log(e)
     } finally {
@@ -656,6 +661,18 @@ export default {
     try {
       await api.deleteProject(projectId)
       await dispatch(action.GET_WORKSPACES)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
+  async [action.DELETE_ALERT]({commit, dispatch}, {alertId, projectId}) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      await api.deleteAlert(alertId)
+      await dispatch(action.GET_ALERTS, projectId)
     } catch (e) {
       console.log(e)
     } finally {

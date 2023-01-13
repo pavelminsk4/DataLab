@@ -25,7 +25,7 @@
         Create new workspace
       </BaseButton>
     </div>
-    <div v-if="workspaces" class="items-wrapper scroll">
+    <div v-if="workspaces.length" class="items-wrapper scroll">
       <ProjectItem
         v-for="(item, index) in sortWorkspaces"
         :key="index"
@@ -37,6 +37,8 @@
         @navigate-to-workspace="navigateToWorkspace(item.id)"
       />
     </div>
+
+    <BlankPage v-else page-name="Workspace" />
   </MainLayout>
 </template>
 
@@ -50,10 +52,12 @@ import MainLayout from '@components/layout/MainLayout'
 import ProjectItem from '@components/dashboard/ProjectItem'
 import BaseButton from '@components/buttons/BaseButton'
 import SettingsWorkspaceModal from '@/components/modals/SettingsWorkspaceModal'
+import BlankPage from '@/components/BlankPage'
 
 export default {
   name: 'DashboardList',
   components: {
+    BlankPage,
     SortIcon,
     BaseButton,
     MainLayout,

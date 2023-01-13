@@ -36,7 +36,7 @@
     </tbody>
   </table>
 
-  <div class="no-reports" v-else>No regular reports created.</div>
+  <BlankPage v-else page-name="RegularReports" />
 </template>
 
 <script>
@@ -46,10 +46,12 @@ import {action, get} from '@store/constants'
 import BaseButton from '@/components/buttons/BaseButton'
 import MembersIconsBar from '@components/MembersIconsBar.vue'
 import NavigationBar from '@/components/navigation/NavigationBar'
+import BlankPage from '@/components/BlankPage'
 
 export default {
   name: 'RegularReportsScreen',
   components: {
+    BlankPage,
     BaseButton,
     MembersIconsBar,
     NavigationBar,
@@ -212,15 +214,6 @@ export default {
       border-bottom: 1px solid var(--border-color);
     }
   }
-}
-
-.no-reports {
-  margin-top: 40px;
-
-  color: var(--primary-text-color);
-  font-size: 30px;
-  font-weight: 400;
-  line-height: 150%;
 }
 
 .type-icon {

@@ -4,3 +4,7 @@ export function snakeToPascal(string) {
     .map((substr) => substr.charAt(0).toUpperCase() + substr.slice(1))
     .join('')
 }
+
+export function splitToSeparateWords(string) {
+  return string.replace(/([a-z])([A-Z])/g, '$1 $2').toLowerCase()
+}

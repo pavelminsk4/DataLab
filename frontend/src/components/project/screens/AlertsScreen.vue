@@ -5,7 +5,7 @@
     hint="Set up alerts for your project with highly customized filters"
   >
     <BaseButton @click="goToCreateAlert" class="button">
-      <PlusIcon /> Add Alert
+      <PlusIcon /> Create New Alert
     </BaseButton>
   </NavigationBar>
 
@@ -33,25 +33,49 @@
         <td>
           <MembersIconsBar :members="alertsUsers(item.user)" />
         </td>
+        <td>
+          <BaseTooltipSettings :id="item.id">
+            <div
+              @click.stop="toggleDeleteModal(item.title, item.id)"
+              class="tooltip-item"
+            >
+              <DeleteIcon />Delete
+            </div>
+          </BaseTooltipSettings>
+        </td>
       </tr>
     </tbody>
   </table>
+  <BlankPage v-else page-name="Alerts" />
 
-  <div class="no-alerts" v-else>No alerts created.</div>
+  <AreYouSureModal
+    v-if="isOpenDeleteModal"
+    :item-to-delete="alertValue"
+    @close="toggleDeleteModal"
+    @delete="deleteAlert(currentAlertId)"
+  />
 </template>
 <script>
 import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
+import BlankPage from '@/components/BlankPage'
 import BaseButton from '@/components/buttons/BaseButton'
-import NavigationBar from '@/components/navigation/NavigationBar'
 import MembersIconsBar from '@components/MembersIconsBar.vue'
+import NavigationBar from '@/components/navigation/NavigationBar'
+import BaseTooltipSettings from '@/components/BaseTooltipSettings'
 
 import PlusIcon from '@/components/icons/PlusIcon'
+import DeleteIcon from '@/components/icons/DeleteIcon'
+import AreYouSureModal from '@/components/modals/AreYouSureModal'
 
 export default {
   name: 'AlertsScreen',
   components: {
+    BlankPage,
+    AreYouSureModal,
+    DeleteIcon,
+    BaseTooltipSettings,
     PlusIcon,
     BaseButton,
     NavigationBar,
@@ -62,6 +86,15 @@ export default {
       type: [Array, Object],
       required: true,
     },
+  },
+  data() {
+    return {
+      isOpenDeleteModal: false,
+      currentAlertId: '',
+      alertValue: {
+        type: 'alert',
+      },
+    }
   },
   created() {
     this[action.GET_ALERTS](this.currentProject.id)
@@ -81,7 +114,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions([action.GET_ALERTS]),
+    ...mapActions([action.GET_ALERTS, action.DELETE_ALERT]),
     goToCreateAlert() {
       this.$router.push({
         name: 'NewAlert',
@@ -99,6 +132,19 @@ export default {
       return this.workspaceMembers.filter((member) =>
         alertsUsersIds.includes(member.id)
       )
+    },
+    deleteAlert(id) {
+      this[action.DELETE_ALERT]({
+        alertId: id,
+        projectId: this.currentProject.id,
+      })
+      this.toggleDeleteModal()
+    },
+    toggleDeleteModal(title, id) {
+      this.isOpenDeleteModal = !this.isOpenDeleteModal
+      this.togglePageScroll(this.isOpenDeleteModal)
+      this.alertValue.name = title
+      this.currentAlertId = id
     },
   },
 }
@@ -200,15 +246,6 @@ export default {
   }
 }
 
-.no-alerts {
-  margin-top: 40px;
-
-  color: var(--primary-text-color);
-  font-size: 30px;
-  font-weight: 400;
-  line-height: 150%;
-}
-
 .type-icon {
   margin-right: 10px;
 }
@@ -219,7 +256,17 @@ export default {
 }
 
 .button {
-  width: 136px;
+  width: 176px;
   gap: 8px;
+}
+
+.tooltip-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  &:hover {
+    color: var(--primary-button-color);
+  }
 }
 </style>

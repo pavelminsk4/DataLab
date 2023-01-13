@@ -1,0 +1,90 @@
+<template>
+  <svg
+    width="60"
+    height="60"
+    viewBox="0 0 60 60"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M1 8C1 6.34315 2.34315 5 4 5H56C57.6569 5 59 6.34315 59 8V52C59 53.6569 57.6569 55 56 55H4C2.34315 55 1 53.6569 1 52V8Z"
+      stroke="white"
+      stroke-width="2"
+    />
+    <circle cx="5" cy="9" r="1" fill="white" />
+    <circle cx="9" cy="9" r="1" fill="white" />
+    <circle cx="13" cy="9" r="1" fill="white" />
+    <path
+      d="M6 18L35 18"
+      stroke="white"
+      stroke-width="2"
+      stroke-linecap="round"
+    />
+    <path
+      d="M6 22L23 22"
+      stroke="white"
+      stroke-width="2"
+      stroke-linecap="round"
+    />
+    <rect
+      x="7"
+      y="27"
+      width="12"
+      height="9"
+      rx="1"
+      stroke="white"
+      stroke-width="2"
+      stroke-linejoin="round"
+    />
+    <rect
+      x="24"
+      y="27"
+      width="12"
+      height="9"
+      rx="1"
+      stroke="white"
+      stroke-width="2"
+      stroke-linejoin="round"
+    />
+    <rect
+      x="41"
+      y="27"
+      width="12"
+      height="9"
+      rx="1"
+      stroke="white"
+      stroke-width="2"
+      stroke-linejoin="round"
+    />
+    <rect
+      x="7"
+      y="41"
+      width="12"
+      height="9"
+      rx="1"
+      stroke="white"
+      stroke-width="2"
+      stroke-linejoin="round"
+    />
+    <rect
+      x="24"
+      y="41"
+      width="12"
+      height="9"
+      rx="1"
+      stroke="white"
+      stroke-width="2"
+      stroke-linejoin="round"
+    />
+    <rect
+      x="41"
+      y="41"
+      width="12"
+      height="9"
+      rx="1"
+      stroke="white"
+      stroke-width="2"
+      stroke-linejoin="round"
+    />
+  </svg>
+</template>

@@ -1,17 +1,9 @@
-import axios from 'axios'
-import CSRF_TOKEN from '../csrf_token'
+import $api from '../http'
 
 const endpoint = (resource) => `${resource}`
 
-const config = {
-  headers: {
-    'content-type': 'application/json',
-    'X-CSRFToken': CSRF_TOKEN,
-  },
-}
-
 const fetch = async (action, resource, payload = null) => {
-  const response = await axios[action](endpoint(resource), payload, config)
+  const response = await $api[action](endpoint(resource), payload)
   return response.data
 }
 
@@ -221,6 +213,10 @@ export default {
 
   async deleteProject(projectId) {
     return fetch('delete', `/api/projects/${projectId}/`)
+  },
+
+  async deleteAlert(alertId) {
+    return fetch('delete', `/api/alerts/${alertId}/`)
   },
 
   async createRegularReport({projectId, data}) {
