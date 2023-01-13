@@ -101,7 +101,9 @@ export default {
   },
   data() {
     return {
-      reportData: {},
+      reportData: {
+        title: '',
+      },
       visible: false,
       isDuplicate: false,
       selectedUsers: [],

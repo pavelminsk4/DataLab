@@ -138,6 +138,7 @@ export default {
     GridLayout: VueGridLayout.GridLayout,
     GridItem: VueGridLayout.GridItem,
   },
+  emits: ['update-page', 'update-posts-count', 'set-sorting-value'],
   props: {
     projectId: {
       type: Number,
@@ -148,7 +149,6 @@ export default {
       required: false,
     },
   },
-  emits: ['update-page', 'update-posts-count'],
   data() {
     return {
       layout: [],

@@ -89,6 +89,7 @@ export default {
     TagsCollapsible,
     SocialRadioIcon,
   },
+  emits: ['go-to-project'],
   props: {
     values: {
       type: Array,
