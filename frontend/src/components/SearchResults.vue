@@ -122,10 +122,11 @@ export default {
     BaseSpinner,
     VPagination,
   },
+  emits: ['update-page', 'update-posts-count', 'add-sorting-value'],
   props: {
     currentProject: {
       type: [Array, Object],
-      required: false,
+      default: () => [],
     },
     isCheckboxClippingWidget: {
       type: Boolean,
@@ -148,7 +149,6 @@ export default {
       default: false,
     },
   },
-  emits: ['update-page', 'update-posts-count'],
   data() {
     return {
       isShow: false,

@@ -56,6 +56,7 @@ export default {
     MembersIconsBar,
     PlusIcon,
   },
+  emits: ['add-new-project', 'navigate-to-workspace', 'open-modal'],
   props: {
     title: {
       type: String,

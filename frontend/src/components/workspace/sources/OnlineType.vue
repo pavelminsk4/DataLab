@@ -47,7 +47,7 @@
           placeholder="Enter the language"
           :list="languages"
           :is-search="true"
-          :current-value="languages"
+          :current-value="language"
           :is-reject-selection="false"
           :is-clear-selected-value="clearValue"
           @select-option="selectItem"
@@ -213,7 +213,7 @@ export default {
   },
   watch: {
     async keywords() {
-      if (!this.keywords.keywords.length) {
+      if (!this.keywords.keywords?.length) {
         this.clearValue = true
         this.country = ''
         this.language = ''
