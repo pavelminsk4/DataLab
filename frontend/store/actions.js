@@ -663,6 +663,18 @@ export default {
     }
   },
 
+  async [action.DELETE_ALERT]({commit, dispatch}, {alertId, projectId}) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      await api.deleteAlert(alertId)
+      await dispatch(action.GET_ALERTS, projectId)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
   async [action.UPDATE_PROJECT_STATE]({commit}, newProject) {
     commit(mutator.SET_NEW_PROJECT, newProject)
   },
