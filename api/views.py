@@ -322,3 +322,7 @@ class ProfileViewSet(RetrieveUpdateAPIView):
   lookup_field = 'user__email'
   def get_queryset(self):
     return Profile.objects.filter(user__email=self.kwargs['user__email'])
+
+class RegularReportViewSet(viewsets.ModelViewSet):
+  serializer_class = RegularReportSerializer
+  queryset = RegularReport.objects.all()    

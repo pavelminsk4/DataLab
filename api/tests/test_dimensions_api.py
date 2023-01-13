@@ -5,64 +5,61 @@ from django.urls import reverse
 import json
 
 class DimensionsTests(APITestCase):
-  def create_dimensions(self):
-    Dimensions.objects.create(title='Content Author')
-    Dimensions.objects.create(title='Content Country')
-    Dimensions.objects.create(title='Content Language')
-
   def test_dimensions_api(self):
-    self.create_dimensions()
+    dim1 = Dimensions.objects.create(title='Content Author')
+    dim2 = Dimensions.objects.create(title='Content Country')
+    dim3 = Dimensions.objects.create(title='Content Language')
     url = reverse('dimensions-list')
     response = self.client.get(url)
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     res = [
       {
-        'id':1,
+        'id':dim1.id,
         'title':'Content Author',
         'description':'',
       },
       {
-        'id':2,
+        'id':dim2.id,
         'title':'Content Country',
         'description':'',
       },
       {
-        'id':3,
+        'id':dim3.id,
         'title':'Content Language',
         'description':'',
       },
     ]
     self.assertEqual(json.loads(response.content), res)
-    url2 = reverse('dimensions-detail', kwargs={'pk':3})
+    url2 = reverse('dimensions-detail', kwargs={'pk':dim3.id})
     self.client.delete(url2)
     response = self.client.get(url)
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     res = [
       {
-        'id':1,
+        'id':dim1.id,
         'title':'Content Author',
         'description':'',
       },
       {
-        'id':2,
+        'id':dim2.id,
         'title':'Content Country',
         'description':'',
       },
     ]
     self.assertEqual(json.loads(response.content), res)
-    url3 = reverse('dimensions-detail', kwargs={'pk':2})
-    data = { 'id':2, 'title':'Content City'}
+    url3 = reverse('dimensions-detail', kwargs={'pk':dim2.id})
+    data = { 'id':dim2.id, 'title':'Content City'}
     self.client.patch(url3, data)
     response = self.client.get(url)
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     res = [
       {
-        'id':1,
+        'id':dim1.id,
         'title':'Content Author',
         'description':'',
       },
       {
-        'id':2,
+        'id':dim2.id,
         'title':'Content City',
         'description':'',
       },
