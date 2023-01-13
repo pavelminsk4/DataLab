@@ -3,7 +3,14 @@
     <div class="project-title-wrapper">
       <div class="title">{{ title }}</div>
 
-      <PointsIcon @click="openModal" class="points-icon" />
+      <BaseTooltipSettings :id="id">
+        <div class="tooltip-item" @click.stop="openSettingsModal">
+          <EditIcon />Edit
+        </div>
+        <div class="tooltip-item" @click.stop="toggleDeleteModal">
+          <DeleteIcon />Delete
+        </div>
+      </BaseTooltipSettings>
     </div>
 
     <div class="cart-button-wrapper">
@@ -19,18 +26,34 @@
       </button>
     </div>
   </div>
+
+  <AreYouSureModal
+    v-if="isOpenDeleteModal"
+    :item-to-delete="workspaceItem"
+    @close="toggleDeleteModal"
+    @delete="deleteWorkspace"
+  />
 </template>
 
 <script>
+import {mapActions} from 'vuex'
+import {action} from '@store/constants'
+
 import PlusIcon from '@components/icons/PlusIcon'
-import PointsIcon from '@components/icons/PointsIcon'
 import MembersIconsBar from '@components/MembersIconsBar.vue'
+import BaseTooltipSettings from '@/components/BaseTooltipSettings'
+import EditIcon from '@/components/icons/EditIcon'
+import DeleteIcon from '@/components/icons/DeleteIcon'
+import AreYouSureModal from '@/components/modals/AreYouSureModal'
 
 export default {
   name: 'ProjectItem',
   components: {
+    AreYouSureModal,
+    DeleteIcon,
+    EditIcon,
+    BaseTooltipSettings,
     MembersIconsBar,
-    PointsIcon,
     PlusIcon,
   },
   props: {
@@ -47,17 +70,32 @@ export default {
       required: true,
     },
   },
+  data() {
+    return {
+      isOpenDeleteModal: false,
+      workspaceItem: {
+        type: 'workspace',
+        name: this.title,
+      },
+    }
+  },
   methods: {
+    ...mapActions([action.DELETE_WORKSPACE]),
     openWorkspace() {
       this.$emit('navigate-to-workspace')
     },
     addNewProject() {
       this.$emit('add-new-project')
-      event.stopPropagation()
     },
-    openModal() {
+    openSettingsModal() {
       this.$emit('open-modal', this.id)
-      event.stopPropagation()
+    },
+    deleteWorkspace() {
+      this[action.DELETE_WORKSPACE](this.id)
+    },
+    toggleDeleteModal() {
+      this.isOpenDeleteModal = !this.isOpenDeleteModal
+      this.togglePageScroll(this.isOpenDeleteModal)
     },
   },
 }
@@ -123,27 +161,6 @@ export default {
   height: 30px;
 }
 
-.points-icon {
-  z-index: 3;
-
-  flex-shrink: 0;
-
-  width: 30px;
-  height: 30px;
-
-  transition: all 0.3s;
-  pointer-events: stroke;
-
-  color: var(--secondary-text-color);
-}
-
-.points-icon:hover {
-  border-radius: 100%;
-
-  color: var(--primary-text-color);
-  background-color: var(--primary-button-color);
-}
-
 button {
   position: relative;
 
@@ -205,6 +222,20 @@ button:hover .circle {
 button:hover .button-text {
   opacity: 1;
   color: var(--primary-text-color);
+}
+
+.tooltip-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  &:first-child {
+    margin-bottom: 6px;
+  }
+
+  &:hover {
+    color: var(--primary-button-color);
+  }
 }
 
 @media screen and (max-width: 1080px) {

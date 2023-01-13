@@ -1,36 +1,22 @@
 <template>
   <div class="settings-container" ref="settings-wrapper">
     <div v-if="isOpenSettings" class="options-container">
-      <div class="option">
-        <FolderIcon />
-        Move to
-      </div>
-      <div class="option">
-        <DuplicateIcon />
-        Duplicate
-      </div>
-      <div class="option">
-        <DeleteIcon />
-        Delete
-      </div>
+      <slot></slot>
     </div>
-    <PointsIcon class="points-icon" @click="openSettings" />
+    <PointsIcon
+      :class="['points-icon', isOpenSettings && 'active-points']"
+      @click.stop="openSettings"
+    />
   </div>
 </template>
 
 <script>
-import PointsIcon from '@components/icons/PointsIcon'
-import FolderIcon from '@components/icons/FolderIcon'
-import DeleteIcon from '@components/icons/DeleteIcon'
-import DuplicateIcon from '@components/icons/DuplicateIcon'
+import PointsIcon from '@/components/icons/PointsIcon'
 
 export default {
-  name: 'TableSettingsButton',
+  name: 'BaseTooltipSettings',
   components: {
-    DeleteIcon,
-    FolderIcon,
     PointsIcon,
-    DuplicateIcon,
   },
   props: {
     id: {
@@ -64,51 +50,77 @@ export default {
 <style lang="scss" scoped>
 .settings-container {
   position: relative;
+
+  width: 30px;
+  height: 30px;
 }
 
 .options-container {
   position: absolute;
-  bottom: 32px;
-  right: 0;
+  right: 40px;
 
   display: flex;
   flex-direction: column;
 
-  border-radius: 15px;
-  padding: 17px 29px 18px 22px;
+  white-space: nowrap;
+
+  border-radius: 4px;
+  padding: 10px 15px;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.22);
 
-  color: black;
-  background: #ffffff;
+  background: var(--primary-text-color);
+
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 110%;
+  color: var(--secondary-button-color);
+
+  &::after {
+    content: '';
+
+    position: absolute;
+    top: 29%;
+    right: -10px;
+
+    transform: translate(-50%, -50%) rotate(225deg);
+
+    margin-left: 2px;
+
+    border-width: 5px;
+    border-style: solid;
+    border-bottom-left-radius: 2px;
+
+    color: var(--primary-text-color);
+  }
 }
 
 .close-options {
   display: none;
 }
 
-.option {
-  display: flex;
-  align-items: center;
-
-  svg {
-    width: 20px;
-    height: 20px;
-
-    margin-right: 10px;
-  }
-}
-
 .points-icon {
-  margin-right: 17px;
+  z-index: 3;
 
   flex-shrink: 0;
 
-  color: var(--secondary-text-color);
+  width: 30px;
+  height: 30px;
 
   transition: all 0.3s;
+  pointer-events: stroke;
+
+  color: var(--secondary-text-color);
 }
 
 .points-icon:hover {
+  border-radius: 100%;
+
+  color: var(--primary-text-color);
+  background-color: var(--primary-button-color);
+}
+
+.active-points {
   border-radius: 100%;
 
   color: var(--primary-text-color);
