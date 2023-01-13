@@ -5,7 +5,7 @@
     hint="Set up alerts for your project with highly customized filters"
   >
     <BaseButton @click="goToCreateAlert" class="button">
-      <PlusIcon /> Add Alert
+      <PlusIcon /> Create New Alert
     </BaseButton>
   </NavigationBar>
 
@@ -46,7 +46,7 @@
       </tr>
     </tbody>
   </table>
-  <div class="no-alerts" v-else>No alerts created.</div>
+  <BlankPage v-else page-name="Alerts" />
 
   <AreYouSureModal
     v-if="isOpenDeleteModal"
@@ -59,6 +59,7 @@
 import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
+import BlankPage from '@/components/BlankPage'
 import BaseButton from '@/components/buttons/BaseButton'
 import MembersIconsBar from '@components/MembersIconsBar.vue'
 import NavigationBar from '@/components/navigation/NavigationBar'
@@ -71,6 +72,7 @@ import AreYouSureModal from '@/components/modals/AreYouSureModal'
 export default {
   name: 'AlertsScreen',
   components: {
+    BlankPage,
     AreYouSureModal,
     DeleteIcon,
     BaseTooltipSettings,
@@ -244,15 +246,6 @@ export default {
   }
 }
 
-.no-alerts {
-  margin-top: 40px;
-
-  color: var(--primary-text-color);
-  font-size: 30px;
-  font-weight: 400;
-  line-height: 150%;
-}
-
 .type-icon {
   margin-right: 10px;
 }
@@ -263,7 +256,7 @@ export default {
 }
 
 .button {
-  width: 136px;
+  width: 176px;
   gap: 8px;
 }
 

@@ -263,12 +263,15 @@ export default {
     ]),
     async createAlert() {
       this[action.CREATE_NEW_ALERT]({
-        title: this.titleProxy,
-        triggered_on_every_n_new_posts: +this.triggerProxy,
-        how_many_posts_to_send: +this.postsProxy,
-        alert_condition: '',
-        project: this.projectId,
-        user: [...this.usersId],
+        data: {
+          title: this.titleProxy,
+          triggered_on_every_n_new_posts: +this.triggerProxy,
+          how_many_posts_to_send: +this.postsProxy,
+          alert_condition: '',
+          project: this.projectId,
+          user: [...this.usersId],
+        },
+        projectId: this.projectId,
       })
 
       await this[action.GET_ALERTS](this.projectId)
