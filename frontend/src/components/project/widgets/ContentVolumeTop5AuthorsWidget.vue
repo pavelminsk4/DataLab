@@ -5,11 +5,7 @@
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
   >
-    <LineChart
-      :chart-options="chartOptions"
-      :chart-data="chartData"
-      class="line-chart"
-    />
+    <LineChart :chart-data="chartData" class="line-chart" />
   </WidgetsLayout>
 </template>
 
@@ -58,48 +54,6 @@ export default {
       },
     })
   },
-  data() {
-    return {
-      chartOptions: {
-        responsive: true,
-        maintainAspectRatio: false,
-        skipNull: true,
-        animation: {
-          easing: 'easeInOutQuad',
-          duration: 520,
-        },
-        onHover: (event, chartElement) => {
-          const target = event.native ? event.native.target : event.target
-          target.style.cursor = chartElement[0] ? 'pointer' : 'default'
-        },
-        plugins: {
-          datalabels: {
-            display: false,
-          },
-          tooltip: {
-            yAlign: 'bottom',
-            titleColor: '#151515',
-            bodyColor: '#151515',
-            backgroundColor: 'rgba(255, 255, 255, 0.96)',
-            displayColors: false,
-          },
-          customTitle: {
-            y: {
-              display: true,
-              text: 'Numbers',
-            },
-            x: {
-              display: true,
-              text: 'Month',
-              offsetX: 5,
-              offsetY: 5,
-              font: '12px Comic Sans MS',
-            },
-          },
-        },
-      },
-    }
-  },
   computed: {
     ...mapGetters({
       contentVolumeTopAuthors: get.CONTENT_VOLUME_TOP_AUTHORS,
@@ -131,21 +85,41 @@ export default {
       ]
 
       Object.values(this.contentVolumeTopAuthors).forEach((el, index) => {
-        datasetsValue.push({
-          label: Object.keys(el)[0],
-          borderColor: lineColors[index],
-          pointStyle: 'circle',
-          pointRadius: 3,
-          pointBackgroundColor: lineColors[index],
-          pointBorderWidth: 1,
-          pointBorderColor: '#FFFFFF',
-          borderWidth: 1,
-          radius: 0.3,
-          fill: true,
-          tension: 0.3,
-          data: el[Object.keys(el)].map((el) => el.post_count),
-          skipNull: true,
-        })
+        if (Object.keys(el)[0] === 'Missing in source') {
+          datasetsValue.push({
+            label: Object.keys(el)[0],
+            borderColor: '#808080',
+            pointStyle: 'circle',
+            pointRadius: 3,
+            pointBackgroundColor: '#808080',
+            pointBorderWidth: 1,
+            pointBorderColor: '#808080',
+            borderWidth: 1,
+            radius: 0.3,
+            fill: true,
+            tension: 0.3,
+            data: el[Object.keys(el)].map((el) => el.post_count),
+            skipNull: true,
+            color: '#808080',
+          })
+        } else {
+          datasetsValue.push({
+            label: Object.keys(el)[0],
+            borderColor: lineColors[index],
+            pointStyle: 'circle',
+            pointRadius: 3,
+            pointBackgroundColor: lineColors[index],
+            pointBorderWidth: 1,
+            pointBorderColor: '#FFFFFF',
+            borderWidth: 1,
+            radius: 0.3,
+            fill: true,
+            tension: 0.3,
+            data: el[Object.keys(el)].map((el) => el.post_count),
+            skipNull: true,
+            color: '#FFFFFF',
+          })
+        }
       })
 
       return datasetsValue

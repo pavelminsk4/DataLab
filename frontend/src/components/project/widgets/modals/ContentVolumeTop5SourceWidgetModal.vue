@@ -1,11 +1,11 @@
 <template>
   <BaseModal modal-frame-style="width: 90vw; height: 80vh;">
-    <div class="main-title">{{ contentTop10SourcesWidget.title }}</div>
+    <div class="main-title">{{ contentVolumeTopSourcesWidget.title }}</div>
 
     <div class="settings-wrapper">
       <section class="chart-wrapper">
-        <div class="chart-title">{{ contentTop10SourcesWidget.title }}</div>
-        <LineChart :datasets="chartDatasets" :chart-labels="labels" />
+        <div class="chart-title">{{ contentVolumeTopSourcesWidget.title }}</div>
+        <LineChart :chart-data="chartData" />
       </section>
 
       <div class="general-wrapper-settings">
@@ -13,20 +13,20 @@
 
         <BasicSettingsScreen
           v-if="panelName === 'General'"
-          :period="contentTop10SourcesWidget.aggregation_period"
-          :widget-title="contentTop10SourcesWidget.title"
-          :widget-description="contentTop10SourcesWidget.description"
+          :period="contentVolumeTopSourcesWidget.aggregation_period"
+          :widget-title="contentVolumeTopSourcesWidget.title"
+          :widget-description="contentVolumeTopSourcesWidget.description"
           @save-changes="saveChanges"
           @get-widget-params="updateAggregationPeriod"
         />
 
         <DimensionsScreen
           v-if="panelName === 'Dimensions'"
-          :active-dimensions="contentTop10SourcesWidget"
+          :active-dimensions="contentVolumeTopSourcesWidget"
           :project-id="projectId"
-          :widget-author="contentTop10SourcesWidget.author_dim_pivot"
-          :widget-country="contentTop10SourcesWidget.country_dim_pivot"
-          :widget-language="contentTop10SourcesWidget.language_dim_pivot"
+          :widget-author="contentVolumeTopSourcesWidget.author_dim_pivot"
+          :widget-country="contentVolumeTopSourcesWidget.country_dim_pivot"
+          :widget-language="contentVolumeTopSourcesWidget.language_dim_pivot"
           @save-dimensions-settings="saveDimensions"
         />
       </div>
@@ -67,16 +67,16 @@ export default {
   computed: {
     ...mapGetters({
       widgets: get.AVAILABLE_WIDGETS,
-      contentTop10Sources: get.CONTENT_VOLUME_TOP_SOURCES,
+      contentVolumeTopSourcesData: get.CONTENT_VOLUME_TOP_SOURCES,
     }),
-    contentTop10SourcesWidget() {
+    contentVolumeTopSourcesWidget() {
       return this.widgets['content_volume_top_5_source_widget']
     },
     labels() {
       let labelsCollection = []
       let keys = []
 
-      Object.values(this.contentTop10Sources).forEach((el) => {
+      Object.values(this.contentVolumeTopSourcesData).forEach((el) => {
         keys.push(Object.keys(el))
         labelsCollection.push(el[keys[0]])
       })
@@ -98,25 +98,51 @@ export default {
         '#D930F4',
       ]
 
-      Object.values(this.contentTop10Sources).forEach((el, index) => {
-        datasetsValue.push({
-          label: Object.keys(el)[0],
-          borderColor: lineColors[index],
-          pointStyle: 'circle',
-          pointRadius: 3,
-          pointBackgroundColor: lineColors[index],
-          pointBorderWidth: 1,
-          pointBorderColor: '#FFFFFF',
-          borderWidth: 1,
-          radius: 0.3,
-          fill: true,
-          tension: 0.3,
-          data: el[Object.keys(el)].map((el) => el.post_count),
-          skipNull: true,
-        })
+      Object.values(this.contentVolumeTopSourcesData).forEach((el, index) => {
+        if (Object.keys(el)[0] === 'Missing in source') {
+          datasetsValue.push({
+            label: Object.keys(el)[0],
+            borderColor: '#808080',
+            pointStyle: 'circle',
+            pointRadius: 3,
+            pointBackgroundColor: '#808080',
+            pointBorderWidth: 1,
+            pointBorderColor: '#808080',
+            borderWidth: 1,
+            radius: 0.3,
+            fill: true,
+            tension: 0.3,
+            data: el[Object.keys(el)].map((el) => el.post_count),
+            skipNull: true,
+            color: '#808080',
+          })
+        } else {
+          datasetsValue.push({
+            label: Object.keys(el)[0],
+            borderColor: lineColors[index],
+            pointStyle: 'circle',
+            pointRadius: 3,
+            pointBackgroundColor: lineColors[index],
+            pointBorderWidth: 1,
+            pointBorderColor: '#FFFFFF',
+            borderWidth: 1,
+            radius: 0.3,
+            fill: true,
+            tension: 0.3,
+            data: el[Object.keys(el)].map((el) => el.post_count),
+            skipNull: true,
+            color: '#FFFFFF',
+          })
+        }
       })
 
       return datasetsValue
+    },
+    chartData() {
+      return {
+        labels: this.labels,
+        datasets: this.chartDatasets,
+      }
     },
   },
   methods: {
@@ -139,15 +165,15 @@ export default {
           value: {
             aggregation_period: val.toLowerCase(),
             author_dim_pivot:
-              this.contentTop10SourcesWidget.author_dim_pivot || null,
+              this.contentVolumeTopSourcesWidget.author_dim_pivot || null,
             language_dim_pivot:
-              this.contentTop10SourcesWidget.language_dim_pivot || null,
+              this.contentVolumeTopSourcesWidget.language_dim_pivot || null,
             country_dim_pivot:
-              this.contentTop10SourcesWidget.country_dim_pivot || null,
+              this.contentVolumeTopSourcesWidget.country_dim_pivot || null,
             sentiment_dim_pivot:
-              this.contentTop10SourcesWidget.sentiment_dim_pivot || null,
+              this.contentVolumeTopSourcesWidget.sentiment_dim_pivot || null,
             source_dim_pivot:
-              this.contentTop10SourcesWidget.source_dim_pivot || null,
+              this.contentVolumeTopSourcesWidget.source_dim_pivot || null,
           },
         })
       } catch (e) {
@@ -159,13 +185,13 @@ export default {
         projectId: this.projectId,
         data: {
           content_volume_top_5_source_widget: {
-            id: this.contentTop10SourcesWidget.id,
-            title: title || this.contentTop10SourcesWidget.title,
+            id: this.contentVolumeTopSourcesWidget.id,
+            title: title || this.contentVolumeTopSourcesWidget.title,
             description:
-              description || this.contentTop10SourcesWidget.description,
+              description || this.contentVolumeTopSourcesWidget.description,
             aggregation_period:
               aggregationPeriod.toLowerCase() ||
-              this.contentTop10SourcesWidget.aggregation_period,
+              this.contentVolumeTopSourcesWidget.aggregation_period,
           },
         },
       })
@@ -177,42 +203,46 @@ export default {
     },
     saveDimensions(author, language, country) {
       if (author || author === '') {
-        author = author || this.contentTop10SourcesWidget.author_dim_pivot
+        author = author || this.contentVolumeTopSourcesWidget.author_dim_pivot
       }
       if (language || language === '') {
-        language = language || this.contentTop10SourcesWidget.language_dim_pivot
+        language =
+          language || this.contentVolumeTopSourcesWidget.language_dim_pivot
       }
       if (country || country === '') {
-        country = country || this.contentTop10SourcesWidget.country_dim_pivot
+        country =
+          country || this.contentVolumeTopSourcesWidget.country_dim_pivot
       }
 
       this[action.UPDATE_AVAILABLE_WIDGETS]({
         projectId: this.projectId,
         data: {
           content_volume_top_5_source_widget: {
-            id: this.contentTop10SourcesWidget.id,
+            id: this.contentVolumeTopSourcesWidget.id,
             aggregation_period:
-              this.contentTop10SourcesWidget.aggregation_period,
+              this.contentVolumeTopSourcesWidget.aggregation_period,
             author_dim_pivot: author,
             language_dim_pivot: language,
             country_dim_pivot: country,
             sentiment_dim_pivot:
-              this.contentTop10SourcesWidget.sentiment_dim_pivot,
-            source_dim_pivot: this.contentTop10SourcesWidget.source_dim_pivot,
+              this.contentVolumeTopSourcesWidget.sentiment_dim_pivot,
+            source_dim_pivot:
+              this.contentVolumeTopSourcesWidget.source_dim_pivot,
           },
         },
       })
       this[action.GET_CONTENT_VOLUME_TOP_SOURCES]({
         projectId: this.projectId,
         value: {
-          id: this.contentTop10SourcesWidget.id,
-          aggregation_period: this.contentTop10SourcesWidget.aggregation_period,
+          id: this.contentVolumeTopSourcesWidget.id,
+          aggregation_period:
+            this.contentVolumeTopSourcesWidget.aggregation_period,
           author_dim_pivot: author,
           language_dim_pivot: language,
           country_dim_pivot: country,
           sentiment_dim_pivot:
-            this.contentTop10SourcesWidget.sentiment_dim_pivot,
-          source_dim_pivot: this.contentTop10SourcesWidget.source_dim_pivot,
+            this.contentVolumeTopSourcesWidget.sentiment_dim_pivot,
+          source_dim_pivot: this.contentVolumeTopSourcesWidget.source_dim_pivot,
         },
       })
       this[action.GET_AVAILABLE_WIDGETS](this.projectId)

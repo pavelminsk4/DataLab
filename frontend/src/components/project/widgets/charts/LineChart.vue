@@ -76,14 +76,16 @@ export default {
       type: Object,
       default: () => {},
     },
+    chartData: {
+      type: Object,
+      default: () => {},
+    },
+    isDisplayLegend: {
+      type: Boolean,
+      default: true,
+    },
   },
   computed: {
-    chartData() {
-      return {
-        labels: this.chartLabels,
-        datasets: this.datasets,
-      }
-    },
     chartOptions() {
       return {
         responsive: true,
@@ -101,7 +103,38 @@ export default {
             display: false,
           },
           legend: {
-            display: false,
+            display: this.isDisplayLegend,
+            onClick: (evt, legendItem, legend) => {
+              const datasets = legend.legendItems.map((dataset) => {
+                return dataset.text
+              })
+              const index = datasets.indexOf(legendItem.text)
+              if (legend.chart.isDatasetVisible(index) === true) {
+                legend.chart.hide(index)
+              } else {
+                legend.chart.show(index)
+              }
+            },
+            labels: {
+              generateLabels: (chart) => {
+                let visibility = []
+                chart.data.datasets.forEach((el, index) => {
+                  if (chart.isDatasetVisible(index) === false) {
+                    visibility.push(true)
+                  } else {
+                    visibility.push(false)
+                  }
+                })
+
+                return chart.data.datasets.map((dataset, index) => ({
+                  text: dataset.label,
+                  fillStyle: dataset.borderColor,
+                  strokeStyle: dataset.borderColor,
+                  fontColor: dataset.color,
+                  hidden: visibility[index],
+                }))
+              },
+            },
           },
           tooltip: {
             yAlign: 'bottom',
