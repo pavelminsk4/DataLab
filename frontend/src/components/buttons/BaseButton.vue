@@ -4,7 +4,7 @@
     :class="[
       'base-button',
       isNotBackground && 'not-background',
-      (isDisabled || (isLoading && buttonLoading)) && 'disabled',
+      (isDisabled || isLoading || buttonLoading) && 'disabled',
     ]"
     :disabled="isDisabled || isLoading || buttonLoading"
   >

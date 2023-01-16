@@ -680,6 +680,17 @@ export default {
     }
   },
 
+  async [action.GET_INSTANTLY_REPORT]({commit}, projectId) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      return api.downloadInstantlyReport(projectId)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
   async [action.UPDATE_PROJECT_STATE]({commit}, newProject) {
     commit(mutator.SET_NEW_PROJECT, newProject)
   },

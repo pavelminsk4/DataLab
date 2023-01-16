@@ -265,4 +265,8 @@ export default {
       `/api/projects/${projectId}/clipping_feed_content_widget/delete/${postId}`
     )
   },
+
+  async downloadInstantlyReport(projectId) {
+    return fetch('get', `/projects/${projectId}/reports/instantly_report`)
+  },
 }
