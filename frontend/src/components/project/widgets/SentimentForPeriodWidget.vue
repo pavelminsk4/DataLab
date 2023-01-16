@@ -7,7 +7,7 @@
   >
     <LineChart
       v-if="isLineChart"
-      :chart-data="chartData"
+      :custom-chart-data="chartData"
       :is-display-legend="false"
     />
 
