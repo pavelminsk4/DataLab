@@ -1,6 +1,11 @@
 <template>
   <div
-    :class="['selector', {open: visible}, `selector-${name}`]"
+    :class="[
+      'selector',
+      {open: visible},
+      `selector-${name}`,
+      hasError && 'error',
+    ]"
     :data-value="value"
     :data-list="list"
     @click="visible = true"
@@ -46,12 +51,19 @@
         </li>
       </ul>
     </div>
+
+    <div v-if="hasError" class="error-container">
+      {{ errorMessage }}
+      <ErrorIcon class="error-icon" />
+    </div>
   </div>
 </template>
 <script>
 import ArrowDownIcon from '@/components/icons/ArrowDownIcon'
+import ErrorIcon from '@/components/icons/ErrorIcon'
+
 export default {
-  components: {ArrowDownIcon},
+  components: {ArrowDownIcon, ErrorIcon},
   emits: ['update:modelValue', 'select-option'],
   props: {
     list: {
@@ -85,6 +97,14 @@ export default {
     isClearSelectedValue: {
       type: Boolean,
       default: false,
+    },
+    hasError: {
+      type: Boolean,
+      default: false,
+    },
+    errorMessage: {
+      type: String,
+      default: 'Error',
     },
   },
   data() {
@@ -224,5 +244,28 @@ export default {
 }
 .visible {
   visibility: visible;
+}
+
+.error {
+  border: 1px solid var(--negative-status);
+  border-radius: 10px;
+
+  .error-container {
+    --height-icon: 16px;
+
+    position: absolute;
+    top: calc(50% - var(--height-icon) / 2);
+    right: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    white-space: nowrap;
+
+    font-size: 12px;
+    color: var(--negative-status);
+  }
 }
 </style>

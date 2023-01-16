@@ -27,7 +27,7 @@
       <BaseInput
         v-model.trim="titleProxy"
         placeholder="Alert Title"
-        :isError="!!errorTitle"
+        :hasError="!!errorTitle"
         :errorMessage="errorTitle"
       />
 
@@ -67,7 +67,7 @@
             v-model="triggerProxy"
             inputType="number"
             placeholder="Number"
-            :isError="!!errorTrigger"
+            :hasError="!!errorTrigger"
             :errorMessage="errorTrigger"
           >
             <div class="control-buttons">
@@ -93,7 +93,7 @@
             v-model="postsProxy"
             inputType="number"
             placeholder="Number"
-            :isError="!!errorPosts"
+            :hasError="!!errorPosts"
             :errorMessage="errorPosts"
           >
             <div class="control-buttons">
@@ -307,13 +307,13 @@ export default {
       }
     },
     validationForm() {
-      this.errorTitle = this.titleProxy ? null : 'wrong title'
+      this.errorTitle = this.titleProxy ? null : 'required'
       this.errorTrigger = this.validationNumberInput(this.triggerProxy)
         ? null
-        : 'wrong number'
+        : 'required'
       this.errorPosts = this.validationNumberInput(this.postsProxy)
         ? null
-        : 'wrong number'
+        : 'required'
 
       return !this.errorTitle && !this.errorTrigger && !this.errorPosts
     },

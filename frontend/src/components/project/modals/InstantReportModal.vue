@@ -9,8 +9,10 @@
         name="template"
         :list="titleTemplates"
         :is-reject-selection="false"
-        @select-option="selectItem"
+        :hasError="!!errors.templateError"
+        :errorMessage="errors.templateError"
         class="select"
+        @select-option="selectItem"
       />
 
       <BaseButton
@@ -21,13 +23,17 @@
         Save Template
       </BaseButton>
 
-      <a class="link" :href="`/projects/${projectId}/reports/instantly_report`">
+      <BaseButton :buttonLoading="loading" class="link" @click="downloadReport">
         Download
-      </a>
+      </BaseButton>
     </div>
 
     <div class="layout-settings-wrapper">
-      <div class="layout-elements">
+      <DivWithError
+        :hasError="!!errors.layoutElementsError"
+        :errorMessage="errors.layoutElementsError"
+        class="layout-elements"
+      >
         <div class="settings-name">Layout Elements</div>
         <BaseCheckbox
           v-for="(item, index) in layoutElements"
@@ -38,37 +44,45 @@
         >
           <span class="name">{{ item.value }}</span>
         </BaseCheckbox>
-      </div>
+      </DivWithError>
 
       <div class="general-settings">
-        <div class="general-item">
+        <DivWithError
+          :hasError="!!errors.formatError"
+          :errorMessage="errors.formatError"
+          class="general-item"
+        >
           <div class="settings-name">Format</div>
           <BaseRadio
             v-for="(item, index) in format"
             :key="item + index"
-            v-model="selectedFormat"
+            v-model="selectedFormatProxy"
             :checked="item"
             :value="item"
             :id="item + index"
             :label="item"
             class="radio-btn"
           />
-        </div>
+        </DivWithError>
 
-        <div class="general-item">
+        <DivWithError
+          :hasError="!!errors.languageError"
+          :errorMessage="errors.languageError"
+          class="general-item"
+        >
           <div class="settings-name">Language</div>
 
           <BaseRadio
             v-for="(item, index) in language"
             :key="item + index"
-            v-model="selectedLanguage"
+            v-model="selectedLanguageProxy"
             :checked="item"
             :value="item"
             :id="item + index"
             :label="item"
             class="radio-btn"
           />
-        </div>
+        </DivWithError>
       </div>
     </div>
   </BaseModal>
@@ -83,6 +97,7 @@ import BaseSelect from '@/components/BaseSelect'
 import BaseModal from '@/components/modals/BaseModal'
 import BaseButton from '@/components/buttons/BaseButton'
 import BaseCheckbox from '@/components/BaseCheckbox'
+import DivWithError from '@/components/DivWithError'
 
 export default {
   name: 'InstantReportModal',
@@ -92,6 +107,7 @@ export default {
     BaseSelect,
     BaseButton,
     BaseModal,
+    DivWithError,
   },
   props: {
     projectId: {
@@ -101,7 +117,7 @@ export default {
   },
   data() {
     return {
-      template: '',
+      newTemplate: '',
       layoutElements: [
         {value: 'Table Content', key: 'report_table_content'},
         {value: 'Widgets', key: 'report_widgets'},
@@ -146,6 +162,13 @@ export default {
       collectionProxy: [],
       collectionProperties: [],
       layoutKeys: [],
+      errors: {
+        templateError: null,
+        layoutElementsError: null,
+        formatError: null,
+        languageError: null,
+      },
+      loading: false,
     }
   },
   created() {
@@ -158,20 +181,53 @@ export default {
     titleTemplates() {
       return this.templates.map((el) => el.title)
     },
+    template: {
+      get() {
+        return this.newTemplate
+      },
+      set(val) {
+        this.newTemplate = val
+        this.errors.templateError = null
+      },
+    },
+    selectedFormatProxy: {
+      get() {
+        return this.selectedFormat
+      },
+      set(val) {
+        this.selectedFormat = val
+        this.errors.formatError = null
+      },
+    },
+    selectedLanguageProxy: {
+      get() {
+        return this.selectedLanguage
+      },
+      set(val) {
+        this.selectedLanguage = val
+        this.errors.languageError = null
+      },
+    },
   },
   methods: {
-    ...mapActions([action.GET_TEMPLATES, action.UPDATE_PROJECT]),
+    ...mapActions([
+      action.GET_TEMPLATES,
+      action.UPDATE_PROJECT,
+      action.GET_INSTANTLY_REPORT,
+    ]),
     selectItem(name, val) {
       let element = this.templates.filter((el) => el.title === val)
       this.template = element[0]
     },
     saveTemplate() {
+      if (!this.validationForm()) return
+
       this[action.UPDATE_PROJECT]({
         projectId: this.projectId,
         data: {
           report_template: this.template.id,
-          report_format: this.selectedFormat,
-          report_language: this.selectedLanguage,
+          report_format: this.selectedFormatProxy,
+          report_language: this.selectedLanguageProxy,
           ...this.layoutKeys,
         },
       })
@@ -184,6 +240,7 @@ export default {
         let element = this.collectionProxy.indexOf(id)
         this.removeSelectedFilter(element, id)
       }
+      this.errors.layoutElementsError = null
     },
     onChangeProperties(args) {
       const {id, checked} = args
@@ -199,6 +256,39 @@ export default {
     },
     removeSelectedFilter(index) {
       this.collectionProxy.splice(index, 1)
+    },
+    validationForm() {
+      const defaultErrorMessage = 'required'
+
+      this.errors.templateError = this.template ? null : defaultErrorMessage
+      this.errors.layoutElementsError = this.collectionProxy.length
+        ? null
+        : defaultErrorMessage
+      this.errors.formatError = this.selectedFormatProxy
+        ? null
+        : defaultErrorMessage
+      this.errors.languageError = this.selectedLanguageProxy
+        ? null
+        : defaultErrorMessage
+
+      return (
+        !this.errors.templateError &&
+        !this.errors.layoutElementsError &&
+        !this.errors.formatError &&
+        !this.errors.languageError
+      )
+    },
+    async downloadReport() {
+      if (!this.validationForm()) return
+
+      this.loading = true
+      try {
+        await this[action.GET_INSTANTLY_REPORT](this.projectId)
+      } catch (error) {
+        console.log(error)
+      } finally {
+        this.loading = false
+      }
     },
   },
 }
@@ -233,6 +323,7 @@ export default {
     padding: 32px;
 
     background: #1d1e1f;
+    border: 1px solid #1d1e1f;
     border-radius: 15px;
 
     .checkbox {
@@ -244,13 +335,15 @@ export default {
     display: flex;
 
     width: 100%;
-    padding: 32px;
 
     background: #1d1e1f;
     border-radius: 15px;
 
     .general-item {
-      margin-right: 60px;
+      padding: 32px;
+
+      border: 1px solid #1d1e1f;
+      border-radius: 15px;
     }
   }
 }
