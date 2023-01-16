@@ -9,6 +9,7 @@ from dateutil import parser
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from bs4 import BeautifulSoup
 import socket
+from ftlangdetect import detect
 socket.setdefaulttimeout(3)
 
 def split_links(amount_posts_in_sample):
@@ -18,9 +19,7 @@ def split_links(amount_posts_in_sample):
 
 def add_language(language_code):
   title = Language.get(language_code).display_name()
-  if not Speech.objects.filter(language=title):
-    Speech.objects.create(language=title)
-  return Speech.objects.filter(language=title).first()
+  return Speech.objects.get_or_create(language=title)[0]
 
 def get_string_from_score(sentiments):
   if sentiments['compound'] >= 0.05:
@@ -314,7 +313,7 @@ def post_creator():
             try:
                 my_feed_language = add_language(ff['language'])
             except:
-                my_feed_language = Speech.objects.get_or_create(language='Language not specified')[0]
+                my_feed_language = add_language(detect(ent.title)['lang'])
 
             try:
                 my_feed_rights = ff['rights']
