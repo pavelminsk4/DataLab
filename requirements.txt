@@ -36,3 +36,5 @@ vaderSentiment==3.3.2
 vader-multi==3.2.2.1 # multiple languages for vader
 
 drf-yasg==1.21.4
+
+fasttext-langdetect==1.0.5
