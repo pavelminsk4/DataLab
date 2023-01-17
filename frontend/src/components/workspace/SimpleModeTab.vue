@@ -10,7 +10,7 @@
       @start-search="showResults"
       :model-value="mainKeywords"
       error-message="Required field"
-      :is-error="isErrorMainField"
+      :is-error="hasErrorMainField"
       :is-main-field="true"
       name="keywords"
       placeholder='Enter a main keyword and press "Enter"'
@@ -89,7 +89,7 @@ export default {
   },
   data() {
     return {
-      isErrorMainField: false,
+      hasErrorMainField: false,
     }
   },
   computed: {
@@ -102,9 +102,9 @@ export default {
       this.$emit('update-collection', name, value)
 
       if (!this.mainKeywords.length && name === 'keywords') {
-        this.isErrorMainField = true
+        this.hasErrorMainField = true
       } else {
-        this.isErrorMainField = false
+        this.hasErrorMainField = false
       }
     },
     showResults() {

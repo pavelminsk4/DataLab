@@ -1,5 +1,5 @@
 <template>
-  <div :class="['tag-input scroll', isError && 'error']">
+  <div :class="['tag-input scroll', hasError && 'error']">
     <div
       v-for="(tag, index) in tags"
       :key="tag"
@@ -31,7 +31,7 @@
       class="input"
     />
 
-    <div v-if="isError" class="error-container">
+    <div v-if="hasError" class="error-container">
       {{ errorMessage }}
       <ErrorIcon class="error-icon" />
     </div>
@@ -79,7 +79,7 @@ export default {
       type: Boolean,
       default: false,
     },
-    isError: {
+    hasError: {
       type: Boolean,
       default: false,
     },

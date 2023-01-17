@@ -22,9 +22,12 @@
           <div class="form-title">Workspace name</div>
 
           <BaseInput
-            v-model="title"
+            v-model.trim="title"
             :is-settings="true"
+            :hasError="!!titleError"
+            :errorMessage="titleError"
             class="input-settings"
+            @blur="validation"
           />
 
           <div class="form-title">Workspace description</div>
@@ -61,8 +64,9 @@ export default {
   data() {
     return {
       loading: false,
-      newTitle: '',
-      newDescription: '',
+      newTitle: null,
+      titleError: null,
+      newDescription: null,
       settingName: 'General',
       buttons: [{name: 'General'}, {name: 'Permissions'}],
     }
@@ -85,14 +89,17 @@ export default {
     },
     title: {
       get() {
+        if (this.newTitle === '') return this.newTitle
         return this.newTitle || this.currentWorkspace.title
       },
       set(val) {
         this.newTitle = val
+        this.titleError = null
       },
     },
     description: {
       get() {
+        if (this.newDescription === '') return this.newDescription
         return this.newDescription || this.currentWorkspace.description || ''
       },
       set(val) {
@@ -106,7 +113,11 @@ export default {
         this.settingName === e.target.innerText ? 'General' : e.target.innerText
     },
     saveSettings() {
+      if (this.titleError) return
       this.$emit('save-settings', this.title, this.description)
+    },
+    validation() {
+      this.titleError = this.title ? null : 'required'
     },
   },
 }

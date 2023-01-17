@@ -3,7 +3,7 @@
     :class="[
       'input-wrapper',
       isSettings && 'settings-input',
-      isError && 'error',
+      hasError && 'error',
     ]"
   >
     <SearchIcon v-if="isSearch" class="icon" />
@@ -17,7 +17,7 @@
       @input="handleInput"
     />
 
-    <div v-if="isError" class="error-container">
+    <div v-if="hasError" class="error-container">
       {{ errorMessage }}
       <ErrorIcon class="error-icon" />
     </div>
@@ -53,7 +53,7 @@ export default {
       type: String,
       default: 'Enter text',
     },
-    isError: {
+    hasError: {
       type: Boolean,
       default: false,
     },
