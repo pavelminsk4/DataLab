@@ -2,6 +2,7 @@
 node_modules
 /dist
 webpack-stats.json
+/coverage
 
 # local env files
 .env.local

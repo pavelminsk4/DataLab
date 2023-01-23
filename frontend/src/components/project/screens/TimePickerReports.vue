@@ -1,21 +1,22 @@
 <template>
   <div class="timepicker-reports-wrapper">
-    <div class="wrapper-button">
+    <div class="tab-buttons">
       <div
         v-for="button in timePicker"
         :key="button.name"
         :class="[
+          'tab-button',
           timePickerName === button.name && 'active-button',
           this[button.value] && 'active-type',
         ]"
-        @click="toggleTimePickerSettings"
+        @click="toggleTimePickerSettings(button.name)"
       >
         {{ button.name }}
       </div>
     </div>
 
     <section class="time-picker-settings-wrapper">
-      <div v-show="timePickerName === 'Hourly'" class="frequency-sending">
+      <div v-show="timePickerName === 'hourly'" class="frequency-sending">
         <div class="switcher-wrapper">
           Remind every hour
           <BaseSwitcher
@@ -48,17 +49,18 @@
             hour
           </div>
           <GeneralSettingReport
-            current-time-picker="Hourly"
+            current-time-picker="hourly"
             :current-ending-time-value="regularReport.h_ending_date"
             :current-template-id="regularReport.h_template"
-            @ending-date="setEndingDate"
+            :reportTemplateError="reportSettingsError.h_template"
+            @ending-date="updateEndingDate"
             @update-ending-date="updateEndingDate"
             @select-template="selectTemplate"
           />
         </div>
       </div>
 
-      <div v-show="timePickerName === 'Daily'" class="frequency-sending">
+      <div v-show="timePickerName === 'daily'" class="frequency-sending">
         <div class="switcher-wrapper">
           Remind every day
           <BaseSwitcher
@@ -72,7 +74,7 @@
           <Datepicker
             v-model="timePickerValueDaily"
             :is-24="false"
-            @update:model-value="handleTimePickerDaily"
+            @update:model-value="handleTimePicker"
             time-picker
             auto-apply
             placeholder="Time"
@@ -85,17 +87,18 @@
           </Datepicker>
 
           <GeneralSettingReport
-            current-time-picker="Daily"
+            current-time-picker="daily"
             :current-ending-time-value="regularReport.d_ending_date"
             :current-template-id="regularReport.d_template"
-            @ending-date="setEndingDate"
+            :reportTemplateError="reportSettingsError.d_template"
+            @ending-date="updateEndingDate"
             @update-ending-date="updateEndingDate"
             @select-template="selectTemplate"
           />
         </div>
       </div>
 
-      <div v-show="timePickerName === 'Weekly'" class="frequency-sending">
+      <div v-show="timePickerName === 'weekly'" class="frequency-sending">
         <div class="switcher-wrapper">
           Remind every week
           <BaseSwitcher
@@ -107,7 +110,11 @@
         <div :class="!weekly_enabled && 'disabled-content'">
           <div class="title">Repeat time</div>
           <div class="weekly-wrapper">
-            <div class="week-days">
+            <DivWithError
+              :hasError="!!reportSettingsError.w_day_of_week"
+              :errorMessage="reportSettingsError.w_day_of_week"
+              class="week-days"
+            >
               <div
                 v-for="(item, index) in weekDays"
                 :key="item.name + index"
@@ -116,12 +123,12 @@
               >
                 {{ item.name }}
               </div>
-            </div>
+            </DivWithError>
 
             <Datepicker
               v-model="timePickerValueWeekly"
               :is-24="false"
-              @update:model-value="handleTimePickerWeekly"
+              @update:model-value="handleTimePicker"
               time-picker
               auto-apply
               placeholder="Time"
@@ -135,17 +142,18 @@
           </div>
 
           <GeneralSettingReport
-            current-time-picker="Weekly"
+            current-time-picker="weekly"
             :current-ending-time-value="regularReport.w_ending_date"
             :current-template-id="regularReport.w_template"
-            @ending-date="setEndingDate"
+            :reportTemplateError="reportSettingsError.w_template"
+            @ending-date="updateEndingDate"
             @update-ending-date="updateEndingDate"
             @select-template="selectTemplate"
           />
         </div>
       </div>
 
-      <div v-show="timePickerName === 'Monthly'" class="frequency-sending">
+      <div v-show="timePickerName === 'monthly'" class="frequency-sending">
         <div class="switcher-wrapper">
           Remind every month
           <BaseSwitcher
@@ -185,7 +193,7 @@
             <Datepicker
               v-model="timePickerValueMonthly"
               :is-24="false"
-              @update:model-value="handleTimePickerMonthly"
+              @update:model-value="handleTimePicker"
               time-picker
               auto-apply
               placeholder="Time"
@@ -199,10 +207,10 @@
           </div>
 
           <GeneralSettingReport
-            current-time-picker="Monthly"
+            current-time-picker="monthly"
             :current-ending-time-value="regularReport.m_ending_date"
             :current-template-id="regularReport.m_template"
-            @ending-date="setEndingDate"
+            :reportTemplateError="reportSettingsError.m_template"
             @update-ending-date="updateEndingDate"
             @select-template="selectTemplate"
           />
@@ -213,31 +221,44 @@
 </template>
 
 <script>
-import BaseInput from '@/components/BaseInput'
-import ClockIcon from '@/components/icons/ClockIcon'
-import ArrowDownIcon from '@/components/icons/ArrowDownIcon'
-import GeneralSettingReport from '@/components/project/screens/GeneralSettingReport'
+import {action} from '@store/constants'
+import {mapActions} from 'vuex'
 
 import Datepicker from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
-import {action} from '@store/constants'
-import {mapActions} from 'vuex'
+
+import ArrowDownIcon from '@/components/icons/ArrowDownIcon'
+import BaseInput from '@/components/BaseInput'
 import BaseSwitcher from '@/components/BaseSwitcher'
+import ClockIcon from '@/components/icons/ClockIcon'
+import DivWithError from '@/components/DivWithError.vue'
+import GeneralSettingReport from '@/components/project/screens/GeneralSettingReport'
 
 export default {
   name: 'TimePickerReports',
   components: {
-    BaseSwitcher,
-    GeneralSettingReport,
-    ClockIcon,
     ArrowDownIcon,
     BaseInput,
+    BaseSwitcher,
+    ClockIcon,
     Datepicker,
+    DivWithError,
+    GeneralSettingReport,
   },
   props: {
     regularReport: {
       type: [Array, Object],
       default: () => [],
+    },
+    reportSettingsError: {
+      type: Object,
+      default: () => ({
+        h_template: null,
+        d_template: null,
+        w_template: null,
+        m_template: null,
+        w_day_of_week: null,
+      }),
     },
   },
   data() {
@@ -251,44 +272,8 @@ export default {
       timePickerValueDaily: {},
       timePickerValueWeekly: {},
       timePickerValueMonthly: {},
-      timePickerName: 'Hourly',
-      timePicker: [
-        {name: 'Hourly', value: 'hourly_enabled'},
-        {name: 'Daily', value: 'daily_enabled'},
-        {name: 'Weekly', value: 'weekly_enabled'},
-        {name: 'Monthly', value: 'monthly_enabled'},
-      ],
-      weekDays: [
-        {name: 'Sun', value: 7},
-        {name: 'Mon', value: 1},
-        {name: 'Tue', value: 2},
-        {name: 'Wed', value: 3},
-        {name: 'Thu', value: 4},
-        {name: 'Fri', value: 5},
-        {name: 'Sat', value: 6},
-      ],
+      timePickerName: 'hourly',
       activeDay: null,
-    }
-  },
-  async created() {
-    await this[action.GET_TEMPLATES]()
-
-    if (this.regularReport) {
-      this.timePickerValueDaily = {
-        hours: this.regularReport.d_hour,
-        minutes: this.regularReport.d_minute,
-        seconds: 0,
-      }
-      this.timePickerValueWeekly = {
-        hours: this.regularReport.w_hour,
-        minutes: this.regularReport.w_minute,
-        seconds: 0,
-      }
-      this.timePickerValueMonthly = {
-        hours: this.regularReport.m_hour,
-        minutes: this.regularReport.m_minute,
-        seconds: 0,
-      }
     }
   },
   computed: {
@@ -316,72 +301,88 @@ export default {
         this.m_day_of_month = value
       },
     },
+    reportTemplateName() {
+      return this.timePickerName[0] + '_template'
+    },
+  },
+  async created() {
+    this.timePicker = [
+      {name: 'hourly', value: 'hourly_enabled'},
+      {name: 'daily', value: 'daily_enabled'},
+      {name: 'weekly', value: 'weekly_enabled'},
+      {name: 'monthly', value: 'monthly_enabled'},
+    ]
+
+    this.weekDays = [
+      {name: 'Sun', value: 7},
+      {name: 'Mon', value: 1},
+      {name: 'Tue', value: 2},
+      {name: 'Wed', value: 3},
+      {name: 'Thu', value: 4},
+      {name: 'Fri', value: 5},
+      {name: 'Sat', value: 6},
+    ]
+
+    await this[action.GET_TEMPLATES]()
+
+    if (this.regularReport) {
+      this.timePickerValueDaily = {
+        hours: this.regularReport.d_hour,
+        minutes: this.regularReport.d_minute,
+        seconds: 0,
+      }
+      this.timePickerValueWeekly = {
+        hours: this.regularReport.w_hour,
+        minutes: this.regularReport.w_minute,
+        seconds: 0,
+      }
+      this.timePickerValueMonthly = {
+        hours: this.regularReport.m_hour,
+        minutes: this.regularReport.m_minute,
+        seconds: 0,
+      }
+    }
   },
   methods: {
     ...mapActions([action.GET_TEMPLATES]),
     switchEnabled(type) {
       this[type] = !this[type]
-      this.$emit('enable-report-type', type, this[type])
+      this.$emit('update-values', type, this[type])
+
+      if (!this[type]) {
+        this.$emit('update-report-settings-error', this.reportTemplateName)
+        if (type === 'weekly_enabled') {
+          this.$emit('update-report-settings-error', 'w_day_of_week')
+        }
+      }
     },
-    toggleTimePickerSettings(e) {
-      this.timePickerName = e.target.innerText
+    toggleTimePickerSettings(name) {
+      this.timePickerName = name
     },
-    increase(val) {
-      this[val] = +this[val] + 1
-      this.$emit('repeat-time', this[val], val)
+    increase(name) {
+      this[name] = +this[name] + 1
+      this.$emit('update-values', name, this[name])
     },
-    decrease(val) {
-      this[val] = +this[val] - 1
-      this.$emit('repeat-time', this[val], val)
+    decrease(name) {
+      this[name] = +this[name] - 1
+      this.$emit('update-values', name, this[name])
     },
-    handleTimePickerDaily(modelTime) {
-      this.$emit('update-time-daily', modelTime)
-    },
-    handleTimePickerMonthly(modelTime) {
-      this.$emit('update-time-monthly', modelTime)
-    },
-    handleTimePickerWeekly(modelTime) {
-      this.$emit('update-time-weekly', modelTime)
+    handleTimePicker(modelTime) {
+      this.$emit('update-time', this.timePickerName[0], modelTime)
     },
     chooseDay(val) {
       this.activeDay = val
-      this.$emit('choose-weekly-day', val)
-    },
-    setEndingDate(val) {
-      switch (this.timePickerName) {
-        case 'Hourly':
-          return this.$emit('ending-date-hourly', val, 'h_ending_date')
-        case 'Daily':
-          return this.$emit('ending-date-hourly', val, 'd_ending_date')
-        case 'Weekly':
-          return this.$emit('ending-date-hourly', val, 'w_ending_date')
-        case 'Monthly':
-          return this.$emit('ending-date-hourly', val, 'm_ending_date')
-      }
+      const valueName = 'w_day_of_week'
+      this.$emit('update-values', valueName, val)
+      this.$emit('update-report-settings-error', valueName)
     },
     updateEndingDate(val) {
-      switch (this.timePickerName) {
-        case 'Hourly':
-          return this.$emit('update-ending-date-hourly', val, 'h_ending_date')
-        case 'Daily':
-          return this.$emit('update-ending-date-hourly', val, 'd_ending_date')
-        case 'Weekly':
-          return this.$emit('update-ending-date-hourly', val, 'w_ending_date')
-        case 'Monthly':
-          return this.$emit('update-ending-date-hourly', val, 'm_ending_date')
-      }
+      const valueName = this.timePickerName[0] + '_ending_date'
+      this.$emit('update-values', valueName, val)
     },
     selectTemplate(val) {
-      switch (this.timePickerName) {
-        case 'Hourly':
-          return this.$emit('select-hourly-template', val, 'h_template')
-        case 'Daily':
-          return this.$emit('select-hourly-template', val, 'd_template')
-        case 'Weekly':
-          return this.$emit('select-hourly-template', val, 'w_template')
-        case 'Monthly':
-          return this.$emit('select-hourly-template', val, 'm_template')
-      }
+      this.$emit('update-values', this.reportTemplateName, val)
+      this.$emit('update-report-settings-error', this.reportTemplateName)
     },
   },
 }
@@ -392,11 +393,9 @@ export default {
   width: 100%;
 }
 
-.wrapper-button {
+.tab-buttons {
   display: flex;
   gap: 38px;
-
-  padding-bottom: -10px;
 
   border-bottom: 1px solid var(--input-border-color);
 
@@ -407,6 +406,10 @@ export default {
   font-size: 14px;
   line-height: 22px;
   color: rgba(255, 255, 255, 0.8);
+
+  .tab-button {
+    text-transform: capitalize;
+  }
 
   .active-button {
     padding-bottom: 10px;
@@ -554,6 +557,8 @@ export default {
   display: flex;
 
   .week-days {
+    --height-day-of-week: 40px;
+    --error-top: calc(var(--height-day-of-week) + 10px);
     display: flex;
     gap: 5px;
 
@@ -564,8 +569,8 @@ export default {
       align-items: center;
       justify-content: center;
 
-      width: 40px;
-      height: 40px;
+      width: var(--height-day-of-week);
+      height: var(--height-day-of-week);
 
       background: var(--progress-line);
       border: 1px solid var(--modal-border-color);

@@ -307,13 +307,15 @@ export default {
       }
     },
     validationForm() {
-      this.errorTitle = this.titleProxy ? null : 'required'
+      const defaultErrorMessage = 'required'
+
+      this.errorTitle = this.titleProxy ? null : defaultErrorMessage
       this.errorTrigger = this.validationNumberInput(this.triggerProxy)
         ? null
-        : 'required'
+        : defaultErrorMessage
       this.errorPosts = this.validationNumberInput(this.postsProxy)
         ? null
-        : 'required'
+        : defaultErrorMessage
 
       return !this.errorTitle && !this.errorTrigger && !this.errorPosts
     },
