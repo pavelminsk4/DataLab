@@ -33,6 +33,7 @@
           :errorMessage="errors.titleError"
           class="input-title"
           placeholder="Title"
+          @blur="validationTitle"
         />
 
         <div class="title">Recipient's email</div>
@@ -97,6 +98,8 @@ import DeleteTagButton from '@/components/icons/DeleteTagButton'
 import DivWithError from '@/components/DivWithError.vue'
 import NavigationBar from '@/components/navigation/NavigationBar'
 import TimePickerReports from '@/components/project/screens/TimePickerReports'
+
+const DEFAULT_ERROR_MESSAGE = 'required'
 
 export default {
   name: 'RegularReportSettingsScreen',
@@ -290,15 +293,23 @@ export default {
         this.visible = false
       }
     },
+    validationTitle() {
+      this.errors.titleError = this.reportData.title
+        ? null
+        : DEFAULT_ERROR_MESSAGE
+      this.errors.usersEmailError = this.selectedUsers.length
+        ? null
+        : DEFAULT_ERROR_MESSAGE
+    },
     validation() {
-      const defaultErrorMessage = 'required'
+      this.validationTitle()
 
       this.errors.titleError = this.reportData.title
         ? null
-        : defaultErrorMessage
+        : DEFAULT_ERROR_MESSAGE
       this.errors.usersEmailError = this.selectedUsers.length
         ? null
-        : defaultErrorMessage
+        : DEFAULT_ERROR_MESSAGE
 
       const isSelectedReportType =
         this.reportData.hourly_enabled ||
@@ -307,32 +318,32 @@ export default {
         this.reportData.monthly_enabled
       this.errors.reportTypeError = isSelectedReportType
         ? null
-        : defaultErrorMessage
+        : DEFAULT_ERROR_MESSAGE
 
       if (this.reportData.hourly_enabled) {
         this.errors.reportSettingsError.h_template = this.reportData.h_template
           ? null
-          : defaultErrorMessage
+          : DEFAULT_ERROR_MESSAGE
       }
       if (this.reportData.daily_enabled) {
         this.errors.reportSettingsError.d_template = this.reportData.d_template
           ? null
-          : defaultErrorMessage
+          : DEFAULT_ERROR_MESSAGE
       }
       if (this.reportData.weekly_enabled) {
         this.errors.reportSettingsError.w_template = this.reportData.w_template
           ? null
-          : defaultErrorMessage
+          : DEFAULT_ERROR_MESSAGE
 
         this.errors.reportSettingsError.w_day_of_week = this.reportData
           .w_day_of_week
           ? null
-          : defaultErrorMessage
+          : DEFAULT_ERROR_MESSAGE
       }
       if (this.reportData.monthly_enabled) {
         this.errors.reportSettingsError.m_template = this.reportData.m_template
           ? null
-          : defaultErrorMessage
+          : DEFAULT_ERROR_MESSAGE
       }
 
       return isAllEmptyFields(this.errors)

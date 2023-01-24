@@ -283,7 +283,15 @@ export default {
 
       this.loading = true
       try {
-        await this[action.GET_INSTANTLY_REPORT](this.projectId)
+        const res = await this[action.GET_INSTANTLY_REPORT](this.projectId)
+
+        const anchor = document.createElement('a')
+        anchor.href = res
+        anchor.download = 'instant_report.pdf'
+
+        document.body.appendChild(anchor)
+        anchor.click()
+        document.body.removeChild(anchor)
       } catch (error) {
         console.log(error)
       } finally {
