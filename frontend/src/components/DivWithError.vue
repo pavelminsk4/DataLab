@@ -1,5 +1,5 @@
 <template>
-  <div :class="hasError && 'div-with-error'">
+  <div :class="['div', hasError && 'div-with-error']">
     <div v-if="hasError" class="error-container">
       {{ errorMessage }}
       <ErrorIcon class="error-icon" />
@@ -28,7 +28,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.div {
+  border: 1px solid transparent;
+}
 .div-with-error {
+  --error-top: 10px;
   position: relative;
 
   border: 1px solid var(--negative-status) !important;
@@ -36,7 +40,7 @@ export default {
 
 .error-container {
   position: absolute;
-  top: 10px;
+  top: var(--error-top);
   right: 10px;
 
   display: flex;

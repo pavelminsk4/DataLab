@@ -36,6 +36,8 @@
       :list="titleTemplates"
       :is-reject-selection="false"
       :current-value="currentTemplate?.title"
+      :hasError="!!reportTemplateError"
+      :errorMessage="reportTemplateError"
       @select-option="selectItem"
       class="select"
     />
@@ -61,7 +63,6 @@ export default {
       type: String,
       required: false,
     },
-
     currentTemplateId: {
       type: [String, Number],
       required: false,
@@ -70,6 +71,10 @@ export default {
       type: String,
       required: true,
     },
+    reportTemplateError: {
+      type: String,
+      default: null,
+    },
   },
   data() {
     return {
@@ -77,11 +82,6 @@ export default {
       template: '',
       hoursDate: '',
       endingDate: ['Never', 'Date'],
-    }
-  },
-  created() {
-    if (this.currentEndingTimeValue) {
-      this.hoursDate = this.currentEndingTimeValue
     }
   },
   computed: {
@@ -103,9 +103,14 @@ export default {
       },
       set(val) {
         this.selectedValue = val
-        this.$emit('ending-date', this.selectedValue)
+        this.$emit('update-ending-date', this.selectedValue)
       },
     },
+  },
+  created() {
+    if (this.currentEndingTimeValue) {
+      this.hoursDate = this.currentEndingTimeValue
+    }
   },
   methods: {
     ...mapActions([action.GET_TEMPLATES]),

@@ -28,7 +28,9 @@
       <div class="create-report-wrapper">
         <div class="title">Regular Report Title</div>
         <BaseInput
-          v-model="reportData.title"
+          v-model.trim="reportData.title"
+          :hasError="!!errors.titleError"
+          :errorMessage="errors.titleError"
           class="input-title"
           placeholder="Title"
         />
@@ -36,7 +38,11 @@
         <div class="title">Recipient's email</div>
 
         <div class="email-wrapper">
-          <div :class="['email-field scroll', visible && 'active-email-field']">
+          <DivWithError
+            :hasError="!!errors.usersEmailError"
+            :errorMessage="errors.usersEmailError"
+            :class="['email-field scroll', visible && 'active-email-field']"
+          >
             <div
               v-for="(item, index) in selectedUsers || []"
               :key="item"
@@ -48,7 +54,7 @@
             <div @click="addUsers" class="add-users-button">
               Add Users <AddButtonIcon />
             </div>
-          </div>
+          </DivWithError>
 
           <ul v-if="visible" class="select-list scroll">
             <li
@@ -62,18 +68,19 @@
           </ul>
         </div>
       </div>
-      <TimePickerReports
-        :regular-report="currentReport"
-        @repeat-time="repeatTime"
-        @update-time-daily="updateTimeDaily"
-        @choose-weekly-day="chooseWeeklyDay"
-        @update-time-weekly="updateTimeWeekly"
-        @ending-date-hourly="endingDateHourly"
-        @update-ending-date-hourly="updateEndingDateHourly"
-        @update-time-monthly="updatePickerTimeMonthly"
-        @select-hourly-template="selectHourlyTemplate"
-        @enable-report-type="enableReportType"
-      />
+      <DivWithError
+        :hasError="!!errors.reportTypeError"
+        :errorMessage="errors.reportTypeError"
+        class="time-picker-error-wrapper"
+      >
+        <TimePickerReports
+          :regularReport="currentReport"
+          :reportSettingsError="errors.reportSettingsError"
+          @update-values="updateTimePickerValues"
+          @update-time="updateTime"
+          @update-report-settings-error="updateReportSettingsError"
+        />
+      </DivWithError>
     </section>
   </div>
 </template>
@@ -81,58 +88,49 @@
 <script>
 import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
+import {isAllEmptyFields} from '@lib/utilities'
 
+import AddButtonIcon from '@/components/icons/AddButtonIcon'
 import BaseButton from '@/components/buttons/BaseButton'
+import BaseInput from '@/components/BaseInput'
+import DeleteTagButton from '@/components/icons/DeleteTagButton'
+import DivWithError from '@/components/DivWithError.vue'
 import NavigationBar from '@/components/navigation/NavigationBar'
 import TimePickerReports from '@/components/project/screens/TimePickerReports'
-import DeleteTagButton from '@/components/icons/DeleteTagButton'
-import AddButtonIcon from '@/components/icons/AddButtonIcon'
-import BaseInput from '@/components/BaseInput'
 
 export default {
   name: 'RegularReportSettingsScreen',
   components: {
-    TimePickerReports,
-    BaseInput,
     AddButtonIcon,
-    DeleteTagButton,
     BaseButton,
+    BaseInput,
+    DeleteTagButton,
+    DivWithError,
     NavigationBar,
+    TimePickerReports,
   },
   data() {
     return {
       reportData: {
         title: '',
       },
+      errors: {
+        titleError: null,
+        usersEmailError: null,
+        reportTypeError: null,
+        reportSettingsError: {
+          h_template: null,
+          d_template: null,
+          w_template: null,
+          m_template: null,
+          w_day_of_week: null,
+        },
+      },
       visible: false,
       isDuplicate: false,
       selectedUsers: [],
       usersId: [],
     }
-  },
-  async created() {
-    if (!this.workspaces.length) {
-      await this[action.GET_WORKSPACES]()
-    }
-
-    if (!this.regularReports.length) {
-      await this[action.GET_REGULAR_REPORTS](this.projectId)
-    }
-
-    if (this.routerName === 'UpdateRegularReport') {
-      this.reportData = this.currentReport
-    }
-
-    await this[action.GET_COMPANY_USERS](
-      this.currentUser?.user_profile?.department.id
-    )
-
-    if (this.routerName === 'UpdateRegularReport') {
-      this.selectedUsers = [...this.reportUsers]
-      this.usersId = [...this.reportUsersId]
-    }
-
-    document.addEventListener('click', this.close)
   },
   computed: {
     ...mapGetters({
@@ -183,6 +181,33 @@ export default {
       return this.companyUsers.filter((el) => el.email)
     },
   },
+  async created() {
+    if (!this.workspaces.length) {
+      await this[action.GET_WORKSPACES]()
+    }
+
+    if (!this.regularReports.length) {
+      await this[action.GET_REGULAR_REPORTS](this.projectId)
+    }
+
+    if (this.routerName === 'UpdateRegularReport') {
+      this.reportData = this.currentReport
+    }
+
+    await this[action.GET_COMPANY_USERS](
+      this.currentUser?.user_profile?.department.id
+    )
+
+    if (this.routerName === 'UpdateRegularReport') {
+      this.selectedUsers = [...this.reportUsers]
+      this.usersId = [...this.reportUsersId]
+    }
+
+    document.addEventListener('click', this.close)
+  },
+  unmounted() {
+    document.removeEventListener('click', this.close)
+  },
   methods: {
     ...mapActions([
       action.GET_WORKSPACES,
@@ -192,32 +217,19 @@ export default {
       action.GET_COMPANY_USERS,
       action.GET_USER_INFORMATION,
     ]),
-    repeatTime(val, name) {
-      this.reportData[name] = val
+    updateTimePickerValues(name, value) {
+      if (this.errors.reportTypeError) {
+        this.errors.reportTypeError = null
+      }
+
+      this.reportData[name] = value
     },
-    updateTimeDaily(val) {
-      this.reportData.d_hour = val.hours
-      this.reportData.d_minute = val.minutes
+    updateTime(type, val) {
+      this.reportData[`${type}_hour`] = val.hours
+      this.reportData[`${type}_minute`] = val.minutes
     },
-    updateTimeWeekly(val) {
-      this.reportData.w_hour = val.hours
-      this.reportData.w_minute = val.minutes
-    },
-    chooseWeeklyDay(val) {
-      this.reportData.w_day_of_week = val
-    },
-    updatePickerTimeMonthly(val) {
-      this.reportData.m_hour = val.hours
-      this.reportData.m_minute = val.minutes
-    },
-    endingDateHourly(val, name) {
-      this.reportData[name] = val
-    },
-    updateEndingDateHourly(val, name) {
-      this.reportData[name] = val
-    },
-    selectHourlyTemplate(val, name) {
-      this.reportData[name] = val
+    updateReportSettingsError(name) {
+      this.errors.reportSettingsError[name] = null
     },
     createRegularReport() {
       this[action.CREATE_NEW_REGULAR_REPORT]({
@@ -241,6 +253,8 @@ export default {
       })
     },
     saveChanges() {
+      if (!this.validation()) return
+
       if (this.routerName === 'NewRegularReport') {
         this.createRegularReport()
       }
@@ -262,6 +276,7 @@ export default {
       } else {
         this.usersId.push(item.id)
         this.selectedUsers.push(item)
+        this.errors.usersEmailError = null
       }
     },
     removeTag(index) {
@@ -275,8 +290,52 @@ export default {
         this.visible = false
       }
     },
-    enableReportType(typeName, value) {
-      this.reportData[typeName] = value
+    validation() {
+      const defaultErrorMessage = 'required'
+
+      this.errors.titleError = this.reportData.title
+        ? null
+        : defaultErrorMessage
+      this.errors.usersEmailError = this.selectedUsers.length
+        ? null
+        : defaultErrorMessage
+
+      const isSelectedReportType =
+        this.reportData.hourly_enabled ||
+        this.reportData.daily_enabled ||
+        this.reportData.weekly_enabled ||
+        this.reportData.monthly_enabled
+      this.errors.reportTypeError = isSelectedReportType
+        ? null
+        : defaultErrorMessage
+
+      if (this.reportData.hourly_enabled) {
+        this.errors.reportSettingsError.h_template = this.reportData.h_template
+          ? null
+          : defaultErrorMessage
+      }
+      if (this.reportData.daily_enabled) {
+        this.errors.reportSettingsError.d_template = this.reportData.d_template
+          ? null
+          : defaultErrorMessage
+      }
+      if (this.reportData.weekly_enabled) {
+        this.errors.reportSettingsError.w_template = this.reportData.w_template
+          ? null
+          : defaultErrorMessage
+
+        this.errors.reportSettingsError.w_day_of_week = this.reportData
+          .w_day_of_week
+          ? null
+          : defaultErrorMessage
+      }
+      if (this.reportData.monthly_enabled) {
+        this.errors.reportSettingsError.m_template = this.reportData.m_template
+          ? null
+          : defaultErrorMessage
+      }
+
+      return isAllEmptyFields(this.errors)
     },
   },
 }
@@ -434,5 +493,14 @@ export default {
   .create-report-section {
     flex-direction: column;
   }
+}
+
+.time-picker-error-wrapper {
+  --error-top: 5px;
+  width: 100%;
+  padding-top: 20px;
+  margin-top: -20px;
+
+  border-radius: 15px;
 }
 </style>
