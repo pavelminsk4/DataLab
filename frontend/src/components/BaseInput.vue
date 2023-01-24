@@ -150,12 +150,15 @@ export default {
   border-radius: 10px;
 
   .error-container {
+    position: absolute;
+    right: -5px;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
 
     white-space: nowrap;
+    pointer-events: none;
 
     color: var(--negative-status);
 

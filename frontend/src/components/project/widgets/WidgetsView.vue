@@ -6,7 +6,6 @@
     :widget-data="this[dataForWidgetModal.widgetName]"
     :action-name="dataForWidgetModal.actionName"
     :is-charts-show="dataForWidgetModal.isChartShow"
-    :hasAggregationPeriod="dataForWidgetModal.hasAggregationPeriod"
     @close="closeModal"
   />
 
@@ -65,14 +64,10 @@
 <script>
 import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
-
 import VueGridLayout from 'vue3-grid-layout'
-
 import {snakeToPascal} from '@lib/utilities'
 import modalWidgetsConfig from '@/lib/configs/modalWidgetsConfig'
-
 import SearchResults from '@/components/SearchResults'
-
 import VolumeWidget from '@/components/project/widgets/VolumeWidget'
 import SummaryWidget from '@/components/project/widgets/SummaryWidget'
 import Top10BrandsWidget from '@/components/project/widgets/Top10BrandsWidget'
@@ -88,9 +83,7 @@ import SentimentTop10CountriesWidget from '@/components/project/widgets/Sentimen
 import ContentVolumeTop5SourceWidget from '@/components/project/widgets/ContentVolumeTop5SourceWidget'
 import ContentVolumeTop5AuthorsWidget from '@/components/project/widgets/ContentVolumeTop5AuthorsWidget'
 import ContentVolumeTop5CountriesWidget from '@/components/project/widgets/ContentVolumeTop5CountriesWidget'
-
 import WidgetSettingsModal from '@/components/project/modals/WidgetSettingsModal'
-
 export default {
   name: 'WidgetsView',
   components: {
@@ -136,7 +129,6 @@ export default {
     if (!this.availableWidgets) {
       this[action.GET_AVAILABLE_WIDGETS](this.projectId)
     }
-
     if (!this.clippingData.length) {
       this[action.GET_CLIPPING_FEED_CONTENT_WIDGET](this.projectId)
     }
@@ -152,30 +144,26 @@ export default {
     selectedWidgets: {
       get() {
         let layout = []
-
         Object.keys(this.availableWidgets)
           .map((widgetName, index) => {
-            if (this.availableWidgets[widgetName].is_active) {
+            if (this.availableWidgets[widgetName]?.is_active) {
               return layout.push({
                 x: 0,
                 y: this.getYAxisValue(layout.length),
                 w: 2,
-                h: this.elementsValue[widgetName].height,
+                h: this.getElementData(widgetName).height,
                 i: index,
                 static: false,
                 name: widgetName,
                 widgetName: snakeToPascal(widgetName),
                 isShow: this.availableWidgets[widgetName]?.is_active,
                 isWidget: true,
-                actionName: this.elementsValue[widgetName].actionName,
-                isChartShow: this.elementsValue[widgetName].isChartShow,
-                hasAggregationPeriod:
-                  this.elementsValue[widgetName].hasAggregationPeriod,
+                actionName: this.getElementData(widgetName).actionName,
+                isChartShow: this.getElementData(widgetName).isChartShow,
               })
             }
           })
           .filter((widgets) => widgets)
-
         return layout
       },
       set(val) {
@@ -197,6 +185,9 @@ export default {
       action.UPDATE_AVAILABLE_WIDGETS,
       action.GET_CLIPPING_FEED_CONTENT_WIDGET,
     ]),
+    getElementData(widgetName) {
+      return this.elementsValue[widgetName]
+    },
     getYAxisValue(val) {
       return val > 1 ? val - 1 : 0
     },
@@ -221,7 +212,6 @@ export default {
         widgetName: item.name,
         actionName: item.actionName,
         isChartShow: item.isChartShow,
-        hasAggregationPeriod: item.hasAggregationPeriod,
       }
       this.isOpenWidgetSettingsModal = !this.isOpenWidgetSettingsModal
     },
@@ -237,33 +227,25 @@ export default {
 .analytics-wrapper {
   display: flex;
   gap: 40px;
-
   .search-results {
     min-width: 50%;
   }
 }
-
 .widgets-wrapper {
   display: flex;
   gap: 30px;
-
   min-width: 50%;
   max-height: 60vh;
   margin-top: 63px;
-
   overflow: auto;
-
   .analytics-search-results {
     flex: 1;
   }
-
   .widget-item {
     top: -10px;
-
     min-width: 96%;
   }
 }
-
 @media screen and (max-width: 1000px) {
   .widgets-wrapper {
     margin-top: 105px;

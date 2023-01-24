@@ -503,9 +503,10 @@ export default {
   async [action.CREATE_NEW_USER]({commit}, data) {
     commit(mutator.SET_LOADING, true)
     try {
-      await api.createUser(data)
+      return await api.createUser(data)
     } catch (e) {
       console.log(e)
+      return e.response.data
     } finally {
       commit(mutator.SET_LOADING, false)
     }
