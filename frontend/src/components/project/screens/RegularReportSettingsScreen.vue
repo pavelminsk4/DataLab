@@ -59,7 +59,7 @@
 
           <ul v-if="visible" class="select-list scroll">
             <li
-              v-for="(item, index) in companyUsersEmails"
+              v-for="(item, index) in companyUsersEmailsList"
               :key="item.username + index"
               class="select-item"
               @click="select(item)"
@@ -183,6 +183,11 @@ export default {
     companyUsersEmails() {
       return this.companyUsers.filter((el) => el.email)
     },
+    companyUsersEmailsList() {
+      return this.companyUsersEmails.filter(
+        (email) => !this.selectedUsers.includes(email)
+      )
+    },
   },
   async created() {
     if (!this.workspaces.length) {
@@ -286,10 +291,12 @@ export default {
       this.selectedUsers.splice(index, 1)
       this.usersId.splice(index, 1)
     },
-    close() {
-      const selectList = document.querySelectorAll('.email-wrapper')
+    close({target}) {
+      const selectList = document.querySelector('.email-wrapper')
+      const isSelectInput =
+        selectList.contains(target) || target.classList.contains('select-item')
 
-      if (!Array.from(selectList).find((el) => el.contains(event.target))) {
+      if (!isSelectInput) {
         this.visible = false
       }
     },
