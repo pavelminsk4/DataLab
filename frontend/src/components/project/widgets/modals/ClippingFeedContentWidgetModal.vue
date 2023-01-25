@@ -2,23 +2,15 @@
   <BaseModal modal-frame-style="width: 50vw;">
     <div class="main-title">{{ clippingFeedContent.title }}</div>
 
-    <div class="settings-wrapper">
-      <div class="options-wrapper">
-        <div class="title-general">General</div>
-
-        <div class="title">Widget Title</div>
-        <BaseInput v-model="title" class="input-title" />
-
-        <div class="title">Widget Description</div>
-        <textarea
-          class="description-field scroll"
-          placeholder="Some words about Widgets"
-          v-model="description"
-        />
-
-        <BaseButton @click="saveOptions">Save</BaseButton>
-      </div>
-    </div>
+    <BasicSettingsScreen
+      v-if="panelName === 'General'"
+      :is-aggregation-period="false"
+      :period="clippingFeedContent.aggregation_period"
+      :widget-title="clippingFeedContent.title"
+      :widget-description="clippingFeedContent.description"
+      class="settings-wrapper"
+      @save-changes="saveOptions"
+    />
   </BaseModal>
 </template>
 
@@ -26,13 +18,12 @@
 import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
-import BaseInput from '@/components/BaseInput'
 import BaseModal from '@/components/modals/BaseModal'
-import BaseButton from '@/components/buttons/BaseButton'
+import BasicSettingsScreen from '@/components/project/widgets/modals/screens/BasicSettingsScreen'
 
 export default {
   name: 'ClippingFeedContentWidgetModal',
-  components: {BaseButton, BaseInput, BaseModal},
+  components: {BasicSettingsScreen, BaseModal},
   props: {
     projectId: {
       type: Number,
@@ -43,6 +34,7 @@ export default {
     return {
       title: '',
       description: '',
+      panelName: 'General',
     }
   },
   computed: {
@@ -83,65 +75,5 @@ export default {
   font-weight: 600;
   font-size: 36px;
   line-height: 54px;
-}
-
-.input-title {
-  width: 100%;
-}
-
-.description-field {
-  width: 100%;
-  height: 132px;
-  padding: 12px 16px;
-  margin-bottom: 25px;
-
-  border: 1px solid var(--input-border-color);
-  box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
-  border-radius: 10px;
-  background: var(--secondary-bg-color);
-
-  color: var(--primary-text-color);
-
-  resize: none;
-}
-
-.description-field::placeholder {
-  color: var(--secondary-text-color);
-}
-
-.settings-wrapper {
-  display: flex;
-
-  min-width: 100%;
-  .options-wrapper {
-    display: flex;
-    flex-direction: column;
-
-    width: 100%;
-
-    .title-general {
-      padding-bottom: 10px;
-      margin-bottom: 15px;
-
-      border-bottom: 1px solid var(--primary-button-color);
-
-      font-weight: 400;
-      font-size: 14px;
-      line-height: 22px;
-    }
-
-    .title {
-      margin: 25px 0 12px;
-
-      font-style: normal;
-      font-weight: 500;
-      font-size: 14px;
-      line-height: 110%;
-    }
-
-    .option {
-      margin-bottom: 25px;
-    }
-  }
 }
 </style>
