@@ -267,6 +267,12 @@ export default {
   },
 
   async downloadInstantlyReport(projectId) {
-    return fetch('get', `/projects/${projectId}/reports/instantly_report`)
+    const response = await $api.get(
+      endpoint(`/projects/${projectId}/reports/instantly_report`),
+      {
+        responseType: 'blob',
+      }
+    )
+    return URL.createObjectURL(response.data)
   },
 }
