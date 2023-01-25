@@ -54,7 +54,7 @@ class Project(models.Model):
       total_projects_count += workspace.projects.all().count()
     if total_projects_count < self.workspace.department.max_projects:
       return super(Project, self).save(*args, **kwargs)
-    raise ValidationError("Too many projects mate")
+    raise ValidationError('Projects creation limit reached')
 
   def __str__(self):
     return self.title

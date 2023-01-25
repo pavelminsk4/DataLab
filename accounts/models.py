@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.core.exceptions import ValidationError
 
 class department(models.Model):
     departmentname = models.CharField("Department Name",max_length=25,null=True)
@@ -37,6 +38,14 @@ class Profile(models.Model):
     department = models.ForeignKey(department,blank=True,null=True,on_delete=models.CASCADE,related_name='department_users',verbose_name ='Department')
     photo = models.ImageField(upload_to='static/user_image', blank=True)
     role = models.CharField(max_length=30, choices=ROLE_CHOICES, blank=True, null=True, default=ROLE_CHOICES[1][1])
+
+    def save(self, *args, **kwargs):
+        if self.department:
+            if self.department.department_users.all().count() < self.department.max_users:
+                return super(Profile, self).save(*args, **kwargs)
+            self.user.delete()
+            raise ValidationError('Users creation limit reached')            
+        return super(Profile, self).save(*args, **kwargs)
 
     def __str__(self):
         return str(self.user)
