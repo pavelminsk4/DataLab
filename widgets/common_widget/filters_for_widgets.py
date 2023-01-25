@@ -40,7 +40,11 @@ def country_filter_posts(country, posts):
 
 def author_filter_posts(author, posts):
   posts = posts.filter(entry_author=author)
-  return posts  
+  return posts
+
+def sentiment_filter_posts(sentiment, posts):
+  posts = posts.filter(sentiment=sentiment)
+  return posts
 
 def posts_agregator(project):
   posts = data_range_posts(project.start_search_date, project.end_search_date)
@@ -58,5 +62,7 @@ def posts_agregator(project):
   if project.country_filter:
     posts = country_filter_posts(project.country_filter, posts)
   if project.author_filter:
-    posts = author_filter_posts(project.author_filter, posts)  
+    posts = author_filter_posts(project.author_filter, posts)
+  if project.sentiment_filter:
+    posts = sentiment_filter_posts(project.sentiment_filter, posts)    
   return posts
