@@ -3,13 +3,14 @@ from django.contrib.auth.models import User
 from django.contrib.postgres.fields import ArrayField
 from django.contrib.postgres.indexes import GinIndex
 from reports.models import Templates
-
+from django.core.exceptions import ValidationError
 
 class Workspace(models.Model):
   title = models.CharField(max_length=100)
   description = models.CharField(max_length=1000, null=True, blank=True)
   members = models.ManyToManyField(User, blank=True)
   created_at = models.DateTimeField(auto_now_add=True)
+  department = models.ForeignKey('accounts.department', on_delete=models.SET_NULL, null=True, related_name='workspaces')
 
   def __str__(self):
     return self.title
@@ -46,6 +47,14 @@ class Project(models.Model):
   source_filter = models.CharField(max_length=50, blank=True, null=True)
   sentiment_filter = models.CharField(max_length=10, blank=True, null=True)
   members = models.ManyToManyField(User, related_name='projects', blank=True, null=True)
+
+  def save(self, *args, **kwargs):
+    total_projects_count = 0
+    for workspace in self.workspace.department.workspaces.all():
+      total_projects_count += workspace.projects.all().count()
+    if total_projects_count < self.workspace.department.max_projects:
+      return super(Project, self).save(*args, **kwargs)
+    raise ValidationError("Too many projects mate")
 
   def __str__(self):
     return self.title
