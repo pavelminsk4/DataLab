@@ -69,6 +69,7 @@
             placeholder="Number"
             :hasError="!!errorTrigger"
             :errorMessage="errorTrigger"
+            @blur="maskForNumber('triggerProxy')"
           >
             <div class="control-buttons">
               <button class="control-button">
@@ -95,6 +96,7 @@
             placeholder="Number"
             :hasError="!!errorPosts"
             :errorMessage="errorPosts"
+            @blur="maskForNumber('postsProxy')"
           >
             <div class="control-buttons">
               <button class="control-button">
@@ -127,6 +129,9 @@ import ArrowDownIcon from '@/components/icons/ArrowDownIcon'
 import NavigationBar from '@/components/navigation/NavigationBar'
 import DeleteTagButton from '@/components/icons/DeleteTagButton'
 import AddButtonIcon from '@/components/icons/AddButtonIcon'
+
+const MIN_NUMBER = 1
+const MAX_NUMBER = 50
 
 export default {
   name: 'AlertSettingsScreen',
@@ -212,7 +217,7 @@ export default {
     triggerProxy: {
       get() {
         if (this.trigger !== null) return this.trigger
-        return this.currentAlert?.triggered_on_every_n_new_posts || ''
+        return this.currentAlert?.triggered_on_every_n_new_posts || MIN_NUMBER
       },
       set(val) {
         this.trigger = val
@@ -222,7 +227,7 @@ export default {
     postsProxy: {
       get() {
         if (this.posts !== null) return this.posts
-        return this.currentAlert?.how_many_posts_to_send || ''
+        return this.currentAlert?.how_many_posts_to_send || MIN_NUMBER
       },
       set(val) {
         this.posts = val
@@ -342,10 +347,20 @@ export default {
       this.usersId.splice(index, 1)
     },
     increase(val) {
+      if (this[val] >= MAX_NUMBER) return
       this[val] = +this[val] + 1
     },
     decrease(val) {
+      if (this[val] <= MIN_NUMBER) return
       this[val] = +this[val] - 1
+    },
+    maskForNumber(val) {
+      if (+this[val] > MAX_NUMBER) {
+        this[val] = MAX_NUMBER
+      }
+      if (+this[val] < MIN_NUMBER) {
+        this[val] = MIN_NUMBER
+      }
     },
     close() {
       const selectList = document.querySelectorAll('.email-wrapper')
