@@ -1,9 +1,9 @@
 <template>
   <BaseModal modal-frame-style="width: 90vw; height: 80vh;">
-    <div class="main-title">{{ contentVolumeWidget.title }}</div>
+    <div class="main-title">{{ generalWidgetData.title }}</div>
 
     <div class="settings-wrapper">
-      <section class="chart-wrapper">
+      <section v-if="isChartsShow" class="chart-wrapper">
         <div class="chart-title">Content Volume</div>
         <LineChart
           v-if="isLineChart"
@@ -22,20 +22,20 @@
 
         <BasicSettingsScreen
           v-if="panelName === 'General'"
-          :period="contentVolumeWidget.aggregation_period"
-          :widget-title="contentVolumeWidget.title"
-          :widget-description="contentVolumeWidget.description"
+          :period="generalWidgetData.aggregation_period"
+          :widget-title="generalWidgetData.title"
+          :widget-description="generalWidgetData.description"
           @save-changes="saveChanges"
           @get-widget-params="updateAggregationPeriod"
         />
 
         <DimensionsScreen
           v-if="panelName === 'Dimensions'"
-          :active-dimensions="contentVolumeWidget"
+          :active-dimensions="generalWidgetData"
           :project-id="projectId"
-          :widget-author="contentVolumeWidget.author_dim_pivot"
-          :widget-country="contentVolumeWidget.country_dim_pivot"
-          :widget-language="contentVolumeWidget.language_dim_pivot"
+          :widget-author="generalWidgetData.author_dim_pivot"
+          :widget-country="generalWidgetData.country_dim_pivot"
+          :widget-language="generalWidgetData.language_dim_pivot"
           @save-dimensions-settings="saveDimensions"
         />
       </div>
@@ -55,7 +55,7 @@ import DimensionsScreen from '@/components/project/widgets/modals/screens/Dimens
 import BasicSettingsScreen from '@/components/project/widgets/modals/screens/BasicSettingsScreen'
 
 export default {
-  name: 'VolumeWidgetModal',
+  name: 'WidgetSettingsModal',
   components: {
     BarChart,
     LineChart,
@@ -65,13 +65,25 @@ export default {
     BasicSettingsScreen,
   },
   props: {
-    volume: {
-      type: [Array, Object],
+    widgetName: {
+      type: String,
       required: true,
     },
     projectId: {
       type: Number,
       required: true,
+    },
+    widgetData: {
+      type: Object,
+      default: () => {},
+    },
+    actionName: {
+      type: String,
+      required: true,
+    },
+    isChartsShow: {
+      type: Boolean,
+      default: true,
     },
   },
   data() {
@@ -83,11 +95,11 @@ export default {
     ...mapGetters({
       widgets: get.AVAILABLE_WIDGETS,
     }),
-    contentVolumeWidget() {
-      return this.widgets['volume_widget']
+    generalWidgetData() {
+      return this.widgets[this.widgetName]
     },
     volumeData() {
-      return Object.values(this.volume)
+      return Object.values(this.widgetData)
     },
     volumeLabels() {
       return this.volumeData.map((el) => this.formatDate(el.date))
@@ -135,8 +147,22 @@ export default {
   methods: {
     ...mapActions([
       action.GET_VOLUME_WIDGET,
+      action.GET_SUMMARY_WIDGET,
+      action.GET_CLIPPING_FEED_CONTENT_WIDGET,
+      action.GET_TOP_AUTHORS_WIDGET,
+      action.GET_TOP_BRANDS_WIDGET,
+      action.GET_TOP_COUNTRIES_WIDGET,
+      action.GET_TOP_LANGUAGES_WIDGET,
+      action.GET_SENTIMENT_TOP_SOURCES,
+      action.GET_SENTIMENT_TOP_COUNTRIES,
+      action.GET_SENTIMENT_TOP_AUTHORS,
+      action.GET_SENTIMENT_TOP_LANGUAGES,
       action.UPDATE_AVAILABLE_WIDGETS,
       action.GET_AVAILABLE_WIDGETS,
+      action.GET_SENTIMENT_FOR_PERIOD,
+      action.GET_CONTENT_VOLUME_TOP_AUTHORS,
+      action.GET_CONTENT_VOLUME_TOP_COUNTRIES,
+      action.GET_CONTENT_VOLUME_TOP_SOURCES,
     ]),
     formatDate(date) {
       return new Date(date).toLocaleString('en-US', {
@@ -147,18 +173,17 @@ export default {
     },
     updateAggregationPeriod(val) {
       try {
-        this[action.GET_VOLUME_WIDGET]({
+        this[this.actionName]({
           projectId: this.projectId,
           value: {
             aggregation_period: val.toLowerCase(),
-            author_dim_pivot: this.contentVolumeWidget.author_dim_pivot || null,
+            author_dim_pivot: this.generalWidgetData.author_dim_pivot || null,
             language_dim_pivot:
-              this.contentVolumeWidget.language_dim_pivot || null,
-            country_dim_pivot:
-              this.contentVolumeWidget.country_dim_pivot || null,
+              this.generalWidgetData.language_dim_pivot || null,
+            country_dim_pivot: this.generalWidgetData.country_dim_pivot || null,
             sentiment_dim_pivot:
-              this.contentVolumeWidget.sentiment_dim_pivot || null,
-            source_dim_pivot: this.contentVolumeWidget.source_dim_pivot || null,
+              this.generalWidgetData.sentiment_dim_pivot || null,
+            source_dim_pivot: this.generalWidgetData.source_dim_pivot || null,
           },
         })
       } catch (e) {
@@ -169,13 +194,13 @@ export default {
       this[action.UPDATE_AVAILABLE_WIDGETS]({
         projectId: this.projectId,
         data: {
-          volume_widget: {
-            id: this.contentVolumeWidget.id,
-            title: title || this.contentVolumeWidget.title,
-            description: description || this.contentVolumeWidget.description,
+          [this.widgetName]: {
+            id: this.generalWidgetData.id,
+            title: title || this.generalWidgetData.title,
+            description: description || this.generalWidgetData.description,
             aggregation_period:
               aggregationPeriod.toLowerCase() ||
-              this.contentVolumeWidget.aggregation_period,
+              this.generalWidgetData.aggregation_period,
           },
         },
       })
@@ -187,39 +212,39 @@ export default {
     },
     saveDimensions(author, language, country) {
       if (author || author === '') {
-        author = author || this.contentVolumeWidget.author_dim_pivot
+        author = author || this.generalWidgetData.author_dim_pivot
       }
       if (language || language === '') {
-        language = language || this.contentVolumeWidget.language_dim_pivot
+        language = language || this.generalWidgetData.language_dim_pivot
       }
       if (country || country === '') {
-        country = country || this.contentVolumeWidget.country_dim_pivot
+        country = country || this.generalWidgetData.country_dim_pivot
       }
 
       this[action.UPDATE_AVAILABLE_WIDGETS]({
         projectId: this.projectId,
         data: {
-          volume_widget: {
-            id: this.contentVolumeWidget.id,
-            aggregation_period: this.contentVolumeWidget.aggregation_period,
+          [this.widgetName]: {
+            id: this.generalWidgetData.id,
+            aggregation_period: this.generalWidgetData.aggregation_period,
             author_dim_pivot: author,
             language_dim_pivot: language,
             country_dim_pivot: country,
-            sentiment_dim_pivot: this.contentVolumeWidget.sentiment_dim_pivot,
-            source_dim_pivot: this.contentVolumeWidget.source_dim_pivot,
+            sentiment_dim_pivot: this.generalWidgetData.sentiment_dim_pivot,
+            source_dim_pivot: this.generalWidgetData.source_dim_pivot,
           },
         },
       })
-      this[action.GET_VOLUME_WIDGET]({
+      this[this.actionName]({
         projectId: this.projectId,
         value: {
-          id: this.contentVolumeWidget.id,
-          aggregation_period: this.contentVolumeWidget.aggregation_period,
+          id: this.generalWidgetData.id,
+          aggregation_period: this.generalWidgetData.aggregation_period,
           author_dim_pivot: author,
           language_dim_pivot: language,
           country_dim_pivot: country,
-          sentiment_dim_pivot: this.contentVolumeWidget.sentiment_dim_pivot,
-          source_dim_pivot: this.contentVolumeWidget.source_dim_pivot,
+          sentiment_dim_pivot: this.generalWidgetData.sentiment_dim_pivot,
+          source_dim_pivot: this.generalWidgetData.source_dim_pivot,
         },
       })
       this[action.GET_AVAILABLE_WIDGETS](this.projectId)
