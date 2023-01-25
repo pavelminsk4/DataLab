@@ -153,7 +153,6 @@ export default {
   methods: {
     ...mapActions([action.UPDATE_ADDITIONAL_FILTERS, action.POST_SEARCH]),
     handleDate(modelData) {
-      console.log(modelData)
       try {
         this.selectedDate = [
           new Date(
