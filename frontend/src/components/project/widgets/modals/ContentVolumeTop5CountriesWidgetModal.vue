@@ -1,11 +1,13 @@
 <template>
   <BaseModal modal-frame-style="width: 90vw; height: 80vh;">
-    <div class="main-title">{{ contentTop10CountriesWidget.title }}</div>
+    <div class="main-title">{{ contentVolumeTopCountriesWidget.title }}</div>
 
     <div class="settings-wrapper">
       <section class="chart-wrapper">
-        <div class="chart-title">{{ contentTop10CountriesWidget.title }}</div>
-        <LineChart :datasets="chartDatasets" :chart-labels="labels" />
+        <div class="chart-title">
+          {{ contentVolumeTopCountriesWidget.title }}
+        </div>
+        <LineChart :widget-data="contentVolumeTopCountriesData" />
       </section>
 
       <div class="general-wrapper-settings">
@@ -13,20 +15,20 @@
 
         <BasicSettingsScreen
           v-if="panelName === 'General'"
-          :period="contentTop10CountriesWidget.aggregation_period"
-          :widget-title="contentTop10CountriesWidget.title"
-          :widget-description="contentTop10CountriesWidget.description"
+          :period="contentVolumeTopCountriesWidget.aggregation_period"
+          :widget-title="contentVolumeTopCountriesWidget.title"
+          :widget-description="contentVolumeTopCountriesWidget.description"
           @save-changes="saveChanges"
           @get-widget-params="updateAggregationPeriod"
         />
 
         <DimensionsScreen
           v-if="panelName === 'Dimensions'"
-          :active-dimensions="contentTop10CountriesWidget"
+          :active-dimensions="contentVolumeTopCountriesWidget"
           :project-id="projectId"
-          :widget-author="contentTop10CountriesWidget.author_dim_pivot"
-          :widget-country="contentTop10CountriesWidget.country_dim_pivot"
-          :widget-language="contentTop10CountriesWidget.language_dim_pivot"
+          :widget-author="contentVolumeTopCountriesWidget.author_dim_pivot"
+          :widget-country="contentVolumeTopCountriesWidget.country_dim_pivot"
+          :widget-language="contentVolumeTopCountriesWidget.language_dim_pivot"
           @save-dimensions-settings="saveDimensions"
         />
       </div>
@@ -66,56 +68,10 @@ export default {
   computed: {
     ...mapGetters({
       widgets: get.AVAILABLE_WIDGETS,
-      contentTop10Countries: get.CONTENT_VOLUME_TOP_COUNTRIES,
+      contentVolumeTopCountriesData: get.CONTENT_VOLUME_TOP_COUNTRIES,
     }),
-    contentTop10CountriesWidget() {
+    contentVolumeTopCountriesWidget() {
       return this.widgets['content_volume_top_5_countries_widget']
-    },
-    labels() {
-      let labelsCollection = []
-      let keys = []
-
-      Object.values(this.contentTop10Countries).forEach((el) => {
-        keys.push(Object.keys(el))
-        labelsCollection.push(el[keys[0]])
-      })
-
-      return labelsCollection[0]?.map((el) => this.formatDate(el.date))
-    },
-    chartDatasets() {
-      let datasetsValue = []
-      let lineColors = [
-        '#055FFC',
-        '#7A9EF9',
-        '#47F9B9',
-        '#47F979',
-        '#95F947',
-        '#F5F947',
-        '#F6AA37',
-        '#F63737',
-        '#F63787',
-        '#D930F4',
-      ]
-
-      Object.values(this.contentTop10Countries).forEach((el, index) => {
-        datasetsValue.push({
-          label: Object.keys(el)[0],
-          borderColor: lineColors[index],
-          pointStyle: 'circle',
-          pointRadius: 3,
-          pointBackgroundColor: lineColors[index],
-          pointBorderWidth: 1,
-          pointBorderColor: '#FFFFFF',
-          borderWidth: 1,
-          radius: 0.3,
-          fill: true,
-          tension: 0.3,
-          data: el[Object.keys(el)].map((el) => el.post_count),
-          skipNull: true,
-        })
-      })
-
-      return datasetsValue
     },
   },
   methods: {
@@ -124,13 +80,6 @@ export default {
       action.UPDATE_AVAILABLE_WIDGETS,
       action.GET_AVAILABLE_WIDGETS,
     ]),
-    formatDate(date) {
-      return new Date(date).toLocaleString('en-US', {
-        month: 'short',
-        day: 'numeric',
-        year: 'numeric',
-      })
-    },
     updateAggregationPeriod(val) {
       try {
         this[action.GET_CONTENT_VOLUME_TOP_COUNTRIES]({
@@ -138,15 +87,15 @@ export default {
           value: {
             aggregation_period: val.toLowerCase(),
             author_dim_pivot:
-              this.contentTop10CountriesWidget.author_dim_pivot || null,
+              this.contentVolumeTopCountriesWidget.author_dim_pivot || null,
             language_dim_pivot:
-              this.contentTop10CountriesWidget.language_dim_pivot || null,
+              this.contentVolumeTopCountriesWidget.language_dim_pivot || null,
             country_dim_pivot:
-              this.contentTop10CountriesWidget.country_dim_pivot || null,
+              this.contentVolumeTopCountriesWidget.country_dim_pivot || null,
             sentiment_dim_pivot:
-              this.contentTop10CountriesWidget.sentiment_dim_pivot || null,
+              this.contentVolumeTopCountriesWidget.sentiment_dim_pivot || null,
             source_dim_pivot:
-              this.contentTop10CountriesWidget.source_dim_pivot || null,
+              this.contentVolumeTopCountriesWidget.source_dim_pivot || null,
           },
         })
       } catch (e) {
@@ -158,13 +107,13 @@ export default {
         projectId: this.projectId,
         data: {
           content_volume_top_5_countries_widget: {
-            id: this.contentTop10CountriesWidget.id,
-            title: title || this.contentTop10CountriesWidget.title,
+            id: this.contentVolumeTopCountriesWidget.id,
+            title: title || this.contentVolumeTopCountriesWidget.title,
             description:
-              description || this.contentTop10CountriesWidget.description,
+              description || this.contentVolumeTopCountriesWidget.description,
             aggregation_period:
               aggregationPeriod.toLowerCase() ||
-              this.contentTop10CountriesWidget.aggregation_period,
+              this.contentVolumeTopCountriesWidget.aggregation_period,
           },
         },
       })
@@ -176,44 +125,47 @@ export default {
     },
     saveDimensions(author, language, country) {
       if (author || author === '') {
-        author = author || this.contentTop10CountriesWidget.author_dim_pivot
+        author = author || this.contentVolumeTopCountriesWidget.author_dim_pivot
       }
       if (language || language === '') {
         language =
-          language || this.contentTop10CountriesWidget.language_dim_pivot
+          language || this.contentVolumeTopCountriesWidget.language_dim_pivot
       }
       if (country || country === '') {
-        country = country || this.contentTop10CountriesWidget.country_dim_pivot
+        country =
+          country || this.contentVolumeTopCountriesWidget.country_dim_pivot
       }
 
       this[action.UPDATE_AVAILABLE_WIDGETS]({
         projectId: this.projectId,
         data: {
           content_volume_top_5_countries_widget: {
-            id: this.contentTop10CountriesWidget.id,
+            id: this.contentVolumeTopCountriesWidget.id,
             aggregation_period:
-              this.contentTop10CountriesWidget.aggregation_period,
+              this.contentVolumeTopCountriesWidget.aggregation_period,
             author_dim_pivot: author,
             language_dim_pivot: language,
             country_dim_pivot: country,
             sentiment_dim_pivot:
-              this.contentTop10CountriesWidget.sentiment_dim_pivot,
-            source_dim_pivot: this.contentTop10CountriesWidget.source_dim_pivot,
+              this.contentVolumeTopCountriesWidget.sentiment_dim_pivot,
+            source_dim_pivot:
+              this.contentVolumeTopCountriesWidget.source_dim_pivot,
           },
         },
       })
       this[action.GET_CONTENT_VOLUME_TOP_COUNTRIES]({
         projectId: this.projectId,
         value: {
-          id: this.contentTop10CountriesWidget.id,
+          id: this.contentVolumeTopCountriesWidget.id,
           aggregation_period:
-            this.contentTop10CountriesWidget.aggregation_period,
+            this.contentVolumeTopCountriesWidget.aggregation_period,
           author_dim_pivot: author,
           language_dim_pivot: language,
           country_dim_pivot: country,
           sentiment_dim_pivot:
-            this.contentTop10CountriesWidget.sentiment_dim_pivot,
-          source_dim_pivot: this.contentTop10CountriesWidget.source_dim_pivot,
+            this.contentVolumeTopCountriesWidget.sentiment_dim_pivot,
+          source_dim_pivot:
+            this.contentVolumeTopCountriesWidget.source_dim_pivot,
         },
       })
       this[action.GET_AVAILABLE_WIDGETS](this.projectId)

@@ -7,8 +7,8 @@
         <div class="chart-title">Sentiment For Period</div>
         <LineChart
           v-if="isLineChart"
-          :chart-labels="labels"
-          :datasets="chartDatasets"
+          :custom-chart-data="chartData"
+          :is-display-legend="false"
           class="multi-line"
         />
         <PatternsBarChart
@@ -167,6 +167,12 @@ export default {
           skipNull: true,
         },
       ]
+    },
+    chartData() {
+      return {
+        labels: this.labels,
+        datasets: this.chartDatasets,
+      }
     },
   },
   methods: {

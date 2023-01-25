@@ -5,8 +5,8 @@
   >
     <LineChart
       v-if="isLineChart"
-      :datasets="chartDatasets"
-      :chart-labels="volumeLabels"
+      :custom-chart-data="chartData"
+      :is-display-legend="false"
     />
     <BarChart
       v-else
@@ -104,6 +104,12 @@ export default {
           data: this.volumeValues,
         },
       ]
+    },
+    chartData() {
+      return {
+        labels: this.volumeLabels,
+        datasets: this.chartDatasets,
+      }
     },
   },
   watch: {

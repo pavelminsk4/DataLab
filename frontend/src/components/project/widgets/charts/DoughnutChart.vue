@@ -81,23 +81,50 @@ export default {
     },
   },
   computed: {
+    colors() {
+      let lineColors = [
+        '#055FFC',
+        '#7A9EF9',
+        '#47F9B9',
+        '#47F979',
+        '#95F947',
+        '#F5F947',
+        '#F6AA37',
+        '#F63737',
+        '#F63787',
+        '#D930F4',
+      ]
+      let finalColors = []
+
+      this.labels.forEach((el, index) => {
+        if (this.labels[index] === 'Missing in source') {
+          finalColors.push('#808080')
+        } else {
+          finalColors.push(lineColors[index])
+        }
+      })
+
+      return finalColors
+    },
+    fontColors() {
+      let finalFontColors = []
+
+      this.labels.forEach((el, index) => {
+        if (this.labels[index] === 'Missing in source') {
+          finalFontColors.push('#808080')
+        } else {
+          finalFontColors.push('#ffffff')
+        }
+      })
+
+      return finalFontColors
+    },
     chartData() {
       return {
         labels: this.labels,
         datasets: [
           {
-            backgroundColor: [
-              '#055FFC',
-              '#7A9EF9',
-              '#47F9B9',
-              '#47F979',
-              '#95F947',
-              '#F5F947',
-              '#F6AA37',
-              '#F63737',
-              '#F63787',
-              '#D930F4',
-            ],
+            backgroundColor: this.colors,
             cutout: '75%',
             borderColor: 'transparent',
             spacing: 10,
