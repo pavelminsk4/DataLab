@@ -57,7 +57,7 @@ class WorkspaceCreateSerializer(serializers.ModelSerializer):
     fields = '__all__'
 
   def create(self, validated_data):
-    workspace = Workspace.objects.create(title=validated_data['title'], description=validated_data['description'] or None)
+    workspace = Workspace.objects.create(title=validated_data['title'], description=validated_data['description'], department=validated_data['department'] or None)
     project = Project.objects.create(**validated_data['projects'][0])
     workspace.members.set(validated_data["members"])
     workspace.projects.add(project)
