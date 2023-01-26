@@ -56,9 +56,11 @@ export default {
     if (!this.workspaces.length) {
       this[action.GET_WORKSPACES]()
     }
+
+    this[action.CLEAR_STATE]()
   },
   methods: {
-    ...mapActions([action.GET_WORKSPACES]),
+    ...mapActions([action.GET_WORKSPACES, action.CLEAR_STATE]),
     createProject() {
       this.$router.push({
         name: 'ProjectStep1',

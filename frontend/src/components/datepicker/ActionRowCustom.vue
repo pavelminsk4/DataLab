@@ -1,6 +1,12 @@
 <template>
   <div class="custom-action-row">
-    <BaseButton class="button" @click="applyChanges">Apply</BaseButton>
+    <BaseButton
+      :is-disabled="internalModelValue.length <= 1"
+      class="button"
+      @click="applyChanges"
+    >
+      Apply
+    </BaseButton>
   </div>
 </template>
 

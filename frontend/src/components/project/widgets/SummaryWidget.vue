@@ -56,19 +56,23 @@ export default {
     }),
     widgetMetrics() {
       return [
-        {name: 'New posts', value: this.summaryData?.posts},
-        {name: 'Neutral post', value: this.summaryData?.neut, style: 'neutral'},
+        {name: 'All posts', value: this.summaryData?.posts},
         {
-          name: 'Negative post',
+          name: 'Neutral posts',
+          value: this.summaryData?.neut,
+          style: 'neutral',
+        },
+        {
+          name: 'Negative posts',
           value: this.summaryData?.neg,
           style: 'negative',
         },
         {
-          name: 'Positive post',
+          name: 'Positive posts',
           value: this.summaryData?.pos,
           style: 'positive',
         },
-        {name: 'Source', value: this.summaryData?.sources},
+        {name: 'Sources', value: this.summaryData?.sources},
         {name: 'Potential reach', value: this.summaryData?.reach},
         {name: 'Countries', value: this.summaryData?.countries},
         {name: 'Authors', value: this.summaryData?.authors},

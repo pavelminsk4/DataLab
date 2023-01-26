@@ -205,6 +205,8 @@ export default {
       source: '',
       workspace: null,
     }
+    state.alerts = []
+    state.regularReports = []
   },
 
   [mutator.RESET_SEARCH_LIST](state) {

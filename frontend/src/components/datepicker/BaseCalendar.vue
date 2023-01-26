@@ -43,7 +43,9 @@
       <div class="right-side-title">Ending date</div>
 
       <div class="time-picker">
-        <div class="current-date">{{ formatDate(selectedDateProxy[1]) }}</div>
+        <div class="current-date">
+          {{ formatDate(selectedDateProxy[1]) }}
+        </div>
         <TimePickerCustom
           :name-hours="'hoursEndDate'"
           :name-minutes="'minutesEndDate'"

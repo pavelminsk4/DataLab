@@ -715,10 +715,6 @@ export default {
     commit(mutator.SET_DISPLAY_CALENDAR, val)
   },
 
-  async [action.CLEAR_STATE]({commit}) {
-    commit(mutator.RESET_STATE)
-  },
-
   async [action.CLEAR_KEYWORDS_LIST]({commit}, index) {
     commit(mutator.DELETE_KEYWORDS_LIST, index)
   },

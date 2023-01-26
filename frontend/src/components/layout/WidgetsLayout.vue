@@ -4,7 +4,7 @@
       <div class="title">{{ title }}</div>
 
       <div class="setting-buttons">
-        <div v-if="isShowSettings" class="button" @click="openSettings">
+        <div v-if="isShowSettings" class="button" @click="openSettingsModal">
           <SettingsIcon />
         </div>
         <div class="button" @click="deleteWidget"><CloseIcon /></div>
@@ -40,7 +40,7 @@ export default {
     ...mapGetters({isLoading: get.LOADING}),
   },
   methods: {
-    openSettings() {
+    openSettingsModal() {
       this.$emit('open-modal')
     },
     deleteWidget() {

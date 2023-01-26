@@ -248,6 +248,7 @@ export default {
 .search-clipping-card {
   border-radius: 0;
   border: none;
+  border-bottom: 1px solid var(--input-border-color);
   box-shadow: none;
 }
 
@@ -338,6 +339,8 @@ export default {
     display: flex;
     flex-direction: column;
 
+    width: 100%;
+
     overflow: hidden;
 
     .header-card {
@@ -421,10 +424,6 @@ export default {
     font-size: 10px;
     line-height: 20px;
     color: var(--secondary-text-color);
-
-    &:last-child {
-      margin-left: auto;
-    }
   }
 
   .source-link {

@@ -10,18 +10,19 @@
       v-model="description"
     />
 
-    <div class="title">Date Aggregation Period</div>
-    <BaseSelect
-      v-model="aggregationPeriod"
-      :list="aggregationPeriods"
-      :is-reject-selection="false"
-      :current-value="capitalizeFirstLater(period)"
-      @select-option="selectItem"
-      name="aggregation-period"
-      class="option"
-    />
+    <div v-if="isAggregationPeriod">
+      <div class="title">Date Aggregation Period</div>
+      <BaseSelect
+        v-model="aggregationPeriod"
+        :list="aggregationPeriods"
+        :is-reject-selection="false"
+        :current-value="capitalizeFirstLater(period)"
+        @select-option="selectItem"
+        name="aggregation-period"
+      />
+    </div>
 
-    <BaseButton @click="saveOptions">Save</BaseButton>
+    <BaseButton class="button" @click="saveOptions">Save</BaseButton>
   </div>
 </template>
 
@@ -45,6 +46,10 @@ export default {
     period: {
       type: String,
       required: false,
+    },
+    isAggregationPeriod: {
+      type: Boolean,
+      default: true,
     },
   },
   data() {
@@ -85,8 +90,6 @@ export default {
   flex-direction: column;
   flex: 1;
 
-  margin-right: 30px;
-
   .input-title {
     width: 100%;
   }
@@ -111,10 +114,6 @@ export default {
     line-height: 110%;
   }
 
-  .option {
-    margin-bottom: 25px;
-  }
-
   .description-field {
     width: 100%;
     height: 132px;
@@ -128,6 +127,10 @@ export default {
     color: var(--primary-text-color);
 
     resize: none;
+  }
+
+  .button {
+    margin-top: 25px;
   }
 
   &::placeholder {

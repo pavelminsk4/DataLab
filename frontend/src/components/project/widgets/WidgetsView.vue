@@ -1,10 +1,11 @@
 <template>
-  <component
-    :is="currentSettingsModal"
-    v-if="isOpenModalSettings"
+  <WidgetSettingsModal
+    v-if="isOpenWidgetSettingsModal"
+    :widget-name="dataForWidgetModal.widgetName"
     :project-id="projectId"
-    :volume="volumeWidget"
-    :sentiment-for-period-value="sentimentForPeriodWidget"
+    :widget-data="this[dataForWidgetModal.widgetName]"
+    :action-name="dataForWidgetModal.actionName"
+    :is-charts-show="dataForWidgetModal.isChartShow"
     @close="closeModal"
   />
 
@@ -46,14 +47,14 @@
         <component
           v-if="item.isWidget"
           :is="item.widgetName"
-          :summary-data="summary"
-          :volume="volumeWidget"
+          :summary-data="summary_widget"
+          :volume="volume_widget"
           :project-id="projectId"
           :is-open-widget="item.isShow"
           :widgets="availableWidgets"
           :current-project="currentProject"
           @delete-widget="deleteWidget(item.name)"
-          @open-settings-modal="openModal(item.isOpenModal)"
+          @open-settings-modal="openModal(item)"
         />
       </grid-item>
     </grid-layout>
@@ -65,7 +66,9 @@ import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
 import VueGridLayout from 'vue3-grid-layout'
+
 import {snakeToPascal} from '@lib/utilities'
+import modalWidgetsConfig from '@/lib/configs/modalWidgetsConfig'
 
 import SearchResults from '@/components/SearchResults'
 
@@ -85,42 +88,14 @@ import ContentVolumeTop5SourceWidget from '@/components/project/widgets/ContentV
 import ContentVolumeTop5AuthorsWidget from '@/components/project/widgets/ContentVolumeTop5AuthorsWidget'
 import ContentVolumeTop5CountriesWidget from '@/components/project/widgets/ContentVolumeTop5CountriesWidget'
 
-import VolumeWidgetModal from '@/components/project/widgets/modals/VolumeWidgetModal'
-import SummaryWidgetModal from '@/components/project/widgets/modals/SummaryWidgetModal'
-import Top10BrandsWidgetModal from '@/components/project/widgets/modals/Top10BrandsWidgetModal'
-import Top10CountriesWidgetModal from '@/components/project/widgets/modals/Top10CountriesWidgetModal'
-import Top10LanguagesWidgetModal from '@/components/project/widgets/modals/Top10LanguagesWidgetModal'
-import SentimentForPeriodWidgetModal from '@/components/project/widgets/modals/SentimentForPeriodWidgetModal'
-import ClippingFeedContentWidgetModal from '@/components/project/widgets/modals/ClippingFeedContentWidgetModal'
-import Top10AuthorsByVolumeWidgetModal from '@/components/project/widgets/modals/Top10AuthorsByVolumeWidgetModal'
-import SentimentTop10SourcesWidgetModal from '@/components/project/widgets/modals/SentimentTop10SourcesWidgetModal'
-import SentimentTop10AuthorsWidgetModal from '@/components/project/widgets/modals/SentimentTop10AuthorsWidgetModal'
-import SentimentTop10CountriesWidgetModal from '@/components/project/widgets/modals/SentimentTop10CountriesWidgetModal'
-import SentimentTop10LanguagesWidgetModal from '@/components/project/widgets/modals/SentimentTop10LanguagesWidgetModal'
-import ContentVolumeTop5SourceWidgetModal from '@/components/project/widgets/modals/ContentVolumeTop5SourceWidgetModal'
-import ContentVolumeTop5AuthorsWidgetModal from '@/components/project/widgets/modals/ContentVolumeTop5AuthorsWidgetModal'
-import ContentVolumeTop5CountriesWidgetModal from '@/components/project/widgets/modals/ContentVolumeTop5CountriesWidgetModal'
+import WidgetSettingsModal from '@/components/project/modals/WidgetSettingsModal'
 
 export default {
   name: 'WidgetsView',
   components: {
+    WidgetSettingsModal,
     SearchResults,
-    VolumeWidgetModal,
-    SummaryWidgetModal,
-    Top10BrandsWidgetModal,
-    Top10CountriesWidgetModal,
-    Top10LanguagesWidgetModal,
     ClippingFeedContentWidget,
-    SentimentForPeriodWidgetModal,
-    ClippingFeedContentWidgetModal,
-    Top10AuthorsByVolumeWidgetModal,
-    SentimentTop10SourcesWidgetModal,
-    SentimentTop10AuthorsWidgetModal,
-    SentimentTop10CountriesWidgetModal,
-    SentimentTop10LanguagesWidgetModal,
-    ContentVolumeTop5SourceWidgetModal,
-    ContentVolumeTop5AuthorsWidgetModal,
-    ContentVolumeTop5CountriesWidgetModal,
     VolumeWidget,
     SummaryWidget,
     Top10BrandsWidget,
@@ -152,7 +127,8 @@ export default {
   data() {
     return {
       layout: [],
-      isOpenModalSettings: null,
+      isOpenWidgetSettingsModal: false,
+      dataForWidgetModal: {},
     }
   },
   created() {
@@ -166,8 +142,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      summary: get.SUMMARY_WIDGET,
-      volumeWidget: get.VOLUME_WIDGET,
+      summary_widget: get.SUMMARY_WIDGET,
+      volume_widget: get.VOLUME_WIDGET,
       sentimentForPeriodWidget: get.SENTIMENT_FOR_PERIOD,
       availableWidgets: get.AVAILABLE_WIDGETS,
       clippingData: get.CLIPPING_FEED_CONTENT_WIDGET,
@@ -183,14 +159,15 @@ export default {
                 x: 0,
                 y: this.getYAxisValue(layout.length),
                 w: 2,
-                h: this.getElementHeight(widgetName),
+                h: this.getElementData(widgetName).height,
                 i: index,
                 static: false,
                 name: widgetName,
                 widgetName: snakeToPascal(widgetName),
                 isShow: this.availableWidgets[widgetName]?.is_active,
-                isOpenModal: snakeToPascal(widgetName) + 'Modal',
                 isWidget: true,
+                actionName: this.getElementData(widgetName).actionName,
+                isChartShow: this.getElementData(widgetName).isChartShow,
               })
             }
           })
@@ -202,27 +179,14 @@ export default {
         this.layout = val
       },
     },
-    currentSettingsModal() {
-      return this.isOpenModalSettings
-    },
-    gridElementsHeight() {
-      return {
-        summary_widget: 8,
-        volume_widget: 12,
-        clipping_feed_content_widget: this.clippingData.length ? 13 : 3.8,
-        top_10_authors_by_volume_widget: 13,
-        top_10_brands_widget: 13,
-        top_10_countries_widget: 13,
-        top_10_languages_widget: 13,
-        sentiment_top_10_sources_widget: 12,
-        sentiment_top_10_countries_widget: 12,
-        sentiment_top_10_authors_widget: 12,
-        sentiment_top_10_languages_widget: 12,
-        sentiment_for_period_widget: 12,
-        content_volume_top_5_authors_widget: 12,
-        content_volume_top_5_countries_widget: 12,
-        content_volume_top_5_source_widget: 12,
-      }
+    elementsValue() {
+      let widgetsElements = modalWidgetsConfig
+      widgetsElements.clipping_feed_content_widget.height = this.clippingData
+        .length
+        ? 13
+        : 3.8
+
+      return widgetsElements
     },
   },
   methods: {
@@ -231,8 +195,8 @@ export default {
       action.UPDATE_AVAILABLE_WIDGETS,
       action.GET_CLIPPING_FEED_CONTENT_WIDGET,
     ]),
-    getElementHeight(widgetName) {
-      return this.gridElementsHeight[widgetName]
+    getElementData(widgetName) {
+      return this.elementsValue[widgetName]
     },
     getYAxisValue(val) {
       return val > 1 ? val - 1 : 0
@@ -253,12 +217,17 @@ export default {
     addSortingValue(value) {
       this.$emit('set-sorting-value', value)
     },
-    openModal(modalName) {
-      this.isOpenModalSettings = modalName
+    openModal(item) {
+      this.dataForWidgetModal = {
+        widgetName: item.name,
+        actionName: item.actionName,
+        isChartShow: item.isChartShow,
+      }
+      this.isOpenWidgetSettingsModal = !this.isOpenWidgetSettingsModal
     },
     closeModal() {
       this.togglePageScroll(false)
-      this.isOpenModalSettings = null
+      this.isOpenWidgetSettingsModal = false
     },
   },
 }
