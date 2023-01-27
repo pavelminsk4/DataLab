@@ -436,11 +436,12 @@ export default {
     }
   },
 
-  async [action.CREATE_PROJECT]({commit}, projectData) {
+  async [action.CREATE_PROJECT]({commit, dispatch}, projectData) {
     commit(mutator.SET_LOADING, true)
     try {
       const response = await api.createNewProject(projectData)
       commit(mutator.SET_NEW_PROJECT_ID, response.id)
+      await dispatch(action.GET_USER_INFORMATION)
     } catch (e) {
       console.log(e)
     } finally {
@@ -661,6 +662,7 @@ export default {
     try {
       await api.deleteProject(projectId)
       await dispatch(action.GET_WORKSPACES)
+      await dispatch(action.GET_USER_INFORMATION)
     } catch (e) {
       console.log(e)
     } finally {

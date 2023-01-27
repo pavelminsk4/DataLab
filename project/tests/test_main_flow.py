@@ -2,6 +2,7 @@ from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.common.by import By
 from django.contrib.auth.models import User
+from accounts.models import department
 
 class MainFlowTests(StaticLiveServerTestCase):
   @classmethod
@@ -10,7 +11,16 @@ class MainFlowTests(StaticLiveServerTestCase):
     cls.selenium = WebDriver()
 
   def test_main_flow(self):
-    User.objects.create_user(username='user', password='user')
+    dep = department.objects.create(
+              departmentname='TestDepartment',
+              max_users=2,
+              max_projects=2,
+              current_number_of_projects=0,
+              current_number_of_users=0
+            )
+    user = User.objects.create_user(username='user', password='user')
+    user.user_profile.department = dep
+    user.user_profile.save()
     self.client.login(username='user', password='user')
     cookie = self.client.cookies['sessionid']
     self.selenium.get(self.live_server_url + '')

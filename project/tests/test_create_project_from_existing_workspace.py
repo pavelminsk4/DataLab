@@ -5,6 +5,7 @@ from selenium.webdriver.common.by import By
 from django.contrib.auth.models import User
 from project.models import Workspace
 import time
+from accounts.models import department
 
 class CreateProjectTests(StaticLiveServerTestCase):
   @classmethod
@@ -13,8 +14,17 @@ class CreateProjectTests(StaticLiveServerTestCase):
     cls.selenium = WebDriver()
 
   def test_create_project_from_existing_workspace(self):
+    dep = department.objects.create(
+              departmentname='TestDepartment',
+              max_users=2,
+              max_projects=2,
+              current_number_of_projects=0,
+              current_number_of_users=0
+            )
     user = User.objects.create_user(username='user', password='user')
-    ws = Workspace.objects.create(title='Sensika')
+    user.user_profile.department = dep
+    user.user_profile.save()
+    ws = Workspace.objects.create(title='Sensika', department=dep)
     ws.members.add(user)
     self.client.login(username='user', password='user')
     cookie = self.client.cookies['sessionid']

@@ -186,8 +186,8 @@ export default {
       title: '',
       description: '',
       members: [],
-      company: null,
       projects: [],
+      department: null,
     }
     state.newProject = {
       title: '',

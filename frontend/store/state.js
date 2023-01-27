@@ -46,8 +46,8 @@ const state = {
     title: '',
     description: '',
     members: [],
-    company: null,
     projects: [],
+    department: null,
   },
   newProject: {
     title: '',

@@ -8,7 +8,7 @@
       @save-settings="saveSettings"
     />
 
-    <div class="create-project-wrapper">
+    <div v-if="!isLoading && department" class="create-project-wrapper">
       <div>
         <h1 class="title">Dashboard</h1>
         <span class="hint"
@@ -21,11 +21,20 @@
         </div>
       </div>
 
-      <BaseButton class="create-new-button" @click="createWorkspace">
+      <BaseButton
+        :is-disabled="isProjectCreationAvailable"
+        :has-tooltip="isProjectCreationAvailable"
+        tooltip-title="Created the maximum possible number of projects!"
+        class="create-new-button"
+        @click="createWorkspace"
+      >
         Create new workspace
       </BaseButton>
     </div>
-    <div v-if="workspaces.length" class="items-wrapper scroll">
+
+    <BaseSpinner v-if="isLoading" class="spinner" />
+
+    <div v-if="!isLoading && workspaces.length" class="items-wrapper scroll">
       <ProjectItem
         v-for="(item, index) in sortWorkspaces"
         :key="index"
@@ -53,10 +62,12 @@ import ProjectItem from '@components/dashboard/ProjectItem'
 import BaseButton from '@components/buttons/BaseButton'
 import SettingsWorkspaceModal from '@/components/modals/SettingsWorkspaceModal'
 import BlankPage from '@/components/BlankPage'
+import BaseSpinner from '@/components/BaseSpinner'
 
 export default {
   name: 'DashboardList',
   components: {
+    BaseSpinner,
     BlankPage,
     SortIcon,
     BaseButton,
@@ -71,9 +82,19 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({workspaces: get.WORKSPACES}),
+    ...mapGetters({
+      workspaces: get.WORKSPACES,
+      department: get.DEPARTMENT,
+      isLoading: get.LOADING,
+    }),
     sortWorkspaces() {
       return this.sortingByLastDate(this.workspaces)
+    },
+    isProjectCreationAvailable() {
+      return (
+        this.department.current_number_of_projects ===
+        this.department.max_projects
+      )
     },
   },
   methods: {
@@ -172,7 +193,13 @@ export default {
 }
 
 .create-new-button {
-  width: 178px;
+  width: 180px;
+
+  &:hover {
+    .tooltip {
+      visibility: visible;
+    }
+  }
 }
 
 .items-wrapper {
@@ -184,5 +211,14 @@ export default {
 
   max-height: 500px;
   padding-right: 15px;
+}
+
+.spinner {
+  margin: 40px auto auto auto;
+}
+
+.tooltip {
+  visibility: visible;
+  margin-right: 218px;
 }
 </style>

@@ -69,6 +69,7 @@ export default {
           title: this.title,
           description: this.description,
           members: this.members,
+          department: this.user.user_profile.department.id,
         })
         this.$router.push({
           name: 'Step2',
