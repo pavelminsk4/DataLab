@@ -3,6 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.webdriver import WebDriver
 from django.contrib.auth.models import User
 from project.models import Workspace
+from accounts.models import department
 
 class LoginTests(StaticLiveServerTestCase):
   @classmethod
@@ -30,11 +31,25 @@ class WorkspaceTests(StaticLiveServerTestCase):
     cls.selenium = WebDriver()
 
   def test_dashboard(self):
+    dep = department.objects.create(
+              departmentname='TestDepartment',
+              max_users=2,
+              max_projects=2,
+              current_number_of_projects=0,
+              current_number_of_users=0
+            )
+
     user1 = User.objects.create_user(username='admin', password='admin')
+    user1.user_profile.department = dep
+    user1.user_profile.save()
+
     user2 = User.objects.create_user(username='user', password='user')
-    workspace1 = Workspace.objects.create(title='workspace1')
-    workspace2 = Workspace.objects.create(title='workspace2')
-    workspace3 = Workspace.objects.create(title='workspace3')
+    user2.user_profile.department = dep
+    user2.user_profile.save()
+    
+    workspace1 = Workspace.objects.create(title='workspace1', department=dep)
+    workspace2 = Workspace.objects.create(title='workspace2', department=dep)
+    workspace3 = Workspace.objects.create(title='workspace3', department=dep)
     workspace1.members.add(user1)
     workspace2.members.add(user1)
     workspace3.members.add(user2)

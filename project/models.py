@@ -67,18 +67,18 @@ class Project(models.Model):
 def increase_cur_number_of_projects(sender, instance, created, **kwargs):
   if created:
     if instance.workspace:
-      instance.workspace.department.current_numbers_of_projects += 1
+      instance.workspace.department.current_number_of_projects += 1
       instance.workspace.department.save()
 
 @receiver(post_save, sender=Workspace)
 def increase_cur_number_of_projects(sender, instance, created, **kwargs):
   if created:
-    instance.department.current_numbers_of_projects += 1
+    instance.department.current_number_of_projects += 1
     instance.department.save()
 
 @receiver(pre_delete, sender=Project)
 def decrease_cur_number_of_projects(sender, instance, using, **kwargs):
-  instance.workspace.department.current_numbers_of_projects -= 1
+  instance.workspace.department.current_number_of_projects -= 1
   instance.workspace.department.save()
 
 class Feedlinks(models.Model):
