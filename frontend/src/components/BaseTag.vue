@@ -166,11 +166,12 @@ export default {
   position: relative;
 
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
 
-  height: 44px;
+  min-height: 44px;
   width: 100%;
-  padding: 0 15px 0 10px;
+  padding: 10px 15px 5px 10px;
 
   border: 1px solid var(--input-border-color);
   box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
@@ -180,8 +181,10 @@ export default {
   overflow: auto;
 
   .input {
-    width: 100%;
+    flex-grow: 1;
+
     min-width: 40px;
+    margin-bottom: 5px;
 
     border: none;
     outline: none;
@@ -197,7 +200,7 @@ export default {
     white-space: nowrap;
     gap: 12px;
 
-    margin-right: 10px;
+    margin: 0 10px 5px 0;
     padding: 0 8px 0 10px;
 
     border-radius: 8px;
@@ -212,8 +215,6 @@ export default {
 }
 
 .tag-input .additional-keyword {
-  margin-bottom: 5px;
-
   background: rgba(231, 167, 71, 0.2);
 
   color: var(--key-word-color);
@@ -237,6 +238,9 @@ export default {
   border-radius: 10px;
 
   .error-container {
+    position: absolute;
+    right: 10px;
+
     display: flex;
     align-items: center;
     justify-content: center;
