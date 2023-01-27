@@ -6,14 +6,14 @@
 
     <div class="second-title">Define the main keywords (OR)</div>
     <BaseTag
-      @update:modelValue="updateCollection"
-      @start-search="showResults"
-      :model-value="mainKeywords"
-      error-message="Required field"
-      :is-error="hasErrorMainField"
-      :is-main-field="true"
       name="keywords"
+      :model-value="mainKeywords"
+      :has-error="hasErrorMainField"
+      error-message="Required field"
+      :is-main-field="true"
       placeholder='Enter a main keyword and press "Enter"'
+      @start-search="showResults"
+      @update:modelValue="updateCollection"
     />
 
     <section class="additional-key-words">
@@ -23,13 +23,13 @@
           (And)
         </div>
         <BaseTag
-          @update:modelValue="updateCollection"
           :model-value="additionalKeywords"
           :textarea="true"
           :is-additional-keywords="true"
           name="additional_keywords"
           placeholder="Enter additional keywords"
           class="additional-key"
+          @update:modelValue="updateCollection"
         />
       </div>
 
@@ -39,12 +39,12 @@
           (And Not)
         </div>
         <BaseTag
-          @update:modelValue="updateCollection"
           :model-value="excludeKeywords"
           :is-irrelevant-keywords="true"
           class="additional-key"
           name="ignore_keywords"
           placeholder="Enter irrelevant keywords"
+          @update:modelValue="updateCollection"
         />
       </div>
     </section>
@@ -172,8 +172,6 @@ export default {
         flex-wrap: wrap;
 
         height: 110px;
-
-        padding-top: 10px;
       }
     }
   }
