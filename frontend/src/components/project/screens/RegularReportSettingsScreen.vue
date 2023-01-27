@@ -38,36 +38,14 @@
 
         <div class="title">Recipient's email</div>
 
-        <div class="email-wrapper">
-          <DivWithError
-            :hasError="!!errors.usersEmailError"
-            :errorMessage="errors.usersEmailError"
-            :class="['email-field scroll', visible && 'active-email-field']"
-          >
-            <div
-              v-for="(item, index) in selectedUsers || []"
-              :key="item"
-              :class="['selected-user', 'duplicate' && isDuplicate]"
-            >
-              {{ item.email }}
-              <DeleteTagButton @click="removeTag(index)" />
-            </div>
-            <div @click="addUsers" class="add-users-button">
-              Add Users <AddButtonIcon />
-            </div>
-          </DivWithError>
-
-          <ul v-if="visible" class="select-list scroll">
-            <li
-              v-for="(item, index) in companyUsersEmailsList"
-              :key="item.username + index"
-              class="select-item"
-              @click="select(item)"
-            >
-              {{ item.email }}
-            </li>
-          </ul>
-        </div>
+        <AddUsersField
+          :hasError="!!errors.usersEmailError"
+          :errorMessage="errors.usersEmailError"
+          :selectedUsers="selectedUsers"
+          :usersEmails="companyUsersEmails"
+          @select-user="selectUser"
+          @remove-user="removeUser"
+        />
       </div>
       <DivWithError
         :hasError="!!errors.reportTypeError"
@@ -91,10 +69,9 @@ import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 import {isAllEmptyFields} from '@lib/utilities'
 
-import AddButtonIcon from '@/components/icons/AddButtonIcon'
+import AddUsersField from '@/components/AddUsersField'
 import BaseButton from '@/components/buttons/BaseButton'
 import BaseInput from '@/components/BaseInput'
-import DeleteTagButton from '@/components/icons/DeleteTagButton'
 import DivWithError from '@/components/DivWithError.vue'
 import NavigationBar from '@/components/navigation/NavigationBar'
 import TimePickerReports from '@/components/project/screens/TimePickerReports'
@@ -104,10 +81,9 @@ const DEFAULT_ERROR_MESSAGE = 'required'
 export default {
   name: 'RegularReportSettingsScreen',
   components: {
-    AddButtonIcon,
+    AddUsersField,
     BaseButton,
     BaseInput,
-    DeleteTagButton,
     DivWithError,
     NavigationBar,
     TimePickerReports,
@@ -129,8 +105,6 @@ export default {
           w_day_of_week: null,
         },
       },
-      visible: false,
-      isDuplicate: false,
       selectedUsers: [],
       usersId: [],
     }
@@ -181,12 +155,7 @@ export default {
       return this.$route.name
     },
     companyUsersEmails() {
-      return this.companyUsers.filter((el) => el.email)
-    },
-    companyUsersEmailsList() {
-      return this.companyUsersEmails.filter(
-        (email) => !this.selectedUsers.includes(email)
-      )
+      return this.companyUsers.filter((el) => el.email) || []
     },
   },
   async created() {
@@ -210,11 +179,6 @@ export default {
       this.selectedUsers = [...this.reportUsers]
       this.usersId = [...this.reportUsersId]
     }
-
-    document.addEventListener('click', this.close)
-  },
-  unmounted() {
-    document.removeEventListener('click', this.close)
   },
   methods: {
     ...mapActions([
@@ -275,36 +239,17 @@ export default {
         name: 'Reports',
       })
     },
-    addUsers() {
-      this.visible = !this.visible
+    selectUser(item) {
+      this.usersId.push(item.id)
+      this.selectedUsers.push(item)
+      this.errors.usersEmailError = null
     },
-    select(item) {
-      if (this.usersId.includes(item.id)) {
-        this.isDuplicate = true
-      } else {
-        this.usersId.push(item.id)
-        this.selectedUsers.push(item)
-        this.errors.usersEmailError = null
-      }
-    },
-    removeTag(index) {
+    removeUser(index) {
       this.selectedUsers.splice(index, 1)
       this.usersId.splice(index, 1)
     },
-    close({target}) {
-      const selectList = document.querySelector('.email-wrapper')
-      const isSelectInput =
-        selectList.contains(target) || target.classList.contains('select-item')
-
-      if (!isSelectInput) {
-        this.visible = false
-      }
-    },
     validationTitle() {
       this.errors.titleError = this.reportData.title
-        ? null
-        : DEFAULT_ERROR_MESSAGE
-      this.errors.usersEmailError = this.selectedUsers.length
         ? null
         : DEFAULT_ERROR_MESSAGE
     },
@@ -382,115 +327,6 @@ export default {
   .additional-settings {
     display: flex;
     gap: 20px;
-  }
-}
-
-.email-wrapper {
-  .email-field {
-    display: flex;
-    gap: 8px;
-
-    height: auto;
-    width: 516px;
-    padding: 8px;
-
-    background: var(--secondary-bg-color);
-    border: 1px solid var(--input-border-color);
-    box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
-    border-radius: 10px;
-
-    overflow-y: hidden;
-    overflow-x: auto;
-
-    .selected-user {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-
-      height: 25px;
-      padding: 8px;
-
-      border-radius: 8px;
-      background-color: rgba(255, 255, 255, 0.2);
-
-      cursor: pointer;
-
-      font-style: normal;
-      font-weight: 400;
-      font-size: 14px;
-      line-height: 20px;
-      color: var(--primary-text-color);
-    }
-
-    .duplicate {
-      color: var(--primary-text-color);
-
-      background: var(--negative-status);
-      animation: shake 1s;
-    }
-    .add-users-button {
-      display: flex;
-      align-items: center;
-      flex-shrink: 0;
-      gap: 6px;
-
-      height: 25px;
-      padding: 8px;
-
-      border-radius: 8px;
-      background-color: rgba(145, 152, 167, 0.2);
-
-      cursor: pointer;
-
-      font-style: normal;
-      font-weight: 400;
-      font-size: 14px;
-      line-height: 20px;
-      color: var(--secondary-text-color);
-
-      &:hover {
-        background-color: var(--hover-button-color);
-      }
-    }
-  }
-
-  .active-email-field {
-    outline: 1px solid var(--primary-button-color);
-    border-radius: 10px 10px 0 0;
-  }
-
-  .select-list {
-    position: absolute;
-    z-index: 1;
-
-    padding: 0;
-    margin: 0;
-    width: 516px;
-    max-height: 250px;
-
-    outline: 1px solid var(--primary-button-color);
-    border-top: 1px solid var(--modal-line-color);
-    box-shadow: 0 3px 4px rgba(5, 95, 252, 0.49);
-    border-radius: 0 0 10px 10px;
-    background-color: var(--secondary-bg-color);
-
-    font-size: 14px;
-    list-style-type: none;
-    overflow-y: auto;
-    overflow-x: hidden;
-
-    .select-item {
-      padding: 10px;
-
-      cursor: pointer;
-      list-style-type: none;
-
-      color: var(--primary-text-color);
-
-      &:hover {
-        background: var(--primary-button-color);
-      }
-    }
   }
 }
 

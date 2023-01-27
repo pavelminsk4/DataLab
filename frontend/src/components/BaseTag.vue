@@ -169,6 +169,7 @@ export default {
   flex-wrap: wrap;
   align-items: center;
 
+  max-height: 110px;
   min-height: 44px;
   width: 100%;
   padding: 10px 15px 5px 10px;
