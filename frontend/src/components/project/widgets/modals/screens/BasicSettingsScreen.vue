@@ -1,7 +1,13 @@
 <template>
   <div class="options-wrapper">
     <div class="title">Widget Title</div>
-    <BaseInput v-model="title" class="input-title" />
+    <BaseInput
+      v-model="title"
+      :hasError="!!errors.titleError"
+      :errorMessage="errors.titleError"
+      class="input-title"
+      @update="errors.titleError = null"
+    />
 
     <div class="title">Widget Description</div>
     <textarea
@@ -10,7 +16,7 @@
       v-model="description"
     />
 
-    <div v-if="isAggregationPeriod">
+    <div v-if="hasAggregationPeriod">
       <div class="title">Date Aggregation Period</div>
       <BaseSelect
         v-model="aggregationPeriod"
@@ -27,6 +33,8 @@
 </template>
 
 <script>
+import {isAllEmptyFields} from '@lib/utilities'
+
 import BaseInput from '@/components/BaseInput'
 import BaseSelect from '@/components/BaseSelect'
 import BaseButton from '@/components/buttons/BaseButton'
@@ -47,7 +55,7 @@ export default {
       type: String,
       required: false,
     },
-    isAggregationPeriod: {
+    hasAggregationPeriod: {
       type: Boolean,
       default: true,
     },
@@ -56,8 +64,11 @@ export default {
     return {
       title: this.widgetTitle,
       description: this.widgetDescription,
-      aggregationPeriod: '',
+      aggregationPeriod: this.period,
       aggregationPeriods: ['Hour', 'Day', 'Month', 'Year'],
+      errors: {
+        titleError: null,
+      },
     }
   },
   methods: {
@@ -70,6 +81,10 @@ export default {
       }
     },
     saveOptions() {
+      this.errors.titleError = this.title ? null : 'required'
+
+      if (!isAllEmptyFields(this.errors)) return
+
       this.$emit(
         'save-changes',
         this.title,

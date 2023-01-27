@@ -6,6 +6,7 @@
     :widget-data="this[dataForWidgetModal.widgetName]"
     :action-name="dataForWidgetModal.actionName"
     :is-charts-show="dataForWidgetModal.isChartShow"
+    :hasAggregationPeriod="dataForWidgetModal.hasAggregationPeriod"
     @close="closeModal"
   />
 
@@ -159,15 +160,17 @@ export default {
                 x: 0,
                 y: this.getYAxisValue(layout.length),
                 w: 2,
-                h: this.getElementData(widgetName).height,
+                h: this.elementsValue[widgetName].height,
                 i: index,
                 static: false,
                 name: widgetName,
                 widgetName: snakeToPascal(widgetName),
                 isShow: this.availableWidgets[widgetName]?.is_active,
                 isWidget: true,
-                actionName: this.getElementData(widgetName).actionName,
-                isChartShow: this.getElementData(widgetName).isChartShow,
+                actionName: this.elementsValue[widgetName].actionName,
+                isChartShow: this.elementsValue[widgetName].isChartShow,
+                hasAggregationPeriod:
+                  this.elementsValue[widgetName].hasAggregationPeriod,
               })
             }
           })
@@ -185,7 +188,6 @@ export default {
         .length
         ? 13
         : 3.8
-
       return widgetsElements
     },
   },
@@ -195,9 +197,6 @@ export default {
       action.UPDATE_AVAILABLE_WIDGETS,
       action.GET_CLIPPING_FEED_CONTENT_WIDGET,
     ]),
-    getElementData(widgetName) {
-      return this.elementsValue[widgetName]
-    },
     getYAxisValue(val) {
       return val > 1 ? val - 1 : 0
     },
@@ -222,6 +221,7 @@ export default {
         widgetName: item.name,
         actionName: item.actionName,
         isChartShow: item.isChartShow,
+        hasAggregationPeriod: item.hasAggregationPeriod,
       }
       this.isOpenWidgetSettingsModal = !this.isOpenWidgetSettingsModal
     },

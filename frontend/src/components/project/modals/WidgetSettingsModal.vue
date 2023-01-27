@@ -25,6 +25,7 @@
           :period="generalWidgetData.aggregation_period"
           :widget-title="generalWidgetData.title"
           :widget-description="generalWidgetData.description"
+          :hasAggregationPeriod="hasAggregationPeriod"
           @save-changes="saveChanges"
           @get-widget-params="updateAggregationPeriod"
         />
@@ -82,6 +83,10 @@ export default {
       required: true,
     },
     isChartsShow: {
+      type: Boolean,
+      default: true,
+    },
+    hasAggregationPeriod: {
       type: Boolean,
       default: true,
     },
@@ -196,11 +201,9 @@ export default {
         data: {
           [this.widgetName]: {
             id: this.generalWidgetData.id,
-            title: title || this.generalWidgetData.title,
-            description: description || this.generalWidgetData.description,
-            aggregation_period:
-              aggregationPeriod.toLowerCase() ||
-              this.generalWidgetData.aggregation_period,
+            title: title,
+            description: description,
+            aggregation_period: aggregationPeriod.toLowerCase(),
           },
         },
       })
