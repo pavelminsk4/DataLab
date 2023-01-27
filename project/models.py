@@ -71,7 +71,7 @@ def increase_cur_number_of_projects(sender, instance, created, **kwargs):
       instance.workspace.department.save()
 
 @receiver(post_save, sender=Workspace)
-def increase_cur_number_of_projects(sender, instance, created, **kwargs):
+def increase_cur_number_of_projects_2(sender, instance, created, **kwargs):
   if created:
     instance.department.current_number_of_projects += 1
     instance.department.save()

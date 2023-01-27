@@ -20,6 +20,10 @@ export default {
     return state.userInfo
   },
 
+  [get.DEPARTMENT](state) {
+    return state.userInfo.user_profile.department
+  },
+
   [get.CURRENT_STEP](state) {
     return state.currentStep
   },

@@ -44,7 +44,10 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({workspaces: get.WORKSPACES, userInfo: get.USER_INFO}),
+    ...mapGetters({
+      workspaces: get.WORKSPACES,
+      userInfo: get.USER_INFO,
+    }),
   },
   methods: {
     ...mapActions([action.GET_USER_INFORMATION, action.GET_WORKSPACES]),

@@ -17,7 +17,13 @@
         </div>
       </div>
 
-      <BaseButton class="create-new-button" @click="createProject">
+      <BaseButton
+        :is-disabled="isProjectCreationAvailable"
+        :has-tooltip="isProjectCreationAvailable"
+        tooltip-title="Created the maximum possible number of projects!"
+        class="create-new-button"
+        @click="createProject"
+      >
         Create new project
       </BaseButton>
     </div>
@@ -30,8 +36,8 @@
 </template>
 
 <script>
-import {mapActions, mapState} from 'vuex'
-import {action} from '@store/constants'
+import {mapActions, mapGetters} from 'vuex'
+import {action, get} from '@store/constants'
 
 import SortIcon from '@components/icons/SortIcon'
 
@@ -44,12 +50,22 @@ export default {
   name: 'WorkspaceView',
   components: {ArrowLeftIcon, ProjectsTable, MainLayout, BaseButton, SortIcon},
   computed: {
-    ...mapState(['workspaces']),
+    ...mapGetters({
+      workspaces: get.WORKSPACES,
+      department: get.DEPARTMENT,
+      isLoading: get.LOADING,
+    }),
     workspaceId() {
       return this.$route.params.workspaceId
     },
     workspace() {
       return this.workspaces.find((el) => el.id === +this.workspaceId)
+    },
+    isProjectCreationAvailable() {
+      return (
+        this.department.current_number_of_projects ===
+        this.department.max_projects
+      )
     },
   },
   created() {
