@@ -17,7 +17,15 @@
             <div>Users</div>
             <div>{{ companyUsers.length }}</div>
           </div>
-          <BaseButton @click="addNewUser" class="button"> Add User </BaseButton>
+          <BaseButtonWithTooltip
+            :is-disabled="isUserCreationAvailable"
+            :has-tooltip="isUserCreationAvailable"
+            tooltip-title="Created the maximum possible number of users!"
+            class="button"
+            @click="addNewUser"
+          >
+            Add User
+          </BaseButtonWithTooltip>
         </div>
 
         <div class="users-wrapper scroll">
@@ -141,10 +149,12 @@ import BaseInput from '@/components/BaseInput'
 import BaseDropdown from '@/components/BaseDropdown'
 import PlusIcon from '@/components/icons/PlusIcon'
 import AreYouSureModal from '@/components/modals/AreYouSureModal'
+import BaseButtonWithTooltip from '@/components/BaseButtonWithTooltip'
 
 export default {
   name: 'UserRolesScreen',
   components: {
+    BaseButtonWithTooltip,
     AreYouSureModal,
     PlusIcon,
     BaseDropdown,
@@ -183,6 +193,7 @@ export default {
     ...mapGetters({
       currentUser: get.USER_INFO,
       companyUsers: get.COMPANY_USERS,
+      department: get.DEPARTMENT,
     }),
     username: {
       get() {
@@ -219,6 +230,11 @@ export default {
         this.newEmail = val
         this.errors.email = null
       },
+    },
+    isUserCreationAvailable() {
+      return (
+        this.department.current_number_of_users >= this.department.max_users
+      )
     },
     existingUserNameProxy: {
       get() {

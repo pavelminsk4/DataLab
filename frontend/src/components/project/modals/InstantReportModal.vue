@@ -15,15 +15,16 @@
         @select-option="selectItem"
       />
 
-      <BaseButton
-        :is-not-background="true"
-        @click="saveTemplate"
-        class="button"
-      >
+      <BaseButton @click="saveTemplate" class="button">
         Save Template
       </BaseButton>
 
-      <BaseButton :buttonLoading="loading" class="link" @click="downloadReport">
+      <BaseButton
+        :buttonLoading="loading"
+        :is-disabled="isDisabledDownload"
+        class="link"
+        @click="downloadReport"
+      >
         Download
       </BaseButton>
     </div>
@@ -169,6 +170,7 @@ export default {
         languageError: null,
       },
       loading: false,
+      isDisabledDownload: true,
     }
   },
   created() {
@@ -222,15 +224,21 @@ export default {
     saveTemplate() {
       if (!this.validationForm()) return
 
-      this[action.UPDATE_PROJECT]({
-        projectId: this.projectId,
-        data: {
-          report_template: this.template.id,
-          report_format: this.selectedFormatProxy,
-          report_language: this.selectedLanguageProxy,
-          ...this.layoutKeys,
-        },
-      })
+      try {
+        this[action.UPDATE_PROJECT]({
+          projectId: this.projectId,
+          data: {
+            report_template: this.template.id,
+            report_format: this.selectedFormatProxy,
+            report_language: this.selectedLanguageProxy,
+            ...this.layoutKeys,
+          },
+        })
+
+        this.isDisabledDownload = false
+      } catch (e) {
+        console.log(e)
+      }
     },
     onChange(args) {
       const {id, checked} = args
