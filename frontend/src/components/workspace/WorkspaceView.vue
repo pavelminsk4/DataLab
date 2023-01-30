@@ -17,7 +17,7 @@
         </div>
       </div>
 
-      <BaseButton
+      <BaseButtonWithTooltip
         :is-disabled="isProjectCreationAvailable"
         :has-tooltip="isProjectCreationAvailable"
         tooltip-title="Created the maximum possible number of projects!"
@@ -25,7 +25,7 @@
         @click="createProject"
       >
         Create new project
-      </BaseButton>
+      </BaseButtonWithTooltip>
     </div>
 
     <ProjectsTable
@@ -42,13 +42,19 @@ import {action, get} from '@store/constants'
 import SortIcon from '@components/icons/SortIcon'
 
 import MainLayout from '@components/layout/MainLayout'
-import BaseButton from '@components/buttons/BaseButton'
 import ProjectsTable from '@/components/ProjectsTable'
 import ArrowLeftIcon from '@/components/icons/ArrowLeftIcon'
+import BaseButtonWithTooltip from '@/components/BaseButtonWithTooltip'
 
 export default {
   name: 'WorkspaceView',
-  components: {ArrowLeftIcon, ProjectsTable, MainLayout, BaseButton, SortIcon},
+  components: {
+    BaseButtonWithTooltip,
+    ArrowLeftIcon,
+    ProjectsTable,
+    MainLayout,
+    SortIcon,
+  },
   computed: {
     ...mapGetters({
       workspaces: get.WORKSPACES,

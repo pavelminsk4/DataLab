@@ -5,13 +5,9 @@
       'base-button',
       isNotBackground && 'not-background',
       (isDisabled || isLoading || buttonLoading) && 'disabled',
-      hasTooltip && 'disabled-creation',
     ]"
     :disabled="isDisabled || isLoading || buttonLoading"
   >
-    <BaseTooltip v-if="hasTooltip" class="tooltip">
-      {{ tooltipTitle }}
-    </BaseTooltip>
     <BaseButtonSpinner v-if="isLoading || buttonLoading" />
     <slot v-else></slot>
   </button>
@@ -21,11 +17,10 @@
 import {mapGetters} from 'vuex'
 import {get} from '@store/constants'
 import BaseButtonSpinner from '@/components/BaseButtonSpinner'
-import BaseTooltip from '@/components/BaseTooltip'
 
 export default {
   name: 'BaseButton',
-  components: {BaseTooltip, BaseButtonSpinner},
+  components: {BaseButtonSpinner},
   props: {
     isNotBackground: {
       type: Boolean,
@@ -36,14 +31,6 @@ export default {
       default: false,
     },
     buttonLoading: {
-      type: Boolean,
-      default: false,
-    },
-    tooltipTitle: {
-      type: String,
-      default: '',
-    },
-    hasTooltip: {
       type: Boolean,
       default: false,
     },
@@ -87,19 +74,5 @@ export default {
 
   color: var(--primary-text-color);
   background: var(--disabled-color);
-}
-
-.disabled-creation {
-  &:hover {
-    opacity: 0.9;
-    .tooltip {
-      visibility: visible;
-    }
-  }
-}
-
-.tooltip {
-  margin-right: 216px;
-  visibility: hidden;
 }
 </style>

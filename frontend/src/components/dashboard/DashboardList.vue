@@ -21,7 +21,7 @@
         </div>
       </div>
 
-      <BaseButton
+      <BaseButtonWithTooltip
         :is-disabled="isProjectCreationAvailable"
         :has-tooltip="isProjectCreationAvailable"
         tooltip-title="Created the maximum possible number of projects!"
@@ -29,7 +29,7 @@
         @click="createWorkspace"
       >
         Create new workspace
-      </BaseButton>
+      </BaseButtonWithTooltip>
     </div>
 
     <BaseSpinner v-if="isLoading" class="spinner" />
@@ -59,18 +59,18 @@ import SortIcon from '@components/icons/SortIcon'
 
 import MainLayout from '@components/layout/MainLayout'
 import ProjectItem from '@components/dashboard/ProjectItem'
-import BaseButton from '@components/buttons/BaseButton'
 import SettingsWorkspaceModal from '@/components/modals/SettingsWorkspaceModal'
 import BlankPage from '@/components/BlankPage'
 import BaseSpinner from '@/components/BaseSpinner'
+import BaseButtonWithTooltip from '@/components/BaseButtonWithTooltip'
 
 export default {
   name: 'DashboardList',
   components: {
+    BaseButtonWithTooltip,
     BaseSpinner,
     BlankPage,
     SortIcon,
-    BaseButton,
     MainLayout,
     ProjectItem,
     SettingsWorkspaceModal,
