@@ -92,7 +92,7 @@ export default {
     },
     isProjectCreationAvailable() {
       return (
-        this.department.current_number_of_projects ===
+        this.department.current_number_of_projects >=
         this.department.max_projects
       )
     },

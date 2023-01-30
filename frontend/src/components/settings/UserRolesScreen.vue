@@ -18,8 +18,8 @@
             <div>{{ companyUsers.length }}</div>
           </div>
           <BaseButtonWithTooltip
-            :is-disabled="isProjectCreationAvailable"
-            :has-tooltip="isProjectCreationAvailable"
+            :is-disabled="isUserCreationAvailable"
+            :has-tooltip="isUserCreationAvailable"
             tooltip-title="Created the maximum possible number of users!"
             class="button"
             @click="addNewUser"
@@ -231,9 +231,9 @@ export default {
         this.errors.email = null
       },
     },
-    isProjectCreationAvailable() {
+    isUserCreationAvailable() {
       return (
-        this.department.current_number_of_users === this.department.max_users
+        this.department.current_number_of_users >= this.department.max_users
       )
     },
     existingUserNameProxy: {
