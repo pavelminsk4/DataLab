@@ -326,6 +326,7 @@ export default {
   }
 
   .layout-elements {
+    --error-top: 5px;
     flex-shrink: 0;
 
     padding: 32px;
@@ -348,6 +349,7 @@ export default {
     border-radius: 15px;
 
     .general-item {
+      --error-top: 5px;
       padding: 32px;
 
       border: 1px solid #1d1e1f;

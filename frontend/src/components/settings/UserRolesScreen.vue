@@ -507,6 +507,7 @@ export default {
     }
 
     .input-field {
+      width: 100%;
       margin: 10px 0 25px 0;
     }
   }

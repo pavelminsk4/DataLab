@@ -148,25 +148,28 @@ export default {
 .error {
   border: 1px solid var(--negative-status);
   border-radius: 10px;
+}
 
-  .error-container {
-    position: absolute;
-    right: -5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
+.error-container {
+  position: absolute;
+  top: calc(100% + 5px);
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
 
-    white-space: nowrap;
-    pointer-events: none;
+  width: 262px;
 
-    color: var(--negative-status);
+  white-space: nowrap;
+  pointer-events: none;
 
-    .error-icon {
-      margin-right: 15px;
-    }
+  color: var(--negative-status);
 
-    font-size: 12px;
+  .error-icon {
+    flex-shrink: 0;
   }
+
+  font-size: 12px;
 }
 </style>
