@@ -32,7 +32,7 @@ export default {
   border: 1px solid transparent;
 }
 .div-with-error {
-  --error-top: 10px;
+  --error-top: calc(100% + 5px);
   position: relative;
 
   border: 1px solid var(--negative-status) !important;

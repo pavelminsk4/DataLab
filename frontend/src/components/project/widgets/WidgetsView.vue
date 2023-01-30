@@ -65,14 +65,11 @@
 <script>
 import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
-
 import VueGridLayout from 'vue3-grid-layout'
-
 import {snakeToPascal} from '@lib/utilities'
 import modalWidgetsConfig from '@/lib/configs/modalWidgetsConfig'
 
 import SearchResults from '@/components/SearchResults'
-
 import VolumeWidget from '@/components/project/widgets/VolumeWidget'
 import SummaryWidget from '@/components/project/widgets/SummaryWidget'
 import Top10BrandsWidget from '@/components/project/widgets/Top10BrandsWidget'
@@ -88,7 +85,6 @@ import SentimentTop10CountriesWidget from '@/components/project/widgets/Sentimen
 import ContentVolumeTop5SourceWidget from '@/components/project/widgets/ContentVolumeTop5SourceWidget'
 import ContentVolumeTop5AuthorsWidget from '@/components/project/widgets/ContentVolumeTop5AuthorsWidget'
 import ContentVolumeTop5CountriesWidget from '@/components/project/widgets/ContentVolumeTop5CountriesWidget'
-
 import WidgetSettingsModal from '@/components/project/modals/WidgetSettingsModal'
 
 export default {
@@ -242,16 +238,14 @@ export default {
     min-width: 50%;
   }
 }
-
 .widgets-wrapper {
   display: flex;
   gap: 30px;
+  overflow: auto;
 
   min-width: 50%;
   max-height: 60vh;
   margin-top: 63px;
-
-  overflow: auto;
 
   .analytics-search-results {
     flex: 1;

@@ -56,10 +56,17 @@
       <section v-if="isExistingUser || isNewUser" class="user-data">
         <section v-if="isNewUser">
           <div class="title">Username</div>
-          <BaseInput v-model="username" class="input-field" />
+          <BaseInput
+            v-model="username"
+            :hasError="!!errors.username"
+            :errorMessage="errors.username"
+            class="input-field"
+          />
           <div class="title">Password</div>
           <BaseInput
             v-model="password"
+            :hasError="!!errors.password"
+            :errorMessage="errors.password"
             autocomplete="new-password"
             input-type="password"
             class="input-field"
@@ -67,12 +74,19 @@
           <div class="title">Confirm password</div>
           <BaseInput
             v-model="confirmPassword"
+            :hasError="!!errors.password2"
+            :errorMessage="errors.password2"
             autocomplete="new-password"
             input-type="password"
             class="input-field"
           />
           <div class="title">Email</div>
-          <BaseInput v-model="email" class="input-field" />
+          <BaseInput
+            v-model="email"
+            :hasError="!!errors.email"
+            :errorMessage="errors.email"
+            class="input-field"
+          />
           <div class="title">First name</div>
           <BaseInput v-model="firstName" class="input-field" />
           <div class="title">Last name</div>
@@ -118,6 +132,7 @@
 <script>
 import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
+import {isAllEmptyFields} from '@lib/utilities'
 
 import MainLayout from '@/components/layout/MainLayout'
 import NavigationBar from '@/components/navigation/NavigationBar'
@@ -145,10 +160,10 @@ export default {
       isOpenDeleteModal: false,
       generalSettingsName: 'General',
       settingsName: ['General', 'Projects'],
-      username: '',
-      password: '',
-      confirmPassword: '',
-      email: '',
+      newUsername: '',
+      newPassword: '',
+      newConfirmPassword: '',
+      newEmail: '',
       firstName: '',
       lastName: '',
       successMessage: '',
@@ -156,30 +171,54 @@ export default {
       existingUserName: '',
       existingUserSurname: '',
       existingUserEmail: '',
+      errors: {
+        username: null,
+        password: null,
+        password2: null,
+        email: null,
+      },
     }
-  },
-  async created() {
-    if (!this.currentUser) {
-      await this[action.GET_USER_INFORMATION]()
-    }
-
-    await this[action.GET_COMPANY_USERS](
-      this.currentUser?.user_profile?.department.id
-    )
   },
   computed: {
     ...mapGetters({
       currentUser: get.USER_INFO,
       companyUsers: get.COMPANY_USERS,
     }),
-    userRoles() {
-      return [
-        {name: 'Company', value: 'company'},
-        {name: 'Regular User', value: 'regular_user'},
-        {name: 'Picker', value: 'picker'},
-        {name: 'Writer', value: 'writer'},
-        {name: 'Publisher', value: 'publisher'},
-      ]
+    username: {
+      get() {
+        return this.newUsername
+      },
+      set(val) {
+        this.newUsername = val
+        this.errors.username = null
+      },
+    },
+    password: {
+      get() {
+        return this.newPassword
+      },
+      set(val) {
+        this.newPassword = val
+        this.errors.password = null
+      },
+    },
+    confirmPassword: {
+      get() {
+        return this.newConfirmPassword
+      },
+      set(val) {
+        this.newConfirmPassword = val
+        this.errors.password2 = null
+      },
+    },
+    email: {
+      get() {
+        return this.newEmail
+      },
+      set(val) {
+        this.newEmail = val
+        this.errors.email = null
+      },
     },
     existingUserNameProxy: {
       get() {
@@ -215,6 +254,23 @@ export default {
       }
     },
   },
+  async created() {
+    this.userRoles = [
+      {name: 'Company', value: 'company'},
+      {name: 'Regular User', value: 'regular_user'},
+      {name: 'Picker', value: 'picker'},
+      {name: 'Writer', value: 'writer'},
+      {name: 'Publisher', value: 'publisher'},
+    ]
+
+    if (!this.currentUser) {
+      await this[action.GET_USER_INFORMATION]()
+    }
+
+    await this[action.GET_COMPANY_USERS](
+      this.currentUser?.user_profile?.department.id
+    )
+  },
   methods: {
     ...mapActions([
       action.GET_COMPANY_USERS,
@@ -230,7 +286,9 @@ export default {
       this.isNewUser = true
     },
     async createNewUser() {
-      await this[action.CREATE_NEW_USER]({
+      if (!this.validation()) return
+
+      const response = await this[action.CREATE_NEW_USER]({
         username: this.username,
         password: this.password,
         password2: this.confirmPassword,
@@ -238,6 +296,12 @@ export default {
         first_name: this.firstName,
         last_name: this.lastName,
       })
+
+      Object.keys(response).forEach((key) => {
+        this.errors[key] = response[key][0]
+      })
+
+      if (!isAllEmptyFields(this.errors)) return
 
       await this[action.PUT_USER_DEPARTMENT]({
         email: this.email,
@@ -262,9 +326,9 @@ export default {
     currentRole(value) {
       return this.userRoles.find((el) => el.value === value)?.name
     },
-    openExistingUserCard(existingUserdata) {
+    openExistingUserCard(existingUserData) {
       this.successMessage = ''
-      this.existingUserData = existingUserdata
+      this.existingUserData = existingUserData
       this.isNewUser = false
       this.isExistingUser = true
     },
@@ -292,6 +356,26 @@ export default {
     toggleDeleteModal() {
       this.isOpenDeleteModal = !this.isOpenDeleteModal
       this.togglePageScroll(this.isOpenDeleteModal)
+    },
+    validation() {
+      const defaultErrorMessage = 'required'
+
+      this.errors.username = this.username ? null : defaultErrorMessage
+      this.errors.password = this.password ? null : defaultErrorMessage
+      if (this.confirmPassword) {
+        console.log(this.password === this.confirmPassword)
+        this.errors.password2 =
+          this.password === this.confirmPassword
+            ? null
+            : `passwords don't match`
+
+        console.log(this.errors.password2)
+      } else {
+        this.errors.password2 = defaultErrorMessage
+      }
+      this.errors.email = this.email ? null : defaultErrorMessage
+
+      return isAllEmptyFields(this.errors)
     },
   },
 }
@@ -423,6 +507,7 @@ export default {
     }
 
     .input-field {
+      width: 100%;
       margin: 10px 0 25px 0;
     }
   }

@@ -3,18 +3,20 @@
     <DivWithError
       :hasError="hasError"
       :errorMessage="errorMessage"
-      :class="['email-field scroll', visible && 'active-email-field']"
+      class="email-field-error-wrapper"
     >
-      <div
-        v-for="(item, index) in selectedUsers || []"
-        :key="item"
-        :class="['selected-user', 'duplicate' && isDuplicate]"
-      >
-        {{ item.email }}
-        <DeleteTagButton @click="$emit('remove-user', index)" />
-      </div>
-      <div @click="addUsers" class="add-users-button">
-        Add Users <AddButtonIcon />
+      <div :class="['email-field scroll', visible && 'active-email-field']">
+        <div
+          v-for="(item, index) in selectedUsers || []"
+          :key="item"
+          :class="['selected-user', 'duplicate' && isDuplicate]"
+        >
+          {{ item.email }}
+          <DeleteTagButton @click="$emit('remove-user', index)" />
+        </div>
+        <div @click="addUsers" class="add-users-button">
+          Add Users <AddButtonIcon />
+        </div>
       </div>
     </DivWithError>
 
@@ -102,6 +104,10 @@ export default {
       } else {
         this.$emit('select-user', item)
       }
+
+      if (!this.usersEmailsList.length) {
+        this.visible = false
+      }
     },
   },
 }
@@ -124,7 +130,6 @@ export default {
     box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
     border-radius: 10px;
 
-    overflow-y: hidden;
     overflow-x: auto;
 
     .selected-user {
@@ -217,5 +222,10 @@ export default {
       }
     }
   }
+}
+
+.email-field-error-wrapper {
+  width: fit-content;
+  border-radius: 10px;
 }
 </style>
