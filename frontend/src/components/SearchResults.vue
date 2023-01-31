@@ -39,24 +39,25 @@
       v-if="!loading && searchData.length"
       class="search-result-cards scroll"
     >
-      <BaseClippingCard
+      <ClippingCard
         v-for="(item, index) in searchData"
         :key="'result' + index"
+        :id="item.id"
         :img="cardImg(item)"
-        :sentiment="item.sentiment"
         :title="item.entry_title"
-        :entry-link="item.entry_links_href"
-        :source-link="item.feedlink__sourceurl"
-        :summary="item.entry_summary"
-        :source="item.feedlink__source1"
         :country="item.feedlink__country"
+        :entry-link="item.entry_links_href"
+        :summary="item.entry_summary"
+        :sentiment="item.sentiment"
+        :published="item.entry_published"
+        :source-link="item.feedlink__sourceurl"
+        :source="item.feedlink__source1"
         :language="item.feed_language__language"
         :potential-reach="item.feedlink__alexaglobalrank"
-        :published="item.entry_published"
-        :id="item.id"
         :is-checkbox-clipping-widget="isCheckboxClippingWidget"
-        :clipping-element="selectedClippingElement(item.id)"
         :current-project="currentProject"
+        :clipping-element="selectedClippingElement(item.id)"
+        class="clipping-card"
         @add-element="addClippingElement"
       />
     </div>
@@ -105,17 +106,17 @@ import {action} from '@store/constants'
 
 import BaseSpinner from '@/components/BaseSpinner'
 import BaseCalendar from '@/components/datepicker/BaseCalendar'
-import BaseClippingCard from '@/components/BaseClippingCard'
 
 import CalendarIcon from '@/components/icons/CalendarIcon'
 import ArrowDownIcon from '@/components/icons/ArrowDownIcon'
 import BaseSelect from '@/components/BaseSelect'
+import ClippingCard from '@/components/ClippingCard'
 
 export default {
   name: 'SearchResults',
   components: {
+    ClippingCard,
     BaseSelect,
-    BaseClippingCard,
     ArrowDownIcon,
     CalendarIcon,
     BaseCalendar,
@@ -458,6 +459,14 @@ export default {
     border-radius: 6px;
 
     color: var(--primary-text-color);
+  }
+}
+
+.clipping-card {
+  margin-bottom: 10px;
+
+  &:last-child {
+    margin-bottom: 0;
   }
 }
 </style>

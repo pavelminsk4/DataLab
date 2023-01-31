@@ -2,7 +2,6 @@
   <div
     :class="['main-layout-wrapper', isProjectExtraSettings && 'extra-settings']"
   >
-    <BackgroundIcon class="background-icon" />
     <div class="content">
       <MainHeader :is-visible-logo="isVisibleLogo" />
 
@@ -16,12 +15,10 @@ import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
 import MainHeader from '@components/navigation/MainHeader'
-import BackgroundIcon from '@/components/icons/BackgroundIcon'
 
 export default {
   name: 'MainLayout',
   components: {
-    BackgroundIcon,
     MainHeader,
   },
   props: {
@@ -64,17 +61,6 @@ export default {
 
 .extra-settings {
   padding: 0 69px 0 124px;
-}
-
-.background-icon {
-  position: absolute;
-  right: 50%;
-  left: 50%;
-  transform: translate(-50%, 0);
-
-  max-height: 100vh;
-
-  z-index: -1;
 }
 
 .content {
