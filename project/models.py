@@ -49,6 +49,11 @@ class Project(models.Model):
   source_filter = models.CharField(max_length=50, blank=True, null=True)
   sentiment_filter = models.CharField(max_length=10, blank=True, null=True)
   members = models.ManyToManyField(User, related_name='projects', blank=True, null=True)
+  author_dimensions = ArrayField(models.CharField(max_length=50), blank=True, null=True)
+  language_dimensions = ArrayField(models.CharField(max_length=10), blank=True, null=True)
+  country_dimensions = ArrayField(models.CharField(max_length=50), blank=True, null=True)
+  source_dimensions = ArrayField(models.CharField(max_length=50), blank=True, null=True)
+  sentiment_dimensions = ArrayField(models.CharField(max_length=10), blank=True, null=True)
 
   def save(self, *args, **kwargs):
     total_projects_count = 0

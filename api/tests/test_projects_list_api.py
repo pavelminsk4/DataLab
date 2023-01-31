@@ -50,6 +50,11 @@ class TestsProjectsAPI(APITestCase):
       "country_filter": None,
       "source_filter": None,
       "sentiment_filter": None,
+      "author_dimensions": None,
+      "language_dimensions": None,
+      "country_dimensions": None,
+      "source_dimensions": None,
+      "sentiment_dimensions": None,
     }
     res2 = {
       "id": pr2.id,
@@ -83,5 +88,10 @@ class TestsProjectsAPI(APITestCase):
       "country_filter": None,
       "source_filter": None,
       "sentiment_filter": None,
+      "author_dimensions": None,
+      "language_dimensions": None,
+      "country_dimensions": None,
+      "source_dimensions": None,
+      "sentiment_dimensions": None,
     }
     self.assertEqual(json.loads(response.content), [res1, res2])

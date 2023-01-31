@@ -46,6 +46,26 @@ def sentiment_filter_posts(sentiment, posts):
   posts = posts.filter(sentiment=sentiment)
   return posts
 
+def author_dimensions_posts(authors, posts):
+  posts = posts.filter(reduce(lambda x,y: x | y, [Q(entry_author=author) for author in authors]))
+  return posts
+
+def language_dimensions_posts(languages, posts):
+  posts = posts.filter(reduce(lambda x,y: x | y, [Q(feed_language__language=language) for language in languages]))
+  return posts
+
+def country_dimensions_posts(countries, posts):
+  posts = posts.filter(reduce(lambda x,y: x | y, [Q(feedlink__country=country) for country in countries]))
+  return posts
+
+def source_dimensions_posts(sources, posts):
+  posts = posts.filter(reduce(lambda x,y: x | y, [Q(feedlink__source1=source) for source in sources]))
+  return posts
+
+def sentiment_dimensions_posts(sentiments, posts):
+  posts = posts.filter(reduce(lambda x,y: x | y, [Q(sentiment=sentiment) for sentiment in sentiments]))
+  return posts       
+
 def posts_agregator(project):
   posts = data_range_posts(project.start_search_date, project.end_search_date)
   posts = keywords_posts(project.keywords, posts)
@@ -64,5 +84,15 @@ def posts_agregator(project):
   if project.author_filter:
     posts = author_filter_posts(project.author_filter, posts)
   if project.sentiment_filter:
-    posts = sentiment_filter_posts(project.sentiment_filter, posts)    
+    posts = sentiment_filter_posts(project.sentiment_filter, posts)
+  if project.author_dimensions:
+    posts = author_dimensions_posts(project.author_dimensions, posts)
+  if project.language_dimensions:
+    posts = language_dimensions_posts(project.language_dimensions, posts)
+  if project.country_dimensions:
+    posts = country_dimensions_posts(project.country_dimensions, posts)
+  if project.source_dimensions:
+    posts = source_dimensions_posts(project.source_dimensions, posts)
+  if project.sentiment_dimensions:
+    posts = sentiment_dimensions_posts(project.sentiment_dimensions, posts)    
   return posts
