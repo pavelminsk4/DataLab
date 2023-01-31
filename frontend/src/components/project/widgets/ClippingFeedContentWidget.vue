@@ -9,7 +9,7 @@
         Clipping feed content is not selected.
       </div>
 
-      <BaseClippingCard
+      <ClippingCard
         v-for="(item, index) in clippingData"
         :key="'result' + index"
         :img="cardImg(item)"
@@ -37,11 +37,11 @@ import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
-import BaseClippingCard from '@/components/BaseClippingCard'
+import ClippingCard from '@/components/ClippingCard'
 
 export default {
   name: 'ClippingFeedContentWidget',
-  components: {BaseClippingCard, WidgetsLayout},
+  components: {ClippingCard, WidgetsLayout},
   props: {
     projectId: {
       type: Number,

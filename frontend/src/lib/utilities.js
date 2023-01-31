@@ -1,13 +1,14 @@
-export function snakeToPascal(string) {
-  return string
-    .split('_')
-    .map((substr) => substr.charAt(0).toUpperCase() + substr.slice(1))
-    .join('')
-}
+export const capitalizeFirstLetter = (string) =>
+  string?.charAt(0)?.toUpperCase() + string?.slice(1)
 
-export function splitToSeparateWords(string) {
-  return string.replace(/([a-z])([A-Z])/g, '$1 $2').toLowerCase()
-}
+export const snakeToPascal = (string) =>
+  string
+    .split('_')
+    .map((substr) => capitalizeFirstLetter(substr))
+    .join('')
+
+export const splitToSeparateWords = (string) =>
+  string.replace(/([a-z])([A-Z])/g, '$1 $2').toLowerCase()
 
 export const isAllEmptyFields = (obj) => {
   for (let key in obj) {
@@ -18,3 +19,10 @@ export const isAllEmptyFields = (obj) => {
   }
   return true
 }
+
+export const defaultDate = (date) =>
+  new Date(date).toLocaleDateString('en-US', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+  })

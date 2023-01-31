@@ -1,32 +1,41 @@
 <template>
   <BaseButtonSpinner v-if="isLoading" :widthSpinner="18" />
   <svg
-    v-else
-    width="18"
-    height="18"
-    viewBox="0 0 18 18"
+    v-else-if="isClippingElement && !isLoading"
+    width="15"
+    height="19"
+    viewBox="0 0 15 19"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    :class="['clipping-icon', isClippingElement && 'active-clipping-post']"
+    class="clipping-icon"
   >
     <path
-      d="M10.1915 5.38281C10.3986 5.38281 10.5665 5.55071 10.5665 5.75781V8.45065C10.5665 9.0334 10.8806 9.50559 11.2189 9.8151C11.8395 10.3829 12.331 11.3715 12.5272 12.3704C12.5388 12.4294 12.5243 12.4775 12.4818 12.5228C12.4339 12.5741 12.3493 12.6181 12.2421 12.6181H5.75684C5.64967 12.6181 5.56505 12.5741 5.51712 12.5228C5.47472 12.4775 5.46029 12.4295 5.47187 12.3707C5.66968 11.3656 6.1674 10.3717 6.7957 9.8031C7.13797 9.49337 7.45602 9.01884 7.45602 8.43222V5.75781C7.45602 5.55071 7.62391 5.38281 7.83102 5.38281H10.1915Z"
-      fill="white"
-      stroke="white"
-      stroke-width="1.25"
+      d="M0.5 1.33083V16.2929C0.5 17.1707 1.55002 17.6226 2.18746 17.0191L6.59032 12.8513C6.97594 12.4862 7.57962 12.4862 7.96524 12.8513L12.3681 17.0191C13.0055 17.6226 14.0556 17.1707 14.0556 16.2929V10.0618V1.33083C14.0556 0.778541 13.6078 0.330826 13.0556 0.330826H1.5C0.947715 0.330826 0.5 0.778541 0.5 1.33083Z"
+      fill="#715DE7"
+    />
+  </svg>
+
+  <svg
+    v-else
+    width="18"
+    height="20"
+    viewBox="0 0 18 20"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    class="clipping-icon"
+  >
+    <path
+      d="M15.0556 11.0618V17.2929C15.0556 18.1707 14.0055 18.6226 13.3681 18.0191L8.96524 13.8513C8.57962 13.4862 7.97594 13.4862 7.59032 13.8513L3.18746 18.0191C2.55002 18.6226 1.5 18.1707 1.5 17.2929V2.33083C1.5 1.77854 1.94772 1.33083 2.5 1.33083H11.6111"
+      stroke="currentColor"
+      stroke-width="1.75"
       stroke-linecap="round"
     />
     <path
-      d="M5.46387 4.75781H12.5349"
-      stroke="white"
-      stroke-width="1.25"
+      d="M14.7222 2.77444V4.91312M14.7222 7.0518V4.91312M14.7222 4.91312H16.9444M14.7222 4.91312H12.5"
+      stroke="currentColor"
+      stroke-width="1.75"
       stroke-linecap="round"
-    />
-    <path
-      d="M9 13V17"
-      stroke="white"
-      stroke-width="1.25"
-      stroke-linecap="round"
+      stroke-linejoin="round"
     />
   </svg>
 </template>
@@ -58,14 +67,17 @@ export default {
 
   cursor: pointer;
 
+  color: var(--secondary-text-color);
+
   &:hover {
-    transform: rotate(30deg);
+    color: var(--hover-text-color);
   }
 }
 
 .active-clipping-post {
-  border: 1px solid var(--primary-text-color);
+  border: 1px solid var(--hover-text-color);
   border-radius: 100px;
+  background-color: var(--hover-text-color);
 
   transform: rotate(30deg);
 }
