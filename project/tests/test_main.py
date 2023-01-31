@@ -21,7 +21,7 @@ class LoginTests(StaticLiveServerTestCase):
     user_name.send_keys('admin')
     password.send_keys('admin')
     button.click()
-    assert 'Dashboard'in self.selenium.page_source
+    assert 'No workspace created' in self.selenium.page_source
     self.selenium.close()
 
 class WorkspaceTests(StaticLiveServerTestCase):
