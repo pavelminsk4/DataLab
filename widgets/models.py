@@ -14,7 +14,7 @@ class WidgetDescription(models.Model):
   is_active = models.BooleanField(default=False)
   title = models.CharField(default='Title', max_length=50)
   default_title = models.CharField(default='Default Title', max_length=50)
-  description = models.TextField(default='')
+  description = models.TextField(default='', null=True, blank=True)
   aggregation_period = models.CharField(default='day', max_length=10)
   linked_dimensions = models.ManyToManyField(Dimensions, blank=True)
   author_dim_pivot = models.CharField(max_length=30, default=None, null=True, blank=True)
