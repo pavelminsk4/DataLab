@@ -102,14 +102,20 @@ export default {
 
 <style lang="scss" scoped>
 .header {
-  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 11;
 
   display: flex;
   align-items: center;
   justify-content: space-between;
 
-  height: 66px;
-  margin-bottom: 28px;
+  width: 100%;
+  height: var(--header-height);
+
+  background-color: var(--background-secondary-color);
+  border: 1px solid var(--border-color);
 }
 
 .header-navigation {
@@ -133,8 +139,6 @@ export default {
   font-weight: 400;
   font-size: 14px;
   line-height: 150%;
-
-  color: var(--primary-text-color);
 
   &:hover {
     border-radius: 10px;
@@ -166,7 +170,6 @@ export default {
   font-weight: 500;
   font-size: 14px;
   line-height: 20px;
-  color: var(--primary-text-color);
 }
 
 .dropdown-wrapper {
@@ -199,7 +202,6 @@ export default {
     font-weight: 400;
     font-size: 12px;
     line-height: 20px;
-    color: var(--primary-text-color);
 
     .item {
       cursor: pointer;

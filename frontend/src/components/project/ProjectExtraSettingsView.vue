@@ -4,10 +4,8 @@
     :is-project-extra-settings="true"
     :is-visible-logo="false"
   >
-    <div class="settings-nav-wrapper">
-      <LogoIcon class="logo" @click="goToDashboard" />
-
-      <div
+    <nav class="settings-nav-wrapper">
+      <li
         v-for="(item, index) in settings"
         :key="'setting' + index"
         :class="['nav-item', item.name === routeName && 'active-setting']"
@@ -15,9 +13,9 @@
       >
         <SidebarIcon :json="item.value" />
 
-        <div class="tooltip">{{ item.name }}</div>
-      </div>
-    </div>
+        <div>{{ item.name }}</div>
+      </li>
+    </nav>
 
     <router-view :current-project="currentProject"></router-view>
   </MainLayout>
@@ -30,7 +28,6 @@ import {action} from '@store/constants'
 import MainLayout from '@/components/layout/MainLayout'
 
 import SidebarIcon from '@/components/icons/SidebarIcon'
-import LogoIcon from '@/components/icons/LogoIcon'
 
 import Alerts from '@/components/icons/animation/Alerts.json'
 import Search from '@/components/icons/animation/Search.json'
@@ -40,7 +37,6 @@ import Analytics from '@/components/icons/animation/Analytics.json'
 export default {
   name: 'ProjectReports',
   components: {
-    LogoIcon,
     MainLayout,
     SidebarIcon,
   },
@@ -113,86 +109,50 @@ export default {
 
 <style lang="scss" scoped>
 .settings-nav-wrapper {
+  --padding-top: calc(var(--header-height) + 24px);
+
   position: fixed;
-  top: 16px;
-  left: 24px;
+  top: 0;
+  left: 0;
   z-index: 10;
 
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  width: 72px;
-  height: 96vh;
+  width: 210px;
+  height: 100vh;
+  padding: var(--padding-top) 24px 20px 12px;
 
-  border: 1px solid var(--sidebar-border-color);
-  border-radius: 15px;
-  background-color: var(--secondary-bg-color);
-
-  .logo {
-    cursor: pointer;
-    opacity: 0;
-
-    width: 0;
-    height: 0;
-    margin: 18px 10px 50px;
-  }
+  border-right: 1px solid var(--border-color);
+  background-color: var(--background-secondary-color);
 
   .nav-item {
-    position: relative;
+    display: flex;
+    align-items: center;
+
+    width: 172px;
+    height: 44px;
+    padding: 12px 16px;
+    margin-bottom: 10px;
 
     cursor: pointer;
 
-    width: 35px;
-    height: 35px;
-    padding: 5px;
-    margin-bottom: 30px;
-  }
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: var(--typography-secondary-color);
 
-  .active-setting {
-    border-radius: 6px;
-    background-color: var(--button-primary-color);
-  }
-
-  .tooltip {
-    position: absolute;
-    top: 0;
-    left: 50px;
-    z-index: 1;
-
-    visibility: hidden;
-    text-align: center;
-
-    padding: 10px;
-
-    border-radius: 6px;
-
-    background-color: var(--primary-text-color);
-
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 110%;
-
-    &::after {
-      content: '';
-
-      position: absolute;
-      top: 48%;
-      left: 0;
-      transform: translate(-50%, -50%) rotate(230deg);
-
-      margin-left: 2px;
-
-      border-width: 5px;
-      border-style: solid;
-      border-top-right-radius: 2px;
-      color: var(--primary-text-color);
+    :first-child {
+      margin-right: 7px;
     }
   }
 
-  .nav-item:hover .tooltip {
-    visibility: visible;
+  .active-setting {
+    border-radius: 18px;
+    background-color: var(--primary-active-color);
+
+    color: var(--typography-title-color);
   }
 }
 </style>

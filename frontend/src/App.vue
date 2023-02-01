@@ -11,22 +11,8 @@ export default {
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap');
 
-* {
-  margin: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
-}
-
-body {
-  margin: 0;
-  padding: 0;
-
-  min-height: fit-content;
-  background-color: var(--primary-bg-color);
-  background-size: 919px 100%;
-}
-
 :root {
+  //TODO: fix colors ---------------------------------------------
   --general-background-color: #ffffff;
   --general-text-color: #29333d;
   --secondary-text-color: #5c6e80;
@@ -44,17 +30,35 @@ body {
   --negative-sentiment-background: #ffe3e8;
 
   --primary-text-color: #ffffff;
+  //end ------------------------------------------------------------
 
-  --button-primary-color: #715de7;
-  --button-primary-disabled-color: #d3d0e7;
-  --button-primary-hover-color: #664dff;
+  --primary-color: #715de7;
+  --primary-hover-color: #664dff;
+  --primary-active-color: #e7e2fe;
+  --primary-disable-color: #d3d0e7;
+
+  --background-primary-color: #f8fafd;
+  --background-secondary-color: #ffffff;
+
+  --typography-title-color: #29333d;
+  --typography-primary-color: #484c52;
+  --typography-secondary-color: #70767d;
+
+  --button-primary-color: var(--primary-color);
+  --button-primary-disabled-color: var(--primary-disable-color);
+  --button-primary-hover-color: var(--primary-hover-color);
   --button-secondary-hover-color: #f4f2fe;
   --button-text-color: #ffffff;
   --button-text-disabled-color: #d2d5d9;
 
+  --positive-primary-color: #00b884;
+  --positive-secondary-color: #d5f5ec;
+  --negative-primary-color: #ed2549;
+  --negative-secondary-color: #ffe3e8;
+
   // TODO: Delete --------------------------------
   --secondary-button-color: #222a36;
-  // ---------------------------------------------
+  // end -----------------------------------------
 
   --icon-bg-color: #1a1c1e;
 
@@ -83,6 +87,8 @@ body {
 
   --clipping-card: #242733;
 
+  --header-height: 52px;
+
   --hover-circle-gradient: radial-gradient(
     circle at 2.5%,
     rgba(5, 95, 252, 0.8),
@@ -90,6 +96,30 @@ body {
   );
 
   --animation-hover-gradient: hover-gradient 0.5s ease;
+}
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+
+  min-height: fit-content;
+  background-color: var(--primary-bg-color);
+  background-size: 919px 100%;
+
+  color: var(--typography-primary-color);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: var(--typography-title-color);
 }
 
 .scroll {
