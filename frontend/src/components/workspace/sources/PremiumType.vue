@@ -122,7 +122,7 @@ export default {
 
 .radio-wrapper > .selected .not-check {
   border: none;
-  background: var(--primary-button-color);
+  background: var(--button-primary-color);
 }
 
 .radio-wrapper > .selected .check-icon {

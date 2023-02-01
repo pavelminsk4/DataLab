@@ -96,6 +96,7 @@ export default {
   },
   methods: {
     ...mapActions([action.GET_WORKSPACES]),
+    // TODO: I don't like this name
     openSetting(pathName) {
       this.$router.push({
         name: pathName,
@@ -150,7 +151,7 @@ export default {
 
   .active-setting {
     border-radius: 6px;
-    background-color: var(--primary-button-color);
+    background-color: var(--button-primary-color);
   }
 
   .tooltip {

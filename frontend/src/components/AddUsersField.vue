@@ -179,13 +179,13 @@ export default {
       color: var(--secondary-text-color);
 
       &:hover {
-        background-color: var(--hover-button-color);
+        background-color: var(--button-primary-hover-color);
       }
     }
   }
 
   .active-email-field {
-    outline: 1px solid var(--primary-button-color);
+    outline: 1px solid var(--button-primary-color);
     border-radius: 10px 10px 0 0;
   }
 
@@ -198,7 +198,7 @@ export default {
     width: 516px;
     max-height: 250px;
 
-    outline: 1px solid var(--primary-button-color);
+    outline: 1px solid var(--button-primary-color);
     border-top: 1px solid var(--modal-line-color);
     box-shadow: 0 3px 4px rgba(5, 95, 252, 0.49);
     border-radius: 0 0 10px 10px;
@@ -218,7 +218,7 @@ export default {
       color: var(--primary-text-color);
 
       &:hover {
-        background: var(--primary-button-color);
+        background: var(--button-primary-color);
       }
     }
   }

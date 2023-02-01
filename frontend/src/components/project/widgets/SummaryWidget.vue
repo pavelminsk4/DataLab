@@ -145,7 +145,7 @@ export default {
         height: 22px;
 
         border-radius: 100%;
-        background-color: var(--primary-button-color);
+        background-color: var(--button-primary-color);
       }
 
       .negative {

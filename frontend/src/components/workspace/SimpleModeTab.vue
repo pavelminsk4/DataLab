@@ -140,7 +140,7 @@ export default {
     }
 
     .mode-active {
-      border-bottom: 2px solid var(--primary-button-color);
+      border-bottom: 2px solid var(--button-primary-color);
 
       font-weight: 500;
       color: var(--primary-text-color);

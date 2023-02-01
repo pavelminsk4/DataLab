@@ -45,7 +45,7 @@ export default {
   margin-bottom: 35px;
 
   span {
-    color: var(--primary-button-color);
+    color: var(--button-primary-color);
   }
 }
 </style>

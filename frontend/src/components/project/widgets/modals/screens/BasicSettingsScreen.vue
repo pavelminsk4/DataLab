@@ -113,7 +113,7 @@ export default {
     padding-bottom: 10px;
     margin-bottom: 15px;
 
-    border-bottom: 1px solid var(--primary-button-color);
+    border-bottom: 1px solid var(--button-primary-color);
 
     font-weight: 400;
     font-size: 14px;

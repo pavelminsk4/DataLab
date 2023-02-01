@@ -208,7 +208,7 @@ export default {
     }
 
     &:hover {
-      background-color: var(--primary-button-color);
+      background-color: var(--button-primary-color);
     }
   }
 }
@@ -224,13 +224,13 @@ export default {
   color: var(--primary-text-color);
 
   &:hover {
-    color: var(--primary-button-color);
+    color: var(--button-primary-color);
   }
 }
 
 .arrow-open-dropdown {
   transform: rotate(180deg);
-  color: var(--primary-button-color);
+  color: var(--button-primary-color);
 }
 
 .company-logo {
@@ -244,7 +244,7 @@ export default {
   border-radius: 100%;
 
   color: var(--primary-text-color);
-  background-color: var(--primary-button-color);
+  background-color: var(--button-primary-color);
 
   font-size: 8px;
 }
@@ -262,6 +262,6 @@ export default {
   width: 90px;
 
   border-radius: 10px;
-  background-color: var(--primary-button-color);
+  background-color: var(--button-primary-color);
 }
 </style>

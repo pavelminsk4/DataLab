@@ -117,13 +117,13 @@ export default {
   border-radius: 100%;
 
   color: var(--primary-text-color);
-  background-color: var(--primary-button-color);
+  background-color: var(--button-primary-color);
 }
 
 .active-points {
   border-radius: 100%;
 
   color: var(--primary-text-color);
-  background-color: var(--primary-button-color);
+  background-color: var(--button-primary-color);
 }
 </style>

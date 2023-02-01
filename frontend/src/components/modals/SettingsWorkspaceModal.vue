@@ -156,7 +156,7 @@ export default {
   }
 
   .option-active {
-    border-bottom: 1px solid var(--primary-button-color);
+    border-bottom: 1px solid var(--button-primary-color);
 
     color: var(--primary-text-color);
   }

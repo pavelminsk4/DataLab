@@ -277,13 +277,13 @@ export default {
     color: var(--secondary-text-color);
 
     &:hover {
-      color: var(--primary-button-color);
+      color: var(--button-primary-color);
       background-color: rgba(5, 95, 252, 0.1);
     }
   }
 
   .active-range {
-    color: var(--primary-button-color);
+    color: var(--button-primary-color);
     background-color: rgba(5, 95, 252, 0.1);
   }
 }
@@ -357,7 +357,7 @@ export default {
         .dp__range_start,
         .dp__range_end {
           border: none;
-          background-color: var(--primary-button-color);
+          background-color: var(--button-primary-color);
         }
 
         .dp__range_start {
@@ -421,6 +421,6 @@ export default {
 
 .dp__button_bottom {
   color: var(--primary-text-color);
-  background-color: var(--primary-button-color);
+  background-color: var(--button-primary-color);
 }
 </style>

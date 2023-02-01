@@ -320,7 +320,7 @@ export default {
   gap: 5px;
 
   &:hover {
-    color: var(--primary-button-color);
+    color: var(--button-primary-color);
   }
 }
 </style>

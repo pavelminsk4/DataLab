@@ -45,9 +45,16 @@ body {
 
   --primary-text-color: #ffffff;
 
-  --primary-button-color: #055ffc;
+  --button-primary-color: #715de7;
+  --button-primary-disabled-color: #d3d0e7;
+  --button-primary-hover-color: #664dff;
+  --button-secondary-hover-color: #f4f2fe;
+  --button-text-color: #ffffff;
+  --button-text-disabled-color: #d2d5d9;
+
+  // TODO: Delete --------------------------------
   --secondary-button-color: #222a36;
-  --hover-button-color: #29303d;
+  // ---------------------------------------------
 
   --icon-bg-color: #1a1c1e;
 

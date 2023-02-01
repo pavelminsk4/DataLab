@@ -36,6 +36,7 @@
       :hint="'Search by keywords and phrases '"
     >
       <BaseButton
+        :is-not-background="true"
         class="button-upload"
         @click="toggleWidgetsModal('isOpenDownloadReportModal')"
       >

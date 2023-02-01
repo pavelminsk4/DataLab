@@ -44,7 +44,7 @@ export default {
 
 <style scoped>
 .turn-on {
-  background-color: var(--primary-button-color);
+  background-color: var(--button-primary-color);
 }
 
 .turn-off {

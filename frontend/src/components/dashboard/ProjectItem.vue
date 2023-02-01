@@ -217,7 +217,7 @@ button.new-project .button-text {
 
 button:hover .circle {
   width: 100%;
-  background: var(--primary-button-color);
+  background: var(--button-primary-color);
 }
 
 button:hover .button-text {
@@ -235,7 +235,7 @@ button:hover .button-text {
   }
 
   &:hover {
-    color: var(--primary-button-color);
+    color: var(--button-primary-color);
   }
 }
 

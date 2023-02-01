@@ -37,7 +37,7 @@ export default {
 
     &:checked ~ .checkmark {
       border: none;
-      background-color: var(--primary-button-color);
+      background-color: var(--button-primary-color);
     }
 
     &:checked ~ .checkmark:after {

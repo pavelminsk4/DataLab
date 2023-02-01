@@ -106,7 +106,7 @@ export default {
         border-radius: 10px;
 
         &:hover {
-          background-color: var(--primary-button-color);
+          background-color: var(--button-primary-color);
         }
       }
     }

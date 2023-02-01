@@ -32,7 +32,7 @@ export default {
 <style lang="scss" scoped>
 .wifi-loader {
   --background: var(--secondary-button-color);
-  --front-color: var(--primary-button-color);
+  --front-color: var(--button-primary-color);
   --back-color: var(--secondary-text-color);
   --text-color: var(--secondary-text-color);
   width: 64px;

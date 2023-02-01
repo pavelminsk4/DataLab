@@ -88,7 +88,7 @@ export default {
 
 .container input:checked ~ .checkmark {
   border: none;
-  background-color: var(--primary-button-color);
+  background-color: var(--button-primary-color);
 }
 
 .container input ~ .checkmark > .checkmark-icon {

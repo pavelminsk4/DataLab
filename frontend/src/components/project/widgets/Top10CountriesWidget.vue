@@ -110,7 +110,7 @@ export default {
         height: 14px;
 
         border-radius: 34px;
-        background-color: var(--primary-button-color);
+        background-color: var(--button-primary-color);
       }
     }
 

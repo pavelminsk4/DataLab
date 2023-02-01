@@ -128,7 +128,7 @@ export default {
   }
 
   &:hover {
-    color: var(--primary-button-color);
+    color: var(--button-primary-color);
   }
 }
 

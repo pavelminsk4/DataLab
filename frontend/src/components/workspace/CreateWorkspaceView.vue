@@ -63,7 +63,7 @@ export default {
   height: 24px;
 
   border-radius: 100%;
-  border: 1px solid var(--primary-button-color);
+  border: 1px solid var(--button-primary-color);
   box-shadow: 0 0 3px var(--box-shadow-color);
 
   color: var(--primary-text-color);

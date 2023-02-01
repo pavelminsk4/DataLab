@@ -154,7 +154,7 @@ export default {
 
 .radio-wrapper > .selected .btn-checked {
   border: none;
-  background: var(--primary-button-color);
+  background: var(--button-primary-color);
 }
 
 .radio-wrapper > .selected .checked-icon {

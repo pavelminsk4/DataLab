@@ -4,11 +4,12 @@
     :class="[
       'base-button',
       isNotBackground && 'not-background',
-      (isDisabled || isLoading || buttonLoading) && 'disabled',
+      isDisabledBtn && 'disabled',
+      isDisabledBtn && isNotBackground && 'not-background-disabled',
     ]"
-    :disabled="isDisabled || isLoading || buttonLoading"
+    :disabled="isDisabledBtn"
   >
-    <BaseButtonSpinner v-if="isLoading || buttonLoading" />
+    <BaseButtonSpinner v-if="isLoading" />
     <slot v-else></slot>
   </button>
 </template>
@@ -36,7 +37,13 @@ export default {
     },
   },
   computed: {
-    ...mapGetters({isLoading: get.LOADING}),
+    ...mapGetters({isGlobalLoading: get.LOADING}),
+    isLoading() {
+      return this.isGlobalLoading || this.buttonLoading
+    },
+    isDisabledBtn() {
+      return this.isDisabled || this.isLoading
+    },
   },
 }
 </script>
@@ -50,29 +57,48 @@ export default {
   cursor: pointer;
   outline: none;
 
-  height: 40px;
-  max-width: 100%;
+  height: 36px;
 
-  border: none;
-  border-radius: 8px;
+  background: var(--button-primary-color);
+  border: 1px solid var(--button-primary-color);
+  border-radius: 12px;
 
-  color: var(--primary-text-color);
-  background: var(--primary-button-color);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--button-text-color);
 
   &:hover {
-    background: rgba(5, 95, 252, 0.6);
+    background: var(--button-primary-hover-color);
   }
 }
 
 .not-background {
-  background: var(--secondary-button-color);
+  background: transparent;
+
+  color: var(--button-primary-color);
+
+  &:hover {
+    background: var(--button-secondary-hover-color);
+  }
 }
 
 .disabled {
+  background: var(--button-primary-disabled-color);
+  border-color: var(--button-primary-disabled-color);
   opacity: 0.5;
   cursor: not-allowed;
 
   color: var(--primary-text-color);
-  background: var(--disabled-color);
+
+  &:hover {
+    background: var(--button-primary-disabled-color);
+  }
+}
+
+.not-background-disabled {
+  border-color: var(--button-primary-disabled-color);
+
+  color: var(--button-text-disabled-color);
 }
 </style>
