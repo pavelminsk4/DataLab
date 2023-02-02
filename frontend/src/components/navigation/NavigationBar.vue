@@ -139,7 +139,7 @@ export default {
 
   cursor: pointer;
 
-  color: var(--secondary-text-color);
+  color: var(--typography-secondary-color);
   font-size: 14px;
 
   &:hover {
@@ -207,7 +207,7 @@ export default {
 }
 
 .hint {
-  color: var(--secondary-text-color);
+  color: var(--typography-secondary-color);
 
   font-size: 14px;
 }

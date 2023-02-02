@@ -120,7 +120,7 @@ export default {
 
   cursor: pointer;
 
-  color: var(--secondary-text-color);
+  color: var(--typography-secondary-color);
   font-size: 14px;
 
   .arrow-back {
@@ -144,7 +144,7 @@ export default {
 }
 
 .hint {
-  color: var(--secondary-text-color);
+  color: var(--typography-secondary-color);
 
   font-style: normal;
   font-weight: 400;

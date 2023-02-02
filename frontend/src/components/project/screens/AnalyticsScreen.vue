@@ -1,5 +1,5 @@
 <template>
-  <div v-if="currentProject">
+  <div class="analytics" v-if="currentProject">
     <WidgetsListModal
       v-if="isOpenWidgetsModal"
       :project-id="currentProject.id"
@@ -194,6 +194,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.analytics {
+  margin: 30px 0 0 150px;
+}
+
 .navigation-bar {
   display: flex;
   justify-content: flex-end;
@@ -232,7 +236,7 @@ export default {
   border-radius: 8px;
 
   &:hover {
-    background: var(--secondary-button-color);
+    background: var(--typography-title-color);
   }
 }
 </style>

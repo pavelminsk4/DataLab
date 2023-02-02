@@ -40,7 +40,7 @@ export default {
     height: 22px;
 
     border-radius: 100%;
-    border: 1px solid var(--secondary-text-color);
+    border: 1px solid var(--typography-secondary-color);
 
     background-color: white;
 
@@ -63,9 +63,9 @@ export default {
     margin-left: 8px;
 
     border-radius: 100%;
-    border: 1px dashed var(--secondary-text-color);
+    border: 1px dashed var(--typography-secondary-color);
 
-    color: var(--secondary-text-color);
+    color: var(--typography-secondary-color);
 
     font-style: normal;
     font-weight: 400;

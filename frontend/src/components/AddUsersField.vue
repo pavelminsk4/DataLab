@@ -176,7 +176,7 @@ export default {
       font-weight: 400;
       font-size: 14px;
       line-height: 20px;
-      color: var(--secondary-text-color);
+      color: var(--typography-secondary-color);
 
       &:hover {
         background-color: var(--button-primary-hover-color);

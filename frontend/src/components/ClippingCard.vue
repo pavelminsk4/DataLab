@@ -191,9 +191,9 @@ export default {
 
   border-radius: 8px;
   box-shadow: 1px 4px 16px rgba(135, 135, 135, 0.2);
-  background-color: var(--general-background-color);
+  background-color: var(--background-secondary-color);
 
-  color: var(--general-text-color);
+  color: var(--typography-title-color);
 
   .body-card {
     display: flex;
@@ -233,10 +233,10 @@ export default {
         font-weight: 600;
         font-size: 20px;
         line-height: 28px;
-        color: var(--general-text-color);
+        color: var(--typography-title-color);
 
         &:hover {
-          color: var(--hover-text-color);
+          color: var(--primary-hover-color);
         }
       }
 
@@ -282,22 +282,22 @@ export default {
           font-weight: 400;
           font-size: 12px;
           line-height: 16px;
-          color: var(--secondary-text-color);
+          color: var(--typography-secondary-color);
         }
 
         .status-neutral {
-          background-color: var(--neutral-sentiment-background);
-          color: var(--neutral-sentiment-color);
+          background-color: var(--neutral-secondary-color);
+          color: var(--neutral-primary-color);
         }
 
         .status-positive {
-          background-color: var(--positive-sentiment-background);
-          color: var(--positive-sentiment-color);
+          background-color: var(--positive-secondary-color);
+          color: var(--positive-primary-color);
         }
 
         .status-negative {
-          background-color: var(--negative-sentiment-background);
-          color: var(--negative-sentiment-color);
+          background-color: var(--negative-secondary-color);
+          color: var(--negative-primary-color);
         }
 
         .clipping-wrapper {
@@ -324,7 +324,7 @@ export default {
     .delete-clipping-feed-element {
       cursor: pointer;
 
-      color: var(--secondary-text-color);
+      color: var(--typography-secondary-color);
     }
   }
 
@@ -359,7 +359,7 @@ export default {
         font-weight: 500;
         font-size: 10px;
         line-height: 10px;
-        color: var(--secondary-text-color);
+        color: var(--typography-secondary-color);
       }
 
       .item-value {
@@ -367,20 +367,20 @@ export default {
         font-weight: 400;
         font-size: 11px;
         line-height: 11px;
-        color: var(--general-text-color);
+        color: var(--typography-title-color);
       }
     }
   }
 }
 
 .search-result-neutral {
-  border-left: 3px solid var(--neutral-sentiment-color);
+  border-left: 3px solid var(--neutral-primary-color);
 }
 .search-result-positive {
-  border-left: 3px solid var(--positive-sentiment-color);
+  border-left: 3px solid var(--positive-primary-color);
 }
 
 .search-result-negative {
-  border-left: 3px solid var(--negative-sentiment-color);
+  border-left: 3px solid var(--negative-primary-color);
 }
 </style>

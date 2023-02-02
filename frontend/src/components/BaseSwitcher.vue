@@ -48,7 +48,7 @@ export default {
 }
 
 .turn-off {
-  background-color: var(--secondary-text-color);
+  background-color: var(--typography-secondary-color);
 }
 
 .toggle-wrapper {

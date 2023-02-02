@@ -484,7 +484,7 @@ export default {
           font-weight: 500;
           font-size: 12px;
           line-height: 16px;
-          color: var(--secondary-text-color);
+          color: var(--typography-secondary-color);
         }
       }
 
@@ -574,7 +574,7 @@ export default {
       }
 
       &:hover {
-        color: var(--secondary-text-color);
+        color: var(--typography-secondary-color);
       }
     }
   }

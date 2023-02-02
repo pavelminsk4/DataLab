@@ -118,7 +118,7 @@ export default {
 }
 
 .input::placeholder {
-  color: var(--secondary-text-color);
+  color: var(--typography-secondary-color);
 }
 
 .input-search {

@@ -76,7 +76,7 @@ export default {
   height: 20px;
   width: 20px;
 
-  border: 1px solid var(--secondary-text-color);
+  border: 1px solid var(--typography-secondary-color);
   border-radius: 4px;
   background-color: var(--input-border-color);
 }

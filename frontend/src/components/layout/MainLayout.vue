@@ -1,6 +1,6 @@
 <template>
   <div class="main-layout-wrapper">
-    <MainHeader :is-visible-logo="isVisibleLogo" />
+    <MainHeader />
     <div class="content">
       <slot></slot>
     </div>
@@ -22,10 +22,6 @@ export default {
     isProjectExtraSettings: {
       type: Boolean,
       default: false,
-    },
-    isVisibleLogo: {
-      type: Boolean,
-      default: true,
     },
   },
   created() {

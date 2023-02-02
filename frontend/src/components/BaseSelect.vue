@@ -193,7 +193,7 @@ export default {
     color: var(--primary-text-color);
     font-size: 14px;
     .placeholder {
-      color: var(--secondary-text-color);
+      color: var(--typography-secondary-color);
     }
   }
 }

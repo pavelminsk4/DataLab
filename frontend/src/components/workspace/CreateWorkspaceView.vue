@@ -19,7 +19,7 @@ export default {
 .back-button {
   cursor: pointer;
 
-  color: var(--secondary-text-color);
+  color: var(--typography-secondary-color);
   font-size: 14px;
 }
 
@@ -78,7 +78,7 @@ export default {
 }
 
 .hint {
-  color: var(--secondary-text-color);
+  color: var(--typography-secondary-color);
 
   font-size: 14px;
 }

@@ -74,7 +74,7 @@ export default {
   font-weight: 400;
   font-size: 14px;
   line-height: 110%;
-  color: var(--secondary-button-color);
+  color: var(--typography-title-color);
 
   &::after {
     content: '';
@@ -110,7 +110,7 @@ export default {
   transition: all 0.3s;
   pointer-events: stroke;
 
-  color: var(--secondary-text-color);
+  color: var(--typography-secondary-color);
 }
 
 .points-icon:hover {

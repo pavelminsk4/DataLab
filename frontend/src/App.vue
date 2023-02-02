@@ -12,26 +12,6 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap');
 
 :root {
-  //TODO: fix colors ---------------------------------------------
-  --general-background-color: #ffffff;
-  --general-text-color: #29333d;
-  --secondary-text-color: #5c6e80;
-  --hover-text-color: #664dff;
-
-  --border-color: #e3e5e8;
-
-  --primary-chips-backgroud-color: #e9f0f3;
-
-  --neutral-sentiment-color: #516bee;
-  --positive-sentiment-color: #00b884;
-  --negative-sentiment-color: #ed2549;
-  --neutral-sentiment-background: rgba(81, 107, 238, 0.15);
-  --positive-sentiment-background: #d5f5ec;
-  --negative-sentiment-background: #ffe3e8;
-
-  --primary-text-color: #ffffff;
-  //end ------------------------------------------------------------
-
   --primary-color: #715de7;
   --primary-hover-color: #664dff;
   --primary-active-color: #e7e2fe;
@@ -51,14 +31,15 @@ export default {
   --button-text-color: #ffffff;
   --button-text-disabled-color: #d2d5d9;
 
+  --border-color: #e3e5e8;
+  --primary-chips-backgroud-color: #e9f0f3;
+
+  --neutral-primary-color: #516bee;
+  --neutral-secondary-color: #e5e9fc;
   --positive-primary-color: #00b884;
   --positive-secondary-color: #d5f5ec;
   --negative-primary-color: #ed2549;
   --negative-secondary-color: #ffe3e8;
-
-  // TODO: Delete --------------------------------
-  --secondary-button-color: #222a36;
-  // end -----------------------------------------
 
   --icon-bg-color: #1a1c1e;
 
@@ -137,7 +118,7 @@ h4 {
   &::-webkit-scrollbar-thumb {
     height: 4px;
 
-    background: var(--secondary-text-color);
+    background: var(--typography-secondary-color);
     border-radius: 10px;
   }
 }

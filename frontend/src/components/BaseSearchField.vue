@@ -165,7 +165,7 @@ export default {
     font-size: 14px;
 
     .placeholder {
-      color: var(--secondary-text-color);
+      color: var(--typography-secondary-color);
     }
   }
 }
