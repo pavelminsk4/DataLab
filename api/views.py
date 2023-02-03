@@ -15,14 +15,9 @@ from dateutil import parser
 from django.db.models.functions import ExtractYear
 from widgets.models import ClippingFeedContentWidget, WidgetsList2, Dimensions, ProjectDimensions
 from alerts.models import Alert
-from rest_framework import status
-from rest_framework import viewsets
+from rest_framework import viewsets, generics, filters, status
 from django.core.paginator import Paginator
-from rest_framework import filters
-
 from widgets.common_widget.volume_widget import *
-
-from rest_framework import generics
 
 # ==== User API =======================
 class UserList(ListAPIView):
@@ -271,7 +266,7 @@ class TemplatesViewSet(viewsets.ModelViewSet):
   serializer_class = TemplatesSerializer
   queryset = Templates.objects.all()
 
-# === Dimension Authors ===
+# === Dimension ===
 
 def dimension_authors(request, pk):
   first_letters = request.body
@@ -294,6 +289,16 @@ def dimension_countries(requset, pk):
   countries = posts.values('feedlink__country').distinct()
   countries_list = list(countries)
   return JsonResponse(countries_list, safe = False)
+
+class ListAuthorsInProject(generics.ListAPIView):
+  serializer_class = PostsSerializer
+  
+  def get_queryset(self):
+    pk = self.kwargs.get('pk', None)
+    project = get_object_or_404(Project, pk=pk)
+    posts = posts_agregator(project)
+    queryset = posts.values('entry_author').order_by('entry_author').distinct()
+    return queryset 
 
 # === Alerts ====
 
