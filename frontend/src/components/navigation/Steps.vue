@@ -129,7 +129,7 @@ export default {
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.22);
   background-color: var(--primary-text-color);
 
-  color: var(--secondary-button-color);
+  color: var(--typography-title-color);
 
   &::after {
     content: '';

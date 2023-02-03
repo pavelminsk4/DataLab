@@ -76,7 +76,7 @@ export default {
   height: 20px;
   width: 20px;
 
-  border: 1px solid var(--secondary-text-color);
+  border: 1px solid var(--typography-secondary-color);
   border-radius: 4px;
   background-color: var(--input-border-color);
 }
@@ -88,7 +88,7 @@ export default {
 
 .container input:checked ~ .checkmark {
   border: none;
-  background-color: var(--primary-button-color);
+  background-color: var(--button-primary-color);
 }
 
 .container input ~ .checkmark > .checkmark-icon {

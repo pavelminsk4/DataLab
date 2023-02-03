@@ -233,7 +233,7 @@ export default {
   height: 20px;
   margin-right: 7px;
 
-  border: 1px solid var(--secondary-text-color);
+  border: 1px solid var(--typography-secondary-color);
   border-radius: 50px;
 
   cursor: pointer;
@@ -249,7 +249,7 @@ export default {
 .back-button {
   cursor: pointer;
 
-  color: var(--secondary-text-color);
+  color: var(--typography-secondary-color);
   font-size: 14px;
 }
 
@@ -293,7 +293,7 @@ export default {
   height: 24px;
 
   border-radius: 100%;
-  border: 1px solid var(--primary-button-color);
+  border: 1px solid var(--button-primary-color);
   box-shadow: 0 0 3px var(--box-shadow-color);
 
   color: var(--primary-text-color);
@@ -308,7 +308,7 @@ export default {
 }
 
 .hint {
-  color: var(--secondary-text-color);
+  color: var(--typography-secondary-color);
 
   font-size: 14px;
 }

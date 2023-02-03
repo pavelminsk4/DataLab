@@ -120,7 +120,7 @@ export default {
   height: 20px;
   margin-right: 7px;
 
-  border: 1px solid var(--secondary-text-color);
+  border: 1px solid var(--typography-secondary-color);
   border-radius: 50px;
 
   cursor: pointer;
@@ -154,7 +154,7 @@ export default {
 
 .radio-wrapper > .selected .btn-checked {
   border: none;
-  background: var(--primary-button-color);
+  background: var(--button-primary-color);
 }
 
 .radio-wrapper > .selected .checked-icon {

@@ -37,7 +37,7 @@ export default {
 
     &:checked ~ .checkmark {
       border: none;
-      background-color: var(--primary-button-color);
+      background-color: var(--button-primary-color);
     }
 
     &:checked ~ .checkmark:after {
@@ -55,7 +55,7 @@ export default {
 
     background-color: transparent;
     border-radius: 50%;
-    border: 1px solid var(--secondary-text-color);
+    border: 1px solid var(--typography-secondary-color);
 
     &:after {
       content: '';
@@ -75,7 +75,7 @@ export default {
   }
 
   &:hover input ~ .checkmark {
-    background-color: var(--secondary-text-color);
+    background-color: var(--typography-secondary-color);
   }
 }
 </style>

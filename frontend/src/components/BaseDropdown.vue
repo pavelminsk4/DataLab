@@ -110,12 +110,12 @@ export default {
   color: var(--primary-text-color);
 
   &:hover {
-    color: var(--primary-button-color);
+    color: var(--button-primary-color);
   }
 }
 
 .arrow-open-dropdown {
   transform: rotate(180deg);
-  color: var(--primary-button-color);
+  color: var(--button-primary-color);
 }
 </style>

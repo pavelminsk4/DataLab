@@ -415,7 +415,7 @@ export default {
     width: fit-content;
     padding-bottom: 10px;
 
-    border-bottom: 2px solid var(--primary-button-color);
+    border-bottom: 2px solid var(--button-primary-color);
   }
 }
 .user-roles-wrapper {
@@ -484,7 +484,7 @@ export default {
           font-weight: 500;
           font-size: 12px;
           line-height: 16px;
-          color: var(--secondary-text-color);
+          color: var(--typography-secondary-color);
         }
       }
 
@@ -567,14 +567,14 @@ export default {
       font-weight: 400;
       font-size: 14px;
       line-height: 22px;
-      color: var(--primary-button-color);
+      color: var(--button-primary-color);
 
       .icon-delete {
         transform: rotate(45deg);
       }
 
       &:hover {
-        color: var(--secondary-text-color);
+        color: var(--typography-secondary-color);
       }
     }
   }
@@ -586,7 +586,7 @@ export default {
   padding: 10px;
 
   &:hover {
-    background-color: var(--primary-button-color);
+    background-color: var(--button-primary-color);
   }
 
   &:first-child {

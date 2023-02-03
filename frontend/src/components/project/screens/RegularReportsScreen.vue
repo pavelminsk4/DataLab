@@ -145,7 +145,7 @@ export default {
         font-weight: 400;
         font-size: 10px;
         line-height: 20px;
-        color: var(--secondary-text-color);
+        color: var(--typography-secondary-color);
       }
 
       th:first-child {

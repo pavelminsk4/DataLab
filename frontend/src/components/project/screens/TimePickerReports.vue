@@ -414,7 +414,7 @@ export default {
   .active-button {
     padding-bottom: 10px;
 
-    border-bottom: 2px solid var(--primary-button-color);
+    border-bottom: 2px solid var(--button-primary-color);
 
     color: var(--primary-text-color);
   }
@@ -434,7 +434,7 @@ export default {
       width: 5px;
 
       border-radius: 100px;
-      background-color: var(--primary-button-color);
+      background-color: var(--button-primary-color);
     }
   }
 }
@@ -506,7 +506,7 @@ export default {
           color: var(--primary-text-color);
 
           &:hover {
-            color: var(--primary-button-color);
+            color: var(--button-primary-color);
           }
         }
 
@@ -519,7 +519,7 @@ export default {
           transform: rotate(180deg);
 
           &:hover {
-            color: var(--primary-button-color);
+            color: var(--button-primary-color);
           }
         }
       }
@@ -586,7 +586,7 @@ export default {
     }
 
     .active-day {
-      background: var(--primary-button-color);
+      background: var(--button-primary-color);
     }
   }
 }
@@ -604,7 +604,7 @@ export default {
 }
 
 .dp__date_hover:hover {
-  color: var(--hover-button-color) !important;
+  color: var(--button-primary-hover-color) !important;
 }
 
 .dp__arrow_bottom {

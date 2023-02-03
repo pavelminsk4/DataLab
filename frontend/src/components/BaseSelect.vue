@@ -193,7 +193,7 @@ export default {
     color: var(--primary-text-color);
     font-size: 14px;
     .placeholder {
-      color: var(--secondary-text-color);
+      color: var(--typography-secondary-color);
     }
   }
 }
@@ -204,7 +204,7 @@ export default {
   margin: -1px;
   width: calc(100% + 2px);
   max-height: 250px;
-  border: 1px solid var(--primary-button-color);
+  border: 1px solid var(--button-primary-color);
   box-shadow: 0 3px 4px rgba(5, 95, 252, 0.49);
   border-radius: 0 0 10px 10px;
   background-color: var(--secondary-bg-color);
@@ -224,14 +224,14 @@ export default {
   padding: 9px 9px 9px 19px;
   color: var(--primary-text-color);
   &:hover {
-    background: var(--primary-button-color);
+    background: var(--button-primary-color);
   }
 }
 .current {
-  background: var(--primary-button-color);
+  background: var(--button-primary-color);
 }
 .open {
-  border: 1px solid var(--primary-button-color);
+  border: 1px solid var(--button-primary-color);
   border-bottom: none;
   box-shadow: 0 3px 4px rgba(5, 95, 252, 0.49);
   border-radius: 10px 10px 0 0;

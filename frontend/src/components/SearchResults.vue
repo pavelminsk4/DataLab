@@ -359,12 +359,12 @@ export default {
   font-weight: 400;
   font-size: 14px;
   line-height: 20px;
-  color: var(--secondary-text-color);
+  color: var(--typography-secondary-color);
 }
 
 .arrow-open-dropdown {
   transform: rotate(180deg);
-  color: var(--primary-button-color);
+  color: var(--button-primary-color);
 }
 
 .arrow-down {
@@ -378,7 +378,7 @@ export default {
   color: var(--primary-text-color);
 
   &:hover {
-    color: var(--primary-button-color);
+    color: var(--button-primary-color);
   }
 }
 

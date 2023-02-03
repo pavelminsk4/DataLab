@@ -1,10 +1,7 @@
 <template>
-  <div
-    :class="['main-layout-wrapper', isProjectExtraSettings && 'extra-settings']"
-  >
+  <div class="main-layout-wrapper">
+    <MainHeader />
     <div class="content">
-      <MainHeader :is-visible-logo="isVisibleLogo" />
-
       <slot></slot>
     </div>
   </div>
@@ -25,10 +22,6 @@ export default {
     isProjectExtraSettings: {
       type: Boolean,
       default: false,
-    },
-    isVisibleLogo: {
-      type: Boolean,
-      default: true,
     },
   },
   created() {
@@ -56,7 +49,7 @@ export default {
 .main-layout-wrapper {
   position: relative;
 
-  padding: 0 69px 100px 79px;
+  padding: var(--header-height) 69px 100px 79px;
 }
 
 .extra-settings {

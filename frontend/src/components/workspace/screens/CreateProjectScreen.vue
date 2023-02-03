@@ -240,7 +240,7 @@ export default {
 }
 
 .description-field::placeholder {
-  color: var(--secondary-text-color);
+  color: var(--typography-secondary-color);
 }
 
 .radio-title {
@@ -255,7 +255,7 @@ export default {
   margin-top: 7px;
 
   font-size: 14px;
-  color: var(--secondary-text-color);
+  color: var(--typography-secondary-color);
 }
 
 @media screen and (max-width: 1300px) {

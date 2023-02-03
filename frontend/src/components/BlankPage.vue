@@ -1,6 +1,6 @@
 <template>
   <div class="blank-page-wrapper">
-    <component class="type-icon" :is="pageName + 'Icon'" />
+    <component class="type-icon" :is="pageName + 'EmptyIcon'" />
     No {{ formatWord(pageName) }} created
   </div>
 </template>
@@ -8,13 +8,13 @@
 <script>
 import {splitToSeparateWords} from '@lib/utilities'
 
-import AlertsIcon from '@/components/icons/AlertsIcon'
-import WorkspaceIcon from '@/components/icons/WorkspaceIcon'
-import RegularReportsIcon from '@/components/icons/RegularReportsIcon'
+import AlertsEmptyIcon from '@/components/icons/AlertsEmptyIcon'
+import WorkspaceEmptyIcon from '@/components/icons/WorkspaceEmptyIcon'
+import RegularReportsEmptyIcon from '@/components/icons/RegularReportsEmptyIcon'
 
 export default {
   name: 'BlankPage',
-  components: {WorkspaceIcon, RegularReportsIcon, AlertsIcon},
+  components: {WorkspaceEmptyIcon, RegularReportsEmptyIcon, AlertsEmptyIcon},
   props: {
     pageName: {
       type: String,

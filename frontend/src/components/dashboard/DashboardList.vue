@@ -155,7 +155,7 @@ export default {
 }
 
 .hint {
-  color: var(--secondary-text-color);
+  color: var(--typography-secondary-color);
 
   font-style: normal;
   font-weight: 400;

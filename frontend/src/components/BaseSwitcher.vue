@@ -44,11 +44,11 @@ export default {
 
 <style scoped>
 .turn-on {
-  background-color: var(--primary-button-color);
+  background-color: var(--button-primary-color);
 }
 
 .turn-off {
-  background-color: var(--secondary-text-color);
+  background-color: var(--typography-secondary-color);
 }
 
 .toggle-wrapper {

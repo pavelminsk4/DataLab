@@ -139,11 +139,11 @@ export default {
 
   cursor: pointer;
 
-  color: var(--secondary-text-color);
+  color: var(--typography-secondary-color);
   font-size: 14px;
 
   &:hover {
-    color: var(--primary-button-color);
+    color: var(--button-primary-color);
   }
 }
 
@@ -202,12 +202,12 @@ export default {
 }
 
 .active-item {
-  border: 1px solid var(--primary-button-color);
+  border: 1px solid var(--button-primary-color);
   box-shadow: 0 0 3px var(--box-shadow-color);
 }
 
 .hint {
-  color: var(--secondary-text-color);
+  color: var(--typography-secondary-color);
 
   font-size: 14px;
 }

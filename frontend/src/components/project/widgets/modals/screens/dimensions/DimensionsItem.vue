@@ -119,7 +119,7 @@ export default {
 .item-disabled {
   cursor: not-allowed;
 
-  color: var(--secondary-text-color);
+  color: var(--typography-secondary-color);
 }
 
 .active-icon {

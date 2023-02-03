@@ -118,6 +118,6 @@ export default {
 }
 
 .description-field::placeholder {
-  color: var(--secondary-text-color);
+  color: var(--typography-secondary-color);
 }
 </style>

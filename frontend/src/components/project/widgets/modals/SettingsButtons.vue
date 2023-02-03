@@ -62,7 +62,7 @@ export default {
   .general-button-active {
     padding-bottom: 10px;
 
-    border-bottom: 1px solid var(--primary-button-color);
+    border-bottom: 1px solid var(--button-primary-color);
 
     color: var(--primary-text-color);
   }

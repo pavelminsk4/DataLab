@@ -1,6 +1,6 @@
 <template>
-  <header :class="['header', !isVisibleLogo && 'is-not-visible-logo']">
-    <LogoIcon v-if="isVisibleLogo" class="logo" @click="goToDashboard" />
+  <header class="header">
+    <LogoIcon class="logo" @click="goToDashboard" />
 
     <div class="header-navigation">
       <div
@@ -8,11 +8,12 @@
         @click="goToUserRolesPage"
         :class="['header-tab', isActiveTab && 'active-tab']"
       >
-        <UserIcon /> Users
+        <UserIcon :class="['icon', isActiveTab && 'active-icon']" /> Users
       </div>
 
       <div class="section-company">
         <div class="name">{{ companyName }}</div>
+        <img :src="logoImg" class="company-logo" />
         <section class="dropdown-wrapper">
           <ArrowDownIcon
             @click="openDropdown"
@@ -23,7 +24,6 @@
             <div @click="logout" class="item">Logout</div>
           </div>
         </section>
-        <img :src="logoImg" class="company-logo" />
       </div>
     </div>
   </header>
@@ -43,12 +43,6 @@ export default {
     UserIcon,
     LogoIcon,
     ArrowDownIcon,
-  },
-  props: {
-    isVisibleLogo: {
-      type: Boolean,
-      default: true,
-    },
   },
   data() {
     return {
@@ -102,14 +96,20 @@ export default {
 
 <style lang="scss" scoped>
 .header {
-  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 11;
 
   display: flex;
   align-items: center;
   justify-content: space-between;
 
-  height: 66px;
-  margin-bottom: 28px;
+  width: 100%;
+  height: var(--header-height);
+
+  background-color: var(--background-secondary-color);
+  border: 1px solid var(--border-color);
 }
 
 .header-navigation {
@@ -132,26 +132,19 @@ export default {
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
-  line-height: 150%;
-
-  color: var(--primary-text-color);
+  line-height: 20px;
 
   &:hover {
     border-radius: 10px;
     background: rgba(5, 95, 252, 0.6);
+    color: var(--button-text-color);
   }
 }
 
-.is-not-visible-logo {
-  justify-content: end;
-}
-
 .logo {
-  cursor: pointer;
-  opacity: 0;
+  margin-left: 32px;
 
-  width: 0;
-  height: 0;
+  cursor: pointer;
 }
 
 .section-company {
@@ -162,11 +155,12 @@ export default {
   display: flex;
   align-items: center;
 
+  margin-right: 8px;
+
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
   line-height: 20px;
-  color: var(--primary-text-color);
 }
 
 .dropdown-wrapper {
@@ -174,6 +168,8 @@ export default {
 
   display: flex;
   align-items: center;
+
+  margin-right: 32px;
 
   cursor: pointer;
 
@@ -199,7 +195,6 @@ export default {
     font-weight: 400;
     font-size: 12px;
     line-height: 20px;
-    color: var(--primary-text-color);
 
     .item {
       cursor: pointer;
@@ -208,7 +203,7 @@ export default {
     }
 
     &:hover {
-      background-color: var(--primary-button-color);
+      background-color: var(--button-primary-color);
     }
   }
 }
@@ -221,16 +216,16 @@ export default {
 
   margin: 0 11px 0 7px;
 
-  color: var(--primary-text-color);
+  color: var(--typography-secondary-color);
 
   &:hover {
-    color: var(--primary-button-color);
+    color: var(--button-primary-color);
   }
 }
 
 .arrow-open-dropdown {
   transform: rotate(180deg);
-  color: var(--primary-button-color);
+  color: var(--button-primary-color);
 }
 
 .company-logo {
@@ -244,7 +239,7 @@ export default {
   border-radius: 100%;
 
   color: var(--primary-text-color);
-  background-color: var(--primary-button-color);
+  background-color: var(--button-primary-color);
 
   font-size: 8px;
 }
@@ -262,6 +257,20 @@ export default {
   width: 90px;
 
   border-radius: 10px;
-  background-color: var(--primary-button-color);
+  border: 1px solid var(--button-primary-color);
+
+  color: var(--primary-color);
+
+  .active-icon {
+    color: var(--primary-color);
+  }
+
+  &:hover {
+    .active-icon {
+      color: var(--button-text-color);
+    }
+
+    color: var(--button-text-color);
+  }
 }
 </style>

@@ -67,17 +67,17 @@ export default {
 
   cursor: pointer;
 
-  color: var(--secondary-text-color);
+  color: var(--typography-secondary-color);
 
   &:hover {
-    color: var(--hover-text-color);
+    color: var(--primary-hover-color);
   }
 }
 
 .active-clipping-post {
-  border: 1px solid var(--hover-text-color);
+  border: 1px solid var(--primary-hover-color);
   border-radius: 100px;
-  background-color: var(--hover-text-color);
+  background-color: var(--primary-hover-color);
 
   transform: rotate(30deg);
 }

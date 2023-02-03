@@ -415,26 +415,7 @@ export default {
   }
 
   .link {
-    display: flex;
-
-    text-decoration: none;
-
     width: 128px;
-    padding: 10px 30px;
-
-    background: var(--primary-button-color);
-    border-radius: 8px;
-
-    color: var(--primary-text-color);
-
-    font-style: normal;
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 20px;
-
-    &:hover {
-      background: rgba(5, 95, 252, 0.6);
-    }
   }
 }
 
