@@ -1,143 +1,206 @@
 <template>
   <BaseModal
-    v-if="selectedDimensions"
-    modal-frame-style="width: 40vw; height: 80vh;"
+    v-if="authorsList"
+    modal-frame-style="width: 40vw; max-height: 80vh;"
+    title="Widgets Dimensions"
   >
-    <div class="title">Widgets Dimensions</div>
-    <div class="dimensions-wrapper">
-      <div
-        v-for="(item, index) in dimensions"
-        :key="'dimension' + index"
-        class="dimension"
+    <div class="title">Author</div>
+
+    <SelectWithCheckboxes
+      v-model="author"
+      name="author"
+      :list="authorsList"
+      placeholder="Search the author"
+      :current-value="author"
+      :is-search="true"
+      :is-reject-selection="false"
+      @update:modelValue="getResult"
+      class="select"
+    />
+
+    <div class="title">Sentiment</div>
+
+    <div class="sentiments">
+      <BaseCheckbox
+        v-for="(item, index) in sentiments"
+        :key="item + index"
+        :id="item"
+        :has-icon="false"
+        :model-value="isCheckedElement(item)"
+        :class="['item', isCheckedElement(item) && `${item}-item`]"
+        @change="onChange"
       >
-        <div>{{ item.title }}</div>
-        <BaseCheckbox
-          :id="item.id"
-          :selected="isDisplayDimensions(item.id)"
-          :model-value="isDisplayDimensions(item.id)"
-          @change="onChange"
-        />
-      </div>
+        {{ capitalizeFirstLetter(item) }}
+      </BaseCheckbox>
     </div>
 
-    <BaseButton @click="addGeneralDimensions" class="button"> Save </BaseButton>
+    <BaseButton class="button" @click="saveChanges">Save</BaseButton>
   </BaseModal>
 </template>
 
 <script>
-import BaseModal from '@/components/modals/BaseModal'
-import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
-import BaseCheckbox from '@/components/BaseCheckbox'
+import {mapActions, mapGetters} from 'vuex'
+import {capitalizeFirstLetter} from '@/lib/utilities'
+
+import BaseModal from '@/components/modals/BaseModal'
 import BaseButton from '@/components/buttons/BaseButton'
+import BaseCheckbox from '@/components/BaseCheckbox'
+import SelectWithCheckboxes from '@/components/SelectWithCheckboxes'
 
 export default {
   name: 'AllDimensionsModal',
-  components: {BaseButton, BaseCheckbox, BaseModal},
+  components: {
+    SelectWithCheckboxes,
+    BaseCheckbox,
+    BaseButton,
+    BaseModal,
+  },
   props: {
     projectId: {
       type: [String, Number],
       required: false,
     },
+    currentProject: {
+      type: [Array, Object],
+      required: false,
+    },
   },
-  async created() {
-    if (!this.dimensions.length) {
-      this[action.GET_DIMENSIONS]()
+  data() {
+    return {
+      author: '',
+      sentiments: ['neutral', 'negative', 'positive'],
+      selectedSentiments: [],
     }
-    this[action.GET_SELECTED_DIMENSIONS](this.projectId)
+  },
+  created() {
+    this[action.GET_DIMENSION_AUTHORS](this.projectId)
+
+    console.log(this.dimensionAuthors)
   },
   computed: {
-    ...mapGetters({
-      dimensions: get.DIMENSIONS,
-      selectedDimensions: get.SELECTED_DIMENSIONS,
-      loading: get.LOADING,
-    }),
-    collectionProxy: {
+    ...mapGetters({dimensionAuthors: get.DIMENSION_AUTHORS}),
+    authorsList() {
+      return this.dimensionAuthors?.map((el) => el.entry_author)
+    },
+    selectedSentimentsProxy: {
       get() {
-        let collection = []
-        for (let key of this.selectedDimensions) {
-          collection.push({
-            dimension: key.dimension.id,
-            project: this.projectId,
-          })
-        }
-        return collection || []
+        return (
+          this.currentProject.sentiment_dimensions || this.selectedSentiments
+        )
       },
       set(val) {
-        this.collection = val
+        this.selectedSentiments = val
       },
     },
   },
   methods: {
-    ...mapActions([
-      action.GET_DIMENSIONS,
-      action.POST_DIMENSIONS,
-      action.GET_SELECTED_DIMENSIONS,
-    ]),
+    ...mapActions([action.UPDATE_PROJECT, action.GET_DIMENSION_AUTHORS]),
+    capitalizeFirstLetter,
+    getResult(searchValue, name) {
+      try {
+        this[name] = searchValue
+        this[action.UPDATE_ADDITIONAL_FILTERS]({[name]: searchValue})
+
+        switch (name) {
+          case 'country':
+            return this[action.GET_COUNTRIES](
+              this.capitalizeFirstLetter(searchValue)
+            )
+          case 'author':
+            return this[action.GET_AUTHORS](searchValue)
+        }
+      } catch (e) {
+        console.log(e)
+      }
+    },
     onChange(args) {
       const {id, checked} = args
       if (checked) {
-        this.collectionProxy.push({dimension: id, project: this.projectId})
+        this.selectedSentimentsProxy.push(id)
       } else {
-        let element = this.collectionProxy.find((el) => el.dimension === id)
+        let element = this.selectedSentimentsProxy.indexOf(id)
         this.removeSelectedFilter(element, id)
       }
     },
-    addGeneralDimensions() {
-      this[action.POST_DIMENSIONS]({
-        projectId: this.projectId,
-        data: this.collectionProxy || [{}],
-      })
-      this.$emit('close-modal')
-    },
     removeSelectedFilter(index) {
-      this.collectionProxy.splice(index, 1)
+      this.selectedSentimentsProxy.splice(index, 1)
     },
-    isDisplayDimensions(id) {
-      return this.collectionProxy.some((el) => el.dimension === id)
+    isCheckedElement(item) {
+      return this.selectedSentimentsProxy?.some((el) => el === item)
+    },
+    saveChanges() {
+      try {
+        this[action.UPDATE_PROJECT]({
+          projectId: this.projectId,
+          data: {
+            sentiment_dimensions: this.selectedSentimentsProxy,
+          },
+        })
+      } catch (e) {
+        console.log(e)
+      }
     },
   },
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .title {
-  margin-bottom: 25px;
-
-  font-style: normal;
-  font-weight: 600;
-  font-size: 36px;
-  line-height: 54px;
-}
-
-.dimensions-wrapper {
-  padding: 37px 46px 31px 33px;
-
-  background: #242529;
-  border: 1px solid var(--border-color);
-  box-shadow: 0px 4px 10px rgba(16, 16, 16, 0.25);
-  border-radius: 10px;
-}
-
-.dimension {
-  display: flex;
-  justify-content: space-between;
-
-  cursor: pointer;
-
-  padding-bottom: 16px;
-  margin-bottom: 16px;
-
-  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 4px;
 
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 20px;
+  color: var(--typography-title-color);
+}
+
+.select {
+  margin-bottom: 20px;
+}
+
+.sentiments {
+  display: flex;
+  gap: 8px;
+
+  .item {
+    padding: 6px 12px;
+
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+
+    cursor: pointer;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--typography-title-color);
+  }
+
+  .neutral-item {
+    border: 1px solid var(--neutral-primary-color);
+
+    color: var(--neutral-primary-color);
+  }
+
+  .negative-item {
+    border: 1px solid var(--negative-primary-color);
+
+    color: var(--negative-primary-color);
+  }
+
+  .positive-item {
+    border: 1px solid var(--positive-primary-color);
+
+    color: var(--positive-primary-color);
+  }
 }
 
 .button {
-  width: 100%;
-  margin-top: 22px;
+  width: 59px;
+  margin-top: 32px;
+  margin-left: auto;
 }
 </style>

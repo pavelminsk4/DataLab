@@ -152,7 +152,7 @@ export default {
   },
 
   async getDimensionAuthors(projectId) {
-    return fetch('get', `/api/projects/${projectId}/dimension_authors`)
+    return fetch('get', `/api/projects/${projectId}/list_authors`)
   },
 
   async getDimensionLanguages(projectId) {

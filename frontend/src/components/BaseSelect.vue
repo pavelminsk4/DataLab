@@ -8,7 +8,7 @@
     ]"
     :data-value="value"
     :data-list="list"
-    @click="visible = true"
+    @click="toggle"
   >
     <div class="label">
       <input
@@ -30,7 +30,7 @@
     <ArrowDownIcon
       class="arrow"
       :class="{expanded: visible}"
-      @click="toggle()"
+      @click.stop="toggle"
     />
     <div :class="{hidden: !visible, visible}">
       <ul v-if="visible" class="select-list scroll">
@@ -139,6 +139,7 @@ export default {
   methods: {
     toggle() {
       this.visible = !this.visible
+      console.log(this.visible)
     },
     handleInput(e) {
       this.visible = true
@@ -183,6 +184,11 @@ export default {
     transition-duration: 0.3s;
     transition-timing-function: cubic-bezier(0.59, 1.39, 0.37, 1.01);
     color: var(--primary-text-color);
+
+    &:hover {
+      cursor: pointer;
+      color: var(--primary-color);
+    }
   }
   .expanded {
     transform: rotateZ(180deg) translateY(2px);

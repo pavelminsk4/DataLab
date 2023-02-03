@@ -7,8 +7,8 @@
     />
 
     <AllDimensionsModal
-      v-if="isOpenDimensionModal"
       :project-id="currentProject.id"
+      :current-project="currentProject"
       @close="toggleWidgetsModal('isOpenDimensionModal')"
       @close-modal="toggleWidgetsModal('isOpenDimensionModal')"
     />
@@ -45,13 +45,6 @@
     </NavigationBar>
 
     <div class="navigation-bar">
-      <div
-        class="dimensions-button"
-        @click="toggleWidgetsModal('isOpenDimensionModal')"
-      >
-        <DimensionsIcon />
-      </div>
-
       <BaseButton
         class="button"
         @click="toggleWidgetsModal('isOpenWidgetsModal')"
@@ -59,6 +52,11 @@
         <PlusIcon class="icon" />
         Add Widgets
       </BaseButton>
+
+      <DimensionsIcon
+        class="dimensions-button"
+        @click="toggleWidgetsModal('isOpenDimensionModal')"
+      />
     </div>
 
     <WidgetsView
@@ -201,6 +199,8 @@ export default {
 .navigation-bar {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
+  gap: 22px;
 
   margin-top: 30px;
 
@@ -222,21 +222,10 @@ export default {
 }
 
 .dimensions-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
   cursor: pointer;
 
-  margin-right: 10px;
-  width: 40px;
-  height: 40px;
-
-  background: #29303d;
-  border-radius: 8px;
-
   &:hover {
-    background: var(--typography-title-color);
+    color: var(--primary-color);
   }
 }
 </style>
