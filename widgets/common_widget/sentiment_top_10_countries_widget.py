@@ -3,12 +3,12 @@ from django.http import JsonResponse
 from django.db.models import Count
 from django.db.models.functions import Trunc
 import json
-from .filters_for_widgets import posts_agregator
+from .filters_for_widgets import post_agregator_with_dimensions
 
 def sentiment_top_10_countries(pk):
   project = Project.objects.get(id=pk)
 
-  posts = posts_agregator(project)
+  posts = post_agregator_with_dimensions(project)
   top_countries = posts.values('feedlink__country').annotate(brand_count=Count('feedlink__country')).order_by('-brand_count').values_list('feedlink__country', flat=True)[:10]
   results = {country: list(posts.filter(feedlink__country=country).values('sentiment').annotate(sentiment_count=Count('sentiment')).order_by('-sentiment_count')) for country in top_countries}
   for i in range(len(results)):

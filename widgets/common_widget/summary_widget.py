@@ -3,11 +3,11 @@ from django.http import JsonResponse
 from project.models import Project, Post
 from django.db.models import Q
 from functools import reduce
-from .filters_for_widgets import posts_agregator
+from .filters_for_widgets import post_agregator_with_dimensions
 
 def calculate_summary_widget(pk):
   project = Project.objects.get(id=pk)
-  posts = posts_agregator(project)
+  posts = post_agregator_with_dimensions(project)
   author_dim_pivot = project.widgets_list_2.summary_widget.author_dim_pivot
   country_dim_pivot = project.widgets_list_2.summary_widget.country_dim_pivot
   language_dim_pivot = project.widgets_list_2.summary_widget.language_dim_pivot

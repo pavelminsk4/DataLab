@@ -1,11 +1,11 @@
 from project.models import Project
 from django.http import JsonResponse
 from django.db.models import Count
-from .filters_for_widgets import posts_agregator
+from .filters_for_widgets import post_agregator_with_dimensions
 
 def top_10_brands(pk):
   project = Project.objects.get(id=pk)
-  posts = posts_agregator(project)
+  posts = post_agregator_with_dimensions(project)
   results = posts.values('feedlink__source1').annotate(brand_count=Count('feedlink__source1')).order_by('-brand_count')[:10]
   for i in range(len(results)):
     if (not results[i]['feedlink__source1'] or 'img' in results[i]['feedlink__source1'] or results[i]['feedlink__source1'] == 'None' or results[i]['feedlink__source1'] == 'null'):
