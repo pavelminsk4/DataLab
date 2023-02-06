@@ -10,6 +10,7 @@
       v-if="isOpenDimensionModal"
       :project-id="currentProject.id"
       :current-project="currentProject"
+      @update-search-results="showResults"
       @close="toggleWidgetsModal('isOpenDimensionModal')"
       @close-modal="toggleWidgetsModal('isOpenDimensionModal')"
     />

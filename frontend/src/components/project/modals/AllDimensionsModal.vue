@@ -244,6 +244,7 @@ export default {
           },
         })
 
+        this.$emit('update-search-results')
         this.$emit('close')
       } catch (e) {
         console.log(e)
