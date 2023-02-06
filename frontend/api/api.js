@@ -163,6 +163,10 @@ export default {
     return fetch('get', `/api/projects/${projectId}/dimension_countries`)
   },
 
+  async getDimensionSources(projectId) {
+    return fetch('get', `/api/projects/${projectId}/dimension_sources`)
+  },
+
   async getAlerts(projectId) {
     return fetch('get', `/api/projects/${projectId}/alerts`)
   },

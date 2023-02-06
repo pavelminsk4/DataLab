@@ -167,6 +167,10 @@ export default {
     state.dimensionCountries = [...data]
   },
 
+  [mutator.SET_DIMENSION_SOURCES](state, data) {
+    state.dimensionSources = [...data]
+  },
+
   [mutator.SET_ALERTS](state, data) {
     state.alerts = [...data]
   },

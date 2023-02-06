@@ -20,6 +20,7 @@ const state = {
   dimensionAuthors: null,
   dimensionLanguages: null,
   dimensionCountries: null,
+  dimensionSources: null,
   countries: [],
   languages: [],
   sources: [],

@@ -9,12 +9,50 @@
     <SelectWithCheckboxes
       v-model="author"
       name="author"
+      placeholder="Enter the author"
       :list="authorsList"
-      placeholder="Search the author"
-      :current-value="author"
       :is-search="true"
-      :is-reject-selection="false"
-      @update:modelValue="getResult"
+      :selected-checkboxes="currentProject.author_dimensions"
+      @get-selected-items="getAuthorsList"
+      class="select"
+    />
+
+    <div class="title">Country</div>
+
+    <SelectWithCheckboxes
+      v-model="country"
+      name="country"
+      placeholder="Enter the country"
+      :list="countriesList"
+      :is-search="true"
+      :selected-checkboxes="currentProject.country_dimensions"
+      @get-selected-items="getCountriesList"
+      class="select"
+    />
+
+    <div class="title">Language</div>
+
+    <SelectWithCheckboxes
+      v-model="language"
+      name="language"
+      placeholder="Enter the language"
+      :list="languagesList"
+      :is-search="true"
+      :selected-checkboxes="currentProject.language_dimensions"
+      @get-selected-items="getLanguagesList"
+      class="select"
+    />
+
+    <div class="title">Source</div>
+
+    <SelectWithCheckboxes
+      v-model="source"
+      name="source"
+      placeholder="Enter the source"
+      :list="sourcesList"
+      :is-search="true"
+      :selected-checkboxes="currentProject.source_dimensions"
+      @get-selected-items="getSourcesList"
       class="select"
     />
 
@@ -69,19 +107,41 @@ export default {
   data() {
     return {
       author: '',
+      country: '',
+      language: '',
+      source: '',
+      authors: [],
+      countries: [],
+      languages: [],
+      sources: [],
       sentiments: ['neutral', 'negative', 'positive'],
       selectedSentiments: [],
     }
   },
   created() {
     this[action.GET_DIMENSION_AUTHORS](this.projectId)
-
-    console.log(this.dimensionAuthors)
+    this[action.GET_DIMENSION_COUNTRIES](this.projectId)
+    this[action.GET_DIMENSION_LANGUAGES](this.projectId)
+    this[action.GET_DIMENSION_SOURCES](this.projectId)
   },
   computed: {
-    ...mapGetters({dimensionAuthors: get.DIMENSION_AUTHORS}),
+    ...mapGetters({
+      dimensionAuthors: get.DIMENSION_AUTHORS,
+      dimensionCounties: get.DIMENSION_COUNTRIES,
+      dimensionLanguages: get.DIMENSION_LANGUAGES,
+      dimensionSources: get.DIMENSION_SOURCES,
+    }),
     authorsList() {
       return this.dimensionAuthors?.map((el) => el.entry_author)
+    },
+    countriesList() {
+      return this.dimensionCounties?.map((el) => el.feedlink__country)
+    },
+    languagesList() {
+      return this.dimensionLanguages?.map((el) => el.feed_language__language)
+    },
+    sourcesList() {
+      return this.dimensionSources?.map((el) => el.feedlink__source1)
     },
     selectedSentimentsProxy: {
       get() {
@@ -95,25 +155,14 @@ export default {
     },
   },
   methods: {
-    ...mapActions([action.UPDATE_PROJECT, action.GET_DIMENSION_AUTHORS]),
+    ...mapActions([
+      action.UPDATE_PROJECT,
+      action.GET_DIMENSION_AUTHORS,
+      action.GET_DIMENSION_COUNTRIES,
+      action.GET_DIMENSION_LANGUAGES,
+      action.GET_DIMENSION_SOURCES,
+    ]),
     capitalizeFirstLetter,
-    getResult(searchValue, name) {
-      try {
-        this[name] = searchValue
-        this[action.UPDATE_ADDITIONAL_FILTERS]({[name]: searchValue})
-
-        switch (name) {
-          case 'country':
-            return this[action.GET_COUNTRIES](
-              this.capitalizeFirstLetter(searchValue)
-            )
-          case 'author':
-            return this[action.GET_AUTHORS](searchValue)
-        }
-      } catch (e) {
-        console.log(e)
-      }
-    },
     onChange(args) {
       const {id, checked} = args
       if (checked) {
@@ -135,11 +184,27 @@ export default {
           projectId: this.projectId,
           data: {
             sentiment_dimensions: this.selectedSentimentsProxy,
+            author_dimensions: this.authors,
+            country_dimensions: this.countries,
+            language_dimensions: this.languages,
+            source_dimensions: this.sources,
           },
         })
       } catch (e) {
         console.log(e)
       }
+    },
+    getAuthorsList(items) {
+      this.authors = items
+    },
+    getCountriesList(items) {
+      this.countries = items
+    },
+    getLanguagesList(items) {
+      this.languages = items
+    },
+    getSourcesList(items) {
+      this.sources = items
     },
   },
 }
