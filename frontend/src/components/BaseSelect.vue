@@ -139,7 +139,6 @@ export default {
   methods: {
     toggle() {
       this.visible = !this.visible
-      console.log(this.visible)
     },
     handleInput(e) {
       this.visible = true
