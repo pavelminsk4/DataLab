@@ -387,6 +387,18 @@ export default {
     }
   },
 
+  async [action.GET_DIMENSION_SOURCES]({commit}, projectId) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const dimensionSources = await api.getDimensionSources(projectId)
+      commit(mutator.SET_DIMENSION_SOURCES, dimensionSources)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
   async [action.GET_ALERTS]({commit}, projectId) {
     commit(mutator.SET_LOADING, true)
     try {

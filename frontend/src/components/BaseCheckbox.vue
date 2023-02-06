@@ -7,7 +7,7 @@
       @change="click"
       :checked="selected"
     />
-    <span class="checkmark">
+    <span v-if="hasIcon" class="checkmark">
       <CheckIcon class="checkmark-icon" />
     </span>
     <slot></slot>
@@ -24,6 +24,7 @@ export default {
     selected: {type: Boolean, default: false},
     label: {type: String},
     id: {type: [Number, String]},
+    hasIcon: {type: Boolean, default: true},
   },
   emits: ['change'],
   data() {
@@ -78,17 +79,16 @@ export default {
 
   border: 1px solid var(--typography-secondary-color);
   border-radius: 4px;
-  background-color: var(--input-border-color);
+  background-color: var(--background-secondary-color);
 }
 
 .container:hover input ~ .checkmark {
-  border-color: var(--primary-text-color);
-  background-color: var(--secondary-bg-color);
+  border-color: var(--typography-title-color);
 }
 
 .container input:checked ~ .checkmark {
-  border: none;
-  background-color: var(--button-primary-color);
+  border-color: var(--primary-color);
+  background-color: var(--background-secondary-color);
 }
 
 .container input ~ .checkmark > .checkmark-icon {
@@ -97,9 +97,11 @@ export default {
 
 .container input:checked ~ .checkmark > .checkmark-icon {
   display: block;
+  color: var(--primary-color);
 }
 
 .container input:checked ~ .checkmark:after {
   display: block;
+  color: var(--primary-color);
 }
 </style>

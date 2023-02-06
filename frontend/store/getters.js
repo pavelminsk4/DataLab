@@ -156,6 +156,10 @@ export default {
     return state.dimensionAuthors
   },
 
+  [get.DIMENSION_SOURCES](state) {
+    return state.dimensionSources
+  },
+
   [get.TEMPLATES](state) {
     return state.templates
   },

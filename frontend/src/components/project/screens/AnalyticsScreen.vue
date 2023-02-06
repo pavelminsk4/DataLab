@@ -9,6 +9,8 @@
     <AllDimensionsModal
       v-if="isOpenDimensionModal"
       :project-id="currentProject.id"
+      :current-project="currentProject"
+      @update-search-results="showResults"
       @close="toggleWidgetsModal('isOpenDimensionModal')"
       @close-modal="toggleWidgetsModal('isOpenDimensionModal')"
     />
@@ -45,13 +47,6 @@
     </NavigationBar>
 
     <div class="navigation-bar">
-      <div
-        class="dimensions-button"
-        @click="toggleWidgetsModal('isOpenDimensionModal')"
-      >
-        <DimensionsIcon />
-      </div>
-
       <BaseButton
         class="button"
         @click="toggleWidgetsModal('isOpenWidgetsModal')"
@@ -59,6 +54,11 @@
         <PlusIcon class="icon" />
         Add Widgets
       </BaseButton>
+
+      <DimensionsIcon
+        class="dimensions-button"
+        @click="toggleWidgetsModal('isOpenDimensionModal')"
+      />
     </div>
 
     <WidgetsView
@@ -184,6 +184,11 @@ export default {
           posts_per_page: numberOfPosts || 20,
           page_number: pageNumber || 1,
           sort_posts: this.sortValue || [],
+          country_dimensions: this.currentProject.country_dimensions,
+          language_dimensions: this.currentProject.language_dimensions,
+          source_dimensions: this.currentProject.source_dimensions,
+          author_dimensions: this.currentProject.author_dimensions,
+          sentiment_dimensions: this.currentProject.sentiment_dimensions,
         })
       } catch (e) {
         console.log(e)
@@ -201,6 +206,8 @@ export default {
 .navigation-bar {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
+  gap: 22px;
 
   margin-top: 30px;
 
@@ -222,21 +229,10 @@ export default {
 }
 
 .dimensions-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
   cursor: pointer;
 
-  margin-right: 10px;
-  width: 40px;
-  height: 40px;
-
-  background: #29303d;
-  border-radius: 8px;
-
   &:hover {
-    background: var(--typography-title-color);
+    color: var(--primary-color);
   }
 }
 </style>

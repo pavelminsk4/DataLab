@@ -379,13 +379,10 @@ export default {
       this.errors.username = this.username ? null : defaultErrorMessage
       this.errors.password = this.password ? null : defaultErrorMessage
       if (this.confirmPassword) {
-        console.log(this.password === this.confirmPassword)
         this.errors.password2 =
           this.password === this.confirmPassword
             ? null
             : `passwords don't match`
-
-        console.log(this.errors.password2)
       } else {
         this.errors.password2 = defaultErrorMessage
       }

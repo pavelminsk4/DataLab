@@ -1,14 +1,31 @@
 <template>
   <svg
-    width="15"
-    height="13"
-    viewBox="0 0 15 13"
+    width="20"
+    height="20"
+    viewBox="0 0 20 20"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
-      d="M14.9002 0.632667C14.7229 0.242667 14.3474 0 13.9204 0H1.07968C0.652764 0 0.277269 0.242667 0.0994308 0.632667C-0.0768003 1.01942 -0.0157354 1.46142 0.258521 1.78533L0.259057 1.78588L5.35744 7.78429V12.4583C5.35744 12.6582 5.46618 12.8418 5.64026 12.9361C5.71954 12.9789 5.80632 13 5.89309 13C5.99701 13 6.10039 12.9691 6.19038 12.909L9.40432 10.7423C9.55324 10.6416 9.64269 10.4726 9.64269 10.2917V7.78429L14.7416 1.78588C15.0159 1.46142 15.0769 1.01942 14.9002 0.632667Z"
-      fill="white"
+      d="M2 5H10M18 5H15.5"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
     />
+    <path
+      d="M2 10H4M18 10H10"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+    />
+    <path
+      d="M2 15H10M18 15H16"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+    />
+    <circle cx="13" cy="5" r="2" stroke="currentColor" stroke-width="2" />
+    <circle cx="7" cy="10" r="2" stroke="currentColor" stroke-width="2" />
+    <circle cx="13" cy="15" r="2" stroke="currentColor" stroke-width="2" />
   </svg>
 </template>

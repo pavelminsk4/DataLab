@@ -11,7 +11,10 @@
           <CrossIcon :class="closeIconClass" />
         </button>
         <div class="base-modal-body scroll">
-          <slot></slot>
+          <div class="title">{{ title }}</div>
+          <div class="content">
+            <slot></slot>
+          </div>
         </div>
       </div>
     </div>
@@ -28,6 +31,7 @@ export default {
   props: {
     closeIconClass: {type: String, default: ''},
     modalFrameStyle: {type: String, default: ''},
+    title: {type: String, default: ''},
   },
   created() {
     document.addEventListener('keydown', this.pressedEsc)
@@ -81,12 +85,27 @@ export default {
 
   max-width: 90vw;
   max-height: 90vh;
-  padding: 30px 50px 50px;
 
-  background: var(--secondary-bg-color);
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
+  background: var(--background-secondary-color);
+  border-radius: 8px;
+  box-shadow: 1px 4px 10px rgba(135, 135, 135, 0.2);
   transition: transform 0.3s ease-out;
+}
+
+.title {
+  padding: 35px 24px 10px;
+
+  border-bottom: 1px solid var(--border-color);
+
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 28px;
+  color: var(--typography-title-color);
+}
+
+.content {
+  padding: 20px 24px 28px;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -103,7 +122,8 @@ export default {
   width: 100%;
   height: 100%;
 
-  background-color: #000000;
+  border-radius: 8px;
+  background-color: var(--background-secondary-color);
   background-clip: padding-box;
 
   outline: 0;
@@ -116,7 +136,7 @@ export default {
   height: 100%;
   width: 100%;
 
-  background: var(--secondary-bg-color);
+  background: var(--background-secondary-color);
   color: var(--primary-text-color);
 }
 
@@ -129,7 +149,8 @@ export default {
   width: 100vw;
   height: 100vh;
 
-  background: rgba(0, 0, 0, 0.8);
+  opacity: 0.8;
+  background: var(--background-primary-color);
 }
 
 .close {

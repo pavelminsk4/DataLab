@@ -145,10 +145,9 @@ export default {
 .selector {
   position: relative;
 
-  border: 1px solid #2e2f34;
-  box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
+  border: 1px solid var(--border-color);
   border-radius: 10px;
-  background: rgba(46, 47, 52, 0.5);
+  background: var(--background-secondary-color);
 
   cursor: pointer;
 
@@ -165,7 +164,11 @@ export default {
     font-size: 14px;
 
     .placeholder {
-      color: var(--typography-secondary-color);
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+      color: var(--typography-primary-color);
     }
   }
 }
@@ -183,7 +186,7 @@ export default {
   border-top: 1px solid var(--modal-line-color);
   box-shadow: 0 3px 4px rgba(5, 95, 252, 0.49);
   border-radius: 0 0 10px 10px;
-  background-color: var(--secondary-bg-color);
+  background-color: var(--background-secondary-color);
 
   font-size: 14px;
 

@@ -8,7 +8,7 @@
     ]"
     :data-value="value"
     :data-list="list"
-    @click="toggle"
+    @click="visible = true"
   >
     <div class="label">
       <input
@@ -22,10 +22,7 @@
         type="text"
         class="select-search"
       />
-      <div v-else-if="!value && !isSearch" class="placeholder">
-        {{ placeholder }}
-      </div>
-      <div v-else-if="!isSearch">{{ value }}</div>
+      <div v-if="!isSearch">{{ value }}</div>
     </div>
     <ArrowDownIcon
       class="arrow"
@@ -33,23 +30,18 @@
       @click.stop="toggle"
     />
     <div :class="{hidden: !visible, visible}">
-      <ul v-if="visible" class="select-list scroll">
-        <li
-          v-if="isRejectSelection"
-          @click="select('Reject selection')"
-          class="select-item"
-        >
-          Reject selection
-        </li>
-        <li
-          :class="[{current: item === value}, 'select-item']"
-          v-for="item in selectList"
-          :key="item"
-          @click="select(item)"
+      <div v-if="visible" class="select-list scroll">
+        <BaseCheckbox
+          v-for="(item, index) in selectList"
+          :key="item + index"
+          :id="item"
+          :model-value="isCheckedElement(item)"
+          class="list-item"
+          @change="onChange"
         >
           {{ item }}
-        </li>
-      </ul>
+        </BaseCheckbox>
+      </div>
     </div>
 
     <div v-if="hasError" class="error-container">
@@ -58,13 +50,16 @@
     </div>
   </div>
 </template>
+
 <script>
 import ArrowDownIcon from '@/components/icons/ArrowDownIcon'
 import ErrorIcon from '@/components/icons/ErrorIcon'
+import BaseCheckbox from '@/components/BaseCheckbox'
 
 export default {
-  components: {ArrowDownIcon, ErrorIcon},
-  emits: ['update:modelValue', 'select-option'],
+  name: 'SelectWithCheckboxes',
+  components: {BaseCheckbox, ErrorIcon, ArrowDownIcon},
+  emits: ['update:modelValue', 'select-option', 'get-selected-items'],
   props: {
     list: {
       type: Array,
@@ -86,14 +81,6 @@ export default {
       type: Boolean,
       default: false,
     },
-    isRejectSelection: {
-      type: Boolean,
-      default: true,
-    },
-    currentValue: {
-      type: String,
-      required: false,
-    },
     isClearSelectedValue: {
       type: Boolean,
       default: false,
@@ -106,19 +93,20 @@ export default {
       type: String,
       default: 'Error',
     },
+    selectedCheckboxes: {
+      type: Array,
+      default: () => [],
+    },
   },
   data() {
     return {
       value: '',
       search: '',
       visible: false,
+      selectedItems: [],
     }
   },
-  created() {
-    if (this.currentValue) {
-      this.search = this.currentValue
-      this.value = this.currentValue
-    }
+  mounted() {
     document.addEventListener('click', this.close)
   },
   computed: {
@@ -135,9 +123,18 @@ export default {
       }
       return this.list
     },
+    selectedValuesProxy: {
+      get() {
+        return this.selectedCheckboxes || this.selectedItems
+      },
+      set(val) {
+        this.selectedItems = val
+      },
+    },
   },
   methods: {
     toggle() {
+      document.addEventListener('click', this.close)
       this.visible = !this.visible
     },
     handleInput(e) {
@@ -150,11 +147,28 @@ export default {
       this.search = option
       this.visible = false
     },
-    close() {
+    close({target}) {
       const elements = document.querySelectorAll(`.selector-${this.name}`)
-      if (!Array.from(elements).find((el) => el.contains(event.target))) {
+      if (!Array.from(elements).find((el) => el.contains(target))) {
         this.visible = false
       }
+    },
+    isCheckedElement(item) {
+      return this.selectedValuesProxy?.some((el) => el === item)
+    },
+    onChange(args) {
+      const {id, checked} = args
+      if (checked) {
+        this.selectedValuesProxy.push(id)
+      } else {
+        let element = this.selectedValuesProxy.indexOf(id)
+        this.removeSelectedFilter(element, id)
+      }
+
+      this.$emit('get-selected-items', this.selectedValuesProxy, this.name)
+    },
+    removeSelectedFilter(index) {
+      this.selectedValuesProxy.splice(index, 1)
     },
   },
   watch: {
@@ -167,21 +181,26 @@ export default {
   },
 }
 </script>
+
 <style lang="scss" scoped>
 .selector {
   position: relative;
-  border: 1px solid #2e2f34;
-  box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
+
+  border: 1px solid var(--border-color);
   border-radius: 10px;
-  background: rgba(46, 47, 52, 0.5);
+  background: var(--background-secondary-color);
+
   cursor: pointer;
+
   .arrow {
     position: absolute;
     right: 18px;
     top: 40%;
+
     transform: rotateZ(0deg) translateY(0px);
     transition-duration: 0.3s;
     transition-timing-function: cubic-bezier(0.59, 1.39, 0.37, 1.01);
+
     color: var(--primary-text-color);
 
     &:hover {
@@ -192,42 +211,79 @@ export default {
   .expanded {
     transform: rotateZ(180deg) translateY(2px);
   }
+
   .label {
     display: block;
+
     padding: 9px 35px 9px 15px;
+
+    z-index: 3;
+
     color: var(--primary-text-color);
     font-size: 14px;
+
     .placeholder {
-      color: var(--typography-secondary-color);
+      z-index: 1;
+
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+      color: var(--typography-primary-color);
     }
   }
 }
 .select-list {
   position: absolute;
   z-index: 1;
-  padding: 0;
-  margin: -1px;
+
+  padding: 8px;
+  margin-top: 4px;
   width: calc(100% + 2px);
   max-height: 250px;
+
   border: 1px solid var(--button-primary-color);
-  box-shadow: 0 3px 4px rgba(5, 95, 252, 0.49);
-  border-radius: 0 0 10px 10px;
-  background-color: var(--secondary-bg-color);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  background-color: var(--background-secondary-color);
+
   font-size: 14px;
   list-style-type: none;
   overflow-y: auto;
   overflow-x: hidden;
+
+  .list-item {
+    display: flex;
+    gap: 10px;
+
+    padding: 8px 12px;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--typography-primary-color);
+
+    &:hover {
+      border-radius: 8px;
+      background-color: var(--button-secondary-hover-color);
+    }
+  }
 }
+
 .select-search {
   outline: none;
   min-width: 100%;
+
   border: none;
-  background: var(--secondary-bg-color);
+  background: var(--background-secondary-color);
+
   color: var(--primary-text-color);
 }
 .select-item {
   padding: 9px 9px 9px 19px;
   color: var(--primary-text-color);
+
   &:hover {
     background: var(--button-primary-color);
   }
@@ -237,12 +293,12 @@ export default {
 }
 .open {
   border: 1px solid var(--button-primary-color);
-  border-bottom: none;
-  box-shadow: 0 3px 4px rgba(5, 95, 252, 0.49);
-  border-radius: 10px 10px 0 0;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
 }
 .hidden {
   visibility: hidden;
+
   .select-list {
     height: 0;
   }
