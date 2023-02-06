@@ -85,6 +85,10 @@ def posts_agregator(project):
     posts = author_filter_posts(project.author_filter, posts)
   if project.sentiment_filter:
     posts = sentiment_filter_posts(project.sentiment_filter, posts)
+  return posts
+
+def post_agregator_with_dimensions(project):  
+  posts = posts_agregator(project)
   if project.author_dimensions:
     posts = author_dimensions_posts(project.author_dimensions, posts)
   if project.language_dimensions:

@@ -290,6 +290,13 @@ def dimension_countries(requset, pk):
   countries_list = list(countries)
   return JsonResponse(countries_list, safe = False)
 
+def dimension_sources(requset, pk):
+  project = get_object_or_404(Project, pk=pk)
+  posts = posts_agregator(project)
+  sources = posts.values('feedlink__source1').distinct()
+  sources_list = list(sources)
+  return JsonResponse(sources_list, safe = False)  
+
 class ListAuthorsInProject(generics.ListAPIView):
   serializer_class = PostsSerializer
   

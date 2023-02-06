@@ -1,11 +1,11 @@
 from project.models import Project
 from django.http import JsonResponse
 from django.db.models import Count
-from .filters_for_widgets import posts_agregator
+from .filters_for_widgets import post_agregator_with_dimensions
 
 def top_10_languages(pk):
   project = Project.objects.get(id=pk)
-  posts = posts_agregator(project)
+  posts = post_agregator_with_dimensions(project)
   results = posts.values('feed_language__language').annotate(language_count=Count('feed_language__language')).order_by('-language_count')[:10]
   for i in range(len(results)):
     if (results[i]['feed_language__language'] == None or not results[i]['feed_language__language'] or 'img' in results[i]['feed_language__language'] or results[i]['feed_language__language'] == 'None' or results[i]['feed_language__language'] == 'null' or results[i]['feed_language__language'] == 'Language not specified'):

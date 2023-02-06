@@ -4,11 +4,11 @@ from project.models import Project
 from django.db.models.functions import Trunc
 from django.db.models import Count
 import json
-from .filters_for_widgets import posts_agregator
+from .filters_for_widgets import post_agregator_with_dimensions
 
 def volume(request, pk):
   project = get_object_or_404(Project, pk=pk)
-  posts = posts_agregator(project)
+  posts = post_agregator_with_dimensions(project)
   #smpl_freq = 'month'
   #smpl_freq = 'year'
   body = json.loads(request.body)

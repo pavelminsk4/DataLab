@@ -3,11 +3,11 @@ from django.http import JsonResponse
 from django.db.models import Count
 from django.db.models.functions import Trunc
 import json
-from .filters_for_widgets import posts_agregator
+from .filters_for_widgets import post_agregator_with_dimensions
 
 def content_volume_top_5_countries(request, pk):
   project = Project.objects.get(id=pk)
-  posts = posts_agregator(project)
+  posts = post_agregator_with_dimensions(project)
   body = json.loads(request.body)
   smpl_freq = body['smpl_freq']
   top_countries = list(map(lambda x: x['feedlink__country'], list(posts.values('feedlink__country').annotate(country_count=Count('feedlink__country')).order_by('-country_count')[:5])))

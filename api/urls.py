@@ -43,7 +43,7 @@ urlpatterns = [
   path('projects/<int:pk>/dimension_authors', views.dimension_authors ,name='dim_authors'),
   path('projects/<int:pk>/dimension_languages', views.dimension_languages, name='dim_languages'),
   path('projects/<int:pk>/dimension_countries', views.dimension_countries, name='dim_countries'),
-
+  path('projects/<int:pk>/dimension_sources', views.dimension_sources, name='dim_sources'),
   path('projects/<int:pk>/list_authors', views.ListAuthorsInProject.as_view() ,name='list_authors'),
 
   #path('projects/<int:pk>/dimension_source', views.dimension_source, name='dim_source'),

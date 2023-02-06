@@ -3,11 +3,11 @@ from django.http import JsonResponse
 from django.db.models import Count
 from django.db.models.functions import Trunc
 import json
-from .filters_for_widgets import posts_agregator
+from .filters_for_widgets import post_agregator_with_dimensions
 
 def sentiment_for_period(request, pk):
   project = Project.objects.get(id=pk)
-  posts = posts_agregator(project)
+  posts = post_agregator_with_dimensions(project)
   body = json.loads(request.body)
   smpl_freq = body['smpl_freq']
   negative_posts = posts.annotate(date=Trunc('entry_published', smpl_freq)).values("date").filter(sentiment='negative').annotate(count_negative=Count('sentiment')).order_by("date")
