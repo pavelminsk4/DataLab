@@ -111,6 +111,16 @@ class Feedlinks(models.Model):
   def __str__(self):
     return self.url
 
+class NewFeedlinks(models.Model):
+  url = models.URLField(max_length=400,null=True,blank=True,unique=True)
+  source1 = models.CharField("Source1",max_length=200,null=True,blank=True)
+  sourceurl = models.URLField(max_length=200,null=True,blank=True)
+  country =  models.CharField("Country",max_length=200,null=True,blank=True)
+  is_approved = models.BooleanField(default=False)
+
+  def __str__(self):
+    return f"{self.url}, {self.is_approved}"
+
 class TempFeedLinks(models.Model):
   url = models.URLField(max_length=200,null=True,blank=True,unique=True)
   alexaglobalrank = models.BigIntegerField()
