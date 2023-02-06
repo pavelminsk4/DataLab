@@ -18,6 +18,7 @@ from alerts.models import Alert
 from rest_framework import viewsets, generics, filters, status
 from django.core.paginator import Paginator
 from widgets.common_widget.volume_widget import *
+from widgets.common_widget.filters_for_widgets import *
 
 # ==== User API =======================
 class UserList(ListAPIView):

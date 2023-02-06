@@ -1,19 +1,27 @@
 <template>
   <BaseModal
     v-if="authorsList"
-    modal-frame-style="width: 40vw; max-height: 80vh;"
+    modal-frame-style="max-width: 60vw; min-width: 40vw; max-height: 80vh;"
     title="Widgets Dimensions"
   >
+    <FilterChips
+      v-if="chipsItems.length"
+      :items="chipsItems"
+      class="chips"
+      @clear-all="clearAll"
+      @remove-item="removeChipsItem"
+    />
+
     <div class="title">Author</div>
 
     <SelectWithCheckboxes
       v-model="author"
-      name="author"
+      name="Authors"
       placeholder="Enter the author"
       :list="authorsList"
       :is-search="true"
-      :selected-checkboxes="currentProject.author_dimensions"
-      @get-selected-items="getAuthorsList"
+      :selected-checkboxes="selectedAuthorsProxy"
+      @get-selected-items="getValuesList"
       class="select"
     />
 
@@ -21,12 +29,12 @@
 
     <SelectWithCheckboxes
       v-model="country"
-      name="country"
+      name="Countries"
       placeholder="Enter the country"
       :list="countriesList"
       :is-search="true"
-      :selected-checkboxes="currentProject.country_dimensions"
-      @get-selected-items="getCountriesList"
+      :selected-checkboxes="selectedCountriesProxy"
+      @get-selected-items="getValuesList"
       class="select"
     />
 
@@ -34,12 +42,12 @@
 
     <SelectWithCheckboxes
       v-model="language"
-      name="language"
+      name="Languages"
       placeholder="Enter the language"
       :list="languagesList"
       :is-search="true"
-      :selected-checkboxes="currentProject.language_dimensions"
-      @get-selected-items="getLanguagesList"
+      :selected-checkboxes="selectedLanguagesProxy"
+      @get-selected-items="getValuesList"
       class="select"
     />
 
@@ -47,12 +55,12 @@
 
     <SelectWithCheckboxes
       v-model="source"
-      name="source"
+      name="Sources"
       placeholder="Enter the source"
       :list="sourcesList"
       :is-search="true"
-      :selected-checkboxes="currentProject.source_dimensions"
-      @get-selected-items="getSourcesList"
+      :selected-checkboxes="selectedSourcesProxy"
+      @get-selected-items="getValuesList"
       class="select"
     />
 
@@ -85,10 +93,12 @@ import BaseModal from '@/components/modals/BaseModal'
 import BaseButton from '@/components/buttons/BaseButton'
 import BaseCheckbox from '@/components/BaseCheckbox'
 import SelectWithCheckboxes from '@/components/SelectWithCheckboxes'
+import FilterChips from '@/components/FilterChips'
 
 export default {
   name: 'AllDimensionsModal',
   components: {
+    FilterChips,
     SelectWithCheckboxes,
     BaseCheckbox,
     BaseButton,
@@ -110,12 +120,12 @@ export default {
       country: '',
       language: '',
       source: '',
-      authors: [],
-      countries: [],
-      languages: [],
-      sources: [],
+      authors: null,
+      countries: null,
+      languages: null,
+      sources: null,
       sentiments: ['neutral', 'negative', 'positive'],
-      selectedSentiments: [],
+      selectedSentiments: null,
     }
   },
   created() {
@@ -143,10 +153,53 @@ export default {
     sourcesList() {
       return this.dimensionSources?.map((el) => el.feedlink__source1)
     },
+    chipsItems() {
+      return [
+        ...this.selectedAuthorsProxy,
+        ...this.selectedCountriesProxy,
+        ...this.selectedLanguagesProxy,
+        ...this.selectedSourcesProxy,
+        ...this.selectedSentimentsProxy,
+      ]
+    },
+    selectedAuthorsProxy: {
+      get() {
+        return this.authors || this.currentProject.author_dimensions || []
+      },
+      set(val) {
+        this.authors = val
+      },
+    },
+    selectedCountriesProxy: {
+      get() {
+        return this.countries || this.currentProject.country_dimensions || []
+      },
+      set(val) {
+        this.countries = val
+      },
+    },
+    selectedLanguagesProxy: {
+      get() {
+        return this.languages || this.currentProject.language_dimensions || []
+      },
+      set(val) {
+        this.languages = val
+      },
+    },
+    selectedSourcesProxy: {
+      get() {
+        return this.sources || this.currentProject.source_dimensions || []
+      },
+      set(val) {
+        this.sources = val
+      },
+    },
     selectedSentimentsProxy: {
       get() {
         return (
-          this.currentProject.sentiment_dimensions || this.selectedSentiments
+          this.selectedSentiments ||
+          this.currentProject.sentiment_dimensions ||
+          []
         )
       },
       set(val) {
@@ -190,27 +243,50 @@ export default {
             source_dimensions: this.sources,
           },
         })
+
+        this.$emit('close')
       } catch (e) {
         console.log(e)
       }
     },
-    getAuthorsList(items) {
-      this.authors = items
+    getValuesList(items, name) {
+      this[`selected${name}Proxy`] = items
     },
-    getCountriesList(items) {
-      this.countries = items
+    removeChipsItem(item) {
+      this.selectedAuthorsProxy.find((el, index) => {
+        return el === item ? this.selectedAuthorsProxy.splice(index, 1) : null
+      })
+      this.selectedSourcesProxy.find((el, index) => {
+        return el === item ? this.selectedSourcesProxy.splice(index, 1) : null
+      })
+      this.selectedSentimentsProxy.find((el, index) => {
+        return el === item
+          ? this.selectedSentimentsProxy.splice(index, 1)
+          : null
+      })
+      this.selectedCountriesProxy.find((el, index) => {
+        return el === item ? this.selectedCountriesProxy.splice(index, 1) : null
+      })
+      this.selectedLanguagesProxy.find((el, index) => {
+        return el === item ? this.selectedLanguagesProxy.splice(index, 1) : null
+      })
     },
-    getLanguagesList(items) {
-      this.languages = items
-    },
-    getSourcesList(items) {
-      this.sources = items
+    clearAll() {
+      this.selectedLanguagesProxy = []
+      this.selectedCountriesProxy = []
+      this.selectedSourcesProxy = []
+      this.selectedSentimentsProxy = []
+      this.selectedAuthorsProxy = []
     },
   },
 }
 </script>
 
 <style lang="scss" scoped>
+.chips {
+  margin-bottom: 36px;
+}
+
 .title {
   margin-bottom: 4px;
 

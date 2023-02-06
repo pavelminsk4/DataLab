@@ -7,6 +7,7 @@
     />
 
     <AllDimensionsModal
+      v-if="isOpenDimensionModal"
       :project-id="currentProject.id"
       :current-project="currentProject"
       @close="toggleWidgetsModal('isOpenDimensionModal')"
@@ -182,6 +183,11 @@ export default {
           posts_per_page: numberOfPosts || 20,
           page_number: pageNumber || 1,
           sort_posts: this.sortValue || [],
+          country_dimensions: this.currentProject.country_dimensions,
+          language_dimensions: this.currentProject.language_dimensions,
+          source_dimensions: this.currentProject.source_dimensions,
+          author_dimensions: this.currentProject.author_dimensions,
+          sentiment_dimensions: this.currentProject.sentiment_dimensions,
         })
       } catch (e) {
         console.log(e)

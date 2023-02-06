@@ -188,6 +188,11 @@ export default {
           posts_per_page: 20,
           page_number: 1,
           sort_posts: [],
+          country_dimensions: [],
+          language_dimensions: [],
+          source_dimensions: [],
+          author_dimensions: [],
+          sentiment_dimensions: [],
         })
       } catch (e) {
         console.log(e)

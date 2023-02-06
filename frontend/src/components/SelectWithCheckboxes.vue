@@ -24,7 +24,11 @@
       />
       <div v-if="!isSearch">{{ value }}</div>
     </div>
-    <ArrowDownIcon class="arrow" :class="{expanded: visible}" />
+    <ArrowDownIcon
+      class="arrow"
+      :class="{expanded: visible}"
+      @click.stop="toggle"
+    />
     <div :class="{hidden: !visible, visible}">
       <div v-if="visible" class="select-list scroll">
         <BaseCheckbox
@@ -130,8 +134,8 @@ export default {
   },
   methods: {
     toggle() {
-      this.visible = !this.visible
       document.addEventListener('click', this.close)
+      this.visible = !this.visible
     },
     handleInput(e) {
       this.visible = true
@@ -161,7 +165,7 @@ export default {
         this.removeSelectedFilter(element, id)
       }
 
-      this.$emit('get-selected-items', this.selectedValuesProxy)
+      this.$emit('get-selected-items', this.selectedValuesProxy, this.name)
     },
     removeSelectedFilter(index) {
       this.selectedValuesProxy.splice(index, 1)
