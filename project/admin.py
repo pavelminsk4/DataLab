@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Project, Workspace, Feedlinks, Post, Speech, Status, TempFeedLinks, NewFeedlinks
+from .models import Project, Workspace, Feedlinks, Post, Speech, Status, TempFeedLinks, NewFeedlinks, CrawlerKeyword
 from import_export.admin import ImportExportModelAdmin
 from import_export import resources
 
@@ -7,6 +7,7 @@ admin.site.register(Project)
 admin.site.register(Workspace)
 admin.site.register(Speech)
 admin.site.register(Status)
+admin.site.register(CrawlerKeyword)
 
 def make_approved(modeladmin, request, queryset):
     queryset.update(is_approved=True)
