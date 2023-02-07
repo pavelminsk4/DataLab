@@ -6,7 +6,6 @@ import re
 import socket
 from rss_crawler.items import RssCrawlerItem, CrawlerKeyword
 
-
 socket.setdefaulttimeout(3)
 
 class RsssearchhubSpider(scrapy.Spider):
@@ -24,9 +23,9 @@ class RsssearchhubSpider(scrapy.Spider):
     for keyword in keywords:
         reqs_urls.append(base_url + search_suffix + keyword.word)
 
-    for city in cities:
-        for alternatename in cities[city]['alternatenames']:
-            reqs_urls.append(base_url + search_suffix + alternatename)
+    # for city in cities:
+    #     for alternatename in cities[city]['alternatenames']:
+    #         reqs_urls.append(base_url + search_suffix + alternatename)
 
     allowed_domains = [base_url]
     start_urls = reqs_urls
