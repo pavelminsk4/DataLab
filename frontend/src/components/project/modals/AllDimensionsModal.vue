@@ -214,6 +214,7 @@ export default {
       action.GET_DIMENSION_COUNTRIES,
       action.GET_DIMENSION_LANGUAGES,
       action.GET_DIMENSION_SOURCES,
+      action.GET_WORKSPACES,
     ]),
     capitalizeFirstLetter,
     onChange(args) {
@@ -237,14 +238,15 @@ export default {
           projectId: this.projectId,
           data: {
             sentiment_dimensions: this.selectedSentimentsProxy,
-            author_dimensions: this.authors,
-            country_dimensions: this.countries,
-            language_dimensions: this.languages,
-            source_dimensions: this.sources,
+            author_dimensions: this.selectedAuthorsProxy,
+            country_dimensions: this.selectedCountriesProxy,
+            language_dimensions: this.selectedLanguagesProxy,
+            source_dimensions: this.selectedSourcesProxy,
           },
         })
 
         this.$emit('update-search-results')
+        this[action.GET_WORKSPACES]()
         this.$emit('close')
       } catch (e) {
         console.log(e)
