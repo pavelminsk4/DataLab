@@ -90,7 +90,7 @@ body {
   padding: 0;
 
   min-height: fit-content;
-  background-color: var(--primary-bg-color);
+  background-color: var(--background-primary-color);
   background-size: 919px 100%;
 
   color: var(--typography-primary-color);
@@ -110,15 +110,15 @@ h4 {
   }
 
   &::-webkit-scrollbar-track {
-    background: var(--secondary-bg-color);
-    border: 1px solid var(--input-border-color);
+    background: var(--background-secondary-color);
+    border: 1px solid var(--border-color);
     border-radius: 0 10px 10px 0;
   }
 
   &::-webkit-scrollbar-thumb {
     height: 4px;
 
-    background: var(--typography-secondary-color);
+    background: var(--primary-color);
     border-radius: 10px;
   }
 }

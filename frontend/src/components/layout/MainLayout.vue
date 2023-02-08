@@ -49,7 +49,7 @@ export default {
 .main-layout-wrapper {
   position: relative;
 
-  padding: var(--header-height) 69px 100px 79px;
+  padding: var(--header-height) 40px 100px 70px;
 }
 
 .extra-settings {

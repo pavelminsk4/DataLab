@@ -8,11 +8,9 @@
   <div class="create-project-title">
     <div class="title-wrapper">
       <h1 class="title">{{ title }}</h1>
-      <div v-if="newProject.source || currentProject" class="source-type">
-        <OnlineIcon class="icon" />{{ newProject.source }}
-      </div>
+      <div class="search-results">{{ searchResults }} results</div>
     </div>
-    <div class="progress-bar-wrapper">
+    <div class="content-bar-wrapper">
       <Steps
         v-if="!!step"
         :step="step"
@@ -43,14 +41,12 @@ import {mapGetters} from 'vuex'
 import BaseButton from '@components/buttons/BaseButton'
 
 import ArrowLeftIcon from '@components/icons/ArrowLeftIcon'
-import OnlineIcon from '@/components/icons/OnlineIcon'
 import Steps from '@/components/navigation/Steps'
 
 export default {
   name: 'NavigationBar',
   components: {
     Steps,
-    OnlineIcon,
     BaseButton,
     ArrowLeftIcon,
   },
@@ -95,6 +91,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    searchResults: {
+      type: Number,
+      required: true,
+    },
   },
   emits: {
     'next-step': null,
@@ -135,12 +135,18 @@ export default {
 
 <style lang="scss" scoped>
 .back-button {
+  display: flex;
+  align-items: center;
+
   max-width: fit-content;
 
   cursor: pointer;
 
+  font-style: normal;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 12px;
   color: var(--typography-secondary-color);
-  font-size: 14px;
 
   &:hover {
     color: var(--button-primary-color);
@@ -153,8 +159,7 @@ export default {
 
 .create-project-title {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
 }
 
 .title-wrapper {
@@ -162,43 +167,24 @@ export default {
   align-items: center;
 
   .title {
-    margin: 5px 0 2px;
+    margin: 0 12px 4px 0;
 
-    color: var(--primary-text-color);
+    color: var(--typography-title-color);
 
     font-size: 36px;
   }
 
-  .source-type {
-    display: flex;
-    align-items: center;
-
-    margin-left: 23px;
-    padding: 4px 12px 4px 17px;
-
-    border-radius: 9px;
-    background-color: rgba(5, 95, 252, 0.1);
-
+  .search-results {
     font-style: normal;
-    font-weight: 400;
+    font-weight: 600;
     font-size: 14px;
-    line-height: 22px;
-    color: var(--primary-text-color);
-
-    .icon {
-      width: 15px;
-      height: 15px;
-      margin-right: 7px;
-
-      color: var(--primary-text-color);
-    }
+    line-height: 20px;
+    color: var(--typography-secondary-color);
   }
 }
 
-.progress-bar-wrapper {
+.content-bar-wrapper {
   display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .active-item {

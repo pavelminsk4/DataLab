@@ -175,4 +175,8 @@ export default {
   [get.COMPANY_USERS](state) {
     return state.companyUsers
   },
+
+  [get.POSTS_NUMBER](state) {
+    return state.numberOfPosts
+  },
 }

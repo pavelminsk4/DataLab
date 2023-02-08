@@ -3,7 +3,8 @@
     @click="openDropdown"
     :class="[`dropdown-wrapper-${id}`, 'dropdown-wrapper']"
   >
-    {{ title }}
+    <div class="title">{{ title }}</div>
+    <div v-if="selectedValue" class="selected-value">{{ selectedValue }}</div>
     <ArrowDownIcon
       :class="[isOpenDropdown && 'arrow-open-dropdown', 'arrow-down']"
     />
@@ -22,6 +23,10 @@ export default {
   components: {ArrowDownIcon},
   props: {
     title: {
+      type: String,
+      default: '',
+    },
+    selectedValue: {
       type: String,
       default: '',
     },
@@ -67,11 +72,31 @@ export default {
 
   font-size: 12px;
 
+  .title {
+    margin-right: 12px;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--typography-secondary-color);
+  }
+
+  .selected-value {
+    margin-right: 10px;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--typography-title-color);
+  }
+
   .dropdown {
     z-index: 1000;
 
     position: absolute;
-    top: 20px;
+    top: 30px;
     right: 2px;
 
     display: flex;
@@ -102,10 +127,8 @@ export default {
 .arrow-down {
   cursor: pointer;
 
-  width: 10px;
-  height: 10px;
-
-  margin: 0 11px 0 7px;
+  width: 8px;
+  height: 8px;
 
   color: var(--primary-text-color);
 
