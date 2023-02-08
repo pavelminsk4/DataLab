@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Project, Workspace, Feedlinks, Post, Speech, Status, TempFeedLinks, NewFeedlinks
+from .models import Project, Workspace, Feedlinks, Post, Speech, Status, TempFeedLinks, NewFeedlinks, CrawlerKeyword
 from import_export.admin import ImportExportModelAdmin
 from import_export import resources
 
@@ -7,6 +7,7 @@ admin.site.register(Project)
 admin.site.register(Workspace)
 admin.site.register(Speech)
 admin.site.register(Status)
+admin.site.register(CrawlerKeyword)
 
 def make_approved(modeladmin, request, queryset):
     queryset.update(is_approved=True)
@@ -28,7 +29,8 @@ move_approved.short_description = "Move the selected feeds to the common scope o
 
 @admin.register(NewFeedlinks)
 class NewFeedlinksAdmin(admin.ModelAdmin):
-    list_display = ("source1", "url", 'sourceurl', 'country', 'is_approved')
+    list_display = ('source1', 'url', 'sourceurl', 'country', 'is_approved')
+    search_fields = ('source1__startswith', 'url__startswith', 'sourceurl__startswith')
     actions = [make_approved, move_approved]
     
 # === Feedlinks Import-Export

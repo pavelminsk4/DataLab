@@ -4,7 +4,7 @@ import feedparser
 import ssl
 import re
 import socket
-from rss_crawler.items import RssCrawlerItem
+from rss_crawler.items import RssCrawlerItem, CrawlerKeyword
 
 socket.setdefaulttimeout(3)
 
@@ -13,15 +13,19 @@ class RsssearchhubSpider(scrapy.Spider):
 
     base_url = 'http://www.rsssearchhub.com/'
     search_suffix = 'feeds?q='
+    keywords = CrawlerKeyword.objects.all()
 
     gc =geonamescache.GeonamesCache()
     cities = gc.get_cities()
 
     reqs_urls = []
 
-    for city in cities:
-        for alternatename in cities[city]['alternatenames']:
-            reqs_urls.append(base_url + search_suffix + alternatename)
+    for keyword in keywords:
+        reqs_urls.append(base_url + search_suffix + keyword.word)
+
+    # for city in cities:
+    #     for alternatename in cities[city]['alternatenames']:
+    #         reqs_urls.append(base_url + search_suffix + alternatename)
 
     allowed_domains = [base_url]
     start_urls = reqs_urls

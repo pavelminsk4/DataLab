@@ -121,6 +121,12 @@ class NewFeedlinks(models.Model):
   def __str__(self):
     return f"{self.url}, {self.is_approved}"
 
+class CrawlerKeyword(models.Model):
+  word = models.CharField("Word",max_length=100)
+
+  def __str__(self):
+    return self.word
+
 class TempFeedLinks(models.Model):
   url = models.URLField(max_length=200,null=True,blank=True,unique=True)
   alexaglobalrank = models.BigIntegerField()

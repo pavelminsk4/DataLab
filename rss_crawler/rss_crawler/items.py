@@ -5,7 +5,10 @@
 
 import scrapy
 from scrapy_djangoitem import DjangoItem
-from project.models import NewFeedlinks
+from project.models import NewFeedlinks, CrawlerKeyword
 
 class RssCrawlerItem(DjangoItem):
     django_model = NewFeedlinks
+
+class CrawlerKeywordItem(DjangoItem):
+    django_model = CrawlerKeyword

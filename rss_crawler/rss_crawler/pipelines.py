@@ -5,7 +5,6 @@
 
 
 # useful for handling different item types with a single interfacez
-from project.models import NewFeedlinks
 
 class RssCrawlerPipeline(object):
     def process_item(self, item, spider):
