@@ -97,6 +97,7 @@ import sys
 import django
 
 #sys.path.append('/Users/pg/Projects/anova') # For local machine
+sys.path.append('/app') # For server
 os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"
 os.environ['DJANGO_SETTINGS_MODULE'] = 'config.settings'
 django.setup()
