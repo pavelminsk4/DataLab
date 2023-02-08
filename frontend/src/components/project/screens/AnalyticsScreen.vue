@@ -200,7 +200,7 @@ export default {
 
 <style lang="scss" scoped>
 .analytics {
-  margin: 30px 0 0 150px;
+  margin: 30px 0 0 20px;
 }
 
 .navigation-bar {

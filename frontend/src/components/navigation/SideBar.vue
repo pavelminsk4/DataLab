@@ -1,18 +1,20 @@
 <template>
-  <nav class="settings-nav-wrapper">
-    <li
-      v-for="(item, index) in settings"
-      :key="'setting' + index"
-      :class="['nav-item', item === routeName && 'active-setting']"
-      @click="$emit('open-tab', item)"
-    >
-      <component
-        :is="item + 'Icon'"
-        :class="[item === routeName && 'active-icon']"
-      />
+  <nav class="sidebar-wrapper">
+    <ul class="menu">
+      <li
+        v-for="(item, index) in settings"
+        :key="'setting' + index"
+        :class="['nav-item', item === routeName && 'active-setting']"
+        @click="$emit('open-tab', item)"
+      >
+        <component
+          :is="item + 'Icon'"
+          :class="[item === routeName && 'active-icon', 'icon']"
+        />
 
-      <div>{{ item }}</div>
-    </li>
+        <div class="sidebar-item-name">{{ item }}</div>
+      </li>
+    </ul>
   </nav>
 </template>
 
@@ -44,7 +46,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.settings-nav-wrapper {
+.sidebar-wrapper {
   --padding-top: calc(var(--header-height) + 24px);
 
   position: fixed;
@@ -52,62 +54,144 @@ export default {
   left: 0;
   z-index: 10;
 
+  width: 70px;
+  height: 100%;
+  padding: var(--padding-top) 12px 20px;
+
+  background: var(--background-secondary-color);
+
+  transition: width 400ms;
+
+  &:hover {
+    width: 210px;
+
+    & + .wrap-all-the-things {
+      transform: translateX(336px);
+      max-width: 100%;
+      opacity: 0.4;
+    }
+
+    .nav-item {
+      gap: 8px;
+      border-radius: 18px;
+
+      @for $i from 1 through 4 {
+        &:nth-of-type(#{$i}) {
+          .sidebar-item-name {
+            border-radius: 18px;
+            transition-delay: 100ms * $i;
+          }
+        }
+      }
+    }
+
+    .sidebar-item-name {
+      width: 100%;
+      text-indent: 0;
+      border-radius: 18px;
+      opacity: 1;
+    }
+  }
+}
+
+.nav-item {
+  position: relative;
+  clear: both;
+
   display: flex;
-  flex-direction: column;
   align-items: center;
 
-  width: 210px;
-  height: 100vh;
-  padding: var(--padding-top) 24px 20px 12px;
+  padding: 12px;
+  margin-bottom: 10px;
+  transition: background 400ms;
 
-  border-right: 1px solid var(--border-color);
-  background-color: var(--background-secondary-color);
+  cursor: pointer;
 
-  .nav-item {
-    display: flex;
-    align-items: center;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--typography-secondary-color);
 
-    width: 172px;
-    height: 44px;
-    padding: 12px 16px;
-    margin-bottom: 10px;
-
-    cursor: pointer;
-
-    font-style: normal;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 20px;
-    color: var(--typography-secondary-color);
-
-    :first-child {
-      margin-right: 7px;
-    }
-  }
-
-  .active-setting {
+  .sidebar-item-name {
     position: relative;
 
+    align-items: center;
+
+    width: 0;
+
+    z-index: 0;
+    opacity: 0;
+
+    text-indent: -10em;
+    white-space: nowrap;
+
     border-radius: 18px;
-    background-color: var(--primary-active-color);
+    transition: text-indent 400ms ease-in-out;
+    transition: opacity 0.1s ease-in-out;
 
     color: var(--typography-title-color);
+  }
 
-    &::before {
-      position: absolute;
-      left: -13px;
+  &:hover {
+    background-color: var(--primary-active-color);
 
-      content: ' ';
+    &:before {
+      background-color: var(--button-primary-hover-color);
+    }
 
-      height: 100%;
-      width: 3px;
-
-      background-color: var(--primary-color);
+    .icon {
+      color: var(--button-primary-color);
     }
   }
+}
 
-  .active-icon {
-    color: var(--primary-color);
+.active-setting {
+  position: relative;
+
+  border-radius: 18px;
+  background-color: var(--primary-active-color);
+
+  color: var(--typography-title-color);
+
+  &::before {
+    position: absolute;
+    left: -13px;
+
+    content: ' ';
+
+    height: 100%;
+    width: 3px;
+
+    background-color: var(--primary-color);
   }
+}
+
+.active-icon {
+  color: var(--primary-color);
+}
+
+.menu {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.icon {
+  position: relative;
+  z-index: 1;
+  transition: 400ms;
+
+  width: 20px;
+  height: 20px;
+}
+
+.wrap-all-the-things {
+  height: 100%;
+  min-height: 100%;
+  margin-top: 0;
+  padding-left: 140px;
+
+  transition: transform 400ms, opacity 400ms;
 }
 </style>

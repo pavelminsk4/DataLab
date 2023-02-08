@@ -12,10 +12,10 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap');
 
 :root {
-  --primary-color: #715de7;
-  --primary-hover-color: #664dff;
-  --primary-active-color: #e7e2fe;
-  --primary-disable-color: #d3d0e7;
+  --primary-color: #e54985;
+  --primary-hover-color: #bb3d6e;
+  --primary-active-color: #fcedf3;
+  --primary-disable-color: #fadae6;
 
   --background-primary-color: #f8fafd;
   --background-secondary-color: #ffffff;
