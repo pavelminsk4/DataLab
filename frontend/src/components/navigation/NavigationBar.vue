@@ -93,7 +93,7 @@ export default {
     },
     searchResults: {
       type: Number,
-      required: true,
+      required: false,
     },
   },
   emits: {

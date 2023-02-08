@@ -27,8 +27,8 @@ export default {
       default: '',
     },
     selectedValue: {
-      type: String,
-      default: '',
+      type: Number,
+      required: false,
     },
     id: {
       type: Number,

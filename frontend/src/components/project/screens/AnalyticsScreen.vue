@@ -1,5 +1,5 @@
 <template>
-  <div class="analytics" v-if="currentProject">
+  <div v-if="currentProject">
     <WidgetsListModal
       v-if="isOpenWidgetsModal"
       :project-id="currentProject.id"
@@ -162,7 +162,6 @@ export default {
       return this.currentProject?.ignore_keywords
     },
     sortingList() {
-      console.log(this.numberOfPosts)
       return ['country', 'language', 'source']
     },
     sortingValueProxy: {
@@ -229,10 +228,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.analytics {
-  margin: 24px 0 0 20px;
-}
-
 .analytics-menu {
   display: flex;
   justify-content: space-between;

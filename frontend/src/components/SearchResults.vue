@@ -49,7 +49,7 @@
       />
     </div>
     <div v-if="!loading && searchData.length" class="pagination-wrapper">
-      <BaseDropdown id="countPosts" :selected-value="countPosts">
+      <BaseDropdown :id="countPosts" :selected-value="countPosts">
         <div
           v-for="(item, index) in postsOnPage"
           :key="'drop' + index"

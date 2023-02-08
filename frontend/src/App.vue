@@ -17,7 +17,7 @@ export default {
   --primary-active-color: #fcedf3;
   --primary-disable-color: #fadae6;
 
-  --background-primary-color: #f8fafd;
+  --background-primary-color: #f8f9fd;
   --background-secondary-color: #ffffff;
 
   --typography-title-color: #29333d;
@@ -31,7 +31,7 @@ export default {
   --button-text-color: #ffffff;
   --button-text-disabled-color: #d2d5d9;
 
-  --border-color: #e3e5e8;
+  --border-color: #dee0e3;
   --primary-chips-backgroud-color: #e9f0f3;
 
   --neutral-primary-color: #516bee;

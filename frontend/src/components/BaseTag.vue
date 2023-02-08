@@ -170,14 +170,13 @@ export default {
   align-items: center;
 
   max-height: 110px;
-  min-height: 44px;
+  height: 40px;
   width: 100%;
-  padding: 10px 15px 5px 10px;
+  padding: 4px 8px;
 
-  border: 1px solid var(--input-border-color);
-  box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
+  border: 1px solid var(--border-color);
   border-radius: 10px;
-  background: var(--secondary-bg-color);
+  background: var(--background-secondary-color);
 
   overflow: auto;
 
@@ -185,7 +184,6 @@ export default {
     flex-grow: 1;
 
     min-width: 40px;
-    margin-bottom: 5px;
 
     border: none;
     outline: none;
@@ -199,15 +197,14 @@ export default {
     align-items: center;
     justify-content: center;
     white-space: nowrap;
-    gap: 12px;
+    gap: 4px;
 
-    margin: 0 10px 5px 0;
-    padding: 0 8px 0 10px;
+    padding: 2px 8px;
 
-    border-radius: 8px;
+    border-radius: 2px 12px 12px 2px;
 
-    color: var(--tag-color);
-    background-color: rgba(51, 204, 112, 0.2);
+    color: var(--neutral-primary-color);
+    background-color: var(--neutral-secondary-color);
 
     .delete {
       cursor: pointer;
@@ -216,15 +213,15 @@ export default {
 }
 
 .tag-input .additional-keyword {
-  background: rgba(231, 167, 71, 0.2);
+  background: var(--positive-secondary-color);
 
-  color: var(--key-word-color);
+  color: var(--positive-primary-color);
 }
 
 .tag-input .irrelevant-keyword {
-  background: rgba(231, 71, 71, 0.2);
+  background: var(--negative-secondary-color);
 
-  color: var(--negative-status);
+  color: var(--negative-primary-color);
 }
 
 .tag-input .duplicate {
