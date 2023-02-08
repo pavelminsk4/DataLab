@@ -3,7 +3,8 @@
     @click="openDropdown"
     :class="[`dropdown-wrapper-${id}`, 'dropdown-wrapper']"
   >
-    {{ title }}
+    <div class="title">{{ title }}</div>
+    <div v-if="selectedValue" class="selected-value">{{ selectedValue }}</div>
     <ArrowDownIcon
       :class="[isOpenDropdown && 'arrow-open-dropdown', 'arrow-down']"
     />
@@ -24,6 +25,10 @@ export default {
     title: {
       type: String,
       default: '',
+    },
+    selectedValue: {
+      type: Number,
+      required: false,
     },
     id: {
       type: Number,
@@ -67,11 +72,31 @@ export default {
 
   font-size: 12px;
 
+  .title {
+    margin-right: 12px;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--typography-secondary-color);
+  }
+
+  .selected-value {
+    margin-right: 10px;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--typography-title-color);
+  }
+
   .dropdown {
     z-index: 1000;
 
     position: absolute;
-    top: 20px;
+    top: 30px;
     right: 2px;
 
     display: flex;
@@ -90,22 +115,14 @@ export default {
     font-size: 12px;
     line-height: 20px;
     color: var(--primary-text-color);
-
-    .item {
-      cursor: pointer;
-
-      padding: 9px 24px 8px;
-    }
   }
 }
 
 .arrow-down {
   cursor: pointer;
 
-  width: 10px;
-  height: 10px;
-
-  margin: 0 11px 0 7px;
+  width: 8px;
+  height: 8px;
 
   color: var(--primary-text-color);
 
@@ -117,5 +134,31 @@ export default {
 .arrow-open-dropdown {
   transform: rotate(180deg);
   color: var(--button-primary-color);
+}
+</style>
+
+<style lang="scss">
+.dropdown {
+  div {
+    white-space: nowrap;
+
+    padding: 5px;
+
+    color: var(--typography-title-color);
+    background-color: var(--background-secondary-color);
+
+    &:hover {
+      color: var(--primary-hover-color);
+      background-color: var(--primary-active-color);
+    }
+
+    &:first-child {
+      border-radius: 10px 10px 0 0;
+    }
+
+    &:last-child {
+      border-radius: 0 0 10px 10px;
+    }
+  }
 }
 </style>

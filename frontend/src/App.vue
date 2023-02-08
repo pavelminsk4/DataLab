@@ -12,12 +12,12 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap');
 
 :root {
-  --primary-color: #715de7;
-  --primary-hover-color: #664dff;
-  --primary-active-color: #e7e2fe;
-  --primary-disable-color: #d3d0e7;
+  --primary-color: #e54985;
+  --primary-hover-color: #bb3d6e;
+  --primary-active-color: #fcedf3;
+  --primary-disable-color: #fadae6;
 
-  --background-primary-color: #f8fafd;
+  --background-primary-color: #f8f9fd;
   --background-secondary-color: #ffffff;
 
   --typography-title-color: #29333d;
@@ -31,7 +31,7 @@ export default {
   --button-text-color: #ffffff;
   --button-text-disabled-color: #d2d5d9;
 
-  --border-color: #e3e5e8;
+  --border-color: #dee0e3;
   --primary-chips-backgroud-color: #e9f0f3;
 
   --neutral-primary-color: #516bee;
@@ -90,7 +90,7 @@ body {
   padding: 0;
 
   min-height: fit-content;
-  background-color: var(--primary-bg-color);
+  background-color: var(--background-primary-color);
   background-size: 919px 100%;
 
   color: var(--typography-primary-color);
@@ -110,15 +110,15 @@ h4 {
   }
 
   &::-webkit-scrollbar-track {
-    background: var(--secondary-bg-color);
-    border: 1px solid var(--input-border-color);
+    background: var(--background-secondary-color);
+    border: 1px solid var(--border-color);
     border-radius: 0 10px 10px 0;
   }
 
   &::-webkit-scrollbar-thumb {
     height: 4px;
 
-    background: var(--typography-secondary-color);
+    background: var(--primary-color);
     border-radius: 10px;
   }
 }

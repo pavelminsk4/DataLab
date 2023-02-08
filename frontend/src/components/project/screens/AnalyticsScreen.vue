@@ -1,5 +1,5 @@
 <template>
-  <div class="analytics" v-if="currentProject">
+  <div v-if="currentProject">
     <WidgetsListModal
       v-if="isOpenWidgetsModal"
       :project-id="currentProject.id"
@@ -35,38 +35,52 @@
     <NavigationBar
       v-if="currentProject"
       :title="currentProject.title"
-      :hint="'Search by keywords and phrases '"
+      :hint="currentProject.note"
+      :search-results="numberOfPosts"
     >
-      <BaseButton
-        :is-not-background="true"
-        class="button-upload"
-        @click="toggleWidgetsModal('isOpenDownloadReportModal')"
-      >
-        <ReportsUploadIcon /> Download Report
-      </BaseButton>
+      <div class="analytics-menu">
+        <BaseDropdown title="Sort by" id="sortBy" :selected-value="sortValue">
+          <div
+            v-for="(item, index) in sortingList"
+            :key="item + index"
+            @click="setSortingValue(item)"
+          >
+            {{ item }}
+          </div>
+        </BaseDropdown>
+
+        <div class="menu-buttons">
+          <BaseButton
+            :is-not-background="true"
+            class="button-upload"
+            @click="toggleWidgetsModal('isOpenDownloadReportModal')"
+          >
+            <ReportsUploadIcon /> Download Report
+          </BaseButton>
+
+          <div class="navigation-bar">
+            <BaseButton
+              class="button"
+              @click="toggleWidgetsModal('isOpenWidgetsModal')"
+            >
+              <PlusIcon class="icon" />
+              Add Widgets
+            </BaseButton>
+
+            <DimensionsIcon
+              class="dimensions-button"
+              @click="toggleWidgetsModal('isOpenDimensionModal')"
+            />
+          </div>
+        </div>
+      </div>
     </NavigationBar>
-
-    <div class="navigation-bar">
-      <BaseButton
-        class="button"
-        @click="toggleWidgetsModal('isOpenWidgetsModal')"
-      >
-        <PlusIcon class="icon" />
-        Add Widgets
-      </BaseButton>
-
-      <DimensionsIcon
-        class="dimensions-button"
-        @click="toggleWidgetsModal('isOpenDimensionModal')"
-      />
-    </div>
 
     <WidgetsView
       :project-id="currentProject.id"
       :currentProject="currentProject"
       @update-page="showResults"
       @update-posts-count="showResults"
-      @set-sorting-value="setSortingValue"
     />
   </div>
 </template>
@@ -85,10 +99,12 @@ import AllDimensionsModal from '@/components/project/modals/AllDimensionsModal'
 import ReportsUploadIcon from '@/components/icons/ReportsUploadIcon'
 import DownloadReportModal from '@/components/project/modals/DownloadReportModal'
 import InstantReportModal from '@/components/project/modals/InstantReportModal'
+import BaseDropdown from '@/components/BaseDropdown'
 
 export default {
   name: 'AnalyticsScreen',
   components: {
+    BaseDropdown,
     InstantReportModal,
     DownloadReportModal,
     ReportsUploadIcon,
@@ -114,6 +130,7 @@ export default {
       isOpenDownloadReportModal: false,
       isOpenInstantReportModal: false,
       sortValue: '',
+      sortingValue: '',
     }
   },
   created() {
@@ -133,6 +150,7 @@ export default {
       additionalFilters: get.ADDITIONAL_FILTERS,
       keywords: get.KEYWORDS,
       searchData: get.SEARCH_DATA,
+      numberOfPosts: get.POSTS_NUMBER,
     }),
     currentKeywords() {
       return this.currentProject?.keywords
@@ -143,6 +161,17 @@ export default {
     currentExcludeKeywords() {
       return this.currentProject?.ignore_keywords
     },
+    sortingList() {
+      return ['country', 'language', 'source']
+    },
+    sortingValueProxy: {
+      get() {
+        return this.sortingValue
+      },
+      set(value) {
+        this.sortingValue = value
+      },
+    },
   },
   methods: {
     ...mapActions([
@@ -150,8 +179,8 @@ export default {
       action.UPDATE_ADDITIONAL_FILTERS,
       action.GET_AVAILABLE_WIDGETS,
     ]),
-    setSortingValue(val) {
-      this.sortValue = val
+    setSortingValue(item) {
+      this.sortValue = item
       this.showResults()
     },
     toggleWidgetsModal(val) {
@@ -199,23 +228,31 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.analytics {
-  margin: 30px 0 0 150px;
-}
-
-.navigation-bar {
+.analytics-menu {
   display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 22px;
+  justify-content: space-between;
 
-  margin-top: 30px;
+  width: 100%;
 
-  .button {
-    width: 155px;
+  .menu-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
 
-    .icon {
-      margin-right: 10px;
+    .navigation-bar {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 22px;
+
+      .button {
+        width: 155px;
+
+        .icon {
+          margin-right: 10px;
+        }
+      }
     }
   }
 }

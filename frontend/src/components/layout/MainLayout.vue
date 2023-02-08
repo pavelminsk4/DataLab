@@ -49,7 +49,7 @@ export default {
 .main-layout-wrapper {
   position: relative;
 
-  padding: var(--header-height) 69px 100px 79px;
+  padding: 76px 40px 50px 95px;
 }
 
 .extra-settings {
@@ -69,13 +69,5 @@ export default {
 
   z-index: 1;
   transform: translate(-50%, -50%);
-}
-
-@media (max-width: 800px) {
-  .main-layout-wrapper {
-    position: relative;
-
-    padding: 0 30px 130px 30px;
-  }
 }
 </style>

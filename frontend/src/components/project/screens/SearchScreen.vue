@@ -3,7 +3,8 @@
     <NavigationBar
       v-if="currentProject"
       :title="currentProject.title"
-      hint="Search by keywords and phrases "
+      :search-results="numberOfPosts"
+      :hint="currentProject.note"
     >
       <BaseButton
         class="button"
@@ -73,6 +74,7 @@ export default {
       keywords: get.KEYWORDS,
       clippingContent: get.CLIPPING_FEED_CONTENT_WIDGET,
       searchData: get.SEARCH_DATA,
+      numberOfPosts: get.POSTS_NUMBER,
     }),
     currentKeywords() {
       return this.currentProject?.keywords

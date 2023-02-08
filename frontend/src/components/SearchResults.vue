@@ -6,19 +6,6 @@
     ]"
   >
     <div class="filters">
-      <div v-if="isShowSortingField" class="sorting-wrapper">
-        Sort by
-        <BaseSelect
-          v-model="sortingValueProxy"
-          :list="sortingList"
-          @select-option="selectItem"
-          name="aggregation-period"
-          class="sorting-select"
-        />
-      </div>
-
-      <div class="search-results">{{ numberOfPosts }} results</div>
-
       <div v-if="isShowCalendar" class="calendar-wrapper">
         <div class="trigger-wrapper" @click="openCalendar">
           <CalendarIcon class="dp-icon" />
@@ -62,32 +49,22 @@
       />
     </div>
     <div v-if="!loading && searchData.length" class="pagination-wrapper">
-      <section class="dropdown-wrapper">
-        <div @click="openDropdown">
-          {{ countPosts }}
-          <ArrowDownIcon
-            :class="[isOpenDropdown && 'arrow-open-dropdown', 'arrow-down']"
-          />
+      <BaseDropdown :id="countPosts" :selected-value="countPosts">
+        <div
+          v-for="(item, index) in postsOnPage"
+          :key="'drop' + index"
+          @click="updatePostsCount(item)"
+        >
+          {{ item }}
         </div>
+      </BaseDropdown>
 
-        <div v-if="isOpenDropdown" class="dropdown">
-          <div
-            v-for="(item, index) in postsOnPage"
-            :key="'drop' + index"
-            class="item"
-            @click="updatePostsCount(item)"
-          >
-            {{ item }}
-          </div>
-        </div>
-      </section>
       <VPagination
         v-model="page"
         :pages="this.numberOfPages"
         :range-size="1"
-        active-color="#055FFC"
+        active-color="#fcedf3"
         :container-class="'pagination'"
-        :page-class="'page-item'"
         @update:modelValue="pageChangeHandler"
       />
     </div>
@@ -109,14 +86,14 @@ import BaseCalendar from '@/components/datepicker/BaseCalendar'
 
 import CalendarIcon from '@/components/icons/CalendarIcon'
 import ArrowDownIcon from '@/components/icons/ArrowDownIcon'
-import BaseSelect from '@/components/BaseSelect'
 import ClippingCard from '@/components/ClippingCard'
+import BaseDropdown from '@/components/BaseDropdown'
 
 export default {
   name: 'SearchResults',
   components: {
+    BaseDropdown,
     ClippingCard,
-    BaseSelect,
     ArrowDownIcon,
     CalendarIcon,
     BaseCalendar,
@@ -145,10 +122,6 @@ export default {
       type: Boolean,
       default: false,
     },
-    isShowSortingField: {
-      type: Boolean,
-      default: false,
-    },
   },
   data() {
     return {
@@ -158,7 +131,6 @@ export default {
       page: 1,
       countPosts: 20,
       postsOnPage: [20, 50, 100],
-      sortingValue: '',
       clippingValue: [],
     }
   },
@@ -169,19 +141,7 @@ export default {
       'additionalFilters',
       'isShowCalendarContents',
       'numberOfPages',
-      'numberOfPosts',
     ]),
-    sortingValueProxy: {
-      get() {
-        return this.sortingValue
-      },
-      set(value) {
-        this.sortingValue = value
-      },
-    },
-    sortingList() {
-      return ['country', 'language', 'source']
-    },
     calendarDate() {
       if (this.additionalFilters?.date_range?.length) {
         const currentDate = this.additionalFilters?.date_range.map((el) =>
@@ -205,14 +165,10 @@ export default {
   methods: {
     updatePostsCount(val) {
       this.countPosts = val
-      this.isOpenDropdown = !this.isOpenDropdown
       this.$emit('update-posts-count', this.page, this.countPosts)
     },
     pageChangeHandler() {
       this.$emit('update-page', this.page, this.countPosts)
-    },
-    openDropdown() {
-      this.isOpenDropdown = !this.isOpenDropdown
     },
     ...mapActions([
       action.REFRESH_DISPLAY_CALENDAR,
@@ -280,9 +236,6 @@ export default {
       ]
       return images.filter((el) => el !== 'None')[0] || 'None'
     },
-    selectItem(name, val) {
-      this.$emit('add-sorting-value', val)
-    },
   },
 }
 </script>
@@ -299,7 +252,7 @@ export default {
 }
 
 .analytics-page {
-  height: 68vh;
+  height: 80vh;
 }
 
 .pagination-wrapper {
@@ -308,17 +261,6 @@ export default {
 
   width: 100%;
   padding: 12px;
-}
-
-.sorting-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-
-  .sorting-select {
-    width: 160px;
-  }
 }
 
 .trigger-wrapper {
@@ -360,26 +302,6 @@ export default {
   font-size: 14px;
   line-height: 20px;
   color: var(--typography-secondary-color);
-}
-
-.arrow-open-dropdown {
-  transform: rotate(180deg);
-  color: var(--button-primary-color);
-}
-
-.arrow-down {
-  cursor: pointer;
-
-  width: 10px;
-  height: 10px;
-
-  margin: 0 0 0 7px;
-
-  color: var(--primary-text-color);
-
-  &:hover {
-    color: var(--button-primary-color);
-  }
 }
 
 .spinner-wrapper {
@@ -429,12 +351,11 @@ export default {
     width: 20px;
     height: 20px;
 
-    background: #242529;
+    background: var(--background-secondary-color);
     border: 1px solid var(--border-color);
-    box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
     border-radius: 6px;
 
-    color: var(--primary-text-color);
+    color: var(--typography-title-color);
 
     .Control {
       fill: #333333;
@@ -450,12 +371,11 @@ export default {
     justify-content: center;
     align-items: center;
 
-    width: 20px;
-    height: 20px;
+    width: 32px;
+    height: 22px;
 
-    background: #242529;
+    background: var(--primary-active-color);
     border: 1px solid var(--border-color);
-    box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
     border-radius: 6px;
 
     color: var(--primary-text-color);

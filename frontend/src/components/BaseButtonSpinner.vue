@@ -39,9 +39,9 @@ export default {
   width: 100%;
   height: 100%;
 
-  border: 4px solid var(--primary-text-color);
+  border: 4px solid var(--button-primary-color);
   border-radius: 50%;
-  border-color: #fff transparent transparent transparent;
+  border-color: var(--button-primary-color) transparent transparent transparent;
 
   animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
 }
