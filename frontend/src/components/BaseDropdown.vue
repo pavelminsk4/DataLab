@@ -115,12 +115,6 @@ export default {
     font-size: 12px;
     line-height: 20px;
     color: var(--primary-text-color);
-
-    .item {
-      cursor: pointer;
-
-      padding: 9px 24px 8px;
-    }
   }
 }
 
@@ -140,5 +134,31 @@ export default {
 .arrow-open-dropdown {
   transform: rotate(180deg);
   color: var(--button-primary-color);
+}
+</style>
+
+<style lang="scss">
+.dropdown {
+  div {
+    white-space: nowrap;
+
+    padding: 5px;
+
+    color: var(--typography-title-color);
+    background-color: var(--background-secondary-color);
+
+    &:hover {
+      color: var(--primary-hover-color);
+      background-color: var(--primary-active-color);
+    }
+
+    &:first-child {
+      border-radius: 10px 10px 0 0;
+    }
+
+    &:last-child {
+      border-radius: 0 0 10px 10px;
+    }
+  }
 }
 </style>

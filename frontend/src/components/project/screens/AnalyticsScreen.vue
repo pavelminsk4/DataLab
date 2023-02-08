@@ -43,7 +43,6 @@
           <div
             v-for="(item, index) in sortingList"
             :key="item + index"
-            class="dropdown-item"
             @click="setSortingValue(item)"
           >
             {{ item }}
@@ -260,28 +259,6 @@ export default {
         }
       }
     }
-  }
-}
-
-.dropdown-item {
-  white-space: nowrap;
-
-  padding: 10px;
-
-  color: var(--typography-title-color);
-  background-color: var(--background-secondary-color);
-
-  &:hover {
-    color: var(--primary-hover-color);
-    background-color: var(--primary-active-color);
-  }
-
-  &:first-child {
-    border-radius: 10px 10px 0 0;
-  }
-
-  &:last-child {
-    border-radius: 0 0 10px 10px;
   }
 }
 
