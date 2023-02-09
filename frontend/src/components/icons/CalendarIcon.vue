@@ -1,14 +1,82 @@
 <template>
   <svg
-    width="10"
-    height="11"
-    viewBox="0 0 10 11"
+    width="18"
+    height="20"
+    viewBox="0 0 18 20"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
-      d="M0.75 4.25H9.58333C9.72083 4.25 9.83333 4.35547 9.83333 4.48438V9.5625C9.83333 10.0801 9.38542 10.5 8.83333 10.5H1.5C0.947917 10.5 0.5 10.0801 0.5 9.5625V4.48438C0.5 4.35547 0.6125 4.25 0.75 4.25ZM9.83333 3.39062V2.6875C9.83333 2.16992 9.38542 1.75 8.83333 1.75H7.83333V0.734375C7.83333 0.605469 7.72083 0.5 7.58333 0.5H6.75C6.6125 0.5 6.5 0.605469 6.5 0.734375V1.75H3.83333V0.734375C3.83333 0.605469 3.72083 0.5 3.58333 0.5H2.75C2.6125 0.5 2.5 0.605469 2.5 0.734375V1.75H1.5C0.947917 1.75 0.5 2.16992 0.5 2.6875V3.39062C0.5 3.51953 0.6125 3.625 0.75 3.625H9.58333C9.72083 3.625 9.83333 3.51953 9.83333 3.39062Z"
-      fill="#9198A7"
+      d="M1.57715 7.83688H16.4304"
+      stroke="#797D80"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <path
+      d="M12.7017 11.0914H12.7094"
+      stroke="#797D80"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <path
+      d="M9.00397 11.0914H9.01169"
+      stroke="#797D80"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <path
+      d="M5.29816 11.0914H5.30588"
+      stroke="#797D80"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <path
+      d="M12.7017 14.3302H12.7094"
+      stroke="#797D80"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <path
+      d="M9.00397 14.3302H9.01169"
+      stroke="#797D80"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <path
+      d="M5.29816 14.3302H5.30588"
+      stroke="#797D80"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <path
+      d="M12.3699 1.66663V4.40894"
+      stroke="#797D80"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <path
+      d="M5.63795 1.66663V4.40894"
+      stroke="#797D80"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M12.5319 2.98267H5.4758C3.02856 2.98267 1.5 4.34594 1.5 6.85185V14.3932C1.5 16.9385 3.02856 18.3333 5.4758 18.3333H12.5242C14.9791 18.3333 16.5 16.9622 16.5 14.4563V6.85185C16.5077 4.34594 14.9868 2.98267 12.5319 2.98267Z"
+      stroke="#797D80"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
     />
   </svg>
 </template>

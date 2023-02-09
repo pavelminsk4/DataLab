@@ -70,6 +70,6 @@ export default {
 }
 
 .selected {
-  background: var(--button-primary-color);
+  background: var(--background-secondary-color);
 }
 </style>

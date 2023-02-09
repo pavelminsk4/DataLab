@@ -246,8 +246,8 @@ export default {
 <style lang="scss" scoped>
 .datepicker-wrapper {
   position: absolute;
-  top: 248px;
-  right: 69px;
+  top: 188px;
+  right: 40px;
   z-index: 2;
 }
 
@@ -271,7 +271,7 @@ export default {
     padding: 4px 10px;
 
     border-radius: 8px;
-    background-color: var(--progress-line);
+    background-color: var(--primary-chips-backgroud-color);
 
     cursor: pointer;
 
@@ -313,8 +313,8 @@ export default {
     margin-right: 8px;
     padding: 10px 16px;
 
-    background: var(--progress-line);
-    border: 1px solid var(--modal-border-color);
+    background: var(--primary-chips-backgroud-color);
+    border: 1px solid var(--border-color);
     border-radius: 10px;
 
     white-space: nowrap;
@@ -331,9 +331,8 @@ export default {
 .dp__menu {
   padding: 39px 40px 39px 31px;
 
-  background: var(--secondary-bg-color);
+  background: var(--background-secondary-color);
   border: 1px solid var(--input-border-color);
-  box-shadow: -4px 4px 20px rgba(16, 16, 16, 0.4);
   border-radius: 10px;
 
   &:focus {
@@ -344,7 +343,7 @@ export default {
 
 .dp__calendar_wrap {
   .dp__calendar_header {
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--typography-title-color);
 
     font-style: normal;
     font-weight: 600;
@@ -388,7 +387,7 @@ export default {
           font-weight: 400;
           font-size: 12px;
           line-height: 143%;
-          color: rgba(255, 255, 255, 0.3);
+          color: var(--typography-secondary-color);
         }
 
         .dp__range_between {
@@ -412,7 +411,7 @@ export default {
 }
 
 .dp__overlay {
-  background: var(--secondary-bg-color);
+  background: var(--background-secondary-color);
 }
 
 .dp__overlay_cell {

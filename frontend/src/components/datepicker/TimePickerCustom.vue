@@ -89,8 +89,8 @@ select {
   width: 100%;
   padding: 9px 13px;
 
-  background: var(--progress-line);
-  border: 1px solid var(--modal-border-color);
+  background: var(--primary-chips-backgroud-color);
+  border: 1px solid var(--border-color);
   border-radius: 10px;
 
   color: var(--primary-text-color);
@@ -104,7 +104,7 @@ select {
     border: none;
 
     color: var(--primary-text-color);
-    background-color: var(--progress-line);
+    background-color: var(--primary-chips-backgroud-color);
   }
 
   .separate {

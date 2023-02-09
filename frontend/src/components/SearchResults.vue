@@ -272,9 +272,7 @@ export default {
   max-width: 100%;
   padding: 10px 16px 10px 25px;
 
-  background: var(--secondary-bg-color);
-  border: 1px solid var(--input-border-color);
-  box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
+  background: var(--primary-chips-backgroud-color);
   border-radius: 8px;
 
   font-style: normal;
