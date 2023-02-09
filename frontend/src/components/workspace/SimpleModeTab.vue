@@ -35,9 +35,19 @@
 
     <OnlineType :current-project="currentProject" />
 
-    <BaseButton @click="showResults" class="apply-settings">
-      Preview
-    </BaseButton>
+    <div class="buttons">
+      <BaseButton
+        :is-not-background="true"
+        class="apply-settings"
+        @click="showResults"
+      >
+        Preview
+      </BaseButton>
+
+      <BaseButton :is-disabled="isDisabledButton" @click="saveProject">
+        <SaveIcon class="save-icon" /> Save Project
+      </BaseButton>
+    </div>
   </section>
 </template>
 
@@ -47,10 +57,11 @@ import OnlineType from '@/components/workspace/sources/OnlineType'
 import BaseButton from '@/components/buttons/BaseButton'
 import {mapGetters} from 'vuex'
 import {get} from '@store/constants'
+import SaveIcon from '@/components/icons/SaveIcon'
 
 export default {
   name: 'SimpleModeTab',
-  components: {BaseButton, OnlineType, BaseTag},
+  components: {SaveIcon, BaseButton, OnlineType, BaseTag},
   props: {
     mainKeywords: {
       type: Array,
@@ -67,6 +78,10 @@ export default {
     currentProject: {
       type: [Array, Object],
       default: () => [],
+    },
+    isDisabledButton: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {
@@ -91,6 +106,9 @@ export default {
     },
     showResults() {
       this.$emit('show-result')
+    },
+    saveProject() {
+      this.$emit('save-project')
     },
   },
 }
@@ -120,9 +138,19 @@ export default {
   color: var(--primary-text-color);
 }
 
-.apply-settings {
-  align-self: flex-end;
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
 
   width: 100%;
+
+  .apply-settings {
+    width: 80px;
+  }
+
+  .save-icon {
+    margin-right: 5px;
+  }
 }
 </style>

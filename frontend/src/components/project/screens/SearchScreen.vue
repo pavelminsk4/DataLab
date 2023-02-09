@@ -5,15 +5,7 @@
       :title="currentProject.title"
       :search-results="numberOfPosts"
       :hint="currentProject.note"
-    >
-      <BaseButton
-        class="button"
-        @click="updateProjectData"
-        :is-disabled="!currentKeywords.length"
-      >
-        Save
-      </BaseButton>
-    </NavigationBar>
+    />
 
     <div class="search-settings-wrapper">
       <SimpleModeTab
@@ -21,6 +13,8 @@
         :exclude-keywords="currentExcludeKeywords"
         :additional-keywords="currentAdditionalKeywords"
         :current-project="currentProject"
+        :is-disabled-button="!currentKeywords.length"
+        @save-project="updateProjectData"
         @show-result="showResults"
         @update-collection="updateCollection"
       />
@@ -42,11 +36,10 @@ import {action, get} from '@store/constants'
 import NavigationBar from '@/components/navigation/NavigationBar'
 import SimpleModeTab from '@/components/workspace/SimpleModeTab'
 import SearchResults from '@/components/SearchResults'
-import BaseButton from '@/components/buttons/BaseButton'
 
 export default {
   name: 'SearchScreen',
-  components: {BaseButton, SearchResults, SimpleModeTab, NavigationBar},
+  components: {SearchResults, SimpleModeTab, NavigationBar},
   props: {
     currentProject: {
       type: [Array, Object],
@@ -192,9 +185,5 @@ export default {
   display: flex;
   justify-content: space-between;
   gap: 108px;
-}
-
-.button {
-  width: 105px;
 }
 </style>

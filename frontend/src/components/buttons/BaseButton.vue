@@ -63,6 +63,7 @@ export default {
   border: 1px solid var(--button-primary-color);
   border-radius: 12px;
 
+  font-style: normal;
   font-weight: 500;
   font-size: 14px;
   line-height: 20px;

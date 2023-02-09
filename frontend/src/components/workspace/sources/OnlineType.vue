@@ -1,79 +1,67 @@
 <template>
   <div class="filters-wrapper">
-    <div class="filters-settings-items">
-      <div class="items-container">
-        <span class="second-title">Country</span>
+    <span class="second-title">Country</span>
 
-        <BaseSearchField
-          v-model="country"
-          name="country"
-          :placeholder="'Enter the country'"
-          :list="countries"
-          :is-search="true"
-          :current-value="country"
-          :is-reject-selection="false"
-          @select-option="selectItem"
-          @update:modelValue="getResult"
-          class="select"
-        />
-      </div>
+    <BaseSearchField
+      v-model="country"
+      name="country"
+      :placeholder="'Enter the country'"
+      :list="countries"
+      :is-search="true"
+      :current-value="country"
+      :is-reject-selection="false"
+      @select-option="selectItem"
+      @update:modelValue="getResult"
+      class="select"
+    />
 
-      <div class="items-container">
-        <span class="second-title">Author</span>
+    <span class="second-title">Author</span>
 
-        <BaseSearchField
-          v-model="author"
-          name="author"
-          :list="authors"
-          :placeholder="'Enter the author'"
-          :current-value="author"
-          :is-search="true"
-          :is-reject-selection="false"
-          :is-clear-selected-value="clearValue"
-          @select-option="selectItem"
-          @update:modelValue="getResult"
-          class="select"
-        />
-      </div>
-    </div>
+    <BaseSearchField
+      v-model="author"
+      name="author"
+      :list="authors"
+      :placeholder="'Enter the author'"
+      :current-value="author"
+      :is-search="true"
+      :is-reject-selection="false"
+      :is-clear-selected-value="clearValue"
+      @select-option="selectItem"
+      @update:modelValue="getResult"
+      class="select"
+    />
 
-    <div class="filters-settings-items">
-      <div class="items-container">
-        <span class="second-title">Language</span>
+    <span class="second-title">Language</span>
 
-        <BaseSearchField
-          v-model="language"
-          name="language"
-          placeholder="Enter the language"
-          :list="languages"
-          :is-search="true"
-          :current-value="language"
-          :is-reject-selection="false"
-          :is-clear-selected-value="clearValue"
-          @select-option="selectItem"
-          @update:modelValue="getResult"
-          class="select"
-        />
-      </div>
+    <BaseSearchField
+      v-model="language"
+      name="language"
+      placeholder="Enter the language"
+      :list="languages"
+      :is-search="true"
+      :current-value="language"
+      :is-reject-selection="false"
+      :is-clear-selected-value="clearValue"
+      @select-option="selectItem"
+      @update:modelValue="getResult"
+      class="select"
+    />
 
-      <div class="items-container">
-        <span class="second-title">Source</span>
+    <span class="second-title">Source</span>
 
-        <BaseSearchField
-          v-model="source"
-          name="source"
-          placeholder="Enter the source"
-          :list="sources"
-          :is-search="true"
-          :current-value="source"
-          :is-reject-selection="false"
-          :is-clear-selected-value="clearValue"
-          @select-option="selectItem"
-          @update:modelValue="getResult"
-          class="select"
-        />
-      </div>
-    </div>
+    <BaseSearchField
+      v-model="source"
+      name="source"
+      placeholder="Enter the source"
+      :list="sources"
+      :is-search="true"
+      :current-value="source"
+      :is-reject-selection="false"
+      :is-clear-selected-value="clearValue"
+      @select-option="selectItem"
+      @update:modelValue="getResult"
+      class="select"
+    />
   </div>
   <span class="second-title">Sentiment</span>
 
@@ -87,6 +75,17 @@
       :value="item"
       :label="item"
       class="radio-btn"
+    >
+      <component :is="item + 'Icon'" class="radio-icon" />
+    </BaseRadio>
+
+    <BaseRadio
+      v-model="selectedValueProxy"
+      checked="All sentiments"
+      id="allSentiments"
+      value="All sentiments"
+      label="All sentiments"
+      class="radio-btn"
     />
   </div>
 </template>
@@ -97,12 +96,18 @@ import {action, get} from '@store/constants'
 
 import BaseRadio from '@/components/BaseRadio'
 import BaseSearchField from '@/components/BaseSearchField'
+import PositiveIcon from '@/components/icons/PositiveIcon'
+import NegativeIcon from '@/components/icons/NegativeIcon'
+import NeutralIcon from '@/components/icons/NeutralIcon'
 
 export default {
   name: 'OnlineType',
   components: {
     BaseRadio,
     BaseSearchField,
+    PositiveIcon,
+    NegativeIcon,
+    NeutralIcon,
   },
   props: {
     currentProject: {
@@ -112,7 +117,7 @@ export default {
   },
   data() {
     return {
-      sentiments: ['Negative', 'Neutral', 'Positive', 'All sentiments'],
+      sentiments: ['Negative', 'Neutral', 'Positive'],
       selectedValue: '',
       clearValue: false,
       country: '',
@@ -234,46 +239,37 @@ export default {
 }
 
 .second-title {
-  margin-bottom: 12px;
+  margin: 20px 0 4px;
 
   font-size: 14px;
   color: var(--primary-text-color);
 }
 
-.filters-settings-items {
-  display: flex;
-  flex: 1;
-}
-
-.items-container {
-  flex: 1;
-
-  &:first-child {
-    margin-right: 16px;
-  }
-}
-
 .radio-btn {
   display: flex;
+  align-items: center;
 
   margin: 0 25px 8px 0;
 
-  color: var(--primary-text-color);
-
   cursor: pointer;
+
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--primary-text-color);
 }
 
 .radio-wrapper {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  flex-wrap: wrap;
 
   margin: 10px 0 25px;
-}
 
-.select,
-.input {
-  margin: 12px 0 25px;
+  .radio-icon {
+    margin-right: 4px;
+  }
 }
 
 @media screen and (max-width: 1050px) {
