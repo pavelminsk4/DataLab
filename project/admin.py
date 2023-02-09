@@ -29,7 +29,7 @@ move_approved.short_description = "Move the selected feeds to the common scope o
 
 @admin.register(NewFeedlinks)
 class NewFeedlinksAdmin(admin.ModelAdmin):
-    list_display = ('source1', 'url', 'sourceurl', 'country', 'is_approved')
+    list_display = ('source1', 'url', 'sourceurl', 'country', 'is_approved', 'created_at', 'updated_at')
     search_fields = ('source1__startswith', 'url__startswith', 'sourceurl__startswith')
     actions = [make_approved, move_approved]
     
