@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'reports.apps.ReportsConfig',
     'alerts.apps.AlertsConfig',
     'drf_yasg',
+    'tweet_binder.apps.TweetBinderConfig',
 ]
 
 MIDDLEWARE = [
