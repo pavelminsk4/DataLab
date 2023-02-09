@@ -117,6 +117,8 @@ class NewFeedlinks(models.Model):
   sourceurl = models.URLField(max_length=200,null=True,blank=True)
   country =  models.CharField("Country",max_length=200,null=True,blank=True)
   is_approved = models.BooleanField(default=False)
+  created_at = models.DateTimeField(auto_now_add=True)
+  updated_at = models.DateTimeField(auto_now=True)
 
   def __str__(self):
     return f"{self.url}, {self.is_approved}"
