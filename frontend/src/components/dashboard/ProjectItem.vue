@@ -1,9 +1,32 @@
 <template>
-  <div class="project-cart-wrapper transition" @click="openWorkspace">
-    <div class="project-title-wrapper">
-      <div class="title">{{ title }}</div>
+  <div
+    class="project-cart-wrapper transition"
+    @click="openWorkspace"
+    @mousemove="isShowMenu = true"
+    @mouseleave="hideMenu"
+  >
+    <div class="cart-button-wrapper">
+      <div class="number-projects">{{ numberProjects }} projects</div>
+      <MembersIconsBar :members="members" />
+    </div>
 
-      <BaseTooltipSettings :id="id">
+    <div class="project-title-wrapper">
+      <h3 class="title">{{ title }}</h3>
+      <div class="description">{{ description }}</div>
+    </div>
+
+    <div class="cart-button-wrapper">
+      <BaseButton
+        :is-not-background="true"
+        :style="`z-index=${members.length + 1}`"
+        class="add-button"
+        @click="addNewProject"
+      >
+        <PlusIcon class="plus-icon" />
+        <span class="button-text">Add Project</span>
+      </BaseButton>
+
+      <BaseTooltipSettings v-if="isShowMenu" :id="id">
         <div class="tooltip-item" @click.stop="openSettingsModal">
           <EditIcon />Edit
         </div>
@@ -11,19 +34,6 @@
           <DeleteIcon />Delete
         </div>
       </BaseTooltipSettings>
-    </div>
-
-    <div class="cart-button-wrapper">
-      <MembersIconsBar :members="members" />
-
-      <button
-        :style="`z-index=${members.length + 1}`"
-        class="new-project"
-        @click="addNewProject"
-      >
-        <span class="button-text">new</span>
-        <span class="circle" aria-hidden="true"><PlusIcon /></span>
-      </button>
     </div>
   </div>
 
@@ -45,11 +55,13 @@ import BaseTooltipSettings from '@/components/BaseTooltipSettings'
 import EditIcon from '@/components/icons/EditIcon'
 import DeleteIcon from '@/components/icons/DeleteIcon'
 import AreYouSureModal from '@/components/modals/AreYouSureModal'
+import BaseButton from '@/components/buttons/BaseButton'
 
 export default {
   name: 'ProjectItem',
   components: {
     AreYouSureModal,
+    BaseButton,
     DeleteIcon,
     EditIcon,
     BaseTooltipSettings,
@@ -62,6 +74,10 @@ export default {
       type: String,
       default: '',
     },
+    description: {
+      type: String,
+      default: '',
+    },
     id: {
       type: Number,
       required: true,
@@ -69,6 +85,10 @@ export default {
     members: {
       type: [Array, Object],
       required: true,
+    },
+    numberProjects: {
+      type: Number,
+      default: 0,
     },
   },
   data() {
@@ -78,6 +98,7 @@ export default {
         type: 'workspace',
         name: this.title,
       },
+      isShowMenu: false,
     }
   },
   methods: {
@@ -98,52 +119,74 @@ export default {
       this.isOpenDeleteModal = !this.isOpenDeleteModal
       this.togglePageScroll(this.isOpenDeleteModal)
     },
+    hideMenu() {
+      this.isShowMenu = false
+    },
   },
 }
 </script>
 
 <style lang="scss" scoped>
 .project-cart-wrapper {
+  --items-in-row: 4;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   flex-shrink: 1;
 
-  width: calc((100% / 5) - (4rem / 5));
-  height: 130px;
+  width: calc(
+    (100% - var(--gap) * (var(--items-in-row) - 1)) / var(--items-in-row)
+  );
+  height: 176px;
   padding: 16px 21px 13px 18px;
 
+  background: var(--background-secondary-color);
   border: 1px solid var(--border-color);
-  border-radius: 15px;
-  box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
+  border-radius: 8px;
+  box-shadow: 1px 4px 16px rgba(135, 135, 135, 0.2);
 
   cursor: pointer;
-
-  background: linear-gradient(to left, rgba(5, 95, 252, 0.7), #242529, #242529);
-  background-size: 200%;
-  transition: 0.5s;
+  transition-duration: 0.4s;
 
   &:hover {
-    background-position: right;
+    box-shadow: 0px 21px 21px rgba(113, 93, 231, 0.09),
+      0px 5px 11px rgba(113, 93, 231, 0.1), 0px 0px 0px rgba(113, 93, 231, 0.1);
+
+    transform: scale(1.1);
   }
+}
+
+.number-projects {
+  padding: 6px 8px;
+
+  background: #ebebf0;
+  border-radius: 4px;
+
+  font-size: 11px;
 }
 
 .project-title-wrapper {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  flex-grow: 1;
 
+  margin-top: 16px;
   color: var(--typography-primary-color);
 }
 
 .title {
-  white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis;
 
+  white-space: nowrap;
+  text-overflow: ellipsis;
   font-style: normal;
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 22px;
+  font-weight: 500;
+  font-size: 18px;
+}
+
+.description {
+  margin-top: 4px;
+
+  font-size: 14px;
 }
 
 .cart-button-wrapper {
@@ -154,75 +197,14 @@ export default {
   align-items: center;
 }
 
-.new-project {
-  position: absolute;
-  right: 0;
+.add-button {
+  border-color: transparent;
 
-  width: 74px;
-  height: 30px;
+  color: var(--primary-color);
 }
 
-button {
-  position: relative;
-
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
-
-  padding: 0;
-
-  border: 0;
-  background: transparent;
-
-  font-size: inherit;
-  font-family: inherit;
-
-  cursor: pointer;
-  outline: none;
-  vertical-align: middle;
-  text-decoration: none;
-  transition: 3s;
-}
-
-button.new-project .circle {
-  position: relative;
-
-  display: flex;
-  align-items: center;
-
-  padding: 0 5px 0 9px;
-  margin: 0;
-  width: 32px;
-  height: 30px;
-
-  background: var(--icon-bg-color);
-  border-radius: 1.625rem;
-  color: var(--typography-primary-color);
-
-  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
-}
-
-button.new-project .button-text {
-  position: absolute;
-  top: 50%;
-  left: 60%;
-  transform: translate(-50%, -50%);
-
-  text-align: center;
-
-  opacity: 0;
-  z-index: 2;
-  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
-}
-
-button:hover .circle {
-  width: 100%;
-  background: var(--button-primary-color);
-}
-
-button:hover .button-text {
-  opacity: 1;
-  color: var(--typography-primary-color);
+.plus-icon {
+  margin-right: 8px;
 }
 
 .tooltip-item {

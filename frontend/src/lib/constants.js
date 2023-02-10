@@ -335,3 +335,5 @@ export const years = [
     text: '2040',
   },
 ]
+
+export const PREDEFINED_COLORS = ['#EE51AF', '#00B884', '#516BEE', '#DD8500']

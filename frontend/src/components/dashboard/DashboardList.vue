@@ -39,6 +39,8 @@
         v-for="(item, index) in sortWorkspaces"
         :key="index"
         :title="item.title"
+        :description="item.description"
+        :number-projects="item.projects.length"
         :id="item.id"
         :members="item.members"
         @open-modal="toggleModal(item)"
@@ -203,14 +205,17 @@ export default {
 }
 
 .items-wrapper {
+  --gap: 32px;
+
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: var(--gap);
 
   overflow: auto;
 
   max-height: 500px;
-  padding-right: 15px;
+  padding: 20px 26px;
+  margin: -20px -26px;
 }
 
 .spinner {
