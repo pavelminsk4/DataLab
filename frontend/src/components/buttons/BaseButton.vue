@@ -90,7 +90,7 @@ export default {
   opacity: 0.5;
   cursor: not-allowed;
 
-  color: var(--primary-text-color);
+  color: var(--typography-primary-color);
 
   &:hover {
     background: var(--button-primary-disabled-color);

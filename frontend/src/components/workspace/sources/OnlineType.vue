@@ -236,13 +236,15 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  margin-bottom: 20px;
 }
 
 .second-title {
   margin: 20px 0 4px;
 
   font-size: 14px;
-  color: var(--primary-text-color);
+  color: var(--typography-primary-color);
 }
 
 .radio-btn {
@@ -257,7 +259,7 @@ export default {
   font-weight: 400;
   font-size: 14px;
   line-height: 20px;
-  color: var(--primary-text-color);
+  color: var(--typography-primary-color);
 }
 
 .radio-wrapper {

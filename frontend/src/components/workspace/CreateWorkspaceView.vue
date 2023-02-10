@@ -30,7 +30,7 @@ export default {
 .title {
   margin: 5px 0 2px;
 
-  color: var(--primary-text-color);
+  color: var(--typography-primary-color);
 
   font-size: 36px;
 }
@@ -66,7 +66,7 @@ export default {
   border: 1px solid var(--button-primary-color);
   box-shadow: 0 0 3px var(--box-shadow-color);
 
-  color: var(--primary-text-color);
+  color: var(--typography-primary-color);
   background-color: var(--primary-bg-color);
 }
 

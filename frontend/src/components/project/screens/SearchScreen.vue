@@ -183,7 +183,5 @@ export default {
 <style scoped>
 .search-settings-wrapper {
   display: flex;
-  justify-content: space-between;
-  gap: 108px;
 }
 </style>

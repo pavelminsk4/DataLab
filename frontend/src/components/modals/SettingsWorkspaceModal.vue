@@ -131,7 +131,7 @@ export default {
   font-weight: 600;
   font-size: 36px;
   line-height: 54px;
-  color: var(--primary-text-color);
+  color: var(--typography-primary-color);
 }
 
 .settings-options {
@@ -158,7 +158,7 @@ export default {
   .option-active {
     border-bottom: 1px solid var(--button-primary-color);
 
-    color: var(--primary-text-color);
+    color: var(--typography-primary-color);
   }
 }
 
@@ -175,7 +175,7 @@ export default {
     font-weight: 500;
     font-size: 14px;
     line-height: 110%;
-    color: var(--primary-text-color);
+    color: var(--typography-primary-color);
   }
 
   .input-settings {
@@ -191,7 +191,7 @@ export default {
     border: 1px solid var(--modal-border-color);
     border-radius: 10px;
 
-    color: var(--primary-text-color);
+    color: var(--typography-primary-color);
 
     resize: none;
   }

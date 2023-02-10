@@ -149,11 +149,11 @@ export default {
       font-weight: 400;
       font-size: 14px;
       line-height: 20px;
-      color: var(--primary-text-color);
+      color: var(--typography-primary-color);
     }
 
     .duplicate {
-      color: var(--primary-text-color);
+      color: var(--typography-primary-color);
 
       background: var(--negative-status);
       animation: shake 1s;
@@ -215,7 +215,7 @@ export default {
       cursor: pointer;
       list-style-type: none;
 
-      color: var(--primary-text-color);
+      color: var(--typography-primary-color);
 
       &:hover {
         background: var(--button-primary-color);

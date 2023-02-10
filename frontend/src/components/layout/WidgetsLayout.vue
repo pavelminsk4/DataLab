@@ -68,7 +68,7 @@ export default {
   background-color: var(--secondary-bg-color);
   box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
 
-  color: var(--primary-text-color);
+  color: var(--typography-primary-color);
 
   &__header {
     display: flex;

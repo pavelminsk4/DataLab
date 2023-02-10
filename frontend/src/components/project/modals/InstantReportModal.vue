@@ -389,7 +389,7 @@ export default {
     font-weight: 600;
     font-size: 16px;
     line-height: 22px;
-    color: var(--primary-text-color);
+    color: var(--typography-primary-color);
   }
 
   .properties-checkboxes {
@@ -424,7 +424,7 @@ export default {
 
   margin: 12px 0 0;
 
-  color: var(--primary-text-color);
+  color: var(--typography-primary-color);
 
   cursor: pointer;
 }

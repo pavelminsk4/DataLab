@@ -37,7 +37,7 @@ export default {
     cursor: pointer;
 
     &:checked ~ .checkmark {
-      border: 1px solid var(--primary-color);
+      border: 1px solid var(--border-active-color);
     }
 
     &:checked ~ .checkmark:after {
@@ -75,7 +75,7 @@ export default {
   }
 
   &:hover input ~ .checkmark {
-    border: 1px solid var(--primary-color);
+    border: 1px solid var(--border-active-color);
     background-color: var(--background-secondary-color);
   }
 }

@@ -134,10 +134,10 @@ export default {
       border: none;
       background-color: var(--secondary-bg-color);
 
-      color: var(--primary-text-color);
+      color: var(--typography-primary-color);
 
       &::placeholder {
-        color: var(--primary-text-color);
+        color: var(--typography-primary-color);
       }
     }
 
@@ -181,7 +181,7 @@ export default {
 
       margin-left: 4px;
 
-      color: var(--primary-text-color);
+      color: var(--typography-primary-color);
     }
   }
 }

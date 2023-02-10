@@ -59,7 +59,7 @@ export default {
   box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
   background: var(--secondary-bg-color);
 
-  color: var(--primary-text-color);
+  color: var(--typography-primary-color);
 
   cursor: pointer;
 }

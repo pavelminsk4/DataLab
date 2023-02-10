@@ -93,7 +93,7 @@ export default {
 
   cursor: pointer;
 
-  color: var(--primary-text-color);
+  color: var(--typography-primary-color);
 
   &:not(:last-child) {
     margin-right: 38px;
@@ -127,7 +127,7 @@ export default {
 
   border-radius: 10px;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.22);
-  background-color: var(--primary-text-color);
+  background-color: var(--typography-primary-color);
 
   color: var(--typography-title-color);
 
@@ -141,8 +141,8 @@ export default {
     transform: translate(-50%, 0) rotate(-135deg);
 
     box-sizing: border-box;
-    border-top: solid 6px var(--primary-text-color);
-    border-left: solid 30px var(--primary-text-color);
+    border-top: solid 6px var(--typography-primary-color);
+    border-left: solid 30px var(--typography-primary-color);
     border-top-left-radius: 5px;
     border-bottom: solid 30px transparent;
   }

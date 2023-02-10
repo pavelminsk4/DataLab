@@ -114,7 +114,7 @@ export default {
     font-weight: 400;
     font-size: 12px;
     line-height: 20px;
-    color: var(--primary-text-color);
+    color: var(--typography-primary-color);
   }
 }
 
@@ -124,7 +124,7 @@ export default {
   width: 8px;
   height: 8px;
 
-  color: var(--primary-text-color);
+  color: var(--typography-primary-color);
 
   &:hover {
     color: var(--button-primary-color);

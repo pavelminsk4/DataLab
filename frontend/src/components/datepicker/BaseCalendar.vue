@@ -271,7 +271,7 @@ export default {
     padding: 4px 10px;
 
     border-radius: 8px;
-    background-color: var(--primary-chips-backgroud-color);
+    background-color: var(--primary-chips-background-color);
 
     cursor: pointer;
 
@@ -300,7 +300,7 @@ export default {
   font-weight: 600;
   font-size: 14px;
   line-height: 110%;
-  color: var(--primary-text-color);
+  color: var(--typography-primary-color);
 }
 
 .time-picker {
@@ -313,7 +313,7 @@ export default {
     margin-right: 8px;
     padding: 10px 16px;
 
-    background: var(--primary-chips-backgroud-color);
+    background: var(--primary-chips-background-color);
     border: 1px solid var(--border-color);
     border-radius: 10px;
 
@@ -322,7 +322,7 @@ export default {
     font-weight: 400;
     font-size: 14px;
     line-height: 20px;
-    color: var(--primary-text-color);
+    color: var(--typography-primary-color);
   }
 }
 </style>
@@ -379,7 +379,7 @@ export default {
           font-weight: 400;
           font-size: 12px;
           line-height: 143%;
-          color: var(--primary-text-color);
+          color: var(--typography-primary-color);
         }
 
         .dp__cell_offset {
@@ -407,7 +407,7 @@ export default {
 }
 
 .dp__month_year_select {
-  color: var(--primary-text-color);
+  color: var(--typography-primary-color);
 }
 
 .dp__overlay {
@@ -415,16 +415,16 @@ export default {
 }
 
 .dp__overlay_cell {
-  color: var(--primary-text-color);
+  color: var(--typography-primary-color);
   background: var(--primary-bg-color);
 }
 
 .dp__time_display {
-  color: var(--primary-text-color);
+  color: var(--typography-primary-color);
 }
 
 .dp__button_bottom {
-  color: var(--primary-text-color);
+  color: var(--typography-primary-color);
   background-color: var(--button-primary-color);
 }
 </style>

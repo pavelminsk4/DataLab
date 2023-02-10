@@ -160,7 +160,7 @@ export default {
 
     padding: 9px 35px 9px 15px;
 
-    color: var(--primary-text-color);
+    color: var(--typography-primary-color);
     font-size: 14px;
 
     .placeholder {
@@ -203,13 +203,13 @@ export default {
   border: none;
   background: transparent;
 
-  color: var(--primary-text-color);
+  color: var(--typography-primary-color);
 }
 
 .select-item {
   padding: 9px 9px 9px 19px;
 
-  color: var(--primary-text-color);
+  color: var(--typography-primary-color);
 
   &:hover {
     background: var(--button-primary-color);

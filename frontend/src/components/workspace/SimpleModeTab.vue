@@ -1,39 +1,43 @@
 <template>
   <section class="key-words-settings">
-    <div class="second-title">Define the main keywords (OR)</div>
-    <BaseTag
-      name="keywords"
-      :model-value="mainKeywords"
-      :has-error="hasErrorMainField"
-      error-message="Required field"
-      :is-main-field="true"
-      placeholder='Enter a main keyword and press "Enter"'
-      @start-search="showResults"
-      @update:modelValue="updateCollection"
-    />
+    <div class="settings-wrapper">
+      <div class="second-title">Define the main keywords (OR)</div>
+      <BaseTag
+        name="keywords"
+        :model-value="mainKeywords"
+        :has-error="hasErrorMainField"
+        error-message="Required field"
+        :is-main-field="true"
+        placeholder='Enter a main keyword and press "Enter"'
+        @start-search="showResults"
+        @update:modelValue="updateCollection"
+      />
 
-    <div class="second-title">Add Additional keywords (And)</div>
-    <BaseTag
-      :model-value="additionalKeywords"
-      :textarea="true"
-      :is-additional-keywords="true"
-      name="additional_keywords"
-      placeholder="Enter additional keywords"
-      @update:modelValue="updateCollection"
-    />
+      <div class="second-title">Add Additional keywords (And)</div>
+      <BaseTag
+        :model-value="additionalKeywords"
+        :textarea="true"
+        :is-additional-keywords="true"
+        name="additional_keywords"
+        placeholder="Enter additional keywords"
+        @update:modelValue="updateCollection"
+      />
 
-    <div class="second-title">Exclude Irrelevant keywords (And Not)</div>
-    <BaseTag
-      :model-value="excludeKeywords"
-      :is-irrelevant-keywords="true"
-      name="ignore_keywords"
-      placeholder="Enter irrelevant keywords"
-      @update:modelValue="updateCollection"
-    />
+      <div class="second-title">Exclude Irrelevant keywords (And Not)</div>
+      <BaseTag
+        :model-value="excludeKeywords"
+        :is-irrelevant-keywords="true"
+        name="ignore_keywords"
+        placeholder="Enter irrelevant keywords"
+        @update:modelValue="updateCollection"
+      />
 
-    <div class="filters-title">Refine youre search with additional filters</div>
+      <div class="filters-title">
+        Refine youre search with additional filters
+      </div>
 
-    <OnlineType :current-project="currentProject" />
+      <OnlineType :current-project="currentProject" />
+    </div>
 
     <div class="buttons">
       <BaseButton
@@ -119,14 +123,18 @@ export default {
   display: flex;
   flex-direction: column;
 
-  width: 37vw;
-  margin-top: 20px;
+  width: 50vw;
+  margin: 20px 0 0 -24px;
+
+  .settings-wrapper {
+    padding: 0 40px 0 24px;
+  }
 
   .second-title {
     margin: 20px 0 4px;
 
     font-size: 14px;
-    color: var(--primary-text-color);
+    color: var(--typography-primary-color);
   }
 }
 
@@ -135,15 +143,24 @@ export default {
 
   font-weight: 600;
   font-size: 16px;
-  color: var(--primary-text-color);
+  color: var(--typography-primary-color);
 }
 
 .buttons {
+  position: -webkit-sticky;
+  position: sticky;
+  bottom: 0;
+
   display: flex;
   justify-content: flex-end;
   gap: 16px;
 
   width: 100%;
+  padding: 16px;
+  margin-top: 20px;
+
+  border-top: 1px solid var(--border-color);
+  background-color: var(--background-primary-color);
 
   .apply-settings {
     width: 80px;

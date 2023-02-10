@@ -32,7 +32,9 @@ export default {
   --button-text-disabled-color: #d2d5d9;
 
   --border-color: #dee0e3;
-  --primary-chips-backgroud-color: #e9f0f3;
+  --border-active-color: var(--primary-color);
+
+  --primary-chips-background-color: #e9f0f3;
 
   --neutral-primary-color: #516bee;
   --neutral-secondary-color: #e5e9fc;

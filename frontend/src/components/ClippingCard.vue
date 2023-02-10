@@ -276,7 +276,7 @@ export default {
           padding: 6px 8px;
 
           border-radius: 2px 12px 12px 2px;
-          background-color: var(--primary-chips-backgroud-color);
+          background-color: var(--primary-chips-background-color);
 
           font-style: normal;
           font-weight: 400;

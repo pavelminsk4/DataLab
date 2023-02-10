@@ -132,7 +132,7 @@ export default {
   display: flex;
   justify-content: space-between;
 
-  color: var(--primary-text-color);
+  color: var(--typography-primary-color);
 }
 
 .title {
@@ -197,7 +197,7 @@ button.new-project .circle {
 
   background: var(--icon-bg-color);
   border-radius: 1.625rem;
-  color: var(--primary-text-color);
+  color: var(--typography-primary-color);
 
   transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
 }
@@ -222,7 +222,7 @@ button:hover .circle {
 
 button:hover .button-text {
   opacity: 1;
-  color: var(--primary-text-color);
+  color: var(--typography-primary-color);
 }
 
 .tooltip-item {

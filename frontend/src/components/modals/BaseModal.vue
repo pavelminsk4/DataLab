@@ -137,7 +137,7 @@ export default {
   width: 100%;
 
   background: var(--background-secondary-color);
-  color: var(--primary-text-color);
+  color: var(--typography-primary-color);
 }
 
 .base-modal-backdrop {
@@ -165,7 +165,7 @@ export default {
   border: none;
   cursor: pointer;
 
-  color: var(--primary-text-color);
+  color: var(--typography-primary-color);
 }
 
 @media (max-width: 767px) {

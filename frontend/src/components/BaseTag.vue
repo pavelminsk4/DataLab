@@ -189,7 +189,7 @@ export default {
     outline: none;
     background: none;
 
-    color: var(--primary-text-color);
+    color: var(--typography-primary-color);
   }
 
   .tag-value {
@@ -225,7 +225,7 @@ export default {
 }
 
 .tag-input .duplicate {
-  color: var(--primary-text-color);
+  color: var(--typography-primary-color);
 
   background: var(--negative-status);
   animation: shake 1s;

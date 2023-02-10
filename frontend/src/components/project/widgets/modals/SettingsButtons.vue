@@ -64,7 +64,7 @@ export default {
 
     border-bottom: 1px solid var(--button-primary-color);
 
-    color: var(--primary-text-color);
+    color: var(--typography-primary-color);
   }
 }
 </style>

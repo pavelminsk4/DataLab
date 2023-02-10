@@ -238,7 +238,7 @@ export default {
 
   border-radius: 100%;
 
-  color: var(--primary-text-color);
+  color: var(--typography-primary-color);
   background-color: var(--button-primary-color);
 
   font-size: 8px;

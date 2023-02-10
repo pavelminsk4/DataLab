@@ -39,6 +39,6 @@ export default {
 
   margin-top: 150px;
 
-  color: var(--primary-text-color);
+  color: var(--typography-primary-color);
 }
 </style>

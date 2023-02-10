@@ -182,7 +182,7 @@ export default {
     transform: rotateZ(0deg) translateY(0px);
     transition-duration: 0.3s;
     transition-timing-function: cubic-bezier(0.59, 1.39, 0.37, 1.01);
-    color: var(--primary-text-color);
+    color: var(--typography-primary-color);
 
     &:hover {
       cursor: pointer;
@@ -195,7 +195,7 @@ export default {
   .label {
     display: block;
     padding: 9px 35px 9px 15px;
-    color: var(--primary-text-color);
+    color: var(--typography-primary-color);
     font-size: 14px;
     .placeholder {
       color: var(--typography-secondary-color);
@@ -223,11 +223,11 @@ export default {
   min-width: 100%;
   border: none;
   background: var(--secondary-bg-color);
-  color: var(--primary-text-color);
+  color: var(--typography-primary-color);
 }
 .select-item {
   padding: 9px 9px 9px 19px;
-  color: var(--primary-text-color);
+  color: var(--typography-primary-color);
   &:hover {
     background: var(--button-primary-color);
   }

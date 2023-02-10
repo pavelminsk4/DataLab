@@ -416,7 +416,7 @@ export default {
 
     border-bottom: 2px solid var(--button-primary-color);
 
-    color: var(--primary-text-color);
+    color: var(--typography-primary-color);
   }
 
   .active-type {
@@ -462,7 +462,7 @@ export default {
   border: 1px solid var(--input-border-color);
   box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
 
-  color: var(--primary-text-color);
+  color: var(--typography-primary-color);
 
   .frequency-sending {
     display: flex;
@@ -503,7 +503,7 @@ export default {
         cursor: pointer;
 
         .arrow-input {
-          color: var(--primary-text-color);
+          color: var(--typography-primary-color);
 
           &:hover {
             color: var(--button-primary-color);

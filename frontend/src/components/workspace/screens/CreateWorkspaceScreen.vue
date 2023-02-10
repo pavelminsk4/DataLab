@@ -95,7 +95,7 @@ export default {
 
   font-size: 14px;
 
-  color: var(--primary-text-color);
+  color: var(--typography-primary-color);
 
   &:first-child {
     margin-top: 0;
@@ -112,7 +112,7 @@ export default {
   border-radius: 10px;
   background: var(--secondary-bg-color);
 
-  color: var(--primary-text-color);
+  color: var(--typography-primary-color);
 
   resize: none;
 }

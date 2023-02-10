@@ -89,11 +89,11 @@ select {
   width: 100%;
   padding: 9px 13px;
 
-  background: var(--primary-chips-backgroud-color);
+  background: var(--primary-chips-background-color);
   border: 1px solid var(--border-color);
   border-radius: 10px;
 
-  color: var(--primary-text-color);
+  color: var(--typography-primary-color);
 
   .icon {
     margin-right: 10px;
@@ -103,8 +103,8 @@ select {
     outline: none;
     border: none;
 
-    color: var(--primary-text-color);
-    background-color: var(--primary-chips-backgroud-color);
+    color: var(--typography-primary-color);
+    background-color: var(--primary-chips-background-color);
   }
 
   .separate {
