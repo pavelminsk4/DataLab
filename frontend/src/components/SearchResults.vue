@@ -242,13 +242,22 @@ export default {
 
 <style lang="scss" scoped>
 .search-result-wrapper {
+  position: absolute;
+  right: 0;
+  top: 0;
+
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 
-  width: 43vw;
+  border-left: 1px solid var(--border-color);
 
-  color: var(--primary-text-color);
+  min-height: 100vh;
+  width: 45vw;
+  padding: 80px 32px 0 15px;
+
+  color: var(--typography-title-color);
+  background-color: var(--background-secondary-color);
 }
 
 .analytics-page {
@@ -272,16 +281,14 @@ export default {
   max-width: 100%;
   padding: 10px 16px 10px 25px;
 
-  background: var(--secondary-bg-color);
-  border: 1px solid var(--input-border-color);
-  box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
+  background: var(--primary-chips-background-color);
   border-radius: 8px;
 
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 20px;
-  color: var(--primary-text-color);
+  color: var(--typography-primary-color);
 
   cursor: pointer;
 }
@@ -293,6 +300,7 @@ export default {
 .filters {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 20px;
 
   width: 100%;
@@ -362,7 +370,7 @@ export default {
     }
 
     .Control-active {
-      fill: var(--primary-text-color);
+      fill: var(--typography-primary-color);
     }
   }
 
@@ -378,7 +386,7 @@ export default {
     border: 1px solid var(--border-color);
     border-radius: 6px;
 
-    color: var(--primary-text-color);
+    color: var(--typography-primary-color);
   }
 }
 

@@ -103,7 +103,7 @@ export default {
   border-radius: 10px;
 
   outline: none;
-  color: var(--primary-text-color);
+  color: var(--typography-primary-color);
   background-color: var(--secondary-bg-color);
 }
 

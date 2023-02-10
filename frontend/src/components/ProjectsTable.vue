@@ -218,7 +218,7 @@ export default {
         font-weight: 400;
         font-size: 14px;
         line-height: 20px;
-        color: var(--primary-text-color);
+        color: var(--typography-primary-color);
         word-break: break-word;
 
         &:first-child {

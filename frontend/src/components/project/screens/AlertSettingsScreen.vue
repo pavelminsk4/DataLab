@@ -339,7 +339,7 @@ export default {
     font-weight: 500;
     font-size: 14px;
     line-height: 110%;
-    color: var(--primary-text-color);
+    color: var(--typography-primary-color);
   }
 
   .additional-settings {
@@ -368,7 +368,7 @@ export default {
   }
 
   .arrow-input {
-    color: var(--primary-text-color);
+    color: var(--typography-primary-color);
 
     &:hover {
       color: var(--button-primary-color);

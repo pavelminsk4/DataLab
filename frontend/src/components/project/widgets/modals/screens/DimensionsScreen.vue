@@ -256,7 +256,7 @@ export default {
 
     border-radius: 8px;
 
-    color: var(--primary-text-color);
+    color: var(--typography-primary-color);
     background-color: var(--progress-line);
   }
 

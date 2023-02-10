@@ -68,7 +68,7 @@ export default {
   padding: 10px 15px;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.22);
 
-  background: var(--primary-text-color);
+  background: var(--typography-primary-color);
 
   font-style: normal;
   font-weight: 400;
@@ -91,7 +91,7 @@ export default {
     border-style: solid;
     border-bottom-left-radius: 2px;
 
-    color: var(--primary-text-color);
+    color: var(--typography-primary-color);
   }
 }
 
@@ -116,14 +116,14 @@ export default {
 .points-icon:hover {
   border-radius: 100%;
 
-  color: var(--primary-text-color);
+  color: var(--typography-primary-color);
   background-color: var(--button-primary-color);
 }
 
 .active-points {
   border-radius: 100%;
 
-  color: var(--primary-text-color);
+  color: var(--typography-primary-color);
   background-color: var(--button-primary-color);
 }
 </style>

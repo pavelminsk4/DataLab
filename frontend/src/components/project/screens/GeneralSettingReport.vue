@@ -158,7 +158,7 @@ export default {
 .input-slot-image {
   margin-left: 15px;
 
-  color: var(--primary-text-color);
+  color: var(--typography-primary-color);
 }
 
 .select {
@@ -177,7 +177,7 @@ export default {
   border: 1px solid #404046;
   border-radius: 10px;
 
-  color: var(--primary-text-color);
+  color: var(--typography-primary-color);
 }
 
 .dp__arrow_top {

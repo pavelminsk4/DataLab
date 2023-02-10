@@ -63,6 +63,7 @@ export default {
   border: 1px solid var(--button-primary-color);
   border-radius: 12px;
 
+  font-style: normal;
   font-weight: 500;
   font-size: 14px;
   line-height: 20px;
@@ -89,7 +90,7 @@ export default {
   opacity: 0.5;
   cursor: not-allowed;
 
-  color: var(--primary-text-color);
+  color: var(--typography-primary-color);
 
   &:hover {
     background: var(--button-primary-disabled-color);

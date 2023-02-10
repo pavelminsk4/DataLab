@@ -193,7 +193,7 @@ export default {
 
   font-size: 14px;
 
-  color: var(--primary-text-color);
+  color: var(--typography-primary-color);
 
   &:first-child {
     margin-top: 0;
@@ -234,7 +234,7 @@ export default {
   border-radius: 10px;
   background: var(--secondary-bg-color);
 
-  color: var(--primary-text-color);
+  color: var(--typography-primary-color);
 
   resize: none;
 }
@@ -248,7 +248,7 @@ export default {
   justify-content: space-between;
   align-items: center;
 
-  color: var(--primary-text-color);
+  color: var(--typography-primary-color);
 }
 
 .radio-description {
@@ -275,7 +275,7 @@ export default {
 }
 
 .selected > .radio-description {
-  color: var(--primary-text-color);
+  color: var(--typography-primary-color);
 }
 
 .icon-section {
@@ -289,6 +289,6 @@ export default {
   border: 1px solid #9198a7;
   border-radius: 29px;
 
-  color: var(--primary-text-color);
+  color: var(--typography-primary-color);
 }
 </style>

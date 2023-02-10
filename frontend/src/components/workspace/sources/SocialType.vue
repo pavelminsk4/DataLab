@@ -90,7 +90,7 @@ export default {
   margin-bottom: 12px;
 
   font-size: 14px;
-  color: var(--primary-text-color);
+  color: var(--typography-primary-color);
 }
 
 .alexa-ranking {
@@ -106,7 +106,7 @@ export default {
 
   margin-right: 25px;
 
-  color: var(--primary-text-color);
+  color: var(--typography-primary-color);
 
   cursor: pointer;
 }

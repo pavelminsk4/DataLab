@@ -112,7 +112,7 @@ export default defineComponent({
   display: flex;
   justify-content: space-between;
 
-  background-color: var(--secondary-bg-color);
+  background-color: var(--background-secondary-color);
 
   .custom-month-year-component {
     display: flex;

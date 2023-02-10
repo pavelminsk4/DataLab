@@ -135,7 +135,7 @@ export default {
 .title {
   margin: 0 0 8px;
 
-  color: var(--primary-text-color);
+  color: var(--typography-primary-color);
 
   font-style: normal;
   font-weight: 600;
@@ -157,7 +157,7 @@ export default {
 
   margin: 34px 0 22px;
 
-  color: var(--primary-text-color);
+  color: var(--typography-primary-color);
 
   font-style: normal;
   font-weight: 400;

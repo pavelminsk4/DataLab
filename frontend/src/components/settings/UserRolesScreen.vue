@@ -406,7 +406,7 @@ export default {
   font-weight: 500;
   font-size: 14px;
   line-height: 22px;
-  color: var(--primary-text-color);
+  color: var(--typography-primary-color);
 
   .tab-name {
     width: fit-content;
@@ -443,7 +443,7 @@ export default {
         font-weight: 600;
         font-size: 16px;
         line-height: 22px;
-        color: var(--primary-text-color);
+        color: var(--typography-primary-color);
       }
 
       .button {
@@ -474,7 +474,7 @@ export default {
         font-weight: 500;
         font-size: 14px;
         line-height: 110%;
-        color: var(--primary-text-color);
+        color: var(--typography-primary-color);
 
         .hint {
           font-style: normal;
@@ -489,7 +489,7 @@ export default {
         margin-left: auto;
 
         font-size: 14px;
-        color: var(--primary-text-color);
+        color: var(--typography-primary-color);
       }
     }
   }
@@ -516,7 +516,7 @@ export default {
       font-weight: 500;
       font-size: 14px;
       line-height: 110%;
-      color: var(--primary-text-color);
+      color: var(--typography-primary-color);
     }
 
     .input-field {
@@ -541,7 +541,7 @@ export default {
 
     margin-bottom: 21px;
 
-    color: var(--primary-text-color);
+    color: var(--typography-primary-color);
 
     .photo {
       width: 66px;
@@ -596,6 +596,6 @@ export default {
 }
 
 .success-message {
-  color: var(--primary-text-color);
+  color: var(--typography-primary-color);
 }
 </style>

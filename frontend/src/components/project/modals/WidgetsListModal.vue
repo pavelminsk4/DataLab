@@ -153,7 +153,7 @@ export default {
     font-weight: 600;
     font-size: 36px;
     line-height: 54px;
-    color: var(--primary-text-color);
+    color: var(--typography-primary-color);
   }
 
   .button {

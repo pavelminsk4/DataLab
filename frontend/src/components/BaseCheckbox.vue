@@ -87,7 +87,7 @@ export default {
 }
 
 .container input:checked ~ .checkmark {
-  border-color: var(--primary-color);
+  border-color: var(--border-active-color);
   background-color: var(--background-secondary-color);
 }
 

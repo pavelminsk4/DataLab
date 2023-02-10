@@ -139,7 +139,7 @@ export default {
     border-radius: 10px;
     background: var(--secondary-bg-color);
 
-    color: var(--primary-text-color);
+    color: var(--typography-primary-color);
 
     resize: none;
   }

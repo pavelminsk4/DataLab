@@ -118,8 +118,8 @@ export default {
   .selected {
     position: relative;
 
-    color: var(--primary-text-color);
-    background-color: var(--secondary-bg-color);
+    color: var(--typography-title-color);
+    background-color: var(--background-secondary-color);
 
     font-style: normal;
     font-weight: 500;
@@ -134,10 +134,10 @@ export default {
       border: none;
       background-color: var(--secondary-bg-color);
 
-      color: var(--primary-text-color);
+      color: var(--typography-primary-color);
 
       &::placeholder {
-        color: var(--primary-text-color);
+        color: var(--typography-primary-color);
       }
     }
 
@@ -171,8 +171,8 @@ export default {
 
     max-height: 200px;
 
-    color: var(--primary-text-color);
-    background-color: var(--secondary-bg-color);
+    color: var(--typography-title-color);
+    background-color: var(--background-secondary-color);
 
     font-size: 14px;
 
@@ -181,7 +181,7 @@ export default {
 
       margin-left: 4px;
 
-      color: var(--primary-text-color);
+      color: var(--typography-primary-color);
     }
   }
 }

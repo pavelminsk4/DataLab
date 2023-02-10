@@ -8,6 +8,7 @@
       @input="$emit('update:modelValue', $event.target.value)"
       :name="id"
     />
+    <slot></slot>
     {{ label }}
     <span class="checkmark"></span>
   </label>
@@ -25,19 +26,18 @@ export default {
   position: relative;
 
   display: block;
+  margin: auto;
 
   padding-left: 30px;
 
   cursor: pointer;
 
   input {
-    position: absolute;
     opacity: 0;
     cursor: pointer;
 
     &:checked ~ .checkmark {
-      border: none;
-      background-color: var(--button-primary-color);
+      border: 1px solid var(--border-active-color);
     }
 
     &:checked ~ .checkmark:after {
@@ -70,12 +70,13 @@ export default {
       height: 8px;
 
       border-radius: 50%;
-      background: var(--primary-text-color);
+      background: var(--primary-color);
     }
   }
 
   &:hover input ~ .checkmark {
-    background-color: var(--typography-secondary-color);
+    border: 1px solid var(--border-active-color);
+    background-color: var(--background-secondary-color);
   }
 }
 </style>
