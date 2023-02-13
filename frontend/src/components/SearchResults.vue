@@ -1,9 +1,6 @@
 <template>
   <div
-    :class="[
-      'search-result-wrapper',
-      routerName === 'Analytics' && 'analytics-page',
-    ]"
+    :class="['search-result-wrapper', `${lowerFirstLetter(routerName)}-page`]"
   >
     <div class="filters">
       <div v-if="isShowCalendar" class="calendar-wrapper">
@@ -75,15 +72,15 @@
 </template>
 
 <script>
+import {mapActions, mapState} from 'vuex'
+import {action} from '@store/constants'
+import {lowerFirstLetter} from '@/lib/utilities'
+
 import VPagination from '@hennge/vue3-pagination'
 import '@hennge/vue3-pagination/dist/vue3-pagination.css'
 
-import {mapActions, mapState} from 'vuex'
-import {action} from '@store/constants'
-
 import BaseSpinner from '@/components/BaseSpinner'
 import BaseCalendar from '@/components/datepicker/BaseCalendar'
-
 import CalendarIcon from '@/components/icons/CalendarIcon'
 import ArrowDownIcon from '@/components/icons/ArrowDownIcon'
 import ClippingCard from '@/components/ClippingCard'
@@ -163,6 +160,7 @@ export default {
     document.addEventListener('click', this.close)
   },
   methods: {
+    lowerFirstLetter,
     updatePostsCount(val) {
       this.countPosts = val
       this.$emit('update-posts-count', this.page, this.countPosts)
@@ -242,13 +240,19 @@ export default {
 
 <style lang="scss" scoped>
 .search-result-wrapper {
-  position: absolute;
-  right: 0;
-  top: 0;
-
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+
+  width: 43vw;
+
+  color: var(--typography-title-color);
+}
+
+.search-page {
+  position: absolute;
+  right: 0;
+  top: 0;
 
   border-left: 1px solid var(--border-color);
 

@@ -27,11 +27,11 @@ export default {
       default: '',
     },
     selectedValue: {
-      type: Number,
+      type: [Number, String],
       required: false,
     },
     id: {
-      type: Number,
+      type: [Number, String],
       required: true,
     },
   },
