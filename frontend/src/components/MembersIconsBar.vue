@@ -1,24 +1,33 @@
 <template>
   <div class="members-icons-bar">
-    <img
-      v-for="(item, index) in members.slice(0, 4)"
+    <UserAvatar
+      v-for="(item, index) in members.slice(0, numberDisplayedUsers)"
       :key="'photo' + index"
-      :src="item?.user_profile.photo"
-      :style="`z-index=${index + 1}`"
-      class="member-icon"
+      :avatar-url="item?.user_profile.photo"
+      :first-name="item.first_name"
+      :last-name="item.last_name"
+      :username="item.username"
     />
 
-    <div v-if="members.length > 4" class="members-count">
-      +{{ members.length - 4 }}
+    <div v-if="members.length > numberDisplayedUsers" class="members-count">
+      +{{ members.length - numberDisplayedUsers }}
     </div>
   </div>
 </template>
 
 <script>
+import UserAvatar from '@components/UserAvatar'
+
 export default {
   name: 'MembersIconsBar',
+  components: {
+    UserAvatar,
+  },
   props: {
     members: {type: Array, required: true},
+  },
+  created() {
+    this.numberDisplayedUsers = 3
   },
 }
 </script>
@@ -28,29 +37,6 @@ export default {
   position: relative;
 
   display: flex;
-
-  .member-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-grow: 0;
-    flex-shrink: 0;
-
-    width: 22px;
-    height: 22px;
-
-    border-radius: 100%;
-    border: 1px solid var(--typography-secondary-color);
-
-    background-color: white;
-
-    font-size: 10px;
-
-    &:not(:first-child) {
-      margin-left: -10px;
-    }
-  }
-
   .members-count {
     display: flex;
     align-items: center;
@@ -60,17 +46,14 @@ export default {
 
     width: 22px;
     height: 22px;
-    margin-left: 8px;
 
     border-radius: 100%;
-    border: 1px dashed var(--typography-secondary-color);
-
-    color: var(--typography-secondary-color);
 
     font-style: normal;
-    font-weight: 400;
+    font-weight: 500;
     font-size: 10px;
-    line-height: 20px;
+    line-height: 10px;
+    color: var(--typography-primary-color);
   }
 }
 </style>

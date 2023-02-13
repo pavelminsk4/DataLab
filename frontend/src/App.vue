@@ -19,6 +19,7 @@ export default {
 
   --background-primary-color: #f8f9fd;
   --background-secondary-color: #ffffff;
+  --background-additional-color: #ebebf0;
 
   --typography-title-color: #29333d;
   --typography-primary-color: #484c52;
