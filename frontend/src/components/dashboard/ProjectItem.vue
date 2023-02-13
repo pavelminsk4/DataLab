@@ -28,10 +28,12 @@
 
       <BaseTooltipSettings v-if="isShowMenu" :id="id">
         <div class="tooltip-item" @click.stop="openSettingsModal">
-          <EditIcon />Edit
+          <EditIcon />
+          <span>Edit</span>
         </div>
         <div class="tooltip-item" @click.stop="toggleDeleteModal">
-          <DeleteIcon />Delete
+          <DeleteIcon />
+          <span>Delete</span>
         </div>
       </BaseTooltipSettings>
     </div>
@@ -158,7 +160,7 @@ export default {
 .number-projects {
   padding: 6px 8px;
 
-  background: #ebebf0;
+  background: var(--background-additional-color);
   border-radius: 4px;
 
   font-size: 11px;
@@ -210,14 +212,15 @@ export default {
 .tooltip-item {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 10px;
 
-  &:first-child {
-    margin-bottom: 6px;
-  }
+  width: 152px;
+  padding: 6px 10px;
+
+  border-radius: 8px;
 
   &:hover {
-    color: var(--button-primary-color);
+    background-color: var(--background-additional-color);
   }
 }
 

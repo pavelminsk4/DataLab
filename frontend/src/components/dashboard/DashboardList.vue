@@ -8,28 +8,28 @@
       @save-settings="saveSettings"
     />
 
-    <div v-if="!isLoading && department" class="create-project-wrapper">
-      <div>
-        <h1 class="title">Dashboard</h1>
-        <span class="hint"
-          >Keep all your projects in order by arranging them by topic</span
-        >
+    <div v-if="!isLoading && department">
+      <h1 class="title">
+        <span>Online</span>
+        <OnlineIcon class="online-icon" />
+      </h1>
 
+      <div class="create-project-wrapper">
         <div class="sort-wrapper">
           <span class="hint">Sort by</span>
           <div class="sort-option">Latest <SortIcon class="sort-icon" /></div>
         </div>
-      </div>
 
-      <BaseButtonWithTooltip
-        :is-disabled="isProjectCreationAvailable"
-        :has-tooltip="isProjectCreationAvailable"
-        tooltip-title="Created the maximum possible number of projects!"
-        class="create-new-button"
-        @click="createWorkspace"
-      >
-        Create new workspace
-      </BaseButtonWithTooltip>
+        <BaseButtonWithTooltip
+          :is-disabled="isProjectCreationAvailable"
+          :has-tooltip="isProjectCreationAvailable"
+          tooltip-title="Created the maximum possible number of projects!"
+          class="create-new-button"
+          @click="createWorkspace"
+        >
+          Create new workspace
+        </BaseButtonWithTooltip>
+      </div>
     </div>
 
     <BaseSpinner v-if="isLoading" class="spinner" />
@@ -50,6 +50,8 @@
     </div>
 
     <BlankPage v-else page-name="Workspace" />
+
+    <div class="background-icon"></div>
   </MainLayout>
 </template>
 
@@ -57,14 +59,15 @@
 import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
+import OnlineIcon from '@components/icons/OnlineIcon'
 import SortIcon from '@components/icons/SortIcon'
 
+import BaseButtonWithTooltip from '@/components/BaseButtonWithTooltip'
+import BaseSpinner from '@/components/BaseSpinner'
+import BlankPage from '@/components/BlankPage'
 import MainLayout from '@components/layout/MainLayout'
 import ProjectItem from '@components/dashboard/ProjectItem'
 import SettingsWorkspaceModal from '@/components/modals/SettingsWorkspaceModal'
-import BlankPage from '@/components/BlankPage'
-import BaseSpinner from '@/components/BaseSpinner'
-import BaseButtonWithTooltip from '@/components/BaseButtonWithTooltip'
 
 export default {
   name: 'DashboardList',
@@ -76,6 +79,7 @@ export default {
     MainLayout,
     ProjectItem,
     SettingsWorkspaceModal,
+    OnlineIcon,
   },
   data() {
     return {
@@ -145,15 +149,26 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.create-project-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin: 16px 0 24px;
+}
+
 .title {
   margin: 0 0 8px;
 
-  color: var(--typography-primary-color);
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 28px;
+}
 
-  font-style: normal;
-  font-weight: 600;
-  font-size: 36px;
-  line-height: 42px;
+.online-icon {
+  width: 20px;
+  height: 20px;
+  margin-left: 8px;
 }
 
 .hint {
@@ -165,17 +180,8 @@ export default {
   line-height: 20px;
 }
 
-.create-project-wrapper {
-  display: flex;
-  justify-content: space-between;
-}
-
 .sort-wrapper {
   display: flex;
-
-  margin: 34px 0 22px;
-
-  color: var(--typography-primary-color);
 
   font-style: normal;
   font-weight: 400;
@@ -225,5 +231,18 @@ export default {
 .tooltip {
   visibility: visible;
   margin-right: 218px;
+}
+
+.background-icon {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: -1;
+
+  width: 100vw;
+  height: 76vh;
+
+  background: center / cover no-repeat url(@/assets/Background.svg);
+  pointer-events: none;
 }
 </style>
