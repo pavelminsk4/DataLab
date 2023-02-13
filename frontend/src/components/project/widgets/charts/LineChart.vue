@@ -104,7 +104,7 @@ export default {
     chartDatasets() {
       let datasetsValue = []
       let lineColors = [
-        '#055FFC',
+        '#516BEE',
         '#7A9EF9',
         '#47F9B9',
         '#47F979',
