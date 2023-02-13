@@ -1,5 +1,5 @@
 <template>
-  <section class="widget-layout-wrapper scroll">
+  <section class="widget-layout-wrapper">
     <div class="widget-layout-wrapper__header">
       <div class="title">{{ title }}</div>
 
@@ -7,11 +7,13 @@
         <div v-if="isShowSettings" class="button" @click="openSettingsModal">
           <SettingsIcon />
         </div>
-        <div class="button" @click="deleteWidget"><CloseIcon /></div>
+        <div class="button" @click="deleteWidget"><CrossIcon /></div>
       </div>
     </div>
-    <BaseSpinner v-if="isLoading" class="spinner" />
-    <slot v-else></slot>
+    <div class="widget-layout-wrapper__content scroll">
+      <BaseSpinner v-if="isLoading" class="spinner" />
+      <slot v-else></slot>
+    </div>
   </section>
 </template>
 
@@ -20,12 +22,12 @@ import {mapGetters} from 'vuex'
 import {get} from '@store/constants'
 
 import BaseSpinner from '@/components/BaseSpinner'
-import CloseIcon from '@/components/icons/CloseIcon'
 import SettingsIcon from '@/components/icons/SettingsIcon'
+import CrossIcon from '@/components/icons/CrossIcon'
 
 export default {
   name: 'WidgetsLayout',
-  components: {BaseSpinner, CloseIcon, SettingsIcon},
+  components: {CrossIcon, BaseSpinner, SettingsIcon},
   props: {
     title: {
       type: String,
@@ -59,14 +61,11 @@ export default {
   align-items: center;
 
   min-width: 100%;
-  height: fit-content;
   height: 100%;
-  padding: 20px;
 
   border-radius: 8px;
-  border: 1px solid var(--input-border-color);
-  background-color: var(--secondary-bg-color);
-  box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
+  background-color: var(--background-secondary-color);
+  box-shadow: 1px 4px 16px rgba(135, 135, 135, 0.2);
 
   color: var(--typography-primary-color);
 
@@ -76,9 +75,9 @@ export default {
     justify-content: space-between;
 
     width: 100%;
-    padding-bottom: 12px;
+    padding: 12px 20px;
 
-    border-bottom: 1px solid var(--input-border-color);
+    border-bottom: 1px solid var(--border-color);
 
     .title {
       font-style: normal;
@@ -98,18 +97,25 @@ export default {
         align-items: center;
         justify-content: center;
 
-        width: 40px;
-        height: 40px;
+        width: 28px;
+        height: 28px;
 
-        background: var(--secondary-bg-color);
-        border: 1px solid var(--input-border-color);
-        border-radius: 10px;
+        background: var(--background-secondary-color);
+        border: 1px solid var(--border-color);
+        border-radius: 4px;
 
         &:hover {
-          background-color: var(--button-primary-color);
+          color: var(--button-text-color);
+          background-color: var(--button-primary-hover-color);
         }
       }
     }
+  }
+
+  &__content {
+    padding: 16px 20px 20px;
+
+    overflow: auto;
   }
 }
 

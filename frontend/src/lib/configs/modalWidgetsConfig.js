@@ -10,7 +10,7 @@ export default {
   summary_widget: {
     ...WIDGET_DEFAULT_SETTINGS,
     actionName: action.GET_SUMMARY_WIDGET,
-    height: 8,
+    height: 7,
     hasAggregationPeriod: false,
   },
   volume_widget: {

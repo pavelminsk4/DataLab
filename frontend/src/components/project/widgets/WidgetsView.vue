@@ -240,7 +240,7 @@ export default {
 
   min-width: 50%;
   max-height: 60vh;
-  margin-top: 63px;
+  margin-top: 25px;
 
   .analytics-search-results {
     flex: 1;

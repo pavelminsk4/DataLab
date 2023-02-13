@@ -8,7 +8,7 @@
   >
     <path
       d="M4 15.9999L16 3.99994M4 3.99994L16 15.9999"
-      stroke="#797D80"
+      stroke="currentColor"
       stroke-width="2"
       stroke-linecap="round"
       stroke-linejoin="round"
