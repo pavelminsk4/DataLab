@@ -12,7 +12,6 @@
 
 <script>
 import PointsIcon from '@/components/icons/PointsIcon'
-import {action} from "@store/constants";
 
 export default {
   name: 'BaseTooltipSettings',
