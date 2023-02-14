@@ -50,7 +50,7 @@ export default {
   position: relative;
 
   padding: calc(var(--header-height) + 24px) 40px 50px 95px;
-  height: 100%;
+  min-height: 100%;
 }
 
 .extra-settings {

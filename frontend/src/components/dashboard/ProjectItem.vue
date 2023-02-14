@@ -154,6 +154,10 @@ export default {
       0px 5px 11px rgba(113, 93, 231, 0.1), 0px 0px 0px rgba(113, 93, 231, 0.1);
 
     transform: scale(1.1);
+
+    .title {
+      color: var(--primary-color);
+    }
   }
 }
 

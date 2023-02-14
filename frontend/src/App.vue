@@ -34,6 +34,7 @@ export default {
 
   --border-color: #dee0e3;
   --border-active-color: var(--primary-color);
+  --primary-border: 1px solid var(--border-color);
 
   --primary-chips-background-color: #e9f0f3;
 
