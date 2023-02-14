@@ -6,7 +6,30 @@ from accounts.models import department
 from countries_plus.models import Country
 from django.contrib.auth.models import User
 import json
+import copy
 from datetime import datetime
+
+
+DATA = {
+      'keywords':[],
+      'exceptions':[],
+      'additions':[],
+      'country':[],
+      'language':[],
+      'sentiment':[],
+      'date_range':[],
+      'source':[],
+      'author':[],
+      'posts_per_page': 20,
+      'page_number': 1,
+      'sort_posts':[],
+      'author_dimensions':[],
+      'language_dimensions':[],
+      'country_dimensions':[],
+      'source_dimensions':[],
+      'sentiment_dimensions':[]
+      }
+
 
 class SearchTests(APITestCase):
   global url, ex1, ex2, ex3, ex4
@@ -98,40 +121,19 @@ class SearchTests(APITestCase):
 
   def test_search_with_keywords(self):
     self.db_seeder()
-    data = {
-      'keywords':['First', 'Post'],
-      'exceptions':[],
-      'additions':[],
-      'country':[],
-      'language':[],
-      'sentiment':[],
-      'date_range':['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z'],
-      'source':[],
-      'author':[],
-      'posts_per_page':20,
-      'page_number':1,
-      'sort_posts':[],
-      }
+    data = copy.deepcopy(DATA)
+    data['keywords'] = ['First', 'Post']
+    data['date_range'] = ['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z']
     response = self.client.post(url, data, format='json')
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':1, 'posts':[ex1]}) 
  
   def test_search_with_exclusion_words(self):
     self.db_seeder()
-    data = {
-      'keywords':['post'],
-      'exceptions':['First'],
-      'additions':[],
-      'country':[],
-      'language':[],
-      'sentiment':[],
-      'date_range':['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z'],
-      'source':[],
-      'author':[],
-      'posts_per_page':20,
-      'page_number':1,
-      'sort_posts':[],
-      }
+    data = copy.deepcopy(DATA)
+    data['keywords'] = ['post']
+    data['exceptions'] = ['First']
+    data['date_range'] = ['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z']
     response = self.client.post(url, data, format='json')
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':3, 'posts':[ex2,ex3,ex4]})
@@ -139,161 +141,80 @@ class SearchTests(APITestCase):
 
   def test_search_with_additional_words(self):
     self.db_seeder()
-    data = {
-      'keywords':['post'],
-      'exceptions':[],
-      'additions':['Third'],
-      'country':[],
-      'language':[],
-      'sentiment':[],
-      'date_range':['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z'],
-      'source':[],
-      'author':[],
-      'posts_per_page':20,
-      'page_number':1,
-      'sort_posts':[],
-      }
+    data = copy.deepcopy(DATA)
+    data['keywords'] = ['post']
+    data['additions'] = ['Third']
+    data['date_range'] = ['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z']
     response = self.client.post(url, data, format='json')
     self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':1, 'posts':[ex3]})
     self.assertEqual(len(Post.objects.all()), 4)
 
   def test_serch_with_exclusion_and_additional_words(self):
     self.db_seeder()
-    data = {
-      'keywords':['post'],
-      'exceptions':['First'],
-      'additions':['title'],
-      'country':[],
-      'language':[],
-      'sentiment':[],
-      'date_range':['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z'],
-      'source':[],
-      'author':[],
-      'posts_per_page':20,
-      'page_number':1,
-      'sort_posts':[],
-      }
+    data = copy.deepcopy(DATA)
+    data['keywords'] = ['post']
+    data['exceptions'] = ['First']
+    data['additions'] = ['title']
+    data['date_range'] = ['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z']
     response = self.client.post(url, data, format='json')
     self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':1, 'posts':[ex2]})
     self.assertEqual(len(Post.objects.all()), 4)
 
   def test_search_by_country(self):
     self.db_seeder()
-    data = {
-      'keywords':['post'],
-      'exceptions':[],
-      'additions':[],
-      'country':'USA',
-      'language':[],
-      'sentiment':[],
-      'date_range':['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z'],
-      'source':[],
-      'author':[],
-      'posts_per_page':20,
-      'page_number':1,
-      'sort_posts':[],
-      }
+    data = copy.deepcopy(DATA)
+    data['keywords'] = ['post']
+    data['country'] = 'USA'
+    data['date_range'] = ['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z']
     response = self.client.post(url, data, format='json')
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':1, 'posts':[ex1]})
 
   def test_search_by_language(self):
     self.db_seeder()
-    data = {
-      'keywords':['post'],
-      'exceptions':[],
-      'additions':[],
-      'country':[],
-      'language':'Arabic',
-      'sentiment':[],
-      'date_range':['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z'],
-      'source':[],
-      'author':[],
-      'posts_per_page':20,
-      'page_number':1,
-      'sort_posts':[],
-      }
+    data = copy.deepcopy(DATA)
+    data['keywords'] = ['post']
+    data['language'] = 'Arabic'
+    data['date_range'] = ['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z']
     response = self.client.post(url, data, format='json')
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':1, 'posts':[ex4]})
 
   def test_search_filtering_by_sentiment(self):
     self.db_seeder()
-    data = {
-      'keywords':['post'],
-      'exceptions':[],
-      'additions':[],
-      'country':[],
-      'language':[],
-      'sentiment':'positive',
-      'date':[],
-      'date_range':['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z'],
-      'source':[],
-      'author':[],
-      'posts_per_page':20,
-      'page_number':1,
-      'sort_posts':[],
-      }
+    data = copy.deepcopy(DATA)
+    data['keywords'] = ['post']
+    data['sentiment'] = 'positive'
+    data['date_range'] = ['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z']
     response = self.client.post(url, data, format='json')
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':1, 'posts':[ex4]})
 
   def test_serarch_filtering_by_date(self):
     self.db_seeder()
-    data = {
-      'keywords':['post'],
-      'exceptions':[],
-      'additions':[],
-      'country':[],
-      'language':[],
-      'sentiment':[],
-      'date_range':['2022-09-02T06:44:00.000Z', '2022-09-30T06:44:00.000Z'],
-      'source':[],
-      'author':[],
-      'posts_per_page':20,
-      'page_number':1,
-      'sort_posts':[],
-    }
+    data = copy.deepcopy(DATA)
+    data['keywords'] = ['post']
+    data['date_range'] = ['2022-09-02T06:44:00.000Z', '2022-09-30T06:44:00.000Z']
     response = self.client.post(url, data, format='json')
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':1, 'posts':[ex1]})
 
   def test_search_by_source(self):
     self.db_seeder()
-    data = {
-      'keywords':['post'],
-      'exceptions':[],
-      'additions':[],
-      'country':[],
-      'language':[],
-      'sentiment':[],
-      'date_range':['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z'],
-      'source':'CNN',
-      'author':[],
-      'posts_per_page':20,
-      'page_number':1,
-      'sort_posts':[],
-    }
+    data = copy.deepcopy(DATA)
+    data['keywords'] = ['post']
+    data['date_range'] = ['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z']
+    data['source'] = 'CNN'
     response = self.client.post(url, data, format='json')
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':3, 'posts':[ex2, ex3, ex4]})
 
   def test_search_by_author(self):
     self.db_seeder()
-    data = {
-      'keywords':['post'],
-      'exceptions':[],
-      'additions':[],
-      'country':[],
-      'language':[],
-      'sentiment':[],
-      'date_range':['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z'],
-      'source':[],
-      'author':'Elon Musk',
-      'posts_per_page':20,
-      'page_number':1,
-      'sort_posts':[],
-    }
+    data = copy.deepcopy(DATA)
+    data['keywords'] = ['post']
+    data['date_range'] = ['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z']
+    data['author'] = 'Elon Musk'
     response = self.client.post(url, data, format='json')
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':1, 'posts':[ex1]})
