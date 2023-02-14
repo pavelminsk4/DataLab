@@ -46,7 +46,7 @@
       />
     </div>
     <div v-if="!loading && searchData.length" class="pagination-wrapper">
-      <BaseDropdown :id="countPosts" :selected-value="countPosts">
+      <BaseDropdown name="posts-on-page" :selected-value="countPosts">
         <div
           v-for="(item, index) in postsOnPage"
           :key="'drop' + index"
@@ -193,10 +193,10 @@ export default {
       }
       this[action.REFRESH_DISPLAY_CALENDAR](this.isShow)
     },
-    close() {
-      const elements = document.querySelectorAll('.calendar-wrapper')
+    close({target}) {
+      const selectList = document.querySelector('.calendar-wrapper')
 
-      if (!Array.from(elements).find((el) => el.contains(event.target))) {
+      if (!selectList.contains(target)) {
         this[action.REFRESH_DISPLAY_CALENDAR](false)
       }
     },

@@ -6,7 +6,7 @@ const WIDGET_DEFAULT_SETTINGS = {
   hasAggregationPeriod: true,
 }
 
-export default {
+export const modalWidgetsConfig = {
   summary_widget: {
     ...WIDGET_DEFAULT_SETTINGS,
     actionName: action.GET_SUMMARY_WIDGET,
@@ -81,3 +81,54 @@ export default {
     actionName: action.GET_CONTENT_VOLUME_TOP_SOURCES,
   },
 }
+
+export const summaryWidgetConfig = [
+  {
+    name: 'New posts',
+    valueName: 'posts',
+    iconName: 'NewPostIcon',
+    backgroundColor: '#2EA8DD',
+  },
+  {
+    name: 'Neutral posts',
+    valueName: 'neut',
+    iconName: 'NeutralIcon',
+    backgroundColor: '#516BEE',
+  },
+  {
+    name: 'Negative posts',
+    valueName: 'neg',
+    iconName: 'NegativeIcon',
+    backgroundColor: '#ED2549',
+  },
+  {
+    name: 'Positive posts',
+    valueName: 'pos',
+    iconName: 'PositiveIcon',
+    backgroundColor: '#57C7B3',
+  },
+  {
+    name: 'Sources',
+    valueName: 'sources',
+    iconName: 'SourceIcon',
+    backgroundColor: '#7546FF',
+  },
+  {
+    name: 'Potential reach',
+    valueName: 'reach',
+    iconName: 'PotentialReachIcon',
+    backgroundColor: '#FC732D',
+  },
+  {
+    name: 'Countries',
+    valueName: 'countries',
+    iconName: 'CountryIcon',
+    backgroundColor: '#A0B8BE',
+  },
+  {
+    name: 'Authors',
+    valueName: 'authors',
+    iconName: 'AuthorsIcon',
+    backgroundColor: '#EA6E8F',
+  },
+]

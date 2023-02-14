@@ -65,7 +65,7 @@ import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 import VueGridLayout from 'vue3-grid-layout'
 import {snakeToPascal} from '@lib/utilities'
-import modalWidgetsConfig from '@/lib/configs/modalWidgetsConfig'
+import {modalWidgetsConfig} from '@/lib/configs/widgetsConfigs'
 
 import SearchResults from '@/components/SearchResults'
 import VolumeWidget from '@/components/project/widgets/VolumeWidget'

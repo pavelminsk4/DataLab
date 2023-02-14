@@ -12,6 +12,7 @@
 
 <script>
 import PointsIcon from '@/components/icons/PointsIcon'
+import {action} from "@store/constants";
 
 export default {
   name: 'BaseTooltipSettings',
@@ -36,10 +37,10 @@ export default {
     openSettings() {
       this.isOpenSettings = !this.isOpenSettings
     },
-    close() {
-      const elements = document.querySelectorAll('.settings-container')
+    close({target}) {
+      const selectList = document.querySelector('.settings-container')
 
-      if (!Array.from(elements).find((el) => el.contains(event.target))) {
+      if (!selectList.contains(target)) {
         this.isOpenSettings = false
       }
     },

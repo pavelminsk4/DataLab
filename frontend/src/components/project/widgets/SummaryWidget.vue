@@ -16,7 +16,7 @@
           class="icon"
         />
         <div class="title">{{ item.name }}</div>
-        <div class="value">{{ item.value }}</div>
+        <div class="value">{{ summaryData[item.valueName] }}</div>
       </div>
     </div>
   </WidgetsLayout>
@@ -25,6 +25,7 @@
 <script>
 import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
+import {summaryWidgetConfig} from '@/lib/configs/widgetsConfigs'
 
 import NewPostIcon from '@/components/icons/NewPostIcon'
 import NeutralIcon from '@/components/icons/NeutralIcon'
@@ -63,68 +64,18 @@ export default {
       required: true,
     },
   },
-  created() {
-    if (this.isOpenWidget && !this.summary.length) {
-      this[action.GET_SUMMARY_WIDGET](this.projectId)
-    }
-  },
   computed: {
     ...mapGetters({
       availableWidgets: get.AVAILABLE_WIDGETS,
       summary: get.SUMMARY_WIDGET,
     }),
-    widgetMetrics() {
-      return [
-        {
-          name: 'New posts',
-          value: this.summaryData?.posts,
-          iconName: 'NewPostIcon',
-          backgroundColor: '#2EA8DD',
-        },
-        {
-          name: 'Neutral posts',
-          value: this.summaryData?.neut,
-          iconName: 'NeutralIcon',
-          backgroundColor: '#516BEE',
-        },
-        {
-          name: 'Negative posts',
-          value: this.summaryData?.neg,
-          iconName: 'NegativeIcon',
-          backgroundColor: '#ED2549',
-        },
-        {
-          name: 'Positive posts',
-          value: this.summaryData?.pos,
-          iconName: 'PositiveIcon',
-          backgroundColor: '#57C7B3',
-        },
-        {
-          name: 'Sources',
-          value: this.summaryData?.sources,
-          iconName: 'SourceIcon',
-          backgroundColor: '#7546FF',
-        },
-        {
-          name: 'Potential reach',
-          value: this.summaryData?.reach,
-          iconName: 'PotentialReachIcon',
-          backgroundColor: '#FC732D',
-        },
-        {
-          name: 'Countries',
-          value: this.summaryData?.countries,
-          iconName: 'CountryIcon',
-          backgroundColor: '#A0B8BE',
-        },
-        {
-          name: 'Authors',
-          value: this.summaryData?.authors,
-          iconName: 'AuthorsIcon',
-          backgroundColor: '#EA6E8F',
-        },
-      ]
-    },
+  },
+  created() {
+    this.widgetMetrics = summaryWidgetConfig
+
+    if (this.isOpenWidget && !this.summary.length) {
+      this[action.GET_SUMMARY_WIDGET](this.projectId)
+    }
   },
   watch: {
     isOpenWidget() {
