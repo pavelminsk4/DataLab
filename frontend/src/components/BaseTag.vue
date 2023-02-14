@@ -168,9 +168,10 @@ export default {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  gap: 8px;
 
   max-height: 110px;
-  height: 40px;
+  min-height: 44px;
   width: 100%;
   padding: 4px 8px;
 

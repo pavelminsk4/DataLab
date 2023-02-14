@@ -1,0 +1,150 @@
+<template>
+  <Bar
+    :chart-options="chartOptions"
+    :chart-data="chartData"
+    :chart-id="chartId"
+    :dataset-id-key="datasetIdKey"
+    :css-classes="cssClasses"
+    :styles="styles"
+    :width="width"
+    :height="height"
+  />
+</template>
+
+<script>
+import {Bar} from 'vue-chartjs'
+
+import {
+  Chart as ChartJS,
+  Title,
+  Tooltip,
+  Legend,
+  BarElement,
+  CategoryScale,
+  LinearScale,
+} from 'chart.js'
+
+ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
+
+export default {
+  name: 'HorizontalBarChart',
+  components: {
+    Bar,
+  },
+  props: {
+    chartValues: {
+      type: Array,
+      default: () => [],
+    },
+    chartLabels: {
+      type: Array,
+      default: () => [],
+    },
+    chartId: {
+      type: String,
+      default: 'bar-chart',
+    },
+    datasetIdKey: {
+      type: String,
+      default: 'label',
+    },
+    width: {
+      type: Number,
+      default: 400,
+    },
+    height: {
+      type: Number,
+      default: 400,
+    },
+    cssClasses: {
+      default: '',
+      type: String,
+    },
+    styles: {
+      type: Object,
+      default: () => {},
+    },
+    plugins: {
+      type: Array,
+      default: () => [],
+    },
+  },
+  data() {
+    return {
+      chartOptions: {
+        responsive: true,
+        maintainAspectRatio: false,
+        indexAxis: 'y',
+        animation: {
+          easing: 'easeInOutQuad',
+          duration: 520,
+        },
+        onHover: (event, chartElement) => {
+          const target = event.native ? event.native.target : event.target
+          target.style.cursor = chartElement[0] ? 'pointer' : 'default'
+        },
+        plugins: {
+          datalabels: {
+            display: false,
+          },
+          legend: {
+            display: false,
+          },
+          tooltip: {
+            yAlign: 'bottom',
+            titleColor: '#151515',
+            bodyColor: '#151515',
+            backgroundColor: 'rgba(255, 255, 255, 0.96)',
+            displayColors: false,
+          },
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            grid: {
+              color: 'rgba(145, 152, 167, 0.1)',
+            },
+          },
+          x: {
+            beginAtZero: true,
+            grid: {
+              display: false,
+            },
+          },
+        },
+      },
+    }
+  },
+  computed: {
+    chartData() {
+      return {
+        labels: this.chartLabels,
+        datasets: [
+          {
+            borderColor: '#055FFC',
+            pointStyle: 'circle',
+            borderWidth: 0,
+            borderRadius: 6,
+            barPercentage: 0.5,
+            fill: true,
+            backgroundColor: (ctx) => {
+              const canvas = ctx.chart.ctx
+              const gradient = canvas.createLinearGradient(0, 0, 0, 460)
+
+              gradient.addColorStop(0, 'rgba(5, 95, 252, 0.8)')
+              gradient.addColorStop(0.5, 'rgba(5, 95, 252, 0.5)')
+              gradient.addColorStop(1, 'rgba(5, 95, 252, 0)')
+
+              return gradient
+            },
+            tension: 0.25,
+            data: this.chartValues,
+          },
+        ],
+      }
+    },
+  },
+}
+</script>
+
+<style scoped></style>

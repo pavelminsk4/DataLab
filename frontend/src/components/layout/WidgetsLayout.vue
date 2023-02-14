@@ -114,6 +114,7 @@ export default {
 
   &__content {
     width: 100%;
+    height: 100%;
     padding: 16px 20px 20px;
 
     overflow: auto;
@@ -122,5 +123,6 @@ export default {
 
 .spinner {
   height: 100%;
+  margin: auto;
 }
 </style>
