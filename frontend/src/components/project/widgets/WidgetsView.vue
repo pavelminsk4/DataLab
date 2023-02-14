@@ -65,7 +65,7 @@ import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 import VueGridLayout from 'vue3-grid-layout'
 import {snakeToPascal} from '@lib/utilities'
-import modalWidgetsConfig from '@/lib/configs/modalWidgetsConfig'
+import {modalWidgetsConfig} from '@/lib/configs/widgetsConfigs'
 
 import SearchResults from '@/components/SearchResults'
 import VolumeWidget from '@/components/project/widgets/VolumeWidget'
@@ -240,7 +240,7 @@ export default {
 
   min-width: 50%;
   max-height: 60vh;
-  margin-top: 63px;
+  margin-top: 25px;
 
   .analytics-search-results {
     flex: 1;

@@ -43,7 +43,7 @@
             <div class="role">
               <BaseDropdown
                 :title="currentRole(item.user_profile.role)"
-                :id="index"
+                :name="'name' + index"
               >
                 <div
                   v-for="role in userRoles"

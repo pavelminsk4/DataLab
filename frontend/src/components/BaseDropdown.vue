@@ -1,7 +1,7 @@
 <template>
   <section
     @click="openDropdown"
-    :class="[`dropdown-wrapper-${id}`, 'dropdown-wrapper']"
+    :class="[`dropdown-wrapper-${name}`, 'dropdown-wrapper']"
   >
     <div class="title">{{ title }}</div>
     <div v-if="selectedValue" class="selected-value">{{ selectedValue }}</div>
@@ -27,11 +27,11 @@ export default {
       default: '',
     },
     selectedValue: {
-      type: Number,
+      type: [Number, String],
       required: false,
     },
-    id: {
-      type: Number,
+    name: {
+      type: String,
       required: true,
     },
   },
@@ -50,10 +50,12 @@ export default {
     openDropdown() {
       this.isOpenDropdown = !this.isOpenDropdown
     },
-    closeDropdown() {
-      const elements = document.querySelectorAll(`.dropdown-wrapper-${this.id}`)
+    closeDropdown({target}) {
+      const dropdownList = document.querySelector(
+        `.dropdown-wrapper-${this.name}`
+      )
 
-      if (!Array.from(elements).find((el) => el.contains(event.target))) {
+      if (!dropdownList.contains(target)) {
         this.isOpenDropdown = false
       }
     },

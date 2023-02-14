@@ -122,10 +122,10 @@ export default {
       this.search = option
       this.visible = false
     },
-    close() {
-      const elements = document.querySelectorAll(`.selector-${this.name}`)
+    close({target}) {
+      const dropdownList = document.querySelector(`.selector-${this.name}`)
 
-      if (!Array.from(elements).find((el) => el.contains(event.target))) {
+      if (!dropdownList.contains(target)) {
         this.visible = false
       }
     },

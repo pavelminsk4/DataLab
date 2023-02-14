@@ -150,9 +150,10 @@ export default {
       this.search = option
       this.visible = false
     },
-    close() {
-      const elements = document.querySelectorAll(`.selector-${this.name}`)
-      if (!Array.from(elements).find((el) => el.contains(event.target))) {
+    close({target}) {
+      const selectList = document.querySelector(`.selector-${this.name}`)
+
+      if (!selectList.contains(target)) {
         this.visible = false
       }
     },

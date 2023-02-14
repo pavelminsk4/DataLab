@@ -1,5 +1,5 @@
 <template>
-  <Doughnut
+  <Pie
     :chart-options="chartOptions"
     :chart-data="chartData"
     :chart-id="chartId"
@@ -9,13 +9,11 @@
     :styles="styles"
     :width="width"
     :height="height"
-    ref="doughnut"
-    class="doughnut-chart-widget"
   />
 </template>
 
 <script>
-import {Doughnut} from 'vue-chartjs'
+import {Pie} from 'vue-chartjs'
 
 import {
   Chart as ChartJS,
@@ -25,6 +23,8 @@ import {
   ArcElement,
   CategoryScale,
 } from 'chart.js'
+
+ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale)
 
 import ChartDataLabels from 'chartjs-plugin-datalabels'
 
@@ -38,9 +38,9 @@ ChartJS.register(
 )
 
 export default {
-  name: 'DoughnutChart',
+  name: 'PieChart',
   components: {
-    Doughnut,
+    Pie,
   },
   props: {
     chartId: {
@@ -83,16 +83,16 @@ export default {
   computed: {
     colors() {
       let lineColors = [
-        '#055FFC',
-        '#7A9EF9',
-        '#47F9B9',
-        '#47F979',
-        '#95F947',
-        '#F5F947',
-        '#F6AA37',
-        '#F63737',
-        '#F63787',
-        '#D930F4',
+        '#A28BC7',
+        '#727DB2',
+        '#516BEE',
+        '#697FEE',
+        '#8193EE',
+        '#98A7EE',
+        '#5E00F9',
+        '#7D32F9',
+        '#9C63F9',
+        '#BB95F9',
       ]
       let finalColors = []
 
@@ -106,28 +106,15 @@ export default {
 
       return finalColors
     },
-    fontColors() {
-      let finalFontColors = []
-
-      this.labels.forEach((el, index) => {
-        if (this.labels[index] === 'Missing in source') {
-          finalFontColors.push('#808080')
-        } else {
-          finalFontColors.push('#ffffff')
-        }
-      })
-
-      return finalFontColors
-    },
     chartData() {
       return {
         labels: this.labels,
         datasets: [
           {
             backgroundColor: this.colors,
-            cutout: '75%',
-            borderColor: 'transparent',
-            spacing: 10,
+            cutout: '0%',
+            borderColor: 'red',
+            borderWidth: 0,
             data: this.values,
             options: {
               plugins: {
@@ -144,9 +131,9 @@ export default {
       return {
         plugins: {
           legend: {
-            position: 'right',
+            position: 'bottom',
             labels: {
-              color: 'white',
+              color: '#484c52',
               font: {
                 size: 12,
               },

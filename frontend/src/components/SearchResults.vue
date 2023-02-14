@@ -1,9 +1,6 @@
 <template>
   <div
-    :class="[
-      'search-result-wrapper',
-      routerName === 'Analytics' && 'analytics-page',
-    ]"
+    :class="['search-result-wrapper', `${lowerFirstLetter(routerName)}-page`]"
   >
     <div class="filters">
       <div v-if="isShowCalendar" class="calendar-wrapper">
@@ -49,7 +46,7 @@
       />
     </div>
     <div v-if="!loading && searchData.length" class="pagination-wrapper">
-      <BaseDropdown :id="countPosts" :selected-value="countPosts">
+      <BaseDropdown name="posts-on-page" :selected-value="countPosts">
         <div
           v-for="(item, index) in postsOnPage"
           :key="'drop' + index"
@@ -75,15 +72,15 @@
 </template>
 
 <script>
+import {mapActions, mapState} from 'vuex'
+import {action} from '@store/constants'
+import {lowerFirstLetter} from '@/lib/utilities'
+
 import VPagination from '@hennge/vue3-pagination'
 import '@hennge/vue3-pagination/dist/vue3-pagination.css'
 
-import {mapActions, mapState} from 'vuex'
-import {action} from '@store/constants'
-
 import BaseSpinner from '@/components/BaseSpinner'
 import BaseCalendar from '@/components/datepicker/BaseCalendar'
-
 import CalendarIcon from '@/components/icons/CalendarIcon'
 import ArrowDownIcon from '@/components/icons/ArrowDownIcon'
 import ClippingCard from '@/components/ClippingCard'
@@ -163,6 +160,7 @@ export default {
     document.addEventListener('click', this.close)
   },
   methods: {
+    lowerFirstLetter,
     updatePostsCount(val) {
       this.countPosts = val
       this.$emit('update-posts-count', this.page, this.countPosts)
@@ -195,10 +193,10 @@ export default {
       }
       this[action.REFRESH_DISPLAY_CALENDAR](this.isShow)
     },
-    close() {
-      const elements = document.querySelectorAll('.calendar-wrapper')
+    close({target}) {
+      const selectList = document.querySelector('.calendar-wrapper')
 
-      if (!Array.from(elements).find((el) => el.contains(event.target))) {
+      if (!selectList.contains(target)) {
         this[action.REFRESH_DISPLAY_CALENDAR](false)
       }
     },
@@ -242,13 +240,19 @@ export default {
 
 <style lang="scss" scoped>
 .search-result-wrapper {
-  position: absolute;
-  right: 0;
-  top: 0;
-
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+
+  width: 43vw;
+
+  color: var(--typography-title-color);
+}
+
+.search-page {
+  position: absolute;
+  right: 0;
+  top: 0;
 
   border-left: 1px solid var(--border-color);
 

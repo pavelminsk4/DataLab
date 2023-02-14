@@ -94,10 +94,10 @@ export default {
       this.selected = option
       this.open = false
     },
-    close() {
-      const elements = document.querySelectorAll(`.selector-${this.name}`)
+    close({target}) {
+      const selectList = document.querySelector(`.selector-${this.name}`)
 
-      if (!Array.from(elements).find((el) => el.contains(event.target))) {
+      if (!selectList.contains(target)) {
         this.open = false
       }
     },

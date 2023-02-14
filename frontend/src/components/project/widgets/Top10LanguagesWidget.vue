@@ -4,7 +4,7 @@
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
   >
-    <DoughnutChart :labels="labels" :values="values" />
+    <PieChart :labels="labels" :values="values" />
   </WidgetsLayout>
 </template>
 
@@ -13,12 +13,12 @@ import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
-import DoughnutChart from '@/components/project/widgets/charts/DoughnutChart'
+import PieChart from '@/components/project/widgets/charts/PieChart'
 
 export default {
   name: 'Top10LanguagesWidget',
   components: {
-    DoughnutChart,
+    PieChart,
     WidgetsLayout,
   },
   props: {

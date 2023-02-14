@@ -39,7 +39,11 @@
       :search-results="numberOfPosts"
     >
       <div class="analytics-menu">
-        <BaseDropdown title="Sort by" id="sortBy" :selected-value="sortValue">
+        <BaseDropdown
+          title="Sort by"
+          name="sort-posts"
+          :selected-value="sortValue"
+        >
           <div
             v-for="(item, index) in sortingList"
             :key="item + index"

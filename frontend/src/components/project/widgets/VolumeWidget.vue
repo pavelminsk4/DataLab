@@ -81,10 +81,10 @@ export default {
     chartDatasets() {
       return [
         {
-          borderColor: '#055FFC',
+          borderColor: '#516BEE',
           pointStyle: 'circle',
           pointRadius: 3,
-          pointBackgroundColor: '#055FFC',
+          pointBackgroundColor: '#516BEE',
           pointBorderWidth: 1,
           pointBorderColor: '#FFFFFF',
           borderWidth: 3,
@@ -94,13 +94,11 @@ export default {
             const canvas = ctx.chart.ctx
             const gradient = canvas.createLinearGradient(0, 0, 0, 460)
 
-            gradient.addColorStop(0, 'rgba(5, 95, 252, 0.5)')
-            gradient.addColorStop(0.5, 'rgba(5, 95, 252, 0.25)')
-            gradient.addColorStop(1, 'rgba(5, 95, 252, 0)')
+            gradient.addColorStop(1, 'rgba(113, 135, 253, 0.1)')
 
             return gradient
           },
-          tension: 0.25,
+          tension: 0.5,
           data: this.volumeValues,
         },
       ]

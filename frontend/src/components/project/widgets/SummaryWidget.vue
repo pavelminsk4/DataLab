@@ -4,17 +4,19 @@
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
   >
-    <div class="summary-widget__container scroll">
+    <div class="summary-widget__container">
       <div
         v-for="(item, index) in widgetMetrics"
         :key="'metrics' + index"
         class="post-item"
       >
-        <div class="title">{{ item.name.toUpperCase() }}</div>
-        <div class="values">
-          <div class="value">{{ item.value }}</div>
-          <div :class="['icon', item?.style]"><PostIcon /></div>
-        </div>
+        <component
+          :is="item.iconName"
+          :style="`background-color: ${item.backgroundColor}`"
+          class="icon"
+        />
+        <div class="title">{{ item.name }}</div>
+        <div class="value">{{ summaryData[item.valueName] }}</div>
       </div>
     </div>
   </WidgetsLayout>
@@ -23,13 +25,31 @@
 <script>
 import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
+import {summaryWidgetConfig} from '@/lib/configs/widgetsConfigs'
 
-import PostIcon from '@/components/icons/PostIcon'
+import NewPostIcon from '@/components/icons/NewPostIcon'
+import NeutralIcon from '@/components/icons/NeutralIcon'
+import NegativeIcon from '@/components/icons/NegativeIcon'
+import PositiveIcon from '@/components/icons/PositiveIcon'
+import SourceIcon from '@/components/icons/SourceIcon'
+import PotentialReachIcon from '@/components/icons/PotentialReachIcon'
+import CountryIcon from '@/components/icons/CountryIcon'
+import AuthorsIcon from '@/components/icons/AuthorsIcon'
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
 
 export default {
   name: 'SummaryWidget',
-  components: {PostIcon, WidgetsLayout},
+  components: {
+    NewPostIcon,
+    NeutralIcon,
+    NegativeIcon,
+    PositiveIcon,
+    SourceIcon,
+    PotentialReachIcon,
+    CountryIcon,
+    AuthorsIcon,
+    WidgetsLayout,
+  },
   props: {
     summaryData: {
       type: [Array, Object],
@@ -44,40 +64,18 @@ export default {
       required: true,
     },
   },
-  created() {
-    if (this.isOpenWidget && !this.summary.length) {
-      this[action.GET_SUMMARY_WIDGET](this.projectId)
-    }
-  },
   computed: {
     ...mapGetters({
       availableWidgets: get.AVAILABLE_WIDGETS,
       summary: get.SUMMARY_WIDGET,
     }),
-    widgetMetrics() {
-      return [
-        {name: 'All posts', value: this.summaryData?.posts},
-        {
-          name: 'Neutral posts',
-          value: this.summaryData?.neut,
-          style: 'neutral',
-        },
-        {
-          name: 'Negative posts',
-          value: this.summaryData?.neg,
-          style: 'negative',
-        },
-        {
-          name: 'Positive posts',
-          value: this.summaryData?.pos,
-          style: 'positive',
-        },
-        {name: 'Sources', value: this.summaryData?.sources},
-        {name: 'Potential reach', value: this.summaryData?.reach},
-        {name: 'Countries', value: this.summaryData?.countries},
-        {name: 'Authors', value: this.summaryData?.authors},
-      ]
-    },
+  },
+  created() {
+    this.widgetMetrics = summaryWidgetConfig
+
+    if (this.isOpenWidget && !this.summary.length) {
+      this[action.GET_SUMMARY_WIDGET](this.projectId)
+    }
   },
   watch: {
     isOpenWidget() {
@@ -96,69 +94,47 @@ export default {
 .summary-widget__container {
   display: flex;
   flex-wrap: wrap;
-  gap: 15px;
-
-  margin-top: 25px;
-
-  overflow: auto;
+  gap: 20px 12px;
 
   .post-item {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 
-    width: 136px;
-    height: 97px;
+    width: 124px;
+    height: 76px;
 
-    padding: 15px 23px 15px 20px;
-
-    background: var(--primary-bg-color);
+    background: var(--background-secondary-color);
     border-radius: 8px;
 
-    .title {
-      font-style: normal;
-      font-weight: 400;
-      font-size: 12px;
-      line-height: 16px;
+    .icon {
+      width: 28px;
+      height: 28px;
+      padding: 6px;
+      margin-bottom: 6px;
+
+      border-radius: 4px;
+
+      color: var(--button-text-color);
     }
 
-    .values {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    .title {
+      margin-bottom: 2px;
 
-      .value {
-        font-style: normal;
-        font-weight: 600;
-        font-size: 1rem;
-        line-height: 38px;
-      }
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+      color: var(--typography-primary-color);
+    }
 
-      .icon {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-        flex-grow: 0;
-
-        width: 22px;
-        height: 22px;
-
-        border-radius: 100%;
-        background-color: var(--button-primary-color);
-      }
-
-      .negative {
-        background-color: var(--negative-status);
-      }
-
-      .positive {
-        background-color: var(--tag-color);
-      }
-
-      .neutral {
-        background-color: var(--neutral-status);
-      }
+    .value {
+      font-style: normal;
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 20px;
+      letter-spacing: 0.2px;
+      color: var(--typography-title-color);
     }
   }
 }
