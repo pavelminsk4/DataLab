@@ -164,6 +164,8 @@ export default {
           },
         })
 
+        this[action.CLEAR_STATE]()
+
         this.showResults()
 
         this[action.GET_WORKSPACES]()
