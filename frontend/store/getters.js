@@ -21,7 +21,7 @@ export default {
   },
 
   [get.DEPARTMENT](state) {
-    return state.userInfo.user_profile.department
+    return state.userInfo?.user_profile.department
   },
 
   [get.CURRENT_STEP](state) {

@@ -1,25 +1,19 @@
 <template>
-  <MainLayout>
-    <SettingsWorkspaceModal
-      v-if="isOpenModal"
-      :currentWorkspace="currentWorkspace"
-      modal-frame-style="width: 510px;"
-      @close="toggleModal"
-      @save-settings="saveSettings"
-    />
+  <MainLayout :is-loading="isLoading || !department" title="Online">
+    <template #titles-item>
+      <OnlineIcon class="online-icon" />
+    </template>
 
-    <div v-if="!isLoading && department">
-      <h1 class="title">
-        <span>Online</span>
-        <OnlineIcon class="online-icon" />
-      </h1>
+    <template #default>
+      <SettingsWorkspaceModal
+        v-if="isOpenModal"
+        :currentWorkspace="currentWorkspace"
+        modal-frame-style="width: 510px;"
+        @close="toggleModal"
+        @save-settings="saveSettings"
+      />
 
-      <div class="create-project-wrapper">
-        <div class="sort-wrapper">
-          <span class="hint">Sort by</span>
-          <div class="sort-option">Latest <SortIcon class="sort-icon" /></div>
-        </div>
-
+      <div class="workspaces-wrapper">
         <BaseButtonWithTooltip
           :is-disabled="isProjectCreationAvailable"
           :has-tooltip="isProjectCreationAvailable"
@@ -29,29 +23,36 @@
         >
           Create new workspace
         </BaseButtonWithTooltip>
+
+        <BaseSpinner v-if="isLoading" class="spinner" />
+
+        <div v-if="!isLoading && workspaces.length">
+          <div class="sort-wrapper">
+            <span class="hint">Sort by</span>
+            <div class="sort-option">Latest <SortIcon class="sort-icon" /></div>
+          </div>
+
+          <div class="items-wrapper scroll">
+            <ProjectItem
+              v-for="(item, index) in sortWorkspaces"
+              :key="index"
+              :title="item.title"
+              :description="item.description"
+              :number-projects="item.projects.length"
+              :id="item.id"
+              :members="item.members"
+              @open-modal="toggleModal(item)"
+              @add-new-project="addNewProject(item.id)"
+              @navigate-to-workspace="navigateToWorkspace(item.id)"
+            />
+          </div>
+        </div>
+
+        <BlankPage v-else page-name="Workspace" />
       </div>
-    </div>
 
-    <BaseSpinner v-if="isLoading" class="spinner" />
-
-    <div v-if="!isLoading && workspaces.length" class="items-wrapper scroll">
-      <ProjectItem
-        v-for="(item, index) in sortWorkspaces"
-        :key="index"
-        :title="item.title"
-        :description="item.description"
-        :number-projects="item.projects.length"
-        :id="item.id"
-        :members="item.members"
-        @open-modal="toggleModal(item)"
-        @add-new-project="addNewProject(item.id)"
-        @navigate-to-workspace="navigateToWorkspace(item.id)"
-      />
-    </div>
-
-    <BlankPage v-else page-name="Workspace" />
-
-    <div class="background-icon"></div>
+      <div class="background-icon"></div>
+    </template>
   </MainLayout>
 </template>
 
@@ -70,7 +71,7 @@ import ProjectItem from '@components/dashboard/ProjectItem'
 import SettingsWorkspaceModal from '@/components/modals/SettingsWorkspaceModal'
 
 export default {
-  name: 'DashboardList',
+  name: 'WorkspacesView',
   components: {
     BaseButtonWithTooltip,
     BaseSpinner,
@@ -98,8 +99,8 @@ export default {
     },
     isProjectCreationAvailable() {
       return (
-        this.department.current_number_of_projects >=
-        this.department.max_projects
+        this.department?.current_number_of_projects >=
+        this.department?.max_projects
       )
     },
   },
@@ -149,44 +150,24 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.create-project-wrapper {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  margin: 16px 0 24px;
-}
-
-.title {
-  margin: 0 0 8px;
-
-  font-weight: 700;
-  font-size: 28px;
-  line-height: 28px;
+.workspaces-wrapper {
+  position: relative;
 }
 
 .online-icon {
   width: 20px;
   height: 20px;
-  margin-left: 8px;
 }
 
 .hint {
   color: var(--typography-secondary-color);
-
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 20px;
 }
 
 .sort-wrapper {
   display: flex;
 
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 20px;
+  margin-bottom: 24px;
+  padding: 8px 0;
 }
 
 .sort-option {
@@ -201,6 +182,10 @@ export default {
 }
 
 .create-new-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+
   width: 180px;
 
   &:hover {
@@ -219,9 +204,13 @@ export default {
 
   overflow: auto;
 
-  max-height: 500px;
+  max-height: 75%;
   padding: 20px 26px;
   margin: -20px -26px;
+
+  @media (max-height: 800px) {
+    max-height: 65%;
+  }
 }
 
 .spinner {
@@ -244,5 +233,9 @@ export default {
 
   background: center / cover no-repeat url(@/assets/Background.svg);
   pointer-events: none;
+
+  @media (max-height: 800px) {
+    height: 66vh;
+  }
 }
 </style>

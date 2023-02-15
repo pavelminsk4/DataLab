@@ -1,57 +1,33 @@
 <template>
-  <table v-if="workspaces" class="table">
-    <thead>
-      <tr>
-        <th class="th-type">TYPE</th>
-        <th class="th-name">NAME</th>
-        <th class="th-keywords">KEYWORDS</th>
-        <th class="th-creator">CREATOR</th>
-        <th class="th-assigned-user">ASSIGNED USERS</th>
-        <th class="th-date">DATE</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr
-        v-for="(item, index) in values"
-        :key="index"
-        @click="goToProject(item.id)"
-      >
-        <td>
-          <div class="type">
-            <component class="type-icon" :is="item.source + 'RadioIcon'" />
-            {{ item.source }}
-          </div>
-        </td>
-        <td>{{ item.title }}</td>
-        <td>
-          <TagsCollapsible v-if="item.keywords.length" :tags="item.keywords" />
-        </td>
-        <td>
-          <div class="creator">
-            <img
-              :src="currentMember(item.creator).user_profile.photo"
-              class="cart-image"
-            />
-            <div>{{ currentMember(item.creator).username }}</div>
-          </div>
-        </td>
-        <td>
-          <MembersIconsBar :members="projectMembers(item.members)" />
-        </td>
-        <td>{{ projectCreationDate(item.created_at) }}</td>
-        <td>
-          <BaseTooltipSettings :id="item.id">
-            <div
-              @click.stop="toggleDeleteModal(item.title, item.id)"
-              class="tooltip-item"
-            >
-              <DeleteIcon />Delete
-            </div>
-          </BaseTooltipSettings>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <BaseTable v-if="workspaces" :table-header="tableHeader">
+    <TableRow
+      v-for="(item, index) in values"
+      :key="index"
+      v-model="selectedProjects[`project${item.id}`]"
+      @delete-project="toggleDeleteModal(item.title, item.id)"
+      @click="goToProject(item.id)"
+    >
+      <td class="td_name">{{ item.title }}</td>
+      <td>
+        <TagsCollapsible v-if="item.keywords.length" :tags="item.keywords" />
+      </td>
+      <td>
+        <div class="creator">
+          <img
+            :src="currentMember(item.creator)?.user_profile.photo"
+            class="cart-image"
+          />
+          <div>{{ currentMember(item.creator).username }}</div>
+        </div>
+      </td>
+      <td>
+        <MembersIconsBar :members="projectMembers(item.members)" />
+      </td>
+      <td class="project-creation-date">
+        {{ projectCreationDate(item.created_at) }}
+      </td>
+    </TableRow>
+  </BaseTable>
 
   <AreYouSureModal
     v-if="isOpenDeleteModal"
@@ -65,29 +41,20 @@
 import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
-import CheckRadioIcon from '@/components/icons/CheckIcon'
-import OnlineIcon from '@/components/icons/OnlineIcon'
-import PremiumRadioIcon from '@/components/icons/PremiumRadioIcon'
-import SocialRadioIcon from '@/components/icons/SocialRadioIcon'
-
 import MembersIconsBar from '@components/MembersIconsBar.vue'
 import TagsCollapsible from '@components/TagsCollapsible.vue'
-import BaseTooltipSettings from '@/components/BaseTooltipSettings'
-import DeleteIcon from '@/components/icons/DeleteIcon'
 import AreYouSureModal from '@/components/modals/AreYouSureModal'
+import BaseTable from '@components/BaseTable'
+import TableRow from '@components/TableRow'
 
 export default {
   name: 'ProjectsTable',
   components: {
     AreYouSureModal,
-    DeleteIcon,
-    BaseTooltipSettings,
-    CheckRadioIcon,
     MembersIconsBar,
-    OnlineIcon,
-    PremiumRadioIcon,
     TagsCollapsible,
-    SocialRadioIcon,
+    BaseTable,
+    TableRow,
   },
   emits: ['go-to-project'],
   props: {
@@ -98,7 +65,7 @@ export default {
   },
   data() {
     return {
-      selectedProjects: [],
+      selectedProjects: {},
       isOpenSettings: false,
       isOpenDeleteModal: false,
       projectId: '',
@@ -119,6 +86,15 @@ export default {
     members() {
       return this.currentWorkspace.members
     },
+  },
+  created() {
+    this.tableHeader = [
+      {name: 'project name', width: ''},
+      {name: 'keywords', width: '20%'},
+      {name: 'creator', width: '16%'},
+      {name: 'assigned user', width: '11%'},
+      {name: 'date', width: '11%'},
+    ]
   },
   methods: {
     ...mapActions([action.DELETE_PROJECT]),
@@ -151,116 +127,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.table {
-  width: 100%;
-
-  border-collapse: separate;
-  border-spacing: 0;
-
-  cursor: pointer;
-
-  .th-type {
-    width: 13%;
-  }
-  .th-name {
-    width: 16%;
-  }
-  .th-keywords {
-    width: 20%;
-  }
-  .th-creator {
-    width: 16%;
-  }
-  .th-assigned-user {
-    width: 11%;
-  }
-  .th-date {
-    width: 11%;
-  }
-
-  thead {
-    tr {
-      th {
-        padding-bottom: 10px;
-
-        text-align: left;
-
-        font-style: normal;
-        font-weight: 400;
-        font-size: 10px;
-        line-height: 20px;
-        color: var(--typography-secondary-color);
-      }
-
-      th:first-child {
-        padding: 0 0 0 29px;
-      }
-    }
-  }
-
-  tbody {
-    tr {
-      background: var(--secondary-bg-color);
-
-      &:hover {
-        background: var(--hover-circle-gradient);
-        background-size: 200%;
-        animation: var(--animation-hover-gradient);
-        -webkit-animation: var(--animation-hover-gradient);
-      }
-
-      td {
-        padding: 20px 5px;
-
-        border-top: 1px solid var(--border-color);
-
-        font-style: normal;
-        font-weight: 400;
-        font-size: 14px;
-        line-height: 20px;
-        color: var(--typography-primary-color);
-        word-break: break-word;
-
-        &:first-child {
-          padding: 15px 5px 15px 29px;
-
-          border-left: 1px solid var(--border-color);
-        }
-
-        &:last-child {
-          border-right: 1px solid var(--border-color);
-        }
-      }
-    }
-
-    tr:first-child td {
-      &:first-child {
-        border-left: 1px solid var(--border-color);
-        border-top-left-radius: 15px;
-      }
-      &:last-child {
-        border-right: 1px solid var(--border-color);
-        border-top-right-radius: 15px;
-      }
-    }
-
-    tr:last-child td {
-      border-bottom: 1px solid var(--border-color);
-
-      &:first-child {
-        border-left: 1px solid var(--border-color);
-        border-bottom: 1px solid var(--border-color);
-        border-bottom-left-radius: 15px;
-      }
-      &:last-child {
-        border-right: 1px solid var(--border-color);
-        border-bottom: 1px solid var(--border-color);
-        border-bottom-right-radius: 15px;
-      }
-    }
-  }
-}
-
 .checkmark {
   position: absolute;
   top: 0;
@@ -322,5 +188,9 @@ export default {
   &:hover {
     color: var(--button-primary-color);
   }
+}
+
+.project-creation-date {
+  font-weight: 600;
 }
 </style>

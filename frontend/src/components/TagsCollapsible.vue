@@ -65,13 +65,13 @@ export default {
   padding: 2px 12px;
   margin-bottom: 6px;
 
-  border-radius: 8px;
-  background: rgba(51, 204, 112, 0.2);
+  border-radius: 2px 12px 12px 2px;
+  background: var(--neutral-secondary-color);
 
   font-weight: 400;
   font-size: 14px;
 
-  color: #30f47e;
+  color: var(--neutral-primary-color);
 
   &:not(:last-child) {
     margin-right: 6px;
@@ -94,13 +94,8 @@ export default {
   height: 30px;
   margin-bottom: 6px;
 
-  border-radius: 50%;
-  border: 1px dashed #5c6e80;
-
-  font-style: normal;
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 16px;
-  color: #5c6e80;
+  font-weight: 500;
+  font-size: 10px;
+  color: var(--typography-title-color);
 }
 </style>

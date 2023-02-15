@@ -1,22 +1,19 @@
 <template>
-  <MainLayout>
-    <div v-if="workspace" class="create-project-wrapper">
-      <div>
-        <div class="back-button" @click="backToPage">
-          <ArrowLeftIcon class="arrow-back" />
-          <span>Back to dashboard</span>
-        </div>
-        <h1 class="title">{{ workspace.title }}</h1>
-        <span class="hint">
-          Select the project you want to work on or create a new search
-        </span>
+  <MainLayout
+    :is-loading="!workspace?.title"
+    :title="workspace?.title"
+    description="
+            Select the project you want to work on or create a new search"
+    :back-page="{
+      name: 'main page',
+      routName: 'Home',
+    }"
+  >
+    <template #titles-item>
+      <OnlineIcon class="online-icon" />
+    </template>
 
-        <div class="sort-wrapper">
-          <span class="hint">Sort by</span>
-          <div class="sort-option">Latest <SortIcon class="sort-icon" /></div>
-        </div>
-      </div>
-
+    <template #default>
       <BaseButtonWithTooltip
         :is-disabled="isProjectCreationAvailable"
         :has-tooltip="isProjectCreationAvailable"
@@ -26,12 +23,17 @@
       >
         Create new project
       </BaseButtonWithTooltip>
-    </div>
 
-    <ProjectsTable
-      @go-to-project="goToProjectSettings"
-      :values="workspace?.projects"
-    />
+      <div class="sort-wrapper">
+        <span class="hint">Sort by</span>
+        <div class="sort-option">Latest <SortIcon class="sort-icon" /></div>
+      </div>
+
+      <ProjectsTable
+        @go-to-project="goToProjectSettings"
+        :values="workspace?.projects"
+      />
+    </template>
   </MainLayout>
 </template>
 
@@ -40,19 +42,19 @@ import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
 import SortIcon from '@components/icons/SortIcon'
+import OnlineIcon from '@components/icons/OnlineIcon'
 
 import MainLayout from '@components/layout/MainLayout'
 import ProjectsTable from '@/components/ProjectsTable'
-import ArrowLeftIcon from '@/components/icons/ArrowLeftIcon'
 import BaseButtonWithTooltip from '@/components/BaseButtonWithTooltip'
 
 export default {
   name: 'WorkspaceView',
   components: {
     BaseButtonWithTooltip,
-    ArrowLeftIcon,
-    ProjectsTable,
     MainLayout,
+    OnlineIcon,
+    ProjectsTable,
     SortIcon,
   },
   computed: {
@@ -69,14 +71,14 @@ export default {
     },
     isProjectCreationAvailable() {
       return (
-        this.department.current_number_of_projects >=
-        this.department.max_projects
+        this.department?.current_number_of_projects >=
+        this.department?.max_projects
       )
     },
   },
-  created() {
+  async created() {
     if (!this.workspaces.length) {
-      this[action.GET_WORKSPACES]()
+      await this[action.GET_WORKSPACES]()
     }
 
     this[action.CLEAR_STATE]()
@@ -97,72 +99,25 @@ export default {
         },
       })
     },
-
-    backToPage() {
-      this.$router.push({
-        name: 'Home',
-      })
-    },
   },
 }
 </script>
 
 <style lang="scss" scoped>
-.create-project-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.back-button {
-  margin-bottom: 15px;
-  max-width: fit-content;
-
-  cursor: pointer;
-
-  color: var(--typography-secondary-color);
-  font-size: 14px;
-
-  .arrow-back {
-    margin-right: 5px;
-  }
-
-  &:hover {
-    color: var(--button-primary-color);
-  }
-}
-
-.title {
-  margin: 0 0 8px;
-
-  color: var(--typography-primary-color);
-
-  font-style: normal;
-  font-weight: 600;
-  font-size: 36px;
-  line-height: 42px;
-}
-
-.hint {
-  color: var(--typography-secondary-color);
-
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 20px;
+.online-icon {
+  width: 20px;
+  height: 20px;
 }
 
 .sort-wrapper {
   display: flex;
 
-  margin: 34px 0 22px;
+  margin-bottom: 22px;
+  padding: 8px 0;
+}
 
-  color: var(--typography-primary-color);
-
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 20px;
+.hint {
+  color: var(--typography-secondary-color);
 }
 
 .sort-option {
@@ -177,6 +132,10 @@ export default {
 }
 
 .create-new-button {
+  position: absolute;
+  top: 76px;
+  right: 28px;
+
   width: 178px;
 }
 </style>
