@@ -42,13 +42,6 @@ export default {
       },
     },
   },
-  methods: {
-    onChange(val) {
-      console.log(val)
-      this.isSelectedProxy = val
-      event.stopPropagation()
-    },
-  },
 }
 </script>
 

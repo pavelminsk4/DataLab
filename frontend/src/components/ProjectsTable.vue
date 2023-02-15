@@ -5,6 +5,7 @@
       :key="index"
       v-model="selectedProjects[`project${item.id}`]"
       @delete-project="toggleDeleteModal(item.title, item.id)"
+      @click="goToProject(item.id)"
     >
       <td class="td_name">{{ item.title }}</td>
       <td>
@@ -13,7 +14,7 @@
       <td>
         <div class="creator">
           <img
-            :src="currentMember(item.creator).user_profile.photo"
+            :src="currentMember(item.creator)?.user_profile.photo"
             class="cart-image"
           />
           <div>{{ currentMember(item.creator).username }}</div>
@@ -27,8 +28,6 @@
       </td>
     </TableRow>
   </BaseTable>
-
-  {{ selectedProjects }}
 
   <AreYouSureModal
     v-if="isOpenDeleteModal"
@@ -90,7 +89,7 @@ export default {
   },
   created() {
     this.tableHeader = [
-      {name: 'name', width: ''},
+      {name: 'project name', width: ''},
       {name: 'keywords', width: '20%'},
       {name: 'creator', width: '16%'},
       {name: 'assigned user', width: '11%'},

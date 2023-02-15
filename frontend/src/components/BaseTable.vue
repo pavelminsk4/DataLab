@@ -10,7 +10,7 @@
         >
           {{ capitalizeFirstLetter(item.name) }}
         </th>
-        <th style="width: 80px"></th>
+        <th style="width: 80px">Actions</th>
       </tr>
     </thead>
     <tbody>

@@ -97,6 +97,7 @@ body {
   background-color: var(--background-primary-color);
   background-size: 919px 100%;
 
+  font-size: 14px;
   color: var(--typography-primary-color);
 }
 
