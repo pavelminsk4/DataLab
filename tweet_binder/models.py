@@ -61,6 +61,20 @@ class TweetBinderProject(models.Model):
   created_at = models.DateTimeField(auto_now_add=True)
   limit = models.IntegerField(blank=True, null=True, default=10)
   keyword = models.CharField(max_length=100, blank=False, null=False)
+  start_date = models.DateTimeField(blank=True, null=True)
+  end_date = models.DateTimeField(blank=True, null=True)
+  
+  BASIC_SEARCH = 'basic search'
+  HISTORICAL_SEARCH = 'historical search'
+  LIVE_SEARCH =  'live search'
+ 
+  TYPE_SEARCH = (
+    (BASIC_SEARCH, 'Basic search'),
+    (HISTORICAL_SEARCH, 'Historical search'),
+    (LIVE_SEARCH, 'Live search'),
+  )
+  
+  search_type = models.CharField(max_length=30, choices=TYPE_SEARCH, blank=True, null=True, default=TYPE_SEARCH[0][1])
 
   def __str__(self):
       return self.title
