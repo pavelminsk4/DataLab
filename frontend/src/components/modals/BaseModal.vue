@@ -12,7 +12,7 @@
         </button>
         <div class="base-modal-body scroll">
           <div class="title">{{ title }}</div>
-          <div class="content">
+          <div :class="[isGeneralPadding && 'content']">
             <slot></slot>
           </div>
         </div>
@@ -32,6 +32,7 @@ export default {
     closeIconClass: {type: String, default: ''},
     modalFrameStyle: {type: String, default: ''},
     title: {type: String, default: ''},
+    isGeneralPadding: {type: Boolean, default: true},
   },
   created() {
     document.addEventListener('keydown', this.pressedEsc)
@@ -93,7 +94,7 @@ export default {
 }
 
 .title {
-  padding: 35px 24px 10px;
+  padding: 12px 24px;
 
   border-bottom: 1px solid var(--border-color);
 

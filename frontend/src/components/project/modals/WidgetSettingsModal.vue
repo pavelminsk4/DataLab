@@ -1,21 +1,25 @@
 <template>
-  <BaseModal modal-frame-style="width: 90vw; height: 80vh;">
-    <div class="main-title">{{ generalWidgetData.title }}</div>
-
+  <BaseModal
+    modal-frame-style="width: 75vw; height: 90vh;"
+    :title="generalWidgetData.title"
+    :is-general-padding="false"
+  >
     <div class="settings-wrapper">
-      <section v-if="isChartsShow" class="chart-wrapper">
-        <div class="chart-title">Content Volume</div>
-        <LineChart
-          v-if="isLineChart"
-          :custom-chart-data="chartData"
-          :is-display-legend="false"
+      <div class="preview-section">
+        <div class="chart-title">
+          {{ generalWidgetData.title }}
+        </div>
+
+        <component
+          :is="snakeToPascal(widgetName)"
+          :volume="widgetData"
+          :chart-type="newChartType || chartType"
+          :is-general-widget="false"
+          :project-id="projectId"
         />
-        <BarChart
-          v-else
-          :chart-values="volumeValue"
-          :chart-labels="volumeLabels"
-        />
-      </section>
+
+        {{ snakeToPascal(widgetName) }}
+      </div>
 
       <div class="general-wrapper-settings">
         <SettingsButtons @update-setting-panel="updateSettingPanel" />
@@ -39,6 +43,11 @@
           :widget-language="generalWidgetData.language_dim_pivot"
           @save-dimensions-settings="saveDimensions"
         />
+
+        <ChartTypesRadio
+          v-if="panelName === 'Chart Layout'"
+          @update-chart-type="updateChartType"
+        />
       </div>
     </div>
   </BaseModal>
@@ -47,23 +56,28 @@
 <script>
 import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
+import {snakeToPascal} from '@/lib/utilities'
 
 import BaseModal from '@/components/modals/BaseModal'
-import BarChart from '@/components/project/widgets/charts/BarChart'
-import LineChart from '@/components/project/widgets/charts/LineChart'
 import SettingsButtons from '@/components/project/widgets/modals/SettingsButtons'
 import DimensionsScreen from '@/components/project/widgets/modals/screens/DimensionsScreen'
 import BasicSettingsScreen from '@/components/project/widgets/modals/screens/BasicSettingsScreen'
+import VolumeWidget from '@/components/project/widgets/VolumeWidget'
+import Top10LanguagesWidget from '@/components/project/widgets/Top10LanguagesWidget'
+import Top10AuthorsByVolumeWidget from '@/components/project/widgets/Top10AuthorsByVolumeWidget'
+import ChartTypesRadio from '@/components/project/widgets/modals/screens/ChartTypesRadio'
 
 export default {
   name: 'WidgetSettingsModal',
   components: {
-    BarChart,
-    LineChart,
+    ChartTypesRadio,
     BaseModal,
+    VolumeWidget,
     SettingsButtons,
     DimensionsScreen,
     BasicSettingsScreen,
+    Top10LanguagesWidget,
+    Top10AuthorsByVolumeWidget,
   },
   props: {
     widgetName: {
@@ -90,10 +104,15 @@ export default {
       type: Boolean,
       default: true,
     },
+    chartType: {
+      type: String,
+      required: false,
+    },
   },
   data() {
     return {
       panelName: 'General',
+      newChartType: '',
     }
   },
   computed: {
@@ -102,51 +121,6 @@ export default {
     }),
     generalWidgetData() {
       return this.widgets[this.widgetName]
-    },
-    volumeData() {
-      return Object.values(this.widgetData)
-    },
-    volumeLabels() {
-      return this.volumeData.map((el) => this.formatDate(el.date))
-    },
-    volumeValue() {
-      return this.volumeData.map((el) => el.created_count)
-    },
-    isLineChart() {
-      return this.volumeValue?.length > 7
-    },
-    chartDatasets() {
-      return [
-        {
-          borderColor: '#055FFC',
-          pointStyle: 'circle',
-          pointRadius: 3,
-          pointBackgroundColor: '#055FFC',
-          pointBorderWidth: 1,
-          pointBorderColor: '#FFFFFF',
-          borderWidth: 3,
-          radius: 0.3,
-          fill: true,
-          backgroundColor: (ctx) => {
-            const canvas = ctx.chart.ctx
-            const gradient = canvas.createLinearGradient(0, 0, 0, 460)
-
-            gradient.addColorStop(0, 'rgba(5, 95, 252, 0.5)')
-            gradient.addColorStop(0.5, 'rgba(5, 95, 252, 0.25)')
-            gradient.addColorStop(1, 'rgba(5, 95, 252, 0)')
-
-            return gradient
-          },
-          tension: 0.25,
-          data: this.volumeValue,
-        },
-      ]
-    },
-    chartData() {
-      return {
-        labels: this.volumeLabels,
-        datasets: this.chartDatasets,
-      }
     },
   },
   methods: {
@@ -169,6 +143,7 @@ export default {
       action.GET_CONTENT_VOLUME_TOP_COUNTRIES,
       action.GET_CONTENT_VOLUME_TOP_SOURCES,
     ]),
+    snakeToPascal,
     formatDate(date) {
       return new Date(date).toLocaleString('en-US', {
         month: 'short',
@@ -253,52 +228,52 @@ export default {
       this[action.GET_AVAILABLE_WIDGETS](this.projectId)
       this.$emit('close')
     },
+    updateChartType(item) {
+      this.newChartType = item
+    },
   },
 }
 </script>
 
 <style lang="scss" scoped>
-.main-title {
-  margin-bottom: 25px;
-
-  font-style: normal;
-  font-weight: 600;
-  font-size: 36px;
-  line-height: 54px;
-}
-
-.general-wrapper-settings {
-  flex: 1;
-}
-
 .settings-wrapper {
   display: flex;
   gap: 52px;
 
-  height: 350px;
+  height: 100%;
   min-width: 100%;
 
-  .chart-wrapper {
-    display: flex;
-    flex-direction: column;
+  background-color: var(--background-primary-color);
+
+  .preview-section {
     flex: 1;
 
-    padding: 18px 50px 34px 26px;
-
-    background: #242529;
-    border: 1px solid var(--border-color);
-    box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
-    border-radius: 10px;
+    height: fit-content;
 
     .chart-title {
-      margin-bottom: 25px;
+      padding: 12px 20px;
+
+      border-bottom: 1px solid var(--border-color);
 
       font-style: normal;
       font-weight: 500;
-      font-size: 14px;
-      line-height: 110%;
-      color: var(--typography-primary-color);
+      font-size: 18px;
+      line-height: 20px;
+      color: var(--typography-title-color);
     }
+
+    box-shadow: 1px 4px 16px rgba(135, 135, 135, 0.2);
+    border-radius: 8px;
+    background: var(--background-secondary-color);
+  }
+
+  .general-wrapper-settings {
+    flex: 0.7;
+
+    padding: 24px;
+    height: 100%;
+
+    background-color: var(--background-secondary-color);
   }
 }
 </style>

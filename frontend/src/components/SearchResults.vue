@@ -196,7 +196,7 @@ export default {
     close({target}) {
       const selectList = document.querySelector('.calendar-wrapper')
 
-      if (!selectList.contains(target)) {
+      if (!selectList?.contains(target)) {
         this[action.REFRESH_DISPLAY_CALENDAR](false)
       }
     },

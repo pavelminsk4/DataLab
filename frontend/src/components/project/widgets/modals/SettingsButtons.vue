@@ -26,7 +26,7 @@ export default {
   data() {
     return {
       panelSettingsName: 'General',
-      mainSettings: ['General', 'Dimensions'],
+      mainSettings: ['General', 'Dimensions', 'Chart Layout'],
     }
   },
   methods: {
@@ -41,30 +41,30 @@ export default {
 <style lang="scss" scoped>
 .wrapper-button {
   display: flex;
+  justify-content: space-between;
+  gap: 2px;
 
-  padding-bottom: -10px;
+  padding: 4px;
 
-  border-bottom: 1px solid var(--input-border-color);
+  background: var(--background-secondary-color);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
 
   cursor: pointer;
 
   .general-button {
-    margin-right: 40px;
+    padding: 4px 38px;
 
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 22px;
-
-    color: rgba(255, 255, 255, 0.8);
+    &:hover {
+      color: var(--button-text-color);
+      background: var(--primary-hover-color);
+      border-radius: 10px;
+    }
   }
 
   .general-button-active {
-    padding-bottom: 10px;
-
-    border-bottom: 1px solid var(--button-primary-color);
-
-    color: var(--typography-primary-color);
+    background: var(--primary-active-color);
+    border-radius: 10px;
   }
 }
 </style>
