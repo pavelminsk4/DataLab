@@ -142,7 +142,7 @@ export default {
   padding: 16px 21px 13px 18px;
 
   background: var(--background-secondary-color);
-  border: 1px solid var(--border-color);
+  border: var(--border-primary);
   border-radius: 8px;
   box-shadow: 1px 4px 16px rgba(135, 135, 135, 0.2);
 

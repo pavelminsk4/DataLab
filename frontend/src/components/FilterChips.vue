@@ -46,7 +46,7 @@ export default {
     padding: 6px 12px;
 
     background: var(--button-secondary-hover-color);
-    border: 1px solid var(--border-color);
+    border: var(--border-primary);
     border-radius: 12px;
 
     font-style: normal;

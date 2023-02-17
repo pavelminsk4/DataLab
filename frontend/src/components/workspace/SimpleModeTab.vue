@@ -159,7 +159,7 @@ export default {
   padding: 16px;
   margin-top: 20px;
 
-  border-top: 1px solid var(--border-color);
+  border-top: var(--border-primary);
   background-color: var(--background-primary-color);
 
   .apply-settings {

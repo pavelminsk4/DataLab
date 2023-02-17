@@ -175,7 +175,7 @@ export default {
   width: 100%;
   padding: 4px 8px;
 
-  border: 1px solid var(--border-color);
+  border: var(--border-primary);
   border-radius: 10px;
   background: var(--background-secondary-color);
 

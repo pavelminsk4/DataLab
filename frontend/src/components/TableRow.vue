@@ -87,6 +87,6 @@ tr {
 
   width: calc(100% - 5px);
 
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: var(--border-primary);
 }
 </style>

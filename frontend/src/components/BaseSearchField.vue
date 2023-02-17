@@ -145,7 +145,7 @@ export default {
 .selector {
   position: relative;
 
-  border: 1px solid var(--border-color);
+  border: var(--border-primary);
   border-radius: 10px;
   background: var(--background-secondary-color);
 

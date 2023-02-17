@@ -314,7 +314,7 @@ export default {
     padding: 10px 16px;
 
     background: var(--primary-chips-background-color);
-    border: 1px solid var(--border-color);
+    border: var(--border-primary);
     border-radius: 10px;
 
     white-space: nowrap;

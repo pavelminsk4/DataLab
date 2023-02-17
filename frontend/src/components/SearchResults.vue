@@ -254,7 +254,7 @@ export default {
   right: 0;
   top: 0;
 
-  border-left: 1px solid var(--border-color);
+  border-left: var(--border-primary);
 
   min-height: 100vh;
   width: 45vw;
@@ -364,7 +364,7 @@ export default {
     height: 20px;
 
     background: var(--background-secondary-color);
-    border: 1px solid var(--border-color);
+    border: var(--border-primary);
     border-radius: 6px;
 
     color: var(--typography-title-color);
@@ -387,7 +387,7 @@ export default {
     height: 22px;
 
     background: var(--primary-active-color);
-    border: 1px solid var(--border-color);
+    border: var(--border-primary);
     border-radius: 6px;
 
     color: var(--typography-primary-color);

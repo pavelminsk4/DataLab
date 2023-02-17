@@ -8,6 +8,7 @@ import CreateWorkspaceView from '@/components/workspace/CreateWorkspaceView'
 import CreateSearchScreen from '@/components/workspace/screens/CreateSearchScreen'
 import CreateProjectScreen from '@/components/workspace/screens/CreateProjectScreen'
 import CreateWorkspaceScreen from '@/components/workspace/screens/CreateWorkspaceScreen'
+import CreateWorkspaceRightSide from '@/components/workspace/CreateWorkspaceRightSide'
 
 import UserRolesScreen from '@/components/settings/UserRolesScreen'
 import ProjectExtraSettingsView from '@/components/project/ProjectExtraSettingsView'
@@ -39,27 +40,39 @@ export const routes = [
       {
         name: 'Step1',
         path: 'step1',
-        component: CreateWorkspaceScreen,
+        components: {
+          default: CreateWorkspaceScreen,
+          secondColumn: CreateWorkspaceRightSide,
+        },
+        props: {secondColumn: {step: 'step1'}},
       },
       {
         name: 'Step2',
         path: 'step2',
-        component: CreateProjectScreen,
+        components: {
+          default: CreateProjectScreen,
+          secondColumn: CreateWorkspaceRightSide,
+        },
         beforeEnter: (to, from, next) => {
           if (to.name !== store.state.currentStep) return next({name: 'Step1'})
 
           return next()
         },
+        props: {secondColumn: {step: 'step2'}},
       },
       {
         name: 'Step3',
         path: 'step3',
-        component: CreateSearchScreen,
+        components: {
+          default: CreateSearchScreen,
+          secondColumn: CreateWorkspaceRightSide,
+        },
         beforeEnter: (to, from, next) => {
           if (to.name !== store.state.currentStep) return next({name: 'Step1'})
 
           return next()
         },
+        props: {secondColumn: {step: 'step3'}},
       },
     ],
   },

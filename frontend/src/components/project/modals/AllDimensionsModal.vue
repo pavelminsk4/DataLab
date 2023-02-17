@@ -311,7 +311,7 @@ export default {
   .item {
     padding: 6px 12px;
 
-    border: 1px solid var(--border-color);
+    border: var(--border-primary);
     border-radius: 12px;
 
     cursor: pointer;
