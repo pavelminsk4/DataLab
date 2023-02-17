@@ -31,7 +31,7 @@ app.conf.beat_schedule = {
   },
   'tweet-binder-task-crontab': {
     'task': 'tweet_binder.tasks.update_all_projects',
-    'schedule': crontab(hour='*', minute='*', day_of_week='*'),
+    'schedule': crontab(hour='*/12', minute='*', day_of_week='*'),
     'args': (),
   },
 }

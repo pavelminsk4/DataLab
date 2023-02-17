@@ -115,5 +115,3 @@ def update_all_projects():
         end_date = project.end_date
         if project.search_type == 'basic search':
             basic_search_type(keyword, limit)
-        elif project.search_type == 'historical search':
-            historical_search_type(keyword, limit, start_date, end_date)
