@@ -29,12 +29,12 @@ import {
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 
 export default {
-  name: 'PatternsBarChart',
+  name: 'SentimentBarChart',
   components: {
     Bar,
   },
   props: {
-    chartLabels: {
+    labels: {
       type: Array,
       default: () => [],
     },
@@ -125,7 +125,7 @@ export default {
     },
     chartData() {
       return {
-        labels: this.chartLabels,
+        labels: this.labels,
         datasets: [
           {
             label: 'Neutral',

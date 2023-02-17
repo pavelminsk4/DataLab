@@ -5,7 +5,10 @@
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
   >
-    <LineChart :widget-data="contentVolumeTopCountries" class="line-chart" />
+    <ChartsView
+      :widget-data="contentVolumeTopCountries"
+      :chart-type="chartType"
+    />
   </WidgetsLayout>
 </template>
 
@@ -14,11 +17,11 @@ import {action, get} from '@store/constants'
 import {mapActions, mapGetters} from 'vuex'
 
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
-import LineChart from '@/components/project/widgets/charts/LineChart'
+import ChartsView from '@/components/project/widgets/charts/ChartsView'
 
 export default {
   name: 'ContentVolumeTop5CountriesWidget',
-  components: {LineChart, WidgetsLayout},
+  components: {ChartsView, WidgetsLayout},
   props: {
     projectId: {
       type: [Number, String],
@@ -28,6 +31,15 @@ export default {
       type: [Array, Object],
       default: () => [],
     },
+    chartType: {
+      type: String,
+      required: true,
+    },
+  },
+  computed: {
+    ...mapGetters({
+      contentVolumeTopCountries: get.CONTENT_VOLUME_TOP_COUNTRIES,
+    }),
   },
   created() {
     this[action.GET_CONTENT_VOLUME_TOP_COUNTRIES]({
@@ -53,11 +65,6 @@ export default {
             .aggregation_period,
       },
     })
-  },
-  computed: {
-    ...mapGetters({
-      contentVolumeTopCountries: get.CONTENT_VOLUME_TOP_COUNTRIES,
-    }),
   },
   methods: {
     ...mapActions([action.GET_CONTENT_VOLUME_TOP_COUNTRIES]),

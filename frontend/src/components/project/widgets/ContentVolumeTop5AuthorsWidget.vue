@@ -5,7 +5,11 @@
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
   >
-    <LineChart :widget-data="contentVolumeTopAuthors" class="line-chart" />
+    <ChartsView
+      :chart-type="chartType"
+      :widget-data="contentVolumeTopAuthors"
+      class="line-chart"
+    />
   </WidgetsLayout>
 </template>
 
@@ -14,11 +18,11 @@ import {action, get} from '@store/constants'
 import {mapActions, mapGetters} from 'vuex'
 
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
-import LineChart from '@/components/project/widgets/charts/LineChart'
+import ChartsView from '@/components/project/widgets/charts/ChartsView'
 
 export default {
   name: 'ContentVolumeTop5AuthorsWidget',
-  components: {LineChart, WidgetsLayout},
+  components: {ChartsView, WidgetsLayout},
   props: {
     projectId: {
       type: [Number, String],
@@ -27,6 +31,10 @@ export default {
     widgets: {
       type: [Array, Object],
       default: () => [],
+    },
+    chartType: {
+      type: String,
+      required: true,
     },
   },
   created() {

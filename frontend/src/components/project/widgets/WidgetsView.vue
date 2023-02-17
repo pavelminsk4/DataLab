@@ -52,6 +52,7 @@
           :is-open-widget="item.isShow"
           :widgets="availableWidgets"
           :current-project="currentProject"
+          :chart-type="item.chartType"
           @delete-widget="deleteWidget(item.name)"
           @open-settings-modal="openModal(item)"
         />
@@ -163,6 +164,9 @@ export default {
                 isWidget: true,
                 actionName: this.elementsValue[widgetName].actionName,
                 isChartShow: this.elementsValue[widgetName].isChartShow,
+                chartType:
+                  this.availableWidgets[widgetName]?.chart_type ||
+                  modalWidgetsConfig[widgetName]?.chartType,
                 hasAggregationPeriod:
                   this.elementsValue[widgetName].hasAggregationPeriod,
               })

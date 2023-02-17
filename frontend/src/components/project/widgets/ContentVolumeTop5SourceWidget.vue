@@ -5,7 +5,10 @@
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
   >
-    <LineChart :widget-data="contentVolumeTopSources" class="line-chart" />
+    <ChartsView
+      :widget-data="contentVolumeTopSources"
+      :chart-type="chartType"
+    />
   </WidgetsLayout>
 </template>
 
@@ -14,11 +17,11 @@ import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
-import LineChart from '@/components/project/widgets/charts/LineChart'
+import ChartsView from '@/components/project/widgets/charts/ChartsView'
 
 export default {
   name: 'ContentVolumeTop5SourceWidget',
-  components: {LineChart, WidgetsLayout},
+  components: {ChartsView, WidgetsLayout},
   props: {
     projectId: {
       type: [Number, String],
@@ -28,6 +31,15 @@ export default {
       type: [Array, Object],
       default: () => [],
     },
+    chartType: {
+      type: String,
+      required: true,
+    },
+  },
+  computed: {
+    ...mapGetters({
+      contentVolumeTopSources: get.CONTENT_VOLUME_TOP_SOURCES,
+    }),
   },
   created() {
     this[action.GET_CONTENT_VOLUME_TOP_SOURCES]({
@@ -52,11 +64,6 @@ export default {
           this.widgets['content_volume_top_5_source_widget'].aggregation_period,
       },
     })
-  },
-  computed: {
-    ...mapGetters({
-      contentVolumeTopSources: get.CONTENT_VOLUME_TOP_SOURCES,
-    }),
   },
   methods: {
     ...mapActions([action.GET_CONTENT_VOLUME_TOP_SOURCES]),

@@ -33,11 +33,11 @@ export default {
     Bar,
   },
   props: {
-    chartValues: {
+    values: {
       type: Array,
       default: () => [],
     },
-    chartLabels: {
+    labels: {
       type: Array,
       default: () => [],
     },
@@ -118,9 +118,10 @@ export default {
   computed: {
     chartData() {
       return {
-        labels: this.chartLabels,
+        labels: this.labels,
         datasets: [
           {
+            label: 'lol',
             borderColor: '#055FFC',
             pointStyle: 'circle',
             borderWidth: 0,
@@ -138,7 +139,7 @@ export default {
               return gradient
             },
             tension: 0.25,
-            data: this.chartValues,
+            data: this.values,
           },
         ],
       }

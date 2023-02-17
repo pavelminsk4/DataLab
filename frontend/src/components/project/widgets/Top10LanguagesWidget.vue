@@ -4,7 +4,7 @@
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
   >
-    <PieChart :labels="labels" :values="values" />
+    <ChartsView :labels="labels" :values="values" :chart-type="chartType" />
   </WidgetsLayout>
 </template>
 
@@ -13,17 +13,21 @@ import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
-import PieChart from '@/components/project/widgets/charts/PieChart'
+import ChartsView from '@/components/project/widgets/charts/ChartsView'
 
 export default {
   name: 'Top10LanguagesWidget',
   components: {
-    PieChart,
+    ChartsView,
     WidgetsLayout,
   },
   props: {
     projectId: {
       type: Number,
+      required: true,
+    },
+    chartType: {
+      type: String,
       required: true,
     },
   },

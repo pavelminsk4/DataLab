@@ -5,11 +5,12 @@
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
   >
-    <PatternsBarChart
-      :chart-labels="labels"
+    <ChartsView
+      :labels="labels"
       :neutral-values="sentiment.neutral"
       :negative-values="sentiment.negative"
       :positive-values="sentiment.positive"
+      :chart-type="chartType"
     />
   </WidgetsLayout>
 </template>
@@ -19,14 +20,18 @@ import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
-import PatternsBarChart from '@/components/project/widgets/charts/PatternsBarChart'
+import ChartsView from '@/components/project/widgets/charts/ChartsView'
 
 export default {
   name: 'SentimentTop10SourcesWidget',
-  components: {PatternsBarChart, WidgetsLayout},
+  components: {ChartsView, WidgetsLayout},
   props: {
     projectId: {
       type: Number,
+      required: true,
+    },
+    chartType: {
+      type: String,
       required: true,
     },
   },
@@ -35,11 +40,6 @@ export default {
       neutral: [],
       positive: [],
       negative: [],
-    }
-  },
-  created() {
-    if (!this.sentimentTopSources.length) {
-      this[action.GET_SENTIMENT_TOP_SOURCES](this.projectId)
     }
   },
   computed: {
@@ -73,6 +73,11 @@ export default {
         negative: [...negative],
       }
     },
+  },
+  created() {
+    if (!this.sentimentTopSources.length) {
+      this[action.GET_SENTIMENT_TOP_SOURCES](this.projectId)
+    }
   },
   methods: {
     ...mapActions([action.GET_SENTIMENT_TOP_SOURCES]),
