@@ -26,7 +26,6 @@ def move_approved(modeladmin, request, queryset):
       link.delete()
 move_approved.short_description = "Move the selected feeds to the common scope of Feedlinks."
 
-
 @admin.register(NewFeedlinks)
 class NewFeedlinksAdmin(admin.ModelAdmin):
     list_display = ('source1', 'url', 'sourceurl', 'country', 'is_approved', 'created_at', 'updated_at')
@@ -43,7 +42,7 @@ class FeedlinksResource(resources.ModelResource):
 
 class FeedlinksAdmin(ImportExportModelAdmin):
   resource_class = FeedlinksResource
-  list_display = ('source1', 'url', 'sourceurl', 'country')
+  list_display = ('source1', 'url', 'sourceurl', 'country', 'tier', 'errornotes', 'nooffeeds', 'created_at', 'updated_at')
   search_fields = ('source1__startswith', 'url__startswith', 'sourceurl__startswith')
 
 admin.site.register(Feedlinks, FeedlinksAdmin )

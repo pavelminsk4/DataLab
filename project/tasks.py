@@ -13,7 +13,7 @@ from ftlangdetect import detect
 socket.setdefaulttimeout(3)
 
 def split_links(amount_posts_in_sample):
-  all_posts = Feedlinks.objects.all()
+  all_posts = Feedlinks.objects.all().order_by('-tier')
   p = Paginator(all_posts, amount_posts_in_sample)
   return p
 
