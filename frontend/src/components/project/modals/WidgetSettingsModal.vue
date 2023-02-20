@@ -15,10 +15,10 @@
           :volume="widgetData"
           :chart-type="newChartType || chartType"
           :is-general-widget="false"
+          :is-open-widget="true"
           :project-id="projectId"
+          :widgets="widgetsList"
         />
-
-        {{ snakeToPascal(widgetName) }}
       </div>
 
       <div class="general-wrapper-settings">
@@ -46,8 +46,14 @@
 
         <ChartTypesRadio
           v-if="panelName === 'Chart Layout'"
+          :selected="chartType"
+          :widget-name="widgetName"
           @update-chart-type="updateChartType"
         />
+
+        <BaseButton class="button" @click="saveChartType">
+          <SaveIcon />Save Settings
+        </BaseButton>
       </div>
     </div>
   </BaseModal>
@@ -64,12 +70,26 @@ import DimensionsScreen from '@/components/project/widgets/modals/screens/Dimens
 import BasicSettingsScreen from '@/components/project/widgets/modals/screens/BasicSettingsScreen'
 import VolumeWidget from '@/components/project/widgets/VolumeWidget'
 import Top10LanguagesWidget from '@/components/project/widgets/Top10LanguagesWidget'
+import Top10BrandsWidget from '@/components/project/widgets/Top10BrandsWidget'
+import Top10CountriesWidget from '@/components/project/widgets/Top10CountriesWidget'
 import Top10AuthorsByVolumeWidget from '@/components/project/widgets/Top10AuthorsByVolumeWidget'
+import ContentVolumeTop5SourceWidget from '@/components/project/widgets/ContentVolumeTop5SourceWidget'
+import ContentVolumeTop5AuthorsWidget from '@/components/project/widgets/ContentVolumeTop5AuthorsWidget'
+import ContentVolumeTop5CountriesWidget from '@/components/project/widgets/ContentVolumeTop5CountriesWidget'
+import SentimentTop10SourcesWidget from '@/components/project/widgets/SentimentTop10SourcesWidget'
+import SentimentTop10CountriesWidget from '@/components/project/widgets/SentimentTop10CountriesWidget'
+import SentimentTop10AuthorsWidget from '@/components/project/widgets/SentimentTop10AuthorsWidget'
+import SentimentTop10LanguagesWidget from '@/components/project/widgets/SentimentTop10LanguagesWidget'
+import SentimentForPeriodWidget from '@/components/project/widgets/SentimentForPeriodWidget'
 import ChartTypesRadio from '@/components/project/widgets/modals/screens/ChartTypesRadio'
+import BaseButton from '@/components/buttons/BaseButton'
+import SaveIcon from '@/components/icons/SaveIcon'
 
 export default {
   name: 'WidgetSettingsModal',
   components: {
+    SaveIcon,
+    BaseButton,
     ChartTypesRadio,
     BaseModal,
     VolumeWidget,
@@ -77,7 +97,17 @@ export default {
     DimensionsScreen,
     BasicSettingsScreen,
     Top10LanguagesWidget,
+    Top10BrandsWidget,
+    Top10CountriesWidget,
     Top10AuthorsByVolumeWidget,
+    ContentVolumeTop5SourceWidget,
+    ContentVolumeTop5AuthorsWidget,
+    ContentVolumeTop5CountriesWidget,
+    SentimentTop10SourcesWidget,
+    SentimentTop10CountriesWidget,
+    SentimentTop10AuthorsWidget,
+    SentimentForPeriodWidget,
+    SentimentTop10LanguagesWidget,
   },
   props: {
     widgetName: {
@@ -107,6 +137,10 @@ export default {
     chartType: {
       type: String,
       required: false,
+    },
+    widgetsList: {
+      type: Array,
+      default: () => [],
     },
   },
   data() {
@@ -231,6 +265,21 @@ export default {
     updateChartType(item) {
       this.newChartType = item
     },
+
+    saveChartType() {
+      this[action.UPDATE_AVAILABLE_WIDGETS]({
+        projectId: this.projectId,
+        data: {
+          [this.widgetName]: {
+            id: this.generalWidgetData.id,
+            chart_type: this.newChartType,
+          },
+        },
+      })
+
+      this[action.GET_AVAILABLE_WIDGETS](this.projectId)
+      this.$emit('close')
+    },
   },
 }
 </script>
@@ -268,12 +317,23 @@ export default {
   }
 
   .general-wrapper-settings {
+    display: flex;
+    flex-direction: column;
+    align-self: flex-end;
     flex: 0.7;
 
     padding: 24px;
     height: 100%;
 
     background-color: var(--background-secondary-color);
+
+    .button {
+      gap: 6px;
+      align-self: flex-end;
+
+      width: 144px;
+      margin-top: 32px;
+    }
   }
 }
 </style>

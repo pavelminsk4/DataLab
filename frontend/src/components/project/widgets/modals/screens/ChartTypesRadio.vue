@@ -1,32 +1,50 @@
 <template>
   <div class="chart-types">
     <BaseRadio
-      v-for="(item, index) in typesOfCharts"
+      v-for="(item, index) in availableTypes"
       :key="item + index"
-      v-model="selectedValue"
+      v-model="selectedValueProxy"
       :id="item + index"
-      :checked="item"
       :value="item"
       :label="item"
-      @click="selectValue(item)"
     />
   </div>
 </template>
 
 <script>
+import {modalWidgetsConfig} from '@/lib/configs/widgetsConfigs'
 import BaseRadio from '@/components/BaseRadio'
+
 export default {
   name: 'ChartTypesRadio',
   components: {BaseRadio},
+  props: {
+    selected: {
+      type: String,
+      default: '',
+    },
+    widgetName: {
+      type: String,
+      required: false,
+    },
+  },
   data() {
     return {
-      typesOfCharts: ['Line', 'Bar', 'Pie'],
       selectedValue: '',
     }
   },
-  methods: {
-    selectValue(item) {
-      this.$emit('update-chart-type', item)
+  computed: {
+    availableTypes() {
+      return modalWidgetsConfig[this.widgetName].availableTypes
+    },
+    selectedValueProxy: {
+      get() {
+        return this.selectedValue || this.selected
+      },
+      set(val) {
+        this.selectedValue = val
+        this.$emit('update-chart-type', this.selectedValue)
+      },
     },
   },
 }

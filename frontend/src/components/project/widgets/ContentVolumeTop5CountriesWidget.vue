@@ -1,6 +1,6 @@
 <template>
   <WidgetsLayout
-    v-if="contentVolumeTopCountries"
+    v-if="contentVolumeTopCountries && isGeneralWidget"
     :title="widgets['content_volume_top_5_countries_widget'].title"
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
@@ -10,6 +10,12 @@
       :chart-type="chartType"
     />
   </WidgetsLayout>
+
+  <ChartsView
+    v-else
+    :widget-data="contentVolumeTopCountries"
+    :chart-type="chartType"
+  />
 </template>
 
 <script>
@@ -34,6 +40,10 @@ export default {
     chartType: {
       type: String,
       required: true,
+    },
+    isGeneralWidget: {
+      type: Boolean,
+      default: true,
     },
   },
   computed: {

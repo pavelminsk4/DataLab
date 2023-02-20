@@ -1,11 +1,19 @@
 <template>
   <WidgetsLayout
+    v-if="isGeneralWidget"
     :title="widgets['top_10_brands_widget'].title"
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
   >
     <ChartsView :labels="labels" :values="values" :chart-type="chartType" />
   </WidgetsLayout>
+
+  <ChartsView
+    v-else
+    :labels="labels"
+    :values="values"
+    :chart-type="chartType"
+  />
 </template>
 
 <script>
@@ -26,6 +34,10 @@ export default {
     chartType: {
       type: String,
       required: true,
+    },
+    isGeneralWidget: {
+      type: Boolean,
+      default: true,
     },
   },
   computed: {

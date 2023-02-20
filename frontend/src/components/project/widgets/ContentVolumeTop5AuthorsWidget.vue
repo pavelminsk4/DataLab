@@ -1,6 +1,6 @@
 <template>
   <WidgetsLayout
-    v-if="contentVolumeTopAuthors"
+    v-if="contentVolumeTopAuthors && isGeneralWidget"
     :title="widgets['content_volume_top_5_authors_widget'].title"
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
@@ -11,6 +11,13 @@
       class="line-chart"
     />
   </WidgetsLayout>
+
+  <ChartsView
+    v-else
+    :chart-type="chartType"
+    :widget-data="contentVolumeTopAuthors"
+    class="line-chart"
+  />
 </template>
 
 <script>
@@ -35,6 +42,10 @@ export default {
     chartType: {
       type: String,
       required: true,
+    },
+    isGeneralWidget: {
+      type: Boolean,
+      default: true,
     },
   },
   created() {

@@ -1,6 +1,6 @@
 <template>
   <WidgetsLayout
-    v-if="sentimentForPeriod"
+    v-if="sentimentForPeriod && isGeneralWidget"
     :title="availableWidgets['sentiment_for_period_widget'].title"
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
@@ -13,6 +13,15 @@
       :chart-type="chartType"
     />
   </WidgetsLayout>
+
+  <ChartsView
+    v-else
+    :labels="labels"
+    :neutral-values="sentiments.neutral"
+    :negative-values="sentiments.negative"
+    :positive-values="sentiments.positive"
+    :chart-type="chartType"
+  />
 </template>
 
 <script>
@@ -34,6 +43,10 @@ export default {
     chartType: {
       type: String,
       required: true,
+    },
+    isGeneralWidget: {
+      type: Boolean,
+      default: true,
     },
   },
   computed: {

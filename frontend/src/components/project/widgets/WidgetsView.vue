@@ -8,6 +8,7 @@
     :is-charts-show="dataForWidgetModal.isChartShow"
     :hasAggregationPeriod="dataForWidgetModal.hasAggregationPeriod"
     :chart-type="dataForWidgetModal.chartType"
+    :widgets-list="availableWidgets"
     @close="closeModal"
   />
 
@@ -220,7 +221,6 @@ export default {
         hasAggregationPeriod: item.hasAggregationPeriod,
         chartType: item.chartType,
       }
-      console.log(item.name)
       this.isOpenWidgetSettingsModal = !this.isOpenWidgetSettingsModal
     },
     closeModal() {

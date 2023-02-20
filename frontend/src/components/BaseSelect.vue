@@ -153,7 +153,7 @@ export default {
     close({target}) {
       const selectList = document.querySelector(`.selector-${this.name}`)
 
-      if (!selectList.contains(target)) {
+      if (!selectList?.contains(target)) {
         this.visible = false
       }
     },
