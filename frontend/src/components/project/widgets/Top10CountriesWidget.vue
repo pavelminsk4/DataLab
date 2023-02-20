@@ -1,12 +1,25 @@
 <template>
   <WidgetsLayout
-    v-if="topCountries"
+    v-if="topCountries && isGeneralWidget"
     :title="widgets['top_10_countries_widget'].title"
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
   >
-    <HorizontalBarChart :chart-values="values" :chart-labels="labels" />
+    <ChartsView
+      :values="values"
+      :labels="labels"
+      :chart-type="chartType"
+      :is-display-legend="false"
+    />
   </WidgetsLayout>
+
+  <ChartsView
+    v-else
+    :values="values"
+    :labels="labels"
+    :chart-type="chartType"
+    :is-display-legend="false"
+  />
 </template>
 
 <script>
@@ -14,19 +27,24 @@ import {action, get} from '@store/constants'
 import {mapActions, mapGetters} from 'vuex'
 
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
-import HorizontalBarChart from '@/components/project/widgets/charts/HorizontalBarChart'
+import ChartsView from '@/components/project/widgets/charts/ChartsView'
 
 export default {
   name: 'Top10CountriesWidget',
-  components: {HorizontalBarChart, WidgetsLayout},
+  components: {ChartsView, WidgetsLayout},
   props: {
     projectId: {
       type: Number,
       required: true,
     },
-  },
-  created() {
-    this[action.GET_TOP_COUNTRIES_WIDGET](this.projectId)
+    chartType: {
+      type: String,
+      required: true,
+    },
+    isGeneralWidget: {
+      type: Boolean,
+      default: true,
+    },
   },
   computed: {
     ...mapGetters({
@@ -39,6 +57,9 @@ export default {
     labels() {
       return this.topCountries.map((el) => el.feedlink__country)
     },
+  },
+  created() {
+    this[action.GET_TOP_COUNTRIES_WIDGET](this.projectId)
   },
   methods: {
     ...mapActions([action.GET_TOP_COUNTRIES_WIDGET]),

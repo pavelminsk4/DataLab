@@ -1,11 +1,25 @@
 <template>
   <WidgetsLayout
+    v-if="isGeneralWidget"
     :title="widgets['top_10_brands_widget'].title"
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
   >
-    <PieChart :labels="labels" :values="values" />
+    <ChartsView
+      :labels="labels"
+      :values="values"
+      :chart-type="chartType"
+      :is-display-legend="false"
+    />
   </WidgetsLayout>
+
+  <ChartsView
+    v-else
+    :labels="labels"
+    :values="values"
+    :chart-type="chartType"
+    :is-display-legend="false"
+  />
 </template>
 
 <script>
@@ -13,18 +27,24 @@ import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
-import PieChart from '@/components/project/widgets/charts/PieChart'
+import ChartsView from '@/components/project/widgets/charts/ChartsView'
+
 export default {
   name: 'Top10BrandsWidget',
-  components: {PieChart, WidgetsLayout},
+  components: {ChartsView, WidgetsLayout},
   props: {
     projectId: {
       type: Number,
       required: true,
     },
-  },
-  created() {
-    this[action.GET_TOP_BRANDS_WIDGET](this.projectId)
+    chartType: {
+      type: String,
+      required: true,
+    },
+    isGeneralWidget: {
+      type: Boolean,
+      default: true,
+    },
   },
   computed: {
     ...mapGetters({
@@ -37,6 +57,9 @@ export default {
     labels() {
       return this.topBrands.map((el) => el.feedlink__source1)
     },
+  },
+  created() {
+    this[action.GET_TOP_BRANDS_WIDGET](this.projectId)
   },
   methods: {
     ...mapActions([action.GET_TOP_BRANDS_WIDGET]),

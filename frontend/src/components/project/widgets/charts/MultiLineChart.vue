@@ -39,16 +39,16 @@ ChartJS.register(
 )
 
 export default {
-  name: 'LineChart',
+  name: 'MultiLineChart',
   components: {
     Line,
   },
   props: {
-    values: {
+    chartLabels: {
       type: Array,
       default: () => [],
     },
-    labels: {
+    datasets: {
       type: Array,
       default: () => [],
     },
@@ -76,36 +76,81 @@ export default {
       type: Object,
       default: () => {},
     },
+    customChartData: {
+      type: Object,
+      default: () => {},
+    },
+    widgetData: {
+      type: Object,
+      default: () => {},
+    },
     isDisplayLegend: {
       type: Boolean,
       default: true,
     },
   },
   computed: {
+    labels() {
+      let labelsCollection = []
+      let keys = []
+
+      Object.values(this.widgetData).forEach((el) => {
+        keys.push(Object.keys(el))
+        labelsCollection.push(el[keys[0]])
+      })
+
+      return labelsCollection[0]?.map((el) => this.formatDate(el.date))
+    },
     chartDatasets() {
-      return [
-        {
-          borderColor: '#516BEE',
-          pointStyle: 'circle',
-          pointRadius: 4,
-          pointBackgroundColor: '#FFFFFF',
-          pointBorderWidth: 2,
-          pointBorderColor: '#516BEE',
-          borderWidth: 3,
-          radius: 0.3,
-          fill: true,
-          backgroundColor: (ctx) => {
-            const canvas = ctx.chart.ctx
-            const gradient = canvas.createLinearGradient(0, 0, 0, 460)
-
-            gradient.addColorStop(1, 'rgba(113, 135, 253, 0.1)')
-
-            return gradient
-          },
-          tension: 0.5,
-          data: this.values,
-        },
+      let datasetsValue = []
+      let lineColors = [
+        '#516BEE',
+        '#7A9EF9',
+        '#47F9B9',
+        '#47F979',
+        '#95F947',
+        '#F5F947',
+        '#F6AA37',
+        '#F63737',
+        '#F63787',
+        '#D930F4',
       ]
+
+      const datasetElement = {
+        pointStyle: 'circle',
+        pointRadius: 3,
+        pointBorderWidth: 1,
+        borderWidth: 2,
+        radius: 0.3,
+        tension: 0.3,
+        skipNull: true,
+      }
+
+      Object.values(this.widgetData).forEach((el, index) => {
+        if (Object.keys(el)[0] === 'Missing in source') {
+          datasetsValue.push({
+            ...datasetElement,
+            label: Object.keys(el)[0],
+            borderColor: '#808080',
+            pointBackgroundColor: '#808080',
+            pointBorderColor: '#808080',
+            data: el[Object.keys(el)].map((el) => el.post_count),
+            color: '#808080',
+          })
+        } else {
+          datasetsValue.push({
+            ...datasetElement,
+            label: Object.keys(el)[0],
+            borderColor: lineColors[index],
+            pointBackgroundColor: lineColors[index],
+            pointBorderColor: '#FFFFFF',
+            data: el[Object.keys(el)].map((el) => el.post_count),
+            color: '#70767D',
+          })
+        }
+      })
+
+      return datasetsValue
     },
     chartOptions() {
       return {
@@ -125,6 +170,7 @@ export default {
           },
           legend: {
             display: this.isDisplayLegend,
+            position: 'bottom',
             onClick: (evt, legendItem, legend) => {
               const datasets = legend.legendItems.map((dataset) => {
                 return dataset.text

@@ -29,12 +29,12 @@ import {
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 
 export default {
-  name: 'PatternsBarChart',
+  name: 'SentimentBarChart',
   components: {
     Bar,
   },
   props: {
-    chartLabels: {
+    labels: {
       type: Array,
       default: () => [],
     },
@@ -125,68 +125,38 @@ export default {
     },
     chartData() {
       return {
-        labels: this.chartLabels,
+        labels: this.labels,
         datasets: [
           {
             label: 'Neutral',
-            borderColor: 'rgba(246, 170, 55, 1)',
             pointStyle: 'circle',
             borderWidth: 0,
             borderRadius: 6,
             barPercentage: 0.5,
             fill: true,
-            backgroundColor: (ctx) => {
-              const canvas = ctx.chart.ctx
-              const gradient = canvas.createLinearGradient(0, 0, 0, 460)
-
-              gradient.addColorStop(0, 'rgba(246, 170, 55, 0.8)')
-              gradient.addColorStop(0.5, 'rgba(246, 170, 55, 0.5)')
-              gradient.addColorStop(1, 'rgba(246, 170, 55, 0)')
-
-              return gradient
-            },
+            backgroundColor: '#516BEE',
             tension: 0.25,
             data: this.neutralValues,
           },
           {
             label: 'Negative',
-            borderColor: 'rgba(249,71,71, 1)',
             pointStyle: 'circle',
             borderWidth: 0,
             borderRadius: 6,
             barPercentage: 0.5,
             fill: true,
-            backgroundColor: (ctx) => {
-              const canvas = ctx.chart.ctx
-              const gradient = canvas.createLinearGradient(0, 0, 0, 460)
-
-              gradient.addColorStop(0, 'rgba(249,71,71, 0.8)')
-              gradient.addColorStop(0.5, 'rgba(249,71,71, 0.5)')
-              gradient.addColorStop(1, 'rgba(249,71,71, 0)')
-
-              return gradient
-            },
+            backgroundColor: '#FD7271',
             tension: 0.25,
             data: this.negativeValues,
           },
           {
             label: 'Positive',
-            borderColor: 'rgba(48,244,126, 1)',
             pointStyle: 'circle',
             borderWidth: 0,
             borderRadius: 6,
             barPercentage: 0.5,
             fill: true,
-            backgroundColor: (ctx) => {
-              const canvas = ctx.chart.ctx
-              const gradient = canvas.createLinearGradient(0, 0, 0, 460)
-
-              gradient.addColorStop(0, 'rgba(48,244,126, 0.8)')
-              gradient.addColorStop(0.5, 'rgba(48,244,126, 0.5)')
-              gradient.addColorStop(1, 'rgba(48,244,126, 0)')
-
-              return gradient
-            },
+            backgroundColor: '#57C7B3',
             tension: 0.25,
             data: this.positiveValues,
           },

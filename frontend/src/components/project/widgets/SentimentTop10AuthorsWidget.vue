@@ -1,17 +1,27 @@
 <template>
   <WidgetsLayout
-    v-if="sentimentTopAuthors"
+    v-if="sentimentTopAuthors && isGeneralWidget"
     :title="widgets['sentiment_top_10_authors_widget'].title"
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
   >
-    <PatternsBarChart
-      :chart-labels="labels"
+    <ChartsView
+      :labels="labels"
       :neutral-values="sentiment.neutral"
       :negative-values="sentiment.negative"
       :positive-values="sentiment.positive"
+      :chart-type="chartType"
     />
   </WidgetsLayout>
+
+  <ChartsView
+    v-else
+    :labels="labels"
+    :neutral-values="sentiment.neutral"
+    :negative-values="sentiment.negative"
+    :positive-values="sentiment.positive"
+    :chart-type="chartType"
+  />
 </template>
 
 <script>
@@ -19,18 +29,26 @@ import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
-import PatternsBarChart from '@/components/project/widgets/charts/PatternsBarChart'
+import ChartsView from '@/components/project/widgets/charts/ChartsView'
 
 export default {
   name: 'SentimentTop10AuthorsWidget',
   components: {
+    ChartsView,
     WidgetsLayout,
-    PatternsBarChart,
   },
   props: {
     projectId: {
       type: Number,
       required: true,
+    },
+    chartType: {
+      type: String,
+      required: true,
+    },
+    isGeneralWidget: {
+      type: Boolean,
+      default: true,
     },
   },
   data() {
@@ -38,11 +56,6 @@ export default {
       neutral: [],
       positive: [],
       negative: [],
-    }
-  },
-  created() {
-    if (!this.sentimentTopAuthors.length) {
-      this[action.GET_SENTIMENT_TOP_AUTHORS](this.projectId)
     }
   },
   computed: {
@@ -76,6 +89,11 @@ export default {
         negative: [...negative],
       }
     },
+  },
+  created() {
+    if (!this.sentimentTopAuthors.length) {
+      this[action.GET_SENTIMENT_TOP_AUTHORS](this.projectId)
+    }
   },
   methods: {
     ...mapActions([action.GET_SENTIMENT_TOP_AUTHORS]),

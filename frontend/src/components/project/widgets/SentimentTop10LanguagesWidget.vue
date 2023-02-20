@@ -1,17 +1,27 @@
 <template>
   <WidgetsLayout
-    v-if="sentimentTopLanguages"
+    v-if="sentimentTopLanguages && isGeneralWidget"
     :title="widgets['sentiment_top_10_languages_widget'].title"
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
   >
-    <PatternsBarChart
-      :chart-labels="labels"
+    <ChartsView
+      :labels="labels"
       :neutral-values="sentiment.neutral"
       :negative-values="sentiment.negative"
       :positive-values="sentiment.positive"
+      :chart-type="chartType"
     />
   </WidgetsLayout>
+
+  <ChartsView
+    v-else
+    :labels="labels"
+    :neutral-values="sentiment.neutral"
+    :negative-values="sentiment.negative"
+    :positive-values="sentiment.positive"
+    :chart-type="chartType"
+  />
 </template>
 
 <script>
@@ -19,15 +29,23 @@ import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
-import PatternsBarChart from '@/components/project/widgets/charts/PatternsBarChart'
+import ChartsView from '@/components/project/widgets/charts/ChartsView'
 
 export default {
   name: 'SentimentTop10LanguagesWidget',
-  components: {PatternsBarChart, WidgetsLayout},
+  components: {ChartsView, WidgetsLayout},
   props: {
     projectId: {
       type: Number,
       required: true,
+    },
+    chartType: {
+      type: String,
+      required: true,
+    },
+    isGeneralWidget: {
+      type: Boolean,
+      default: true,
     },
   },
   data() {
@@ -35,11 +53,6 @@ export default {
       neutral: [],
       positive: [],
       negative: [],
-    }
-  },
-  created() {
-    if (!this.sentimentTopLanguages.length) {
-      this[action.GET_SENTIMENT_TOP_LANGUAGES](this.projectId)
     }
   },
   computed: {
@@ -73,6 +86,11 @@ export default {
         negative: [...negative],
       }
     },
+  },
+  created() {
+    if (!this.sentimentTopLanguages.length) {
+      this[action.GET_SENTIMENT_TOP_LANGUAGES](this.projectId)
+    }
   },
   methods: {
     ...mapActions([action.GET_SENTIMENT_TOP_LANGUAGES]),

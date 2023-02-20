@@ -7,6 +7,8 @@
     :action-name="dataForWidgetModal.actionName"
     :is-charts-show="dataForWidgetModal.isChartShow"
     :hasAggregationPeriod="dataForWidgetModal.hasAggregationPeriod"
+    :chart-type="dataForWidgetModal.chartType"
+    :widgets-list="availableWidgets"
     @close="closeModal"
   />
 
@@ -52,6 +54,7 @@
           :is-open-widget="item.isShow"
           :widgets="availableWidgets"
           :current-project="currentProject"
+          :chart-type="item.chartType"
           @delete-widget="deleteWidget(item.name)"
           @open-settings-modal="openModal(item)"
         />
@@ -163,6 +166,9 @@ export default {
                 isWidget: true,
                 actionName: this.elementsValue[widgetName].actionName,
                 isChartShow: this.elementsValue[widgetName].isChartShow,
+                chartType:
+                  this.availableWidgets[widgetName]?.chart_type ||
+                  modalWidgetsConfig[widgetName]?.chartType,
                 hasAggregationPeriod:
                   this.elementsValue[widgetName].hasAggregationPeriod,
               })
@@ -213,6 +219,7 @@ export default {
         actionName: item.actionName,
         isChartShow: item.isChartShow,
         hasAggregationPeriod: item.hasAggregationPeriod,
+        chartType: item.chartType,
       }
       this.isOpenWidgetSettingsModal = !this.isOpenWidgetSettingsModal
     },
@@ -239,7 +246,7 @@ export default {
   overflow: auto;
 
   min-width: 50%;
-  max-height: 60vh;
+  max-height: 71vh;
   margin-top: 25px;
 
   .analytics-search-results {

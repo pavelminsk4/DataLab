@@ -1,12 +1,23 @@
 <template>
   <WidgetsLayout
-    v-if="contentVolumeTopAuthors"
+    v-if="contentVolumeTopAuthors && isGeneralWidget"
     :title="widgets['content_volume_top_5_authors_widget'].title"
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
   >
-    <LineChart :widget-data="contentVolumeTopAuthors" class="line-chart" />
+    <ChartsView
+      :chart-type="chartType"
+      :widget-data="contentVolumeTopAuthors"
+      class="line-chart"
+    />
   </WidgetsLayout>
+
+  <ChartsView
+    v-else
+    :chart-type="chartType"
+    :widget-data="contentVolumeTopAuthors"
+    class="line-chart"
+  />
 </template>
 
 <script>
@@ -14,11 +25,11 @@ import {action, get} from '@store/constants'
 import {mapActions, mapGetters} from 'vuex'
 
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
-import LineChart from '@/components/project/widgets/charts/LineChart'
+import ChartsView from '@/components/project/widgets/charts/ChartsView'
 
 export default {
   name: 'ContentVolumeTop5AuthorsWidget',
-  components: {LineChart, WidgetsLayout},
+  components: {ChartsView, WidgetsLayout},
   props: {
     projectId: {
       type: [Number, String],
@@ -27,6 +38,14 @@ export default {
     widgets: {
       type: [Array, Object],
       default: () => [],
+    },
+    chartType: {
+      type: String,
+      required: true,
+    },
+    isGeneralWidget: {
+      type: Boolean,
+      default: true,
     },
   },
   created() {

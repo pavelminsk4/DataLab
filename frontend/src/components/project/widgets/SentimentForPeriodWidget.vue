@@ -1,67 +1,53 @@
 <template>
   <WidgetsLayout
-    v-if="sentimentForPeriod"
+    v-if="sentimentForPeriod && isGeneralWidget"
     :title="availableWidgets['sentiment_for_period_widget'].title"
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
   >
-    <LineChart
-      v-if="isLineChart"
-      :custom-chart-data="chartData"
-      :is-display-legend="false"
-    />
-
-    <PatternsBarChart
-      v-else
-      :chart-labels="labels"
+    <ChartsView
+      :labels="labels"
       :neutral-values="sentiments.neutral"
       :negative-values="sentiments.negative"
       :positive-values="sentiments.positive"
+      :chart-type="chartType"
     />
   </WidgetsLayout>
+
+  <ChartsView
+    v-else
+    :labels="labels"
+    :neutral-values="sentiments.neutral"
+    :negative-values="sentiments.negative"
+    :positive-values="sentiments.positive"
+    :chart-type="chartType"
+  />
 </template>
 
 <script>
 import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
+import {defaultDate} from '@/lib/utilities'
 
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
-import LineChart from '@/components/project/widgets/charts/LineChart'
-import PatternsBarChart from '@/components/project/widgets/charts/PatternsBarChart'
+import ChartsView from '@/components/project/widgets/charts/ChartsView'
 
 export default {
   name: 'SentimentForPeriodWidget',
-  components: {LineChart, PatternsBarChart, WidgetsLayout},
+  components: {ChartsView, WidgetsLayout},
   props: {
     projectId: {
       type: Number,
       required: true,
     },
-  },
-  created() {
-    this[action.GET_SENTIMENT_FOR_PERIOD]({
-      projectId: this.projectId,
-      value: {
-        author_dim_pivot:
-          this.availableWidgets['sentiment_for_period_widget']
-            .author_dim_pivot || null,
-        language_dim_pivot:
-          this.availableWidgets['sentiment_for_period_widget']
-            .language_dim_pivot || null,
-        country_dim_pivot:
-          this.availableWidgets['sentiment_for_period_widget']
-            .country_dim_pivot || null,
-        sentiment_dim_pivot:
-          this.availableWidgets['sentiment_for_period_widget']
-            .sentiment_dim_pivot || null,
-        source_dim_pivot:
-          this.availableWidgets['sentiment_for_period_widget']
-            .source_dim_pivot || null,
-        smpl_freq:
-          this.availableWidgets['sentiment_for_period_widget']
-            .aggregation_period,
-      },
-    })
+    chartType: {
+      type: String,
+      required: true,
+    },
+    isGeneralWidget: {
+      type: Boolean,
+      default: true,
+    },
   },
   computed: {
     ...mapGetters({
@@ -77,7 +63,7 @@ export default {
         })
       })
 
-      return labelsCollection.map((el) => this.formatDate(el))
+      return labelsCollection.map((el) => this.defaultDate(el))
     },
     sentiments() {
       let neutral = []
@@ -154,15 +140,34 @@ export default {
       }
     },
   },
+  created() {
+    this[action.GET_SENTIMENT_FOR_PERIOD]({
+      projectId: this.projectId,
+      value: {
+        author_dim_pivot:
+          this.availableWidgets['sentiment_for_period_widget']
+            .author_dim_pivot || null,
+        language_dim_pivot:
+          this.availableWidgets['sentiment_for_period_widget']
+            .language_dim_pivot || null,
+        country_dim_pivot:
+          this.availableWidgets['sentiment_for_period_widget']
+            .country_dim_pivot || null,
+        sentiment_dim_pivot:
+          this.availableWidgets['sentiment_for_period_widget']
+            .sentiment_dim_pivot || null,
+        source_dim_pivot:
+          this.availableWidgets['sentiment_for_period_widget']
+            .source_dim_pivot || null,
+        smpl_freq:
+          this.availableWidgets['sentiment_for_period_widget']
+            .aggregation_period,
+      },
+    })
+  },
   methods: {
     ...mapActions([action.GET_SENTIMENT_FOR_PERIOD]),
-    formatDate(date) {
-      return new Date(date).toLocaleString('en-US', {
-        month: 'short',
-        day: 'numeric',
-        year: 'numeric',
-      })
-    },
+    defaultDate,
   },
 }
 </script>

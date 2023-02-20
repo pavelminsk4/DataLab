@@ -1,5 +1,7 @@
 <template>
-  <label class="base-radio-container">
+  <label
+    :class="['base-radio-container', modelValue === value && 'active-radio']"
+  >
     <input
       type="radio"
       :id="id"
@@ -28,7 +30,10 @@ export default {
   display: block;
   margin: auto;
 
-  padding-left: 30px;
+  padding: 12px 0 12px 25px;
+
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
 
   cursor: pointer;
 
@@ -47,11 +52,11 @@ export default {
 
   .checkmark {
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 12px;
+    left: 12px;
 
-    height: 20px;
-    width: 20px;
+    height: 24px;
+    width: 24px;
 
     background-color: transparent;
     border-radius: 50%;
@@ -66,8 +71,8 @@ export default {
 
       display: none;
 
-      width: 8px;
-      height: 8px;
+      width: 12px;
+      height: 12px;
 
       border-radius: 50%;
       background: var(--primary-color);
@@ -78,5 +83,11 @@ export default {
     border: 1px solid var(--border-active-color);
     background-color: var(--background-secondary-color);
   }
+}
+
+.active-radio {
+  border-radius: 12px;
+  border: 1px solid var(--border-active-color);
+  background-color: var(--primary-active-color);
 }
 </style>

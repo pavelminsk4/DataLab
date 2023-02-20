@@ -52,14 +52,14 @@ export default {
       required: true,
     },
   },
-  created() {
-    this[action.GET_CLIPPING_FEED_CONTENT_WIDGET](this.projectId)
-  },
   computed: {
     ...mapGetters({
       clippingData: get.CLIPPING_FEED_CONTENT_WIDGET,
       widgets: get.AVAILABLE_WIDGETS,
     }),
+  },
+  created() {
+    this[action.GET_CLIPPING_FEED_CONTENT_WIDGET](this.projectId)
   },
   methods: {
     ...mapActions([action.GET_CLIPPING_FEED_CONTENT_WIDGET]),

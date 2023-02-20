@@ -32,6 +32,7 @@ export default {
     closeIconClass: {type: String, default: ''},
     modalFrameStyle: {type: String, default: ''},
     title: {type: String, default: ''},
+    isGeneralPadding: {type: Boolean, default: true},
   },
   created() {
     document.addEventListener('keydown', this.pressedEsc)
@@ -62,6 +63,8 @@ export default {
 
 <style lang="scss" scoped>
 .base-modal-wrapper {
+  --base-modal-content-padding: 24px;
+
   position: fixed;
   top: 0;
   left: 0;
@@ -93,7 +96,7 @@ export default {
 }
 
 .title {
-  padding: 35px 24px 10px;
+  padding: 12px 24px;
 
   border-bottom: 1px solid var(--border-color);
 
@@ -105,7 +108,7 @@ export default {
 }
 
 .content {
-  padding: 20px 24px 28px;
+  padding: var(--base-modal-content-padding);
 }
 
 @media (prefers-reduced-motion: reduce) {

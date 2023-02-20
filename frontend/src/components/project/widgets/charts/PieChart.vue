@@ -83,16 +83,16 @@ export default {
   computed: {
     colors() {
       let lineColors = [
-        '#A28BC7',
-        '#727DB2',
-        '#516BEE',
-        '#697FEE',
-        '#8193EE',
-        '#98A7EE',
-        '#5E00F9',
-        '#7D32F9',
-        '#9C63F9',
-        '#BB95F9',
+        '#6AC7F0',
+        '#CDC6FF',
+        '#01A4EE',
+        '#FFBB01',
+        '#00CC87',
+        '#551EB9',
+        '#7C59ED',
+        '#FFE499',
+        '#7ACCB0',
+        '#8779B2',
       ]
       let finalColors = []
 

@@ -1,32 +1,37 @@
 <template>
   <WidgetsLayout
+    v-if="isGeneralWidget"
     :title="this.widgets['volume_widget'].title"
     @open-modal="$emit('open-settings-modal')"
   >
-    <LineChart
-      v-if="isLineChart"
-      :custom-chart-data="chartData"
+    <ChartsView
+      :labels="labels"
+      :values="values"
+      :chart-type="chartType"
       :is-display-legend="false"
     />
-    <BarChart
-      v-else
-      :chart-values="volumeValues"
-      :chart-labels="volumeLabels"
-    />
   </WidgetsLayout>
+
+  <ChartsView
+    v-else
+    :labels="labels"
+    :values="values"
+    :chart-type="chartType"
+    :is-display-legend="false"
+  />
 </template>
 
 <script>
 import {action, get} from '@store/constants'
 import {mapActions, mapGetters} from 'vuex'
+import {defaultDate} from '@/lib/utilities'
 
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
-import LineChart from '@/components/project/widgets/charts/LineChart'
-import BarChart from '@/components/project/widgets/charts/BarChart'
+import ChartsView from '@/components/project/widgets/charts/ChartsView'
 
 export default {
   name: 'VolumeWidget',
-  components: {BarChart, LineChart, WidgetsLayout},
+  components: {ChartsView, WidgetsLayout},
   props: {
     volume: {
       type: [Array, Object],
@@ -39,6 +44,32 @@ export default {
     isOpenWidget: {
       type: Boolean,
       required: true,
+    },
+    chartType: {
+      type: String,
+      required: true,
+    },
+    isGeneralWidget: {
+      type: Boolean,
+      default: true,
+    },
+  },
+  computed: {
+    ...mapGetters({
+      widgets: get.AVAILABLE_WIDGETS,
+      volumeWidgetData: get.VOLUME_WIDGET,
+    }),
+    volumeData() {
+      return Object.values(this.volume)
+    },
+    labels() {
+      return this.volumeData.map((el) => this.defaultDate(el.date))
+    },
+    isLineChart() {
+      return this.volumeValues?.length > 7
+    },
+    values() {
+      return this.volumeData.map((el) => el.created_count)
     },
   },
   created() {
@@ -61,86 +92,9 @@ export default {
       })
     }
   },
-  computed: {
-    ...mapGetters({
-      widgets: get.AVAILABLE_WIDGETS,
-      volumeWidgetData: get.VOLUME_WIDGET,
-    }),
-    volumeData() {
-      return Object.values(this.volume)
-    },
-    volumeLabels() {
-      return this.volumeData.map((el) => this.formatDate(el.date))
-    },
-    isLineChart() {
-      return this.volumeValues?.length > 7
-    },
-    volumeValues() {
-      return this.volumeData.map((el) => el.created_count)
-    },
-    chartDatasets() {
-      return [
-        {
-          borderColor: '#516BEE',
-          pointStyle: 'circle',
-          pointRadius: 3,
-          pointBackgroundColor: '#516BEE',
-          pointBorderWidth: 1,
-          pointBorderColor: '#FFFFFF',
-          borderWidth: 3,
-          radius: 0.3,
-          fill: true,
-          backgroundColor: (ctx) => {
-            const canvas = ctx.chart.ctx
-            const gradient = canvas.createLinearGradient(0, 0, 0, 460)
-
-            gradient.addColorStop(1, 'rgba(113, 135, 253, 0.1)')
-
-            return gradient
-          },
-          tension: 0.5,
-          data: this.volumeValues,
-        },
-      ]
-    },
-    chartData() {
-      return {
-        labels: this.volumeLabels,
-        datasets: this.chartDatasets,
-      }
-    },
-  },
-  watch: {
-    isOpenWidget() {
-      if (this.isOpenWidget) {
-        this[action.GET_VOLUME_WIDGET]({
-          projectId: this.projectId,
-          value: {
-            smpl_freq: this.widgets['volume_widget'].aggregation_period,
-            author_dim_pivot:
-              this.widgets['volume_widget'].author_dim_pivot || null,
-            language_dim_pivot:
-              this.widgets['volume_widget'].language_dim_pivot || null,
-            country_dim_pivot:
-              this.widgets['volume_widget'].country_dim_pivot || null,
-            sentiment_dim_pivot:
-              this.widgets['volume_widget'].sentiment_dim_pivot || null,
-            source_dim_pivot:
-              this.widgets['volume_widget'].source_dim_pivot || null,
-          },
-        })
-      }
-    },
-  },
   methods: {
     ...mapActions([action.GET_VOLUME_WIDGET]),
-    formatDate(date) {
-      return new Date(date).toLocaleString('en-US', {
-        month: 'short',
-        day: 'numeric',
-        year: 'numeric',
-      })
-    },
+    defaultDate,
   },
 }
 </script>

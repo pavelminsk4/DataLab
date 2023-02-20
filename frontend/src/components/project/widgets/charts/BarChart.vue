@@ -33,11 +33,11 @@ export default {
     Bar,
   },
   props: {
-    chartValues: {
+    values: {
       type: Array,
       default: () => [],
     },
-    chartLabels: {
+    labels: {
       type: Array,
       default: () => [],
     },
@@ -118,27 +118,19 @@ export default {
   computed: {
     chartData() {
       return {
-        labels: this.chartLabels,
+        labels: this.labels,
         datasets: [
           {
+            label: 'count',
             borderColor: '#055FFC',
             pointStyle: 'circle',
             borderWidth: 0,
-            borderRadius: 6,
+            borderRadius: 12,
             barPercentage: 0.5,
             fill: true,
-            backgroundColor: (ctx) => {
-              const canvas = ctx.chart.ctx
-              const gradient = canvas.createLinearGradient(0, 0, 0, 460)
-
-              gradient.addColorStop(0, 'rgba(5, 95, 252, 0.8)')
-              gradient.addColorStop(0.5, 'rgba(5, 95, 252, 0.5)')
-              gradient.addColorStop(1, 'rgba(5, 95, 252, 0)')
-
-              return gradient
-            },
+            backgroundColor: '#516BEE',
             tension: 0.25,
-            data: this.chartValues,
+            data: this.values,
           },
         ],
       }
