@@ -3,6 +3,7 @@
     modal-frame-style="width: 75vw; height: 90vh;"
     :title="generalWidgetData.title"
     :is-general-padding="false"
+    style="--base-modal-content-padding: 0px"
   >
     <div class="settings-wrapper">
       <div class="preview-section">

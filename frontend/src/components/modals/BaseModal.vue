@@ -12,7 +12,7 @@
         </button>
         <div class="base-modal-body scroll">
           <div class="title">{{ title }}</div>
-          <div :class="[isGeneralPadding && 'content']">
+          <div class="content">
             <slot></slot>
           </div>
         </div>
@@ -63,6 +63,8 @@ export default {
 
 <style lang="scss" scoped>
 .base-modal-wrapper {
+  --base-modal-content-padding: 24px;
+
   position: fixed;
   top: 0;
   left: 0;
@@ -106,7 +108,7 @@ export default {
 }
 
 .content {
-  padding: 20px 24px 28px;
+  padding: var(--base-modal-content-padding);
 }
 
 @media (prefers-reduced-motion: reduce) {

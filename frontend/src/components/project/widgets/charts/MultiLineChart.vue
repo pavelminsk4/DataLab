@@ -116,37 +116,35 @@ export default {
         '#D930F4',
       ]
 
+      const datasetElement = {
+        pointStyle: 'circle',
+        pointRadius: 3,
+        pointBorderWidth: 1,
+        borderWidth: 2,
+        radius: 0.3,
+        tension: 0.3,
+        skipNull: true,
+      }
+
       Object.values(this.widgetData).forEach((el, index) => {
         if (Object.keys(el)[0] === 'Missing in source') {
           datasetsValue.push({
+            ...datasetElement,
             label: Object.keys(el)[0],
             borderColor: '#808080',
-            pointStyle: 'circle',
-            pointRadius: 3,
             pointBackgroundColor: '#808080',
-            pointBorderWidth: 1,
             pointBorderColor: '#808080',
-            borderWidth: 2,
-            radius: 0.3,
-            tension: 0.3,
             data: el[Object.keys(el)].map((el) => el.post_count),
-            skipNull: true,
             color: '#808080',
           })
         } else {
           datasetsValue.push({
+            ...datasetElement,
             label: Object.keys(el)[0],
             borderColor: lineColors[index],
-            pointStyle: 'circle',
-            pointRadius: 3,
             pointBackgroundColor: lineColors[index],
-            pointBorderWidth: 1,
             pointBorderColor: '#FFFFFF',
-            borderWidth: 2,
-            radius: 0.3,
-            tension: 0.3,
             data: el[Object.keys(el)].map((el) => el.post_count),
-            skipNull: true,
             color: '#70767D',
           })
         }

@@ -83,11 +83,11 @@ export default {
     openDropdown() {
       this.isOpenDropdown = !this.isOpenDropdown
     },
-    closeDropdown() {
-      const elements = document.querySelectorAll('.dropdown-wrapper')
+    closeDropdown({target}) {
+      const selectList = document.querySelector('.dropdown-wrapper')
 
-      if (!Array.from(elements).find((el) => el?.contains(event.target))) {
-        this.isOpenDropdown = false
+      if (!selectList?.contains(target)) {
+        this.visible = false
       }
     },
   },
