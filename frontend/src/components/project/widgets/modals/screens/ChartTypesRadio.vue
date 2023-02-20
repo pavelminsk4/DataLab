@@ -7,6 +7,7 @@
       :id="item + index"
       :value="item"
       :label="item"
+      class="radio-button"
     />
   </div>
 </template>
@@ -52,6 +53,10 @@ export default {
 
 <style scoped>
 .chart-types {
-  margin-top: 60px;
+  margin-top: 20px;
+}
+
+.radio-button {
+  margin: 12px 0;
 }
 </style>

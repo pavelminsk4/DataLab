@@ -246,7 +246,7 @@ export default {
   overflow: auto;
 
   min-width: 50%;
-  max-height: 60vh;
+  max-height: 71vh;
   margin-top: 25px;
 
   .analytics-search-results {

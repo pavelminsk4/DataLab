@@ -126,9 +126,8 @@ export default {
             pointBackgroundColor: '#808080',
             pointBorderWidth: 1,
             pointBorderColor: '#808080',
-            borderWidth: 1,
+            borderWidth: 2,
             radius: 0.3,
-            fill: true,
             tension: 0.3,
             data: el[Object.keys(el)].map((el) => el.post_count),
             skipNull: true,
@@ -143,13 +142,12 @@ export default {
             pointBackgroundColor: lineColors[index],
             pointBorderWidth: 1,
             pointBorderColor: '#FFFFFF',
-            borderWidth: 1,
+            borderWidth: 2,
             radius: 0.3,
-            fill: true,
             tension: 0.3,
             data: el[Object.keys(el)].map((el) => el.post_count),
             skipNull: true,
-            color: '#FFFFFF',
+            color: '#70767D',
           })
         }
       })
@@ -174,6 +172,7 @@ export default {
           },
           legend: {
             display: this.isDisplayLegend,
+            position: 'bottom',
             onClick: (evt, legendItem, legend) => {
               const datasets = legend.legendItems.map((dataset) => {
                 return dataset.text

@@ -39,7 +39,7 @@ export default {
     close({target}) {
       const selectList = document.querySelector('.settings-container')
 
-      if (!selectList.contains(target)) {
+      if (!selectList?.contains(target)) {
         this.isOpenSettings = false
       }
     },

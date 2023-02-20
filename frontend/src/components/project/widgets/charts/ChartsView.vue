@@ -7,6 +7,7 @@
     :neutral-values="neutralValues"
     :negative-values="negativeValues"
     :positive-values="positiveValues"
+    :isDisplayLegend="isDisplayLegend"
   />
 </template>
 
@@ -56,6 +57,11 @@ export default {
     negativeValues: {
       type: Array,
       default: () => [],
+    },
+    isDisplayLegend: {
+      type: Boolean,
+      default: true,
+      required: false,
     },
   },
 }

@@ -126,10 +126,6 @@ export default {
       type: String,
       required: true,
     },
-    isChartsShow: {
-      type: Boolean,
-      default: true,
-    },
     hasAggregationPeriod: {
       type: Boolean,
       default: true,
@@ -145,7 +141,7 @@ export default {
   },
   data() {
     return {
-      panelName: 'General',
+      panelName: 'Chart Layout',
       newChartType: '',
     }
   },
@@ -266,8 +262,8 @@ export default {
       this.newChartType = item
     },
 
-    saveChartType() {
-      this[action.UPDATE_AVAILABLE_WIDGETS]({
+    async saveChartType() {
+      await this[action.UPDATE_AVAILABLE_WIDGETS]({
         projectId: this.projectId,
         data: {
           [this.widgetName]: {
@@ -277,8 +273,8 @@ export default {
         },
       })
 
-      this[action.GET_AVAILABLE_WIDGETS](this.projectId)
-      this.$emit('close')
+      await this[action.GET_AVAILABLE_WIDGETS](this.projectId)
+      await this.$emit('close')
     },
   },
 }
@@ -287,7 +283,6 @@ export default {
 <style lang="scss" scoped>
 .settings-wrapper {
   display: flex;
-  gap: 52px;
 
   height: 100%;
   min-width: 100%;
@@ -297,7 +292,9 @@ export default {
   .preview-section {
     flex: 1;
 
+    width: 50%;
     height: fit-content;
+    margin: 24px;
 
     .chart-title {
       padding: 12px 20px;

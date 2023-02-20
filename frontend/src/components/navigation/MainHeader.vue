@@ -86,7 +86,7 @@ export default {
     closeDropdown() {
       const elements = document.querySelectorAll('.dropdown-wrapper')
 
-      if (!Array.from(elements).find((el) => el.contains(event.target))) {
+      if (!Array.from(elements).find((el) => el?.contains(event.target))) {
         this.isOpenDropdown = false
       }
     },

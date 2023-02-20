@@ -5,7 +5,12 @@
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
   >
-    <ChartsView :values="values" :labels="labels" :chart-type="chartType" />
+    <ChartsView
+      :values="values"
+      :labels="labels"
+      :chart-type="chartType"
+      :is-display-legend="false"
+    />
   </WidgetsLayout>
 
   <ChartsView
@@ -13,6 +18,7 @@
     :values="values"
     :labels="labels"
     :chart-type="chartType"
+    :is-display-legend="false"
   />
 </template>
 

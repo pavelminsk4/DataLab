@@ -25,8 +25,8 @@ export default {
   },
   data() {
     return {
-      panelSettingsName: 'General',
-      mainSettings: ['General', 'Dimensions', 'Chart Layout'],
+      panelSettingsName: 'Chart Layout',
+      mainSettings: ['Chart Layout'],
     }
   },
   methods: {
