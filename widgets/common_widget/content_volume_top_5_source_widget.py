@@ -5,11 +5,7 @@ from django.db.models.functions import Trunc
 import json
 from .filters_for_widgets import post_agregator_with_dimensions
 
-def content_volume_top_5_source(request, pk):
-  project = Project.objects.get(id=pk)
-  posts = post_agregator_with_dimensions(project)
-  body = json.loads(request.body)
-  smpl_freq = body['smpl_freq']
+def agregator_results_content_volume_top_sources(posts, smpl_freq):
   top_brands = list(map(lambda x: x['feedlink__source1'], list(posts.values('feedlink__source1').annotate(brand_count=Count('feedlink__source1')).order_by('-brand_count')[:5])))
   results = [{source: list(posts.filter(feedlink__source1=source).annotate(date=Trunc('entry_published', smpl_freq)).values("date").annotate(created_count=Count('id')).order_by("date"))} for source in top_brands]
   dates = set()
@@ -29,5 +25,13 @@ def content_volume_top_5_source(request, pk):
     if (top_brands[elem] == '') or (top_brands[elem] == None) or ('img' in top_brands[elem]) or (top_brands[elem] == 'None') or (top_brands[elem] == 'null') or not top_brands[elem]:     
       res.append({'Missing in source': list_dates}) 
     else:
-      res.append({top_brands[elem]: list_dates})    
+      res.append({top_brands[elem]: list_dates})   
+  return res
+    
+def content_volume_top_5_source(request, pk):
+  project = Project.objects.get(id=pk)
+  posts = post_agregator_with_dimensions(project)
+  body = json.loads(request.body)
+  smpl_freq = body['smpl_freq']
+  res = agregator_results_content_volume_top_sources(posts, smpl_freq)
   return JsonResponse(res, safe = False)
