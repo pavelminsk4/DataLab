@@ -1,23 +1,4 @@
 <template>
-  <!-- <NavigationBar
-    v-if="currentStep === 'Step2'"
-    :step="step"
-    title="Create Project"
-    hint="Name the project and choose source Type"
-    :is-active-button="!!projectName && !!selectedValue.name"
-    @next-step="nextStep"
-  />
-
-  <NavigationBar
-    v-else
-    :step="step"
-    title="Create Project"
-    hint="Name the project and choose source Type"
-    :is-existing-workspace="true"
-    :is-active-button="!!projectName && !!selectedValue.name"
-    @next-step="nextStepForExistingWorkspace"
-  /> -->
-
   <MainLayoutTitleBlock
     title="The Project"
     description="Name the project and choose source Type"
@@ -71,6 +52,12 @@ export default {
     MainLayoutTitleBlock,
     ProgressBar,
   },
+  props: {
+    workspaceId: {
+      type: Number,
+      default: null,
+    },
+  },
   data() {
     return {
       projectName: '',
@@ -78,7 +65,7 @@ export default {
     }
   },
   created() {
-    if (this.step === 'ProjectStep1') this[action.CLEAR_STATE]()
+    if (this.step === 'WorkspaceStep2') this[action.CLEAR_STATE]()
   },
   computed: {
     ...mapState(['currentStep', 'userInfo']),
@@ -90,16 +77,18 @@ export default {
       action.CLEAR_STATE,
     ]),
     nextStep() {
+      const nextStep = this.workspaceId ? 'WorkspaceStep3' : 'Step3'
       try {
-        this[action.UPDATE_CURRENT_STEP]('Step3')
+        this[action.UPDATE_CURRENT_STEP](nextStep)
         this[action.UPDATE_PROJECT_STATE]({
           creator: this.userInfo.id,
           title: this.projectName,
           description: this.description,
           source: 'Online',
+          workspace: this.workspaceId?.toString() || null,
         })
         this.$router.push({
-          name: 'Step3',
+          name: nextStep,
         })
       } catch (e) {
         console.log(e)

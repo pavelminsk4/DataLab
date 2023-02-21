@@ -2,7 +2,7 @@
   <div class="main-layout">
     <MainHeader />
     <section class="two-columns-wrapper">
-      <div class="content">
+      <div class="content scroll">
         <slot></slot>
       </div>
 
@@ -83,7 +83,10 @@ export default {
 .content {
   z-index: 2;
 
+  overflow: auto;
+
   width: 100%;
+  height: 100%;
   padding: 24px 32px;
 }
 </style>

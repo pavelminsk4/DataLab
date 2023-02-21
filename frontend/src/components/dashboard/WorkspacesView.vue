@@ -126,9 +126,9 @@ export default {
       this.$router.push({name: 'Workspace', params: {workspaceId: id}})
     },
     addNewProject(id) {
-      this[action.UPDATE_CURRENT_STEP]('ProjectStep1')
+      this[action.UPDATE_CURRENT_STEP]('WorkspaceStep2')
       this.$router.push({
-        name: 'ProjectStep1',
+        name: 'WorkspaceStep2',
         params: {workspaceId: id},
       })
     },

@@ -1,20 +1,5 @@
 <template>
-  <div
-    :class="['search-result-wrapper', `${lowerFirstLetter(routerName)}-page`]"
-  >
-    <div class="filters">
-      <div v-if="isShowCalendar" class="calendar-wrapper">
-        <div class="trigger-wrapper" @click="openCalendar">
-          <CalendarIcon class="dp-icon" />
-          <div>{{ calendarDate }}</div>
-          <ArrowDownIcon :class="[isShowCalendarContents && 'open-calendar']" />
-        </div>
-        <BaseCalendar
-          v-if="isShowCalendarContents"
-          :current-project="currentProject"
-        />
-      </div>
-    </div>
+  <div :class="['search-result-wrapper', `${routerName}-page`]">
     <div v-if="loading || searchLoading" class="spinner-wrapper">
       <BaseSpinner :isHaveLabel="true" />
     </div>
@@ -45,6 +30,7 @@
         @add-element="addClippingElement"
       />
     </div>
+
     <div v-if="!loading && searchData.length" class="pagination-wrapper">
       <BaseDropdown name="posts-on-page" :selected-value="countPosts">
         <div
@@ -65,8 +51,9 @@
         @update:modelValue="pageChangeHandler"
       />
     </div>
-    <div v-if="!loading && !searchData.length && searchLoading">
-      No results.
+
+    <div v-if="step && !searchData.length" class="no-results">
+      <CreateWorkspaceRightSide step="step3" />
     </div>
   </div>
 </template>
@@ -80,20 +67,16 @@ import VPagination from '@hennge/vue3-pagination'
 import '@hennge/vue3-pagination/dist/vue3-pagination.css'
 
 import BaseSpinner from '@/components/BaseSpinner'
-import BaseCalendar from '@/components/datepicker/BaseCalendar'
-import CalendarIcon from '@/components/icons/CalendarIcon'
-import ArrowDownIcon from '@/components/icons/ArrowDownIcon'
 import ClippingCard from '@/components/ClippingCard'
 import BaseDropdown from '@/components/BaseDropdown'
+import CreateWorkspaceRightSide from '@/components/workspace/CreateWorkspaceRightSide'
 
 export default {
   name: 'SearchResults',
   components: {
     BaseDropdown,
     ClippingCard,
-    ArrowDownIcon,
-    CalendarIcon,
-    BaseCalendar,
+    CreateWorkspaceRightSide,
     BaseSpinner,
     VPagination,
   },
@@ -118,6 +101,10 @@ export default {
     searchLoading: {
       type: Boolean,
       default: false,
+    },
+    step: {
+      type: String,
+      default: '',
     },
   },
   data() {
@@ -153,7 +140,7 @@ export default {
       }
     },
     routerName() {
-      return this.$route.name
+      return this.$route.name.toLowerCase()
     },
   },
   created() {
@@ -244,7 +231,8 @@ export default {
   flex-direction: column;
   align-items: flex-start;
 
-  width: 43vw;
+  width: 100%;
+  min-height: 100%;
 
   color: var(--typography-title-color);
 }
@@ -256,7 +244,7 @@ export default {
 
   border-left: var(--border-primary);
 
-  min-height: 100vh;
+  height: 100%;
   width: 45vw;
   padding: 80px 32px 0 15px;
 
@@ -265,7 +253,7 @@ export default {
 }
 
 .analytics-page {
-  height: 80vh;
+  height: 100%;
 }
 
 .pagination-wrapper {
@@ -347,6 +335,17 @@ export default {
   .search-result-card {
     margin: 0 0 10px 0;
   }
+}
+
+.no-results {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 100%;
 }
 </style>
 

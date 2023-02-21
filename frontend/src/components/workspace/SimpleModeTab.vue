@@ -123,7 +123,7 @@ export default {
   display: flex;
   flex-direction: column;
 
-  width: 50vw;
+  width: 100%;
   margin: 20px 0 0 -24px;
 
   .settings-wrapper {
@@ -149,7 +149,7 @@ export default {
 .buttons {
   position: -webkit-sticky;
   position: sticky;
-  bottom: 0;
+  bottom: -24px;
 
   display: flex;
   justify-content: flex-end;
@@ -157,7 +157,6 @@ export default {
 
   width: 100%;
   padding: 16px;
-  margin-top: 20px;
 
   border-top: var(--border-primary);
   background-color: var(--background-primary-color);

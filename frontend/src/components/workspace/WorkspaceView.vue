@@ -90,7 +90,7 @@ export default {
     ...mapActions([action.GET_WORKSPACES, action.CLEAR_STATE]),
     createProject() {
       this.$router.push({
-        name: 'ProjectStep1',
+        name: 'WorkspaceStep2',
       })
     },
     goToProjectSettings(id) {
@@ -140,6 +140,6 @@ export default {
 }
 
 .projects-wrapper {
-  height: calc(100% - 165px);
+  height: calc(100% - 180px);
 }
 </style>
