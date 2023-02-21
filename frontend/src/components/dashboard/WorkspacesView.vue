@@ -1,9 +1,5 @@
 <template>
-  <MainLayout :is-loading="isLoading || !department" title="Online">
-    <template #titles-item>
-      <OnlineIcon class="online-icon" />
-    </template>
-
+  <MainLayout>
     <template #default>
       <SettingsWorkspaceModal
         v-if="isOpenModal"
@@ -13,7 +9,11 @@
         @save-settings="saveSettings"
       />
 
-      <div class="workspaces-wrapper">
+      <div class="content-header">
+        <MainLayoutTitleBlock v-if="!isLoading && department" title="Online">
+          <OnlineIcon class="online-icon" />
+        </MainLayoutTitleBlock>
+
         <BaseButtonWithTooltip
           :is-disabled="isProjectCreationAvailable"
           :has-tooltip="isProjectCreationAvailable"
@@ -23,33 +23,33 @@
         >
           Create new workspace
         </BaseButtonWithTooltip>
+      </div>
 
-        <BaseSpinner v-if="isLoading" class="spinner" />
+      <BaseSpinner v-if="isLoading" class="spinner" />
 
-        <div v-if="!isLoading && workspaces.length">
-          <div class="sort-wrapper">
-            <span class="hint">Sort by</span>
-            <div class="sort-option">Latest <SortIcon class="sort-icon" /></div>
-          </div>
-
-          <div class="items-wrapper scroll">
-            <ProjectItem
-              v-for="(item, index) in sortWorkspaces"
-              :key="index"
-              :title="item.title"
-              :description="item.description"
-              :number-projects="item.projects.length"
-              :id="item.id"
-              :members="item.members"
-              @open-modal="toggleModal(item)"
-              @add-new-project="addNewProject(item.id)"
-              @navigate-to-workspace="navigateToWorkspace(item.id)"
-            />
-          </div>
+      <div v-if="!isLoading && workspaces.length">
+        <div class="sort-wrapper">
+          <span class="hint">Sort by</span>
+          <div class="sort-option">Latest <SortIcon class="sort-icon" /></div>
         </div>
 
-        <BlankPage v-else page-name="Workspace" />
+        <div class="items-wrapper scroll">
+          <ProjectItem
+            v-for="(item, index) in sortWorkspaces"
+            :key="index"
+            :title="item.title"
+            :description="item.description"
+            :number-projects="item.projects.length"
+            :id="item.id"
+            :members="item.members"
+            @open-modal="toggleModal(item)"
+            @add-new-project="addNewProject(item.id)"
+            @navigate-to-workspace="navigateToWorkspace(item.id)"
+          />
+        </div>
       </div>
+
+      <BlankPage v-else page-name="Workspace" />
 
       <div class="background-icon"></div>
     </template>
@@ -67,6 +67,7 @@ import BaseButtonWithTooltip from '@/components/BaseButtonWithTooltip'
 import BaseSpinner from '@/components/BaseSpinner'
 import BlankPage from '@/components/BlankPage'
 import MainLayout from '@components/layout/MainLayout'
+import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
 import ProjectItem from '@components/dashboard/ProjectItem'
 import SettingsWorkspaceModal from '@/components/modals/SettingsWorkspaceModal'
 
@@ -78,6 +79,7 @@ export default {
     BlankPage,
     SortIcon,
     MainLayout,
+    MainLayoutTitleBlock,
     ProjectItem,
     SettingsWorkspaceModal,
     OnlineIcon,
@@ -124,9 +126,9 @@ export default {
       this.$router.push({name: 'Workspace', params: {workspaceId: id}})
     },
     addNewProject(id) {
-      this[action.UPDATE_CURRENT_STEP]('ProjectStep1')
+      this[action.UPDATE_CURRENT_STEP]('WorkspaceStep2')
       this.$router.push({
-        name: 'ProjectStep1',
+        name: 'WorkspaceStep2',
         params: {workspaceId: id},
       })
     },
@@ -150,8 +152,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.workspaces-wrapper {
-  position: relative;
+.content-header {
+  display: flex;
+  justify-content: space-between;
 }
 
 .online-icon {
@@ -182,11 +185,7 @@ export default {
 }
 
 .create-new-button {
-  position: absolute;
-  top: 0;
-  right: 0;
-
-  width: 180px;
+  align-self: flex-end;
 
   &:hover {
     .tooltip {
@@ -204,12 +203,12 @@ export default {
 
   overflow: auto;
 
-  max-height: 75%;
+  max-height: 90%;
   padding: 20px 26px;
   margin: -20px -26px;
 
-  @media (max-height: 800px) {
-    max-height: 65%;
+  @media (max-height: 850px) {
+    max-height: 85%;
   }
 }
 
@@ -229,7 +228,7 @@ export default {
   z-index: -1;
 
   width: 100vw;
-  height: 76vh;
+  height: 75vh;
 
   background: center / cover no-repeat url(@/assets/Background.svg);
   pointer-events: none;

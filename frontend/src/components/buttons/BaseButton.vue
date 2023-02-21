@@ -58,6 +58,7 @@ export default {
   outline: none;
 
   height: 36px;
+  padding: 8px 12px;
 
   background: var(--button-primary-color);
   border: 1px solid var(--button-primary-color);

@@ -1,22 +1,33 @@
 <template>
-  <NavigationBar
-    :step="step"
-    :title="'The Workspace'"
-    :hint="'Create a new workspace on your Dashboard'"
-    :is-active-button="!!title"
-    @next-step="nextStep"
+  <MainLayoutTitleBlock
+    title="The Workspace -"
+    description="Create a new workspace on your Dashboard"
+    :back-page="{
+      name: 'main page',
+      routName: 'Home',
+    }"
   />
 
-  <div class="workspace-wrapper">
-    <h4 class="project-name">Name</h4>
-    <BaseInput v-model="title" class="input-field" />
+  <ProgressBar />
 
-    <h4 class="project-name">Description</h4>
-    <textarea
-      class="description-field scroll"
-      v-model="description"
+  <div class="form-wrapper">
+    <h4 class="label">Name</h4>
+    <BaseInput v-model="workspaceName" />
+
+    <h4 class="label">Description</h4>
+    <BaseTextarea
+      v-model="workspaceDescription"
       placeholder="Some words about Workspace"
     />
+
+    <BaseButton
+      :is-disabled="!workspaceName"
+      class="next-button"
+      @click="nextStep"
+    >
+      <span>Next</span>
+      <ArrowLeftIcon class="button-arrow-icon" />
+    </BaseButton>
   </div>
 </template>
 
@@ -24,20 +35,27 @@
 import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
+import ArrowLeftIcon from '@/components/icons/ArrowLeftIcon'
+import BaseButton from '@/components/buttons/BaseButton'
 import BaseInput from '@/components/BaseInput'
-import NavigationBar from '@/components/navigation/NavigationBar'
+import BaseTextarea from '@/components/BaseTextarea'
+import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
+import ProgressBar from '@/components/workspace/ProgressBar'
 
 export default {
   name: 'CreateWorkspaceScreen',
-  components: {NavigationBar, BaseInput},
-  component: {
+  components: {
+    ArrowLeftIcon,
+    BaseButton,
     BaseInput,
+    BaseTextarea,
+    MainLayoutTitleBlock,
+    ProgressBar,
   },
-
   data() {
     return {
-      title: '',
-      description: '',
+      workspaceName: '',
+      workspaceDescription: '',
     }
   },
   created() {
@@ -47,13 +65,8 @@ export default {
     ...mapGetters({
       user: get.USER_INFO,
     }),
-    step() {
-      return this.$route.name
-    },
     members() {
-      let members = []
-      members.push(this.user.id)
-      return members
+      return [this.user.id]
     },
   },
   methods: {
@@ -66,8 +79,8 @@ export default {
       try {
         this[action.UPDATE_CURRENT_STEP]('Step2')
         this[action.UPDATE_NEW_WORKSPACE]({
-          title: this.title,
-          description: this.description,
+          title: this.workspaceName,
+          description: this.workspaceDescription,
           members: this.members,
           department: this.user.user_profile.department.id,
         })
@@ -83,41 +96,32 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.workspace-wrapper {
+.form-wrapper {
   display: flex;
   flex-direction: column;
 
+  width: 56%;
   margin-top: 40px;
 }
 
-.project-name {
-  margin: 25px 0 12px;
+.label {
+  margin: 20px 0 4px;
 
-  font-size: 14px;
-
-  color: var(--typography-primary-color);
+  font-weight: 400;
 
   &:first-child {
     margin-top: 0;
   }
 }
 
-.description-field {
-  width: 475px;
-  height: 132px;
-  padding: 12px 16px;
+.next-button {
+  align-self: flex-end;
 
-  border: 1px solid var(--input-border-color);
-  box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
-  border-radius: 10px;
-  background: var(--secondary-bg-color);
+  margin-top: 32px;
 
-  color: var(--typography-primary-color);
-
-  resize: none;
-}
-
-.description-field::placeholder {
-  color: var(--typography-secondary-color);
+  .button-arrow-icon {
+    margin-left: 10px;
+    transform: rotate(180deg);
+  }
 }
 </style>

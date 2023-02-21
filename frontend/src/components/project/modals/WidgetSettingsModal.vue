@@ -292,7 +292,6 @@ export default {
 
   .preview-section {
     flex: 1;
-
     width: 50%;
     height: fit-content;
     margin: 24px;

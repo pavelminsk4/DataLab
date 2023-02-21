@@ -77,7 +77,7 @@ export default {
     width: 100%;
     padding: 12px 20px;
 
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: var(--border-primary);
 
     .title {
       font-style: normal;
@@ -101,7 +101,7 @@ export default {
         height: 28px;
 
         background: var(--background-secondary-color);
-        border: 1px solid var(--border-color);
+        border: var(--border-primary);
         border-radius: 4px;
 
         &:hover {

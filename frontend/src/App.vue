@@ -34,7 +34,8 @@ export default {
 
   --border-color: #dee0e3;
   --border-active-color: var(--primary-color);
-  --primary-border: 1px solid var(--border-color);
+  --border-primary: 1px solid var(--border-color);
+  --border-radius: 8px;
 
   --primary-chips-background-color: #e9f0f3;
 
@@ -109,6 +110,8 @@ h4 {
 }
 
 .scroll {
+  overflow: auto;
+
   &::-webkit-scrollbar {
     height: 5px;
     width: 5px;

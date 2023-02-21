@@ -2,7 +2,9 @@
   <MainLayout v-if="currentProject" :is-project-extra-settings="true">
     <SideBar @open-tab="openTab" />
 
-    <router-view :current-project="currentProject"></router-view>
+    <div class="project-dashboard-wrapper">
+      <router-view :current-project="currentProject"></router-view>
+    </div>
   </MainLayout>
 </template>
 
@@ -56,3 +58,11 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.project-dashboard-wrapper {
+  width: 100%;
+  height: 100%;
+  padding-left: 70px;
+}
+</style>

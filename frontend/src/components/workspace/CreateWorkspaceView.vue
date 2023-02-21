@@ -1,6 +1,12 @@
 <template>
-  <MainLayout>
-    <router-view></router-view>
+  <MainLayout :is-two-columns="true">
+    <template #default>
+      <router-view></router-view>
+    </template>
+
+    <template #second-column>
+      <router-view name="secondColumn"></router-view>
+    </template>
   </MainLayout>
 </template>
 

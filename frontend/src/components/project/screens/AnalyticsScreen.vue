@@ -1,5 +1,5 @@
 <template>
-  <div v-if="currentProject">
+  <div v-if="currentProject" class="analytics-wrapper">
     <WidgetsListModal
       v-if="isOpenWidgetsModal"
       :project-id="currentProject.id"
@@ -232,6 +232,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.analytics-wrapper {
+  display: flex;
+  flex-direction: column;
+
+  height: 100%;
+}
+
 .analytics-menu {
   display: flex;
   justify-content: space-between;

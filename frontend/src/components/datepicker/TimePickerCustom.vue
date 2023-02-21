@@ -90,7 +90,7 @@ select {
   padding: 9px 13px;
 
   background: var(--primary-chips-background-color);
-  border: 1px solid var(--border-color);
+  border: var(--border-primary);
   border-radius: 10px;
 
   color: var(--typography-primary-color);

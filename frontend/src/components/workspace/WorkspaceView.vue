@@ -1,39 +1,40 @@
 <template>
-  <MainLayout
-    :is-loading="!workspace?.title"
-    :title="workspace?.title"
-    description="
+  <MainLayout>
+    <div class="content-header">
+      <MainLayoutTitleBlock
+        v-if="workspace?.title"
+        :title="workspace.title"
+        description="
             Select the project you want to work on or create a new search"
-    :back-page="{
-      name: 'main page',
-      routName: 'Home',
-    }"
-  >
-    <template #titles-item>
-      <OnlineIcon class="online-icon" />
-    </template>
+        :back-page="{
+          name: 'main page',
+          routName: 'Home',
+        }"
+      >
+        <OnlineIcon class="online-icon" />
+      </MainLayoutTitleBlock>
 
-    <template #default>
       <BaseButtonWithTooltip
         :is-disabled="isProjectCreationAvailable"
         :has-tooltip="isProjectCreationAvailable"
         tooltip-title="Created the maximum possible number of projects!"
-        class="create-new-button"
         @click="createProject"
       >
         Create new project
       </BaseButtonWithTooltip>
+    </div>
 
-      <div class="sort-wrapper">
-        <span class="hint">Sort by</span>
-        <div class="sort-option">Latest <SortIcon class="sort-icon" /></div>
-      </div>
+    <div class="sort-wrapper">
+      <span class="hint">Sort by</span>
+      <div class="sort-option">Latest <SortIcon class="sort-icon" /></div>
+    </div>
 
+    <div class="projects-wrapper scroll">
       <ProjectsTable
         @go-to-project="goToProjectSettings"
         :values="workspace?.projects"
       />
-    </template>
+    </div>
   </MainLayout>
 </template>
 
@@ -45,6 +46,7 @@ import SortIcon from '@components/icons/SortIcon'
 import OnlineIcon from '@components/icons/OnlineIcon'
 
 import MainLayout from '@components/layout/MainLayout'
+import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
 import ProjectsTable from '@/components/ProjectsTable'
 import BaseButtonWithTooltip from '@/components/BaseButtonWithTooltip'
 
@@ -53,6 +55,7 @@ export default {
   components: {
     BaseButtonWithTooltip,
     MainLayout,
+    MainLayoutTitleBlock,
     OnlineIcon,
     ProjectsTable,
     SortIcon,
@@ -87,7 +90,7 @@ export default {
     ...mapActions([action.GET_WORKSPACES, action.CLEAR_STATE]),
     createProject() {
       this.$router.push({
-        name: 'ProjectStep1',
+        name: 'WorkspaceStep2',
       })
     },
     goToProjectSettings(id) {
@@ -104,6 +107,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.content-header {
+  display: flex;
+  justify-content: space-between;
+}
+
 .online-icon {
   width: 20px;
   height: 20px;
@@ -131,11 +139,7 @@ export default {
   margin-left: 7px;
 }
 
-.create-new-button {
-  position: absolute;
-  top: 76px;
-  right: 28px;
-
-  width: 178px;
+.projects-wrapper {
+  height: calc(100% - 180px);
 }
 </style>

@@ -109,7 +109,7 @@ export default {
   height: var(--header-height);
 
   background-color: var(--background-secondary-color);
-  border: 1px solid var(--border-color);
+  border: var(--border-primary);
 }
 
 .header-navigation {

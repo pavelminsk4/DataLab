@@ -1,39 +1,20 @@
 <template>
-  <NavigationBar
-    v-if="this.currentStep === 'Step3'"
-    :step="step"
+  <MainLayoutTitleBlock
     title="Define the search"
-    hint="Search by keywords and phrases"
-    :button-width="141"
-    :button-loading="buttonLoading"
-    :is-active-button="!!keywords.keywords?.length"
-    button-name="Save Project"
-    @next-step="createWorkspaceAndProject"
+    description="Search by keywords and phrases"
+    :back-page="{
+      name: 'main page',
+      routName: 'Home',
+    }"
   />
 
-  <NavigationBar
-    v-else
-    :step="step"
-    title="Define the search"
-    hint="Search by keywords and phrases"
-    :is-existing-workspace="true"
-    :button-width="141"
-    :button-loading="buttonLoading"
-    :is-active-button="!!keywords.keywords?.length"
-    button-name="Create Project"
-    @next-step="createProject"
-  />
+  <ProgressBar />
 
   <div class="search-settings-wrapper">
     <SimpleModeTab
       @show-result="showResults"
       @update-collection="updateCollection"
-    />
-
-    <SearchResults
-      @update-page="showResults"
-      @update-posts-count="showResults"
-      :search-loading="searchLoading"
+      @save-project="createWorkspaceAndProject"
     />
   </div>
 </template>
@@ -42,17 +23,22 @@
 import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
-import NavigationBar from '@/components/navigation/NavigationBar'
-
-import SearchResults from '@/components/SearchResults'
+import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
+import ProgressBar from '@/components/workspace/ProgressBar'
 import SimpleModeTab from '@/components/workspace/SimpleModeTab'
 
 export default {
   name: 'CreateSearchScreen',
   components: {
+    MainLayoutTitleBlock,
+    ProgressBar,
     SimpleModeTab,
-    SearchResults,
-    NavigationBar,
+  },
+  props: {
+    workspaceId: {
+      type: Number,
+      default: null,
+    },
   },
   data() {
     return {
@@ -153,46 +139,23 @@ export default {
           sentiment_filter: this.additionalFilters?.sentiment || null,
           country_filter: this.additionalFilters?.country || null,
         })
-        this[action.UPDATE_NEW_WORKSPACE]({
-          projects: [this.newProject],
-        })
-        await this[action.CREATE_WORKSPACE](this.newWorkspace)
+
+        if (this.workspaceId) {
+          console.log(this.newProject)
+          await this[action.CREATE_PROJECT](this.newProject)
+        } else {
+          this[action.UPDATE_NEW_WORKSPACE]({
+            projects: [this.newProject],
+          })
+          await this[action.CREATE_WORKSPACE](this.newWorkspace)
+        }
+
         await this[action.CLEAR_STATE]()
         this.buttonLoading = false
         await this.$router.push({
           name: 'Analytics',
           params: {
-            workspaceId: this.newWorkspaceId,
-            projectId: this.newProjectId,
-          },
-        })
-        await this[action.GET_WORKSPACES]()
-      } catch (e) {
-        console.log(e)
-      }
-    },
-    async createProject() {
-      try {
-        this.buttonLoading = true
-        this[action.UPDATE_PROJECT_STATE]({
-          keywords: this.keywords?.keywords,
-          additional_keywords: this.keywords?.additional_keywords,
-          ignore_keywords: this.keywords?.ignore_keywords,
-          start_search_date: this.additionalFilters?.date_range[0],
-          end_search_date: this.additionalFilters?.date_range[1],
-          source_filter: this.additionalFilters?.source || null,
-          author_filter: this.additionalFilters?.author || null,
-          language_filter: this.additionalFilters?.language || null,
-          sentiment_filter: this.additionalFilters?.sentiment || null,
-          country_filter: this.additionalFilters?.country || null,
-        })
-        await this[action.CREATE_PROJECT](this.newProject)
-        await this[action.CLEAR_STATE]()
-        this.buttonLoading = false
-        await this.$router.push({
-          name: 'Analytics',
-          params: {
-            workspaceId: this.$route.params.workspaceId,
+            workspaceId: this.workspaceId || this.newWorkspaceId,
             projectId: this.newProjectId,
           },
         })
@@ -217,105 +180,6 @@ export default {
   display: flex;
   justify-content: space-between;
   gap: 108px;
-}
-
-.radio-btn {
-  display: flex;
-
-  margin-right: 25px;
-
-  color: var(--typography-primary-color);
-
-  cursor: pointer;
-}
-
-.not-check {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 20px;
-  height: 20px;
-  margin-right: 7px;
-
-  border: 1px solid var(--typography-secondary-color);
-  border-radius: 50px;
-
-  cursor: pointer;
-}
-
-.radio-wrapper {
-  display: flex;
-  justify-content: space-between;
-
-  margin: 10px 0 25px;
-}
-
-.back-button {
-  cursor: pointer;
-
-  color: var(--typography-secondary-color);
-  font-size: 14px;
-}
-
-.arrow-back {
-  margin-right: 6px;
-}
-
-.title {
-  margin: 5px 0 2px;
-
-  color: var(--typography-primary-color);
-
-  font-size: 36px;
-}
-
-.create-project-title {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.progress-bar-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.progress-bar {
-  display: flex;
-  align-items: center;
-
-  margin-right: 40px;
-}
-
-.progress-item {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 24px;
-  height: 24px;
-
-  border-radius: 100%;
-  border: 1px solid var(--button-primary-color);
-  box-shadow: 0 0 3px var(--box-shadow-color);
-
-  color: var(--typography-primary-color);
-  background-color: var(--primary-bg-color);
-}
-
-.progress-line {
-  width: 34px;
-  height: 2px;
-
-  background-color: var(--progress-line);
-}
-
-.hint {
-  color: var(--typography-secondary-color);
-
-  font-size: 14px;
 }
 
 @media screen and (max-width: 1000px) {

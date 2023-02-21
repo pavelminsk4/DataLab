@@ -86,25 +86,22 @@ export default {
   align-items: center;
 
   height: 40px;
-  width: 262px;
+  padding: 10px 12px;
 
-  border: 1px solid var(--input-border-color);
-  box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
-  border-radius: 10px;
-
-  background-color: var(--secondary-bg-color);
+  border: var(--border-primary);
+  border-radius: var(--border-radius);
+  background-color: var(--background-secondary-color);
 }
 
 .input {
   width: 100%;
-  padding-left: 16px;
 
   border: none;
-  border-radius: 10px;
-
+  border-radius: var(--border-radius);
+  background-color: var(--background-secondary-color);
   outline: none;
+
   color: var(--typography-primary-color);
-  background-color: var(--secondary-bg-color);
 }
 
 .input[type='number'] {

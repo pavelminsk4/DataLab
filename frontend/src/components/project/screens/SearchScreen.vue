@@ -185,5 +185,7 @@ export default {
 <style scoped>
 .search-settings-wrapper {
   display: flex;
+
+  width: 50%;
 }
 </style>

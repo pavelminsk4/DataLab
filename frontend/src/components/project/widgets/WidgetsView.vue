@@ -236,8 +236,10 @@ export default {
   display: flex;
   gap: 40px;
 
+  height: 100%;
+
   .search-results {
-    min-width: 50%;
+    width: 100%;
   }
 }
 .widgets-wrapper {
@@ -245,7 +247,7 @@ export default {
   gap: 30px;
   overflow: auto;
 
-  min-width: 50%;
+  width: 100%;
   max-height: 71vh;
   margin-top: 25px;
 

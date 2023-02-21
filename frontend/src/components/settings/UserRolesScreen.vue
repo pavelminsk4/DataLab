@@ -398,7 +398,7 @@ export default {
 .users-menu {
   margin: 40px 0;
 
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: var(--border-primary);
 
   cursor: pointer;
 
@@ -425,7 +425,7 @@ export default {
     padding: 20px;
 
     background: var(--secondary-bg-color);
-    border: 1px solid var(--border-color);
+    border: var(--border-primary);
     box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
     border-radius: 10px;
 
@@ -507,7 +507,7 @@ export default {
     padding: 40px;
 
     background: var(--secondary-bg-color);
-    border: 1px solid var(--border-color);
+    border: var(--border-primary);
     box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
     border-radius: 10px;
 

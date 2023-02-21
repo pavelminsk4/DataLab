@@ -334,7 +334,7 @@ export default {
     margin-top: 12px;
     padding: 14px 20px 0;
 
-    border-top: 1px solid var(--border-color);
+    border-top: var(--border-primary);
 
     .item {
       display: flex;
@@ -345,7 +345,7 @@ export default {
       padding-right: 12px;
       margin-right: 12px;
 
-      border-right: 1px solid var(--border-color);
+      border-right: var(--border-primary);
 
       &:last-child {
         padding-right: 0;

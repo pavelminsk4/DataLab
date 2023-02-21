@@ -98,7 +98,7 @@ export default {
 .title {
   padding: 12px 24px;
 
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: var(--border-primary);
 
   font-style: normal;
   font-weight: 600;
