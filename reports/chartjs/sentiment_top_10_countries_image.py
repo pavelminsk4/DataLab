@@ -5,7 +5,7 @@ from .services.algorithm_for_count_sentiment_top_10_widgets import algorithm_for
 
 def create_sentiment_top_10_countries_wid_image(project_id):
   proj = Project.objects.get(id=project_id)
-  posts = posts_agregator(proj)
+  posts = post_agregator_with_dimensions(proj)
   top_countries = posts.values('feedlink__country').annotate(brand_count=Count('feedlink__country')).order_by('-brand_count').values_list('feedlink__country', flat=True)[:10]
   results = {country: list(posts.filter(feedlink__country=country).values('sentiment').annotate(sentiment_count=Count('sentiment')).order_by('-sentiment_count')) for country in top_countries}
   qc = algorithm_for_count_sentiment_top_10_widgets(results, top_countries)

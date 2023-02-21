@@ -5,7 +5,7 @@ from .services.algorithm_for_count_top_10_widgets import algorithm_for_count_top
 
 def create_top_10_languages_wid_image(project_id):
   proj = Project.objects.get(id=project_id)
-  posts = posts_agregator(proj)
+  posts = post_agregator_with_dimensions(proj)
   results = posts.values('feed_language__language').annotate(language_count=Count('feed_language__language')).order_by('-language_count')[:10]
   qc = algorithm_for_count_top_10_widgets(proj, results, 'feed_language__language', 'language_count')
   qc.to_file('tmp/top_10_languages_widget.png')
