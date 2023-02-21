@@ -17,8 +17,8 @@ from .common_widget.sentiment_top_10_authors_widget import sentiment_top_10_auth
 from .common_widget.sentiment_top_10_languages_widget import sentiment_top_10_languages
 from .common_widget.content_volume_top_5_authors_widget import content_volume_top_5_authors
 from .common_widget.content_volume_top_5_countries_widget import content_volume_top_5_countries
-from .common_widget.clipping_widget import clp_widget
 from .common_widget.sentiment_for_period_widget import sentiment_for_period
+from .common_widget.dimensions_for_widgets import dimensions_for_each_widgets
 
 def sum_widget(request, pk):
   return summary_widget(pk)
@@ -31,9 +31,6 @@ def clipping_feed_content_widget(request, pk):
 
 def top_10_authors_by_volume(request, pk):
   return top_10_auth_by_vol_widget(pk)
-
-def clipping_widget(request, pk):
-  return clp_widget(pk)
 
 def top_10_brands_widget(request, pk):
   return top_10_brands(pk)
@@ -66,4 +63,7 @@ def content_volume_top_5_authors_widget(request, pk):
   return content_volume_top_5_authors(request, pk)
 
 def content_volume_top_5_countries_widget(request, pk):
-  return content_volume_top_5_countries(request, pk)  
+  return content_volume_top_5_countries(request, pk)
+
+def dimensions_for_each_widgets(request, project_pk, widget_pk):
+  return dimensions_for_each_widgets(request, project_pk, widget_pk)

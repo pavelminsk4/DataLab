@@ -5,24 +5,7 @@ from django.db.models import Q
 from functools import reduce
 from .filters_for_widgets import post_agregator_with_dimensions
 
-def calculate_summary_widget(pk):
-  project = Project.objects.get(id=pk)
-  posts = post_agregator_with_dimensions(project)
-  author_dim_pivot = project.widgets_list_2.summary_widget.author_dim_pivot
-  country_dim_pivot = project.widgets_list_2.summary_widget.country_dim_pivot
-  language_dim_pivot = project.widgets_list_2.summary_widget.language_dim_pivot
-  source_dim_pivot = project.widgets_list_2.summary_widget.source_dim_pivot
-  sentiment_dim_pivot =project.widgets_list_2.summary_widget.sentiment_dim_pivot
-  if author_dim_pivot!=None:
-   posts = posts.filter(entry_author=author_dim_pivot)
-  if country_dim_pivot!=None:
-   posts = posts.filter(feedlink__country=country_dim_pivot)
-  if language_dim_pivot!=None:
-   posts = posts.filter(feed_language__language=language_dim_pivot)
-  if source_dim_pivot!=None:
-   posts = posts.filter(feedlink__source1=source_dim_pivot)
-  if sentiment_dim_pivot!=None:
-   posts = posts.filter(sentiment=sentiment_dim_pivot)
+def calculate_summary_widget(posts):
   posts_quantity = posts.count()
   sources_quantity = posts.values('feedlink__source1').distinct().count()
   authors_quantity = posts.values('entry_author').distinct().count()
@@ -45,5 +28,7 @@ def calculate_summary_widget(pk):
     }
 
 def summary_widget(pk):
-  res = calculate_summary_widget(pk)
+  project = Project.objects.get(id=pk)
+  posts = post_agregator_with_dimensions(project)
+  res = calculate_summary_widget(posts)
   return JsonResponse(res, safe=False)
