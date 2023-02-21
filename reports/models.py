@@ -54,6 +54,8 @@ class RegularReport(models.Model):
   monthly_periodic_task = models.OneToOneField(PeriodicTask, on_delete=models.SET_NULL, null=True, blank=True, related_name='%(class)s_m_periodic_task')
   monthly_crontab_schedule = models.OneToOneField(CrontabSchedule, on_delete=models.SET_NULL, null=True, blank=True, related_name='%(class)s_m_crontab_sch')
   monthly_enabled = models.BooleanField(default=False)
+  created_at = models.DateTimeField(auto_now_add=True)
+  updated_at = models.DateTimeField(auto_now=True)
 
   def __str__(self):
     return self.title
