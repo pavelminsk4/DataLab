@@ -66,4 +66,10 @@ class GoogleSpider(scrapy.Spider):
             if feedparser.parse(feed).bozo == False and len(feedparser.parse(feed).entries)!=0 and not in_feedlinks:
                 item = RssCrawlerItem()
                 item['url'] = feed
+                try:
+                    f = feedparser.parse(feed)
+                    item['sourceurl'] = f.feed.link
+                    item['source1'] = f.feed.title
+                except:
+                    print('Error')
                 yield item
