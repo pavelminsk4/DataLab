@@ -43,3 +43,4 @@ geonamescache==1.5.0 # list of all cities
 pycountry==22.3.5 # list of all countries
 Scrapy==2.8.0
 scrapy-djangoitem==1.1.1
+google-search-results==2.4.1

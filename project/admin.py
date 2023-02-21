@@ -7,7 +7,6 @@ admin.site.register(Project)
 admin.site.register(Workspace)
 admin.site.register(Speech)
 admin.site.register(Status)
-admin.site.register(CrawlerKeyword)
 
 def make_approved(modeladmin, request, queryset):
     queryset.update(is_approved=True)
@@ -32,6 +31,10 @@ class NewFeedlinksAdmin(admin.ModelAdmin):
     search_fields = ('source1__startswith', 'url__startswith', 'sourceurl__startswith')
     actions = [make_approved, move_approved]
     
+@admin.register(CrawlerKeyword)
+class CrawlerKeywordAdmin(admin.ModelAdmin):
+    list_display = ('word', 'created_at', 'updated_at')
+
 # === Feedlinks Import-Export
 class FeedlinksResource(resources.ModelResource):
   class Meta:
