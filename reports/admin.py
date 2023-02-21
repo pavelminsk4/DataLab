@@ -5,4 +5,17 @@ admin.site.register(Templates)
 
 @admin.register(RegularReport)
 class RegularReportAdmin(admin.ModelAdmin):
-    list_display = ('title', 'project', 'hourly_enabled', 'daily_enabled', 'weekly_enabled', 'monthly_enabled', 'created_at', 'updated_at')
+    list_display = (
+        'title',
+        'project',
+        'hourly_enabled',
+        'h_template',
+        'daily_enabled',
+        'd_template',
+        'weekly_enabled',
+        'w_template',
+        'monthly_enabled',
+        'm_template',
+        'created_at',
+        'updated_at',
+        )
