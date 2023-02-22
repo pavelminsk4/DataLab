@@ -37,8 +37,6 @@ export default {
   --border-primary: 1px solid var(--border-color);
   --border-radius: 8px;
 
-  --primary-chips-background-color: #e9f0f3;
-
   --neutral-primary-color: #516bee;
   --neutral-secondary-color: #e5e9fc;
   --positive-primary-color: #00b884;
@@ -46,7 +44,10 @@ export default {
   --negative-primary-color: #ed2549;
   --negative-secondary-color: #ffe3e8;
 
-  --icon-bg-color: #1a1c1e;
+  --icon-primary-color: #797d80;
+  --icon-hover-color: var(--primary-color);
+
+  --primary-chips-background-color: #e9f0f3;
 
   --input-border-color: var(--border-color);
   --modal-border-color: #404046;
@@ -133,6 +134,18 @@ h4 {
 
 .overflow-hidden {
   overflow: hidden;
+}
+
+svg {
+  color: var(--icon-primary-color);
+}
+
+.icon-button {
+  cursor: pointer;
+
+  &:hover {
+    color: var(--icon-hover-color);
+  }
 }
 
 @keyframes hover-gradient {

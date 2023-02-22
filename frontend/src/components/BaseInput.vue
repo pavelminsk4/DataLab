@@ -1,12 +1,6 @@
 <template>
-  <div
-    :class="[
-      'input-wrapper',
-      isSettings && 'settings-input',
-      hasError && 'error',
-    ]"
-  >
-    <SearchIcon v-if="isSearch" class="icon" />
+  <div :class="['input-wrapper', hasError && 'error']">
+    <SearchIcon v-if="isSearch" class="search-icon" />
     <input
       v-bind="$attrs"
       :type="inputType"
@@ -42,10 +36,6 @@ export default {
       default: 'text',
     },
     isSearch: {
-      type: Boolean,
-      default: false,
-    },
-    isSettings: {
       type: Boolean,
       default: false,
     },
@@ -119,27 +109,15 @@ export default {
 }
 
 .input-search {
-  padding-left: 32px;
+  padding-left: 28px;
 }
 
-.settings-input {
-  width: 100%;
-
-  background: #34353b;
-  border: 1px solid #404046;
-  border-radius: 10px;
-
-  input {
-    background: #34353b;
-  }
-}
-
-.icon {
+.search-icon {
   position: absolute;
-  left: 10px;
+  left: 12px;
 
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
 }
 
 .error {

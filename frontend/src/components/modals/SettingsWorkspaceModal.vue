@@ -32,11 +32,7 @@
 
           <div class="form-title">Workspace description</div>
 
-          <textarea
-            v-model="description"
-            placeholder="Description"
-            class="description-field scroll"
-          />
+          <BaseTextarea v-model="description" placeholder="Description" />
         </div>
 
         <div v-if="settingName === 'Permissions'" class="permissions-wrapper">
@@ -53,6 +49,7 @@
 import BaseModal from '@components/modals/BaseModal'
 import BaseInput from '@/components/BaseInput'
 import BaseButton from '@/components/buttons/BaseButton'
+import BaseTextarea from '@/components/BaseTextarea'
 
 export default {
   name: 'SettingsWorkspaceModal',
@@ -60,6 +57,7 @@ export default {
     BaseButton,
     BaseInput,
     BaseModal,
+    BaseTextarea,
   },
   data() {
     return {
@@ -127,7 +125,6 @@ export default {
 .title {
   margin-bottom: 25px;
 
-  font-style: normal;
   font-weight: 600;
   font-size: 36px;
   line-height: 54px;
@@ -171,7 +168,6 @@ export default {
   .form-title {
     margin-bottom: 12px;
 
-    font-style: normal;
     font-weight: 500;
     font-size: 14px;
     line-height: 110%;
@@ -180,24 +176,6 @@ export default {
 
   .input-settings {
     margin-bottom: 24px;
-  }
-
-  .description-field {
-    width: 100%;
-    height: 105px;
-    padding: 10px 19px;
-
-    background: var(--progress-line);
-    border: 1px solid var(--modal-border-color);
-    border-radius: 10px;
-
-    color: var(--typography-primary-color);
-
-    resize: none;
-  }
-
-  .description-field::placeholder {
-    color: var(--typography-secondary-color);
   }
 
   .button {

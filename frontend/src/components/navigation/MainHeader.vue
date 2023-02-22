@@ -13,7 +13,13 @@
 
       <div class="section-company">
         <div class="name">{{ companyName }}</div>
-        <img :src="logoImg" class="company-logo" />
+        <UserAvatar
+          :avatar-url="logoImg"
+          :first-name="userInfo.first_name"
+          :last-name="userInfo.last_name"
+          :username="userInfo.username"
+          style="--avatar-width: 32px"
+        />
         <section class="dropdown-wrapper">
           <ArrowDownIcon
             @click="openDropdown"
@@ -36,6 +42,7 @@ import {action, get} from '@store/constants'
 import LogoIcon from '@components/icons/LogoIcon'
 import ArrowDownIcon from '@components/icons/ArrowDownIcon'
 import UserIcon from '@/components/icons/UserIcon'
+import UserAvatar from '@components/UserAvatar'
 
 export default {
   name: 'MainHeader',
@@ -43,6 +50,7 @@ export default {
     UserIcon,
     LogoIcon,
     ArrowDownIcon,
+    UserAvatar,
   },
   data() {
     return {
@@ -226,22 +234,6 @@ export default {
 .arrow-open-dropdown {
   transform: rotate(180deg);
   color: var(--button-primary-color);
-}
-
-.company-logo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  height: 36px;
-  width: 36px;
-
-  border-radius: 100%;
-
-  color: var(--typography-primary-color);
-  background-color: var(--button-primary-color);
-
-  font-size: 8px;
 }
 
 .logout {

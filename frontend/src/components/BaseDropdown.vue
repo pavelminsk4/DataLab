@@ -72,25 +72,15 @@ export default {
 
   cursor: pointer;
 
-  font-size: 12px;
-
   .title {
     margin-right: 12px;
 
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 20px;
     color: var(--typography-secondary-color);
   }
 
   .selected-value {
     margin-right: 10px;
 
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 20px;
     color: var(--typography-title-color);
   }
 
@@ -112,10 +102,7 @@ export default {
     border: 1px solid var(--modal-border-color);
     border-radius: 10px;
 
-    font-style: normal;
-    font-weight: 400;
     font-size: 12px;
-    line-height: 20px;
     color: var(--typography-primary-color);
   }
 }
