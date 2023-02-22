@@ -140,10 +140,6 @@ export default {
     return state.regularReports
   },
 
-  [get.SELECTED_DIMENSIONS](state) {
-    return state.selectedDimensions
-  },
-
   [get.DIMENSION_LANGUAGES](state) {
     return state.dimensionLanguages
   },
@@ -158,6 +154,10 @@ export default {
 
   [get.DIMENSION_SOURCES](state) {
     return state.dimensionSources
+  },
+
+  [get.SELECTED_DIMENSIONS](state) {
+    return state.selectedDimensions
   },
 
   [get.TEMPLATES](state) {

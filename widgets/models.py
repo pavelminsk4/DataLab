@@ -18,11 +18,11 @@ class WidgetDescription(models.Model):
   description = models.TextField(default='', null=True, blank=True)
   aggregation_period = models.CharField(default='day', max_length=10)
   linked_dimensions = models.ManyToManyField(Dimensions, blank=True)
-  author_dim_pivot = ArrayField(models.CharField(max_length=30), default=None, null=True, blank=True)
-  country_dim_pivot = ArrayField(models.CharField(max_length=30), default=None, null=True, blank=True)
-  source_dim_pivot = ArrayField(models.CharField(max_length=30), default=None, null=True, blank=True)
-  language_dim_pivot = ArrayField(models.CharField(max_length=30), default=None, null=True, blank=True)
-  sentiment_dim_pivot = ArrayField(models.CharField(max_length=30), default=None, null=True, blank=True)
+  author_dim_pivot = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
+  country_dim_pivot = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
+  source_dim_pivot = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
+  language_dim_pivot = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
+  sentiment_dim_pivot = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
   chart_type = models.CharField(max_length=30, default=None, null=True, blank=True)
 
 class WidgetsList(models.Model):

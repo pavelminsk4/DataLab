@@ -15,6 +15,8 @@
 <script>
 import {modalWidgetsConfig} from '@/lib/configs/widgetsConfigs'
 import BaseRadio from '@/components/BaseRadio'
+import {action} from '@store/constants'
+import {mapActions} from 'vuex'
 
 export default {
   name: 'ChartTypesRadio',
@@ -27,6 +29,14 @@ export default {
     widgetName: {
       type: String,
       required: false,
+    },
+    widgetData: {
+      type: Object,
+      default: () => {},
+    },
+    projectId: {
+      type: Number,
+      required: true,
     },
   },
   data() {
@@ -44,8 +54,27 @@ export default {
       },
       set(val) {
         this.selectedValue = val
-        this.$emit('update-chart-type', this.selectedValue)
+        this.updateChartType()
       },
+    },
+  },
+  methods: {
+    ...mapActions([
+      action.UPDATE_AVAILABLE_WIDGETS,
+      action.GET_AVAILABLE_WIDGETS,
+    ]),
+    async updateChartType() {
+      await this[action.UPDATE_AVAILABLE_WIDGETS]({
+        projectId: this.projectId,
+        data: {
+          [this.widgetName]: {
+            id: this.widgetData.id,
+            chart_type: this.selectedValueProxy,
+          },
+        },
+      })
+
+      await this[action.GET_AVAILABLE_WIDGETS](this.projectId)
     },
   },
 }

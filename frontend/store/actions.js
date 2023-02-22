@@ -327,11 +327,10 @@ export default {
     }
   },
 
-  async [action.GET_TEMPLATES]({commit}) {
+  async [action.GET_SELECTED_DIMENSIONS]({commit}, selectedDimensions) {
     commit(mutator.SET_LOADING, true)
     try {
-      const templates = await api.getTemplates()
-      commit(mutator.SET_TEMPLATES, templates)
+      commit(mutator.SET_SELECTED_DIMENSIONS, selectedDimensions)
     } catch (e) {
       console.log(e)
     } finally {
@@ -339,11 +338,11 @@ export default {
     }
   },
 
-  async [action.GET_SELECTED_DIMENSIONS]({commit}, projectId) {
+  async [action.GET_TEMPLATES]({commit}) {
     commit(mutator.SET_LOADING, true)
     try {
-      const selectedDimensions = await api.getSelectedDimensions(projectId)
-      commit(mutator.SET_SELECTED_DIMENSIONS, selectedDimensions)
+      const templates = await api.getTemplates()
+      commit(mutator.SET_TEMPLATES, templates)
     } catch (e) {
       console.log(e)
     } finally {
@@ -581,10 +580,11 @@ export default {
     }
   },
 
-  async [action.UPDATE_PROJECT]({commit}, {projectId, data}) {
+  async [action.UPDATE_PROJECT]({dispatch, commit}, {projectId, data}) {
     commit(mutator.SET_LOADING, true)
     try {
       await api.updateProject({projectId, data})
+      await dispatch(action.GET_WORKSPACES)
     } catch (e) {
       console.log(e)
     } finally {
@@ -617,10 +617,13 @@ export default {
     }
   },
 
-  async [action.POST_DIMENSIONS]({commit}, {projectId, data}) {
+  async [action.POST_DIMENSIONS_FOR_WIDGET](
+    {commit},
+    {projectId, widgetId, data}
+  ) {
     commit(mutator.SET_LOADING, true)
     try {
-      await api.postDimensions({projectId, data})
+      await api.postDimensionsForWidget({projectId, widgetId, data})
     } catch (e) {
       console.log(e)
     } finally {

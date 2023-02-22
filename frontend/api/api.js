@@ -147,10 +147,6 @@ export default {
     return fetch('get', '/api/templates/')
   },
 
-  async getSelectedDimensions(projectId) {
-    return fetch('get', `/api/projects/${projectId}/dimensions`)
-  },
-
   async getDimensionAuthors(projectId) {
     return fetch('get', `/api/projects/${projectId}/list_authors`)
   },
@@ -243,8 +239,12 @@ export default {
     return fetch('post', '/api/search', request)
   },
 
-  async postDimensions({projectId, data}) {
-    return fetch('post', `/api/projects/${projectId}/dimensions_create`, data)
+  async postDimensionsForWidget({projectId, widgetId, data}) {
+    return fetch(
+      'patch',
+      `/api/widgets/dimensions_for_each_widgets/${projectId}/${widgetId}`,
+      data
+    )
   },
 
   async updateWorkspace({workspaceId, data}) {
