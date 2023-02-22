@@ -65,42 +65,46 @@ class TweetBinderPost(models.Model):
   user_value = models.FloatField(blank=True, null=True)
   videos = ArrayField(models.CharField(max_length=200), blank=True, null=True)
 
-class TweetBinderProject(models.Model):
+class TypesOfSearch(models.Model):
   title = models.CharField(max_length=100)
   created_at = models.DateTimeField(auto_now_add=True)
+  updated_at = models.DateTimeField(auto_now=True)
   limit = models.IntegerField(blank=True, null=True, default=10)
   keyword = models.CharField(max_length=100, blank=False, null=False)
+
+  
+  class Meta:
+    abstract = True
+
+class HistoricalSearchProject(TypesOfSearch):
   start_date = models.DateTimeField(blank=True, null=True)
   end_date = models.DateTimeField(blank=True, null=True)
   
-  BASIC_SEARCH = 'basic search'
-  HISTORICAL_SEARCH = 'historical search'
-  LIVE_SEARCH =  'live search'
- 
-  TYPE_SEARCH = (
-    (BASIC_SEARCH, 'Basic search'),
-    (HISTORICAL_SEARCH, 'Historical search'),
-    (LIVE_SEARCH, 'Live search'),
-  )
-  
-  search_type = models.CharField(max_length=30, choices=TYPE_SEARCH, blank=True, null=True, default=TYPE_SEARCH[0][1])
-
   def __str__(self):
       return self.title
 
-
-@receiver(post_save, sender=TweetBinderProject)
-def create_periodic_task(sender, instance, created, **kwargs):
+@receiver(post_save, sender=HistoricalSearchProject)
+def create_historical_search_project(sender, instance, created, **kwargs):
   if created:
     keyword = instance.keyword
     limit = instance.limit
     start_date = instance.start_date
     end_date = instance.end_date
     instance.save()
-    if instance.search_type == 'basic search':
-      basic_search_type(keyword, limit)
-    elif instance.search_type == 'historical search':
-      historical_search_type(keyword, limit, start_date, end_date)
+    historical_search_type(keyword, limit, start_date, end_date)
+
+class BasicSearchProject(TypesOfSearch):
+
+  def __str__(self):
+      return self.title
+
+@receiver(post_save, sender=BasicSearchProject)
+def create_historical_search_project(sender, instance, created, **kwargs):
+  if created:
+    keyword = instance.keyword
+    limit = instance.limit
+    instance.save()
+    basic_search_type(keyword, limit)          
 
 email = os.environ.get("EMAIL_TWEET")
 password = os.environ.get("PASSWORD_TWEET")
@@ -126,7 +130,6 @@ def search(report_id, auth_token):
     if json.loads(get_report_state(report_id, auth_token))['status'] == "generated":
         data_tweets = json.loads(get_publications(report_id, auth_token))['data']
         tweets = []
-        print(data_tweets)
         for tweet in data_tweets:
             new_tweet = {
                 'post_id': tweet['_id'],
@@ -180,9 +183,7 @@ def search(report_id, auth_token):
                 'user_value': tweet['user']['value'],
                 'videos': tweet['videos'],
             }
-            print(new_tweet)
             tweets.append(new_tweet)
-        print(tweets)    
         try:
             django_list = [TweetBinderPost(**vals) for vals in tweets if not TweetBinderPost.objects.filter(post_id=vals['post_id'])] 
             TweetBinderPost.objects.bulk_create(django_list)
