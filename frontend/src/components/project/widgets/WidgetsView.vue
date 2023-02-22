@@ -9,6 +9,7 @@
     :hasAggregationPeriod="dataForWidgetModal.hasAggregationPeriod"
     :chart-type="dataForWidgetModal.chartType"
     :widgets-list="availableWidgets"
+    :current-project="currentProject"
     @close="closeModal"
   />
 
