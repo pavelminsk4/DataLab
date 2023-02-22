@@ -5,7 +5,7 @@ from .services.algorithm_for_count_content_volume_widgets import algorithm_for_c
 
 def create_content_volume_top_5_countries_widget_image(project_id):
   proj = Project.objects.get(id=project_id)
-  posts = posts_agregator(proj)
+  posts = post_agregator_with_dimensions(proj)
   smpl_freq = proj.widgets_list_2.content_volume_top_5_source_widget.aggregation_period
   top_countries = list(map(lambda x: x['feedlink__country'], list(posts.values('feedlink__country').annotate(country_count=Count('feedlink__country')).order_by('-country_count')[:10])))
   results = [{country: list(posts.filter(feedlink__country=country).annotate(date=Trunc('entry_published', smpl_freq)).values("date").annotate(created_count=Count('id')).order_by("date"))} for country in top_countries]

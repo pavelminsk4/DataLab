@@ -9,7 +9,7 @@ def clp_widget(pk):
   language_dim_pivot = project.widgets_list_2.clipping_widget.language_dim_pivot
   source_dim_pivot = project.widgets_list_2.clipping_widget.source_dim_pivot
   sentiment_dim_pivot =project.widgets_list_2.clipping_widget.sentiment_dim_pivot
-  posts = posts_agregator(project)
+  posts = post_agregator_with_dimensions(project)
   if author_dim_pivot:
    posts = posts.filter(entry_author=author_dim_pivot)
   if country_dim_pivot:

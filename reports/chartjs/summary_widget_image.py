@@ -1,10 +1,12 @@
 from widgets.common_widget.summary_widget import *
 from project.models import *
 from quickchart import QuickChart
+import json
 
 def create_summary_widget_image(project_id):
   from PIL import Image, ImageDraw, ImageFont
-  res = calculate_summary_widget(project_id)
+  res = summary_widget(project_id)
+  res = json.loads(res.content)
   # Open an Image
   img = Image.open('tmp/mask.png')
   # Call draw Method to add 2D graphics in an image
