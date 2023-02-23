@@ -1,3 +1,4 @@
+from widgets.models import WidgetDescription
 from project.models import Project
 from django.http import JsonResponse
 from django.db.models import Count
@@ -10,8 +11,10 @@ def post_agregator_top_countries(posts):
       results[i]['feedlink__country'] = 'Missing in source'
   return list(results)
 
-def top_10_countries(pk):
+def top_10_countries(pk, widget_pk):
   project = Project.objects.get(id=pk)
   posts = post_agregator_with_dimensions(project)
+  widget = WidgetDescription.objects.get(id=widget_pk)
+  posts = post_agregetor_for_each_widget(widget)
   res = post_agregator_top_countries(posts)
   return JsonResponse(res, safe = False)

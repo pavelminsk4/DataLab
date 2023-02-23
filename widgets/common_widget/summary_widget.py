@@ -1,9 +1,10 @@
+from widgets.models import WidgetDescription
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from project.models import Project, Post
 from django.db.models import Q
 from functools import reduce
-from .filters_for_widgets import post_agregator_with_dimensions
+from .filters_for_widgets import *
 
 def calculate_summary_widget(posts):
   posts_quantity = posts.count()
@@ -27,8 +28,10 @@ def calculate_summary_widget(posts):
     'reach':potential_reach
     }
 
-def summary_widget(pk):
+def summary_widget(pk, widget_pk):
   project = Project.objects.get(id=pk)
   posts = post_agregator_with_dimensions(project)
+  widget = WidgetDescription.objects.get(id=widget_pk)
+  posts = post_agregetor_for_each_widget(widget)
   res = calculate_summary_widget(posts)
   return JsonResponse(res, safe=False)
