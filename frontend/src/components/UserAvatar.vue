@@ -61,14 +61,16 @@ export default {
 
 <style lang="scss" scoped>
 .member-icon {
+  --avatar-width: 24px;
+
   display: flex;
   align-items: center;
   justify-content: center;
   flex-grow: 0;
   flex-shrink: 0;
 
-  width: 22px;
-  height: 22px;
+  width: var(--avatar-width);
+  height: var(--avatar-width);
 
   border-radius: 50%;
   border: 1px solid var(--typography-secondary-color);
@@ -76,8 +78,8 @@ export default {
   background-color: white;
 
   font-weight: 500;
-  font-size: 10px;
-  line-height: 10px;
+  font-size: calc(var(--avatar-width) / 2.4);
+  line-height: calc(var(--avatar-width) / 2.4);
   color: var(--button-text-color);
 
   &:not(:last-child) {

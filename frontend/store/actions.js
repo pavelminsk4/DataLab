@@ -543,7 +543,10 @@ export default {
       return await api.createUser(data)
     } catch (e) {
       console.log(e)
-      return e.response.data
+      return {
+        ...e.response.data,
+        hasError: true,
+      }
     } finally {
       commit(mutator.SET_LOADING, false)
     }

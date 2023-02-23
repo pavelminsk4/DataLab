@@ -50,6 +50,7 @@ export default {
 
 <style lang="scss">
 .base-button {
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -73,6 +74,12 @@ export default {
   &:hover {
     background: var(--button-primary-hover-color);
   }
+
+  svg {
+    margin-right: 4px;
+
+    color: var(--button-text-color);
+  }
 }
 
 .not-background {
@@ -82,6 +89,10 @@ export default {
 
   &:hover {
     background: var(--button-secondary-hover-color);
+  }
+
+  svg {
+    color: var(--button-primary-color);
   }
 }
 

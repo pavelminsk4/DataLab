@@ -123,22 +123,8 @@ export default {
       'searchData',
       'loading',
       'additionalFilters',
-      'isShowCalendarContents',
       'numberOfPages',
     ]),
-    calendarDate() {
-      if (this.additionalFilters?.date_range?.length) {
-        const currentDate = this.additionalFilters?.date_range.map((el) =>
-          this.formatDate(el)
-        )
-
-        return `${currentDate[0]} - ${currentDate[1]}`
-      } else {
-        return `${this.formatDate(this.getLastWeeksDate())} - ${this.formatDate(
-          new Date()
-        )}`
-      }
-    },
     routerName() {
       return this.$route.name.toLowerCase()
     },
@@ -171,21 +157,6 @@ export default {
         day: 'numeric',
         year: 'numeric',
       })
-    },
-    openCalendar() {
-      if (this.isShowCalendarContents) {
-        this.isShow = false
-      } else {
-        this.isShow = true
-      }
-      this[action.REFRESH_DISPLAY_CALENDAR](this.isShow)
-    },
-    close({target}) {
-      const selectList = document.querySelector('.calendar-wrapper')
-
-      if (!selectList?.contains(target)) {
-        this[action.REFRESH_DISPLAY_CALENDAR](false)
-      }
     },
     addClippingElement(postId, checkedElement) {
       if (checkedElement) {
@@ -263,47 +234,6 @@ export default {
   width: 100%;
   padding: 12px;
 }
-
-.trigger-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-
-  max-width: 100%;
-  padding: 10px 16px 10px 25px;
-
-  background: var(--primary-chips-background-color);
-  border-radius: 8px;
-
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 20px;
-  color: var(--typography-primary-color);
-
-  cursor: pointer;
-}
-
-.open-calendar {
-  transform: rotate(180deg);
-}
-
-.filters {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 20px;
-
-  width: 100%;
-  margin-bottom: 25px;
-
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 20px;
-  color: var(--typography-secondary-color);
-}
-
 .spinner-wrapper {
   display: flex;
   align-items: center;
@@ -325,11 +255,6 @@ export default {
 @media screen and (max-width: 1000px) {
   .search-result-wrapper {
     align-items: flex-end;
-  }
-
-  .filters {
-    align-items: flex-end;
-    flex-direction: column;
   }
 
   .search-result-card {

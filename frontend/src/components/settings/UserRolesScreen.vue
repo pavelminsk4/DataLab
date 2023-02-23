@@ -1,139 +1,192 @@
 <template>
-  <MainLayout v-if="currentUser">
-    <NavigationBar
-      title="Users"
-      hint="Manage define limits for users"
-      :is-back-to-dashboard="true"
-    />
+  <MainLayout v-if="currentUser" :isTwoColumns="true" style>
+    <template #default>
+      <MainLayoutTitleBlock
+        title="Users"
+        description="Manage define limits for users"
+        :back-page="{
+          name: 'main page',
+          routName: 'Home',
+        }"
+      >
+        <div class="number-users">{{ companyUsers.length }} users</div>
+      </MainLayoutTitleBlock>
 
-    <div class="users-menu">
-      <div class="tab-name">Users</div>
-    </div>
+      <div class="search-wrapper">
+        <BaseInput
+          v-model="search"
+          placeholder="Search users..."
+          :isSearch="true"
+          class="search-users"
+        />
 
-    <div class="user-roles-wrapper">
-      <section class="users-section">
-        <div class="users-section-header">
-          <div class="title">
-            <div>Users</div>
-            <div>{{ companyUsers.length }}</div>
-          </div>
-          <BaseButtonWithTooltip
-            :is-disabled="isUserCreationAvailable"
-            :has-tooltip="isUserCreationAvailable"
-            tooltip-title="Created the maximum possible number of users!"
-            class="button"
-            @click="addNewUser"
-          >
-            Add User
-          </BaseButtonWithTooltip>
-        </div>
+        <BaseButtonWithTooltip
+          :is-disabled="isUserCreationAvailable"
+          :has-tooltip="isUserCreationAvailable"
+          tooltip-title="Created the maximum possible number of users!"
+          @click="addNewUser"
+        >
+          Add User
+        </BaseButtonWithTooltip>
+      </div>
 
-        <div class="users-wrapper scroll">
-          <div
-            v-for="(item, index) in companyUsers"
-            :key="'user' + index"
-            @click="openExistingUserCard(item)"
-            class="user"
-          >
-            <img :src="item.user_profile.photo" class="photo" />
-            <div class="name-wrapper">
-              <div>{{ item.first_name + ' ' + item.last_name }}</div>
-              <div class="hint">{{ item.user_profile.jobtitle }}</div>
+      <section class="users-section scroll">
+        <div
+          v-for="(item, index) in companyUsers"
+          :key="'user' + index"
+          :class="['user-row', isActiveUser(item) && 'active-user']"
+        >
+          <UserAvatar
+            :avatar-url="item.user_profile.photo"
+            :first-name="item.first_name"
+            :last-name="item.last_name"
+            :username="item.username"
+            style="--avatar-width: 32px"
+          />
+
+          <div class="name-wrapper">
+            <div class="user-name">
+              <span>{{ item.first_name + ' ' + item.last_name }}</span>
+              <SettingsIcon
+                class="icon-button"
+                @click="openExistingUserCard(item)"
+              />
+              <DeleteIcon
+                class="icon-button"
+                @click="toggleDeleteModal(item)"
+              />
             </div>
-            <div class="role">
-              <BaseDropdown
-                :title="currentRole(item.user_profile.role)"
-                :name="'name' + index"
+            <div>{{ item.user_profile.jobtitle }}</div>
+          </div>
+
+          <div class="role">
+            <BaseDropdown
+              :title="currentRole(item.user_profile.role)"
+              :name="'name' + index"
+            >
+              <div
+                v-for="role in userRoles"
+                :key="role.value"
+                @click="updateUserRole(role.value, item.email)"
+                class="user-role"
               >
-                <div
-                  v-for="role in userRoles"
-                  :key="role.value"
-                  @click="updateUserRole(role.value, item.email)"
-                  class="user-role"
-                >
-                  {{ role.name }}
-                </div>
-              </BaseDropdown>
-            </div>
+                {{ role.name }}
+              </div>
+            </BaseDropdown>
           </div>
         </div>
       </section>
+    </template>
 
-      <div class="success-message">{{ successMessage }}</div>
+    <template #second-column>
+      <div class="user-options scroll">
+        <AreYouSureModal
+          v-if="isOpenDeleteModal"
+          :item-to-delete="userValue"
+          @close="toggleDeleteModal"
+          @delete="deleteUserFromCompany"
+        />
 
-      <section v-if="isExistingUser || isNewUser" class="user-data">
-        <section v-if="isNewUser">
-          <div class="title">Username</div>
-          <BaseInput
-            v-model="username"
-            :hasError="!!errors.username"
-            :errorMessage="errors.username"
-            class="input-field"
-          />
-          <div class="title">Password</div>
-          <BaseInput
-            v-model="password"
-            :hasError="!!errors.password"
-            :errorMessage="errors.password"
-            autocomplete="new-password"
-            input-type="password"
-            class="input-field"
-          />
-          <div class="title">Confirm password</div>
-          <BaseInput
-            v-model="confirmPassword"
-            :hasError="!!errors.password2"
-            :errorMessage="errors.password2"
-            autocomplete="new-password"
-            input-type="password"
-            class="input-field"
-          />
-          <div class="title">Email</div>
-          <BaseInput
-            v-model="email"
-            :hasError="!!errors.email"
-            :errorMessage="errors.email"
-            class="input-field"
-          />
-          <div class="title">First name</div>
-          <BaseInput v-model="firstName" class="input-field" />
-          <div class="title">Last name</div>
-          <BaseInput v-model="lastName" class="input-field" />
+        <div class="success-message">{{ successMessage }}</div>
 
-          <BaseButton @click="createNewUser">Add User</BaseButton>
-        </section>
-
-        <section v-if="isExistingUser">
-          <div class="header-existing-user">
-            <img :src="existingUserData.user_profile.photo" class="photo" />
-            <div>
-              <div>{{ existingUserData.first_name }}</div>
-              <div>{{ existingUserData.last_name }}</div>
-            </div>
-
-            <div @click="toggleDeleteModal" class="delete-button">
-              <PlusIcon class="icon-delete" />Delete User
-            </div>
-
-            <AreYouSureModal
-              v-if="isOpenDeleteModal"
-              :item-to-delete="userValue"
-              @close="toggleDeleteModal"
-              @delete="deleteUserFromCompany"
+        <section v-if="isExistingUser || isNewUser" class="user-data">
+          <section v-if="isNewUser">
+            <h4 class="group-label">Personal info</h4>
+            <div class="label">Email</div>
+            <BaseInput
+              v-model="email"
+              :hasError="!!errors.email"
+              :errorMessage="errors.email"
+              class="input-field"
             />
-          </div>
+            <div class="label">First name</div>
+            <BaseInput v-model="firstName" class="input-field" />
+            <div class="label">Last name</div>
+            <BaseInput v-model="lastName" class="input-field" />
 
-          <div class="title">Name</div>
-          <BaseInput v-model="existingUserNameProxy" class="input-field" />
-          <div class="title">Surname</div>
-          <BaseInput v-model="existingUserSurnameProxy" class="input-field" />
-          <div class="title">E-mail</div>
-          <BaseInput v-model="existingUserEmailProxy" class="input-field" />
+            <h4 class="group-label">Profile settings</h4>
+            <div class="label">Username</div>
+            <BaseInput
+              v-model="username"
+              :hasError="!!errors.username"
+              :errorMessage="errors.username"
+              class="input-field"
+            />
+            <div class="label">Password</div>
+            <BaseInput
+              v-model="password"
+              :hasError="!!errors.password"
+              :errorMessage="errors.password"
+              autocomplete="new-password"
+              input-type="password"
+              class="input-field"
+            />
+            <div class="label">Confirm password</div>
+            <BaseInput
+              v-model="confirmPassword"
+              :hasError="!!errors.password2"
+              :errorMessage="errors.password2"
+              autocomplete="new-password"
+              input-type="password"
+              class="input-field"
+            />
 
-          <BaseButton @click="updateUserData">Update User</BaseButton>
+            <div class="action-button">
+              <BaseButton @click="createNewUser">
+                <AddUserIcon />
+                <span>Add User</span>
+              </BaseButton>
+            </div>
+          </section>
+
+          <section v-if="isExistingUser">
+            <div class="header-existing-user">
+              <UserAvatar
+                :avatar-url="existingUserData.user_profile.photo"
+                :first-name="existingUserData.first_name"
+                :last-name="existingUserData.last_name"
+                :username="existingUserData.username"
+                style="--avatar-width: 72px"
+              />
+
+              <div class="name-wrapper">
+                <div class="settings-user-name">
+                  {{
+                    `${existingUserData.first_name} ${existingUserData.last_name}`
+                  }}
+                </div>
+                <div>{{ existingUserData.user_profile.jobtitle }}</div>
+              </div>
+
+              <BaseButton
+                :is-not-background="true"
+                class="delete-button"
+                @click="toggleDeleteModal"
+              >
+                <DeleteIcon />
+                <span>Delete User</span>
+              </BaseButton>
+            </div>
+
+            <div class="label">Name</div>
+            <BaseInput v-model="existingUserNameProxy" class="input-field" />
+            <div class="label">Surname</div>
+            <BaseInput v-model="existingUserSurnameProxy" class="input-field" />
+            <div class="label">E-mail</div>
+            <BaseInput v-model="existingUserEmailProxy" class="input-field" />
+
+            <div class="action-button">
+              <BaseButton @click="updateUserData">
+                <UpdateIcon />
+                <span>Update User</span>
+              </BaseButton>
+            </div>
+          </section>
         </section>
-      </section>
-    </div>
+
+        <img v-else src="@/assets/users.png" alt="users" />
+      </div>
+    </template>
   </MainLayout>
 </template>
 
@@ -143,25 +196,33 @@ import {action, get} from '@store/constants'
 import {isAllEmptyFields} from '@lib/utilities'
 
 import MainLayout from '@/components/layout/MainLayout'
-import NavigationBar from '@/components/navigation/NavigationBar'
+import MainLayoutTitleBlock from '@/components/layout/MainLayoutTitleBlock'
 import BaseButton from '@/components/buttons/BaseButton'
 import BaseInput from '@/components/BaseInput'
 import BaseDropdown from '@/components/BaseDropdown'
-import PlusIcon from '@/components/icons/PlusIcon'
 import AreYouSureModal from '@/components/modals/AreYouSureModal'
 import BaseButtonWithTooltip from '@/components/BaseButtonWithTooltip'
+import UserAvatar from '@components/UserAvatar'
+import DeleteIcon from '@/components/icons/DeleteIcon'
+import SettingsIcon from '@/components/icons/SettingsIcon'
+import AddUserIcon from '@/components/icons/AddUserIcon'
+import UpdateIcon from '@/components/icons/UpdateIcon'
 
 export default {
   name: 'UserRolesScreen',
   components: {
     BaseButtonWithTooltip,
     AreYouSureModal,
-    PlusIcon,
     BaseDropdown,
     BaseInput,
     BaseButton,
-    NavigationBar,
     MainLayout,
+    MainLayoutTitleBlock,
+    UserAvatar,
+    DeleteIcon,
+    SettingsIcon,
+    AddUserIcon,
+    UpdateIcon,
   },
   data() {
     return {
@@ -187,6 +248,7 @@ export default {
         password2: null,
         email: null,
       },
+      search: '',
     }
   },
   computed: {
@@ -313,9 +375,11 @@ export default {
         last_name: this.lastName,
       })
 
-      Object.keys(response).forEach((key) => {
-        this.errors[key] = response[key][0]
-      })
+      if (response?.hasError) {
+        Object.keys(response).forEach((key) => {
+          this.errors[key] = response[key][0]
+        })
+      }
 
       if (!isAllEmptyFields(this.errors)) return
 
@@ -369,7 +433,11 @@ export default {
 
       await this.toggleDeleteModal()
     },
-    toggleDeleteModal() {
+    toggleDeleteModal(user) {
+      if (user) {
+        this.existingUserData = user
+      }
+
       this.isOpenDeleteModal = !this.isOpenDeleteModal
       this.togglePageScroll(this.isOpenDeleteModal)
     },
@@ -390,190 +458,71 @@ export default {
 
       return isAllEmptyFields(this.errors)
     },
+    isActiveUser(user) {
+      return this.isExistingUser && this.existingUserData.id === user.id
+    },
   },
 }
 </script>
 
 <style lang="scss" scoped>
-.users-menu {
-  margin: 40px 0;
+.number-users {
+  align-self: flex-end;
 
-  border-bottom: var(--border-primary);
-
-  cursor: pointer;
-
-  font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 22px;
-  color: var(--typography-primary-color);
-
-  .tab-name {
-    width: fit-content;
-    padding-bottom: 10px;
-
-    border-bottom: 2px solid var(--button-primary-color);
-  }
+  font-weight: 600;
+  line-height: 20px;
+  color: var(--typography-secondary-color);
 }
-.user-roles-wrapper {
+
+.search-wrapper {
   display: flex;
-  gap: 30px;
+  gap: 16px;
 
-  .users-section {
-    width: 50%;
-    height: 580px;
-    padding: 20px;
+  margin-bottom: 24px;
+}
 
-    background: var(--secondary-bg-color);
-    border: var(--border-primary);
-    box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
-    border-radius: 10px;
+.search-users {
+  flex-grow: 1;
+}
 
-    .users-section-header {
-      display: flex;
-      justify-content: space-between;
+.users-section {
+  width: 100%;
+  height: calc(100% - 200px);
+  padding-right: 24px;
 
-      margin-bottom: 42px;
+  .user-row {
+    display: flex;
 
-      .title {
-        display: flex;
-        gap: 14px;
+    padding: 8px 12px;
 
-        font-style: normal;
-        font-weight: 600;
-        font-size: 16px;
-        line-height: 22px;
-        color: var(--typography-primary-color);
-      }
+    border-radius: var(--border-radius);
+    border: 1px solid transparent;
 
-      .button {
-        width: 120px;
-      }
+    &:hover {
+      background-color: var(--primary-active-color);
     }
 
-    .user {
+    .name-wrapper {
+      flex-grow: 1;
       display: flex;
-
-      margin-bottom: 15px;
-
-      cursor: pointer;
-
-      .photo {
-        width: 36px;
-        height: 36px;
-        margin-right: 16px;
-
-        border-radius: 100px;
-      }
-
-      .name-wrapper {
-        display: flex;
-        flex-direction: column;
-
-        font-style: normal;
-        font-weight: 500;
-        font-size: 14px;
-        line-height: 110%;
-        color: var(--typography-primary-color);
-
-        .hint {
-          font-style: normal;
-          font-weight: 500;
-          font-size: 12px;
-          line-height: 16px;
-          color: var(--typography-secondary-color);
-        }
-      }
-
-      .role {
-        margin-left: auto;
-
-        font-size: 14px;
-        color: var(--typography-primary-color);
-      }
+      flex-direction: column;
     }
-  }
 
-  .users-wrapper {
-    height: 450px;
-    padding-right: 15px;
+    .user-name {
+      display: flex;
+      gap: 14px;
+      font-weight: 600;
+    }
 
-    overflow: auto;
-  }
-
-  .user-data {
-    height: fit-content;
-    width: 50%;
-    padding: 40px;
-
-    background: var(--secondary-bg-color);
-    border: var(--border-primary);
-    box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
-    border-radius: 10px;
-
-    .title {
-      font-style: normal;
+    .settings-user-name {
       font-weight: 500;
-      font-size: 14px;
-      line-height: 110%;
-      color: var(--typography-primary-color);
-    }
-
-    .input-field {
-      width: 100%;
-      margin: 10px 0 25px 0;
+      font-size: 18px;
     }
   }
 
-  .user-card-name {
-    display: flex;
-
-    .name {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-  }
-
-  .header-existing-user {
-    display: flex;
-    align-items: center;
-
-    margin-bottom: 21px;
-
-    color: var(--typography-primary-color);
-
-    .photo {
-      width: 66px;
-      height: 66px;
-      margin-right: 15px;
-
-      border-radius: 100px;
-    }
-
-    .delete-button {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-
-      margin-left: auto;
-
-      cursor: pointer;
-
-      font-style: normal;
-      font-weight: 400;
-      font-size: 14px;
-      line-height: 22px;
-      color: var(--button-primary-color);
-
-      .icon-delete {
-        transform: rotate(45deg);
-      }
-
-      &:hover {
-        color: var(--typography-secondary-color);
-      }
-    }
+  .active-user {
+    background-color: var(--primary-active-color);
+    border: 1px solid var(--border-active-color);
   }
 }
 
@@ -592,6 +541,76 @@ export default {
 
   &:last-child {
     border-radius: 0 0 10px 10px;
+  }
+}
+
+.user-options {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 63vw;
+  height: 100%;
+}
+
+.user-data {
+  display: flex;
+  flex-direction: column;
+
+  width: 45%;
+  padding: 24px;
+
+  @media (max-width: 1440px) {
+    width: 408px;
+  }
+
+  @media (max-width: 900px) {
+    width: 100%;
+  }
+
+  .group-label {
+    margin-bottom: 20px;
+
+    font-weight: 500;
+    font-size: 16px;
+  }
+
+  .label {
+    color: var(--typography-title-color);
+  }
+
+  .input-field {
+    margin: 10px 0 25px;
+  }
+}
+
+.action-button {
+  display: flex;
+  justify-content: flex-end;
+
+  width: 100%;
+}
+
+.user-card-name {
+  display: flex;
+
+  .name {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+}
+
+.header-existing-user {
+  display: flex;
+  align-items: center;
+
+  margin-bottom: 21px;
+
+  color: var(--typography-primary-color);
+
+  .delete-button {
+    border: none;
   }
 }
 
