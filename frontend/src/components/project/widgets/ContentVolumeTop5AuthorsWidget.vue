@@ -35,6 +35,10 @@ export default {
       type: [Number, String],
       required: true,
     },
+    widgetId: {
+      type: Number,
+      required: true,
+    },
     widgets: {
       type: [Array, Object],
       default: () => [],
@@ -71,6 +75,7 @@ export default {
           this.widgets['content_volume_top_5_authors_widget']
             .aggregation_period,
       },
+      widgetId: this.widgetId,
     })
   },
   computed: {

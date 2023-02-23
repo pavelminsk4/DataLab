@@ -39,6 +39,10 @@ export default {
       type: Number,
       required: true,
     },
+    widgetId: {
+      type: Number,
+      required: true,
+    },
     chartType: {
       type: String,
       required: true,
@@ -89,7 +93,10 @@ export default {
   },
   created() {
     if (!this.sentimentTopLanguages.length) {
-      this[action.GET_SENTIMENT_TOP_LANGUAGES](this.projectId)
+      this[action.GET_SENTIMENT_TOP_LANGUAGES]({
+        projectId: this.projectId,
+        widgetId: this.widgetId,
+      })
     }
   },
   methods: {

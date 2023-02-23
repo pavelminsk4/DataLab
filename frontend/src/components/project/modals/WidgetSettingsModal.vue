@@ -14,11 +14,12 @@
         <component
           :is="snakeToPascal(widgetName)"
           :volume="widgetData"
-          :chart-type="generalWidgetData.chart_type"
+          :chart-type="generalWidgetData.chart_type || chartType"
           :is-general-widget="false"
           :is-open-widget="true"
           :project-id="projectId"
           :widgets="widgetsList"
+          :widget-id="generalWidgetData.id"
         />
       </div>
 
@@ -204,6 +205,7 @@ export default {
               this.generalWidgetData.sentiment_dim_pivot || null,
             source_dim_pivot: this.generalWidgetData.source_dim_pivot || null,
           },
+          widgetId: this.generalWidgetData.id,
         })
       } catch (e) {
         console.log(e)
@@ -228,8 +230,9 @@ export default {
       this.panelName = val
     },
 
-    saveDimensionsForWidget() {
-      this[action.POST_DIMENSIONS_FOR_WIDGET]({
+    async saveDimensionsForWidget() {
+      console.log(this.actionName)
+      await this[action.POST_DIMENSIONS_FOR_WIDGET]({
         projectId: this.projectId,
         widgetId: this.generalWidgetData.id,
         data: {
@@ -242,7 +245,21 @@ export default {
         },
       })
 
-      this[action.GET_AVAILABLE_WIDGETS](this.projectId)
+      await this[action.GET_AVAILABLE_WIDGETS](this.projectId)
+
+      await this[this.actionName]({
+        projectId: this.projectId,
+        value: {
+          smpl_freq: 'day',
+          author_dim_pivot: this.generalWidgetData.author_dim_pivot || null,
+          language_dim_pivot: this.generalWidgetData.language_dim_pivot || null,
+          country_dim_pivot: this.generalWidgetData.country_dim_pivot || null,
+          sentiment_dim_pivot:
+            this.generalWidgetData.sentiment_dim_pivot || null,
+          source_dim_pivot: this.generalWidgetData.source_dim_pivot || null,
+        },
+        widgetId: this.generalWidgetData.id,
+      })
     },
   },
 }

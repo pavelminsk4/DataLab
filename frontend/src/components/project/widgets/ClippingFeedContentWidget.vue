@@ -47,6 +47,10 @@ export default {
       type: Number,
       required: true,
     },
+    widgetId: {
+      type: Number,
+      required: true,
+    },
     currentProject: {
       type: [Array, Object],
       required: true,
@@ -59,7 +63,10 @@ export default {
     }),
   },
   created() {
-    this[action.GET_CLIPPING_FEED_CONTENT_WIDGET](this.projectId)
+    this[action.GET_CLIPPING_FEED_CONTENT_WIDGET]({
+      projectId: this.projectId,
+      widgetId: this.widgetId,
+    })
   },
   methods: {
     ...mapActions([action.GET_CLIPPING_FEED_CONTENT_WIDGET]),

@@ -41,6 +41,10 @@ export default {
       type: [String, Number],
       required: true,
     },
+    widgetId: {
+      type: Number,
+      required: true,
+    },
     isOpenWidget: {
       type: Boolean,
       required: true,
@@ -89,6 +93,7 @@ export default {
             this.widgets['volume_widget'].source_dim_pivot || null,
           smpl_freq: this.widgets['volume_widget'].aggregation_period,
         },
+        widgetId: this.widgetId,
       })
     }
   },

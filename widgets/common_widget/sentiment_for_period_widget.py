@@ -26,7 +26,7 @@ def sentiment_for_period(request, pk, widget_pk):
   project = Project.objects.get(id=pk)
   posts = post_agregator_with_dimensions(project)
   widget = WidgetDescription.objects.get(id=widget_pk)
-  posts = post_agregetor_for_each_widget(widget)
+  posts = post_agregetor_for_each_widget(widget, posts)
   body = json.loads(request.body)
   smpl_freq = body['smpl_freq']
   results = post_agregator_sentiment_for_period(posts, smpl_freq)

@@ -42,6 +42,10 @@ export default {
       type: Number,
       required: true,
     },
+    widgetId: {
+      type: Number,
+      required: true,
+    },
     chartType: {
       type: String,
       required: true,
@@ -92,7 +96,10 @@ export default {
   },
   created() {
     if (!this.sentimentTopAuthors.length) {
-      this[action.GET_SENTIMENT_TOP_AUTHORS](this.projectId)
+      this[action.GET_SENTIMENT_TOP_AUTHORS]({
+        projectId: this.projectId,
+        widgetId: this.widgetId,
+      })
     }
   },
   methods: {

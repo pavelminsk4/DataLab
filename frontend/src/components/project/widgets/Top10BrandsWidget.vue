@@ -37,6 +37,10 @@ export default {
       type: Number,
       required: true,
     },
+    widgetId: {
+      type: Number,
+      required: true,
+    },
     chartType: {
       type: String,
       required: true,
@@ -59,7 +63,10 @@ export default {
     },
   },
   created() {
-    this[action.GET_TOP_BRANDS_WIDGET](this.projectId)
+    this[action.GET_TOP_BRANDS_WIDGET]({
+      projectId: this.projectId,
+      widgetId: this.widgetId,
+    })
   },
   methods: {
     ...mapActions([action.GET_TOP_BRANDS_WIDGET]),

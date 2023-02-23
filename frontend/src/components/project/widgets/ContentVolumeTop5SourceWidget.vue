@@ -33,6 +33,10 @@ export default {
       type: [Number, String],
       required: true,
     },
+    widgetId: {
+      type: Number,
+      required: true,
+    },
     widgets: {
       type: [Array, Object],
       default: () => [],
@@ -73,6 +77,7 @@ export default {
         smpl_freq:
           this.widgets['content_volume_top_5_source_widget'].aggregation_period,
       },
+      widgetId: this.widgetId,
     })
   },
   methods: {

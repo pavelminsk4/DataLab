@@ -15,7 +15,7 @@ def volume(request, pk, widget_pk):
   project = get_object_or_404(Project, pk=pk)
   posts = post_agregator_with_dimensions(project)
   widget = WidgetDescription.objects.get(id=widget_pk)
-  posts = post_agregetor_for_each_widget(widget)
+  posts = post_agregetor_for_each_widget(widget, posts)
   body = json.loads(request.body)
   smpl_freq = body['smpl_freq']
   res = post_agregator_volume(posts, smpl_freq)
