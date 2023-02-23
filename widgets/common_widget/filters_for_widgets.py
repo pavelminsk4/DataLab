@@ -1,3 +1,4 @@
+from widgets.models import WidgetDescription
 from project.models import Post
 from django.db.models import Q
 from functools import reduce
@@ -99,4 +100,37 @@ def post_agregator_with_dimensions(project):
     posts = source_dimensions_posts(project.source_dimensions, posts)
   if project.sentiment_dimensions:
     posts = sentiment_dimensions_posts(project.sentiment_dimensions, posts)    
+  return posts
+
+def post_agregetor_for_each_widget(widget, posts):
+  if widget.author_dim_pivot:
+      posts = author_dim_pivot(widget.author_dim_pivot, posts)
+  if widget.country_dim_pivot:
+      posts = country_dim_pivot(widget.country_dim_pivot, posts)
+  if widget.source_dim_pivot:
+      posts = source_dim_pivot(widget.source_dim_pivot, posts)
+  if widget.language_dim_pivot:
+      posts = language_dim_pivot(widget.language_dim_pivot, posts)
+  if widget.sentiment_dim_pivot:
+      posts = sentiment_dim_pivot(widget.sentiment_dim_pivot, posts)
+  return posts 
+
+def author_dim_pivot(authors, posts):
+  posts = posts.filter(reduce(lambda x,y: x | y, [Q(entry_author=author) for author in authors]))
+  return posts
+
+def language_dim_pivot(languages, posts):
+  posts = posts.filter(reduce(lambda x,y: x | y, [Q(feed_language__language=language) for language in languages]))
+  return posts
+
+def country_dim_pivot(countries, posts):
+  posts = posts.filter(reduce(lambda x,y: x | y, [Q(feedlink__country=country) for country in countries]))
+  return posts
+
+def source_dim_pivot(sources, posts):
+  posts = posts.filter(reduce(lambda x,y: x | y, [Q(feedlink__source1=source) for source in sources]))
+  return posts
+
+def sentiment_dim_pivot(sentiments, posts):
+  posts = posts.filter(reduce(lambda x,y: x | y, [Q(sentiment=sentiment) for sentiment in sentiments]))
   return posts

@@ -1,7 +1,8 @@
+from widgets.models import WidgetDescription
 from project.models import Project
 from django.http import JsonResponse
 from django.db.models import Count
-from .filters_for_widgets import post_agregator_with_dimensions
+from .filters_for_widgets import *
 
 def post_agregator_sentiment_top_sources(posts):
   top_brands = posts.values('feedlink__source1').annotate(brand_count=Count('feedlink__source1')).order_by('-brand_count').values_list('feedlink__source1', flat=True)[:10]
@@ -22,8 +23,10 @@ def post_agregator_sentiment_top_sources(posts):
       res[key] = results[key]
   return res
 
-def sentiment_top_10_sources(pk):
+def sentiment_top_10_sources(pk, widget_pk):
   project = Project.objects.get(id=pk)
   posts = post_agregator_with_dimensions(project)
+  widget = WidgetDescription.objects.get(id=widget_pk)
+  posts = post_agregetor_for_each_widget(widget)
   res = post_agregator_sentiment_top_sources(posts)
   return JsonResponse(res, safe = False)

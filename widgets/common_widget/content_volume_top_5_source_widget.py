@@ -1,9 +1,10 @@
+from widgets.models import WidgetDescription
 from project.models import Post, Project
 from django.http import JsonResponse
 from django.db.models import Count
 from django.db.models.functions import Trunc
 import json
-from .filters_for_widgets import post_agregator_with_dimensions
+from .filters_for_widgets import *
 
 def agregator_results_content_volume_top_sources(posts, smpl_freq):
   top_brands = list(map(lambda x: x['feedlink__source1'], list(posts.values('feedlink__source1').annotate(brand_count=Count('feedlink__source1')).order_by('-brand_count')[:5])))
@@ -28,9 +29,11 @@ def agregator_results_content_volume_top_sources(posts, smpl_freq):
       res.append({top_brands[elem]: list_dates})   
   return res
     
-def content_volume_top_5_source(request, pk):
+def content_volume_top_5_source(request, pk, widget_pk):
   project = Project.objects.get(id=pk)
   posts = post_agregator_with_dimensions(project)
+  widget = WidgetDescription.objects.get(id=widget_pk)
+  posts = post_agregetor_for_each_widget(widget)
   body = json.loads(request.body)
   smpl_freq = body['smpl_freq']
   res = agregator_results_content_volume_top_sources(posts, smpl_freq)
