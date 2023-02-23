@@ -1,9 +1,10 @@
+from widgets.models import WidgetDescription
 from project.models import Project
 from django.http import JsonResponse
 from django.db.models import Count
 from django.db.models.functions import Trunc
 import json
-from .filters_for_widgets import post_agregator_with_dimensions
+from .filters_for_widgets import *
 
 def agregator_results_content_volume_top_countries(posts, smpl_freq):
   top_countries = list(map(lambda x: x['feedlink__country'], list(posts.values('feedlink__country').annotate(country_count=Count('feedlink__country')).order_by('-country_count')[:5])))
@@ -28,9 +29,11 @@ def agregator_results_content_volume_top_countries(posts, smpl_freq):
       res.append({top_countries[elem]: list_dates})
   return res    
 
-def content_volume_top_5_countries(request, pk):
+def content_volume_top_5_countries(request, pk, widget_pk):
   project = Project.objects.get(id=pk)
   posts = post_agregator_with_dimensions(project)
+  widget = WidgetDescription.objects.get(id=widget_pk)
+  posts = post_agregetor_for_each_widget(widget)
   body = json.loads(request.body)
   smpl_freq = body['smpl_freq']
   res = agregator_results_content_volume_top_countries(posts, smpl_freq)
