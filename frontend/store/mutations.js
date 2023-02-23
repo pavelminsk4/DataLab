@@ -147,10 +147,6 @@ export default {
     state.dimensions = [...data]
   },
 
-  [mutator.SET_SELECTED_DIMENSIONS](state, data) {
-    state.selectedDimensions = [...data]
-  },
-
   [mutator.SET_TEMPLATES](state, data) {
     state.templates = [...data]
   },
@@ -169,6 +165,10 @@ export default {
 
   [mutator.SET_DIMENSION_SOURCES](state, data) {
     state.dimensionSources = [...data]
+  },
+
+  [mutator.SET_SELECTED_DIMENSIONS](state, data) {
+    state.selectedDimensions = {...data}
   },
 
   [mutator.SET_ALERTS](state, data) {

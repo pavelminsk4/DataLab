@@ -18,7 +18,7 @@ from .common_widget.sentiment_top_10_languages_widget import sentiment_top_10_la
 from .common_widget.content_volume_top_5_authors_widget import content_volume_top_5_authors
 from .common_widget.content_volume_top_5_countries_widget import content_volume_top_5_countries
 from .common_widget.sentiment_for_period_widget import sentiment_for_period
-from .common_widget.dimensions_for_widgets import dimensions_for_each_widgets
+from .common_widget.dimensions_for_widgets import dimensions_for_each
 
 def sum_widget(request, pk):
   return summary_widget(pk)
@@ -66,4 +66,4 @@ def content_volume_top_5_countries_widget(request, pk):
   return content_volume_top_5_countries(request, pk)
 
 def dimensions_for_each_widgets(request, project_pk, widget_pk):
-  return dimensions_for_each_widgets(request, project_pk, widget_pk)
+  return dimensions_for_each(request, project_pk, widget_pk)

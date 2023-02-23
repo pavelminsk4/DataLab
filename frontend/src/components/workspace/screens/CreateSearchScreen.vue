@@ -141,7 +141,6 @@ export default {
         })
 
         if (this.workspaceId) {
-          console.log(this.newProject)
           await this[action.CREATE_PROJECT](this.newProject)
         } else {
           this[action.UPDATE_NEW_WORKSPACE]({

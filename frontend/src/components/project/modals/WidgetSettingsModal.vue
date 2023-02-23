@@ -14,7 +14,7 @@
         <component
           :is="snakeToPascal(widgetName)"
           :volume="widgetData"
-          :chart-type="newChartType || chartType"
+          :chart-type="generalWidgetData.chart_type"
           :is-general-widget="false"
           :is-open-widget="true"
           :project-id="projectId"
@@ -37,23 +37,25 @@
 
         <DimensionsScreen
           v-if="panelName === 'Dimensions'"
-          :active-dimensions="generalWidgetData"
           :project-id="projectId"
-          :widget-author="generalWidgetData.author_dim_pivot"
-          :widget-country="generalWidgetData.country_dim_pivot"
-          :widget-language="generalWidgetData.language_dim_pivot"
-          @save-dimensions-settings="saveDimensions"
+          :authors-dimensions="generalWidgetData.author_dim_pivot"
+          :countries-dimensions="generalWidgetData.country_dim_pivot"
+          :languages-dimensions="generalWidgetData.language_dim_pivot"
+          :sources-dimensions="generalWidgetData.source_dim_pivot"
+          :sentiments-dimensions="generalWidgetData.sentiment_dim_pivot"
+          class="dimensions-tab"
         />
 
         <ChartTypesRadio
           v-if="panelName === 'Chart Layout'"
           :selected="chartType"
           :widget-name="widgetName"
-          @update-chart-type="updateChartType"
+          :project-id="projectId"
+          :widget-data="generalWidgetData"
         />
 
-        <BaseButton class="button" @click="saveChartType">
-          <SaveIcon />Save Settings
+        <BaseButton class="button" @click="saveDimensionsForWidget">
+          <SaveIcon />Save
         </BaseButton>
       </div>
     </div>
@@ -67,7 +69,7 @@ import {snakeToPascal} from '@/lib/utilities'
 
 import BaseModal from '@/components/modals/BaseModal'
 import SettingsButtons from '@/components/project/widgets/modals/SettingsButtons'
-import DimensionsScreen from '@/components/project/widgets/modals/screens/DimensionsScreen'
+import DimensionsScreen from '@/components/project/screens/DimensionsScreen'
 import BasicSettingsScreen from '@/components/project/widgets/modals/screens/BasicSettingsScreen'
 import VolumeWidget from '@/components/project/widgets/VolumeWidget'
 import Top10LanguagesWidget from '@/components/project/widgets/Top10LanguagesWidget'
@@ -136,19 +138,23 @@ export default {
       required: false,
     },
     widgetsList: {
-      type: Array,
-      default: () => [],
+      type: Object,
+      default: () => {},
+    },
+    currentProject: {
+      type: [Array, Object],
+      required: false,
     },
   },
   data() {
     return {
       panelName: 'Chart Layout',
-      newChartType: '',
     }
   },
   computed: {
     ...mapGetters({
       widgets: get.AVAILABLE_WIDGETS,
+      selectedDimensions: get.SELECTED_DIMENSIONS,
     }),
     generalWidgetData() {
       return this.widgets[this.widgetName]
@@ -173,6 +179,8 @@ export default {
       action.GET_CONTENT_VOLUME_TOP_AUTHORS,
       action.GET_CONTENT_VOLUME_TOP_COUNTRIES,
       action.GET_CONTENT_VOLUME_TOP_SOURCES,
+      action.GET_SELECTED_DIMENSIONS,
+      action.POST_DIMENSIONS_FOR_WIDGET,
     ]),
     snakeToPascal,
     formatDate(date) {
@@ -219,63 +227,22 @@ export default {
     updateSettingPanel(val) {
       this.panelName = val
     },
-    saveDimensions(author, language, country) {
-      if (author || author === '') {
-        author = author || this.generalWidgetData.author_dim_pivot
-      }
-      if (language || language === '') {
-        language = language || this.generalWidgetData.language_dim_pivot
-      }
-      if (country || country === '') {
-        country = country || this.generalWidgetData.country_dim_pivot
-      }
 
-      this[action.UPDATE_AVAILABLE_WIDGETS]({
+    saveDimensionsForWidget() {
+      this[action.POST_DIMENSIONS_FOR_WIDGET]({
         projectId: this.projectId,
+        widgetId: this.generalWidgetData.id,
         data: {
-          [this.widgetName]: {
-            id: this.generalWidgetData.id,
-            aggregation_period: this.generalWidgetData.aggregation_period,
-            author_dim_pivot: author,
-            language_dim_pivot: language,
-            country_dim_pivot: country,
-            sentiment_dim_pivot: this.generalWidgetData.sentiment_dim_pivot,
-            source_dim_pivot: this.generalWidgetData.source_dim_pivot,
-          },
+          smpl_freq: this.generalWidgetData.aggregation_period,
+          author_dim_pivot: this.selectedDimensions.authors,
+          language_dim_pivot: this.selectedDimensions.languages,
+          country_dim_pivot: this.selectedDimensions.countries,
+          sentiment_dim_pivot: this.selectedDimensions.sentiments,
+          source_dim_pivot: this.selectedDimensions.sources,
         },
       })
-      this[this.actionName]({
-        projectId: this.projectId,
-        value: {
-          id: this.generalWidgetData.id,
-          aggregation_period: this.generalWidgetData.aggregation_period,
-          author_dim_pivot: author,
-          language_dim_pivot: language,
-          country_dim_pivot: country,
-          sentiment_dim_pivot: this.generalWidgetData.sentiment_dim_pivot,
-          source_dim_pivot: this.generalWidgetData.source_dim_pivot,
-        },
-      })
+
       this[action.GET_AVAILABLE_WIDGETS](this.projectId)
-      this.$emit('close')
-    },
-    updateChartType(item) {
-      this.newChartType = item
-    },
-
-    async saveChartType() {
-      await this[action.UPDATE_AVAILABLE_WIDGETS]({
-        projectId: this.projectId,
-        data: {
-          [this.widgetName]: {
-            id: this.generalWidgetData.id,
-            chart_type: this.newChartType,
-          },
-        },
-      })
-
-      await this[action.GET_AVAILABLE_WIDGETS](this.projectId)
-      await this.$emit('close')
     },
   },
 }
@@ -324,11 +291,15 @@ export default {
 
     background-color: var(--background-secondary-color);
 
+    .dimensions-tab {
+      margin-top: 35px;
+    }
+
     .button {
       gap: 6px;
       align-self: flex-end;
 
-      width: 144px;
+      width: 84px;
       margin-top: 32px;
     }
   }

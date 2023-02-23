@@ -327,11 +327,10 @@ export default {
     }
   },
 
-  async [action.GET_TEMPLATES]({commit}) {
+  async [action.GET_SELECTED_DIMENSIONS]({commit}, selectedDimensions) {
     commit(mutator.SET_LOADING, true)
     try {
-      const templates = await api.getTemplates()
-      commit(mutator.SET_TEMPLATES, templates)
+      commit(mutator.SET_SELECTED_DIMENSIONS, selectedDimensions)
     } catch (e) {
       console.log(e)
     } finally {
@@ -339,11 +338,11 @@ export default {
     }
   },
 
-  async [action.GET_SELECTED_DIMENSIONS]({commit}, projectId) {
+  async [action.GET_TEMPLATES]({commit}) {
     commit(mutator.SET_LOADING, true)
     try {
-      const selectedDimensions = await api.getSelectedDimensions(projectId)
-      commit(mutator.SET_SELECTED_DIMENSIONS, selectedDimensions)
+      const templates = await api.getTemplates()
+      commit(mutator.SET_TEMPLATES, templates)
     } catch (e) {
       console.log(e)
     } finally {
@@ -387,11 +386,37 @@ export default {
     }
   },
 
+  async [action.GET_DIMENSION_COUNTRIES]({commit}, projectId) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const dimensionCountries = await api.getDimensionCountries(projectId)
+      commit(mutator.SET_DIMENSION_COUNTRIES, dimensionCountries)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
   async [action.GET_DIMENSION_SOURCES]({commit}, projectId) {
     commit(mutator.SET_LOADING, true)
     try {
       const dimensionSources = await api.getDimensionSources(projectId)
       commit(mutator.SET_DIMENSION_SOURCES, dimensionSources)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
+  async [action.GET_DIMENSIONS_OPTIONS]({commit, dispatch}, projectId) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      await dispatch(action.GET_DIMENSION_AUTHORS, projectId)
+      await dispatch(action.GET_DIMENSION_COUNTRIES, projectId)
+      await dispatch(action.GET_DIMENSION_LANGUAGES, projectId)
+      await dispatch(action.GET_DIMENSION_SOURCES, projectId)
     } catch (e) {
       console.log(e)
     } finally {
@@ -581,10 +606,11 @@ export default {
     }
   },
 
-  async [action.UPDATE_PROJECT]({commit}, {projectId, data}) {
+  async [action.UPDATE_PROJECT]({dispatch, commit}, {projectId, data}) {
     commit(mutator.SET_LOADING, true)
     try {
       await api.updateProject({projectId, data})
+      await dispatch(action.GET_WORKSPACES)
     } catch (e) {
       console.log(e)
     } finally {
@@ -617,10 +643,13 @@ export default {
     }
   },
 
-  async [action.POST_DIMENSIONS]({commit}, {projectId, data}) {
+  async [action.POST_DIMENSIONS_FOR_WIDGET](
+    {commit},
+    {projectId, widgetId, data}
+  ) {
     commit(mutator.SET_LOADING, true)
     try {
-      await api.postDimensions({projectId, data})
+      await api.postDimensionsForWidget({projectId, widgetId, data})
     } catch (e) {
       console.log(e)
     } finally {
