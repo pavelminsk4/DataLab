@@ -4,7 +4,7 @@ import ssl
 import re
 import socket
 import os
-from rss_crawler.items import RssCrawlerItem, CrawlerKeyword, Feedlinks
+from rss_crawler.items import RssCrawlerItem, CrawlerKeyword, Feedlinks, CrawlerOption
 from serpapi import GoogleSearch
 from urllib.parse import urlparse
 
@@ -16,18 +16,53 @@ class GoogleSpider(scrapy.Spider):
 
     keywords = CrawlerKeyword.objects.all().values_list('word', flat=True)
     secret_key = os.environ.get('GOOGLE_SEARCH_SECRET_KEY')
+    
+    option = CrawlerOption.objects.first()
+    tbm = option.tbm
+    location = option.location
+    gl = option.gl
 
-    def collect_start_urls(keywords, secret_key):
+    def collect_start_urls(keywords, secret_key, tbm, location, gl):
         start_urls = []
         for word in keywords:
-            search = GoogleSearch({"q": word, "num":"10000", "api_key": secret_key, "tbm": "nws"})
+            param = {
+                "q": word,
+                "num":"100",
+                "api_key": secret_key,
+                "tbm": tbm,
+                "location": location,
+                "gl": gl,
+                }
+            search = GoogleSearch(param)
             result = search.get_dict()
-            for block in result['news_results']:
-                start_urls.append(block['link'])
+            num_of_page = len(result['pagination']['other_pages']) + 1
+            print(param)
+            print(num_of_page)
+
+            for each in range(num_of_page):
+                start = each * 100
+                param = {
+                    "q": word,
+                    "num":"100",
+                    "start": start,
+                    "api_key": secret_key,
+                    "tbm": tbm,
+                    "location": location,
+                    "gl": gl,
+                    }
+                search = GoogleSearch(param)
+                result = search.get_dict()
+                try:
+                    for block in result['news_results']:
+                        start_urls.append(block['link'])
+                except:
+                    print('Error')
+        print(len(start_urls))
         return start_urls
 
-    allowed_domains = collect_start_urls(keywords, secret_key)
-    start_urls = collect_start_urls(keywords, secret_key)
+    urls = collect_start_urls(keywords, secret_key, tbm, location, gl)
+    allowed_domains = urls
+    start_urls = urls
 
     def parse(self, response):
         links = []
