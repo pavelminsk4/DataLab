@@ -13,7 +13,7 @@
       v-model="author"
       name="Authors"
       placeholder="Enter the author"
-      :list="authorsList"
+      :list="dimensionsList.authors"
       :is-search="true"
       :selected-checkboxes="selectedAuthorsProxy"
       @get-selected-items="getValuesList"
@@ -26,7 +26,7 @@
       v-model="country"
       name="Countries"
       placeholder="Enter the country"
-      :list="countriesList"
+      :list="dimensionsList.countries"
       :is-search="true"
       :selected-checkboxes="selectedCountriesProxy"
       @get-selected-items="getValuesList"
@@ -39,7 +39,7 @@
       v-model="language"
       name="Languages"
       placeholder="Enter the language"
-      :list="languagesList"
+      :list="dimensionsList.languages"
       :is-search="true"
       :selected-checkboxes="selectedLanguagesProxy"
       @get-selected-items="getValuesList"
@@ -52,7 +52,7 @@
       v-model="source"
       name="Sources"
       placeholder="Enter the source"
-      :list="sourcesList"
+      :list="dimensionsList.sources"
       :is-search="true"
       :selected-checkboxes="selectedSourcesProxy"
       @get-selected-items="getValuesList"
@@ -129,7 +129,6 @@ export default {
       countries: null,
       languages: null,
       sources: null,
-      sentiments: ['neutral', 'negative', 'positive'],
       selectedSentiments: null,
     }
   },
@@ -140,28 +139,8 @@ export default {
       dimensionLanguages: get.DIMENSION_LANGUAGES,
       dimensionSources: get.DIMENSION_SOURCES,
       selectedDimensions: get.SELECTED_DIMENSIONS,
+      dimensionsList: get.DIMENSIONS_LIST,
     }),
-    authorsList() {
-      return this.dimensionAuthors?.map((el) => el.entry_author)
-    },
-    countriesList() {
-      return this.dimensionCounties?.map((el) => el.feedlink__country)
-    },
-    languagesList() {
-      return this.dimensionLanguages?.map((el) => el.feed_language__language)
-    },
-    sourcesList() {
-      return this.dimensionSources?.map((el) => el.feedlink__source1)
-    },
-    chipsItems() {
-      return [
-        ...this.selectedAuthorsProxy,
-        ...this.selectedCountriesProxy,
-        ...this.selectedLanguagesProxy,
-        ...this.selectedSourcesProxy,
-        ...this.selectedSentimentsProxy,
-      ]
-    },
     selectedAuthorsProxy: {
       get() {
         return this.authors || this.authorsDimensions || []
@@ -207,20 +186,25 @@ export default {
         this.updateSelectedDimensions()
       },
     },
+    chipsItems() {
+      return [
+        ...this.selectedAuthorsProxy,
+        ...this.selectedCountriesProxy,
+        ...this.selectedLanguagesProxy,
+        ...this.selectedSourcesProxy,
+        ...this.selectedSentimentsProxy,
+      ]
+    },
   },
   created() {
-    this[action.GET_DIMENSION_AUTHORS](this.projectId)
-    this[action.GET_DIMENSION_COUNTRIES](this.projectId)
-    this[action.GET_DIMENSION_LANGUAGES](this.projectId)
-    this[action.GET_DIMENSION_SOURCES](this.projectId)
+    this.sentiments = ['neutral', 'negative', 'positive']
+
+    this[action.GET_DIMENSIONS_OPTIONS](this.projectId)
   },
   methods: {
     ...mapActions([
       action.UPDATE_PROJECT,
-      action.GET_DIMENSION_AUTHORS,
-      action.GET_DIMENSION_COUNTRIES,
-      action.GET_DIMENSION_LANGUAGES,
-      action.GET_DIMENSION_SOURCES,
+      action.GET_DIMENSIONS_OPTIONS,
       action.GET_WORKSPACES,
       action.GET_SELECTED_DIMENSIONS,
     ]),

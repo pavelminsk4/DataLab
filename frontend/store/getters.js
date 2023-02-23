@@ -152,6 +152,17 @@ export default {
     return state.dimensionAuthors
   },
 
+  [get.DIMENSIONS_LIST](state) {
+    return {
+      authors: state.dimensionAuthors?.map((el) => el.entry_author),
+      countries: state.dimensionCountries?.map((el) => el.feedlink__country),
+      languages: state.dimensionLanguages?.map(
+        (el) => el.feed_language__language
+      ),
+      sources: state.dimensionSources?.map((el) => el.feedlink__source1),
+    }
+  },
+
   [get.DIMENSION_SOURCES](state) {
     return state.dimensionSources
   },

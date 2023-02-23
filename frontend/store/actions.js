@@ -386,11 +386,37 @@ export default {
     }
   },
 
+  async [action.GET_DIMENSION_COUNTRIES]({commit}, projectId) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const dimensionCountries = await api.getDimensionCountries(projectId)
+      commit(mutator.SET_DIMENSION_COUNTRIES, dimensionCountries)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
   async [action.GET_DIMENSION_SOURCES]({commit}, projectId) {
     commit(mutator.SET_LOADING, true)
     try {
       const dimensionSources = await api.getDimensionSources(projectId)
       commit(mutator.SET_DIMENSION_SOURCES, dimensionSources)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
+  async [action.GET_DIMENSIONS_OPTIONS]({commit, dispatch}, projectId) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      await dispatch(action.GET_DIMENSION_AUTHORS, projectId)
+      await dispatch(action.GET_DIMENSION_COUNTRIES, projectId)
+      await dispatch(action.GET_DIMENSION_LANGUAGES, projectId)
+      await dispatch(action.GET_DIMENSION_SOURCES, projectId)
     } catch (e) {
       console.log(e)
     } finally {
