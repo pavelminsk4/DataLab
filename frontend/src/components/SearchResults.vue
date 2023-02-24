@@ -53,7 +53,10 @@
     </div>
 
     <div v-if="step && !searchData.length" class="no-results">
-      <CreateWorkspaceRightSide step="step3" />
+      <CreateWorkspaceRightSide :step="currentStep" />
+      <h3 v-if="this.isSearchPerformed" class="no-results__text">
+        No news for your request &#128546;
+      </h3>
     </div>
   </div>
 </template>
@@ -124,9 +127,13 @@ export default {
       'loading',
       'additionalFilters',
       'numberOfPages',
+      'isSearchPerformed',
     ]),
     routerName() {
       return this.$route.name.toLowerCase()
+    },
+    currentStep() {
+      return this.isSearchPerformed ? `${this.step}preview` : this.step
     },
   },
   created() {
@@ -271,6 +278,13 @@ export default {
 
   width: 100%;
   height: 100%;
+
+  &__text {
+    margin-top: 32px;
+
+    font-weight: 500;
+    font-size: 18px;
+  }
 }
 </style>
 

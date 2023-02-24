@@ -11,6 +11,7 @@ const state = {
   channelType: '',
   keywords: {},
   searchData: [],
+  isSearchPerformed: false,
   numberOfPages: 0,
   numberOfPosts: 0,
   newProjectId: null,

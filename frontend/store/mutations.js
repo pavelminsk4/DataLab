@@ -41,6 +41,7 @@ export default {
 
   [mutator.SET_SEARCH_DATA](state, data) {
     state.searchData = [...data]
+    state.isSearchPerformed = true
   },
 
   [mutator.SET_NUMBER_OF_PAGES](state, number) {
@@ -183,6 +184,7 @@ export default {
     state.currentStep = 'Step1'
     state.keywords = []
     state.searchData = []
+    state.isSearchPerformed = false
     state.additionalFilters = null
     state.numberOfPages = 0
     state.numberOfPosts = 0

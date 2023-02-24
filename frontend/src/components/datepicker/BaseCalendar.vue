@@ -4,13 +4,13 @@
     :month-year-component="monthYearCustom"
     :enableTimePicker="false"
     :action-row-component="actionRowCustom"
+    range
+    inline
+    class="datepicker-wrapper"
     @update:modelValue="handleDate"
     @internalModelChange="modelChange"
     @open="openCalendar"
     @closed="openCalendar"
-    range
-    inline
-    class="datepicker-wrapper"
   >
     <template #right-sidebar>
       <div class="fixed-period-wrapper">
@@ -246,8 +246,8 @@ export default {
 <style lang="scss" scoped>
 .datepicker-wrapper {
   position: absolute;
-  top: 188px;
-  right: 40px;
+  top: 100%;
+  left: 0;
   z-index: 2;
 }
 
