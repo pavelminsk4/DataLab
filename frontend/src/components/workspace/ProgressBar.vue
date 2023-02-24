@@ -97,6 +97,10 @@ export default {
     border: 13px solid var(--border-color);
 
     color: var(--background-secondary-color);
+
+    svg {
+      color: var(--background-secondary-color);
+    }
   }
 
   .active-circle {

@@ -14,9 +14,10 @@
       <div class="section-company">
         <div class="name">{{ companyName }}</div>
         <UserAvatar
+          v-if="userInfo"
           :avatar-url="logoImg"
-          :first-name="userInfo.first_name"
-          :last-name="userInfo.last_name"
+          :first-name="userInfo?.first_name"
+          :last-name="userInfo?.last_name"
           :username="userInfo.username"
           style="--avatar-width: 32px"
         />
