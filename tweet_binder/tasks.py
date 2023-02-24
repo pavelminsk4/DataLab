@@ -1,4 +1,4 @@
-from tweet_binder.models import TweetBinderPost, TweetBinderProject
+from tweet_binder.models import *
 from .services.historical_search import *
 from .services.get_report_state import *
 from .services.get_publications import *
@@ -107,7 +107,7 @@ def search(report_id, auth_token):
 
 @shared_task
 def update_all_projects():
-    projects = TweetBinderProject.objects.all()
+    projects = BasicSearchProject.objects.all()
     for project in projects:
         keyword = project.keyword
         limit = project.limit
