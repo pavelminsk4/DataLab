@@ -2,6 +2,7 @@ from django.contrib.postgres.fields import ArrayField
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from .services.historical_search import *
+from .services.live_search import *
 from .services.get_report_state import *
 from .services.get_publications import *
 from .services.delete_report import *
@@ -106,6 +107,19 @@ def create_historical_search_project(sender, instance, created, **kwargs):
     instance.save()
     basic_search_type(keyword, limit)          
 
+class LiveSearchProject(TypesOfSearch):
+
+  def __str__(self):
+      return self.title
+
+@receiver(post_save, sender=LiveSearchProject)
+def create_live_search_project(sender, instance, created, **kwargs):
+  if created:
+    keyword = instance.keyword
+    limit = instance.limit
+    instance.save()
+    live_search_type(keyword, limit)    
+
 email = os.environ.get("EMAIL_TWEET")
 password = os.environ.get("PASSWORD_TWEET")
 api_route = os.environ.get("API_ROUTE")
@@ -124,6 +138,11 @@ def historical_search_type(keyword, limit, start_date, end_date):
     time.sleep(60)
     search(report_id, auth_token)   
 
+def live_search_type(keyword, limit):
+    live_search_url = api_route + '/search/twitter/live'
+    auth_token = json.loads(login(email, password))['authToken'] 
+    live_search(keyword, limit, auth_token, live_search_url)
+ 
 def search(report_id, auth_token):
     data_report_state = json.loads(get_report_state(report_id, auth_token))
     print(data_report_state)

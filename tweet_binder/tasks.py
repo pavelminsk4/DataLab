@@ -1,9 +1,10 @@
-from tweet_binder.models import *
 from .services.historical_search import *
 from .services.get_report_state import *
 from .services.get_publications import *
 from .services.delete_report import *
 from .services.basic_search import *
+from .services.live_search import *
+from tweet_binder.models import *
 from .services.login import *
 from celery import shared_task
 
@@ -28,6 +29,11 @@ def historical_search_type(keyword, limit, start_date, end_date):
     report_id = json.loads(historical_search(keyword, limit, start_date, end_date, auth_token, historical_search_url))["resourceId"]
     time.sleep(60)
     search(report_id, auth_token)   
+
+def live_search_type(keyword, limit):
+    live_search_url = api_route + '/search/twitter/live'
+    auth_token = json.loads(login(email, password))['authToken'] 
+    report_id = json.loads(live_search(keyword, limit, auth_token, live_search_url))["resourceId"]
 
 def search(report_id, auth_token):
     data_report_state = json.loads(get_report_state(report_id, auth_token))
