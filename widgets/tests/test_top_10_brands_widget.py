@@ -21,7 +21,8 @@ class Top10BrandsWidgetTests(APITestCase):
     post6 = Post.objects.create(feedlink=flink3, entry_title='6 post title', feed_language=sp, entry_published=datetime(2023, 9, 3, 6, 37), entry_author='EFE')
     pr = Project.objects.create(title='Project1', keywords=['post'], additional_keywords=[], ignore_keywords=[], start_search_date=datetime(2020, 10, 10), 
                                 end_search_date=datetime(2023, 10, 16), language_filter=sp, creator=user)
-    url = reverse('widgets:top_10_brands_widget', kwargs={'pk':pr.pk})
+    widget_pk = pr.widgets_list_2.top_10_brands_widget_id
+    url = reverse('widgets:top_10_brands_widget', kwargs={'pk':pr.pk, 'widget_pk':widget_pk})
     response = self.client.get(url)
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     res = [

@@ -26,7 +26,8 @@ class ContentVolumeTop5CountriesWidgetTests(APITestCase):
     # test first project with None field
     pr1 = Project.objects.create(title='Project1', keywords=['post'], additional_keywords=[], ignore_keywords=[], start_search_date=datetime(2020, 10, 10), 
                                 end_search_date=datetime(2023, 10, 16), country_filter='', author_filter='', language_filter='', creator=user)
-    url = reverse('widgets:content_volume_top_5_countries_widget', kwargs={'pk':pr1.pk})
+    widget_pk = pr1.widgets_list_2.content_volume_top_5_countries_widget_id
+    url = reverse('widgets:content_volume_top_5_countries_widget', kwargs={'pk':pr1.pk, 'widget_pk':widget_pk})
     data = {
             'smpl_freq': "day"
     }

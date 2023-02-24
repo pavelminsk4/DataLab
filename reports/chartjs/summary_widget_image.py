@@ -3,9 +3,9 @@ from project.models import *
 from quickchart import QuickChart
 import json
 
-def create_summary_widget_image(project_id):
+def create_summary_widget_image(project_id, widget_pk):
   from PIL import Image, ImageDraw, ImageFont
-  res = summary_widget(project_id)
+  res = summary_widget(project_id, widget_pk)
   res = json.loads(res.content)
   # Open an Image
   img = Image.open('tmp/mask.png')
