@@ -63,6 +63,20 @@
       class="select"
     />
   </div>
+
+  <span class="second-title">Date</span>
+  <div class="filters">
+    <div class="trigger-wrapper" @click="openCalendar">
+      <CalendarIcon />
+      <div class="calendar-date">{{ calendarDate }}</div>
+      <ArrowDownIcon :class="[isShowCalendarContents && 'open-calendar']" />
+    </div>
+    <BaseCalendar
+      v-if="isShowCalendarContents"
+      :current-project="currentProject"
+    />
+  </div>
+
   <span class="second-title">Sentiment</span>
 
   <div class="radio-wrapper">
@@ -91,14 +105,17 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
+import {mapState, mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
 import BaseRadio from '@/components/BaseRadio'
+import BaseCalendar from '@/components/datepicker/BaseCalendar'
 import BaseSearchField from '@/components/BaseSearchField'
 import PositiveIcon from '@/components/icons/PositiveIcon'
 import NegativeIcon from '@/components/icons/NegativeIcon'
 import NeutralIcon from '@/components/icons/NeutralIcon'
+import CalendarIcon from '@/components/icons/CalendarIcon'
+import ArrowDownIcon from '@/components/icons/ArrowDownIcon'
 
 export default {
   name: 'OnlineType',
@@ -108,6 +125,9 @@ export default {
     PositiveIcon,
     NegativeIcon,
     NeutralIcon,
+    CalendarIcon,
+    ArrowDownIcon,
+    BaseCalendar,
   },
   props: {
     currentProject: {
@@ -126,20 +146,8 @@ export default {
       author: '',
     }
   },
-  created() {
-    this.country = this.currentProject?.country_filter || ''
-    this.language = this.currentProject?.language_filter || ''
-    this.source = this.currentProject?.source_filter || ''
-    this.author = this.currentProject?.author_filter || ''
-
-    this[action.UPDATE_ADDITIONAL_FILTERS]({
-      country: this.currentProject.country_filter,
-      language: this.currentProject.language_filter,
-      source: this.currentProject.source_filter,
-      author: this.currentProject.author_filter,
-    })
-  },
   computed: {
+    ...mapState(['isShowCalendarContents']),
     ...mapGetters({
       countries: get.COUNTRIES,
       languages: get.LANGUAGES,
@@ -166,6 +174,44 @@ export default {
         }
       },
     },
+    calendarDate() {
+      if (this.additionalFilters?.date_range?.length) {
+        const currentDate = this.additionalFilters?.date_range.map((el) =>
+          this.formatDate(el)
+        )
+
+        return `${currentDate[0]} - ${currentDate[1]}`
+      } else {
+        return `${this.formatDate(this.getLastWeeksDate())} - ${this.formatDate(
+          new Date()
+        )}`
+      }
+    },
+  },
+  created() {
+    this.country = this.currentProject?.country_filter || ''
+    this.language = this.currentProject?.language_filter || ''
+    this.source = this.currentProject?.source_filter || ''
+    this.author = this.currentProject?.author_filter || ''
+
+    this[action.UPDATE_ADDITIONAL_FILTERS]({
+      country: this.currentProject.country_filter,
+      language: this.currentProject.language_filter,
+      source: this.currentProject.source_filter,
+      author: this.currentProject.author_filter,
+    })
+  },
+  watch: {
+    async keywords() {
+      if (!this.keywords.keywords?.length) {
+        this.clearValue = true
+        this.country = ''
+        this.language = ''
+        this.source = ''
+        this.author = ''
+        this.selectedValue = ''
+      }
+    },
   },
   methods: {
     ...mapActions([
@@ -174,6 +220,7 @@ export default {
       action.GET_COUNTRIES,
       action.GET_LANGUAGES,
       action.UPDATE_ADDITIONAL_FILTERS,
+      action.REFRESH_DISPLAY_CALENDAR,
     ]),
     selectItem(name, val) {
       try {
@@ -215,17 +262,19 @@ export default {
         console.log(e)
       }
     },
-  },
-  watch: {
-    async keywords() {
-      if (!this.keywords.keywords?.length) {
-        this.clearValue = true
-        this.country = ''
-        this.language = ''
-        this.source = ''
-        this.author = ''
-        this.selectedValue = ''
-      }
+    openCalendar() {
+      this[action.REFRESH_DISPLAY_CALENDAR](!this.isShowCalendarContents)
+    },
+    formatDate(date) {
+      return date.toLocaleString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+      })
+    },
+    getLastWeeksDate() {
+      const now = new Date()
+      return new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7)
     },
   },
 }
@@ -271,6 +320,56 @@ export default {
 
   .radio-icon {
     margin-right: 4px;
+  }
+}
+
+.filters {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 20px;
+
+  width: 100%;
+  margin-bottom: 25px;
+
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--typography-secondary-color);
+}
+
+.trigger-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  width: 100%;
+  padding: 10px 12px;
+
+  background: var(--primary-chips-background-color);
+  border-radius: 8px;
+
+  cursor: pointer;
+}
+
+.calendar-date {
+  flex-grow: 1;
+}
+
+.open-calendar {
+  transform: rotate(180deg);
+}
+
+@media screen and (max-width: 1000px) {
+  .filters {
+    align-items: flex-end;
+    flex-direction: column;
+  }
+
+  .search-result-card {
+    margin: 0 0 10px 0;
   }
 }
 

@@ -1,11 +1,16 @@
 <template>
-  <BaseTable v-if="workspaces" :table-header="tableHeader">
+  <BaseTable
+    v-if="workspaces"
+    :table-header="tableHeader"
+    @select-all="selectAll"
+  >
     <TableRow
       v-for="(item, index) in values"
       :key="index"
-      v-model="selectedProjects[`project${item.id}`]"
+      v-model="selectedProjects"
+      :id="item.id"
       @delete-project="toggleDeleteModal(item.title, item.id)"
-      @click="goToProject(item.id)"
+      @click="goToProject($event, item.id)"
     >
       <td class="td_name">{{ item.title }}</td>
       <td>
@@ -13,9 +18,11 @@
       </td>
       <td>
         <div class="creator">
-          <img
-            :src="currentMember(item.creator)?.user_profile.photo"
-            class="cart-image"
+          <UserAvatar
+            :avatar-url="currentMember(item.creator)?.user_profile.photo"
+            :first-name="currentMember(item.creator)?.first_name"
+            :last-name="currentMember(item.creator)?.last_name"
+            :username="currentMember(item.creator)?.username"
           />
           <div>{{ currentMember(item.creator).username }}</div>
         </div>
@@ -46,6 +53,7 @@ import TagsCollapsible from '@components/TagsCollapsible.vue'
 import AreYouSureModal from '@/components/modals/AreYouSureModal'
 import BaseTable from '@components/BaseTable'
 import TableRow from '@components/TableRow'
+import UserAvatar from '@components/UserAvatar'
 
 export default {
   name: 'ProjectsTable',
@@ -55,6 +63,7 @@ export default {
     TagsCollapsible,
     BaseTable,
     TableRow,
+    UserAvatar,
   },
   emits: ['go-to-project'],
   props: {
@@ -65,7 +74,7 @@ export default {
   },
   data() {
     return {
-      selectedProjects: {},
+      selectedProjects: [],
       isOpenSettings: false,
       isOpenDeleteModal: false,
       projectId: '',
@@ -109,8 +118,10 @@ export default {
     projectCreationDate(date) {
       return new Date(date).toLocaleDateString('ro-RO')
     },
-    goToProject(id) {
-      this.$emit('go-to-project', id)
+    goToProject(event, id) {
+      if (!event.target.closest('.checkbox-container')) {
+        this.$emit('go-to-project', id)
+      }
     },
     deleteProject(id) {
       this[action.DELETE_PROJECT](id)
@@ -121,6 +132,11 @@ export default {
       this.togglePageScroll(this.isOpenDeleteModal)
       this.projectValue.name = title
       this.projectId = id
+    },
+    selectAll(isSelectAll) {
+      this.selectedProjects = isSelectAll
+        ? this.values.map((value) => value.id)
+        : []
     },
   },
 }
@@ -155,6 +171,7 @@ export default {
 
 .creator {
   display: flex;
+  align-items: center;
 }
 
 .cart-image {

@@ -41,7 +41,15 @@
         class="item"
       >
         <div class="item-name">{{ item.name }}</div>
-        <div class="item-value">{{ item.value }}</div>
+        <a
+          v-if="item.name === 'SOURCE'"
+          :href="getUrl(item.value)"
+          target="_blank"
+          class="item-value"
+        >
+          {{ item.value }}
+        </a>
+        <div v-else class="item-value">{{ item.value }}</div>
       </div>
     </div>
   </div>
@@ -180,6 +188,9 @@ export default {
     addPost() {
       if (this.isLoadingClippingWidget) return
       this.$emit('add-element', this.id, this.clippingElement)
+    },
+    getUrl(source) {
+      return source.includes('http') ? source : `http://${source}`
     },
   },
 }
@@ -355,18 +366,14 @@ export default {
       }
 
       .item-name {
-        font-style: normal;
         font-weight: 500;
         font-size: 10px;
-        line-height: 10px;
         color: var(--typography-secondary-color);
       }
 
       .item-value {
-        font-style: normal;
-        font-weight: 400;
+        text-decoration: none;
         font-size: 11px;
-        line-height: 11px;
         color: var(--typography-title-color);
       }
     }

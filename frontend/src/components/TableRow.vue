@@ -1,7 +1,7 @@
 <template>
   <tr :class="isSelectedProxy && 'selected-row'">
     <td>
-      <BaseCheckbox v-model="isSelectedProxy" />
+      <BaseCheckbox v-model="modelValueProxy" :id="id" />
     </td>
     <slot></slot>
     <td>
@@ -28,18 +28,25 @@ export default {
   },
   props: {
     modelValue: {
-      type: Boolean,
+      type: [Boolean, Array],
       default: false,
+    },
+    id: {
+      type: [Number, String],
+      default: null,
     },
   },
   computed: {
-    isSelectedProxy: {
+    modelValueProxy: {
       get() {
         return this.modelValue
       },
       set(val) {
         this.$emit('update:modelValue', val)
       },
+    },
+    isSelectedProxy() {
+      return this.modelValueProxy.includes(this.id)
     },
   },
 }

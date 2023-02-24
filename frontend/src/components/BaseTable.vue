@@ -2,7 +2,9 @@
   <table class="base-table">
     <thead>
       <tr>
-        <th style="width: 60px"></th>
+        <th style="width: 60px">
+          <BaseCheckbox v-model="isSelectAllProxy" />
+        </th>
         <th
           v-for="item in tableHeader"
           :key="`header-${item.name}`"
@@ -21,13 +23,33 @@
 
 <script>
 import {capitalizeFirstLetter} from '@lib/utilities'
+import BaseCheckbox from '@/components/BaseCheckbox2'
 
 export default {
   name: 'BaseTable',
+  components: {
+    BaseCheckbox,
+  },
   props: {
     tableHeader: {
       type: Array,
       required: true,
+    },
+  },
+  data() {
+    return {
+      isSelectAll: false,
+    }
+  },
+  computed: {
+    isSelectAllProxy: {
+      get() {
+        return this.isSelectAll
+      },
+      set(val) {
+        this.isSelectAll = val
+        this.$emit('select-all', this.isSelectAll)
+      },
     },
   },
   methods: {

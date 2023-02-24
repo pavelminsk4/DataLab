@@ -5,11 +5,10 @@
       <BaseTag
         name="keywords"
         :model-value="mainKeywords"
-        :has-error="hasErrorMainField"
-        error-message="Required field"
+        :has-error="!!mainKeywordsError"
+        :error-message="mainKeywordsError"
         :is-main-field="true"
         placeholder='Enter a main keyword and press "Enter"'
-        @start-search="showResults"
         @update:modelValue="updateCollection"
       />
 
@@ -90,7 +89,7 @@ export default {
   },
   data() {
     return {
-      hasErrorMainField: false,
+      mainKeywordsError: null,
     }
   },
   computed: {
@@ -102,17 +101,25 @@ export default {
     updateCollection(name, value) {
       this.$emit('update-collection', name, value)
 
-      if (!this.mainKeywords.length && name === 'keywords') {
-        this.hasErrorMainField = true
-      } else {
-        this.hasErrorMainField = false
+      if (this.mainKeywords.length && name === 'keywords') {
+        this.mainKeywordsError = null
       }
     },
     showResults() {
+      if (!this.validation()) return
+
       this.$emit('show-result')
     },
     saveProject() {
+      if (!this.validation()) return
+
       this.$emit('save-project')
+    },
+    validation() {
+      if (!this.mainKeywords.length) {
+        this.mainKeywordsError = 'required'
+      }
+      return !this.mainKeywordsError
     },
   },
 }

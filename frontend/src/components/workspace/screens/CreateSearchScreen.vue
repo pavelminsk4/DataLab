@@ -179,6 +179,8 @@ export default {
   display: flex;
   justify-content: space-between;
   gap: 108px;
+
+  max-width: 500px;
 }
 
 @media screen and (max-width: 1000px) {

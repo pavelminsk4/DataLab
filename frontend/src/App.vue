@@ -9,7 +9,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 
 :root {
   --primary-color: #e54985;
@@ -47,7 +47,7 @@ export default {
   --icon-primary-color: #797d80;
   --icon-hover-color: var(--primary-color);
 
-  --primary-chips-background-color: #e9f0f3;
+  --primary-chips-background-color: var(--background-secondary-color);
 
   --input-border-color: var(--border-color);
   --modal-border-color: #404046;

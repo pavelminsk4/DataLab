@@ -1,6 +1,6 @@
 <template>
-  <label class="container container-header">
-    <input type="checkbox" :id="id" v-model="isChecked" />
+  <label class="checkbox-container">
+    <input v-model="isChecked" type="checkbox" :id="id" :value="id" />
     <span v-if="hasIcon" class="checkmark">
       <CheckIcon class="checkmark-icon" />
     </span>
@@ -14,7 +14,7 @@ export default {
   name: 'BaseCheckbox',
   components: {CheckIcon},
   props: {
-    modelValue: {type: Boolean, default: false},
+    modelValue: {type: [Boolean, Array], default: false},
     selected: {type: Boolean, default: false},
     label: {type: String},
     id: {type: [Number, String], default: 'checkbox'},
@@ -34,8 +34,8 @@ export default {
 }
 </script>
 
-<style scoped>
-.container {
+<style lang="scss" scoped>
+.checkbox-container {
   position: relative;
 
   display: flex;
@@ -48,16 +48,39 @@ export default {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-}
 
-.container input {
-  position: absolute;
+  &:hover input ~ .checkmark {
+    border-color: var(--typography-title-color);
+  }
 
-  height: 0;
-  width: 0;
+  input {
+    position: absolute;
 
-  opacity: 0;
-  cursor: pointer;
+    height: 0;
+    width: 0;
+
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  input:checked ~ .checkmark {
+    border-color: var(--border-active-color);
+    background-color: var(--background-secondary-color);
+  }
+
+  input ~ .checkmark > .checkmark-icon {
+    display: none;
+  }
+
+  input:checked ~ .checkmark > .checkmark-icon {
+    display: block;
+    color: var(--primary-color);
+  }
+
+  input:checked ~ .checkmark:after {
+    display: block;
+    color: var(--primary-color);
+  }
 }
 
 .checkmark {
@@ -74,28 +97,5 @@ export default {
   border: 1px solid var(--typography-secondary-color);
   border-radius: 4px;
   background-color: var(--background-secondary-color);
-}
-
-.container:hover input ~ .checkmark {
-  border-color: var(--typography-title-color);
-}
-
-.container input:checked ~ .checkmark {
-  border-color: var(--border-active-color);
-  background-color: var(--background-secondary-color);
-}
-
-.container input ~ .checkmark > .checkmark-icon {
-  display: none;
-}
-
-.container input:checked ~ .checkmark > .checkmark-icon {
-  display: block;
-  color: var(--primary-color);
-}
-
-.container input:checked ~ .checkmark:after {
-  display: block;
-  color: var(--primary-color);
 }
 </style>
