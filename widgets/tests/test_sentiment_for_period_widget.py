@@ -26,7 +26,8 @@ class SentimentForPeriodWidgetTests(APITestCase):
     # test first project with None field
     pr = Project.objects.create(title='Project1', keywords=['post'], additional_keywords=[], ignore_keywords=[], start_search_date=datetime(2020, 10, 10), 
                                 end_search_date=datetime(2023, 10, 16), source_filter='', author_filter='', language_filter='', creator=user)
-    url = reverse('widgets:sentiment_for_period_widget', kwargs={'pk':pr.pk})
+    widget_pk = pr.widgets_list_2.sentiment_for_period_widget_id
+    url = reverse('widgets:sentiment_for_period_widget', kwargs={'pk':pr.pk, 'widget_pk':widget_pk})
     data = {
             'smpl_freq': "day"
     }

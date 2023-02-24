@@ -2,9 +2,11 @@ from widgets.common_widget.volume_widget import *
 from project.models import *
 from quickchart import QuickChart
 
-def create_vol_widget_image(project_id):
+def create_vol_widget_image(project_id, widget_pk):
   proj = Project.objects.get(id=project_id)
   posts = post_agregator_with_dimensions(proj)
+  widget = WidgetDescription.objects.get(id=widget_pk)
+  posts = post_agregetor_for_each_widget(widget, posts)
   smpl_freq = proj.widgets_list_2.volume_widget.aggregation_period
   posts_per_smpl_freq = posts.annotate(date=Trunc('entry_published', smpl_freq)).values("date").annotate(created_count=Count('id')).order_by("date")
   res = list(posts_per_smpl_freq)
