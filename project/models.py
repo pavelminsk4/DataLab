@@ -142,9 +142,15 @@ class CrawlerOption(models.Model):
     ('shop', 'Google Shopping API'),
   )
 
+  SAFE_CHOICES = (
+    ('active', 'Filtering for adult content - Active'),
+    ('off', 'Filtering for adult content - Off'),
+  )
+
   location = models.CharField(max_length=50, default='Saudi Arabia')
   tbm = models.CharField(max_length=5, default='nws', choices=TBM_CHOICES)
   gl = models.CharField(max_length=3, default='sa')
+  safe = models.CharField(max_length=10, default='active', choices=SAFE_CHOICES)
   created_at = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True)
 

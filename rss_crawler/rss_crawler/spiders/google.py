@@ -18,20 +18,18 @@ class GoogleSpider(scrapy.Spider):
     secret_key = os.environ.get('GOOGLE_SEARCH_SECRET_KEY')
     
     option = CrawlerOption.objects.first()
-    tbm = option.tbm
-    location = option.location
-    gl = option.gl
 
-    def collect_start_urls(keywords, secret_key, tbm, location, gl):
+    def collect_start_urls(keywords, secret_key, option):
         start_urls = []
         for word in keywords:
             param = {
                 "q": word,
                 "num":"100",
                 "api_key": secret_key,
-                "tbm": tbm,
-                "location": location,
-                "gl": gl,
+                "tbm": option.tbm,
+                "location": option.location,
+                "gl": option.gl,
+                "safe": option.safe,
                 }
             search = GoogleSearch(param)
             result = search.get_dict()
@@ -41,15 +39,7 @@ class GoogleSpider(scrapy.Spider):
 
             for each in range(num_of_page):
                 start = each * 100
-                param = {
-                    "q": word,
-                    "num":"100",
-                    "start": start,
-                    "api_key": secret_key,
-                    "tbm": tbm,
-                    "location": location,
-                    "gl": gl,
-                    }
+                param['start'] = start
                 search = GoogleSearch(param)
                 result = search.get_dict()
                 try:
@@ -60,7 +50,7 @@ class GoogleSpider(scrapy.Spider):
         print(len(start_urls))
         return start_urls
 
-    urls = collect_start_urls(keywords, secret_key, tbm, location, gl)
+    urls = collect_start_urls(keywords, secret_key, option)
     allowed_domains = urls
     start_urls = urls
 
