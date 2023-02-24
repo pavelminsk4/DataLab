@@ -133,6 +133,21 @@ class CrawlerKeyword(models.Model):
   def __str__(self):
     return self.word
 
+class CrawlerOption(models.Model):
+  TBM_CHOICES = (
+    ('isch', 'Google Images API'),
+    ('lcl', 'Google Local API'),
+    ('vid', 'Google Videos API'),
+    ('nws', 'Google News API'),
+    ('shop', 'Google Shopping API'),
+  )
+
+  location = models.CharField(max_length=50, default='Saudi Arabia')
+  tbm = models.CharField(max_length=5, default='nws', choices=TBM_CHOICES)
+  gl = models.CharField(max_length=3, default='sa')
+  created_at = models.DateTimeField(auto_now_add=True)
+  updated_at = models.DateTimeField(auto_now=True)
+
 class TempFeedLinks(models.Model):
   url = models.URLField(max_length=200,null=True,blank=True,unique=True)
   alexaglobalrank = models.BigIntegerField()

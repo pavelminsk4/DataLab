@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Project, Workspace, Feedlinks, Post, Speech, Status, TempFeedLinks, NewFeedlinks, CrawlerKeyword
+from .models import Project, Workspace, Feedlinks, Post, Speech, Status, TempFeedLinks, NewFeedlinks, CrawlerKeyword, CrawlerOption
 from import_export.admin import ImportExportModelAdmin
 from import_export import resources
 
@@ -34,6 +34,10 @@ class NewFeedlinksAdmin(admin.ModelAdmin):
 @admin.register(CrawlerKeyword)
 class CrawlerKeywordAdmin(admin.ModelAdmin):
     list_display = ('word', 'created_at', 'updated_at')
+
+@admin.register(CrawlerOption)
+class CrawlerOptionAdmin(admin.ModelAdmin):
+    list_display = ('location', 'tbm', 'gl', 'created_at', 'updated_at')
 
 # === Feedlinks Import-Export
 class FeedlinksResource(resources.ModelResource):
