@@ -131,13 +131,16 @@ export default {
       dataForWidgetModal: {},
     }
   },
-  created() {
+  async created() {
     if (!this.availableWidgets) {
-      this[action.GET_AVAILABLE_WIDGETS](this.projectId)
+      await this[action.GET_AVAILABLE_WIDGETS](this.projectId)
     }
 
     if (!this.clippingData.length) {
-      this[action.GET_CLIPPING_FEED_CONTENT_WIDGET](this.projectId)
+      await this[action.GET_CLIPPING_FEED_CONTENT_WIDGET]({
+        projectId: this.projectId,
+        widgetId: this.availableWidgets.clipping_feed_content_widget.id,
+      })
     }
   },
   computed: {
@@ -201,7 +204,6 @@ export default {
       action.GET_CLIPPING_FEED_CONTENT_WIDGET,
     ]),
     getYAxisValue(val) {
-      console.log(this.clippingData)
       return val > 1 ? val - 1 : 0
     },
     async deleteWidget(name) {

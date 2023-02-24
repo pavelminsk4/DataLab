@@ -46,21 +46,6 @@ export default {
       required: true,
     },
   },
-  created() {
-    this[action.UPDATE_ADDITIONAL_FILTERS]({
-      date_range: [
-        new Date(this.currentProject.start_search_date),
-        new Date(this.currentProject.end_search_date),
-      ],
-    })
-
-    if (!this.clippingContent.length) {
-      this[action.GET_CLIPPING_FEED_CONTENT_WIDGET](this.currentProject.id)
-    }
-  },
-  mounted() {
-    this.showResults()
-  },
   computed: {
     ...mapGetters({
       additionalFilters: get.ADDITIONAL_FILTERS,
@@ -68,6 +53,7 @@ export default {
       clippingContent: get.CLIPPING_FEED_CONTENT_WIDGET,
       searchData: get.SEARCH_DATA,
       numberOfPosts: get.POSTS_NUMBER,
+      availableWidgets: get.AVAILABLE_WIDGETS,
     }),
     currentKeywords() {
       return this.currentProject?.keywords
@@ -78,6 +64,24 @@ export default {
     currentExcludeKeywords() {
       return this.currentProject?.ignore_keywords
     },
+  },
+  created() {
+    this[action.UPDATE_ADDITIONAL_FILTERS]({
+      date_range: [
+        new Date(this.currentProject.start_search_date),
+        new Date(this.currentProject.end_search_date),
+      ],
+    })
+
+    if (!this.clippingContent.length) {
+      this[action.GET_CLIPPING_FEED_CONTENT_WIDGET]({
+        projectId: this.currentProject.id,
+        widgetId: this.availableWidgets.clipping_feed_content_widget.id,
+      })
+    }
+  },
+  mounted() {
+    this.showResults()
   },
   methods: {
     ...mapActions([

@@ -26,6 +26,7 @@
         :post-id="item.post__id"
         :project-id="projectId"
         :is-clipping-widget="true"
+        :widget-id="widgetId"
         :current-project="currentProject"
       />
     </div>

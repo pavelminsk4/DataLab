@@ -1,14 +1,12 @@
 <template>
   <BaseModal>
-    <div class="question">
-      <slot>
-        Are you sure you want to delete {{ itemToDelete.type }}
-        <span>
-          {{ itemToDelete.name }}
-        </span>
-        ?
-      </slot>
-    </div>
+    <template #title>
+      Are you sure you want to delete {{ itemToDelete.type }}
+      <span class="active-option">
+        {{ itemToDelete.name }}
+      </span>
+      ?
+    </template>
 
     <div class="modal-buttons">
       <BaseButton @click.stop="$emit('delete')">Delete</BaseButton>
@@ -41,11 +39,7 @@ export default {
   gap: 20px;
 }
 
-.question {
-  margin-bottom: 35px;
-
-  span {
-    color: var(--button-primary-color);
-  }
+.active-option {
+  color: var(--primary-color);
 }
 </style>

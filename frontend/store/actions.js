@@ -515,7 +515,10 @@ export default {
     commit(mutator.SET_LOADING_WIDGETS, {clippingWidget: true})
     try {
       await api.createClippingFeedContent(data.posts)
-      await dispatch(action.GET_CLIPPING_FEED_CONTENT_WIDGET, data.projectId)
+      await dispatch(action.GET_CLIPPING_FEED_CONTENT_WIDGET, {
+        projectId: data.projectId,
+        widgetId: data.widgetId,
+      })
     } catch (e) {
       console.log(e)
     } finally {
@@ -687,12 +690,15 @@ export default {
 
   async [action.DELETE_CLIPPING_FEED_CONTENT](
     {commit, dispatch},
-    {projectId, postId}
+    {projectId, postId, widgetId}
   ) {
     commit(mutator.SET_LOADING_WIDGETS, {clippingWidget: true})
     try {
       await api.deleteClippingFeedContentPost(projectId, postId)
-      await dispatch(action.GET_CLIPPING_FEED_CONTENT_WIDGET, projectId)
+      await dispatch(action.GET_CLIPPING_FEED_CONTENT_WIDGET, {
+        projectId: projectId,
+        widgetId: widgetId,
+      })
     } catch (e) {
       console.log(e)
     } finally {

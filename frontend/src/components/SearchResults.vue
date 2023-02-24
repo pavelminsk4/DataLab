@@ -5,7 +5,7 @@
     </div>
 
     <div
-      v-if="!loading && searchData.length"
+      v-if="!loading && searchData.length && availableWidgets"
       class="search-result-cards scroll"
     >
       <ClippingCard
@@ -26,6 +26,7 @@
         :is-checkbox-clipping-widget="isCheckboxClippingWidget"
         :current-project="currentProject"
         :clipping-element="selectedClippingElement(item.id)"
+        :widget-id="clippingWidgetId"
         class="clipping-card"
         @add-element="addClippingElement"
       />
@@ -62,8 +63,8 @@
 </template>
 
 <script>
-import {mapActions, mapState} from 'vuex'
-import {action} from '@store/constants'
+import {mapActions, mapGetters, mapState} from 'vuex'
+import {action, get} from '@store/constants'
 import {lowerFirstLetter} from '@/lib/utilities'
 
 import VPagination from '@hennge/vue3-pagination'
@@ -122,15 +123,20 @@ export default {
     }
   },
   computed: {
-    ...mapState([
-      'searchData',
-      'loading',
-      'additionalFilters',
-      'numberOfPages',
-      'isSearchPerformed',
-    ]),
+    ...mapState(['isSearchPerformed']),
+    ...mapGetters({
+      searchData: get.SEARCH_DATA,
+      loading: get.LOADING,
+      additionalFilters: get.ADDITIONAL_FILTERS,
+      numberOfPages: get.PAGES_NUMBER,
+      availableWidgets: get.AVAILABLE_WIDGETS,
+    }),
     routerName() {
       return this.$route.name.toLowerCase()
+    },
+
+    clippingWidgetId() {
+      return this.availableWidgets.clipping_feed_content_widget.id
     },
     currentStep() {
       return this.isSearchPerformed ? `${this.step}preview` : this.step
@@ -179,12 +185,14 @@ export default {
       await this[action.DELETE_CLIPPING_FEED_CONTENT]({
         projectId: this.currentProject.id,
         postId: postId,
+        widgetId: this.clippingWidgetId,
       })
     },
     async createClippingWidget(newPost) {
       await this[action.CREATE_CLIPPING_FEED_CONTENT_WIDGET]({
         posts: [newPost],
         projectId: this.currentProject.id,
+        widgetId: this.clippingWidgetId,
       })
     },
     selectedClippingElement(id) {

@@ -146,6 +146,10 @@ export default {
       type: Number,
       required: false,
     },
+    widgetId: {
+      type: Number,
+      required: true,
+    },
     clippingElement: {
       type: Boolean,
       default: false,
@@ -183,6 +187,7 @@ export default {
       await this[action.DELETE_CLIPPING_FEED_CONTENT]({
         projectId: this.projectId,
         postId: this.postId,
+        widgetId: this.widgetId,
       })
     },
     addPost() {
