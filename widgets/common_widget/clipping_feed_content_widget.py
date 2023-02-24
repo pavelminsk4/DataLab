@@ -2,7 +2,7 @@ from widgets.models import ClippingFeedContentWidget
 from django.http import JsonResponse
 import re
 
-def cl_fd_cont_widg(request, pk):
+def cl_fd_cont_widg(request, pk, widget_pk):
   posts = ClippingFeedContentWidget.objects.filter(project_id=pk).order_by('id')
   posts = posts.values(
     'post__id',

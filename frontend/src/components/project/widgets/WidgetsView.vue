@@ -201,6 +201,7 @@ export default {
       action.GET_CLIPPING_FEED_CONTENT_WIDGET,
     ]),
     getYAxisValue(val) {
+      console.log(this.clippingData)
       return val > 1 ? val - 1 : 0
     },
     async deleteWidget(name) {

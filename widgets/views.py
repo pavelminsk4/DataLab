@@ -23,8 +23,8 @@ def sum_widget(request, pk, widget_pk):
   return summary_widget(pk, widget_pk)
 def vol_widget(request, pk, widget_pk):
   return volume(request, pk, widget_pk)
-def clipping_feed_content_widget(request, pk):
-  return cl_fd_cont_widg(request, pk)
+def clipping_feed_content_widget(request, pk, widget_pk):
+  return cl_fd_cont_widg(request, pk, widget_pk)
 def top_10_authors_by_volume(request, pk, widget_pk):
   return top_10_auth_by_vol_widget(pk, widget_pk)
 def top_10_brands_widget(request, pk, widget_pk):

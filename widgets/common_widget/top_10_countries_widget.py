@@ -2,7 +2,7 @@ from widgets.models import WidgetDescription
 from project.models import Project
 from django.http import JsonResponse
 from django.db.models import Count
-from .filters_for_widgets import post_agregator_with_dimensions
+from .filters_for_widgets import *
 
 def post_agregator_top_countries(posts):
   results = posts.values('feedlink__country').annotate(country_count=Count('feedlink__country')).order_by('-country_count')[:10]
