@@ -130,7 +130,7 @@ def basic_search_type(keyword, limit):
     basic_search_url = api_route + '/search/twitter/7-day'
     auth_token = json.loads(login(email, password))['authToken'] 
     report_id = json.loads(basic_search(keyword, limit, auth_token, basic_search_url))["resourceId"]
-    time.sleep(5)
+    time.sleep(10)
     search(report_id, auth_token)
 
 def historical_search_type(keyword, limit, start_date, end_date):
@@ -146,13 +146,23 @@ def live_search_type(keyword, limit):
     live_search(keyword, limit, auth_token, live_search_url)
  
 def search(report_id, auth_token):
-    data_report_state = json.loads(get_report_state(report_id, auth_token))
-    print(data_report_state)
     if json.loads(get_report_state(report_id, auth_token))['status'] == "generated":
-        data_tweets = json.loads(get_publications(report_id, auth_token))['data']
-        tweets = []
-        for tweet in data_tweets:
-            new_tweet = {
+        data_tweets = json.loads(get_publications(report_id, auth_token))
+        add_post_to_database(data_tweets['data'])
+        pagination = data_tweets['pagination']['nextResults']
+        while pagination != None:
+            data_tweets = json.loads(get_publications_next_page(report_id, auth_token, pagination))
+            add_post_to_database(data_tweets['data'])
+            pagination = data_tweets['pagination']['nextResults']
+    else:
+       print('Report not generated') 
+       print(json.loads(get_report_state(report_id, auth_token))['status'])
+    delete_report(auth_token, report_id)
+
+def add_post_to_database(data_tweets):
+  tweets = []
+  for tweet in data_tweets:
+    new_tweet = {
                 'post_id': tweet['_id'],
                 'async_ops': tweet['asyncOps'],
                 'binders': tweet['binders'],
@@ -204,16 +214,10 @@ def search(report_id, auth_token):
                 'user_value': tweet['user']['value'],
                 'videos': tweet['videos'],
             }
-            tweets.append(new_tweet)
-        try:
-            django_list = [TweetBinderPost(**vals) for vals in tweets if not TweetBinderPost.objects.filter(post_id=vals['post_id'])] 
-            TweetBinderPost.objects.bulk_create(django_list)
-        except:
-            print('error!!!')
-            pass
-        tweets = []
-    else:
-       print('Report not generated') 
-       print(json.loads(get_report_state(report_id, auth_token))['status'])
-
-    delete_report(auth_token, report_id)
+    tweets.append(new_tweet)
+    try:
+      django_list = [TweetBinderPost(**vals) for vals in tweets if not TweetBinderPost.objects.filter(post_id=vals['post_id'])] 
+      TweetBinderPost.objects.bulk_create(django_list)
+    except:
+      print('error!!!')
+      pass
