@@ -37,7 +37,7 @@ class CrawlerKeywordAdmin(admin.ModelAdmin):
 
 @admin.register(CrawlerOption)
 class CrawlerOptionAdmin(admin.ModelAdmin):
-    list_display = ('location', 'tbm', 'gl', 'safe', 'created_at', 'updated_at')
+    list_display = ('location', 'tbm', 'gl', 'safe', 'is_active', 'created_at', 'updated_at')
 
 # === Feedlinks Import-Export
 class FeedlinksResource(resources.ModelResource):
