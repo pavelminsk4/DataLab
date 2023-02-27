@@ -1,6 +1,5 @@
 <template>
   <BaseModal
-    modal-frame-style="max-width: 75vw; height: 80%;"
     :title="generalWidgetData.title"
     :is-general-padding="false"
     style="--base-modal-content-padding: 0px"
@@ -288,6 +287,8 @@ export default {
 <style lang="scss" scoped>
 .settings-wrapper {
   display: flex;
+
+  min-height: 660px;
 
   background-color: var(--background-primary-color);
 

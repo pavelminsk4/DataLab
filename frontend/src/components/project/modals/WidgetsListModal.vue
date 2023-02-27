@@ -1,23 +1,28 @@
 <template>
-  <BaseModal>
-    <section class="widgets-wrapper">
-      <div class="title">Widgets</div>
-      <BaseCheckbox
-        v-for="(item, index) of widgetNames"
-        :key="index"
-        :label="item.default_title"
-        :id="index"
-        :model-value="item.is_active"
-        @change="onChange"
-        class="checkbox"
-      >
-        <span class="name">{{ item.default_title }}</span>
-      </BaseCheckbox>
+  <BaseModal title="Widgets">
+    <div class="widgets-list-wrapper">
+      <section class="widgets-wrapper">
+        <BaseCheckbox
+          v-for="(item, index) of widgetNames"
+          :key="index"
+          :label="item.default_title"
+          :id="index"
+          :model-value="item.is_active"
+          @change="onChange"
+          class="checkbox"
+        >
+          <span class="name">{{ item.default_title }}</span>
+        </BaseCheckbox>
 
-      <BaseButton class="button" @click="saveCollectionWidgets">
-        Save
-      </BaseButton>
-    </section>
+        <BaseButton class="button" @click="saveCollectionWidgets">
+          <SaveIcon />
+          Save
+        </BaseButton>
+      </section>
+      <section class="icon-wrapper">
+        <WidgetsListIcon />
+      </section>
+    </div>
   </BaseModal>
 </template>
 
@@ -28,10 +33,14 @@ import {action, get} from '@store/constants'
 import BaseModal from '@/components/modals/BaseModal'
 import BaseCheckbox from '@/components/BaseCheckbox'
 import BaseButton from '@/components/common/BaseButton'
+import WidgetsListIcon from '@/components/icons/WidgetsListIcon'
+import SaveIcon from '@/components/icons/SaveIcon'
 
 export default {
   name: 'WidgetsModal',
   components: {
+    SaveIcon,
+    WidgetsListIcon,
     BaseButton,
     BaseCheckbox,
     BaseModal,
@@ -127,39 +136,50 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.widgets-wrapper {
+.widgets-list-wrapper {
   display: flex;
-  flex-direction: column;
 
-  width: 47vw;
+  margin: -24px;
 
-  .name {
-    margin-left: 10px;
+  .widgets-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 20px;
+    padding: 24px 32px;
+
+    .checkbox {
+      gap: 10px;
+      padding: 14px;
+
+      border-radius: 10px;
+      border: 1px solid var(--border-color);
+
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+      color: var(--typography-title-color);
+    }
+
+    .active-element {
+      border: 1px solid var(--border-active-color);
+      background-color: var(--primary-active-color);
+    }
+
+    .button {
+      display: flex;
+      gap: 10px;
+      align-self: flex-end;
+
+      margin-top: 40px;
+    }
   }
 
-  .checkbox {
-    margin-bottom: 10px;
-  }
+  .icon-wrapper {
+    padding: 36px 34px 0;
 
-  .title {
-    margin-bottom: 25px;
-
-    font-style: normal;
-    font-weight: 600;
-    font-size: 36px;
-    line-height: 54px;
-    color: var(--typography-primary-color);
-  }
-
-  .button {
-    align-self: flex-end;
-
-    width: 103px;
+    background-color: var(--background-primary-color);
   }
 }
 </style>

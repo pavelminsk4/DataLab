@@ -219,6 +219,7 @@ export default {
   flex-direction: column;
 
   height: 100%;
+  margin-top: 20px;
 }
 
 .analytics-menu {

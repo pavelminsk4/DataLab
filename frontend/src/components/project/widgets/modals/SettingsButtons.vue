@@ -59,6 +59,8 @@ export default {
 
     padding: 4px 38px;
 
+    white-space: nowrap;
+
     &:hover {
       color: var(--button-text-color);
       background: var(--primary-hover-color);

@@ -243,6 +243,7 @@ export default {
   gap: 40px;
 
   height: 100%;
+  margin-top: 20px;
 
   .search-results {
     width: 100%;

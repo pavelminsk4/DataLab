@@ -1,5 +1,5 @@
 <template>
-  <BaseSpinner v-if="loading" />
+  <BaseSpinner v-if="loading" class="spinner" />
 
   <component
     v-else
@@ -76,3 +76,9 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.spinner {
+  margin: auto;
+}
+</style>
