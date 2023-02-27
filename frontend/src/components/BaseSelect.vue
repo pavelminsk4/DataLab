@@ -1,60 +1,63 @@
 <template>
-  <div
-    :class="[
-      'selector',
-      {open: visible},
-      `selector-${name}`,
-      hasError && 'error',
-    ]"
-    :data-value="value"
-    :data-list="list"
-    @click="toggle"
-  >
-    <div class="label">
-      <input
-        v-if="isSearch"
-        v-bind="$attrs"
-        :value="modelValue"
-        :class="['input', isSearch && 'input-search']"
-        :placeholder="placeholder"
-        @focus="visible = true"
-        @input="handleInput"
-        type="text"
-        class="select-search"
-      />
-      <div v-else-if="!value && !isSearch" class="placeholder">
-        {{ placeholder }}
+  <div class="select-wrapper">
+    <div class="select-title">{{ selectTitle }}</div>
+    <div
+      :class="[
+        'selector',
+        {open: visible},
+        `selector-${name}`,
+        hasError && 'error',
+      ]"
+      :data-value="value"
+      :data-list="list"
+      @click="toggle"
+    >
+      <div class="label">
+        <input
+          v-if="isSearch"
+          v-bind="$attrs"
+          :value="modelValue"
+          :class="['input', isSearch && 'input-search']"
+          :placeholder="placeholder"
+          @focus="visible = true"
+          @input="handleInput"
+          type="text"
+          class="select-search"
+        />
+        <div v-else-if="!value && !isSearch" class="placeholder">
+          {{ placeholder }}
+        </div>
+        <div v-else-if="!isSearch">{{ value }}</div>
       </div>
-      <div v-else-if="!isSearch">{{ value }}</div>
-    </div>
-    <ArrowDownIcon
-      class="arrow"
-      :class="{expanded: visible}"
-      @click.stop="toggle"
-    />
-    <div :class="{hidden: !visible, visible}">
-      <ul v-if="visible" class="select-list scroll">
-        <li
-          v-if="isRejectSelection"
-          @click="select('Reject selection')"
-          class="select-item"
-        >
-          Reject selection
-        </li>
-        <li
-          :class="[{current: item === value}, 'select-item']"
-          v-for="item in selectList"
-          :key="item"
-          @click="select(item)"
-        >
-          {{ item }}
-        </li>
-      </ul>
-    </div>
+      <ArrowDownIcon
+        class="arrow"
+        :class="{expanded: visible}"
+        @click.stop="toggle"
+      />
+      <div :class="{hidden: !visible, visible}">
+        <ul v-if="visible" class="select-list scroll">
+          <li
+            v-if="isRejectSelection"
+            @click="select('Reject selection')"
+            class="select-item"
+          >
+            Reject selection
+          </li>
+          <li
+            :class="[{current: item === value}, 'select-item']"
+            v-for="item in selectList"
+            :key="item"
+            @click="select(item)"
+          >
+            {{ item }}
+          </li>
+        </ul>
+      </div>
 
-    <div v-if="hasError" class="error-container">
-      {{ errorMessage }}
-      <ErrorIcon class="error-icon" />
+      <div v-if="hasError" class="error-container">
+        {{ errorMessage }}
+        <ErrorIcon class="error-icon" />
+      </div>
     </div>
   </div>
 </template>
@@ -105,6 +108,10 @@ export default {
     errorMessage: {
       type: String,
       default: 'Error',
+    },
+    selectTitle: {
+      type: String,
+      default: '',
     },
   },
   data() {
@@ -171,11 +178,22 @@ export default {
 <style lang="scss" scoped>
 .selector {
   position: relative;
-  border: 1px solid #2e2f34;
-  box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
+
+  border: 1px solid var(--border-color);
   border-radius: 10px;
-  background: rgba(46, 47, 52, 0.5);
+
   cursor: pointer;
+
+  .select-title {
+    margin-bottom: 12px;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--typography-title-color);
+  }
+
   .arrow {
     position: absolute;
     right: 18px;
@@ -211,9 +229,7 @@ export default {
   width: calc(100% + 2px);
   max-height: 250px;
   border: 1px solid var(--button-primary-color);
-  box-shadow: 0 3px 4px rgba(5, 95, 252, 0.49);
   border-radius: 0 0 10px 10px;
-  background-color: var(--secondary-bg-color);
   font-size: 14px;
   list-style-type: none;
   overflow-y: auto;
@@ -223,9 +239,8 @@ export default {
   outline: none;
   min-width: 100%;
   border: none;
-  background: var(--secondary-bg-color);
-  color: var(--typography-primary-color);
 }
+
 .select-item {
   padding: 9px 9px 9px 19px;
   color: var(--typography-primary-color);
@@ -239,7 +254,6 @@ export default {
 .open {
   border: 1px solid var(--button-primary-color);
   border-bottom: none;
-  box-shadow: 0 3px 4px rgba(5, 95, 252, 0.49);
   border-radius: 10px 10px 0 0;
 }
 .hidden {

@@ -17,19 +17,8 @@
 
     <DownloadReportModal
       v-if="isOpenDownloadReportModal"
-      @close="toggleWidgetsModal('isOpenDownloadReportModal')"
-      @open-instant-template="
-        openInstantTemplate(
-          'isOpenDownloadReportModal',
-          'isOpenInstantReportModal'
-        )
-      "
-    />
-
-    <InstantReportModal
-      v-if="isOpenInstantReportModal"
       :project-id="currentProject.id"
-      @close="toggleWidgetsModal('isOpenInstantReportModal')"
+      @close="toggleWidgetsModal('isOpenDownloadReportModal')"
     />
 
     <NavigationBar
@@ -102,14 +91,12 @@ import DimensionsIcon from '@/components/icons/DimensionsIcon'
 import AllDimensionsModal from '@/components/project/modals/AllDimensionsModal'
 import ReportsUploadIcon from '@/components/icons/ReportsUploadIcon'
 import DownloadReportModal from '@/components/project/modals/DownloadReportModal'
-import InstantReportModal from '@/components/project/modals/InstantReportModal'
 import BaseDropdown from '@/components/BaseDropdown'
 
 export default {
   name: 'AnalyticsScreen',
   components: {
     BaseDropdown,
-    InstantReportModal,
     DownloadReportModal,
     ReportsUploadIcon,
     AllDimensionsModal,
@@ -132,7 +119,6 @@ export default {
       isOpenWidgetsModal: false,
       isOpenDimensionModal: false,
       isOpenDownloadReportModal: false,
-      isOpenInstantReportModal: false,
       sortValue: '',
       sortingValue: '',
     }
@@ -190,10 +176,6 @@ export default {
     toggleWidgetsModal(val) {
       this.togglePageScroll(false)
       this[val] = !this[val]
-    },
-    openInstantTemplate(downloadReportModal, instantModal) {
-      this.toggleWidgetsModal(downloadReportModal)
-      this.toggleWidgetsModal(instantModal)
     },
     showResults(pageNumber, numberOfPosts) {
       try {
