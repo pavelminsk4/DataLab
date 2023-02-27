@@ -65,6 +65,8 @@ class TweetBinderPost(models.Model):
   user_gender = models.CharField(max_length=20, blank=True, null=True)
   user_value = models.FloatField(blank=True, null=True)
   videos = ArrayField(models.CharField(max_length=200), blank=True, null=True)
+  created_at = models.DateTimeField(auto_now_add=True)
+  updated_at = models.DateTimeField(auto_now=True)
 
 class TypesOfSearch(models.Model):
   title = models.CharField(max_length=100)
