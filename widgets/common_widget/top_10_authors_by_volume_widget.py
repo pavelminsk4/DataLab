@@ -15,6 +15,6 @@ def top_10_auth_by_vol_widget(pk, widget_pk):
   project = Project.objects.get(id=pk)
   posts = post_agregator_with_dimensions(project)
   widget = WidgetDescription.objects.get(id=widget_pk)
-  posts = post_agregetor_for_each_widget(widget)
+  posts = post_agregetor_for_each_widget(widget, posts)
   posts = post_agregator_top_auth_by_vol_widget(posts)
   return JsonResponse(posts, safe = False)

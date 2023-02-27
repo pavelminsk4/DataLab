@@ -10,10 +10,10 @@
     />
 
     <div class="title">Widget Description</div>
-    <textarea
-      class="description-field scroll"
-      placeholder="Some words about Widgets"
+
+    <BaseTextarea
       v-model="description"
+      placeholder="Some words about Widgets"
     />
 
     <div v-if="hasAggregationPeriod">
@@ -27,8 +27,6 @@
         name="aggregation-period"
       />
     </div>
-
-    <BaseButton class="button" @click="saveOptions">Save</BaseButton>
   </div>
 </template>
 
@@ -37,11 +35,11 @@ import {isAllEmptyFields} from '@lib/utilities'
 
 import BaseInput from '@/components/BaseInput'
 import BaseSelect from '@/components/BaseSelect'
-import BaseButton from '@/components/buttons/BaseButton'
+import BaseTextarea from '@/components/BaseTextarea'
 
 export default {
   name: 'BasicSettingsScreen',
-  components: {BaseButton, BaseSelect, BaseInput},
+  components: {BaseTextarea, BaseSelect, BaseInput},
   props: {
     widgetTitle: {
       type: String,
@@ -62,14 +60,42 @@ export default {
   },
   data() {
     return {
-      title: this.widgetTitle,
-      description: this.widgetDescription,
+      newTitle: this.widgetTitle,
+      newDescription: this.widgetDescription,
       aggregationPeriod: this.period,
       aggregationPeriods: ['Hour', 'Day', 'Month', 'Year'],
       errors: {
         titleError: null,
       },
     }
+  },
+  computed: {
+    title: {
+      get() {
+        return this.newTitle
+      },
+      set(value) {
+        this.newTitle = value
+        this.errors.titleError = this.newTitle ? null : 'required'
+
+        if (!isAllEmptyFields(this.errors)) return
+        this.$emit('update-general-data', this.newTitle, 'newWidgetTitle')
+      },
+    },
+
+    description: {
+      get() {
+        return this.newDescription
+      },
+      set(value) {
+        this.newDescription = value
+        this.$emit(
+          'update-general-data',
+          this.newDescription,
+          'newWidgetDescription'
+        )
+      },
+    },
   },
   methods: {
     selectItem(name, val) {
@@ -79,18 +105,6 @@ export default {
       } catch (e) {
         console.log(e)
       }
-    },
-    saveOptions() {
-      this.errors.titleError = this.title ? null : 'required'
-
-      if (!isAllEmptyFields(this.errors)) return
-
-      this.$emit(
-        'save-changes',
-        this.title,
-        this.description,
-        this.aggregationPeriod
-      )
     },
     capitalizeFirstLater(string) {
       return string.charAt(0).toUpperCase() + string.slice(1)
@@ -127,25 +141,6 @@ export default {
     font-weight: 500;
     font-size: 14px;
     line-height: 110%;
-  }
-
-  .description-field {
-    width: 100%;
-    height: 132px;
-    padding: 12px 16px;
-
-    border: 1px solid var(--input-border-color);
-    box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
-    border-radius: 10px;
-    background: var(--secondary-bg-color);
-
-    color: var(--typography-primary-color);
-
-    resize: none;
-  }
-
-  .button {
-    margin-top: 25px;
   }
 
   &::placeholder {

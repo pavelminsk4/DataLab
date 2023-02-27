@@ -1,6 +1,6 @@
 <template>
   <BaseModal
-    modal-frame-style="width: 75vw; height: 90vh;"
+    modal-frame-style="max-width: 75vw; height: 80%;"
     :title="generalWidgetData.title"
     :is-general-padding="false"
     style="--base-modal-content-padding: 0px"
@@ -14,11 +14,12 @@
         <component
           :is="snakeToPascal(widgetName)"
           :volume="widgetData"
-          :chart-type="generalWidgetData.chart_type"
+          :chart-type="newChartType || chartType"
           :is-general-widget="false"
           :is-open-widget="true"
           :project-id="projectId"
           :widgets="widgetsList"
+          :widget-id="generalWidgetData.id"
         />
       </div>
 
@@ -31,7 +32,7 @@
           :widget-title="generalWidgetData.title"
           :widget-description="generalWidgetData.description"
           :hasAggregationPeriod="hasAggregationPeriod"
-          @save-changes="saveChanges"
+          @update-general-data="updateGeneralSettings"
           @get-widget-params="updateAggregationPeriod"
         />
 
@@ -52,9 +53,10 @@
           :widget-name="widgetName"
           :project-id="projectId"
           :widget-data="generalWidgetData"
+          @update-chart-type="updateGeneralSettings"
         />
 
-        <BaseButton class="button" @click="saveDimensionsForWidget">
+        <BaseButton class="button" @click="saveChanges">
           <SaveIcon />Save
         </BaseButton>
       </div>
@@ -148,7 +150,10 @@ export default {
   },
   data() {
     return {
-      panelName: 'Chart Layout',
+      panelName: 'General',
+      newWidgetTitle: '',
+      newWidgetDescription: '',
+      newChartType: '',
     }
   },
   computed: {
@@ -183,12 +188,12 @@ export default {
       action.POST_DIMENSIONS_FOR_WIDGET,
     ]),
     snakeToPascal,
-    formatDate(date) {
-      return new Date(date).toLocaleString('en-US', {
-        month: 'short',
-        day: 'numeric',
-        year: 'numeric',
-      })
+    updateSettingPanel(val) {
+      this.panelName = val
+    },
+
+    updateGeneralSettings(value, optionName) {
+      this[optionName] = value
     },
     updateAggregationPeriod(val) {
       try {
@@ -204,32 +209,30 @@ export default {
               this.generalWidgetData.sentiment_dim_pivot || null,
             source_dim_pivot: this.generalWidgetData.source_dim_pivot || null,
           },
+          widgetId: this.generalWidgetData.id,
         })
       } catch (e) {
         console.log(e)
       }
     },
-    saveChanges(title, description, aggregationPeriod) {
+
+    saveGeneralChanges() {
       this[action.UPDATE_AVAILABLE_WIDGETS]({
         projectId: this.projectId,
         data: {
           [this.widgetName]: {
             id: this.generalWidgetData.id,
-            title: title,
-            description: description,
-            aggregation_period: aggregationPeriod.toLowerCase(),
+            title: this.newWidgetTitle || this.generalWidgetData.title,
+            description: this.newWidgetDescription,
+            aggregation_period: this.generalWidgetData.aggregation_period,
           },
         },
       })
       this[action.GET_AVAILABLE_WIDGETS](this.projectId)
-      this.$emit('close')
-    },
-    updateSettingPanel(val) {
-      this.panelName = val
     },
 
-    saveDimensionsForWidget() {
-      this[action.POST_DIMENSIONS_FOR_WIDGET]({
+    async saveDimensionsForWidget() {
+      await this[action.POST_DIMENSIONS_FOR_WIDGET]({
         projectId: this.projectId,
         widgetId: this.generalWidgetData.id,
         data: {
@@ -242,7 +245,41 @@ export default {
         },
       })
 
-      this[action.GET_AVAILABLE_WIDGETS](this.projectId)
+      await this[action.GET_AVAILABLE_WIDGETS](this.projectId)
+
+      await this[this.actionName]({
+        projectId: this.projectId,
+        value: {
+          smpl_freq: 'day',
+          author_dim_pivot: this.generalWidgetData.author_dim_pivot || null,
+          language_dim_pivot: this.generalWidgetData.language_dim_pivot || null,
+          country_dim_pivot: this.generalWidgetData.country_dim_pivot || null,
+          sentiment_dim_pivot:
+            this.generalWidgetData.sentiment_dim_pivot || null,
+          source_dim_pivot: this.generalWidgetData.source_dim_pivot || null,
+        },
+        widgetId: this.generalWidgetData.id,
+      })
+    },
+
+    async saveChartType() {
+      await this[action.UPDATE_AVAILABLE_WIDGETS]({
+        projectId: this.projectId,
+        data: {
+          [this.widgetName]: {
+            id: this.generalWidgetData.id,
+            chart_type: this.newChartType,
+          },
+        },
+      })
+
+      await this[action.GET_AVAILABLE_WIDGETS](this.projectId)
+    },
+
+    saveChanges() {
+      if (this.panelName === 'General') return this.saveGeneralChanges()
+      if (this.panelName === 'Dimensions') return this.saveDimensionsForWidget()
+      if (this.panelName === 'Chart Layout') return this.saveChartType()
     },
   },
 }
@@ -252,13 +289,9 @@ export default {
 .settings-wrapper {
   display: flex;
 
-  height: 100%;
-  min-width: 100%;
-
   background-color: var(--background-primary-color);
 
   .preview-section {
-    flex: 1;
     width: 50%;
     height: fit-content;
     margin: 24px;
@@ -283,11 +316,9 @@ export default {
   .general-wrapper-settings {
     display: flex;
     flex-direction: column;
-    align-self: flex-end;
-    flex: 0.7;
 
     padding: 24px;
-    height: 100%;
+    min-height: 100%;
 
     background-color: var(--background-secondary-color);
 

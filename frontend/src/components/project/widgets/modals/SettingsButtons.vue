@@ -25,8 +25,8 @@ export default {
   },
   data() {
     return {
-      panelSettingsName: 'Chart Layout',
-      mainSettings: ['Dimensions', 'Chart Layout'],
+      panelSettingsName: 'General',
+      mainSettings: ['General', 'Dimensions', 'Chart Layout'],
     }
   },
   methods: {
@@ -53,6 +53,10 @@ export default {
   cursor: pointer;
 
   .general-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     padding: 4px 38px;
 
     &:hover {

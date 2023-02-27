@@ -56,7 +56,11 @@ export default {
       required: true,
     },
     projectId: {
-      type: [String, Number],
+      type: Number,
+      required: true,
+    },
+    widgetId: {
+      type: Number,
       required: true,
     },
     isOpenWidget: {
@@ -74,7 +78,10 @@ export default {
     this.widgetMetrics = summaryWidgetConfig
 
     if (this.isOpenWidget && !this.summary.length) {
-      this[action.GET_SUMMARY_WIDGET](this.projectId)
+      this[action.GET_SUMMARY_WIDGET]({
+        projectId: this.projectId,
+        widgetId: this.widgetId,
+      })
     }
   },
   watch: {

@@ -48,93 +48,109 @@ export default {
     return fetch('get', `/api/projects/${projectId}/widgets_list`)
   },
 
-  async getSummaryWidget(projectId) {
-    return fetch('get', `/api/widgets/summary_widget/${projectId}`)
+  async getSummaryWidget(projectId, widgetId) {
+    return fetch('get', `/api/widgets/summary_widget/${projectId}/${widgetId}`)
   },
 
-  async getClippingFeedContentWidget(projectId) {
+  async getClippingFeedContentWidget(projectId, widgetId) {
     return fetch(
       'get',
-      `/api/widgets/clipping_feed_content_widget/${projectId}`
+      `/api/widgets/clipping_feed_content_widget/${projectId}/${widgetId}`
     )
   },
 
-  async getVolumeWidget({projectId, value}) {
-    return fetch('put', `/api/widgets/volume_widget/${projectId}`, value)
-  },
-
-  async getTopAuthors(projectId) {
-    return fetch('get', `/api/widgets/top_10_authors_by_volume/${projectId}`)
-  },
-
-  async getTopBrands(projectId) {
-    return fetch('get', `/api/widgets/top_10_brands_widget/${projectId}`)
-  },
-
-  async getTopCountries(projectId) {
-    return fetch('get', `/api/widgets/top_10_countries_widget/${projectId}`)
-  },
-
-  async getTopLanguages(projectId) {
-    return fetch('get', `/api/widgets/top_10_languages_widget/${projectId}`)
-  },
-
-  async getSentimentTopSources(projectId) {
+  async getVolumeWidget({projectId, value, widgetId}) {
     return fetch(
-      'get',
-      `/api/widgets/sentiment_top_10_sources_widget/${projectId}`
-    )
-  },
-
-  async getSentimentTopCountries(projectId) {
-    return fetch(
-      'get',
-      `/api/widgets/sentiment_top_10_countries_widget/${projectId}`
-    )
-  },
-
-  async getSentimentTopLanguages(projectId) {
-    return fetch(
-      'get',
-      `/api/widgets/sentiment_top_10_languages_widget/${projectId}`
-    )
-  },
-
-  async getSentimentTopAuthors(projectId) {
-    return fetch(
-      'get',
-      `/api/widgets/sentiment_top_10_authors_widget/${projectId}`
-    )
-  },
-
-  async getSentimentForPeriod({projectId, value}) {
-    return fetch(
-      'post',
-      `/api/widgets/sentiment_for_period_widget/${projectId}`,
+      'put',
+      `/api/widgets/volume_widget/${projectId}/${widgetId}`,
       value
     )
   },
 
-  async getContentVolumeTop10Sources({projectId, value}) {
+  async getTopAuthors(projectId, widgetId) {
+    return fetch(
+      'get',
+      `/api/widgets/top_10_authors_by_volume/${projectId}/${widgetId}`
+    )
+  },
+
+  async getTopBrands(projectId, widgetId) {
+    return fetch(
+      'get',
+      `/api/widgets/top_10_brands_widget/${projectId}/${widgetId}`
+    )
+  },
+
+  async getTopCountries(projectId, widgetId) {
+    return fetch(
+      'get',
+      `/api/widgets/top_10_countries_widget/${projectId}/${widgetId}`
+    )
+  },
+
+  async getTopLanguages(projectId, widgetId) {
+    return fetch(
+      'get',
+      `/api/widgets/top_10_languages_widget/${projectId}/${widgetId}`
+    )
+  },
+
+  async getSentimentTopSources(projectId, widgetId) {
+    return fetch(
+      'get',
+      `/api/widgets/sentiment_top_10_sources_widget/${projectId}/${widgetId}`
+    )
+  },
+
+  async getSentimentTopCountries(projectId, widgetId) {
+    return fetch(
+      'get',
+      `/api/widgets/sentiment_top_10_countries_widget/${projectId}/${widgetId}`
+    )
+  },
+
+  async getSentimentTopLanguages(projectId, widgetId) {
+    return fetch(
+      'get',
+      `/api/widgets/sentiment_top_10_languages_widget/${projectId}/${widgetId}`
+    )
+  },
+
+  async getSentimentTopAuthors(projectId, widgetId) {
+    return fetch(
+      'get',
+      `/api/widgets/sentiment_top_10_authors_widget/${projectId}/${widgetId}`
+    )
+  },
+
+  async getSentimentForPeriod({projectId, value, widgetId}) {
     return fetch(
       'post',
-      `/api/widgets/content_volume_top_5_source_widget/${projectId}`,
+      `/api/widgets/sentiment_for_period_widget/${projectId}/${widgetId}`,
       value
     )
   },
 
-  async getContentVolumeTop10Authors({projectId, value}) {
+  async getContentVolumeTop10Sources({projectId, value, widgetId}) {
     return fetch(
       'post',
-      `/api/widgets/content_volume_top_5_authors_widget/${projectId}`,
+      `/api/widgets/content_volume_top_5_source_widget/${projectId}/${widgetId}`,
       value
     )
   },
 
-  async getContentVolumeTop10Countries({projectId, value}) {
+  async getContentVolumeTop10Authors({projectId, value, widgetId}) {
     return fetch(
       'post',
-      `/api/widgets/content_volume_top_5_countries_widget/${projectId}`,
+      `/api/widgets/content_volume_top_5_authors_widget/${projectId}/${widgetId}`,
+      value
+    )
+  },
+
+  async getContentVolumeTop10Countries({projectId, value, widgetId}) {
+    return fetch(
+      'post',
+      `/api/widgets/content_volume_top_5_countries_widget/${projectId}/${widgetId}`,
       value
     )
   },

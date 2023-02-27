@@ -11,7 +11,11 @@
           <CrossIcon :class="closeIconClass" />
         </button>
         <div class="base-modal-body scroll">
-          <div class="title">{{ title }}</div>
+          <div class="title">
+            <div v-if="title">{{ title }}</div>
+            <slot v-else name="title"></slot>
+          </div>
+
           <div class="content">
             <slot></slot>
           </div>
@@ -68,7 +72,7 @@ export default {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 104;
+  z-index: 1000;
 
   display: flex;
   align-items: center;
@@ -96,7 +100,7 @@ export default {
 }
 
 .title {
-  padding: 12px 24px;
+  padding: 12px 50px 12px 24px;
 
   border-bottom: var(--border-primary);
 

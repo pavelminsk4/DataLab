@@ -183,7 +183,6 @@ export default {
       },
       set(val) {
         this.selectedSentiments = val
-        this.updateSelectedDimensions()
       },
     },
     chipsItems() {
@@ -226,6 +225,8 @@ export default {
         let element = this.selectedSentimentsProxy.indexOf(id)
         this.removeSelectedFilter(element, id)
       }
+
+      this.updateSelectedDimensions()
     },
     removeSelectedFilter(index) {
       this.selectedSentimentsProxy.splice(index, 1)

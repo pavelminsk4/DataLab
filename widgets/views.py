@@ -19,51 +19,35 @@ from .common_widget.content_volume_top_5_authors_widget import content_volume_to
 from .common_widget.content_volume_top_5_countries_widget import content_volume_top_5_countries
 from .common_widget.sentiment_for_period_widget import sentiment_for_period
 from .common_widget.dimensions_for_widgets import dimensions_for_each
-
-def sum_widget(request, pk):
-  return summary_widget(pk)
-
-def vol_widget(request, pk):
-  return volume(request, pk)
-
-def clipping_feed_content_widget(request, pk):
-  return cl_fd_cont_widg(request, pk)
-
-def top_10_authors_by_volume(request, pk):
-  return top_10_auth_by_vol_widget(pk)
-
-def top_10_brands_widget(request, pk):
-  return top_10_brands(pk)
-
-def top_10_countries_widget(request, pk):
-  return top_10_countries(pk)
-
-def top_10_languages_widget(request, pk):
-  return top_10_languages(pk)
-
-def content_volume_top_5_source_widget(request, pk):
-  return content_volume_top_5_source(request, pk)  
-
-def sentiment_top_10_sources_widget(request, pk):
-  return sentiment_top_10_sources(pk)
-
-def sentiment_top_10_countries_widget(request, pk):
-  return sentiment_top_10_countries(pk)
-
-def sentiment_top_10_authors_widget(request, pk):
-  return sentiment_top_10_authors(pk)
-
-def sentiment_top_10_languages_widget(request, pk):
-  return sentiment_top_10_languages(pk)
-
-def sentiment_for_period_widget(request, pk):
-  return sentiment_for_period(request, pk)
-
-def content_volume_top_5_authors_widget(request, pk):
-  return content_volume_top_5_authors(request, pk)
-
-def content_volume_top_5_countries_widget(request, pk):
-  return content_volume_top_5_countries(request, pk)
-
+def sum_widget(request, pk, widget_pk):
+  return summary_widget(pk, widget_pk)
+def vol_widget(request, pk, widget_pk):
+  return volume(request, pk, widget_pk)
+def clipping_feed_content_widget(request, pk, widget_pk):
+  return cl_fd_cont_widg(request, pk, widget_pk)
+def top_10_authors_by_volume(request, pk, widget_pk):
+  return top_10_auth_by_vol_widget(pk, widget_pk)
+def top_10_brands_widget(request, pk, widget_pk):
+  return top_10_brands(pk, widget_pk)
+def top_10_countries_widget(request, pk, widget_pk):
+  return top_10_countries(pk, widget_pk)
+def top_10_languages_widget(request, pk, widget_pk):
+  return top_10_languages(pk, widget_pk)
+def content_volume_top_5_source_widget(request, pk, widget_pk):
+  return content_volume_top_5_source(request, pk, widget_pk)
+def sentiment_top_10_sources_widget(request, pk, widget_pk):
+  return sentiment_top_10_sources(pk, widget_pk)
+def sentiment_top_10_countries_widget(request, pk, widget_pk):
+  return sentiment_top_10_countries(pk, widget_pk)
+def sentiment_top_10_authors_widget(request, pk, widget_pk):
+  return sentiment_top_10_authors(pk, widget_pk)
+def sentiment_top_10_languages_widget(request, pk, widget_pk):
+  return sentiment_top_10_languages(pk, widget_pk)
+def sentiment_for_period_widget(request, pk, widget_pk):
+  return sentiment_for_period(request, pk, widget_pk)
+def content_volume_top_5_authors_widget(request, pk, widget_pk):
+  return content_volume_top_5_authors(request, pk, widget_pk)
+def content_volume_top_5_countries_widget(request, pk, widget_pk):
+  return content_volume_top_5_countries(request, pk, widget_pk)
 def dimensions_for_each_widgets(request, project_pk, widget_pk):
   return dimensions_for_each(request, project_pk, widget_pk)

@@ -54,6 +54,7 @@
           :project-id="projectId"
           :is-open-widget="item.isShow"
           :widgets="availableWidgets"
+          :widget-id="item.widgetId"
           :current-project="currentProject"
           :chart-type="item.chartType"
           @delete-widget="deleteWidget(item.name)"
@@ -130,13 +131,16 @@ export default {
       dataForWidgetModal: {},
     }
   },
-  created() {
+  async created() {
     if (!this.availableWidgets) {
-      this[action.GET_AVAILABLE_WIDGETS](this.projectId)
+      await this[action.GET_AVAILABLE_WIDGETS](this.projectId)
     }
 
     if (!this.clippingData.length) {
-      this[action.GET_CLIPPING_FEED_CONTENT_WIDGET](this.projectId)
+      await this[action.GET_CLIPPING_FEED_CONTENT_WIDGET]({
+        projectId: this.projectId,
+        widgetId: this.availableWidgets.clipping_feed_content_widget.id,
+      })
     }
   },
   computed: {
@@ -165,6 +169,7 @@ export default {
                 widgetName: snakeToPascal(widgetName),
                 isShow: this.availableWidgets[widgetName]?.is_active,
                 isWidget: true,
+                widgetId: this.availableWidgets[widgetName]?.id,
                 actionName: this.elementsValue[widgetName].actionName,
                 isChartShow: this.elementsValue[widgetName].isChartShow,
                 chartType:

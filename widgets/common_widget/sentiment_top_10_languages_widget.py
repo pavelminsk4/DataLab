@@ -27,6 +27,6 @@ def sentiment_top_10_languages(pk, widget_pk):
   project = Project.objects.get(id=pk)
   posts = post_agregator_with_dimensions(project)
   widget = WidgetDescription.objects.get(id=widget_pk)
-  posts = post_agregetor_for_each_widget(widget)
+  posts = post_agregetor_for_each_widget(widget, posts)
   res = post_agregator_sentiment_top_languages(posts)
   return JsonResponse(res, safe = False)

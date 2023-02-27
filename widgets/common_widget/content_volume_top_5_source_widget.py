@@ -33,7 +33,7 @@ def content_volume_top_5_source(request, pk, widget_pk):
   project = Project.objects.get(id=pk)
   posts = post_agregator_with_dimensions(project)
   widget = WidgetDescription.objects.get(id=widget_pk)
-  posts = post_agregetor_for_each_widget(widget)
+  posts = post_agregetor_for_each_widget(widget, posts)
   body = json.loads(request.body)
   smpl_freq = body['smpl_freq']
   res = agregator_results_content_volume_top_sources(posts, smpl_freq)

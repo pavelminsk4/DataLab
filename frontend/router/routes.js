@@ -14,11 +14,7 @@ import UserRolesScreen from '@/components/settings/UserRolesScreen'
 import ProjectExtraSettingsView from '@/components/project/ProjectExtraSettingsView'
 
 import SearchScreen from '@/components/project/screens/SearchScreen'
-import AlertsScreen from '@/components/project/screens/AlertsScreen'
-import RegularReportsScreen from '@/components/project/screens/RegularReportsScreen'
-import RegularReportSettingsScreen from '@/components/project/screens/RegularReportSettingsScreen'
 import AnalyticsScreen from '@/components/project/screens/AnalyticsScreen'
-import AlertSettingsScreen from '@/components/project/screens/AlertSettingsScreen'
 
 export const routes = [
   {
@@ -144,36 +140,6 @@ export const routes = [
         name: 'Search',
         path: 'search-settings',
         component: SearchScreen,
-      },
-      {
-        name: 'Alerts',
-        path: 'alerts',
-        component: AlertsScreen,
-      },
-      {
-        name: 'NewAlert',
-        path: 'create-new-alert',
-        component: AlertSettingsScreen,
-      },
-      {
-        name: 'UpdateAlert',
-        path: 'update/:alertId/alert',
-        component: AlertSettingsScreen,
-      },
-      {
-        name: 'Reports',
-        path: 'reports',
-        component: RegularReportsScreen,
-      },
-      {
-        name: 'NewRegularReport',
-        path: 'create-new-regular-report',
-        component: RegularReportSettingsScreen,
-      },
-      {
-        name: 'UpdateRegularReport',
-        path: 'update/:regularReportId/regular-report',
-        component: RegularReportSettingsScreen,
       },
     ],
   },

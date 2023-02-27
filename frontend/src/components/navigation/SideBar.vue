@@ -34,7 +34,7 @@ export default {
   },
   data() {
     return {
-      settings: ['Analytics', 'Search', 'Alerts', 'Reports'],
+      settings: ['Analytics', 'Search'],
     }
   },
   computed: {
@@ -47,8 +47,6 @@ export default {
 
 <style lang="scss" scoped>
 .sidebar-wrapper {
-  --padding-top: calc(var(--header-height) + 24px);
-
   position: fixed;
   top: 0;
   left: 0;
@@ -56,7 +54,8 @@ export default {
 
   width: 70px;
   height: 100%;
-  padding: var(--padding-top) 12px 20px;
+  margin-top: 52px;
+  padding: 24px 12px 20px;
 
   background: var(--background-secondary-color);
 

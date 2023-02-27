@@ -40,6 +40,10 @@ export default {
       type: Number,
       required: true,
     },
+    widgetId: {
+      type: Number,
+      required: true,
+    },
     chartType: {
       type: String,
       required: true,
@@ -163,6 +167,7 @@ export default {
           this.availableWidgets['sentiment_for_period_widget']
             .aggregation_period,
       },
+      widgetId: this.widgetId,
     })
   },
   methods: {
