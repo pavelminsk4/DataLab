@@ -58,6 +58,7 @@ export default {
   cursor: pointer;
   outline: none;
 
+  width: fit-content;
   height: 36px;
   padding: 8px 12px;
 
@@ -88,7 +89,13 @@ export default {
   color: var(--button-primary-color);
 
   &:hover {
-    background: var(--button-secondary-hover-color);
+    border-color: var(--button-primary-hover-color);
+    color: var(--button-primary-hover-color);
+    background: transparent;
+
+    svg {
+      color: var(--button-primary-hover-color);
+    }
   }
 
   svg {

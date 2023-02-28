@@ -15,7 +15,7 @@ import {mapActions} from 'vuex'
 import {defineComponent} from 'vue'
 import {action} from '@store/constants'
 
-import BaseButton from '@/components/buttons/BaseButton'
+import BaseButton from '@/components/common/BaseButton'
 
 export default defineComponent({
   components: {BaseButton},

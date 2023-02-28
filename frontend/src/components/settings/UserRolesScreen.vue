@@ -6,7 +6,7 @@
         description="Manage define limits for users"
         :back-page="{
           name: 'main page',
-          routName: 'Home',
+          routName: 'OnlineHome',
         }"
       >
         <div class="number-users">{{ companyUsers.length }} users</div>
@@ -32,7 +32,7 @@
 
       <section class="users-section scroll">
         <div
-          v-for="(item, index) in companyUsers"
+          v-for="(item, index) in filteredUsers"
           :key="'user' + index"
           :class="['user-row', isActiveUser(item) && 'active-user']"
         >
@@ -195,34 +195,34 @@ import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 import {isAllEmptyFields} from '@lib/utilities'
 
-import MainLayout from '@/components/layout/MainLayout'
-import MainLayoutTitleBlock from '@/components/layout/MainLayoutTitleBlock'
-import BaseButton from '@/components/buttons/BaseButton'
-import BaseInput from '@/components/BaseInput'
-import BaseDropdown from '@/components/BaseDropdown'
-import AreYouSureModal from '@/components/modals/AreYouSureModal'
-import BaseButtonWithTooltip from '@/components/BaseButtonWithTooltip'
-import UserAvatar from '@components/UserAvatar'
-import DeleteIcon from '@/components/icons/DeleteIcon'
-import SettingsIcon from '@/components/icons/SettingsIcon'
 import AddUserIcon from '@/components/icons/AddUserIcon'
+import AreYouSureModal from '@/components/modals/AreYouSureModal'
+import BaseButton from '@/components/common/BaseButton'
+import BaseButtonWithTooltip from '@/components/BaseButtonWithTooltip'
+import BaseDropdown from '@/components/BaseDropdown'
+import BaseInput from '@/components/common/BaseInput'
+import DeleteIcon from '@/components/icons/DeleteIcon'
+import MainLayoutTitleBlock from '@/components/layout/MainLayoutTitleBlock'
+import MainLayout from '@/components/layout/MainLayout'
+import SettingsIcon from '@/components/icons/SettingsIcon'
 import UpdateIcon from '@/components/icons/UpdateIcon'
+import UserAvatar from '@components/UserAvatar'
 
 export default {
   name: 'UserRolesScreen',
   components: {
-    BaseButtonWithTooltip,
+    AddUserIcon,
     AreYouSureModal,
+    BaseButton,
+    BaseButtonWithTooltip,
     BaseDropdown,
     BaseInput,
-    BaseButton,
+    DeleteIcon,
     MainLayout,
     MainLayoutTitleBlock,
-    UserAvatar,
-    DeleteIcon,
     SettingsIcon,
-    AddUserIcon,
     UpdateIcon,
+    UserAvatar,
   },
   data() {
     return {
@@ -257,6 +257,14 @@ export default {
       companyUsers: get.COMPANY_USERS,
       department: get.DEPARTMENT,
     }),
+    filteredUsers() {
+      if (!this.search) return this.companyUsers
+
+      return this.companyUsers.filter((user) => {
+        const fullName = `${user.first_name} ${user.last_name}`.toLowerCase()
+        return fullName.includes(this.search.toLowerCase())
+      })
+    },
     username: {
       get() {
         return this.newUsername

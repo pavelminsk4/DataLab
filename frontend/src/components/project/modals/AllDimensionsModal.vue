@@ -21,7 +21,7 @@ import {action, get} from '@store/constants'
 import {mapActions, mapGetters} from 'vuex'
 
 import BaseModal from '@/components/modals/BaseModal'
-import BaseButton from '@/components/buttons/BaseButton'
+import BaseButton from '@/components/common/BaseButton'
 import DimensionsScreen from '@/components/project/screens/DimensionsScreen'
 
 export default {

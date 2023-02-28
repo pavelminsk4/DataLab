@@ -107,8 +107,8 @@ import {action, get} from '@store/constants'
 import {isAllEmptyFields} from '@lib/utilities'
 
 import AddUsersField from '@/components/AddUsersField'
-import BaseInput from '@/components/BaseInput'
-import BaseButton from '@/components/buttons/BaseButton'
+import BaseInput from '@/components/common/BaseInput'
+import BaseButton from '@/components/common/BaseButton'
 import ArrowDownIcon from '@/components/icons/ArrowDownIcon'
 import NavigationBar from '@/components/navigation/NavigationBar'
 

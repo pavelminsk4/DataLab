@@ -4,7 +4,7 @@
     description="Create a new workspace on your Dashboard"
     :back-page="{
       name: 'main page',
-      routName: 'Home',
+      routName: 'OnlineHome',
     }"
   />
 
@@ -36,9 +36,9 @@ import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
 import ArrowLeftIcon from '@/components/icons/ArrowLeftIcon'
-import BaseButton from '@/components/buttons/BaseButton'
-import BaseInput from '@/components/BaseInput'
-import BaseTextarea from '@/components/BaseTextarea'
+import BaseButton from '@/components/common/BaseButton'
+import BaseInput from '@/components/common/BaseInput'
+import BaseTextarea from '@/components/common/BaseTextarea'
 import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
 import ProgressBar from '@/components/workspace/ProgressBar'
 

@@ -21,7 +21,7 @@ import BaseCheckbox from '@/components/BaseCheckbox2'
 import DeleteIcon from '@/components/icons/DeleteIcon'
 
 export default {
-  name: 'TableRow',
+  name: 'BaseTableRow',
   components: {
     BaseCheckbox,
     DeleteIcon,

@@ -33,9 +33,9 @@
 <script>
 import {isAllEmptyFields} from '@lib/utilities'
 
-import BaseInput from '@/components/BaseInput'
+import BaseInput from '@/components/common/BaseInput'
 import BaseSelect from '@/components/BaseSelect'
-import BaseTextarea from '@/components/BaseTextarea'
+import BaseTextarea from '@/components/common/BaseTextarea'
 
 export default {
   name: 'BasicSettingsScreen',

@@ -10,7 +10,7 @@
   </NavigationBar>
 
   <BaseTable v-if="alerts.length" :table-header="tableHeader">
-    <TableRow
+    <BaseTableRow
       v-for="(item, index) in alerts"
       :key="'alert' + index"
       @click="goToUpdateAlert(item.id)"
@@ -35,7 +35,7 @@
           </div>
         </BaseTooltipSettings>
       </td>
-    </TableRow>
+    </BaseTableRow>
   </BaseTable>
   <BlankPage v-else page-name="Alerts" />
 
@@ -51,7 +51,7 @@ import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
 import BlankPage from '@/components/BlankPage'
-import BaseButton from '@/components/buttons/BaseButton'
+import BaseButton from '@/components/common/BaseButton'
 import MembersIconsBar from '@components/MembersIconsBar.vue'
 import NavigationBar from '@/components/navigation/NavigationBar'
 import BaseTooltipSettings from '@/components/BaseTooltipSettings'
@@ -59,8 +59,8 @@ import BaseTooltipSettings from '@/components/BaseTooltipSettings'
 import PlusIcon from '@/components/icons/PlusIcon'
 import DeleteIcon from '@/components/icons/DeleteIcon'
 import AreYouSureModal from '@/components/modals/AreYouSureModal'
-import BaseTable from '@components/BaseTable'
-import TableRow from '@components/TableRow'
+import BaseTable from '@components/common/BaseTable'
+import BaseTableRow from '@components/common/BaseTableRow'
 
 export default {
   name: 'AlertsScreen',
@@ -74,7 +74,7 @@ export default {
     NavigationBar,
     MembersIconsBar,
     BaseTable,
-    TableRow,
+    BaseTableRow,
   },
   props: {
     currentProject: {

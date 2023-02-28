@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import BaseButton from '@/components/buttons/BaseButton'
+import BaseButton from '@/components/common/BaseButton'
 import BaseModal from '@/components/modals/BaseModal'
 
 export default {

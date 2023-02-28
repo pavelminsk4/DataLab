@@ -87,7 +87,7 @@ import SentimentTop10AuthorsWidget from '@/components/project/widgets/SentimentT
 import SentimentTop10LanguagesWidget from '@/components/project/widgets/SentimentTop10LanguagesWidget'
 import SentimentForPeriodWidget from '@/components/project/widgets/SentimentForPeriodWidget'
 import ChartTypesRadio from '@/components/project/widgets/modals/screens/ChartTypesRadio'
-import BaseButton from '@/components/buttons/BaseButton'
+import BaseButton from '@/components/common/BaseButton'
 import SaveIcon from '@/components/icons/SaveIcon'
 
 export default {

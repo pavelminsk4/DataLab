@@ -8,7 +8,7 @@
             Select the project you want to work on or create a new search"
         :back-page="{
           name: 'main page',
-          routName: 'Home',
+          routName: 'OnlineHome',
         }"
       >
         <OnlineIcon class="online-icon" />
@@ -27,12 +27,19 @@
     <div class="sort-wrapper">
       <span class="hint">Sort by</span>
       <div class="sort-option">Latest <SortIcon class="sort-icon" /></div>
+
+      <BaseInput
+        v-model="search"
+        placeholder="Search users..."
+        :isSearch="true"
+        class="search-users"
+      />
     </div>
 
     <div class="projects-wrapper scroll">
       <ProjectsTable
         @go-to-project="goToProjectSettings"
-        :values="workspace?.projects"
+        :values="filteredProjects"
       />
     </div>
   </MainLayout>
@@ -45,20 +52,27 @@ import {action, get} from '@store/constants'
 import SortIcon from '@components/icons/SortIcon'
 import OnlineIcon from '@components/icons/OnlineIcon'
 
+import BaseButtonWithTooltip from '@/components/BaseButtonWithTooltip'
+import BaseInput from '@/components/common/BaseInput'
 import MainLayout from '@components/layout/MainLayout'
 import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
 import ProjectsTable from '@/components/ProjectsTable'
-import BaseButtonWithTooltip from '@/components/BaseButtonWithTooltip'
 
 export default {
   name: 'WorkspaceView',
   components: {
     BaseButtonWithTooltip,
+    BaseInput,
     MainLayout,
     MainLayoutTitleBlock,
     OnlineIcon,
     ProjectsTable,
     SortIcon,
+  },
+  data() {
+    return {
+      search: '',
+    }
   },
   computed: {
     ...mapGetters({
@@ -76,6 +90,12 @@ export default {
       return (
         this.department?.current_number_of_projects >=
         this.department?.max_projects
+      )
+    },
+    filteredProjects() {
+      if (!this.search) return this.workspace?.projects
+      return this.workspace?.projects.filter((project) =>
+        project.title.toLowerCase().includes(this.search.toLowerCase())
       )
     },
   },
@@ -119,9 +139,9 @@ export default {
 
 .sort-wrapper {
   display: flex;
+  align-items: center;
 
   margin-bottom: 22px;
-  padding: 8px 0;
 }
 
 .hint {
@@ -129,6 +149,7 @@ export default {
 }
 
 .sort-option {
+  flex-grow: 1;
   display: flex;
   align-items: center;
 
@@ -140,6 +161,6 @@ export default {
 }
 
 .projects-wrapper {
-  height: calc(100% - 180px);
+  height: calc(100% - 200px);
 }
 </style>
