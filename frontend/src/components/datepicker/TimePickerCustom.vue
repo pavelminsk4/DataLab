@@ -89,7 +89,7 @@ select {
   width: 100%;
   padding: 9px 13px;
 
-  background: var(--primary-chips-background-color);
+  background: var(--chips-background-primary-color);
   border: var(--border-primary);
   border-radius: 10px;
 
@@ -104,7 +104,7 @@ select {
     border: none;
 
     color: var(--typography-primary-color);
-    background-color: var(--primary-chips-background-color);
+    background-color: var(--chips-background-primary-color);
   }
 
   .separate {

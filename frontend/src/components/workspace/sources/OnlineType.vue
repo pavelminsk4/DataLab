@@ -90,7 +90,10 @@
       :label="item"
       class="radio-btn"
     >
-      <component :is="item + 'Icon'" class="radio-icon" />
+      <component
+        :is="item + 'Icon'"
+        :class="['radio-icon', selectedValueProxy === item && item + '-item']"
+      />
     </BaseRadio>
 
     <BaseRadio
@@ -348,7 +351,7 @@ export default {
   width: 100%;
   padding: 10px 12px;
 
-  background: var(--primary-chips-background-color);
+  background: var(--chips-background-primary-color);
   border-radius: 8px;
 
   cursor: pointer;
@@ -360,6 +363,18 @@ export default {
 
 .open-calendar {
   transform: rotate(180deg);
+}
+
+.neutral-item {
+  color: var(--neutral-primary-color);
+}
+
+.negative-item {
+  color: var(--negative-primary-color);
+}
+
+.positive-item {
+  color: var(--positive-primary-color);
 }
 
 @media screen and (max-width: 1000px) {

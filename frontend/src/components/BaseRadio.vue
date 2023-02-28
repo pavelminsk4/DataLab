@@ -10,8 +10,10 @@
       @input="$emit('update:modelValue', $event.target.value)"
       :name="id"
     />
-    <slot></slot>
-    {{ label }}
+    <div class="content">
+      <slot></slot>
+      {{ label }}
+    </div>
     <span class="checkmark"></span>
   </label>
 </template>
@@ -52,7 +54,7 @@ export default {
 
   .checkmark {
     position: absolute;
-    top: 12px;
+    top: 10px;
     left: 12px;
 
     height: 24px;
@@ -89,5 +91,9 @@ export default {
   border-radius: 12px;
   border: 1px solid var(--border-active-color);
   background-color: var(--primary-active-color);
+}
+
+.content {
+  margin-left: 10px;
 }
 </style>

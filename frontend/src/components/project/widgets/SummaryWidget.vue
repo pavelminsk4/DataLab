@@ -1,5 +1,6 @@
 <template>
   <WidgetsLayout
+    v-if="isGeneralWidget"
     :title="availableWidgets['summary_widget'].title"
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
@@ -20,6 +21,22 @@
       </div>
     </div>
   </WidgetsLayout>
+
+  <div v-else class="summary-widget__container settings-view">
+    <div
+      v-for="(item, index) in widgetMetrics"
+      :key="'metrics' + index"
+      class="post-item"
+    >
+      <component
+        :is="item.iconName"
+        :style="`background-color: ${item.backgroundColor}`"
+        class="icon"
+      />
+      <div class="title">{{ item.name }}</div>
+      <div class="value">{{ summaryData[item.valueName] }}</div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -67,6 +84,10 @@ export default {
       type: Boolean,
       required: true,
     },
+    isGeneralWidget: {
+      type: Boolean,
+      default: true,
+    },
   },
   computed: {
     ...mapGetters({
@@ -98,6 +119,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.settings-view {
+  padding: 24px;
+}
+
 .summary-widget__container {
   display: flex;
   flex-wrap: wrap;

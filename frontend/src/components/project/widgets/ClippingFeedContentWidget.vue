@@ -1,6 +1,6 @@
 <template>
   <WidgetsLayout
-    v-if="clippingData"
+    v-if="isGeneralWidget"
     @open-modal="$emit('open-settings-modal')"
     :title="widgets['clipping_feed_content_widget'].title"
   >
@@ -31,6 +31,33 @@
       />
     </div>
   </WidgetsLayout>
+
+  <div v-else class="clipping-wrapper scroll widget-view">
+    <div v-if="!clippingData.length" class="no-selected">
+      Clipping feed content is not selected.
+    </div>
+
+    <ClippingCard
+      v-for="(item, index) in clippingData"
+      :key="'result' + index"
+      :img="cardImg(item)"
+      :sentiment="item.post__sentiment"
+      :title="item.post__entry_title"
+      :entry-link="item.post__entry_links_href"
+      :source-link="item.post__feedlink__sourceurl"
+      :summary="item.post__entry_summary"
+      :source="item.post__feedlink__source1"
+      :country="item.post__feedlink__country"
+      :language="item.post__feed_language__language"
+      :published="item.post__entry_published"
+      :potential-reach="item.post__feedlink__alexaglobalrank"
+      :post-id="item.post__id"
+      :project-id="projectId"
+      :is-clipping-widget="true"
+      :widget-id="widgetId"
+      :current-project="currentProject"
+    />
+  </div>
 </template>
 
 <script>
@@ -55,6 +82,10 @@ export default {
     currentProject: {
       type: [Array, Object],
       required: true,
+    },
+    isGeneralWidget: {
+      type: Boolean,
+      default: true,
     },
   },
   computed: {
@@ -85,6 +116,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.widget-view {
+  padding: 24px;
+}
+
 .clipping-wrapper {
   overflow: auto;
 

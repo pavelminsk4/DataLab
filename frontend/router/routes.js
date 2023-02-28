@@ -1,6 +1,6 @@
 import store from '@store'
 
-import MainView from '@views/MainView'
+import MainView from '@/views/MainView'
 
 import WorkspacesView from '@/components/dashboard/WorkspacesView'
 import WorkspaceView from '@/components/workspace/WorkspaceView'

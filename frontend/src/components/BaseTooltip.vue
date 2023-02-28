@@ -24,7 +24,7 @@ export default {
   padding: 10px 15px;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.22);
 
-  background: var(--typography-primary-color);
+  background: var(--background-secondary-color);
 
   font-style: normal;
   font-weight: 400;
@@ -47,7 +47,7 @@ export default {
     border-style: solid;
     border-bottom-left-radius: 2px;
 
-    color: var(--typography-primary-color);
+    color: var(--background-secondary-color);
   }
 }
 </style>

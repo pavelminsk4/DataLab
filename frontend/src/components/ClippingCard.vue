@@ -13,7 +13,10 @@
         <div class="type-request">
           <div class="type"><OnlineIcon /> Online</div>
           <div :class="['type', `status-${sentiment}`]">
-            <component :is="capitalizeFirstLetter(sentiment) + 'Icon'" />
+            <component
+              :is="capitalizeFirstLetter(sentiment) + 'Icon'"
+              :class="['status-' + sentiment]"
+            />
             {{ capitalizeFirstLetter(sentiment) }}
           </div>
           <div class="clipping-wrapper">
@@ -292,7 +295,7 @@ export default {
           padding: 6px 8px;
 
           border-radius: 2px 12px 12px 2px;
-          background-color: var(--primary-chips-background-color);
+          background-color: var(--chips-background-secondary-color);
 
           font-style: normal;
           font-weight: 400;

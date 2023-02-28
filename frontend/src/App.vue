@@ -47,7 +47,8 @@ export default {
   --icon-primary-color: #797d80;
   --icon-hover-color: var(--primary-color);
 
-  --primary-chips-background-color: var(--background-secondary-color);
+  --chips-background-primary-color: var(--background-secondary-color);
+  --chips-background-secondary-color: #eef1f3;
 
   --input-border-color: var(--border-color);
   --modal-border-color: #404046;

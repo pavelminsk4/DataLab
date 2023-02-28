@@ -19,11 +19,15 @@
           :project-id="projectId"
           :widgets="widgetsList"
           :widget-id="generalWidgetData.id"
+          :summary-data="summaryData"
         />
       </div>
 
       <div class="general-wrapper-settings">
-        <SettingsButtons @update-setting-panel="updateSettingPanel" />
+        <SettingsButtons
+          :main-settings="settingsTabs"
+          @update-setting-panel="updateSettingPanel"
+        />
 
         <BasicSettingsScreen
           v-if="panelName === 'General'"
@@ -85,6 +89,8 @@ import SentimentTop10CountriesWidget from '@/components/project/widgets/Sentimen
 import SentimentTop10AuthorsWidget from '@/components/project/widgets/SentimentTop10AuthorsWidget'
 import SentimentTop10LanguagesWidget from '@/components/project/widgets/SentimentTop10LanguagesWidget'
 import SentimentForPeriodWidget from '@/components/project/widgets/SentimentForPeriodWidget'
+import SummaryWidget from '@/components/project/widgets/SummaryWidget'
+import ClippingFeedContentWidget from '@/components/project/widgets/ClippingFeedContentWidget'
 import ChartTypesRadio from '@/components/project/widgets/modals/screens/ChartTypesRadio'
 import BaseButton from '@/components/common/BaseButton'
 import SaveIcon from '@/components/icons/SaveIcon'
@@ -112,6 +118,8 @@ export default {
     SentimentTop10AuthorsWidget,
     SentimentForPeriodWidget,
     SentimentTop10LanguagesWidget,
+    ClippingFeedContentWidget,
+    SummaryWidget,
   },
   props: {
     widgetName: {
@@ -145,6 +153,14 @@ export default {
     currentProject: {
       type: [Array, Object],
       required: false,
+    },
+    summaryData: {
+      type: [Array, Object],
+      required: true,
+    },
+    settingsTabs: {
+      type: Array,
+      required: true,
     },
   },
   data() {
@@ -320,6 +336,7 @@ export default {
 
     padding: 24px;
     min-height: 100%;
+    min-width: 50%;
 
     background-color: var(--background-secondary-color);
 

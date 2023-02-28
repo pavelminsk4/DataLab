@@ -10,6 +10,8 @@
     :chart-type="dataForWidgetModal.chartType"
     :widgets-list="availableWidgets"
     :current-project="currentProject"
+    :summary-data="summary_widget"
+    :settings-tabs="dataForWidgetModal.settingsTabs"
     @close="closeModal"
   />
 
@@ -226,6 +228,7 @@ export default {
         isChartShow: item.isChartShow,
         hasAggregationPeriod: item.hasAggregationPeriod,
         chartType: item.chartType,
+        settingsTabs: modalWidgetsConfig[item.name].settingsTabs,
       }
       this.isOpenWidgetSettingsModal = !this.isOpenWidgetSettingsModal
     },
