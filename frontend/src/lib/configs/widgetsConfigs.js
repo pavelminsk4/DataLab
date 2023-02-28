@@ -4,6 +4,7 @@ const WIDGET_DEFAULT_SETTINGS = {
   height: 12,
   isChartShow: false,
   hasAggregationPeriod: true,
+  settingsTabs: ['General', 'Dimensions', 'Chart Layout'],
 }
 
 export const modalWidgetsConfig = {
@@ -13,6 +14,7 @@ export const modalWidgetsConfig = {
     height: 7,
     hasAggregationPeriod: false,
     chartType: null,
+    settingsTabs: ['General', 'Dimensions'],
   },
   volume_widget: {
     ...WIDGET_DEFAULT_SETTINGS,
@@ -27,6 +29,7 @@ export const modalWidgetsConfig = {
     height: 13,
     hasAggregationPeriod: false,
     chartType: null,
+    settingsTabs: ['General'],
   },
   top_10_authors_by_volume_widget: {
     ...WIDGET_DEFAULT_SETTINGS,

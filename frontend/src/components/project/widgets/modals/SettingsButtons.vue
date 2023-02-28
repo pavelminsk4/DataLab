@@ -22,11 +22,14 @@ export default {
       type: Boolean,
       default: false,
     },
+    mainSettings: {
+      type: Array,
+      required: true,
+    },
   },
   data() {
     return {
       panelSettingsName: 'General',
-      mainSettings: ['General', 'Dimensions', 'Chart Layout'],
     }
   },
   methods: {
@@ -58,6 +61,9 @@ export default {
     justify-content: center;
 
     padding: 4px 38px;
+    width: 100%;
+
+    text-align: center;
 
     &:hover {
       color: var(--button-text-color);

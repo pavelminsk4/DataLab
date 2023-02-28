@@ -271,7 +271,7 @@ export default {
     padding: 4px 10px;
 
     border-radius: 8px;
-    background-color: var(--primary-chips-background-color);
+    background-color: var(--chips-background-primary-color);
 
     cursor: pointer;
 
@@ -313,7 +313,7 @@ export default {
     margin-right: 8px;
     padding: 10px 16px;
 
-    background: var(--primary-chips-background-color);
+    background: var(--chips-background-primary-color);
     border: var(--border-primary);
     border-radius: 10px;
 

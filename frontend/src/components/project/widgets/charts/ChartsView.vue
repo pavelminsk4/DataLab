@@ -1,5 +1,8 @@
 <template>
+  <BaseSpinner v-if="loading" class="spinner" />
+
   <component
+    v-else
     :is="chartType + 'Chart'"
     :labels="labels"
     :values="values"
@@ -12,16 +15,20 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
+
 import BarChart from '@/components/project/widgets/charts/BarChart'
 import PieChart from '@/components/project/widgets/charts/PieChart'
 import LineChart from '@/components/project/widgets/charts/LineChart'
 import MultiLineChart from '@/components/project/widgets/charts/MultiLineChart'
 import SentimentBarChart from '@/components/project/widgets/charts/SentimentBarChart'
 import HorizontalBarChart from '@/components/project/widgets/charts/HorizontalBarChart'
+import BaseSpinner from '@/components/BaseSpinner'
 
 export default {
   name: 'ChartsView',
   components: {
+    BaseSpinner,
     BarChart,
     PieChart,
     LineChart,
@@ -64,5 +71,14 @@ export default {
       required: false,
     },
   },
+  computed: {
+    ...mapState(['loading']),
+  },
 }
 </script>
+
+<style scoped>
+.spinner {
+  margin: auto;
+}
+</style>
