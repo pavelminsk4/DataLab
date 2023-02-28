@@ -47,9 +47,9 @@
 
 <script>
 import BaseModal from '@components/modals/BaseModal'
-import BaseInput from '@/components/BaseInput'
-import BaseButton from '@/components/buttons/BaseButton'
-import BaseTextarea from '@/components/BaseTextarea'
+import BaseInput from '@/components/common/BaseInput'
+import BaseButton from '@/components/common/BaseButton'
+import BaseTextarea from '@/components/common/BaseTextarea'
 
 export default {
   name: 'SettingsWorkspaceModal',

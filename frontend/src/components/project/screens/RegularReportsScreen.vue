@@ -10,7 +10,7 @@
   </NavigationBar>
 
   <BaseTable v-if="reports.length" :table-header="tableHeader">
-    <TableRow
+    <BaseTableRow
       v-for="(item, index) in reports"
       :key="'alert' + index"
       @click="goToUpdateReport(item.id)"
@@ -24,7 +24,7 @@
       <td>
         <MembersIconsBar :members="alertUsers(item.user)" />
       </td>
-    </TableRow>
+    </BaseTableRow>
   </BaseTable>
 
   <BlankPage v-else page-name="RegularReports" />
@@ -34,12 +34,12 @@
 import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
-import BaseButton from '@/components/buttons/BaseButton'
+import BaseButton from '@/components/common/BaseButton'
 import MembersIconsBar from '@components/MembersIconsBar.vue'
 import NavigationBar from '@/components/navigation/NavigationBar'
 import BlankPage from '@/components/BlankPage'
-import BaseTable from '@components/BaseTable'
-import TableRow from '@components/TableRow'
+import BaseTable from '@components/common/BaseTable'
+import BaseTableRow from '@components/common/BaseTableRow'
 
 export default {
   name: 'RegularReportsScreen',
@@ -49,7 +49,7 @@ export default {
     MembersIconsBar,
     NavigationBar,
     BaseTable,
-    TableRow,
+    BaseTableRow,
   },
   props: {
     currentProject: {

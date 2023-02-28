@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import BaseButton from '@/components/buttons/BaseButton'
+import BaseButton from '@/components/common/BaseButton'
 import BaseTooltip from '@/components/BaseTooltip'
 export default {
   name: 'BaseButtonWithTooltip',

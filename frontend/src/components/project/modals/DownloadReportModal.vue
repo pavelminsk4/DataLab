@@ -22,7 +22,7 @@
 <script>
 import BaseModal from '@/components/modals/BaseModal'
 import BaseRadio from '@/components/BaseRadio'
-import BaseButton from '@/components/buttons/BaseButton'
+import BaseButton from '@/components/common/BaseButton'
 
 export default {
   name: 'DownloadReportModal',

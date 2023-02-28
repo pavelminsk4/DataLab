@@ -81,7 +81,7 @@ export default {
 
     goToDashboard() {
       this.$router.push({
-        name: 'Home',
+        name: 'OnlineHome',
       })
     },
     goToUserRolesPage() {

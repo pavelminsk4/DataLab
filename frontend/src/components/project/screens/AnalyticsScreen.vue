@@ -95,7 +95,7 @@ import {action, get} from '@store/constants'
 
 import NavigationBar from '@/components/navigation/NavigationBar'
 import WidgetsView from '@/components/project/widgets/WidgetsView'
-import BaseButton from '@/components/buttons/BaseButton'
+import BaseButton from '@/components/common/BaseButton'
 import PlusIcon from '@/components/icons/PlusIcon'
 import WidgetsListModal from '@/components/project/modals/WidgetsListModal'
 import DimensionsIcon from '@/components/icons/DimensionsIcon'

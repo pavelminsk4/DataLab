@@ -38,7 +38,7 @@
 import {get} from '@store/constants'
 import {mapGetters} from 'vuex'
 
-import BaseButton from '@components/buttons/BaseButton'
+import BaseButton from '@components/common/BaseButton'
 
 import ArrowLeftIcon from '@components/icons/ArrowLeftIcon'
 import Steps from '@/components/navigation/Steps'
@@ -116,7 +116,7 @@ export default {
     backToPage() {
       if (this.step || this.isBackToDashboard) {
         this.$router.push({
-          name: 'Home',
+          name: 'OnlineHome',
         })
       } else {
         this.$router.push({

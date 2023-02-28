@@ -57,7 +57,7 @@
 <script>
 import BaseTag from '@/components/BaseTag'
 import OnlineType from '@/components/workspace/sources/OnlineType'
-import BaseButton from '@/components/buttons/BaseButton'
+import BaseButton from '@/components/common/BaseButton'
 import {mapGetters} from 'vuex'
 import {get} from '@store/constants'
 import SaveIcon from '@/components/icons/SaveIcon'

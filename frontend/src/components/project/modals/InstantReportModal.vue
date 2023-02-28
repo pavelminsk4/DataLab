@@ -96,7 +96,7 @@ import {action, get} from '@store/constants'
 import BaseRadio from '@/components/BaseRadio'
 import BaseSelect from '@/components/BaseSelect'
 import BaseModal from '@/components/modals/BaseModal'
-import BaseButton from '@/components/buttons/BaseButton'
+import BaseButton from '@/components/common/BaseButton'
 import BaseCheckbox from '@/components/BaseCheckbox'
 import DivWithError from '@/components/DivWithError'
 

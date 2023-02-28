@@ -1,5 +1,7 @@
 import store from '@store'
 
+import MainView from '@views/MainView'
+
 import WorkspacesView from '@/components/dashboard/WorkspacesView'
 import WorkspaceView from '@/components/workspace/WorkspaceView'
 
@@ -18,13 +20,14 @@ import AnalyticsScreen from '@/components/project/screens/AnalyticsScreen'
 
 export const routes = [
   {
+    name: 'MainView',
     path: '/',
-    component: WorkspacesView,
+    component: MainView,
   },
 
   {
-    name: 'Home',
-    path: '/dashboard',
+    name: 'OnlineHome',
+    path: '/workspaces',
     component: WorkspacesView,
   },
 

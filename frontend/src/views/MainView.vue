@@ -1,0 +1,163 @@
+<template>
+  <MainLayout>
+    <MainLayoutTitleBlock :title="`Hello, ${fullName} &#x1F44B;`" />
+
+    <div class="modules scroll">
+      <div
+        v-for="item in modules"
+        :key="item.name"
+        :style="`
+          --module-background-color: ${item.color};
+          --module-background-image: url(${item.imageUrl});
+          --module-background-position: ${item.backgroundPosition};`"
+        :class="[
+          'module-card',
+          item.isMain && 'module-card_main',
+          !item.openRouteName && 'disable',
+        ]"
+        @click="$router.push({name: item.openRouteName})"
+      >
+        <div>
+          <h3 class="module-name">{{ item.name }}</h3>
+          <p>{{ item.description }}</p>
+        </div>
+
+        <BaseButton
+          :is-not-background="true"
+          @click.stop="$router.push({name: item.createRouteName})"
+        >
+          <PlusIcon />
+          <span>{{ item.buttonName }}</span>
+        </BaseButton>
+      </div>
+    </div>
+  </MainLayout>
+</template>
+
+<script>
+import {mapGetters} from 'vuex'
+import {get} from '@store/constants'
+
+import MainLayout from '@components/layout/MainLayout'
+import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
+import BaseButton from '@components/common/BaseButton.vue'
+import PlusIcon from '../components/icons/PlusIcon.vue'
+
+export default {
+  components: {BaseButton, MainLayout, MainLayoutTitleBlock, PlusIcon},
+  computed: {
+    ...mapGetters({userInfo: get.USER_INFO}),
+    fullName() {
+      const fullName = this.userInfo?.first_name + this.userInfo?.last_name
+      return fullName ? fullName : this.userInfo?.username
+    },
+  },
+  created() {
+    this.modules = [
+      {
+        name: 'Online',
+        description: 'News from online media',
+        buttonName: 'Add Workspace',
+        openRouteName: 'OnlineHome',
+        createRouteName: 'Step1',
+        color: '#E0E5FF',
+        isMain: true,
+        imageUrl: require('@/assets/modules/online.svg'),
+        backgroundPosition: 'right 33px bottom',
+      },
+      {
+        name: 'Social Media',
+        description: 'News from social media posts',
+        buttonName: 'Add Workspace',
+        openRouteName: '',
+        createRouteName: '',
+        color: '#FCDCE3',
+        isMain: true,
+        imageUrl: require('@/assets/modules/social-media.svg'),
+        backgroundPosition: 'right 23px bottom',
+      },
+      {
+        name: 'TV & Radio',
+        description: 'Delivers results from Radio and TV',
+        buttonName: 'Add Workspace',
+        openRouteName: '',
+        createRouteName: '',
+        color: '#C0DFF4',
+        isMain: true,
+        imageUrl: require('@/assets/modules/tv&radio.svg'),
+        backgroundPosition: 'right bottom',
+      },
+      {
+        name: 'Reports',
+        description: '',
+        buttonName: 'Add Report',
+        openRouteName: '',
+        createRouteName: '',
+        color: '#E5E9FC',
+        isMain: false,
+        imageUrl: require('@/assets/modules/reports.svg'),
+        backgroundPosition: 'right 14px bottom 12px',
+      },
+      {
+        name: 'Alerts',
+        description: '',
+        buttonName: 'Add Alert',
+        openRouteName: '',
+        createRouteName: '',
+        color: '#FFEDF1',
+        isMain: false,
+        imageUrl: require('@/assets/modules/alerts.svg'),
+        backgroundPosition: 'right bottom',
+      },
+    ]
+  },
+}
+</script>
+
+<style lang="scss" scoped>
+.modules {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+
+  padding: 40px 32px;
+}
+
+.module-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  width: 320px;
+  height: 160px;
+  padding: 20px;
+
+  background: no-repeat var(--module-background-position)
+    var(--module-background-image) var(--module-background-color);
+  border-radius: var(--border-radius);
+  box-shadow: 1px 4px 16px rgba(135, 135, 135, 0.2);
+
+  cursor: pointer;
+  transition-duration: 0.4s;
+
+  &:hover {
+    transform: scale(1.075);
+  }
+
+  &_main {
+    width: 436px;
+    height: 196px;
+  }
+}
+
+.module-name {
+  font-size: 20px;
+}
+
+.disable {
+  pointer-events: none;
+  cursor: auto;
+
+  opacity: 50%;
+}
+</style>

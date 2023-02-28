@@ -228,7 +228,7 @@ import Datepicker from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
 
 import ArrowDownIcon from '@/components/icons/ArrowDownIcon'
-import BaseInput from '@/components/BaseInput'
+import BaseInput from '@/components/common/BaseInput'
 import BaseSwitcher from '@/components/BaseSwitcher'
 import ClockIcon from '@/components/icons/ClockIcon'
 import DivWithError from '@/components/DivWithError.vue'

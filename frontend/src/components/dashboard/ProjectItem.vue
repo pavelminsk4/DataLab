@@ -57,7 +57,7 @@ import BaseTooltipSettings from '@/components/BaseTooltipSettings'
 import EditIcon from '@/components/icons/EditIcon'
 import DeleteIcon from '@/components/icons/DeleteIcon'
 import AreYouSureModal from '@/components/modals/AreYouSureModal'
-import BaseButton from '@/components/buttons/BaseButton'
+import BaseButton from '@/components/common/BaseButton'
 
 export default {
   name: 'ProjectItem',

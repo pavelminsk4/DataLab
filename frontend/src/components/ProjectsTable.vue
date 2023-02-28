@@ -4,7 +4,7 @@
     :table-header="tableHeader"
     @select-all="selectAll"
   >
-    <TableRow
+    <BaseTableRow
       v-for="(item, index) in values"
       :key="index"
       v-model="selectedProjects"
@@ -33,7 +33,7 @@
       <td class="project-creation-date">
         {{ projectCreationDate(item.created_at) }}
       </td>
-    </TableRow>
+    </BaseTableRow>
   </BaseTable>
 
   <AreYouSureModal
@@ -51,8 +51,8 @@ import {action, get} from '@store/constants'
 import MembersIconsBar from '@components/MembersIconsBar.vue'
 import TagsCollapsible from '@components/TagsCollapsible.vue'
 import AreYouSureModal from '@/components/modals/AreYouSureModal'
-import BaseTable from '@components/BaseTable'
-import TableRow from '@components/TableRow'
+import BaseTable from '@components/common/BaseTable'
+import BaseTableRow from '@components/common/BaseTableRow'
 import UserAvatar from '@components/UserAvatar'
 
 export default {
@@ -62,7 +62,7 @@ export default {
     MembersIconsBar,
     TagsCollapsible,
     BaseTable,
-    TableRow,
+    BaseTableRow,
     UserAvatar,
   },
   emits: ['go-to-project'],
