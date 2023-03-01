@@ -1,8 +1,8 @@
 import store from '@store'
 
 import MainView from '@/views/MainView'
+import SocialMediaWorkspacesView from '@/views/SocialMediaWorkspacesView'
 
-import WorkspacesView from '@/components/dashboard/WorkspacesView'
 import WorkspaceView from '@/components/workspace/WorkspaceView'
 
 import CreateWorkspaceView from '@/components/workspace/CreateWorkspaceView'
@@ -26,9 +26,9 @@ export const routes = [
   },
 
   {
-    name: 'OnlineHome',
-    path: '/workspaces',
-    component: WorkspacesView,
+    name: 'SocialMediaHome',
+    path: '/workspaces2',
+    component: SocialMediaWorkspacesView,
   },
 
   {

@@ -1,30 +1,35 @@
 <template>
   <div class="blank-page-wrapper">
-    <component class="type-icon" :is="pageName + 'EmptyIcon'" />
-    No {{ formatWord(pageName) }} created
+    <img :src="currentPage.src" :alt="currentPage.message" />
+    {{ currentPage.message }} &#128542;
   </div>
 </template>
 
 <script>
-import {splitToSeparateWords} from '@lib/utilities'
-
-import AlertsEmptyIcon from '@/components/icons/AlertsEmptyIcon'
-import WorkspaceEmptyIcon from '@/components/icons/WorkspaceEmptyIcon'
-import RegularReportsEmptyIcon from '@/components/icons/RegularReportsEmptyIcon'
-
 export default {
   name: 'BlankPage',
-  components: {WorkspaceEmptyIcon, RegularReportsEmptyIcon, AlertsEmptyIcon},
   props: {
     pageName: {
       type: String,
       required: true,
     },
   },
-  methods: {
-    formatWord(word) {
-      return splitToSeparateWords(word)
+  computed: {
+    currentPage() {
+      return this.pages[this.pageName]
     },
+  },
+  created() {
+    this.pages = {
+      OnlineWorkspaces: {
+        src: require('@/assets/online-workspaces.png'),
+        message: 'No workspaces created',
+      },
+      SocialMediaWorkspaces: {
+        src: require('@/assets/social-media-workspaces.png'),
+        message: 'No workspaces created',
+      },
+    }
   },
 }
 </script>
@@ -35,10 +40,8 @@ export default {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  gap: 25px;
+  gap: 35px;
 
-  margin-top: 150px;
-
-  color: var(--typography-primary-color);
+  font-size: 18px;
 }
 </style>
