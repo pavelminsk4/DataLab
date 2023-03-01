@@ -17,40 +17,47 @@ class GoogleSpider(scrapy.Spider):
     keywords = CrawlerKeyword.objects.all().values_list('word', flat=True)
     secret_key = os.environ.get('GOOGLE_SEARCH_SECRET_KEY')
     
-    option = CrawlerOption.objects.first()
+    options = CrawlerOption.objects.filter(is_active=True)
 
-    def collect_start_urls(keywords, secret_key, option):
+    def collect_start_urls(keywords, secret_key, options):
         start_urls = []
-        for word in keywords:
-            param = {
-                "q": word,
-                "num":"100",
-                "api_key": secret_key,
-                "tbm": option.tbm,
-                "location": option.location,
-                "gl": option.gl,
-                "safe": option.safe,
-                }
-            search = GoogleSearch(param)
-            result = search.get_dict()
-            num_of_page = len(result['pagination']['other_pages']) + 1
-            print(param)
-            print(num_of_page)
-
-            for each in range(num_of_page):
-                start = each * 100
-                param['start'] = start
+        for option in options:
+            for word in keywords:
+                param = {
+                    "q": word,
+                    "num":"100",
+                    "api_key": secret_key,
+                    "location": option.location,
+                    "gl": option.gl,
+                    "safe": option.safe,
+                    }
+                if option.tbm!='None':
+                    param['tbm'] = option.tbm
                 search = GoogleSearch(param)
                 result = search.get_dict()
-                try:
-                    for block in result['news_results']:
-                        start_urls.append(block['link'])
-                except:
-                    print('Error')
+                num_of_page = len(result['pagination']['other_pages']) + 1
+                print(param)
+                print(num_of_page)
+
+                for each in range(num_of_page):
+                    start = each * 100
+                    param['start'] = start
+                    search = GoogleSearch(param)
+                    result = search.get_dict()
+                    try:
+                        for block in result['news_results']:
+                            start_urls.append(block['link'])
+                    except:
+                        print('News block error')
+                    try:
+                        for block in result['organic_results']:
+                            start_urls.append(block['link'])
+                    except:
+                        print('Orgainc block error')
         print(len(start_urls))
         return start_urls
 
-    urls = collect_start_urls(keywords, secret_key, option)
+    urls = collect_start_urls(keywords, secret_key, options)
     allowed_domains = urls
     start_urls = urls
 

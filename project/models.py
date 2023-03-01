@@ -135,6 +135,7 @@ class CrawlerKeyword(models.Model):
 
 class CrawlerOption(models.Model):
   TBM_CHOICES = (
+    ('None', 'Regular search'),
     ('isch', 'Google Images API'),
     ('lcl', 'Google Local API'),
     ('vid', 'Google Videos API'),
@@ -151,6 +152,7 @@ class CrawlerOption(models.Model):
   tbm = models.CharField(max_length=5, default='nws', choices=TBM_CHOICES)
   gl = models.CharField(max_length=3, default='sa')
   safe = models.CharField(max_length=10, default='active', choices=SAFE_CHOICES)
+  is_active = models.BooleanField(default=True)
   created_at = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True)
 
