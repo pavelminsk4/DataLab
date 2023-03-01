@@ -29,7 +29,7 @@ import {
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 
 export default {
-  name: 'SentimentBarChart',
+  name: 'SentimentHorizontalStackedBarChart',
   components: {
     Bar,
   },
@@ -82,6 +82,7 @@ export default {
   computed: {
     chartOptions() {
       return {
+        indexAxis: 'y',
         responsive: true,
         maintainAspectRatio: false,
         animation: {
@@ -108,19 +109,11 @@ export default {
           },
         },
         scales: {
-          y: {
-            beginAtZero: true,
-            grid: {
-              color: 'rgba(145, 152, 167, 0.1)',
-            },
-          },
           x: {
-            categoryPercentage: 10.0,
-            barPercentage: 10.0,
-            beginAtZero: true,
-            grid: {
-              color: 'rgba(145, 152, 167, 0.1)',
-            },
+            stacked: true,
+          },
+          y: {
+            stacked: true,
           },
         },
       }
@@ -169,12 +162,4 @@ export default {
 }
 </script>
 
-<style scoped>
-.bar-chart {
-  overflow: hidden;
-
-  margin-top: 20px;
-  height: 100%;
-  width: 100%;
-}
-</style>
+<style scoped></style>

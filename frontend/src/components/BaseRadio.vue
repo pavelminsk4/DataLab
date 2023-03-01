@@ -29,7 +29,7 @@ export default {
 .base-radio-container {
   position: relative;
 
-  display: block;
+  display: flex;
   margin: auto;
 
   padding: 12px 0 12px 25px;
@@ -54,8 +54,8 @@ export default {
 
   .checkmark {
     position: absolute;
-    top: 10px;
-    left: 12px;
+    top: 50%;
+    transform: translate(-50%, -50%);
 
     height: 24px;
     width: 24px;

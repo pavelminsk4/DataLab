@@ -3,7 +3,7 @@
 
   <component
     v-else
-    :is="chartType + 'Chart'"
+    :is="chartType"
     :labels="labels"
     :values="values"
     :widget-data="widgetData"
@@ -20,9 +20,10 @@ import {mapState} from 'vuex'
 import BarChart from '@/components/project/widgets/charts/BarChart'
 import PieChart from '@/components/project/widgets/charts/PieChart'
 import LineChart from '@/components/project/widgets/charts/LineChart'
+import HorizontalBarChart from '@/components/project/widgets/charts/HorizontalBarChart'
 import MultiLineChart from '@/components/project/widgets/charts/MultiLineChart'
 import SentimentBarChart from '@/components/project/widgets/charts/SentimentBarChart'
-import HorizontalBarChart from '@/components/project/widgets/charts/HorizontalBarChart'
+import SentimentHorizontalStackedBarChart from '@/components/project/widgets/charts/SentimentHorizontalStackedBarChart'
 import BaseSpinner from '@/components/BaseSpinner'
 
 export default {
@@ -35,6 +36,7 @@ export default {
     MultiLineChart,
     HorizontalBarChart,
     SentimentBarChart,
+    SentimentHorizontalStackedBarChart,
   },
   props: {
     chartType: {

@@ -2,11 +2,11 @@
   <div class="chart-types">
     <BaseRadio
       v-for="(item, index) in availableTypes"
-      :key="item + index"
+      :key="item.name + index"
       v-model="selectedValueProxy"
-      :id="item + index"
-      :value="item"
-      :label="item"
+      :id="item.name + index"
+      :value="item.componentName"
+      :label="item.name"
       class="radio-button"
     />
   </div>
@@ -45,6 +45,7 @@ export default {
       set(val) {
         this.selectedValue = val
         this.$emit('update-chart-type', this.selectedValue, 'newChartType')
+        console.log(this.selectedValue)
       },
     },
   },

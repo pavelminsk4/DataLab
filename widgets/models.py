@@ -23,7 +23,7 @@ class WidgetDescription(models.Model):
   source_dim_pivot = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
   language_dim_pivot = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
   sentiment_dim_pivot = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
-  chart_type = models.CharField(max_length=30, default=None, null=True, blank=True)
+  chart_type = models.CharField(max_length=150, default=None, null=True, blank=True)
 
 class WidgetsList(models.Model):
   project = models.OneToOneField(Project, on_delete=models.CASCADE, related_name='widget_list', editable=False)

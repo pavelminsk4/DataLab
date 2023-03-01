@@ -176,7 +176,7 @@ export default {
                 isChartShow: this.elementsValue[widgetName].isChartShow,
                 chartType:
                   this.availableWidgets[widgetName]?.chart_type ||
-                  modalWidgetsConfig[widgetName]?.chartType,
+                  modalWidgetsConfig[widgetName]?.defaultChartType,
                 hasAggregationPeriod:
                   this.elementsValue[widgetName].hasAggregationPeriod,
               })
