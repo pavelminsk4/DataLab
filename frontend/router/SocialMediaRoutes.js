@@ -1,6 +1,6 @@
 import store from '@store'
 import ModuleView from '@/views/ModuleView'
-import OnlineWorkspacesView from '@/views/OnlineWorkspacesView'
+import SocialMediaWorkspacesView from '@/views/SocialMediaWorkspacesView'
 
 import WorkspaceView from '@/components/workspace/WorkspaceView'
 import ProjectExtraSettingsView from '@/components/project/ProjectExtraSettingsView'
@@ -17,30 +17,30 @@ import AnalyticsScreen from '@/components/project/screens/AnalyticsScreen'
 
 export default [
   {
-    path: '/online-module',
+    path: '/social-media-module',
     component: ModuleView,
-    redirect: () => ({name: 'OnlineHome'}),
+    redirect: () => ({name: 'SocialMediaHome'}),
     children: [
       {
-        name: 'OnlineHome',
+        name: 'SocialMediaHome',
         path: '',
-        component: OnlineWorkspacesView,
+        component: SocialMediaWorkspacesView,
       },
 
       {
-        name: 'OnlineWorkspace',
+        name: 'SocialWorkspace',
         path: 'workspace/:workspaceId',
         component: WorkspaceView,
       },
 
       {
-        name: 'OnlineCreateWorkspace',
+        name: 'SocialCreateWorkspace',
         path: 'workspace/:workspaceId/',
         component: CreateWorkspaceView,
-        redirect: () => ({name: 'OnlineWorkspaceStep1'}),
+        redirect: () => ({name: 'SocialWorkspaceStep1'}),
         children: [
           {
-            name: 'OnlineWorkspaceStep1',
+            name: 'SocialWorkspaceStep1',
             path: 'step1',
             components: {
               default: CreateWorkspaceScreen,
@@ -49,7 +49,7 @@ export default [
             props: {secondColumn: {step: 'step1'}},
           },
           {
-            name: 'OnlineWorkspaceStep2',
+            name: 'SocialWorkspaceStep2',
             path: 'step2',
             components: {
               default: CreateProjectScreen,
@@ -58,7 +58,7 @@ export default [
             beforeEnter: (to, from, next) => {
               if (to.name !== store.state.currentStep)
                 return next({
-                  name: 'OnlineWorkspaceStep1',
+                  name: 'SocialWorkspaceStep1',
                   params: {workspaceId: to.params.workspaceId},
                 })
 
@@ -70,7 +70,7 @@ export default [
             },
           },
           {
-            name: 'OnlineWorkspaceStep3',
+            name: 'SocialWorkspaceStep3',
             path: 'step3',
             components: {
               default: CreateSearchScreen,
@@ -81,12 +81,12 @@ export default [
                 const workspaceId = to.params.workspaceId
                 if (workspaceId === 'new') {
                   return next({
-                    name: 'OnlineWorkspaceStep1',
+                    name: 'SocialWorkspaceStep1',
                     params: {workspaceId},
                   })
                 } else {
                   return next({
-                    name: 'OnlineWorkspaceStep2',
+                    name: 'SocialWorkspaceStep2',
                     params: {workspaceId},
                   })
                 }

@@ -1,6 +1,7 @@
 import {createRouter, createWebHistory} from 'vue-router'
 import {routes} from '@router/routes'
-import onlineModuleRoutes from '@router/OnlineModuleRoutes'
+import OnlineModuleRoutes from '@router/OnlineModuleRoutes'
+import SocialMediaRoutes from '@router/SocialMediaRoutes'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -8,7 +9,7 @@ const router = createRouter({
   scrollBehavior() {
     return {left: 0, top: 0}
   },
-  routes: [...routes, ...onlineModuleRoutes],
+  routes: [...routes, ...OnlineModuleRoutes, ...SocialMediaRoutes],
 })
 
 export default router

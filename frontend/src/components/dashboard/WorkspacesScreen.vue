@@ -18,7 +18,7 @@
         :has-tooltip="isProjectCreationAvailable"
         tooltip-title="Created the maximum possible number of projects!"
         class="create-new-button"
-        @click="createWorkspace"
+        @click="$emit('create-workspace')"
       >
         <PlusIcon />
         <span>Create new workspace</span>
@@ -35,8 +35,8 @@
         :id="item.id"
         :members="item.members"
         @open-modal="toggleModal(item)"
-        @add-new-project="addNewProject(item.id)"
-        @navigate-to-workspace="navigateToWorkspace(item.id)"
+        @add-new-project="$emit('add-new-project', item.id)"
+        @navigate-to-workspace="$emit('open-workspace', item.id)"
       />
     </div>
   </div>
@@ -76,6 +76,12 @@ export default {
       default: true,
     },
   },
+  emits: [
+    'create-workspace',
+    'add-new-project',
+    'save-settings',
+    'open-workspace',
+  ],
   data() {
     return {
       isOpenModal: false,
@@ -88,7 +94,6 @@ export default {
       isLoading: get.LOADING,
     }),
     sortWorkspaces() {
-      console.log(this.workspaces)
       return this.sortingByLastDate(this.workspaces)
     },
   },
@@ -97,15 +102,6 @@ export default {
       return workspacesList.sort(function (a, b) {
         return new Date(b.created_at) - new Date(a.created_at)
       })
-    },
-    createWorkspace() {
-      this.$emit('create-workspace')
-    },
-    navigateToWorkspace(id) {
-      this.$router.push({name: 'Workspace', params: {workspaceId: id}})
-    },
-    addNewProject(workspaceId) {
-      this.$emit('add-new-project', workspaceId)
     },
     toggleModal(workspace) {
       if (workspace) {

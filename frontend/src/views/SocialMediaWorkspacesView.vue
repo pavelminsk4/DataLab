@@ -1,8 +1,8 @@
 <template>
   <MainLayout>
     <div class="content-header">
-      <MainLayoutTitleBlock title="Online">
-        <OnlineIcon class="online-icon" />
+      <MainLayoutTitleBlock title="Social Media">
+        <SocialMediaIcon class="title-icon" />
       </MainLayoutTitleBlock>
 
       <BaseButtonWithTooltip
@@ -22,6 +22,10 @@
       v-if="workspaces.length"
       :workspaces="workspaces"
       :isProjectCreationAvailable="isProjectCreationAvailable"
+      @create-workspace="createWorkspace"
+      @save-settings="saveSettings"
+      @add-new-project="addNewProject"
+      @open-workspace="openWorkspace"
     />
 
     <BlankPage v-else page-name="SocialMediaWorkspaces" />
@@ -38,7 +42,7 @@ import MainLayout from '@components/layout/MainLayout'
 import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
 import WorkspacesScreen from '@/components/dashboard/WorkspacesScreen'
 
-import OnlineIcon from '@components/icons/OnlineIcon'
+import SocialMediaIcon from '@components/icons/SocialMediaIcon'
 import PlusIcon from '@/components/icons/PlusIcon'
 
 export default {
@@ -48,11 +52,12 @@ export default {
     BlankPage,
     MainLayout,
     MainLayoutTitleBlock,
-    OnlineIcon,
+    SocialMediaIcon,
     PlusIcon,
     WorkspacesScreen,
   },
   computed: {
+    //TODO: change
     ...mapGetters({
       department: get.DEPARTMENT,
       // workspaces: get.WORKSPACES,
@@ -68,6 +73,7 @@ export default {
     },
   },
   methods: {
+    //TODO: change
     ...mapActions([
       action.CREATE_WORKSPACE,
       action.UPDATE_CURRENT_STEP,
@@ -75,18 +81,25 @@ export default {
     ]),
     createWorkspace() {
       this.$router.push({
-        name: 'Step1',
+        name: 'SocialCreateWorkspace',
+        params: {workspaceId: 'new'},
       })
     },
     addNewProject(workspaceId) {
-      this[action.UPDATE_CURRENT_STEP]('WorkspaceStep2')
+      //TODO: change
+      this[action.UPDATE_CURRENT_STEP]('SocialWorkspaceStep2')
       this.$router.push({
-        name: 'WorkspaceStep2',
+        name: 'SocialWorkspaceStep2',
         params: {workspaceId},
       })
     },
     saveSettings(settings) {
+      //TODO: change
       this[action.UPDATE_WORKSPACE](settings)
+    },
+
+    openWorkspace(workspaceId) {
+      this.$router.push({name: 'SocialWorkspace', params: {workspaceId}})
     },
   },
 }
@@ -98,7 +111,7 @@ export default {
   justify-content: space-between;
 }
 
-.online-icon {
+.title-icon {
   width: 20px;
   height: 20px;
 }

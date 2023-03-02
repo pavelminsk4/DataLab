@@ -2,7 +2,7 @@
   <MainLayout>
     <div class="content-header">
       <MainLayoutTitleBlock title="Online">
-        <OnlineIcon class="online-icon" />
+        <OnlineIcon class="title-icon" />
       </MainLayoutTitleBlock>
 
       <BaseButtonWithTooltip
@@ -22,6 +22,10 @@
       v-if="workspaces.length"
       :workspaces="workspaces"
       :isProjectCreationAvailable="isProjectCreationAvailable"
+      @create-workspace="createWorkspace"
+      @save-settings="saveSettings"
+      @add-new-project="addNewProject"
+      @open-workspace="openWorkspace"
     />
 
     <BlankPage v-else page-name="OnlineWorkspaces" />
@@ -72,18 +76,23 @@ export default {
     ]),
     createWorkspace() {
       this.$router.push({
-        name: 'Step1',
+        name: 'OnlineCreateWorkspace',
+        params: {workspaceId: 'new'},
       })
     },
     addNewProject(workspaceId) {
-      this[action.UPDATE_CURRENT_STEP]('WorkspaceStep2')
+      this[action.UPDATE_CURRENT_STEP]('OnlineWorkspaceStep2')
       this.$router.push({
-        name: 'WorkspaceStep2',
+        name: 'OnlineWorkspaceStep2',
         params: {workspaceId},
       })
     },
     saveSettings(settings) {
       this[action.UPDATE_WORKSPACE](settings)
+    },
+
+    openWorkspace(workspaceId) {
+      this.$router.push({name: 'OnlineWorkspace', params: {workspaceId}})
     },
   },
 }
@@ -95,7 +104,7 @@ export default {
   justify-content: space-between;
 }
 
-.online-icon {
+.title-icon {
   width: 20px;
   height: 20px;
 }

@@ -77,16 +77,14 @@ export default {
     ]),
     nextStep() {
       try {
-        this[action.UPDATE_CURRENT_STEP]('Step2')
+        this[action.UPDATE_CURRENT_STEP]('OnlineWorkspaceStep2')
         this[action.UPDATE_NEW_WORKSPACE]({
           title: this.workspaceName,
           description: this.workspaceDescription,
           members: this.members,
           department: this.user.user_profile.department.id,
         })
-        this.$router.push({
-          name: 'Step2',
-        })
+        this.$router.push({name: 'OnlineWorkspaceStep2'})
       } catch (e) {
         console.log(e)
       }

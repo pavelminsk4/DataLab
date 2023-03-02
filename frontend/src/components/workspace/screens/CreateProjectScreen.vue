@@ -54,7 +54,7 @@ export default {
   },
   props: {
     workspaceId: {
-      type: Number,
+      type: String,
       default: null,
     },
   },
@@ -64,11 +64,15 @@ export default {
       description: '',
     }
   },
-  created() {
-    if (this.step === 'WorkspaceStep2') this[action.CLEAR_STATE]()
-  },
   computed: {
     ...mapState(['currentStep', 'userInfo']),
+  },
+  created() {
+    if (
+      this.workspaceId !== 'new' &&
+      this.currentStep === 'OnlineWorkspaceStep2'
+    )
+      this[action.CLEAR_STATE]()
   },
   methods: {
     ...mapActions([
@@ -77,18 +81,18 @@ export default {
       action.CLEAR_STATE,
     ]),
     nextStep() {
-      const nextStep = this.workspaceId ? 'WorkspaceStep3' : 'Step3'
       try {
-        this[action.UPDATE_CURRENT_STEP](nextStep)
+        this[action.UPDATE_CURRENT_STEP]('OnlineWorkspaceStep3')
         this[action.UPDATE_PROJECT_STATE]({
           creator: this.userInfo.id,
           title: this.projectName,
           description: this.description,
           source: 'Online',
-          workspace: this.workspaceId?.toString() || null,
+          workspace: this.workspaceId || null,
         })
         this.$router.push({
-          name: nextStep,
+          name: 'OnlineWorkspaceStep3',
+          params: {workspaceId: this.workspaceId},
         })
       } catch (e) {
         console.log(e)

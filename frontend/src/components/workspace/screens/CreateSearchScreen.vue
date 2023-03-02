@@ -36,7 +36,7 @@ export default {
   },
   props: {
     workspaceId: {
-      type: Number,
+      type: String,
       default: null,
     },
   },
@@ -44,13 +44,6 @@ export default {
     return {
       searchLoading: false,
       buttonLoading: false,
-    }
-  },
-  created() {
-    if (this.defaultDateRange.length) {
-      this[action.UPDATE_ADDITIONAL_FILTERS]({
-        date_range: this.defaultDateRange,
-      })
     }
   },
   computed: {
@@ -71,6 +64,13 @@ export default {
     defaultDateRange() {
       return [this.getLastWeeksDate(), new Date()]
     },
+  },
+  created() {
+    if (this.defaultDateRange.length) {
+      this[action.UPDATE_ADDITIONAL_FILTERS]({
+        date_range: this.defaultDateRange,
+      })
+    }
   },
   methods: {
     ...mapActions([
