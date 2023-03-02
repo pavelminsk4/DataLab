@@ -6,25 +6,25 @@ from widgets.models import WidgetsList2
 from docx import Document
 from docx.shared import Inches, Pt
 from .chartjs.chartjs import prepare_widget_images
-import aspose.words as aw
+# import aspose.words as aw
 from .serializers import RegularReportSerializer
 from .models import RegularReport
 from rest_framework import viewsets
 from reports.views_filling.filling_for_report import filling_templates_for_instant_and_regular_reports
 
-lic = aw.License()
+# lic = aw.License()
 
 #Try to set license from the folder with the python script.
-try :
-    lic.set_license("Aspose.Total.Product.Family.lic")
-    print("License set successfully.")
-except RuntimeError as err :
-    # We do not ship any license with this example, visit the Aspose site to obtain either a temporary or permanent license.
-    print("\nThere was an error setting the license: {0}".format(err))
+# try :
+#     lic.set_license("Aspose.Total.Product.Family.lic")
+#     print("License set successfully.")
+# except RuntimeError as err :
+#     # We do not ship any license with this example, visit the Aspose site to obtain either a temporary or permanent license.
+#     print("\nThere was an error setting the license: {0}".format(err))
 
-def convert_docx_to_pdf(docx_path, report_path):
-  doc = aw.Document(docx_path)
-  doc.save(report_path)
+# def convert_docx_to_pdf(docx_path, report_path):
+#   doc = aw.Document(docx_path)
+#   doc.save(report_path)
 
 def filling_template(template_path, project_id):
   document = Document(template_path)
@@ -39,7 +39,7 @@ def instantly_report(request, proj_pk):
   report_path='tmp/temp.' + format
   prepare_widget_images(proj_pk)
   filling_template(template_path, proj_pk)
-  convert_docx_to_pdf(docx_path, report_path)
+  # convert_docx_to_pdf(docx_path, report_path)
   response = FileResponse(open(report_path, 'rb'))
   response.headers = {
       'Content-Type': 'application/%s'%(format),

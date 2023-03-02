@@ -35,6 +35,7 @@ class TweetBinderPost(models.Model):
   count_uservalue = models.FloatField(blank=True, null=True)
   count_tweetvalue = models.FloatField(blank=True, null=True)
   createdat = models.IntegerField(blank=True, null=True)
+  creation_date = models.DateTimeField()
   favorites = models.IntegerField(blank=True, null=True)
   hashtags = ArrayField(models.CharField(max_length=100), blank=True, null=True)
   images = ArrayField(models.CharField(max_length=200), blank=True, null=True)
