@@ -45,7 +45,6 @@ export default {
       set(val) {
         this.selectedValue = val
         this.$emit('update-chart-type', this.selectedValue, 'newChartType')
-        console.log(this.selectedValue)
       },
     },
   },

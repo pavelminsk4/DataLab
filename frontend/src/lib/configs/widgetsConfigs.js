@@ -20,6 +20,10 @@ const CHARTS = {
     componentName: 'PieChart',
     name: 'Pie chart',
   },
+  radar: {
+    componentName: 'RadarChart',
+    name: 'Radar chart',
+  },
   sentimentBar: {
     componentName: 'SentimentBarChart',
     name: 'Bar chart',
@@ -34,7 +38,7 @@ const CHARTS = {
   },
 }
 
-const SIMPLE_CHARTS = [CHARTS.line, CHARTS.bar, CHARTS.pie]
+const SIMPLE_CHARTS = [CHARTS.line, CHARTS.bar, CHARTS.pie, CHARTS.radar]
 const SENTIMENTS_CHARTS = [
   CHARTS.sentimentBar,
   CHARTS.sentimentHorizontalStackedBar,

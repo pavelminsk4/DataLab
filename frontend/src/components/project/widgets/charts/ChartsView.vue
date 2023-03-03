@@ -20,6 +20,7 @@ import {mapState} from 'vuex'
 import BarChart from '@/components/project/widgets/charts/BarChart'
 import PieChart from '@/components/project/widgets/charts/PieChart'
 import LineChart from '@/components/project/widgets/charts/LineChart'
+import RadarChart from '@/components/project/widgets/charts/RadarChart'
 import HorizontalBarChart from '@/components/project/widgets/charts/HorizontalBarChart'
 import MultiLineChart from '@/components/project/widgets/charts/MultiLineChart'
 import SentimentBarChart from '@/components/project/widgets/charts/SentimentBarChart'
@@ -33,6 +34,7 @@ export default {
     BarChart,
     PieChart,
     LineChart,
+    RadarChart,
     MultiLineChart,
     HorizontalBarChart,
     SentimentBarChart,
