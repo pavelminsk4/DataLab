@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from tweet_binder.models import TweetBinderPost
+from datetime import datetime
 import pprint
 import json
 
@@ -29,7 +30,8 @@ def webhook(request):
                 'count_publicationscore': tweet['counts']['publicationScore'], 
                 'count_uservalue': tweet['counts']['userValue'], 
                 'count_tweetvalue': tweet['counts']['tweetValue'], 
-                'createdat': tweet['createdAt'], 
+                'createdat': tweet['createdAt'],
+                'creation_date': datetime.fromtimestamp(tweet['createdAt']),
                 'favorites': tweet['favorites'], 
                 'hashtags': tweet['hashtags'], 
                 'images': tweet['images'], 
