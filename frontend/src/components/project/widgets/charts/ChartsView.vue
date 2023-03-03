@@ -23,6 +23,7 @@ import LineChart from '@/components/project/widgets/charts/LineChart'
 import RadarChart from '@/components/project/widgets/charts/RadarChart'
 import HorizontalBarChart from '@/components/project/widgets/charts/HorizontalBarChart'
 import MultiLineChart from '@/components/project/widgets/charts/MultiLineChart'
+import MultiRadarChart from '@/components/project/widgets/charts/MultiRadarChart'
 import SentimentBarChart from '@/components/project/widgets/charts/SentimentBarChart'
 import SentimentHorizontalStackedBarChart from '@/components/project/widgets/charts/SentimentHorizontalStackedBarChart'
 import BaseSpinner from '@/components/BaseSpinner'
@@ -36,6 +37,7 @@ export default {
     LineChart,
     RadarChart,
     MultiLineChart,
+    MultiRadarChart,
     HorizontalBarChart,
     SentimentBarChart,
     SentimentHorizontalStackedBarChart,

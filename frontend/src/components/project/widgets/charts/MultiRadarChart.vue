@@ -1,49 +1,42 @@
 <template>
-  <Line
+  <Radar
     :chart-options="chartOptions"
     :chart-data="chartData"
     :chart-id="chartId"
     :dataset-id-key="datasetIdKey"
+    :plugins="plugins"
     :css-classes="cssClasses"
     :styles="styles"
     :width="width"
     :height="height"
-    class="line-chart"
   />
 </template>
 
 <script>
-import {Line} from 'vue-chartjs'
-import {defaultDate} from '@/lib/utilities'
+import {Radar} from 'vue-chartjs'
 
 import {
   Chart as ChartJS,
   Title,
   Tooltip,
   Legend,
-  LineElement,
-  LinearScale,
-  CategoryScale,
   PointElement,
-  Filler,
+  LineElement,
+  RadialLinearScale,
 } from 'chart.js'
 
 ChartJS.register(
   Title,
   Tooltip,
   Legend,
-  LineElement,
-  LinearScale,
-  CategoryScale,
   PointElement,
-  Filler
+  RadialLinearScale,
+  LineElement
 )
 
 export default {
-  name: 'MultiLineChart',
-  components: {
-    Line,
-  },
+  name: 'MultiRadarChart',
+  components: {Radar},
   props: {
     chartLabels: {
       type: Array,
@@ -100,26 +93,37 @@ export default {
         labelsCollection.push(el[keys[0]])
       })
 
-      return labelsCollection[0]?.map((el) => this.defaultDate(el.date))
+      return labelsCollection[0]?.map((el) => this.formatDate(el.date))
     },
     chartDatasets() {
       let datasetsValue = []
       let lineColors = [
-        '#7C59ED',
-        '#CDC6FF',
-        '#551EB9',
-        '#6AC7F0',
-        '#00CC87',
-        '#FD7271',
-        '#FFBB01',
-        '#7ACCB0',
-        '#01A4EE',
-        '#FFE499',
+        '#516BEE',
+        '#7A9EF9',
+        '#47F9B9',
+        '#47F979',
+        '#95F947',
+        '#F5F947',
+        '#F6AA37',
+        '#F63737',
+        '#F63787',
+        '#D930F4',
       ]
+
+      const datasetElement = {
+        pointStyle: 'circle',
+        pointRadius: 3,
+        pointBorderWidth: 1,
+        borderWidth: 2,
+        radius: 0.3,
+        tension: 0.3,
+        skipNull: true,
+      }
 
       Object.values(this.widgetData).forEach((el, index) => {
         if (Object.keys(el)[0] === 'Missing in source') {
           datasetsValue.push({
+            ...datasetElement,
             label: Object.keys(el)[0],
             borderColor: '#808080',
             pointBackgroundColor: '#808080',
@@ -129,6 +133,7 @@ export default {
           })
         } else {
           datasetsValue.push({
+            ...datasetElement,
             label: Object.keys(el)[0],
             borderColor: lineColors[index],
             pointBackgroundColor: lineColors[index],
@@ -223,15 +228,15 @@ export default {
     },
   },
   methods: {
-    defaultDate,
+    formatDate(date) {
+      return new Date(date).toLocaleString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+      })
+    },
   },
 }
 </script>
 
-<style scoped>
-.line-chart {
-  overflow: hidden;
-  height: 100%;
-  width: 100%;
-}
-</style>
+<style scoped></style>
