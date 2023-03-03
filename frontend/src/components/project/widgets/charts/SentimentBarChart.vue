@@ -168,13 +168,3 @@ export default {
   },
 }
 </script>
-
-<style scoped>
-.bar-chart {
-  overflow: hidden;
-
-  margin-top: 20px;
-  height: 100%;
-  width: 100%;
-}
-</style>

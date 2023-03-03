@@ -62,7 +62,7 @@ export default {
 <style lang="scss" scoped>
 .project-dashboard-wrapper {
   width: 100%;
-  height: 100%;
+  height: calc(100vh - 120px);
   padding-left: 70px;
 }
 </style>

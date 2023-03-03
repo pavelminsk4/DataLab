@@ -250,7 +250,7 @@ export default {
 
   .search-results {
     width: 100%;
-    height: calc(100vh - 234px);
+    height: calc(100vh - 255px);
   }
 }
 .widgets-wrapper {
@@ -259,7 +259,7 @@ export default {
   overflow: auto;
 
   width: 100%;
-  max-height: calc(100vh - 234px);
+  max-height: calc(100vh - 255px);
 
   .analytics-search-results {
     flex: 1;
