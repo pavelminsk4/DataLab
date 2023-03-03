@@ -20,6 +20,7 @@
           :widgets="widgetsList"
           :widget-id="generalWidgetData.id"
           :summary-data="summaryData"
+          class="widget-view"
         />
       </div>
 
@@ -309,11 +310,18 @@ export default {
   background-color: var(--background-primary-color);
 
   .preview-section {
-    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+
     height: fit-content;
+    min-height: 300px;
     margin: 24px;
 
     .chart-title {
+      width: 100%;
       padding: 12px 20px;
 
       border-bottom: 1px solid var(--border-color);
@@ -325,6 +333,10 @@ export default {
       color: var(--typography-title-color);
     }
 
+    .widget-view {
+      width: 95%;
+    }
+
     box-shadow: 1px 4px 16px rgba(135, 135, 135, 0.2);
     border-radius: 8px;
     background: var(--background-secondary-color);
@@ -333,10 +345,10 @@ export default {
   .general-wrapper-settings {
     display: flex;
     flex-direction: column;
+    flex: 1;
 
     padding: 24px;
     min-height: 100%;
-    min-width: 50%;
 
     background-color: var(--background-secondary-color);
 

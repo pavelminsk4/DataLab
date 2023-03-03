@@ -176,7 +176,7 @@ export default {
                 isChartShow: this.elementsValue[widgetName].isChartShow,
                 chartType:
                   this.availableWidgets[widgetName]?.chart_type ||
-                  modalWidgetsConfig[widgetName]?.chartType,
+                  modalWidgetsConfig[widgetName]?.defaultChartType,
                 hasAggregationPeriod:
                   this.elementsValue[widgetName].hasAggregationPeriod,
               })
@@ -250,7 +250,7 @@ export default {
 
   .search-results {
     width: 100%;
-    height: calc(100vh - 234px);
+    height: calc(100vh - 255px);
   }
 }
 .widgets-wrapper {
@@ -259,7 +259,7 @@ export default {
   overflow: auto;
 
   width: 100%;
-  max-height: calc(100vh - 234px);
+  max-height: calc(100vh - 255px);
 
   .analytics-search-results {
     flex: 1;
@@ -269,12 +269,6 @@ export default {
     top: -10px;
 
     min-width: 96%;
-  }
-}
-
-@media screen and (max-width: 1000px) {
-  .widgets-wrapper {
-    margin-top: 105px;
   }
 }
 </style>

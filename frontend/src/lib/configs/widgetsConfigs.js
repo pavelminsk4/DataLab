@@ -1,11 +1,53 @@
 import {action} from '@store/constants'
 
 const WIDGET_DEFAULT_SETTINGS = {
-  height: 12,
+  height: 13,
   isChartShow: false,
   hasAggregationPeriod: true,
   settingsTabs: ['General', 'Dimensions', 'Chart Layout'],
 }
+
+const CHARTS = {
+  line: {
+    componentName: 'LineChart',
+    name: 'Line chart',
+  },
+  bar: {
+    componentName: 'BarChart',
+    name: 'Bar chart',
+  },
+  pie: {
+    componentName: 'PieChart',
+    name: 'Pie chart',
+  },
+  radar: {
+    componentName: 'RadarChart',
+    name: 'Radar chart',
+  },
+  sentimentBar: {
+    componentName: 'SentimentBarChart',
+    name: 'Bar chart',
+  },
+  sentimentHorizontalStackedBar: {
+    componentName: 'SentimentHorizontalStackedBarChart',
+    name: 'Column chart',
+  },
+  multiLine: {
+    componentName: 'MultiLineChart',
+    name: 'Line chart',
+  },
+  multiRadar: {
+    componentName: 'MultiRadarChart',
+    name: 'Radar chart',
+  },
+}
+
+const SIMPLE_CHARTS = [CHARTS.line, CHARTS.bar, CHARTS.pie, CHARTS.radar]
+const SENTIMENTS_CHARTS = [
+  CHARTS.sentimentBar,
+  CHARTS.sentimentHorizontalStackedBar,
+]
+const MULTI_CHARTS = [CHARTS.multiLine, CHARTS.multiRadar]
 
 export const modalWidgetsConfig = {
   summary_widget: {
@@ -13,103 +55,98 @@ export const modalWidgetsConfig = {
     actionName: action.GET_SUMMARY_WIDGET,
     height: 7,
     hasAggregationPeriod: false,
-    chartType: null,
+    defaultChartType: null,
     settingsTabs: ['General', 'Dimensions'],
   },
   volume_widget: {
     ...WIDGET_DEFAULT_SETTINGS,
     actionName: action.GET_VOLUME_WIDGET,
     isChartShow: true,
-    chartType: 'Line',
-    availableTypes: ['Line', 'Bar', 'Pie'],
+    defaultChartType: 'LineChart',
+    availableTypes: SIMPLE_CHARTS,
   },
   clipping_feed_content_widget: {
     ...WIDGET_DEFAULT_SETTINGS,
     actionName: action.GET_CLIPPING_FEED_CONTENT_WIDGET,
-    height: 13,
     hasAggregationPeriod: false,
-    chartType: null,
+    defaultChartType: null,
     settingsTabs: ['General'],
   },
   top_10_authors_by_volume_widget: {
     ...WIDGET_DEFAULT_SETTINGS,
     actionName: action.GET_TOP_AUTHORS_WIDGET,
-    height: 13,
     hasAggregationPeriod: false,
-    chartType: 'Pie',
-    availableTypes: ['Line', 'Bar', 'Pie'],
+    defaultChartType: 'PieChart',
+    availableTypes: SIMPLE_CHARTS,
   },
   top_10_brands_widget: {
     ...WIDGET_DEFAULT_SETTINGS,
     actionName: action.GET_TOP_BRANDS_WIDGET,
-    height: 13,
     hasAggregationPeriod: false,
-    chartType: 'Line',
-    availableTypes: ['Line', 'Bar', 'Pie'],
+    defaultChartType: 'LineChart',
+    availableTypes: SIMPLE_CHARTS,
   },
   top_10_countries_widget: {
     ...WIDGET_DEFAULT_SETTINGS,
     actionName: action.GET_TOP_COUNTRIES_WIDGET,
-    height: 13,
     hasAggregationPeriod: false,
-    chartType: 'HorizontalBar',
-    availableTypes: ['Line', 'Bar', 'Pie'],
+    defaultChartType: 'HorizontalBarChart',
+    availableTypes: SIMPLE_CHARTS,
   },
   top_10_languages_widget: {
     ...WIDGET_DEFAULT_SETTINGS,
     actionName: action.GET_TOP_LANGUAGES_WIDGET,
-    height: 13,
     hasAggregationPeriod: false,
-    chartType: 'Pie',
-    availableTypes: ['Line', 'Bar', 'Pie'],
+    defaultChartType: 'PieChart',
+    availableTypes: SIMPLE_CHARTS,
   },
   sentiment_top_10_sources_widget: {
     ...WIDGET_DEFAULT_SETTINGS,
     actionName: action.GET_SENTIMENT_TOP_SOURCES,
-    chartType: 'SentimentBar',
-    availableTypes: ['SentimentBar'],
+    defaultChartType: 'SentimentBarChart',
+    availableTypes: SENTIMENTS_CHARTS,
   },
   sentiment_top_10_countries_widget: {
     ...WIDGET_DEFAULT_SETTINGS,
     actionName: action.GET_SENTIMENT_TOP_COUNTRIES,
-    chartType: 'SentimentBar',
-    availableTypes: ['SentimentBar'],
+    defaultChartType: 'SentimentBarChart',
+    availableTypes: SENTIMENTS_CHARTS,
   },
   sentiment_top_10_authors_widget: {
     ...WIDGET_DEFAULT_SETTINGS,
     actionName: action.GET_SENTIMENT_TOP_AUTHORS,
-    chartType: 'SentimentBar',
-    availableTypes: ['SentimentBar'],
+    defaultChartType: 'SentimentBarChart',
+    availableTypes: SENTIMENTS_CHARTS,
   },
   sentiment_top_10_languages_widget: {
     ...WIDGET_DEFAULT_SETTINGS,
     actionName: action.GET_SENTIMENT_TOP_LANGUAGES,
-    chartType: 'SentimentBar',
-    availableTypes: ['SentimentBar'],
+    defaultChartType: 'SentimentBarChart',
+    availableTypes: SENTIMENTS_CHARTS,
   },
   sentiment_for_period_widget: {
     ...WIDGET_DEFAULT_SETTINGS,
     actionName: action.GET_SENTIMENT_FOR_PERIOD,
-    chartType: 'SentimentBar',
-    availableTypes: ['SentimentBar'],
+    defaultChartType: 'SentimentBarChart',
+    availableTypes: SENTIMENTS_CHARTS,
   },
   content_volume_top_5_authors_widget: {
     ...WIDGET_DEFAULT_SETTINGS,
     actionName: action.GET_CONTENT_VOLUME_TOP_AUTHORS,
-    chartType: 'MultiLine',
-    availableTypes: ['MultiLine'],
+    defaultChartType: 'MultiLineChart',
+    availableTypes: MULTI_CHARTS,
   },
   content_volume_top_5_countries_widget: {
     ...WIDGET_DEFAULT_SETTINGS,
     actionName: action.GET_CONTENT_VOLUME_TOP_COUNTRIES,
-    chartType: 'MultiLine',
-    availableTypes: ['MultiLine'],
+    defaultChartType: 'MultiLineChart',
+    availableTypes: MULTI_CHARTS,
   },
   content_volume_top_5_source_widget: {
     ...WIDGET_DEFAULT_SETTINGS,
     actionName: action.GET_CONTENT_VOLUME_TOP_SOURCES,
-    chartType: 'MultiLine',
-    availableTypes: ['MultiLine'],
+    defaultChartType: 'MultiLineChart',
+    availableTypes: MULTI_CHARTS,
   },
 }
 
