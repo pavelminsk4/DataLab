@@ -6,7 +6,7 @@
       </MainLayoutTitleBlock>
 
       <BaseButtonWithTooltip
-        v-if="!workspaces.length"
+        v-if="!workspaces?.length"
         :is-disabled="isProjectCreationAvailable"
         :has-tooltip="isProjectCreationAvailable"
         tooltip-title="Created the maximum possible number of projects!"
@@ -19,7 +19,7 @@
     </div>
 
     <WorkspacesScreen
-      v-if="workspaces.length"
+      v-if="workspaces?.length"
       :workspaces="workspaces"
       :isProjectCreationAvailable="isProjectCreationAvailable"
       @create-workspace="createWorkspace"
@@ -33,8 +33,12 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
+import {mapActions, mapGetters, createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
+import {
+  action as actionSocial,
+  get as getSocial,
+} from '@store/modules/social/constants'
 
 import BaseButtonWithTooltip from '@/components/BaseButtonWithTooltip'
 import BlankPage from '@/components/BlankPage'
@@ -44,6 +48,9 @@ import WorkspacesScreen from '@/components/dashboard/WorkspacesScreen'
 
 import SocialMediaIcon from '@components/icons/SocialMediaIcon'
 import PlusIcon from '@/components/icons/PlusIcon'
+
+const {mapActions: mapSocialActions, mapGetters: mapSocialGetters} =
+  createNamespacedHelpers('modules/social')
 
 export default {
   name: 'SocialMediaWorkspacesView',
@@ -57,14 +64,8 @@ export default {
     WorkspacesScreen,
   },
   computed: {
-    //TODO: change
-    ...mapGetters({
-      department: get.DEPARTMENT,
-      // workspaces: get.WORKSPACES,
-    }),
-    workspaces() {
-      return []
-    },
+    ...mapGetters({department: get.DEPARTMENT}),
+    ...mapSocialGetters({workspaces: getSocial.WORKSPACES}),
     isProjectCreationAvailable() {
       return (
         this.department?.current_number_of_projects >=
@@ -73,11 +74,10 @@ export default {
     },
   },
   methods: {
-    //TODO: change
-    ...mapActions([
-      action.CREATE_WORKSPACE,
-      action.UPDATE_CURRENT_STEP,
-      action.UPDATE_WORKSPACE,
+    ...mapActions([action.UPDATE_CURRENT_STEP]),
+    ...mapSocialActions([
+      actionSocial.CREATE_WORKSPACE,
+      actionSocial.UPDATE_WORKSPACE,
     ]),
     createWorkspace() {
       this.$router.push({
@@ -86,7 +86,6 @@ export default {
       })
     },
     addNewProject(workspaceId) {
-      //TODO: change
       this[action.UPDATE_CURRENT_STEP]('SocialWorkspaceStep2')
       this.$router.push({
         name: 'SocialWorkspaceStep2',
@@ -94,7 +93,6 @@ export default {
       })
     },
     saveSettings(settings) {
-      //TODO: change
       this[action.UPDATE_WORKSPACE](settings)
     },
 

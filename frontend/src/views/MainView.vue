@@ -48,7 +48,7 @@ export default {
   computed: {
     ...mapGetters({userInfo: get.USER_INFO}),
     fullName() {
-      const fullName = this.userInfo?.first_name + this.userInfo?.last_name
+      const fullName = `${this.userInfo?.first_name} ${this.userInfo?.last_name}`
       return fullName ? fullName : this.userInfo?.username
     },
   },
