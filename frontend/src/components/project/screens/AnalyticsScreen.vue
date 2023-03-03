@@ -21,53 +21,57 @@
       @close="toggleWidgetsModal('isOpenDownloadReportModal')"
     />
 
-    <NavigationBar
-      v-if="currentProject"
+    <MainLayoutTitleBlock
       :title="currentProject.title"
-      :hint="currentProject.note"
-      :search-results="numberOfPosts"
+      :description="currentProject.note"
+      :back-page="{
+        name: 'workspace',
+        routName: 'Workspace',
+      }"
     >
-      <div class="analytics-menu">
-        <BaseDropdown
-          title="Sort by"
-          name="sort-posts"
-          :selected-value="sortValue"
-        >
-          <div
-            v-for="(item, index) in sortingList"
-            :key="item + index"
-            @click="setSortingValue(item)"
-          >
-            {{ item }}
-          </div>
-        </BaseDropdown>
+      <div class="search-results">{{ numberOfPosts }} results</div>
+    </MainLayoutTitleBlock>
 
-        <div class="menu-buttons">
+    <div class="analytics-menu">
+      <BaseDropdown
+        title="Sort by"
+        name="sort-posts"
+        :selected-value="sortValue"
+      >
+        <div
+          v-for="(item, index) in sortingList"
+          :key="item + index"
+          @click="setSortingValue(item)"
+        >
+          {{ item }}
+        </div>
+      </BaseDropdown>
+
+      <div class="menu-buttons">
+        <BaseButton
+          :is-not-background="true"
+          class="button-upload"
+          @click="toggleWidgetsModal('isOpenDownloadReportModal')"
+        >
+          <ReportsUploadIcon /> Download Report
+        </BaseButton>
+
+        <div class="navigation-bar">
           <BaseButton
-            :is-not-background="true"
-            class="button-upload"
-            @click="toggleWidgetsModal('isOpenDownloadReportModal')"
+            class="button"
+            @click="toggleWidgetsModal('isOpenWidgetsModal')"
           >
-            <ReportsUploadIcon /> Download Report
+            <PlusIcon class="icon" />
+            Add Widgets
           </BaseButton>
 
-          <div class="navigation-bar">
-            <BaseButton
-              class="button"
-              @click="toggleWidgetsModal('isOpenWidgetsModal')"
-            >
-              <PlusIcon class="icon" />
-              Add Widgets
-            </BaseButton>
-
-            <DimensionsIcon
-              class="dimensions-button"
-              @click="toggleWidgetsModal('isOpenDimensionModal')"
-            />
-          </div>
+          <DimensionsIcon
+            class="dimensions-button"
+            @click="toggleWidgetsModal('isOpenDimensionModal')"
+          />
         </div>
       </div>
-    </NavigationBar>
+    </div>
 
     <WidgetsView
       :project-id="currentProject.id"
@@ -82,7 +86,6 @@
 import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
-import NavigationBar from '@/components/navigation/NavigationBar'
 import WidgetsView from '@/components/project/widgets/WidgetsView'
 import BaseButton from '@/components/common/BaseButton'
 import PlusIcon from '@/components/icons/PlusIcon'
@@ -92,10 +95,12 @@ import AllDimensionsModal from '@/components/project/modals/AllDimensionsModal'
 import ReportsUploadIcon from '@/components/icons/ReportsUploadIcon'
 import DownloadReportModal from '@/components/project/modals/DownloadReportModal'
 import BaseDropdown from '@/components/BaseDropdown'
+import MainLayoutTitleBlock from '@/components/layout/MainLayoutTitleBlock'
 
 export default {
   name: 'AnalyticsScreen',
   components: {
+    MainLayoutTitleBlock,
     BaseDropdown,
     DownloadReportModal,
     ReportsUploadIcon,
@@ -105,7 +110,6 @@ export default {
     PlusIcon,
     BaseButton,
     WidgetsView,
-    NavigationBar,
   },
   props: {
     currentProject: {
@@ -220,6 +224,14 @@ export default {
 
   height: 100%;
   margin-top: 20px;
+}
+
+.search-results {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--typography-secondary-color);
 }
 
 .analytics-menu {

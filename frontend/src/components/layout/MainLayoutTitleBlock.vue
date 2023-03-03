@@ -20,7 +20,7 @@
 import ArrowLeftIcon from '@/components/icons/ArrowLeftIcon'
 
 export default {
-  name: 'MainLayout',
+  name: 'MainLayoutTitleBlock',
   components: {
     ArrowLeftIcon,
   },

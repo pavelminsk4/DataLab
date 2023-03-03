@@ -271,10 +271,4 @@ export default {
     min-width: 96%;
   }
 }
-
-@media screen and (max-width: 1000px) {
-  .widgets-wrapper {
-    margin-top: 105px;
-  }
-}
 </style>
