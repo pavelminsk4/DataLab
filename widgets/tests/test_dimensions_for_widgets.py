@@ -23,7 +23,7 @@ class FilterForWidgetsTests(APITestCase):
     post6 = Post.objects.create(feedlink=flink3, entry_title='6 post title', feed_language=sp2, entry_published=datetime(2023, 9, 3, 6, 37), entry_author='EFE', sentiment='neutral')
     post7 = Post.objects.create(feedlink=flink4, entry_title='5 post title', feed_language=sp2, entry_published=datetime(2023, 9, 3, 6, 37), entry_author='AFP', sentiment='neutral')
     post8 = Post.objects.create(feedlink=flink4, entry_title='6 post title', feed_language=sp2, entry_published=datetime(2023, 9, 3, 6, 37), entry_author='', sentiment='neutral')
-    pr = Project.objects.create(title='Project1', keywords=['post'], additional_keywords=[], ignore_keywords=[], start_search_date=datetime(2020, 10, 10), 
+    pr = Project.objects.create(title='Project1', keywords=['post'], additional_keywords=[], ignore_keywords=[], start_search_date=datetime(2020, 10, 10),
                                 end_search_date=datetime(2023, 10, 16), creator=user, language_dimensions=['English', 'Spain'], country_dimensions=['England', 'USA'], 
                                 source_dimensions=['Time', 'BBC'], author_dimensions=['AFP'], sentiment_dimensions = ['negative', 'neutral', 'positive'])
     widget_pk = pr.widgets_list_2.sentiment_top_10_authors_widget_id
