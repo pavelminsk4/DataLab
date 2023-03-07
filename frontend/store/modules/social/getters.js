@@ -1,4 +1,4 @@
-import {get} from '@store/constants'
+import {get} from './constants'
 
 export default {
   [get.LOADING](state) {
@@ -12,5 +12,9 @@ export default {
   },
   [get.NEW_PROJECT_ID](state) {
     return state.newProjectId
+  },
+
+  [get.PROJECTS](state) {
+    return state.projects
   },
 }

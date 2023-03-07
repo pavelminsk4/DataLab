@@ -69,11 +69,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions([
-      action.CREATE_WORKSPACE,
-      action.UPDATE_CURRENT_STEP,
-      action.UPDATE_WORKSPACE,
-    ]),
+    ...mapActions([action.UPDATE_CURRENT_STEP, action.UPDATE_WORKSPACE]),
     createWorkspace() {
       this.$router.push({
         name: 'OnlineCreateWorkspace',

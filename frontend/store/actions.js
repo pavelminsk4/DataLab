@@ -491,6 +491,7 @@ export default {
       const response = await api.createWorkspace(workspace)
       commit(mutator.SET_NEW_WORKSPACE_ID, response.id)
       commit(mutator.SET_NEW_PROJECT_ID, response.projects[0].id)
+      return response
     } catch (e) {
       console.log(e)
     } finally {
@@ -504,6 +505,8 @@ export default {
       const response = await api.createNewProject(projectData)
       commit(mutator.SET_NEW_PROJECT_ID, response.id)
       await dispatch(action.GET_USER_INFORMATION)
+
+      return response
     } catch (e) {
       console.log(e)
     } finally {

@@ -6,10 +6,7 @@
         :title="workspace.title"
         description="
             Select the project you want to work on or create a new search"
-        :back-page="{
-          name: 'main page',
-          routName: 'OnlineHome',
-        }"
+        :back-page="backPage"
       >
         <OnlineIcon class="online-icon" />
       </MainLayoutTitleBlock>
@@ -18,7 +15,7 @@
         :is-disabled="isProjectCreationAvailable"
         :has-tooltip="isProjectCreationAvailable"
         tooltip-title="Created the maximum possible number of projects!"
-        @click="createProject"
+        @click="$emit('create-project')"
       >
         Create new project
       </BaseButtonWithTooltip>
@@ -69,6 +66,19 @@ export default {
     ProjectsTable,
     SortIcon,
   },
+  props: {
+    workspace: {
+      type: Object,
+      default: () => ({}),
+    },
+    backPage: {
+      type: Object,
+      default: () => ({
+        name: 'page',
+        routName: '',
+      }),
+    },
+  },
   data() {
     return {
       search: '',
@@ -76,16 +86,9 @@ export default {
   },
   computed: {
     ...mapGetters({
-      workspaces: get.WORKSPACES,
       department: get.DEPARTMENT,
       isLoading: get.LOADING,
     }),
-    workspaceId() {
-      return this.$route.params.workspaceId
-    },
-    workspace() {
-      return this.workspaces.find((el) => el.id === +this.workspaceId)
-    },
     isProjectCreationAvailable() {
       return (
         this.department?.current_number_of_projects >=
@@ -99,28 +102,13 @@ export default {
       )
     },
   },
-  async created() {
-    if (!this.workspaces.length) {
-      await this[action.GET_WORKSPACES]()
-    }
-
+  created() {
     this[action.CLEAR_STATE]()
   },
   methods: {
-    ...mapActions([action.GET_WORKSPACES, action.CLEAR_STATE]),
-    createProject() {
-      this.$router.push({
-        name: 'WorkspaceStep2',
-      })
-    },
-    goToProjectSettings(id) {
-      this.$router.push({
-        name: 'Analytics',
-        params: {
-          workspaceId: this.workspaceId,
-          projectId: id,
-        },
-      })
+    ...mapActions([action.CLEAR_STATE]),
+    goToProjectSettings(projectId) {
+      this.$emit('open-project', projectId)
     },
   },
 }

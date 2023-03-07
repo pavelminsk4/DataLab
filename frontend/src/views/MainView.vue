@@ -24,7 +24,12 @@
 
         <BaseButton
           :is-not-background="true"
-          @click.stop="$router.push({name: item.createRouteName})"
+          @click.stop="
+            $router.push({
+              name: item.createRouteName,
+              params: {workspaceId: 'new'},
+            })
+          "
         >
           <PlusIcon />
           <span>{{ item.buttonName }}</span>
@@ -69,7 +74,7 @@ export default {
         name: 'Social Media',
         description: 'News from social media posts',
         buttonName: 'Add Workspace',
-        openRouteName: 'SocialMediaHome',
+        openRouteName: 'SocialHome',
         createRouteName: 'SocialCreateWorkspace',
         color: '#FCDCE3',
         isMain: true,

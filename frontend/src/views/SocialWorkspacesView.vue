@@ -50,10 +50,10 @@ import SocialMediaIcon from '@components/icons/SocialMediaIcon'
 import PlusIcon from '@/components/icons/PlusIcon'
 
 const {mapActions: mapSocialActions, mapGetters: mapSocialGetters} =
-  createNamespacedHelpers('modules/social')
+  createNamespacedHelpers('social')
 
 export default {
-  name: 'SocialMediaWorkspacesView',
+  name: 'SocialWorkspacesView',
   components: {
     BaseButtonWithTooltip,
     BlankPage,
@@ -75,10 +75,7 @@ export default {
   },
   methods: {
     ...mapActions([action.UPDATE_CURRENT_STEP]),
-    ...mapSocialActions([
-      actionSocial.CREATE_WORKSPACE,
-      actionSocial.UPDATE_WORKSPACE,
-    ]),
+    ...mapSocialActions([actionSocial.UPDATE_WORKSPACE]),
     createWorkspace() {
       this.$router.push({
         name: 'SocialCreateWorkspace',

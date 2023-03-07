@@ -1,4 +1,4 @@
-import {mutator} from '@store/constants'
+import {mutator} from './constants'
 
 export default {
   [mutator.SET_LOADING](state, loading) {
@@ -19,5 +19,9 @@ export default {
       (w) => w.id === workspace.id
     )
     state.workspaces[currentWorkspaceIdex] = workspace
+  },
+
+  [mutator.SET_PROJECTS](state, projects) {
+    state.projects = projects
   },
 }

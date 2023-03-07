@@ -3,6 +3,7 @@ const state = {
   workspaces: [],
   newWorkspaceId: null,
   newProjectId: null,
+  projects: [],
 }
 
 export default state

@@ -29,4 +29,8 @@ export default {
   async createProject(project) {
     return fetch('post', `${moduleName}/projects/`, project)
   },
+
+  async postSearch(request) {
+    return fetch('post', `${moduleName}/twitter_post_search/`, request)
+  },
 }

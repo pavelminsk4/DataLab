@@ -1,12 +1,12 @@
 import store from '@store'
-import ModuleView from '@/views/ModuleView'
-import SocialMediaWorkspacesView from '@/views/SocialMediaWorkspacesView'
+import SocialModuleView from '@/views/SocialModuleView'
+import SocialWorkspacesView from '@/views/SocialWorkspacesView'
+import SocialWorkspaceView from '@/views/SocialWorkspaceView'
 
-import WorkspaceView from '@/components/workspace/WorkspaceView'
 import ProjectExtraSettingsView from '@/components/project/ProjectExtraSettingsView'
 
 import CreateWorkspaceView from '@/components/workspace/CreateWorkspaceView'
-import CreateSearchScreen from '@/components/workspace/screens/CreateSearchScreen'
+import SocialCreateSearchScreen from '@/components/workspace/screens/SocialCreateSearchScreen'
 import CreateProjectScreen from '@/components/workspace/screens/CreateProjectScreen'
 import CreateWorkspaceScreen from '@/components/workspace/screens/CreateWorkspaceScreen'
 import CreateWorkspaceRightSide from '@/components/workspace/CreateWorkspaceRightSide'
@@ -18,24 +18,24 @@ import AnalyticsScreen from '@/components/project/screens/AnalyticsScreen'
 export default [
   {
     path: '/social-media-module',
-    component: ModuleView,
-    redirect: () => ({name: 'SocialMediaHome'}),
+    component: SocialModuleView,
+    redirect: () => ({name: 'SocialHome'}),
     children: [
       {
-        name: 'SocialMediaHome',
+        name: 'SocialHome',
         path: '',
-        component: SocialMediaWorkspacesView,
+        component: SocialWorkspacesView,
       },
 
       {
         name: 'SocialWorkspace',
         path: 'workspace/:workspaceId',
-        component: WorkspaceView,
+        component: SocialWorkspaceView,
       },
 
       {
         name: 'SocialCreateWorkspace',
-        path: 'workspace/:workspaceId/',
+        path: 'workspace/:workspaceId/create',
         component: CreateWorkspaceView,
         redirect: () => ({name: 'SocialWorkspaceStep1'}),
         children: [
@@ -46,7 +46,10 @@ export default [
               default: CreateWorkspaceScreen,
               secondColumn: CreateWorkspaceRightSide,
             },
-            props: {secondColumn: {step: 'step1'}},
+            props: {
+              default: {moduleName: 'Social'},
+              secondColumn: {step: 'step1'},
+            },
           },
           {
             name: 'SocialWorkspaceStep2',
@@ -56,16 +59,24 @@ export default [
               secondColumn: CreateWorkspaceRightSide,
             },
             beforeEnter: (to, from, next) => {
-              if (to.name !== store.state.currentStep)
+              const workspaceId = to.params.workspaceId
+
+              if (
+                to.name !== store.state.currentStep &&
+                workspaceId === 'new'
+              ) {
                 return next({
                   name: 'SocialWorkspaceStep1',
-                  params: {workspaceId: to.params.workspaceId},
+                  params: {workspaceId},
                 })
-
+              }
               return next()
             },
             props: {
-              default: (route) => ({workspaceId: route.params.workspaceId}),
+              default: (route) => ({
+                workspaceId: route.params.workspaceId,
+                moduleName: 'Social',
+              }),
               secondColumn: {step: 'step2'},
             },
           },
@@ -73,7 +84,7 @@ export default [
             name: 'SocialWorkspaceStep3',
             path: 'step3',
             components: {
-              default: CreateSearchScreen,
+              default: SocialCreateSearchScreen,
               secondColumn: SearchResults,
             },
             beforeEnter: (to, from, next) => {
@@ -95,7 +106,10 @@ export default [
               return next()
             },
             props: {
-              default: (route) => ({workspaceId: route.params.workspaceId}),
+              default: (route) => ({
+                workspaceId: route.params.workspaceId,
+                moduleName: 'Social',
+              }),
               secondColumn: {step: 'step3'},
             },
           },
@@ -103,17 +117,17 @@ export default [
       },
 
       {
-        name: 'ProjectReports',
+        name: 'SocialProjectReports',
         path: 'workspace/:workspaceId/project/:projectId/',
         component: ProjectExtraSettingsView,
         children: [
           {
-            name: 'Analytics',
+            name: 'SocialAnalytics',
             path: 'analytics',
             component: AnalyticsScreen,
           },
           {
-            name: 'Search',
+            name: 'SocialSearch',
             path: 'search-settings',
             component: SearchScreen,
           },

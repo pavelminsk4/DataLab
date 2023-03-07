@@ -1,12 +1,12 @@
 import store from '@store'
-import ModuleView from '@/views/ModuleView'
+import OnlineModuleView from '@/views/OnlineModuleView'
 import OnlineWorkspacesView from '@/views/OnlineWorkspacesView'
+import OnlineWorkspaceView from '@/views/OnlineWorkspaceView'
 
-import WorkspaceView from '@/components/workspace/WorkspaceView'
 import ProjectExtraSettingsView from '@/components/project/ProjectExtraSettingsView'
 
 import CreateWorkspaceView from '@/components/workspace/CreateWorkspaceView'
-import CreateSearchScreen from '@/components/workspace/screens/CreateSearchScreen'
+import OnlineCreateSearchScreen from '@/components/workspace/screens/OnlineCreateSearchScreen'
 import CreateProjectScreen from '@/components/workspace/screens/CreateProjectScreen'
 import CreateWorkspaceScreen from '@/components/workspace/screens/CreateWorkspaceScreen'
 import CreateWorkspaceRightSide from '@/components/workspace/CreateWorkspaceRightSide'
@@ -18,7 +18,7 @@ import AnalyticsScreen from '@/components/project/screens/AnalyticsScreen'
 export default [
   {
     path: '/online-module',
-    component: ModuleView,
+    component: OnlineModuleView,
     redirect: () => ({name: 'OnlineHome'}),
     children: [
       {
@@ -30,12 +30,12 @@ export default [
       {
         name: 'OnlineWorkspace',
         path: 'workspace/:workspaceId',
-        component: WorkspaceView,
+        component: OnlineWorkspaceView,
       },
 
       {
         name: 'OnlineCreateWorkspace',
-        path: 'workspace/:workspaceId/',
+        path: 'workspace/:workspaceId/create',
         component: CreateWorkspaceView,
         redirect: () => ({name: 'OnlineWorkspaceStep1'}),
         children: [
@@ -46,7 +46,10 @@ export default [
               default: CreateWorkspaceScreen,
               secondColumn: CreateWorkspaceRightSide,
             },
-            props: {secondColumn: {step: 'step1'}},
+            props: {
+              default: {moduleName: 'Online'},
+              secondColumn: {step: 'step1'},
+            },
           },
           {
             name: 'OnlineWorkspaceStep2',
@@ -56,16 +59,24 @@ export default [
               secondColumn: CreateWorkspaceRightSide,
             },
             beforeEnter: (to, from, next) => {
-              if (to.name !== store.state.currentStep)
+              const workspaceId = to.params.workspaceId
+
+              if (
+                to.name !== store.state.currentStep &&
+                workspaceId === 'new'
+              ) {
                 return next({
                   name: 'OnlineWorkspaceStep1',
-                  params: {workspaceId: to.params.workspaceId},
+                  params: {workspaceId},
                 })
-
+              }
               return next()
             },
             props: {
-              default: (route) => ({workspaceId: route.params.workspaceId}),
+              default: (route) => ({
+                workspaceId: route.params.workspaceId,
+                moduleName: 'Online',
+              }),
               secondColumn: {step: 'step2'},
             },
           },
@@ -73,7 +84,7 @@ export default [
             name: 'OnlineWorkspaceStep3',
             path: 'step3',
             components: {
-              default: CreateSearchScreen,
+              default: OnlineCreateSearchScreen,
               secondColumn: SearchResults,
             },
             beforeEnter: (to, from, next) => {
@@ -95,7 +106,10 @@ export default [
               return next()
             },
             props: {
-              default: (route) => ({workspaceId: route.params.workspaceId}),
+              default: (route) => ({
+                workspaceId: route.params.workspaceId,
+                moduleName: 'Online',
+              }),
               secondColumn: {step: 'step3'},
             },
           },
