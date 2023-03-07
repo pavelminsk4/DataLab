@@ -11,6 +11,7 @@
     :negative-values="negativeValues"
     :positive-values="positiveValues"
     :isDisplayLegend="isDisplayLegend"
+    @open-interactive-data="openInteractiveData"
   />
 </template>
 
@@ -27,10 +28,12 @@ import MultiRadarChart from '@/components/project/widgets/charts/MultiRadarChart
 import SentimentBarChart from '@/components/project/widgets/charts/SentimentBarChart'
 import SentimentHorizontalStackedBarChart from '@/components/project/widgets/charts/SentimentHorizontalStackedBarChart'
 import BaseSpinner from '@/components/BaseSpinner'
+import InteractiveWidgetModal from '@/components/modals/InteractiveWidgetModal'
 
 export default {
   name: 'ChartsView',
   components: {
+    InteractiveWidgetModal,
     BaseSpinner,
     BarChart,
     PieChart,
@@ -79,6 +82,11 @@ export default {
   },
   computed: {
     ...mapState(['loading']),
+  },
+  methods: {
+    openInteractiveData(value, widgetId, fieldName) {
+      this.$emit('open-interactive-modal', value, widgetId, fieldName)
+    },
   },
 }
 </script>

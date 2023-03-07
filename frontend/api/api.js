@@ -268,6 +268,14 @@ export default {
     )
   },
 
+  async postInteractiveWidget({projectId, widgetId, data}) {
+    return fetch(
+      'post',
+      `/widgets/interactive_widgets/${projectId}/${widgetId}`,
+      data
+    )
+  },
+
   async updateWorkspace({workspaceId, data}) {
     return fetch('put', `/workspace/update/${workspaceId}/`, data)
   },

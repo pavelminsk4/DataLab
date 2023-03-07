@@ -691,6 +691,26 @@ export default {
     }
   },
 
+  async [action.POST_INTERACTIVE_WIDGETS](
+    {commit},
+    {projectId, widgetId, data}
+  ) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const response = await api.postInteractiveWidget({
+        projectId,
+        widgetId,
+        data,
+      })
+
+      commit(mutator.SET_INTERACTIVE_DATA, response)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
   async [action.DELETE_CLIPPING_FEED_CONTENT](
     {commit, dispatch},
     {projectId, postId, widgetId}

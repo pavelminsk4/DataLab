@@ -129,6 +129,10 @@ export default {
     },
     chartOptions() {
       return {
+        onClick: (e, dataOptions) => {
+          this.$emit('open-interactive-data', this.labels[dataOptions[0].index])
+        },
+        hoverOffset: 10,
         plugins: {
           legend: {
             position: 'bottom',

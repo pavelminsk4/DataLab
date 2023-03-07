@@ -190,4 +190,8 @@ export default {
   [get.POSTS_NUMBER](state) {
     return state.numberOfPosts
   },
+
+  [get.INTERACTIVE_DATA](state) {
+    return state.interactiveData
+  },
 }

@@ -21,6 +21,7 @@
           :widget-id="generalWidgetData.id"
           :summary-data="summaryData"
           class="widget-view"
+          @open-interactive-data="openInteractiveData"
         />
       </div>
 
@@ -296,6 +297,9 @@ export default {
       if (this.panelName === 'General') return this.saveGeneralChanges()
       if (this.panelName === 'Dimensions') return this.saveDimensionsForWidget()
       if (this.panelName === 'Chart Layout') return this.saveChartType()
+    },
+    openInteractiveData(val, widgetId, fieldName) {
+      this.$emit('open-interactive-widget', val, widgetId, fieldName)
     },
   },
 }
