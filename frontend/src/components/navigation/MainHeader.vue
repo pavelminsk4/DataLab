@@ -1,6 +1,6 @@
 <template>
   <header class="header">
-    <LogoIcon class="logo" @click="goToDashboard" />
+    <LogoIcon class="logo" @click="goToMainPage" />
 
     <div class="header-navigation">
       <div
@@ -79,9 +79,9 @@ export default {
       this[action.LOGOUT]()
     },
 
-    goToDashboard() {
+    goToMainPage() {
       this.$router.push({
-        name: 'OnlineHome',
+        name: 'MainView',
       })
     },
     goToUserRolesPage() {

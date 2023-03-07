@@ -4,7 +4,7 @@
     description="Create a new workspace on your Dashboard"
     :back-page="{
       name: 'main page',
-      routName: 'OnlineHome',
+      routName: `${moduleName}Home`,
     }"
   />
 
@@ -52,14 +52,17 @@ export default {
     MainLayoutTitleBlock,
     ProgressBar,
   },
+  props: {
+    moduleName: {
+      type: String,
+      default: '',
+    },
+  },
   data() {
     return {
       workspaceName: '',
       workspaceDescription: '',
     }
-  },
-  created() {
-    this[action.CLEAR_STATE]()
   },
   computed: {
     ...mapGetters({
@@ -68,6 +71,12 @@ export default {
     members() {
       return [this.user.id]
     },
+    routName() {
+      return this.$route.name
+    },
+  },
+  created() {
+    this[action.CLEAR_STATE]()
   },
   methods: {
     ...mapActions([
@@ -76,17 +85,16 @@ export default {
       action.CLEAR_STATE,
     ]),
     nextStep() {
+      const nextStep = this.routName.replace(/\d/g, '2')
       try {
-        this[action.UPDATE_CURRENT_STEP]('Step2')
+        this[action.UPDATE_CURRENT_STEP](nextStep)
         this[action.UPDATE_NEW_WORKSPACE]({
           title: this.workspaceName,
           description: this.workspaceDescription,
           members: this.members,
           department: this.user.user_profile.department.id,
         })
-        this.$router.push({
-          name: 'Step2',
-        })
+        this.$router.push({name: nextStep})
       } catch (e) {
         console.log(e)
       }

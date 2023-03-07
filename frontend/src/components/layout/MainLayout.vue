@@ -30,23 +30,18 @@ export default {
       default: false,
     },
   },
+  computed: {
+    ...mapGetters({
+      userInfo: get.USER_INFO,
+    }),
+  },
   created() {
     if (!this.userInfo) {
       this[action.GET_USER_INFORMATION]()
     }
-
-    if (!this.workspaces.length) {
-      this[action.GET_WORKSPACES]()
-    }
-  },
-  computed: {
-    ...mapGetters({
-      workspaces: get.WORKSPACES,
-      userInfo: get.USER_INFO,
-    }),
   },
   methods: {
-    ...mapActions([action.GET_USER_INFORMATION, action.GET_WORKSPACES]),
+    ...mapActions([action.GET_USER_INFORMATION]),
   },
 }
 </script>

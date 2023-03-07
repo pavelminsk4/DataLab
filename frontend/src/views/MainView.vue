@@ -24,7 +24,12 @@
 
         <BaseButton
           :is-not-background="true"
-          @click.stop="$router.push({name: item.createRouteName})"
+          @click.stop="
+            $router.push({
+              name: item.createRouteName,
+              params: {workspaceId: 'new'},
+            })
+          "
         >
           <PlusIcon />
           <span>{{ item.buttonName }}</span>
@@ -48,7 +53,7 @@ export default {
   computed: {
     ...mapGetters({userInfo: get.USER_INFO}),
     fullName() {
-      const fullName = this.userInfo?.first_name + this.userInfo?.last_name
+      const fullName = `${this.userInfo?.first_name} ${this.userInfo?.last_name}`
       return fullName ? fullName : this.userInfo?.username
     },
   },
@@ -59,7 +64,7 @@ export default {
         description: 'News from online media',
         buttonName: 'Add Workspace',
         openRouteName: 'OnlineHome',
-        createRouteName: 'Step1',
+        createRouteName: 'OnlineCreateWorkspace',
         color: '#E0E5FF',
         isMain: true,
         imageUrl: require('@/assets/modules/online.svg'),
@@ -69,8 +74,8 @@ export default {
         name: 'Social Media',
         description: 'News from social media posts',
         buttonName: 'Add Workspace',
-        openRouteName: '',
-        createRouteName: '',
+        openRouteName: 'SocialHome',
+        createRouteName: 'SocialCreateWorkspace',
         color: '#FCDCE3',
         isMain: true,
         imageUrl: require('@/assets/modules/social-media.svg'),

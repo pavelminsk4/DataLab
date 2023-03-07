@@ -3,7 +3,7 @@ const state = {
   loadingWidgets: {
     clippingWidget: false,
   },
-  currentStep: 'Step1',
+  currentStep: '',
   projects: [],
   workspaces: [],
   workspace: '',

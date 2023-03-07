@@ -4,7 +4,7 @@
     description="Search by keywords and phrases"
     :back-page="{
       name: 'main page',
-      routName: 'OnlineHome',
+      routName: `${moduleName}Home`,
     }"
   />
 
@@ -34,23 +34,21 @@ export default {
     ProgressBar,
     SimpleModeTab,
   },
+  emits: ['create-project', 'create-workspace', 'show-results'],
   props: {
     workspaceId: {
-      type: Number,
+      type: String,
       default: null,
+    },
+    moduleName: {
+      type: String,
+      default: '',
     },
   },
   data() {
     return {
       searchLoading: false,
       buttonLoading: false,
-    }
-  },
-  created() {
-    if (this.defaultDateRange.length) {
-      this[action.UPDATE_ADDITIONAL_FILTERS]({
-        date_range: this.defaultDateRange,
-      })
     }
   },
   computed: {
@@ -72,16 +70,27 @@ export default {
       return [this.getLastWeeksDate(), new Date()]
     },
   },
+  created() {
+    if (this.defaultDateRange.length) {
+      this[action.UPDATE_ADDITIONAL_FILTERS]({
+        date_range: this.defaultDateRange,
+      })
+    }
+  },
+  watch: {
+    keywords() {
+      if (!this.keywords.length) {
+        this[action.CLEAR_SEARCH_LIST]()
+      }
+    },
+  },
   methods: {
     ...mapActions([
       action.UPDATE_ADDITIONAL_FILTERS,
       action.UPDATE_NEW_WORKSPACE,
       action.UPDATE_PROJECT_STATE,
       action.UPDATE_KEYWORDS_LIST,
-      action.CREATE_WORKSPACE,
-      action.CREATE_PROJECT,
       action.GET_WORKSPACES,
-      action.POST_SEARCH,
       action.CLEAR_STATE,
       action.CLEAR_SEARCH_LIST,
     ]),
@@ -98,7 +107,8 @@ export default {
     showResults(pageNumber, numberOfPosts) {
       try {
         this.searchLoading = true
-        this[action.POST_SEARCH]({
+
+        this.$emit('show-results', {
           keywords: this.keywords?.keywords,
           additions: this.keywords?.additional_keywords,
           exceptions: this.keywords?.ignore_keywords,
@@ -140,34 +150,19 @@ export default {
           country_filter: this.additionalFilters?.country || null,
         })
 
-        if (this.workspaceId) {
-          await this[action.CREATE_PROJECT](this.newProject)
+        if (+this.workspaceId) {
+          await this.$emit('create-project', this.newProject)
         } else {
           this[action.UPDATE_NEW_WORKSPACE]({
             projects: [this.newProject],
           })
-          await this[action.CREATE_WORKSPACE](this.newWorkspace)
+          await this.$emit('create-workspace', this.newWorkspace)
         }
 
         await this[action.CLEAR_STATE]()
         this.buttonLoading = false
-        await this.$router.push({
-          name: 'Analytics',
-          params: {
-            workspaceId: this.workspaceId || this.newWorkspaceId,
-            projectId: this.newProjectId,
-          },
-        })
-        await this[action.GET_WORKSPACES]()
       } catch (e) {
         console.log(e)
-      }
-    },
-  },
-  watch: {
-    keywords() {
-      if (!this.keywords.length) {
-        this[action.CLEAR_SEARCH_LIST]()
       }
     },
   },

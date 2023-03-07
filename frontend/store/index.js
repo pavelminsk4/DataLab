@@ -4,6 +4,8 @@ import actions from '@store/actions'
 import mutations from '@store/mutations'
 import getters from '@store/getters'
 
+import social from '@store/modules/social'
+
 const store = createStore({
   state() {
     return {
@@ -18,6 +20,9 @@ const store = createStore({
   },
   getters: {
     ...getters,
+  },
+  modules: {
+    social,
   },
 })
 

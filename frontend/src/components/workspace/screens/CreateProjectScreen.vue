@@ -4,7 +4,7 @@
     description="Name the project and choose source Type"
     :back-page="{
       name: 'main page',
-      routName: 'OnlineHome',
+      routName: `${moduleName}Home`,
     }"
   />
 
@@ -54,8 +54,12 @@ export default {
   },
   props: {
     workspaceId: {
-      type: Number,
+      type: String,
       default: null,
+    },
+    moduleName: {
+      type: String,
+      default: '',
     },
   },
   data() {
@@ -64,11 +68,18 @@ export default {
       description: '',
     }
   },
-  created() {
-    if (this.step === 'WorkspaceStep2') this[action.CLEAR_STATE]()
-  },
   computed: {
     ...mapState(['currentStep', 'userInfo']),
+    routName() {
+      return this.$route.name
+    },
+  },
+  created() {
+    if (
+      this.workspaceId !== 'new' &&
+      this.currentStep === 'OnlineWorkspaceStep2'
+    )
+      this[action.CLEAR_STATE]()
   },
   methods: {
     ...mapActions([
@@ -77,7 +88,7 @@ export default {
       action.CLEAR_STATE,
     ]),
     nextStep() {
-      const nextStep = this.workspaceId ? 'WorkspaceStep3' : 'Step3'
+      const nextStep = this.routName.replace(/\d/g, '3')
       try {
         this[action.UPDATE_CURRENT_STEP](nextStep)
         this[action.UPDATE_PROJECT_STATE]({
@@ -85,10 +96,11 @@ export default {
           title: this.projectName,
           description: this.description,
           source: 'Online',
-          workspace: this.workspaceId?.toString() || null,
+          workspace: +this.workspaceId ? this.workspaceId : null,
         })
         this.$router.push({
           name: nextStep,
+          params: {workspaceId: this.workspaceId},
         })
       } catch (e) {
         console.log(e)
