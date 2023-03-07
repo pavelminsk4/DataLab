@@ -27,7 +27,7 @@ class ProjectSocial(models.Model):
   keywords = ArrayField(models.CharField(max_length=200), blank=True, null=True)
   ignore_keywords = ArrayField(models.CharField(max_length=200), blank=True, null=True)
   additional_keywords = ArrayField(models.CharField(max_length=200), blank=True, null=True)
-  workspace = models.ForeignKey(WorkspaceSocial, related_name='worksplace_social', blank=True, null=True, on_delete=models.CASCADE)
+  workspace = models.ForeignKey(WorkspaceSocial, related_name='social_workspace_projects', blank=True, null=True, on_delete=models.CASCADE)
   start_search_date = models.DateTimeField()
   end_search_date = models.DateTimeField()
   author_filter = models.CharField(max_length=50, blank=True, null=True)
