@@ -1,5 +1,13 @@
 <template>
   <div v-if="currentProject" class="analytics-wrapper">
+    <InteractiveWidgetModal
+      v-if="isOpenInteractiveModal"
+      :widget-id="widgetId"
+      :current-project="currentProject"
+      class="interactive-widgets"
+      @close="closeInteractiveModal"
+    />
+
     <WidgetsListModal
       v-if="isOpenWidgetsModal"
       :project-id="currentProject.id"
@@ -78,6 +86,7 @@
       :currentProject="currentProject"
       @update-page="showResults"
       @update-posts-count="showResults"
+      @open-interactive-widget="openInteractiveWidgetModal"
     />
   </div>
 </template>
@@ -96,10 +105,12 @@ import ReportsUploadIcon from '@/components/icons/ReportsUploadIcon'
 import DownloadReportModal from '@/components/project/modals/DownloadReportModal'
 import BaseDropdown from '@/components/BaseDropdown'
 import MainLayoutTitleBlock from '@/components/layout/MainLayoutTitleBlock'
+import InteractiveWidgetModal from '@/components/modals/InteractiveWidgetModal'
 
 export default {
   name: 'AnalyticsScreen',
   components: {
+    InteractiveWidgetModal,
     MainLayoutTitleBlock,
     BaseDropdown,
     DownloadReportModal,
@@ -125,6 +136,8 @@ export default {
       isOpenDownloadReportModal: false,
       sortValue: '',
       sortingValue: '',
+      isOpenInteractiveModal: false,
+      widgetId: null,
     }
   },
   created() {
@@ -172,6 +185,7 @@ export default {
       action.POST_SEARCH,
       action.UPDATE_ADDITIONAL_FILTERS,
       action.GET_AVAILABLE_WIDGETS,
+      action.POST_INTERACTIVE_WIDGETS,
     ]),
     setSortingValue(item) {
       this.sortValue = item
@@ -213,6 +227,26 @@ export default {
         console.log(e)
       }
     },
+    openInteractiveWidgetModal(val, widgetId, fieldName) {
+      this.widgetId = widgetId
+
+      this.isOpenInteractiveModal = true
+
+      this[action.POST_INTERACTIVE_WIDGETS]({
+        projectId: this.currentProject.id,
+        widgetId: widgetId,
+        data: {
+          [fieldName]: val,
+          page_number: 1,
+          posts_per_page: 20,
+        },
+      })
+    },
+
+    closeInteractiveModal() {
+      this.togglePageScroll(false)
+      this.isOpenInteractiveModal = false
+    },
   },
 }
 </script>
@@ -224,6 +258,10 @@ export default {
 
   height: 100%;
   margin-top: 20px;
+}
+
+.interactive-widgets {
+  z-index: 1010;
 }
 
 .search-results {

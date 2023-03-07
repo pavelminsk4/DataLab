@@ -10,6 +10,7 @@
       :values="values"
       :chart-type="chartType"
       :is-display-legend="false"
+      @open-interactive-modal="openInteractiveModal"
     />
   </WidgetsLayout>
 
@@ -19,6 +20,7 @@
     :values="values"
     :chart-type="chartType"
     :is-display-legend="false"
+    @open-interactive-modal="openInteractiveModal"
   />
 </template>
 
@@ -73,6 +75,9 @@ export default {
   },
   methods: {
     ...mapActions([action.GET_TOP_LANGUAGES_WIDGET]),
+    openInteractiveModal(val) {
+      this.$emit('open-interactive-data', val, this.widgetId, 'language')
+    },
   },
 }
 </script>

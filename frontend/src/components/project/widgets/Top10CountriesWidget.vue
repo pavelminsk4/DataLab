@@ -10,6 +10,7 @@
       :labels="labels"
       :chart-type="chartType"
       :is-display-legend="false"
+      @open-interactive-modal="openInteractiveModal"
     />
   </WidgetsLayout>
 
@@ -19,6 +20,7 @@
     :labels="labels"
     :chart-type="chartType"
     :is-display-legend="false"
+    @open-interactive-modal="openInteractiveModal"
   />
 </template>
 
@@ -70,6 +72,9 @@ export default {
   },
   methods: {
     ...mapActions([action.GET_TOP_COUNTRIES_WIDGET]),
+    openInteractiveModal(val) {
+      this.$emit('open-interactive-data', val, this.widgetId, 'country')
+    },
   },
 }
 </script>

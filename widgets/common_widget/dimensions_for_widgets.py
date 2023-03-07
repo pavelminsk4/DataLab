@@ -1,11 +1,9 @@
 from widgets.models import WidgetDescription
 from django.http import JsonResponse
-from widgets.models import WidgetDescription
 from project.models import Project
 from django.db.models import Q
 from functools import reduce
 import json
-from .filters_for_widgets import *
 from .content_volume_top_5_countries_widget import agregator_results_content_volume_top_countries
 from .content_volume_top_5_authors_widget import agregator_results_content_volume_top_authors
 from .content_volume_top_5_source_widget import agregator_results_content_volume_top_sources
@@ -44,33 +42,33 @@ def dimensions_for_each(request, project_pk, widget_pk):
       posts = language_dim_pivot(widget.language_dim_pivot, posts)
     if widget.sentiment_dim_pivot:
       posts = sentiment_dim_pivot(widget.sentiment_dim_pivot, posts)
-    if widget.title == "Content Volume by Top 5 authors":
+    if widget.default_title == "Content Volume by Top 5 authors":
       res = agregator_results_content_volume_top_authors(posts, smpl_freq)
-    elif widget.title == "Content Volume by Top 5 countries":
+    elif widget.default_title == "Content Volume by Top 5 countries":
       res = agregator_results_content_volume_top_countries(posts, smpl_freq)
-    elif widget.title == "Content Volume by Top 5 sources":
+    elif widget.default_title == "Content Volume by Top 5 sources":
       res = agregator_results_content_volume_top_sources(posts, smpl_freq)
-    elif widget.title == "Sentiment for period widget":
+    elif widget.default_title == "Sentiment for period widget":
       res = post_agregator_sentiment_for_period(posts, smpl_freq)
-    elif widget.title == "Sentiment top 10 authors widget":
+    elif widget.default_title == "Sentiment top 10 authors widget":
       res = post_agregator_sentiment_top_authors(posts)
-    elif widget.title == "Sentiment top 10 countries widget":
+    elif widget.default_title == "Sentiment top 10 countries widget":
       res = post_agregator_sentiment_top_countries(posts)
-    elif widget.title == "Sentiment top 10 languages widget":
+    elif widget.default_title == "Sentiment top 10 languages widget":
       res = post_agregator_sentiment_top_languages(posts)
-    elif widget.title == "Sentiment top 10 sources widget":
+    elif widget.default_title == "Sentiment top 10 sources widget":
       res = post_agregator_sentiment_top_sources(posts)
-    elif widget.title == "Top 10 authors by volume":
+    elif widget.default_title == "Top 10 authors by volume":
       res = post_agregator_top_auth_by_vol_widget(posts)
-    elif widget.title == "Top 10 countries by volume":
+    elif widget.default_title == "Top 10 countries by volume":
       res = post_agregator_top_countries(posts)
-    elif widget.title == "Top 10 brands by volume":
+    elif widget.default_title == "Top 10 brands by volume":
       res = post_agregator_top_brands(posts)
-    elif widget.title == "Top 10 languages":
+    elif widget.default_title == "Top 10 languages":
       res = post_agregator_top_languages(posts)
-    elif widget.title == "Content volume":
+    elif widget.default_title == "Content volume":
       res = post_agregator_volume(posts, smpl_freq)
-    elif widget.title == "Summary":
+    elif widget.default_title == "Summary":
       res = calculate_summary_widget(posts)
     return JsonResponse(res, safe = False)
 

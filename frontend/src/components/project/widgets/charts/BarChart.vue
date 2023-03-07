@@ -70,9 +70,12 @@ export default {
       default: () => [],
     },
   },
-  data() {
-    return {
-      chartOptions: {
+  computed: {
+    chartOptions() {
+      return {
+        onClick: (e, dataOptions) => {
+          this.$emit('open-interactive-data', this.labels[dataOptions[0].index])
+        },
         responsive: true,
         maintainAspectRatio: false,
         animation: {
@@ -112,10 +115,8 @@ export default {
             },
           },
         },
-      },
-    }
-  },
-  computed: {
+      }
+    },
     chartData() {
       return {
         labels: this.labels,

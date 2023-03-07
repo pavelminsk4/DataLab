@@ -236,4 +236,8 @@ export default {
   [mutator.SET_COMPANY_USERS](state, users) {
     state.companyUsers = users
   },
+
+  [mutator.SET_INTERACTIVE_DATA](state, posts) {
+    state.interactiveData = posts
+  },
 }

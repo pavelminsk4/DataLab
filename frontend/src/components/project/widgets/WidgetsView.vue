@@ -13,6 +13,7 @@
     :summary-data="summary_widget"
     :settings-tabs="dataForWidgetModal.settingsTabs"
     @close="closeModal"
+    @open-interactive-widget="openInteractiveData"
   />
 
   <div class="analytics-wrapper">
@@ -61,6 +62,7 @@
           :chart-type="item.chartType"
           @delete-widget="deleteWidget(item.name)"
           @open-settings-modal="openModal(item)"
+          @open-interactive-data="openInteractiveData"
         />
       </grid-item>
     </grid-layout>
@@ -91,10 +93,12 @@ import ContentVolumeTop5SourceWidget from '@/components/project/widgets/ContentV
 import ContentVolumeTop5AuthorsWidget from '@/components/project/widgets/ContentVolumeTop5AuthorsWidget'
 import ContentVolumeTop5CountriesWidget from '@/components/project/widgets/ContentVolumeTop5CountriesWidget'
 import WidgetSettingsModal from '@/components/project/modals/WidgetSettingsModal'
+import InteractiveWidgetModal from '@/components/modals/InteractiveWidgetModal'
 
 export default {
   name: 'WidgetsView',
   components: {
+    InteractiveWidgetModal,
     WidgetSettingsModal,
     SearchResults,
     ClippingFeedContentWidget,
@@ -115,7 +119,12 @@ export default {
     GridLayout: VueGridLayout.GridLayout,
     GridItem: VueGridLayout.GridItem,
   },
-  emits: ['update-page', 'update-posts-count', 'set-sorting-value'],
+  emits: [
+    'update-page',
+    'update-posts-count',
+    'set-sorting-value',
+    'open-interactive-widget',
+  ],
   props: {
     projectId: {
       type: Number,
@@ -129,8 +138,8 @@ export default {
   data() {
     return {
       layout: [],
-      isOpenWidgetSettingsModal: false,
       dataForWidgetModal: {},
+      isOpenWidgetSettingsModal: false,
     }
   },
   async created() {
@@ -231,6 +240,9 @@ export default {
         settingsTabs: modalWidgetsConfig[item.name].settingsTabs,
       }
       this.isOpenWidgetSettingsModal = !this.isOpenWidgetSettingsModal
+    },
+    openInteractiveData(val, widgetId, fieldName) {
+      this.$emit('open-interactive-widget', val, widgetId, fieldName)
     },
     closeModal() {
       this.togglePageScroll(false)

@@ -75,6 +75,7 @@ const state = {
   alerts: [],
   regularReports: [],
   companyUsers: [],
+  interactiveData: [],
 }
 
 export default state
