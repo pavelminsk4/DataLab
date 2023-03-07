@@ -20,6 +20,14 @@ def interactive_widgets(request, project_pk, widget_pk):
     posts = country_filter_posts(body['country'], posts)
   elif widget.default_title == 'Top 10 authors by volume':
     posts = author_filter_posts(body['author'], posts)
+  elif widget.default_title == 'Sentiment top 10 sources widget':
+    posts = source_filter_posts(body['source'], sentiment_filter_posts(body['sentiment'], posts))
+  elif widget.default_title == 'Sentiment top 10 countries widget':
+    posts = country_filter_posts(body['country'], sentiment_filter_posts(body['sentiment'], posts))
+  elif widget.default_title == 'Sentiment top 10 authors widget':
+    posts = author_filter_posts(body['author'], sentiment_filter_posts(body['sentiment'], posts))
+  elif widget.default_title == 'Sentiment top 10 languages widget':
+    posts = language_filter_posts(body['language'], sentiment_filter_posts(body['sentiment'], posts))
   posts = posts.values(
     'id',
     'entry_title',
