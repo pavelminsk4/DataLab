@@ -1,9 +1,5 @@
 <template>
-  <BaseTable
-    v-if="workspaces"
-    :table-header="tableHeader"
-    @select-all="selectAll"
-  >
+  <BaseTable :table-header="tableHeader" @select-all="selectAll">
     <BaseTableRow
       v-for="(item, index) in values"
       :key="index"
@@ -45,8 +41,8 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
-import {action, get} from '@store/constants'
+import {mapActions} from 'vuex'
+import {action} from '@store/constants'
 
 import MembersIconsBar from '@components/MembersIconsBar.vue'
 import TagsCollapsible from '@components/TagsCollapsible.vue'
@@ -71,6 +67,10 @@ export default {
       type: Array,
       default: () => [],
     },
+    members: {
+      type: Array,
+      default: () => [],
+    },
   },
   data() {
     return {
@@ -82,19 +82,6 @@ export default {
         type: 'project',
       },
     }
-  },
-  computed: {
-    ...mapGetters({
-      workspaces: get.WORKSPACES,
-    }),
-    currentWorkspace() {
-      return this.workspaces.find(
-        (el) => el.id === +this.$route.params.workspaceId
-      )
-    },
-    members() {
-      return this.currentWorkspace.members
-    },
   },
   created() {
     this.tableHeader = [

@@ -33,4 +33,22 @@ export default {
   async postSearch(request) {
     return fetch('post', `${moduleName}/twitter_post_search/`, request)
   },
+
+  async getClippingFeedContentWidget(projectId, widgetId) {
+    return fetch(
+      'get',
+      `/social_clipping_feed_content/${projectId}/${widgetId}`
+    )
+  },
+  async createClippingFeedContent(data) {
+    // return fetch('post', '/clipping_feed_content_widget/create', data)
+    return data
+  },
+  async deleteClippingFeedContentPost(projectId, postId) {
+    // return fetch(
+    //   'delete',
+    //   `/projects/${projectId}/clipping_feed_content_widget/delete/${postId}`
+    // )
+    return [projectId, postId]
+  },
 }

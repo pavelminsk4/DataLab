@@ -10,7 +10,7 @@ import SocialCreateSearchScreen from '@/components/workspace/screens/SocialCreat
 import CreateProjectScreen from '@/components/workspace/screens/CreateProjectScreen'
 import CreateWorkspaceScreen from '@/components/workspace/screens/CreateWorkspaceScreen'
 import CreateWorkspaceRightSide from '@/components/workspace/CreateWorkspaceRightSide'
-import SearchResults from '@/components/SearchResults'
+import SocialSearchResults from '@/components/SocialSearchResults'
 
 import SearchScreen from '@/components/project/screens/SearchScreen'
 import AnalyticsScreen from '@/components/project/screens/AnalyticsScreen'
@@ -85,7 +85,7 @@ export default [
             path: 'step3',
             components: {
               default: SocialCreateSearchScreen,
-              secondColumn: SearchResults,
+              secondColumn: SocialSearchResults,
             },
             beforeEnter: (to, from, next) => {
               if (to.name !== store.state.currentStep) {

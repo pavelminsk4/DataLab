@@ -35,8 +35,9 @@
 
     <div class="projects-wrapper scroll">
       <ProjectsTable
-        @go-to-project="goToProjectSettings"
         :values="filteredProjects"
+        :members="workspace.members"
+        @go-to-project="goToProjectSettings"
       />
     </div>
   </MainLayout>

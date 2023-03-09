@@ -8,7 +8,7 @@
       v-if="!loading && searchData.length"
       class="search-result-cards scroll"
     >
-      <online-post-card
+      <social-post-card
         v-for="(item, index) in searchData"
         :key="'result' + index"
         :post-id="item.id"
@@ -16,16 +16,16 @@
         :widget-id="clippingWidgetId"
         :project-id="currentProject.id"
         :img="cardImg(item)"
-        :title="item.entry_title"
-        :country="item.feedlink__country"
-        :entry-link="item.entry_links_href"
-        :summary="item.entry_summary"
-        :sentiment="item.sentiment"
-        :published="item.entry_published"
-        :source-link="item.feedlink__sourceurl"
-        :source="item.feedlink__source1"
-        :language="item.feed_language__language"
-        :potential-reach="item.feedlink__alexaglobalrank"
+        :count-favorites="item.count_favorites"
+        :count-replies="item.count_replies"
+        :count-retweets="item.count_retweets"
+        :date="item.creation_date"
+        :language="item.language"
+        :location-string="item.locationString"
+        :sentiment="item.sentiment_vote"
+        :text="item.text"
+        :user-alias="item.user_alias"
+        :user-name="item.user_name"
         class="clipping-card"
       />
     </div>
@@ -61,8 +61,8 @@
 </template>
 
 <script>
-import {mapActions, mapGetters, mapState} from 'vuex'
-import {action, get} from '@store/constants'
+import {mapGetters, mapState} from 'vuex'
+import {get} from '@store/constants'
 import {lowerFirstLetter} from '@/lib/utilities'
 
 import VPagination from '@hennge/vue3-pagination'
@@ -71,16 +71,16 @@ import '@hennge/vue3-pagination/dist/vue3-pagination.css'
 import BaseSpinner from '@/components/BaseSpinner'
 import BaseDropdown from '@/components/BaseDropdown'
 import CreateWorkspaceRightSide from '@/components/workspace/CreateWorkspaceRightSide'
-import OnlinePostCard from '@/components/OnlinePostCard'
+import SocialPostCard from '@/components/SocialPostCard'
 
 export default {
-  name: 'SearchResults',
+  name: 'SocialSearchResults',
   components: {
     BaseDropdown,
     CreateWorkspaceRightSide,
     BaseSpinner,
     VPagination,
-    OnlinePostCard,
+    SocialPostCard,
   },
   emits: ['update-page', 'update-posts-count', 'add-sorting-value'],
   props: {
@@ -140,7 +140,6 @@ export default {
     document.addEventListener('click', this.close)
   },
   methods: {
-    ...mapActions([action.REFRESH_DISPLAY_CALENDAR]),
     lowerFirstLetter,
     updatePostsCount(val) {
       this.countPosts = val
@@ -231,6 +230,7 @@ export default {
 
   height: 1000px;
   width: 100%;
+  padding: 32px 32px 0 16px;
 }
 
 @media screen and (max-width: 1000px) {
