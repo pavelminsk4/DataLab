@@ -2,6 +2,7 @@ from rest_framework.generics import ListAPIView, CreateAPIView, DestroyAPIView, 
 from tweet_binder.models import TweetBinderPost
 from django.core.paginator import Paginator
 from django.http import JsonResponse
+from .widgets.dashboard.summary_widget import *
 from rest_framework import viewsets
 from django.db.models import Q
 from functools import reduce
@@ -124,3 +125,19 @@ def twitter_posts_search(request):
   posts_list=list(p.page(page_number))
   res = { 'num_pages': p.num_pages, 'num_posts': p.count, 'posts': posts_list }
   return JsonResponse(res, safe = False)
+
+#=========Social Widgets=======
+def social_summary_widget(request, pk, widget_pk):
+  return summary_widget(pk, widget_pk)
+
+class ProjectSocialWidgetsAPIView(RetrieveAPIView):
+ serializer_class = WidgetsListSerializer
+ 
+ def get_object(self):
+   return SocialWidgetsList.objects.get(project_id=self.kwargs['pk'])
+
+class UpdateSocialProjectsWidgetsAPIView(UpdateAPIView):
+  serializer_class = WidgetsListSerializer
+
+  def get_object(self):
+    return SocialWidgetsList.objects.get(project_id=self.kwargs['pk'])
