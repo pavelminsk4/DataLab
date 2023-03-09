@@ -23,11 +23,11 @@ def agregator_results_content_volume_top_authors(posts, smpl_freq):
             list_dates.append({"date": date, "post_count": results[elem][top_authors[elem]][i]['created_count']})
       else:
         list_dates.append({"date": date, "post_count": 0})
-    if (top_authors[elem] == '') or (top_authors[elem] == None) or ('img' in top_authors[elem]) or (top_authors[elem] == 'None') or (top_authors[elem] == 'null') or not top_authors[elem]:    
-      res.append({'Missing in source': list_dates})    
+    if (top_authors[elem] == '') or (top_authors[elem] == None) or ('img' in top_authors[elem]) or (top_authors[elem] == 'None') or (top_authors[elem] == 'null') or not top_authors[elem]:
+      res.append({'Missing in source': list_dates})
     else:
-      res.append({top_authors[elem]: list_dates}) 
-  return res      
+      res.append({top_authors[elem]: list_dates})
+  return res
 
 def content_volume_top_5_authors(request, pk, widget_pk):
   project = Project.objects.get(id=pk)
@@ -36,5 +36,5 @@ def content_volume_top_5_authors(request, pk, widget_pk):
   posts = post_agregetor_for_each_widget(widget, posts)
   body = json.loads(request.body)
   smpl_freq = body['smpl_freq']
-  res = agregator_results_content_volume_top_authors(posts, smpl_freq) 
+  res = agregator_results_content_volume_top_authors(posts, smpl_freq)
   return JsonResponse(res, safe = False)
