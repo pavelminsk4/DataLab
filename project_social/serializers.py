@@ -31,3 +31,29 @@ class WorkspaceCreateSerializer(serializers.ModelSerializer):
     workspace.members.set(validated_data["members"])
     workspace.social_workspace_projects.add(project)
     return workspace
+
+class SocialWidgetDescriptionSerializer(WritableNestedModelSerializer):
+  class Meta:
+    model = SocialWidgetDescription
+    fields = '__all__'
+
+class WidgetsListSerializer(WritableNestedModelSerializer):
+  summary_widget = SocialWidgetDescriptionSerializer()
+  clipping_feed_content = SocialWidgetDescriptionSerializer()
+  top_countries = SocialWidgetDescriptionSerializer()
+  top_authors = SocialWidgetDescriptionSerializer()
+  top_languages = SocialWidgetDescriptionSerializer()
+  content_volume = SocialWidgetDescriptionSerializer()
+  content_volume_by_top_countries = SocialWidgetDescriptionSerializer()
+  content_volume_by_top_authors = SocialWidgetDescriptionSerializer()
+  content_volume_by_top_languages = SocialWidgetDescriptionSerializer()
+  sentiment = SocialWidgetDescriptionSerializer()
+  gender_volume = SocialWidgetDescriptionSerializer()
+  sentiment_number_of_results = SocialWidgetDescriptionSerializer()
+  sentiment_authors = SocialWidgetDescriptionSerializer()
+  sentiment_countries = SocialWidgetDescriptionSerializer()
+  sentiment_languages = SocialWidgetDescriptionSerializer()
+  sentiment_by_gender = SocialWidgetDescriptionSerializer()
+  class Meta:
+    model = SocialWidgetsList
+    fields = '__all__'
