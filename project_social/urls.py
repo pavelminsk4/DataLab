@@ -17,6 +17,7 @@ urlpatterns = [
   path("twitter_post_search/", views.twitter_posts_search,name="twitter_posts_search"),
   #========Widgets========
   path('social_summary_widget/<int:pk>/<int:widget_pk>', views.social_summary_widget, name='social_summary_widget'),
+  path('social_clipping_feed_content/<int:pk>/<int:widget_pk>', views.clipping_feed_content, name='social_clipping_feed_content'),
   #========Widgets List========
   path('projects/<int:pk>/widgets_list', views.ProjectSocialWidgetsAPIView.as_view(), name='social_widgets_list'),
   path('projects/<int:pk>/widgets_list/update', views.UpdateSocialProjectsWidgetsAPIView.as_view(), name='update_social_widgets_list'),
