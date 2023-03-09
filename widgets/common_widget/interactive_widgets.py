@@ -12,6 +12,7 @@ def interactive_widgets(request, project_pk, widget_pk):
   body = json.loads(request.body)
   posts_per_page = body['posts_per_page']
   page_number = body['page_number']
+  missing_authors = [None, '', 'null', 'None']
   if widget.default_title == 'Top 10 languages':
     posts = language_filter_posts(body['language'], posts)
   elif widget.default_title == 'Top 10 brands by volume':
@@ -19,15 +20,18 @@ def interactive_widgets(request, project_pk, widget_pk):
   elif widget.default_title == 'Top 10 countries by volume':
     posts = country_filter_posts(body['country'], posts)
   elif widget.default_title == 'Top 10 authors by volume':
-    posts = author_filter_posts(body['author'], posts)
+    posts = author_filter_posts(body['author'], posts) if body['author'] != 'Missing in source' else author_dimensions_posts(missing_authors, posts)
   elif widget.default_title == 'Sentiment top 10 sources widget':
-    posts = source_filter_posts(body['source'], sentiment_filter_posts(body['sentiment'], posts))
+    posts = posts.filter(sentiment=body['sentiment'], feedlink__source1=body['s_value'])
   elif widget.default_title == 'Sentiment top 10 countries widget':
-    posts = country_filter_posts(body['country'], sentiment_filter_posts(body['sentiment'], posts))
+    posts = posts.filter(sentiment=body['sentiment'], feedlink__country=body['s_value'])
   elif widget.default_title == 'Sentiment top 10 authors widget':
-    posts = author_filter_posts(body['author'], sentiment_filter_posts(body['sentiment'], posts))
+    if body['s_value'] != 'Missing in source':
+      posts = posts.filter(sentiment=body['sentiment'], entry_author=body['s_value'])
+    else:
+      posts = author_dimensions_posts(missing_authors, sentiment_filter_posts(body['sentiment'], posts))
   elif widget.default_title == 'Sentiment top 10 languages widget':
-    posts = language_filter_posts(body['language'], sentiment_filter_posts(body['sentiment'], posts))
+    posts = posts.filter(sentiment=body['sentiment'], feed_language__language=body['s_value'])
   posts = posts.values(
     'id',
     'entry_title',

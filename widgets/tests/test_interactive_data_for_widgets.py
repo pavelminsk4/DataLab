@@ -40,7 +40,7 @@ class InteractiveWidgetsTests(APITestCase):
     widget_pk = pr.widgets_list_2.sentiment_top_10_languages_widget_id
     url = reverse('widgets:interactive_widgets', kwargs={'project_pk':pr.pk, 'widget_pk':widget_pk})
     data = {
-      'language': 'Georgian',
+      's_value': 'Georgian',
       'sentiment': 'negative',
       'posts_per_page': 10,
       'page_number': 1,
