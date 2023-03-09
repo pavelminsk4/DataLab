@@ -25,6 +25,7 @@ import {
   CategoryScale,
   LinearScale,
 } from 'chart.js'
+import {lowerFirstLetter} from '@/lib/utilities'
 
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 
@@ -88,6 +89,15 @@ export default {
         animation: {
           easing: 'easeInOutQuad',
           duration: 520,
+        },
+        onClick: (e, dataOptions) => {
+          this.$emit(
+            'open-sentiment-interactive-data',
+            this.labels[dataOptions[0].index],
+            lowerFirstLetter(
+              dataOptions[0].element.$datalabels[0].$context.dataset.label
+            )
+          )
         },
         onHover: (event, chartElement) => {
           const target = event.native ? event.native.target : event.target

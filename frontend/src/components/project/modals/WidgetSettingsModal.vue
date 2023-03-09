@@ -22,6 +22,7 @@
           :summary-data="summaryData"
           class="widget-view"
           @open-interactive-data="openInteractiveData"
+          @open-sentiment-interactive-data="openSentimentInteractiveData"
         />
       </div>
 
@@ -300,6 +301,9 @@ export default {
     },
     openInteractiveData(val, widgetId, fieldName) {
       this.$emit('open-interactive-widget', val, widgetId, fieldName)
+    },
+    openSentimentInteractiveData(source, sentiment, widgetId) {
+      this.$emit('open-sentiment-interactive-data', source, sentiment, widgetId)
     },
   },
 }

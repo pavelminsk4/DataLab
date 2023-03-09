@@ -87,6 +87,7 @@
       @update-page="showResults"
       @update-posts-count="showResults"
       @open-interactive-widget="openInteractiveWidgetModal"
+      @open-sentiment-interactive-widget="openSentimentInteractiveWidgetModal"
     />
   </div>
 </template>
@@ -227,7 +228,7 @@ export default {
         console.log(e)
       }
     },
-    openInteractiveWidgetModal(val, widgetId, fieldName) {
+    showInteractiveData(widgetId, data) {
       this.widgetId = widgetId
 
       this.isOpenInteractiveModal = true
@@ -236,10 +237,23 @@ export default {
         projectId: this.currentProject.id,
         widgetId: widgetId,
         data: {
-          [fieldName]: val,
+          ...data,
           page_number: 1,
           posts_per_page: 20,
         },
+      })
+    },
+
+    openInteractiveWidgetModal(val, widgetId, fieldName) {
+      this.showInteractiveData(widgetId, {
+        [fieldName]: val,
+      })
+    },
+
+    openSentimentInteractiveWidgetModal(source, sentiment, widgetId) {
+      this.showInteractiveData(widgetId, {
+        s_value: source,
+        sentiment: sentiment,
       })
     },
 

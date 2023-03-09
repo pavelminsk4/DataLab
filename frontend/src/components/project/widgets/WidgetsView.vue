@@ -14,6 +14,7 @@
     :settings-tabs="dataForWidgetModal.settingsTabs"
     @close="closeModal"
     @open-interactive-widget="openInteractiveData"
+    @open-sentiment-interactive-data="openSentimentInteractiveData"
   />
 
   <div class="analytics-wrapper">
@@ -63,6 +64,7 @@
           @delete-widget="deleteWidget(item.name)"
           @open-settings-modal="openModal(item)"
           @open-interactive-data="openInteractiveData"
+          @open-sentiment-interactive-data="openSentimentInteractiveData"
         />
       </grid-item>
     </grid-layout>
@@ -124,6 +126,7 @@ export default {
     'update-posts-count',
     'set-sorting-value',
     'open-interactive-widget',
+    'open-sentiment-interactive-widget',
   ],
   props: {
     projectId: {
@@ -243,6 +246,14 @@ export default {
     },
     openInteractiveData(val, widgetId, fieldName) {
       this.$emit('open-interactive-widget', val, widgetId, fieldName)
+    },
+    openSentimentInteractiveData(source, sentiment, widgetId) {
+      this.$emit(
+        'open-sentiment-interactive-widget',
+        source,
+        sentiment,
+        widgetId
+      )
     },
     closeModal() {
       this.togglePageScroll(false)
