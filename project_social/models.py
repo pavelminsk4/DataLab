@@ -90,18 +90,18 @@ class SocialWidgetsList(models.Model):
   project = models.OneToOneField(ProjectSocial, on_delete=models.CASCADE, related_name='social_widgets_list', editable=False)
   summary_widget = models.ForeignKey(SocialWidgetDescription,on_delete=models.CASCADE,related_name='social_summary_widget', null=True)
   clipping_feed_content = models.ForeignKey(SocialWidgetDescription,on_delete=models.CASCADE,related_name='social_clipping_feed_content', null=True)
-  top_countries = models.ForeignKey(SocialWidgetDescription,on_delete=models.CASCADE,related_name='social_top_countries', null=True)
+  top_locations = models.ForeignKey(SocialWidgetDescription,on_delete=models.CASCADE,related_name='social_top_locations', null=True)
   top_authors = models.ForeignKey(SocialWidgetDescription,on_delete=models.CASCADE,related_name='social_top_authors', null=True)
   top_languages = models.ForeignKey(SocialWidgetDescription,on_delete=models.CASCADE,related_name='social_top_languages', null=True)
   content_volume = models.ForeignKey(SocialWidgetDescription,on_delete=models.CASCADE,related_name='social_content_volume', null=True)
-  content_volume_by_top_countries = models.ForeignKey(SocialWidgetDescription,on_delete=models.CASCADE,related_name='social_content_volume_by_top_countries', null=True)
+  content_volume_by_top_locations = models.ForeignKey(SocialWidgetDescription,on_delete=models.CASCADE,related_name='social_content_volume_by_top_locations', null=True)
   content_volume_by_top_authors = models.ForeignKey(SocialWidgetDescription,on_delete=models.CASCADE,related_name='social_content_volume_by_top_authors', null=True)
   content_volume_by_top_languages = models.ForeignKey(SocialWidgetDescription,on_delete=models.CASCADE,related_name='social_content_volume_by_top_languages', null=True)
   sentiment = models.ForeignKey(SocialWidgetDescription,on_delete=models.CASCADE,related_name='social_sentiment', null=True)
   gender_volume = models.ForeignKey(SocialWidgetDescription,on_delete=models.CASCADE,related_name='social_genter_volume', null=True)
   sentiment_number_of_results = models.ForeignKey(SocialWidgetDescription,on_delete=models.CASCADE,related_name='social_sentiment_number_of_results', null=True)
   sentiment_authors = models.ForeignKey(SocialWidgetDescription,on_delete=models.CASCADE,related_name='social_sentiment_authors', null=True)
-  sentiment_countries = models.ForeignKey(SocialWidgetDescription,on_delete=models.CASCADE,related_name='social_sentiment_countries', null=True)
+  sentiment_locations = models.ForeignKey(SocialWidgetDescription,on_delete=models.CASCADE,related_name='social_sentiment_locations', null=True)
   sentiment_languages = models.ForeignKey(SocialWidgetDescription,on_delete=models.CASCADE,related_name='social_sentiment_languages', null=True)
   sentiment_by_gender = models.ForeignKey(SocialWidgetDescription,on_delete=models.CASCADE,related_name='social_sentiment_by_gender', null=True)
   
@@ -120,7 +120,7 @@ def create_social_widget_description(sender, instance, created, **kwargs):
     wd1.save()
     wd2 = SocialWidgetDescription.objects.create(title='Clipping feed content', default_title='Clipping feed content')
     wd2.save()
-    wd3 = SocialWidgetDescription.objects.create(title='Top countries', default_title='Top countries')
+    wd3 = SocialWidgetDescription.objects.create(title='Top locations', default_title='Top locations')
     wd3.save()
     wd4 = SocialWidgetDescription.objects.create(title='Top authors', default_title='Top authors')
     wd4.save()
@@ -128,7 +128,7 @@ def create_social_widget_description(sender, instance, created, **kwargs):
     wd5.save()
     wd6 = SocialWidgetDescription.objects.create(title='Content volume', default_title='Content volume')
     wd6.save()
-    wd7 = SocialWidgetDescription.objects.create(title='Content volume by top countries', default_title='Content volume by top countries')
+    wd7 = SocialWidgetDescription.objects.create(title='Content volume by top locations', default_title='Content volume by top locations')
     wd7.save()
     wd8 = SocialWidgetDescription.objects.create(title='Content volume by top authors', default_title='Content volume by top authors')
     wd8.save()
@@ -142,7 +142,7 @@ def create_social_widget_description(sender, instance, created, **kwargs):
     wd12.save()
     wd13 = SocialWidgetDescription.objects.create(title='Social sentiment authors', default_title='Social sentiment authors')
     wd13.save()
-    wd14 = SocialWidgetDescription.objects.create(title='Social sentiment countries', default_title='Social sentiment countries')
+    wd14 = SocialWidgetDescription.objects.create(title='Social sentiment locations', default_title='Social sentiment locations')
     wd14.save()
     wd15 = SocialWidgetDescription.objects.create(title='Social sentiment languages', default_title='Social sentiment languages')
     wd15.save()
@@ -150,18 +150,18 @@ def create_social_widget_description(sender, instance, created, **kwargs):
     wd16.save()
     instance.summary_widget = wd1
     instance.clipping_feed_content = wd2
-    instance.top_countries = wd3
+    instance.top_locations = wd3
     instance.top_authors = wd4
     instance.top_languages = wd5
     instance.content_volume = wd6
-    instance.content_volume_by_top_countries = wd7
+    instance.content_volume_by_top_locations = wd7
     instance.content_volume_by_top_authors = wd8
     instance.content_volume_by_top_languages = wd9
     instance.sentiment = wd10
     instance.gender_volume = wd11
     instance.sentiment_number_of_results = wd12
     instance.sentiment_authors = wd13
-    instance.sentiment_countries = wd14
+    instance.sentiment_locations = wd14
     instance.sentiment_languages = wd15
     instance.sentiment_by_gender = wd16
     instance.save()
