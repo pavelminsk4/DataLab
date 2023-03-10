@@ -1,11 +1,9 @@
 from project_social.models import SocialWidgetDescription
-from django.shortcuts import get_object_or_404
-from django.http import JsonResponse
+from project_social.widgets.filters_for_widgets import *
 from project_social.models import ProjectSocial
-from tweet_binder.models import TweetBinderPost
+from django.http import JsonResponse
 from django.db.models import Q
 from functools import reduce
-from project_social.widgets.filters_for_widgets import *
 
 def calculate_summary_widget(posts):
   posts_quantity = posts.count()

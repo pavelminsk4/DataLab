@@ -1,6 +1,6 @@
 from rest_framework import routers
-from django.urls import path
 from project_social import views
+from django.urls import path
 from .models import *
 from .views import *
 
@@ -18,6 +18,10 @@ urlpatterns = [
   #========Widgets========
   path('social_summary_widget/<int:pk>/<int:widget_pk>', views.social_summary_widget, name='social_summary_widget'),
   path('social_clipping_feed_content/<int:pk>/<int:widget_pk>', views.clipping_feed_content, name='social_clipping_feed_content'),
+  path('social_top_locations/<int:pk>/<int:widget_pk>', views.social_top_locations, name='social_top_locations'),
+  path('social_top_languages/<int:pk>/<int:widget_pk>', views.social_top_languages, name='social_top_languages'),
+  path('social_top_authors/<int:pk>/<int:widget_pk>', views.social_top_authors, name='social_top_authors'),
+  path('social_content_volume/<int:pk>/<int:widget_pk>', views.social_content_volume, name='social_content_volume'),
   #========Widgets List========
   path('projects/<int:pk>/widgets_list', views.ProjectSocialWidgetsAPIView.as_view(), name='social_widgets_list'),
   path('projects/<int:pk>/widgets_list/update', views.UpdateSocialProjectsWidgetsAPIView.as_view(), name='update_social_widgets_list'),
