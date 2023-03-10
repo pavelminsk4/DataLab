@@ -3,7 +3,6 @@ from project.models import Project
 from django.http import JsonResponse
 from django.db.models import Count
 from django.db.models.functions import Trunc
-import json
 from .filters_for_widgets import *
 
 def agregator_results_content_volume_top_countries(posts, smpl_freq):

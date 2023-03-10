@@ -28,6 +28,12 @@ def interactive_widgets(request, project_pk, widget_pk):
     posts = posts.filter(sentiment=body['sentiment'], entry_author=body['s_value'])
   elif widget.default_title == 'Sentiment top 10 languages widget':
     posts = posts.filter(sentiment=body['sentiment'], feed_language__language=body['s_value'])
+  elif widget.default_title == 'Content Volume by Top 5 authors':
+    posts = author_dimensions_posts(body['value'], posts).filter(entry_published__range=body['dates'])
+  elif widget.default_title == "Content Volume by Top 5 countries":
+    posts = country_dimensions_posts(body['value'], posts).filter(entry_published__range=body['dates'])
+  elif widget.default_title == "Content Volume by Top 5 sources":
+    posts = source_dimensions_posts(body['value'], posts).filter(entry_published__range=body['dates'])
   posts = posts.values(
     'id',
     'entry_title',
