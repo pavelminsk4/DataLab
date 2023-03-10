@@ -102,6 +102,10 @@ export default {
     }
   }
 
+  .Page-active {
+    color: var(--button-text-color) !important;
+  }
+
   .Page {
     display: flex;
     justify-content: center;
@@ -115,10 +119,6 @@ export default {
     border-radius: 6px;
 
     color: var(--typography-primary-color);
-  }
-
-  .Page-active {
-    color: var(--button-text-color);
   }
 }
 </style>
