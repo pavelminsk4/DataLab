@@ -1,5 +1,9 @@
 <template>
-  <BaseDropdown name="posts-on-page" :selected-value="newCountPosts">
+  <BaseDropdown
+    name="posts-on-page"
+    custom-style="top: auto; bottom: 25px"
+    :selected-value="newCountPosts"
+  >
     <div
       v-for="(item, index) in postsOnPage"
       :key="'drop' + index"

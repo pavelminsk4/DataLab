@@ -9,7 +9,12 @@
       :class="[isOpenDropdown && 'arrow-open-dropdown', 'arrow-down']"
     />
 
-    <div v-if="isOpenDropdown" @click="openDropdown" class="dropdown">
+    <div
+      v-if="isOpenDropdown"
+      @click="openDropdown"
+      :style="customStyle"
+      class="dropdown"
+    >
       <slot></slot>
     </div>
   </section>
@@ -33,6 +38,10 @@ export default {
     name: {
       type: String,
       required: true,
+    },
+    customStyle: {
+      type: String,
+      required: false,
     },
   },
   data() {
