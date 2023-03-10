@@ -221,6 +221,10 @@ export default {
     state.numberOfPages = null
   },
 
+  [mutator.RESET_INTERACTIVE_DATA](state) {
+    state.interactiveData = []
+  },
+
   [mutator.SET_DISPLAY_CALENDAR](state, value) {
     state.isShowCalendarContents = value
   },

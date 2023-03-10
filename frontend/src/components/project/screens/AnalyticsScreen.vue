@@ -195,6 +195,7 @@ export default {
       action.UPDATE_ADDITIONAL_FILTERS,
       action.GET_AVAILABLE_WIDGETS,
       action.POST_INTERACTIVE_WIDGETS,
+      action.CLEAR_INTERACTIVE_DATA,
     ]),
     setSortingValue(item) {
       this.sortValue = item
@@ -273,6 +274,7 @@ export default {
     closeInteractiveModal() {
       this.togglePageScroll(false)
       this.isOpenInteractiveModal = false
+      this[action.CLEAR_INTERACTIVE_DATA]()
     },
 
     updatePageAndCountPosts(page, countPosts) {

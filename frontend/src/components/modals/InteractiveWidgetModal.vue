@@ -34,9 +34,9 @@
     </div>
 
     <div class="pagination">
-      <PaginationTabs
+      <PaginationControlPanel
         v-model="currentPage"
-        :pages="12"
+        :pages="numberOfPages"
         :posts-on-page="postsOnPage"
         :new-count-posts="countPosts"
         @update-page="pageChange"
@@ -54,11 +54,17 @@ import BaseModal from '@/components/modals/BaseModal'
 import ClippingCard from '@/components/ClippingCard'
 import BaseSpinner from '@/components/BaseSpinner'
 import BaseTabs from '@/components/project/widgets/modals/BaseTabs'
-import PaginationTabs from '@/components/PaginationTabs'
+import PaginationControlPanel from '@/components/PaginationControlPanel'
 
 export default {
   name: 'InteractiveWidgetModal',
-  components: {PaginationTabs, BaseTabs, BaseSpinner, ClippingCard, BaseModal},
+  components: {
+    PaginationControlPanel,
+    BaseTabs,
+    BaseSpinner,
+    ClippingCard,
+    BaseModal,
+  },
   props: {
     widgetId: {
       type: Number,

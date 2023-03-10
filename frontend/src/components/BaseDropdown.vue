@@ -11,9 +11,9 @@
 
     <div
       v-if="isOpenDropdown"
-      @click="openDropdown"
       :style="customStyle"
       class="dropdown"
+      @click="openDropdown"
     >
       <slot></slot>
     </div>

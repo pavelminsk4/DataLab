@@ -29,7 +29,7 @@ import '@hennge/vue3-pagination/dist/vue3-pagination.css'
 import BaseDropdown from '@/components/BaseDropdown'
 
 export default {
-  name: 'PaginationTabs',
+  name: 'PaginationControlPanel',
   components: {BaseDropdown, VPagination},
   emits: ['update-page', 'update-posts-count'],
   props: {

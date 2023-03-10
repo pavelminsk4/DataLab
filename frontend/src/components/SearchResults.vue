@@ -31,7 +31,7 @@
     </div>
 
     <div v-if="!loading && searchData.length" class="pagination-wrapper">
-      <PaginationTabs
+      <PaginationControlPanel
         v-model="currentPage"
         :pages="numberOfPages"
         :posts-on-page="postsOnPage"
@@ -58,13 +58,13 @@ import {lowerFirstLetter} from '@/lib/utilities'
 import BaseSpinner from '@/components/BaseSpinner'
 import OnlinePostCard from '@/components/OnlinePostCard'
 import CreateWorkspaceRightSide from '@/components/workspace/CreateWorkspaceRightSide'
-import PaginationTabs from '@/components/PaginationTabs'
+import PaginationControlPanel from '@/components/PaginationControlPanel'
 
 export default {
   name: 'SearchResults',
   components: {
     OnlinePostCard,
-    PaginationTabs,
+    PaginationControlPanel,
     CreateWorkspaceRightSide,
     BaseSpinner,
   },
