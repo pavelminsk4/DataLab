@@ -134,3 +134,7 @@ def source_dim_pivot(sources, posts):
 def sentiment_dim_pivot(sentiments, posts):
   posts = posts.filter(reduce(lambda x,y: x | y, [Q(sentiment=sentiment) for sentiment in sentiments]))
   return posts
+
+def missing_authors_filter(posts):
+  missing_authors = [None, '', 'null', 'None', 'Missing in source']
+  return posts.exclude(reduce(lambda x,y: x | y, [Q(entry_author=author) for author in missing_authors]))

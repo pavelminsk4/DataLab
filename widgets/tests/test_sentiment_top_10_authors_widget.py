@@ -39,11 +39,6 @@ class SentimentTop10AuthorsWidgetTests(APITestCase):
                   {'sentiment': 'neutral', 'sentiment_count': 1},
                   {'sentiment': 'negative', 'sentiment_count': 0},
                   {'sentiment': 'positive', 'sentiment_count': 0}
-                 ],
-          'Missing in source': [
-                                  {'sentiment': 'neutral', 'sentiment_count': 1},
-                                  {'sentiment': 'negative', 'sentiment_count': 0},
-                                  {'sentiment': 'positive', 'sentiment_count': 0}
-                               ]                     
+                 ],               
           }
     self.assertEqual(json.loads(response.content), res)

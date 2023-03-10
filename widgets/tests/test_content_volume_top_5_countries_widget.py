@@ -15,16 +15,16 @@ class ContentVolumeTop5CountriesWidgetTests(APITestCase):
     flink4 = Feedlinks.objects.create(country = 'Canada')
     sp1 = Speech.objects.create(language='English (United States)')
     sp2 = Speech.objects.create(language='Spain')
-    post1 = Post.objects.create(feedlink=flink1, entry_title='First post title', feed_language=sp1, entry_published=datetime(2021, 9, 3, 6, 37), entry_author='AFP')
-    post2 = Post.objects.create(feedlink=flink1, entry_title='Second post title', feed_language=sp1, entry_published=datetime(2022, 9, 3, 6, 37), entry_author='AFP')
-    post3 = Post.objects.create(feedlink=flink2, entry_title='Third post title', feed_language=sp1, entry_published=datetime(2023, 9, 3, 6, 37), entry_author='AFP')
-    post4 = Post.objects.create(feedlink=flink2, entry_title='4 post title', feed_language=sp2, entry_published=datetime(2023, 9, 3, 6, 37), entry_author='AFP')
-    post5 = Post.objects.create(feedlink=flink3, entry_title='5 post title', feed_language=sp2, entry_published=datetime(2023, 9, 3, 6, 37), entry_author='AFP')
-    post6 = Post.objects.create(feedlink=flink3, entry_title='6 post title', feed_language=sp2, entry_published=datetime(2023, 9, 3, 6, 37), entry_author='EFE')
-    post7 = Post.objects.create(feedlink=flink4, entry_title='5 post title', feed_language=sp2, entry_published=datetime(2023, 9, 3, 6, 37), entry_author='AFP')
-    post8 = Post.objects.create(feedlink=flink4, entry_title='6 post title', feed_language=sp2, entry_published=datetime(2023, 9, 3, 6, 37), entry_author='')
+    Post.objects.create(feedlink=flink1, entry_title='First post title', feed_language=sp1, entry_published=datetime(2021, 9, 3, 6, 37), entry_author='AFP')
+    Post.objects.create(feedlink=flink1, entry_title='Second post title', feed_language=sp1, entry_published=datetime(2022, 9, 3, 6, 37), entry_author='AFP')
+    Post.objects.create(feedlink=flink2, entry_title='Third post title', feed_language=sp1, entry_published=datetime(2023, 9, 3, 6, 37), entry_author='AFP')
+    Post.objects.create(feedlink=flink2, entry_title='4 post title', feed_language=sp2, entry_published=datetime(2023, 9, 3, 6, 37), entry_author='AFP')
+    Post.objects.create(feedlink=flink3, entry_title='5 post title', feed_language=sp2, entry_published=datetime(2023, 9, 3, 6, 37), entry_author='AFP')
+    Post.objects.create(feedlink=flink3, entry_title='6 post title', feed_language=sp2, entry_published=datetime(2023, 9, 3, 6, 37), entry_author='EFE')
+    Post.objects.create(feedlink=flink4, entry_title='5 post title', feed_language=sp2, entry_published=datetime(2023, 9, 3, 6, 37), entry_author='AFP')
+    Post.objects.create(feedlink=flink4, entry_title='6 post title', feed_language=sp2, entry_published=datetime(2023, 9, 3, 6, 37), entry_author='')
     # test first project with None field
-    pr1 = Project.objects.create(title='Project1', keywords=['post'], additional_keywords=[], ignore_keywords=[], start_search_date=datetime(2020, 10, 10), 
+    pr1 = Project.objects.create(title='Project1', keywords=['post'], additional_keywords=[], ignore_keywords=[], start_search_date=datetime(2020, 10, 10),
                                 end_search_date=datetime(2023, 10, 16), country_filter='', author_filter='', language_filter='', creator=user)
     widget_pk = pr1.widgets_list_2.content_volume_top_5_countries_widget_id
     url = reverse('widgets:content_volume_top_5_countries_widget', kwargs={'pk':pr1.pk, 'widget_pk':widget_pk})
@@ -33,19 +33,19 @@ class ContentVolumeTop5CountriesWidgetTests(APITestCase):
     }
     response = self.client.post(url, data, format='json')
     self.assertEqual(response.status_code, status.HTTP_200_OK)
-    res = [{'USA': 
-            [{'date': '2021-09-03 00:00:00+00:00', 'post_count': 0}, 
-             {'date': '2022-09-03 00:00:00+00:00', 'post_count': 0}, 
+    res = [{'USA':
+            [{'date': '2021-09-03 00:00:00+00:00', 'post_count': 0},
+             {'date': '2022-09-03 00:00:00+00:00', 'post_count': 0},
              {'date': '2023-09-03 00:00:00+00:00', 'post_count': 4}]
            },
-           {'Canada': 
-            [{'date': '2021-09-03 00:00:00+00:00', 'post_count': 0}, 
-             {'date': '2022-09-03 00:00:00+00:00', 'post_count': 0}, 
+           {'Canada':
+            [{'date': '2021-09-03 00:00:00+00:00', 'post_count': 0},
+             {'date': '2022-09-03 00:00:00+00:00', 'post_count': 0},
              {'date': '2023-09-03 00:00:00+00:00', 'post_count': 2}]
            },
-           {'England': 
-            [{'date': '2021-09-03 00:00:00+00:00', 'post_count': 1}, 
-             {'date': '2022-09-03 00:00:00+00:00', 'post_count': 1}, 
+           {'England':
+            [{'date': '2021-09-03 00:00:00+00:00', 'post_count': 1},
+             {'date': '2022-09-03 00:00:00+00:00', 'post_count': 1},
              {'date': '2023-09-03 00:00:00+00:00', 'post_count': 0}]
            },
           ]
