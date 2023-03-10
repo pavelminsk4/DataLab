@@ -827,4 +827,8 @@ export default {
   async [action.CLEAR_SEARCH_LIST]({commit}) {
     commit(mutator.RESET_SEARCH_LIST)
   },
+
+  async [action.CLEAR_INTERACTIVE_DATA]({commit}) {
+    commit(mutator.RESET_INTERACTIVE_DATA)
+  },
 }

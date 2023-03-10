@@ -11,6 +11,7 @@
       :negative-values="sentiment.negative"
       :positive-values="sentiment.positive"
       :chart-type="chartType"
+      @open-sentiment-interactive-modal="openInteractiveModal"
     />
   </WidgetsLayout>
 
@@ -21,6 +22,7 @@
     :negative-values="sentiment.negative"
     :positive-values="sentiment.positive"
     :chart-type="chartType"
+    @open-sentiment-interactive-modal="openInteractiveModal"
   />
 </template>
 
@@ -101,6 +103,14 @@ export default {
   },
   methods: {
     ...mapActions([action.GET_SENTIMENT_TOP_LANGUAGES]),
+    openInteractiveModal(source, sentiment) {
+      this.$emit(
+        'open-sentiment-interactive-data',
+        source,
+        sentiment,
+        this.widgetId
+      )
+    },
   },
 }
 </script>

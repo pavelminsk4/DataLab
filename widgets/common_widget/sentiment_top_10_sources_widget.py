@@ -15,13 +15,7 @@ def post_agregator_sentiment_top_sources(posts):
           sentiments.remove(sen)
     for sen in sentiments:
       results[top_brands[i]].append({'sentiment': sen, 'sentiment_count': 0})
-  res = {}
-  for key in results:
-    if key == '' or key == None or 'img' in key or key == 'None' or key == 'null' or not key:
-      res['Missing in source'] = results[key]    
-    else:  
-      res[key] = results[key]
-  return res
+  return results
 
 def sentiment_top_10_sources(pk, widget_pk):
   project = Project.objects.get(id=pk)

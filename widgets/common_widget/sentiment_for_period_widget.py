@@ -3,7 +3,6 @@ from project.models import Project
 from django.http import JsonResponse
 from django.db.models import Count
 from django.db.models.functions import Trunc
-import json
 from .filters_for_widgets import *
 
 def post_agregator_sentiment_for_period(posts, smpl_freq):
@@ -27,7 +26,6 @@ def sentiment_for_period(request, pk, widget_pk):
   posts = post_agregator_with_dimensions(project)
   widget = WidgetDescription.objects.get(id=widget_pk)
   posts = post_agregetor_for_each_widget(widget, posts)
-  body = json.loads(request.body)
-  smpl_freq = body['smpl_freq']
+  smpl_freq = widget.aggregation_period
   results = post_agregator_sentiment_for_period(posts, smpl_freq)
   return JsonResponse(results, safe = False)  

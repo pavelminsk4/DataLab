@@ -39,11 +39,6 @@ class ContentVolumeTop5AuthorsWidgetTests(APITestCase):
                       {'date': '2022-09-03 00:00:00+00:00', 'post_count': 1},
                       {'date': '2023-09-03 00:00:00+00:00', 'post_count': 4}
                     ]},
-            {'Missing in source': [  
-                  {'date': '2021-09-03 00:00:00+00:00', 'post_count': 0},
-                  {'date': '2022-09-03 00:00:00+00:00', 'post_count': 0},
-                  {'date': '2023-09-03 00:00:00+00:00', 'post_count': 1}
-                 ]},
             {'EFE': [
                       {'date': '2021-09-03 00:00:00+00:00', 'post_count': 0},
                       {'date': '2022-09-03 00:00:00+00:00', 'post_count': 0},

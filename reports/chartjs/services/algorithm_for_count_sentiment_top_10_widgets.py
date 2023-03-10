@@ -12,9 +12,9 @@ def algorithm_for_count_sentiment_top_10_widgets(results, top_list):
     res = {}
   for key in results:
     if key == '' or key == None or 'img' in key or key == 'None' or key == 'null' or not key or key == 'Language not specified':
-      res['Missing in source'] = results[key]    
-    else:  
-      res[key] = results[key]   
+      res['Missing in source'] = results[key]
+    else:
+      res[key] = results[key]
   labels_list = [author for author in res]
   data_neutral = []
   data_negative = []
@@ -26,7 +26,7 @@ def algorithm_for_count_sentiment_top_10_widgets(results, top_list):
       if res[author][i]['sentiment'] == 'negative':
         data_negative.append(res[author][i]['sentiment_count'])
       if res[author][i]['sentiment'] == 'positive':
-        data_positive.append(res[author][i]['sentiment_count'])  
+        data_positive.append(res[author][i]['sentiment_count'])
   qc = QuickChart()
   qc.width = 900
   qc.height = 450
@@ -61,7 +61,7 @@ def algorithm_for_count_sentiment_top_10_widgets(results, top_list):
                       }]
                     },  
                 'plugins': {
-                    'roundedBars': True 
+                    'roundedBars': True
                         },
                     },
               }

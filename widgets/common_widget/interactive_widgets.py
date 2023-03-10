@@ -20,6 +20,20 @@ def interactive_widgets(request, project_pk, widget_pk):
     posts = country_filter_posts(body['country'], posts)
   elif widget.default_title == 'Top 10 authors by volume':
     posts = author_filter_posts(body['author'], posts)
+  elif widget.default_title == 'Sentiment top 10 sources widget':
+    posts = posts.filter(sentiment=body['sentiment'], feedlink__source1=body['s_value'])
+  elif widget.default_title == 'Sentiment top 10 countries widget':
+    posts = posts.filter(sentiment=body['sentiment'], feedlink__country=body['s_value'])
+  elif widget.default_title == 'Sentiment top 10 authors widget':
+    posts = posts.filter(sentiment=body['sentiment'], entry_author=body['s_value'])
+  elif widget.default_title == 'Sentiment top 10 languages widget':
+    posts = posts.filter(sentiment=body['sentiment'], feed_language__language=body['s_value'])
+  elif widget.default_title == 'Content Volume by Top 5 authors':
+    posts = author_dimensions_posts(body['value'], posts).filter(entry_published__range=body['dates'])
+  elif widget.default_title == "Content Volume by Top 5 countries":
+    posts = country_dimensions_posts(body['value'], posts).filter(entry_published__range=body['dates'])
+  elif widget.default_title == "Content Volume by Top 5 sources":
+    posts = source_dimensions_posts(body['value'], posts).filter(entry_published__range=body['dates'])
   posts = posts.values(
     'id',
     'entry_title',

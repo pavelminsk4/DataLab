@@ -12,6 +12,7 @@
     :positive-values="positiveValues"
     :isDisplayLegend="isDisplayLegend"
     @open-interactive-data="openInteractiveData"
+    @open-sentiment-interactive-data="openSentimentInteractiveData"
   />
 </template>
 
@@ -84,8 +85,11 @@ export default {
     ...mapState(['loading']),
   },
   methods: {
-    openInteractiveData(value, widgetId, fieldName) {
-      this.$emit('open-interactive-modal', value, widgetId, fieldName)
+    openInteractiveData(value) {
+      this.$emit('open-interactive-modal', value)
+    },
+    openSentimentInteractiveData(source, sentiment) {
+      this.$emit('open-sentiment-interactive-modal', source, sentiment)
     },
   },
 }

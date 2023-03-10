@@ -5,7 +5,7 @@
       :key="button"
       :class="[
         'general-button',
-        panelSettingsName === button && 'general-button-active',
+        panelNameProxy === button && 'general-button-active',
       ]"
       @click="toggleSettingsPanel"
     >
@@ -16,26 +16,36 @@
 
 <script>
 export default {
-  name: 'SettingsButtons',
+  name: 'BaseTabs',
   props: {
-    isOnlyGeneral: {
-      type: Boolean,
-      default: false,
-    },
     mainSettings: {
       type: Array,
+      required: true,
+    },
+    defaultTab: {
+      type: String,
       required: true,
     },
   },
   data() {
     return {
-      panelSettingsName: 'General',
+      panelName: '',
     }
+  },
+  computed: {
+    panelNameProxy: {
+      get() {
+        return this.panelName || this.defaultTab
+      },
+      set(value) {
+        this.panelName = value
+      },
+    },
   },
   methods: {
     toggleSettingsPanel(e) {
-      this.panelSettingsName = e.target.innerText
-      this.$emit('update-setting-panel', this.panelSettingsName)
+      this.panelName = e.target.innerText
+      this.$emit('update-setting-panel', this.panelNameProxy)
     },
   },
 }

@@ -5,6 +5,8 @@
       :widget-id="widgetId"
       :current-project="currentProject"
       class="interactive-widgets"
+      @update-page="updatePageAndCountPosts"
+      @update-posts-count="updatePageAndCountPosts"
       @close="closeInteractiveModal"
     />
 
@@ -87,6 +89,7 @@
       @update-page="showResults"
       @update-posts-count="showResults"
       @open-interactive-widget="openInteractiveWidgetModal"
+      @open-sentiment-interactive-widget="openSentimentInteractiveWidgetModal"
     />
   </div>
 </template>
@@ -138,6 +141,12 @@ export default {
       sortingValue: '',
       isOpenInteractiveModal: false,
       widgetId: null,
+      page: 1,
+      countPosts: 4,
+      fieldName: null,
+      value: null,
+      sentiment: null,
+      source: null,
     }
   },
   created() {
@@ -186,6 +195,7 @@ export default {
       action.UPDATE_ADDITIONAL_FILTERS,
       action.GET_AVAILABLE_WIDGETS,
       action.POST_INTERACTIVE_WIDGETS,
+      action.CLEAR_INTERACTIVE_DATA,
     ]),
     setSortingValue(item) {
       this.sortValue = item
@@ -227,7 +237,7 @@ export default {
         console.log(e)
       }
     },
-    openInteractiveWidgetModal(val, widgetId, fieldName) {
+    showInteractiveData(widgetId, data) {
       this.widgetId = widgetId
 
       this.isOpenInteractiveModal = true
@@ -236,16 +246,48 @@ export default {
         projectId: this.currentProject.id,
         widgetId: widgetId,
         data: {
-          [fieldName]: val,
-          page_number: 1,
-          posts_per_page: 20,
+          ...data,
+          page_number: this.page,
+          posts_per_page: this.countPosts,
         },
+      })
+    },
+
+    openInteractiveWidgetModal(val, widgetId, fieldName) {
+      this.fieldName = fieldName
+      this.value = val
+      this.showInteractiveData(widgetId, {
+        [fieldName]: val,
+      })
+    },
+
+    openSentimentInteractiveWidgetModal(source, sentiment, widgetId) {
+      this.source = source
+      this.sentiment = sentiment
+
+      this.showInteractiveData(widgetId, {
+        s_value: source,
+        sentiment: sentiment,
       })
     },
 
     closeInteractiveModal() {
       this.togglePageScroll(false)
       this.isOpenInteractiveModal = false
+      this[action.CLEAR_INTERACTIVE_DATA]()
+    },
+
+    updatePageAndCountPosts(page, countPosts) {
+      this.page = page
+      this.countPosts = countPosts
+
+      this.showInteractiveData(this.widgetId, {
+        [this.fieldName]: this.value,
+        s_value: this.source,
+        sentiment: this.sentiment,
+        page_number: page,
+        posts_per_page: countPosts,
+      })
     },
   },
 }

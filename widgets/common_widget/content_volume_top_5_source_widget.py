@@ -23,8 +23,6 @@ def agregator_results_content_volume_top_sources(posts, smpl_freq):
             list_dates.append({"date": date, "post_count": results[elem][top_brands[elem]][i]['created_count']})
       else:
         list_dates.append({"date": date, "post_count": 0})
-    if (top_brands[elem] == '') or (top_brands[elem] == None) or ('img' in top_brands[elem]) or (top_brands[elem] == 'None') or (top_brands[elem] == 'null') or not top_brands[elem]:     
-      res.append({'Missing in source': list_dates}) 
     else:
       res.append({top_brands[elem]: list_dates})   
   return res
@@ -34,7 +32,6 @@ def content_volume_top_5_source(request, pk, widget_pk):
   posts = post_agregator_with_dimensions(project)
   widget = WidgetDescription.objects.get(id=widget_pk)
   posts = post_agregetor_for_each_widget(widget, posts)
-  body = json.loads(request.body)
-  smpl_freq = body['smpl_freq']
+  smpl_freq = widget.aggregation_period
   res = agregator_results_content_volume_top_sources(posts, smpl_freq)
   return JsonResponse(res, safe = False)
