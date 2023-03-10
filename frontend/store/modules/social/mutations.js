@@ -5,7 +5,10 @@ export default {
     state.loading = loading
   },
   [mutator.SET_WORKSPACES](state, workspaces) {
-    state.workspaces = workspaces
+    state.workspaces = workspaces.map((workspace) => ({
+      ...workspace,
+      projects: workspace.social_workspace_projects,
+    }))
   },
   [mutator.SET_NEW_WORKSPACE_ID](state, id) {
     state.newWorkspaceId = id

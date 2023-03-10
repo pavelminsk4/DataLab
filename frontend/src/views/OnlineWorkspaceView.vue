@@ -1,5 +1,7 @@
 <template>
   <WorkspaceView
+    v-if="workspace?.title"
+    :title="workspace.title"
     :workspace="workspace"
     :back-page="{
       name: 'main page',

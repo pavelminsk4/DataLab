@@ -2,16 +2,27 @@
   <div :class="['search-result-card', `search-result-${sentiment}`]">
     <div class="body-card">
       <div class="result-img">
-        <img v-if="img !== 'None'" :src="img" :class="['img']" alt="img" />
+        <img
+          v-if="postImage !== 'None'"
+          :src="postImage"
+          :class="['post-image']"
+          alt="post image"
+        />
         <NoImageIcon v-else />
       </div>
+
       <div class="general-information">
-        <a class="title" tabindex="0" :href="entryLink" target="_blank">
-          {{ title }}
-        </a>
-        <div class="description" tabindex="0">{{ summary }}</div>
+        <slot name="title"></slot>
+
+        <div class="description" tabindex="0">
+          <slot name="description"></slot>
+        </div>
+
         <div class="type-request">
-          <div class="type"><OnlineIcon /> Online</div>
+          <div class="type">
+            <slot name="post-type"></slot>
+          </div>
+
           <div :class="['type', `status-${sentiment}`]">
             <component
               :is="capitalizeFirstLetter(sentiment) + 'Icon'"
@@ -19,49 +30,35 @@
             />
             {{ capitalizeFirstLetter(sentiment) }}
           </div>
-          <div class="clipping-wrapper">
+
+          <div v-if="!isClippingWidget" class="clipping-wrapper">
             <ClippingIcon
-              v-if="isCheckboxClippingWidget"
-              :isClippingElement="clippingElement"
-              :isLoading="isLoadingClippingWidget"
+              :is-clipping-post="isClippingPost"
+              :is-loading="isLoadingClippingWidget"
               @click="addPost"
             />
             <BaseTooltip class="tooltip">{{ clippingTooltip }}</BaseTooltip>
           </div>
         </div>
       </div>
+
       <CloseIcon
         v-if="isClippingWidget"
-        @click="deleteClippingFeedPost"
+        @click="$emit('delete-clipping-post')"
         class="delete-clipping-feed-element"
       />
     </div>
 
-    <div class="common-information">
-      <div
-        v-for="(item, index) in commonCardItems"
-        :key="item.name + index"
-        class="item"
-      >
-        <div class="item-name">{{ item.name }}</div>
-        <a
-          v-if="item.name === 'SOURCE'"
-          :href="getUrl(item.value)"
-          target="_blank"
-          class="item-value"
-        >
-          {{ item.value }}
-        </a>
-        <div v-else class="item-value">{{ item.value }}</div>
-      </div>
+    <div class="post-card__information">
+      <slot name="information"></slot>
     </div>
   </div>
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
-import {action, get} from '@store/constants'
-import {capitalizeFirstLetter, defaultDate} from '@lib/utilities'
+import {mapGetters} from 'vuex'
+import {get} from '@store/constants'
+import {capitalizeFirstLetter} from '@lib/utilities'
 
 import OnlineIcon from '@/components/icons/OnlineIcon'
 import NeutralIcon from '@/components/icons/NeutralIcon'
@@ -73,7 +70,7 @@ import NoImageIcon from '@/components/icons/NoImageIcon'
 import CloseIcon from '@/components/icons/CloseIcon'
 
 export default {
-  name: 'ClippingCard',
+  name: 'PostCardLayout',
   components: {
     CloseIcon,
     NoImageIcon,
@@ -85,51 +82,11 @@ export default {
     OnlineIcon,
   },
   props: {
-    isCheckboxClippingWidget: {
-      type: Boolean,
-      default: false,
-    },
     isClippingWidget: {
       type: Boolean,
       default: false,
     },
-    title: {
-      type: String,
-      required: false,
-    },
-    entryLink: {
-      type: String,
-      required: false,
-    },
-    summary: {
-      type: String,
-      required: false,
-    },
-    source: {
-      type: String,
-      required: false,
-    },
-    sourceLink: {
-      type: String,
-      required: false,
-    },
-    country: {
-      type: String,
-      required: false,
-    },
-    language: {
-      type: String,
-      required: false,
-    },
-    potentialReach: {
-      type: Number,
-      required: false,
-    },
-    published: {
-      type: String,
-      required: false,
-    },
-    img: {
+    postImage: {
       type: String,
       required: false,
     },
@@ -137,29 +94,9 @@ export default {
       type: String,
       required: false,
     },
-    id: {
-      type: Number,
-      required: false,
-    },
-    postId: {
-      type: Number,
-      required: false,
-    },
-    projectId: {
-      type: Number,
-      required: false,
-    },
-    widgetId: {
-      type: Number,
-      required: true,
-    },
-    clippingElement: {
+    isClippingPost: {
       type: Boolean,
       default: false,
-    },
-    currentProject: {
-      type: [Array, Object],
-      required: true,
     },
   },
   computed: {
@@ -168,38 +105,21 @@ export default {
       return this.isLoading.clippingWidget
     },
     clippingTooltip() {
-      return this.clippingElement
+      return this.isClippingPost
         ? 'Remove from clipping widget'
         : 'Add to clipping widget'
-    },
-    commonCardItems() {
-      return [
-        {name: 'DATE', value: this.defaultDate(this.published)},
-        {name: 'SOURCE', value: this.sourceLink},
-        {name: 'LOCATION', value: this.country},
-        {name: 'LANGUAGE', value: this.language},
-        {name: 'POTENTIAL REACH', value: this.potentialReach},
-      ]
     },
   },
   methods: {
     capitalizeFirstLetter,
-    defaultDate,
-    ...mapActions([action.DELETE_CLIPPING_FEED_CONTENT]),
-    async deleteClippingFeedPost() {
-      await this[action.DELETE_CLIPPING_FEED_CONTENT]({
-        projectId: this.projectId,
-        postId: this.postId,
-        widgetId: this.widgetId,
-      })
-    },
     addPost() {
       if (this.isLoadingClippingWidget) return
-      this.$emit('add-element', this.id, this.clippingElement)
-    },
-    getUrl(source) {
-      if (!source) return ''
-      return source.includes('http') ? source : `http://${source}`
+
+      if (this.isClippingPost) {
+        this.$emit('delete-clipping-post')
+      } else {
+        this.$emit('add-clipping-post')
+      }
     },
   },
 }
@@ -225,7 +145,7 @@ export default {
       height: 172px;
       margin-right: 16px;
 
-      .img {
+      .post-image {
         object-fit: cover;
 
         width: inherit;
@@ -241,24 +161,6 @@ export default {
       justify-content: space-between;
 
       width: 100%;
-
-      .title {
-        margin-bottom: 8px;
-
-        cursor: pointer;
-
-        text-decoration: none;
-        white-space: pre-wrap;
-        font-style: normal;
-        font-weight: 600;
-        font-size: 20px;
-        line-height: 28px;
-        color: var(--typography-title-color);
-
-        &:hover {
-          color: var(--primary-hover-color);
-        }
-      }
 
       .description {
         display: -webkit-box;
@@ -347,46 +249,6 @@ export default {
       color: var(--typography-secondary-color);
     }
   }
-
-  .common-information {
-    display: flex;
-
-    margin-top: 12px;
-    padding: 14px 20px 0;
-
-    border-top: var(--border-primary);
-
-    .item {
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      gap: 4px;
-
-      padding-right: 12px;
-      margin-right: 12px;
-
-      border-right: var(--border-primary);
-
-      &:last-child {
-        padding-right: 0;
-        margin-right: 0;
-
-        border-right: none;
-      }
-
-      .item-name {
-        font-weight: 500;
-        font-size: 10px;
-        color: var(--typography-secondary-color);
-      }
-
-      .item-value {
-        text-decoration: none;
-        font-size: 11px;
-        color: var(--typography-title-color);
-      }
-    }
-  }
 }
 
 .search-result-neutral {
@@ -398,5 +260,47 @@ export default {
 
 .search-result-negative {
   border-left: 3px solid var(--negative-primary-color);
+}
+</style>
+
+<style lang="scss">
+.post-card__information {
+  display: flex;
+
+  margin-top: 12px;
+  padding: 14px 20px 0;
+
+  border-top: var(--border-primary);
+
+  &_block {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+
+    padding-right: 12px;
+    margin-right: 12px;
+
+    border-right: var(--border-primary);
+
+    &:last-child {
+      padding-right: 0;
+      margin-right: 0;
+
+      border-right: none;
+    }
+
+    &_name {
+      font-weight: 500;
+      font-size: 10px;
+      color: var(--typography-secondary-color);
+    }
+
+    &_value {
+      text-decoration: none;
+      font-size: 11px;
+      color: var(--typography-title-color);
+    }
+  }
 }
 </style>

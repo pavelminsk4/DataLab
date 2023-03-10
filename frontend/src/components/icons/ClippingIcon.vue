@@ -1,7 +1,7 @@
 <template>
   <BaseButtonSpinner v-if="isLoading" :widthSpinner="18" />
   <svg
-    v-else-if="isClippingElement && !isLoading"
+    v-else-if="isClippingPost && !isLoading"
     width="15"
     height="19"
     viewBox="0 0 15 19"
@@ -49,7 +49,7 @@ export default {
     BaseButtonSpinner,
   },
   props: {
-    isClippingElement: {
+    isClippingPost: {
       type: Boolean,
       default: false,
     },
