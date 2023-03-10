@@ -100,6 +100,9 @@ export default {
 }
 
 .title {
+  display: flex;
+  align-items: flex-end;
+
   padding: 12px 50px 12px 24px;
 
   border-bottom: var(--border-primary);

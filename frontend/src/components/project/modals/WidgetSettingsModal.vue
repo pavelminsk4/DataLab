@@ -27,8 +27,9 @@
       </div>
 
       <div class="general-wrapper-settings">
-        <SettingsButtons
+        <BaseTabs
           :main-settings="settingsTabs"
+          default-tab="General"
           @update-setting-panel="updateSettingPanel"
         />
 
@@ -76,7 +77,7 @@ import {action, get} from '@store/constants'
 import {snakeToPascal} from '@/lib/utilities'
 
 import BaseModal from '@/components/modals/BaseModal'
-import SettingsButtons from '@/components/project/widgets/modals/SettingsButtons'
+import BaseTabs from '@/components/project/widgets/modals/BaseTabs'
 import DimensionsScreen from '@/components/project/screens/DimensionsScreen'
 import BasicSettingsScreen from '@/components/project/widgets/modals/screens/BasicSettingsScreen'
 import VolumeWidget from '@/components/project/widgets/VolumeWidget'
@@ -106,7 +107,7 @@ export default {
     ChartTypesRadio,
     BaseModal,
     VolumeWidget,
-    SettingsButtons,
+    BaseTabs,
     DimensionsScreen,
     BasicSettingsScreen,
     Top10LanguagesWidget,

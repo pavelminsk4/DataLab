@@ -31,29 +31,19 @@
     </div>
 
     <div v-if="!loading && searchData.length" class="pagination-wrapper">
-      <BaseDropdown name="posts-on-page" :selected-value="countPosts">
-        <div
-          v-for="(item, index) in postsOnPage"
-          :key="'drop' + index"
-          @click="updatePostsCount(item)"
-        >
-          {{ item }}
-        </div>
-      </BaseDropdown>
-
-      <VPagination
-        v-model="page"
-        :pages="this.numberOfPages"
-        :range-size="1"
-        active-color="#fcedf3"
-        :container-class="'pagination'"
-        @update:modelValue="pageChangeHandler"
+      <PaginationTabs
+        v-model="currentPage"
+        :pages="numberOfPages"
+        :posts-on-page="postsOnPage"
+        :new-count-posts="countPosts"
+        @update-page="pageChange"
+        @update-posts-count="updatePostsCount"
       />
     </div>
 
     <div v-if="step && !searchData.length" class="no-results">
       <CreateWorkspaceRightSide :step="currentStep" />
-      <h3 v-if="this.isSearchPerformed" class="no-results__text">
+      <h3 v-if="isSearchPerformed" class="no-results__text">
         No news for your request &#128546;
       </h3>
     </div>
@@ -65,22 +55,18 @@ import {mapActions, mapGetters, mapState} from 'vuex'
 import {action, get} from '@store/constants'
 import {lowerFirstLetter} from '@/lib/utilities'
 
-import VPagination from '@hennge/vue3-pagination'
-import '@hennge/vue3-pagination/dist/vue3-pagination.css'
-
 import BaseSpinner from '@/components/BaseSpinner'
-import BaseDropdown from '@/components/BaseDropdown'
-import CreateWorkspaceRightSide from '@/components/workspace/CreateWorkspaceRightSide'
 import OnlinePostCard from '@/components/OnlinePostCard'
+import CreateWorkspaceRightSide from '@/components/workspace/CreateWorkspaceRightSide'
+import PaginationTabs from '@/components/PaginationTabs'
 
 export default {
   name: 'SearchResults',
   components: {
-    BaseDropdown,
+    OnlinePostCard,
+    PaginationTabs,
     CreateWorkspaceRightSide,
     BaseSpinner,
-    VPagination,
-    OnlinePostCard,
   },
   emits: ['update-page', 'update-posts-count', 'add-sorting-value'],
   props: {
@@ -110,10 +96,10 @@ export default {
       isShow: false,
       clippingElements: [],
       isOpenDropdown: false,
-      page: 1,
+      clippingValue: [],
+      currentPage: 1,
       countPosts: 20,
       postsOnPage: [20, 50, 100],
-      clippingValue: [],
     }
   },
   computed: {
@@ -142,13 +128,6 @@ export default {
   methods: {
     ...mapActions([action.REFRESH_DISPLAY_CALENDAR]),
     lowerFirstLetter,
-    updatePostsCount(val) {
-      this.countPosts = val
-      this.$emit('update-posts-count', this.page, this.countPosts)
-    },
-    pageChangeHandler() {
-      this.$emit('update-page', this.page, this.countPosts)
-    },
     getLastWeeksDate() {
       const now = new Date()
 
@@ -172,6 +151,13 @@ export default {
         item.feed_image_link,
       ]
       return images.filter((el) => el !== 'None')[0] || 'None'
+    },
+    updatePostsCount(page, countPosts) {
+      this.countPosts = countPosts
+      this.$emit('update-posts-count', page, countPosts)
+    },
+    pageChange(page, countPosts) {
+      this.$emit('update-page', page, countPosts)
     },
   },
 }
@@ -266,44 +252,6 @@ export default {
 .pagination {
   display: flex;
   gap: 4px;
-
-  .PaginationControl {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    width: 20px;
-    height: 20px;
-
-    background: var(--background-secondary-color);
-    border: var(--border-primary);
-    border-radius: 6px;
-
-    color: var(--typography-title-color);
-
-    .Control {
-      fill: #333333;
-    }
-
-    .Control-active {
-      fill: var(--typography-primary-color);
-    }
-  }
-
-  .Page {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    width: 32px;
-    height: 22px;
-
-    background: var(--primary-active-color);
-    border: var(--border-primary);
-    border-radius: 6px;
-
-    color: var(--typography-primary-color);
-  }
 }
 
 .clipping-card {
