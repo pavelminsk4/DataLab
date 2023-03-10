@@ -34,21 +34,66 @@ export default {
     return fetch('post', `${moduleName}/twitter_post_search/`, request)
   },
 
-  async getClippingFeedContentWidget(projectId, widgetId) {
-    return fetch(
-      'get',
-      `/social_clipping_feed_content/${projectId}/${widgetId}`
-    )
-  },
   async createClippingFeedContent(data) {
-    // return fetch('post', '/clipping_feed_content_widget/create', data)
+    // return fetch('post', '${moduleName}/clipping_feed_content_widget/create', data)
     return data
   },
   async deleteClippingFeedContentPost(projectId, postId) {
     // return fetch(
     //   'delete',
-    //   `/projects/${projectId}/clipping_feed_content_widget/delete/${postId}`
+    //   `${moduleName}/projects/${projectId}/clipping_feed_content_widget/delete/${postId}`
     // )
     return [projectId, postId]
+  },
+
+  async getAllWidgets(projectId) {
+    return fetch('get', `${moduleName}/projects/${projectId}/widgets_list`)
+  },
+
+  async updateAvailableWidgets({projectId, data}) {
+    return fetch(
+      'patch',
+      `${moduleName}/projects/${projectId}/widgets_list/update`,
+      data
+    )
+  },
+
+  async postInteractiveWidget({projectId, widgetId, data}) {
+    // return fetch(
+    //   'post',
+    //   `${moduleName}/widgets/interactive_widgets/${projectId}/${widgetId}`,
+    //   data
+    // )
+    return {projectId, widgetId, data}
+  },
+
+  // Widgets
+  async getSummaryWidget(projectId, widgetId) {
+    return fetch(
+      'get',
+      `${moduleName}/social_summary_widget/${projectId}/${widgetId}`
+    )
+  },
+
+  async getClippingFeedContentWidget(projectId, widgetId) {
+    return fetch(
+      'get',
+      `${moduleName}/social_clipping_feed_content/${projectId}/${widgetId}`
+    )
+  },
+
+  async getContentVolumeWidget({projectId, value, widgetId}) {
+    return fetch(
+      'put',
+      `${moduleName}/social_content_volume/${projectId}/${widgetId}`,
+      value
+    )
+  },
+
+  async getTopLocationsWidget(projectId, widgetId) {
+    return fetch(
+      'get',
+      `${moduleName}/social_top_locations/${projectId}/${widgetId}`
+    )
   },
 }

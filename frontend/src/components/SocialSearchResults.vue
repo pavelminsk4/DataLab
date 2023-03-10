@@ -130,7 +130,7 @@ export default {
     },
 
     clippingWidgetId() {
-      return this.availableWidgets?.clipping_feed_content_widget.id || 0
+      return this.availableWidgets?.clipping_feed_content.id || 0
     },
     currentStep() {
       return this.isSearchPerformed ? `${this.step}preview` : this.step
@@ -143,10 +143,10 @@ export default {
     lowerFirstLetter,
     updatePostsCount(val) {
       this.countPosts = val
-      this.$emit('update-posts-count', this.page, this.countPosts)
+      this.$emit('show-results', this.page, this.countPosts)
     },
     pageChangeHandler() {
-      this.$emit('update-page', this.page, this.countPosts)
+      this.$emit('show-results', this.page, this.countPosts)
     },
     getLastWeeksDate() {
       const now = new Date()
@@ -228,9 +228,8 @@ export default {
 .search-result-cards {
   overflow: auto;
 
-  height: 1000px;
+  flex-grow: 1;
   width: 100%;
-  padding: 32px 32px 0 16px;
 }
 
 @media screen and (max-width: 1000px) {

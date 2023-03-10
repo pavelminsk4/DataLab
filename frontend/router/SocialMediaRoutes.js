@@ -1,11 +1,11 @@
 import store from '@store'
+import CreateWorkspaceView from '@/components/workspace/CreateWorkspaceView'
 import SocialModuleView from '@/views/SocialModuleView'
 import SocialWorkspacesView from '@/views/SocialWorkspacesView'
 import SocialWorkspaceView from '@/views/SocialWorkspaceView'
+import SocialProjectDashboardView from '@/views/SocialProjectDashboardView'
+import SocialProjectDashboard from '@/components/project/dashboard/SocialProjectDashboard'
 
-import ProjectExtraSettingsView from '@/components/project/ProjectExtraSettingsView'
-
-import CreateWorkspaceView from '@/components/workspace/CreateWorkspaceView'
 import SocialCreateSearchScreen from '@/components/workspace/screens/SocialCreateSearchScreen'
 import CreateProjectScreen from '@/components/workspace/screens/CreateProjectScreen'
 import CreateWorkspaceScreen from '@/components/workspace/screens/CreateWorkspaceScreen'
@@ -13,7 +13,6 @@ import CreateWorkspaceRightSide from '@/components/workspace/CreateWorkspaceRigh
 import SocialSearchResults from '@/components/SocialSearchResults'
 
 import SearchScreen from '@/components/project/screens/SearchScreen'
-import AnalyticsScreen from '@/components/project/screens/AnalyticsScreen'
 
 export default [
   {
@@ -119,12 +118,12 @@ export default [
       {
         name: 'SocialProjectReports',
         path: 'workspace/:workspaceId/project/:projectId/',
-        component: ProjectExtraSettingsView,
+        component: SocialProjectDashboardView,
         children: [
           {
             name: 'SocialAnalytics',
-            path: 'analytics',
-            component: AnalyticsScreen,
+            path: 'dashboard',
+            component: SocialProjectDashboard,
           },
           {
             name: 'SocialSearch',

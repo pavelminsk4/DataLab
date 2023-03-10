@@ -100,35 +100,6 @@ export default {
       commit(mutator.SET_LOADING, false)
     }
   },
-  async [action.GET_CLIPPING_FEED_CONTENT_WIDGET](
-    {commit},
-    {projectId, widgetId}
-  ) {
-    commit(
-      generalMutator.SET_LOADING_WIDGETS,
-      {clippingWidget: true},
-      {root: true}
-    )
-    try {
-      const clippingFeedContent = await api.social.getClippingFeedContentWidget(
-        projectId,
-        widgetId
-      )
-      commit(
-        generalMutator.SET_CLIPPING_FEED_CONTENT_WIDGET,
-        clippingFeedContent,
-        {root: true}
-      )
-    } catch (e) {
-      console.log(e)
-    } finally {
-      commit(
-        generalMutator.SET_LOADING_WIDGETS,
-        {clippingWidget: false},
-        {root: true}
-      )
-    }
-  },
   async [action.CREATE_CLIPPING_FEED_CONTENT_WIDGET]({commit, dispatch}, data) {
     commit(
       generalMutator.SET_LOADING_WIDGETS,
@@ -174,6 +145,123 @@ export default {
         {clippingWidget: false},
         {root: true}
       )
+    }
+  },
+
+  async [action.GET_AVAILABLE_WIDGETS]({commit}, projectId) {
+    commit(generalMutator.SET_LOADING, true)
+    try {
+      const availableWidgets = await api.social.getAllWidgets(projectId)
+
+      commit(generalMutator.SET_AVAILABLE_WIDGETS, availableWidgets, {
+        root: true,
+      })
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(generalMutator.SET_LOADING, false)
+    }
+  },
+  async [action.UPDATE_AVAILABLE_WIDGETS](
+    {commit, dispatch},
+    {projectId, widgetsList}
+  ) {
+    commit(generalMutator.SET_LOADING, true)
+    try {
+      const availableWidgets = await api.social.updateAvailableWidgets({
+        projectId,
+        data: widgetsList,
+      })
+      commit(generalMutator.SET_AVAILABLE_WIDGETS, availableWidgets, {
+        root: true,
+      })
+      dispatch(action.GET_AVAILABLE_WIDGETS, projectId)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(generalMutator.SET_LOADING, false)
+    }
+  },
+
+  async [action.POST_INTERACTIVE_WIDGETS](
+    {commit},
+    {projectId, widgetId, data}
+  ) {
+    commit(generalMutator.SET_LOADING, true)
+    try {
+      const response = await api.social.postInteractiveWidget({
+        projectId,
+        widgetId,
+        data,
+      })
+
+      commit(generalMutator.SET_INTERACTIVE_DATA, response)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(generalMutator.SET_LOADING, false)
+    }
+  },
+
+  // Widgets
+  async [action.GET_SUMMARY_WIDGET]({commit}, {projectId, widgetId}) {
+    commit(generalMutator.SET_LOADING, true, {root: true})
+    try {
+      const summary = await api.social.getSummaryWidget(projectId, widgetId)
+      commit(generalMutator.SET_SUMMARY_WIDGET, summary, {root: true})
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(generalMutator.SET_LOADING, false, {root: true})
+    }
+  },
+
+  async [action.GET_CLIPPING_FEED_CONTENT_WIDGET](
+    {commit},
+    {projectId, widgetId}
+  ) {
+    commit(
+      generalMutator.SET_LOADING_WIDGETS,
+      {clippingWidget: true},
+      {root: true}
+    )
+    try {
+      const clippingFeedContent = await api.social.getClippingFeedContentWidget(
+        projectId,
+        widgetId
+      )
+      commit(
+        generalMutator.SET_CLIPPING_FEED_CONTENT_WIDGET,
+        clippingFeedContent,
+        {root: true}
+      )
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(
+        generalMutator.SET_LOADING_WIDGETS,
+        {clippingWidget: false},
+        {root: true}
+      )
+    }
+  },
+
+  async [action.GET_CONTENT_VOLUME_WIDGET](
+    {commit},
+    {projectId, value, widgetId}
+  ) {
+    commit(generalMutator.SET_LOADING, true, {root: true})
+    try {
+      const volume = await api.social.getContentVolumeWidget({
+        projectId,
+        value,
+        widgetId,
+      })
+      commit(generalMutator.SET_VOLUME_WIDGET, volume, {root: true})
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(generalMutator.SET_LOADING, false, {root: true})
     }
   },
 }
