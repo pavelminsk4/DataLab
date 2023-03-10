@@ -6,9 +6,6 @@ from .filters_for_widgets import *
 
 def post_agregator_top_countries(posts):
   results = posts.values('feedlink__country').annotate(country_count=Count('feedlink__country')).order_by('-country_count')[:10]
-  for i in range(len(results)):
-    if (results[i]['feedlink__country'] == None or not results[i]['feedlink__country'] or 'img' in results[i]['feedlink__country'] or results[i]['feedlink__country'] == 'None' or results[i]['feedlink__country'] == 'null'):
-      results[i]['feedlink__country'] = 'Missing in source'
   return list(results)
 
 def top_10_countries(pk, widget_pk):
