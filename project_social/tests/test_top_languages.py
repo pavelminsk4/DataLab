@@ -17,10 +17,7 @@ class TopLocationWidgetTests(APITestCase):
                                 end_search_date=datetime(2023, 10, 16), country_filter=[], author_filter=[], source_filter=[], creator=user)
     widget_pk = pr.social_widgets_list.top_locations_id
     url = reverse('project_social:social_top_languages', kwargs={'pk':pr.pk, 'widget_pk':widget_pk})
-    data = {
-            'top_counts': 10
-    }
-    response = self.client.post(url, data, format='json')
+    response = self.client.get(url)
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     res = [
             {'language': 'En', 'language_count': 1},

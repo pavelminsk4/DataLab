@@ -85,10 +85,11 @@ class SocialWidgetDescription(models.Model):
   language_dimensions = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
   sentiment_dimensions = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
   chart_type = models.CharField(max_length=150, default=None, null=True, blank=True)
+  top_counts = models.IntegerField(default=5)
 
 class SocialWidgetsList(models.Model):
   project = models.OneToOneField(ProjectSocial, on_delete=models.CASCADE, related_name='social_widgets_list', editable=False)
-  summary_widget = models.ForeignKey(SocialWidgetDescription,on_delete=models.CASCADE,related_name='social_summary_widget', null=True)
+  summary = models.ForeignKey(SocialWidgetDescription,on_delete=models.CASCADE,related_name='social_summary', null=True)
   clipping_feed_content = models.ForeignKey(SocialWidgetDescription,on_delete=models.CASCADE,related_name='social_clipping_feed_content', null=True)
   top_locations = models.ForeignKey(SocialWidgetDescription,on_delete=models.CASCADE,related_name='social_top_locations', null=True)
   top_authors = models.ForeignKey(SocialWidgetDescription,on_delete=models.CASCADE,related_name='social_top_authors', null=True)
@@ -148,7 +149,7 @@ def create_social_widget_description(sender, instance, created, **kwargs):
     wd15.save()
     wd16 = SocialWidgetDescription.objects.create(title='Social sentiment by gender', default_title='Social sentiment by gender')
     wd16.save()
-    instance.summary_widget = wd1
+    instance.summary = wd1
     instance.clipping_feed_content = wd2
     instance.top_locations = wd3
     instance.top_authors = wd4

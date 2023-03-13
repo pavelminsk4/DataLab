@@ -15,7 +15,7 @@ class ContentVolumeWidgetTests(APITestCase):
 
     pr = ProjectSocial.objects.create(title='Project', keywords=['twitter'], additional_keywords=[], ignore_keywords=[], start_search_date=datetime(2020, 10, 10), 
                                 end_search_date=datetime(2023, 10, 16), country_filter=[], author_filter=[], source_filter=[], creator=user)
-    widget_pk = pr.social_widgets_list.summary_widget_id
+    widget_pk = pr.social_widgets_list.content_volume_id
     url = reverse('project_social:social_content_volume', kwargs={'pk':pr.pk, 'widget_pk':widget_pk})
     response = self.client.get(url)
     self.assertEqual(response.status_code, status.HTTP_200_OK)

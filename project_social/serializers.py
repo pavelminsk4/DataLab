@@ -39,7 +39,7 @@ class SocialWidgetDescriptionSerializer(WritableNestedModelSerializer):
     fields = '__all__'
 
 class WidgetsListSerializer(WritableNestedModelSerializer):
-  summary_widget = SocialWidgetDescriptionSerializer()
+  summary = SocialWidgetDescriptionSerializer()
   clipping_feed_content = SocialWidgetDescriptionSerializer()
   top_locations = SocialWidgetDescriptionSerializer()
   top_authors = SocialWidgetDescriptionSerializer()
