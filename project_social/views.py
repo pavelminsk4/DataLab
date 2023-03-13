@@ -8,7 +8,7 @@ from .widgets.dashboard.clipping_feed import *
 from .widgets.dashboard.top_locations import *
 from .widgets.dashboard.top_languages import *
 from .widgets.dashboard.top_authors import *
-from rest_framework import viewsets
+from rest_framework import viewsets, filters
 from django.db.models import Q
 from functools import reduce
 from .serializers import *
@@ -161,3 +161,21 @@ class UpdateSocialProjectsWidgetsAPIView(UpdateAPIView):
 
   def get_object(self):
     return SocialWidgetsList.objects.get(project_id=self.kwargs['pk'])
+  
+class SocialAuthorList(ListAPIView):
+  serializer_class = TweetBinderPostAuthorSerializer
+  queryset = TweetBinderPost.objects.distinct('user_name')
+  filter_backends = [filters.SearchFilter]
+  search_fields = ['^user_name']
+
+class SocialLocationList(ListAPIView):
+  serializer_class = TweetBinderPostLocationSerializer
+  queryset = TweetBinderPost.objects.distinct('locationString')
+  filter_backends = [filters.SearchFilter]
+  search_fields = ['^locationString']
+
+class SocialLanguageList(ListAPIView):
+  serializer_class = TweetBinderPostLanguageSerializer
+  queryset = TweetBinderPost.objects.distinct('language')
+  filter_backends = [filters.SearchFilter]
+  search_fields = ['^language']
