@@ -1,7 +1,8 @@
+from drf_writable_nested.serializers import WritableNestedModelSerializer
+from tweet_binder.models import TweetBinderPost
+from api.serializers import UserSerializer
 from rest_framework import serializers
 from .models import *
-from api.serializers import UserSerializer
-from drf_writable_nested.serializers import WritableNestedModelSerializer
 
 class ProjectSocialSerializer(serializers.ModelSerializer):
   users = UserSerializer
@@ -40,20 +41,35 @@ class SocialWidgetDescriptionSerializer(WritableNestedModelSerializer):
 class WidgetsListSerializer(WritableNestedModelSerializer):
   summary_widget = SocialWidgetDescriptionSerializer()
   clipping_feed_content = SocialWidgetDescriptionSerializer()
-  top_countries = SocialWidgetDescriptionSerializer()
+  top_locations = SocialWidgetDescriptionSerializer()
   top_authors = SocialWidgetDescriptionSerializer()
   top_languages = SocialWidgetDescriptionSerializer()
   content_volume = SocialWidgetDescriptionSerializer()
-  content_volume_by_top_countries = SocialWidgetDescriptionSerializer()
+  content_volume_by_top_locations = SocialWidgetDescriptionSerializer()
   content_volume_by_top_authors = SocialWidgetDescriptionSerializer()
   content_volume_by_top_languages = SocialWidgetDescriptionSerializer()
   sentiment = SocialWidgetDescriptionSerializer()
   gender_volume = SocialWidgetDescriptionSerializer()
   sentiment_number_of_results = SocialWidgetDescriptionSerializer()
   sentiment_authors = SocialWidgetDescriptionSerializer()
-  sentiment_countries = SocialWidgetDescriptionSerializer()
+  sentiment_locations = SocialWidgetDescriptionSerializer()
   sentiment_languages = SocialWidgetDescriptionSerializer()
   sentiment_by_gender = SocialWidgetDescriptionSerializer()
   class Meta:
     model = SocialWidgetsList
     fields = '__all__'
+
+class TweetBinderPostAuthorSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = TweetBinderPost
+    fields = ['user_name']
+
+class TweetBinderPostLocationSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = TweetBinderPost
+    fields = ['locationString']
+
+class TweetBinderPostLanguageSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = TweetBinderPost
+    fields = ['language']
