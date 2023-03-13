@@ -25,6 +25,10 @@ urlpatterns = [
   #========Widgets List========
   path('projects/<int:pk>/widgets_list', views.ProjectSocialWidgetsAPIView.as_view(), name='social_widgets_list'),
   path('projects/<int:pk>/widgets_list/update', views.UpdateSocialProjectsWidgetsAPIView.as_view(), name='update_social_widgets_list'),
+  #========Filter=========
+  path('social_authors_list', views.SocialAuthorList.as_view(), name='social_authors_list'),
+  path('social_locations_list', views.SocialLocationList.as_view(), name='social_locations_list'),
+  path('social_languages_list', views.SocialLanguageList.as_view(), name='social_languages_list'),
 ]
 
 router.register('projects', ProjectsSotialViewSet)
