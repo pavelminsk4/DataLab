@@ -24,7 +24,7 @@ class ContentVolumeTop5AuthorsWidgetTests(APITestCase):
     post7 = Post.objects.create(feedlink=flink4, entry_title='5 post title', feed_language=sp2, entry_published=datetime(2023, 9, 3, 6, 37), entry_author='AFP')
     post8 = Post.objects.create(feedlink=flink4, entry_title='6 post title', feed_language=sp2, entry_published=datetime(2023, 9, 3, 6, 37), entry_author='')
     # test first project with None field
-    pr1 = Project.objects.create(title='Project1', keywords=['post'], additional_keywords=[], ignore_keywords=[], start_search_date=datetime(2020, 10, 10), 
+    pr1 = Project.objects.create(title='Project1', keywords=['post'], additional_keywords=[], ignore_keywords=[], start_search_date=datetime(2020, 10, 10),
                                 end_search_date=datetime(2023, 10, 16), country_filter='', author_filter='', language_filter='', creator=user) 
     widget_pk = pr1.widgets_list_2.content_volume_top_5_authors_widget_id
     url = reverse('widgets:content_volume_top_5_authors_widget', kwargs={'pk':pr1.pk, 'widget_pk':widget_pk})
@@ -43,7 +43,6 @@ class ContentVolumeTop5AuthorsWidgetTests(APITestCase):
                       {'date': '2021-09-03 00:00:00+00:00', 'post_count': 0},
                       {'date': '2022-09-03 00:00:00+00:00', 'post_count': 0},
                       {'date': '2023-09-03 00:00:00+00:00', 'post_count': 1}
-                    ]}
-              
+                    ]},
            ]
     self.assertEqual(json.loads(response.content), res)
