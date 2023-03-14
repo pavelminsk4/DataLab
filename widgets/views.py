@@ -1,7 +1,3 @@
-from django.shortcuts import render, get_object_or_404
-from django.http import JsonResponse
-from project.models import Project, Post
-from django.db.models import Q
 from functools import reduce
 from .common_widget.summary_widget import summary_widget
 from .common_widget.volume_widget import volume
@@ -52,6 +48,6 @@ def content_volume_top_5_authors_widget(request, pk, widget_pk):
 def content_volume_top_5_countries_widget(request, pk, widget_pk):
   return content_volume_top_5_countries(request, pk, widget_pk)
 def dimensions_for_each_widgets(request, project_pk, widget_pk):
-  return dimensions_for_each(request, project_pk, widget_pk)
+  return dimensions_for_each(request, widget_pk)
 def interactive_data_for_widgets(request, project_pk, widget_pk):
   return interactive_widgets(request, project_pk, widget_pk)

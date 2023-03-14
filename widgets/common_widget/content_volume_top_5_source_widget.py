@@ -6,9 +6,9 @@ from django.db.models.functions import Trunc
 import json
 from .filters_for_widgets import *
 
-def agregator_results_content_volume_top_sources(posts, smpl_freq):
-  top_brands = list(map(lambda x: x['feedlink__source1'], list(posts.values('feedlink__source1').annotate(brand_count=Count('feedlink__source1')).order_by('-brand_count')[:5])))
-  results = [{source: list(posts.filter(feedlink__source1=source).annotate(date=Trunc('entry_published', smpl_freq)).values("date").annotate(created_count=Count('id')).order_by("date"))} for source in top_brands]
+def agregator_results_content_volume_top_sources(posts, aggregation_period, top_counts):
+  top_brands = list(map(lambda x: x['feedlink__source1'], list(posts.values('feedlink__source1').annotate(brand_count=Count('feedlink__source1')).order_by('-brand_count')[:top_counts])))
+  results = [{source: list(posts.filter(feedlink__source1=source).annotate(date=Trunc('entry_published', aggregation_period)).values("date").annotate(created_count=Count('id')).order_by("date"))} for source in top_brands]
   dates = set()
   for elem in range(len(results)):
     for i in range(len(results[elem][top_brands[elem]])):
@@ -32,6 +32,5 @@ def content_volume_top_5_source(request, pk, widget_pk):
   posts = post_agregator_with_dimensions(project)
   widget = WidgetDescription.objects.get(id=widget_pk)
   posts = post_agregetor_for_each_widget(widget, posts)
-  smpl_freq = widget.aggregation_period
-  res = agregator_results_content_volume_top_sources(posts, smpl_freq)
+  res = agregator_results_content_volume_top_sources(posts, widget.aggregation_period, widget.top_counts)
   return JsonResponse(res, safe = False)

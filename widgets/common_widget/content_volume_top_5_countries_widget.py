@@ -5,9 +5,9 @@ from django.db.models import Count
 from django.db.models.functions import Trunc
 from .filters_for_widgets import *
 
-def agregator_results_content_volume_top_countries(posts, smpl_freq):
-  top_countries = list(map(lambda x: x['feedlink__country'], list(posts.values('feedlink__country').annotate(country_count=Count('feedlink__country')).order_by('-country_count')[:5])))
-  results = [{country: list(posts.filter(feedlink__country=country).annotate(date=Trunc('entry_published', smpl_freq)).values("date").annotate(created_count=Count('id')).order_by("date"))} for country in top_countries]
+def agregator_results_content_volume_top_countries(posts, aggregation_period, top_counts):
+  top_countries = list(map(lambda x: x['feedlink__country'], list(posts.values('feedlink__country').annotate(country_count=Count('feedlink__country')).order_by('-country_count')[:top_counts])))
+  results = [{country: list(posts.filter(feedlink__country=country).annotate(date=Trunc('entry_published', aggregation_period)).values("date").annotate(created_count=Count('id')).order_by("date"))} for country in top_countries]
   dates = set()
   for elem in range(len(results)):
     for i in range(len(results[elem][top_countries[elem]])):
@@ -30,6 +30,5 @@ def content_volume_top_5_countries(request, pk, widget_pk):
   posts = post_agregator_with_dimensions(project)
   widget = WidgetDescription.objects.get(id=widget_pk)
   posts = post_agregetor_for_each_widget(widget, posts)
-  smpl_freq = widget.aggregation_period
-  res = agregator_results_content_volume_top_countries(posts, smpl_freq)
+  res = agregator_results_content_volume_top_countries(posts, widget.aggregation_period, widget.top_counts)
   return JsonResponse(res, safe = False)

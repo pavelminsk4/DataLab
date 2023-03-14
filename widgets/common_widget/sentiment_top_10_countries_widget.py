@@ -6,8 +6,8 @@ from django.db.models.functions import Trunc
 import json
 from .filters_for_widgets import *
 
-def post_agregator_sentiment_top_countries(posts):
-  top_countries = posts.values('feedlink__country').annotate(brand_count=Count('feedlink__country')).order_by('-brand_count').values_list('feedlink__country', flat=True)[:10]
+def post_agregator_sentiment_top_countries(posts, top_counts):
+  top_countries = posts.values('feedlink__country').annotate(brand_count=Count('feedlink__country')).order_by('-brand_count').values_list('feedlink__country', flat=True)[:top_counts]
   results = {country: list(posts.filter(feedlink__country=country).values('sentiment').annotate(sentiment_count=Count('sentiment')).order_by('-sentiment_count')) for country in top_countries}
   for i in range(len(results)):
     sentiments = ['negative', 'neutral', 'positive']
@@ -17,12 +17,12 @@ def post_agregator_sentiment_top_countries(posts):
           sentiments.remove(sen)
     for sen in sentiments:
       results[top_countries[i]].append({'sentiment': sen, 'sentiment_count': 0})
-  return results        
+  return results
 
 def sentiment_top_10_countries(pk, widget_pk):
   project = Project.objects.get(id=pk)
   posts = post_agregator_with_dimensions(project)
   widget = WidgetDescription.objects.get(id=widget_pk)
   posts = post_agregetor_for_each_widget(widget, posts)
-  res = post_agregator_sentiment_top_countries(posts) 
+  res = post_agregator_sentiment_top_countries(posts, widget.top_counts)
   return JsonResponse(res, safe = False)

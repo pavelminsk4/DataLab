@@ -5,10 +5,10 @@ from django.db.models import Count
 from django.db.models.functions import Trunc
 from .filters_for_widgets import *
 
-def agregator_results_content_volume_top_authors(posts, smpl_freq):
+def agregator_results_content_volume_top_authors(posts, aggregation_period, top_counts):
   filtred_posts = missing_authors_filter(posts)
-  top_authors = list(map(lambda x: x['entry_author'], list(filtred_posts.values('entry_author').annotate(author_count=Count('entry_author')).order_by('-author_count')[:5])))
-  results = [{author: list(filtred_posts.filter(entry_author=author).annotate(date=Trunc('entry_published', smpl_freq)).values("date").annotate(created_count=Count('id')).order_by("date"))} for author in top_authors]
+  top_authors = list(map(lambda x: x['entry_author'], list(filtred_posts.values('entry_author').annotate(author_count=Count('entry_author')).order_by('-author_count')[:top_counts])))
+  results = [{author: list(filtred_posts.filter(entry_author=author).annotate(date=Trunc('entry_published', aggregation_period)).values("date").annotate(created_count=Count('id')).order_by("date"))} for author in top_authors]
   dates = set()
   for elem in range(len(results)):
     for i in range(len(results[elem][top_authors[elem]])):
@@ -31,6 +31,5 @@ def content_volume_top_5_authors(request, pk, widget_pk):
   posts = post_agregator_with_dimensions(project)
   widget = WidgetDescription.objects.get(id=widget_pk)
   posts = post_agregetor_for_each_widget(widget, posts)
-  smpl_freq = widget.aggregation_period
-  res = agregator_results_content_volume_top_authors(posts, smpl_freq)
+  res = agregator_results_content_volume_top_authors(posts, widget.aggregation_period, widget.top_counts)
   return JsonResponse(res, safe = False)
