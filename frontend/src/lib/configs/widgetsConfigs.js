@@ -148,6 +148,15 @@ export const modalWidgetsConfig = {
     defaultChartType: 'MultiLineChart',
     availableTypes: MULTI_CHARTS,
   },
+
+  //social widgets
+  content_volume_widget: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    actionName: action.GET_VOLUME_WIDGET,
+    isChartShow: true,
+    defaultChartType: 'LineChart',
+    availableTypes: SIMPLE_CHARTS,
+  },
 }
 
 export const summaryWidgetConfig = [

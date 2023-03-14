@@ -6,7 +6,7 @@
           v-for="(item, index) of widgetNames"
           :key="index"
           :label="item.default_title"
-          :id="index"
+          :id="item.id"
           :model-value="item.is_active"
           @change="onChange"
           class="checkbox"
@@ -27,8 +27,8 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
-import {action, get} from '@store/constants'
+import {mapGetters} from 'vuex'
+import {get} from '@store/constants'
 
 import BaseModal from '@/components/modals/BaseModal'
 import BaseCheckbox from '@/components/BaseCheckbox'
@@ -56,15 +56,11 @@ export default {
       collection: [],
     }
   },
-  created() {
-    this[action.GET_AVAILABLE_WIDGETS](this.projectId)
-  },
   computed: {
     ...mapGetters({widgets: get.AVAILABLE_WIDGETS}),
     widgetNames() {
       if (this.widgets) {
-        const availableWidgets = Object.values(this.widgets)
-        return availableWidgets.filter((el) => el.default_title)
+        return Object.values(this.widgets).filter((el) => el.default_title)
       }
 
       return []
@@ -101,16 +97,14 @@ export default {
     },
   },
   methods: {
-    ...mapActions([
-      action.GET_AVAILABLE_WIDGETS,
-      action.UPDATE_AVAILABLE_WIDGETS,
-    ]),
     removeSelectedFilter(index) {
       this.collectionProxy.splice(index, 1)
     },
-    onChange(args) {
-      const {id, checked} = args
-      const item = Object.keys(this.widgets)[id]
+    onChange({id, checked}) {
+      const item = Object.keys(this.widgets).find(
+        (widgetName) => this.widgets[widgetName].id === id
+      )
+
       if (checked) {
         if (this.collectionProxy.indexOf(item) < 0) {
           this.collectionProxy.push(item)
@@ -124,12 +118,10 @@ export default {
       }
     },
     async saveCollectionWidgets() {
-      await this[action.UPDATE_AVAILABLE_WIDGETS]({
+      this.$emit('update-available-widgets', {
         projectId: this.projectId,
-        data: this.availableCollection,
+        widgetsList: this.availableCollection,
       })
-      await this[action.GET_AVAILABLE_WIDGETS](this.projectId)
-      await this.$emit('close')
     },
   },
 }
