@@ -22,6 +22,7 @@ class WorkspaceSocialSerializer(WritableNestedModelSerializer):
 class WorkspaceCreateSerializer(serializers.ModelSerializer):
   projects = ProjectSocialSerializer(many=True, required=False)
   description = serializers.CharField(max_length=1000, allow_blank=True)
+  social_workspace_projects = ProjectSocialSerializer(many=True, required=False)
   class Meta:
     model = WorkspaceSocial
     fields = '__all__'
