@@ -225,7 +225,9 @@ export default {
     async deleteWidget(name) {
       await this[action.UPDATE_AVAILABLE_WIDGETS]({
         projectId: this.projectId,
-        data: {[name]: {is_active: false, id: this.availableWidgets[name].id}},
+        widgetsList: {
+          [name]: {is_active: false, id: this.availableWidgets[name].id},
+        },
       })
       await this[action.GET_AVAILABLE_WIDGETS](this.projectId)
     },

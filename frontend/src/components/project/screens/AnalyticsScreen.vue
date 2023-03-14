@@ -14,6 +14,7 @@
       v-if="isOpenWidgetsModal"
       :project-id="currentProject.id"
       @close="toggleWidgetsModal('isOpenWidgetsModal')"
+      @update-available-widgets="updateAvailableWidgets"
     />
 
     <AllDimensionsModal
@@ -196,6 +197,7 @@ export default {
       action.GET_AVAILABLE_WIDGETS,
       action.POST_INTERACTIVE_WIDGETS,
       action.CLEAR_INTERACTIVE_DATA,
+      action.UPDATE_AVAILABLE_WIDGETS,
     ]),
     setSortingValue(item) {
       this.sortValue = item
@@ -288,6 +290,11 @@ export default {
         page_number: page,
         posts_per_page: countPosts,
       })
+    },
+
+    async updateAvailableWidgets(data) {
+      await this[action.UPDATE_AVAILABLE_WIDGETS](data)
+      this.toggleWidgetsModal('isOpenWidgetsModal')
     },
   },
 }

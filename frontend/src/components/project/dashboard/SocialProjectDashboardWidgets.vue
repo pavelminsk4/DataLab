@@ -68,7 +68,7 @@ import {snakeToPascal} from '@lib/utilities'
 import {modalWidgetsConfig} from '@/lib/configs/widgetsConfigs'
 
 import ContentVolume from '@/components/project/widgets/SocialContentVolumeWidget'
-import SummaryWidget from '@/components/project/widgets/SocialSummaryWidget'
+import Summary from '@/components/project/widgets/SocialSummaryWidget'
 import Top10BrandsWidget from '@/components/project/widgets/Top10BrandsWidget'
 import Top10CountriesWidget from '@/components/project/widgets/Top10CountriesWidget'
 import Top10LanguagesWidget from '@/components/project/widgets/Top10LanguagesWidget'
@@ -94,7 +94,7 @@ export default {
     WidgetSettingsModal,
     ClippingFeedContent,
     ContentVolume,
-    SummaryWidget,
+    Summary,
     Top10BrandsWidget,
     Top10CountriesWidget,
     Top10LanguagesWidget,
@@ -110,7 +110,11 @@ export default {
     GridLayout: VueGridLayout.GridLayout,
     GridItem: VueGridLayout.GridItem,
   },
-  emits: ['set-sorting-value', 'open-interactive-widget'],
+  emits: [
+    'set-sorting-value',
+    'open-interactive-widget',
+    'update-available-widgets',
+  ],
   props: {
     projectId: {
       type: Number,
@@ -143,10 +147,7 @@ export default {
         Object.keys(this.availableWidgets)
           .map((widgetName, index) => {
             if (this.availableWidgets[widgetName].is_active) {
-              const configWidgetName =
-                widgetName === 'summary_widget'
-                  ? widgetName
-                  : `${widgetName}_widget`
+              const configWidgetName = `${widgetName}_widget`
 
               return layout.push({
                 x: 0,
@@ -208,8 +209,11 @@ export default {
       return val > 1 ? val - 1 : 0
     },
     async deleteWidget(name) {
-      this.$emit('update-selected-widgets', {
-        [name]: {is_active: false, id: this.availableWidgets[name].id},
+      this.$emit('update-available-widgets', {
+        projectId: this.projectId,
+        widgetsList: {
+          [name]: {is_active: false, id: this.availableWidgets[name].id},
+        },
       })
     },
     updatePage(page, posts) {
@@ -222,7 +226,7 @@ export default {
         isChartShow: item.isChartShow,
         hasAggregationPeriod: item.hasAggregationPeriod,
         chartType: item.chartType,
-        settingsTabs: modalWidgetsConfig[item.name].settingsTabs,
+        settingsTabs: modalWidgetsConfig[`${item.name}_widget`].settingsTabs,
       }
       this.isOpenWidgetSettingsModal = !this.isOpenWidgetSettingsModal
     },

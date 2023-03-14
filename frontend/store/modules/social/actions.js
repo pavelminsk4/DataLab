@@ -23,9 +23,14 @@ export default {
     try {
       const response = await api.social.createWorkspace(workspace)
       commit(mutator.SET_NEW_WORKSPACE_ID, response.id)
-      commit(mutator.SET_NEW_PROJECT_ID, response.projects[0].id)
-      response.projects = response.social_workspace_projects
-      return response
+      commit(
+        mutator.SET_NEW_PROJECT_ID,
+        response.social_workspace_projects[0].id
+      )
+      return {
+        ...response,
+        projects: response.social_workspace_projects,
+      }
     } catch (e) {
       console.log(e)
     } finally {

@@ -652,14 +652,18 @@ export default {
     }
   },
 
-  async [action.UPDATE_AVAILABLE_WIDGETS]({commit}, {projectId, data}) {
+  async [action.UPDATE_AVAILABLE_WIDGETS](
+    {commit, dispatch},
+    {projectId, widgetsList}
+  ) {
     commit(mutator.SET_LOADING, true)
     try {
       const availableWidgets = await api.updateAvailableWidgets({
         projectId,
-        data,
+        data: widgetsList,
       })
       commit(mutator.SET_AVAILABLE_WIDGETS, availableWidgets)
+      dispatch(action.GET_AVAILABLE_WIDGETS, projectId)
     } catch (e) {
       console.log(e)
     } finally {
