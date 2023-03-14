@@ -1,5 +1,5 @@
 <template>
-  <div v-if="currentProject" class="analytics-wrapper">
+  <div class="analytics-wrapper">
     <InteractiveWidgetModal
       v-if="isOpenInteractiveModal"
       :widget-id="widgetId"

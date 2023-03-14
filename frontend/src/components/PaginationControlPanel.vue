@@ -31,7 +31,7 @@ import BaseDropdown from '@/components/BaseDropdown'
 export default {
   name: 'PaginationControlPanel',
   components: {BaseDropdown, VPagination},
-  emits: ['update-page', 'update-posts-count'],
+  emits: ['update-page', 'update-posts-count', 'update:modelValue'],
   props: {
     pages: {
       type: Number,

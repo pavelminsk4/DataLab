@@ -35,6 +35,7 @@
 
     <div class="pagination">
       <PaginationControlPanel
+        v-if="numberOfPages"
         v-model="currentPage"
         :pages="numberOfPages"
         :posts-on-page="postsOnPage"
@@ -68,7 +69,7 @@ export default {
   props: {
     widgetId: {
       type: Number,
-      required: true,
+      required: false,
     },
     currentProject: {
       type: [Array, Object],
