@@ -14,15 +14,16 @@
           :is="snakeToPascal(widgetName)"
           :volume="widgetData"
           :chart-type="newChartType || chartType"
-          :is-general-widget="false"
+          :is-widget="false"
           :is-open-widget="true"
           :project-id="projectId"
           :widgets="widgetsList"
           :widget-id="generalWidgetData.id"
           :summary-data="summaryData"
+          :title="generalWidgetData.title"
           class="widget-view"
           @open-interactive-data="openInteractiveData"
-          @open-sentiment-interactive-data="openSentimentInteractiveData"
+          @open-sentiment-interactive="openSentimentInteractiveData"
         />
       </div>
 
@@ -88,10 +89,10 @@ import Top10AuthorsByVolumeWidget from '@/components/project/widgets/Top10Author
 import ContentVolumeTop5SourceWidget from '@/components/project/widgets/ContentVolumeTop5SourceWidget'
 import ContentVolumeTop5AuthorsWidget from '@/components/project/widgets/ContentVolumeTop5AuthorsWidget'
 import ContentVolumeTop5CountriesWidget from '@/components/project/widgets/ContentVolumeTop5CountriesWidget'
-import SentimentTop10SourcesWidget from '@/components/project/widgets/SentimentTop10SourcesWidget'
-import SentimentTop10CountriesWidget from '@/components/project/widgets/SentimentTop10CountriesWidget'
-import SentimentTop10AuthorsWidget from '@/components/project/widgets/SentimentTop10AuthorsWidget'
-import SentimentTop10LanguagesWidget from '@/components/project/widgets/SentimentTop10LanguagesWidget'
+import SentimentTop10SourcesWidget from '@/components/widgets/online/SentimentTop10SourcesWidget'
+import SentimentTop10CountriesWidget from '@/components/widgets/online/SentimentTop10CountriesWidget'
+import SentimentTop10AuthorsWidget from '@/components/widgets/online/SentimentTop10AuthorsWidget'
+import SentimentTop10LanguagesWidget from '@/components/widgets/online/SentimentTop10LanguagesWidget'
 import SentimentForPeriodWidget from '@/components/project/widgets/SentimentForPeriodWidget'
 import SummaryWidget from '@/components/project/widgets/SummaryWidget'
 import ClippingFeedContentWidget from '@/components/project/widgets/ClippingFeedContentWidget'
@@ -304,7 +305,7 @@ export default {
       this.$emit('open-interactive-widget', val, widgetId, fieldName)
     },
     openSentimentInteractiveData(source, sentiment, widgetId) {
-      this.$emit('open-sentiment-interactive-data', source, sentiment, widgetId)
+      this.$emit('open-sentiment-interactive', source, sentiment, widgetId)
     },
   },
 }

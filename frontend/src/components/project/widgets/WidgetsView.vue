@@ -14,7 +14,7 @@
     :settings-tabs="dataForWidgetModal.settingsTabs"
     @close="closeModal"
     @open-interactive-widget="openInteractiveData"
-    @open-sentiment-interactive-data="openSentimentInteractiveData"
+    @open-sentiment-interactive="openSentimentInteractiveData"
   />
 
   <div class="analytics-wrapper">
@@ -61,10 +61,11 @@
           :widget-id="item.widgetId"
           :current-project="currentProject"
           :chart-type="item.chartType"
+          :title="item.title"
           @delete-widget="deleteWidget(item.name)"
           @open-settings-modal="openModal(item)"
           @open-interactive-data="openInteractiveData"
-          @open-sentiment-interactive-data="openSentimentInteractiveData"
+          @open-sentiment-interactive="openSentimentInteractiveData"
         />
       </grid-item>
     </grid-layout>
@@ -87,10 +88,10 @@ import Top10LanguagesWidget from '@/components/project/widgets/Top10LanguagesWid
 import SentimentForPeriodWidget from '@/components/project/widgets/SentimentForPeriodWidget'
 import ClippingFeedContentWidget from '@/components/project/widgets/ClippingFeedContentWidget'
 import Top10AuthorsByVolumeWidget from '@/components/project/widgets/Top10AuthorsByVolumeWidget'
-import SentimentTop10AuthorsWidget from '@/components/project/widgets/SentimentTop10AuthorsWidget'
-import SentimentTop10SourcesWidget from '@/components/project/widgets/SentimentTop10SourcesWidget'
-import SentimentTop10LanguagesWidget from '@/components/project/widgets/SentimentTop10LanguagesWidget'
-import SentimentTop10CountriesWidget from '@/components/project/widgets/SentimentTop10CountriesWidget'
+import SentimentTop10AuthorsWidget from '@/components/widgets/online/SentimentTop10AuthorsWidget'
+import SentimentTop10SourcesWidget from '@/components/widgets/online/SentimentTop10SourcesWidget'
+import SentimentTop10LanguagesWidget from '@/components/widgets/online/SentimentTop10LanguagesWidget'
+import SentimentTop10CountriesWidget from '@/components/widgets/online/SentimentTop10CountriesWidget'
 import ContentVolumeTop5SourceWidget from '@/components/project/widgets/ContentVolumeTop5SourceWidget'
 import ContentVolumeTop5AuthorsWidget from '@/components/project/widgets/ContentVolumeTop5AuthorsWidget'
 import ContentVolumeTop5CountriesWidget from '@/components/project/widgets/ContentVolumeTop5CountriesWidget'
@@ -186,6 +187,7 @@ export default {
                 widgetId: this.availableWidgets[widgetName]?.id,
                 actionName: this.elementsValue[widgetName].actionName,
                 isChartShow: this.elementsValue[widgetName].isChartShow,
+                title: this.availableWidgets[widgetName]?.title,
                 chartType:
                   this.availableWidgets[widgetName]?.chart_type ||
                   modalWidgetsConfig[widgetName]?.defaultChartType,

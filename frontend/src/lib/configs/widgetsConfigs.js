@@ -16,6 +16,10 @@ const CHARTS = {
     componentName: 'BarChart',
     name: 'Bar chart',
   },
+  bar2: {
+    componentName: 'BarChart2',
+    name: 'Bar chart',
+  },
   pie: {
     componentName: 'PieChart',
     name: 'Pie chart',
@@ -36,6 +40,10 @@ const CHARTS = {
     componentName: 'MultiLineChart',
     name: 'Line chart',
   },
+  multiLine2: {
+    componentName: 'MultiLineChart2',
+    name: 'Line chart',
+  },
   multiRadar: {
     componentName: 'MultiRadarChart',
     name: 'Radar chart',
@@ -43,10 +51,8 @@ const CHARTS = {
 }
 
 const SIMPLE_CHARTS = [CHARTS.line, CHARTS.bar, CHARTS.pie, CHARTS.radar]
-const SENTIMENTS_CHARTS = [
-  CHARTS.sentimentBar,
-  CHARTS.sentimentHorizontalStackedBar,
-]
+const SENTIMENTS_CHARTS = [CHARTS.sentimentHorizontalStackedBar, CHARTS.bar2]
+
 const MULTI_CHARTS = [CHARTS.multiLine, CHARTS.multiRadar]
 
 export const modalWidgetsConfig = {
