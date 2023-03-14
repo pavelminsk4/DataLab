@@ -1,7 +1,8 @@
 from rest_framework.generics import ListAPIView, CreateAPIView, DestroyAPIView, UpdateAPIView, RetrieveAPIView
+from .widgets.dashboard.content_volume_by_top_locations import *
+from .widgets.dashboard.content_volume_by_top_languages import *
+from .widgets.dashboard.content_volume_by_top_authors import *
 from tweet_binder.models import TweetBinderPost
-from django.core.paginator import Paginator
-from django.http import JsonResponse
 from .widgets.dashboard.summary_widget import *
 from .widgets.dashboard.content_volume import *
 from .widgets.dashboard.clipping_feed import *
@@ -9,6 +10,8 @@ from .widgets.dashboard.top_locations import *
 from .widgets.dashboard.top_languages import *
 from .widgets.dashboard.top_authors import *
 from rest_framework import viewsets, filters
+from django.core.paginator import Paginator
+from django.http import JsonResponse
 from django.db.models import Q
 from functools import reduce
 from .serializers import *
@@ -133,7 +136,7 @@ def twitter_posts_search(request):
 
 #=========Social Widgets=======
 def social_summary_widget(request, pk, widget_pk):
-  return summary_widget(pk, widget_pk)
+  return summary(pk, widget_pk)
 
 def clipping_feed_content(request, pk, widget_pk):
   return clipping_feed(pk, widget_pk)
@@ -149,6 +152,15 @@ def social_top_authors(request, pk, widget_pk):
 
 def social_content_volume(request, pk, widget_pk):
   return content_volume(pk, widget_pk)
+
+def social_content_volume_by_top_locations(request, pk, widget_pk):
+  return content_volume_by_top_locations(request, pk, widget_pk)
+
+def social_content_volume_by_top_authors(request, pk, widget_pk):
+  return content_volume_by_top_authors(request, pk, widget_pk)
+
+def social_content_volume_by_top_languages(request, pk, widget_pk):
+  return content_volume_by_top_languages(request, pk, widget_pk)
 
 class ProjectSocialWidgetsAPIView(RetrieveAPIView):
  serializer_class = WidgetsListSerializer

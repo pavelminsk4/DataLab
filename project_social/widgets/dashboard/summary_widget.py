@@ -31,7 +31,7 @@ def calculate_summary_widget(posts):
     'retweets':retweets_quantity,
     }
 
-def summary_widget(pk, widget_pk):
+def summary(pk, widget_pk):
   project = ProjectSocial.objects.get(id=pk)
   posts = post_agregator_with_dimensions(project)
   widget = SocialWidgetDescription.objects.get(id=widget_pk)
