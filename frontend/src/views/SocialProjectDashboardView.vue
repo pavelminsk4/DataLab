@@ -10,7 +10,7 @@
 
 <script>
 import {createNamespacedHelpers} from 'vuex'
-import {action} from '@store/modules/social/constants'
+import {action} from '@store/constants'
 
 import SideBar from '@/components/navigation/SideBar'
 import MainLayout from '@/components/layout/MainLayout'

@@ -1,11 +1,13 @@
 <template>
-  <WidgetsLayout
-    v-if="isGeneralWidget"
-    title="Summary"
+  <component
+    :is="widgetWrapper"
+    :title="title"
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
   >
-    <div class="summary-widget__container">
+    <div
+      :class="['summary-widget__container', isGeneralWidget && 'settings-view']"
+    >
       <div
         v-for="(item, index) in widgetMetrics"
         :key="'metrics' + index"
@@ -17,32 +19,13 @@
           class="icon"
         />
         <div class="title">{{ item.name }}</div>
-        <div class="value">{{ summaryData[item.valueName] }}</div>
+        <div class="value">{{ summaryWidgetData[item.valueName] }}</div>
       </div>
     </div>
-  </WidgetsLayout>
-
-  <div v-else class="summary-widget__container settings-view">
-    <div
-      v-for="(item, index) in widgetMetrics"
-      :key="'metrics' + index"
-      class="post-item"
-    >
-      <component
-        :is="item.iconName"
-        :style="`background-color: ${item.backgroundColor}`"
-        class="icon"
-      />
-      <div class="title">{{ item.name }}</div>
-      <div class="value">{{ summaryData[item.valueName] }}</div>
-    </div>
-  </div>
+  </component>
 </template>
 
 <script>
-import {mapGetters, createNamespacedHelpers} from 'vuex'
-import {get} from '@store/constants'
-import {action} from '@store/modules/social/constants'
 import {summaryWidgetConfig} from '@/lib/configs/widgetsConfigs'
 
 import NewPostIcon from '@/components/icons/NewPostIcon'
@@ -54,8 +37,6 @@ import PotentialReachIcon from '@/components/icons/PotentialReachIcon'
 import CountryIcon from '@/components/icons/CountryIcon'
 import AuthorsIcon from '@/components/icons/AuthorsIcon'
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
-
-const {mapActions} = createNamespacedHelpers('social')
 
 export default {
   name: 'SummaryWidget',
@@ -71,51 +52,19 @@ export default {
     WidgetsLayout,
   },
   props: {
-    summaryData: {
-      type: [Array, Object],
-      required: true,
-    },
-    projectId: {
-      type: Number,
-      required: true,
-    },
-    widgetId: {
-      type: Number,
-      required: true,
-    },
-    isOpenWidget: {
-      type: Boolean,
-      required: true,
-    },
-    isGeneralWidget: {
-      type: Boolean,
-      default: true,
-    },
+    title: {type: String, required: true},
+    summaryWidgetData: {type: Object, required: true},
+    projectId: {type: Number, required: true},
+    widgetId: {type: Number, required: true},
+    isGeneralWidget: {type: Boolean, default: true},
   },
   computed: {
-    ...mapGetters({
-      summary: get.SUMMARY_WIDGET,
-    }),
+    widgetWrapper() {
+      return this.isGeneralWidget ? 'WidgetsLayout' : 'div'
+    },
   },
   created() {
     this.widgetMetrics = summaryWidgetConfig
-
-    if (this.isOpenWidget && !this.summary.length) {
-      this[action.GET_SUMMARY_WIDGET]({
-        projectId: this.projectId,
-        widgetId: this.widgetId,
-      })
-    }
-  },
-  watch: {
-    isOpenWidget() {
-      if (this.isOpenWidget) {
-        this[action.GET_SUMMARY_WIDGET](this.projectId)
-      }
-    },
-  },
-  methods: {
-    ...mapActions([action.GET_SUMMARY_WIDGET, action.GET_AVAILABLE_WIDGETS]),
   },
 }
 </script>

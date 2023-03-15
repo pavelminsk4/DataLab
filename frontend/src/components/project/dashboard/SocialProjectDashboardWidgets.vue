@@ -1,6 +1,7 @@
 <template>
   <WidgetSettingsModal
     v-if="isOpenWidgetSettingsModal"
+    :widgetData="currentWidget"
     :widget-name="dataForWidgetModal.widgetName"
     :project-id="projectId"
     :widget-data="this[dataForWidgetModal.widgetName]"
@@ -40,6 +41,7 @@
     >
       <component
         v-if="item.isWidget"
+        :widgetDetails="item"
         :is="item.widgetName"
         :summary-data="summary_widget"
         :volume="volume_widget"
@@ -62,14 +64,22 @@
 <script>
 import {mapGetters, createNamespacedHelpers} from 'vuex'
 import {get} from '@store/constants'
-import {action} from '@store/modules/social/constants'
+import {action} from '@store/constants'
 import VueGridLayout from 'vue3-grid-layout'
 import {snakeToPascal} from '@lib/utilities'
 import {modalWidgetsConfig} from '@/lib/configs/widgetsConfigs'
 
-import Summary from '@/components/project/widgets/SocialSummaryWidget'
-import ClippingFeedContent from '@/components/project/widgets/SocialClippingFeedContentWidget'
-import WidgetSettingsModal from '@/components/project/modals/WidgetSettingsModal'
+import Summary from '@/components/widgets/social/SummaryWidget'
+import ClippingFeedContent from '@/components/widgets/social/ClippingFeedContentWidget'
+import ContentVolume from '@/components/widgets/social/ContentVolumeWidget'
+import TopLocations from '@/components/widgets/social/TopLocationsWidget'
+import TopLanguages from '@/components/widgets/social/TopLanguagesWidget'
+import TopAuthors from '@/components/widgets/social/TopAuthorsWidget'
+import ContentVolumeByTopLocations from '@/components/widgets/social/ContentVolumeTopLocationsWidget'
+import ContentVolumeByTopAuthors from '@/components/widgets/social/ContentVolumeTopAuthorsWidget'
+import ContentVolumeByTopLanguages from '@/components/widgets/social/ContentVolumeTopLanguagesWidget'
+
+import WidgetSettingsModal from '@/components/widgets/modals/WidgetSettingsModal'
 import InteractiveWidgetModal from '@/components/modals/InteractiveWidgetModal'
 
 const {mapActions} = createNamespacedHelpers('social')
@@ -81,6 +91,13 @@ export default {
     WidgetSettingsModal,
     ClippingFeedContent,
     Summary,
+    ContentVolume,
+    TopLocations,
+    TopLanguages,
+    TopAuthors,
+    ContentVolumeByTopLocations,
+    ContentVolumeByTopAuthors,
+    ContentVolumeByTopLanguages,
     GridLayout: VueGridLayout.GridLayout,
     GridItem: VueGridLayout.GridItem,
   },
@@ -104,6 +121,7 @@ export default {
       layout: [],
       dataForWidgetModal: {},
       isOpenWidgetSettingsModal: false,
+      currentWidget: null,
     }
   },
   computed: {
@@ -124,6 +142,7 @@ export default {
               const configWidgetName = `${widgetName}_widget`
 
               return layout.push({
+                ...this.availableWidgets[widgetName],
                 x: 0,
                 y: this.getYAxisValue(layout.length),
                 w: 2,
@@ -202,6 +221,7 @@ export default {
         chartType: item.chartType,
         settingsTabs: modalWidgetsConfig[`${item.name}_widget`].settingsTabs,
       }
+      this.currentWidget = this.availableWidgets[item.name]
       this.isOpenWidgetSettingsModal = !this.isOpenWidgetSettingsModal
     },
     openInteractiveData(val, widgetId, fieldName) {

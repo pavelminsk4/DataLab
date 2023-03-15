@@ -1,86 +1,71 @@
 <template>
-  <WidgetsLayout
-    v-if="isGeneralWidget"
-    :title="this.widgets.content_volume.title"
+  <component
+    :is="widgetWrapper"
+    :title="widgets.content_volume.title"
+    @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
   >
     <ChartsView
       :labels="labels"
-      :values="values"
+      :chart-values="chartValues"
       :chart-type="chartType"
       :is-display-legend="false"
     />
-  </WidgetsLayout>
-
-  <ChartsView
-    v-else
-    :labels="labels"
-    :values="values"
-    :chart-type="chartType"
-    :is-display-legend="false"
-  />
+  </component>
 </template>
 
 <script>
 import {mapGetters, createNamespacedHelpers} from 'vuex'
 import {get} from '@store/constants'
-import {action} from '@store/modules/social/constants'
+import {action} from '@store/constants'
 import {defaultDate} from '@/lib/utilities'
 
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
-import ChartsView from '@/components/project/widgets/charts/ChartsView'
+import ChartsView from '@/components/charts/ChartsView'
 
-const {mapActions} = createNamespacedHelpers('social')
+const {mapActions, mapGetters: mapGettersSocial} =
+  createNamespacedHelpers('social/widgets')
 
 export default {
-  name: 'VolumeWidget',
+  name: 'SocialContentVolumeWidget',
   components: {ChartsView, WidgetsLayout},
   props: {
-    volume: {
-      type: [Array, Object],
-      default: () => [],
-    },
-    projectId: {
-      type: [String, Number],
-      required: true,
-    },
-    widgetId: {
-      type: Number,
-      required: true,
-    },
-    isOpenWidget: {
-      type: Boolean,
-      required: true,
-    },
-    chartType: {
-      type: String,
-      required: true,
-    },
-    isGeneralWidget: {
-      type: Boolean,
-      default: true,
-    },
+    isWidget: {type: Boolean, default: true},
+    volume: {type: [Array, Object], default: () => []},
+    projectId: {type: [String, Number], required: true},
+    widgetId: {type: Number, required: true},
+    chartType: {type: String, required: true},
+    isGeneralWidget: {type: Boolean, default: true},
   },
   computed: {
+    ...mapGettersSocial({
+      socialWidgets: get.SOCIAL_WIDGETS,
+    }),
     ...mapGetters({
       widgets: get.AVAILABLE_WIDGETS,
-      volumeWidgetData: get.VOLUME_WIDGET,
     }),
-    volumeData() {
-      return Object.values(this.volume)
+    widgetWrapper() {
+      return this.isWidget ? 'WidgetsLayout' : 'div'
+    },
+    contentVolumeWidgetData() {
+      return this.socialWidgets.contentVolume
     },
     labels() {
-      return this.volumeData.map((el) => this.defaultDate(el.date))
+      return this.contentVolumeWidgetData.map((el) =>
+        defaultDate(el.creation_date)
+      )
     },
-    isLineChart() {
-      return this.volumeValues?.length > 7
-    },
-    values() {
-      return this.volumeData.map((el) => el.created_count)
+    chartValues() {
+      return [
+        {
+          color: '#516BEE',
+          data: this.contentVolumeWidgetData.map((el) => el.created_count),
+        },
+      ]
     },
   },
   created() {
-    if (this.isOpenWidget && !this.volume.length) {
+    if (!this.contentVolumeWidgetData.length) {
       this[action.GET_CONTENT_VOLUME_WIDGET]({
         projectId: this.projectId,
         value: {
@@ -102,7 +87,6 @@ export default {
   },
   methods: {
     ...mapActions([action.GET_CONTENT_VOLUME_WIDGET]),
-    defaultDate,
   },
 }
 </script>

@@ -96,4 +96,39 @@ export default {
       `${moduleName}/social_top_locations/${projectId}/${widgetId}`
     )
   },
+  async getTopLanguagesWidget(projectId, widgetId) {
+    return fetch(
+      'get',
+      `${moduleName}/social_top_languages/${projectId}/${widgetId}`
+    )
+  },
+  async getTopAuthorsWidget(projectId, widgetId) {
+    return fetch(
+      'get',
+      `${moduleName}/social_top_authors/${projectId}/${widgetId}`
+    )
+  },
+
+  // Content Volume
+  async getContentVolumeTopLocations({projectId, value, widgetId}) {
+    return fetch(
+      'post',
+      `${moduleName}/social_content_volume_by_top_locations/${projectId}/${widgetId}`,
+      value
+    )
+  },
+  async getContentVolumeTopAuthors({projectId, value, widgetId}) {
+    return fetch(
+      'post',
+      `${moduleName}/social_content_volume_by_top_authors/${projectId}/${widgetId}`,
+      value
+    )
+  },
+  async getContentVolumeTopLanguages({projectId, value, widgetId}) {
+    return fetch(
+      'post',
+      `${moduleName}/social_content_volume_by_top_languages/${projectId}/${widgetId}`,
+      value
+    )
+  },
 }

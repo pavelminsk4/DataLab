@@ -12,7 +12,7 @@
 
 <script>
 import {createNamespacedHelpers} from 'vuex'
-import {action, get} from '@store/modules/social/constants'
+import {action, get} from '@store/constants'
 
 import WorkspaceView from '@/components/workspace/WorkspaceView'
 

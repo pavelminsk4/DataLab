@@ -41,22 +41,10 @@ export default {
   name: 'BasicSettingsScreen',
   components: {BaseTextarea, BaseSelect, BaseInput},
   props: {
-    widgetTitle: {
-      type: String,
-      required: false,
-    },
-    widgetDescription: {
-      type: String,
-      required: false,
-    },
-    period: {
-      type: String,
-      required: false,
-    },
-    hasAggregationPeriod: {
-      type: Boolean,
-      default: true,
-    },
+    widgetTitle: {type: String, required: false},
+    widgetDescription: {type: String, required: false},
+    period: {type: String, required: false},
+    hasAggregationPeriod: {type: Boolean, default: true},
   },
   data() {
     return {

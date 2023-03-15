@@ -1,23 +1,22 @@
 <template>
-  <SummaryWidget
+  <ClippingFeedContentWidget
     v-bind="$attrs"
-    :title="availableWidgets.summary_widget.title"
+    :title="availableWidgets.clipping_feed_content_widget.title"
     :project-id="projectId"
     :widget-id="widgetId"
-    :summary-widget-data="summary"
+    :clipping-feed-content-data="clippingFeedContent"
   />
 </template>
 
 <script>
 import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
-import {isAllEmptyFields} from '@lib/utilities'
 
-import SummaryWidget from '@/components/widgets/SummaryWidget'
+import ClippingFeedContentWidget from '@/components/widgets/ClippingFeedContentWidget'
 
 export default {
-  name: 'OnlineSummaryWidget',
-  components: {SummaryWidget},
+  name: 'OnlineClippingFeedContentWidget',
+  components: {ClippingFeedContentWidget},
   props: {
     projectId: {type: Number, required: true},
     widgetId: {type: Number, required: true},
@@ -25,19 +24,19 @@ export default {
   computed: {
     ...mapGetters({
       availableWidgets: get.AVAILABLE_WIDGETS,
-      summary: get.SUMMARY_WIDGET,
+      clippingFeedContent: get.CLIPPING_FEED_CONTENT_WIDGET,
     }),
   },
   created() {
-    if (isAllEmptyFields(this.summary)) {
-      this[action.GET_SUMMARY_WIDGET]({
+    if (!this.clippingFeedContent.length) {
+      this[action.GET_CLIPPING_FEED_CONTENT_WIDGET]({
         projectId: this.projectId,
         widgetId: this.widgetId,
       })
     }
   },
   methods: {
-    ...mapActions([action.GET_SUMMARY_WIDGET]),
+    ...mapActions([action.GET_CLIPPING_FEED_CONTENT_WIDGET]),
   },
 }
 </script>

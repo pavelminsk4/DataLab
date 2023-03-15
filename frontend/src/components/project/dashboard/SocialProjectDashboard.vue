@@ -103,13 +103,13 @@
 <script>
 import {mapActions, mapGetters, createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
-import {action as actionSocial} from '@store/modules/social/constants'
+import {action as actionSocial} from '@store/constants'
 
 import SocialSearchResults from '@/components/SocialSearchResults'
 import SocialProjectDashboardWidgets from '@/components/project/dashboard/SocialProjectDashboardWidgets'
 import BaseButton from '@/components/common/BaseButton'
 import PlusIcon from '@/components/icons/PlusIcon'
-import WidgetsListModal from '@/components/project/modals/WidgetsListModal'
+import WidgetsListModal from '@/components/widgets/modals/WidgetsListModal'
 import DimensionsIcon from '@/components/icons/DimensionsIcon'
 import AllDimensionsModal from '@/components/project/modals/AllDimensionsModal'
 import ReportsUploadIcon from '@/components/icons/ReportsUploadIcon'
