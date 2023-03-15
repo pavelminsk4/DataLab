@@ -22,5 +22,3 @@ export default {
   name: 'ErrorIcon',
 }
 </script>
-
-<style scoped></style>

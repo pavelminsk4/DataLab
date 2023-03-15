@@ -5,9 +5,9 @@
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
   >
-    <ChartsView2
+    <ChartsView
       :labels="labels"
-      :charts-data="chartsData"
+      :chart-values="chartValues"
       :chart-type="chartType"
       :is-display-legend="isWidget"
     />
@@ -19,12 +19,12 @@ import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 import {defaultDate} from '@/lib/utilities'
 
-import ChartsView2 from '@/components/charts/ChartsView2'
+import ChartsView from '@/components/charts/ChartsView'
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
 
 export default {
   name: 'VolumeWidget',
-  components: {ChartsView2, WidgetsLayout},
+  components: {ChartsView, WidgetsLayout},
   props: {
     isWidget: {type: Boolean, default: true},
     title: {type: String, required: true},
@@ -46,7 +46,7 @@ export default {
     labels() {
       return this.volumeData.map((el) => this.defaultDate(el.date))
     },
-    chartsData() {
+    chartValues() {
       return [
         {color: '#516BEE', data: this.volumeData.map((el) => el.created_count)},
       ]
@@ -79,5 +79,3 @@ export default {
   },
 }
 </script>
-
-<style scoped></style>

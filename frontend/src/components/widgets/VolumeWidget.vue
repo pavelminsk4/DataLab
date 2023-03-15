@@ -5,10 +5,10 @@
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
   >
-    <ChartsView2
+    <ChartsView
       :labels="labels"
       :chart-type="chartType"
-      :charts-data="chartsData"
+      :chart-values="chartValues"
       :is-display-legend="isWidget"
       @open-sentiment-interactive-modal="openInteractiveModal"
     />
@@ -16,19 +16,19 @@
 </template>
 
 <script>
-import ChartsView2 from '@/components/charts/ChartsView2'
+import ChartsView from '@/components/charts/ChartsView'
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
 
 export default {
   name: 'VolumeWidget',
-  components: {ChartsView2, WidgetsLayout},
+  components: {ChartsView, WidgetsLayout},
   props: {
     isWidget: {type: Boolean, default: true},
     title: {type: String, required: true},
     widgetId: {type: Number, required: true},
     chartType: {type: String, required: true},
     labels: {type: Array, required: true},
-    chartsData: {type: Array, required: true, default: () => {}},
+    chartValues: {type: Array, required: true, default: () => {}},
   },
   computed: {
     widgetWrapper() {
@@ -42,5 +42,3 @@ export default {
   },
 }
 </script>
-
-<style scoped></style>

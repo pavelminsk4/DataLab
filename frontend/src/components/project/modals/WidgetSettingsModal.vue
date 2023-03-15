@@ -92,7 +92,7 @@ import SentimentTop10SourcesWidget from '@/components/widgets/online/SentimentTo
 import SentimentTop10CountriesWidget from '@/components/widgets/online/SentimentTop10CountriesWidget'
 import SentimentTop10AuthorsWidget from '@/components/widgets/online/SentimentTop10AuthorsWidget'
 import SentimentTop10LanguagesWidget from '@/components/widgets/online/SentimentTop10LanguagesWidget'
-import SentimentForPeriodWidget from '@/components/project/widgets/SentimentForPeriodWidget'
+import SentimentForPeriodWidget from '@/components/widgets/online/SentimentForPeriodWidget'
 import SummaryWidget from '@/components/widgets/online/SummaryWidget'
 import ClippingFeedContentWidget from '@/components/project/widgets/ClippingFeedContentWidget'
 import ChartTypesRadio from '@/components/project/widgets/modals/screens/ChartTypesRadio'
@@ -233,7 +233,7 @@ export default {
     saveGeneralChanges() {
       this[action.UPDATE_AVAILABLE_WIDGETS]({
         projectId: this.projectId,
-        data: {
+        widgetsList: {
           [this.widgetName]: {
             id: this.generalWidgetData.id,
             title: this.newWidgetTitle || this.generalWidgetData.title,
@@ -279,7 +279,7 @@ export default {
     async saveChartType() {
       await this[action.UPDATE_AVAILABLE_WIDGETS]({
         projectId: this.projectId,
-        data: {
+        widgetsList: {
           [this.widgetName]: {
             id: this.generalWidgetData.id,
             chart_type: this.newChartType,

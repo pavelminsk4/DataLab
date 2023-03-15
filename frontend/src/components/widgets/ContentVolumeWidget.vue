@@ -5,10 +5,10 @@
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
   >
-    <ChartsView2
+    <ChartsView
       :labels="labels"
       :chart-type="chartType"
-      :charts-data="chartsData"
+      :chart-values="chartValues"
       :is-display-legend="isWidget"
       @open-sentiment-interactive-modal="openInteractiveModal"
     />
@@ -18,12 +18,12 @@
 <script>
 import {defaultDate} from '@/lib/utilities'
 
-import ChartsView2 from '@/components/charts/ChartsView2'
+import ChartsView from '@/components/charts/ChartsView'
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
 
 export default {
   name: 'ContentVolumeWidget',
-  components: {ChartsView2, WidgetsLayout},
+  components: {ChartsView, WidgetsLayout},
   props: {
     isWidget: {type: Boolean, default: true},
     title: {type: String, required: true},
@@ -46,7 +46,7 @@ export default {
 
       return labelsCollection[0]?.map((el) => this.defaultDate(el.date))
     },
-    chartsData() {
+    chartValues() {
       let datasetsValue = []
       let lineColors = [
         '#7C59ED',
@@ -61,13 +61,17 @@ export default {
         '#FFE499',
       ]
 
-      Object.values(this.contentVolumeWidgetData).forEach((el, index) => {
-        datasetsValue.push({
-          label: Object.keys(el)[0],
-          color: lineColors[index],
-          data: el[Object.keys(el)].map((el) => el.post_count),
-        })
-      })
+      Object.values(this.contentVolumeWidgetData).forEach(
+        (volumeData, index) => {
+          datasetsValue.push({
+            label: Object.keys(volumeData)[0],
+            color: lineColors[index],
+            data: volumeData[Object.keys(volumeData)].map(
+              (el) => el.post_count
+            ),
+          })
+        }
+      )
 
       return datasetsValue
     },
@@ -80,5 +84,3 @@ export default {
   },
 }
 </script>
-
-<style scoped></style>

@@ -25,18 +25,18 @@ ChartJS.register(
 )
 
 export default {
-  name: 'MultiRadarChart2',
+  name: 'MultiRadarChart',
   components: {Radar},
   props: {
     isDisplayLegend: {type: Boolean, default: true},
-    chartsData: {type: Object, default: () => {}},
+    chartValues: {type: Object, default: () => {}},
     labels: {type: Array, default: () => []},
   },
   computed: {
     chartDatasets() {
       let datasetsValue = []
 
-      this.chartsData.forEach((el) => {
+      this.chartValues.forEach((el) => {
         datasetsValue.push({
           label: el.label,
           borderColor: el.color,
@@ -132,5 +132,3 @@ export default {
   },
 }
 </script>
-
-<style scoped></style>

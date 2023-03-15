@@ -25,11 +25,11 @@ ChartJS.register(
 )
 
 export default {
-  name: 'RadarChart2',
+  name: 'RadarChart',
   components: {Radar},
   props: {
     isDisplayLegend: {type: Boolean, default: true},
-    chartsData: {type: Object, default: () => {}},
+    chartValues: {type: Object, default: () => {}},
     labels: {type: Array, default: () => []},
   },
   computed: {
@@ -75,7 +75,7 @@ export default {
             pointBorderColor: '#7C59ED',
             pointHoverBackgroundColor: '#fff',
             pointHoverBorderColor: '#7C59ED',
-            data: this.chartsData[0].data,
+            data: this.chartValues[0].data,
           },
         ],
       }
@@ -83,5 +83,3 @@ export default {
   },
 }
 </script>
-
-<style scoped></style>

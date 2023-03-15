@@ -5,10 +5,10 @@
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
   >
-    <ChartsView2
+    <ChartsView
       :labels="labels"
       :chart-type="chartType"
-      :charts-data="widgetData"
+      :chart-values="chartValues"
       :is-display-legend="isWidget"
       @open-sentiment-interactive-modal="openInteractiveModal"
     />
@@ -17,10 +17,10 @@
 
 <script>
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
-import ChartsView2 from '@/components/charts/ChartsView2'
+import ChartsView from '@/components/charts/ChartsView'
 export default {
   name: 'SentimentWidget',
-  components: {ChartsView2, WidgetsLayout},
+  components: {ChartsView, WidgetsLayout},
   props: {
     isWidget: {type: Boolean, default: true},
     title: {type: String, required: true},
@@ -32,38 +32,31 @@ export default {
     labels() {
       return Object.keys(this.sentimentWidgetData)
     },
-    sentiment() {
+    chartValues() {
       let neutral = []
       let positive = []
       let negative = []
 
-      Object.values(this.sentimentWidgetData).forEach((el) => {
-        Object.values(el).filter((i) => {
-          switch (i.sentiment) {
+      Object.values(this.sentimentWidgetData).forEach((sentiment) => {
+        Object.values(sentiment).filter((data) => {
+          switch (data.sentiment) {
             case 'neutral':
-              return neutral.push(i.sentiment_count)
+              return neutral.push(data.sentiment_count)
             case 'positive':
-              return positive.push(i.sentiment_count)
+              return positive.push(data.sentiment_count)
             case 'negative':
-              return negative.push(i.sentiment_count)
+              return negative.push(data.sentiment_count)
           }
         })
       })
-      return {
-        neutral: [...neutral],
-        positive: [...positive],
-        negative: [...negative],
-      }
+      return [
+        {label: 'Neutral', color: '#516BEE', data: neutral},
+        {label: 'Positive', color: '#00B884', data: positive},
+        {label: 'Negative', color: '#ED2549', data: negative},
+      ]
     },
     widgetWrapper() {
       return this.isWidget ? 'WidgetsLayout' : 'div'
-    },
-    widgetData() {
-      return [
-        {label: 'Neutral', color: '#516BEE', data: this.sentiment.neutral},
-        {label: 'Positive', color: '#00B884', data: this.sentiment.positive},
-        {label: 'Negative', color: '#ED2549', data: this.sentiment.negative},
-      ]
     },
   },
   methods: {
@@ -73,5 +66,3 @@ export default {
   },
 }
 </script>
-
-<style scoped></style>

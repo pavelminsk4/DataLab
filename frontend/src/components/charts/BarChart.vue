@@ -25,7 +25,7 @@ export default {
   },
   props: {
     labels: {type: Array, default: () => []},
-    chartsData: {type: Object, default: () => {}},
+    chartValues: {type: Object, default: () => {}},
   },
   computed: {
     chartOptions() {
@@ -91,7 +91,7 @@ export default {
         tension: 0.25,
       }
 
-      this.chartsData.forEach((el) => {
+      this.chartValues.forEach((el) => {
         datasetsValue.push({
           ...defaultSettings,
           label: el.label,

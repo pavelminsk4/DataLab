@@ -29,34 +29,46 @@ ChartJS.register(
 )
 
 export default {
-  name: 'MultiLineChart2',
+  name: 'LineChart',
   components: {
     Line,
   },
   props: {
-    isDisplayLegend: {type: Boolean, default: true},
-    chartsData: {type: Object, default: () => {}},
     labels: {type: Array, default: () => []},
+    chartValues: {type: Object, default: () => {}},
+    isDisplayLegend: {type: Boolean, default: false},
   },
   computed: {
     chartDatasets() {
-      let datasetsValue = []
+      return [
+        {
+          borderColor: '#516BEE',
+          pointStyle: 'circle',
+          pointRadius: 4,
+          pointBackgroundColor: '#FFFFFF',
+          pointBorderWidth: 2,
+          pointBorderColor: '#516BEE',
+          borderWidth: 3,
+          radius: 0.3,
+          fill: true,
+          backgroundColor: (ctx) => {
+            const canvas = ctx.chart.ctx
+            const gradient = canvas.createLinearGradient(0, 0, 0, 460)
 
-      this.chartsData.forEach((el) => {
-        datasetsValue.push({
-          label: el.label,
-          borderColor: el.color,
-          pointBackgroundColor: el.color,
-          pointBorderColor: '#FFFFFF',
-          data: el.data,
-          color: '#70767D',
-        })
-      })
+            gradient.addColorStop(1, 'rgba(113, 135, 253, 0.1)')
 
-      return datasetsValue
+            return gradient
+          },
+          tension: 0.5,
+          data: this.chartValues[0].data,
+        },
+      ]
     },
     chartOptions() {
       return {
+        onClick: (e, dataOptions) => {
+          this.$emit('open-interactive-data', this.labels[dataOptions[0].index])
+        },
         responsive: true,
         maintainAspectRatio: false,
         animation: {
@@ -72,39 +84,7 @@ export default {
             display: false,
           },
           legend: {
-            display: this.isDisplayLegend,
-            position: 'bottom',
-            onClick: (evt, legendItem, legend) => {
-              const datasets = legend.legendItems.map((dataset) => {
-                return dataset.text
-              })
-              const index = datasets.indexOf(legendItem.text)
-              if (legend.chart.isDatasetVisible(index) === true) {
-                legend.chart.hide(index)
-              } else {
-                legend.chart.show(index)
-              }
-            },
-            labels: {
-              generateLabels: (chart) => {
-                let visibility = []
-                chart.data.datasets.forEach((el, index) => {
-                  if (chart.isDatasetVisible(index) === false) {
-                    visibility.push(true)
-                  } else {
-                    visibility.push(false)
-                  }
-                })
-
-                return chart.data.datasets.map((dataset, index) => ({
-                  text: dataset.label,
-                  fillStyle: dataset.borderColor,
-                  strokeStyle: dataset.borderColor,
-                  fontColor: dataset.color,
-                  hidden: visibility[index],
-                }))
-              },
-            },
+            display: false,
           },
           tooltip: {
             yAlign: 'bottom',
@@ -138,5 +118,3 @@ export default {
   },
 }
 </script>
-
-<style scoped></style>

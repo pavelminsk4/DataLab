@@ -12,36 +12,20 @@ const CHARTS = {
     componentName: 'LineChart',
     name: 'Line chart',
   },
-  line2: {
-    componentName: 'LineChart2',
-    name: 'Line chart',
-  },
   bar: {
     componentName: 'BarChart',
     name: 'Bar chart',
   },
-  bar2: {
-    componentName: 'BarChart2',
-    name: 'Bar chart',
-  },
-  horizontalBarChart2: {
-    componentName: 'HorizontalBarChart2',
+  horizontalBarChart: {
+    componentName: 'HorizontalBarChart',
     name: 'Column chart',
   },
   pie: {
     componentName: 'PieChart',
     name: 'Pie chart',
   },
-  pie2: {
-    componentName: 'PieChart2',
-    name: 'Pie chart',
-  },
   radar: {
     componentName: 'RadarChart',
-    name: 'Radar chart',
-  },
-  radar2: {
-    componentName: 'RadarChart2',
     name: 'Radar chart',
   },
   sentimentBar: {
@@ -56,24 +40,16 @@ const CHARTS = {
     componentName: 'MultiLineChart',
     name: 'Line chart',
   },
-  multiLine2: {
-    componentName: 'MultiLineChart2',
-    name: 'Line chart',
-  },
   multiRadar: {
     componentName: 'MultiRadarChart',
     name: 'Radar chart',
   },
-  multiRadar2: {
-    componentName: 'MultiRadarChart2',
-    name: 'Radar chart',
-  },
 }
 
-const SIMPLE_CHARTS = [CHARTS.line2, CHARTS.bar2, CHARTS.pie2, CHARTS.radar2]
-const SENTIMENTS_CHARTS = [CHARTS.horizontalBarChart2, CHARTS.bar2]
+const SIMPLE_CHARTS = [CHARTS.line, CHARTS.bar, CHARTS.pie, CHARTS.radar]
+const SENTIMENTS_CHARTS = [CHARTS.horizontalBarChart, CHARTS.bar]
 
-const MULTI_CHARTS = [CHARTS.multiLine2, CHARTS.multiRadar2]
+const MULTI_CHARTS = [CHARTS.multiLine, CHARTS.multiRadar]
 
 export const modalWidgetsConfig = {
   summary_widget: {

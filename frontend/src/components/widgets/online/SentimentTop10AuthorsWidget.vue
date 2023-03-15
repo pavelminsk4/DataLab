@@ -18,26 +18,11 @@ export default {
   name: 'SentimentTop10AuthorsWidget',
   components: {SentimentWidget},
   props: {
-    projectId: {
-      type: Number,
-      required: true,
-    },
-    widgetId: {
-      type: Number,
-      required: true,
-    },
-    title: {
-      type: String,
-      required: true,
-    },
-    chartType: {
-      type: String,
-      required: true,
-    },
-    isWidget: {
-      type: Boolean,
-      default: true,
-    },
+    projectId: {type: Number, required: true},
+    widgetId: {type: Number, required: true},
+    title: {type: String, required: true},
+    chartType: {type: String, required: true},
+    isWidget: {type: Boolean, default: true},
   },
   computed: {
     ...mapGetters({
@@ -57,5 +42,3 @@ export default {
   },
 }
 </script>
-
-<style scoped></style>

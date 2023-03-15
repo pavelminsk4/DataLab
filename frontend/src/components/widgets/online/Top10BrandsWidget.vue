@@ -5,7 +5,7 @@
     :widget-id="widgetId"
     :is-widget="isWidget"
     :labels="labels"
-    :charts-data="chartsData"
+    :chart-values="chartValues"
   />
 </template>
 
@@ -32,7 +32,7 @@ export default {
     labels() {
       return this.topBrands.map((el) => el.feedlink__source1)
     },
-    chartsData() {
+    chartValues() {
       return [
         {
           color: '#516BEE',
@@ -55,5 +55,3 @@ export default {
   },
 }
 </script>
-
-<style scoped></style>

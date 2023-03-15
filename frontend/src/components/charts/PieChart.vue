@@ -28,11 +28,11 @@ ChartJS.register(
 )
 
 export default {
-  name: 'PieChart2',
+  name: 'PieChart',
   components: {Pie},
   props: {
     labels: {type: Array, default: () => []},
-    chartsData: {type: Object, default: () => {}},
+    chartValues: {type: Object, default: () => {}},
   },
   computed: {
     colors() {
@@ -69,7 +69,7 @@ export default {
             cutout: '0%',
             borderColor: 'red',
             borderWidth: 0,
-            data: this.chartsData[0].data,
+            data: this.chartValues[0].data,
             options: {
               plugins: {
                 datalabels: {
@@ -112,5 +112,3 @@ export default {
   },
 }
 </script>
-
-<style scoped></style>

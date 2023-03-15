@@ -84,7 +84,7 @@ import Top10BrandsWidget from '@/components/widgets/online/Top10BrandsWidget'
 import Top10CountriesWidget from '@/components/widgets/online/Top10CountriesWidget'
 import Top10LanguagesWidget from '@/components/widgets/online/Top10LanguagesWidget'
 import Top10AuthorsByVolumeWidget from '@/components/widgets/online/Top10AuthorsByVolumeWidget'
-import SentimentForPeriodWidget from '@/components/project/widgets/SentimentForPeriodWidget'
+import SentimentForPeriodWidget from '@/components/widgets/online/SentimentForPeriodWidget'
 import ClippingFeedContentWidget from '@/components/project/widgets/ClippingFeedContentWidget'
 import SentimentTop10AuthorsWidget from '@/components/widgets/online/SentimentTop10AuthorsWidget'
 import SentimentTop10SourcesWidget from '@/components/widgets/online/SentimentTop10SourcesWidget'
@@ -158,7 +158,6 @@ export default {
   },
   computed: {
     ...mapGetters({
-      sentimentForPeriodWidget: get.SENTIMENT_FOR_PERIOD,
       availableWidgets: get.AVAILABLE_WIDGETS,
       clippingData: get.CLIPPING_FEED_CONTENT_WIDGET,
     }),
