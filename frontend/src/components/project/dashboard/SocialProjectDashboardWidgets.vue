@@ -67,21 +67,8 @@ import VueGridLayout from 'vue3-grid-layout'
 import {snakeToPascal} from '@lib/utilities'
 import {modalWidgetsConfig} from '@/lib/configs/widgetsConfigs'
 
-import ContentVolume from '@/components/project/widgets/SocialContentVolumeWidget'
 import Summary from '@/components/project/widgets/SocialSummaryWidget'
-import Top10BrandsWidget from '@/components/project/widgets/Top10BrandsWidget'
-import Top10CountriesWidget from '@/components/project/widgets/Top10CountriesWidget'
-import Top10LanguagesWidget from '@/components/project/widgets/Top10LanguagesWidget'
-import SentimentForPeriodWidget from '@/components/project/widgets/SentimentForPeriodWidget'
 import ClippingFeedContent from '@/components/project/widgets/SocialClippingFeedContentWidget'
-import Top10AuthorsByVolumeWidget from '@/components/project/widgets/Top10AuthorsByVolumeWidget'
-import SentimentTop10AuthorsWidget from '@/components/project/widgets/SentimentTop10AuthorsWidget'
-import SentimentTop10SourcesWidget from '@/components/project/widgets/SentimentTop10SourcesWidget'
-import SentimentTop10LanguagesWidget from '@/components/project/widgets/SentimentTop10LanguagesWidget'
-import SentimentTop10CountriesWidget from '@/components/project/widgets/SentimentTop10CountriesWidget'
-import ContentVolumeTop5SourceWidget from '@/components/project/widgets/ContentVolumeTop5SourceWidget'
-import ContentVolumeTop5AuthorsWidget from '@/components/project/widgets/ContentVolumeTop5AuthorsWidget'
-import ContentVolumeTop5CountriesWidget from '@/components/project/widgets/ContentVolumeTop5CountriesWidget'
 import WidgetSettingsModal from '@/components/project/modals/WidgetSettingsModal'
 import InteractiveWidgetModal from '@/components/modals/InteractiveWidgetModal'
 
@@ -93,20 +80,7 @@ export default {
     InteractiveWidgetModal,
     WidgetSettingsModal,
     ClippingFeedContent,
-    ContentVolume,
     Summary,
-    Top10BrandsWidget,
-    Top10CountriesWidget,
-    Top10LanguagesWidget,
-    SentimentForPeriodWidget,
-    Top10AuthorsByVolumeWidget,
-    SentimentTop10AuthorsWidget,
-    SentimentTop10SourcesWidget,
-    SentimentTop10LanguagesWidget,
-    SentimentTop10CountriesWidget,
-    ContentVolumeTop5SourceWidget,
-    ContentVolumeTop5AuthorsWidget,
-    ContentVolumeTop5CountriesWidget,
     GridLayout: VueGridLayout.GridLayout,
     GridItem: VueGridLayout.GridItem,
   },

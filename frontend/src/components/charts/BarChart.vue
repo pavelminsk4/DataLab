@@ -1,15 +1,5 @@
 <template>
-  <Bar
-    :chart-options="chartOptions"
-    :chart-data="chartData"
-    :chart-id="chartId"
-    :dataset-id-key="datasetIdKey"
-    :css-classes="cssClasses"
-    :styles="styles"
-    :width="width"
-    :height="height"
-    class="bar-chart"
-  />
+  <Bar :chart-options="chartOptions" :chart-data="chartData" />
 </template>
 
 <script>
@@ -24,6 +14,7 @@ import {
   CategoryScale,
   LinearScale,
 } from 'chart.js'
+import {lowerFirstLetter} from '@/lib/utilities'
 
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 
@@ -33,48 +24,20 @@ export default {
     Bar,
   },
   props: {
-    values: {
-      type: Array,
-      default: () => [],
-    },
-    labels: {
-      type: Array,
-      default: () => [],
-    },
-    chartId: {
-      type: String,
-      default: 'bar-chart',
-    },
-    datasetIdKey: {
-      type: String,
-      default: 'label',
-    },
-    width: {
-      type: Number,
-      default: 400,
-    },
-    height: {
-      type: Number,
-      default: 400,
-    },
-    cssClasses: {
-      default: '',
-      type: String,
-    },
-    styles: {
-      type: Object,
-      default: () => {},
-    },
-    plugins: {
-      type: Array,
-      default: () => [],
-    },
+    labels: {type: Array, default: () => []},
+    chartValues: {type: Object, default: () => {}},
   },
   computed: {
     chartOptions() {
       return {
         onClick: (e, dataOptions) => {
-          this.$emit('open-interactive-data', this.labels[dataOptions[0].index])
+          this.$emit(
+            'open-sentiment-interactive-data',
+            this.labels[dataOptions[0].index],
+            lowerFirstLetter(
+              dataOptions[0].element.$datalabels[0].$context.dataset.label
+            )
+          )
         },
         responsive: true,
         maintainAspectRatio: false,
@@ -117,23 +80,32 @@ export default {
         },
       }
     },
+    chartDatasets() {
+      let datasetsValue = []
+      let defaultSettings = {
+        pointStyle: 'circle',
+        borderWidth: 0,
+        borderRadius: 12,
+        barPercentage: 1,
+        fill: true,
+        tension: 0.25,
+      }
+
+      this.chartValues.forEach((el) => {
+        datasetsValue.push({
+          ...defaultSettings,
+          label: el.label,
+          backgroundColor: el.color,
+          data: el.data,
+        })
+      })
+
+      return datasetsValue
+    },
     chartData() {
       return {
         labels: this.labels,
-        datasets: [
-          {
-            label: 'count',
-            borderColor: '#055FFC',
-            pointStyle: 'circle',
-            borderWidth: 0,
-            borderRadius: 12,
-            barPercentage: 0.5,
-            fill: true,
-            backgroundColor: '#516BEE',
-            tension: 0.25,
-            data: this.values,
-          },
-        ],
+        datasets: this.chartDatasets,
       }
     },
   },

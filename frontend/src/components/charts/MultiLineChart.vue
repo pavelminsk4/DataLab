@@ -1,15 +1,5 @@
 <template>
-  <Line
-    :chart-options="chartOptions"
-    :chart-data="chartData"
-    :chart-id="chartId"
-    :dataset-id-key="datasetIdKey"
-    :css-classes="cssClasses"
-    :styles="styles"
-    :width="width"
-    :height="height"
-    class="line-chart"
-  />
+  <Line :chart-options="chartOptions" :chart-data="chartData" />
 </template>
 
 <script>
@@ -39,79 +29,34 @@ ChartJS.register(
 )
 
 export default {
-  name: 'LineChart',
+  name: 'MultiLineChart',
   components: {
     Line,
   },
   props: {
-    values: {
-      type: Array,
-      default: () => [],
-    },
-    labels: {
-      type: Array,
-      default: () => [],
-    },
-    chartId: {
-      type: String,
-      default: 'line-chart',
-    },
-    datasetIdKey: {
-      type: String,
-      default: 'label',
-    },
-    width: {
-      type: Number,
-      default: 400,
-    },
-    height: {
-      type: Number,
-      default: 400,
-    },
-    cssClasses: {
-      default: '',
-      type: String,
-    },
-    styles: {
-      type: Object,
-      default: () => {},
-    },
-    isDisplayLegend: {
-      type: Boolean,
-      default: true,
-    },
+    isDisplayLegend: {type: Boolean, default: true},
+    chartValues: {type: Object, default: () => {}},
+    labels: {type: Array, default: () => []},
   },
   computed: {
     chartDatasets() {
-      return [
-        {
-          borderColor: '#516BEE',
-          pointStyle: 'circle',
-          pointRadius: 4,
-          pointBackgroundColor: '#FFFFFF',
-          pointBorderWidth: 2,
-          pointBorderColor: '#516BEE',
-          borderWidth: 3,
-          radius: 0.3,
-          fill: true,
-          backgroundColor: (ctx) => {
-            const canvas = ctx.chart.ctx
-            const gradient = canvas.createLinearGradient(0, 0, 0, 460)
+      let datasetsValue = []
 
-            gradient.addColorStop(1, 'rgba(113, 135, 253, 0.1)')
+      this.chartValues.forEach((el) => {
+        datasetsValue.push({
+          label: el.label,
+          borderColor: el.color,
+          pointBackgroundColor: el.color,
+          pointBorderColor: '#FFFFFF',
+          data: el.data,
+          color: '#70767D',
+        })
+      })
 
-            return gradient
-          },
-          tension: 0.5,
-          data: this.values,
-        },
-      ]
+      return datasetsValue
     },
     chartOptions() {
       return {
-        onClick: (e, dataOptions) => {
-          this.$emit('open-interactive-data', this.labels[dataOptions[0].index])
-        },
         responsive: true,
         maintainAspectRatio: false,
         animation: {
@@ -128,6 +73,7 @@ export default {
           },
           legend: {
             display: this.isDisplayLegend,
+            position: 'bottom',
             onClick: (evt, legendItem, legend) => {
               const datasets = legend.legendItems.map((dataset) => {
                 return dataset.text
@@ -192,11 +138,3 @@ export default {
   },
 }
 </script>
-
-<style scoped>
-.line-chart {
-  overflow: hidden;
-  height: 100%;
-  width: 100%;
-}
-</style>

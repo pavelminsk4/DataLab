@@ -4,6 +4,7 @@
 
 <script>
 import {Bar} from 'vue-chartjs'
+import {lowerFirstLetter} from '@/lib/utilities'
 
 import {
   Chart as ChartJS,
@@ -14,24 +15,17 @@ import {
   CategoryScale,
   LinearScale,
 } from 'chart.js'
-import {lowerFirstLetter} from '@/lib/utilities'
 
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 
 export default {
-  name: 'BarChart',
+  name: 'HorizontalBarChart',
   components: {
     Bar,
   },
   props: {
-    labels: {
-      type: Array,
-      default: () => [],
-    },
-    widgetData: {
-      type: Object,
-      default: () => {},
-    },
+    labels: {type: Array, default: () => []},
+    chartValues: {type: Object, default: () => {}},
   },
   computed: {
     chartOptions() {
@@ -45,6 +39,7 @@ export default {
             )
           )
         },
+        indexAxis: 'y',
         responsive: true,
         maintainAspectRatio: false,
         animation: {
@@ -71,17 +66,11 @@ export default {
           },
         },
         scales: {
-          y: {
-            beginAtZero: true,
-            grid: {
-              color: 'rgba(145, 152, 167, 0.1)',
-            },
-          },
           x: {
-            beginAtZero: true,
-            grid: {
-              display: false,
-            },
+            stacked: true,
+          },
+          y: {
+            stacked: true,
           },
         },
       }
@@ -97,7 +86,7 @@ export default {
         tension: 0.25,
       }
 
-      this.widgetData.forEach((el) => {
+      this.chartValues.forEach((el) => {
         datasetsValue.push({
           ...defaultSettings,
           label: el.label,

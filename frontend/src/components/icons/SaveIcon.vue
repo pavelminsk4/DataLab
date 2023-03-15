@@ -35,5 +35,3 @@ export default {
   name: 'SaveIcon',
 }
 </script>
-
-<style scoped></style>

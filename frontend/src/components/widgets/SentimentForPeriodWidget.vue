@@ -5,25 +5,7 @@
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
   >
-    <ChartsView
-      :labels="labels"
-      :neutral-values="sentiments.neutral"
-      :negative-values="sentiments.negative"
-      :positive-values="sentiments.positive"
-      :chart-type="chartType"
-      @open-sentiment-interactive-modal="openInteractiveModal"
-    />
   </WidgetsLayout>
-
-  <ChartsView
-    v-else
-    :labels="labels"
-    :neutral-values="sentiments.neutral"
-    :negative-values="sentiments.negative"
-    :positive-values="sentiments.positive"
-    :chart-type="chartType"
-    @open-sentiment-interactive-modal="openInteractiveModal"
-  />
 </template>
 
 <script>
@@ -32,11 +14,10 @@ import {action, get} from '@store/constants'
 import {defaultDate} from '@/lib/utilities'
 
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
-import ChartsView from '@/components/project/widgets/charts/ChartsView'
 
 export default {
   name: 'SentimentForPeriodWidget',
-  components: {ChartsView, WidgetsLayout},
+  components: {WidgetsLayout},
   props: {
     projectId: {
       type: Number,
@@ -186,5 +167,3 @@ export default {
   },
 }
 </script>
-
-<style scoped></style>

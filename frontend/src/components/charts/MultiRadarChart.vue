@@ -1,130 +1,50 @@
 <template>
-  <Line
-    :chart-options="chartOptions"
-    :chart-data="chartData"
-    :chart-id="chartId"
-    :dataset-id-key="datasetIdKey"
-    :css-classes="cssClasses"
-    :styles="styles"
-    :width="width"
-    :height="height"
-    class="line-chart"
-  />
+  <Radar :chart-options="chartOptions" :chart-data="chartData" />
 </template>
 
 <script>
-import {Line} from 'vue-chartjs'
-import {defaultDate} from '@/lib/utilities'
+import {Radar} from 'vue-chartjs'
 
 import {
   Chart as ChartJS,
   Title,
   Tooltip,
   Legend,
-  LineElement,
-  LinearScale,
-  CategoryScale,
   PointElement,
-  Filler,
+  LineElement,
+  RadialLinearScale,
 } from 'chart.js'
 
 ChartJS.register(
   Title,
   Tooltip,
   Legend,
-  LineElement,
-  LinearScale,
-  CategoryScale,
   PointElement,
-  Filler
+  RadialLinearScale,
+  LineElement
 )
 
 export default {
-  name: 'MultiLineChart',
-  components: {
-    Line,
-  },
+  name: 'MultiRadarChart',
+  components: {Radar},
   props: {
-    chartId: {
-      type: String,
-      default: 'line-chart',
-    },
-    datasetIdKey: {
-      type: String,
-      default: 'label',
-    },
-    width: {
-      type: Number,
-      default: 400,
-    },
-    height: {
-      type: Number,
-      default: 400,
-    },
-    cssClasses: {
-      default: '',
-      type: String,
-    },
-    styles: {
-      type: Object,
-      default: () => {},
-    },
-    widgetData: {
-      type: Object,
-      default: () => {},
-    },
-    isDisplayLegend: {
-      type: Boolean,
-      default: true,
-    },
+    isDisplayLegend: {type: Boolean, default: true},
+    chartValues: {type: Object, default: () => {}},
+    labels: {type: Array, default: () => []},
   },
   computed: {
-    labels() {
-      let labelsCollection = []
-      let keys = []
-
-      Object.values(this.widgetData).forEach((el) => {
-        keys.push(Object.keys(el))
-        labelsCollection.push(el[keys[0]])
-      })
-
-      return labelsCollection[0]?.map((el) => this.defaultDate(el.date))
-    },
     chartDatasets() {
       let datasetsValue = []
-      let lineColors = [
-        '#7C59ED',
-        '#CDC6FF',
-        '#551EB9',
-        '#6AC7F0',
-        '#00CC87',
-        '#FD7271',
-        '#FFBB01',
-        '#7ACCB0',
-        '#01A4EE',
-        '#FFE499',
-      ]
 
-      Object.values(this.widgetData).forEach((el, index) => {
-        if (Object.keys(el)[0] === 'Missing in source') {
-          datasetsValue.push({
-            label: Object.keys(el)[0],
-            borderColor: '#808080',
-            pointBackgroundColor: '#808080',
-            pointBorderColor: '#808080',
-            data: el[Object.keys(el)].map((el) => el.post_count),
-            color: '#808080',
-          })
-        } else {
-          datasetsValue.push({
-            label: Object.keys(el)[0],
-            borderColor: lineColors[index],
-            pointBackgroundColor: lineColors[index],
-            pointBorderColor: '#FFFFFF',
-            data: el[Object.keys(el)].map((el) => el.post_count),
-            color: '#70767D',
-          })
-        }
+      this.chartValues.forEach((el) => {
+        datasetsValue.push({
+          label: el.label,
+          borderColor: el.color,
+          pointBackgroundColor: el.color,
+          pointBorderColor: '#FFFFFF',
+          data: el.data,
+          color: '#70767D',
+        })
       })
 
       return datasetsValue
@@ -210,16 +130,5 @@ export default {
       }
     },
   },
-  methods: {
-    defaultDate,
-  },
 }
 </script>
-
-<style scoped>
-.line-chart {
-  overflow: hidden;
-  height: 100%;
-  width: 100%;
-}
-</style>

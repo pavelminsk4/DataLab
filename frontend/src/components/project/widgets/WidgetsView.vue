@@ -8,10 +8,9 @@
     :is-charts-show="dataForWidgetModal.isChartShow"
     :hasAggregationPeriod="dataForWidgetModal.hasAggregationPeriod"
     :chart-type="dataForWidgetModal.chartType"
-    :widgets-list="availableWidgets"
     :current-project="currentProject"
-    :summary-data="summary_widget"
     :settings-tabs="dataForWidgetModal.settingsTabs"
+    :available-widgets="availableWidgets"
     @close="closeModal"
     @open-interactive-widget="openInteractiveData"
     @open-sentiment-interactive="openSentimentInteractiveData"
@@ -53,8 +52,6 @@
         <component
           v-if="item.isWidget"
           :is="item.widgetName"
-          :summary-data="summary_widget"
-          :volume="volume_widget"
           :project-id="projectId"
           :is-open-widget="item.isShow"
           :widgets="availableWidgets"
@@ -62,6 +59,7 @@
           :current-project="currentProject"
           :chart-type="item.chartType"
           :title="item.title"
+          :available-widgets="availableWidgets"
           @delete-widget="deleteWidget(item.name)"
           @open-settings-modal="openModal(item)"
           @open-interactive-data="openInteractiveData"
@@ -80,21 +78,21 @@ import {snakeToPascal} from '@lib/utilities'
 import {modalWidgetsConfig} from '@/lib/configs/widgetsConfigs'
 
 import SearchResults from '@/components/SearchResults'
-import VolumeWidget from '@/components/project/widgets/VolumeWidget'
-import SummaryWidget from '@/components/project/widgets/SummaryWidget'
-import Top10BrandsWidget from '@/components/project/widgets/Top10BrandsWidget'
-import Top10CountriesWidget from '@/components/project/widgets/Top10CountriesWidget'
-import Top10LanguagesWidget from '@/components/project/widgets/Top10LanguagesWidget'
-import SentimentForPeriodWidget from '@/components/project/widgets/SentimentForPeriodWidget'
+import VolumeWidget from '@/components/widgets/online/VolumeWidget'
+import SummaryWidget from '@/components/widgets/online/SummaryWidget'
+import Top10BrandsWidget from '@/components/widgets/online/Top10BrandsWidget'
+import Top10CountriesWidget from '@/components/widgets/online/Top10CountriesWidget'
+import Top10LanguagesWidget from '@/components/widgets/online/Top10LanguagesWidget'
+import Top10AuthorsByVolumeWidget from '@/components/widgets/online/Top10AuthorsByVolumeWidget'
+import SentimentForPeriodWidget from '@/components/widgets/online/SentimentForPeriodWidget'
 import ClippingFeedContentWidget from '@/components/project/widgets/ClippingFeedContentWidget'
-import Top10AuthorsByVolumeWidget from '@/components/project/widgets/Top10AuthorsByVolumeWidget'
 import SentimentTop10AuthorsWidget from '@/components/widgets/online/SentimentTop10AuthorsWidget'
 import SentimentTop10SourcesWidget from '@/components/widgets/online/SentimentTop10SourcesWidget'
 import SentimentTop10LanguagesWidget from '@/components/widgets/online/SentimentTop10LanguagesWidget'
 import SentimentTop10CountriesWidget from '@/components/widgets/online/SentimentTop10CountriesWidget'
-import ContentVolumeTop5SourceWidget from '@/components/project/widgets/ContentVolumeTop5SourceWidget'
-import ContentVolumeTop5AuthorsWidget from '@/components/project/widgets/ContentVolumeTop5AuthorsWidget'
-import ContentVolumeTop5CountriesWidget from '@/components/project/widgets/ContentVolumeTop5CountriesWidget'
+import ContentVolumeTop5SourceWidget from '@/components/widgets/online/ContentVolumeTop5SourceWidget'
+import ContentVolumeTop5AuthorsWidget from '@/components/widgets/online/ContentVolumeTop5AuthorsWidget'
+import ContentVolumeTop5CountriesWidget from '@/components/widgets/online/ContentVolumeTop5CountriesWidget'
 import WidgetSettingsModal from '@/components/project/modals/WidgetSettingsModal'
 import InteractiveWidgetModal from '@/components/modals/InteractiveWidgetModal'
 
@@ -160,9 +158,6 @@ export default {
   },
   computed: {
     ...mapGetters({
-      summary_widget: get.SUMMARY_WIDGET,
-      volume_widget: get.VOLUME_WIDGET,
-      sentimentForPeriodWidget: get.SENTIMENT_FOR_PERIOD,
       availableWidgets: get.AVAILABLE_WIDGETS,
       clippingData: get.CLIPPING_FEED_CONTENT_WIDGET,
     }),

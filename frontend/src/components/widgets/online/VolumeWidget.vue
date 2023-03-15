@@ -1,0 +1,81 @@
+<template>
+  <component
+    :is="widgetWrapper"
+    :title="title"
+    @delete-widget="$emit('delete-widget')"
+    @open-modal="$emit('open-settings-modal')"
+  >
+    <ChartsView
+      :labels="labels"
+      :chart-values="chartValues"
+      :chart-type="chartType"
+      :is-display-legend="isWidget"
+    />
+  </component>
+</template>
+
+<script>
+import {mapActions, mapGetters} from 'vuex'
+import {action, get} from '@store/constants'
+import {defaultDate} from '@/lib/utilities'
+
+import ChartsView from '@/components/charts/ChartsView'
+import WidgetsLayout from '@/components/layout/WidgetsLayout'
+
+export default {
+  name: 'VolumeWidget',
+  components: {ChartsView, WidgetsLayout},
+  props: {
+    isWidget: {type: Boolean, default: true},
+    title: {type: String, required: true},
+    widgetId: {type: Number, required: true},
+    projectId: {type: Number, required: true},
+    chartType: {type: String, required: true},
+    availableWidgets: {type: Object, required: true, default: () => {}},
+  },
+  computed: {
+    ...mapGetters({
+      volumeWidget: get.VOLUME_WIDGET,
+    }),
+    widgetWrapper() {
+      return this.isWidget ? 'WidgetsLayout' : 'div'
+    },
+    volumeData() {
+      return Object.values(this.volumeWidget)
+    },
+    labels() {
+      return this.volumeData.map((el) => this.defaultDate(el.date))
+    },
+    chartValues() {
+      return [
+        {color: '#516BEE', data: this.volumeData.map((el) => el.created_count)},
+      ]
+    },
+  },
+  created() {
+    if (!this.volumeWidget.length) {
+      this[action.GET_VOLUME_WIDGET]({
+        projectId: this.projectId,
+        value: {
+          author_dim_pivot:
+            this.availableWidgets.volume_widget.author_dim_pivot || null,
+          language_dim_pivot:
+            this.availableWidgets.volume_widget.language_dim_pivot || null,
+          country_dim_pivot:
+            this.availableWidgets.volume_widget.country_dim_pivot || null,
+          sentiment_dim_pivot:
+            this.availableWidgets.volume_widget.sentiment_dim_pivot || null,
+          source_dim_pivot:
+            this.availableWidgets.volume_widget.source_dim_pivot || null,
+          smpl_freq: this.availableWidgets.volume_widget.aggregation_period,
+        },
+        widgetId: this.widgetId,
+      })
+    }
+  },
+  methods: {
+    ...mapActions([action.GET_VOLUME_WIDGET]),
+    defaultDate,
+  },
+}
+</script>
