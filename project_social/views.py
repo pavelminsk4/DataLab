@@ -2,13 +2,18 @@ from rest_framework.generics import ListAPIView, CreateAPIView, DestroyAPIView, 
 from .widgets.dashboard.content_volume_by_top_locations import *
 from .widgets.dashboard.content_volume_by_top_languages import *
 from .widgets.dashboard.content_volume_by_top_authors import *
+from .widgets.dashboard.sentiment_languages import *
+from .widgets.dashboard.sentiment_locations import *
+from .widgets.dashboard.sentiment_authors import *
 from tweet_binder.models import TweetBinderPost
 from .widgets.dashboard.summary_widget import *
 from .widgets.dashboard.content_volume import *
 from .widgets.dashboard.clipping_feed import *
 from .widgets.dashboard.top_locations import *
 from .widgets.dashboard.top_languages import *
+from .widgets.summary.gender_volume import *
 from .widgets.dashboard.top_authors import *
+from .widgets.dashboard.sentiment import *
 from rest_framework import viewsets, filters
 from django.core.paginator import Paginator
 from django.http import JsonResponse
@@ -142,25 +147,40 @@ def clipping_feed_content(request, pk, widget_pk):
   return clipping_feed(pk, widget_pk)
 
 def social_top_locations(request, pk, widget_pk):
-  return top_locations(request, pk, widget_pk)
+  return top_locations(pk, widget_pk)
 
 def social_top_languages(request, pk, widget_pk):
-  return top_languages(request, pk, widget_pk)
+  return top_languages(pk, widget_pk)
 
 def social_top_authors(request, pk, widget_pk):
-  return top_authors(request, pk, widget_pk)
+  return top_authors(pk, widget_pk)
 
 def social_content_volume(request, pk, widget_pk):
   return content_volume(pk, widget_pk)
 
 def social_content_volume_by_top_locations(request, pk, widget_pk):
-  return content_volume_by_top_locations(request, pk, widget_pk)
+  return content_volume_by_top_locations(pk, widget_pk)
 
 def social_content_volume_by_top_authors(request, pk, widget_pk):
-  return content_volume_by_top_authors(request, pk, widget_pk)
+  return content_volume_by_top_authors(pk, widget_pk)
 
 def social_content_volume_by_top_languages(request, pk, widget_pk):
-  return content_volume_by_top_languages(request, pk, widget_pk)
+  return content_volume_by_top_languages(pk, widget_pk)
+
+def social_sentiment(request, pk, widget_pk):
+  return sentiment(pk, widget_pk)
+
+def social_sentiment_authors(request, pk, widget_pk):
+  return sentiment_authors(pk, widget_pk)
+
+def social_sentiment_languages(request, pk, widget_pk):
+  return sentiment_languages(pk, widget_pk)
+
+def social_sentiment_locations(request, pk, widget_pk):
+  return sentiment_locations(pk, widget_pk)
+
+def social_gender_volume(request, pk, widget_pk):
+  return gender_volume(pk, widget_pk)
 
 class ProjectSocialWidgetsAPIView(RetrieveAPIView):
  serializer_class = WidgetsListSerializer

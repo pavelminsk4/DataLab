@@ -25,6 +25,11 @@ urlpatterns = [
   path('social_content_volume_by_top_locations/<int:pk>/<int:widget_pk>', views.social_content_volume_by_top_locations, name='social_content_volume_by_top_locations'),
   path('social_content_volume_by_top_authors/<int:pk>/<int:widget_pk>', views.social_content_volume_by_top_authors, name='social_content_volume_by_top_authors'),
   path('social_content_volume_by_top_languages/<int:pk>/<int:widget_pk>', views.social_content_volume_by_top_languages, name='social_content_volume_by_top_languages'),
+  path('social_sentiment/<int:pk>/<int:widget_pk>', views.social_sentiment, name='social_sentiment'),
+  path('social_sentiment_authors/<int:pk>/<int:widget_pk>', views.social_sentiment_authors, name='social_sentiment_authors'),
+  path('social_sentiment_languages/<int:pk>/<int:widget_pk>', views.social_sentiment_languages, name='social_sentiment_languages'),
+  path('social_sentiment_locations/<int:pk>/<int:widget_pk>', views.social_sentiment_locations, name='social_sentiment_locations'),
+  path('social_gender_volume/<int:pk>/<int:widget_pk>', views.social_gender_volume, name='social_gender_volume'),
   #========Widgets List========
   path('projects/<int:pk>/widgets_list', views.ProjectSocialWidgetsAPIView.as_view(), name='social_widgets_list'),
   path('projects/<int:pk>/widgets_list/update', views.UpdateSocialProjectsWidgetsAPIView.as_view(), name='update_social_widgets_list'),

@@ -12,7 +12,7 @@ def post_agregator_top_authors(posts, aggregation_period, top_counts):
       results.remove(res)
   return results
 
-def top_authors(request, pk, widget_pk):
+def top_authors(pk, widget_pk):
   project = ProjectSocial.objects.get(id=pk)
   posts = post_agregator_with_dimensions(project)
   widget = SocialWidgetDescription.objects.get(id=widget_pk)
