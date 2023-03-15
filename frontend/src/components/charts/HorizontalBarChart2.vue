@@ -1,19 +1,10 @@
 <template>
-  <Bar
-    :chart-options="chartOptions"
-    :chart-data="chartData"
-    :chart-id="chartId"
-    :dataset-id-key="datasetIdKey"
-    :css-classes="cssClasses"
-    :styles="styles"
-    :width="width"
-    :height="height"
-    class="bar-chart"
-  />
+  <Bar :chart-options="chartOptions" :chart-data="chartData" />
 </template>
 
 <script>
 import {Bar} from 'vue-chartjs'
+import {lowerFirstLetter} from '@/lib/utilities'
 
 import {
   Chart as ChartJS,
@@ -28,54 +19,33 @@ import {
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 
 export default {
-  name: 'BarChart',
+  name: 'HorizontalBarChart2',
   components: {
     Bar,
   },
   props: {
-    values: {
-      type: Array,
-      default: () => [],
-    },
     labels: {
       type: Array,
       default: () => [],
     },
-    chartId: {
-      type: String,
-      default: 'bar-chart',
-    },
-    datasetIdKey: {
-      type: String,
-      default: 'label',
-    },
-    width: {
-      type: Number,
-      default: 400,
-    },
-    height: {
-      type: Number,
-      default: 400,
-    },
-    cssClasses: {
-      default: '',
-      type: String,
-    },
-    styles: {
+    chartsData: {
       type: Object,
       default: () => {},
-    },
-    plugins: {
-      type: Array,
-      default: () => [],
     },
   },
   computed: {
     chartOptions() {
       return {
         onClick: (e, dataOptions) => {
-          this.$emit('open-interactive-data', this.labels[dataOptions[0].index])
+          this.$emit(
+            'open-sentiment-interactive-data',
+            this.labels[dataOptions[0].index],
+            lowerFirstLetter(
+              dataOptions[0].element.$datalabels[0].$context.dataset.label
+            )
+          )
         },
+        indexAxis: 'y',
         responsive: true,
         maintainAspectRatio: false,
         animation: {
@@ -102,40 +72,45 @@ export default {
           },
         },
         scales: {
-          y: {
-            beginAtZero: true,
-            grid: {
-              color: 'rgba(145, 152, 167, 0.1)',
-            },
-          },
           x: {
-            beginAtZero: true,
-            grid: {
-              display: false,
-            },
+            stacked: true,
+          },
+          y: {
+            stacked: true,
           },
         },
       }
     },
+    chartDatasets() {
+      let datasetsValue = []
+      let defaultSettings = {
+        pointStyle: 'circle',
+        borderWidth: 0,
+        borderRadius: 12,
+        barPercentage: 1,
+        fill: true,
+        tension: 0.25,
+      }
+
+      this.chartsData.forEach((el) => {
+        datasetsValue.push({
+          ...defaultSettings,
+          label: el.label,
+          backgroundColor: el.color,
+          data: el.data,
+        })
+      })
+
+      return datasetsValue
+    },
     chartData() {
       return {
         labels: this.labels,
-        datasets: [
-          {
-            label: 'count',
-            borderColor: '#055FFC',
-            pointStyle: 'circle',
-            borderWidth: 0,
-            borderRadius: 12,
-            barPercentage: 0.5,
-            fill: true,
-            backgroundColor: '#516BEE',
-            tension: 0.25,
-            data: this.values,
-          },
-        ],
+        datasets: this.chartDatasets,
       }
     },
   },
 }
 </script>
+
+<style scoped></style>

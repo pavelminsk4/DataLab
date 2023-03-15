@@ -8,7 +8,7 @@
     <ChartsView2
       :labels="labels"
       :chart-type="chartType"
-      :widget-data="widgetData"
+      :charts-data="widgetData"
       :is-display-legend="isWidget"
       @open-sentiment-interactive-modal="openInteractiveModal"
     />

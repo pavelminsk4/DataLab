@@ -17,10 +17,9 @@
           :is-widget="false"
           :is-open-widget="true"
           :project-id="projectId"
-          :widgets="widgetsList"
           :widget-id="generalWidgetData.id"
-          :summary-data="summaryData"
           :title="generalWidgetData.title"
+          :available-widgets="availableWidgets"
           class="widget-view"
           @open-interactive-data="openInteractiveData"
           @open-sentiment-interactive="openSentimentInteractiveData"
@@ -81,20 +80,20 @@ import BaseModal from '@/components/modals/BaseModal'
 import BaseTabs from '@/components/project/widgets/modals/BaseTabs'
 import DimensionsScreen from '@/components/project/screens/DimensionsScreen'
 import BasicSettingsScreen from '@/components/project/widgets/modals/screens/BasicSettingsScreen'
-import VolumeWidget from '@/components/project/widgets/VolumeWidget'
-import Top10LanguagesWidget from '@/components/project/widgets/Top10LanguagesWidget'
-import Top10BrandsWidget from '@/components/project/widgets/Top10BrandsWidget'
-import Top10CountriesWidget from '@/components/project/widgets/Top10CountriesWidget'
-import Top10AuthorsByVolumeWidget from '@/components/project/widgets/Top10AuthorsByVolumeWidget'
-import ContentVolumeTop5SourceWidget from '@/components/project/widgets/ContentVolumeTop5SourceWidget'
-import ContentVolumeTop5AuthorsWidget from '@/components/project/widgets/ContentVolumeTop5AuthorsWidget'
-import ContentVolumeTop5CountriesWidget from '@/components/project/widgets/ContentVolumeTop5CountriesWidget'
+import VolumeWidget from '@/components/widgets/online/VolumeWidget'
+import Top10LanguagesWidget from '@/components/widgets/online/Top10LanguagesWidget'
+import Top10BrandsWidget from '@/components/widgets/online/Top10BrandsWidget'
+import Top10CountriesWidget from '@/components/widgets/online/Top10CountriesWidget'
+import Top10AuthorsByVolumeWidget from '@/components/widgets/online/Top10AuthorsByVolumeWidget'
+import ContentVolumeTop5SourceWidget from '@/components/widgets/online/ContentVolumeTop5SourceWidget'
+import ContentVolumeTop5AuthorsWidget from '@/components/widgets/online/ContentVolumeTop5AuthorsWidget'
+import ContentVolumeTop5CountriesWidget from '@/components/widgets/online/ContentVolumeTop5CountriesWidget'
 import SentimentTop10SourcesWidget from '@/components/widgets/online/SentimentTop10SourcesWidget'
 import SentimentTop10CountriesWidget from '@/components/widgets/online/SentimentTop10CountriesWidget'
 import SentimentTop10AuthorsWidget from '@/components/widgets/online/SentimentTop10AuthorsWidget'
 import SentimentTop10LanguagesWidget from '@/components/widgets/online/SentimentTop10LanguagesWidget'
 import SentimentForPeriodWidget from '@/components/project/widgets/SentimentForPeriodWidget'
-import SummaryWidget from '@/components/project/widgets/SummaryWidget'
+import SummaryWidget from '@/components/widgets/online/SummaryWidget'
 import ClippingFeedContentWidget from '@/components/project/widgets/ClippingFeedContentWidget'
 import ChartTypesRadio from '@/components/project/widgets/modals/screens/ChartTypesRadio'
 import BaseButton from '@/components/common/BaseButton'
@@ -151,20 +150,16 @@ export default {
       type: String,
       required: false,
     },
-    widgetsList: {
-      type: Object,
-      default: () => {},
-    },
     currentProject: {
       type: [Array, Object],
       required: false,
     },
-    summaryData: {
-      type: [Array, Object],
-      required: true,
-    },
     settingsTabs: {
       type: Array,
+      required: true,
+    },
+    availableWidgets: {
+      type: Object,
       required: true,
     },
   },
@@ -178,11 +173,10 @@ export default {
   },
   computed: {
     ...mapGetters({
-      widgets: get.AVAILABLE_WIDGETS,
       selectedDimensions: get.SELECTED_DIMENSIONS,
     }),
     generalWidgetData() {
-      return this.widgets[this.widgetName]
+      return this.availableWidgets[this.widgetName]
     },
   },
   methods: {

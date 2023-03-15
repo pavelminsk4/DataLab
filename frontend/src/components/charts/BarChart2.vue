@@ -24,14 +24,8 @@ export default {
     Bar,
   },
   props: {
-    labels: {
-      type: Array,
-      default: () => [],
-    },
-    widgetData: {
-      type: Object,
-      default: () => {},
-    },
+    labels: {type: Array, default: () => []},
+    chartsData: {type: Object, default: () => {}},
   },
   computed: {
     chartOptions() {
@@ -97,7 +91,7 @@ export default {
         tension: 0.25,
       }
 
-      this.widgetData.forEach((el) => {
+      this.chartsData.forEach((el) => {
         datasetsValue.push({
           ...defaultSettings,
           label: el.label,

@@ -5,7 +5,7 @@
     v-else
     :is="chartType"
     :labels="labels"
-    :widget-data="widgetData"
+    :charts-data="chartsData"
     :isDisplayLegend="isDisplayLegend"
     @open-sentiment-interactive-data="openSentimentInteractiveData"
   />
@@ -16,11 +16,25 @@ import {mapState} from 'vuex'
 
 import BaseSpinner from '@/components/BaseSpinner'
 import BarChart2 from '@/components/charts/BarChart2'
+import PieChart2 from '@/components/charts/PieChart2'
+import LineChart2 from '@/components/charts/LineChart2'
 import MultiLineChart2 from '@/components/charts/MultiLineChart2'
+import MultiRadarChart2 from '@/components/charts/MultiRadarChart2'
+import RadarChart2 from '@/components/charts/RadarChart2'
+import HorizontalBarChart2 from '@/components/charts/HorizontalBarChart2'
 
 export default {
   name: 'ChartsView2',
-  components: {BaseSpinner, MultiLineChart2, BarChart2},
+  components: {
+    BaseSpinner,
+    MultiLineChart2,
+    BarChart2,
+    PieChart2,
+    LineChart2,
+    HorizontalBarChart2,
+    MultiRadarChart2,
+    RadarChart2,
+  },
   props: {
     labels: {
       type: Array,
@@ -30,7 +44,7 @@ export default {
       type: String,
       required: true,
     },
-    widgetData: {
+    chartsData: {
       type: Array,
       required: true,
       default: () => [],

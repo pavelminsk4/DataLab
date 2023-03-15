@@ -1,15 +1,5 @@
 <template>
-  <Pie
-    :chart-options="chartOptions"
-    :chart-data="chartData"
-    :chart-id="chartId"
-    :dataset-id-key="datasetIdKey"
-    :plugins="plugins"
-    :css-classes="cssClasses"
-    :styles="styles"
-    :width="width"
-    :height="height"
-  />
+  <Pie :chart-options="chartOptions" :chart-data="chartData" />
 </template>
 
 <script>
@@ -38,47 +28,11 @@ ChartJS.register(
 )
 
 export default {
-  name: 'PieChart',
-  components: {
-    Pie,
-  },
+  name: 'PieChart2',
+  components: {Pie},
   props: {
-    chartId: {
-      type: String,
-      default: 'doughnut-chart',
-    },
-    datasetIdKey: {
-      type: String,
-      default: 'label',
-    },
-    width: {
-      type: Number,
-      default: 400,
-    },
-    height: {
-      type: Number,
-      default: 400,
-    },
-    cssClasses: {
-      default: '',
-      type: String,
-    },
-    styles: {
-      type: Object,
-      default: () => {},
-    },
-    plugins: {
-      type: Array,
-      default: () => [],
-    },
-    labels: {
-      type: Array,
-      default: () => [],
-    },
-    values: {
-      type: Array,
-      default: () => [],
-    },
+    labels: {type: Array, default: () => []},
+    chartsData: {type: Object, default: () => {}},
   },
   computed: {
     colors() {
@@ -115,7 +69,7 @@ export default {
             cutout: '0%',
             borderColor: 'red',
             borderWidth: 0,
-            data: this.values,
+            data: this.chartsData[0].data,
             options: {
               plugins: {
                 datalabels: {
@@ -159,12 +113,4 @@ export default {
 }
 </script>
 
-<style scoped>
-.doughnut-chart-widget {
-  width: 100%;
-  max-height: 100%;
-  margin-top: 25px;
-
-  cursor: pointer;
-}
-</style>
+<style scoped></style>

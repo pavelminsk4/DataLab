@@ -1,15 +1,5 @@
 <template>
-  <Line
-    :chart-options="chartOptions"
-    :chart-data="chartData"
-    :chart-id="chartId"
-    :dataset-id-key="datasetIdKey"
-    :css-classes="cssClasses"
-    :styles="styles"
-    :width="width"
-    :height="height"
-    class="line-chart"
-  />
+  <Line :chart-options="chartOptions" :chart-data="chartData" />
 </template>
 
 <script>
@@ -39,47 +29,14 @@ ChartJS.register(
 )
 
 export default {
-  name: 'LineChart',
+  name: 'LineChart2',
   components: {
     Line,
   },
   props: {
-    values: {
-      type: Array,
-      default: () => [],
-    },
-    labels: {
-      type: Array,
-      default: () => [],
-    },
-    chartId: {
-      type: String,
-      default: 'line-chart',
-    },
-    datasetIdKey: {
-      type: String,
-      default: 'label',
-    },
-    width: {
-      type: Number,
-      default: 400,
-    },
-    height: {
-      type: Number,
-      default: 400,
-    },
-    cssClasses: {
-      default: '',
-      type: String,
-    },
-    styles: {
-      type: Object,
-      default: () => {},
-    },
-    isDisplayLegend: {
-      type: Boolean,
-      default: true,
-    },
+    labels: {type: Array, default: () => []},
+    chartsData: {type: Object, default: () => {}},
+    isDisplayLegend: {type: Boolean, default: false},
   },
   computed: {
     chartDatasets() {
@@ -103,7 +60,7 @@ export default {
             return gradient
           },
           tension: 0.5,
-          data: this.values,
+          data: this.chartsData[0].data,
         },
       ]
     },
@@ -127,38 +84,7 @@ export default {
             display: false,
           },
           legend: {
-            display: this.isDisplayLegend,
-            onClick: (evt, legendItem, legend) => {
-              const datasets = legend.legendItems.map((dataset) => {
-                return dataset.text
-              })
-              const index = datasets.indexOf(legendItem.text)
-              if (legend.chart.isDatasetVisible(index) === true) {
-                legend.chart.hide(index)
-              } else {
-                legend.chart.show(index)
-              }
-            },
-            labels: {
-              generateLabels: (chart) => {
-                let visibility = []
-                chart.data.datasets.forEach((el, index) => {
-                  if (chart.isDatasetVisible(index) === false) {
-                    visibility.push(true)
-                  } else {
-                    visibility.push(false)
-                  }
-                })
-
-                return chart.data.datasets.map((dataset, index) => ({
-                  text: dataset.label,
-                  fillStyle: dataset.borderColor,
-                  strokeStyle: dataset.borderColor,
-                  fontColor: dataset.color,
-                  hidden: visibility[index],
-                }))
-              },
-            },
+            display: false,
           },
           tooltip: {
             yAlign: 'bottom',
@@ -193,10 +119,4 @@ export default {
 }
 </script>
 
-<style scoped>
-.line-chart {
-  overflow: hidden;
-  height: 100%;
-  width: 100%;
-}
-</style>
+<style scoped></style>

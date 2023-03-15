@@ -34,24 +34,15 @@ export default {
     Line,
   },
   props: {
-    isDisplayLegend: {
-      type: Boolean,
-      default: true,
-    },
-    widgetData: {
-      type: Object,
-      default: () => {},
-    },
-    labels: {
-      type: Array,
-      default: () => [],
-    },
+    isDisplayLegend: {type: Boolean, default: true},
+    chartsData: {type: Object, default: () => {}},
+    labels: {type: Array, default: () => []},
   },
   computed: {
     chartDatasets() {
       let datasetsValue = []
 
-      this.widgetData.forEach((el) => {
+      this.chartsData.forEach((el) => {
         datasetsValue.push({
           label: el.label,
           borderColor: el.color,
