@@ -157,10 +157,6 @@ export default {
       type: Boolean,
       default: false,
     },
-    currentProject: {
-      type: [Array, Object],
-      required: true,
-    },
   },
   computed: {
     ...mapGetters({isLoading: get.LOADING_WIDGETS}),

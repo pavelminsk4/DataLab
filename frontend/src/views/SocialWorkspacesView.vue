@@ -35,10 +35,7 @@
 <script>
 import {mapActions, mapGetters, createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
-import {
-  action as actionSocial,
-  get as getSocial,
-} from '@store/modules/social/constants'
+import {action as actionSocial, get as getSocial} from '@store/constants'
 
 import BaseButtonWithTooltip from '@/components/BaseButtonWithTooltip'
 import BlankPage from '@/components/BlankPage'

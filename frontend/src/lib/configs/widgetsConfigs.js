@@ -169,6 +169,45 @@ export const modalWidgetsConfig = {
     defaultChartType: 'LineChart',
     availableTypes: SIMPLE_CHARTS,
   },
+  top_locations_widget: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    actionName: '',
+    hasAggregationPeriod: false,
+    defaultChartType: 'HorizontalBarChart',
+    availableTypes: SIMPLE_CHARTS,
+  },
+  top_languages_widget: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    actionName: '',
+    hasAggregationPeriod: false,
+    defaultChartType: 'PieChart',
+    availableTypes: SIMPLE_CHARTS,
+  },
+  top_authors_widget: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    actionName: '',
+    hasAggregationPeriod: false,
+    defaultChartType: 'PieChart',
+    availableTypes: SIMPLE_CHARTS,
+  },
+  content_volume_by_top_locations_widget: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    actionName: '',
+    defaultChartType: 'MultiLineChart',
+    availableTypes: MULTI_CHARTS,
+  },
+  content_volume_by_top_authors_widget: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    actionName: '',
+    defaultChartType: 'MultiLineChart',
+    availableTypes: MULTI_CHARTS,
+  },
+  content_volume_by_top_languages_widget: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    actionName: '',
+    defaultChartType: 'MultiLineChart',
+    availableTypes: MULTI_CHARTS,
+  },
 }
 
 export const summaryWidgetConfig = [

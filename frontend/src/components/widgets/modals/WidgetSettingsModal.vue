@@ -5,68 +5,21 @@
     style="--base-modal-content-padding: 0px"
   >
     <div class="settings-wrapper">
-      <div class="preview-section">
-        <div class="chart-title">
-          {{ generalWidgetData.title }}
-        </div>
-
-        <component
-          :is="snakeToPascal(widgetName)"
-          :volume="widgetData"
-          :chart-type="newChartType || chartType"
-          :is-widget="false"
-          :is-open-widget="true"
-          :project-id="projectId"
-          :widget-id="generalWidgetData.id"
-          :title="generalWidgetData.title"
-          :available-widgets="availableWidgets"
-          class="widget-view"
-          @open-interactive-data="openInteractiveData"
-          @open-sentiment-interactive="openSentimentInteractiveData"
-        />
-      </div>
-
-      <div class="general-wrapper-settings">
-        <BaseTabs
-          :main-settings="settingsTabs"
-          default-tab="General"
-          @update-setting-panel="updateSettingPanel"
-        />
-
-        <BasicSettingsScreen
-          v-if="panelName === 'General'"
-          :period="generalWidgetData.aggregation_period"
-          :widget-title="generalWidgetData.title"
-          :widget-description="generalWidgetData.description"
-          :hasAggregationPeriod="hasAggregationPeriod"
-          @update-general-data="updateGeneralSettings"
-          @get-widget-params="updateAggregationPeriod"
-        />
-
-        <DimensionsScreen
-          v-if="panelName === 'Dimensions'"
-          :project-id="projectId"
-          :authors-dimensions="generalWidgetData.author_dim_pivot"
-          :countries-dimensions="generalWidgetData.country_dim_pivot"
-          :languages-dimensions="generalWidgetData.language_dim_pivot"
-          :sources-dimensions="generalWidgetData.source_dim_pivot"
-          :sentiments-dimensions="generalWidgetData.sentiment_dim_pivot"
-          class="dimensions-tab"
-        />
-
-        <ChartTypesRadio
-          v-if="panelName === 'Chart Layout'"
-          :selected="chartType"
-          :widget-name="widgetName"
-          :project-id="projectId"
-          :widget-data="generalWidgetData"
-          @update-chart-type="updateGeneralSettings"
-        />
-
-        <BaseButton class="button" @click="saveChanges">
-          <SaveIcon />Save
-        </BaseButton>
-      </div>
+      <component
+        :is="snakeToPascal(widgetName)"
+        :volume="widgetData"
+        :chart-type="newChartType || chartType"
+        :is-widget="false"
+        :is-open-widget="true"
+        :project-id="projectId"
+        :widgets="widgetsList"
+        :widget-id="generalWidgetData.id"
+        :summary-data="summaryData"
+        :title="generalWidgetData.title"
+        class="widget-view"
+        @open-interactive-data="openInteractiveData"
+        @open-sentiment-interactive="openSentimentInteractiveData"
+      />
     </div>
   </BaseModal>
 </template>
@@ -94,7 +47,7 @@ import SentimentTop10AuthorsWidget from '@/components/widgets/online/SentimentTo
 import SentimentTop10LanguagesWidget from '@/components/widgets/online/SentimentTop10LanguagesWidget'
 import SentimentForPeriodWidget from '@/components/widgets/online/SentimentForPeriodWidget'
 import SummaryWidget from '@/components/widgets/online/SummaryWidget'
-import ClippingFeedContentWidget from '@/components/project/widgets/ClippingFeedContentWidget'
+import ClippingFeedContentWidget from '@/components/widgets/online/ClippingFeedContentWidget'
 import ChartTypesRadio from '@/components/project/widgets/modals/screens/ChartTypesRadio'
 import BaseButton from '@/components/common/BaseButton'
 import SaveIcon from '@/components/icons/SaveIcon'

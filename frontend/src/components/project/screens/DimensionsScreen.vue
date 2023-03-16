@@ -203,8 +203,8 @@ export default {
   methods: {
     ...mapActions([
       action.UPDATE_PROJECT,
-      action.GET_DIMENSIONS_OPTIONS,
       action.GET_WORKSPACES,
+      action.GET_DIMENSIONS_OPTIONS,
       action.GET_SELECTED_DIMENSIONS,
     ]),
     capitalizeFirstLetter,

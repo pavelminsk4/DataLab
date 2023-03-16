@@ -2,15 +2,15 @@
   <WidgetsLayout
     v-if="isGeneralWidget"
     @open-modal="$emit('open-settings-modal')"
-    :title="widgets.clipping_feed_content.title"
+    :title="title"
   >
     <div class="clipping-wrapper scroll">
-      <div v-if="!clippingData.length" class="no-selected">
+      <div v-if="!clippingFeedContentData.length" class="no-selected">
         Clipping feed content is not selected.
       </div>
 
       <ClippingCard
-        v-for="(item, index) in clippingData"
+        v-for="(item, index) in clippingFeedContentData"
         :key="'result' + index"
         :img="cardImg(item)"
         :sentiment="item.post__sentiment"
@@ -33,7 +33,7 @@
   </WidgetsLayout>
 
   <div v-else class="clipping-wrapper scroll widget-view">
-    <div v-if="!clippingData.length" class="no-selected">
+    <div v-if="!clippingFeedContentData.length" class="no-selected">
       Clipping feed content is not selected.
     </div>
 
@@ -61,50 +61,21 @@
 </template>
 
 <script>
-import {mapGetters, createNamespacedHelpers} from 'vuex'
-import {get} from '@store/constants'
-import {action} from '@store/modules/social/constants'
-
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
 import ClippingCard from '@/components/ClippingCard'
-
-const {mapActions} = createNamespacedHelpers('social')
 
 export default {
   name: 'ClippingFeedContentWidget',
   components: {ClippingCard, WidgetsLayout},
   props: {
-    projectId: {
-      type: Number,
-      required: true,
-    },
-    widgetId: {
-      type: Number,
-      required: true,
-    },
-    currentProject: {
-      type: [Array, Object],
-      required: true,
-    },
-    isGeneralWidget: {
-      type: Boolean,
-      default: true,
-    },
-  },
-  computed: {
-    ...mapGetters({
-      clippingData: get.CLIPPING_FEED_CONTENT_WIDGET,
-      widgets: get.AVAILABLE_WIDGETS,
-    }),
-  },
-  created() {
-    this[action.GET_CLIPPING_FEED_CONTENT_WIDGET]({
-      projectId: this.projectId,
-      widgetId: this.widgetId,
-    })
+    clippingFeedContentData: {type: Array, required: true},
+    title: {type: String, required: true},
+    projectId: {type: Number, required: true},
+    widgetId: {type: Number, required: true},
+    currentProject: {type: [Array, Object], required: true},
+    isGeneralWidget: {type: Boolean, default: true},
   },
   methods: {
-    ...mapActions([action.GET_CLIPPING_FEED_CONTENT_WIDGET]),
     cardImg(item) {
       let images = [
         item.post__entry_media_content_url,

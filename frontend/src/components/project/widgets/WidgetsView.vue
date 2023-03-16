@@ -1,16 +1,10 @@
 <template>
   <WidgetSettingsModal
     v-if="isOpenWidgetSettingsModal"
-    :widget-name="dataForWidgetModal.widgetName"
+    :widgetData="currentWidget"
+    :widget-modal-data="dataForWidgetModal"
     :project-id="projectId"
-    :widget-data="this[dataForWidgetModal.widgetName]"
-    :action-name="dataForWidgetModal.actionName"
-    :is-charts-show="dataForWidgetModal.isChartShow"
-    :hasAggregationPeriod="dataForWidgetModal.hasAggregationPeriod"
-    :chart-type="dataForWidgetModal.chartType"
     :current-project="currentProject"
-    :settings-tabs="dataForWidgetModal.settingsTabs"
-    :available-widgets="availableWidgets"
     @close="closeModal"
     @open-interactive-widget="openInteractiveData"
     @open-sentiment-interactive="openSentimentInteractiveData"
@@ -77,15 +71,15 @@ import VueGridLayout from 'vue3-grid-layout'
 import {snakeToPascal} from '@lib/utilities'
 import {modalWidgetsConfig} from '@/lib/configs/widgetsConfigs'
 
+import SummaryWidget from '@/components/widgets/online/SummaryWidget'
 import SearchResults from '@/components/SearchResults'
 import VolumeWidget from '@/components/widgets/online/VolumeWidget'
-import SummaryWidget from '@/components/widgets/online/SummaryWidget'
 import Top10BrandsWidget from '@/components/widgets/online/Top10BrandsWidget'
 import Top10CountriesWidget from '@/components/widgets/online/Top10CountriesWidget'
 import Top10LanguagesWidget from '@/components/widgets/online/Top10LanguagesWidget'
 import Top10AuthorsByVolumeWidget from '@/components/widgets/online/Top10AuthorsByVolumeWidget'
 import SentimentForPeriodWidget from '@/components/widgets/online/SentimentForPeriodWidget'
-import ClippingFeedContentWidget from '@/components/project/widgets/ClippingFeedContentWidget'
+import ClippingFeedContentWidget from '@/components/widgets/online/ClippingFeedContentWidget'
 import SentimentTop10AuthorsWidget from '@/components/widgets/online/SentimentTop10AuthorsWidget'
 import SentimentTop10SourcesWidget from '@/components/widgets/online/SentimentTop10SourcesWidget'
 import SentimentTop10LanguagesWidget from '@/components/widgets/online/SentimentTop10LanguagesWidget'
@@ -93,7 +87,7 @@ import SentimentTop10CountriesWidget from '@/components/widgets/online/Sentiment
 import ContentVolumeTop5SourceWidget from '@/components/widgets/online/ContentVolumeTop5SourceWidget'
 import ContentVolumeTop5AuthorsWidget from '@/components/widgets/online/ContentVolumeTop5AuthorsWidget'
 import ContentVolumeTop5CountriesWidget from '@/components/widgets/online/ContentVolumeTop5CountriesWidget'
-import WidgetSettingsModal from '@/components/project/modals/WidgetSettingsModal'
+import WidgetSettingsModal from '@/components/widgets/online/modals/WidgetSettingsModal'
 import InteractiveWidgetModal from '@/components/modals/InteractiveWidgetModal'
 
 export default {
@@ -128,20 +122,15 @@ export default {
     'open-sentiment-interactive-widget',
   ],
   props: {
-    projectId: {
-      type: Number,
-      required: true,
-    },
-    currentProject: {
-      type: [Array, Object],
-      required: false,
-    },
+    projectId: {type: Number, required: true},
+    currentProject: {type: [Array, Object], required: false},
   },
   data() {
     return {
       layout: [],
       dataForWidgetModal: {},
       isOpenWidgetSettingsModal: false,
+      currentWidget: null,
     }
   },
   async created() {
@@ -241,6 +230,7 @@ export default {
         chartType: item.chartType,
         settingsTabs: modalWidgetsConfig[item.name].settingsTabs,
       }
+      this.currentWidget = this.availableWidgets[item.name]
       this.isOpenWidgetSettingsModal = !this.isOpenWidgetSettingsModal
     },
     openInteractiveData(val, widgetId, fieldName) {

@@ -46,7 +46,7 @@
 
 <script>
 import {createNamespacedHelpers} from 'vuex'
-import {action} from '@store/modules/social/constants'
+import {action} from '@store/constants'
 import {defaultDate} from '@lib/utilities'
 
 import LikeIcon from '@/components/icons/LikeIcon'

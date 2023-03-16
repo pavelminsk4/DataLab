@@ -10,7 +10,7 @@
 
 <script>
 import {createNamespacedHelpers} from 'vuex'
-import {action as actionSocial} from '@store/modules/social/constants'
+import {action as actionSocial} from '@store/constants'
 
 import CreateSearchScreen from '@/components/workspace/screens/CreateSearchScreen'
 
