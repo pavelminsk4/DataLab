@@ -22,6 +22,7 @@ import MultiLineChart from '@/components/charts/MultiLineChart'
 import MultiRadarChart from '@/components/charts/MultiRadarChart'
 import RadarChart from '@/components/charts/RadarChart'
 import HorizontalBarChart from '@/components/charts/HorizontalBarChart'
+import DoughnutChart from '@/components/charts/DoughnutChart'
 
 export default {
   name: 'ChartsView',
@@ -34,6 +35,7 @@ export default {
     HorizontalBarChart,
     MultiRadarChart,
     RadarChart,
+    DoughnutChart,
   },
   props: {
     labels: {type: Array, default: () => []},
