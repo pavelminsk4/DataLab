@@ -24,6 +24,10 @@ const CHARTS = {
     componentName: 'PieChart',
     name: 'Pie chart',
   },
+  doughnut: {
+    componentName: 'DoughnutChart',
+    name: 'Doughnut chart',
+  },
   radar: {
     componentName: 'RadarChart',
     name: 'Radar chart',
@@ -46,7 +50,13 @@ const CHARTS = {
   },
 }
 
-const SIMPLE_CHARTS = [CHARTS.line, CHARTS.bar, CHARTS.pie, CHARTS.radar]
+const SIMPLE_CHARTS = [
+  CHARTS.line,
+  CHARTS.bar,
+  CHARTS.pie,
+  CHARTS.radar,
+  CHARTS.doughnut,
+]
 const SENTIMENTS_CHARTS = [CHARTS.horizontalBarChart, CHARTS.bar]
 
 const MULTI_CHARTS = [CHARTS.multiLine, CHARTS.multiRadar]
