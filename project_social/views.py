@@ -1,9 +1,11 @@
-from rest_framework.generics import ListAPIView, CreateAPIView, DestroyAPIView, UpdateAPIView, RetrieveAPIView
+from rest_framework.generics import ListAPIView, CreateAPIView, DestroyAPIView, UpdateAPIView, RetrieveAPIView, ListCreateAPIView
 from .widgets.dashboard.content_volume_by_top_locations import *
 from .widgets.dashboard.content_volume_by_top_languages import *
 from .widgets.dashboard.content_volume_by_top_authors import *
+from rest_framework import viewsets, filters, status
 from .widgets.dashboard.sentiment_languages import *
 from .widgets.dashboard.sentiment_locations import *
+from .widgets.sentiment.sentiment_by_gender import *
 from .widgets.dashboard.sentiment_authors import *
 from tweet_binder.models import TweetBinderPost
 from .widgets.dashboard.summary_widget import *
@@ -14,7 +16,7 @@ from .widgets.dashboard.top_languages import *
 from .widgets.summary.gender_volume import *
 from .widgets.dashboard.top_authors import *
 from .widgets.dashboard.sentiment import *
-from rest_framework import viewsets, filters
+from rest_framework.response import Response
 from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.db.models import Q
@@ -181,6 +183,9 @@ def social_sentiment_locations(request, pk, widget_pk):
 
 def social_gender_volume(request, pk, widget_pk):
   return gender_volume(pk, widget_pk)
+
+def social_sentiment_by_gender(request, pk, widget_pk):
+  return sentiment_by_gender(pk, widget_pk)
 
 class ProjectSocialWidgetsAPIView(RetrieveAPIView):
  serializer_class = WidgetsListSerializer
