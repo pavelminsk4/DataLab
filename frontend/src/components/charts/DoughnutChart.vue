@@ -92,7 +92,6 @@ export default {
         datasets: [
           {
             backgroundColor: this.colors,
-            borderWidth: 2,
             data: this.chartValues[0].data,
             options: {plugins: {datalabels: {display: false}}},
           },
