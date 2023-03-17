@@ -24,11 +24,9 @@
     </li>
   </ul>
 </template>
-
 <script>
 import {action, get} from '@store/constants'
 import {mapActions, mapGetters} from 'vuex'
-
 import VolumeWidget from '@/components/widgets/online/VolumeWidget'
 import SummaryWidget from '@/components/widgets/online/SummaryWidget'
 import Top10BrandsWidget from '@/components/widgets/online/Top10BrandsWidget'
@@ -43,14 +41,11 @@ import SentimentTop10CountriesWidget from '@/components/widgets/online/Sentiment
 import ContentVolumeTop5SourceWidget from '@/components/widgets/online/ContentVolumeTop5SourceWidget'
 import ContentVolumeTop5AuthorsWidget from '@/components/widgets/online/ContentVolumeTop5AuthorsWidget'
 import ContentVolumeTop5CountriesWidget from '@/components/widgets/online/ContentVolumeTop5CountriesWidget'
-import WidgetSettingsModal from '@/components/project/modals/WidgetSettingsModal'
 import InteractiveWidgetModal from '@/components/modals/InteractiveWidgetModal'
-
 export default {
   name: 'WidgetsList',
   components: {
     InteractiveWidgetModal,
-    WidgetSettingsModal,
     VolumeWidget,
     SummaryWidget,
     Top10BrandsWidget,
@@ -88,24 +83,19 @@ export default {
   },
 }
 </script>
-
 <style lang="scss" scoped>
 .widgets {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 30px;
-
   list-style: none;
-
   .widgets__item {
     width: calc(50% - 15px);
-
     .summary-widget__container {
       display: block;
     }
   }
-
   .grow {
     display: flex;
     width: 100%;
