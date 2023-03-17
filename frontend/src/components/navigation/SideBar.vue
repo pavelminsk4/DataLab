@@ -2,17 +2,17 @@
   <nav class="sidebar-wrapper">
     <ul class="menu">
       <li
-        v-for="(item, index) in settings"
+        v-for="(item, index) in navUrls"
         :key="'setting' + index"
-        :class="['nav-item', item === routeName && 'active-setting']"
-        @click="$emit('open-tab', item)"
+        :class="['nav-item', item.routeName === routeName && 'active-setting']"
+        @click="$emit('open-tab', item.routeName)"
       >
         <component
-          :is="item + 'Icon'"
-          :class="[item === routeName && 'active-icon', 'icon']"
+          :is="item.name + 'Icon'"
+          :class="[item.routeName === routeName && 'active-icon', 'icon']"
         />
 
-        <div class="sidebar-item-name">{{ item }}</div>
+        <div class="sidebar-item-name">{{ item.name }}</div>
       </li>
     </ul>
   </nav>
@@ -24,6 +24,7 @@ import SearchIcon from '@/components/icons/SearchIcon'
 import AlertsIcon from '@/components/icons/AlertsIcon'
 import ReportsIcon from '@/components/icons/ReportsIcon'
 import SummaryIcon from '@/components/icons/SummaryIcon'
+import DashboardIcon from '@/components/icons/DashboardIcon'
 
 export default {
   name: 'SideBar',
@@ -33,11 +34,10 @@ export default {
     ReportsIcon,
     AnalyticsIcon,
     SummaryIcon,
+    DashboardIcon,
   },
-  data() {
-    return {
-      settings: ['Analytics', 'Search', 'Summary'],
-    }
+  props: {
+    navUrls: {type: Array, required: true},
   },
   computed: {
     routeName() {

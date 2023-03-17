@@ -123,17 +123,17 @@ export default [
         component: ProjectExtraSettingsView,
         children: [
           {
-            name: 'Analytics',
+            name: 'OnlineAnalytics',
             path: 'analytics',
             component: AnalyticsScreen,
           },
           {
-            name: 'Search',
+            name: 'OnlineSearch',
             path: 'search-settings',
             component: SearchScreen,
           },
           {
-            name: 'Summary',
+            name: 'OnlineSummary',
             path: 'summary',
             component: OnlineSummaryView,
           },
