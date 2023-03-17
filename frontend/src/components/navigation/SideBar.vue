@@ -23,6 +23,7 @@ import AnalyticsIcon from '@/components/icons/AnalyticsIcon'
 import SearchIcon from '@/components/icons/SearchIcon'
 import AlertsIcon from '@/components/icons/AlertsIcon'
 import ReportsIcon from '@/components/icons/ReportsIcon'
+import SummaryIcon from '@/components/icons/SummaryIcon'
 
 export default {
   name: 'SideBar',
@@ -31,10 +32,11 @@ export default {
     SearchIcon,
     ReportsIcon,
     AnalyticsIcon,
+    SummaryIcon,
   },
   data() {
     return {
-      settings: ['Analytics', 'Search'],
+      settings: ['Analytics', 'Search', 'Summary'],
     }
   },
   computed: {
