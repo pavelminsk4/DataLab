@@ -134,6 +134,8 @@ def twitter_posts_search(request):
     'count_favorites',
     'count_retweets',
     'count_replies',
+    'user_picture',
+    'images',
     )
 
   p = Paginator(posts, posts_per_page)
