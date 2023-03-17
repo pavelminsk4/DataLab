@@ -18,6 +18,7 @@
 <script>
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
 import ChartsView from '@/components/charts/ChartsView'
+
 export default {
   name: 'SentimentWidget',
   components: {ChartsView, WidgetsLayout},

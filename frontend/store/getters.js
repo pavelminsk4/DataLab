@@ -128,6 +128,10 @@ export default {
     return state.contentVolumeTopCountries
   },
 
+  [get.TOP_KEYWORDS_WIDGET](state) {
+    return state.topKeywordsWidget
+  },
+
   [get.DIMENSIONS](state) {
     return state.dimensions
   },

@@ -9,7 +9,6 @@
     @open-interactive-widget="openInteractiveData"
     @open-sentiment-interactive="openSentimentInteractiveData"
   />
-
   <div class="analytics-wrapper">
     <SearchResults
       :is-show-calendar="false"
@@ -20,7 +19,6 @@
       @update-posts-count="updatePosts"
       class="search-results"
     />
-
     <grid-layout
       v-if="availableWidgets"
       v-model:layout="selectedWidgets"
@@ -87,12 +85,17 @@ import SentimentTop10CountriesWidget from '@/components/widgets/online/Sentiment
 import ContentVolumeTop5SourceWidget from '@/components/widgets/online/ContentVolumeTop5SourceWidget'
 import ContentVolumeTop5AuthorsWidget from '@/components/widgets/online/ContentVolumeTop5AuthorsWidget'
 import ContentVolumeTop5CountriesWidget from '@/components/widgets/online/ContentVolumeTop5CountriesWidget'
+import TopKeywords from '@/components/widgets/online/TopKeywordsWidget'
 import WidgetSettingsModal from '@/components/widgets/online/modals/WidgetSettingsModal'
 import InteractiveWidgetModal from '@/components/modals/InteractiveWidgetModal'
+import KeywordsWidget from '@/components/widgets/KeywordsWidget'
+import WordCloudChart from '@/components/charts/WordCloudChart'
 
 export default {
   name: 'WidgetsView',
   components: {
+    WordCloudChart,
+    KeywordsWidget,
     InteractiveWidgetModal,
     WidgetSettingsModal,
     SearchResults,
@@ -111,6 +114,7 @@ export default {
     ContentVolumeTop5SourceWidget,
     ContentVolumeTop5AuthorsWidget,
     ContentVolumeTop5CountriesWidget,
+    TopKeywords,
     GridLayout: VueGridLayout.GridLayout,
     GridItem: VueGridLayout.GridItem,
   },
@@ -270,7 +274,7 @@ export default {
   overflow: auto;
 
   width: 100%;
-  max-height: calc(100vh - 255px);
+  min-height: 500px;
 
   .analytics-search-results {
     flex: 1;

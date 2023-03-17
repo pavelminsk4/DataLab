@@ -140,6 +140,10 @@ export default {
     state.sentimentForPeriod = [...data]
   },
 
+  [mutator.SET_TOP_KEYWORDS_WIDGET](state, data) {
+    state.topKeywordsWidget = data
+  },
+
   [mutator.SET_AVAILABLE_WIDGETS](state, data) {
     state.availableWidgets = {...data}
   },

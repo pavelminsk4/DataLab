@@ -352,6 +352,18 @@ export default {
     }
   },
 
+  async [action.GET_TOP_KEYWORDS_WIDGET]({commit}, {projectId, widgetId}) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const topKeywords = await api.getTopKeywordsWidget({projectId, widgetId})
+      commit(mutator.SET_TOP_KEYWORDS_WIDGET, topKeywords)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
   async [action.GET_SELECTED_DIMENSIONS]({commit}, selectedDimensions) {
     commit(mutator.SET_LOADING, true)
     try {

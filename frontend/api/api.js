@@ -160,6 +160,10 @@ export default {
     )
   },
 
+  async getTopKeywordsWidget({projectId, widgetId}) {
+    return fetch('post', `/widgets/top_keywords/${projectId}/${widgetId}`)
+  },
+
   async getDimensions() {
     return fetch('get', '/dimensions/')
   },

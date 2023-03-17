@@ -23,6 +23,7 @@ import MultiRadarChart from '@/components/charts/MultiRadarChart'
 import RadarChart from '@/components/charts/RadarChart'
 import HorizontalBarChart from '@/components/charts/HorizontalBarChart'
 import DoughnutChart from '@/components/charts/DoughnutChart'
+import WordCloudChart from '@/components/charts/WordCloudChart'
 
 export default {
   name: 'ChartsView',
@@ -36,6 +37,7 @@ export default {
     MultiRadarChart,
     RadarChart,
     DoughnutChart,
+    WordCloudChart,
   },
   props: {
     labels: {type: Array, default: () => []},
