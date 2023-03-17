@@ -47,7 +47,7 @@ export default {
     },
     goToProjectSettings(projectId) {
       this.$router.push({
-        name: 'SocialAnalytics',
+        name: 'SocialDashboard',
         params: {
           workspaceId: this.workspaceId,
           projectId,

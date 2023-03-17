@@ -14,6 +14,7 @@ import SearchResults from '@/components/SearchResults'
 
 import SearchScreen from '@/components/project/screens/SearchScreen'
 import AnalyticsScreen from '@/components/project/screens/AnalyticsScreen'
+import OnlineSummaryView from '@/views/OnlineSummaryView'
 
 export default [
   {
@@ -122,14 +123,19 @@ export default [
         component: ProjectExtraSettingsView,
         children: [
           {
-            name: 'Analytics',
+            name: 'OnlineAnalytics',
             path: 'analytics',
             component: AnalyticsScreen,
           },
           {
-            name: 'Search',
+            name: 'OnlineSearch',
             path: 'search-settings',
             component: SearchScreen,
+          },
+          {
+            name: 'OnlineSummary',
+            path: 'summary',
+            component: OnlineSummaryView,
           },
         ],
       },

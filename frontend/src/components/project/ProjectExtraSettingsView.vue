@@ -1,6 +1,6 @@
 <template>
   <MainLayout v-if="currentProject" :is-project-extra-settings="true">
-    <SideBar @open-tab="openTab" />
+    <SideBar :nav-urls="navUrls" @open-tab="openTab" />
 
     <div class="project-dashboard-wrapper">
       <router-view :current-project="currentProject"></router-view>
@@ -22,6 +22,11 @@ export default {
     MainLayout,
   },
   created() {
+    this.navUrls = ['Analytics', 'Search', 'Summary'].map((item) => ({
+      name: item,
+      routeName: `Online${item}`,
+    }))
+
     if (!this.workspaces.length) {
       this[action.GET_WORKSPACES]()
     }

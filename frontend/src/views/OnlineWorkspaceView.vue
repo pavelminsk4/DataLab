@@ -49,7 +49,7 @@ export default {
     },
     goToProjectSettings(projectId) {
       this.$router.push({
-        name: 'Analytics',
+        name: 'OnlineAnalytics',
         params: {
           workspaceId: this.workspaceId,
           projectId,

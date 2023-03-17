@@ -51,7 +51,7 @@ export default {
       )
 
       await this.$router.push({
-        name: 'SocialAnalytics',
+        name: 'SocialDashboard',
         params: {
           workspaceId: newWorkspace.id,
           projectId: newWorkspace.projects[0].id,
@@ -63,7 +63,7 @@ export default {
       const newProject = await this[actionSocial.CREATE_PROJECT](projectData)
 
       await this.$router.push({
-        name: 'SocialAnalytics',
+        name: 'SocialDashboard',
         params: {
           workspaceId: this.workspaceId,
           projectId: newProject.id,
