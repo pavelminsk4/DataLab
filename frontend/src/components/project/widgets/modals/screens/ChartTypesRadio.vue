@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import {modalWidgetsConfig} from '@/lib/configs/widgetsConfigs'
+import {widgetsConfig} from '@/lib/configs/widgetsConfigs'
 import BaseRadio from '@/components/BaseRadio'
 
 export default {
@@ -36,7 +36,7 @@ export default {
   },
   computed: {
     availableTypes() {
-      return modalWidgetsConfig[this.widgetName].availableTypes
+      return widgetsConfig[this.widgetName].availableTypes
     },
     selectedValueProxy: {
       get() {

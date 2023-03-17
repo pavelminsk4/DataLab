@@ -1,6 +1,10 @@
 <template>
   <header class="header">
-    <LogoIcon class="logo" @click="goToMainPage" />
+    <LogoIcon
+      class="logo"
+      @click="goToMainPage"
+      @click.middle="goToMainPageNewTab"
+    />
 
     <div class="header-navigation">
       <div
@@ -83,6 +87,10 @@ export default {
       this.$router.push({
         name: 'MainView',
       })
+    },
+    goToMainPageNewTab() {
+      let route = this.$router.resolve({name: 'MainView'})
+      window.open(route.href)
     },
     goToUserRolesPage() {
       this.$router.push({

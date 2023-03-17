@@ -65,7 +65,7 @@ const SENTIMENTS_CHARTS = [CHARTS.horizontalBarChart, CHARTS.bar]
 
 const MULTI_CHARTS = [CHARTS.multiLine, CHARTS.multiRadar]
 
-export const modalWidgetsConfig = {
+export const widgetsConfig = {
   summary_widget: {
     ...WIDGET_DEFAULT_SETTINGS,
     actionName: action.GET_SUMMARY_WIDGET,

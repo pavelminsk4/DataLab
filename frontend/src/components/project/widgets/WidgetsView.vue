@@ -1,10 +1,7 @@
 <template>
   <WidgetSettingsModal
     v-if="isOpenWidgetSettingsModal"
-    :widgetData="currentWidget"
-    :widget-modal-data="dataForWidgetModal"
-    :project-id="projectId"
-    :current-project="currentProject"
+    :widgetDetails="currentWidget"
     @close="closeModal"
     @open-interactive-widget="openInteractiveData"
     @open-sentiment-interactive="openSentimentInteractiveData"
@@ -33,27 +30,19 @@
       <grid-item
         class="widget-item"
         v-for="item in selectedWidgets"
+        :key="item.i"
         :static="item.static"
         :x="item.x"
         :y="item.y"
         :w="item.w"
         :h="item.h"
         :i="item.i"
-        :key="item.i"
       >
-        <component
+        <MainWidget
           v-if="item.isWidget"
-          :is="item.widgetName"
-          :project-id="projectId"
-          :is-open-widget="item.isShow"
-          :widgets="availableWidgets"
-          :widget-id="item.widgetId"
-          :current-project="currentProject"
-          :chart-type="item.chartType"
-          :title="item.title"
-          :available-widgets="availableWidgets"
+          :widgetDetails="item.widgetDetails"
           @delete-widget="deleteWidget(item.name)"
-          @open-settings-modal="openModal(item)"
+          @open-settings-modal="openModal(item.widgetDetails)"
           @open-interactive-data="openInteractiveData"
           @open-sentiment-interactive="openSentimentInteractiveData"
         />
@@ -66,11 +55,11 @@
 import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 import VueGridLayout from 'vue3-grid-layout'
-import {snakeToPascal} from '@lib/utilities'
-import {modalWidgetsConfig} from '@/lib/configs/widgetsConfigs'
+import {getWidgetDetails} from '@lib/utilities'
+import {widgetsConfig} from '@/lib/configs/widgetsConfigs'
 
-import SummaryWidget from '@/components/widgets/online/SummaryWidget'
 import SearchResults from '@/components/SearchResults'
+<<<<<<< HEAD
 import VolumeWidget from '@/components/widgets/online/VolumeWidget'
 import Top10BrandsWidget from '@/components/widgets/online/Top10BrandsWidget'
 import Top10CountriesWidget from '@/components/widgets/online/Top10CountriesWidget'
@@ -86,15 +75,17 @@ import ContentVolumeTop5SourceWidget from '@/components/widgets/online/ContentVo
 import ContentVolumeTop5AuthorsWidget from '@/components/widgets/online/ContentVolumeTop5AuthorsWidget'
 import ContentVolumeTop5CountriesWidget from '@/components/widgets/online/ContentVolumeTop5CountriesWidget'
 import TopKeywords from '@/components/widgets/online/TopKeywordsWidget'
+=======
+>>>>>>> e863607 (UPDATE: widgets component)
 import WidgetSettingsModal from '@/components/widgets/online/modals/WidgetSettingsModal'
-import InteractiveWidgetModal from '@/components/modals/InteractiveWidgetModal'
+import MainWidget from '@/components/widgets/online/MainWidget'
 
 export default {
   name: 'WidgetsView',
   components: {
-    InteractiveWidgetModal,
     WidgetSettingsModal,
     SearchResults,
+<<<<<<< HEAD
     ClippingFeedContentWidget,
     VolumeWidget,
     SummaryWidget,
@@ -111,6 +102,9 @@ export default {
     ContentVolumeTop5AuthorsWidget,
     ContentVolumeTop5CountriesWidget,
     TopKeywords,
+=======
+    MainWidget,
+>>>>>>> e863607 (UPDATE: widgets component)
     GridLayout: VueGridLayout.GridLayout,
     GridItem: VueGridLayout.GridItem,
   },
@@ -128,10 +122,47 @@ export default {
   data() {
     return {
       layout: [],
-      dataForWidgetModal: {},
       isOpenWidgetSettingsModal: false,
       currentWidget: null,
     }
+  },
+  computed: {
+    ...mapGetters({
+      availableWidgets: get.AVAILABLE_WIDGETS,
+      clippingData: get.CLIPPING_FEED_CONTENT_WIDGET,
+    }),
+    selectedWidgets: {
+      get() {
+        return Object.keys(this.availableWidgets)
+          .map((widgetName, index) => {
+            widgetsConfig.clipping_feed_content_widget.height = this
+              .clippingData.length
+              ? 13
+              : 3.8
+
+            if (this.availableWidgets[widgetName].is_active) {
+              return {
+                x: 0,
+                y: this.getYAxisValue(index + 1),
+                w: 2,
+                h: this.widgetsConfig[widgetName].height,
+                i: index,
+                static: false,
+
+                widgetDetails: getWidgetDetails(
+                  widgetName,
+                  this.availableWidgets[widgetName],
+                  this.projectId
+                ),
+              }
+            }
+          })
+          .filter((widgets) => widgets)
+      },
+      set(val) {
+        this.layout = val
+      },
+    },
   },
   async created() {
     if (!this.availableWidgets) {
@@ -145,6 +176,7 @@ export default {
       })
     }
   },
+<<<<<<< HEAD
   computed: {
     ...mapGetters({
       availableWidgets: get.AVAILABLE_WIDGETS,
@@ -196,6 +228,8 @@ export default {
       return widgetsElements
     },
   },
+=======
+>>>>>>> e863607 (UPDATE: widgets component)
   methods: {
     ...mapActions([
       action.GET_AVAILABLE_WIDGETS,
@@ -220,16 +254,8 @@ export default {
     updatePosts(page, posts) {
       this.$emit('update-posts-count', page, posts)
     },
-    openModal(item) {
-      this.dataForWidgetModal = {
-        widgetName: item.name,
-        actionName: item.actionName,
-        isChartShow: item.isChartShow,
-        hasAggregationPeriod: item.hasAggregationPeriod,
-        chartType: item.chartType,
-        settingsTabs: modalWidgetsConfig[item.name].settingsTabs,
-      }
-      this.currentWidget = this.availableWidgets[item.name]
+    openModal(widget) {
+      this.currentWidget = widget
       this.isOpenWidgetSettingsModal = !this.isOpenWidgetSettingsModal
     },
     openInteractiveData(val, widgetId, fieldName) {

@@ -1,20 +1,10 @@
 <template>
   <WidgetSettingsModal
     v-if="isOpenWidgetSettingsModal"
-    :widgetData="currentWidget"
-    :widget-name="dataForWidgetModal.widgetName"
-    :project-id="projectId"
-    :widget-data="this[dataForWidgetModal.widgetName]"
-    :action-name="dataForWidgetModal.actionName"
-    :is-charts-show="dataForWidgetModal.isChartShow"
-    :hasAggregationPeriod="dataForWidgetModal.hasAggregationPeriod"
-    :chart-type="dataForWidgetModal.chartType"
-    :widgets-list="availableWidgets"
-    :current-project="currentProject"
-    :summary-data="summary_widget"
-    :settings-tabs="dataForWidgetModal.settingsTabs"
+    :widgetDetails="currentWidget"
     @close="closeModal"
     @open-interactive-widget="openInteractiveData"
+    @open-sentiment-interactive="openSentimentInteractiveData"
   />
 
   <grid-layout
@@ -39,21 +29,13 @@
       :i="item.i"
       :key="item.i"
     >
-      <component
+      <MainWidget
         v-if="item.isWidget"
-        :widgetDetails="item"
-        :is="item.widgetName"
-        :summary-data="summary_widget"
-        :volume="volume_widget"
-        :project-id="projectId"
-        :is-open-widget="item.isShow"
-        :widgets="availableWidgets"
-        :widget-id="item.widgetId"
-        :current-project="currentProject"
-        :chart-type="item.chartType"
+        :widgetDetails="item.widgetDetails"
         @delete-widget="deleteWidget(item.name)"
-        @open-settings-modal="openModal(item)"
+        @open-settings-modal="openModal(item.widgetDetails)"
         @open-interactive-data="openInteractiveData"
+        @open-sentiment-interactive="openSentimentInteractiveData"
       />
     </grid-item>
   </grid-layout>
@@ -66,38 +48,19 @@ import {mapGetters, createNamespacedHelpers} from 'vuex'
 import {get} from '@store/constants'
 import {action} from '@store/constants'
 import VueGridLayout from 'vue3-grid-layout'
-import {snakeToPascal} from '@lib/utilities'
-import {modalWidgetsConfig} from '@/lib/configs/widgetsConfigs'
+import {getWidgetDetails} from '@lib/utilities'
+import {widgetsConfig} from '@/lib/configs/widgetsConfigs'
 
-import Summary from '@/components/widgets/social/SummaryWidget'
-import ClippingFeedContent from '@/components/widgets/social/ClippingFeedContentWidget'
-import ContentVolume from '@/components/widgets/social/ContentVolumeWidget'
-import TopLocations from '@/components/widgets/social/TopLocationsWidget'
-import TopLanguages from '@/components/widgets/social/TopLanguagesWidget'
-import TopAuthors from '@/components/widgets/social/TopAuthorsWidget'
-import ContentVolumeByTopLocations from '@/components/widgets/social/ContentVolumeTopLocationsWidget'
-import ContentVolumeByTopAuthors from '@/components/widgets/social/ContentVolumeTopAuthorsWidget'
-import ContentVolumeByTopLanguages from '@/components/widgets/social/ContentVolumeTopLanguagesWidget'
-
+import MainWidget from '@/components/widgets/online/MainWidget'
 import WidgetSettingsModal from '@/components/widgets/modals/WidgetSettingsModal'
-import InteractiveWidgetModal from '@/components/modals/InteractiveWidgetModal'
 
 const {mapActions} = createNamespacedHelpers('social')
 
 export default {
   name: 'WidgetsView',
   components: {
-    InteractiveWidgetModal,
+    MainWidget,
     WidgetSettingsModal,
-    ClippingFeedContent,
-    Summary,
-    ContentVolume,
-    TopLocations,
-    TopLanguages,
-    TopAuthors,
-    ContentVolumeByTopLocations,
-    ContentVolumeByTopAuthors,
-    ContentVolumeByTopLanguages,
     GridLayout: VueGridLayout.GridLayout,
     GridItem: VueGridLayout.GridItem,
   },
@@ -134,51 +97,37 @@ export default {
     }),
     selectedWidgets: {
       get() {
-        let layout = []
-
-        Object.keys(this.availableWidgets)
+        return Object.keys(this.availableWidgets)
           .map((widgetName, index) => {
             if (this.availableWidgets[widgetName].is_active) {
               const configWidgetName = `${widgetName}_widget`
 
-              return layout.push({
-                ...this.availableWidgets[widgetName],
+              widgetsConfig.clipping_feed_content_widget.height = this
+                .clippingData.length
+                ? 13
+                : 3.8
+
+              return {
                 x: 0,
-                y: this.getYAxisValue(layout.length),
+                y: this.getYAxisValue(index + 1),
                 w: 2,
-                h: this.elementsValue[configWidgetName].height,
+                h: this.widgetsConfig[configWidgetName].height,
                 i: index,
                 static: false,
-                name: widgetName,
-                widgetName: snakeToPascal(widgetName),
-                isShow: this.availableWidgets[widgetName]?.is_active,
-                isWidget: true,
-                widgetId: this.availableWidgets[widgetName]?.id,
-                actionName: this.elementsValue[configWidgetName].actionName,
-                isChartShow: this.elementsValue[configWidgetName].isChartShow,
-                chartType:
-                  this.availableWidgets[widgetName]?.chart_type ||
-                  modalWidgetsConfig[configWidgetName]?.defaultChartType,
-                hasAggregationPeriod:
-                  this.elementsValue[configWidgetName].hasAggregationPeriod,
-              })
+
+                widgetDetails: getWidgetDetails(
+                  widgetName,
+                  this.availableWidgets[widgetName],
+                  this.projectId
+                ),
+              }
             }
           })
           .filter((widgets) => widgets)
-
-        return layout
       },
       set(val) {
         this.layout = val
       },
-    },
-    elementsValue() {
-      let widgetsElements = modalWidgetsConfig
-      widgetsElements.clipping_feed_content_widget.height = this.clippingData
-        .length
-        ? 13
-        : 3.8
-      return widgetsElements
     },
   },
   async created() {
@@ -212,16 +161,8 @@ export default {
     updatePage(page, posts) {
       this.$emit('update-page', page, posts)
     },
-    openModal(item) {
-      this.dataForWidgetModal = {
-        widgetName: item.name,
-        actionName: item.actionName,
-        isChartShow: item.isChartShow,
-        hasAggregationPeriod: item.hasAggregationPeriod,
-        chartType: item.chartType,
-        settingsTabs: modalWidgetsConfig[`${item.name}_widget`].settingsTabs,
-      }
-      this.currentWidget = this.availableWidgets[item.name]
+    openModal(widget) {
+      this.currentWidget = widget
       this.isOpenWidgetSettingsModal = !this.isOpenWidgetSettingsModal
     },
     openInteractiveData(val, widgetId, fieldName) {
