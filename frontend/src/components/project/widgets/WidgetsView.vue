@@ -153,10 +153,9 @@ export default {
     selectedWidgets: {
       get() {
         let layout = []
-
         Object.keys(this.availableWidgets)
           .map((widgetName, index) => {
-            if (this.availableWidgets[widgetName].is_active) {
+            if (this.availableWidgets[widgetName]?.is_active) {
               return layout.push({
                 x: 0,
                 y: this.getYAxisValue(layout.length),
