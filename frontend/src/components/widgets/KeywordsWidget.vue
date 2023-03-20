@@ -2,13 +2,11 @@
   <component
     :is="widgetWrapper"
     :title="title"
+    style="--widget-layout-content-padding: 50px 100px"
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
   >
-    <BaseSpinner v-if="loading" />
-
     <ChartsView
-      v-else
       :labels="labels"
       :chart-type="chartType"
       :chart-values="chartValues"
@@ -21,11 +19,10 @@ import {mapState} from 'vuex'
 
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
 import ChartsView from '@/components/charts/ChartsView'
-import BaseSpinner from '@/components/BaseSpinner'
 
 export default {
   name: 'KeywordsWidget',
-  components: {BaseSpinner, ChartsView, WidgetsLayout},
+  components: {ChartsView, WidgetsLayout},
   props: {
     isWidget: {type: Boolean, default: true},
     title: {type: String, required: true},
@@ -50,5 +47,3 @@ export default {
   },
 }
 </script>
-
-<style scoped></style>

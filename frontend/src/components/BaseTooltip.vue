@@ -60,9 +60,28 @@ export default {
 .bottom {
   &::after {
     top: auto;
-    bottom: -9;
+    bottom: -10;
     right: 50%;
-    transform: translate(0, -50%) rotate(225deg);
+    transform: translate(50%, -50%) rotate(225deg);
+  }
+}
+
+.left {
+  &::after {
+    top: 50%;
+    bottom: auto;
+    right: auto;
+    left: -10;
+    transform: translate(30%, -50%) rotate(225deg);
+  }
+}
+
+.top {
+  &::after {
+    top: 0;
+    bottom: auto;
+    right: 50%;
+    transform: translate(50%, -50%) rotate(225deg);
   }
 }
 </style>

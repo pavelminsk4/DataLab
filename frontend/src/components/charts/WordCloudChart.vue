@@ -6,12 +6,12 @@
     font-family="Poppins"
     class="word-cloud-wrapper"
   >
-    <template v-slot="{text, weight}">
-      <div :title="weight" class="keyword">
+    <template v-slot="{text}">
+      <div class="keyword">
         <div class="tooltip-wrapper">
           <BaseTooltip arrow-position="bottom" class="tooltip">
             <div class="title">{{ capitalizeFirstLetter(text) }}</div>
-            <div class="title">Results: {{ getCount(text) }} %</div>
+            <span class="title">Results: {{ getCount(text) }} %</span>
           </BaseTooltip>
         </div>
 
@@ -62,14 +62,15 @@ export default {
 .keyword {
   position: relative;
 
+  cursor: pointer;
+
   .tooltip-wrapper {
     position: absolute;
-    top: -50px;
-    right: 0;
+    right: -96px;
+    top: -66px;
+    transform: translate(-50%, -50%);
 
     display: none;
-
-    z-index: 10000 !important;
 
     .tooltip {
       display: flex;
@@ -77,24 +78,26 @@ export default {
       justify-content: center;
       gap: 8px;
 
-      font-size: 14px;
-
-      z-index: 100000 !important;
-
       .title {
+        font-size: 14px;
         color: var(--typography-primary-color);
       }
     }
   }
 
-  .word {
-    z-index: -1;
-  }
-
   &:hover {
     .tooltip-wrapper {
       display: flex;
-      z-index: 100000 !important;
+    }
+  }
+}
+</style>
+
+<style lang="scss">
+.word-cloud-wrapper {
+  transition > div {
+    &:hover {
+      z-index: 200;
     }
   }
 }

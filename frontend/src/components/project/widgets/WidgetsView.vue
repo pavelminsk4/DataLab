@@ -88,14 +88,10 @@ import ContentVolumeTop5CountriesWidget from '@/components/widgets/online/Conten
 import TopKeywords from '@/components/widgets/online/TopKeywordsWidget'
 import WidgetSettingsModal from '@/components/widgets/online/modals/WidgetSettingsModal'
 import InteractiveWidgetModal from '@/components/modals/InteractiveWidgetModal'
-import KeywordsWidget from '@/components/widgets/KeywordsWidget'
-import WordCloudChart from '@/components/charts/WordCloudChart'
 
 export default {
   name: 'WidgetsView',
   components: {
-    WordCloudChart,
-    KeywordsWidget,
     InteractiveWidgetModal,
     WidgetSettingsModal,
     SearchResults,
@@ -274,7 +270,7 @@ export default {
   overflow: auto;
 
   width: 100%;
-  min-height: 500px;
+  max-height: calc(100vh - 255px);
 
   .analytics-search-results {
     flex: 1;

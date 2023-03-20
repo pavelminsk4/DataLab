@@ -167,6 +167,7 @@ export const modalWidgetsConfig = {
 
   top_keywords: {
     ...WIDGET_DEFAULT_SETTINGS,
+    height: 15,
     actionName: action.GET_TOP_KEYWORDS_WIDGET,
     defaultChartType: 'WordCloudChart',
   },
