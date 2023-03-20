@@ -1,9 +1,7 @@
 <template>
   <SentimentWidget
-    :title="title"
-    :chartType="chartType"
-    :widget-id="widgetId"
-    :is-widget="isWidget"
+    v-bind="$attrs"
+    :widget-details="widgetDetails"
     :sentiment-widget-data="sentimentTopLanguages"
   />
 </template>
@@ -18,11 +16,7 @@ export default {
   name: 'SentimentTop10LanguagesWidget',
   components: {SentimentWidget},
   props: {
-    projectId: {type: Number, required: true},
-    widgetId: {type: Number, required: true},
-    title: {type: String, required: true},
-    chartType: {type: String, required: true},
-    isWidget: {type: Boolean, default: true},
+    widgetDetails: {type: Object, required: true},
   },
   computed: {
     ...mapGetters({
@@ -32,8 +26,8 @@ export default {
   created() {
     if (!this.sentimentTopLanguages.length) {
       this[action.GET_SENTIMENT_TOP_LANGUAGES]({
-        projectId: this.projectId,
-        widgetId: this.widgetId,
+        projectId: this.widgetDetails.projectId,
+        widgetId: this.widgetDetails.id,
       })
     }
   },

@@ -85,78 +85,24 @@ export default {
     OnlineIcon,
   },
   props: {
-    isCheckboxClippingWidget: {
-      type: Boolean,
-      default: false,
-    },
-    isClippingWidget: {
-      type: Boolean,
-      default: false,
-    },
-    title: {
-      type: String,
-      required: false,
-    },
-    entryLink: {
-      type: String,
-      required: false,
-    },
-    summary: {
-      type: String,
-      required: false,
-    },
-    source: {
-      type: String,
-      required: false,
-    },
-    sourceLink: {
-      type: String,
-      required: false,
-    },
-    country: {
-      type: String,
-      required: false,
-    },
-    language: {
-      type: String,
-      required: false,
-    },
-    potentialReach: {
-      type: Number,
-      required: false,
-    },
-    published: {
-      type: String,
-      required: false,
-    },
-    img: {
-      type: String,
-      required: false,
-    },
-    sentiment: {
-      type: String,
-      required: false,
-    },
-    id: {
-      type: Number,
-      required: false,
-    },
-    postId: {
-      type: Number,
-      required: false,
-    },
-    projectId: {
-      type: Number,
-      required: false,
-    },
-    widgetId: {
-      type: Number,
-      required: true,
-    },
-    clippingElement: {
-      type: Boolean,
-      default: false,
-    },
+    isCheckboxClippingWidget: {type: Boolean, default: false},
+    isClippingWidget: {type: Boolean, default: false},
+    title: {type: String, required: false},
+    entryLink: {type: String, required: false},
+    summary: {type: String, required: false},
+    source: {type: String, required: false},
+    sourceLink: {type: String, required: false},
+    country: {type: String, required: false},
+    language: {type: String, required: false},
+    potentialReach: {type: Number, required: false},
+    published: {type: String, required: false},
+    img: {type: String, required: false},
+    sentiment: {type: String, required: false},
+    id: {type: Number, required: false},
+    postId: {type: Number, required: false},
+    projectId: {type: Number, required: false},
+    widgetId: {type: Number, required: true},
+    clippingElement: {type: Boolean, default: false},
   },
   computed: {
     ...mapGetters({isLoading: get.LOADING_WIDGETS}),

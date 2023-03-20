@@ -1,9 +1,7 @@
 <template>
   <SummaryWidget
     v-bind="$attrs"
-    :title="availableWidgets.summary.title"
-    :project-id="projectId"
-    :widget-id="widgetId"
+    :widget-details="widgetDetails"
     :summary-widget-data="summary"
   />
 </template>
@@ -23,8 +21,7 @@ export default {
   name: 'SocialSummaryWidget',
   components: {SummaryWidget},
   props: {
-    projectId: {type: Number, required: true},
-    widgetId: {type: Number, required: true},
+    widgetDetails: {type: Object, required: true},
   },
   computed: {
     ...mapGettersSocial({
@@ -40,8 +37,8 @@ export default {
   async created() {
     if (isAllEmptyFields(this.summary)) {
       this[action.GET_SUMMARY_WIDGET]({
-        projectId: this.projectId,
-        widgetId: this.widgetId,
+        projectId: this.widgetDetails.projectId,
+        widgetId: this.widgetDetails.id,
       })
     }
   },

@@ -19,7 +19,6 @@
     class="widgets-wrapper scroll"
   >
     <grid-item
-      class="widget-item"
       v-for="item in selectedWidgets"
       :static="item.static"
       :x="item.x"
@@ -28,9 +27,9 @@
       :h="item.h"
       :i="item.i"
       :key="item.i"
+      class="widget-item"
     >
       <MainWidget
-        v-if="item.isWidget"
         :widgetDetails="item.widgetDetails"
         @delete-widget="deleteWidget(item.name)"
         @open-settings-modal="openModal(item.widgetDetails)"
@@ -51,13 +50,14 @@ import VueGridLayout from 'vue3-grid-layout'
 import {getWidgetDetails} from '@lib/utilities'
 import {widgetsConfig} from '@/lib/configs/widgetsConfigs'
 
-import MainWidget from '@/components/widgets/online/MainWidget'
-import WidgetSettingsModal from '@/components/widgets/modals/WidgetSettingsModal'
+import MainWidget from '@/components/widgets/social/MainWidget'
+import WidgetSettingsModal from '@/components/widgets/social/modals/WidgetSettingsModal'
 
-const {mapActions} = createNamespacedHelpers('social')
+const {mapActions, mapGetters: mapGettersSocial} =
+  createNamespacedHelpers('social/widgets')
 
 export default {
-  name: 'WidgetsView',
+  name: 'SocialProjectDashboardWidgets',
   components: {
     MainWidget,
     WidgetSettingsModal,
@@ -70,31 +70,25 @@ export default {
     'update-available-widgets',
   ],
   props: {
-    projectId: {
-      type: Number,
-      required: true,
-    },
-    currentProject: {
-      type: [Array, Object],
-      required: false,
-    },
+    projectId: {type: Number, required: true},
   },
   data() {
     return {
       layout: [],
-      dataForWidgetModal: {},
       isOpenWidgetSettingsModal: false,
       currentWidget: null,
     }
   },
   computed: {
     ...mapGetters({
-      summary_widget: get.SUMMARY_WIDGET,
-      volume_widget: get.VOLUME_WIDGET,
-      sentimentForPeriodWidget: get.SENTIMENT_FOR_PERIOD,
       availableWidgets: get.AVAILABLE_WIDGETS,
-      clippingData: get.CLIPPING_FEED_CONTENT_WIDGET,
     }),
+    ...mapGettersSocial({
+      socialWidgets: get.SOCIAL_WIDGETS,
+    }),
+    clippingData() {
+      return this.socialWidgets.clippingFeedContent
+    },
     selectedWidgets: {
       get() {
         return Object.keys(this.availableWidgets)
@@ -111,12 +105,12 @@ export default {
                 x: 0,
                 y: this.getYAxisValue(index + 1),
                 w: 2,
-                h: this.widgetsConfig[configWidgetName].height,
+                h: widgetsConfig[configWidgetName].height,
                 i: index,
                 static: false,
 
                 widgetDetails: getWidgetDetails(
-                  widgetName,
+                  configWidgetName,
                   this.availableWidgets[widgetName],
                   this.projectId
                 ),
@@ -132,7 +126,7 @@ export default {
   },
   async created() {
     if (
-      !this.clippingData.length &&
+      !this.clippingData?.length &&
       this.availableWidgets?.clipping_feed_content
     ) {
       await this[action.GET_CLIPPING_FEED_CONTENT_WIDGET]({
@@ -167,6 +161,14 @@ export default {
     },
     openInteractiveData(val, widgetId, fieldName) {
       this.$emit('open-interactive-widget', val, widgetId, fieldName)
+    },
+    openSentimentInteractiveData(source, sentiment, widgetId) {
+      this.$emit(
+        'open-sentiment-interactive-widget',
+        source,
+        sentiment,
+        widgetId
+      )
     },
     closeModal() {
       this.togglePageScroll(false)

@@ -1,7 +1,7 @@
 <template>
   <component
     :is="widgetWrapper"
-    :title="title"
+    :title="widgetDetails.title"
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
   >
@@ -9,7 +9,7 @@
       :labels="labels"
       :chart-values="chartValues"
       :chart-type="chartType"
-      :is-display-legend="isWidget"
+      :is-display-legend="!isSettings"
     />
   </component>
 </template>
@@ -26,19 +26,23 @@ export default {
   name: 'VolumeWidget',
   components: {ChartsView, WidgetsLayout},
   props: {
-    isWidget: {type: Boolean, default: true},
-    title: {type: String, required: true},
-    widgetId: {type: Number, required: true},
-    projectId: {type: Number, required: true},
-    chartType: {type: String, required: true},
-    availableWidgets: {type: Object, required: true, default: () => {}},
+    widgetDetails: {type: Object, required: true},
+    newChartType: {type: String, default: ''},
+    isSettings: {type: Boolean, default: false},
   },
   computed: {
     ...mapGetters({
       volumeWidget: get.VOLUME_WIDGET,
     }),
     widgetWrapper() {
-      return this.isWidget ? 'WidgetsLayout' : 'div'
+      return this.isSettings ? 'div' : 'WidgetsLayout'
+    },
+    chartType() {
+      return (
+        this.newChartType ||
+        this.widgetDetails.chart_type ||
+        this.widgetDetails.defaultChartType
+      )
     },
     volumeData() {
       return Object.values(this.volumeWidget)
@@ -55,21 +59,16 @@ export default {
   created() {
     if (!this.volumeWidget.length) {
       this[action.GET_VOLUME_WIDGET]({
-        projectId: this.projectId,
+        projectId: this.widgetDetails.projectId,
         value: {
-          author_dim_pivot:
-            this.availableWidgets.volume_widget.author_dim_pivot || null,
-          language_dim_pivot:
-            this.availableWidgets.volume_widget.language_dim_pivot || null,
-          country_dim_pivot:
-            this.availableWidgets.volume_widget.country_dim_pivot || null,
-          sentiment_dim_pivot:
-            this.availableWidgets.volume_widget.sentiment_dim_pivot || null,
-          source_dim_pivot:
-            this.availableWidgets.volume_widget.source_dim_pivot || null,
-          smpl_freq: this.availableWidgets.volume_widget.aggregation_period,
+          author_dim_pivot: this.widgetDetails.author_dim_pivot || null,
+          language_dim_pivot: this.widgetDetails.language_dim_pivot || null,
+          country_dim_pivot: this.widgetDetails.country_dim_pivot || null,
+          sentiment_dim_pivot: this.widgetDetails.sentiment_dim_pivot || null,
+          source_dim_pivot: this.widgetDetails.source_dim_pivot || null,
+          smpl_freq: this.widgetDetails.aggregation_period,
         },
-        widgetId: this.widgetId,
+        widgetId: this.widgetDetails.id,
       })
     }
   },

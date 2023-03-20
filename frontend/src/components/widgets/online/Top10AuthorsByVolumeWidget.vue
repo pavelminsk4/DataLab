@@ -1,9 +1,7 @@
 <template>
   <VolumeWidget
-    :title="title"
-    :chartType="chartType"
-    :widget-id="widgetId"
-    :is-widget="isWidget"
+    v-bind="$attrs"
+    :widget-details="widgetDetails"
     :labels="labels"
     :chart-values="chartValues"
   />
@@ -19,11 +17,7 @@ export default {
   name: 'Top10AuthorsByVolumeWidget',
   components: {VolumeWidget},
   props: {
-    projectId: {type: Number, required: true},
-    widgetId: {type: Number, required: true},
-    title: {type: String, required: true},
-    chartType: {type: String, required: true},
-    isWidget: {type: Boolean, default: true},
+    widgetDetails: {type: Object, required: true},
   },
   computed: {
     ...mapGetters({
@@ -43,14 +37,14 @@ export default {
   },
   created() {
     this[action.GET_TOP_AUTHORS_WIDGET]({
-      projectId: this.projectId,
-      widgetId: this.widgetId,
+      projectId: this.widgetDetails.projectId,
+      widgetId: this.widgetDetails.id,
     })
   },
   methods: {
     ...mapActions([action.GET_TOP_AUTHORS_WIDGET]),
     openInteractiveModal(val) {
-      this.$emit('open-interactive-data', val, this.widgetId, 'author')
+      this.$emit('open-interactive-data', val, this.widgetDetails.id, 'author')
     },
   },
 }

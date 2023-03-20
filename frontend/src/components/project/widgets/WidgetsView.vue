@@ -59,24 +59,7 @@ import {getWidgetDetails} from '@lib/utilities'
 import {widgetsConfig} from '@/lib/configs/widgetsConfigs'
 
 import SearchResults from '@/components/SearchResults'
-<<<<<<< HEAD
-import VolumeWidget from '@/components/widgets/online/VolumeWidget'
-import Top10BrandsWidget from '@/components/widgets/online/Top10BrandsWidget'
-import Top10CountriesWidget from '@/components/widgets/online/Top10CountriesWidget'
-import Top10LanguagesWidget from '@/components/widgets/online/Top10LanguagesWidget'
-import Top10AuthorsByVolumeWidget from '@/components/widgets/online/Top10AuthorsByVolumeWidget'
-import SentimentForPeriodWidget from '@/components/widgets/online/SentimentForPeriodWidget'
-import ClippingFeedContentWidget from '@/components/widgets/online/ClippingFeedContentWidget'
-import SentimentTop10AuthorsWidget from '@/components/widgets/online/SentimentTop10AuthorsWidget'
-import SentimentTop10SourcesWidget from '@/components/widgets/online/SentimentTop10SourcesWidget'
-import SentimentTop10LanguagesWidget from '@/components/widgets/online/SentimentTop10LanguagesWidget'
-import SentimentTop10CountriesWidget from '@/components/widgets/online/SentimentTop10CountriesWidget'
-import ContentVolumeTop5SourceWidget from '@/components/widgets/online/ContentVolumeTop5SourceWidget'
-import ContentVolumeTop5AuthorsWidget from '@/components/widgets/online/ContentVolumeTop5AuthorsWidget'
-import ContentVolumeTop5CountriesWidget from '@/components/widgets/online/ContentVolumeTop5CountriesWidget'
-import TopKeywords from '@/components/widgets/online/TopKeywordsWidget'
-=======
->>>>>>> e863607 (UPDATE: widgets component)
+
 import WidgetSettingsModal from '@/components/widgets/online/modals/WidgetSettingsModal'
 import MainWidget from '@/components/widgets/online/MainWidget'
 
@@ -85,26 +68,7 @@ export default {
   components: {
     WidgetSettingsModal,
     SearchResults,
-<<<<<<< HEAD
-    ClippingFeedContentWidget,
-    VolumeWidget,
-    SummaryWidget,
-    Top10BrandsWidget,
-    Top10CountriesWidget,
-    Top10LanguagesWidget,
-    SentimentForPeriodWidget,
-    Top10AuthorsByVolumeWidget,
-    SentimentTop10AuthorsWidget,
-    SentimentTop10SourcesWidget,
-    SentimentTop10LanguagesWidget,
-    SentimentTop10CountriesWidget,
-    ContentVolumeTop5SourceWidget,
-    ContentVolumeTop5AuthorsWidget,
-    ContentVolumeTop5CountriesWidget,
-    TopKeywords,
-=======
     MainWidget,
->>>>>>> e863607 (UPDATE: widgets component)
     GridLayout: VueGridLayout.GridLayout,
     GridItem: VueGridLayout.GridItem,
   },
@@ -176,60 +140,6 @@ export default {
       })
     }
   },
-<<<<<<< HEAD
-  computed: {
-    ...mapGetters({
-      availableWidgets: get.AVAILABLE_WIDGETS,
-      clippingData: get.CLIPPING_FEED_CONTENT_WIDGET,
-    }),
-    selectedWidgets: {
-      get() {
-        let layout = []
-        Object.keys(this.availableWidgets)
-          .map((widgetName, index) => {
-            if (this.availableWidgets[widgetName]?.is_active) {
-              return layout.push({
-                x: 0,
-                y: this.getYAxisValue(layout.length),
-                w: 2,
-                h: this.elementsValue[widgetName].height,
-                i: index,
-                static: false,
-                name: widgetName,
-                widgetName: snakeToPascal(widgetName),
-                isShow: this.availableWidgets[widgetName]?.is_active,
-                isWidget: true,
-                widgetId: this.availableWidgets[widgetName]?.id,
-                actionName: this.elementsValue[widgetName].actionName,
-                isChartShow: this.elementsValue[widgetName].isChartShow,
-                title: this.availableWidgets[widgetName]?.title,
-                chartType:
-                  this.availableWidgets[widgetName]?.chart_type ||
-                  modalWidgetsConfig[widgetName]?.defaultChartType,
-                hasAggregationPeriod:
-                  this.elementsValue[widgetName].hasAggregationPeriod,
-              })
-            }
-          })
-          .filter((widgets) => widgets)
-
-        return layout
-      },
-      set(val) {
-        this.layout = val
-      },
-    },
-    elementsValue() {
-      let widgetsElements = modalWidgetsConfig
-      widgetsElements.clipping_feed_content_widget.height = this.clippingData
-        .length
-        ? 13
-        : 3.8
-      return widgetsElements
-    },
-  },
-=======
->>>>>>> e863607 (UPDATE: widgets component)
   methods: {
     ...mapActions([
       action.GET_AVAILABLE_WIDGETS,

@@ -1,5 +1,9 @@
 <template>
-  <component :is="widgetDetails.widgetName" :widgetDetails="widgetDetails" />
+  <component
+    :is="widgetDetails.widgetName"
+    v-bind="$attrs"
+    :widgetDetails="widgetDetails"
+  />
 </template>
 
 <script>
@@ -20,7 +24,7 @@ import ContentVolumeTop5AuthorsWidget from '@/components/widgets/online/ContentV
 import ContentVolumeTop5CountriesWidget from '@/components/widgets/online/ContentVolumeTop5CountriesWidget'
 
 export default {
-  name: 'WidgetsView',
+  name: 'OnlineMainWidget',
   components: {
     ClippingFeedContentWidget,
     VolumeWidget,

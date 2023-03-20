@@ -1,7 +1,7 @@
 <template>
   <component
     :is="widgetWrapper"
-    :title="title"
+    :title="widgetDetails.title"
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
   >
@@ -9,7 +9,7 @@
       :labels="labels"
       :chart-type="chartType"
       :chart-values="chartValues"
-      :is-display-legend="isWidget"
+      :is-display-legend="!isSettings"
       @open-sentiment-interactive-modal="openInteractiveModal"
     />
   </component>
@@ -23,21 +23,32 @@ export default {
   name: 'VolumeWidget',
   components: {ChartsView, WidgetsLayout},
   props: {
-    isWidget: {type: Boolean, default: true},
-    title: {type: String, required: true},
-    widgetId: {type: Number, required: true},
-    chartType: {type: String, required: true},
+    widgetDetails: {type: Object, required: true},
+    newChartType: {type: String, default: ''},
+    isSettings: {type: Boolean, default: false},
     labels: {type: Array, required: true},
     chartValues: {type: Array, required: true, default: () => {}},
   },
   computed: {
     widgetWrapper() {
-      return this.isWidget ? 'WidgetsLayout' : 'div'
+      return this.isSettings ? 'div' : 'WidgetsLayout'
+    },
+    chartType() {
+      return (
+        this.newChartType ||
+        this.widgetDetails.chart_type ||
+        this.widgetDetails.defaultChartType
+      )
     },
   },
   methods: {
     openInteractiveModal(source, sentiment) {
-      this.$emit('open-sentiment-interactive', source, sentiment, this.widgetId)
+      this.$emit(
+        'open-sentiment-interactive',
+        source,
+        sentiment,
+        this.widgetDetails.id
+      )
     },
   },
 }

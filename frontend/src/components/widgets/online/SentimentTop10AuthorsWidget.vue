@@ -1,9 +1,7 @@
 <template>
   <SentimentWidget
-    :title="title"
-    :chartType="chartType"
-    :is-widget="isWidget"
-    :widget-id="widgetId"
+    v-bind="$attrs"
+    :widget-details="widgetDetails"
     :sentiment-widget-data="sentimentTopAuthors"
   />
 </template>
@@ -18,11 +16,7 @@ export default {
   name: 'SentimentTop10AuthorsWidget',
   components: {SentimentWidget},
   props: {
-    projectId: {type: Number, required: true},
-    widgetId: {type: Number, required: true},
-    title: {type: String, required: true},
-    chartType: {type: String, required: true},
-    isWidget: {type: Boolean, default: true},
+    widgetDetails: {type: Object, required: true},
   },
   computed: {
     ...mapGetters({
@@ -32,8 +26,8 @@ export default {
   created() {
     if (!this.sentimentTopAuthors.length) {
       this[action.GET_SENTIMENT_TOP_AUTHORS]({
-        projectId: this.projectId,
-        widgetId: this.widgetId,
+        projectId: this.widgetDetails.projectId,
+        widgetId: this.widgetDetails.id,
       })
     }
   },

@@ -1,21 +1,14 @@
 <template>
   <BaseModal
-    :title="generalWidgetData.title"
+    :title="widgetDetails.title"
     :is-general-padding="false"
     style="--base-modal-content-padding: 0px"
   >
     <div class="settings-wrapper">
-      <component
-        :is="snakeToPascal(widgetName)"
-        :volume="widgetData"
+      <MainWidget
+        v-if="item.isWidget"
+        :widgetDetails="item.widgetDetails"
         :chart-type="newChartType || chartType"
-        :is-widget="false"
-        :is-open-widget="true"
-        :project-id="projectId"
-        :widgets="widgetsList"
-        :widget-id="generalWidgetData.id"
-        :summary-data="summaryData"
-        :title="generalWidgetData.title"
         class="widget-view"
         @open-interactive-data="openInteractiveData"
         @open-sentiment-interactive="openSentimentInteractiveData"
@@ -30,53 +23,13 @@ import {action, get} from '@store/constants'
 import {snakeToPascal} from '@/lib/utilities'
 
 import BaseModal from '@/components/modals/BaseModal'
-import BaseTabs from '@/components/project/widgets/modals/BaseTabs'
-import DimensionsScreen from '@/components/project/screens/DimensionsScreen'
-import BasicSettingsScreen from '@/components/project/widgets/modals/screens/BasicSettingsScreen'
-import VolumeWidget from '@/components/widgets/online/VolumeWidget'
-import Top10LanguagesWidget from '@/components/widgets/online/Top10LanguagesWidget'
-import Top10BrandsWidget from '@/components/widgets/online/Top10BrandsWidget'
-import Top10CountriesWidget from '@/components/widgets/online/Top10CountriesWidget'
-import Top10AuthorsByVolumeWidget from '@/components/widgets/online/Top10AuthorsByVolumeWidget'
-import ContentVolumeTop5SourceWidget from '@/components/widgets/online/ContentVolumeTop5SourceWidget'
-import ContentVolumeTop5AuthorsWidget from '@/components/widgets/online/ContentVolumeTop5AuthorsWidget'
-import ContentVolumeTop5CountriesWidget from '@/components/widgets/online/ContentVolumeTop5CountriesWidget'
-import SentimentTop10SourcesWidget from '@/components/widgets/online/SentimentTop10SourcesWidget'
-import SentimentTop10CountriesWidget from '@/components/widgets/online/SentimentTop10CountriesWidget'
-import SentimentTop10AuthorsWidget from '@/components/widgets/online/SentimentTop10AuthorsWidget'
-import SentimentTop10LanguagesWidget from '@/components/widgets/online/SentimentTop10LanguagesWidget'
-import SentimentForPeriodWidget from '@/components/widgets/online/SentimentForPeriodWidget'
-import SummaryWidget from '@/components/widgets/online/SummaryWidget'
-import ClippingFeedContentWidget from '@/components/widgets/online/ClippingFeedContentWidget'
-import ChartTypesRadio from '@/components/project/widgets/modals/screens/ChartTypesRadio'
-import BaseButton from '@/components/common/BaseButton'
-import SaveIcon from '@/components/icons/SaveIcon'
+import MainWidget from '@/components/widgets/online/MainWidget'
 
 export default {
   name: 'WidgetSettingsModal',
   components: {
-    SaveIcon,
-    BaseButton,
-    ChartTypesRadio,
     BaseModal,
-    VolumeWidget,
-    BaseTabs,
-    DimensionsScreen,
-    BasicSettingsScreen,
-    Top10LanguagesWidget,
-    Top10BrandsWidget,
-    Top10CountriesWidget,
-    Top10AuthorsByVolumeWidget,
-    ContentVolumeTop5SourceWidget,
-    ContentVolumeTop5AuthorsWidget,
-    ContentVolumeTop5CountriesWidget,
-    SentimentTop10SourcesWidget,
-    SentimentTop10CountriesWidget,
-    SentimentTop10AuthorsWidget,
-    SentimentForPeriodWidget,
-    SentimentTop10LanguagesWidget,
-    ClippingFeedContentWidget,
-    SummaryWidget,
+    MainWidget,
   },
   props: {
     widgetName: {

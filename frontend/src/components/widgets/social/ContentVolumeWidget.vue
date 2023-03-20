@@ -1,7 +1,7 @@
 <template>
   <component
     :is="widgetWrapper"
-    :title="widgets.content_volume.title"
+    :title="widgetDetails.title"
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
   >
@@ -9,13 +9,13 @@
       :labels="labels"
       :chart-values="chartValues"
       :chart-type="chartType"
-      :is-display-legend="false"
+      :is-display-legend="!isSettings"
     />
   </component>
 </template>
 
 <script>
-import {mapGetters, createNamespacedHelpers} from 'vuex'
+import {createNamespacedHelpers} from 'vuex'
 import {get} from '@store/constants'
 import {action} from '@store/constants'
 import {defaultDate} from '@/lib/utilities'
@@ -23,29 +23,29 @@ import {defaultDate} from '@/lib/utilities'
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
 import ChartsView from '@/components/charts/ChartsView'
 
-const {mapActions, mapGetters: mapGettersSocial} =
-  createNamespacedHelpers('social/widgets')
+const {mapActions, mapGetters} = createNamespacedHelpers('social/widgets')
 
 export default {
   name: 'SocialContentVolumeWidget',
   components: {ChartsView, WidgetsLayout},
   props: {
-    isWidget: {type: Boolean, default: true},
-    volume: {type: [Array, Object], default: () => []},
-    projectId: {type: [String, Number], required: true},
-    widgetId: {type: Number, required: true},
-    chartType: {type: String, required: true},
-    isGeneralWidget: {type: Boolean, default: true},
+    widgetDetails: {type: Object, required: true},
+    newChartType: {type: String, default: ''},
+    isSettings: {type: Boolean, default: false},
   },
   computed: {
-    ...mapGettersSocial({
+    ...mapGetters({
       socialWidgets: get.SOCIAL_WIDGETS,
     }),
-    ...mapGetters({
-      widgets: get.AVAILABLE_WIDGETS,
-    }),
     widgetWrapper() {
-      return this.isWidget ? 'WidgetsLayout' : 'div'
+      return this.isSettings ? 'div' : 'WidgetsLayout'
+    },
+    chartType() {
+      return (
+        this.newChartType ||
+        this.widgetDetails.chart_type ||
+        this.widgetDetails.defaultChartType
+      )
     },
     contentVolumeWidgetData() {
       return this.socialWidgets.contentVolume
@@ -67,21 +67,16 @@ export default {
   created() {
     if (!this.contentVolumeWidgetData.length) {
       this[action.GET_CONTENT_VOLUME_WIDGET]({
-        projectId: this.projectId,
+        projectId: this.widgetDetails.projectId,
         value: {
-          author_dim_pivot:
-            this.widgets.content_volume.author_dim_pivot || null,
-          language_dim_pivot:
-            this.widgets.content_volume.language_dim_pivot || null,
-          country_dim_pivot:
-            this.widgets.content_volume.country_dim_pivot || null,
-          sentiment_dim_pivot:
-            this.widgets.content_volume.sentiment_dim_pivot || null,
-          source_dim_pivot:
-            this.widgets.content_volume.source_dim_pivot || null,
-          smpl_freq: this.widgets.content_volume.aggregation_period,
+          author_dim_pivot: this.widgetDetails.author_dim_pivot || null,
+          language_dim_pivot: this.widgetDetails.language_dim_pivot || null,
+          country_dim_pivot: this.widgetDetails.country_dim_pivot || null,
+          sentiment_dim_pivot: this.widgetDetails.sentiment_dim_pivot || null,
+          source_dim_pivot: this.widgetDetails.source_dim_pivot || null,
+          smpl_freq: this.widgetDetails.aggregation_period,
         },
-        widgetId: this.widgetId,
+        widgetId: this.widgetDetails.id,
       })
     }
   },

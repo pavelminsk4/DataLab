@@ -20,14 +20,8 @@ export default {
   name: 'ChartTypesRadio',
   components: {BaseRadio},
   props: {
-    selected: {
-      type: String,
-      default: '',
-    },
-    widgetName: {
-      type: String,
-      required: false,
-    },
+    selected: {type: String, default: ''},
+    widgetName: {type: String, required: false},
   },
   data() {
     return {
