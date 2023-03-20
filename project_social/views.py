@@ -222,3 +222,13 @@ class SocialLanguageList(ListAPIView):
   queryset = TweetBinderPost.objects.distinct('language')
   filter_backends = [filters.SearchFilter]
   search_fields = ['^language']
+
+class SocialClippingWidgetDelete(DestroyAPIView):
+  serializes_class = SocialClippingWidgetSerializer
+  
+  def get_object(self):
+    return SocialClippingWidget.objects.filter(post_id=self.kwargs['post_pk'], project_id=self.kwargs['project_pk'])
+
+class SocialClippingWidget(viewsets.ModelViewSet):
+  serializer_class = SocialClippingWidgetSerializer
+  queryset = SocialClippingWidget.objects.all()

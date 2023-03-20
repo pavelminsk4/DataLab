@@ -74,3 +74,15 @@ class TweetBinderPostLanguageSerializer(serializers.ModelSerializer):
   class Meta:
     model = TweetBinderPost
     fields = ['language']
+
+
+class SocialClippingWidgetListSerializer(serializers.ListSerializer):
+  def create(self, validated_data):
+    users = [SocialClippingWidget(**item) for item in validated_data]
+    return SocialClippingWidget.objects.bulk_create(users)
+
+class SocialClippingWidgetSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = SocialClippingWidget
+    fields = '__all__'
+    list_serializer_class = SocialClippingWidgetListSerializer

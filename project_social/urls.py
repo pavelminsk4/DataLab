@@ -42,5 +42,6 @@ urlpatterns = [
 ]
 
 router.register('projects', ProjectsSotialViewSet)
+router.register('social_clipping_feed_content', SocialClippingWidget)
 
 urlpatterns += router.urls
