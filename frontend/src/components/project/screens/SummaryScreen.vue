@@ -17,6 +17,7 @@
     </div>
 
     <WidgetsList
+      v-if="selectedWidgets"
       :current-project="currentProject"
       :selected-widgets="selectedWidgets"
     />

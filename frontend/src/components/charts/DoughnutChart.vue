@@ -60,7 +60,6 @@ export default {
             display: false,
           },
           legend: {
-            display: this.isDisplayLegend,
             position: 'bottom',
             labels: {font: {size: 16}},
           },

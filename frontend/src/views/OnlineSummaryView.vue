@@ -1,5 +1,6 @@
 <template>
   <SummaryScreen
+    v-if="selectedWidgets"
     :number-of-posts="numberOfPosts"
     :selected-widgets="selectedWidgets"
     :current-project="currentProject"
@@ -29,6 +30,7 @@ export default {
         'volume_widget',
         'top_10_countries_widget',
         'top_10_authors_by_volume_widget',
+        'top_keywords',
       ],
     }
   },
