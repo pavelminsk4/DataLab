@@ -1,5 +1,5 @@
 <template>
-  <div class="options-container">
+  <div :class="['options-container', arrowPosition]">
     <slot></slot>
   </div>
 </template>
@@ -7,6 +7,12 @@
 <script>
 export default {
   name: 'BaseTooltip',
+  props: {
+    arrowPosition: {
+      type: String,
+      required: false,
+    },
+  },
 }
 </script>
 
@@ -48,6 +54,34 @@ export default {
     border-bottom-left-radius: 2px;
 
     color: var(--background-secondary-color);
+  }
+}
+
+.bottom {
+  &::after {
+    top: auto;
+    bottom: -10;
+    right: 50%;
+    transform: translate(50%, -50%) rotate(225deg);
+  }
+}
+
+.left {
+  &::after {
+    top: 50%;
+    bottom: auto;
+    right: auto;
+    left: -10;
+    transform: translate(30%, -50%) rotate(225deg);
+  }
+}
+
+.top {
+  &::after {
+    top: 0;
+    bottom: auto;
+    right: 50%;
+    transform: translate(50%, -50%) rotate(225deg);
   }
 }
 </style>

@@ -9,7 +9,6 @@
     @open-interactive-widget="openInteractiveData"
     @open-sentiment-interactive="openSentimentInteractiveData"
   />
-
   <div class="analytics-wrapper">
     <SearchResults
       :is-show-calendar="false"
@@ -20,7 +19,6 @@
       @update-posts-count="updatePosts"
       class="search-results"
     />
-
     <grid-layout
       v-if="availableWidgets"
       v-model:layout="selectedWidgets"
@@ -87,6 +85,7 @@ import SentimentTop10CountriesWidget from '@/components/widgets/online/Sentiment
 import ContentVolumeTop5SourceWidget from '@/components/widgets/online/ContentVolumeTop5SourceWidget'
 import ContentVolumeTop5AuthorsWidget from '@/components/widgets/online/ContentVolumeTop5AuthorsWidget'
 import ContentVolumeTop5CountriesWidget from '@/components/widgets/online/ContentVolumeTop5CountriesWidget'
+import TopKeywords from '@/components/widgets/online/TopKeywordsWidget'
 import WidgetSettingsModal from '@/components/widgets/online/modals/WidgetSettingsModal'
 import InteractiveWidgetModal from '@/components/modals/InteractiveWidgetModal'
 
@@ -111,6 +110,7 @@ export default {
     ContentVolumeTop5SourceWidget,
     ContentVolumeTop5AuthorsWidget,
     ContentVolumeTop5CountriesWidget,
+    TopKeywords,
     GridLayout: VueGridLayout.GridLayout,
     GridItem: VueGridLayout.GridItem,
   },

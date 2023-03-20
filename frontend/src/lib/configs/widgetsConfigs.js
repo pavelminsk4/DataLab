@@ -48,6 +48,10 @@ const CHARTS = {
     componentName: 'MultiRadarChart',
     name: 'Radar chart',
   },
+  wordCloud: {
+    componentName: 'WordCloudChart',
+    name: 'Word Cloud',
+  },
 }
 
 const SIMPLE_CHARTS = [
@@ -159,6 +163,13 @@ export const modalWidgetsConfig = {
     actionName: action.GET_CONTENT_VOLUME_TOP_SOURCES,
     defaultChartType: 'MultiLineChart',
     availableTypes: MULTI_CHARTS,
+  },
+
+  top_keywords: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    height: 15,
+    actionName: action.GET_TOP_KEYWORDS_WIDGET,
+    defaultChartType: 'WordCloudChart',
   },
 
   //social widgets

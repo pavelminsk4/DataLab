@@ -12,7 +12,7 @@
     "@hennge/vue3-pagination": "^1.0.17",
     "@vuepic/vue-datepicker": "^3.5.2",
     "axios": "^0.27.2",
-    "chart.js": "^3.9.1",
+    "chart.js": "^4.2.1",
     "chartjs-plugin-datalabels": "^2.2.0",
     "cookie": "^0.5.0",
     "core-js": "^3.8.3",
@@ -29,6 +29,7 @@
     "vue-chartjs": "^4.1.2",
     "vue-router": "^4.0.13",
     "vue3-grid-layout": "^1.0.0",
+    "vuewordcloud": "^19.0.0",
     "vuex": "^4.0.2",
     "webpack-bundle-tracker": "^1.6.0"
   },

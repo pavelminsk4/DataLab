@@ -54,6 +54,8 @@ export default {
 
 <style lang="scss" scoped>
 .widget-layout-wrapper {
+  --widget-layout-content-padding: 16px 20px 20px;
+
   position: relative;
 
   display: flex;
@@ -115,7 +117,7 @@ export default {
   &__content {
     width: 100%;
     height: 100%;
-    padding: 16px 20px 20px;
+    padding: var(--widget-layout-content-padding);
 
     overflow: auto;
   }
