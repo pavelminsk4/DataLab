@@ -41,7 +41,9 @@ import SentimentTop10CountriesWidget from '@/components/widgets/online/Sentiment
 import ContentVolumeTop5SourceWidget from '@/components/widgets/online/ContentVolumeTop5SourceWidget'
 import ContentVolumeTop5AuthorsWidget from '@/components/widgets/online/ContentVolumeTop5AuthorsWidget'
 import ContentVolumeTop5CountriesWidget from '@/components/widgets/online/ContentVolumeTop5CountriesWidget'
+import TopKeywords from '@/components/widgets/online/TopKeywordsWidget'
 import InteractiveWidgetModal from '@/components/modals/InteractiveWidgetModal'
+
 export default {
   name: 'WidgetsList',
   components: {
@@ -60,6 +62,7 @@ export default {
     ContentVolumeTop5SourceWidget,
     ContentVolumeTop5AuthorsWidget,
     ContentVolumeTop5CountriesWidget,
+    TopKeywords,
   },
   props: {
     currentProject: {type: [Array, Object], required: false},
