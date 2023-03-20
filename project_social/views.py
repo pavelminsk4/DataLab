@@ -15,6 +15,7 @@ from .widgets.dashboard.top_locations import *
 from .widgets.dashboard.top_languages import *
 from .widgets.summary.gender_volume import *
 from .widgets.dashboard.top_authors import *
+from .widgets.summary.top_keywords import *
 from .widgets.dashboard.sentiment import *
 from rest_framework.response import Response
 from django.core.paginator import Paginator
@@ -54,7 +55,7 @@ class ProjectsSotialViewSet(viewsets.ModelViewSet):
   serializer_class = ProjectSocialSerializer  
 
 def keywords_posts(keys, posts):
-  posts = posts.filter(reduce(lambda x,y: x | y, [Q(text__contains=key) for key in keys]))
+  posts = posts.filter(reduce(lambda x,y: x | y, [Q(text__contains=key) | Q(user_name__contains=key) | Q(user_alias__contains=key) for key in keys]))
   return posts
 
 def exclude_keywords_posts(posts, exceptions):
@@ -188,6 +189,9 @@ def social_gender_volume(request, pk, widget_pk):
 
 def social_sentiment_by_gender(request, pk, widget_pk):
   return sentiment_by_gender(pk, widget_pk)
+
+def social_top_keywords(request, pk, widget_pk):
+  return top_keywords(pk, widget_pk)
 
 class ProjectSocialWidgetsAPIView(RetrieveAPIView):
  serializer_class = WidgetsListSerializer
