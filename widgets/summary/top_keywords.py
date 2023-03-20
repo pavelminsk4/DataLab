@@ -12,7 +12,7 @@ def post_agg_top_keywords(posts):
   tokens = sorted(collections.Counter(words).items(), key=lambda x:x[1], reverse=True)
   keywords = []
   for token in tokens:
-    if (token[0] not in STOPWORDS and token[0].isalpha()): 
+    if (token[0] not in STOPWORDS and token[0].isalpha()):
       keywords.append(token)
     if (len(keywords) == 20):
       break
