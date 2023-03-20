@@ -1,11 +1,11 @@
-from django.db import models
-from django.contrib.auth.models import User
-from django.contrib.postgres.fields import ArrayField
-from django.contrib.postgres.indexes import GinIndex
-from reports.models import Templates
-from django.core.exceptions import ValidationError
-from django.dispatch import receiver
 from django.db.models.signals import post_save, pre_delete
+from django.contrib.postgres.fields import ArrayField
+from django.core.exceptions import ValidationError
+from tweet_binder.models import TweetBinderPost
+from django.contrib.auth.models import User
+from reports.models import Templates
+from django.dispatch import receiver
+from django.db import models
 
 class WorkspaceSocial(models.Model):
   title = models.CharField(max_length=100)
@@ -170,3 +170,13 @@ def create_social_widget_description(sender, instance, created, **kwargs):
     instance.sentiment_by_gender = wd16
     instance.top_keywords = wd17
     instance.save()
+
+
+class SocialClippingWidget(models.Model):
+  project = models.ForeignKey(ProjectSocial,on_delete=models.CASCADE)
+  post = models.ForeignKey(TweetBinderPost,on_delete=models.CASCADE)
+
+  class Meta:
+    constraints = [
+      models.UniqueConstraint(fields=['project_id', 'post_id'], name='social clipping widget uniqueness constraint')
+    ]
