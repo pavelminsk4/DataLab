@@ -84,12 +84,13 @@ export default {
 
   async getContentVolumeWidget({projectId, value, widgetId}) {
     return fetch(
-      'put',
+      'get',
       `${moduleName}/social_content_volume/${projectId}/${widgetId}`,
       value
     )
   },
 
+  // Top
   async getTopLocationsWidget(projectId, widgetId) {
     return fetch(
       'get',
@@ -109,10 +110,17 @@ export default {
     )
   },
 
+  async getTopKeywords({projectId, widgetId}) {
+    return fetch(
+      'get',
+      `${moduleName}/social_top_keywords/${projectId}/${widgetId}`
+    )
+  },
+
   // Content Volume
   async getContentVolumeTopLocations({projectId, value, widgetId}) {
     return fetch(
-      'post',
+      'get',
       `${moduleName}/social_content_volume_by_top_locations/${projectId}/${widgetId}`,
       value
     )
@@ -126,8 +134,35 @@ export default {
   },
   async getContentVolumeTopLanguages({projectId, value, widgetId}) {
     return fetch(
-      'post',
+      'get',
       `${moduleName}/social_content_volume_by_top_languages/${projectId}/${widgetId}`,
+      value
+    )
+  },
+
+  // Sentiment
+  async getSentimentTopLocations(projectId, widgetId) {
+    return fetch(
+      'get',
+      `${moduleName}/social_sentiment_locations/${projectId}/${widgetId}`
+    )
+  },
+  async getSentimentTopLanguages(projectId, widgetId) {
+    return fetch(
+      'get',
+      `${moduleName}/social_sentiment_languages/${projectId}/${widgetId}`
+    )
+  },
+  async getSentimentTopAuthors(projectId, widgetId) {
+    return fetch(
+      'get',
+      `${moduleName}/social_sentiment_authors/${projectId}/${widgetId}`
+    )
+  },
+  async getSentimentForPeriod({projectId, value, widgetId}) {
+    return fetch(
+      'get',
+      `${moduleName}/social_sentiment/${projectId}/${widgetId}`,
       value
     )
   },

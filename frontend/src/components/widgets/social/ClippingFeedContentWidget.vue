@@ -1,9 +1,7 @@
 <template>
   <ClippingFeedContentWidget
     v-bind="$attrs"
-    :title="availableWidgets.clipping_feed_content.title"
-    :project-id="projectId"
-    :widget-id="widgetId"
+    :widget-details="widgetDetails"
     :clipping-feed-content-data="clippingFeedContent"
   />
 </template>
@@ -22,8 +20,7 @@ export default {
   name: 'SocialClippingFeedContentWidget',
   components: {ClippingFeedContentWidget},
   props: {
-    projectId: {type: Number, required: true},
-    widgetId: {type: Number, required: true},
+    widgetDetails: {type: Object, required: true},
   },
   computed: {
     ...mapGettersSocial({
@@ -39,8 +36,8 @@ export default {
   created() {
     if (!this.clippingFeedContent.length) {
       this[action.GET_CLIPPING_FEED_CONTENT_WIDGET]({
-        projectId: this.projectId,
-        widgetId: this.widgetId,
+        projectId: this.widgetDetails.projectId,
+        widgetId: this.widgetDetails.id,
       })
     }
   },

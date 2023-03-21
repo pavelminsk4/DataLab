@@ -1,46 +1,45 @@
 <template>
-  <WidgetsLayout
-    v-if="sentimentForPeriod && isGeneralWidget"
-    :title="availableWidgets['sentiment_for_period_widget'].title"
+  <component
+    :is="widgetWrapper"
+    :title="widgetDetails.title"
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
   >
-  </WidgetsLayout>
+    <ChartsView
+      :labels="labels"
+      :chart-values="chartDatasets"
+      :chart-type="chartType"
+      :is-display-legend="!isSettings"
+    />
+  </component>
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
-import {action, get} from '@store/constants'
 import {defaultDate} from '@/lib/utilities'
 
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
+import ChartsView from '@/components/charts/ChartsView'
 
 export default {
   name: 'SentimentForPeriodWidget',
-  components: {WidgetsLayout},
+  components: {ChartsView, WidgetsLayout},
   props: {
-    projectId: {
-      type: Number,
-      required: true,
-    },
-    widgetId: {
-      type: Number,
-      required: true,
-    },
-    chartType: {
-      type: String,
-      required: true,
-    },
-    isGeneralWidget: {
-      type: Boolean,
-      default: true,
-    },
+    widgetDetails: {type: Object, required: true},
+    isSettings: {type: Boolean, default: false},
+    newChartType: {type: String, default: ''},
+    sentimentForPeriod: {type: Array, required: true},
   },
   computed: {
-    ...mapGetters({
-      availableWidgets: get.AVAILABLE_WIDGETS,
-      sentimentForPeriod: get.SENTIMENT_FOR_PERIOD,
-    }),
+    widgetWrapper() {
+      return this.isSettings ? 'div' : 'WidgetsLayout'
+    },
+    chartType() {
+      return (
+        this.newChartType ||
+        this.widgetDetails.chart_type ||
+        this.widgetDetails.defaultChartType
+      )
+    },
     labels() {
       let labelsCollection = []
 
@@ -127,41 +126,14 @@ export default {
       }
     },
   },
-  created() {
-    this[action.GET_SENTIMENT_FOR_PERIOD]({
-      projectId: this.projectId,
-      value: {
-        author_dim_pivot:
-          this.availableWidgets['sentiment_for_period_widget']
-            .author_dim_pivot || null,
-        language_dim_pivot:
-          this.availableWidgets['sentiment_for_period_widget']
-            .language_dim_pivot || null,
-        country_dim_pivot:
-          this.availableWidgets['sentiment_for_period_widget']
-            .country_dim_pivot || null,
-        sentiment_dim_pivot:
-          this.availableWidgets['sentiment_for_period_widget']
-            .sentiment_dim_pivot || null,
-        source_dim_pivot:
-          this.availableWidgets['sentiment_for_period_widget']
-            .source_dim_pivot || null,
-        smpl_freq:
-          this.availableWidgets['sentiment_for_period_widget']
-            .aggregation_period,
-      },
-      widgetId: this.widgetId,
-    })
-  },
   methods: {
-    ...mapActions([action.GET_SENTIMENT_FOR_PERIOD]),
     defaultDate,
     openInteractiveModal(source, sentiment) {
       this.$emit(
         'open-sentiment-interactive-data',
         source,
         sentiment,
-        this.widgetId
+        this.widgetDetails.id
       )
     },
   },

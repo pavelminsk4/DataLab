@@ -1,22 +1,22 @@
 <template>
-  <ContentVolumeWidget
+  <SentimentForPeriodWidget
     v-bind="$attrs"
     :widget-details="widgetDetails"
-    :content-volume-widget-data="contentVolumeTopLocations"
+    :sentiment-for-period="sentimentForPeriod"
   />
 </template>
 
 <script>
+import {action, get} from '@store/constants'
 import {createNamespacedHelpers} from 'vuex'
-import {get, action} from '@store/constants'
 
-import ContentVolumeWidget from '@/components/widgets/ContentVolumeWidget'
+import SentimentForPeriodWidget from '@/components/widgets/SentimentForPeriodWidget'
 
 const {mapActions, mapGetters} = createNamespacedHelpers('social/widgets')
 
 export default {
-  name: 'SocialContentVolumeTopLocationsWidget',
-  components: {ContentVolumeWidget},
+  name: 'SocialSentimentForPeriodWidget',
+  components: {SentimentForPeriodWidget},
   props: {
     widgetDetails: {type: Object, required: true},
   },
@@ -24,13 +24,13 @@ export default {
     ...mapGetters({
       socialWidgets: get.SOCIAL_WIDGETS,
     }),
-    contentVolumeTopLocations() {
-      return this.socialWidgets.contentVolumeTopLocations
+    sentimentForPeriod() {
+      return this.socialWidgets.sentimentForPeriod
     },
   },
   created() {
-    if (!this.contentVolumeTopLocations.length) {
-      this[action.GET_CONTENT_VOLUME_TOP_LOCATIONS]({
+    if (!this.sentimentForPeriod.length) {
+      this[action.GET_SENTIMENT_FOR_PERIOD]({
         projectId: this.widgetDetails.projectId,
         value: {
           author_dim_pivot: this.widgetDetails.author_dim_pivot || null,
@@ -45,7 +45,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions([action.GET_CONTENT_VOLUME_TOP_LOCATIONS]),
+    ...mapActions([action.GET_SENTIMENT_FOR_PERIOD]),
   },
 }
 </script>

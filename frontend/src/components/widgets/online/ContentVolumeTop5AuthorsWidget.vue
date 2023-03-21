@@ -1,9 +1,7 @@
 <template>
   <ContentVolumeWidget
-    :title="title"
-    :chartType="chartType"
-    :widget-id="widgetId"
-    :is-widget="isWidget"
+    v-bind="$attrs"
+    :widget-details="widgetDetails"
     :content-volume-widget-data="contentVolumeTopAuthors"
   />
 </template>
@@ -18,46 +16,26 @@ export default {
   name: 'ContentVolumeTop5AuthorsWidget',
   components: {ContentVolumeWidget},
   props: {
-    isWidget: {type: Boolean, default: true},
-    title: {type: String, required: true},
-    widgetId: {type: Number, required: true},
-    projectId: {type: Number, required: true},
-    chartType: {type: String, required: true},
-    availableWidgets: {type: Object, required: true, default: () => {}},
+    widgetDetails: {type: Object, required: true},
   },
   computed: {
     ...mapGetters({
       contentVolumeTopAuthors: get.CONTENT_VOLUME_TOP_AUTHORS,
     }),
-    widgetWrapper() {
-      return this.isWidget ? 'WidgetsLayout' : 'div'
-    },
   },
   created() {
     if (!this.contentVolumeTopAuthors.length) {
       this[action.GET_CONTENT_VOLUME_TOP_AUTHORS]({
-        projectId: this.projectId,
+        projectId: this.widgetDetails.projectId,
         value: {
-          author_dim_pivot:
-            this.availableWidgets.content_volume_top_5_authors_widget
-              .author_dim_pivot || null,
-          language_dim_pivot:
-            this.availableWidgets.content_volume_top_5_authors_widget
-              .language_dim_pivot || null,
-          country_dim_pivot:
-            this.availableWidgets.content_volume_top_5_authors_widget
-              .country_dim_pivot || null,
-          sentiment_dim_pivot:
-            this.availableWidgets.content_volume_top_5_authors_widget
-              .sentiment_dim_pivot || null,
-          source_dim_pivot:
-            this.availableWidgets.content_volume_top_5_authors_widget
-              .source_dim_pivot || null,
-          smpl_freq:
-            this.availableWidgets.content_volume_top_5_authors_widget
-              .aggregation_period,
+          author_dim_pivot: this.widgetDetails.author_dim_pivot || null,
+          language_dim_pivot: this.widgetDetails.language_dim_pivot || null,
+          country_dim_pivot: this.widgetDetails.country_dim_pivot || null,
+          sentiment_dim_pivot: this.widgetDetails.sentiment_dim_pivot || null,
+          source_dim_pivot: this.widgetDetails.source_dim_pivot || null,
+          smpl_freq: this.widgetDetails.aggregation_period,
         },
-        widgetId: this.widgetId,
+        widgetId: this.widgetDetails.id,
       })
     }
   },

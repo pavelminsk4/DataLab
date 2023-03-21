@@ -1,3 +1,5 @@
+import {widgetsConfig} from '@/lib/configs/widgetsConfigs'
+
 export const capitalizeFirstLetter = (string) =>
   string?.charAt(0)?.toUpperCase() + string?.slice(1)
 
@@ -29,3 +31,14 @@ export const defaultDate = (date) =>
     day: 'numeric',
     year: 'numeric',
   })
+
+export const getWidgetDetails = (widgetName, widgetData, projectId) => {
+  return {
+    ...widgetData,
+    ...widgetsConfig[widgetName],
+    name: widgetName,
+    widgetName: snakeToPascal(widgetName),
+    isWidget: true,
+    projectId,
+  }
+}

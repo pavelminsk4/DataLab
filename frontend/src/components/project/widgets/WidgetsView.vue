@@ -1,10 +1,7 @@
 <template>
   <WidgetSettingsModal
     v-if="isOpenWidgetSettingsModal"
-    :widgetData="currentWidget"
-    :widget-modal-data="dataForWidgetModal"
-    :project-id="projectId"
-    :current-project="currentProject"
+    :widgetDetails="currentWidget"
     @close="closeModal"
     @open-interactive-widget="openInteractiveData"
     @open-sentiment-interactive="openSentimentInteractiveData"
@@ -33,27 +30,18 @@
       <grid-item
         class="widget-item"
         v-for="item in selectedWidgets"
+        :key="item.i"
         :static="item.static"
         :x="item.x"
         :y="item.y"
         :w="item.w"
         :h="item.h"
         :i="item.i"
-        :key="item.i"
       >
-        <component
-          v-if="item.isWidget"
-          :is="item.widgetName"
-          :project-id="projectId"
-          :is-open-widget="item.isShow"
-          :widgets="availableWidgets"
-          :widget-id="item.widgetId"
-          :current-project="currentProject"
-          :chart-type="item.chartType"
-          :title="item.title"
-          :available-widgets="availableWidgets"
-          @delete-widget="deleteWidget(item.name)"
-          @open-settings-modal="openModal(item)"
+        <MainWidget
+          :widgetDetails="item.widgetDetails"
+          @delete-widget="deleteWidget(item.widgetDetails.name)"
+          @open-settings-modal="openModal(item.widgetDetails)"
           @open-interactive-data="openInteractiveData"
           @open-sentiment-interactive="openSentimentInteractiveData"
         />
@@ -66,51 +54,20 @@
 import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 import VueGridLayout from 'vue3-grid-layout'
-import {snakeToPascal} from '@lib/utilities'
-import {modalWidgetsConfig} from '@/lib/configs/widgetsConfigs'
+import {getWidgetDetails} from '@lib/utilities'
+import {widgetsConfig} from '@/lib/configs/widgetsConfigs'
 
-import SummaryWidget from '@/components/widgets/online/SummaryWidget'
 import SearchResults from '@/components/SearchResults'
-import VolumeWidget from '@/components/widgets/online/VolumeWidget'
-import Top10BrandsWidget from '@/components/widgets/online/Top10BrandsWidget'
-import Top10CountriesWidget from '@/components/widgets/online/Top10CountriesWidget'
-import Top10LanguagesWidget from '@/components/widgets/online/Top10LanguagesWidget'
-import Top10AuthorsByVolumeWidget from '@/components/widgets/online/Top10AuthorsByVolumeWidget'
-import SentimentForPeriodWidget from '@/components/widgets/online/SentimentForPeriodWidget'
-import ClippingFeedContentWidget from '@/components/widgets/online/ClippingFeedContentWidget'
-import SentimentTop10AuthorsWidget from '@/components/widgets/online/SentimentTop10AuthorsWidget'
-import SentimentTop10SourcesWidget from '@/components/widgets/online/SentimentTop10SourcesWidget'
-import SentimentTop10LanguagesWidget from '@/components/widgets/online/SentimentTop10LanguagesWidget'
-import SentimentTop10CountriesWidget from '@/components/widgets/online/SentimentTop10CountriesWidget'
-import ContentVolumeTop5SourceWidget from '@/components/widgets/online/ContentVolumeTop5SourceWidget'
-import ContentVolumeTop5AuthorsWidget from '@/components/widgets/online/ContentVolumeTop5AuthorsWidget'
-import ContentVolumeTop5CountriesWidget from '@/components/widgets/online/ContentVolumeTop5CountriesWidget'
-import TopKeywords from '@/components/widgets/online/TopKeywordsWidget'
+
 import WidgetSettingsModal from '@/components/widgets/online/modals/WidgetSettingsModal'
-import InteractiveWidgetModal from '@/components/modals/InteractiveWidgetModal'
+import MainWidget from '@/components/widgets/online/MainWidget'
 
 export default {
   name: 'WidgetsView',
   components: {
-    InteractiveWidgetModal,
     WidgetSettingsModal,
     SearchResults,
-    ClippingFeedContentWidget,
-    VolumeWidget,
-    SummaryWidget,
-    Top10BrandsWidget,
-    Top10CountriesWidget,
-    Top10LanguagesWidget,
-    SentimentForPeriodWidget,
-    Top10AuthorsByVolumeWidget,
-    SentimentTop10AuthorsWidget,
-    SentimentTop10SourcesWidget,
-    SentimentTop10LanguagesWidget,
-    SentimentTop10CountriesWidget,
-    ContentVolumeTop5SourceWidget,
-    ContentVolumeTop5AuthorsWidget,
-    ContentVolumeTop5CountriesWidget,
-    TopKeywords,
+    MainWidget,
     GridLayout: VueGridLayout.GridLayout,
     GridItem: VueGridLayout.GridItem,
   },
@@ -128,10 +85,47 @@ export default {
   data() {
     return {
       layout: [],
-      dataForWidgetModal: {},
       isOpenWidgetSettingsModal: false,
       currentWidget: null,
     }
+  },
+  computed: {
+    ...mapGetters({
+      availableWidgets: get.AVAILABLE_WIDGETS,
+      clippingData: get.CLIPPING_FEED_CONTENT_WIDGET,
+    }),
+    selectedWidgets: {
+      get() {
+        return Object.keys(this.availableWidgets)
+          .map((widgetName, index) => {
+            widgetsConfig.clipping_feed_content_widget.height = this
+              .clippingData.length
+              ? 13
+              : 3.8
+
+            if (this.availableWidgets[widgetName].is_active) {
+              return {
+                x: 0,
+                y: this.getYAxisValue(index + 1),
+                w: 2,
+                h: widgetsConfig[widgetName].height,
+                i: index,
+                static: false,
+
+                widgetDetails: getWidgetDetails(
+                  widgetName,
+                  this.availableWidgets[widgetName],
+                  this.projectId
+                ),
+              }
+            }
+          })
+          .filter((widgets) => widgets)
+      },
+      set(val) {
+        this.layout = val
+      },
+    },
   },
   async created() {
     if (!this.availableWidgets) {
@@ -144,57 +138,6 @@ export default {
         widgetId: this.availableWidgets.clipping_feed_content_widget.id,
       })
     }
-  },
-  computed: {
-    ...mapGetters({
-      availableWidgets: get.AVAILABLE_WIDGETS,
-      clippingData: get.CLIPPING_FEED_CONTENT_WIDGET,
-    }),
-    selectedWidgets: {
-      get() {
-        let layout = []
-        Object.keys(this.availableWidgets)
-          .map((widgetName, index) => {
-            if (this.availableWidgets[widgetName]?.is_active) {
-              return layout.push({
-                x: 0,
-                y: this.getYAxisValue(layout.length),
-                w: 2,
-                h: this.elementsValue[widgetName].height,
-                i: index,
-                static: false,
-                name: widgetName,
-                widgetName: snakeToPascal(widgetName),
-                isShow: this.availableWidgets[widgetName]?.is_active,
-                isWidget: true,
-                widgetId: this.availableWidgets[widgetName]?.id,
-                actionName: this.elementsValue[widgetName].actionName,
-                isChartShow: this.elementsValue[widgetName].isChartShow,
-                title: this.availableWidgets[widgetName]?.title,
-                chartType:
-                  this.availableWidgets[widgetName]?.chart_type ||
-                  modalWidgetsConfig[widgetName]?.defaultChartType,
-                hasAggregationPeriod:
-                  this.elementsValue[widgetName].hasAggregationPeriod,
-              })
-            }
-          })
-          .filter((widgets) => widgets)
-
-        return layout
-      },
-      set(val) {
-        this.layout = val
-      },
-    },
-    elementsValue() {
-      let widgetsElements = modalWidgetsConfig
-      widgetsElements.clipping_feed_content_widget.height = this.clippingData
-        .length
-        ? 13
-        : 3.8
-      return widgetsElements
-    },
   },
   methods: {
     ...mapActions([
@@ -220,16 +163,8 @@ export default {
     updatePosts(page, posts) {
       this.$emit('update-posts-count', page, posts)
     },
-    openModal(item) {
-      this.dataForWidgetModal = {
-        widgetName: item.name,
-        actionName: item.actionName,
-        isChartShow: item.isChartShow,
-        hasAggregationPeriod: item.hasAggregationPeriod,
-        chartType: item.chartType,
-        settingsTabs: modalWidgetsConfig[item.name].settingsTabs,
-      }
-      this.currentWidget = this.availableWidgets[item.name]
+    openModal(widget) {
+      this.currentWidget = widget
       this.isOpenWidgetSettingsModal = !this.isOpenWidgetSettingsModal
     },
     openInteractiveData(val, widgetId, fieldName) {

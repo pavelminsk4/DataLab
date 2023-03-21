@@ -2,7 +2,7 @@
   <div class="settings-wrapper">
     <div class="preview-section">
       <div class="chart-title">
-        {{ generalWidgetData.title }}
+        {{ widgetDetails.title }}
       </div>
 
       <slot></slot>
@@ -10,37 +10,37 @@
 
     <div class="general-wrapper-settings">
       <BaseTabs
-        :main-settings="settingsTabs"
+        :main-settings="widgetDetails.settingsTabs"
         default-tab="General"
         @update-setting-panel="updateSettingPanel"
       />
 
       <BasicSettingsScreen
         v-if="panelName === 'General'"
-        :period="generalWidgetData.aggregation_period"
-        :widget-title="generalWidgetData.title"
-        :widget-description="generalWidgetData.description"
-        :hasAggregationPeriod="hasAggregationPeriod"
+        :period="widgetDetails.aggregation_period"
+        :widget-title="widgetDetails.title"
+        :widget-description="widgetDetails.description"
+        :hasAggregationPeriod="widgetDetails.hasAggregationPeriod"
         @update-general-data="updateGeneralSettings"
       />
 
       <DimensionsScreen
         v-if="panelName === 'Dimensions'"
-        :project-id="projectId"
-        :authors-dimensions="generalWidgetData.author_dim_pivot"
-        :countries-dimensions="generalWidgetData.country_dim_pivot"
-        :languages-dimensions="generalWidgetData.language_dim_pivot"
-        :sources-dimensions="generalWidgetData.source_dim_pivot"
-        :sentiments-dimensions="generalWidgetData.sentiment_dim_pivot"
+        :project-id="widgetDetails.projectId"
+        :authors-dimensions="widgetDetails.author_dim_pivot"
+        :countries-dimensions="widgetDetails.country_dim_pivot"
+        :languages-dimensions="widgetDetails.language_dim_pivot"
+        :sources-dimensions="widgetDetails.source_dim_pivot"
+        :sentiments-dimensions="widgetDetails.sentiment_dim_pivot"
         class="dimensions-tab"
       />
 
       <ChartTypesRadio
         v-if="panelName === 'Chart Layout'"
-        :selected="chartType"
-        :widget-name="widgetName"
-        :project-id="projectId"
-        :widget-data="generalWidgetData"
+        :selected="widgetDetails.chartType"
+        :widget-name="widgetDetails.name"
+        :project-id="widgetDetails.projectId"
+        :widget-data="widgetDetails"
         @update-chart-type="$emit('update-chart-type', $event)"
       />
 
@@ -73,12 +73,7 @@ export default {
     BasicSettingsScreen,
   },
   props: {
-    widgetData: {type: Object, required: true},
-    widgetName: {type: String, required: true},
-    projectId: {type: Number, required: true},
-    hasAggregationPeriod: {type: Boolean, default: true},
-    chartType: {type: String, required: false},
-    settingsTabs: {type: Array, required: true},
+    widgetDetails: {type: Object, required: true},
   },
   data() {
     return {
@@ -89,12 +84,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      widgets: get.AVAILABLE_WIDGETS,
       selectedDimensions: get.SELECTED_DIMENSIONS,
     }),
-    generalWidgetData() {
-      return this.widgets[this.widgetName]
-    },
   },
   methods: {
     updateSettingPanel(val) {

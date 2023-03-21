@@ -51,6 +51,7 @@ export default {
     }
   },
 
+  // Top
   async [action.GET_TOP_LOCATIONS_WIDGET]({commit}, {projectId, widgetId}) {
     commit(mutator.SET_LOADING, true, {root: true})
     try {
@@ -87,6 +88,17 @@ export default {
         widgetId
       )
       commit(mutator.SET_TOP_AUTHORS_WIDGET, topAuthors)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false, {root: true})
+    }
+  },
+  async [action.GET_TOP_KEYWORDS_WIDGET]({commit}, {projectId, widgetId}) {
+    commit(mutator.SET_LOADING, true, {root: true})
+    try {
+      const topKeywords = await api.social.getTopKeywords({projectId, widgetId})
+      commit(mutator.SET_TOP_KEYWORDS_WIDGET, topKeywords)
     } catch (e) {
       console.log(e)
     } finally {
@@ -152,6 +164,68 @@ export default {
         mutator.SET_CONTENT_VOLUME_TOP_LANGUAGES,
         contentVolumeTopLanguages
       )
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false, {root: true})
+    }
+  },
+
+  // Sentiment
+  async [action.GET_SENTIMENT_TOP_LOCATIONS]({commit}, {projectId, widgetId}) {
+    commit(mutator.SET_LOADING, true, {root: true})
+    try {
+      const sentimentTopCountries = await api.social.getSentimentTopLocations(
+        projectId,
+        widgetId
+      )
+      commit(mutator.SET_SENTIMENT_TOP_LOCATIONS, sentimentTopCountries)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false, {root: true})
+    }
+  },
+  async [action.GET_SENTIMENT_TOP_LANGUAGES]({commit}, {projectId, widgetId}) {
+    commit(mutator.SET_LOADING, true, {root: true})
+    try {
+      const sentimentTopLanguages = await api.social.getSentimentTopLanguages(
+        projectId,
+        widgetId
+      )
+      commit(mutator.SET_SENTIMENT_TOP_LANGUAGES, sentimentTopLanguages)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false, {root: true})
+    }
+  },
+  async [action.GET_SENTIMENT_TOP_AUTHORS]({commit}, {projectId, widgetId}) {
+    commit(mutator.SET_LOADING, true, {root: true})
+    try {
+      const sentimentTopAuthors = await api.social.getSentimentTopAuthors(
+        projectId,
+        widgetId
+      )
+      commit(mutator.SET_SENTIMENT_TOP_AUTHORS, sentimentTopAuthors)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false, {root: true})
+    }
+  },
+  async [action.GET_SENTIMENT_FOR_PERIOD](
+    {commit},
+    {projectId, value, widgetId}
+  ) {
+    commit(mutator.SET_LOADING, true, {root: true})
+    try {
+      const sentimentForPeriod = await api.social.getSentimentForPeriod({
+        projectId,
+        value,
+        widgetId,
+      })
+      commit(mutator.SET_SENTIMENT_FOR_PERIOD, sentimentForPeriod)
     } catch (e) {
       console.log(e)
     } finally {

@@ -13,21 +13,15 @@
 </template>
 
 <script>
-import {modalWidgetsConfig} from '@/lib/configs/widgetsConfigs'
+import {widgetsConfig} from '@/lib/configs/widgetsConfigs'
 import BaseRadio from '@/components/BaseRadio'
 
 export default {
   name: 'ChartTypesRadio',
   components: {BaseRadio},
   props: {
-    selected: {
-      type: String,
-      default: '',
-    },
-    widgetName: {
-      type: String,
-      required: false,
-    },
+    selected: {type: String, default: ''},
+    widgetName: {type: String, required: false},
   },
   data() {
     return {
@@ -36,7 +30,7 @@ export default {
   },
   computed: {
     availableTypes() {
-      return modalWidgetsConfig[this.widgetName].availableTypes
+      return widgetsConfig[this.widgetName].availableTypes
     },
     selectedValueProxy: {
       get() {

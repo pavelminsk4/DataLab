@@ -1,20 +1,10 @@
 <template>
   <WidgetSettingsModal
     v-if="isOpenWidgetSettingsModal"
-    :widgetData="currentWidget"
-    :widget-name="dataForWidgetModal.widgetName"
-    :project-id="projectId"
-    :widget-data="this[dataForWidgetModal.widgetName]"
-    :action-name="dataForWidgetModal.actionName"
-    :is-charts-show="dataForWidgetModal.isChartShow"
-    :hasAggregationPeriod="dataForWidgetModal.hasAggregationPeriod"
-    :chart-type="dataForWidgetModal.chartType"
-    :widgets-list="availableWidgets"
-    :current-project="currentProject"
-    :summary-data="summary_widget"
-    :settings-tabs="dataForWidgetModal.settingsTabs"
+    :widgetDetails="currentWidget"
     @close="closeModal"
     @open-interactive-widget="openInteractiveData"
+    @open-sentiment-interactive="openSentimentInteractiveData"
   />
 
   <grid-layout
@@ -29,7 +19,6 @@
     class="widgets-wrapper scroll"
   >
     <grid-item
-      class="widget-item"
       v-for="item in selectedWidgets"
       :static="item.static"
       :x="item.x"
@@ -38,22 +27,14 @@
       :h="item.h"
       :i="item.i"
       :key="item.i"
+      class="widget-item"
     >
-      <component
-        v-if="item.isWidget"
-        :widgetDetails="item"
-        :is="item.widgetName"
-        :summary-data="summary_widget"
-        :volume="volume_widget"
-        :project-id="projectId"
-        :is-open-widget="item.isShow"
-        :widgets="availableWidgets"
-        :widget-id="item.widgetId"
-        :current-project="currentProject"
-        :chart-type="item.chartType"
-        @delete-widget="deleteWidget(item.name)"
-        @open-settings-modal="openModal(item)"
+      <MainWidget
+        :widgetDetails="item.widgetDetails"
+        @delete-widget="deleteWidget(item.widgetDetails.name)"
+        @open-settings-modal="openModal(item.widgetDetails)"
         @open-interactive-data="openInteractiveData"
+        @open-sentiment-interactive="openSentimentInteractiveData"
       />
     </grid-item>
   </grid-layout>
@@ -66,38 +47,20 @@ import {mapGetters, createNamespacedHelpers} from 'vuex'
 import {get} from '@store/constants'
 import {action} from '@store/constants'
 import VueGridLayout from 'vue3-grid-layout'
-import {snakeToPascal} from '@lib/utilities'
-import {modalWidgetsConfig} from '@/lib/configs/widgetsConfigs'
+import {getWidgetDetails} from '@lib/utilities'
+import {widgetsConfig} from '@/lib/configs/widgetsConfigs'
 
-import Summary from '@/components/widgets/social/SummaryWidget'
-import ClippingFeedContent from '@/components/widgets/social/ClippingFeedContentWidget'
-import ContentVolume from '@/components/widgets/social/ContentVolumeWidget'
-import TopLocations from '@/components/widgets/social/TopLocationsWidget'
-import TopLanguages from '@/components/widgets/social/TopLanguagesWidget'
-import TopAuthors from '@/components/widgets/social/TopAuthorsWidget'
-import ContentVolumeByTopLocations from '@/components/widgets/social/ContentVolumeTopLocationsWidget'
-import ContentVolumeByTopAuthors from '@/components/widgets/social/ContentVolumeTopAuthorsWidget'
-import ContentVolumeByTopLanguages from '@/components/widgets/social/ContentVolumeTopLanguagesWidget'
+import MainWidget from '@/components/widgets/social/MainWidget'
+import WidgetSettingsModal from '@/components/widgets/social/modals/WidgetSettingsModal'
 
-import WidgetSettingsModal from '@/components/widgets/modals/WidgetSettingsModal'
-import InteractiveWidgetModal from '@/components/modals/InteractiveWidgetModal'
-
-const {mapActions} = createNamespacedHelpers('social')
+const {mapActions, mapGetters: mapGettersSocial} =
+  createNamespacedHelpers('social/widgets')
 
 export default {
-  name: 'WidgetsView',
+  name: 'SocialProjectDashboardWidgets',
   components: {
-    InteractiveWidgetModal,
+    MainWidget,
     WidgetSettingsModal,
-    ClippingFeedContent,
-    Summary,
-    ContentVolume,
-    TopLocations,
-    TopLanguages,
-    TopAuthors,
-    ContentVolumeByTopLocations,
-    ContentVolumeByTopAuthors,
-    ContentVolumeByTopLanguages,
     GridLayout: VueGridLayout.GridLayout,
     GridItem: VueGridLayout.GridItem,
   },
@@ -107,83 +70,61 @@ export default {
     'update-available-widgets',
   ],
   props: {
-    projectId: {
-      type: Number,
-      required: true,
-    },
-    currentProject: {
-      type: [Array, Object],
-      required: false,
-    },
+    projectId: {type: Number, required: true},
   },
   data() {
     return {
       layout: [],
-      dataForWidgetModal: {},
       isOpenWidgetSettingsModal: false,
       currentWidget: null,
     }
   },
   computed: {
     ...mapGetters({
-      summary_widget: get.SUMMARY_WIDGET,
-      volume_widget: get.VOLUME_WIDGET,
-      sentimentForPeriodWidget: get.SENTIMENT_FOR_PERIOD,
       availableWidgets: get.AVAILABLE_WIDGETS,
-      clippingData: get.CLIPPING_FEED_CONTENT_WIDGET,
     }),
+    ...mapGettersSocial({
+      socialWidgets: get.SOCIAL_WIDGETS,
+    }),
+    clippingData() {
+      return this.socialWidgets.clippingFeedContent
+    },
     selectedWidgets: {
       get() {
-        let layout = []
-
-        Object.keys(this.availableWidgets)
+        return Object.keys(this.availableWidgets)
           .map((widgetName, index) => {
             if (this.availableWidgets[widgetName].is_active) {
-              const configWidgetName = `${widgetName}_widget`
+              widgetsConfig.clipping_feed_content.height = this.clippingData
+                .length
+                ? 13
+                : 3.8
 
-              return layout.push({
-                ...this.availableWidgets[widgetName],
+              return {
                 x: 0,
-                y: this.getYAxisValue(layout.length),
+                y: this.getYAxisValue(index + 1),
                 w: 2,
-                h: this.elementsValue[configWidgetName].height,
+                h: widgetsConfig[widgetName].height,
                 i: index,
                 static: false,
-                name: widgetName,
-                widgetName: snakeToPascal(widgetName),
-                isShow: this.availableWidgets[widgetName]?.is_active,
-                isWidget: true,
-                widgetId: this.availableWidgets[widgetName]?.id,
-                actionName: this.elementsValue[configWidgetName].actionName,
-                isChartShow: this.elementsValue[configWidgetName].isChartShow,
-                chartType:
-                  this.availableWidgets[widgetName]?.chart_type ||
-                  modalWidgetsConfig[configWidgetName]?.defaultChartType,
-                hasAggregationPeriod:
-                  this.elementsValue[configWidgetName].hasAggregationPeriod,
-              })
+
+                widgetDetails: getWidgetDetails(
+                  widgetName,
+                  this.availableWidgets[widgetName],
+                  this.projectId
+                ),
+              }
             }
           })
           .filter((widgets) => widgets)
-
-        return layout
       },
       set(val) {
         this.layout = val
       },
     },
-    elementsValue() {
-      let widgetsElements = modalWidgetsConfig
-      widgetsElements.clipping_feed_content_widget.height = this.clippingData
-        .length
-        ? 13
-        : 3.8
-      return widgetsElements
-    },
   },
   async created() {
     if (
-      !this.clippingData.length &&
+      !this.clippingData?.length &&
       this.availableWidgets?.clipping_feed_content
     ) {
       await this[action.GET_CLIPPING_FEED_CONTENT_WIDGET]({
@@ -212,20 +153,20 @@ export default {
     updatePage(page, posts) {
       this.$emit('update-page', page, posts)
     },
-    openModal(item) {
-      this.dataForWidgetModal = {
-        widgetName: item.name,
-        actionName: item.actionName,
-        isChartShow: item.isChartShow,
-        hasAggregationPeriod: item.hasAggregationPeriod,
-        chartType: item.chartType,
-        settingsTabs: modalWidgetsConfig[`${item.name}_widget`].settingsTabs,
-      }
-      this.currentWidget = this.availableWidgets[item.name]
+    openModal(widget) {
+      this.currentWidget = widget
       this.isOpenWidgetSettingsModal = !this.isOpenWidgetSettingsModal
     },
     openInteractiveData(val, widgetId, fieldName) {
       this.$emit('open-interactive-widget', val, widgetId, fieldName)
+    },
+    openSentimentInteractiveData(source, sentiment, widgetId) {
+      this.$emit(
+        'open-sentiment-interactive-widget',
+        source,
+        sentiment,
+        widgetId
+      )
     },
     closeModal() {
       this.togglePageScroll(false)

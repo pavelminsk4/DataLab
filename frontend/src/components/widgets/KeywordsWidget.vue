@@ -1,7 +1,7 @@
 <template>
   <component
     :is="widgetWrapper"
-    :title="title"
+    :title="widgetDetails.title"
     style="--widget-layout-content-padding: 50px 100px"
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
@@ -24,16 +24,22 @@ export default {
   name: 'KeywordsWidget',
   components: {ChartsView, WidgetsLayout},
   props: {
-    isWidget: {type: Boolean, default: true},
-    title: {type: String, required: true},
-    widgetId: {type: Number, required: true},
-    chartType: {type: String, required: true},
+    widgetDetails: {type: Object, required: true},
+    newChartType: {type: String, default: ''},
+    isSettings: {type: Boolean, default: false},
     keywordsValues: {type: Array, required: true},
   },
   computed: {
     ...mapState(['loading']),
     widgetWrapper() {
-      return this.isWidget ? 'WidgetsLayout' : 'div'
+      return this.isSettings ? 'div' : 'WidgetsLayout'
+    },
+    chartType() {
+      return (
+        this.newChartType ||
+        this.widgetDetails.chart_type ||
+        this.widgetDetails.defaultChartType
+      )
     },
     labels() {
       return this.keywordsValues.map((item) => item.key)

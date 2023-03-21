@@ -1,9 +1,7 @@
 <template>
   <ContentVolumeWidget
-    :title="widgetDetails.title"
-    :chartType="widgetDetails.chartType"
-    :widget-id="widgetDetails.widgetId"
-    :is-widget="isWidget"
+    v-bind="$attrs"
+    :widget-details="widgetDetails"
     :content-volume-widget-data="contentVolumeTopLanguages"
   />
 </template>
@@ -21,9 +19,6 @@ export default {
   components: {ContentVolumeWidget},
   props: {
     widgetDetails: {type: Object, required: true},
-    projectId: {type: Number, required: true},
-    chartType: {type: String, required: true},
-    isWidget: {type: Boolean, default: true},
   },
   computed: {
     ...mapGetters({
@@ -36,7 +31,7 @@ export default {
   created() {
     if (!this.contentVolumeTopLanguages.length) {
       this[action.GET_CONTENT_VOLUME_TOP_LANGUAGES]({
-        projectId: this.projectId,
+        projectId: this.widgetDetails.projectId,
         value: {
           author_dim_pivot: this.widgetDetails.author_dim_pivot || null,
           language_dim_pivot: this.widgetDetails.language_dim_pivot || null,
@@ -45,7 +40,7 @@ export default {
           source_dim_pivot: this.widgetDetails.source_dim_pivot || null,
           smpl_freq: this.widgetDetails.aggregation_period,
         },
-        widgetId: this.widgetDetails.widgetId,
+        widgetId: this.widgetDetails.id,
       })
     }
   },

@@ -1,10 +1,10 @@
 <template>
-  <WidgetsLayout
-    v-if="isGeneralWidget"
+  <component
+    :is="widgetWrapper"
+    :title="widgetDetails.title"
     @open-modal="$emit('open-settings-modal')"
-    :title="title"
   >
-    <div class="clipping-wrapper scroll">
+    <div :class="['clipping-wrapper', 'scroll', isSettings && 'widget-view']">
       <div v-if="!clippingFeedContentData.length" class="no-selected">
         Clipping feed content is not selected.
       </div>
@@ -24,40 +24,12 @@
         :published="item.post__entry_published"
         :potential-reach="item.post__feedlink__alexaglobalrank"
         :post-id="item.post__id"
-        :project-id="projectId"
+        :project-id="widgetDetails.projectId"
         :is-clipping-widget="true"
-        :widget-id="widgetId"
-        :current-project="currentProject"
+        :widget-id="widgetDetails.id"
       />
     </div>
-  </WidgetsLayout>
-
-  <div v-else class="clipping-wrapper scroll widget-view">
-    <div v-if="!clippingFeedContentData.length" class="no-selected">
-      Clipping feed content is not selected.
-    </div>
-
-    <ClippingCard
-      v-for="(item, index) in clippingData"
-      :key="'result' + index"
-      :img="cardImg(item)"
-      :sentiment="item.post__sentiment"
-      :title="item.post__entry_title"
-      :entry-link="item.post__entry_links_href"
-      :source-link="item.post__feedlink__sourceurl"
-      :summary="item.post__entry_summary"
-      :source="item.post__feedlink__source1"
-      :country="item.post__feedlink__country"
-      :language="item.post__feed_language__language"
-      :published="item.post__entry_published"
-      :potential-reach="item.post__feedlink__alexaglobalrank"
-      :post-id="item.post__id"
-      :project-id="projectId"
-      :is-clipping-widget="true"
-      :widget-id="widgetId"
-      :current-project="currentProject"
-    />
-  </div>
+  </component>
 </template>
 
 <script>
@@ -69,11 +41,13 @@ export default {
   components: {ClippingCard, WidgetsLayout},
   props: {
     clippingFeedContentData: {type: Array, required: true},
-    title: {type: String, required: true},
-    projectId: {type: Number, required: true},
-    widgetId: {type: Number, required: true},
-    currentProject: {type: [Array, Object], required: true},
-    isGeneralWidget: {type: Boolean, default: true},
+    widgetDetails: {type: Object, required: true},
+    isSettings: {type: Boolean, default: false},
+  },
+  computed: {
+    widgetWrapper() {
+      return this.isSettings ? 'div' : 'WidgetsLayout'
+    },
   },
   methods: {
     cardImg(item) {

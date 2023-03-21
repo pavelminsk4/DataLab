@@ -1,13 +1,11 @@
 <template>
   <component
     :is="widgetWrapper"
-    :title="title"
+    :title="widgetDetails.title"
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
   >
-    <div
-      :class="['summary-widget__container', isGeneralWidget && 'settings-view']"
-    >
+    <div :class="['summary-widget__container', isSettings && 'settings-view']">
       <div
         v-for="(item, index) in widgetMetrics"
         :key="'metrics' + index"
@@ -52,15 +50,13 @@ export default {
     WidgetsLayout,
   },
   props: {
-    title: {type: String, required: true},
+    widgetDetails: {type: Object, required: true},
+    isSettings: {type: Boolean, default: false},
     summaryWidgetData: {type: Object, required: true},
-    projectId: {type: Number, required: true},
-    widgetId: {type: Number, required: true},
-    isGeneralWidget: {type: Boolean, default: true},
   },
   computed: {
     widgetWrapper() {
-      return this.isGeneralWidget ? 'WidgetsLayout' : 'div'
+      return this.isSettings ? 'div' : 'WidgetsLayout'
     },
   },
   created() {

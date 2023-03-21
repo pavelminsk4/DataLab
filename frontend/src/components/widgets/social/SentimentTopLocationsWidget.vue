@@ -2,38 +2,43 @@
   <SentimentWidget
     v-bind="$attrs"
     :widget-details="widgetDetails"
-    :sentiment-widget-data="sentimentTopLanguages"
+    :sentiment-widget-data="sentimentTopLocations"
   />
 </template>
 
 <script>
 import {action, get} from '@store/constants'
-import {mapActions, mapGetters} from 'vuex'
+import {createNamespacedHelpers} from 'vuex'
 import {isAllEmptyFields} from '@lib/utilities'
 
 import SentimentWidget from '@/components/widgets/SentimentWidget'
 
+const {mapActions, mapGetters} = createNamespacedHelpers('social/widgets')
+
 export default {
-  name: 'SentimentTop10LanguagesWidget',
+  name: 'SocialSentimentTopLocation',
   components: {SentimentWidget},
   props: {
     widgetDetails: {type: Object, required: true},
   },
   computed: {
     ...mapGetters({
-      sentimentTopLanguages: get.SENTIMENT_TOP_LANGUAGES,
+      socialWidgets: get.SOCIAL_WIDGETS,
     }),
+    sentimentTopLocations() {
+      return this.socialWidgets.sentimentTopLocations
+    },
   },
   created() {
-    if (isAllEmptyFields(this.sentimentTopLanguages)) {
-      this[action.GET_SENTIMENT_TOP_LANGUAGES]({
+    if (isAllEmptyFields(this.sentimentTopLocations)) {
+      this[action.GET_SENTIMENT_TOP_LOCATIONS]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,
       })
     }
   },
   methods: {
-    ...mapActions([action.GET_SENTIMENT_TOP_LANGUAGES]),
+    ...mapActions([action.GET_SENTIMENT_TOP_LOCATIONS]),
   },
 }
 </script>
