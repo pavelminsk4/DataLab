@@ -1,6 +1,6 @@
 <template>
   <post-card-layout
-    :sentiment="sentiment"
+    :sentiment="postDetails.sentiment_vote"
     :post-image="img"
     :is-clipping-widget="isClippingWidget"
     :is-clipping-post="isClippingPost"
@@ -9,15 +9,21 @@
   >
     <template #title>
       <div class="title">
-        <div class="user-avatar"></div>
+        <div class="user-avatar">
+          <img
+            :src="postDetails.user_picture"
+            alt="user picture"
+            class="user-img"
+          />
+        </div>
         <div>
-          <h3 class="user-name"></h3>
-          <div class="user-account"></div>
+          <h3 class="user-name">{{ postDetails.user_name }}</h3>
+          <div class="user-account">@{{ postDetails.user_alias }}</div>
         </div>
       </div>
     </template>
 
-    <template #description>{{ text }}</template>
+    <template #description>{{ postDetails.text }}</template>
 
     <template #post-type><TwitterIcon /> Twitter</template>
 
@@ -68,80 +74,35 @@ export default {
     TwitterIcon,
   },
   props: {
-    isClippingWidget: {
-      type: Boolean,
-      default: false,
-    },
-    countFavorites: {
-      type: Number,
-      default: 0,
-    },
-    countReplies: {
-      type: Number,
-      default: 0,
-    },
-    countRetweets: {
-      type: Number,
-      default: 0,
-    },
-    date: {
-      type: String,
-      default: '',
-    },
-    language: {
-      type: String,
-      default: '',
-    },
-    locationString: {
-      type: String,
-      default: '',
-    },
-    sentiment: {
-      type: String,
-      default: '',
-    },
-    text: {
-      type: String,
-      default: '',
-    },
-    userAlias: {
-      type: String,
-      default: '',
-    },
-    userName: {
-      type: String,
-      default: '',
-    },
-    img: {
-      type: String,
-      default: '',
-    },
-    postId: {
-      type: Number,
-      required: false,
-    },
-    projectId: {
-      type: Number,
-      required: false,
-    },
-    widgetId: {
-      type: Number,
-      required: true,
-    },
-    isClippingPost: {
-      type: Boolean,
-      default: false,
-    },
+    isClippingPost: {type: Boolean, default: false},
+    projectId: {type: Number, required: false},
+    widgetId: {type: Number, required: true},
+    img: {type: String, default: ''},
+    isClippingWidget: {type: Boolean, default: false},
+    postDetails: {type: Object, required: true},
   },
+
   computed: {
     commonCardItems() {
       return [
-        {name: 'DATE', value: this.defaultDate(this.date)},
-        {name: 'LOCATION', value: this.locationString},
-        {name: 'LANGUAGE', value: this.language},
-        {name: 'LikeIcon', value: this.countFavorites, isIcon: true},
-        {name: 'RepliesIcon', value: this.countReplies, isIcon: true},
-        {name: 'RetweetsIcon', value: this.countRetweets, isIcon: true},
+        {name: 'DATE', value: this.defaultDate(this.postDetails.creation_date)},
+        {name: 'LOCATION', value: this.postDetails.locationString},
+        {name: 'LANGUAGE', value: this.postDetails.language},
+        {
+          name: 'LikeIcon',
+          value: this.postDetails.count_favorites,
+          isIcon: true,
+        },
+        {
+          name: 'RepliesIcon',
+          value: this.postDetails.count_replies,
+          isIcon: true,
+        },
+        {
+          name: 'RetweetsIcon',
+          value: this.postDetails.count_retweets,
+          isIcon: true,
+        },
       ]
     },
   },
@@ -156,7 +117,7 @@ export default {
         posts: [
           {
             project: this.projectId,
-            post: this.postId,
+            post: this.postDetails.id,
           },
         ],
         projectId: this.projectId,
@@ -166,7 +127,7 @@ export default {
     async deleteClippingFeedPost() {
       await this[action.DELETE_CLIPPING_FEED_CONTENT]({
         projectId: this.projectId,
-        postId: this.postId,
+        postId: this.postDetails.id,
         widgetId: this.widgetId,
       })
     },
@@ -191,6 +152,13 @@ export default {
     font-size: 11px;
     line-height: 12px;
     color: var(--typography-title-color);
+  }
+
+  .user-img {
+    width: 32px;
+    height: 32px;
+
+    border-radius: 50%;
   }
 }
 
