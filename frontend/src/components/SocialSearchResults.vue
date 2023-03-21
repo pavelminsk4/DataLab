@@ -8,24 +8,14 @@
       v-if="!loading && searchData.length"
       class="search-result-cards scroll"
     >
-      <social-post-card
+      <SocialPostCard
         v-for="(item, index) in searchData"
         :key="'result' + index"
-        :post-id="item.id"
         :is-clipping-post="selectedClippingElement(item.id)"
         :widget-id="clippingWidgetId"
         :project-id="currentProject.id"
         :img="cardImg(item)"
-        :count-favorites="item.count_favorites"
-        :count-replies="item.count_replies"
-        :count-retweets="item.count_retweets"
-        :date="item.creation_date"
-        :language="item.language"
-        :location-string="item.locationString"
-        :sentiment="item.sentiment_vote"
-        :text="item.text"
-        :user-alias="item.user_alias"
-        :user-name="item.user_name"
+        :post-details="item"
         class="clipping-card"
       />
     </div>
