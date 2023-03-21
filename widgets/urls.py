@@ -23,7 +23,7 @@ urlpatterns = [
   path('top_keywords/<int:pk>/<int:widget_pk>', views.top_keywords_widget, name='top_keywords'),
   path('sentiment_top_keywords/<int:pk>/<int:widget_pk>', views.sentiment_top_keywords_widget, name='sentiment_top_keywords'),
   path('sentiment_number_of_results/<int:pk>/<int:widget_pk>', views.sentiment_number_of_results, name='sentiment_number_of_results'),
-  path('sentiment_diagram/<int:pk>/<int:widget_pk>', views.sentiment_diagram, name='sentiment_digram'),
+  path('sentiment_diagram/<int:pk>/<int:widget_pk>', views.sentiment_diagram, name='sentiment_diagram'),
   path('dimensions_for_each_widgets/<int:project_pk>/<int:widget_pk>', views.dimensions_for_each_widgets, name='dimensions_for_each_widgets'),
   path('interactive_widgets/<int:project_pk>/<int:widget_pk>', views.interactive_data_for_widgets, name='interactive_widgets'),
 ]

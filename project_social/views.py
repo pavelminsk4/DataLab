@@ -2,7 +2,8 @@ from rest_framework.generics import ListAPIView, CreateAPIView, DestroyAPIView, 
 from .widgets.dashboard.content_volume_by_top_locations import *
 from .widgets.dashboard.content_volume_by_top_languages import *
 from .widgets.dashboard.content_volume_by_top_authors import *
-from rest_framework import viewsets, filters, status
+from .widgets.sentiment.sentiment_number_of_results import *
+from .widgets.sentiment.sentiment_top_keywords import *
 from .widgets.dashboard.sentiment_languages import *
 from .widgets.dashboard.sentiment_locations import *
 from .widgets.sentiment.sentiment_by_gender import *
@@ -17,7 +18,7 @@ from .widgets.summary.gender_volume import *
 from .widgets.dashboard.top_authors import *
 from .widgets.summary.top_keywords import *
 from .widgets.dashboard.sentiment import *
-from rest_framework.response import Response
+from rest_framework import viewsets, filters
 from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.db.models import Q
@@ -192,6 +193,15 @@ def social_sentiment_by_gender(request, pk, widget_pk):
 
 def social_top_keywords(request, pk, widget_pk):
   return top_keywords(pk, widget_pk)
+
+def social_sentiment_top_keywords(request, pk, widget_pk):
+  return sentiment_top_keywords(pk, widget_pk)
+
+def social_sentiment_number_of_results(request, pk, widget_pk):
+  return sentiment_number_of_results(pk, widget_pk)
+
+def social_sentiment_diagram(request, pk, widget_pk):
+  return sentiment_number_of_results(pk, widget_pk)
 
 class ProjectSocialWidgetsAPIView(RetrieveAPIView):
  serializer_class = WidgetsListSerializer
