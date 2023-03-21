@@ -8,10 +8,12 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
+import {createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
 
 import KeywordsWidget from '@/components/widgets/KeywordsWidget'
+
+const {mapActions, mapGetters} = createNamespacedHelpers('social/widgets')
 
 export default {
   name: 'OnlineTopKeywordsWidget',
@@ -21,8 +23,11 @@ export default {
   },
   computed: {
     ...mapGetters({
-      topKeywords: get.TOP_KEYWORDS_WIDGET,
+      socialWidgets: get.SOCIAL_WIDGETS,
     }),
+    topKeywords() {
+      return this.socialWidgets.topKeywords
+    },
   },
   created() {
     if (!this.topKeywords.length) {

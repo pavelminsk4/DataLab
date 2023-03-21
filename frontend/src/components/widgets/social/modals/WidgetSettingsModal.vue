@@ -29,6 +29,7 @@ import {snakeToPascal} from '@/lib/utilities'
 
 import WidgetSettingsScreen from '@/components/widgets/screens/WidgetSettingsScreen'
 import BaseModal from '@/components/modals/BaseModal'
+import MainWidget from '@/components/widgets/social/MainWidget'
 
 const {mapActions} = createNamespacedHelpers('social')
 
@@ -37,6 +38,7 @@ export default {
   components: {
     WidgetSettingsScreen,
     BaseModal,
+    MainWidget,
   },
   props: {
     widgetDetails: {type: Object, required: true},

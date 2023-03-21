@@ -8,10 +8,12 @@
 
 <script>
 import {action, get} from '@store/constants'
-import {mapActions, mapGetters} from 'vuex'
+import {createNamespacedHelpers} from 'vuex'
 import {isAllEmptyFields} from '@lib/utilities'
 
 import SentimentWidget from '@/components/widgets/SentimentWidget'
+
+const {mapActions, mapGetters} = createNamespacedHelpers('social/widgets')
 
 export default {
   name: 'SentimentTop10LanguagesWidget',
@@ -21,8 +23,11 @@ export default {
   },
   computed: {
     ...mapGetters({
-      sentimentTopLanguages: get.SENTIMENT_TOP_LANGUAGES,
+      socialWidgets: get.SOCIAL_WIDGETS,
     }),
+    sentimentTopLanguages() {
+      return this.socialWidgets.sentimentTopLanguages
+    },
   },
   created() {
     if (isAllEmptyFields(this.sentimentTopLanguages)) {

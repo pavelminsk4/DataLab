@@ -7,7 +7,7 @@
   >
     <ChartsView
       :labels="labels"
-      :chart-values="chartValues"
+      :chart-values="chartDatasets"
       :chart-type="chartType"
       :is-display-legend="!isSettings"
     />
@@ -18,14 +18,16 @@
 import {defaultDate} from '@/lib/utilities'
 
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
+import ChartsView from '@/components/charts/ChartsView'
 
 export default {
   name: 'SentimentForPeriodWidget',
-  components: {WidgetsLayout},
+  components: {ChartsView, WidgetsLayout},
   props: {
     widgetDetails: {type: Object, required: true},
     isSettings: {type: Boolean, default: false},
-    widgetData: {type: Array, required: true},
+    newChartType: {type: String, default: ''},
+    sentimentForPeriod: {type: Array, required: true},
   },
   computed: {
     widgetWrapper() {

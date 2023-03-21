@@ -39,9 +39,8 @@
         :i="item.i"
       >
         <MainWidget
-          v-if="item.isWidget"
           :widgetDetails="item.widgetDetails"
-          @delete-widget="deleteWidget(item.name)"
+          @delete-widget="deleteWidget(item.widgetDetails.name)"
           @open-settings-modal="openModal(item.widgetDetails)"
           @open-interactive-data="openInteractiveData"
           @open-sentiment-interactive="openSentimentInteractiveData"
@@ -109,7 +108,7 @@ export default {
                 x: 0,
                 y: this.getYAxisValue(index + 1),
                 w: 2,
-                h: this.widgetsConfig[widgetName].height,
+                h: widgetsConfig[widgetName].height,
                 i: index,
                 static: false,
 

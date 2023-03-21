@@ -119,31 +119,31 @@ export const widgetsConfig = {
   sentiment_top_10_sources_widget: {
     ...WIDGET_DEFAULT_SETTINGS,
     actionName: action.GET_SENTIMENT_TOP_SOURCES,
-    defaultChartType: 'SentimentBarChart',
+    defaultChartType: 'BarChart',
     availableTypes: SENTIMENTS_CHARTS,
   },
   sentiment_top_10_countries_widget: {
     ...WIDGET_DEFAULT_SETTINGS,
     actionName: action.GET_SENTIMENT_TOP_COUNTRIES,
-    defaultChartType: 'SentimentBarChart',
+    defaultChartType: 'BarChart',
     availableTypes: SENTIMENTS_CHARTS,
   },
   sentiment_top_10_authors_widget: {
     ...WIDGET_DEFAULT_SETTINGS,
     actionName: action.GET_SENTIMENT_TOP_AUTHORS,
-    defaultChartType: 'SentimentBarChart',
+    defaultChartType: 'BarChart',
     availableTypes: SENTIMENTS_CHARTS,
   },
   sentiment_top_10_languages_widget: {
     ...WIDGET_DEFAULT_SETTINGS,
     actionName: action.GET_SENTIMENT_TOP_LANGUAGES,
-    defaultChartType: 'SentimentBarChart',
+    defaultChartType: 'BarChart',
     availableTypes: SENTIMENTS_CHARTS,
   },
   sentiment_for_period_widget: {
     ...WIDGET_DEFAULT_SETTINGS,
     actionName: action.GET_SENTIMENT_FOR_PERIOD,
-    defaultChartType: 'SentimentBarChart',
+    defaultChartType: 'BarChart',
     availableTypes: SENTIMENTS_CHARTS,
   },
   content_volume_top_5_authors_widget: {
@@ -173,51 +173,91 @@ export const widgetsConfig = {
   },
 
   //social widgets
-  content_volume_widget: {
+  summary: {
     ...WIDGET_DEFAULT_SETTINGS,
-    actionName: action.GET_VOLUME_WIDGET,
+    actionName: action.GET_SUMMARY_WIDGET,
+    height: 7,
+    hasAggregationPeriod: false,
+    defaultChartType: null,
+    settingsTabs: ['General', 'Dimensions'],
+  },
+  clipping_feed_content: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    actionName: action.GET_CLIPPING_FEED_CONTENT_WIDGET,
+    hasAggregationPeriod: false,
+    defaultChartType: null,
+    settingsTabs: ['General'],
+  },
+  content_volume: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    actionName: action.GET_CONTENT_VOLUME_WIDGET,
     isChartShow: true,
     defaultChartType: 'LineChart',
     availableTypes: SIMPLE_CHARTS,
   },
-  top_locations_widget: {
+  top_locations: {
     ...WIDGET_DEFAULT_SETTINGS,
-    actionName: '',
+    actionName: action.GET_TOP_LOCATIONS_WIDGET,
     hasAggregationPeriod: false,
     defaultChartType: 'HorizontalBarChart',
     availableTypes: SIMPLE_CHARTS,
   },
-  top_languages_widget: {
+  top_languages: {
     ...WIDGET_DEFAULT_SETTINGS,
-    actionName: '',
+    actionName: action.GET_TOP_LANGUAGES_WIDGET,
     hasAggregationPeriod: false,
     defaultChartType: 'PieChart',
     availableTypes: SIMPLE_CHARTS,
   },
-  top_authors_widget: {
+  top_authors: {
     ...WIDGET_DEFAULT_SETTINGS,
-    actionName: '',
+    actionName: action.GET_TOP_AUTHORS_WIDGET,
     hasAggregationPeriod: false,
     defaultChartType: 'PieChart',
     availableTypes: SIMPLE_CHARTS,
   },
-  content_volume_by_top_locations_widget: {
+  content_volume_by_top_locations: {
     ...WIDGET_DEFAULT_SETTINGS,
-    actionName: '',
+    actionName: action.GET_CONTENT_VOLUME_TOP_LOCATIONS,
     defaultChartType: 'MultiLineChart',
     availableTypes: MULTI_CHARTS,
   },
-  content_volume_by_top_authors_widget: {
+  content_volume_by_top_authors: {
     ...WIDGET_DEFAULT_SETTINGS,
-    actionName: '',
+    actionName: action.GET_CONTENT_VOLUME_TOP_AUTHORS,
     defaultChartType: 'MultiLineChart',
     availableTypes: MULTI_CHARTS,
   },
-  content_volume_by_top_languages_widget: {
+  content_volume_by_top_languages: {
     ...WIDGET_DEFAULT_SETTINGS,
-    actionName: '',
+    actionName: action.GET_CONTENT_VOLUME_TOP_LANGUAGES,
     defaultChartType: 'MultiLineChart',
     availableTypes: MULTI_CHARTS,
+  },
+  // Sentiment
+  sentiment_locations: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    actionName: action.GET_SENTIMENT_TOP_LOCATIONS,
+    defaultChartType: 'BarChart',
+    availableTypes: SENTIMENTS_CHARTS,
+  },
+  sentiment_authors: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    actionName: action.GET_SENTIMENT_TOP_AUTHORS,
+    defaultChartType: 'BarChart',
+    availableTypes: SENTIMENTS_CHARTS,
+  },
+  sentiment_languages: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    actionName: action.GET_SENTIMENT_TOP_LANGUAGES,
+    defaultChartType: 'BarChart',
+    availableTypes: SENTIMENTS_CHARTS,
+  },
+  sentiment: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    actionName: action.GET_SENTIMENT_FOR_PERIOD,
+    defaultChartType: 'BarChart',
+    availableTypes: SENTIMENTS_CHARTS,
   },
 }
 

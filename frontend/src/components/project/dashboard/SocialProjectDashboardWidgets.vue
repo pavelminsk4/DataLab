@@ -31,7 +31,7 @@
     >
       <MainWidget
         :widgetDetails="item.widgetDetails"
-        @delete-widget="deleteWidget(item.name)"
+        @delete-widget="deleteWidget(item.widgetDetails.name)"
         @open-settings-modal="openModal(item.widgetDetails)"
         @open-interactive-data="openInteractiveData"
         @open-sentiment-interactive="openSentimentInteractiveData"
@@ -94,10 +94,8 @@ export default {
         return Object.keys(this.availableWidgets)
           .map((widgetName, index) => {
             if (this.availableWidgets[widgetName].is_active) {
-              const configWidgetName = `${widgetName}_widget`
-
-              widgetsConfig.clipping_feed_content_widget.height = this
-                .clippingData.length
+              widgetsConfig.clipping_feed_content.height = this.clippingData
+                .length
                 ? 13
                 : 3.8
 
@@ -105,12 +103,12 @@ export default {
                 x: 0,
                 y: this.getYAxisValue(index + 1),
                 w: 2,
-                h: widgetsConfig[configWidgetName].height,
+                h: widgetsConfig[widgetName].height,
                 i: index,
                 static: false,
 
                 widgetDetails: getWidgetDetails(
-                  configWidgetName,
+                  widgetName,
                   this.availableWidgets[widgetName],
                   this.projectId
                 ),

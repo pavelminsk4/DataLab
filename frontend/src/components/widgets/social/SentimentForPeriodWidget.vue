@@ -8,21 +8,25 @@
 
 <script>
 import {action, get} from '@store/constants'
-import {mapActions, mapGetters} from 'vuex'
-import {defaultDate} from '@/lib/utilities'
+import {createNamespacedHelpers} from 'vuex'
 
 import SentimentForPeriodWidget from '@/components/widgets/SentimentForPeriodWidget'
 
+const {mapActions, mapGetters} = createNamespacedHelpers('social/widgets')
+
 export default {
-  name: 'OnlineSentimentForPeriodWidget',
+  name: 'SocialSentimentForPeriodWidget',
   components: {SentimentForPeriodWidget},
   props: {
     widgetDetails: {type: Object, required: true},
   },
   computed: {
     ...mapGetters({
-      sentimentForPeriod: get.SENTIMENT_FOR_PERIOD,
+      socialWidgets: get.SOCIAL_WIDGETS,
     }),
+    sentimentForPeriod() {
+      return this.socialWidgets.sentimentForPeriod
+    },
   },
   created() {
     if (!this.sentimentForPeriod.length) {
@@ -41,7 +45,6 @@ export default {
     }
   },
   methods: {
-    defaultDate,
     ...mapActions([action.GET_SENTIMENT_FOR_PERIOD]),
   },
 }

@@ -9,6 +9,7 @@
 <script>
 import {action, get} from '@store/constants'
 import {mapActions, mapGetters} from 'vuex'
+import {isAllEmptyFields} from '@lib/utilities'
 
 import SentimentWidget from '@/components/widgets/SentimentWidget'
 
@@ -24,7 +25,7 @@ export default {
     }),
   },
   created() {
-    if (!this.sentimentTopCountries.length) {
+    if (isAllEmptyFields(this.sentimentTopCountries)) {
       this[action.GET_SENTIMENT_TOP_COUNTRIES]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,
