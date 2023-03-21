@@ -27,6 +27,7 @@ export default {
     newChartType: {type: String, default: ''},
     isSettings: {type: Boolean, default: false},
     sentimentWidgetData: {type: Object, required: true, default: () => {}},
+    isSocial: {type: Boolean, default: false},
   },
   computed: {
     chartType() {
@@ -46,7 +47,8 @@ export default {
 
       Object.values(this.sentimentWidgetData).forEach((sentiment) => {
         Object.values(sentiment).filter((data) => {
-          switch (data.sentiment) {
+          const currentSentiment = data?.sentiment || data.sentiment_vote
+          switch (currentSentiment) {
             case 'neutral':
               return neutral.push(data.sentiment_count)
             case 'positive':

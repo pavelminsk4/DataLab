@@ -7,7 +7,7 @@
   >
     <ChartsView
       :labels="labels"
-      :chart-values="chartDatasets"
+      :chart-values="chartValues"
       :chart-type="chartType"
       :is-display-legend="!isSettings"
     />
@@ -51,79 +51,24 @@ export default {
 
       return labelsCollection.map((el) => this.defaultDate(el))
     },
-    sentiments() {
+    chartValues() {
       let neutral = []
       let positive = []
       let negative = []
 
-      this.sentimentForPeriod.forEach((el) => {
-        Object.values(el).forEach((i) => {
-          neutral.push(i.neutral)
-          positive.push(i.positive)
-          negative.push(i.negative)
+      this.sentimentForPeriod.forEach((sentiment) => {
+        Object.values(sentiment).forEach((data) => {
+          neutral.push(data.neutral)
+          positive.push(data.positive)
+          negative.push(data.negative)
         })
       })
 
-      return {
-        neutral: [...neutral],
-        positive: [...positive],
-        negative: [...negative],
-      }
-    },
-    isLineChart() {
-      return this.labels?.length > 7
-    },
-    chartDatasets() {
       return [
-        {
-          borderColor: '#F6AA37',
-          pointStyle: 'circle',
-          pointRadius: 3,
-          pointBackgroundColor: '#F6AA37',
-          pointBorderWidth: 1,
-          pointBorderColor: '#FFFFFF',
-          borderWidth: 1,
-          radius: 0.3,
-          fill: true,
-          tension: 0.3,
-          data: this.sentiments.neutral,
-          skipNull: true,
-        },
-        {
-          borderColor: '#30F47E',
-          pointStyle: 'circle',
-          pointRadius: 3,
-          pointBackgroundColor: '#30F47E',
-          pointBorderWidth: 1,
-          pointBorderColor: '#FFFFFF',
-          borderWidth: 1,
-          radius: 0.3,
-          fill: true,
-          tension: 0.3,
-          data: this.sentiments.positive,
-          skipNull: true,
-        },
-        {
-          borderColor: '#F94747',
-          pointStyle: 'circle',
-          pointRadius: 3,
-          pointBackgroundColor: '#F94747',
-          pointBorderWidth: 1,
-          pointBorderColor: '#FFFFFF',
-          borderWidth: 1,
-          radius: 0.3,
-          fill: true,
-          tension: 0.3,
-          data: this.sentiments.negative,
-          skipNull: true,
-        },
+        {label: 'Neutral', color: '#516BEE', data: neutral},
+        {label: 'Positive', color: '#00B884', data: positive},
+        {label: 'Negative', color: '#ED2549', data: negative},
       ]
-    },
-    chartData() {
-      return {
-        labels: this.labels,
-        datasets: this.chartDatasets,
-      }
     },
   },
   methods: {
