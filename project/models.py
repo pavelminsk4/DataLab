@@ -6,6 +6,8 @@ from reports.models import Templates
 from django.core.exceptions import ValidationError
 from django.dispatch import receiver
 from django.db.models.signals import post_save, pre_delete
+from ndarraydjango.fields import NDArrayField
+import numpy as np
 
 class Workspace(models.Model):
   title = models.CharField(max_length=100)
@@ -252,6 +254,7 @@ class Post(models.Model):
   usersentiment = models.DecimalField(max_digits=4, decimal_places=2,default=0)
   updatedsentiment = models.DecimalField(max_digits=4, decimal_places=2,default=0)
   is_sentiment = models.BooleanField(default=False)
+  summary_vector = ArrayField(NDArrayField(shape=(384), dtype=np.float32), blank=True)
 
   class Meta:
     indexes = [

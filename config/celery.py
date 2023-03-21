@@ -29,4 +29,9 @@ app.conf.beat_schedule = {
     'schedule': crontab(hour='*', minute='*', day_of_week='*'),
     'args': (),
   },
+  'calculate-summary-vector': {
+    'task': 'ml_components.tasks.calculate_summary_vector',
+    'schedule': crontab(hour=15, minute=20, day_of_week='*'),
+    'args': (),
+  },
 }

@@ -11,8 +11,8 @@ class SentimentNumberOfResultsTests(APITestCase):
     user = User.objects.create(username='Arturo')
     flink1 = Feedlinks.objects.create(country = 'England', source1='Time')
     sp1 = Speech.objects.create(language='English')
-    Post.objects.create(feedlink=flink1, entry_title='First post title', feed_language=sp1, entry_published=datetime(2021, 9, 3, 6, 37), entry_author='AFP', sentiment='neutral')
-    Post.objects.create(feedlink=flink1, entry_title='Second post title', feed_language=sp1, entry_published=datetime(2022, 9, 3, 6, 37), entry_author='AFP', sentiment='positive')
+    Post.objects.create(feedlink=flink1, entry_title='First post title', feed_language=sp1, entry_published=datetime(2021, 9, 3, 6, 37), entry_author='AFP', sentiment='neutral', summary_vector=[])
+    Post.objects.create(feedlink=flink1, entry_title='Second post title', feed_language=sp1, entry_published=datetime(2022, 9, 3, 6, 37), entry_author='AFP', sentiment='positive', summary_vector=[])
     Project.objects.create(title='Project1', keywords=['post'], additional_keywords=[], ignore_keywords=[], start_search_date=datetime(2020, 10, 10),
                             end_search_date=datetime(2023, 10, 16), creator=user, language_dimensions=[], country_dimensions=[],
                             source_dimensions=[], author_dimensions=[], sentiment_dimensions = [])  

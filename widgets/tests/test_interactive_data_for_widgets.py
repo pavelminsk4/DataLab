@@ -12,8 +12,8 @@ class InteractiveWidgetsTests(APITestCase):
     flink1 = Feedlinks.objects.create(country = 'England', source1='Time')
     sp1 = Speech.objects.create(language='English')
     sp2 = Speech.objects.create(language='Georgian')
-    Post.objects.create(feedlink=flink1, entry_title='First post title', feed_language=sp1, entry_published=datetime(2021, 9, 3, 6, 37), entry_author='AFP', sentiment='neutral')
-    Post.objects.create(feedlink=flink1, entry_title='Second post title', feed_language=sp2, entry_published=datetime(2022, 9, 3, 6, 37), entry_author='AFP', sentiment='neutral')
+    Post.objects.create(feedlink=flink1, entry_title='First post title', feed_language=sp1, entry_published=datetime(2021, 9, 3, 6, 37), entry_author='AFP', sentiment='neutral', summary_vector=[])
+    Post.objects.create(feedlink=flink1, entry_title='Second post title', feed_language=sp2, entry_published=datetime(2022, 9, 3, 6, 37), entry_author='AFP', sentiment='neutral', summary_vector=[])
     Project.objects.create(title='Project1', keywords=['post'], additional_keywords=[], ignore_keywords=[], start_search_date=datetime(2020, 10, 10),
                             end_search_date=datetime(2023, 10, 16), creator=user, language_dimensions=['English', 'Georgian'], country_dimensions=['England', 'USA'], 
                             source_dimensions=['Time', 'BBC'], author_dimensions=['AFP'], sentiment_dimensions = ['negative', 'neutral', 'positive'])
@@ -36,7 +36,7 @@ class InteractiveWidgetsTests(APITestCase):
     flink1 = Feedlinks.objects.first()
     sp2 = Speech.objects.get(language='Georgian')
     pr = Project.objects.first()
-    post3 = Post.objects.create(feedlink=flink1, entry_title='3 post title', feed_language=sp2, entry_published=datetime(2022, 9, 3, 6, 37), entry_author='AFP', sentiment='negative')
+    post3 = Post.objects.create(feedlink=flink1, entry_title='3 post title', feed_language=sp2, entry_published=datetime(2022, 9, 3, 6, 37), entry_author='AFP', sentiment='negative', summary_vector=[])
     widget_pk = pr.widgets_list_2.sentiment_top_10_languages_widget_id
     url = reverse('widgets:interactive_widgets', kwargs={'project_pk':pr.pk, 'widget_pk':widget_pk})
     data = {

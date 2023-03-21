@@ -156,7 +156,7 @@ def search(request):
   elif sort_posts == 'country':
     posts = posts.order_by('feedlink__country')
   elif sort_posts == 'language':
-    posts = posts.order_by('feed_language__language')   
+    posts = posts.order_by('feed_language__language')
   posts = posts.values(
     'id',
     'entry_title',
