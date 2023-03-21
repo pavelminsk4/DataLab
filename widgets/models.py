@@ -55,7 +55,9 @@ class WidgetsList2(models.Model):
   content_volume_top_5_countries_widget = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='content_volume_top_5_countries_widget', null=True)
   top_keywords = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='top_keywords', null=True)
   sentiment_top_keywords = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='sentiment_top_keywords', null=True)
-  
+  sentiment_number_of_results = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='sentiment_number_of_results', null=True)
+  sentiment_diagram = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='sentiment_diagram', null=True)
+
   def __str__(self):
     return str(self.project)
 
@@ -147,6 +149,11 @@ def create_widget_description(sender, instance, created, **kwargs):
     wd16.save()
     wd17 = WidgetDescription.objects.create(title='Sentiment top keywords', default_title='Sentiment top keywords')
     wd17.save()
+    wd18 = WidgetDescription.objects.create(title='Sentiment number of results', default_title='Sentiment number of results')
+    wd18.save()
+    wd19 = WidgetDescription.objects.create(title='Sentiment diagram', default_title='Sentiment diagram')
+    wd19.save()
+
     instance.summary_widget = wd1
     instance.volume_widget = wd2
     instance.clipping_feed_content_widget = wd3
@@ -164,6 +171,8 @@ def create_widget_description(sender, instance, created, **kwargs):
     instance.content_volume_top_5_countries_widget = wd15
     instance.top_keywords = wd16
     instance.sentiment_top_keywords = wd17
+    instance.sentiment_number_of_results = wd18
+    instance.sentiment_diagram = wd19
     instance.save()
 
 class ClippingFeedContentWidget(models.Model):

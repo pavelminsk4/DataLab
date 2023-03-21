@@ -174,7 +174,7 @@ def create_social_widget_description(sender, instance, created, **kwargs):
 
 class SocialClippingWidget(models.Model):
   project = models.ForeignKey(ProjectSocial,on_delete=models.CASCADE)
-  post = models.ForeignKey(TweetBinderPost,on_delete=models.CASCADE)
+  post = models.ForeignKey(TweetBinderPost,on_delete=models.CASCADE, related_name='social_posts')
 
   class Meta:
     constraints = [

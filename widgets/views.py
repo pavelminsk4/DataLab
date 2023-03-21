@@ -1,4 +1,3 @@
-from functools import reduce
 from .common_widget.summary_widget import summary_widget
 from .common_widget.volume_widget import volume
 from .common_widget.clipping_feed_content_widget import cl_fd_cont_widg
@@ -16,6 +15,7 @@ from .common_widget.content_volume_top_5_countries_widget import content_volume_
 from .common_widget.sentiment_for_period_widget import sentiment_for_period
 from .summary.top_keywords import top_keywords
 from .sentiment.sentiment_top_keywords import sentiment_top_keywords
+from .sentiment.sentiment_number_of_results import number_of_results
 from .common_widget.dimensions_for_widgets import dimensions_for_each
 from .common_widget.interactive_widgets import interactive_widgets
 
@@ -53,6 +53,10 @@ def top_keywords_widget(request, pk, widget_pk):
   return top_keywords(pk, widget_pk)
 def sentiment_top_keywords_widget(request, pk, widget_pk):
   return sentiment_top_keywords(pk, widget_pk)
+def sentiment_number_of_results(request, pk, widget_pk):
+  return number_of_results(pk, widget_pk)
+def sentiment_diagram(request, pk, widget_pk):
+  return number_of_results(pk, widget_pk)
 def dimensions_for_each_widgets(request, project_pk, widget_pk):
   return dimensions_for_each(request, widget_pk)
 def interactive_data_for_widgets(request, project_pk, widget_pk):

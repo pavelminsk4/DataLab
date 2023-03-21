@@ -24,7 +24,7 @@ class TopKeywordsTests(APITestCase):
     widget_pk = pr.widgets_list_2.top_keywords_id
     url = reverse('widgets:top_keywords', kwargs={'pk':pr.pk, 'widget_pk':widget_pk})
     response = self.client.get(url)
-    self.assertEqual(response.status_code, status.HTTP_200_OK)   
+    self.assertEqual(response.status_code, status.HTTP_200_OK)
     res = [
             {'key': 'keyword', 'value': 1.0},
             {'key': 'text', 'value': 0.5},
@@ -36,7 +36,7 @@ class TopKeywordsTests(APITestCase):
     widget_pk = pr.widgets_list_2.sentiment_top_keywords_id
     url = reverse('widgets:sentiment_top_keywords', kwargs={'pk':pr.pk, 'widget_pk':widget_pk})
     response = self.client.get(url)
-    self.assertEqual(response.status_code, status.HTTP_200_OK)   
+    self.assertEqual(response.status_code, status.HTTP_200_OK)
     res = {'negative': [],
            'neutral': [{'key': 'keyword', 'value': 1.0}, {'key': 'text', 'value': 0.5}],
            'positive': []}
