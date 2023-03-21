@@ -96,6 +96,8 @@ class WidgetsListSerializer(WritableNestedModelSerializer):
   clipping_feed_content_widget = WidgetDescriptionSerializer()
   top_keywords = WidgetDescriptionSerializer()
   sentiment_top_keywords = WidgetDescriptionSerializer()
+  sentiment_number_of_results = WidgetDescriptionSerializer()
+  sentiment_diagram = WidgetDescriptionSerializer()
 
   class Meta:
     model = WidgetsList2
@@ -117,6 +119,8 @@ class WidgetsListSerializer(WritableNestedModelSerializer):
       'clipping_feed_content_widget',
       'top_keywords',
       'sentiment_top_keywords',
+      'sentiment_number_of_results',
+      'sentiment_diagram',
     ]
 
 class ClippingFeedContentWidgetListSerializer(serializers.ListSerializer):
