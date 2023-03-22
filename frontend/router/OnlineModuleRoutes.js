@@ -14,7 +14,8 @@ import SearchResults from '@/components/SearchResults'
 
 import SearchScreen from '@/components/project/screens/SearchScreen'
 import AnalyticsScreen from '@/components/project/screens/AnalyticsScreen'
-import OnlineSummaryView from '@/views/OnlineSummaryView'
+import OnlineFeaturesView from '@/views/online/OnlineFeaturesView'
+import OnlineSummaryScreen from '@/components/project/screens/OnlineSummaryScreen'
 
 export default [
   {
@@ -133,9 +134,16 @@ export default [
             component: SearchScreen,
           },
           {
-            name: 'OnlineSummary',
-            path: 'summary',
-            component: OnlineSummaryView,
+            name: 'OnlineFeature',
+            path: 'feature',
+            component: OnlineFeaturesView,
+            children: [
+              {
+                name: 'OnlineSummary',
+                path: 'summary',
+                component: OnlineSummaryScreen,
+              },
+            ],
           },
         ],
       },

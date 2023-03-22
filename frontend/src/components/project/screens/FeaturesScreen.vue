@@ -15,33 +15,25 @@
         <ReportsUploadIcon /> Download Report
       </BaseButton>
     </div>
-
-    <WidgetsList
-      v-if="selectedWidgets"
-      :current-project="currentProject"
-      :selected-widgets="selectedWidgets"
-    />
+    <router-view :current-project="currentProject"></router-view>
   </div>
 </template>
 
 <script>
 import MainLayoutTitleBlock from '@/components/layout/MainLayoutTitleBlock.vue'
 import BaseButton from '@/components/common/BaseButton'
-import WidgetsList from '@/components/widgets/WidgetsList'
 import ReportsUploadIcon from '@/components/icons/ReportsUploadIcon'
 
 export default {
-  name: 'SummaryScreen',
+  name: 'FeaturesScreen',
   components: {
     MainLayoutTitleBlock,
     BaseButton,
-    WidgetsList,
     ReportsUploadIcon,
   },
   props: {
     currentProject: {type: [Array, Object], required: false},
     numberOfPosts: {type: Number, required: true},
-    selectedWidgets: {type: Array, required: true},
   },
 }
 </script>
