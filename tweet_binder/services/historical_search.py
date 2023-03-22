@@ -2,10 +2,18 @@ from datetime import datetime
 import requests
 import json
 
-def historical_search(keyword, limit, start_date, end_date, auth_token, historical_search_url):
+def historical_search(keyword, keyword_and, keyword_or, keyword_nor, limit, start_date, end_date, auth_token, historical_search_url):
+    keywords_and = ["-RT", keyword]
+    [keywords_and.append(key) for key in keyword_and]
+    keywords_or = ["-RT"]
+    [keywords_or.append(key) for key in keyword_or]
+    keywords_nor = []
+    [keywords_nor.append(key) for key in keyword_nor]
     payload = json.dumps({
     "query": {
-        "must": [keyword, "-RT"],
+        "must": keywords_and,
+        "or": keywords_or,
+        "nor": keywords_nor,
         "limit": limit,
         "startDate": int(datetime.timestamp(start_date)),
         "endDate": int(datetime.timestamp(end_date)),    
