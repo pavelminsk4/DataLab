@@ -7,12 +7,12 @@ from django.db.models import Count
 
 def post_agregator_sentiment_top_locations(posts, aggregation_period, top_counts):
   top_locations = posts.values('locationString').annotate(language_count=Count('locationString')).order_by('-language_count').values_list('locationString', flat=True)[:top_counts]
-  results = {location: list(posts.filter(locationString=location).annotate(date=Trunc('creation_date', aggregation_period)).values('sentiment_vote').annotate(sentiment_count=Count('sentiment_vote')).order_by('-sentiment_count')) for location in top_locations}
+  results = {location: list(posts.filter(locationString=location).annotate(date_trunc=Trunc('date', aggregation_period)).values('sentiment').annotate(sentiment_count=Count('sentiment')).order_by('-sentiment_count')) for location in top_locations}
   for i in range(len(results)):
    sentiments = ['negative', 'neutral', 'positive']
    for j in range(len(results[top_locations[i]])):
      for sen in sentiments:
-       if sen in results[top_locations[i]][j].get('sentiment_vote'):
+       if sen in results[top_locations[i]][j].get('sentiment'):
          sentiments.remove(sen)
    for sen in sentiments:
      results[top_locations[i]].append({'sentiment_count': 0, 'sentiment': sen})

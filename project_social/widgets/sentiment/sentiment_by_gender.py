@@ -7,12 +7,12 @@ from django.db.models import Count
 
 def post_agregator_sentiment_by_gender(posts, aggregation_period):
   user_gender = posts.values('user_gender').annotate(user_count=Count('user_gender')).order_by('-user_count').values_list('user_gender', flat=True)
-  results = {user: list(posts.filter(user_gender=user).annotate(date=Trunc('creation_date', aggregation_period)).values('sentiment_vote').annotate(sentiment_count=Count('sentiment_vote')).order_by('-sentiment_count')) for user in user_gender}
+  results = {user: list(posts.filter(user_gender=user).annotate(date_trunk=Trunc('date', aggregation_period)).values('sentiment').annotate(sentiment_count=Count('sentiment')).order_by('-sentiment_count')) for user in user_gender}
   for i in range(len(results)):
    sentiments = ['negative', 'neutral', 'positive']
    for j in range(len(results[user_gender[i]])):
      for sen in sentiments:
-       if sen in results[user_gender[i]][j].get('sentiment_vote'):
+       if sen in results[user_gender[i]][j].get('sentiment'):
          sentiments.remove(sen)
    for sen in sentiments:
      results[user_gender[i]].append({'sentiment_count': 0, 'sentiment': sen})

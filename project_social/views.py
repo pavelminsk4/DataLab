@@ -76,7 +76,7 @@ def additional_keywords_posts(posts, additions):
 
 def data_range_posts(start_date, end_date):
   interval = [start_date, end_date]
-  posts = TweetBinderPost.objects.filter(creation_date__range=interval)
+  posts = TweetBinderPost.objects.filter(date__range=interval)
   return posts
 
 def twitter_posts_search(request):
@@ -112,7 +112,7 @@ def twitter_posts_search(request):
   if author:
     posts = posts.filter(user_name=author)
   if sentiment:
-    posts = posts.filter(sentiment_vote=sentiment)
+    posts = posts.filter(sentiment=sentiment)
   if country_dimensions:
     posts = posts.filter(reduce(lambda x,y: x | y, [Q(locationString=country) for country in country_dimensions]))
   if language_dimensions:
@@ -122,15 +122,15 @@ def twitter_posts_search(request):
   if author_dimensions:
     posts = posts.filter(reduce(lambda x,y: x | y, [Q(user_name=author) for author in author_dimensions]))
   if sentiment_dimensions:
-    posts = posts.filter(reduce(lambda x,y: x | y, [Q(sentiment_vote=sentiment) for sentiment in sentiment_dimensions]))    
+    posts = posts.filter(reduce(lambda x,y: x | y, [Q(sentiment=sentiment) for sentiment in sentiment_dimensions]))    
   posts = posts.values(
     'id',
     'post_id',
     'user_name',
     'user_alias',
     'text',
-    'sentiment_vote',
-    'creation_date',
+    'sentiment',
+    'date',
     'locationString',
     'language',
     'count_favorites',

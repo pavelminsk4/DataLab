@@ -6,7 +6,7 @@ from django.http import JsonResponse
 from django.db.models import Count
 
 def post_agregator_top_languages(posts, aggregation_period, top_counts):
-  results = list(posts.annotate(date=Trunc('creation_date', aggregation_period)).values('language').annotate(language_count=Count('language')).order_by('-language_count')[:top_counts])
+  results = list(posts.annotate(date_trunc=Trunc('date', aggregation_period)).values('language').annotate(language_count=Count('language')).order_by('-language_count')[:top_counts])
   for res in results:
     if not res['language']:
       results.remove(res)

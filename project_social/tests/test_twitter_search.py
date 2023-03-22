@@ -33,8 +33,8 @@ class SearchTwitterPostsTests(APITestCase):
     'user_name': '11111111',
     'user_alias': '11111111',
     'text': 'first 11111111',
-    'sentiment_vote': 'positive',
-    'creation_date': '2022-09-02T06:44:00Z',
+    'sentiment': 'positive',
+    'date': '2022-09-02T06:44:00Z',
     'locationString': 'USA',
     'language': 'En',
     'count_favorites': 1,
@@ -49,8 +49,8 @@ class SearchTwitterPostsTests(APITestCase):
     'user_name':'11111111',
     'user_alias':'11111111',
     'text':'second 11111111',
-    'sentiment_vote':'positive',
-    'creation_date': '2022-09-02T06:44:00Z',
+    'sentiment':'positive',
+    'date': '2022-09-02T06:44:00Z',
     'locationString':'USA',
     'language':'Ru',
     'count_favorites':1,
@@ -65,8 +65,8 @@ class SearchTwitterPostsTests(APITestCase):
     'user_name':'11111111',
     'user_alias':'11111111',
     'text':'third 11111111',
-    'sentiment_vote':'neutral',
-    'creation_date': '2023-09-02T06:44:00Z',
+    'sentiment':'neutral',
+    'date': '2023-09-02T06:44:00Z',
     'locationString':'Canada',
     'language':'En',
     'count_favorites':1,
@@ -81,8 +81,8 @@ class SearchTwitterPostsTests(APITestCase):
     'user_name':'41111111',
     'user_alias':'41111111',
     'text':'4',
-    'sentiment_vote':'negative',
-    'creation_date': '2022-09-02T06:44:00Z',
+    'sentiment':'negative',
+    'date': '2022-09-02T06:44:00Z',
     'locationString':'USA',
     'language':'Arabic',
     'count_favorites':1,
@@ -92,14 +92,14 @@ class SearchTwitterPostsTests(APITestCase):
     'images':None
     }
   def db_seeder(self):
-    TweetBinderPost.objects.create(id=1, post_id=11111111, user_name='11111111', user_alias='11111111', text='first 11111111', sentiment_vote='positive',
-                                   creation_date='2022-09-02T06:44:00.00Z', locationString='USA',language='En', count_favorites=1, count_retweets=1, count_replies=2, user_picture=None, images=None)
-    TweetBinderPost.objects.create(id=2, post_id=21111111, user_name='11111111', user_alias='11111111', text='second 11111111', sentiment_vote='positive', 
-                                   creation_date='2022-09-02T06:44:00.000Z', locationString='USA', language='Ru', count_favorites=1, count_retweets=1, count_replies=2, user_picture=None, images=None)
-    TweetBinderPost.objects.create(id=3, post_id=31111111, user_name='11111111', user_alias='11111111', text='third 11111111', sentiment_vote='neutral', 
-                                   creation_date='2023-09-02T06:44:00.000Z', locationString='Canada', language='En', count_favorites=1, count_retweets=1, count_replies=2, user_picture=None, images=None)
-    TweetBinderPost.objects.create(id=4, post_id=41111111, user_name='41111111', user_alias='41111111', text='4', sentiment_vote='negative',
-                                   creation_date='2022-09-02T06:44:00.000Z', locationString='USA', language='Arabic', count_favorites=1, count_retweets=1, count_replies=2, user_picture=None, images=None)
+    TweetBinderPost.objects.create(id=1, post_id=11111111, user_name='11111111', user_alias='11111111', text='first 11111111', sentiment='positive',
+                                   date='2022-09-02T06:44:00.00Z', locationString='USA',language='En', count_favorites=1, count_retweets=1, count_replies=2, user_picture=None, images=None, creation_date='2022-09-02T06:44:00.00Z')
+    TweetBinderPost.objects.create(id=2, post_id=21111111, user_name='11111111', user_alias='11111111', text='second 11111111', sentiment='positive', 
+                                   date='2022-09-02T06:44:00.000Z', locationString='USA', language='Ru', count_favorites=1, count_retweets=1, count_replies=2, user_picture=None, images=None, creation_date='2022-09-02T06:44:00.00Z')
+    TweetBinderPost.objects.create(id=3, post_id=31111111, user_name='11111111', user_alias='11111111', text='third 11111111', sentiment='neutral', 
+                                   date='2023-09-02T06:44:00.000Z', locationString='Canada', language='En', count_favorites=1, count_retweets=1, count_replies=2, user_picture=None, images=None, creation_date='2022-09-02T06:44:00.00Z')
+    TweetBinderPost.objects.create(id=4, post_id=41111111, user_name='41111111', user_alias='41111111', text='4', sentiment='negative',
+                                   date='2022-09-02T06:44:00.000Z', locationString='USA', language='Arabic', count_favorites=1, count_retweets=1, count_replies=2, user_picture=None, images=None, creation_date='2022-09-02T06:44:00.00Z')
 
   def test_search_with_keywords(self):
     self.db_seeder()

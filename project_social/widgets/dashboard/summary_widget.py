@@ -10,8 +10,8 @@ def calculate_summary_widget(posts):
   authors_quantity = posts.values('user_name').distinct().count()
   countries_quantity = posts.values('locationString').distinct().count()
   languages_quantity = posts.values('language').distinct().count()
-  pos_posts = posts.filter(sentiment_vote='positive').count()
-  neg_posts = posts.filter(sentiment_vote='negative').count()
+  pos_posts = posts.filter(sentiment='positive').count()
+  neg_posts = posts.filter(sentiment='negative').count()
   neut_posts = posts_quantity - pos_posts - neg_posts
   likes_quantity = reduce(lambda x, y: x + y, [x['count_favorites'] for x in posts.values('count_favorites')], 0)
   replies_quantity = reduce(lambda x, y: x + y, [x['count_replies'] for x in posts.values('count_replies')], 0)

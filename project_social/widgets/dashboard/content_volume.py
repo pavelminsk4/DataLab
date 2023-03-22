@@ -6,8 +6,8 @@ from django.http import JsonResponse
 from django.db.models import Count
 
 def post_agregator_volume(posts, aggregation_period):
-  posts = posts.annotate(date=Trunc('creation_date', aggregation_period)).values("creation_date").annotate(created_count=Count('id')).order_by("creation_date")
-  return list(posts)
+  posts = posts.annotate(date_trunc=Trunc('date', aggregation_period)).values("date_trunc").annotate(created_count=Count('id')).order_by("date")
+  return list([{'date':p['date_trunc'], 'created_count':p['created_count']} for p in posts])
 
 def content_volume(pk, widget_pk):
   project = ProjectSocial.objects.get(id=pk)

@@ -6,7 +6,7 @@ from django.http import JsonResponse
 from django.db.models import Count
 
 def post_agregator_top_locations(posts, aggregation_period, top_counts):
-  results = list(posts.annotate(date=Trunc('creation_date', aggregation_period)).values('locationString').annotate(locations_count=Count('locationString')).order_by('-locations_count')[:top_counts])
+  results = list(posts.annotate(date_trunc=Trunc('date', aggregation_period)).values('locationString').annotate(locations_count=Count('locationString')).order_by('-locations_count')[:top_counts])
   for res in results:
     if not res['locationString']:
       results.remove(res)
