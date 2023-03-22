@@ -1,6 +1,6 @@
 <template>
-  <div class="summary">
-    <div class="summary__header">
+  <div class="features">
+    <div class="features__header">
       <MainLayoutTitleBlock
         :title="currentProject.title"
         :description="currentProject.note"
@@ -39,12 +39,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.summary {
+.features {
   display: flex;
   flex-direction: column;
   gap: 30px;
+
+  padding-bottom: 20px;
 }
-.summary__header {
+.features__header {
   display: flex;
   justify-content: space-between;
 

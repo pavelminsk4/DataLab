@@ -6,7 +6,7 @@
       :static="item.static"
       :class="[
         'widgets__item',
-        item.name === 'top_10_countries_widget' && 'grow',
+        item.widgetDetails.name === 'top_10_countries_widget' && 'grow',
       ]"
     >
       <MainWidget :widgetDetails="item.widgetDetails" />
