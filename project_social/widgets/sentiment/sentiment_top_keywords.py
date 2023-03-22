@@ -8,9 +8,9 @@ import itertools
 
 def post_agg_sentiment_top_keywords(posts):
   return { 
-          'negative': get_keywords(posts.filter(sentiment_vote='negative')),
-          'neutral':  get_keywords(posts.filter(sentiment_vote='neutral')),
-          'positive': get_keywords(posts.filter(sentiment_vote='positive')),
+          'negative': get_keywords(posts.filter(sentiment='negative')),
+          'neutral':  get_keywords(posts.filter(sentiment='neutral')),
+          'positive': get_keywords(posts.filter(sentiment='positive')),
          }
 
 

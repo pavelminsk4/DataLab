@@ -24,7 +24,7 @@ def additional_keywords_posts(posts, additions):
 
 def data_range_posts(start_date, end_date):
   interval = [start_date, end_date]
-  posts = TweetBinderPost.objects.filter(creation_date__range=interval)
+  posts = TweetBinderPost.objects.filter(date__range=interval)
   return posts
 
 def source_filter_posts(sources, posts):
@@ -44,7 +44,7 @@ def author_filter_posts(authors, posts):
   return posts
 
 def sentiment_filter_posts(sentiments, posts):
-  posts = posts.filter(reduce(lambda x,y: x | y, [Q(sentiment_vote=sentiment) for sentiment in sentiments]))
+  posts = posts.filter(reduce(lambda x,y: x | y, [Q(sentiment=sentiment) for sentiment in sentiments]))
   return posts
 
 def author_dimensions_posts(authors, posts):
@@ -64,7 +64,7 @@ def source_dimensions_posts(sources, posts):
   return posts
 
 def sentiment_dimensions_posts(sentiments, posts):
-  posts = posts.filter(reduce(lambda x,y: x | y, [Q(sentiment_vote=sentiment) for sentiment in sentiments]))
+  posts = posts.filter(reduce(lambda x,y: x | y, [Q(sentiment=sentiment) for sentiment in sentiments]))
   return posts       
 
 def posts_agregator(project):
@@ -132,5 +132,5 @@ def source_dimensions(sources, posts):
   return posts
 
 def sentiment_dimensions(sentiments, posts):
-  posts = posts.filter(reduce(lambda x,y: x | y, [Q(sentiment_vote=sentiment) for sentiment in sentiments]))
+  posts = posts.filter(reduce(lambda x,y: x | y, [Q(sentiment=sentiment) for sentiment in sentiments]))
   return posts

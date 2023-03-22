@@ -37,6 +37,7 @@ class TweetBinderPost(models.Model):
   count_tweetvalue = models.FloatField(blank=True, null=True)
   createdat = models.IntegerField(blank=True, null=True)
   creation_date = models.DateTimeField()
+  date = models.DateTimeField()
   favorites = models.IntegerField(blank=True, null=True)
   hashtags = ArrayField(models.CharField(max_length=100), blank=True, null=True)
   images = ArrayField(models.CharField(max_length=200), blank=True, null=True)
@@ -48,6 +49,7 @@ class TweetBinderPost(models.Model):
   locationString = models.CharField(max_length=50, blank=True, null=True)
   retweets = models.IntegerField(blank=True, null=True)
   sentiment_vote = models.CharField(max_length=50, blank=True, null=True)
+  sentiment = models.CharField(max_length=50, blank=True, null=True)
   source = models.CharField(max_length=50, blank=True, null=True)
   text = models.CharField(max_length=10000, blank=True, null=True)
   type = ArrayField(models.CharField(max_length=100), blank=True, null=True)
@@ -172,6 +174,7 @@ def add_post_to_database(data_tweets):
                 'count_tweetvalue': tweet['counts']['tweetValue'], 
                 'createdat': tweet['createdAt'],
                 'creation_date': datetime.fromtimestamp(tweet['createdAt']), 
+                'date': datetime.fromtimestamp(tweet['createdAt']), 
                 'favorites': tweet['favorites'], 
                 'hashtags': tweet['hashtags'], 
                 'images': tweet['images'], 
@@ -182,16 +185,17 @@ def add_post_to_database(data_tweets):
                 'mentions': tweet['mentions'],  
                 'locationString': tweet['rawLocation']['locationString'],  
                 'retweets': tweet['retweets'],  
-                'sentiment_vote': tweet['sentiment']['vote'],  
-                'source': tweet['source'],  
-                'text': tweet['text'],  
+                'sentiment_vote': tweet['sentiment']['vote'], 
+                'sentiment': tweet['sentiment']['vote'], 
+                'source': tweet['source'],
+                'text': tweet['text'],
                 'type': tweet['type'],  
-                'updatedat': tweet['updatedAt'],  
-                'user_id': tweet['user']['id'],  
-                'user_name': tweet['user']['name'],  
-                'user_alias': tweet['user']['alias'], 
+                'updatedat': tweet['updatedAt'],
+                'user_id': tweet['user']['id'], 
+                'user_name': tweet['user']['name'],
+                'user_alias': tweet['user']['alias'],
                 'user_picture': tweet['user']['picture'],
-                'user_followers': tweet['user']['followers'], 
+                'user_followers': tweet['user']['followers'],
                 'user_following': tweet['user']['following'], 
                 'user_verified': tweet['user']['verified'], 
                 'user_bio': tweet['user']['bio'], 

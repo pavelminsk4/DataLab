@@ -6,7 +6,7 @@ from django.http import JsonResponse
 from django.db.models import Count
 
 def post_agregator_top_authors(posts, aggregation_period, top_counts):
-  results = list(posts.annotate(date=Trunc('creation_date', aggregation_period)).values('user_name').annotate(user_count=Count('user_name')).order_by('-user_count')[:top_counts])
+  results = list(posts.annotate(date_trunc=Trunc('date', aggregation_period)).values('user_name').annotate(user_count=Count('user_name')).order_by('-user_count')[:top_counts])
   for res in results:
     if not res['user_name']:
       results.remove(res)

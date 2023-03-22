@@ -10,9 +10,12 @@ import json
 class SentimentByGenderWidgetTests(APITestCase):
   def test_response_list(self):
     user = User.objects.create(username='Pablo')
-    TweetBinderPost.objects.create(post_id='1', count_retweets='1', count_favorites='1', count_replies='1', language='En', user_name='First_name', locationString='USA', sentiment_vote='neutral', text='First twitter post', creation_date=datetime(2020, 10, 10), user_gender='undefined')
-    TweetBinderPost.objects.create(post_id='2', count_retweets='2', count_favorites='2', count_replies='2', language='Sp', user_name='Second_name', locationString='England', sentiment_vote='positive', text='Second twitter post', creation_date=datetime(2020, 10, 10), user_gender='male')
-    TweetBinderPost.objects.create(post_id='3', count_retweets='2', count_favorites='2', count_replies='2', language='Sp', user_name='3_name', locationString='England', sentiment_vote='negative', text='Second twitter post', creation_date=datetime(2021, 10, 10), user_gender='female')
+    TweetBinderPost.objects.create(post_id='1', count_retweets='1', count_favorites='1', count_replies='1', language='En', user_name='First_name', 
+                                   locationString='USA', sentiment='neutral', text='First twitter post', date=datetime(2020, 10, 10), user_gender='undefined', creation_date=datetime(2020, 10, 10))
+    TweetBinderPost.objects.create(post_id='2', count_retweets='2', count_favorites='2', count_replies='2', language='Sp', user_name='Second_name', 
+                                   locationString='England', sentiment='positive', text='Second twitter post', date=datetime(2020, 10, 10), user_gender='male', creation_date=datetime(2020, 10, 10))
+    TweetBinderPost.objects.create(post_id='3', count_retweets='2', count_favorites='2', count_replies='2', language='Sp', user_name='3_name', 
+                                   locationString='England', sentiment='negative', text='Second twitter post', date=datetime(2021, 10, 10), user_gender='female', creation_date=datetime(2021, 10, 10))
     
     # test first project with None field
     pr = ProjectSocial.objects.create(title='Project', keywords=['twitter'], additional_keywords=[], ignore_keywords=[], start_search_date=datetime(2020, 10, 10), 
@@ -23,17 +26,17 @@ class SentimentByGenderWidgetTests(APITestCase):
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     res = {
             'female': [
-                        {'sentiment_count': 1, 'sentiment_vote': 'negative'},
+                        {'sentiment_count': 1, 'sentiment': 'negative'},
                         {'sentiment': 'neutral', 'sentiment_count': 0},
                         {'sentiment': 'positive', 'sentiment_count': 0}
                       ],
             'male': [
-                        {'sentiment_count': 1, 'sentiment_vote': 'positive'},
+                        {'sentiment_count': 1, 'sentiment': 'positive'},
                         {'sentiment': 'negative', 'sentiment_count': 0},
                         {'sentiment': 'neutral', 'sentiment_count': 0}
                     ],
             'undefined': [
-                            {'sentiment_count': 1, 'sentiment_vote': 'neutral'},
+                            {'sentiment_count': 1, 'sentiment': 'neutral'},
                             {'sentiment': 'negative', 'sentiment_count': 0},
                             {'sentiment': 'positive', 'sentiment_count': 0}
                          ]

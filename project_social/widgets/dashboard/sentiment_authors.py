@@ -7,12 +7,12 @@ from django.db.models import Count
 
 def post_agregator_sentiment_top_authors(posts, aggregation_period, top_counts):
   top_authors = posts.values('user_name').annotate(author_count=Count('user_name')).order_by('-author_count').values_list('user_name', flat=True)[:top_counts]
-  results = {author: list(posts.filter(user_name=author).annotate(date=Trunc('creation_date', aggregation_period)).values('sentiment_vote').annotate(sentiment_count=Count('sentiment_vote')).order_by('-sentiment_count')) for author in top_authors}
+  results = {author: list(posts.filter(user_name=author).annotate(date_trunc=Trunc('date', aggregation_period)).values('sentiment').annotate(sentiment_count=Count('sentiment')).order_by('-sentiment_count')) for author in top_authors}
   for i in range(len(results)):
    sentiments = ['negative', 'neutral', 'positive']
    for j in range(len(results[top_authors[i]])):
      for sen in sentiments:
-       if sen in results[top_authors[i]][j].get('sentiment_vote'):
+       if sen in results[top_authors[i]][j].get('sentiment'):
          sentiments.remove(sen)
    for sen in sentiments:
      results[top_authors[i]].append({'sentiment_count': 0, 'sentiment': sen})

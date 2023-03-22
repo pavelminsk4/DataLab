@@ -6,19 +6,19 @@ from django.http import JsonResponse
 from django.db.models import Count
 
 def post_agregator_sentiment_for_period(posts, aggregation_period):
-  negative_posts = posts.annotate(date=Trunc('creation_date', aggregation_period)).values("creation_date").filter(sentiment_vote='negative').annotate(count_negative=Count('sentiment_vote')).order_by("creation_date")
-  neutral_posts = posts.annotate(date=Trunc('creation_date', aggregation_period)).values("creation_date").filter(sentiment_vote='neutral').annotate(count_neutral=Count('sentiment_vote')).order_by("creation_date")
-  positive_posts = posts.annotate(date=Trunc('creation_date', aggregation_period)).values("creation_date").filter(sentiment_vote='positive').annotate(count_positive=Count('sentiment_vote')).order_by("creation_date")
+  negative_posts = posts.annotate(date_trunc=Trunc('date', aggregation_period)).values("date_trunc").filter(sentiment_vote='negative').annotate(count_negative=Count('sentiment_vote')).order_by("date")
+  neutral_posts = posts.annotate(date_trunc=Trunc('date', aggregation_period)).values("date_trunc").filter(sentiment_vote='neutral').annotate(count_neutral=Count('sentiment_vote')).order_by("date")
+  positive_posts = posts.annotate(date_trunc=Trunc('date', aggregation_period)).values("date_trunc").filter(sentiment_vote='positive').annotate(count_positive=Count('sentiment_vote')).order_by("date")
   post_by_sentiment = list(negative_posts) + list(neutral_posts) + list(positive_posts)
   results = []
-  for date in sorted(list(set(d['creation_date'] for d in post_by_sentiment))):
+  for date_trunc in sorted(list(set(d['date_trunc'] for d in post_by_sentiment))):
     negative, neutral, positive = 0, 0, 0
     for count_post in post_by_sentiment:
-      if date == count_post['creation_date']:
+      if date_trunc == count_post['date_trunc']:
         negative += (count_post.get("count_negative") if count_post.get("count_negative") else 0)
         neutral += (count_post.get("count_neutral") if count_post.get("count_neutral") else 0)
         positive += (count_post.get("count_positive") if count_post.get("count_positive") else 0)
-    results.append({str(date): {"negative": negative, "neutral": neutral, "positive": positive}})
+    results.append({str(date_trunc): {"negative": negative, "neutral": neutral, "positive": positive}})
   return results
 
 def sentiment(pk, widget_pk):
