@@ -120,6 +120,8 @@ export default {
     padding: var(--widget-layout-content-padding);
 
     overflow: auto;
+
+    min-height: 400px;
   }
 }
 

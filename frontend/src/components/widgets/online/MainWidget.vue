@@ -22,7 +22,7 @@ import SentimentTop10CountriesWidget from '@/components/widgets/online/Sentiment
 import ContentVolumeTop5SourceWidget from '@/components/widgets/online/ContentVolumeTop5SourceWidget'
 import ContentVolumeTop5AuthorsWidget from '@/components/widgets/online/ContentVolumeTop5AuthorsWidget'
 import ContentVolumeTop5CountriesWidget from '@/components/widgets/online/ContentVolumeTop5CountriesWidget'
-import TopKeywordsWidget from '@/components/widgets/online/TopKeywordsWidget'
+import TopKeywords from '@/components/widgets/online/TopKeywordsWidget'
 
 export default {
   name: 'OnlineMainWidget',
@@ -42,7 +42,7 @@ export default {
     ContentVolumeTop5SourceWidget,
     ContentVolumeTop5AuthorsWidget,
     ContentVolumeTop5CountriesWidget,
-    TopKeywordsWidget,
+    TopKeywords,
   },
   props: {
     widgetDetails: {type: Object, required: true},
