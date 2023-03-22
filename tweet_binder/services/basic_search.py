@@ -1,10 +1,18 @@
 import requests
 import json
 
-def basic_search(keyword, limit, auth_token, url):
+def basic_search(keyword, keyword_and, keyword_or, keyword_nor, limit, auth_token, url):
+    keywords_and = ["-RT", keyword]
+    [keywords_and.append(key) for key in keyword_and]
+    keywords_or = ["-RT"]
+    [keywords_or.append(key) for key in keyword_or]
+    keywords_nor = []
+    [keywords_nor.append(key) for key in keyword_nor]
     payload = json.dumps({
     "query": {
-        "must": [keyword,"-RT"],
+        "must": keywords_and,
+        "or": keywords_or,
+        "nor": keywords_nor,
         "limit": limit
     }
     })
