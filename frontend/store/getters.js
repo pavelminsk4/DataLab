@@ -132,6 +132,10 @@ export default {
     return state.contentVolumeTopCountries
   },
 
+  [get.SENTIMENT_TOP_KEYWORDS_WIDGET](state) {
+    return state.sentimentTopKeywordsWidget
+  },
+
   [get.TOP_KEYWORDS_WIDGET](state) {
     return state.topKeywordsWidget
   },
@@ -205,6 +209,10 @@ export default {
 
   [get.POSTS_NUMBER](state) {
     return state.numberOfPosts
+  },
+
+  [get.PAGES_NUMBER](state) {
+    return state.numberOfPages
   },
 
   [get.INTERACTIVE_DATA](state) {

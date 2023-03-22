@@ -352,6 +352,24 @@ export default {
     }
   },
 
+  async [action.GET_SENTIMENT_TOP_KEYWORDS_WIDGET](
+    {commit},
+    {projectId, widgetId}
+  ) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const sentimentTopKeywords = await api.getSentimentTopKeywordsWidget({
+        projectId,
+        widgetId,
+      })
+      commit(mutator.SET_SENTIMENT_TOP_KEYWORDS_WIDGET, sentimentTopKeywords)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
   async [action.GET_TOP_KEYWORDS_WIDGET]({commit}, {projectId, widgetId}) {
     commit(mutator.SET_LOADING, true)
     try {

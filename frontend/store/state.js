@@ -42,6 +42,7 @@ const state = {
   contentVolumeTopSources: [],
   contentVolumeTopAuthors: [],
   contentVolumeTopCountries: [],
+  sentimentTopKeywordsWidget: {},
   topKeywordsWidget: [],
   sentimentDiagram: [],
   sentimentNumberOfResult: [],

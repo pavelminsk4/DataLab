@@ -52,6 +52,10 @@ const CHARTS = {
     componentName: 'WordCloudChart',
     name: 'Word Cloud',
   },
+  sentimentWordCloud: {
+    componentName: 'SentimentWordCloudChart',
+    name: 'Word Cloud',
+  },
 }
 
 const SIMPLE_CHARTS = [
@@ -185,6 +189,13 @@ export const widgetsConfig = {
     hasAggregationPeriod: false,
     defaultChartType: null,
     settingsTabs: ['General', 'Dimensions'],
+  },
+
+  sentiment_top_keywords: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    height: 15,
+    actionName: action.GET_SENTIMENT_TOP_KEYWORDS_WIDGET,
+    defaultChartType: 'SentimentWordCloudChart',
   },
 
   //social widgets
