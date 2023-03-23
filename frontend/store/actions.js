@@ -364,6 +364,39 @@ export default {
     }
   },
 
+  async [action.GET_SENTIMENT_DIAGRAM]({commit}, {projectId, widgetId}) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const sentimentDiagram = await api.getSentimentDiagram({
+        projectId,
+        widgetId,
+      })
+      commit(mutator.SET_SENTIMENT_DIAGRAM, sentimentDiagram)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
+  async [action.GET_SENTIMENT_NUMBER_OF_RESULT](
+    {commit},
+    {projectId, widgetId}
+  ) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const sentimentNumberOfResult = await api.getSentimentNumberOfResult({
+        projectId,
+        widgetId,
+      })
+      commit(mutator.SET_SENTIMENT_NUMBER_OF_RESULT, sentimentNumberOfResult)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
   async [action.GET_SELECTED_DIMENSIONS]({commit}, selectedDimensions) {
     commit(mutator.SET_LOADING, true)
     try {

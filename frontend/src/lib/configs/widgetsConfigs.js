@@ -172,6 +172,21 @@ export const widgetsConfig = {
     defaultChartType: 'WordCloudChart',
   },
 
+  sentiment_diagram: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    actionName: action.GET_SENTIMENT_DIAGRAM,
+    defaultChartType: 'DoughnutChart',
+    availableTypes: SIMPLE_CHARTS,
+  },
+
+  sentiment_number_of_results: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    actionName: action.GET_SENTIMENT_NUMBER_OF_RESULT,
+    hasAggregationPeriod: false,
+    defaultChartType: null,
+    settingsTabs: ['General', 'Dimensions'],
+  },
+
   //social widgets
   summary: {
     ...WIDGET_DEFAULT_SETTINGS,
@@ -309,5 +324,29 @@ export const summaryWidgetConfig = [
     valueName: 'authors',
     iconName: 'AuthorsIcon',
     backgroundColor: '#EA6E8F',
+  },
+]
+
+export const sentimentOverallWidgetConfig = [
+  {
+    name: 'Positive posts',
+    valueName: 'pos',
+    iconName: 'PositiveIcon',
+    backgroundColor: '#57C7B3',
+    className: 'pos',
+  },
+  {
+    name: 'Neutral posts',
+    valueName: 'neut',
+    iconName: 'NeutralIcon',
+    backgroundColor: '#516BEE',
+    className: 'neut',
+  },
+  {
+    name: 'Negative posts',
+    valueName: 'neg',
+    iconName: 'NegativeIcon',
+    backgroundColor: '#ED2549',
+    className: 'neg',
   },
 ]

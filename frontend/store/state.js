@@ -43,6 +43,8 @@ const state = {
   contentVolumeTopAuthors: [],
   contentVolumeTopCountries: [],
   topKeywordsWidget: [],
+  sentimentDiagram: [],
+  sentimentNumberOfResult: [],
   dimensions: [],
   templates: [],
   newWorkspace: {

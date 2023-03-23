@@ -30,6 +30,7 @@ export default {
   },
   computed: {
     colors() {
+      if (this.chartValues[0].colors) return this.chartValues[0].colors
       return [
         '#6AC7F0',
         '#CDC6FF',
@@ -72,7 +73,7 @@ export default {
             bodyAlign: 'center',
             bodyColor: 'black',
             backgroundColor: 'rgba(255, 255, 255, 0.96)',
-            displayColors: false,
+            displayColors: this.chartValues[0].colors ? true : false,
             callbacks: {
               title(context) {
                 return context[0].label

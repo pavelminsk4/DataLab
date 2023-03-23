@@ -15,7 +15,7 @@ import {getWidgetDetails} from '@lib/utilities'
 import WidgetsList from '@/components/widgets/WidgetsList'
 
 export default {
-  name: 'OnlineSummaryScreen',
+  name: 'OnlineSentimentScreen',
   components: {
     WidgetsList,
   },
@@ -48,13 +48,13 @@ export default {
   },
   async created() {
     this.widgets = [
-      {name: 'summary_widget'},
-      {name: 'content_volume_top_5_source_widget'},
-      {name: 'sentiment_for_period_widget'},
-      {name: 'volume_widget'},
-      {name: 'top_10_countries_widget', isFullWidth: true},
-      {name: 'top_10_authors_by_volume_widget'},
+      {name: 'sentiment_number_of_results'},
+      {name: 'sentiment_diagram'},
+      {name: 'sentiment_top_10_authors_widget'},
       {name: 'top_keywords'},
+      {name: 'sentiment_top_10_sources_widget', isFullWidth: true},
+      {name: 'sentiment_top_10_countries_widget'},
+      {name: 'sentiment_top_10_languages_widget'},
     ]
     if (!this.availableWidgets) {
       await this[action.GET_AVAILABLE_WIDGETS](this.currentProject.id)

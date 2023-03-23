@@ -11,10 +11,7 @@
       v-for="item in selectedWidgets"
       :key="item.i"
       :static="item.static"
-      :class="[
-        'widgets__item',
-        item.widgetDetails.name === 'top_10_countries_widget' && 'grow',
-      ]"
+      :class="['widgets__item', item.isFullWidth && 'grow']"
     >
       <MainWidget
         :widgetDetails="item.widgetDetails"

@@ -144,6 +144,14 @@ export default {
     state.topKeywordsWidget = data
   },
 
+  [mutator.SET_SENTIMENT_DIAGRAM](state, data) {
+    state.sentimentDiagram = data
+  },
+
+  [mutator.SET_SENTIMENT_NUMBER_OF_RESULT](state, data) {
+    state.sentimentNumberOfResult = data
+  },
+
   [mutator.SET_AVAILABLE_WIDGETS](state, data) {
     state.availableWidgets = {...data}
   },

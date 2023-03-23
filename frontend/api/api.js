@@ -164,6 +164,17 @@ export default {
     return fetch('post', `/widgets/top_keywords/${projectId}/${widgetId}`)
   },
 
+  async getSentimentDiagram({projectId, widgetId}) {
+    return fetch('post', `/widgets/sentiment_diagram/${projectId}/${widgetId}`)
+  },
+
+  async getSentimentNumberOfResult({projectId, widgetId}) {
+    return fetch(
+      'post',
+      `/widgets/sentiment_number_of_results/${projectId}/${widgetId}`
+    )
+  },
+
   async getDimensions() {
     return fetch('get', '/dimensions/')
   },
