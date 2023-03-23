@@ -14,6 +14,7 @@ from .widgets.dashboard.content_volume import *
 from .widgets.dashboard.clipping_feed import *
 from .widgets.dashboard.top_locations import *
 from .widgets.dashboard.top_languages import *
+from .widgets.dimensions_for_widgets import *
 from .widgets.summary.gender_volume import *
 from .widgets.dashboard.top_authors import *
 from .widgets.summary.top_keywords import *
@@ -202,6 +203,9 @@ def social_sentiment_number_of_results(request, pk, widget_pk):
 
 def social_sentiment_diagram(request, pk, widget_pk):
   return sentiment_number_of_results(pk, widget_pk)
+
+def dimensions_for_each_widgets(request, widget_pk):
+  return dimensions_for_each(request, widget_pk)
 
 class ProjectSocialWidgetsAPIView(RetrieveAPIView):
  serializer_class = WidgetsListSerializer
