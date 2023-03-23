@@ -30,8 +30,7 @@ export default {
   },
   computed: {
     colors() {
-      if (this.chartValues[0].colors) return this.chartValues[0].colors
-      return [
+      const defaultColors = [
         '#6AC7F0',
         '#CDC6FF',
         '#01A4EE',
@@ -43,6 +42,7 @@ export default {
         '#7ACCB0',
         '#8779B2',
       ]
+      return this.chartValues[0].colors || defaultColors
     },
     chartOptions() {
       return {
@@ -73,7 +73,7 @@ export default {
             bodyAlign: 'center',
             bodyColor: 'black',
             backgroundColor: 'rgba(255, 255, 255, 0.96)',
-            displayColors: this.chartValues[0].colors ? true : false,
+            displayColors: !!this.chartValues[0]?.colors,
             callbacks: {
               title(context) {
                 return context[0].label

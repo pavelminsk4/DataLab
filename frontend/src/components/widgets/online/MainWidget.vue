@@ -24,7 +24,7 @@ import ContentVolumeTop5AuthorsWidget from '@/components/widgets/online/ContentV
 import ContentVolumeTop5CountriesWidget from '@/components/widgets/online/ContentVolumeTop5CountriesWidget'
 import TopKeywords from '@/components/widgets/online/TopKeywordsWidget'
 import SentimentDiagram from '@/components/widgets/online/SentimentDiagramWidget'
-import SentimentNumberOfResults from '@/components/widgets/online/SentimentNumberOfResultWidget'
+import SentimentNumberOfResults from '@/components/widgets/SentimentNumberOfResultWidget'
 
 export default {
   name: 'OnlineMainWidget',

@@ -11,7 +11,7 @@ import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 import {isAllEmptyFields} from '@lib/utilities'
 
-import SentimentOverallWidget from '@/components/widgets/SentimentOverallWidget'
+import SentimentOverallWidget from '@/components/widgets/online/SentimentOverallWidget'
 
 export default {
   name: 'OnlineSentimentNumberOfResultsWidget',

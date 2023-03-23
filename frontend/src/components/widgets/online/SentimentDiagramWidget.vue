@@ -1,5 +1,5 @@
 <template>
-  <WidgetsLayout
+  <component
     :is="widgetWrapper"
     :title="widgetDetails.title"
     @delete-widget="$emit('delete-widget')"
@@ -11,7 +11,7 @@
       :chart-type="chartType"
       :is-display-legend="!isSettings"
     />
-  </WidgetsLayout>
+  </component>
 </template>
 
 <script>
