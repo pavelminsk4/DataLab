@@ -132,6 +132,14 @@ export default {
     return state.topKeywordsWidget
   },
 
+  [get.SENTIMENT_DIAGRAM](state) {
+    return state.sentimentDiagram
+  },
+
+  [get.SENTIMENT_NUMBER_OF_RESULT](state) {
+    return state.sentimentNumberOfResult
+  },
+
   [get.DIMENSIONS](state) {
     return state.dimensions
   },

@@ -16,6 +16,7 @@ import SearchScreen from '@/components/project/screens/SearchScreen'
 import AnalyticsScreen from '@/components/project/screens/AnalyticsScreen'
 import OnlineFeaturesView from '@/views/online/OnlineFeaturesView'
 import OnlineSummaryScreen from '@/components/project/screens/OnlineSummaryScreen'
+import OnlineSentimentScreen from '@/components/project/screens/OnlineSentimentScreen'
 
 export default [
   {
@@ -142,6 +143,11 @@ export default [
                 name: 'OnlineSummary',
                 path: 'summary',
                 component: OnlineSummaryScreen,
+              },
+              {
+                name: 'OnlineSentiment',
+                path: 'sentiment',
+                component: OnlineSentimentScreen,
               },
             ],
           },

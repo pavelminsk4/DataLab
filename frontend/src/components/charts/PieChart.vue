@@ -36,6 +36,7 @@ export default {
   },
   computed: {
     colors() {
+      if (this.chartValues[0].colors) return this.chartValues[0].colors
       let lineColors = [
         '#6AC7F0',
         '#CDC6FF',

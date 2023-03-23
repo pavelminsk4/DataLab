@@ -22,10 +22,12 @@ export default {
     MainLayout,
   },
   created() {
-    this.navUrls = ['Analytics', 'Search', 'Summary'].map((item) => ({
-      name: item,
-      routeName: `Online${item}`,
-    }))
+    this.navUrls = ['Analytics', 'Search', 'Summary', 'Sentiment'].map(
+      (item) => ({
+        name: item,
+        routeName: `Online${item}`,
+      })
+    )
 
     if (!this.workspaces.length) {
       this[action.GET_WORKSPACES]()

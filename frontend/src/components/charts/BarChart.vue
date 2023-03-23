@@ -61,7 +61,7 @@ export default {
             titleColor: '#151515',
             bodyColor: '#151515',
             backgroundColor: 'rgba(255, 255, 255, 0.96)',
-            displayColors: false,
+            displayColors: !!this.chartValues[0]?.colors,
           },
         },
         scales: {
@@ -95,7 +95,7 @@ export default {
         datasetsValue.push({
           ...defaultSettings,
           label: el.label,
-          backgroundColor: el.color,
+          backgroundColor: this.chartValues[0]?.colors || el.color,
           data: el.data,
         })
       })
