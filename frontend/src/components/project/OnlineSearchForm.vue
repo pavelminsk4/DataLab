@@ -121,7 +121,7 @@ import CalendarIcon from '@/components/icons/CalendarIcon'
 import ArrowDownIcon from '@/components/icons/ArrowDownIcon'
 
 export default {
-  name: 'OnlineType',
+  name: 'OnlineSearchForm',
   components: {
     BaseRadio,
     BaseSearchField,

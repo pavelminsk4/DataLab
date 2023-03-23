@@ -56,15 +56,9 @@ export default {
       {name: 'sentiment_top_10_countries_widget'},
       {name: 'sentiment_top_10_languages_widget'},
     ]
-    if (!this.availableWidgets) {
-      await this[action.GET_AVAILABLE_WIDGETS](this.currentProject.id)
-    }
   },
   methods: {
-    ...mapActions([
-      action.GET_AVAILABLE_WIDGETS,
-      action.UPDATE_AVAILABLE_WIDGETS,
-    ]),
+    ...mapActions([action.UPDATE_AVAILABLE_WIDGETS]),
   },
 }
 </script>

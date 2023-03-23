@@ -8,24 +8,13 @@
       v-if="!loading && searchData.length"
       class="search-result-cards scroll"
     >
-      <online-post-card
+      <component
+        :is="postCard"
         v-for="(item, index) in searchData"
         :key="'result' + index"
-        :post-id="item.id"
         :is-clipping-post="selectedClippingElement(item.id)"
-        :widget-id="clippingWidgetId"
-        :project-id="currentProject.id"
         :img="cardImg(item)"
-        :title="item.entry_title"
-        :country="item.feedlink__country"
-        :entry-link="item.entry_links_href"
-        :summary="item.entry_summary"
-        :sentiment="item.sentiment"
-        :published="item.entry_published"
-        :source-link="item.feedlink__sourceurl"
-        :source="item.feedlink__source1"
-        :language="item.feed_language__language"
-        :potential-reach="item.feedlink__alexaglobalrank"
+        :post-details="item"
         class="clipping-card"
       />
     </div>
@@ -57,6 +46,7 @@ import {lowerFirstLetter} from '@/lib/utilities'
 
 import BaseSpinner from '@/components/BaseSpinner'
 import OnlinePostCard from '@/components/OnlinePostCard'
+import SocialPostCard from '@/components/SocialPostCard'
 import CreateWorkspaceRightSide from '@/components/workspace/CreateWorkspaceRightSide'
 import PaginationControlPanel from '@/components/PaginationControlPanel'
 
@@ -64,32 +54,17 @@ export default {
   name: 'SearchResults',
   components: {
     OnlinePostCard,
+    SocialPostCard,
     PaginationControlPanel,
     CreateWorkspaceRightSide,
     BaseSpinner,
   },
   emits: ['update-page', 'update-posts-count', 'add-sorting-value'],
   props: {
-    currentProject: {
-      type: [Array, Object],
-      default: () => [],
-    },
-    clippingContent: {
-      type: [Array, Object],
-      default: () => [],
-    },
-    isShowCalendar: {
-      type: Boolean,
-      default: true,
-    },
-    searchLoading: {
-      type: Boolean,
-      default: false,
-    },
-    step: {
-      type: String,
-      default: '',
-    },
+    clippingContent: {type: [Array, Object], default: () => []},
+    searchLoading: {type: Boolean, default: false},
+    step: {type: String, default: ''},
+    moduleName: {type: String, default: 'Online'},
   },
   data() {
     return {
@@ -111,13 +86,13 @@ export default {
       numberOfPages: get.PAGES_NUMBER,
       availableWidgets: get.AVAILABLE_WIDGETS,
     }),
+    postCard() {
+      return this.moduleName + 'PostCard'
+    },
     routerName() {
       return this.$route.name.toLowerCase()
     },
 
-    clippingWidgetId() {
-      return this.availableWidgets?.clipping_feed_content_widget.id || 0
-    },
     currentStep() {
       return this.isSearchPerformed ? `${this.step}preview` : this.step
     },

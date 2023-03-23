@@ -82,22 +82,10 @@ export default {
     OnlineIcon,
   },
   props: {
-    isClippingWidget: {
-      type: Boolean,
-      default: false,
-    },
-    postImage: {
-      type: String,
-      required: false,
-    },
-    sentiment: {
-      type: String,
-      required: false,
-    },
-    isClippingPost: {
-      type: Boolean,
-      default: false,
-    },
+    isClippingWidget: {type: Boolean, default: false},
+    postImage: {type: String, required: false},
+    sentiment: {type: String, required: false},
+    isClippingPost: {type: Boolean, default: false},
   },
   computed: {
     ...mapGetters({isLoading: get.LOADING_WIDGETS}),

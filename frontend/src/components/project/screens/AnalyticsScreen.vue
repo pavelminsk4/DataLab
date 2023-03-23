@@ -151,8 +151,6 @@ export default {
     }
   },
   created() {
-    this[action.GET_AVAILABLE_WIDGETS](this.currentProject.id)
-
     this[action.UPDATE_ADDITIONAL_FILTERS]({
       date_range: [
         new Date(this.currentProject.start_search_date),
@@ -194,7 +192,6 @@ export default {
     ...mapActions([
       action.POST_SEARCH,
       action.UPDATE_ADDITIONAL_FILTERS,
-      action.GET_AVAILABLE_WIDGETS,
       action.POST_INTERACTIVE_WIDGETS,
       action.CLEAR_INTERACTIVE_DATA,
       action.UPDATE_AVAILABLE_WIDGETS,

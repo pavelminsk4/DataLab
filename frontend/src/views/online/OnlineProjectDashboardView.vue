@@ -16,22 +16,10 @@ import SideBar from '@/components/navigation/SideBar'
 import MainLayout from '@/components/layout/MainLayout'
 
 export default {
-  name: 'ProjectReports',
+  name: 'OnlineProjectDashboardView',
   components: {
     SideBar,
     MainLayout,
-  },
-  created() {
-    this.navUrls = ['Analytics', 'Search', 'Summary', 'Sentiment'].map(
-      (item) => ({
-        name: item,
-        routeName: `Online${item}`,
-      })
-    )
-
-    if (!this.workspaces.length) {
-      this[action.GET_WORKSPACES]()
-    }
   },
   computed: {
     ...mapState(['workspaces']),
@@ -50,8 +38,22 @@ export default {
       )[0]
     },
   },
+  created() {
+    this.navUrls = ['Analytics', 'Search', 'Summary', 'Sentiment'].map(
+      (item) => ({
+        name: item,
+        routeName: `Online${item}`,
+      })
+    )
+
+    if (!this.workspaces.length) {
+      this[action.GET_WORKSPACES]()
+    }
+
+    this[action.GET_AVAILABLE_WIDGETS](this.projectId)
+  },
   methods: {
-    ...mapActions([action.GET_WORKSPACES]),
+    ...mapActions([action.GET_WORKSPACES, action.GET_AVAILABLE_WIDGETS]),
     openTab(pathName) {
       this.$router.push({
         name: pathName,

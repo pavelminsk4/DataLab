@@ -13,7 +13,6 @@ export default {
       commit(mutator.SET_LOADING, false)
     }
   },
-
   async [action.CREATE_WORKSPACE]({commit}, workspace) {
     commit(mutator.SET_LOADING, true)
     try {
@@ -33,7 +32,6 @@ export default {
       commit(mutator.SET_LOADING, false)
     }
   },
-
   async [action.UPDATE_WORKSPACE]({commit}, {workspaceId, data}) {
     commit(mutator.SET_LOADING, true)
     try {
@@ -45,7 +43,6 @@ export default {
       commit(mutator.SET_LOADING, false)
     }
   },
-
   async [action.DELETE_WORKSPACE]({commit, dispatch}, workspaceId) {
     commit(mutator.SET_LOADING, true)
     try {
@@ -69,7 +66,6 @@ export default {
       commit(mutator.SET_LOADING, false)
     }
   },
-
   async [action.CREATE_PROJECT]({commit, dispatch}, projectData) {
     commit(mutator.SET_LOADING, true)
     try {
@@ -77,6 +73,17 @@ export default {
       commit(mutator.SET_NEW_PROJECT_ID, response.id)
       await dispatch(action.GET_USER_INFORMATION, null, {root: true})
       return response
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+  async [action.UPDATE_PROJECT]({dispatch, commit}, {projectId, data}) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      await api.social.updateProject({projectId, data})
+      await dispatch(action.GET_WORKSPACES)
     } catch (e) {
       console.log(e)
     } finally {
@@ -101,6 +108,7 @@ export default {
       commit(mutator.SET_LOADING, false)
     }
   },
+
   async [action.CREATE_CLIPPING_FEED_CONTENT_WIDGET]({commit, dispatch}, data) {
     commit(mutator.SET_LOADING_WIDGETS, {clippingWidget: true}, {root: true})
     try {
@@ -141,6 +149,7 @@ export default {
       commit(mutator.SET_AVAILABLE_WIDGETS, availableWidgets, {
         root: true,
       })
+      commit(mutator.SET_AVAILABLE_WIDGETS, availableWidgets)
     } catch (e) {
       console.log(e)
     } finally {
@@ -188,55 +197,37 @@ export default {
     }
   },
 
-  // Widgets
-  async [action.GET_SUMMARY_WIDGET]({commit}, {projectId, widgetId}) {
-    commit(mutator.SET_LOADING, true, {root: true})
+  async [action.GET_AUTHORS]({commit}, word) {
+    commit(mutator.SET_LOADING, true)
     try {
-      const summary = await api.social.getSummaryWidget(projectId, widgetId)
-      commit(mutator.SET_SUMMARY_WIDGET, summary, {root: true})
+      const authors = await api.social.getAuthors(word)
+      commit(mutator.SET_AUTHORS, authors)
     } catch (e) {
       console.log(e)
     } finally {
-      commit(mutator.SET_LOADING, false, {root: true})
+      commit(mutator.SET_LOADING, false)
     }
   },
-
-  async [action.GET_CLIPPING_FEED_CONTENT_WIDGET](
-    {commit},
-    {projectId, widgetId}
-  ) {
-    commit(mutator.SET_LOADING_WIDGETS, {clippingWidget: true}, {root: true})
+  async [action.GET_COUNTRIES]({commit}, word) {
+    commit(mutator.SET_LOADING, true)
     try {
-      const clippingFeedContent = await api.social.getClippingFeedContentWidget(
-        projectId,
-        widgetId
-      )
-      commit(mutator.SET_CLIPPING_FEED_CONTENT_WIDGET, clippingFeedContent, {
-        root: true,
-      })
+      const countries = await api.social.getCountries(word)
+      commit(mutator.SET_COUNTRIES, countries)
     } catch (e) {
       console.log(e)
     } finally {
-      commit(mutator.SET_LOADING_WIDGETS, {clippingWidget: false}, {root: true})
+      commit(mutator.SET_LOADING, false)
     }
   },
-
-  async [action.GET_CONTENT_VOLUME_WIDGET](
-    {commit},
-    {projectId, value, widgetId}
-  ) {
-    commit(mutator.SET_LOADING, true, {root: true})
+  async [action.GET_LANGUAGES]({commit}, word) {
+    commit(mutator.SET_LOADING, true)
     try {
-      const volume = await api.social.getContentVolumeWidget({
-        projectId,
-        value,
-        widgetId,
-      })
-      commit(mutator.SET_VOLUME_WIDGET, volume, {root: true})
+      const languages = await api.social.getLanguages(word)
+      commit(mutator.SET_LANGUAGES, languages)
     } catch (e) {
       console.log(e)
     } finally {
-      commit(mutator.SET_LOADING, false, {root: true})
+      commit(mutator.SET_LOADING, false)
     }
   },
 }

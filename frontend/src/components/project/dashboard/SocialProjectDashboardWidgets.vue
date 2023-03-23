@@ -44,8 +44,7 @@
 
 <script>
 import {mapGetters, createNamespacedHelpers} from 'vuex'
-import {get} from '@store/constants'
-import {action} from '@store/constants'
+import {get, action} from '@store/constants'
 import VueGridLayout from 'vue3-grid-layout'
 import {getWidgetDetails} from '@lib/utilities'
 import {widgetsConfig} from '@/lib/configs/widgetsConfigs'
@@ -135,7 +134,6 @@ export default {
   },
   methods: {
     ...mapActions([
-      action.GET_AVAILABLE_WIDGETS,
       action.UPDATE_AVAILABLE_WIDGETS,
       action.GET_CLIPPING_FEED_CONTENT_WIDGET,
     ]),

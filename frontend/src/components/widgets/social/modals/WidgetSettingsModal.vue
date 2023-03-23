@@ -70,7 +70,6 @@ export default {
       action.GET_SENTIMENT_TOP_AUTHORS,
       action.GET_SENTIMENT_TOP_LANGUAGES,
       action.UPDATE_AVAILABLE_WIDGETS,
-      action.GET_AVAILABLE_WIDGETS,
       action.GET_SENTIMENT_FOR_PERIOD,
       action.GET_CONTENT_VOLUME_TOP_AUTHORS,
       action.GET_CONTENT_VOLUME_TOP_COUNTRIES,
@@ -107,8 +106,6 @@ export default {
           source_dim_pivot: this.selectedDimensions.sources,
         },
       })
-
-      await this[action.GET_AVAILABLE_WIDGETS](this.widgetDetails.projectId)
 
       await this[this.widgetDetails.actionName]({
         projectId: this.widgetDetails.projectId,

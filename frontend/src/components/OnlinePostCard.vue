@@ -1,6 +1,6 @@
 <template>
   <post-card-layout
-    :sentiment="sentiment"
+    :sentiment="postDetails.sentiment"
     :post-image="img"
     :is-clipping-widget="isClippingWidget"
     :is-clipping-post="isClippingPost"
@@ -8,12 +8,17 @@
     @delete-clipping-post="deleteClippingFeedPost"
   >
     <template #title>
-      <a class="title" tabindex="0" :href="entryLink" target="_blank">
-        {{ title }}
+      <a
+        class="title"
+        tabindex="0"
+        :href="postDetails.entry_links_href"
+        target="_blank"
+      >
+        {{ postDetails.entry_title }}
       </a>
     </template>
 
-    <template #description>{{ summary }}</template>
+    <template #description>{{ postDetails.entry_summary }}</template>
 
     <template #post-type><OnlineIcon /> Online</template>
 
@@ -41,8 +46,8 @@
 </template>
 
 <script>
-import {mapActions} from 'vuex'
-import {action} from '@store/constants'
+import {mapActions, mapGetters} from 'vuex'
+import {action, get} from '@store/constants'
 import {defaultDate} from '@lib/utilities'
 
 import OnlineIcon from '@/components/icons/OnlineIcon'
@@ -55,80 +60,32 @@ export default {
     PostCardLayout,
   },
   props: {
-    isClippingWidget: {
-      type: Boolean,
-      default: false,
-    },
-    title: {
-      type: String,
-      required: false,
-    },
-    entryLink: {
-      type: String,
-      required: false,
-    },
-    summary: {
-      type: String,
-      required: false,
-    },
-    source: {
-      type: String,
-      required: false,
-    },
-    sourceLink: {
-      type: String,
-      required: false,
-    },
-    country: {
-      type: String,
-      required: false,
-    },
-    language: {
-      type: String,
-      required: false,
-    },
-    potentialReach: {
-      type: Number,
-      required: false,
-    },
-    published: {
-      type: String,
-      required: false,
-    },
-    img: {
-      type: String,
-      required: false,
-    },
-    sentiment: {
-      type: String,
-      required: false,
-    },
-    postId: {
-      type: Number,
-      required: false,
-    },
-    projectId: {
-      type: Number,
-      required: false,
-    },
-    widgetId: {
-      type: Number,
-      required: true,
-    },
-    isClippingPost: {
-      type: Boolean,
-      default: false,
-    },
+    isClippingWidget: {type: Boolean, default: false},
+    img: {type: String, required: false},
+    isClippingPost: {type: Boolean, default: false},
+    postDetails: {type: Object, required: true},
   },
   computed: {
+    ...mapGetters({
+      clippingWidgets: get.CLIPPING_WIDGETS_DETAILS,
+    }),
     commonCardItems() {
       return [
-        {name: 'DATE', value: this.defaultDate(this.published)},
-        {name: 'SOURCE', value: this.sourceLink},
-        {name: 'LOCATION', value: this.country},
-        {name: 'LANGUAGE', value: this.language},
-        {name: 'POTENTIAL REACH', value: this.potentialReach},
+        {
+          name: 'DATE',
+          value: this.defaultDate(this.postDetails.entry_published),
+        },
+        {name: 'SOURCE', value: this.postDetails.feedlink__sourceurl},
+        {name: 'LOCATION', value: this.postDetails.feedlink__country},
+        {name: 'LANGUAGE', value: this.postDetails.feed_language__language},
+        {
+          name: 'POTENTIAL REACH',
+          value: this.postDetails.feedlink__alexaglobalrank,
+        },
       ]
+    },
+    projectId() {
+      return this.$route.params.projectId
     },
   },
   methods: {
@@ -142,18 +99,18 @@ export default {
         posts: [
           {
             project: this.projectId,
-            post: this.postId,
+            post: this.postDetails.id,
           },
         ],
         projectId: this.projectId,
-        widgetId: this.widgetId,
+        widgetId: this.clippingWidgets.id,
       })
     },
     async deleteClippingFeedPost() {
       await this[action.DELETE_CLIPPING_FEED_CONTENT]({
         projectId: this.projectId,
-        postId: this.postId,
-        widgetId: this.widgetId,
+        postId: this.postDetails.id,
+        widgetId: this.clippingWidgets.id,
       })
     },
     getUrl(source) {

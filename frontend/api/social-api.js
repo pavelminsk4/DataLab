@@ -29,6 +29,9 @@ export default {
   async createProject(project) {
     return fetch('post', `${moduleName}/projects/`, project)
   },
+  async updateProject({projectId, data}) {
+    return fetch('put', `${moduleName}/projects/${projectId}/`, data)
+  },
 
   async postSearch(request) {
     return fetch('post', `${moduleName}/twitter_post_search/`, request)
@@ -65,6 +68,17 @@ export default {
     //   data
     // )
     return {projectId, widgetId, data}
+  },
+
+  //filters
+  async getCountries(word) {
+    return fetch('get', `${moduleName}/social_locations_list?search=${word}`)
+  },
+  async getLanguages(word) {
+    return fetch('get', `${moduleName}/social_languages_list?search=${word}`)
+  },
+  async getAuthors(word) {
+    return fetch('get', `${moduleName}/social_authors_list?search=${word}`)
   },
 
   // Widgets

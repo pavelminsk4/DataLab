@@ -56,15 +56,9 @@ export default {
       {name: 'top_10_authors_by_volume_widget'},
       {name: 'top_keywords'},
     ]
-    if (!this.availableWidgets) {
-      await this[action.GET_AVAILABLE_WIDGETS](this.currentProject.id)
-    }
   },
   methods: {
-    ...mapActions([
-      action.GET_AVAILABLE_WIDGETS,
-      action.UPDATE_AVAILABLE_WIDGETS,
-    ]),
+    ...mapActions([action.UPDATE_AVAILABLE_WIDGETS]),
   },
 }
 </script>

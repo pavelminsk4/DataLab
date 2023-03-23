@@ -3,7 +3,7 @@ import OnlineModuleView from '@/views/OnlineModuleView'
 import OnlineWorkspacesView from '@/views/OnlineWorkspacesView'
 import OnlineWorkspaceView from '@/views/OnlineWorkspaceView'
 
-import ProjectExtraSettingsView from '@/components/project/ProjectExtraSettingsView'
+import OnlineProjectDashboardView from '@/views/online/OnlineProjectDashboardView'
 
 import CreateWorkspaceView from '@/components/workspace/CreateWorkspaceView'
 import OnlineCreateSearchScreen from '@/components/workspace/screens/OnlineCreateSearchScreen'
@@ -12,7 +12,7 @@ import CreateWorkspaceScreen from '@/components/workspace/screens/CreateWorkspac
 import CreateWorkspaceRightSide from '@/components/workspace/CreateWorkspaceRightSide'
 import SearchResults from '@/components/SearchResults'
 
-import SearchScreen from '@/components/project/screens/SearchScreen'
+import OnlineSearch from '@/components/project/search/OnlineSearch'
 import AnalyticsScreen from '@/components/project/screens/AnalyticsScreen'
 import OnlineFeaturesView from '@/views/online/OnlineFeaturesView'
 import OnlineSummaryScreen from '@/components/project/screens/OnlineSummaryScreen'
@@ -113,7 +113,7 @@ export default [
                 workspaceId: route.params.workspaceId,
                 moduleName: 'Online',
               }),
-              secondColumn: {step: 'step3'},
+              secondColumn: {step: 'step3', moduleName: 'Online'},
             },
           },
         ],
@@ -122,7 +122,7 @@ export default [
       {
         name: 'ProjectReports',
         path: 'workspace/:workspaceId/project/:projectId/',
-        component: ProjectExtraSettingsView,
+        component: OnlineProjectDashboardView,
         children: [
           {
             name: 'OnlineAnalytics',
@@ -132,7 +132,7 @@ export default [
           {
             name: 'OnlineSearch',
             path: 'search-settings',
-            component: SearchScreen,
+            component: OnlineSearch,
           },
           {
             name: 'OnlineFeature',
