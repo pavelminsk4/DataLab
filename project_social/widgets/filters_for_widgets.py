@@ -1,4 +1,3 @@
-from project_social.models import SocialWidgetDescription
 from tweet_binder.models import TweetBinderPost
 from django.db.models import Q
 from functools import reduce
