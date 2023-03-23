@@ -47,8 +47,7 @@ export default {
 
       Object.values(this.sentimentWidgetData).forEach((sentiment) => {
         Object.values(sentiment).filter((data) => {
-          const currentSentiment = data?.sentiment || data.sentiment_vote
-          switch (currentSentiment) {
+          switch (data?.sentiment) {
             case 'neutral':
               return neutral.push(data.sentiment_count)
             case 'positive':

@@ -8,9 +8,7 @@
   />
   <div class="analytics-wrapper">
     <SearchResults
-      :is-show-calendar="false"
       :is-checkbox-clipping-widget="true"
-      :currentProject="currentProject"
       :clipping-content="clippingData"
       @update-page="updatePage"
       @update-posts-count="updatePosts"
@@ -128,10 +126,6 @@ export default {
     },
   },
   async created() {
-    if (!this.availableWidgets) {
-      await this[action.GET_AVAILABLE_WIDGETS](this.projectId)
-    }
-
     if (!this.clippingData.length) {
       await this[action.GET_CLIPPING_FEED_CONTENT_WIDGET]({
         projectId: this.projectId,
@@ -141,7 +135,6 @@ export default {
   },
   methods: {
     ...mapActions([
-      action.GET_AVAILABLE_WIDGETS,
       action.UPDATE_AVAILABLE_WIDGETS,
       action.GET_CLIPPING_FEED_CONTENT_WIDGET,
     ]),
@@ -155,7 +148,6 @@ export default {
           [name]: {is_active: false, id: this.availableWidgets[name].id},
         },
       })
-      await this[action.GET_AVAILABLE_WIDGETS](this.projectId)
     },
     updatePage(page, posts) {
       this.$emit('update-page', page, posts)

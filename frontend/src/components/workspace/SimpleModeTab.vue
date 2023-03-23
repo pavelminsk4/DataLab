@@ -35,7 +35,10 @@
         Refine youre search with additional filters
       </div>
 
-      <OnlineType :current-project="currentProject" />
+      <component
+        :is="`${moduleName}SearchForm`"
+        :current-project="currentProject"
+      />
     </div>
 
     <div class="buttons">
@@ -56,7 +59,8 @@
 
 <script>
 import BaseTag from '@/components/BaseTag'
-import OnlineType from '@/components/workspace/sources/OnlineType'
+import OnlineSearchForm from '@/components/project/OnlineSearchForm'
+import SocialSearchForm from '@/components/project/SocialSearchForm'
 import BaseButton from '@/components/common/BaseButton'
 import {mapGetters} from 'vuex'
 import {get} from '@store/constants'
@@ -64,28 +68,20 @@ import SaveIcon from '@/components/icons/SaveIcon'
 
 export default {
   name: 'SimpleModeTab',
-  components: {SaveIcon, BaseButton, OnlineType, BaseTag},
+  components: {
+    SaveIcon,
+    BaseButton,
+    OnlineSearchForm,
+    SocialSearchForm,
+    BaseTag,
+  },
   props: {
-    mainKeywords: {
-      type: Array,
-      default: () => [],
-    },
-    additionalKeywords: {
-      type: Array,
-      default: () => [],
-    },
-    excludeKeywords: {
-      type: Array,
-      default: () => [],
-    },
-    currentProject: {
-      type: [Array, Object],
-      default: () => [],
-    },
-    isDisabledButton: {
-      type: Boolean,
-      default: false,
-    },
+    mainKeywords: {type: Array, default: () => []},
+    additionalKeywords: {type: Array, default: () => []},
+    excludeKeywords: {type: Array, default: () => []},
+    currentProject: {type: [Array, Object], default: () => []},
+    isDisabledButton: {type: Boolean, default: false},
+    moduleName: {type: String, default: 'Online'},
   },
   data() {
     return {

@@ -27,4 +27,18 @@ export default {
   [mutator.SET_PROJECTS](state, projects) {
     state.projects = projects
   },
+
+  [mutator.SET_AVAILABLE_WIDGETS](state, data) {
+    state.availableWidgets = data
+  },
+
+  [mutator.SET_COUNTRIES](state, countries) {
+    state.countries = countries
+  },
+  [mutator.SET_LANGUAGES](state, languages) {
+    state.languages = languages
+  },
+  [mutator.SET_AUTHORS](state, authors) {
+    state.authors = authors
+  },
 }

@@ -46,11 +46,6 @@ export default {
     currentProject: {type: [Array, Object], required: false},
     selectedWidgets: {type: Array, required: true},
   },
-  async created() {
-    if (!this.availableWidgets) {
-      await this[action.GET_AVAILABLE_WIDGETS](this.currentProject.id)
-    }
-  },
   data() {
     return {
       isOpenWidgetSettingsModal: false,
@@ -63,10 +58,7 @@ export default {
     }),
   },
   methods: {
-    ...mapActions([
-      action.GET_AVAILABLE_WIDGETS,
-      action.UPDATE_AVAILABLE_WIDGETS,
-    ]),
+    ...mapActions([action.UPDATE_AVAILABLE_WIDGETS]),
     updatePage(page, posts) {
       this.$emit('update-page', page, posts)
     },

@@ -1,6 +1,6 @@
 <template>
   <post-card-layout
-    :sentiment="postDetails.sentiment_vote"
+    :sentiment="postDetails.sentiment"
     :post-image="img"
     :is-clipping-widget="isClippingWidget"
     :is-clipping-post="isClippingPost"
@@ -52,7 +52,7 @@
 
 <script>
 import {createNamespacedHelpers} from 'vuex'
-import {action} from '@store/constants'
+import {action, get} from '@store/constants'
 import {defaultDate} from '@lib/utilities'
 
 import LikeIcon from '@/components/icons/LikeIcon'
@@ -62,7 +62,7 @@ import TwitterIcon from '@/components/icons/TwitterIcon'
 
 import PostCardLayout from '@/components/layout/PostCardLayout'
 
-const {mapActions} = createNamespacedHelpers('social')
+const {mapActions, mapGetters} = createNamespacedHelpers('social')
 
 export default {
   name: 'SocialPostCard',
@@ -75,14 +75,18 @@ export default {
   },
   props: {
     isClippingPost: {type: Boolean, default: false},
-    projectId: {type: Number, required: false},
-    widgetId: {type: Number, required: true},
     img: {type: String, default: ''},
     isClippingWidget: {type: Boolean, default: false},
     postDetails: {type: Object, required: true},
   },
 
   computed: {
+    ...mapGetters({
+      clippingWidgets: get.CLIPPING_WIDGETS_DETAILS,
+    }),
+    projectId() {
+      return this.$router.params.projectId
+    },
     commonCardItems() {
       return [
         {name: 'DATE', value: this.defaultDate(this.postDetails.creation_date)},
@@ -121,14 +125,14 @@ export default {
           },
         ],
         projectId: this.projectId,
-        widgetId: this.widgetId,
+        widgetId: this.clippingWidgets.id,
       })
     },
     async deleteClippingFeedPost() {
       await this[action.DELETE_CLIPPING_FEED_CONTENT]({
         projectId: this.projectId,
         postId: this.postDetails.id,
-        widgetId: this.widgetId,
+        widgetId: this.clippingWidgets.id,
       })
     },
   },

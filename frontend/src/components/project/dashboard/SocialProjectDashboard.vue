@@ -83,8 +83,8 @@
     </div>
 
     <div class="analytics-wrapper">
-      <SocialSearchResults
-        :currentProject="currentProject"
+      <SearchResults
+        module-name="Social"
         :clipping-content="clippingData"
         class="search-results"
         @show-results="showResults"
@@ -102,9 +102,8 @@
 <script>
 import {mapActions, mapGetters, createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
-import {action as actionSocial} from '@store/constants'
 
-import SocialSearchResults from '@/components/SocialSearchResults'
+import SearchResults from '@/components/SearchResults'
 import SocialProjectDashboardWidgets from '@/components/project/dashboard/SocialProjectDashboardWidgets'
 import BaseButton from '@/components/common/BaseButton'
 import PlusIcon from '@/components/icons/PlusIcon'
@@ -120,7 +119,7 @@ import InteractiveWidgetModal from '@/components/modals/InteractiveWidgetModal'
 const {mapActions: mapSocialActions} = createNamespacedHelpers('social')
 
 export default {
-  name: 'AnalyticsScreen',
+  name: 'SocialProjectDashboard',
   components: {
     InteractiveWidgetModal,
     MainLayoutTitleBlock,
@@ -133,7 +132,7 @@ export default {
     PlusIcon,
     BaseButton,
     SocialProjectDashboardWidgets,
-    SocialSearchResults,
+    SearchResults,
   },
   props: {
     currentProject: {
@@ -180,8 +179,6 @@ export default {
     },
   },
   created() {
-    this[action.GET_AVAILABLE_WIDGETS](this.currentProject.id)
-
     this[action.UPDATE_ADDITIONAL_FILTERS]({
       date_range: [
         new Date(this.currentProject.start_search_date),
@@ -194,10 +191,9 @@ export default {
   methods: {
     ...mapActions([action.UPDATE_ADDITIONAL_FILTERS]),
     ...mapSocialActions([
-      actionSocial.POST_SEARCH,
-      actionSocial.GET_AVAILABLE_WIDGETS,
-      actionSocial.POST_INTERACTIVE_WIDGETS,
-      actionSocial.UPDATE_AVAILABLE_WIDGETS,
+      action.POST_SEARCH,
+      action.POST_INTERACTIVE_WIDGETS,
+      action.UPDATE_AVAILABLE_WIDGETS,
     ]),
     setSortingValue(item) {
       this.sortValue = item
@@ -255,7 +251,7 @@ export default {
       })
     },
     async updateAvailableWidgets(data) {
-      await this[actionSocial.UPDATE_AVAILABLE_WIDGETS](data)
+      await this[action.UPDATE_AVAILABLE_WIDGETS](data)
       this.toggleWidgetsModal(null)
     },
   },

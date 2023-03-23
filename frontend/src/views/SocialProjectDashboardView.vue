@@ -48,9 +48,10 @@ export default {
     if (!this.workspaces.length) {
       this[action.GET_WORKSPACES]()
     }
+    this[action.GET_AVAILABLE_WIDGETS](this.projectId)
   },
   methods: {
-    ...mapActions([action.GET_WORKSPACES]),
+    ...mapActions([action.GET_WORKSPACES, action.GET_AVAILABLE_WIDGETS]),
     openTab(pathName) {
       this.$router.push({
         name: pathName,

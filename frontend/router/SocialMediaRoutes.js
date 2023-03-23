@@ -1,18 +1,18 @@
 import store from '@store'
+
 import CreateWorkspaceView from '@/components/workspace/CreateWorkspaceView'
 import SocialModuleView from '@/views/SocialModuleView'
 import SocialWorkspacesView from '@/views/SocialWorkspacesView'
 import SocialWorkspaceView from '@/views/SocialWorkspaceView'
 import SocialProjectDashboardView from '@/views/SocialProjectDashboardView'
 import SocialProjectDashboard from '@/components/project/dashboard/SocialProjectDashboard'
+import SocialSearch from '@/components/project/search/SocialSearch'
 
 import SocialCreateSearchScreen from '@/components/workspace/screens/SocialCreateSearchScreen'
 import CreateProjectScreen from '@/components/workspace/screens/CreateProjectScreen'
 import CreateWorkspaceScreen from '@/components/workspace/screens/CreateWorkspaceScreen'
 import CreateWorkspaceRightSide from '@/components/workspace/CreateWorkspaceRightSide'
-import SocialSearchResults from '@/components/SocialSearchResults'
-
-import SearchScreen from '@/components/project/screens/SearchScreen'
+import SearchResults from '@/components/SearchResults'
 
 export default [
   {
@@ -84,7 +84,7 @@ export default [
             path: 'step3',
             components: {
               default: SocialCreateSearchScreen,
-              secondColumn: SocialSearchResults,
+              secondColumn: SearchResults,
             },
             beforeEnter: (to, from, next) => {
               if (to.name !== store.state.currentStep) {
@@ -109,7 +109,7 @@ export default [
                 workspaceId: route.params.workspaceId,
                 moduleName: 'Social',
               }),
-              secondColumn: {step: 'step3'},
+              secondColumn: {step: 'step3', moduleName: 'Social'},
             },
           },
         ],
@@ -128,7 +128,7 @@ export default [
           {
             name: 'SocialSearch',
             path: 'search-settings',
-            component: SearchScreen,
+            component: SocialSearch,
           },
         ],
       },

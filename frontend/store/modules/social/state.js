@@ -4,6 +4,10 @@ const state = {
   newWorkspaceId: null,
   newProjectId: null,
   projects: [],
+  availableWidgets: null,
+  countries: [],
+  languages: [],
+  authors: [],
 }
 
 export default state

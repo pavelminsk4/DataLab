@@ -17,4 +17,20 @@ export default {
   [get.PROJECTS](state) {
     return state.projects
   },
+
+  [get.CLIPPING_WIDGETS_DETAILS](state) {
+    return state.availableWidgets?.clipping_feed_content
+  },
+
+  [get.COUNTRIES](state) {
+    return state.countries.map((el) => el.locationString)
+  },
+
+  [get.LANGUAGES](state) {
+    return state.languages.map((el) => el.language)
+  },
+
+  [get.AUTHORS](state) {
+    return state.authors.map((el) => el.user_name)
+  },
 }
