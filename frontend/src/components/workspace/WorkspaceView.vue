@@ -8,7 +8,7 @@
             Select the project you want to work on or create a new search"
         :back-page="backPage"
       >
-        <OnlineIcon class="online-icon" />
+        <component :is="`${moduleName}Icon`" class="online-icon" />
       </MainLayoutTitleBlock>
 
       <BaseButtonWithTooltip
@@ -49,6 +49,7 @@ import {action, get} from '@store/constants'
 
 import SortIcon from '@components/icons/SortIcon'
 import OnlineIcon from '@components/icons/OnlineIcon'
+import SocialIcon from '@components/icons/SocialIcon'
 
 import BaseButtonWithTooltip from '@/components/BaseButtonWithTooltip'
 import BaseInput from '@/components/common/BaseInput'
@@ -66,19 +67,12 @@ export default {
     OnlineIcon,
     ProjectsTable,
     SortIcon,
+    SocialIcon,
   },
   props: {
-    workspace: {
-      type: Object,
-      default: () => ({}),
-    },
-    backPage: {
-      type: Object,
-      default: () => ({
-        name: 'page',
-        routName: '',
-      }),
-    },
+    moduleName: {type: String, default: 'Online'},
+    workspace: {type: Object, default: () => ({})},
+    backPage: {type: Object, default: () => ({name: 'page', routName: ''})},
   },
   data() {
     return {

@@ -51,6 +51,18 @@ export default {
     }
   },
 
+  async [action.GET_GENDER_VOLUME_WIDGET]({commit}, {projectId, widgetId}) {
+    commit(mutator.SET_LOADING, true, {root: true})
+    try {
+      const data = await api.social.getGenderVolumeWidget(projectId, widgetId)
+      commit(mutator.SET_GENDER_VOLUME_WIDGET, data)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false, {root: true})
+    }
+  },
+
   // Top
   async [action.GET_TOP_LOCATIONS_WIDGET]({commit}, {projectId, widgetId}) {
     commit(mutator.SET_LOADING, true, {root: true})
@@ -226,6 +238,65 @@ export default {
         widgetId,
       })
       commit(mutator.SET_SENTIMENT_FOR_PERIOD, sentimentForPeriod)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false, {root: true})
+    }
+  },
+  async [action.GET_SENTIMENT_DIAGRAM]({commit}, {projectId, widgetId}) {
+    commit(mutator.SET_LOADING, true, {root: true})
+    try {
+      const data = await api.social.getSentimentDiagram({
+        projectId,
+        widgetId,
+      })
+      commit(mutator.SET_SENTIMENT_DIAGRAM, data)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false, {root: true})
+    }
+  },
+  async [action.GET_SENTIMENT_NUMBER_OF_RESULT](
+    {commit},
+    {projectId, widgetId}
+  ) {
+    commit(mutator.SET_LOADING, true, {root: true})
+    try {
+      const data = await api.social.getSentimentNumberOfResult({
+        projectId,
+        widgetId,
+      })
+      commit(mutator.SET_SENTIMENT_NUMBER_OF_RESULT, data)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false, {root: true})
+    }
+  },
+  async [action.GET_SENTIMENT_TOP_KEYWORDS]({commit}, {projectId, widgetId}) {
+    commit(mutator.SET_LOADING, true, {root: true})
+    try {
+      const data = await api.social.getSentimentTopKeywords({
+        projectId,
+        widgetId,
+      })
+      commit(mutator.SET_SENTIMENT_TOP_KEYWORDS, data)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false, {root: true})
+    }
+  },
+  async [action.GET_SENTIMENT_BY_GENDER]({commit}, {projectId, widgetId}) {
+    commit(mutator.SET_LOADING, true, {root: true})
+    try {
+      const data = await api.social.getSentimentByGender({
+        projectId,
+        widgetId,
+      })
+      commit(mutator.SET_SENTIMENT_BY_GENDER, data)
     } catch (e) {
       console.log(e)
     } finally {

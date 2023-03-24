@@ -2,6 +2,7 @@ const state = {
   summary: {},
   clippingFeedContent: [],
   contentVolume: [],
+  genderVolume: [],
 
   topLocations: [],
   topLanguages: [],
@@ -16,6 +17,10 @@ const state = {
   sentimentTopLocations: {},
   sentimentTopLanguages: {},
   sentimentForPeriod: [],
+  sentimentDiagram: {},
+  sentimentNumberOfResult: {},
+  sentimentTopKeywords: {},
+  sentimentByGender: {},
 }
 
 export default state

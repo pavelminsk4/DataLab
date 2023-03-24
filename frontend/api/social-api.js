@@ -104,6 +104,13 @@ export default {
     )
   },
 
+  async getGenderVolumeWidget({projectId, widgetId}) {
+    return fetch(
+      'get',
+      `${moduleName}/social_gender_volume/${projectId}/${widgetId}`
+    )
+  },
+
   // Top
   async getTopLocationsWidget(projectId, widgetId) {
     return fetch(
@@ -178,6 +185,30 @@ export default {
       'get',
       `${moduleName}/social_sentiment/${projectId}/${widgetId}`,
       value
+    )
+  },
+  async getSentimentDiagram({projectId, widgetId}) {
+    return fetch(
+      'get',
+      `${moduleName}/social_sentiment_diagram/${projectId}/${widgetId}`
+    )
+  },
+  async getSentimentNumberOfResult({projectId, widgetId}) {
+    return fetch(
+      'get',
+      `${moduleName}/social_sentiment_number_of_results/${projectId}/${widgetId}`
+    )
+  },
+  async getSentimentTopKeywords({projectId, widgetId}) {
+    return fetch(
+      'get',
+      `${moduleName}/social_sentiment_top_keywords/${projectId}/${widgetId}`
+    )
+  },
+  async getSentimentByGender({projectId, widgetId}) {
+    return fetch(
+      'get',
+      `${moduleName}/social_sentiment_by_gender/${projectId}/${widgetId}`
     )
   },
 }
