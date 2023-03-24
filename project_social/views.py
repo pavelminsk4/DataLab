@@ -204,7 +204,7 @@ def social_sentiment_number_of_results(request, pk, widget_pk):
 def social_sentiment_diagram(request, pk, widget_pk):
   return sentiment_number_of_results(pk, widget_pk)
 
-def dimensions_for_each_widgets(request, widget_pk):
+def dimensions_for_each_widgets(request, project_pk, widget_pk):
   return dimensions_for_each(request, widget_pk)
 
 class ProjectSocialWidgetsAPIView(RetrieveAPIView):
