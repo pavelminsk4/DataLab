@@ -274,6 +274,18 @@ export const widgetsConfig = {
     defaultChartType: 'BarChart',
     availableTypes: SENTIMENTS_CHARTS,
   },
+  sentiment_by_gender: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    actionName: action.GET_SENTIMENT_BY_GENDER,
+    defaultChartType: 'BarChart',
+    availableTypes: SENTIMENTS_CHARTS,
+  },
+  gender_volume: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    actionName: action.GET_GENDER_VOLUME_WIDGET,
+    defaultChartType: 'MultiLineChart',
+    availableTypes: MULTI_CHARTS,
+  },
 }
 
 export const summaryWidgetConfig = [

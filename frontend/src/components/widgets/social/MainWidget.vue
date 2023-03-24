@@ -10,6 +10,7 @@
 import Summary from '@/components/widgets/social/SummaryWidget'
 import ClippingFeedContent from '@/components/widgets/social/ClippingFeedContentWidget'
 import ContentVolume from '@/components/widgets/social/ContentVolumeWidget'
+import GenderVolume from '@/components/widgets/social/GenderVolumeWidget'
 
 import TopLocations from '@/components/widgets/social/TopLocationsWidget'
 import TopLanguages from '@/components/widgets/social/TopLanguagesWidget'
@@ -24,6 +25,7 @@ import Sentiment from '@/components/widgets/social/SentimentForPeriodWidget'
 import SentimentAuthors from '@/components/widgets/social/SentimentTopAuthorsWidget'
 import SentimentLanguages from '@/components/widgets/social/SentimentTopLanguagesWidget'
 import SentimentLocations from '@/components/widgets/social/SentimentTopLocationsWidget'
+import SentimentByGender from '@/components/widgets/social/SentimentByGenderWidget'
 
 export default {
   name: 'SocialMainWidget',
@@ -42,6 +44,8 @@ export default {
     SentimentAuthors,
     SentimentLanguages,
     SentimentLocations,
+    SentimentByGender,
+    GenderVolume,
   },
   props: {
     widgetDetails: {type: Object, required: true},
