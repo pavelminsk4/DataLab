@@ -10,6 +10,9 @@ export default {
   [mutator.SET_CONTENT_VOLUME_WIDGET](state, data) {
     state.contentVolume = data
   },
+  [mutator.SET_GENDER_VOLUME_WIDGET](state, data) {
+    state.genderVolume = data
+  },
 
   // Top
   [mutator.SET_TOP_LOCATIONS_WIDGET](state, locations) {
@@ -48,5 +51,17 @@ export default {
   },
   [mutator.SET_SENTIMENT_FOR_PERIOD](state, data) {
     state.sentimentForPeriod = data
+  },
+  [mutator.SET_SENTIMENT_DIAGRAM](state, data) {
+    state.sentimentDiagram = data
+  },
+  [mutator.SET_SENTIMENT_NUMBER_OF_RESULT](state, data) {
+    state.sentimentNumberOfResult = data
+  },
+  [mutator.SET_SENTIMENT_TOP_KEYWORDS](state, data) {
+    state.sentimentTopKeywords = data
+  },
+  [mutator.SET_SENTIMENT_BY_GENDER](state, data) {
+    state.sentimentByGender = data
   },
 }

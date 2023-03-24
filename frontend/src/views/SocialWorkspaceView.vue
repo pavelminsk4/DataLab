@@ -1,5 +1,6 @@
 <template>
   <WorkspaceView
+    module-name="Social"
     :workspace="workspace"
     :back-page="{
       name: 'main page',

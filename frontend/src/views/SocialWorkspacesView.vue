@@ -2,7 +2,7 @@
   <MainLayout>
     <div class="content-header">
       <MainLayoutTitleBlock title="Social Media">
-        <SocialMediaIcon class="title-icon" />
+        <SocialIcon class="title-icon" />
       </MainLayoutTitleBlock>
 
       <BaseButtonWithTooltip
@@ -43,7 +43,7 @@ import MainLayout from '@components/layout/MainLayout'
 import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
 import WorkspacesScreen from '@/components/dashboard/WorkspacesScreen'
 
-import SocialMediaIcon from '@components/icons/SocialMediaIcon'
+import SocialIcon from '@components/icons/SocialIcon'
 import PlusIcon from '@/components/icons/PlusIcon'
 
 const {mapActions: mapSocialActions, mapGetters: mapSocialGetters} =
@@ -56,7 +56,7 @@ export default {
     BlankPage,
     MainLayout,
     MainLayoutTitleBlock,
-    SocialMediaIcon,
+    SocialIcon,
     PlusIcon,
     WorkspacesScreen,
   },
