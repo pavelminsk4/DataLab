@@ -51,9 +51,7 @@ export default {
       return this.socialWidgets.contentVolume
     },
     labels() {
-      return this.contentVolumeWidgetData.map((el) =>
-        defaultDate(el.creation_date)
-      )
+      return this.contentVolumeWidgetData.map((el) => defaultDate(el.date))
     },
     chartValues() {
       return [

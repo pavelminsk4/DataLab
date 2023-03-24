@@ -89,7 +89,7 @@ export default {
     },
     commonCardItems() {
       return [
-        {name: 'DATE', value: this.defaultDate(this.postDetails.creation_date)},
+        {name: 'DATE', value: this.defaultDate(this.postDetails.date)},
         {name: 'LOCATION', value: this.postDetails.locationString},
         {name: 'LANGUAGE', value: this.postDetails.language},
         {
