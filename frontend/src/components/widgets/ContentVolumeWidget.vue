@@ -28,6 +28,7 @@ export default {
     widgetDetails: {type: Object, required: true},
     newChartType: {type: String, default: ''},
     isSettings: {type: Boolean, default: false},
+    colors: {type: Array, default: () => []},
     contentVolumeWidgetData: {type: Array, required: true, default: () => {}},
   },
   computed: {
@@ -54,7 +55,7 @@ export default {
     },
     chartValues() {
       let datasetsValue = []
-      let lineColors = [
+      const defaultLineColors = [
         '#7C59ED',
         '#CDC6FF',
         '#551EB9',
@@ -66,6 +67,8 @@ export default {
         '#01A4EE',
         '#FFE499',
       ]
+
+      const lineColors = this.colors.length ? this.colors : defaultLineColors
 
       Object.values(this.contentVolumeWidgetData).forEach(
         (volumeData, index) => {

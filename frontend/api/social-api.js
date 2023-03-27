@@ -104,7 +104,7 @@ export default {
     )
   },
 
-  async getGenderVolumeWidget({projectId, widgetId}) {
+  async getGenderVolumeWidget(projectId, widgetId) {
     return fetch(
       'get',
       `${moduleName}/social_gender_volume/${projectId}/${widgetId}`
