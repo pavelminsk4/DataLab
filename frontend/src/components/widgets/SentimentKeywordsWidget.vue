@@ -55,17 +55,17 @@ export default {
         switch (sentiment) {
           case 'neutral':
             return this.keywordsValues.neutral.forEach((data) => {
-              neutral.data.push(data.value)
+              neutral.data.push(data.value * 100)
               neutral.labels.push(data.key)
             })
           case 'positive':
             return this.keywordsValues.positive.forEach((data) => {
-              positive.data.push(data.value)
+              positive.data.push(data.value * 100)
               positive.labels.push(data.key)
             })
           case 'negative':
             return this.keywordsValues.negative.forEach((data) => {
-              negative.data.push(data.value)
+              negative.data.push(data.value * 100)
               negative.labels.push(data.key)
             })
         }

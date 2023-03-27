@@ -26,8 +26,12 @@ import SentimentAuthors from '@/components/widgets/social/SentimentTopAuthorsWid
 import SentimentLanguages from '@/components/widgets/social/SentimentTopLanguagesWidget'
 import SentimentLocations from '@/components/widgets/social/SentimentTopLocationsWidget'
 import SentimentByGender from '@/components/widgets/social/SentimentByGenderWidget'
+<<<<<<< HEAD:frontend/src/components/widgets/social/SocialMainWidget.vue
 import SentimentDiagram from '@/components/widgets/social/SentimentDiagramWidget'
 import SentimentNumberOfResults from '@/components/widgets/social/SentimentNumberOfResultWidget'
+=======
+import SentimentTopKeywords from '@/components/widgets/social/SentimentTopKeywordsWidget'
+>>>>>>> b26fbd8 (ADD: sentiment top keywords widget for social):frontend/src/components/widgets/social/MainWidget.vue
 
 export default {
   name: 'SocialMainWidget',
@@ -47,6 +51,7 @@ export default {
     SentimentLanguages,
     SentimentLocations,
     SentimentByGender,
+    SentimentTopKeywords,
     GenderVolume,
     SentimentDiagram,
     SentimentNumberOfResults,

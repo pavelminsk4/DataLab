@@ -45,7 +45,7 @@ export default {
       return this.keywordsValues.map((item) => item.key)
     },
     values() {
-      return this.keywordsValues.map((item) => item.value)
+      return this.keywordsValues.map((item) => item.value * 100)
     },
     chartValues() {
       return [{data: this.values}]

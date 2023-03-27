@@ -13,7 +13,7 @@
         <div class="tooltip-wrapper">
           <BaseTooltip arrow-position="bottom" class="tooltip">
             <div class="title">{{ capitalizeFirstLetter(text) }}</div>
-            <span class="title">Results: {{ getCount(text) }} %</span>
+            <span class="title">Results: {{ getCount(text, item) }} %</span>
           </BaseTooltip>
         </div>
 
@@ -37,8 +37,9 @@ export default {
   },
   methods: {
     capitalizeFirstLetter,
-    getCount(word) {
-      return word
+    getCount(word, sentimentData) {
+      const index = sentimentData.labels.indexOf(word)
+      return sentimentData.data[index].toFixed(2)
     },
     words(sentimentData) {
       return sentimentData.labels.map((label) => {

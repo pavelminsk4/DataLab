@@ -29,7 +29,7 @@ def get_keywords(posts):
   for token in tokens:
     if (token[0] not in STOPWORDS and token[0].isalpha()):
       keywords.append(token)
-    if (len(keywords) == 20):
+    if (len(keywords) == 10):
       break
   keywords = dict(keywords)
   return [{'key' : kw, 'value' : keywords[kw]/len(posts)} for kw in keywords]

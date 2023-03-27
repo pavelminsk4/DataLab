@@ -291,6 +291,7 @@ export const widgetsConfig = {
     defaultChartType: 'BarChart',
     availableTypes: SENTIMENTS_CHARTS,
   },
+
   gender_volume: {
     ...WIDGET_DEFAULT_SETTINGS,
     actionName: action.GET_GENDER_VOLUME_WIDGET,
