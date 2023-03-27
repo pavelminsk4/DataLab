@@ -3,15 +3,17 @@
     v-if="chartValues.length"
     :is="widgetWrapper"
     :title="widgetDetails.title"
-    style="--widget-layout-content-padding: 50px 100px"
+    style="--widget-layout-content-padding: 5px 100px"
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
   >
-    <ChartsView
-      :chart-type="chartType"
-      :chart-values="chartValues"
-      :chart-labels="labels"
-    />
+    <div class="sentiment-keywords-wrapper">
+      <ChartsView
+        :chart-type="chartType"
+        :chart-values="chartValues"
+        :is-sentiment-keywords="true"
+      />
+    </div>
   </component>
 </template>
 
@@ -29,11 +31,6 @@ export default {
     newChartType: {type: String, default: ''},
     isSettings: {type: Boolean, default: false},
     keywordsValues: {type: Object, required: true},
-  },
-  data() {
-    return {
-      labels: [],
-    }
   },
   computed: {
     ...mapState(['loading']),
@@ -59,27 +56,47 @@ export default {
           case 'neutral':
             return this.keywordsValues.neutral.forEach((data) => {
               neutral.data.push(data.value)
-              this.labels.push(data.key)
+              neutral.labels.push(data.key)
             })
           case 'positive':
             return this.keywordsValues.positive.forEach((data) => {
               positive.data.push(data.value)
-              this.labels.push(data.key)
+              positive.labels.push(data.key)
             })
           case 'negative':
             return this.keywordsValues.negative.forEach((data) => {
               negative.data.push(data.value)
-              this.labels.push(data.key)
+              negative.labels.push(data.key)
             })
         }
       })
 
       return [
-        {data: neutral.data, color: '#516BEE'},
-        {data: positive.data, color: '#00B884'},
-        {data: negative.data, color: '#ED2549'},
+        {
+          data: neutral.data,
+          labels: neutral.labels,
+          color: '#516BEE',
+        },
+        {
+          data: positive.data,
+          labels: positive.labels,
+          color: '#00B884',
+        },
+        {
+          data: negative.data,
+          labels: negative.labels,
+          color: '#ED2549',
+        },
       ]
     },
   },
 }
 </script>
+
+<style scoped>
+.sentiment-keywords-wrapper {
+  display: flex;
+
+  height: 100%;
+}
+</style>

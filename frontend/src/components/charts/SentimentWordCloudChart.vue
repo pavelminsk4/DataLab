@@ -1,6 +1,8 @@
 <template>
   <vue-word-cloud
-    :words="words"
+    v-for="(item, index) in chartValues"
+    :key="'sentiment-keywords-' + index"
+    :words="words(item)"
     :font-size-ratio="3"
     :spacing="1"
     font-family="Poppins"
@@ -32,27 +34,21 @@ export default {
   components: {BaseTooltip, VueWordCloud},
   props: {
     chartValues: {type: Array, default: () => []},
-    chartLabels: {type: Array, default: () => []},
-  },
-  computed: {
-    words() {
-      return [
-        {
-          text: this.chartLabels[0],
-          weight: 40,
-          fontWeight: 500,
-          color: this.chartValues[0].color,
-        },
-      ]
-    },
-  },
-  mounted() {
-    console.log(this.words)
   },
   methods: {
     capitalizeFirstLetter,
     getCount(word) {
       return word
+    },
+    words(sentimentData) {
+      return sentimentData.labels.map((label) => {
+        return {
+          text: label,
+          weight: 18,
+          fontWeight: 500,
+          color: sentimentData.color,
+        }
+      })
     },
   },
 }
@@ -99,6 +95,10 @@ export default {
     &:hover {
       z-index: 200;
     }
+  }
+
+  &:hover {
+    z-index: 200;
   }
 }
 </style>

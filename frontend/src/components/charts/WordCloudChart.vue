@@ -48,6 +48,9 @@ export default {
       })
     },
   },
+  mounted() {
+    console.log(this.words, 'simple')
+  },
   methods: {
     capitalizeFirstLetter,
     getCount(word) {
