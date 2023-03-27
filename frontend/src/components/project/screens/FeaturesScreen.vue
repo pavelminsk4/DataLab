@@ -6,7 +6,7 @@
         :description="currentProject.note"
         :back-page="{
           name: 'workspace',
-          routName: 'OnlineWorkspace',
+          routName: `${module}Workspace`,
         }"
       >
         <div class="search-results">{{ numberOfPosts }} results</div>

@@ -36,7 +36,7 @@
         :h="item.h"
         :i="item.i"
       >
-        <MainWidget
+        <OnlineMainWidget
           :widgetDetails="item.widgetDetails"
           @delete-widget="deleteWidget(item.widgetDetails.name)"
           @open-settings-modal="openModal(item.widgetDetails)"
@@ -58,14 +58,14 @@ import {widgetsConfig} from '@/lib/configs/widgetsConfigs'
 import SearchResults from '@/components/SearchResults'
 
 import WidgetSettingsModal from '@/components/widgets/online/modals/WidgetSettingsModal'
-import MainWidget from '@/components/widgets/online/MainWidget'
+import OnlineMainWidget from '@/components/widgets/online/OnlineMainWidget'
 
 export default {
   name: 'WidgetsView',
   components: {
     WidgetSettingsModal,
     SearchResults,
-    MainWidget,
+    OnlineMainWidget,
     GridLayout: VueGridLayout.GridLayout,
     GridItem: VueGridLayout.GridItem,
   },

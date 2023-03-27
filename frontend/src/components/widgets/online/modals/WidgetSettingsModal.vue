@@ -10,7 +10,7 @@
       @update-chart-type="($event) => (newChartType = $event)"
       @save-chart-settings="saveChartType"
     >
-      <MainWidget
+      <OnlineMainWidget
         :widgetDetails="widgetDetails"
         :is-settings="true"
         :new-chart-type="newChartType"
@@ -28,7 +28,7 @@ import {action, get} from '@store/constants'
 import {snakeToPascal} from '@/lib/utilities'
 
 import WidgetSettingsScreen from '@/components/widgets/screens/WidgetSettingsScreen'
-import MainWidget from '@/components/widgets/online/MainWidget'
+import OnlineMainWidget from '@/components/widgets/online/OnlineMainWidget'
 import BaseModal from '@/components/modals/BaseModal'
 
 export default {
@@ -36,7 +36,7 @@ export default {
   components: {
     WidgetSettingsScreen,
     BaseModal,
-    MainWidget,
+    OnlineMainWidget,
   },
   props: {
     widgetDetails: {type: Object, required: true},

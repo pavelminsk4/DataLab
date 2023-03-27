@@ -3,6 +3,7 @@
     v-if="selectedWidgets"
     :current-project="currentProject"
     :selected-widgets="selectedWidgets"
+    module-name="Online"
   />
 </template>
 

@@ -10,7 +10,7 @@
       @update-chart-type="($event) => (newChartType = $event)"
       @save-chart-settings="saveChartType"
     >
-      <MainWidget
+      <SocialMainWidget
         :widgetDetails="widgetDetails"
         :is-settings="true"
         :new-chart-type="newChartType"
@@ -29,7 +29,7 @@ import {snakeToPascal} from '@/lib/utilities'
 
 import WidgetSettingsScreen from '@/components/widgets/screens/WidgetSettingsScreen'
 import BaseModal from '@/components/modals/BaseModal'
-import MainWidget from '@/components/widgets/social/MainWidget'
+import SocialMainWidget from '@/components/widgets/social/SocialMainWidget'
 
 const {mapActions} = createNamespacedHelpers('social')
 
@@ -38,7 +38,7 @@ export default {
   components: {
     WidgetSettingsScreen,
     BaseModal,
-    MainWidget,
+    SocialMainWidget,
   },
   props: {
     widgetDetails: {type: Object, required: true},

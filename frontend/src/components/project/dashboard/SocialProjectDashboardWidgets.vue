@@ -29,7 +29,7 @@
       :key="item.i"
       class="widget-item"
     >
-      <MainWidget
+      <SocialMainWidget
         :widgetDetails="item.widgetDetails"
         @delete-widget="deleteWidget(item.widgetDetails.name)"
         @open-settings-modal="openModal(item.widgetDetails)"
@@ -49,7 +49,7 @@ import VueGridLayout from 'vue3-grid-layout'
 import {getWidgetDetails} from '@lib/utilities'
 import {widgetsConfig} from '@/lib/configs/widgetsConfigs'
 
-import MainWidget from '@/components/widgets/social/MainWidget'
+import SocialMainWidget from '@/components/widgets/social/SocialMainWidget'
 import WidgetSettingsModal from '@/components/widgets/social/modals/WidgetSettingsModal'
 
 const {mapActions, mapGetters: mapGettersSocial} =
@@ -58,7 +58,7 @@ const {mapActions, mapGetters: mapGettersSocial} =
 export default {
   name: 'SocialProjectDashboardWidgets',
   components: {
-    MainWidget,
+    SocialMainWidget,
     WidgetSettingsModal,
     GridLayout: VueGridLayout.GridLayout,
     GridItem: VueGridLayout.GridItem,
@@ -90,6 +90,7 @@ export default {
     },
     selectedWidgets: {
       get() {
+        if (!this.availableWidgets) return
         return Object.keys(this.availableWidgets)
           .map((widgetName, index) => {
             if (this.availableWidgets[widgetName].is_active) {
