@@ -22,7 +22,7 @@ class SentimentNumberOfResultsTests(APITestCase):
 
   def test_sentiment_number_of_results(self):
     pr = ProjectSocial.objects.first()
-    res = {'pos': 1, 'neg': 1, 'neut': 1}
+    res = {'positive': 1, 'negative': 1, 'neutral': 1}
     widget_pk = pr.social_widgets_list.sentiment_number_of_results_id
     url = reverse('project_social:social_sentiment_number_of_results', kwargs={'pk':pr.pk, 'widget_pk':widget_pk})
     response = self.client.get(url)
@@ -31,7 +31,7 @@ class SentimentNumberOfResultsTests(APITestCase):
 
   def test_sentiment_diagram(self):
     pr = ProjectSocial.objects.first()
-    res = {'pos': 1, 'neg': 1, 'neut': 1}
+    res = {'positive': 1, 'negative': 1, 'neutral': 1}
     widget_pk = pr.social_widgets_list.sentiment_diagram_id
     url = reverse('project_social:social_sentiment_diagram', kwargs={'pk':pr.pk, 'widget_pk':widget_pk})
     response = self.client.get(url)

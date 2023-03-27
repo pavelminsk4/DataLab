@@ -9,8 +9,8 @@ def sentiment_number_of_results(pk, widget_pk):
   widget = SocialWidgetDescription.objects.get(id=widget_pk)
   posts = post_agregetor_for_each_widget(widget, posts)
   res = {
-    'pos': posts.filter(sentiment_vote='positive').count(),
-    'neg': posts.filter(sentiment_vote='negative').count(),
-    'neut':posts.filter(sentiment_vote='neutral').count(),
+    'positive': posts.filter(sentiment_vote='positive').count(),
+    'negative': posts.filter(sentiment_vote='negative').count(),
+    'neutral':  posts.filter(sentiment_vote='neutral').count(),
     }
   return JsonResponse(res, safe=False)

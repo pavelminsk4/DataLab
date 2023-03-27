@@ -9,8 +9,8 @@ def number_of_results(pk, widget_pk):
   widget = WidgetDescription.objects.get(id=widget_pk)
   posts = post_agregetor_for_each_widget(widget, posts)
   res = {
-    'pos': posts.filter(sentiment='positive').count(),
-    'neg': posts.filter(sentiment='negative').count(),
-    'neut':posts.filter(sentiment='neutral').count(),
+    'positive': posts.filter(sentiment='positive').count(),
+    'negative': posts.filter(sentiment='negative').count(),
+    'neutral':  posts.filter(sentiment='neutral').count(),
     }
   return JsonResponse(res, safe=False)
