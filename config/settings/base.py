@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'alerts.apps.AlertsConfig',
     'drf_yasg',
     'tweet_binder.apps.TweetBinderConfig',
-    'project_social.apps.ProjectSocialConfig'
+    'project_social.apps.ProjectSocialConfig',
+    'ml_components.apps.MlComponentsConfig',
 ]
 
 MIDDLEWARE = [

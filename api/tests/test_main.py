@@ -114,10 +114,10 @@ class SearchTests(APITestCase):
     sp2 = Speech.objects.create(language='Lithuanian (Lithuania)')
     sp3 = Speech.objects.create(language='Italian (Italy)')
     sp4 = Speech.objects.create(language='Arabic')
-    Post.objects.create(id=1, feedlink=flink1, entry_title='First post title', entry_summary='First post body', feed_language=sp1, entry_author='Elon Musk', entry_published=datetime(2022, 9, 3, 6, 37), sentiment='neutral')
-    Post.objects.create(id=2, feedlink=flink2, entry_title='Second post title', entry_summary='Second post body', feed_language=sp2, entry_author='Tim Cook', entry_published=datetime(2022, 10, 3, 6, 37), sentiment='neutral')
-    Post.objects.create(id=3, feedlink=flink2, entry_title='Third post', entry_summary='Third post body', feed_language=sp3, entry_author='Bill Gates', entry_published=datetime(2022, 10, 3, 6, 37), sentiment='neutral')
-    Post.objects.create(id=4, feedlink=flink2, entry_title='Fourth post', entry_summary='Fourth post body', feed_language=sp4, entry_author='Steve Jobs', entry_published=datetime(2022, 10, 3, 6, 37), sentiment='positive')
+    Post.objects.create(id=1, feedlink=flink1, entry_title='First post title', entry_summary='First post body', feed_language=sp1, entry_author='Elon Musk', entry_published=datetime(2022, 9, 3, 6, 37), sentiment='neutral', summary_vector=[])
+    Post.objects.create(id=2, feedlink=flink2, entry_title='Second post title', entry_summary='Second post body', feed_language=sp2, entry_author='Tim Cook', entry_published=datetime(2022, 10, 3, 6, 37), sentiment='neutral', summary_vector=[])
+    Post.objects.create(id=3, feedlink=flink2, entry_title='Third post', entry_summary='Third post body', feed_language=sp3, entry_author='Bill Gates', entry_published=datetime(2022, 10, 3, 6, 37), sentiment='neutral', summary_vector=[])
+    Post.objects.create(id=4, feedlink=flink2, entry_title='Fourth post', entry_summary='Fourth post body', feed_language=sp4, entry_author='Steve Jobs', entry_published=datetime(2022, 10, 3, 6, 37), sentiment='positive', summary_vector=[])
 
   def test_search_with_keywords(self):
     self.db_seeder()
@@ -269,8 +269,8 @@ class AuthorsTests(APITestCase):
   def test_authors_list(self):
     flink = Feedlinks.objects.create(country='China', source1='CNN')
     sp = Speech.objects.create(language='English (United States)')
-    Post.objects.create(feedlink=flink, entry_title='First post title', entry_summary='First post body', feed_language=sp, entry_author='Elon Musk', entry_published=datetime(2022, 9, 3, 6, 37), sentiment='neutral')
-    Post.objects.create(feedlink=flink, entry_title='Second post title', entry_summary='Second post body', feed_language=sp, entry_author='Tim Cook', entry_published=datetime(2022, 10, 3, 6, 37), sentiment='neutral')
+    Post.objects.create(feedlink=flink, entry_title='First post title', entry_summary='First post body', feed_language=sp, entry_author='Elon Musk', entry_published=datetime(2022, 9, 3, 6, 37), sentiment='neutral', summary_vector=[])
+    Post.objects.create(feedlink=flink, entry_title='Second post title', entry_summary='Second post body', feed_language=sp, entry_author='Tim Cook', entry_published=datetime(2022, 10, 3, 6, 37), sentiment='neutral', summary_vector=[])
     url = '/api/authors/authors?search=E'
     response = self.client.get(url)
     self.assertEqual(response.status_code, status.HTTP_200_OK)

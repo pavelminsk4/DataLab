@@ -61,6 +61,7 @@ class PostResource(resources.ModelResource):
 
 class PostAdmin(ImportExportModelAdmin):
   resource_class = PostResource
+  list_display = ('entry_title', 'creationdate')
 
 admin.site.register(Post, PostAdmin)
 

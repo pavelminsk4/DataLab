@@ -13,12 +13,12 @@ class Top10BrandsWidgetTests(APITestCase):
     flink2 = Feedlinks.objects.create(source1='two_source', country = 'USA')
     flink3 = Feedlinks.objects.create(source1='third_source', country = 'USA')
     sp = Speech.objects.create(language='English (United States)')
-    post1 = Post.objects.create(feedlink=flink1, entry_title='First post title', feed_language=sp, entry_published=datetime(2021, 9, 3, 6, 37), entry_author='AFP')
-    post2 = Post.objects.create(feedlink=flink1, entry_title='Second post title', feed_language=sp, entry_published=datetime(2022, 9, 3, 6, 37), entry_author='AFP')
-    post3 = Post.objects.create(feedlink=flink2, entry_title='Third post title', feed_language=sp, entry_published=datetime(2023, 9, 3, 6, 37), entry_author='AFP')
-    post4 = Post.objects.create(feedlink=flink2, entry_title='4 post title', feed_language=sp, entry_published=datetime(2023, 9, 3, 6, 37), entry_author='AFP')
-    post5 = Post.objects.create(feedlink=flink3, entry_title='5 post title', feed_language=sp, entry_published=datetime(2023, 9, 3, 6, 37), entry_author='AFP')
-    post6 = Post.objects.create(feedlink=flink3, entry_title='6 post title', feed_language=sp, entry_published=datetime(2023, 9, 3, 6, 37), entry_author='EFE')
+    post1 = Post.objects.create(feedlink=flink1, entry_title='First post title', feed_language=sp, entry_published=datetime(2021, 9, 3, 6, 37), entry_author='AFP', summary_vector=[])
+    post2 = Post.objects.create(feedlink=flink1, entry_title='Second post title', feed_language=sp, entry_published=datetime(2022, 9, 3, 6, 37), entry_author='AFP', summary_vector=[])
+    post3 = Post.objects.create(feedlink=flink2, entry_title='Third post title', feed_language=sp, entry_published=datetime(2023, 9, 3, 6, 37), entry_author='AFP', summary_vector=[])
+    post4 = Post.objects.create(feedlink=flink2, entry_title='4 post title', feed_language=sp, entry_published=datetime(2023, 9, 3, 6, 37), entry_author='AFP', summary_vector=[])
+    post5 = Post.objects.create(feedlink=flink3, entry_title='5 post title', feed_language=sp, entry_published=datetime(2023, 9, 3, 6, 37), entry_author='AFP', summary_vector=[])
+    post6 = Post.objects.create(feedlink=flink3, entry_title='6 post title', feed_language=sp, entry_published=datetime(2023, 9, 3, 6, 37), entry_author='EFE', summary_vector=[])
     pr = Project.objects.create(title='Project1', keywords=['post'], additional_keywords=[], ignore_keywords=[], start_search_date=datetime(2020, 10, 10), 
                                 end_search_date=datetime(2023, 10, 16), language_filter=sp, creator=user)
     widget_pk = pr.widgets_list_2.top_10_brands_widget_id

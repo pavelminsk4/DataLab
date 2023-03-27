@@ -460,6 +460,7 @@ def post_creator():
             'feed_docs':my_feed_docs,
             'feed_generator_detail':my_feed_generator_detail,
             'is_sentiment':True,
+            'summary_vector':[],
             }
             print('---->')
             print(snippet)

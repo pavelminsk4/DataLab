@@ -14,9 +14,9 @@ class InstantReportTests(APITestCase):
     user = User.objects.create(username='Fox')
     flink = Feedlinks.objects.create(country='England')
     sp = Speech.objects.create(language='English (United States)')
-    post1 = Post.objects.create(id=1, feedlink=flink, entry_title='First post title Keyword', feed_language=sp, entry_published=datetime(2022, 10, 11, 6, 37))
-    post2 = Post.objects.create(id=2, feedlink=flink, entry_title='Second post title Keyword', feed_language=sp, entry_published=datetime(2022, 10, 12, 6, 37))
-    post3 = Post.objects.create(id=3, feedlink=flink, entry_title='Third post title Keyword', feed_language=sp, entry_published=datetime(2023, 10, 13, 6, 37))    
+    post1 = Post.objects.create(id=1, feedlink=flink, entry_title='First post title Keyword', feed_language=sp, entry_published=datetime(2022, 10, 11, 6, 37), summary_vector=[])
+    post2 = Post.objects.create(id=2, feedlink=flink, entry_title='Second post title Keyword', feed_language=sp, entry_published=datetime(2022, 10, 12, 6, 37), summary_vector=[])
+    post3 = Post.objects.create(id=3, feedlink=flink, entry_title='Third post title Keyword', feed_language=sp, entry_published=datetime(2023, 10, 13, 6, 37), summary_vector=[])
     template = Templates.objects.create(title='Temp', layout_file='static/report_templates/RSDC_Export_Template_AR.docx')
     pr = Project.objects.create(
         title='Project1',
