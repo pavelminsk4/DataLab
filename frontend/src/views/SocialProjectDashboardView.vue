@@ -41,10 +41,12 @@ export default {
     },
   },
   created() {
-    this.navUrls = ['Dashboard', 'Search'].map((item) => ({
-      name: item,
-      routeName: `Social${item}`,
-    }))
+    this.navUrls = ['Dashboard', 'Search', 'Summary', 'Sentiment'].map(
+      (item) => ({
+        name: item,
+        routeName: `Social${item}`,
+      })
+    )
     if (!this.workspaces.length) {
       this[action.GET_WORKSPACES]()
     }

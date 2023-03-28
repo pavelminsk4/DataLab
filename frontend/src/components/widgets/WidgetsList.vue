@@ -13,7 +13,8 @@
       :static="item.static"
       :class="['widgets__item', item.isFullWidth && 'grow']"
     >
-      <MainWidget
+      <component
+        :is="`${moduleName}MainWidget`"
         :widgetDetails="item.widgetDetails"
         @open-settings-modal="openModal(item.widgetDetails)"
         @open-interactive-data="openInteractiveData"
@@ -27,13 +28,15 @@ import {action, get} from '@store/constants'
 import {mapActions, mapGetters} from 'vuex'
 import WidgetSettingsModal from '@/components/widgets/online/modals/WidgetSettingsModal'
 
-import MainWidget from '@/components/widgets/online/MainWidget'
+import OnlineMainWidget from '@/components/widgets/online/OnlineMainWidget'
+import SocialMainWidget from '@/components/widgets/social/SocialMainWidget'
 
 export default {
   name: 'WidgetsList',
   components: {
-    MainWidget,
+    OnlineMainWidget,
     WidgetSettingsModal,
+    SocialMainWidget,
   },
   emits: [
     'update-page',
@@ -45,6 +48,7 @@ export default {
   props: {
     currentProject: {type: [Array, Object], required: false},
     selectedWidgets: {type: Array, required: true},
+    moduleName: {type: String, required: true},
   },
   data() {
     return {

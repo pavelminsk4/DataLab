@@ -14,6 +14,10 @@ import CreateWorkspaceScreen from '@/components/workspace/screens/CreateWorkspac
 import CreateWorkspaceRightSide from '@/components/workspace/CreateWorkspaceRightSide'
 import SearchResults from '@/components/SearchResults'
 
+import SocialFeaturesView from '@/views/social/SocialFeaturesView'
+import SocialSummaryScreen from '@/components/project/screens/social/SocialSummaryScreen'
+import SocialSentimentScreen from '@/components/project/screens/social/SocialSentimentScreen'
+
 export default [
   {
     path: '/social-media-module',
@@ -129,6 +133,23 @@ export default [
             name: 'SocialSearch',
             path: 'search-settings',
             component: SocialSearch,
+          },
+          {
+            name: 'SocialFeature',
+            path: 'feature',
+            component: SocialFeaturesView,
+            children: [
+              {
+                name: 'SocialSummary',
+                path: 'summary',
+                component: SocialSummaryScreen,
+              },
+              {
+                name: 'SocialSentiment',
+                path: 'sentiment',
+                component: SocialSentimentScreen,
+              },
+            ],
           },
         ],
       },

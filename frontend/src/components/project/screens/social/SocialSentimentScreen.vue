@@ -3,20 +3,22 @@
     v-if="selectedWidgets"
     :current-project="currentProject"
     :selected-widgets="selectedWidgets"
-    module-name="Online"
+    module-name="Social"
   />
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
+import {mapGetters, createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
+const {mapActions, mapGetters: mapGettersSocial} =
+  createNamespacedHelpers('social/widgets')
 
 import {getWidgetDetails} from '@lib/utilities'
 
 import WidgetsList from '@/components/widgets/WidgetsList'
 
 export default {
-  name: 'OnlineSentimentScreen',
+  name: 'SocialSentimentScreen',
   components: {
     WidgetsList,
   },
@@ -26,6 +28,9 @@ export default {
   computed: {
     ...mapGetters({
       availableWidgets: get.AVAILABLE_WIDGETS,
+    }),
+    ...mapGettersSocial({
+      socialWidgets: get.SOCIAL_WIDGETS,
     }),
     selectedWidgets: {
       get() {
@@ -51,15 +56,20 @@ export default {
     this.widgets = [
       {name: 'sentiment_number_of_results'},
       {name: 'sentiment_diagram'},
-      {name: 'sentiment_top_10_authors_widget'},
-      {name: 'top_keywords'},
-      {name: 'sentiment_top_10_sources_widget', isFullWidth: true},
-      {name: 'sentiment_top_10_countries_widget'},
-      {name: 'sentiment_top_10_languages_widget'},
+      {name: 'sentiment_authors'},
+      {name: 'sentiment_locations'},
+      {name: 'sentiment_languages'},
+      {name: 'sentiment_by_gender'},
     ]
+    if (!this.availableWidgets) {
+      await this[action.GET_AVAILABLE_WIDGETS](this.currentProject.id)
+    }
   },
   methods: {
-    ...mapActions([action.UPDATE_AVAILABLE_WIDGETS]),
+    ...mapActions([
+      action.GET_AVAILABLE_WIDGETS,
+      action.UPDATE_AVAILABLE_WIDGETS,
+    ]),
   },
 }
 </script>

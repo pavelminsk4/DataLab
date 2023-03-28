@@ -7,10 +7,13 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
+import {createNamespacedHelpers} from 'vuex'
 
 import SentimentDiagram from '@/components/widgets/SentimentDiagram'
+
+const {mapActions, mapGetters} = createNamespacedHelpers('social/widgets')
+
 export default {
   components: {SentimentDiagram},
   props: {
@@ -18,8 +21,11 @@ export default {
   },
   computed: {
     ...mapGetters({
-      sentimentDiagram: get.SENTIMENT_DIAGRAM,
+      socialWidgets: get.SOCIAL_WIDGETS,
     }),
+    sentimentDiagram() {
+      return this.socialWidgets.sentimentDiagram
+    },
   },
   created() {
     this[action.GET_SENTIMENT_DIAGRAM]({

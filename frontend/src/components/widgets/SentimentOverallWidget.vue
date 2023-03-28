@@ -39,7 +39,7 @@ import PositiveIcon from '@/components/icons/PositiveIcon'
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
 
 export default {
-  name: 'SentimentNumberOfResultWidget',
+  name: 'SentimentOverallWidget',
   components: {
     NeutralIcon,
     NegativeIcon,

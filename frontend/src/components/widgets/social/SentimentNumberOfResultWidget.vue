@@ -7,11 +7,13 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
+import {createNamespacedHelpers} from 'vuex'
 import {isAllEmptyFields} from '@lib/utilities'
 
-import SentimentOverallWidget from '@/components/widgets/online/SentimentOverallWidget'
+import SentimentOverallWidget from '@/components/widgets/SentimentOverallWidget'
+
+const {mapActions, mapGetters} = createNamespacedHelpers('social/widgets')
 
 export default {
   name: 'OnlineSentimentNumberOfResultsWidget',
@@ -21,8 +23,11 @@ export default {
   },
   computed: {
     ...mapGetters({
-      numOfResults: get.SENTIMENT_NUMBER_OF_RESULT,
+      socialWidgets: get.SOCIAL_WIDGETS,
     }),
+    numOfResults() {
+      return this.socialWidgets.sentimentNumberOfResult
+    },
   },
   created() {
     if (isAllEmptyFields(this.numOfResults)) {
