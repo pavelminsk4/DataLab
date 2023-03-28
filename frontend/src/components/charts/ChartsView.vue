@@ -24,6 +24,7 @@ import RadarChart from '@/components/charts/RadarChart'
 import HorizontalBarChart from '@/components/charts/HorizontalBarChart'
 import DoughnutChart from '@/components/charts/DoughnutChart'
 import WordCloudChart from '@/components/charts/WordCloudChart'
+import SentimentWordCloudChart from '@/components/charts/SentimentWordCloudChart'
 
 export default {
   name: 'ChartsView',
@@ -38,6 +39,7 @@ export default {
     RadarChart,
     DoughnutChart,
     WordCloudChart,
+    SentimentWordCloudChart,
   },
   props: {
     labels: {type: Array, default: () => []},

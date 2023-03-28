@@ -199,6 +199,13 @@ export default {
     return fetch('get', `/projects/${projectId}/dimension_sources`)
   },
 
+  async getSentimentTopKeywordsWidget({projectId, widgetId}) {
+    return fetch(
+      'post',
+      `/widgets/sentiment_top_keywords/${projectId}/${widgetId}`
+    )
+  },
+
   async getAlerts(projectId) {
     return fetch('get', `/projects/${projectId}/alerts`)
   },

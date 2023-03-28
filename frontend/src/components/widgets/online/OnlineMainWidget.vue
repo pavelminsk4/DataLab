@@ -22,6 +22,7 @@ import SentimentTop10CountriesWidget from '@/components/widgets/online/Sentiment
 import ContentVolumeTop5SourceWidget from '@/components/widgets/online/ContentVolumeTop5SourceWidget'
 import ContentVolumeTop5AuthorsWidget from '@/components/widgets/online/ContentVolumeTop5AuthorsWidget'
 import ContentVolumeTop5CountriesWidget from '@/components/widgets/online/ContentVolumeTop5CountriesWidget'
+import SentimentTopKeywords from '@/components/widgets/online/SentimentTopKeywordsWidget'
 import TopKeywords from '@/components/widgets/online/TopKeywordsWidget'
 import SentimentDiagram from '@/components/widgets/online/SentimentDiagramWidget'
 import SentimentNumberOfResults from '@/components/widgets/online/SentimentNumberOfResultWidget'
@@ -44,6 +45,7 @@ export default {
     ContentVolumeTop5SourceWidget,
     ContentVolumeTop5AuthorsWidget,
     ContentVolumeTop5CountriesWidget,
+    SentimentTopKeywords,
     TopKeywords,
     SentimentDiagram,
     SentimentNumberOfResults,
