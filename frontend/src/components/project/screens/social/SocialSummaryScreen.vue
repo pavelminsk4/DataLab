@@ -59,7 +59,6 @@ export default {
       {name: 'content_volume'},
       {name: 'top_keywords'},
       {name: 'top_authors'},
-
       {name: 'gender_volume'},
     ]
     if (!this.availableWidgets) {

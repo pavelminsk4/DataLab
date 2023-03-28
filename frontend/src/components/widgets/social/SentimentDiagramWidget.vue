@@ -1,35 +1,23 @@
 <template>
-  <component
-    :is="widgetWrapper"
-    :title="widgetDetails.title"
-    @delete-widget="$emit('delete-widget')"
-    @open-modal="$emit('open-settings-modal')"
-  >
-    <ChartsView
-      :labels="labels"
-      :chart-values="chartValues"
-      :chart-type="chartType"
-      :is-display-legend="!isSettings"
-    />
-  </component>
+  <SentimentDiagram
+    v-if="sentimentDiagram"
+    :widget-details="widgetDetails"
+    :sentiment-diagram="sentimentDiagram"
+  />
 </template>
 
 <script>
 import {action, get} from '@store/constants'
 import {createNamespacedHelpers} from 'vuex'
 
-import WidgetsLayout from '@/components/layout/WidgetsLayout'
-import ChartsView from '@/components/charts/ChartsView'
+import SentimentDiagram from '@/components/widgets/SentimentDiagram'
 
 const {mapActions, mapGetters} = createNamespacedHelpers('social/widgets')
 
 export default {
-  name: 'SentimentDiagram',
-  components: {ChartsView, WidgetsLayout},
+  components: {SentimentDiagram},
   props: {
     widgetDetails: {type: Object, required: true},
-    newChartType: {type: String, default: ''},
-    isSettings: {type: Boolean, default: false},
   },
   computed: {
     ...mapGetters({
@@ -37,27 +25,6 @@ export default {
     }),
     sentimentDiagram() {
       return this.socialWidgets.sentimentDiagram
-    },
-    chartType() {
-      return (
-        this.newChartType ||
-        this.widgetDetails.chart_type ||
-        this.widgetDetails.defaultChartType
-      )
-    },
-    labels() {
-      return ['Positive', 'Negative', 'Neutral'].map((el) => el + ' posts')
-    },
-    chartValues() {
-      return [
-        {
-          data: Object.values(this.sentimentDiagram),
-          colors: ['#00b884', '#ed2549', '#516bee'],
-        },
-      ]
-    },
-    widgetWrapper() {
-      return this.isSettings ? 'div' : 'WidgetsLayout'
     },
   },
   created() {
@@ -68,9 +35,8 @@ export default {
   },
   methods: {
     ...mapActions([action.GET_SENTIMENT_DIAGRAM]),
-    openInteractiveModal(val) {
-      this.$emit('open-interactive-data', val, this.widgetDetails.id, 'author')
-    },
   },
 }
 </script>
+
+<style lang="scss" scoped></style>

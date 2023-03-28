@@ -342,21 +342,21 @@ export const summaryWidgetConfig = [
 export const sentimentOverallWidgetConfig = [
   {
     name: 'Positive posts',
-    valueName: 'pos',
+    valueName: 'positive',
     iconName: 'PositiveIcon',
     backgroundColor: '#57C7B3',
     className: 'pos',
   },
   {
     name: 'Neutral posts',
-    valueName: 'neut',
+    valueName: 'neutral',
     iconName: 'NeutralIcon',
     backgroundColor: '#516BEE',
     className: 'neut',
   },
   {
     name: 'Negative posts',
-    valueName: 'neg',
+    valueName: 'negative',
     iconName: 'NegativeIcon',
     backgroundColor: '#ED2549',
     className: 'neg',
