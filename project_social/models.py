@@ -108,6 +108,7 @@ class SocialWidgetsList(models.Model):
   top_keywords = models.ForeignKey(SocialWidgetDescription,on_delete=models.CASCADE,related_name='social_top_keywords', null=True)
   sentiment_top_keywords = models.ForeignKey(SocialWidgetDescription,on_delete=models.CASCADE,related_name='social_sentiment_top_keywords', null=True)
   sentiment_diagram = models.ForeignKey(SocialWidgetDescription,on_delete=models.CASCADE,related_name='social_sentiment_diagram', null=True)
+  top_sharing_sources = models.ForeignKey(SocialWidgetDescription,on_delete=models.CASCADE,related_name='social_top_sharing_sources', null=True)
 
   def __str__(self):
     return str(self.project)
