@@ -7,7 +7,7 @@ from sentence_transformers import SentenceTransformer
 from django.contrib.postgres.fields import ArrayField
 
 class MlCategory(models.Model):
-  category_title = models.CharField(max_length=100)
+  category_title = models.CharField(max_length=100, unique=True)
   category_vector = ArrayField(NDArrayField(shape=(384), dtype=np.float32), blank=True)
   updated_at = models.DateTimeField(auto_now=True)
   created_at = models.DateTimeField(auto_now_add=True)
