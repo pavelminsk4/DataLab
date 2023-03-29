@@ -19,6 +19,9 @@ from rest_framework import viewsets, generics, filters, status
 from django.core.paginator import Paginator
 from widgets.common_widget.volume_widget import *
 from widgets.common_widget.filters_for_widgets import *
+from ml_components.models import *
+from sentence_transformers import util
+import numpy as np
 
 # ==== User API =======================
 class UserList(ListAPIView):
@@ -178,11 +181,24 @@ def search(request):
   for post in posts:
     src = post['feedlink__source1']
     post['feedlink__source1'] = src if '<img' not in str(src) else re.findall('alt="(.*)"', src)[0]
+    post['category'] = classification(Post.objects.get(pk=post['id']))
 
   p = Paginator(posts, posts_per_page)
   posts_list=list(p.page(page_number))
   res = { 'num_pages': p.num_pages, 'num_posts': p.count, 'posts': posts_list }
   return JsonResponse(res, safe = False)
+
+def classification(post):
+  if post.summary_vector != []:
+    themes = MlCategory.objects.all()
+    categories_list=list(themes.values_list('category_title',flat=True))
+    categories_vector=np.array([themes.values_list('category_vector',flat=True)]).reshape(len(themes),384)
+    cosine_scores = util.cos_sim(post.summary_vector[0], categories_vector)
+    cosine_scores = cosine_scores.reshape(1,-1)[0]
+    answer = cosine_scores.argsort(descending=True)[0]
+    return categories_list[int(answer)]
+  else:
+    return 'The post matrix was not calculated.'
 # === Countries API ==========
 
 class CountriesList(ListAPIView):
