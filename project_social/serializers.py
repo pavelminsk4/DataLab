@@ -60,6 +60,7 @@ class WidgetsListSerializer(WritableNestedModelSerializer):
   sentiment_top_keywords = SocialWidgetDescriptionSerializer()
   sentiment_diagram = SocialWidgetDescriptionSerializer()
   sentiment_number_of_results = SocialWidgetDescriptionSerializer()
+  top_sharing_sources = SocialWidgetDescriptionSerializer()
 
   class Meta:
     model = SocialWidgetsList
