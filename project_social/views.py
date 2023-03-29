@@ -19,6 +19,7 @@ from .widgets.summary.gender_volume import *
 from .widgets.dashboard.top_authors import *
 from .widgets.summary.top_keywords import *
 from .widgets.dashboard.sentiment import *
+from .widgets.influencers.top_sharing_sources import *
 from rest_framework import viewsets, filters
 from django.core.paginator import Paginator
 from django.http import JsonResponse
@@ -194,6 +195,9 @@ def social_sentiment_by_gender(request, pk, widget_pk):
 
 def social_top_keywords(request, pk, widget_pk):
   return top_keywords(pk, widget_pk)
+
+def social_top_sharing_sources(request, pk, widget_pk):
+  return top_sharing_sources(pk, widget_pk)
 
 def social_sentiment_top_keywords(request, pk, widget_pk):
   return sentiment_top_keywords(pk, widget_pk)

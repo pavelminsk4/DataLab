@@ -158,6 +158,8 @@ def create_social_widget_description(sender, instance, created, **kwargs):
     wd18.save()
     wd19 = SocialWidgetDescription.objects.create(title='Sentiment diagram', default_title='Sentiment diagram')
     wd19.save()
+    wd20 = SocialWidgetDescription.objects.create(title='Top sharing sources', default_title='Top sharing sources')
+    wd20.save()
     instance.summary = wd1
     instance.clipping_feed_content = wd2
     instance.top_locations = wd3
@@ -177,6 +179,7 @@ def create_social_widget_description(sender, instance, created, **kwargs):
     instance.top_keywords = wd17
     instance.sentiment_top_keywords = wd18
     instance.sentiment_diagram = wd19
+    instance.top_sharing_sources = wd20
     instance.save()
 
 class SocialClippingWidget(models.Model):

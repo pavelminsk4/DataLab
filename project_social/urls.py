@@ -32,6 +32,7 @@ urlpatterns = [
   path('social_sentiment_by_gender/<int:pk>/<int:widget_pk>', views.social_sentiment_by_gender, name='social_sentiment_by_gender'),
   path('social_gender_volume/<int:pk>/<int:widget_pk>', views.social_gender_volume, name='social_gender_volume'),
   path('social_top_keywords/<int:pk>/<int:widget_pk>', views.social_top_keywords, name='social_top_keywords'),
+  path('social_top_sharing_sources/<int:pk>/<int:widget_pk>', views.social_top_sharing_sources, name='social_top_sharing_sources'),
   path('social_sentiment_top_keywords/<int:pk>/<int:widget_pk>', views.social_sentiment_top_keywords, name='social_sentiment_top_keywords'), 
   path('social_sentiment_number_of_results/<int:pk>/<int:widget_pk>', views.social_sentiment_number_of_results, name='social_sentiment_number_of_results'), 
   path('social_sentiment_diagram/<int:pk>/<int:widget_pk>', views.social_sentiment_diagram, name='social_sentiment_diagram'),  
