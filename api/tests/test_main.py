@@ -51,6 +51,7 @@ class SearchTests(APITestCase):
     'feedlink__source1': 'BBC',
     'feedlink__sourceurl':None,
     'feedlink__alexaglobalrank': 0,
+    'category': 'The post matrix was not calculated.'
     }
   ex2 = {
     'id':2,
@@ -69,6 +70,7 @@ class SearchTests(APITestCase):
     'feedlink__source1': 'CNN',
     'feedlink__sourceurl':None,
     'feedlink__alexaglobalrank': 0,
+    'category': 'The post matrix was not calculated.'
     }
   ex3 = {
     'id':3,
@@ -87,6 +89,7 @@ class SearchTests(APITestCase):
     'feedlink__source1': 'CNN',
     'feedlink__sourceurl':None,
     'feedlink__alexaglobalrank': 0,
+    'category': 'The post matrix was not calculated.'
     }
   ex4 = {
     'id':4,
@@ -105,6 +108,7 @@ class SearchTests(APITestCase):
     'feedlink__source1': 'CNN',
     'feedlink__sourceurl':None,
     'feedlink__alexaglobalrank': 0,
+    'category': 'The post matrix was not calculated.'
     }
 
   def db_seeder(self):
