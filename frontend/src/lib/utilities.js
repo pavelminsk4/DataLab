@@ -12,6 +12,11 @@ export const snakeToPascal = (string) =>
     .map((substr) => capitalizeFirstLetter(substr))
     .join('')
 
+export const toPascalCase = (str) =>
+  (' ' + str).toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => {
+    return chr.toUpperCase()
+  })
+
 export const splitToSeparateWords = (string) =>
   string.replace(/([a-z])([A-Z])/g, '$1 $2').toLowerCase()
 

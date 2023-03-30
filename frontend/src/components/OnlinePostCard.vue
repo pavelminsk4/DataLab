@@ -22,6 +22,8 @@
 
     <template #post-type><OnlineIcon /> Online</template>
 
+    <template #category>{{ postDetails.category }}</template>
+
     <template #information>
       <div
         v-for="(item, index) in commonCardItems"

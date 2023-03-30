@@ -242,6 +242,14 @@ export const widgetsConfig = {
     defaultChartType: 'PieChart',
     availableTypes: SIMPLE_CHARTS,
   },
+  top_sharing_sources: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    actionName: action.GET_TO_SHARING_SOURCES,
+    height: 8,
+    hasAggregationPeriod: false,
+    defaultChartType: null,
+    availableTypes: null,
+  },
   content_volume_by_top_locations: {
     ...WIDGET_DEFAULT_SETTINGS,
     actionName: action.GET_CONTENT_VOLUME_TOP_LOCATIONS,

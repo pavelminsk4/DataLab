@@ -211,4 +211,10 @@ export default {
       `${moduleName}/social_sentiment_by_gender/${projectId}/${widgetId}`
     )
   },
+  async getTopSharingSources({projectId, widgetId}) {
+    return fetch(
+      'get',
+      `${moduleName}/social_top_sharing_sources/${projectId}/${widgetId}`
+    )
+  },
 }

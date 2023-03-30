@@ -117,6 +117,20 @@ export default {
       commit(mutator.SET_LOADING, false, {root: true})
     }
   },
+  async [action.GET_TOP_SHARING_SOURCES]({commit}, {projectId, widgetId}) {
+    commit(mutator.SET_LOADING, true, {root: true})
+    try {
+      const topSharingSources = await api.social.getTopSharingSources({
+        projectId,
+        widgetId,
+      })
+      commit(mutator.SET_TOP_SHARING_SOURCES, topSharingSources)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false, {root: true})
+    }
+  },
 
   // Content Volume
   async [action.GET_CONTENT_VOLUME_TOP_LOCATIONS](
