@@ -25,7 +25,6 @@
 <script>
 import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
-import {snakeToPascal} from '@/lib/utilities'
 
 import WidgetSettingsScreen from '@/components/widgets/screens/WidgetSettingsScreen'
 import OnlineMainWidget from '@/components/widgets/online/OnlineMainWidget'
@@ -75,7 +74,6 @@ export default {
       action.GET_SELECTED_DIMENSIONS,
       action.POST_DIMENSIONS_FOR_WIDGET,
     ]),
-    snakeToPascal,
 
     saveGeneralChanges(newSettings) {
       this[action.UPDATE_AVAILABLE_WIDGETS]({

@@ -6,7 +6,7 @@
     @open-modal="$emit('open-settings-modal')"
   >
     <div class="sharing-sources-wrapper">
-      <SharingSourcesWidget
+      <SharingSourcesCard
         v-for="(item, index) in topSharingSources"
         :key="'source' + index"
         :type="item.type"
@@ -21,12 +21,12 @@
             <component :is="capitalizeFirstLetter(item.source) + 'Icon'" />
             {{ item.source }}
           </div>
-          <div :class="['type', item.gender]">
+          <div v-if="item.gender != 'undefined'" :class="['type', item.gender]">
             <component :is="capitalizeFirstLetter(item.gender) + 'Icon'" />
             {{ item.gender }}
           </div>
         </template>
-      </SharingSourcesWidget>
+      </SharingSourcesCard>
     </div>
   </component>
 </template>
@@ -40,7 +40,7 @@ import MaleIcon from '@/components/icons/MaleIcon'
 import FemaleIcon from '@/components/icons/FemaleIcon'
 import TwitterIcon from '@/components/icons/TwitterIcon'
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
-import SharingSourcesWidget from '@/components/widgets/SharingSourcesWidget'
+import SharingSourcesCard from '@/components/widgets/SharingSourcesCard'
 
 const {mapActions, mapGetters} = createNamespacedHelpers('social/widgets')
 
@@ -48,7 +48,7 @@ export default {
   name: 'TopSharingSourcesWidget',
   components: {
     WidgetsLayout,
-    SharingSourcesWidget,
+    SharingSourcesCard,
     MaleIcon,
     FemaleIcon,
     TwitterIcon,

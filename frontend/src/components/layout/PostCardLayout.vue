@@ -31,9 +31,7 @@
             {{ capitalizeFirstLetter(sentiment) }}
           </div>
 
-          <div class="type category">
-            <HashtagIcon /> <slot name="category"></slot>
-          </div>
+          <div class="type category"><HashtagIcon /> {{ category }}</div>
 
           <div v-if="!isClippingWidget" class="clipping-wrapper">
             <ClippingIcon
@@ -91,6 +89,7 @@ export default {
     isClippingWidget: {type: Boolean, default: false},
     postImage: {type: String, required: false},
     sentiment: {type: String, required: false},
+    category: {type: String, required: false},
     isClippingPost: {type: Boolean, default: false},
   },
   computed: {

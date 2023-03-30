@@ -1,11 +1,5 @@
 <template>
-  <svg
-    width="16"
-    height="16"
-    viewBox="0 0 16 16"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
     <rect width="16" height="16" rx="4" fill="#7000FF" />
     <path
       d="M9 13L11 3"

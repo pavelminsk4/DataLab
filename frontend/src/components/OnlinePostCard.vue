@@ -1,6 +1,7 @@
 <template>
   <post-card-layout
     :sentiment="postDetails.sentiment"
+    :category="postDetails.category"
     :post-image="img"
     :is-clipping-widget="isClippingWidget"
     :is-clipping-post="isClippingPost"
@@ -21,8 +22,6 @@
     <template #description>{{ postDetails.entry_summary }}</template>
 
     <template #post-type><OnlineIcon /> Online</template>
-
-    <template #category>{{ postDetails.category }}</template>
 
     <template #information>
       <div

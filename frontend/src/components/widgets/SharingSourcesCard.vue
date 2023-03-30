@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <component :is="toPascalCase(type) + 'Icon'" class="achived" />
+    <component :is="stringToPascalCase(type) + 'Icon'" class="achived" />
 
     <div class="title">{{ type }}</div>
 
@@ -18,13 +18,13 @@
 </template>
 
 <script>
-import {toPascalCase} from '@/lib/utilities'
+import {stringToPascalCase} from '@/lib/utilities'
 
 import MostActiveAuthorIcon from '@/components/icons/MostActiveAuthorIcon'
 import MostInfluentialAuthorIcon from '@/components/icons/MostInfluentialAuthorIcon'
 
 export default {
-  name: 'SharingSourcesWidget',
+  name: 'SharingSourcesCard',
   components: {MostActiveAuthorIcon, MostInfluentialAuthorIcon},
   props: {
     type: {type: String, required: true},
@@ -34,7 +34,7 @@ export default {
     value: {type: String, required: true},
   },
   methods: {
-    toPascalCase,
+    stringToPascalCase,
   },
 }
 </script>

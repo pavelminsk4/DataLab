@@ -1,11 +1,5 @@
 <template>
-  <svg
-    width="16"
-    height="16"
-    viewBox="0 0 16 16"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
     <rect width="16" height="16" rx="4" fill="#FD7271" />
     <circle cx="8" cy="6" r="3.25" stroke="white" stroke-width="1.5" />
     <path
