@@ -7,6 +7,8 @@ admin.site.register(Templates)
 class RegularReportAdmin(admin.ModelAdmin):
     list_display = (
         'title',
+        'module_type',
+        'module_project_id',
         'project',
         'hourly_enabled',
         'h_template',

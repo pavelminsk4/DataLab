@@ -14,7 +14,15 @@ class Templates(models.Model):
     return self.title
 
 class RegularReport(models.Model):
+  MODULE_TYPE_CHOICES = [
+    ('Project', 'Online'),
+    ('ProjectSocial', 'Social'),
+  ]
+
   title = models.CharField(max_length=50)
+  module_type = models.CharField(max_length=70, choices=MODULE_TYPE_CHOICES)
+  module_project_id = models.IntegerField()
+  department = models.ForeignKey('accounts.department', on_delete=models.SET_NULL, null=True)
   project = models.ForeignKey('project.Project', on_delete=models.SET_NULL, null=True, blank=True)
   user = models.ManyToManyField(User, null=True, blank=True)
   email_title = models.TextField(max_length=500, null=True, blank=True)

@@ -5,6 +5,8 @@ class RegularReportTestCase(TestCase):
   def setUp(self):
     RegularReport.objects.create(
           title='Full Regular Report',
+          module_type='Project',
+          module_project_id=1,
           hourly_enabled=True,
           h_minute=15,
           h_hour=3,
@@ -14,6 +16,8 @@ class RegularReportTestCase(TestCase):
         )
     RegularReport.objects.create(
           title='Daily Regular Report',
+          module_type='Social',
+          module_project_id=2,
           hourly_enabled=False,
           daily_enabled=True,
           d_minute=20,
