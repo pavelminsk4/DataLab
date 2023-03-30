@@ -45,9 +45,43 @@ describe('isAllEmptyFields', () => {
 })
 
 describe('stringToPascalCase', () => {
-  const string = 'test test1_test2 test3-test4 $test5'
+  const test = 'test test test'
+  const snakeCase = 'test_test'
+  const stringWithSymbols = '$test&test#test@test%test^test'
+  const stringWithDash = 'test-test-test'
+  const stringWithPunctuation = 'test,:; .test'
 
-  it('return string is expected and every first letter of the word is uppercase', () => {
-    expect(utils.stringToPascalCase(string)).toBe('TestTest1Test2Test3Test4Test5')
+  describe('return string is concatenated, and every first letter of the word is uppercase', () => {
+    describe('when a string with spaces', () => {
+      it('return string is TestTestTest', () => {
+        expect(utils.stringToPascalCase(test)).toBe('TestTestTest')
+      })
+    })
+
+    describe('when camelcase', () => {
+      it('return string is TestTest', () => {
+        expect(utils.stringToPascalCase(snakeCase)).toBe('TestTest')
+      })
+    })
+
+    describe('when symbols are used', () => {
+      it('return string is TestTestTestTestTestTest', () => {
+        expect(utils.stringToPascalCase(stringWithSymbols)).toBe(
+          'TestTestTestTestTestTest'
+        )
+      })
+    })
+
+    describe('when a dash is used', () => {
+      it('return string is TestTestTest', () => {
+        expect(utils.stringToPascalCase(stringWithDash)).toBe('TestTestTest')
+      })
+    })
+
+    describe('when a punctuation string', () => {
+      it('return string is TestTest', () => {
+        expect(utils.stringToPascalCase(stringWithPunctuation)).toBe('TestTest')
+      })
+    })
   })
 })
