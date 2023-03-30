@@ -76,9 +76,6 @@ export default {
       })
     }
   },
-  mounted() {
-    console.log(this.topSharingSources)
-  },
   methods: {
     ...mapActions([action.GET_TOP_SHARING_SOURCES]),
     capitalizeFirstLetter,
