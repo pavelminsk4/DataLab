@@ -6,11 +6,10 @@ export const capitalizeFirstLetter = (string) =>
 export const lowerFirstLetter = (string) =>
   string?.charAt(0)?.toLowerCase() + string?.slice(1)
 
-export const snakeToPascal = (string) =>
-  string
-    .split('_')
-    .map((substr) => capitalizeFirstLetter(substr))
-    .join('')
+export const stringToPascalCase = (str) =>
+  (' ' + str).toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => {
+    return chr.toUpperCase()
+  })
 
 export const splitToSeparateWords = (string) =>
   string.replace(/([a-z])([A-Z])/g, '$1 $2').toLowerCase()
@@ -37,7 +36,7 @@ export const getWidgetDetails = (widgetName, widgetData, projectId) => {
     ...widgetData,
     ...widgetsConfig[widgetName],
     name: widgetName,
-    widgetName: snakeToPascal(widgetName),
+    widgetName: stringToPascalCase(widgetName),
     isWidget: true,
     projectId,
   }

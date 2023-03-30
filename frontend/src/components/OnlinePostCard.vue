@@ -1,6 +1,7 @@
 <template>
   <post-card-layout
     :sentiment="postDetails.sentiment"
+    :category="postDetails.category"
     :post-image="img"
     :is-clipping-widget="isClippingWidget"
     :is-clipping-post="isClippingPost"

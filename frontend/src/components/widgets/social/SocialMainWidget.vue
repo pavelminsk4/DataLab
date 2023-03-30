@@ -16,6 +16,7 @@ import TopLocations from '@/components/widgets/social/TopLocationsWidget'
 import TopLanguages from '@/components/widgets/social/TopLanguagesWidget'
 import TopAuthors from '@/components/widgets/social/TopAuthorsWidget'
 import TopKeywords from '@/components/widgets/social/TopKeywordsWidget'
+import TopSharingSources from '@/components/widgets/social/TopSharingSourcesWidget'
 
 import ContentVolumeByTopLocations from '@/components/widgets/social/ContentVolumeTopLocationsWidget'
 import ContentVolumeByTopAuthors from '@/components/widgets/social/ContentVolumeTopAuthorsWidget'
@@ -40,6 +41,7 @@ export default {
     TopLanguages,
     TopAuthors,
     TopKeywords,
+    TopSharingSources,
     ContentVolumeByTopLocations,
     ContentVolumeByTopAuthors,
     ContentVolumeByTopLanguages,

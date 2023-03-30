@@ -27,6 +27,9 @@ export default {
   [mutator.SET_TOP_KEYWORDS_WIDGET](state, data) {
     state.topKeywords = data
   },
+  [mutator.SET_TOP_SHARING_SOURCES](state, data) {
+    state.topSharingSources = data
+  },
 
   // Content volume
   [mutator.SET_CONTENT_VOLUME_TOP_LOCATIONS](state, data) {

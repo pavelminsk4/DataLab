@@ -8,6 +8,7 @@ const state = {
   topLanguages: [],
   topAuthors: [],
   topKeywords: [],
+  topSharingSources: [],
 
   contentVolumeTopLocations: [],
   contentVolumeTopAuthors: [],

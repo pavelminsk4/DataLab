@@ -42,7 +42,10 @@ export default {
   --positive-primary-color: #00b884;
   --positive-secondary-color: #d5f5ec;
   --negative-primary-color: #ed2549;
-  --negative-secondary-color: #ffe3e8;
+  --negative-secondary-color: #e5e9fc;
+
+  --male-bg-color: #e5e9fc;
+  --female-bg-color: #e5e9fc;
 
   --icon-primary-color: #797d80;
   --icon-hover-color: var(--primary-color);
@@ -65,6 +68,7 @@ export default {
 
   --tag-color: #30f47e;
   --key-word-color: #e7a747;
+  --hashtag-bg-color: #f5e8fe;
 
   --negative-status: #f94747;
   --neutral-status: #f6aa37;

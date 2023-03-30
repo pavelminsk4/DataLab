@@ -31,6 +31,8 @@
             {{ capitalizeFirstLetter(sentiment) }}
           </div>
 
+          <div class="type category"><HashtagIcon /> {{ category }}</div>
+
           <div v-if="!isClippingWidget" class="clipping-wrapper">
             <ClippingIcon
               :is-clipping-post="isClippingPost"
@@ -68,6 +70,7 @@ import ClippingIcon from '@/components/icons/ClippingIcon'
 import BaseTooltip from '@/components/BaseTooltip'
 import NoImageIcon from '@/components/icons/NoImageIcon'
 import CloseIcon from '@/components/icons/CloseIcon'
+import HashtagIcon from '@/components/icons/HashtagIcon'
 
 export default {
   name: 'PostCardLayout',
@@ -80,11 +83,13 @@ export default {
     NegativeIcon,
     PositiveIcon,
     OnlineIcon,
+    HashtagIcon,
   },
   props: {
     isClippingWidget: {type: Boolean, default: false},
     postImage: {type: String, required: false},
     sentiment: {type: String, required: false},
+    category: {type: String, required: false},
     isClippingPost: {type: Boolean, default: false},
   },
   computed: {
@@ -193,6 +198,10 @@ export default {
           font-size: 12px;
           line-height: 16px;
           color: var(--typography-secondary-color);
+        }
+
+        .category {
+          background-color: var(--hashtag-bg-color);
         }
 
         .status-neutral {
