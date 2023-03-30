@@ -43,3 +43,11 @@ describe('isAllEmptyFields', () => {
     })
   })
 })
+
+describe('stringToPascalCase', () => {
+  const string = 'test test1_test2 test3-test4 $test5'
+
+  it('return string is expected and every first letter of the word is uppercase', () => {
+    expect(utils.stringToPascalCase(string)).toBe('TestTest1Test2Test3Test4Test5')
+  })
+})

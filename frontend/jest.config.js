@@ -8,4 +8,13 @@ module.exports = {
   collectCoverage: true,
   coverageDirectory: 'coverage',
   verbose: true,
+  projects: [
+    {
+      moduleNameMapper: {
+        '@/(.*)$': '<rootDir>/src/$1',
+        '@store/(.*)$': '<rootDir>/store/$1',
+      },
+      passWithNoTests: true,
+    },
+  ],
 }
