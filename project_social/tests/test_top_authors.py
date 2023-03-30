@@ -15,7 +15,7 @@ class TopLocationWidgetTests(APITestCase):
     TweetBinderPost.objects.create(post_id='2', count_retweets='2', count_favorites='2', count_replies='2', language='Sp', user_name='Second_name', 
                                    locationString='England', sentiment='positive', text='Second twitter post', date=datetime(2020, 10, 10), creation_date=datetime(2020, 10, 10))
 
-    pr = ProjectSocial.objects.create(title='Project', keywords=['twitter'], additional_keywords=[], ignore_keywords=[], start_search_date=datetime(2020, 10, 10), 
+    pr = ProjectSocial.objects.create(title='Project', keywords=['twitter'], additional_keywords=[], ignore_keywords=[], start_search_date=datetime(2020, 10, 10),
                                 end_search_date=datetime(2023, 10, 16), country_filter=[], author_filter=[], source_filter=[], creator=user)
     widget_pk = pr.social_widgets_list.top_authors_id
     url = reverse('project_social:social_top_authors', kwargs={'pk':pr.pk, 'widget_pk':widget_pk})
