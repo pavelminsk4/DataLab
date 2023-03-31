@@ -251,6 +251,7 @@ class Post(models.Model):
   publishdate = models.DateField("Publish Date",null=True,blank=True)
   #sentiment = models.DecimalField(max_digits=4, decimal_places=2,default=0)
   sentiment = models.CharField('sentiment', max_length=8, default='neutral')
+  imp_sentiment = models.CharField('imp_sentiment', max_length=10)  
   usersentiment = models.DecimalField(max_digits=4, decimal_places=2,default=0)
   updatedsentiment = models.DecimalField(max_digits=4, decimal_places=2,default=0)
   is_sentiment = models.BooleanField(default=False)
