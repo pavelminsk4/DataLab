@@ -1,27 +1,26 @@
 <template>
   <MainLayoutTitleBlock
-    title="The Workspace -"
-    description="Create a new workspace on your Dashboard"
+    title="Reports"
+    description="Set up and manage reports"
     :back-page="{
       name: 'main page',
-      routName: `${moduleName}Home`,
+      routName: 'MainView',
     }"
   />
 
-  <ProgressBar />
+  <ReportProgressBar />
 
   <div class="form-wrapper">
-    <h4 class="label">Name</h4>
-    <BaseInput v-model="workspaceName" />
+    <BaseInput v-model="reportName" label="Name" class="input-name" />
 
-    <h4 class="label">Description</h4>
     <BaseTextarea
-      v-model="workspaceDescription"
+      v-model="reportDescription"
       placeholder="Some words about Workspace"
+      label="Description"
     />
 
     <BaseButton
-      :is-disabled="!workspaceName"
+      :is-disabled="!reportName"
       class="next-button"
       @click="nextStep"
     >
@@ -40,7 +39,7 @@ import BaseButton from '@/components/common/BaseButton'
 import BaseInput from '@/components/common/BaseInput'
 import BaseTextarea from '@/components/common/BaseTextarea'
 import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
-import ProgressBar from '@/components/workspace/WorkspaceProgressBar'
+import ReportProgressBar from '@/components/reports/ReportProgressBar'
 
 export default {
   name: 'CreateWorkspaceScreen',
@@ -50,25 +49,21 @@ export default {
     BaseInput,
     BaseTextarea,
     MainLayoutTitleBlock,
-    ProgressBar,
-  },
-  props: {
-    moduleName: {
-      type: String,
-      default: '',
-    },
+    ReportProgressBar,
   },
   data() {
     return {
-      workspaceName: '',
-      workspaceDescription: '',
+      reportName: '',
+      reportDescription: '',
     }
   },
   computed: {
     ...mapGetters({
+      // change
       user: get.USER_INFO,
     }),
     members() {
+      //change
       return [this.user.id]
     },
     routName() {
@@ -76,21 +71,17 @@ export default {
     },
   },
   created() {
-    this[action.CLEAR_STATE]()
+    this[action.CLEAR_NEW_REPORT]()
   },
   methods: {
-    ...mapActions([
-      action.UPDATE_NEW_WORKSPACE,
-      action.UPDATE_CURRENT_STEP,
-      action.CLEAR_STATE,
-    ]),
+    ...mapActions([action.UPDATE_NEW_REPORT, action.CLEAR_NEW_REPORT]),
     nextStep() {
       const nextStep = this.routName.replace(/\d/g, '2')
       try {
-        this[action.UPDATE_CURRENT_STEP](nextStep)
-        this[action.UPDATE_NEW_WORKSPACE]({
-          title: this.workspaceName,
-          description: this.workspaceDescription,
+        this[action.UPDATE_NEW_REPORT]({
+          step: 2,
+          title: this.reportName,
+          description: this.reportDescription,
           members: this.members,
           department: this.user.user_profile.department.id,
         })
@@ -112,14 +103,8 @@ export default {
   margin-top: 40px;
 }
 
-.label {
-  margin: 20px 0 4px;
-
-  font-weight: 400;
-
-  &:first-child {
-    margin-top: 0;
-  }
+.input-name {
+  margin-bottom: 32px;
 }
 
 .next-button {

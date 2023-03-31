@@ -291,4 +291,11 @@ export default {
   [mutator.SET_INTERACTIVE_DATA](state, posts) {
     state.interactiveData = posts
   },
+
+  // Reports
+  [mutator.SET_NEW_REPORT](state, data) {
+    if (data) {
+      state.newReport = {...state.newReport, ...data}
+    }
+  },
 }

@@ -1022,4 +1022,12 @@ export default {
   async [action.CLEAR_INTERACTIVE_DATA]({commit}) {
     commit(mutator.RESET_INTERACTIVE_DATA)
   },
+
+  // Reports
+  async [action.UPDATE_NEW_REPORT]({commit}, data) {
+    commit(mutator.SET_NEW_REPORT, data)
+  },
+  async [action.CLEAR_NEW_REPORT]({commit}) {
+    commit(mutator.SET_NEW_REPORT)
+  },
 }

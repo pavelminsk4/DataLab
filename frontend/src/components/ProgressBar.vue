@@ -42,17 +42,8 @@ export default {
     TickIcon,
   },
   props: {
-    step: {
-      type: String,
-      default: '',
-    },
-  },
-  created() {
-    this.progressBarSteps = [
-      'Create workspace',
-      'Create project',
-      'Define the search',
-    ]
+    step: {type: String, default: ''},
+    progressBarSteps: {type: Array, required: true},
   },
   computed: {
     currentStep() {
@@ -67,6 +58,8 @@ export default {
 
 <style lang="scss" scoped>
 .progress-bar-wrapper {
+  --labels-side-padding: 8px;
+
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -117,6 +110,6 @@ export default {
   display: flex;
   justify-content: space-between;
 
-  padding: 0 8px;
+  padding: 0 var(--labels-side-padding);
 }
 </style>

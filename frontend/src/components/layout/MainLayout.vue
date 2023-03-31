@@ -6,7 +6,11 @@
         <slot></slot>
       </div>
 
-      <div v-if="isTwoColumns" class="second-column">
+      <div
+        v-if="isTwoColumns"
+        :style="`--width-second-column: ${widthSecondColumns}`"
+        class="second-column"
+      >
         <slot name="second-column"></slot>
       </div>
     </section>
@@ -25,10 +29,8 @@ export default {
     MainHeader,
   },
   props: {
-    isTwoColumns: {
-      type: Boolean,
-      default: false,
-    },
+    isTwoColumns: {type: Boolean, default: false},
+    widthSecondColumns: {type: String, default: '100%'},
   },
   computed: {
     ...mapGetters({
@@ -71,7 +73,7 @@ export default {
 }
 
 .second-column {
-  width: 100%;
+  width: var(--width-second-column);
 
   background-color: var(--background-secondary-color);
 }

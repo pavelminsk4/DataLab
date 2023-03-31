@@ -25,7 +25,7 @@ import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
 import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
-import ProgressBar from '@/components/workspace/ProgressBar'
+import ProgressBar from '@/components/workspace/WorkspaceProgressBar'
 import SimpleModeTab from '@/components/workspace/SimpleModeTab'
 
 export default {

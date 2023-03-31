@@ -1,23 +1,23 @@
 <template>
-  <textarea
-    v-model="value"
-    :placeholder="placeholder"
-    class="textarea scroll"
-  />
+  <div class="textarea-wrapper">
+    <label v-if="label" :for="label" class="label">{{ label }}</label>
+
+    <textarea
+      v-model="value"
+      :placeholder="placeholder"
+      :id="label"
+      class="scroll"
+    />
+  </div>
 </template>
 
 <script>
 export default {
   name: 'BaseTextarea',
   props: {
-    modelValue: {
-      type: String,
-      default: '',
-    },
-    placeholder: {
-      type: String,
-      default: '',
-    },
+    modelValue: {type: String, default: ''},
+    placeholder: {type: String, default: ''},
+    label: {type: String, default: ''},
   },
   computed: {
     value: {
@@ -33,21 +33,33 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.textarea {
-  width: 100%;
-  height: 80px;
-  padding: 10px 12px;
+.textarea-wrapper {
+  display: flex;
+  flex-direction: column;
 
-  background-color: var(--background-secondary-color);
-  border: var(--border-primary);
-  border-radius: var(--border-radius);
+  textarea {
+    width: 100%;
+    height: 80px;
+    padding: 10px 12px;
 
-  resize: none;
+    background-color: var(--background-secondary-color);
+    border: var(--border-primary);
+    border-radius: var(--border-radius);
 
-  color: var(--typography-primary-color);
-}
+    resize: none;
+    outline: none;
 
-.textarea::placeholder {
-  color: var(--typography-secondary-color);
+    color: var(--typography-primary-color);
+  }
+
+  textarea::placeholder {
+    color: var(--typography-secondary-color);
+  }
+
+  .label {
+    margin-bottom: 4px;
+
+    color: var(--typography-title-color);
+  }
 }
 </style>

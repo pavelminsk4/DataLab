@@ -1,4 +1,8 @@
 import MainView from '@/views/MainView'
+import ReportsView from '@/views/ReportsView'
+import CreateReportView from '@/views/CreateReportView'
+import CreateReportRightSide from '@/components/reports/CreateReportRightSide'
+import CreateReportName from '@/components/reports/CreateReportName'
 
 import UserRolesScreen from '@/components/settings/UserRolesScreen'
 
@@ -13,5 +17,93 @@ export const routes = [
     name: 'UserRoles',
     path: '/user-roles',
     component: UserRolesScreen,
+  },
+
+  {
+    name: 'Reports',
+    path: '/reports',
+    component: ReportsView,
+  },
+
+  {
+    name: 'CreateReport',
+    path: '/reports/create',
+    component: CreateReportView,
+    redirect: () => ({name: 'ReportStep1'}),
+    children: [
+      {
+        name: 'ReportStep1',
+        path: 'step1',
+        components: {
+          default: CreateReportName,
+          secondColumn: CreateReportRightSide,
+        },
+        props: {
+          secondColumn: {step: 'step1'},
+        },
+      },
+      //   {
+      //     name: 'SocialWorkspaceStep2',
+      //     path: 'step2',
+      //     components: {
+      //       default: CreateProjectScreen,
+      //       secondColumn: CreateWorkspaceRightSide,
+      //     },
+      //     beforeEnter: (to, from, next) => {
+      //       const workspaceId = to.params.workspaceId
+
+      //       if (
+      //         to.name !== store.state.currentStep &&
+      //         workspaceId === 'new'
+      //       ) {
+      //         return next({
+      //           name: 'SocialWorkspaceStep1',
+      //           params: {workspaceId},
+      //         })
+      //       }
+      //       return next()
+      //     },
+      //     props: {
+      //       default: (route) => ({
+      //         workspaceId: route.params.workspaceId,
+      //         moduleName: 'Social',
+      //       }),
+      //       secondColumn: {step: 'step2'},
+      //     },
+      //   },
+      //   {
+      //     name: 'SocialWorkspaceStep3',
+      //     path: 'step3',
+      //     components: {
+      //       default: SocialCreateSearchScreen,
+      //       secondColumn: SearchResults,
+      //     },
+      //     beforeEnter: (to, from, next) => {
+      //       if (to.name !== store.state.currentStep) {
+      //         const workspaceId = to.params.workspaceId
+      //         if (workspaceId === 'new') {
+      //           return next({
+      //             name: 'SocialWorkspaceStep1',
+      //             params: {workspaceId},
+      //           })
+      //         } else {
+      //           return next({
+      //             name: 'SocialWorkspaceStep2',
+      //             params: {workspaceId},
+      //           })
+      //         }
+      //       }
+
+      //       return next()
+      //     },
+      //     props: {
+      //       default: (route) => ({
+      //         workspaceId: route.params.workspaceId,
+      //         moduleName: 'Social',
+      //       }),
+      //       secondColumn: {step: 'step3', moduleName: 'Social'},
+      //     },
+      //   },
+    ],
   },
 ]

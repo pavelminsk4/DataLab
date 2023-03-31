@@ -1,4 +1,4 @@
-const state = {
+const initialState = {
   loading: false,
   loadingWidgets: {
     clippingWidget: false,
@@ -89,6 +89,15 @@ const state = {
   companyUsers: [],
   interactiveData: [],
   paginationData: {},
+
+  //reports
+  newReport: {
+    step: 1,
+    name: '',
+    description: '',
+  },
 }
+
+const state = {...initialState}
 
 export default state
