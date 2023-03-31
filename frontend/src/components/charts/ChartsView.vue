@@ -25,6 +25,7 @@ import HorizontalBarChart from '@/components/charts/HorizontalBarChart'
 import DoughnutChart from '@/components/charts/DoughnutChart'
 import WordCloudChart from '@/components/charts/WordCloudChart'
 import SentimentWordCloudChart from '@/components/charts/SentimentWordCloudChart'
+import SentimentBarChart from '@/components/charts/SentimentBarChart.vue'
 
 export default {
   name: 'ChartsView',
@@ -40,6 +41,7 @@ export default {
     DoughnutChart,
     WordCloudChart,
     SentimentWordCloudChart,
+    SentimentBarChart,
   },
   props: {
     labels: {type: Array, default: () => []},

@@ -30,6 +30,9 @@ export default {
   [mutator.SET_TOP_SHARING_SOURCES](state, data) {
     state.topSharingSources = data
   },
+  [mutator.SET_OVERALL_TOP_AUTHORS](state, data) {
+    state.overallTopAuthors = data
+  },
 
   // Content volume
   [mutator.SET_CONTENT_VOLUME_TOP_LOCATIONS](state, data) {

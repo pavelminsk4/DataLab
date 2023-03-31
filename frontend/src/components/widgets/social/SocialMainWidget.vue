@@ -30,6 +30,7 @@ import SentimentByGender from '@/components/widgets/social/SentimentByGenderWidg
 import SentimentDiagram from '@/components/widgets/social/SentimentDiagramWidget'
 import SentimentNumberOfResults from '@/components/widgets/social/SentimentNumberOfResultWidget'
 import SentimentTopKeywords from '@/components/widgets/social/SentimentTopKeywordsWidget'
+import OverallTopAuthors from '@/components/widgets/OverallTopWidget'
 
 export default {
   name: 'SocialMainWidget',
@@ -54,6 +55,7 @@ export default {
     GenderVolume,
     SentimentDiagram,
     SentimentNumberOfResults,
+    OverallTopAuthors,
   },
   props: {
     widgetDetails: {type: Object, required: true},

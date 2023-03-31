@@ -56,6 +56,7 @@ export default {
       {name: 'sentiment_top_10_sources_widget', isFullWidth: true},
       {name: 'sentiment_top_10_countries_widget'},
       {name: 'sentiment_top_10_languages_widget'},
+      {name: 'sentiment_top_keywords'},
     ]
   },
   methods: {

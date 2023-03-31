@@ -29,7 +29,6 @@ export default {
   },
   computed: {
     chartType() {
-      console.log(this.sentimentDiagram)
       return (
         this.newChartType ||
         this.widgetDetails.chart_type ||
