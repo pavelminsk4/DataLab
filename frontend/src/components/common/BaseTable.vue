@@ -2,7 +2,7 @@
   <table class="base-table">
     <thead>
       <tr>
-        <th style="width: 60px">
+        <th v-if="isCheckbox" style="width: 60px">
           <BaseCheckbox v-model="isSelectAllProxy" />
         </th>
         <th
@@ -12,7 +12,7 @@
         >
           {{ capitalizeFirstLetter(item.name) }}
         </th>
-        <th style="width: 80px">Actions</th>
+        <th v-if="isCheckbox" style="width: 80px">Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -34,6 +34,10 @@ export default {
     tableHeader: {
       type: Array,
       required: true,
+    },
+    isCheckbox: {
+      type: Boolean,
+      default: true,
     },
   },
   data() {

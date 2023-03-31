@@ -60,6 +60,7 @@ export default {
       {name: 'sentiment_locations'},
       {name: 'sentiment_languages'},
       {name: 'sentiment_by_gender'},
+      {name: 'sentiment_top_keywords'},
     ]
     if (!this.availableWidgets) {
       await this[action.GET_AVAILABLE_WIDGETS](this.currentProject.id)

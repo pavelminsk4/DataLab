@@ -97,6 +97,7 @@ export default {
 .sentiment-keywords-wrapper {
   display: flex;
 
-  height: 100%;
+  height: 80%;
+  min-height: 350px;
 }
 </style>

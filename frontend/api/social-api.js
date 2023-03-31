@@ -217,4 +217,11 @@ export default {
       `${moduleName}/social_top_sharing_sources/${projectId}/${widgetId}`
     )
   },
+
+  async getOverallTopAuthors({projectId, widgetId}) {
+    return fetch(
+      'get',
+      `${moduleName}/social_overall_top_authors/${projectId}/${widgetId}`
+    )
+  },
 }

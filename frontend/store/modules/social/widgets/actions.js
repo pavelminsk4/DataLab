@@ -317,4 +317,18 @@ export default {
       commit(mutator.SET_LOADING, false, {root: true})
     }
   },
+  async [action.GET_OVERALL_TOP_AUTHORS]({commit}, {projectId, widgetId}) {
+    commit(mutator.SET_LOADING, true, {root: true})
+    try {
+      const data = await api.social.getOverallTopAuthors({
+        projectId,
+        widgetId,
+      })
+      commit(mutator.SET_OVERALL_TOP_AUTHORS, data)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false, {root: true})
+    }
+  },
 }

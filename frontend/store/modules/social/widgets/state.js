@@ -9,6 +9,7 @@ const state = {
   topAuthors: [],
   topKeywords: [],
   topSharingSources: [],
+  overallTopAuthors: [],
 
   contentVolumeTopLocations: [],
   contentVolumeTopAuthors: [],

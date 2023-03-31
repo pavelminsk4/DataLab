@@ -1,5 +1,6 @@
 <template>
-  <WidgetSettingsModal
+  <component
+    :is="`${moduleName}WidgetSettingsModal`"
     v-if="isOpenWidgetSettingsModal"
     :widgetDetails="currentWidget"
     @close="closeModal"
@@ -26,7 +27,8 @@
 <script>
 import {action, get} from '@store/constants'
 import {mapActions, mapGetters} from 'vuex'
-import WidgetSettingsModal from '@/components/widgets/online/modals/WidgetSettingsModal'
+import OnlineWidgetSettingsModal from '@/components/widgets/online/modals/WidgetSettingsModal'
+import SocialWidgetSettingsModal from '@/components/widgets/social/modals/WidgetSettingsModal'
 
 import OnlineMainWidget from '@/components/widgets/online/OnlineMainWidget'
 import SocialMainWidget from '@/components/widgets/social/SocialMainWidget'
@@ -35,8 +37,9 @@ export default {
   name: 'WidgetsList',
   components: {
     OnlineMainWidget,
-    WidgetSettingsModal,
     SocialMainWidget,
+    OnlineWidgetSettingsModal,
+    SocialWidgetSettingsModal,
   },
   emits: [
     'update-page',

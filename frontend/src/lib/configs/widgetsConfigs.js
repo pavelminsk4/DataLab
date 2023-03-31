@@ -306,6 +306,12 @@ export const widgetsConfig = {
     defaultChartType: 'MultiLineChart',
     availableTypes: MULTI_CHARTS,
   },
+  overall_top_authors: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    actionName: action.GET_OVERALL_TOP_AUTHORS,
+    defaultChartType: 'SentimentBarChart',
+    availableTypes: SIMPLE_CHARTS,
+  },
 }
 
 export const summaryWidgetConfig = [
