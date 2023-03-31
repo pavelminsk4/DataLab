@@ -27,4 +27,4 @@ def sentiment(pk, widget_pk):
   widget = SocialWidgetDescription.objects.get(id=widget_pk)
   posts = post_agregetor_for_each_widget(widget, posts)
   results = post_agregator_sentiment_for_period(posts, widget.aggregation_period)
-  return JsonResponse(results, safe = False)  
+  return JsonResponse(results, safe = False)

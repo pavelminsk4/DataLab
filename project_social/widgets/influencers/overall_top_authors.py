@@ -19,6 +19,7 @@ def get_top_authors(posts):
         'negative': author_posts.filter(sentiment='negative').count(),
         'neutral': author_posts.filter(sentiment='neutral').count(),
       },
+      'gender': a.user_gender,
       'posts': author_posts.count(),
       'media_type': 'Twitter',
       'reach': a.user_followers,

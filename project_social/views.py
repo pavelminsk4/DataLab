@@ -21,6 +21,7 @@ from .widgets.summary.top_keywords import *
 from .widgets.dashboard.sentiment import *
 from .widgets.influencers.top_sharing_sources import *
 from .widgets.influencers.overall_top_authors import *
+from .widgets.demography.top_authors_by_gender import *
 from rest_framework import viewsets, filters
 from django.core.paginator import Paginator
 from django.http import JsonResponse
@@ -211,6 +212,9 @@ def social_sentiment_diagram(request, pk, widget_pk):
 
 def social_overall_top_authors(request, pk, widget_pk):
   return overall_top_authors(pk, widget_pk)
+
+def social_top_authors_by_gender(request, pk, widget_pk):
+  return top_authors_by_gender(pk, widget_pk)
 
 def dimensions_for_each_widgets(request, project_pk, widget_pk):
   return dimensions_for_each(request, widget_pk)

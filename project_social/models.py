@@ -109,6 +109,7 @@ class SocialWidgetsList(models.Model):
   sentiment_diagram = models.ForeignKey(SocialWidgetDescription,on_delete=models.CASCADE,related_name='social_sentiment_diagram', null=True)
   top_sharing_sources = models.ForeignKey(SocialWidgetDescription,on_delete=models.CASCADE,related_name='social_top_sharing_sources', null=True)
   overall_top_authors = models.ForeignKey(SocialWidgetDescription,on_delete=models.CASCADE,related_name='social_overall_top_authors', null=True)
+  top_authors_by_gender = models.ForeignKey(SocialWidgetDescription,on_delete=models.CASCADE,related_name='social_top_authors_by_gender', null=True)
 
   def __str__(self):
     return str(self.project)
@@ -163,6 +164,8 @@ def create_social_widget_description(sender, instance, created, **kwargs):
     wd20.save()
     wd21 = SocialWidgetDescription.objects.create(title='Overall top authors', default_title='Overall top authors')
     wd21.save()
+    wd22 = SocialWidgetDescription.objects.create(title='Top authors by gender', default_title='Top authors by gender')
+    wd22.save()
     instance.summary = wd1
     instance.clipping_feed_content = wd2
     instance.top_locations = wd3
@@ -184,6 +187,7 @@ def create_social_widget_description(sender, instance, created, **kwargs):
     instance.sentiment_diagram = wd19
     instance.top_sharing_sources = wd20
     instance.overall_top_authors = wd21
+    instance.top_authors_by_gender = wd22
     instance.save()
 
 class SocialClippingWidget(models.Model):
