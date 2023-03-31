@@ -8,10 +8,10 @@ from datetime import datetime
 import json
 
 class OverallTopAuthorsTest(APITestCase):
-  def test_response_list(self):
+  def setUp(self):
     user = User.objects.create(username='Varg')
     TweetBinderPost.objects.create(
-      post_id='1',count_retweets='1',
+      post_id='1',count_retweets='1',user_gender='male',
       count_favorites='1',count_replies='1',
       language='En',user_name='First_name',
       user_alias='@first',locationString='USA',
@@ -19,7 +19,7 @@ class OverallTopAuthorsTest(APITestCase):
       date=datetime(2020, 10, 10),creation_date=datetime(2020, 10, 10),
     )
     TweetBinderPost.objects.create(
-      post_id='2',count_retweets='2',
+      post_id='2',count_retweets='2',user_gender='male',
       count_favorites='2',count_replies='2',
       language='Sp',user_name='First_name',
       user_alias='@first',locationString='England',
@@ -27,16 +27,18 @@ class OverallTopAuthorsTest(APITestCase):
       date=datetime(2020, 10, 10),creation_date=datetime(2020, 10, 10),
     )
     TweetBinderPost.objects.create(
-      post_id='3',count_retweets='3',
+      post_id='3',count_retweets='3',user_gender='female',
       count_favorites='9',count_replies='2',
       language='Sp',user_name='Second_name',
       user_alias='@second',locationString='England',
       sentiment='positive',text='Third twitter post',
       date=datetime(2020, 10, 10),creation_date=datetime(2020, 10, 10),
     )
-
-    pr = ProjectSocial.objects.create(title='Project', keywords=['twitter'], additional_keywords=[], ignore_keywords=[], start_search_date=datetime(2020, 10, 10), 
+    ProjectSocial.objects.create(title='Project', keywords=['twitter'], additional_keywords=[], ignore_keywords=[], start_search_date=datetime(2020, 10, 10), 
                                 end_search_date=datetime(2023, 10, 16), country_filter=[], author_filter=[], source_filter=[], creator=user)
+
+  def test_top_overall_authors(self):
+    pr = ProjectSocial.objects.first()
     widget_pk = pr.social_widgets_list.top_authors_id
     url = reverse('project_social:social_overall_top_authors', kwargs={'pk':pr.pk, 'widget_pk':widget_pk})
     response = self.client.get(url)
@@ -51,6 +53,7 @@ class OverallTopAuthorsTest(APITestCase):
                 'negative': 0,
                 'neutral':  1,
               },
+              'gender': 'male',
               'posts': 2,
               'media_type': 'Twitter',
               'reach': None,
@@ -65,10 +68,51 @@ class OverallTopAuthorsTest(APITestCase):
                 'negative': 0,
                 'neutral':  0,
               },
+              'gender': 'female',
               'posts': 1,
               'media_type': 'Twitter',
               'reach': None,
               'engagements': 12,
             }, 
+          ]
+    self.assertEqual(json.loads(response.content), res)
+
+  def test_top_authors_by_gender(self):
+    pr = ProjectSocial.objects.first()
+    widget_pk = pr.social_widgets_list.top_authors_id
+    url = reverse('project_social:social_top_authors_by_gender', kwargs={'pk':pr.pk, 'widget_pk':widget_pk})
+    response = self.client.get(url)
+    self.assertEqual(response.status_code, status.HTTP_200_OK)
+    res = [
+            [{
+              'name': 'First_name',
+              'alias': '@first',
+              'picture': None,
+              'sentiments': {
+                'positive': 1,
+                'negative': 0,
+                'neutral':  1,
+              },
+              'gender': 'male',
+              'posts': 2,
+              'media_type': 'Twitter',
+              'reach': None,
+              'engagements': 6,
+            }],
+            [{
+              'name': 'Second_name',
+              'alias': '@second',
+              'picture': None,
+              'sentiments': {
+                'positive': 1,
+                'negative': 0,
+                'neutral':  0,
+              },
+              'gender': 'female',
+              'posts': 1,
+              'media_type': 'Twitter',
+              'reach': None,
+              'engagements': 12,
+            }]
           ]
     self.assertEqual(json.loads(response.content), res)
