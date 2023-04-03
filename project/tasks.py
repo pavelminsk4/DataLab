@@ -10,6 +10,7 @@ from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from bs4 import BeautifulSoup
 import socket
 from ftlangdetect import detect
+from transformers import pipeline
 socket.setdefaulttimeout(3)
 
 def split_links(amount_posts_in_sample):
@@ -479,3 +480,15 @@ def post_creator():
       print('error!!!')
       pass
     datas = []
+
+@shared_task
+def imp_sentiment():
+    model_path = "cardiffnlp/twitter-xlm-roberta-base-sentiment"
+    sentiment_task = pipeline("sentiment-analysis", model=model_path, tokenizer=model_path, max_length=512, truncation=True)
+    posts = Post.objects.filter(imp_sentiment='').order_by('-creationdate')[:20000]
+    for p in posts:
+        if len(p.entry_summary) > 50:
+            p.imp_sentiment = sentiment_task(p.entry_summary)[0]['label']
+        else:
+            p.imp_sentiment = sentiment_task(p.entry_title)[0]['label']
+        p.save()

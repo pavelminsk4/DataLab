@@ -34,4 +34,9 @@ app.conf.beat_schedule = {
     'schedule': crontab(hour=15, minute=20, day_of_week='*'),
     'args': (),
   },
+  'calculate-imp-sentiment': {
+    'task': 'project.tasks.imp_sentiment',
+    'schedule': crontab(hour='*/4', minute='*', day_of_week='*'),
+    'args': (),
+  },
 }
