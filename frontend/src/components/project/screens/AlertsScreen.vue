@@ -23,7 +23,7 @@
         <span>{{ item.triggered_on_every_n_new_posts }}</span>
       </td>
       <td>
-        <MembersIconsBar :members="alertsUsers(item.user)" />
+        <UsersIconsBar :users="alertsUsers(item.user)" />
       </td>
       <td>
         <BaseTooltipSettings :id="item.id">
@@ -52,7 +52,7 @@ import {action, get} from '@store/constants'
 
 import BlankPage from '@/components/BlankPage'
 import BaseButton from '@/components/common/BaseButton'
-import MembersIconsBar from '@components/MembersIconsBar.vue'
+import UsersIconsBar from '@components/UsersIconsBar.vue'
 import NavigationBar from '@/components/navigation/NavigationBar'
 import BaseTooltipSettings from '@/components/BaseTooltipSettings'
 
@@ -72,7 +72,7 @@ export default {
     PlusIcon,
     BaseButton,
     NavigationBar,
-    MembersIconsBar,
+    UsersIconsBar,
     BaseTable,
     BaseTableRow,
   },

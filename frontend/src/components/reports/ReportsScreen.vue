@@ -12,6 +12,13 @@
       </BaseButton>
     </div>
 
+    <AreYouSureModal
+      v-if="isOpenDeleteModal"
+      :item-to-delete="reportValue"
+      @close="toggleDeleteModal"
+      @delete="deleteReport(currentReportId)"
+    />
+
     <template v-if="reports.length">
       <div class="sort-wrapper">
         <span class="hint">Sort by</span>
@@ -25,12 +32,47 @@
       </div>
 
       <div class="list-wrapper scroll">
-        <ListOfEntities
-          :values="filteredProjects"
-          :members="reports?.members"
-          @go-to-entity="goToReport"
-          @delete-entity="deleteReport"
-        />
+        <BaseTable
+          :table-header="tableHeader"
+          class="redssd"
+          @select-all="selectAll"
+        >
+          <BaseTableRow
+            v-for="(item, index) in filteredReports"
+            :key="index"
+            v-model="selectedReport"
+            :id="item.id"
+            class="report-table"
+            @delete-project="toggleDeleteModal(item.title, item.id)"
+            @click="goToReport($event, item.id)"
+          >
+            <td class="td_name">{{ item.title }}</td>
+            <td class="regularity">
+              <div class="test">type</div>
+              <div class="test">type</div>
+              <div class="test">type</div>
+              <div class="test">type</div>
+            </td>
+            <td>date</td>
+            <td>time</td>
+            <td>language</td>
+            <td>format</td>
+            <td>
+              <!-- <UsersIconsBar :users="users(item.members)" /> -->
+            </td>
+            <td>
+              <div class="creator">
+                <!-- <UserAvatar
+                  :avatar-url="currentUser(item.creator)?.user_profile.photo"
+                  :first-name="currentUser(item.creator)?.first_name"
+                  :last-name="currentUser(item.creator)?.last_name"
+                  :username="currentUser(item.creator)?.username"
+                /> -->
+                <!-- <div>{{ currentUser(item.creator).username }}</div> -->
+              </div>
+            </td>
+          </BaseTableRow>
+        </BaseTable>
       </div>
     </template>
 
@@ -42,16 +84,17 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
-import {get} from '@store/constants'
-
 import SortIcon from '@components/icons/SortIcon'
 
 import BaseButton from '@/components/common/BaseButton'
 import BaseInput from '@/components/common/BaseInput'
 import MainLayout from '@components/layout/MainLayout'
 import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
-import ListOfEntities from '@/components/ListOfEntities'
+// import UsersIconsBar from '@components/UsersIconsBar.vue'
+import AreYouSureModal from '@/components/modals/AreYouSureModal'
+import BaseTable from '@components/common/BaseTable'
+import BaseTableRow from '@components/common/BaseTableRow'
+// import UserAvatar from '@components/UserAvatar'
 
 export default {
   name: 'ReportsScreen',
@@ -60,7 +103,11 @@ export default {
     BaseInput,
     MainLayout,
     MainLayoutTitleBlock,
-    ListOfEntities,
+    AreYouSureModal,
+    // UsersIconsBar,
+    BaseTable,
+    BaseTableRow,
+    // UserAvatar,
     SortIcon,
   },
   props: {
@@ -69,42 +116,77 @@ export default {
   data() {
     return {
       search: '',
+      isOpenDeleteModal: false,
+      selectedReport: [],
+      isOpenSettings: false,
+      currentReportId: '',
+      reportValue: {
+        type: 'report',
+        name: '',
+      },
     }
   },
   computed: {
-    ...mapGetters({
-      department: get.DEPARTMENT,
-      isLoading: get.LOADING,
-    }),
-    filteredProjects() {
-      //change
-      if (!this.search) return this.reports?.projects
-      return this.reports?.projects.filter((project) =>
-        project.title.toLowerCase().includes(this.search.toLowerCase())
+    filteredReports() {
+      if (!this.search) return this.reports
+      return this.reports?.filter((report) =>
+        report.title.toLowerCase().includes(this.search.toLowerCase())
       )
     },
   },
+  created() {
+    this.tableHeader = [
+      {name: 'report name', width: '25%'},
+      {name: 'type', width: ''},
+      {name: `date`, width: ''},
+      {name: `time`, width: ''},
+      {name: `language`, width: ''},
+      {name: `format`, width: ''},
+      {name: `recipient's `, width: ''},
+      {name: `creator `, width: ''},
+    ]
+  },
   methods: {
-    goToReport(reportId) {
-      this.$emit('open-report', reportId)
+    goToReport(event, reportId) {
+      if (!event.target.closest('.checkbox-container')) {
+        // this.$emit('open-report', reportId)
+        return reportId
+      }
+    },
+    selectAll(isSelectAll) {
+      this.selectedReport = isSelectAll
+        ? this.filteredReports.map((value) => value.id)
+        : []
     },
     deleteReport(id) {
-      //change
+      this.toggleDeleteModal()
       return id
+    },
+    toggleDeleteModal(title, id) {
+      this.isOpenDeleteModal = !this.isOpenDeleteModal
+      this.togglePageScroll(this.isOpenDeleteModal)
+      this.reportValue.name = title
+      this.currentReportId = id
+    },
+
+    //change
+    currentUser(id) {
+      return this.members.find((el) => el.id === id)
+    },
+    users(usersIds) {
+      return this.members.filter((member) => usersIds.includes(member.id))
     },
   },
 }
 </script>
 
 <style lang="scss" scoped>
+.test {
+  padding: 10px 0;
+}
 .content-header {
   display: flex;
   justify-content: space-between;
-}
-
-.online-icon {
-  width: 20px;
-  height: 20px;
 }
 
 .sort-wrapper {
@@ -134,11 +216,25 @@ export default {
   height: calc(100% - 200px);
 }
 
+.report-table td {
+  vertical-align: initial;
+}
+
 .no-reports-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
 
   width: 100%;
+}
+
+.creator {
+  display: flex;
+  align-items: center;
+}
+
+.regularity {
+  display: flex;
+  flex-direction: column;
 }
 </style>

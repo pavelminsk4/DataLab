@@ -1,7 +1,7 @@
 <template>
-  <div class="members-icons-bar">
+  <div class="users-icons-bar">
     <UserAvatar
-      v-for="(item, index) in members.slice(0, numberDisplayedUsers)"
+      v-for="(item, index) in users.slice(0, numberDisplayedUsers)"
       :key="'photo' + index"
       :avatar-url="item?.user_profile.photo"
       :first-name="item.first_name"
@@ -9,8 +9,8 @@
       :username="item.username"
     />
 
-    <div v-if="members.length > numberDisplayedUsers" class="members-count">
-      +{{ members.length - numberDisplayedUsers }}
+    <div v-if="users.length > numberDisplayedUsers" class="users-count">
+      +{{ users.length - numberDisplayedUsers }}
     </div>
   </div>
 </template>
@@ -19,12 +19,12 @@
 import UserAvatar from '@components/UserAvatar'
 
 export default {
-  name: 'MembersIconsBar',
+  name: 'UsersIconsBar',
   components: {
     UserAvatar,
   },
   props: {
-    members: {type: Array, required: true},
+    users: {type: Array, required: true},
   },
   created() {
     this.numberDisplayedUsers = 3
@@ -33,11 +33,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.members-icons-bar {
+.users-icons-bar {
   position: relative;
 
   display: flex;
-  .members-count {
+  .users-count {
     display: flex;
     align-items: center;
     justify-content: center;

@@ -1,10 +1,26 @@
 <template>
-  <router-view></router-view>
+  <router-view v-if="userInfo"></router-view>
 </template>
 
 <script>
+import {mapActions, mapGetters} from 'vuex'
+import {action, get} from '@store/constants'
+
 export default {
   name: 'App',
+  computed: {
+    ...mapGetters({
+      userInfo: get.USER_INFO,
+    }),
+  },
+  created() {
+    if (!this.userInfo) {
+      this[action.GET_USER_INFORMATION]()
+    }
+  },
+  methods: {
+    ...mapActions([action.GET_USER_INFORMATION]),
+  },
 }
 </script>
 
@@ -43,6 +59,8 @@ export default {
   --positive-secondary-color: #d5f5ec;
   --negative-primary-color: #ed2549;
   --negative-secondary-color: #e5e9fc;
+
+  --error-primary-color: var(--negative-primary-color);
 
   --male-bg-color: #e5e9fc;
   --female-bg-color: #e5e9fc;

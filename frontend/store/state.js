@@ -85,12 +85,12 @@ const initialState = {
   isShowCalendarContents: false,
   availableWidgets: null,
   alerts: [],
-  regularReports: [],
   companyUsers: [],
   interactiveData: [],
   paginationData: {},
 
   //reports
+  regularReports: [],
   newReport: {
     step: 1,
     name: '',

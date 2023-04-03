@@ -257,10 +257,6 @@ export default {
     return fetch('get', `/projects/${projectId}/alerts`)
   },
 
-  async getRegularReports(projectId) {
-    return fetch('get', `/projects/${projectId}/reports/regular_reports/`)
-  },
-
   async createWorkspace(workspace) {
     return fetch('post', '/workspace/create/', workspace)
   },
@@ -309,22 +305,6 @@ export default {
     return fetch('delete', `/alerts/${alertId}/`)
   },
 
-  async createRegularReport({projectId, data}) {
-    const response = await $api.post(
-      `/projects/${projectId}/reports/regular_reports/`,
-      data
-    )
-    return response.data
-  },
-
-  async updateRegularReport({projectId, regularReportId, data}) {
-    const response = await $api.patch(
-      `/projects/${projectId}/reports/regular_reports/${regularReportId}/`,
-      data
-    )
-    return response.data
-  },
-
   async postSearch(request) {
     return fetch('post', '/search', request)
   },
@@ -364,6 +344,27 @@ export default {
     )
   },
 
+  // Reports
+  async getRegularReports(departmentId) {
+    // return fetch('get', `/reports/${departmentId}/regular_reports/`)
+    const response = await $api.get(`/reports/${departmentId}/regular_reports/`)
+    return response.data
+  },
+  async createRegularReport({projectId, data}) {
+    const response = await $api.post(
+      `/projects/${projectId}/reports/regular_reports/`,
+      data
+    )
+    return response.data
+  },
+
+  async updateRegularReport({projectId, regularReportId, data}) {
+    const response = await $api.patch(
+      `/projects/${projectId}/reports/regular_reports/${regularReportId}/`,
+      data
+    )
+    return response.data
+  },
   async downloadInstantlyReport(projectId) {
     const response = await $api.get(
       `/projects/${projectId}/reports/instantly_report`,

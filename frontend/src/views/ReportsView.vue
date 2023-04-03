@@ -1,6 +1,6 @@
 <template>
   <ReportsScreen
-    :reports="workspace"
+    :reports="reports"
     :back-page="{name: 'main page', routName: 'MainView'}"
     @create-report="createReports"
     @open-report="goToReport"
@@ -17,22 +17,18 @@ export default {
   name: 'ReportsView',
   components: {ReportsScreen},
   computed: {
-    //change
     ...mapGetters({
-      workspaces: get.WORKSPACES,
+      reports: get.REGULAR_REPORTS,
+      department: get.DEPARTMENT,
     }),
   },
   async created() {
-    //change
-    if (!this.workspaces.length) {
-      await this[action.GET_WORKSPACES]()
+    if (!this.reports.length) {
+      await this[action.GET_REGULAR_REPORTS](this.department.id)
     }
-
-    this[action.CLEAR_STATE]()
   },
   methods: {
-    //change
-    ...mapActions([action.GET_WORKSPACES, action.CLEAR_STATE]),
+    ...mapActions([action.GET_REGULAR_REPORTS]),
     createReports() {
       this.$router.push({
         name: 'ReportStep1',

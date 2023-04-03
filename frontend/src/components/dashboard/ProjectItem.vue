@@ -7,7 +7,7 @@
   >
     <div class="cart-button-wrapper">
       <div class="number-projects">{{ numberProjects }} projects</div>
-      <MembersIconsBar :members="members" />
+      <UsersIconsBar :users="members" />
     </div>
 
     <div class="project-title-wrapper">
@@ -52,7 +52,7 @@ import {mapActions} from 'vuex'
 import {action} from '@store/constants'
 
 import PlusIcon from '@components/icons/PlusIcon'
-import MembersIconsBar from '@components/MembersIconsBar.vue'
+import UsersIconsBar from '@components/UsersIconsBar.vue'
 import BaseTooltipSettings from '@/components/BaseTooltipSettings'
 import EditIcon from '@/components/icons/EditIcon'
 import DeleteIcon from '@/components/icons/DeleteIcon'
@@ -67,7 +67,7 @@ export default {
     DeleteIcon,
     EditIcon,
     BaseTooltipSettings,
-    MembersIconsBar,
+    UsersIconsBar,
     PlusIcon,
   },
   emits: ['add-new-project', 'navigate-to-workspace', 'open-modal'],

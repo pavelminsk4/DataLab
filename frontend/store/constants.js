@@ -93,6 +93,7 @@ export const action = {
 
   // Reports
   UPDATE_NEW_REPORT: 'UPDATE_NEW_REPORT',
+  CLEAR_NEW_REPORT: 'CLEAR_NEW_REPORT',
 }
 
 export const mutator = {
@@ -244,4 +245,7 @@ export const get = {
 
   // social
   SOCIAL_WIDGETS: 'SOCIAL_WIDGETS',
+
+  // Reports
+  CREATE_REPORTS_STEP: 'CREATE_REPORTS_STEP',
 }

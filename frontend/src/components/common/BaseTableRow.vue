@@ -27,14 +27,8 @@ export default {
     DeleteIcon,
   },
   props: {
-    modelValue: {
-      type: [Boolean, Array],
-      default: false,
-    },
-    id: {
-      type: [Number, String],
-      default: null,
-    },
+    modelValue: {type: [Boolean, Array], default: false},
+    id: {type: [Number, String], default: null},
   },
   computed: {
     modelValueProxy: {

@@ -22,7 +22,7 @@
         {{ getReportTypes(item) }}
       </td>
       <td>
-        <MembersIconsBar :members="alertUsers(item.user)" />
+        <UsersIconsBar :users="alertUsers(item.user)" />
       </td>
     </BaseTableRow>
   </BaseTable>
@@ -35,7 +35,7 @@ import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
 import BaseButton from '@/components/common/BaseButton'
-import MembersIconsBar from '@components/MembersIconsBar.vue'
+import UsersIconsBar from '@components/UsersIconsBar.vue'
 import NavigationBar from '@/components/navigation/NavigationBar'
 import BlankPage from '@/components/BlankPage'
 import BaseTable from '@components/common/BaseTable'
@@ -46,7 +46,7 @@ export default {
   components: {
     BlankPage,
     BaseButton,
-    MembersIconsBar,
+    UsersIconsBar,
     NavigationBar,
     BaseTable,
     BaseTableRow,

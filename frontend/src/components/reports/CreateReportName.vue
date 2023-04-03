@@ -1,15 +1,4 @@
 <template>
-  <MainLayoutTitleBlock
-    title="Reports"
-    description="Set up and manage reports"
-    :back-page="{
-      name: 'main page',
-      routName: 'MainView',
-    }"
-  />
-
-  <ReportProgressBar />
-
   <div class="form-wrapper">
     <BaseInput v-model="reportName" label="Name" class="input-name" />
 
@@ -17,6 +6,16 @@
       v-model="reportDescription"
       placeholder="Some words about Workspace"
       label="Description"
+    />
+
+    <AddUsersField
+      :hasError="!!errors.usersEmailError"
+      :errorMessage="errors.usersEmailError"
+      :selectedUsers="selectedUsers"
+      :usersEmails="usersEmails"
+      class="report-add-users"
+      @select-user="selectUser"
+      @remove-user="removeUser"
     />
 
     <BaseButton
@@ -38,23 +37,26 @@ import ArrowLeftIcon from '@/components/icons/ArrowLeftIcon'
 import BaseButton from '@/components/common/BaseButton'
 import BaseInput from '@/components/common/BaseInput'
 import BaseTextarea from '@/components/common/BaseTextarea'
-import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
-import ReportProgressBar from '@/components/reports/ReportProgressBar'
+import AddUsersField from '@/components/AddUsersField'
 
 export default {
-  name: 'CreateWorkspaceScreen',
+  name: 'CreateReportName',
   components: {
     ArrowLeftIcon,
     BaseButton,
     BaseInput,
     BaseTextarea,
-    MainLayoutTitleBlock,
-    ReportProgressBar,
+    AddUsersField,
   },
   data() {
     return {
       reportName: '',
       reportDescription: '',
+      selectedUsers: [],
+      errors: {
+        usersEmailError: null,
+        reportName: null,
+      },
     }
   },
   computed: {
@@ -62,11 +64,14 @@ export default {
       // change
       user: get.USER_INFO,
     }),
-    members() {
+    users() {
       //change
-      return [this.user.id]
+      return []
     },
-    routName() {
+    usersEmails() {
+      return this.users.filter((el) => el.email) || []
+    },
+    routeName() {
       return this.$route.name
     },
   },
@@ -75,14 +80,21 @@ export default {
   },
   methods: {
     ...mapActions([action.UPDATE_NEW_REPORT, action.CLEAR_NEW_REPORT]),
+    selectUser(user) {
+      this.selectedUsers.push(user)
+      this.errors.usersEmailError = null
+    },
+    removeUser(index) {
+      this.selectedUsers.splice(index, 1)
+    },
     nextStep() {
-      const nextStep = this.routName.replace(/\d/g, '2')
+      const nextStep = this.routeName.replace(/\d/g, '2')
       try {
         this[action.UPDATE_NEW_REPORT]({
           step: 2,
           title: this.reportName,
           description: this.reportDescription,
-          members: this.members,
+          users: this.selectedUsers,
           department: this.user.user_profile.department.id,
         })
         this.$router.push({name: nextStep})
@@ -116,5 +128,9 @@ export default {
     margin-left: 10px;
     transform: rotate(180deg);
   }
+}
+
+.report-add-users {
+  margin-top: 32px;
 }
 </style>

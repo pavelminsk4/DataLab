@@ -644,18 +644,6 @@ export default {
     }
   },
 
-  async [action.GET_REGULAR_REPORTS]({commit}, projectId) {
-    commit(mutator.SET_LOADING, true)
-    try {
-      const regularReports = await api.getRegularReports(projectId)
-      commit(mutator.SET_REGULAR_REPORTS, regularReports)
-    } catch (e) {
-      console.log(e)
-    } finally {
-      commit(mutator.SET_LOADING, false)
-    }
-  },
-
   async [action.GET_COMPANY_USERS]({commit}, companyId) {
     commit(mutator.SET_LOADING, true)
     try {
@@ -1024,6 +1012,17 @@ export default {
   },
 
   // Reports
+  async [action.GET_REGULAR_REPORTS]({commit}, projectId) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const regularReports = await api.getRegularReports(projectId)
+      commit(mutator.SET_REGULAR_REPORTS, regularReports)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
   async [action.UPDATE_NEW_REPORT]({commit}, data) {
     commit(mutator.SET_NEW_REPORT, data)
   },

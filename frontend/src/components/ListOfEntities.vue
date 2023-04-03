@@ -24,7 +24,7 @@
         </div>
       </td>
       <td>
-        <MembersIconsBar :members="users(item.members)" />
+        <UsersIconsBar :users="users(item.members)" />
       </td>
       <td class="project-creation-date">
         {{ creationDate(item.created_at) }}
@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import MembersIconsBar from '@components/MembersIconsBar.vue'
+import UsersIconsBar from '@components/UsersIconsBar.vue'
 import TagsCollapsible from '@components/TagsCollapsible.vue'
 import AreYouSureModal from '@/components/modals/AreYouSureModal'
 import BaseTable from '@components/common/BaseTable'
@@ -52,7 +52,7 @@ export default {
   name: 'ProjectsTable',
   components: {
     AreYouSureModal,
-    MembersIconsBar,
+    UsersIconsBar,
     TagsCollapsible,
     BaseTable,
     BaseTableRow,
