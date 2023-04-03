@@ -1,7 +1,7 @@
 <template>
   <div class="chart-container">
     <Bar
-      :chart-data="chartValues[0]"
+      :chart-data="chartData[0]"
       :chart-options="chartOptions"
       :height="24"
       :width="100"
@@ -64,6 +64,14 @@ export default {
           },
         },
       }
+    },
+    chartData() {
+      return [
+        {
+          labels: [''],
+          datasets: this.chartValues,
+        },
+      ]
     },
   },
 }

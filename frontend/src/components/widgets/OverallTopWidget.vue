@@ -32,10 +32,7 @@
         </td>
         <td>{{ item.posts }}</td>
         <td>
-          <ChartsView
-            :chart-values="chartValues(item)"
-            :chart-type="chartType"
-          />
+          <ChartsView :chart-values="datasets(item)" :chart-type="chartType" />
         </td>
         <td>{{ item.reach }}</td>
         <td>{{ item.engagements }}</td>
@@ -90,7 +87,7 @@ export default {
     ]
   },
   methods: {
-    chartValues(item) {
+    datasets(item) {
       const barPercent =
         Object.values(item.sentiments).reduce((a, b) => a + b, 0) /
         Object.values(item.sentiments).length
@@ -100,18 +97,14 @@ export default {
         negative: '#ed2549',
         neutral: '#516bee',
       }
-      return [
-        {
-          labels: [''],
-          datasets: Object.keys(item.sentiments).map((key) => {
-            return {
-              data: [item.sentiments[key] * barPercent],
-              backgroundColor: colors[key],
-              borderRadius: 12,
-            }
-          }),
-        },
-      ]
+
+      return Object.keys(item.sentiments).map((key) => {
+        return {
+          data: [item.sentiments[key] * barPercent],
+          backgroundColor: colors[key],
+          borderRadius: 12,
+        }
+      })
     },
   },
 }

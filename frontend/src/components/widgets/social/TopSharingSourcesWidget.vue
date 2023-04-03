@@ -27,7 +27,7 @@
         <template #sentimentBar v-if="checkSentimentData(item.sentiments)">
           <span class="chart-title">Sentiment</span>
           <ChartsView
-            :chart-values="chartData(item)"
+            :chart-values="datasets(item)"
             chart-type="SentimentBarChart"
           />
         </template>
@@ -84,28 +84,24 @@ export default {
   methods: {
     ...mapActions([action.GET_TOP_SHARING_SOURCES]),
     capitalizeFirstLetter,
-    chartData(item) {
+    datasets(item) {
       const barPercent =
         Object.values(item.sentiments).reduce((a, b) => a + b, 0) /
         Object.values(item.sentiments).length
+
       const colors = {
         positive: '#00b884',
         negative: '#ed2549',
         neutral: '#516bee',
       }
-      return [
-        {
-          labels: [''],
-          datasets: Object.keys(item.sentiments).map((key) => {
-            return {
-              label: capitalizeFirstLetter(key),
-              data: [item.sentiments[key] * barPercent],
-              backgroundColor: colors[key],
-              borderRadius: 12,
-            }
-          }),
-        },
-      ]
+
+      return Object.keys(item.sentiments).map((key) => {
+        return {
+          data: [item.sentiments[key] * barPercent],
+          backgroundColor: colors[key],
+          borderRadius: 12,
+        }
+      })
     },
     checkSentimentData(sentiments) {
       return !!Object.values(sentiments).filter((sentiment) => sentiment).length
