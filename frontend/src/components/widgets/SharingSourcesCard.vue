@@ -13,13 +13,15 @@
       </div>
     </section>
 
-    <div class="chips"><slot name="chips"></slot></div>
+    <div class="chips">
+      <slot name="chips" />
+    </div>
+    <slot name="sentimentBar" />
   </div>
 </template>
 
 <script>
 import {stringToPascalCase} from '@/lib/utilities'
-
 import MostActiveAuthorIcon from '@/components/icons/MostActiveAuthorIcon'
 import MostInfluentialAuthorIcon from '@/components/icons/MostInfluentialAuthorIcon'
 

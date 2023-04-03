@@ -45,8 +45,8 @@ import {get} from '@store/constants'
 
 import MainLayout from '@components/layout/MainLayout'
 import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
-import BaseButton from '@components/common/BaseButton.vue'
-import PlusIcon from '../components/icons/PlusIcon.vue'
+import BaseButton from '@components/common/BaseButton'
+import PlusIcon from '../components/icons/PlusIcon'
 
 export default {
   components: {BaseButton, MainLayout, MainLayoutTitleBlock, PlusIcon},

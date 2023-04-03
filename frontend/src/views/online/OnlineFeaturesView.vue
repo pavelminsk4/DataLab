@@ -9,7 +9,7 @@
 import {mapGetters} from 'vuex'
 import {get} from '@store/constants'
 
-import FeaturesScreen from '@/components/project/screens/FeaturesScreen.vue'
+import FeaturesScreen from '@/components/project/screens/FeaturesScreen'
 
 export default {
   name: 'OnlineFeaturesView',
