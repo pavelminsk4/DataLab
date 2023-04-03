@@ -63,6 +63,7 @@ class WidgetsListSerializer(WritableNestedModelSerializer):
   top_sharing_sources = SocialWidgetDescriptionSerializer()
   overall_top_authors = SocialWidgetDescriptionSerializer()
   top_authors_by_gender = SocialWidgetDescriptionSerializer()
+  authors_by_language = SocialWidgetDescriptionSerializer()
 
   class Meta:
     model = SocialWidgetsList
