@@ -33,6 +33,9 @@ export default {
   [mutator.SET_OVERALL_TOP_AUTHORS](state, data) {
     state.overallTopAuthors = data
   },
+  [mutator.SET_TOP_AUTHORS_BY_GENDER](state, data) {
+    state.topAuthorsByGender = data
+  },
 
   // Content volume
   [mutator.SET_CONTENT_VOLUME_TOP_LOCATIONS](state, data) {

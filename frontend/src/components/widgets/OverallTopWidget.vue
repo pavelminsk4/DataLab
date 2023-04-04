@@ -1,9 +1,10 @@
 <template>
   <component
     :is="widgetWrapper"
-    :title="widgetDetails.title"
+    :title="customTitle || widgetDetails.title"
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
+    style="--widget-layout-content-padding: 0px"
   >
     <BaseTable
       v-if="tableHeader.length"
@@ -63,6 +64,7 @@ export default {
     widgetData: {type: Array, required: true},
     widgetDetails: {type: Object, required: true},
     isSettings: {type: Boolean, default: false},
+    customTitle: {type: String, default: ''},
   },
   computed: {
     chartType() {
@@ -110,9 +112,6 @@ export default {
 }
 </script>
 <style lang="scss">
-.widget-layout-wrapper__content {
-  padding: 0px !important;
-}
 .base-table {
   thead {
     background-color: var(--background-primary-color);

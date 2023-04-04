@@ -56,6 +56,10 @@ const CHARTS = {
     componentName: 'SentimentWordCloudChart',
     name: 'Word Cloud',
   },
+  sentimentBarChart: {
+    componentName: 'SentimentBarChartChart',
+    name: 'Sentiment Bar Chart',
+  },
 }
 
 const SIMPLE_CHARTS = [
@@ -299,7 +303,6 @@ export const widgetsConfig = {
     defaultChartType: 'BarChart',
     availableTypes: SENTIMENTS_CHARTS,
   },
-
   gender_volume: {
     ...WIDGET_DEFAULT_SETTINGS,
     actionName: action.GET_GENDER_VOLUME_WIDGET,
@@ -310,7 +313,13 @@ export const widgetsConfig = {
     ...WIDGET_DEFAULT_SETTINGS,
     actionName: action.GET_OVERALL_TOP_AUTHORS,
     defaultChartType: 'SentimentBarChart',
-    availableTypes: SIMPLE_CHARTS,
+    availableTypes: null,
+  },
+  top_authors_by_gender: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    actionName: action.GET_TOP_AUTHORS_BY_GENDER,
+    defaultChartType: 'SentimentBarChart',
+    availableTypes: null,
   },
 }
 
