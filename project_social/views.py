@@ -22,6 +22,7 @@ from .widgets.dashboard.sentiment import *
 from .widgets.influencers.top_sharing_sources import *
 from .widgets.influencers.overall_top_authors import *
 from .widgets.demography.top_authors_by_gender import *
+from .widgets.demography.authors_by_location import *
 from .widgets.demography.authors_by_language import *
 from rest_framework import viewsets, filters
 from django.core.paginator import Paginator
@@ -219,6 +220,9 @@ def social_top_authors_by_gender(request, pk, widget_pk):
 
 def social_authors_by_language(request, pk, widget_pk):
   return authors_by_language(pk, widget_pk)
+
+def social_authors_by_location(request, pk, widget_pk):
+  return authors_by_location(pk, widget_pk)
 
 def dimensions_for_each_widgets(request, project_pk, widget_pk):
   return dimensions_for_each(request, widget_pk)
