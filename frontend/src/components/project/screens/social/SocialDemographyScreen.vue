@@ -18,7 +18,7 @@ import {getWidgetDetails} from '@lib/utilities'
 import WidgetsList from '@/components/widgets/WidgetsList'
 
 export default {
-  name: 'SocialSentimentScreen',
+  name: 'SocialDemographyScreen',
   components: {
     WidgetsList,
   },
@@ -56,6 +56,7 @@ export default {
     this.widgets = [
       {name: 'top_sharing_sources', isFullWidth: false},
       {name: 'overall_top_authors', isFullWidth: true},
+      {name: 'top_authors_by_gender', isFullWidth: true},
     ]
     if (!this.availableWidgets) {
       await this[action.GET_AVAILABLE_WIDGETS](this.currentProject.id)

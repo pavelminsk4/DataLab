@@ -7,7 +7,9 @@
         <div v-if="isShowSettings" class="button" @click="openSettingsModal">
           <SettingsIcon />
         </div>
-        <div class="button" @click="deleteWidget"><CrossIcon /></div>
+        <div v-if="isShowDeleteBtn" class="button" @click="deleteWidget">
+          <CrossIcon />
+        </div>
       </div>
     </div>
     <div class="widget-layout-wrapper__content scroll">
@@ -29,14 +31,9 @@ export default {
   name: 'WidgetsLayout',
   components: {CrossIcon, BaseSpinner, SettingsIcon},
   props: {
-    title: {
-      type: String,
-      default: '',
-    },
-    isShowSettings: {
-      type: Boolean,
-      default: true,
-    },
+    title: {type: String, default: ''},
+    isShowSettings: {type: Boolean, default: true},
+    isShowDeleteBtn: {type: Boolean, default: true},
   },
   computed: {
     ...mapGetters({isLoading: get.LOADING}),

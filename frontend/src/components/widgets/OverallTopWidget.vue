@@ -1,7 +1,8 @@
 <template>
   <component
     :is="widgetWrapper"
-    :title="widgetDetails.title"
+    :title="customTitle || widgetDetails.title"
+    style="--widget-layout-content-padding: 0px"
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
   >
@@ -63,6 +64,7 @@ export default {
     widgetData: {type: Array, required: true},
     widgetDetails: {type: Object, required: true},
     isSettings: {type: Boolean, default: false},
+    customTitle: {type: String, default: ''},
   },
   computed: {
     chartType() {
@@ -76,14 +78,14 @@ export default {
   },
   created() {
     this.tableHeader = [
-      {name: '', width: ''},
-      {name: 'Author', width: 'auto'},
-      {name: 'Gender', width: 'auto'},
-      {name: 'Media Type', width: 'auto'},
-      {name: 'Posts', width: 'auto'},
-      {name: 'Sentiment', width: 'auto'},
-      {name: 'Reach', width: 'auto'},
-      {name: 'Engagement', width: 'auto'},
+      {name: '', width: '5%'},
+      {name: 'Author', width: '20%'},
+      {name: 'Gender', width: '15%'},
+      {name: 'Media Type', width: '10%'},
+      {name: 'Posts', width: '10%'},
+      {name: 'Sentiment', width: '30%'},
+      {name: 'Reach', width: '10%'},
+      {name: 'Engagement', width: '10%'},
     ]
   },
   methods: {
@@ -110,9 +112,6 @@ export default {
 }
 </script>
 <style lang="scss">
-.widget-layout-wrapper__content {
-  padding: 0px !important;
-}
 .base-table {
   thead {
     background-color: var(--background-primary-color);
