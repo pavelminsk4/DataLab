@@ -6,12 +6,12 @@ import os
 import environ
 from pathlib import Path
 import mimetypes
-import aspose.words as aw
 from docx import Document
 from widgets.models import *
 
 from .chartjs.chartjs import prepare_widget_images
 from reports.views_filling.filling_for_report import filling_templates_for_instant_and_regular_reports
+from .services.pdf_handler import convert_docx_to_pdf
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 env = environ.Env()
@@ -24,17 +24,23 @@ def filling_template(template_path, project_id):
   document = filling_templates_for_instant_and_regular_reports(document, project_id)
   document.save('tmp/temp_reg_report.docx')
 
-
-def convert_docx_to_pdf(docx_path, report_path):
-  doc = aw.Document(docx_path)
-  doc.save(report_path)
-
-def create_pdf_file(reg_report):
-  template_path = str(reg_report.h_template.layout_file)
+def create_pdf_file(reg_report, crontab_type):
+  if crontab_type == 'hourly':
+    template_path = str(reg_report.h_template.layout_file)
+  if crontab_type == 'daily':
+    template_path = str(reg_report.d_template.layout_file)
+  if crontab_type == 'weekly':
+    template_path = str(reg_report.w_template.layout_file)
+  if crontab_type == 'monthly':
+    template_path = str(reg_report.m_template.layout_file)
   docx_path='tmp/temp_reg_report.docx'
   report_path='tmp/temp_reg_report.' + 'pdf'
-  prepare_widget_images(reg_report.project.id)
-  filling_template(template_path, reg_report.project.pk)
+  if reg_report.module_type == 'Project':
+    prepare_widget_images(reg_report.module_project_id)
+    filling_template(template_path, reg_report.module_project_id)
+  else:
+    prepare_social_widget_images(reg_report.module_project_id)
+    filling_social_template(template_path, reg_report.module_project_id)
   convert_docx_to_pdf(docx_path, report_path)
   return report_path
 
@@ -58,5 +64,5 @@ def send_email_with(file, reg_report, crontab_type):
 @shared_task
 def regular_report_sender(report_id , crontab_type):
   reg_report = RegularReport.objects.get(id=report_id)
-  file = create_pdf_file(reg_report)
+  file = create_pdf_file(reg_report, crontab_type)
   send_email_with(file, reg_report, crontab_type)
