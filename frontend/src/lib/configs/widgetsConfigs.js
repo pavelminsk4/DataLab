@@ -272,6 +272,31 @@ export const widgetsConfig = {
     defaultChartType: 'MultiLineChart',
     availableTypes: MULTI_CHARTS,
   },
+
+  overall_top_authors: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    actionName: action.GET_OVERALL_TOP_AUTHORS,
+    defaultChartType: 'SentimentBarChart',
+    availableTypes: null,
+  },
+  top_authors_by_gender: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    actionName: action.GET_TOP_AUTHORS_BY_GENDER,
+    defaultChartType: 'SentimentBarChart',
+    availableTypes: null,
+  },
+  authors_by_language: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    actionName: action.GET_AUTHORS_BY_LANGUAGE,
+    defaultChartType: 'DoughnutChart',
+    availableTypes: SIMPLE_CHARTS,
+  },
+  authors_by_location: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    actionName: action.GET_AUTHORS_BY_LOCATION,
+    defaultChartType: 'BarChart',
+    availableTypes: SIMPLE_CHARTS,
+  },
   // Sentiment
   sentiment_locations: {
     ...WIDGET_DEFAULT_SETTINGS,
@@ -308,18 +333,6 @@ export const widgetsConfig = {
     actionName: action.GET_GENDER_VOLUME_WIDGET,
     defaultChartType: 'MultiLineChart',
     availableTypes: MULTI_CHARTS,
-  },
-  overall_top_authors: {
-    ...WIDGET_DEFAULT_SETTINGS,
-    actionName: action.GET_OVERALL_TOP_AUTHORS,
-    defaultChartType: 'SentimentBarChart',
-    availableTypes: null,
-  },
-  top_authors_by_gender: {
-    ...WIDGET_DEFAULT_SETTINGS,
-    actionName: action.GET_TOP_AUTHORS_BY_GENDER,
-    defaultChartType: 'SentimentBarChart',
-    availableTypes: null,
   },
 }
 

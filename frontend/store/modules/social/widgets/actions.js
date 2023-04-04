@@ -131,6 +131,34 @@ export default {
       commit(mutator.SET_LOADING, false, {root: true})
     }
   },
+  async [action.GET_OVERALL_TOP_AUTHORS]({commit}, {projectId, widgetId}) {
+    commit(mutator.SET_LOADING, true, {root: true})
+    try {
+      const data = await api.social.getOverallTopAuthors({
+        projectId,
+        widgetId,
+      })
+      commit(mutator.SET_OVERALL_TOP_AUTHORS, data)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false, {root: true})
+    }
+  },
+  async [action.GET_TOP_AUTHORS_BY_GENDER]({commit}, {projectId, widgetId}) {
+    commit(mutator.SET_LOADING, true, {root: true})
+    try {
+      const data = await api.social.getTopAuthorsByGender({
+        projectId,
+        widgetId,
+      })
+      commit(mutator.SET_TOP_AUTHORS_BY_GENDER, data)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false, {root: true})
+    }
+  },
 
   // Content Volume
   async [action.GET_CONTENT_VOLUME_TOP_LOCATIONS](
@@ -190,6 +218,35 @@ export default {
         mutator.SET_CONTENT_VOLUME_TOP_LANGUAGES,
         contentVolumeTopLanguages
       )
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false, {root: true})
+    }
+  },
+  async [action.GET_AUTHORS_BY_LANGUAGE]({commit}, {projectId, widgetId}) {
+    commit(mutator.SET_LOADING, true, {root: true})
+    try {
+      const data = await api.social.getAuthorsByLanguage({
+        projectId,
+        widgetId,
+      })
+      commit(mutator.SET_AUTHORS_BY_LANGUAGE, data)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false, {root: true})
+    }
+  },
+
+  async [action.GET_AUTHORS_BY_LOCATION]({commit}, {projectId, widgetId}) {
+    commit(mutator.SET_LOADING, true, {root: true})
+    try {
+      const data = await api.social.getAuthorsByLocation({
+        projectId,
+        widgetId,
+      })
+      commit(mutator.SET_AUTHORS_BY_LOCATION, data)
     } catch (e) {
       console.log(e)
     } finally {
@@ -311,34 +368,6 @@ export default {
         widgetId,
       })
       commit(mutator.SET_SENTIMENT_BY_GENDER, data)
-    } catch (e) {
-      console.log(e)
-    } finally {
-      commit(mutator.SET_LOADING, false, {root: true})
-    }
-  },
-  async [action.GET_OVERALL_TOP_AUTHORS]({commit}, {projectId, widgetId}) {
-    commit(mutator.SET_LOADING, true, {root: true})
-    try {
-      const data = await api.social.getOverallTopAuthors({
-        projectId,
-        widgetId,
-      })
-      commit(mutator.SET_OVERALL_TOP_AUTHORS, data)
-    } catch (e) {
-      console.log(e)
-    } finally {
-      commit(mutator.SET_LOADING, false, {root: true})
-    }
-  },
-  async [action.GET_TOP_AUTHORS_BY_GENDER]({commit}, {projectId, widgetId}) {
-    commit(mutator.SET_LOADING, true, {root: true})
-    try {
-      const data = await api.social.getTopAuthorsByGender({
-        projectId,
-        widgetId,
-      })
-      commit(mutator.SET_TOP_AUTHORS_BY_GENDER, data)
     } catch (e) {
       console.log(e)
     } finally {

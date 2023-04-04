@@ -2,6 +2,7 @@
   <component
     :is="widgetWrapper"
     :title="widgetDetails.title"
+    style="--widget-layout-content-padding: 0px"
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
   >

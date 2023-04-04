@@ -2,6 +2,7 @@
   <component
     :is="widgetWrapper"
     :title="customTitle || widgetDetails.title"
+    :is-show-delete-btn="false"
     style="--widget-layout-content-padding: 0px"
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
@@ -79,11 +80,11 @@ export default {
   created() {
     this.tableHeader = [
       {name: '', width: '5%'},
-      {name: 'Author', width: '20%'},
+      {name: 'Author', width: '15%'},
       {name: 'Gender', width: '15%'},
       {name: 'Media Type', width: '10%'},
       {name: 'Posts', width: '10%'},
-      {name: 'Sentiment', width: '30%'},
+      {name: 'Sentiment', width: '25%'},
       {name: 'Reach', width: '10%'},
       {name: 'Engagement', width: '10%'},
     ]
@@ -123,9 +124,8 @@ export default {
 }
 .icon-wrapper {
   vertical-align: middle;
-  text-align: center;
+  padding: 0px 15px;
 }
-
 .author-cell {
   display: flex;
   flex-direction: column;

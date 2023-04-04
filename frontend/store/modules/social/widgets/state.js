@@ -3,6 +3,8 @@ const state = {
   clippingFeedContent: [],
   contentVolume: [],
   genderVolume: [],
+  authorsByLanguage: [],
+  authorsByLocation: [],
 
   topLocations: [],
   topLanguages: [],
