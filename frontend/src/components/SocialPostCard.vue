@@ -25,7 +25,7 @@
 
     <template #description>{{ postDetails.text }}</template>
 
-    <template #post-type><TwitterIcon /> Twitter</template>
+    <template #post-type><TwitterIcon class="icon-size" /> Twitter</template>
 
     <template #information>
       <div
@@ -170,5 +170,9 @@ export default {
   display: flex;
   align-items: center;
   gap: 4px;
+}
+
+.icon-size {
+  height: 16px;
 }
 </style>

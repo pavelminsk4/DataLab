@@ -53,7 +53,10 @@ export default {
     },
   },
   async created() {
-    this.widgets = [{name: 'overall_top_authors', isFullWidth: true}]
+    this.widgets = [
+      {name: 'top_sharing_sources', isFullWidth: false},
+      {name: 'overall_top_authors', isFullWidth: true},
+    ]
     if (!this.availableWidgets) {
       await this[action.GET_AVAILABLE_WIDGETS](this.currentProject.id)
     }

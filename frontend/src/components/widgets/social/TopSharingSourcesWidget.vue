@@ -21,10 +21,15 @@
             <component :is="capitalizeFirstLetter(item.source) + 'Icon'" />
             {{ item.source }}
           </div>
-          <div v-if="item.gender != 'undefined'" :class="['type', item.gender]">
-            <component :is="capitalizeFirstLetter(item.gender) + 'Icon'" />
-            {{ item.gender }}
-          </div>
+          <ChipsGender :gender-type="item.gender" />
+        </template>
+
+        <template #sentimentBar v-if="checkSentimentData(item.sentiments)">
+          <span class="chart-title">Sentiment</span>
+          <ChartsView
+            :chart-values="datasets(item)"
+            chart-type="SentimentBarChart"
+          />
         </template>
       </SharingSourcesCard>
     </div>
@@ -36,9 +41,9 @@ import {createNamespacedHelpers} from 'vuex'
 import {get, action} from '@store/constants'
 import {capitalizeFirstLetter} from '@/lib/utilities'
 
-import MaleIcon from '@/components/icons/MaleIcon'
-import FemaleIcon from '@/components/icons/FemaleIcon'
+import ChipsGender from '@/components/ChipsGender'
 import TwitterIcon from '@/components/icons/TwitterIcon'
+import ChartsView from '@/components/charts/ChartsView'
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
 import SharingSourcesCard from '@/components/widgets/SharingSourcesCard'
 
@@ -49,9 +54,9 @@ export default {
   components: {
     WidgetsLayout,
     SharingSourcesCard,
-    MaleIcon,
-    FemaleIcon,
     TwitterIcon,
+    ChartsView,
+    ChipsGender,
   },
   props: {
     widgetDetails: {type: Object, required: true},
@@ -79,6 +84,28 @@ export default {
   methods: {
     ...mapActions([action.GET_TOP_SHARING_SOURCES]),
     capitalizeFirstLetter,
+    datasets(item) {
+      const barPercent =
+        Object.values(item.sentiments).reduce((a, b) => a + b, 0) /
+        Object.values(item.sentiments).length
+
+      const colors = {
+        positive: '#00b884',
+        negative: '#ed2549',
+        neutral: '#516bee',
+      }
+
+      return Object.keys(item.sentiments).map((key) => {
+        return {
+          data: [item.sentiments[key] * barPercent],
+          backgroundColor: colors[key],
+          borderRadius: 12,
+        }
+      })
+    },
+    checkSentimentData(sentiments) {
+      return !!Object.values(sentiments).filter((sentiment) => sentiment).length
+    },
   },
 }
 </script>
@@ -87,10 +114,14 @@ export default {
 .sharing-sources-wrapper {
   display: flex;
   gap: 12px;
+  padding: 15px;
+  height: 100%;
 }
 
 .type {
   display: flex;
+
+  align-items: center;
   gap: 4px;
 
   padding: 6px 8px;

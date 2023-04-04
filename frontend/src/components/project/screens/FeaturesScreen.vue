@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import MainLayoutTitleBlock from '@/components/layout/MainLayoutTitleBlock.vue'
+import MainLayoutTitleBlock from '@/components/layout/MainLayoutTitleBlock'
 import BaseButton from '@/components/common/BaseButton'
 import ReportsUploadIcon from '@/components/icons/ReportsUploadIcon'
 

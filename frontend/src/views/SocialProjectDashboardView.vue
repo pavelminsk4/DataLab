@@ -46,7 +46,7 @@ export default {
       'Search',
       'Summary',
       'Sentiment',
-      // 'Demography',
+      'Demography',
     ].map((item) => ({
       name: item,
       routeName: `Social${item}`,
