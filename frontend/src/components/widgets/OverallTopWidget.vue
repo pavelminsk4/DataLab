@@ -2,9 +2,9 @@
   <component
     :is="widgetWrapper"
     :title="customTitle || widgetDetails.title"
+    style="--widget-layout-content-padding: 0px"
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
-    style="--widget-layout-content-padding: 0px"
   >
     <BaseTable
       v-if="tableHeader.length"
@@ -78,14 +78,14 @@ export default {
   },
   created() {
     this.tableHeader = [
-      {name: '', width: ''},
-      {name: 'Author', width: 'auto'},
-      {name: 'Gender', width: 'auto'},
-      {name: 'Media Type', width: 'auto'},
-      {name: 'Posts', width: 'auto'},
-      {name: 'Sentiment', width: 'auto'},
-      {name: 'Reach', width: 'auto'},
-      {name: 'Engagement', width: 'auto'},
+      {name: '', width: '5%'},
+      {name: 'Author', width: '20%'},
+      {name: 'Gender', width: '15%'},
+      {name: 'Media Type', width: '10%'},
+      {name: 'Posts', width: '10%'},
+      {name: 'Sentiment', width: '30%'},
+      {name: 'Reach', width: '10%'},
+      {name: 'Engagement', width: '10%'},
     ]
   },
   methods: {

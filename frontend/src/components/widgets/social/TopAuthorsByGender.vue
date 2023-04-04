@@ -2,10 +2,10 @@
   <component
     :is="widgetWrapper"
     :title="widgetDetails.title"
-    @delete-widget="$emit('delete-widget')"
-    @open-modal="$emit('open-settings-modal')"
     style="--widget-layout-content-padding: 0px"
     class="height-reset"
+    @delete-widget="$emit('delete-widget')"
+    @open-modal="$emit('open-settings-modal')"
   >
     <OverallTopWidget
       v-for="(widget, index) in widgetData"
