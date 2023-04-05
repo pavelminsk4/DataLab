@@ -111,6 +111,20 @@ export default {
     )
   },
 
+  async getTopSharingSources({projectId, widgetId}) {
+    return fetch(
+      'get',
+      `${moduleName}/social_top_sharing_sources/${projectId}/${widgetId}`
+    )
+  },
+
+  async getAuthorsByLocation({projectId, widgetId}) {
+    return fetch(
+      'get',
+      `${moduleName}/social_authors_by_location/${projectId}/${widgetId}`
+    )
+  },
+
   // Top
   async getTopLocationsWidget(projectId, widgetId) {
     return fetch(
@@ -138,6 +152,19 @@ export default {
     )
   },
 
+  async getOverallTopAuthors({projectId, widgetId}) {
+    return fetch(
+      'get',
+      `${moduleName}/social_overall_top_authors/${projectId}/${widgetId}`
+    )
+  },
+  async getTopAuthorsByGender({projectId, widgetId}) {
+    return fetch(
+      'get',
+      `${moduleName}/social_top_authors_by_gender/${projectId}/${widgetId}`
+    )
+  },
+
   // Content Volume
   async getContentVolumeTopLocations({projectId, value, widgetId}) {
     return fetch(
@@ -157,6 +184,13 @@ export default {
     return fetch(
       'get',
       `${moduleName}/social_content_volume_by_top_languages/${projectId}/${widgetId}`,
+      value
+    )
+  },
+  async getAuthorsByLanguage({projectId, value, widgetId}) {
+    return fetch(
+      'get',
+      `${moduleName}/social_authors_by_language/${projectId}/${widgetId}`,
       value
     )
   },
@@ -209,24 +243,6 @@ export default {
     return fetch(
       'get',
       `${moduleName}/social_sentiment_by_gender/${projectId}/${widgetId}`
-    )
-  },
-  async getTopSharingSources({projectId, widgetId}) {
-    return fetch(
-      'get',
-      `${moduleName}/social_top_sharing_sources/${projectId}/${widgetId}`
-    )
-  },
-  async getOverallTopAuthors({projectId, widgetId}) {
-    return fetch(
-      'get',
-      `${moduleName}/social_overall_top_authors/${projectId}/${widgetId}`
-    )
-  },
-  async getTopAuthorsByGender({projectId, widgetId}) {
-    return fetch(
-      'get',
-      `${moduleName}/social_top_authors_by_gender/${projectId}/${widgetId}`
     )
   },
 }

@@ -47,6 +47,12 @@ export default {
   [mutator.SET_CONTENT_VOLUME_TOP_LANGUAGES](state, data) {
     state.contentVolumeTopLanguages = data
   },
+  [mutator.SET_AUTHORS_BY_LANGUAGE](state, data) {
+    state.authorsByLanguage = data
+  },
+  [mutator.SET_AUTHORS_BY_LOCATION](state, data) {
+    state.authorsByLocation = data
+  },
 
   // Sentiment
   [mutator.SET_SENTIMENT_TOP_LOCATIONS](state, data) {

@@ -21,6 +21,8 @@ import TopSharingSources from '@/components/widgets/social/TopSharingSourcesWidg
 import ContentVolumeByTopLocations from '@/components/widgets/social/ContentVolumeTopLocationsWidget'
 import ContentVolumeByTopAuthors from '@/components/widgets/social/ContentVolumeTopAuthorsWidget'
 import ContentVolumeByTopLanguages from '@/components/widgets/social/ContentVolumeTopLanguagesWidget'
+import AuthorsByLanguage from '@/components/widgets/social/AuthorsByLanguageWidget'
+import AuthorsByLocation from '@/components/widgets/social/AuthorsByLocationWidget'
 
 import Sentiment from '@/components/widgets/social/SentimentForPeriodWidget'
 import SentimentAuthors from '@/components/widgets/social/SentimentTopAuthorsWidget'
@@ -30,8 +32,9 @@ import SentimentByGender from '@/components/widgets/social/SentimentByGenderWidg
 import SentimentDiagram from '@/components/widgets/social/SentimentDiagramWidget'
 import SentimentNumberOfResults from '@/components/widgets/social/SentimentNumberOfResultWidget'
 import SentimentTopKeywords from '@/components/widgets/social/SentimentTopKeywordsWidget'
+
 import OverallTopAuthors from '@/components/widgets/social/OverallTopAuthorsWidget'
-import TopAuthorsByGender from '@/components/widgets/social/TopAuthorsByGender'
+import TopAuthorsByGender from '@/components/widgets/social/TopAuthorsByGenderWidget'
 
 export default {
   name: 'SocialMainWidget',
@@ -58,6 +61,8 @@ export default {
     SentimentNumberOfResults,
     OverallTopAuthors,
     TopAuthorsByGender,
+    AuthorsByLanguage,
+    AuthorsByLocation,
   },
   props: {
     widgetDetails: {type: Object, required: true},
