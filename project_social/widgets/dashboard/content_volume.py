@@ -7,7 +7,17 @@ from django.db.models import Count
 
 def post_agregator_volume(posts, aggregation_period):
   posts = posts.annotate(date_trunc=Trunc('date', aggregation_period)).values("date_trunc").annotate(created_count=Count('id')).order_by("date")
-  return list([{'date':p['date_trunc'], 'created_count':p['created_count']} for p in posts])
+  dates = set()
+  for elem in range(len(posts)):
+    dates.add(str(posts[elem]['date_trunc']))
+  list_dates = []
+  for date in sorted(list(dates)):
+    count = 0
+    for elem in range(len(posts)):
+      if date == str(posts[elem]['date_trunc']):
+        count += posts[elem]['created_count']
+    list_dates.append({"date": date, "created_count": count})
+  return list_dates
 
 def content_volume(pk, widget_pk):
   project = ProjectSocial.objects.get(id=pk)

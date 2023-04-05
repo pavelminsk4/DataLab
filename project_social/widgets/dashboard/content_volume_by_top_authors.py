@@ -16,10 +16,12 @@ def post_agregator_content_volume_top_authors(posts, aggregation_period, top_cou
   for elem in range(len(results)):
     list_dates = []
     for date in sorted(list(dates)):
+      count = 0
       if date in sorted(list({str(results[elem][top_authors[elem]][i]['date_trunc']) for i in range(len(results[elem][top_authors[elem]]))})):
         for i in range(len(results[elem][top_authors[elem]])):
           if date == str(results[elem][top_authors[elem]][i]['date_trunc']):
-            list_dates.append({"date": date, "post_count": results[elem][top_authors[elem]][i]['created_count']})
+            count += results[elem][top_authors[elem]][i]['created_count']
+        list_dates.append({"date": date, "post_count": count})
       else:
         list_dates.append({"date": date, "post_count": 0})
     res.append({top_authors[elem]: list_dates})
