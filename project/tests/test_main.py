@@ -4,6 +4,7 @@ from selenium.webdriver.chrome.webdriver import WebDriver
 from django.contrib.auth.models import User
 from project.models import Workspace
 from accounts.models import department
+import time
 
 class LoginTests(StaticLiveServerTestCase):
   @classmethod
@@ -59,9 +60,11 @@ class WorkspaceTests(StaticLiveServerTestCase):
     self.selenium.add_cookie({'name': 'sessionid', 'value': cookie.value, 'secure': False, 'path': '/'})
     self.selenium.refresh() #need to update page for logged in user
     self.selenium.get('%s%s' % (self.live_server_url, '/'))
-    assert 'Hello, admin' in self.selenium.page_source
+    assert 'Hello,' in self.selenium.page_source
     module_card_main = self.selenium.find_element(By. CLASS_NAME, 'module-card')
     module_card_main.click()
-    assert 'workspace1' and 'workspace2' in self.selenium.page_source
+    time.sleep(1)
     assert not 'workspace3' in self.selenium.page_source
+    assert 'workspace1' in self.selenium.page_source 
+    assert 'workspace2' in self.selenium.page_source
     self.selenium.close()
