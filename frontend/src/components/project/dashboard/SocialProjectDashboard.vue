@@ -15,8 +15,8 @@
       @update-available-widgets="updateAvailableWidgets"
     />
 
-    <AllDimensionsModal
-      v-if="openModal === 'AllDimensionsModal'"
+    <SocialDimensionsModal
+      v-if="openModal === 'SocialDimensionsModal'"
       :project-id="currentProject.id"
       :current-project="currentProject"
       @update-search-results="showResults"
@@ -76,7 +76,7 @@
 
           <DimensionsIcon
             class="dimensions-button"
-            @click="toggleWidgetsModal('DimensionModal')"
+            @click="toggleWidgetsModal('SocialDimensionsModal')"
           />
         </div>
       </div>
@@ -109,7 +109,7 @@ import BaseButton from '@/components/common/BaseButton'
 import PlusIcon from '@/components/icons/PlusIcon'
 import WidgetsListModal from '@/components/widgets/modals/WidgetsListModal'
 import DimensionsIcon from '@/components/icons/DimensionsIcon'
-import AllDimensionsModal from '@/components/project/modals/AllDimensionsModal'
+import SocialDimensionsModal from '@/components/project/modals/social/SocialDimensionsModal'
 import ReportsUploadIcon from '@/components/icons/ReportsUploadIcon'
 import DownloadReportModal from '@/components/project/modals/DownloadReportModal'
 import BaseDropdown from '@/components/BaseDropdown'
@@ -126,7 +126,7 @@ export default {
     BaseDropdown,
     DownloadReportModal,
     ReportsUploadIcon,
-    AllDimensionsModal,
+    SocialDimensionsModal,
     DimensionsIcon,
     WidgetsListModal,
     PlusIcon,

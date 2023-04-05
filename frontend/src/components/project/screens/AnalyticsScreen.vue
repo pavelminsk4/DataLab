@@ -17,7 +17,7 @@
       @update-available-widgets="updateAvailableWidgets"
     />
 
-    <AllDimensionsModal
+    <OnlineDimensionsModal
       v-if="isOpenDimensionModal"
       :project-id="currentProject.id"
       :current-project="currentProject"
@@ -104,7 +104,7 @@ import BaseButton from '@/components/common/BaseButton'
 import PlusIcon from '@/components/icons/PlusIcon'
 import WidgetsListModal from '@/components/widgets/modals/WidgetsListModal'
 import DimensionsIcon from '@/components/icons/DimensionsIcon'
-import AllDimensionsModal from '@/components/project/modals/AllDimensionsModal'
+import OnlineDimensionsModal from '@/components/project/modals/online/OnlineDimensionsModal'
 import ReportsUploadIcon from '@/components/icons/ReportsUploadIcon'
 import DownloadReportModal from '@/components/project/modals/DownloadReportModal'
 import BaseDropdown from '@/components/BaseDropdown'
@@ -119,7 +119,7 @@ export default {
     BaseDropdown,
     DownloadReportModal,
     ReportsUploadIcon,
-    AllDimensionsModal,
+    OnlineDimensionsModal,
     DimensionsIcon,
     WidgetsListModal,
     PlusIcon,
