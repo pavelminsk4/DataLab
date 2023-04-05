@@ -98,6 +98,7 @@ class WidgetsListSerializer(WritableNestedModelSerializer):
   sentiment_top_keywords = WidgetDescriptionSerializer()
   sentiment_number_of_results = WidgetDescriptionSerializer()
   sentiment_diagram = WidgetDescriptionSerializer()
+  authors_by_country = WidgetDescriptionSerializer()
 
   class Meta:
     model = WidgetsList2
@@ -121,6 +122,7 @@ class WidgetsListSerializer(WritableNestedModelSerializer):
       'sentiment_top_keywords',
       'sentiment_number_of_results',
       'sentiment_diagram',
+      'authors_by_country',
     ]
 
 class ClippingFeedContentWidgetListSerializer(serializers.ListSerializer):
