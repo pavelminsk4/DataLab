@@ -18,6 +18,7 @@ import SocialFeaturesView from '@/views/social/SocialFeaturesView'
 import SocialSummaryScreen from '@/components/project/screens/social/SocialSummaryScreen'
 import SocialSentimentScreen from '@/components/project/screens/social/SocialSentimentScreen'
 import SocialDemographyScreen from '@/components/project/screens/social/SocialDemographyScreen'
+import SocialInfluencersScreen from '@/components/project/screens/social/SocialInfluencersScreen'
 
 export default [
   {
@@ -154,6 +155,11 @@ export default [
                 name: 'SocialDemography',
                 path: 'demography',
                 component: SocialDemographyScreen,
+              },
+              {
+                name: 'SocialInfluencers',
+                path: 'influencers',
+                component: SocialInfluencersScreen,
               },
             ],
           },

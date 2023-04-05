@@ -27,6 +27,7 @@ import SummaryIcon from '@/components/icons/SummaryIcon'
 import DashboardIcon from '@/components/icons/DashboardIcon'
 import SentimentIcon from '@/components/icons/SentimentIcon'
 import DemographyIcon from '@/components/icons/DemographyIcon'
+import InfluencersIcon from '@/components/icons/InfluencersIcon'
 
 export default {
   name: 'SideBar',
@@ -39,6 +40,7 @@ export default {
     DashboardIcon,
     SentimentIcon,
     DemographyIcon,
+    InfluencersIcon,
   },
   props: {
     navUrls: {type: Array, required: true},

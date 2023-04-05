@@ -125,6 +125,13 @@ export default {
     )
   },
 
+  async getAuthorsBySentiment({projectId, widgetId}) {
+    return fetch(
+      'get',
+      `${moduleName}/social_authors_by_sentiment/${projectId}/${widgetId}`
+    )
+  },
+
   // Top
   async getTopLocationsWidget(projectId, widgetId) {
     return fetch(
@@ -162,6 +169,12 @@ export default {
     return fetch(
       'get',
       `${moduleName}/social_top_authors_by_gender/${projectId}/${widgetId}`
+    )
+  },
+  async getAuthorsByGender({projectId, widgetId}) {
+    return fetch(
+      'get',
+      `${moduleName}/social_authors_by_gender/${projectId}/${widgetId}`
     )
   },
 

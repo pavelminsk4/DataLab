@@ -5,6 +5,8 @@ const state = {
   genderVolume: [],
   authorsByLanguage: [],
   authorsByLocation: [],
+  authorsBySentiment: [],
+  authorsByGender: [],
 
   topLocations: [],
   topLanguages: [],

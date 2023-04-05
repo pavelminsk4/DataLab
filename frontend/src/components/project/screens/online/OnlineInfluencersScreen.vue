@@ -1,24 +1,23 @@
 <template>
+  <span>Influencers</span>
   <WidgetsList
     v-if="selectedWidgets"
     :current-project="currentProject"
     :selected-widgets="selectedWidgets"
-    module-name="Social"
+    module-name="Online"
   />
 </template>
 
 <script>
-import {mapGetters, createNamespacedHelpers} from 'vuex'
+import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
-const {mapActions, mapGetters: mapGettersSocial} =
-  createNamespacedHelpers('social/widgets')
 
 import {getWidgetDetails} from '@lib/utilities'
 
 import WidgetsList from '@/components/widgets/WidgetsList'
 
 export default {
-  name: 'SocialDemographyScreen',
+  name: 'OnlineInfluencersScreen',
   components: {
     WidgetsList,
   },
@@ -28,9 +27,6 @@ export default {
   computed: {
     ...mapGetters({
       availableWidgets: get.AVAILABLE_WIDGETS,
-    }),
-    ...mapGettersSocial({
-      socialWidgets: get.SOCIAL_WIDGETS,
     }),
     selectedWidgets: {
       get() {
@@ -52,24 +48,13 @@ export default {
       },
     },
   },
-  created() {
+  async created() {
     this.widgets = [
-      {name: 'top_sharing_sources', isFullWidth: false},
-      {name: 'authors_by_language', isFullWidth: false},
-      {name: 'overall_top_authors', isFullWidth: true},
-      {name: 'top_authors_by_gender', isFullWidth: true},
-      {name: 'authors_by_location', isFullWidth: false},
-      {name: 'authors_by_gender', isFullWidth: false},
+      // { name: 'sentiment_top_10_sources_widget', isFullWidth: true },
     ]
-    if (!this.availableWidgets) {
-      this[action.GET_AVAILABLE_WIDGETS](this.currentProject.id)
-    }
   },
   methods: {
-    ...mapActions([
-      action.GET_AVAILABLE_WIDGETS,
-      action.UPDATE_AVAILABLE_WIDGETS,
-    ]),
+    ...mapActions([action.UPDATE_AVAILABLE_WIDGETS]),
   },
 }
 </script>
