@@ -53,6 +53,12 @@ export default {
   [mutator.SET_AUTHORS_BY_LOCATION](state, data) {
     state.authorsByLocation = data
   },
+  [mutator.SET_AUTHORS_BY_SENTIMENT](state, data) {
+    state.authorsBySentiment = data
+  },
+  [mutator.SET_AUTHORS_BY_GENDER](state, data) {
+    state.authorsByGender = data
+  },
 
   // Sentiment
   [mutator.SET_SENTIMENT_TOP_LOCATIONS](state, data) {

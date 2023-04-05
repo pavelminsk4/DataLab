@@ -3,7 +3,7 @@
     <SideBar :nav-urls="navUrls" @open-tab="openTab" />
 
     <div class="project-wrapper">
-      <router-view :current-project="currentProject"></router-view>
+      <router-view :current-project="currentProject" />
     </div>
   </MainLayout>
 </template>
@@ -47,6 +47,7 @@ export default {
       'Summary',
       'Sentiment',
       'Demography',
+      'Influencers',
     ].map((item) => ({
       name: item,
       routeName: `Social${item}`,

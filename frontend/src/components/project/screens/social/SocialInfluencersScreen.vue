@@ -1,4 +1,5 @@
 <template>
+  <span>Influencers</span>
   <WidgetsList
     v-if="selectedWidgets"
     :current-project="currentProject"
@@ -18,7 +19,7 @@ import {getWidgetDetails} from '@lib/utilities'
 import WidgetsList from '@/components/widgets/WidgetsList'
 
 export default {
-  name: 'SocialDemographyScreen',
+  name: 'SocialInfluencersScreen',
   components: {
     WidgetsList,
   },
@@ -53,14 +54,7 @@ export default {
     },
   },
   created() {
-    this.widgets = [
-      {name: 'top_sharing_sources', isFullWidth: false},
-      {name: 'authors_by_language', isFullWidth: false},
-      {name: 'overall_top_authors', isFullWidth: true},
-      {name: 'top_authors_by_gender', isFullWidth: true},
-      {name: 'authors_by_location', isFullWidth: false},
-      {name: 'authors_by_gender', isFullWidth: false},
-    ]
+    this.widgets = [{name: 'authors_by_sentiment', isFullWidth: false}]
     if (!this.availableWidgets) {
       this[action.GET_AVAILABLE_WIDGETS](this.currentProject.id)
     }

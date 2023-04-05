@@ -17,6 +17,8 @@ import AnalyticsScreen from '@/components/project/screens/AnalyticsScreen'
 import OnlineFeaturesView from '@/views/online/OnlineFeaturesView'
 import OnlineSummaryScreen from '@/components/project/screens/OnlineSummaryScreen'
 import OnlineSentimentScreen from '@/components/project/screens/OnlineSentimentScreen'
+import OnlineDemographyScreen from '@/components/project/screens/online/OnlineDemographyScreen'
+import OnlineInfluencersScreen from '@/components/project/screens/online/OnlineInfluencersScreen'
 
 export default [
   {
@@ -148,6 +150,16 @@ export default [
                 name: 'OnlineSentiment',
                 path: 'sentiment',
                 component: OnlineSentimentScreen,
+              },
+              {
+                name: 'OnlineDemography',
+                path: 'demography',
+                component: OnlineDemographyScreen,
+              },
+              {
+                name: 'OnlineInfluencers',
+                path: 'influencers',
+                component: OnlineInfluencersScreen,
               },
             ],
           },

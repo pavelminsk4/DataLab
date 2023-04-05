@@ -3,7 +3,7 @@
     <SideBar :nav-urls="navUrls" @open-tab="openTab" />
 
     <div class="project-dashboard-wrapper">
-      <router-view :current-project="currentProject"></router-view>
+      <router-view :current-project="currentProject" module-name="Online" />
     </div>
   </MainLayout>
 </template>
@@ -39,12 +39,17 @@ export default {
     },
   },
   created() {
-    this.navUrls = ['Analytics', 'Search', 'Summary', 'Sentiment'].map(
-      (item) => ({
-        name: item,
-        routeName: `Online${item}`,
-      })
-    )
+    this.navUrls = [
+      'Analytics',
+      'Search',
+      'Summary',
+      'Sentiment',
+      // 'Demography',
+      // 'Influencers',
+    ].map((item) => ({
+      name: item,
+      routeName: `Online${item}`,
+    }))
 
     if (!this.workspaces.length) {
       this[action.GET_WORKSPACES]()

@@ -254,6 +254,36 @@ export default {
     }
   },
 
+  async [action.GET_AUTHORS_BY_SENTIMENT]({commit}, {projectId, widgetId}) {
+    commit(mutator.SET_LOADING, true, {root: true})
+    try {
+      const data = await api.social.getAuthorsBySentiment({
+        projectId,
+        widgetId,
+      })
+      commit(mutator.SET_AUTHORS_BY_SENTIMENT, data)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false, {root: true})
+    }
+  },
+
+  async [action.GET_AUTHORS_BY_GENDER]({commit}, {projectId, widgetId}) {
+    commit(mutator.SET_LOADING, true, {root: true})
+    try {
+      const data = await api.social.getAuthorsByGender({
+        projectId,
+        widgetId,
+      })
+      commit(mutator.SET_AUTHORS_BY_GENDER, data)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false, {root: true})
+    }
+  },
+
   // Sentiment
   async [action.GET_SENTIMENT_TOP_LOCATIONS]({commit}, {projectId, widgetId}) {
     commit(mutator.SET_LOADING, true, {root: true})

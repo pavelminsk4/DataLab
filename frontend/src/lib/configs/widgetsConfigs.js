@@ -297,6 +297,18 @@ export const widgetsConfig = {
     defaultChartType: 'BarChart',
     availableTypes: SIMPLE_CHARTS,
   },
+  authors_by_sentiment: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    actionName: action.GET_AUTHORS_BY_SENTIMENT,
+    defaultChartType: 'DoughnutChart',
+    availableTypes: SIMPLE_CHARTS,
+  },
+  authors_by_gender: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    actionName: action.GET_AUTHORS_BY_GENDER,
+    defaultChartType: 'DoughnutChart',
+    availableTypes: SIMPLE_CHARTS,
+  },
   // Sentiment
   sentiment_locations: {
     ...WIDGET_DEFAULT_SETTINGS,

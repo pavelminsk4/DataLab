@@ -23,6 +23,8 @@ import ContentVolumeByTopAuthors from '@/components/widgets/social/ContentVolume
 import ContentVolumeByTopLanguages from '@/components/widgets/social/ContentVolumeTopLanguagesWidget'
 import AuthorsByLanguage from '@/components/widgets/social/AuthorsByLanguageWidget'
 import AuthorsByLocation from '@/components/widgets/social/AuthorsByLocationWidget'
+import AuthorsBySentiment from '@/components/widgets/social/AuthorsBySentimentWidget'
+import AuthorsByGender from '@/components/widgets/social/AuthorsByGenderWidget'
 
 import Sentiment from '@/components/widgets/social/SentimentForPeriodWidget'
 import SentimentAuthors from '@/components/widgets/social/SentimentTopAuthorsWidget'
@@ -63,6 +65,8 @@ export default {
     TopAuthorsByGender,
     AuthorsByLanguage,
     AuthorsByLocation,
+    AuthorsBySentiment,
+    AuthorsByGender,
   },
   props: {
     widgetDetails: {type: Object, required: true},
