@@ -1,17 +1,20 @@
 from rest_framework.test import APITestCase
-from django.db import models
 from rest_framework import status
 from project.models import Project, Post, Feedlinks, Speech
 from django.urls import reverse
 from datetime import datetime
 from django.contrib.auth.models import User
-import time
 from widgets.models import *
 from reports.models import Templates
+from accounts.models import department
 
 class InstantReportTests(APITestCase):
   def test_instant_reposrts(self):
     user = User.objects.create(username='Fox')
+    dep = department.objects.create(
+      departmentname = 'First Dep',
+    )
+    user.user_profile.department = dep
     flink = Feedlinks.objects.create(country='England')
     sp = Speech.objects.create(language='English (United States)')
     post1 = Post.objects.create(id=1, feedlink=flink, entry_title='First post title Keyword', feed_language=sp, entry_published=datetime(2022, 10, 11, 6, 37), summary_vector=[])
@@ -43,6 +46,6 @@ class InstantReportTests(APITestCase):
     pr.widgets_list_2.sentiment_top_10_languages_widget.is_active = True
     pr.widgets_list_2.sentiment_top_10_sources_widget.is_active = True
     pr.widgets_list_2.clipping_feed_content_widget.is_active = True
-    url = reverse('instantly_report', kwargs={'proj_pk':pr.pk})
+    url = reverse('instantly_report', kwargs={'dep_pk':dep.pk, 'proj_pk':pr.pk})
     response = self.client.get(url)
     self.assertEqual(response.status_code, status.HTTP_200_OK)
