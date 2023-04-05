@@ -20,7 +20,7 @@ class ContentVolumeWidgetTests(APITestCase):
     response = self.client.get(url)
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     res = [
-            {'created_count': 1, 'date': '2020-10-10T00:00:00Z'},
-            {'created_count': 1, 'date': '2021-10-10T00:00:00Z'}
+            {'created_count': 1, 'date': '2020-10-10 00:00:00+00:00'},
+            {'created_count': 1, 'date': '2021-10-10 00:00:00+00:00'}
           ]
     self.assertEqual(json.loads(response.content), res)
