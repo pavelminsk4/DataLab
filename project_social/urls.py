@@ -40,6 +40,7 @@ urlpatterns = [
   path('social_top_authors_by_gender/<int:pk>/<int:widget_pk>', views.social_top_authors_by_gender, name='social_top_authors_by_gender'),
   path('social_authors_by_language/<int:pk>/<int:widget_pk>', views.social_authors_by_language, name='social_authors_by_language'),
   path('social_authors_by_location/<int:pk>/<int:widget_pk>', views.social_authors_by_location, name='social_authors_by_location'),
+  path('social_authors_by_sentiment/<int:pk>/<int:widget_pk>', views.social_authors_by_sentiment, name='social_authors_by_sentiment'),
   path('dimensions_for_each_widgets/<int:project_pk>/<int:widget_pk>', views.dimensions_for_each_widgets, name='dimensions_for_each_widgets'),
   #========Widgets List========
   path('projects/<int:pk>/widgets_list', views.ProjectSocialWidgetsAPIView.as_view(), name='social_widgets_list'),

@@ -20,6 +20,7 @@ from .widgets.dashboard.top_authors import *
 from .widgets.summary.top_keywords import *
 from .widgets.dashboard.sentiment import *
 from .widgets.influencers.top_sharing_sources import *
+from .widgets.influencers.authors_by_sentiment import *
 from .widgets.influencers.overall_top_authors import *
 from .widgets.demography.top_authors_by_gender import *
 from .widgets.demography.authors_by_location import *
@@ -223,6 +224,9 @@ def social_authors_by_language(request, pk, widget_pk):
 
 def social_authors_by_location(request, pk, widget_pk):
   return authors_by_location(pk, widget_pk)
+
+def social_authors_by_sentiment(request, pk, widget_pk):
+  return authors_by_sentiment(pk, widget_pk)
 
 def dimensions_for_each_widgets(request, project_pk, widget_pk):
   return dimensions_for_each(request, widget_pk)
