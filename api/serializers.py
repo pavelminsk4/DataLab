@@ -27,7 +27,7 @@ class UserSerializer(WritableNestedModelSerializer):
   user_profile = ProfileSerializer()
   class Meta:
     model = User
-    fields = "__all__"
+    exclude = ['date_joined']
 
 class UserUpdateSerializer(serializers.ModelSerializer):
   class Meta:

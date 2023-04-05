@@ -24,6 +24,7 @@ class RegularReport(models.Model):
   module_project_id = models.IntegerField()
   department = models.ForeignKey('accounts.department', on_delete=models.SET_NULL, null=True)
   project = models.ForeignKey('project.Project', on_delete=models.SET_NULL, null=True, blank=True)
+  creator = models.ForeignKey(User,related_name='regular_report_creator', on_delete=models.SET_NULL, null=True)
   user = models.ManyToManyField(User, null=True, blank=True)
   email_title = models.TextField(max_length=500, null=True, blank=True)
   h_template = models.ForeignKey(Templates, on_delete=models.SET_NULL, null=True, blank=True, related_name='%(class)s_h_template')
@@ -135,7 +136,19 @@ def create_periodic_task(sender, instance, created, **kwargs):
 
 @receiver(pre_delete, sender=RegularReport)
 def delete_periodic_task(sender, instance, **kwargs):
+  if instance.hourly_crontab_schedule:
     instance.hourly_crontab_schedule.delete()
+  if instance.hourly_periodic_task:
+    instance.hourly_periodic_task.delete()
+  if instance.daily_crontab_schedule:
     instance.daily_crontab_schedule.delete()
+  if instance.daily_periodic_task:
+    instance.daily_periodic_task.delete()
+  if instance.weekly_crontab_schedule:
     instance.weekly_crontab_schedule.delete()
+  if instance.weekly_periodic_task:
+    instance.weekly_periodic_task.delete()
+  if instance.monthly_crontab_schedule:
     instance.monthly_crontab_schedule.delete()
+  if instance.monthly_periodic_task:
+    instance.monthly_periodic_task.delete()
