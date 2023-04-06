@@ -1,12 +1,14 @@
 from django.contrib.postgres.fields import ArrayField
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from .services.get_user_tracker_stats import *
+from .services.greate_user_tracker import *
 from .services.historical_search import *
-from .services.live_search import *
 from .services.get_report_state import *
 from .services.get_publications import *
 from .services.delete_report import *
 from .services.basic_search import *
+from .services.live_search import *
 from celery import shared_task
 from .services.login import *
 from django.db import models
@@ -243,3 +245,108 @@ def search(report_id, auth_token):
        print('Report not generated') 
        print(json.loads(get_report_state(report_id, auth_token))['status'])
     delete_report(auth_token, report_id)
+
+class TweetBinderUserTracker(models.Model):
+   user_alias = models.CharField(max_length=100, blank=False, null=False)
+   start_date = models.DateTimeField(blank=True, null=True)
+   end_date = models.DateTimeField(blank=True, null=True)
+   created_at = models.DateTimeField(auto_now_add=True)
+   updated_at = models.DateTimeField(auto_now=True)
+
+   def __str__(self):
+      return self.user_alias
+
+class TweetBinderUserTrackerAnalysis(models.Model):
+  user_alias = models.ForeignKey(TweetBinderUserTracker,blank=True,null=True,on_delete=models.CASCADE)
+  tracker_id_start = models.CharField(max_length=100, blank=True, null=True)
+  tracker_id_end = models.CharField(max_length=100, blank=True, null=True)
+  mentions_start = models.CharField(max_length=100, blank=True, null=True)
+  mentions_end = models.CharField(max_length=100, blank=True, null=True)
+  tweets_start = models.CharField(max_length=100, blank=True, null=True)
+  tweets_end = models.CharField(max_length=100, blank=True, null=True)
+  deleted_start = models.CharField(max_length=100, blank=True, null=True)
+  deleted_end = models.CharField(max_length=100, blank=True, null=True)
+  originals_start = models.CharField(max_length=100, blank=True, null=True)
+  originals_end = models.CharField(max_length=100, blank=True, null=True)
+  retweet_statuses_start = models.CharField(max_length=100, blank=True, null=True)
+  retweet_statuses_end = models.CharField(max_length=100, blank=True, null=True)
+  retweets_start = models.CharField(max_length=100, blank=True, null=True)
+  retweets_end = models.CharField(max_length=100, blank=True, null=True)
+  favorites_start = models.CharField(max_length=100, blank=True, null=True)
+  favorites_end = models.CharField(max_length=100, blank=True, null=True)
+  followers_start = models.CharField(max_length=100, blank=True, null=True)
+  followers_end = models.CharField(max_length=100, blank=True, null=True)
+  following_start = models.CharField(max_length=100, blank=True, null=True)
+  following_end = models.CharField(max_length=100, blank=True, null=True)
+  lists_start = models.CharField(max_length=100, blank=True, null=True)
+  lists_end = models.CharField(max_length=100, blank=True, null=True)
+  followers_following_start = models.CharField(max_length=100, blank=True, null=True)
+  followers_following_end = models.CharField(max_length=100, blank=True, null=True)
+  user_value_start = models.CharField(max_length=100, blank=True, null=True)
+  user_value_end = models.CharField(max_length=100, blank=True, null=True)
+  engagement_value_start = models.CharField(max_length=100, blank=True, null=True)
+  engagement_value_end = models.CharField(max_length=100, blank=True, null=True)
+  global_score_start = models.CharField(max_length=100, blank=True, null=True)
+  global_score_end = models.CharField(max_length=100, blank=True, null=True)
+  created_at_start = models.DateTimeField(auto_now_add=True)
+  created_at_end = models.DateTimeField(auto_now_add=True)
+  updated_at_start = models.DateTimeField(auto_now_add=True)
+  updated_at_start = models.DateTimeField(auto_now_add=True)
+  created_at = models.DateTimeField(auto_now_add=True)
+  updated_at = models.DateTimeField(auto_now=True)
+
+  def __str__(self):
+      return self.user_alias
+
+@receiver(post_save, sender=TweetBinderUserTracker)
+def greate_user_tracker_project(sender, instance, created, **kwargs):
+  if created:
+    user_alias = instance.user_alias
+    start_date = instance.start_date
+    end_date = instance.end_date
+    url = api_route + '/user-trackers/multi'
+    auth_token = json.loads(login(email, password))['authToken'] 
+    tracker_id = json.loads(greate_user_tracker(user_alias, auth_token, url))['ok'][0]['resourceId']
+    time.sleep(10)
+    data_account = json.loads(get_user_tracker_stats(tracker_id, int(datetime.timestamp(start_date)), int(datetime.timestamp(end_date)), auth_token))
+    add_data_account_to_database(data_account, instance)
+
+def add_data_account_to_database(data_account, instance):
+  new_data = {  
+                'user_alias': instance,
+                'tracker_id_start': data_account[0]["_id"],
+                'tracker_id_end': data_account[1]["_id"],
+                'mentions_start': data_account[0]["mentions"],
+                'mentions_end': data_account[1]["mentions"],
+                'tweets_start': data_account[0]["tweets"],
+                'tweets_end': data_account[1]["tweets"],
+                'deleted_start': data_account[0]["deleted"],
+                'deleted_end': data_account[1]["deleted"],
+                'originals_start': data_account[0]["originals"],
+                'originals_end': data_account[1]["originals"],
+                'retweet_statuses_start': data_account[0]["retweetStatuses"],
+                'retweet_statuses_end': data_account[1]["retweetStatuses"],
+                'retweets_start': data_account[0]["retweets"],
+                'retweets_end': data_account[1]["retweets"],
+                'favorites_start': data_account[0]["favorites"],
+                'favorites_end': data_account[1]["favorites"], 
+                'followers_start': data_account[0]["followers"],
+                'followers_end': data_account[1]["followers"],
+                'following_start': data_account[0]["following"],
+                'following_end': data_account[1]["following"],
+                'lists_start': data_account[0]["lists"],
+                'lists_end': data_account[1]["lists"],
+                'followers_following_start': data_account[0]["followersFollowing"],
+                'followers_following_end': data_account[1]["followersFollowing"],
+                'user_value_start': data_account[0]["userValue"],
+                'user_value_end': data_account[1]["userValue"],
+                'engagement_value_start': data_account[0]["engagementValue"],
+                'engagement_value_end': data_account[1]["engagementValue"],
+                'global_score_start': data_account[0]["globalScore"],
+                'global_score_end': data_account[1]["globalScore"],
+                'created_at_start': data_account[0]["createdAt"],
+                'created_at_end': data_account[1]["createdAt"],
+                'updated_at_start': data_account[0]["updatedAt"],
+                'updated_at_start': data_account[1]["updatedAt"],
+            }
+  TweetBinderUserTrackerAnalysis.objects.create(**new_data)
