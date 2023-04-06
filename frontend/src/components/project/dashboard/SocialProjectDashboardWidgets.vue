@@ -67,6 +67,7 @@ export default {
     'set-sorting-value',
     'open-interactive-widget',
     'update-available-widgets',
+    'open-sentiment-interactive-widget',
   ],
   props: {
     projectId: {type: Number, required: true},

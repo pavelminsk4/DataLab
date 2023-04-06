@@ -100,6 +100,10 @@ export default {
     )
   },
 
+  async getTopSharingSourcesWidget(projectId, widgetId) {
+    return fetch('get', `/widgets/top_sharing_sources/${projectId}/${widgetId}`)
+  },
+
   async getSentimentTopSources(projectId, widgetId) {
     return fetch(
       'get',

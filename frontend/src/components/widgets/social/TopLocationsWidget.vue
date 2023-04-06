@@ -26,7 +26,7 @@ export default {
       socialWidgets: get.SOCIAL_WIDGETS,
     }),
     topLocations() {
-      return this.socialWidgets.topLocations
+      return this.socialWidgets?.topLocations
     },
     labels() {
       return this.topLocations.map((el) => el.locationString)

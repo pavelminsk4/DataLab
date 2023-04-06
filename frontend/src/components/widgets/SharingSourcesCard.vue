@@ -8,7 +8,7 @@
       <img :src="img" class="img" />
       <div class="source-details">
         <div class="title">{{ name }}</div>
-        <div class="alias">@{{ alias }}</div>
+        <div class="alias">{{ sourceName }}</div>
         <div class="value">{{ value }}</div>
       </div>
     </section>
@@ -32,7 +32,7 @@ export default {
     type: {type: String, required: true},
     img: {type: String, required: true},
     name: {type: String, required: true},
-    alias: {type: String, required: true},
+    sourceName: {type: String, required: true},
     value: {type: String, required: true},
   },
   methods: {

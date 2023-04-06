@@ -8,11 +8,7 @@
     @open-modal="$emit('open-settings-modal')"
   >
     <div class="sentiment-keywords-wrapper">
-      <ChartsView
-        :chart-type="chartType"
-        :chart-values="chartValues"
-        :is-sentiment-keywords="true"
-      />
+      <ChartsView :chart-type="chartType" :chart-values="chartValues" />
     </div>
   </component>
 </template>

@@ -34,6 +34,7 @@ const state = {
   topBrands: [],
   topCountries: [],
   topLanguages: [],
+  topSharingSources: [],
   sentimentTopSources: {},
   sentimentTopCountries: {},
   sentimentTopLanguages: {},

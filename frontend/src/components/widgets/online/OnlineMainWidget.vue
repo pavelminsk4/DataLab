@@ -13,6 +13,7 @@ import Top10BrandsWidget from '@/components/widgets/online/Top10BrandsWidget'
 import Top10CountriesWidget from '@/components/widgets/online/Top10CountriesWidget'
 import Top10LanguagesWidget from '@/components/widgets/online/Top10LanguagesWidget'
 import Top10AuthorsByVolumeWidget from '@/components/widgets/online/Top10AuthorsByVolumeWidget'
+import TopSharingSources from '@/components/widgets/online/TopSharingSourcesWidget'
 import SentimentForPeriodWidget from '@/components/widgets/online/SentimentForPeriodWidget'
 import ClippingFeedContentWidget from '@/components/widgets/online/ClippingFeedContentWidget'
 import SentimentTop10AuthorsWidget from '@/components/widgets/online/SentimentTop10AuthorsWidget'
@@ -51,6 +52,7 @@ export default {
     SentimentDiagram,
     SentimentNumberOfResults,
     AuthorsByCountry,
+    TopSharingSources,
   },
   props: {
     widgetDetails: {type: Object, required: true},

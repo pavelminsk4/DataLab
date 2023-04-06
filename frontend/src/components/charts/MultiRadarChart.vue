@@ -1,5 +1,5 @@
 <template>
-  <Radar :chart-options="chartOptions" :chart-data="chartData" />
+  <Radar :options="chartOptions" :data="chartData" />
 </template>
 
 <script>

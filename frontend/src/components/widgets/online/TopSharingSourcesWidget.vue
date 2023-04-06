@@ -13,18 +13,10 @@
         :type="item.type"
         :img="item.picture"
         :name="item.name"
-        :source-name="`@${item.alias}`"
+        :source-name="item.url"
         :value="item.value"
         :widget-details="widgetDetails"
       >
-        <template #chips>
-          <div class="type">
-            <component :is="capitalizeFirstLetter(item.source) + 'Icon'" />
-            {{ item.source }}
-          </div>
-          <ChipsGender :gender-type="item.gender" />
-        </template>
-
         <template #sentimentBar v-if="checkSentimentData(item.sentiments)">
           <span class="chart-title">Sentiment</span>
           <ChartsView
@@ -38,26 +30,20 @@
 </template>
 
 <script>
-import {createNamespacedHelpers} from 'vuex'
+import {mapActions, mapGetters} from 'vuex'
 import {get, action} from '@store/constants'
 import {capitalizeFirstLetter} from '@/lib/utilities'
 
-import ChipsGender from '@/components/ChipsGender'
-import TwitterIcon from '@/components/icons/TwitterIcon'
 import ChartsView from '@/components/charts/ChartsView'
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
 import SharingSourcesCard from '@/components/widgets/SharingSourcesCard'
-
-const {mapActions, mapGetters} = createNamespacedHelpers('social/widgets')
 
 export default {
   name: 'TopSharingSourcesWidget',
   components: {
     WidgetsLayout,
     SharingSourcesCard,
-    TwitterIcon,
     ChartsView,
-    ChipsGender,
   },
   props: {
     widgetDetails: {type: Object, required: true},
@@ -65,11 +51,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      socialWidgets: get.SOCIAL_WIDGETS,
+      topSharingSources: get.TOP_SHARING_SOURCES,
     }),
-    topSharingSources() {
-      return this.socialWidgets.topSharingSources
-    },
     widgetWrapper() {
       return this.isSettings ? 'div' : 'WidgetsLayout'
     },

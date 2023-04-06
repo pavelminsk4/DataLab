@@ -164,6 +164,21 @@ export default {
     }
   },
 
+  async [action.GET_TOP_SHARING_SOURCES]({commit}, {projectId, widgetId}) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const topSharingSources = await api.getTopSharingSourcesWidget(
+        projectId,
+        widgetId
+      )
+      commit(mutator.SET_TOP_SHARING_SOURCES, topSharingSources)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
   async [action.GET_TOP_BRANDS_WIDGET]({commit}, {projectId, widgetId}) {
     commit(mutator.SET_LOADING, true)
     try {
