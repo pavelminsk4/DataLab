@@ -382,6 +382,21 @@ export default {
     }
   },
 
+  async [action.GET_AUTHORS_BY_COUNTRY]({commit}, {projectId, widgetId}) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const authorsByCountry = await api.getAuthorsByCountry({
+        projectId,
+        widgetId,
+      })
+      commit(mutator.SET_AUTHORS_BY_COUNTRY, authorsByCountry)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
   async [action.GET_SENTIMENT_DIAGRAM]({commit}, {projectId, widgetId}) {
     commit(mutator.SET_LOADING, true)
     try {

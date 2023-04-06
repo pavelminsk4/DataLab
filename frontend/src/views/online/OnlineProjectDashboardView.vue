@@ -38,7 +38,7 @@ export default {
       )[0]
     },
   },
-  created() {
+  async created() {
     this.navUrls = [
       'Analytics',
       'Search',

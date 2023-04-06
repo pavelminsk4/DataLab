@@ -24,6 +24,7 @@ import RadarChart from '@/components/charts/RadarChart'
 import HorizontalBarChart from '@/components/charts/HorizontalBarChart'
 import DoughnutChart from '@/components/charts/DoughnutChart'
 import WordCloudChart from '@/components/charts/WordCloudChart'
+import WorldMapChart from '@/components/charts/WorldMapChart'
 import SentimentWordCloudChart from '@/components/charts/SentimentWordCloudChart'
 import SentimentBarChart from '@/components/charts/SentimentBarChart'
 
@@ -40,6 +41,7 @@ export default {
     RadarChart,
     DoughnutChart,
     WordCloudChart,
+    WorldMapChart,
     SentimentWordCloudChart,
     SentimentBarChart,
   },

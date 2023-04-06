@@ -202,6 +202,13 @@ export const widgetsConfig = {
     defaultChartType: 'SentimentWordCloudChart',
   },
 
+  authors_by_country: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    height: 11,
+    actionName: action.GET_AUTHORS_BY_COUNTRY,
+    defaultChartType: 'WorldMapChart',
+  },
+
   //social widgets
   summary: {
     ...WIDGET_DEFAULT_SETTINGS,

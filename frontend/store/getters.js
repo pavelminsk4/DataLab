@@ -148,6 +148,10 @@ export default {
     return state.sentimentNumberOfResult
   },
 
+  [get.AUTHORS_BY_COUNTRY](state) {
+    return state.authorsByCountry
+  },
+
   [get.DIMENSIONS](state) {
     return state.dimensions
   },

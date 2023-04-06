@@ -65,10 +65,10 @@
       <BaseCheckbox
         v-for="(item, index) in sentiments"
         :key="item + index"
+        v-model="selectedSentimentsProxy"
         :id="item"
         :has-icon="false"
         :class="['item', isCheckedElement(item) && `${item}-item`]"
-        v-model="selectedSentimentsProxy"
       >
         {{ capitalizeFirstLetter(item) }}
       </BaseCheckbox>
@@ -183,7 +183,6 @@ export default {
       set(val) {
         this.selectedSentiments = val
         this.updateSelectedDimensions()
-        console.log('aaaaa')
       },
     },
     chipsItems() {
