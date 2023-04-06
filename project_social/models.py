@@ -5,6 +5,7 @@ from tweet_binder.models import TweetBinderPost
 from django.contrib.auth.models import User
 from django.dispatch import receiver
 from django.db import models
+from reports.models import Templates
 
 class WorkspaceSocial(models.Model):
   title = models.CharField(max_length=100)
@@ -41,7 +42,9 @@ class ProjectSocial(models.Model):
   source_dimensions = ArrayField(models.CharField(max_length=50), blank=True, null=True)
   sentiment_dimensions = ArrayField(models.CharField(max_length=10), blank=True, null=True)
   source = models.CharField(max_length=100, null=True, blank=True, default='Social')
-    
+  report_template = models.ForeignKey(Templates, related_name='project_social_templates', on_delete=models.SET_NULL, null=True, blank=True)
+  report_format = models.CharField(max_length=3, default='pdf', blank=True)
+
   def save(self, *args, **kwargs):
     total_projects_count = 0
     if self.workspace:
