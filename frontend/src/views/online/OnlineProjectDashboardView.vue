@@ -3,7 +3,7 @@
     <SideBar :nav-urls="navUrls" @open-tab="openTab" />
 
     <div class="project-dashboard-wrapper">
-      <router-view :current-project="currentProject" module-name="Online" />
+      <router-view :current-project="currentProject"></router-view>
     </div>
   </MainLayout>
 </template>
