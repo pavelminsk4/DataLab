@@ -156,6 +156,10 @@ export default {
     state.sentimentNumberOfResult = data
   },
 
+  [mutator.SET_AUTHORS_BY_COUNTRY](state, data) {
+    state.authorsByCountry = data
+  },
+
   [mutator.SET_AVAILABLE_WIDGETS](state, data) {
     state.availableWidgets = {...data}
   },

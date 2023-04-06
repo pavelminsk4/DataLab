@@ -12,60 +12,29 @@
       :sentiments-dimensions="currentProject.sentiment_dimensions"
     />
 
-    <BaseButton class="button" @click="saveChanges">Save</BaseButton>
+    <BaseButton class="button" @click="saveDimensionsSettings">Save</BaseButton>
   </BaseModal>
 </template>
 
 <script>
-import {action, get} from '@store/constants'
-import {mapActions, mapGetters} from 'vuex'
-
 import BaseModal from '@/components/modals/BaseModal'
 import BaseButton from '@/components/common/BaseButton'
 import DimensionsScreen from '@/components/project/screens/DimensionsScreen'
 
 export default {
-  name: 'AllDimensionsModal',
+  name: 'DimensionsModal',
   components: {
     DimensionsScreen,
     BaseButton,
     BaseModal,
   },
   props: {
-    projectId: {
-      type: [String, Number],
-      required: false,
-    },
-    currentProject: {
-      type: [Array, Object],
-      required: false,
-    },
-  },
-  computed: {
-    ...mapGetters({
-      selectedDimensions: get.SELECTED_DIMENSIONS,
-    }),
+    projectId: {type: [String, Number], required: false},
+    currentProject: {type: [Array, Object], required: false},
   },
   methods: {
-    ...mapActions([action.UPDATE_PROJECT, action.GET_WORKSPACES]),
-    saveChanges() {
-      try {
-        this[action.UPDATE_PROJECT]({
-          projectId: this.projectId,
-          data: {
-            sentiment_dimensions: this.selectedDimensions.sentiments,
-            author_dimensions: this.selectedDimensions.authors,
-            country_dimensions: this.selectedDimensions.countries,
-            language_dimensions: this.selectedDimensions.languages,
-            source_dimensions: this.selectedDimensions.sources,
-          },
-        })
-
-        this.$emit('update-search-results')
-        this.$emit('close')
-      } catch (e) {
-        console.log(e)
-      }
+    saveDimensionsSettings() {
+      this.$emit('save-dimensions-settings')
     },
   },
 }

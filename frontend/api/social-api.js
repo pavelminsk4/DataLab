@@ -30,7 +30,7 @@ export default {
     return fetch('post', `${moduleName}/projects/`, project)
   },
   async updateProject({projectId, data}) {
-    return fetch('put', `${moduleName}/projects/${projectId}/`, data)
+    return fetch('patch', `${moduleName}/projects/${projectId}/`, data)
   },
 
   async postSearch(request) {

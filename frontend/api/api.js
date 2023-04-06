@@ -164,6 +164,10 @@ export default {
     return fetch('post', `/widgets/top_keywords/${projectId}/${widgetId}`)
   },
 
+  async getAuthorsByCountry({projectId, widgetId}) {
+    return fetch('post', `/widgets/authors_by_country/${projectId}/${widgetId}`)
+  },
+
   async getSentimentDiagram({projectId, widgetId}) {
     return fetch('post', `/widgets/sentiment_diagram/${projectId}/${widgetId}`)
   },

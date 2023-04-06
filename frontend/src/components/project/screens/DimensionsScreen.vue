@@ -65,11 +65,10 @@
       <BaseCheckbox
         v-for="(item, index) in sentiments"
         :key="item + index"
+        v-model="selectedSentimentsProxy"
         :id="item"
         :has-icon="false"
-        :model-value="isCheckedElement(item)"
         :class="['item', isCheckedElement(item) && `${item}-item`]"
-        @change="onChange"
       >
         {{ capitalizeFirstLetter(item) }}
       </BaseCheckbox>
@@ -82,7 +81,7 @@ import {action, get} from '@store/constants'
 import {mapActions, mapGetters} from 'vuex'
 import {capitalizeFirstLetter} from '@/lib/utilities'
 
-import BaseCheckbox from '@/components/BaseCheckbox'
+import BaseCheckbox from '@/components/BaseCheckbox2'
 import SelectWithCheckboxes from '@/components/SelectWithCheckboxes'
 import FilterChips from '@/components/FilterChips'
 
@@ -183,6 +182,7 @@ export default {
       },
       set(val) {
         this.selectedSentiments = val
+        this.updateSelectedDimensions()
       },
     },
     chipsItems() {
@@ -217,25 +217,13 @@ export default {
         sentiments: this.selectedSentimentsProxy,
       })
     },
-    onChange(args) {
-      const {id, checked} = args
-      if (checked) {
-        this.selectedSentimentsProxy.push(id)
-      } else {
-        let element = this.selectedSentimentsProxy.indexOf(id)
-        this.removeSelectedFilter(element, id)
-      }
-
-      this.updateSelectedDimensions()
-    },
-    removeSelectedFilter(index) {
-      this.selectedSentimentsProxy.splice(index, 1)
-    },
     isCheckedElement(item) {
       return this.selectedSentimentsProxy?.some((el) => el === item)
     },
     saveChanges() {
       try {
+        this.updateSelectedDimensions()
+
         this[action.UPDATE_PROJECT]({
           projectId: this.projectId,
           data: {

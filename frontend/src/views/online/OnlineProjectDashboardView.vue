@@ -22,7 +22,7 @@ export default {
     MainLayout,
   },
   computed: {
-    ...mapState(['workspaces']),
+    ...mapState(['workspaces', 'availableWidgets']),
     workspaceId() {
       return this.$route.params.workspaceId
     },
@@ -38,7 +38,7 @@ export default {
       )[0]
     },
   },
-  created() {
+  async created() {
     this.navUrls = [
       'Analytics',
       'Search',
@@ -55,10 +55,19 @@ export default {
       this[action.GET_WORKSPACES]()
     }
 
-    this[action.GET_AVAILABLE_WIDGETS](this.projectId)
+    await this[action.GET_AVAILABLE_WIDGETS](this.projectId)
+
+    await this[action.GET_CLIPPING_FEED_CONTENT_WIDGET]({
+      projectId: this.projectId,
+      widgetId: this.availableWidgets.clipping_feed_content_widget.id,
+    })
   },
   methods: {
-    ...mapActions([action.GET_WORKSPACES, action.GET_AVAILABLE_WIDGETS]),
+    ...mapActions([
+      action.GET_WORKSPACES,
+      action.GET_AVAILABLE_WIDGETS,
+      action.GET_CLIPPING_FEED_CONTENT_WIDGET,
+    ]),
     openTab(pathName) {
       this.$router.push({
         name: pathName,

@@ -46,6 +46,7 @@ const state = {
   topKeywordsWidget: [],
   sentimentDiagram: [],
   sentimentNumberOfResult: [],
+  authorsByCountry: [],
   dimensions: [],
   templates: [],
   newWorkspace: {

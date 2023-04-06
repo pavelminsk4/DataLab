@@ -26,6 +26,7 @@ import SentimentTopKeywords from '@/components/widgets/online/SentimentTopKeywor
 import TopKeywords from '@/components/widgets/online/TopKeywordsWidget'
 import SentimentDiagram from '@/components/widgets/online/SentimentDiagramWidget'
 import SentimentNumberOfResults from '@/components/widgets/online/SentimentNumberOfResultWidget'
+import AuthorsByCountry from '@/components/widgets/online/AuthorsByCountryWidget'
 
 export default {
   name: 'OnlineMainWidget',
@@ -49,6 +50,7 @@ export default {
     TopKeywords,
     SentimentDiagram,
     SentimentNumberOfResults,
+    AuthorsByCountry,
   },
   props: {
     widgetDetails: {type: Object, required: true},

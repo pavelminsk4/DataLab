@@ -125,19 +125,8 @@ export default {
       },
     },
   },
-  async created() {
-    if (!this.clippingData.length) {
-      await this[action.GET_CLIPPING_FEED_CONTENT_WIDGET]({
-        projectId: this.projectId,
-        widgetId: this.availableWidgets.clipping_feed_content_widget.id,
-      })
-    }
-  },
   methods: {
-    ...mapActions([
-      action.UPDATE_AVAILABLE_WIDGETS,
-      action.GET_CLIPPING_FEED_CONTENT_WIDGET,
-    ]),
+    ...mapActions([action.UPDATE_AVAILABLE_WIDGETS]),
     getYAxisValue(val) {
       return val > 1 ? val - 1 : 0
     },
