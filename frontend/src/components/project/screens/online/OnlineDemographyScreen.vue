@@ -49,9 +49,7 @@ export default {
     },
   },
   async created() {
-    this.widgets = [
-      // { name: 'sentiment_top_10_sources_widget', isFullWidth: true },
-    ]
+    this.widgets = []
   },
   methods: {
     ...mapActions([action.UPDATE_AVAILABLE_WIDGETS]),
