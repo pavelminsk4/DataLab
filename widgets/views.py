@@ -17,6 +17,10 @@ from .summary.top_keywords import top_keywords
 from .sentiment.sentiment_top_keywords import sentiment_top_keywords
 from .sentiment.sentiment_number_of_results import number_of_results
 from .influencers.authors_by_country import get_authors_by_country
+from .demography.sources_by_country import get_sources_by_country
+from .demography.sources_by_language import get_sources_by_language
+from .demography.overall_top_sources import get_overall_top_sources
+from .demography.top_sharing_sources import get_top_sharing_sources
 from .common_widget.dimensions_for_widgets import dimensions_for_each
 from .common_widget.interactive_widgets import interactive_widgets
 
@@ -60,6 +64,14 @@ def sentiment_diagram(request, pk, widget_pk):
   return number_of_results(pk, widget_pk)
 def authors_by_country(request, pk, widget_pk):
   return get_authors_by_country(pk, widget_pk)
+def sources_by_country(request, pk, widget_pk):
+  return get_sources_by_country(pk, widget_pk)
+def sources_by_language(request, pk, widget_pk):
+  return get_sources_by_language(pk, widget_pk)
+def top_sharing_sources(request, pk, widget_pk):
+  return get_top_sharing_sources(pk, widget_pk)
+def overall_top_sources(request, pk, widget_pk):
+  return get_overall_top_sources(pk, widget_pk)
 def dimensions_for_each_widgets(request, project_pk, widget_pk):
   return dimensions_for_each(request, widget_pk)
 def interactive_data_for_widgets(request, project_pk, widget_pk):

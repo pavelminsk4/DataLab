@@ -25,6 +25,10 @@ urlpatterns = [
   path('sentiment_number_of_results/<int:pk>/<int:widget_pk>', views.sentiment_number_of_results, name='sentiment_number_of_results'),
   path('sentiment_diagram/<int:pk>/<int:widget_pk>', views.sentiment_diagram, name='sentiment_diagram'),
   path('authors_by_country/<int:pk>/<int:widget_pk>', views.authors_by_country, name='authors_by_country'),
+  path('sources_by_country/<int:pk>/<int:widget_pk>', views.sources_by_country, name='sources_by_country'),
+  path('sources_by_language/<int:pk>/<int:widget_pk>', views.sources_by_language, name='sources_by_language'),
+  path('top_sharing_sources/<int:pk>/<int:widget_pk>', views.top_sharing_sources, name='top_sharing_sources'),
+  path('overall_top_sources/<int:pk>/<int:widget_pk>', views.overall_top_sources, name='overall_top_sources'),
   path('dimensions_for_each_widgets/<int:project_pk>/<int:widget_pk>', views.dimensions_for_each_widgets, name='dimensions_for_each_widgets'),
   path('interactive_widgets/<int:project_pk>/<int:widget_pk>', views.interactive_data_for_widgets, name='interactive_widgets'),
 ]
