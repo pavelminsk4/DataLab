@@ -18,19 +18,16 @@
         class="base-table__row"
       >
         <td>
-          <UserAvatar :avatarUrl="item.picture" />
+          <UserAvatar
+            v-if="item.picture !== 'None'"
+            :avatarUrl="item.picture"
+          />
         </td>
         <td>
-          <div class="author-cell">
+          <div class="source-cell">
             <span>{{ item.name }}</span>
-            <span class="author-cell__alias">@{{ item.alias }}</span>
+            <span class="source-cell__alias">{{ item.url }}</span>
           </div>
-        </td>
-        <td>
-          <ChipsGender :gender-type="item.gender" />
-        </td>
-        <td class="icon-wrapper">
-          <component :is="`${item.media_type}Icon`" />
         </td>
         <td>{{ item.posts }}</td>
         <td>
@@ -115,7 +112,7 @@ export default {
   vertical-align: middle;
   padding: 0px 15px;
 }
-.author-cell {
+.source-cell {
   display: flex;
   flex-direction: column;
 

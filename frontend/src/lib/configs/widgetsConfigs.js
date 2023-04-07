@@ -208,6 +208,27 @@ export const widgetsConfig = {
     defaultChartType: 'WorldMapChart',
   },
 
+  sources_by_language: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    actionName: action.GET_SOURCES_BY_LANGUAGE,
+    defaultChartType: 'DoughnutChart',
+    availableTypes: SIMPLE_CHARTS,
+  },
+
+  sources_by_country: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    actionName: action.GET_SOURCES_BY_COUNTRY,
+    defaultChartType: 'BarChart',
+    availableTypes: SIMPLE_CHARTS,
+  },
+
+  overall_top_sources: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    actionName: action.GET_OVERALL_TOP_SOURCES,
+    defaultChartType: 'SentimentBarChart',
+    availableTypes: null,
+  },
+
   //social widgets
   summary: {
     ...WIDGET_DEFAULT_SETTINGS,

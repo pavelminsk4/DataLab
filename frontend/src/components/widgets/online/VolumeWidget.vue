@@ -4,6 +4,7 @@
     :title="widgetDetails.title"
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
+    :style="`--widget-min-height: ${height}`"
   >
     <ChartsView
       :labels="labels"

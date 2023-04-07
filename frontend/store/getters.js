@@ -156,6 +156,18 @@ export default {
     return state.authorsByCountry
   },
 
+  [get.SOURCES_BY_LANGUAGE](state) {
+    return state.sourcesByLanguage
+  },
+
+  [get.SOURCES_BY_COUNTRY](state) {
+    return state.sourcesByCountry
+  },
+
+  [get.OVERALL_TOP_SOURCES](state) {
+    return state.overallTopSources
+  },
+
   [get.DIMENSIONS](state) {
     return state.dimensions
   },

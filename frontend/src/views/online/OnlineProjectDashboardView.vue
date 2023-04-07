@@ -44,8 +44,8 @@ export default {
       'Search',
       'Summary',
       'Sentiment',
-      // 'Demography',
-      // 'Influencers',
+      'Demography',
+      'Influencers',
     ].map((item) => ({
       name: item,
       routeName: `Online${item}`,

@@ -1,5 +1,4 @@
 <template>
-  <span>Influencers</span>
   <WidgetsList
     v-if="selectedWidgets"
     :current-project="currentProject"

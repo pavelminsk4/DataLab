@@ -16,6 +16,7 @@
       :is-show-delete-btn="false"
       :is-show-settings="false"
       :custom-title="`Overall top authors ${genderTypes[index]}`"
+      :table-header="tableHeader"
     />
   </component>
 </template>
@@ -52,6 +53,16 @@ export default {
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,
       })
+      this.tableHeader = [
+        {name: '', width: '5%'},
+        {name: 'Author', width: '15%'},
+        {name: 'Gender', width: '15%'},
+        {name: 'Media Type', width: '10%'},
+        {name: 'Posts', width: '10%'},
+        {name: 'Sentiment', width: '25%'},
+        {name: 'Reach', width: '10%'},
+        {name: 'Engagement', width: '10%'},
+      ]
     }
     this.genderTypes = ['male', 'female']
   },

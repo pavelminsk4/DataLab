@@ -28,6 +28,9 @@ import TopKeywords from '@/components/widgets/online/TopKeywordsWidget'
 import SentimentDiagram from '@/components/widgets/online/SentimentDiagramWidget'
 import SentimentNumberOfResults from '@/components/widgets/online/SentimentNumberOfResultWidget'
 import AuthorsByCountry from '@/components/widgets/online/AuthorsByCountryWidget'
+import SourcesByLanguage from '@/components/widgets/online/SourcesByLanguageWidget'
+import SourcesByCountry from '@/components/widgets/online/SourcesByCountryWidget'
+import OverallTopSources from '@/components/widgets/online/OverallTopSourcesWidget'
 
 export default {
   name: 'OnlineMainWidget',
@@ -53,6 +56,9 @@ export default {
     SentimentNumberOfResults,
     AuthorsByCountry,
     TopSharingSources,
+    SourcesByLanguage,
+    SourcesByCountry,
+    OverallTopSources,
   },
   props: {
     widgetDetails: {type: Object, required: true},
