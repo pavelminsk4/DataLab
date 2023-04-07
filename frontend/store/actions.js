@@ -445,6 +445,51 @@ export default {
     }
   },
 
+  async [action.GET_SOURCES_BY_LANGUAGE]({commit}, {projectId, widgetId}) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const sourcesByLanguage = await api.getSourcesByLanguage({
+        projectId,
+        widgetId,
+      })
+      commit(mutator.SET_SOURCES_BY_LANGUAGE, sourcesByLanguage)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
+  async [action.GET_SOURCES_BY_COUNTRY]({commit}, {projectId, widgetId}) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const sourcesByCountry = await api.getSourcesByCountry({
+        projectId,
+        widgetId,
+      })
+      commit(mutator.SET_SOURCES_BY_COUNTRY, sourcesByCountry)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
+  async [action.GET_OVERALL_TOP_SOURCES]({commit}, {projectId, widgetId}) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const overallTopSources = await api.getOverallTopSources({
+        projectId,
+        widgetId,
+      })
+      commit(mutator.SET_OVERALL_TOP_SOURCES, overallTopSources)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
   async [action.GET_SELECTED_DIMENSIONS]({commit}, selectedDimensions) {
     commit(mutator.SET_LOADING, true)
     try {

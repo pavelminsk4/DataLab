@@ -164,6 +164,17 @@ export default {
     state.authorsByCountry = data
   },
 
+  [mutator.SET_SOURCES_BY_LANGUAGE](state, data) {
+    state.sourcesByLanguage = data
+  },
+
+  [mutator.SET_SOURCES_BY_COUNTRY](state, data) {
+    state.sourcesByCountry = data
+  },
+  [mutator.SET_OVERALL_TOP_SOURCES](state, data) {
+    state.overallTopSources = data
+  },
+
   [mutator.SET_AVAILABLE_WIDGETS](state, data) {
     state.availableWidgets = {...data}
   },

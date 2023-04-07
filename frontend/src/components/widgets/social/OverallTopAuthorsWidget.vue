@@ -1,5 +1,9 @@
 <template>
-  <OverallTopWidget :widget-details="widgetDetails" :widget-data="widgetData" />
+  <OverallTopWidget
+    :widget-details="widgetDetails"
+    :widget-data="widgetData"
+    :table-header="tableHeader"
+  />
 </template>
 
 <script>
@@ -23,6 +27,16 @@ export default {
     },
   },
   created() {
+    this.tableHeader = [
+      {name: '', width: '5%'},
+      {name: 'Author', width: '15%'},
+      {name: 'Gender', width: '15%'},
+      {name: 'Media Type', width: '10%'},
+      {name: 'Posts', width: '10%'},
+      {name: 'Sentiment', width: '25%'},
+      {name: 'Reach', width: '10%'},
+      {name: 'Engagement', width: '10%'},
+    ]
     if (!this.widgetData.length) {
       this[action.GET_OVERALL_TOP_AUTHORS]({
         projectId: this.widgetDetails.projectId,

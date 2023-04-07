@@ -1,5 +1,4 @@
 <template>
-  <span>Influencers</span>
   <WidgetsList
     v-if="selectedWidgets"
     :current-project="currentProject"
@@ -49,7 +48,12 @@ export default {
     },
   },
   async created() {
-    this.widgets = []
+    this.widgets = [
+      {name: 'top_sharing_sources', isFullWidth: false},
+      {name: 'authors_by_country', isFullWidth: false},
+      {name: 'overall_top_sources', isFullWidth: true},
+      {name: 'sources_by_language', isFullWidth: false},
+    ]
   },
   methods: {
     ...mapActions([action.UPDATE_AVAILABLE_WIDGETS]),

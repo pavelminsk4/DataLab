@@ -183,6 +183,24 @@ export default {
     )
   },
 
+  async getSourcesByLanguage({projectId, widgetId}) {
+    return fetch(
+      'post',
+      `/widgets/sources_by_language/${projectId}/${widgetId}`
+    )
+  },
+
+  async getSourcesByCountry({projectId, widgetId}) {
+    return fetch('post', `/widgets/sources_by_country/${projectId}/${widgetId}`)
+  },
+
+  async getOverallTopSources({projectId, widgetId}) {
+    return fetch(
+      'post',
+      `/widgets/overall_top_sources/${projectId}/${widgetId}`
+    )
+  },
+
   async getDimensions() {
     return fetch('get', '/dimensions/')
   },
