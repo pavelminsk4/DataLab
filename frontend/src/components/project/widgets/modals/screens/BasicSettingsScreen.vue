@@ -48,8 +48,8 @@ export default {
   },
   data() {
     return {
-      newTitle: this.widgetTitle,
-      newDescription: this.widgetDescription,
+      newTitle: null,
+      newDescription: '',
       aggregationPeriod: this.period,
       aggregationPeriods: ['Hour', 'Day', 'Month', 'Year'],
       errors: {
@@ -60,7 +60,8 @@ export default {
   computed: {
     title: {
       get() {
-        return this.newTitle
+        if (this.newTitle === '') return this.newTitle
+        return this.newTitle || this.widgetTitle
       },
       set(value) {
         this.newTitle = value
@@ -73,7 +74,7 @@ export default {
 
     description: {
       get() {
-        return this.newDescription
+        return this.widgetDescription
       },
       set(value) {
         this.newDescription = value
@@ -86,10 +87,10 @@ export default {
     },
   },
   methods: {
-    selectItem(name, val) {
+    selectItem(name, value) {
       try {
-        this.aggregationPeriod = val
-        this.$emit('get-widget-params', val)
+        this.$emit('update-general-data', value, 'newAggregationPeriod')
+        this.$emit('change-aggregation-period', value)
       } catch (e) {
         console.log(e)
       }

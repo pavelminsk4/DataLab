@@ -22,6 +22,7 @@
         :widget-description="widgetDetails.description"
         :hasAggregationPeriod="widgetDetails.hasAggregationPeriod"
         @update-general-data="updateGeneralSettings"
+        @change-aggregation-period="changeAggregationPeriod"
       />
 
       <DimensionsScreen
@@ -80,6 +81,7 @@ export default {
       panelName: 'General',
       newWidgetTitle: '',
       newWidgetDescription: '',
+      newAggregationPeriod: '',
     }
   },
   computed: {
@@ -101,6 +103,7 @@ export default {
         this.$emit('save-general-settings', {
           newWidgetTitle: this.newWidgetTitle,
           newWidgetDescription: this.newWidgetDescription,
+          newAggregationPeriod: this.newAggregationPeriod,
         })
       }
       if (this.panelName === 'Dimensions') {
@@ -109,6 +112,10 @@ export default {
       if (this.panelName === 'Chart Layout') {
         this.$emit('save-chart-settings')
       }
+    },
+
+    changeAggregationPeriod(aggregationPeriod) {
+      this.$emit('change-aggregation-period', aggregationPeriod)
     },
   },
 }
