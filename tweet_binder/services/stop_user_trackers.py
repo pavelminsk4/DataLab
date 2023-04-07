@@ -1,12 +1,10 @@
 import requests
 import json
 
-def stop_user_trackers(auth_token):
-    url = "https://api2.tweetbinder.com/user-trackers/delete"
-
+def stop_user_trackers(url, auth_token, tracker_id):
     payload = json.dumps({
     "userTrackers": [
-        "0e4b5c3c-e71a-4b82-922b-9aa8e9329439"
+        f"{tracker_id}"
     ]
     })
     headers = {

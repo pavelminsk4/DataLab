@@ -3,6 +3,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from .services.get_user_tracker_stats import *
 from .services.greate_user_tracker import *
+from .services.stop_user_trackers import *
 from .services.historical_search import *
 from .services.get_report_state import *
 from .services.get_publications import *
@@ -310,6 +311,7 @@ def greate_user_tracker_project(sender, instance, created, **kwargs):
     time.sleep(10)
     data_account = json.loads(get_user_tracker_stats(tracker_id, int(datetime.timestamp(start_date)), int(datetime.timestamp(end_date)), auth_token))
     add_data_account_to_database(data_account, instance)
+    stop_user_trackers(api_route + '/user-trackers/delete', auth_token, tracker_id)
 
 def add_data_account_to_database(data_account, instance):
   new_data = {  
