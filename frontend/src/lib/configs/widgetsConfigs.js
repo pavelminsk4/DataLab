@@ -3,6 +3,7 @@ import {action} from '@store/constants'
 const WIDGET_DEFAULT_SETTINGS = {
   height: 13,
   isChartShow: false,
+  hasPreview: true,
   hasAggregationPeriod: true,
   settingsTabs: ['General', 'Dimensions', 'Chart Layout'],
 }
@@ -126,18 +127,21 @@ export const widgetsConfig = {
   },
   sentiment_top_10_sources_widget: {
     ...WIDGET_DEFAULT_SETTINGS,
+    hasAggregationPeriod: false,
     actionName: action.GET_SENTIMENT_TOP_SOURCES,
     defaultChartType: 'BarChart',
     availableTypes: SENTIMENTS_CHARTS,
   },
   sentiment_top_10_countries_widget: {
     ...WIDGET_DEFAULT_SETTINGS,
+    hasAggregationPeriod: false,
     actionName: action.GET_SENTIMENT_TOP_COUNTRIES,
     defaultChartType: 'BarChart',
     availableTypes: SENTIMENTS_CHARTS,
   },
   sentiment_top_10_authors_widget: {
     ...WIDGET_DEFAULT_SETTINGS,
+    hasAggregationPeriod: false,
     actionName: action.GET_SENTIMENT_TOP_AUTHORS,
     defaultChartType: 'BarChart',
     availableTypes: SENTIMENTS_CHARTS,
@@ -168,6 +172,7 @@ export const widgetsConfig = {
   },
   content_volume_top_5_source_widget: {
     ...WIDGET_DEFAULT_SETTINGS,
+    hasAggregationPeriod: false,
     actionName: action.GET_CONTENT_VOLUME_TOP_SOURCES,
     defaultChartType: 'MultiLineChart',
     availableTypes: MULTI_CHARTS,
@@ -176,12 +181,14 @@ export const widgetsConfig = {
   top_keywords: {
     ...WIDGET_DEFAULT_SETTINGS,
     height: 15,
+    hasAggregationPeriod: false,
     actionName: action.GET_TOP_KEYWORDS_WIDGET,
     defaultChartType: 'WordCloudChart',
   },
 
   sentiment_diagram: {
     ...WIDGET_DEFAULT_SETTINGS,
+    hasAggregationPeriod: false,
     actionName: action.GET_SENTIMENT_DIAGRAM,
     defaultChartType: 'DoughnutChart',
     availableTypes: SIMPLE_CHARTS,
@@ -198,18 +205,21 @@ export const widgetsConfig = {
   sentiment_top_keywords: {
     ...WIDGET_DEFAULT_SETTINGS,
     height: 15,
+    hasAggregationPeriod: false,
     actionName: action.GET_SENTIMENT_TOP_KEYWORDS_WIDGET,
     defaultChartType: 'SentimentWordCloudChart',
   },
 
   authors_by_country: {
     ...WIDGET_DEFAULT_SETTINGS,
+    hasAggregationPeriod: false,
     actionName: action.GET_AUTHORS_BY_COUNTRY,
     defaultChartType: 'WorldMapChart',
   },
 
   sources_by_language: {
     ...WIDGET_DEFAULT_SETTINGS,
+    hasAggregationPeriod: false,
     actionName: action.GET_SOURCES_BY_LANGUAGE,
     defaultChartType: 'DoughnutChart',
     availableTypes: SIMPLE_CHARTS,
@@ -217,6 +227,7 @@ export const widgetsConfig = {
 
   sources_by_country: {
     ...WIDGET_DEFAULT_SETTINGS,
+    hasAggregationPeriod: false,
     actionName: action.GET_SOURCES_BY_COUNTRY,
     defaultChartType: 'BarChart',
     availableTypes: SIMPLE_CHARTS,
@@ -224,6 +235,8 @@ export const widgetsConfig = {
 
   overall_top_sources: {
     ...WIDGET_DEFAULT_SETTINGS,
+    hasPreview: false,
+    hasAggregationPeriod: false,
     actionName: action.GET_OVERALL_TOP_SOURCES,
     defaultChartType: 'SentimentBarChart',
     availableTypes: null,
@@ -277,6 +290,7 @@ export const widgetsConfig = {
     ...WIDGET_DEFAULT_SETTINGS,
     actionName: action.GET_TOP_SHARING_SOURCES,
     height: 10,
+    hasPreview: false,
     hasAggregationPeriod: false,
     defaultChartType: null,
     availableTypes: null,

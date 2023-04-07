@@ -4,7 +4,6 @@
     :widget-details="widgetDetails"
     :labels="labels"
     :chart-values="chartValues"
-    class="min-height"
   />
 </template>
 
@@ -50,9 +49,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-.min-height {
-  min-height: 450px;
-}
-</style>

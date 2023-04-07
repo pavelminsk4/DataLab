@@ -176,3 +176,10 @@ export default {
   },
 }
 </script>
+
+<style>
+.widget-view {
+  height: 100%;
+  width: 450px;
+}
+</style>

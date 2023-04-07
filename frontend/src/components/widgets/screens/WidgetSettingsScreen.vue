@@ -1,6 +1,6 @@
 <template>
   <div class="settings-wrapper">
-    <div class="preview-section">
+    <div v-if="widgetDetails.hasPreview" class="preview-section">
       <div class="chart-title">
         {{ widgetDetails.title }}
       </div>
@@ -132,12 +132,9 @@ export default {
   .preview-section {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
     flex: 1;
 
-    height: fit-content;
-    min-height: 300px;
+    height: 350px;
     margin: 24px;
 
     .chart-title {
