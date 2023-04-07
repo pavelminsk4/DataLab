@@ -6,11 +6,7 @@
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
   >
-    <ChartsView
-      :labels="labels"
-      :chart-type="chartType"
-      :chart-values="chartValues"
-    />
+    <ChartsView :chart-type="chartType" :chart-values="chartValues" />
   </component>
 </template>
 

@@ -1,8 +1,8 @@
 <template>
   <div class="chart-container">
     <Bar
-      :chart-data="chartData[0]"
-      :chart-options="chartOptions"
+      :data="chartData[0]"
+      :options="chartOptions"
       :height="24"
       :width="100"
     />

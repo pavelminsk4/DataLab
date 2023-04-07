@@ -45,6 +45,7 @@ export default {
     SentimentWordCloudChart,
     SentimentBarChart,
   },
+  emits: ['open-sentiment-interactive-modal'],
   props: {
     labels: {type: Array, default: () => []},
     chartType: {type: String, required: true},

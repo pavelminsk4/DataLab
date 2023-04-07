@@ -33,7 +33,9 @@ export default {
   name: 'SentimentWordCloudChart',
   components: {BaseTooltip, VueWordCloud},
   props: {
+    labels: {type: Array, default: () => []},
     chartValues: {type: Array, default: () => []},
+    isDisplayLegend: {type: Boolean, default: true, required: false},
   },
   methods: {
     capitalizeFirstLetter,

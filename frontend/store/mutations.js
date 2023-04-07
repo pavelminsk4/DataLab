@@ -148,6 +148,10 @@ export default {
     state.topKeywordsWidget = data
   },
 
+  [mutator.SET_TOP_SHARING_SOURCES](state, data) {
+    state.topSharingSources = data
+  },
+
   [mutator.SET_SENTIMENT_DIAGRAM](state, data) {
     state.sentimentDiagram = data
   },

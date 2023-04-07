@@ -204,7 +204,6 @@ export const widgetsConfig = {
 
   authors_by_country: {
     ...WIDGET_DEFAULT_SETTINGS,
-    height: 11,
     actionName: action.GET_AUTHORS_BY_COUNTRY,
     defaultChartType: 'WorldMapChart',
   },
@@ -255,8 +254,8 @@ export const widgetsConfig = {
   },
   top_sharing_sources: {
     ...WIDGET_DEFAULT_SETTINGS,
-    actionName: action.GET_TO_SHARING_SOURCES,
-    height: 8,
+    actionName: action.GET_TOP_SHARING_SOURCES,
+    height: 10,
     hasAggregationPeriod: false,
     defaultChartType: null,
     availableTypes: null,

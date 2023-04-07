@@ -100,6 +100,10 @@ export default {
     return state.topLanguages
   },
 
+  [get.TOP_SHARING_SOURCES](state) {
+    return state.topSharingSources
+  },
+
   [get.SENTIMENT_TOP_SOURCES](state) {
     return state.sentimentTopSources
   },
