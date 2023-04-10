@@ -40,6 +40,9 @@ export default {
 
   display: flex;
 
+  height: 20px;
+  width: 20px;
+
   font-size: 22px;
 
   cursor: pointer;
@@ -91,8 +94,8 @@ export default {
   align-items: center;
   justify-content: center;
 
-  height: 20px;
-  width: 20px;
+  height: 100%;
+  width: 100%;
 
   border: 1px solid var(--typography-secondary-color);
   border-radius: 4px;

@@ -158,11 +158,4 @@ export default {
 .module-name {
   font-size: 20px;
 }
-
-.disable {
-  pointer-events: none;
-  cursor: auto;
-
-  opacity: 50%;
-}
 </style>

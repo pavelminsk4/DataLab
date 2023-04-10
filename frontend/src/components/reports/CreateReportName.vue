@@ -32,6 +32,7 @@
 <script>
 import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
+import createReportMixin from '@/lib/mixins/createReport'
 
 import ArrowLeftIcon from '@/components/icons/ArrowLeftIcon'
 import BaseButton from '@/components/common/BaseButton'
@@ -48,6 +49,7 @@ export default {
     BaseTextarea,
     AddUsersField,
   },
+  mixins: [createReportMixin],
   data() {
     return {
       reportName: '',
@@ -71,15 +73,12 @@ export default {
     usersEmails() {
       return this.users.filter((el) => el.email) || []
     },
-    routeName() {
-      return this.$route.name
-    },
   },
   created() {
     this[action.CLEAR_NEW_REPORT]()
   },
   methods: {
-    ...mapActions([action.UPDATE_NEW_REPORT, action.CLEAR_NEW_REPORT]),
+    ...mapActions([action.CLEAR_NEW_REPORT]),
     selectUser(user) {
       this.selectedUsers.push(user)
       this.errors.usersEmailError = null
@@ -88,19 +87,17 @@ export default {
       this.selectedUsers.splice(index, 1)
     },
     nextStep() {
-      const nextStep = this.routeName.replace(/\d/g, '2')
-      try {
-        this[action.UPDATE_NEW_REPORT]({
-          step: 2,
-          title: this.reportName,
-          description: this.reportDescription,
-          users: this.selectedUsers,
-          department: this.user.user_profile.department.id,
-        })
-        this.$router.push({name: nextStep})
-      } catch (e) {
-        console.log(e)
-      }
+      const nextStep = 2
+      const nextStepName = this.getNextStepName(nextStep)
+
+      this[action.UPDATE_NEW_REPORT]({
+        step: nextStep,
+        title: this.reportName,
+        description: this.reportDescription,
+        users: this.selectedUsers,
+        department: this.user.user_profile.department.id,
+      })
+      this.$router.push({name: nextStepName})
     },
   },
 }

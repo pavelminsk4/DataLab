@@ -119,6 +119,7 @@ export default {
       this.$emit('update:modelValue', e.target.value, this.name)
     },
     select(option) {
+      this.$emit('update:modelValue', option)
       this.$emit('select-option', this.name, option, this.visible)
       this.value = option
       this.search = option

@@ -6,11 +6,7 @@
         <slot></slot>
       </div>
 
-      <div
-        v-if="isTwoColumns"
-        :style="`--width-second-column: ${widthSecondColumns}`"
-        class="second-column"
-      >
+      <div v-if="isTwoColumns" class="second-column">
         <slot name="second-column"></slot>
       </div>
     </section>
@@ -34,6 +30,8 @@ export default {
 
 <style lang="scss">
 .main-layout {
+  --width-second-column: 100%;
+
   position: relative;
 
   display: flex;

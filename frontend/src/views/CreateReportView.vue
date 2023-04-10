@@ -1,5 +1,5 @@
 <template>
-  <MainLayout :is-two-columns="true" width-second-columns="39%">
+  <MainLayout :is-two-columns="true" class="create-report-wrapper">
     <template #default>
       <MainLayoutTitleBlock
         title="Reports"
@@ -12,7 +12,14 @@
 
       <ReportProgressBar :step="currentStep" />
 
-      <router-view></router-view>
+      <div class="step-content">
+        <router-view></router-view>
+      </div>
+
+      <footer
+        :style="`--width-second-columns: ${widthSecondColumns}`"
+        class="create-report-footer"
+      ></footer>
     </template>
 
     <template #second-column>
@@ -54,12 +61,54 @@ export default {
       return descriptions[this.currentStep]
     },
   },
+  created() {
+    this.widthSecondColumns = '39%'
+  },
 }
 </script>
 
 <style lang="scss" scoped>
+.create-report-wrapper {
+  --width-second-column: 39%;
+  --create-report-footer-height: 72px;
+}
+
+.step-content {
+  position: relative;
+
+  height: calc(100% + var(--create-report-footer-height));
+  padding-bottom: var(--create-report-footer-height);
+  margin-top: 40px;
+}
+
+.create-report-footer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+
+  width: calc(100% - var(--width-second-column));
+  height: var(--create-report-footer-height);
+
+  background-color: var(--background-primary-color);
+  border-top: var(--border-primary);
+}
+
 .second-column {
   height: 100%;
   padding: 32px 32px 0 16px;
+}
+</style>
+
+<style lang="scss">
+.create-reports_next-step-button {
+  position: fixed;
+  right: calc(var(--width-second-column) + 32px);
+  bottom: 18px;
+  z-index: 1;
+
+  .button-arrow-icon {
+    margin-left: 10px;
+    transform: rotate(180deg);
+  }
 }
 </style>

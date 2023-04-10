@@ -346,9 +346,7 @@ export default {
 
   // Reports
   async getRegularReports(departmentId) {
-    // return fetch('get', `/reports/${departmentId}/regular_reports/`)
-    const response = await $api.get(`/reports/${departmentId}/regular_reports/`)
-    return response.data
+    return fetch('get', `/reports/${departmentId}/regular_reports/`)
   },
   async createRegularReport({projectId, data}) {
     const response = await $api.post(

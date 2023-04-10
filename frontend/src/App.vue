@@ -155,6 +155,13 @@ h4 {
   }
 }
 
+.disable {
+  pointer-events: none;
+  cursor: auto;
+
+  opacity: 50%;
+}
+
 .overflow-hidden {
   overflow: hidden;
 }

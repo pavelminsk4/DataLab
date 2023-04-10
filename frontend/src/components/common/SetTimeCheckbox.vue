@@ -1,8 +1,10 @@
 <template>
-  <div class="set-time-checkbox">
-    <h5 class="title">{{ title }}</h5>
+  <div :class="['set-time-checkbox', isChecked && 'active']">
     <div class="set-time">
-      <BaseCheckbox2 class="checkbox" />
+      <BaseCheckbox2 v-model="isChecked" class="checkbox" />
+      <h5 class="title">{{ title }}</h5>
+    </div>
+    <div class="set-time">
       <slot></slot>
     </div>
   </div>
@@ -15,7 +17,18 @@ export default {
   name: 'SetTimeCheckbox',
   components: {BaseCheckbox2},
   props: {
+    modelValue: {type: [Boolean, Array], default: false},
     title: {type: String, required: true},
+  },
+  computed: {
+    isChecked: {
+      get() {
+        return this.modelValue
+      },
+      set(val) {
+        this.$emit('update:modelValue', val)
+      },
+    },
   },
 }
 </script>
@@ -35,15 +48,23 @@ export default {
   }
 }
 
+.active {
+  border-color: var(--border-active-color);
+  background-color: var(--primary-active-color);
+}
+
 .set-time {
   display: flex;
+  align-items: center;
 
-  span {
-    margin-right: 5px;
+  &:not(:last-child) {
+    margin-bottom: 8px;
   }
 }
 
 .checkbox {
+  width: 24px;
+  height: 24px;
   margin-right: 12px;
 }
 </style>
