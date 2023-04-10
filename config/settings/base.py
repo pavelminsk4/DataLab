@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'tweet_binder.apps.TweetBinderConfig',
     'project_social.apps.ProjectSocialConfig',
     'ml_components.apps.MlComponentsConfig',
+    'account_analysis.apps.AccountAnalysisConfig',
 ]
 
 MIDDLEWARE = [

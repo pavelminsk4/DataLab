@@ -34,6 +34,7 @@ urlpatterns = [
     path('api/', include('api.urls')),
     path('api/widgets/', include('widgets.urls', namespace='widgets')),
     path('api/social/', include('project_social.urls')),
+    path('api/account_analysis/', include('account_analysis.urls')),
     path('workspace/', include('workspace.urls', namespace='workspace')),
     path('api/reports/<int:dep_pk>/', include('reports.urls')),
     path('', include('tweet_binder.urls')),

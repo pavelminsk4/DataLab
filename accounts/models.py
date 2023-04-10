@@ -10,12 +10,14 @@ class department(models.Model):
     max_users = models.IntegerField(default=1)
     max_projects = models.IntegerField(default=1)
     max_projects_social = models.IntegerField(default=1)
+    max_projects_account_analysis = models.IntegerField(default=1)
     max_online_feeds = models.IntegerField(default=1)
     max_social_feeds = models.IntegerField(default=1)
     max_twitter_data = models.IntegerField(default=1)
     logo = models.ImageField(upload_to='static/department_logo', null=True, blank=True)
     current_number_of_projects = models.IntegerField(default=0)
     current_number_of_social_projects = models.IntegerField(default=0)
+    current_number_of_account_analysis_projects = models.IntegerField(default=0)
     current_number_of_users = models.IntegerField(default=0)
 
     def __str__(self):
