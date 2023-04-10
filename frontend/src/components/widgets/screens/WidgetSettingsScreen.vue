@@ -1,6 +1,6 @@
 <template>
   <div class="settings-wrapper">
-    <div class="preview-section">
+    <div v-if="widgetDetails.hasPreview" class="preview-section">
       <div class="chart-title">
         {{ widgetDetails.title }}
       </div>
@@ -22,6 +22,7 @@
         :widget-description="widgetDetails.description"
         :hasAggregationPeriod="widgetDetails.hasAggregationPeriod"
         @update-general-data="updateGeneralSettings"
+        @change-aggregation-period="changeAggregationPeriod"
       />
 
       <DimensionsScreen
@@ -37,7 +38,7 @@
 
       <ChartTypesRadio
         v-if="panelName === 'Chart Layout'"
-        :selected="widgetDetails.chartType"
+        :selected="widgetDetails.chart_type"
         :widget-name="widgetDetails.name"
         :project-id="widgetDetails.projectId"
         :widget-data="widgetDetails"
@@ -80,6 +81,7 @@ export default {
       panelName: 'General',
       newWidgetTitle: '',
       newWidgetDescription: '',
+      newAggregationPeriod: '',
     }
   },
   computed: {
@@ -101,6 +103,7 @@ export default {
         this.$emit('save-general-settings', {
           newWidgetTitle: this.newWidgetTitle,
           newWidgetDescription: this.newWidgetDescription,
+          newAggregationPeriod: this.newAggregationPeriod,
         })
       }
       if (this.panelName === 'Dimensions') {
@@ -109,6 +112,10 @@ export default {
       if (this.panelName === 'Chart Layout') {
         this.$emit('save-chart-settings')
       }
+    },
+
+    changeAggregationPeriod(aggregationPeriod) {
+      this.$emit('change-aggregation-period', aggregationPeriod)
     },
   },
 }
@@ -125,12 +132,9 @@ export default {
   .preview-section {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
     flex: 1;
 
-    height: fit-content;
-    min-height: 300px;
+    height: 350px;
     margin: 24px;
 
     .chart-title {

@@ -1,7 +1,7 @@
 <template>
   <WidgetSettingsModal
     v-if="isOpenWidgetSettingsModal"
-    :widgetDetails="currentWidget"
+    :widgetDetails="selectedWidgets[currentWidgetIndex].widgetDetails"
     @close="closeModal"
     @open-interactive-widget="openInteractiveData"
     @open-sentiment-interactive="openSentimentInteractiveData"
@@ -27,7 +27,7 @@
     >
       <grid-item
         class="widget-item"
-        v-for="item in selectedWidgets"
+        v-for="(item, index) in selectedWidgets"
         :key="item.i"
         :static="item.static"
         :x="item.x"
@@ -39,7 +39,7 @@
         <OnlineMainWidget
           :widgetDetails="item.widgetDetails"
           @delete-widget="deleteWidget(item.widgetDetails.name)"
-          @open-settings-modal="openModal(item.widgetDetails)"
+          @open-settings-modal="openModal(index)"
           @open-interactive-data="openInteractiveData"
           @open-sentiment-interactive="openSentimentInteractiveData"
         />
@@ -84,7 +84,7 @@ export default {
     return {
       layout: [],
       isOpenWidgetSettingsModal: false,
-      currentWidget: null,
+      currentWidgetIndex: 0,
     }
   },
   computed: {
@@ -144,8 +144,8 @@ export default {
     updatePosts(page, posts) {
       this.$emit('update-posts-count', page, posts)
     },
-    openModal(widget) {
-      this.currentWidget = widget
+    openModal(widgetIndex) {
+      this.currentWidgetIndex = widgetIndex
       this.isOpenWidgetSettingsModal = !this.isOpenWidgetSettingsModal
     },
     openInteractiveData(val, widgetId, fieldName) {

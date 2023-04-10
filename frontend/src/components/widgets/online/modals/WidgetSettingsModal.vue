@@ -7,7 +7,9 @@
     <WidgetSettingsScreen
       :widget-details="widgetDetails"
       @save-general-settings="saveGeneralChanges"
+      @save-dimensions-settings="saveDimensionsChanges"
       @update-chart-type="($event) => (newChartType = $event)"
+      @change-aggregation-period="changeAggregationPeriod"
       @save-chart-settings="saveChartType"
     >
       <OnlineMainWidget
@@ -73,24 +75,54 @@ export default {
       action.GET_CONTENT_VOLUME_TOP_COUNTRIES,
       action.GET_CONTENT_VOLUME_TOP_SOURCES,
       action.GET_SELECTED_DIMENSIONS,
+      action.GET_TOP_KEYWORDS_WIDGET,
+      action.GET_SENTIMENT_TOP_KEYWORDS,
+      action.GET_AUTHORS_BY_COUNTRY,
+      action.GET_SENTIMENT_DIAGRAM,
+      action.GET_SENTIMENT_NUMBER_OF_RESULT,
+      action.GET_OVERALL_TOP_SOURCES,
+      action.GET_SOURCES_BY_COUNTRY,
+      action.GET_TOP_SHARING_SOURCES,
+      action.GET_SOURCES_BY_LANGUAGE,
       action.POST_DIMENSIONS_FOR_WIDGET,
     ]),
 
-    saveGeneralChanges(newSettings) {
-      this[action.UPDATE_AVAILABLE_WIDGETS]({
+    updateCurrentWidget(newSettings) {
+      this[this.widgetDetails.actionName]({
+        projectId: this.widgetDetails.projectId,
+        widgetId: this.widgetDetails.id,
+        value: {
+          author_dim_pivot: this.widgetDetails.author_dim_pivot || null,
+          language_dim_pivot: this.widgetDetails.language_dim_pivot || null,
+          country_dim_pivot: this.widgetDetails.country_dim_pivot || null,
+          sentiment_dim_pivot: this.widgetDetails.sentiment_dim_pivot || null,
+          source_dim_pivot: this.widgetDetails.source_dim_pivot || null,
+          smpl_freq:
+            newSettings?.newAggregationPeriod ||
+            this.widgetDetails.aggregation_period,
+        },
+      })
+    },
+
+    async saveGeneralChanges(newSettings) {
+      await this[action.UPDATE_AVAILABLE_WIDGETS]({
         projectId: this.widgetDetails.projectId,
         widgetsList: {
           [this.widgetName]: {
             id: this.widgetDetails.id,
             title: newSettings.newWidgetTitle || this.widgetDetails.title,
             description: newSettings.newWidgetDescription,
-            aggregation_period: this.widgetDetails.aggregation_period,
+            aggregation_period:
+              newSettings.newAggregationPeriod ||
+              this.widgetDetails.aggregation_period,
           },
         },
       })
+
+      this.updateCurrentWidget(newSettings)
     },
 
-    async saveDimensionsForWidget() {
+    async saveDimensionsChanges() {
       await this[action.POST_DIMENSIONS_FOR_WIDGET]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,
@@ -104,18 +136,7 @@ export default {
         },
       })
 
-      await this[this.widgetDetails.actionName]({
-        projectId: this.widgetDetails.projectId,
-        value: {
-          smpl_freq: 'day',
-          author_dim_pivot: this.widgetDetails.author_dim_pivot || null,
-          language_dim_pivot: this.widgetDetails.language_dim_pivot || null,
-          country_dim_pivot: this.widgetDetails.country_dim_pivot || null,
-          sentiment_dim_pivot: this.widgetDetails.sentiment_dim_pivot || null,
-          source_dim_pivot: this.widgetDetails.source_dim_pivot || null,
-        },
-        widgetId: this.widgetDetails.id,
-      })
+      this.updateCurrentWidget()
     },
 
     async saveChartType() {
@@ -130,6 +151,16 @@ export default {
       })
     },
 
+    async changeAggregationPeriod(aggregationPeriod) {
+      await this[this.widgetDetails.actionName]({
+        projectId: this.widgetDetails.projectId,
+        widgetId: this.widgetDetails.id,
+        value: {
+          smpl_freq: aggregationPeriod,
+        },
+      })
+    },
+
     openInteractiveData(val, widgetId, fieldName) {
       this.$emit('open-interactive-widget', val, widgetId, fieldName)
     },
@@ -139,3 +170,10 @@ export default {
   },
 }
 </script>
+
+<style>
+.widget-view {
+  height: 100%;
+  width: 450px;
+}
+</style>

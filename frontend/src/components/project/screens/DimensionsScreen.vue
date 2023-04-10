@@ -220,28 +220,6 @@ export default {
     isCheckedElement(item) {
       return this.selectedSentimentsProxy?.some((el) => el === item)
     },
-    saveChanges() {
-      try {
-        this.updateSelectedDimensions()
-
-        this[action.UPDATE_PROJECT]({
-          projectId: this.projectId,
-          data: {
-            sentiment_dimensions: this.selectedSentimentsProxy,
-            author_dimensions: this.selectedAuthorsProxy,
-            country_dimensions: this.selectedCountriesProxy,
-            language_dimensions: this.selectedLanguagesProxy,
-            source_dimensions: this.selectedSourcesProxy,
-          },
-        })
-
-        this.$emit('update-search-results')
-        this[action.GET_WORKSPACES]()
-        this.$emit('close')
-      } catch (e) {
-        console.log(e)
-      }
-    },
     getValuesList(items, name) {
       this[`selected${name}Proxy`] = items
     },

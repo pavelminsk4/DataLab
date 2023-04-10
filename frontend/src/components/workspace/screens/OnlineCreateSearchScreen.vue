@@ -47,7 +47,7 @@ export default {
       const newWorkspace = await this[action.CREATE_WORKSPACE](workspaceData)
 
       await this.$router.push({
-        name: 'Analytics',
+        name: 'OnlineAnalytics',
         params: {
           workspaceId: newWorkspace.id,
           projectId: newWorkspace.projects[0].id,
@@ -59,7 +59,7 @@ export default {
       const newProject = await this[action.CREATE_PROJECT](projectData)
 
       await this.$router.push({
-        name: 'Analytics',
+        name: 'OnlineAnalytics',
         params: {
           workspaceId: this.workspaceId,
           projectId: newProject.id,

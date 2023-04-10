@@ -45,7 +45,7 @@ export default {
     if (!this.clippingContent.length) {
       await this[action.GET_CLIPPING_FEED_CONTENT_WIDGET]({
         projectId: this.currentProject.id,
-        widgetId: this.availableWidgets.clipping_feed_content_widget.id,
+        widgetId: this.availableWidgets?.clipping_feed_content_widget.id,
       })
     }
   },
@@ -74,8 +74,6 @@ export default {
         })
 
         this[action.CLEAR_STATE]()
-
-        this.showResults(data)
 
         this[action.GET_WORKSPACES]()
       } catch (e) {
