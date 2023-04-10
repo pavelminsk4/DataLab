@@ -35,7 +35,7 @@ class TopSharingSources(APITestCase):
       country_filter=[],author_filter=[],
       source_filter=[],creator=user,
     )
-    widget_pk = pr.social_widgets_list.top_keywords_id
+    widget_pk = pr.social_widgets_list.top_sharing_sources_id
     url = reverse(
       'project_social:social_top_sharing_sources',
       kwargs={'pk': pr.pk, 'widget_pk': widget_pk},
