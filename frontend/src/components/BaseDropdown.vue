@@ -64,7 +64,7 @@ export default {
         `.dropdown-wrapper-${this.name}`
       )
 
-      if (!dropdownList.contains(target)) {
+      if (!dropdownList?.contains(target)) {
         this.isOpenDropdown = false
       }
     },

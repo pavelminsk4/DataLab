@@ -111,7 +111,7 @@ export default {
         this.$emit('show-results', {
           keywords: this.keywords?.keywords,
           additions: this.keywords?.additional_keywords,
-          exceptions: this.keywords?.ignore_keywords,
+          exceptions: this.keywords?.ignore_keywords || [],
           country: this.additionalFilters?.country || [],
           language: this.additionalFilters?.language || [],
           sentiment: this.additionalFilters?.sentiment || [],

@@ -125,7 +125,7 @@ export default {
     close({target}) {
       const dropdownList = document.querySelector(`.selector-${this.name}`)
 
-      if (!dropdownList.contains(target)) {
+      if (!dropdownList?.contains(target)) {
         this.visible = false
       }
     },

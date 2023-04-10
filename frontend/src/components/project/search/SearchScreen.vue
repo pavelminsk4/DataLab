@@ -128,6 +128,8 @@ export default {
         country_filter: this.additionalFilters?.country || null,
         sort_posts: [],
       })
+
+      this.showResults()
     },
   },
 }
