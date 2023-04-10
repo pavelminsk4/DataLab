@@ -63,8 +63,8 @@ export default {
 }
 
 .checkbox {
-  width: 24px;
-  height: 24px;
+  --checkbox-width: 24px;
+
   margin-right: 12px;
 }
 </style>

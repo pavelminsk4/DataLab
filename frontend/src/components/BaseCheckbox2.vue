@@ -36,12 +36,11 @@ export default {
 
 <style lang="scss" scoped>
 .checkbox-container {
+  --checkbox-width: 20px;
+
   position: relative;
 
   display: flex;
-
-  height: 20px;
-  width: 20px;
 
   font-size: 22px;
 
@@ -94,8 +93,8 @@ export default {
   align-items: center;
   justify-content: center;
 
-  height: 100%;
-  width: 100%;
+  height: var(--checkbox-width);
+  width: var(--checkbox-width);
 
   border: 1px solid var(--typography-secondary-color);
   border-radius: 4px;
