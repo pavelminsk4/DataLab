@@ -38,7 +38,7 @@
 
       <ChartTypesRadio
         v-if="panelName === 'Chart Layout'"
-        :selected="widgetDetails.chartType"
+        :selected="widgetDetails.chart_type"
         :widget-name="widgetDetails.name"
         :project-id="widgetDetails.projectId"
         :widget-data="widgetDetails"
