@@ -39,7 +39,7 @@ class OverallTopAuthorsTest(APITestCase):
 
   def test_top_overall_authors(self):
     pr = ProjectSocial.objects.first()
-    widget_pk = pr.social_widgets_list.top_authors_id
+    widget_pk = pr.social_widgets_list.overall_top_authors_id
     url = reverse('project_social:social_overall_top_authors', kwargs={'pk':pr.pk, 'widget_pk':widget_pk})
     response = self.client.get(url)
     self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -79,7 +79,7 @@ class OverallTopAuthorsTest(APITestCase):
 
   def test_top_authors_by_gender(self):
     pr = ProjectSocial.objects.first()
-    widget_pk = pr.social_widgets_list.top_authors_id
+    widget_pk = pr.social_widgets_list.top_authors_by_gender_id
     url = reverse('project_social:social_top_authors_by_gender', kwargs={'pk':pr.pk, 'widget_pk':widget_pk})
     response = self.client.get(url)
     self.assertEqual(response.status_code, status.HTTP_200_OK)

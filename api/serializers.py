@@ -99,6 +99,9 @@ class WidgetsListSerializer(WritableNestedModelSerializer):
   sentiment_number_of_results = WidgetDescriptionSerializer()
   sentiment_diagram = WidgetDescriptionSerializer()
   authors_by_country = WidgetDescriptionSerializer()
+  authors_by_language = WidgetDescriptionSerializer()
+  authors_by_sentiment = WidgetDescriptionSerializer()
+  overall_top_authors = WidgetDescriptionSerializer()
   overall_top_sources = WidgetDescriptionSerializer()
   sources_by_country = WidgetDescriptionSerializer()
   sources_by_language = WidgetDescriptionSerializer()
@@ -126,6 +129,9 @@ class WidgetsListSerializer(WritableNestedModelSerializer):
       'sentiment_number_of_results',
       'sentiment_diagram',
       'authors_by_country',
+      'authors_by_sentiment',
+      'authors_by_language',
+      'overall_top_authors',
       'overall_top_sources',
       'sources_by_country',
       'sources_by_language',

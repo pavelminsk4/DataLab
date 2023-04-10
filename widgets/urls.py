@@ -29,6 +29,9 @@ urlpatterns = [
   path('sources_by_language/<int:pk>/<int:widget_pk>', views.sources_by_language, name='sources_by_language'),
   path('top_sharing_sources/<int:pk>/<int:widget_pk>', views.top_sharing_sources, name='top_sharing_sources'),
   path('overall_top_sources/<int:pk>/<int:widget_pk>', views.overall_top_sources, name='overall_top_sources'),
+  path('overall_top_authors/<int:pk>/<int:widget_pk>', views.overall_top_authors, name='overall_top_authors'),
+  path('authors_by_language/<int:pk>/<int:widget_pk>', views.authors_by_language, name='authors_by_language'),
+  path('authors_by_sentiment/<int:pk>/<int:widget_pk>', views.authors_by_sentiment, name='authors_by_sentiment'),
   path('dimensions_for_each_widgets/<int:project_pk>/<int:widget_pk>', views.dimensions_for_each_widgets, name='dimensions_for_each_widgets'),
   path('interactive_widgets/<int:project_pk>/<int:widget_pk>', views.interactive_data_for_widgets, name='interactive_widgets'),
 ]
