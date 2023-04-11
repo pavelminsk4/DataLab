@@ -51,6 +51,9 @@ export default {
       'influencers',
     ]
     this.projects = ['Saudi Arabia', 'Labor', 'Cyberpunk', 'The Witcher', 'WoW']
+    this.templateTitles.map(
+      (template) => (this.templates[template].selectedProjects = this.projects)
+    )
   },
 }
 </script>
@@ -58,8 +61,8 @@ export default {
 <style lang="scss" scoped>
 .wrapper {
   display: flex;
-  gap: 30px;
   flex-wrap: wrap;
+  gap: 30px;
   padding-top: 40px;
 }
 </style>

@@ -8,12 +8,14 @@
     <BaseSelect
       v-model="selectedValues"
       :options="projects"
-      :select-name="templateTitle"
       :is-disabled="templateChecked"
+      :has-error="hasError"
+      :select-name="templateTitle"
+      item-name="project"
     >
       <li>
         <BaseCheckbox v-model="isSelectAllProxy" class="option">
-          <span class="option__title">Choose all</span>
+          <span class="option__title">All projects</span>
         </BaseCheckbox>
       </li>
       <li v-for="option in projects" :key="option">
@@ -33,6 +35,7 @@
 
 <script>
 import {capitalizeFirstLetter} from '@/lib/utilities'
+
 import BaseCheckbox from '@/components/BaseCheckbox2'
 import BaseSelect from '@/components/BaseSelect2'
 
@@ -48,7 +51,7 @@ export default {
   emits: ['update:templateChecked', 'update:selectedProjects'],
   data() {
     return {
-      isSelectAll: false,
+      isSelectAll: true,
     }
   },
   computed: {
@@ -79,9 +82,9 @@ export default {
         this.$emit('update:selectedProjects', currProjects)
       },
     },
-  },
-  created() {
-    this.isSelectAllProxy = true
+    hasError() {
+      return !this.selectedValues.length
+    },
   },
   methods: {
     capitalizeFirstLetter,
@@ -97,11 +100,11 @@ export default {
   padding: 15px 20px;
   gap: 15px;
 
+  width: 240px;
+
   background-color: var(--background-secondary-color);
   border: var(--border-primary);
   border-radius: var(--border-radius);
-
-  width: 240px;
 
   &__header {
     gap: 10px;
@@ -110,9 +113,10 @@ export default {
 
   &__title {
     display: flex;
-    height: 100%;
     align-self: center;
     font-size: 16px;
+
+    height: 100%;
   }
 
   .option {
@@ -121,7 +125,9 @@ export default {
     &__title {
       display: flex;
       align-self: center;
+
       height: 100%;
+
       font-size: 16px;
     }
   }

@@ -1,21 +1,36 @@
 <template>
   <div :id="`select-${selectName}`" class="select">
-    <button @click="toggle" :class="['select__button', {disable: !isDisabled}]">
-      <span>{{ selectPlaceholder }}</span>
+    <button
+      @click="toggle"
+      :class="[
+        'select__button',
+        !isDisabled && 'disable',
+        hasError && 'select__error',
+      ]"
+    >
+      <div class="select__placeholder">
+        <span>{{ selectPlaceholder }}</span>
+        <ArrowDownIcon />
+      </div>
     </button>
-    <ul :class="[{open: isOpen}, 'select__options']">
+    <ul :class="[isOpen && 'open', 'select__options']">
       <slot></slot>
     </ul>
   </div>
 </template>
 
 <script>
+import ArrowDownIcon from '@/components/icons/ArrowDownIcon'
+
 export default {
+  components: {ArrowDownIcon},
   props: {
     options: {type: Array, required: true},
     modelValue: {type: [Boolean, Array], required: true},
-    selectName: {type: String, required: true},
     isDisabled: {type: Boolean, required: true},
+    hasError: {type: Boolean, default: false},
+    selectName: {type: String, required: true},
+    itemName: {type: String, default: 'item'},
   },
   data() {
     return {
@@ -34,12 +49,14 @@ export default {
     selectPlaceholder() {
       const length = this.selectedValues.length
       switch (length) {
+        case 0:
+          return `Select at least one ${this.itemName}`
         case 1:
           return this.selectedValues.toString()
         case this.options.length:
-          return 'All projects'
+          return `All ${this.itemName}s`
         default:
-          return `${length} items selected`
+          return `${length} ${this.itemName}s selected`
       }
     },
   },
@@ -67,10 +84,18 @@ export default {
 <style lang="scss" scoped>
 .select {
   position: relative;
+
   width: 100%;
 
+  &__placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 100%;
+  }
+
   &__options {
-    z-index: 1;
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -78,13 +103,15 @@ export default {
     padding: 15px;
 
     width: 100%;
-    visibility: hidden;
+    z-index: 1;
 
     list-style: none;
     background-color: var(--background-secondary-color);
     border: var(--border-primary);
     border-radius: var(--border-radius);
     box-shadow: 1px 2px 6px rgba(135, 135, 135, 0.25);
+
+    visibility: hidden;
   }
 
   &__button {
@@ -98,6 +125,11 @@ export default {
     background-color: var(--background-secondary-color);
     border: var(--border-primary);
     border-radius: var(--border-radius);
+  }
+
+  &__error {
+    color: var(--negative-status);
+    border: 1px solid var(--negative-status);
   }
   .open {
     visibility: visible;
