@@ -95,6 +95,7 @@ export default {
       action.CLEAR_SEARCH_LIST,
     ]),
     updateCollection(name, val) {
+      console.log(name, val, 'screen')
       this[action.UPDATE_KEYWORDS_LIST]({
         [name]: val,
       })

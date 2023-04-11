@@ -89,8 +89,6 @@ export default {
 
         this[action.CLEAR_STATE]()
 
-        this.showResults(data)
-
         this[action.GET_WORKSPACES]()
       } catch (e) {
         console.log(e)
