@@ -7,6 +7,7 @@ import CreateReportName from '@/components/reports/CreateReportName'
 import CreateReportSetTime from '@/components/reports/CreateReportSetTime'
 import CreateReportAddProject from '@/components/reports/CreateReportAddProject'
 import ChooseReportTemplates from '@/components/reports/ChooseReportTemplates'
+import ReportsSettingsTemplate from '@/components/reports/ReportsSettingsTemplate'
 
 import UserRolesScreen from '@/components/settings/UserRolesScreen'
 
@@ -68,7 +69,7 @@ export const routes = [
         path: 'step4',
         components: {
           default: ChooseReportTemplates,
-          secondColumn: CreateReportRightSide,
+          secondColumn: ReportsSettingsTemplate,
         },
         props: {
           secondColumn: {step: 'step4'},
