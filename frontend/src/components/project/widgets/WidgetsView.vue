@@ -10,8 +10,7 @@
     <SearchResults
       :is-checkbox-clipping-widget="true"
       :clipping-content="clippingData"
-      @update-page="updatePage"
-      @update-posts-count="updatePosts"
+      @show-results="updatePageAndPostsCounts"
       class="search-results"
     />
     <grid-layout
@@ -138,11 +137,8 @@ export default {
         },
       })
     },
-    updatePage(page, posts) {
+    updatePageAndPostsCounts(page, posts) {
       this.$emit('update-page', page, posts)
-    },
-    updatePosts(page, posts) {
-      this.$emit('update-posts-count', page, posts)
     },
     openModal(widgetIndex) {
       this.currentWidgetIndex = widgetIndex

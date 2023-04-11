@@ -21,7 +21,7 @@
         :is-disabled-button="!currentKeywords.length"
         @save-project="updateProjectData"
         @show-result="showResults"
-        @update-collection="$emit('update-collection', $event)"
+        @update-collection="updateKeywordsCollection"
       />
       <SearchResults
         :module-name="moduleName"
@@ -66,11 +66,11 @@ export default {
   methods: {
     showResults(pageNumber, numberOfPosts) {
       this.$emit('show-results', {
-        keywords: this.currentKeywords || this.keywords?.keywords,
+        keywords: this.keywords?.keywords || this.currentKeywords,
         additions:
-          this.currentAdditionalKeywords || this.keywords?.additional_keywords,
+          this.keywords?.additional_keywords || this.currentAdditionalKeywords,
         exceptions:
-          this.currentExcludeKeywords || this.keywords?.ignore_keywords,
+          this.keywords?.ignore_keywords || this.currentExcludeKeywords,
         country: this.additionalFilters?.country || [],
         language: this.additionalFilters?.language || [],
         sentiment:
@@ -130,6 +130,10 @@ export default {
       })
 
       this.showResults()
+    },
+
+    updateKeywordsCollection(name, value) {
+      this.$emit('update-collection', name, value)
     },
   },
 }

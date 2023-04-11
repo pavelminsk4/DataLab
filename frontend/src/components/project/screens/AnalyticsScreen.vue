@@ -88,7 +88,6 @@
       :project-id="currentProject.id"
       :currentProject="currentProject"
       @update-page="showResults"
-      @update-posts-count="showResults"
       @open-interactive-widget="openInteractiveWidgetModal"
       @open-sentiment-interactive-widget="openSentimentInteractiveWidgetModal"
     />
