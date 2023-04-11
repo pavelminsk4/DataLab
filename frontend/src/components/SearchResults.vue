@@ -129,10 +129,10 @@ export default {
     },
     updatePostsCount(page, countPosts) {
       this.countPosts = countPosts
-      this.$emit('update-posts-count', page, countPosts)
+      this.$emit('show-results', page, countPosts)
     },
     pageChange(page, countPosts) {
-      this.$emit('update-page', page, countPosts)
+      this.$emit('show-results', page, countPosts)
     },
   },
 }

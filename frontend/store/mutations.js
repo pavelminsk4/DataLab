@@ -217,10 +217,9 @@ export default {
 
   [mutator.RESET_STATE](state) {
     state.currentStep = 'Step1'
-    state.keywords = []
+    state.keywords = {}
     state.searchData = []
     state.isSearchPerformed = false
-    state.additionalFilters = null
     state.numberOfPages = 0
     state.numberOfPosts = 0
     state.newWorkspace = {
