@@ -9,6 +9,7 @@
       v-model="selectedValues"
       :options="projects"
       :select-name="templateTitle"
+      :is-disabled="templateChecked"
     >
       <li>
         <BaseCheckbox v-model="isSelectAllProxy" class="option">
@@ -78,6 +79,9 @@ export default {
         this.$emit('update:selectedProjects', currProjects)
       },
     },
+  },
+  created() {
+    this.isSelectAllProxy = true
   },
   methods: {
     capitalizeFirstLetter,

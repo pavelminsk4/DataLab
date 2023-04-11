@@ -1,6 +1,6 @@
 <template>
-  <div class="select" placeholder="All Projects" :id="`select-${selectName}`">
-    <button @click="toggle" class="select__button">
+  <div :id="`select-${selectName}`" class="select">
+    <button @click="toggle" :class="['select__button', {disable: !isDisabled}]">
       <span>{{ selectPlaceholder }}</span>
     </button>
     <ul :class="[{open: isOpen}, 'select__options']">
@@ -15,6 +15,7 @@ export default {
     options: {type: Array, required: true},
     modelValue: {type: [Boolean, Array], required: true},
     selectName: {type: String, required: true},
+    isDisabled: {type: Boolean, required: true},
   },
   data() {
     return {
@@ -31,9 +32,15 @@ export default {
       },
     },
     selectPlaceholder() {
-      return this.selectedValues.length > 1
-        ? `${this.selectedValues.length} items selected`
-        : this.selectedValues.toString()
+      const length = this.selectedValues.length
+      switch (length) {
+        case 1:
+          return this.selectedValues.toString()
+        case this.options.length:
+          return 'All projects'
+        default:
+          return `${length} items selected`
+      }
     },
   },
   created() {
@@ -61,6 +68,7 @@ export default {
 .select {
   position: relative;
   width: 100%;
+
   &__options {
     z-index: 1;
     position: absolute;
