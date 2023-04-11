@@ -247,6 +247,12 @@ export default {
     return state.interactiveData
   },
 
+  [get.ALL_PROJECTS](state) {
+    const onlineProjects = state.projects
+    const socialProjects = state.social.projects
+    return [...onlineProjects, ...socialProjects].sort()
+  },
+
   // Reports
   [get.REGULAR_REPORTS](state) {
     return state.regularReports

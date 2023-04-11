@@ -10,7 +10,7 @@
     <BaseTable
       v-if="tableHeader.length"
       :table-header="tableHeader"
-      :isCheckbox="false"
+      :has-checkbox="false"
     >
       <tr
         v-for="(item, index) in widgetData"

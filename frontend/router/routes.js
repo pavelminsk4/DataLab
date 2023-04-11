@@ -5,6 +5,7 @@ import CreateReportView from '@/views/CreateReportView'
 import CreateReportRightSide from '@/components/reports/CreateReportRightSide'
 import CreateReportName from '@/components/reports/CreateReportName'
 import CreateReportSetTime from '@/components/reports/CreateReportSetTime'
+import CreateReportAddProject from '@/components/reports/CreateReportAddProject'
 
 import UserRolesScreen from '@/components/settings/UserRolesScreen'
 
@@ -55,39 +56,11 @@ export const routes = [
           secondColumn: {step: 'step2'},
         },
       },
-      //   {
-      //     name: 'SocialWorkspaceStep3',
-      //     path: 'step3',
-      //     components: {
-      //       default: SocialCreateSearchScreen,
-      //       secondColumn: SearchResults,
-      //     },
-      //     beforeEnter: (to, from, next) => {
-      //       if (to.name !== store.state.currentStep) {
-      //         const workspaceId = to.params.workspaceId
-      //         if (workspaceId === 'new') {
-      //           return next({
-      //             name: 'SocialWorkspaceStep1',
-      //             params: {workspaceId},
-      //           })
-      //         } else {
-      //           return next({
-      //             name: 'SocialWorkspaceStep2',
-      //             params: {workspaceId},
-      //           })
-      //         }
-      //       }
-
-      //       return next()
-      //     },
-      //     props: {
-      //       default: (route) => ({
-      //         workspaceId: route.params.workspaceId,
-      //         moduleName: 'Social',
-      //       }),
-      //       secondColumn: {step: 'step3', moduleName: 'Social'},
-      //     },
-      //   },
+      {
+        name: 'ReportStep3',
+        path: 'step3',
+        component: CreateReportAddProject,
+      },
     ],
   },
 ]

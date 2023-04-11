@@ -1,5 +1,9 @@
 <template>
-  <BaseTable :table-header="tableHeader" @select-all="selectAll">
+  <BaseTable
+    :table-header="tableHeader"
+    :selected-items="selectedProjects"
+    @select-all="selectAll"
+  >
     <BaseTableRow
       v-for="(item, index) in values"
       :key="index"

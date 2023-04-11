@@ -2,8 +2,8 @@
   <table class="base-table">
     <thead>
       <tr>
-        <th v-if="isCheckbox" style="width: 60px">
-          <BaseCheckbox v-model="isSelectAllProxy" />
+        <th v-if="hasCheckbox" style="width: 60px">
+          <BaseCheckbox v-model="isCheckedAllProxy" />
         </th>
         <th
           v-for="item in tableHeader"
@@ -12,7 +12,7 @@
         >
           {{ capitalizeFirstLetter(item.name) }}
         </th>
-        <th v-if="isCheckbox" style="width: 80px">Actions</th>
+        <th v-if="hasCheckbox && hasActions" style="width: 80px">Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -31,28 +31,23 @@ export default {
     BaseCheckbox,
   },
   props: {
-    tableHeader: {
-      type: Array,
-      required: true,
-    },
-    isCheckbox: {
-      type: Boolean,
-      default: true,
-    },
+    tableHeader: {type: Array, required: true},
+    hasCheckbox: {type: Boolean, default: true},
+    hasActions: {type: Boolean, default: true},
   },
   data() {
     return {
-      isSelectAll: false,
+      isCheckedAll: false,
     }
   },
   computed: {
-    isSelectAllProxy: {
+    isCheckedAllProxy: {
       get() {
-        return this.isSelectAll
+        return this.isCheckedAll
       },
       set(val) {
-        this.isSelectAll = val
-        this.$emit('select-all', this.isSelectAll)
+        this.isCheckedAll = val
+        this.$emit('select-all', this.isCheckedAll)
       },
     },
   },

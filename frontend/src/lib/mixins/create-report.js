@@ -1,7 +1,10 @@
 import {mapActions} from 'vuex'
 import {action} from '@store/constants'
 
+import ButtonWithArrow from '@/components/common/ButtonWithArrow'
+
 export default {
+  components: {ButtonWithArrow},
   computed: {
     routeName() {
       return this.$route.name

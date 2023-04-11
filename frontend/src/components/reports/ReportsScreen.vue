@@ -32,11 +32,7 @@
       </div>
 
       <div class="list-wrapper scroll">
-        <BaseTable
-          :table-header="tableHeader"
-          class="redssd"
-          @select-all="selectAll"
-        >
+        <BaseTable :table-header="tableHeader" @select-all="selectAll">
           <BaseTableRow
             v-for="(item, index) in filteredReports"
             :key="index"
@@ -50,25 +46,23 @@
             <td class="regularity">
               <div class="test">type</div>
               <div class="test">type</div>
-              <div class="test">type</div>
-              <div class="test">type</div>
             </td>
             <td>date</td>
             <td>time</td>
             <td>language</td>
             <td>format</td>
             <td>
-              <!-- <UsersIconsBar :users="users(item.members)" /> -->
+              <UsersIconsBar :users="item.user" />
             </td>
             <td>
               <div class="creator">
-                <!-- <UserAvatar
-                  :avatar-url="currentUser(item.creator)?.user_profile.photo"
-                  :first-name="currentUser(item.creator)?.first_name"
-                  :last-name="currentUser(item.creator)?.last_name"
-                  :username="currentUser(item.creator)?.username"
-                /> -->
-                <!-- <div>{{ currentUser(item.creator).username }}</div> -->
+                <UserAvatar
+                  :avatar-url="item.creator?.user_profile.photo"
+                  :first-name="item.creator?.first_name"
+                  :last-name="item.creator?.last_name"
+                  :username="item.creator?.username"
+                />
+                <div>{{ item.creator.username }}</div>
               </div>
             </td>
           </BaseTableRow>
@@ -90,11 +84,11 @@ import BaseButton from '@/components/common/BaseButton'
 import BaseInput from '@/components/common/BaseInput'
 import MainLayout from '@components/layout/MainLayout'
 import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
-// import UsersIconsBar from '@components/UsersIconsBar.vue'
+import UsersIconsBar from '@components/UsersIconsBar.vue'
 import AreYouSureModal from '@/components/modals/AreYouSureModal'
 import BaseTable from '@components/common/BaseTable'
 import BaseTableRow from '@components/common/BaseTableRow'
-// import UserAvatar from '@components/UserAvatar'
+import UserAvatar from '@components/UserAvatar'
 
 export default {
   name: 'ReportsScreen',
@@ -104,10 +98,10 @@ export default {
     MainLayout,
     MainLayoutTitleBlock,
     AreYouSureModal,
-    // UsersIconsBar,
+    UsersIconsBar,
     BaseTable,
     BaseTableRow,
-    // UserAvatar,
+    UserAvatar,
     SortIcon,
   },
   props: {
@@ -167,14 +161,6 @@ export default {
       this.togglePageScroll(this.isOpenDeleteModal)
       this.reportValue.name = title
       this.currentReportId = id
-    },
-
-    //change
-    currentUser(id) {
-      return this.members.find((el) => el.id === id)
-    },
-    users(usersIds) {
-      return this.members.filter((member) => usersIds.includes(member.id))
     },
   },
 }

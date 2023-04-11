@@ -1,5 +1,8 @@
 <template>
-  <MainLayout :is-two-columns="true" class="create-report-wrapper">
+  <MainLayout
+    :is-two-columns="currentStep !== 'step3'"
+    class="create-report-wrapper"
+  >
     <template #default>
       <MainLayoutTitleBlock
         title="Reports"
@@ -15,11 +18,6 @@
       <div class="step-content">
         <router-view></router-view>
       </div>
-
-      <footer
-        :style="`--width-second-columns: ${widthSecondColumns}`"
-        class="create-report-footer"
-      ></footer>
     </template>
 
     <template #second-column>
@@ -61,9 +59,6 @@ export default {
       return descriptions[this.currentStep]
     },
   },
-  created() {
-    this.widthSecondColumns = '39%'
-  },
 }
 </script>
 
@@ -100,15 +95,20 @@ export default {
 </style>
 
 <style lang="scss">
-.create-reports_next-step-button {
-  position: fixed;
-  right: calc(var(--width-second-column) + 32px);
-  bottom: 18px;
-  z-index: 1;
+.create-reports__footer {
+  position: sticky;
+  bottom: -24px;
+  z-index: 10;
 
-  .button-arrow-icon {
-    margin-left: 10px;
-    transform: rotate(180deg);
-  }
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  width: calc(100% + 2 * 32px);
+  height: var(--create-report-footer-height);
+  padding: 0 32px;
+  margin-left: -32px;
+
+  background-color: var(--background-primary-color);
 }
 </style>

@@ -17,39 +17,35 @@
       @select-user="selectUser"
       @remove-user="removeUser"
     />
-
-    <BaseButton
-      :is-disabled="!reportName"
-      class="next-button"
-      @click="nextStep"
-    >
-      <span>Next</span>
-      <ArrowLeftIcon class="button-arrow-icon" />
-    </BaseButton>
+    <footer class="create-reports__footer">
+      <ButtonWithArrow
+        :is-disabled="!reportName"
+        class="next-button"
+        @click="nextStep"
+      >
+        <span>Next</span>
+      </ButtonWithArrow>
+    </footer>
   </div>
 </template>
 
 <script>
 import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
-import createReportMixin from '@/lib/mixins/createReport'
+import createReportMixin from '@/lib/mixins/create-report.js'
 
-import ArrowLeftIcon from '@/components/icons/ArrowLeftIcon'
-import BaseButton from '@/components/common/BaseButton'
 import BaseInput from '@/components/common/BaseInput'
 import BaseTextarea from '@/components/common/BaseTextarea'
 import AddUsersField from '@/components/AddUsersField'
 
 export default {
   name: 'CreateReportName',
+  mixins: [createReportMixin],
   components: {
-    ArrowLeftIcon,
-    BaseButton,
     BaseInput,
     BaseTextarea,
     AddUsersField,
   },
-  mixins: [createReportMixin],
   data() {
     return {
       reportName: '',
@@ -114,17 +110,6 @@ export default {
 
 .input-name {
   margin-bottom: 32px;
-}
-
-.next-button {
-  align-self: flex-end;
-
-  margin-top: 32px;
-
-  .button-arrow-icon {
-    margin-left: 10px;
-    transform: rotate(180deg);
-  }
 }
 
 .report-add-users {

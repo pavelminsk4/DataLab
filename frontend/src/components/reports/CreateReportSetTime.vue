@@ -137,26 +137,25 @@
       </Datepicker>
     </div>
 
-    <BaseButton
-      :is-disabled="isDisableNextBtn"
-      class="create-reports_next-step-button"
-      @click="nextStep"
-    >
-      <span>Next</span>
-      <ArrowLeftIcon class="button-arrow-icon" />
-    </BaseButton>
+    <footer class="create-reports__footer">
+      <ButtonWithArrow
+        :is-disabled="isDisableNextBtn"
+        class="create-reports_next-step-button"
+        @click="nextStep"
+      >
+        <span>Next</span>
+      </ButtonWithArrow>
+    </footer>
   </section>
 </template>
 
 <script>
 import {action} from '@store/constants'
-import createReportMixin from '@/lib/mixins/createReport'
+import createReportMixin from '@/lib/mixins/create-report.js'
 
-import ArrowLeftIcon from '@/components/icons/ArrowLeftIcon'
 import CalendarIcon from '@/components/icons/CalendarIcon'
 
 import Datepicker from '@vuepic/vue-datepicker'
-import BaseButton from '@/components/common/BaseButton'
 import SetTimeCheckbox from '@/components/common/SetTimeCheckbox'
 import BaseSelect from '@/components/BaseSelect'
 import BaseRadio from '@/components/BaseRadio'
@@ -168,16 +167,14 @@ const ending = {
 
 export default {
   name: 'CreateReportSetTime',
+  mixins: [createReportMixin],
   components: {
-    ArrowLeftIcon,
-    BaseButton,
     SetTimeCheckbox,
     BaseSelect,
     Datepicker,
     BaseRadio,
     CalendarIcon,
   },
-  mixins: [createReportMixin],
   data() {
     return {
       hour: {

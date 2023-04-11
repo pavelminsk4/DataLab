@@ -28,6 +28,6 @@ export default {
 .report-progress-bar {
   --labels-side-padding: 25px;
 
-  max-width: none;
+  max-width: 850px;
 }
 </style>
