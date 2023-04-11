@@ -41,6 +41,7 @@ def report_generator(proj_pk, model):
   response.as_attachment = True
   return response
 
+
 def online_instantly_report(request, proj_pk, dep_pk):
   return report_generator(proj_pk, Project)
 
