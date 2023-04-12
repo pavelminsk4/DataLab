@@ -61,8 +61,7 @@ export default {
 <style lang="scss" scoped>
 .wrapper {
   display: flex;
-  flex-wrap: wrap;
   gap: 30px;
-  padding-top: 40px;
+  flex-wrap: wrap;
 }
 </style>

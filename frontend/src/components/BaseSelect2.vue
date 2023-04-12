@@ -18,8 +18,9 @@
         <li
           v-for="option in options"
           :key="option"
+          :value="option"
           class="option"
-          @click="selectedValues = option"
+          @click="handleClick"
         >
           {{ option }}
         </li>
@@ -75,6 +76,10 @@ export default {
         this.isOpen = false
       }
     },
+    handleClick({target}) {
+      this.selectedValues = target.innerText
+      this.isOpen = false
+    },
   },
 }
 </script>
@@ -129,15 +134,13 @@ export default {
     color: var(--negative-status);
     border: 1px solid var(--negative-status);
   }
+
   .open {
     visibility: visible;
   }
 }
 
 .option {
-  display: flex;
-  gap: 10px;
-
   cursor: pointer;
   &__title {
     display: flex;

@@ -79,3 +79,18 @@ export default {
   },
 }
 </script>
+<style lang="scss" scoped>
+.option {
+  display: flex;
+  gap: 10px;
+  cursor: pointer;
+  &__title {
+    display: flex;
+    align-self: center;
+
+    height: 100%;
+
+    font-size: 16px;
+  }
+}
+</style>
