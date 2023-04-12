@@ -40,6 +40,7 @@ class ProjectSocial(models.Model):
   country_dimensions = ArrayField(models.CharField(max_length=50), blank=True, null=True)
   source_dimensions = ArrayField(models.CharField(max_length=50), blank=True, null=True)
   sentiment_dimensions = ArrayField(models.CharField(max_length=10), blank=True, null=True)
+  source = models.CharField(max_length=100, null=True, blank=True, default='Social')
     
   def save(self, *args, **kwargs):
     total_projects_count = 0
