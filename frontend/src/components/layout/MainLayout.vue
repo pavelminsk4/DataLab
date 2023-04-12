@@ -30,8 +30,6 @@ export default {
 
 <style lang="scss">
 .main-layout {
-  --width-second-column: 100%;
-
   position: relative;
 
   display: flex;
@@ -55,8 +53,6 @@ export default {
 }
 
 .second-column {
-  width: var(--width-second-column);
-
   background-color: var(--background-secondary-color);
 }
 

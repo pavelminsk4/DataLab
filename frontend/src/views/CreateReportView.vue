@@ -4,19 +4,21 @@
     class="create-report-wrapper"
   >
     <template #default>
-      <MainLayoutTitleBlock
-        title="Reports"
-        :description="description"
-        :back-page="{
-          name: 'main page',
-          routName: 'MainView',
-        }"
-      />
+      <div class="create-report-step-content">
+        <MainLayoutTitleBlock
+          title="Reports"
+          :description="description"
+          :back-page="{
+            name: 'main page',
+            routName: 'MainView',
+          }"
+        />
 
-      <ReportProgressBar :step="currentStep" />
+        <ReportProgressBar :step="currentStep" />
 
-      <div class="step-content">
-        <router-view></router-view>
+        <div class="step-content">
+          <router-view></router-view>
+        </div>
       </div>
     </template>
 
@@ -64,28 +66,13 @@ export default {
 
 <style lang="scss" scoped>
 .create-report-wrapper {
-  --width-second-column: 39%;
   --create-report-footer-height: 72px;
 }
 
 .step-content {
   position: relative;
 
-  height: calc(100% + var(--create-report-footer-height));
-  padding-bottom: var(--create-report-footer-height);
   margin-top: 40px;
-}
-
-.create-report-footer {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-
-  width: calc(100% - var(--width-second-column));
-  height: var(--create-report-footer-height);
-
-  background-color: var(--background-primary-color);
-  border-top: var(--border-primary);
 }
 
 .second-column {

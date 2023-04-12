@@ -31,7 +31,7 @@ export default {
   justify-content: center;
   align-items: center;
 
-  width: 100%;
+  width: 39vw;
   height: 100%;
   padding-bottom: 100px;
 }

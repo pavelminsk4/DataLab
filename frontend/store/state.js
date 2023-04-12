@@ -92,7 +92,7 @@ const initialState = {
   //reports
   regularReports: [],
   newReport: {
-    step: 4,
+    step: 1,
     name: '',
     description: '',
     projects: [],

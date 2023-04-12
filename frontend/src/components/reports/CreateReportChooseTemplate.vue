@@ -17,7 +17,7 @@ import {mapState} from 'vuex'
 import ReportTemplateCard from '@/components/reports/ReportTemplateCard.vue'
 
 export default {
-  name: 'ChooseReportTemplateCard',
+  name: 'CreateReportChooseTemplate',
   components: {ReportTemplateCard},
   data() {
     return {

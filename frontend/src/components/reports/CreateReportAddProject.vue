@@ -44,11 +44,7 @@
     </template>
   </BaseTable>
   <footer class="create-reports__footer">
-    <ButtonWithArrow
-      :is-disabled="isDisableNextBtn"
-      class="create-step-button"
-      @click="nextStep"
-    >
+    <ButtonWithArrow :is-disabled="isDisableNextBtn" @click="nextStep">
       <span>Next</span>
     </ButtonWithArrow>
   </footer>
