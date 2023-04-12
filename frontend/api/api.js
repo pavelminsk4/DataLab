@@ -201,6 +201,27 @@ export default {
     )
   },
 
+  async getOverallTopAuthors({projectId, widgetId}) {
+    return fetch(
+      'post',
+      `/widgets/overall_top_authors/${projectId}/${widgetId}`
+    )
+  },
+
+  async getAuthorsBySentiment({projectId, widgetId}) {
+    return fetch(
+      'post',
+      `/widgets/authors_by_sentiment/${projectId}/${widgetId}`
+    )
+  },
+
+  async getAuthorsByLanguage({projectId, widgetId}) {
+    return fetch(
+      'post',
+      `/widgets/authors_by_language/${projectId}/${widgetId}`
+    )
+  },
+
   async getDimensions() {
     return fetch('get', '/dimensions/')
   },

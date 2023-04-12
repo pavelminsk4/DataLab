@@ -6,6 +6,8 @@
   >
     <WidgetSettingsScreen
       :widget-details="widgetDetails"
+      @save-dimensions-settings="saveDimensionsChanges"
+      @change-aggregation-period="changeAggregationPeriod"
       @save-general-settings="saveGeneralChanges"
       @update-chart-type="($event) => (newChartType = $event)"
       @save-chart-settings="saveChartType"

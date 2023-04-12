@@ -23,13 +23,15 @@
         <td>
           <div class="author-cell">
             <span>{{ item.name }}</span>
-            <span class="author-cell__alias">@{{ item.alias }}</span>
+            <span class="author-cell__alias">
+              <span v-if="item.alias">@</span>{{ item.alias || item.url }}
+            </span>
           </div>
         </td>
-        <td>
+        <td v-if="item.gender">
           <ChipsGender :gender-type="item.gender" />
         </td>
-        <td class="icon-wrapper">
+        <td v-if="item.media_type" class="icon-wrapper">
           <component :is="`${item.media_type}Icon`" />
         </td>
         <td>{{ item.posts }}</td>
@@ -77,6 +79,9 @@ export default {
     widgetWrapper() {
       return this.isSettings ? 'div' : 'WidgetsLayout'
     },
+  },
+  mounted() {
+    console.log(this.widgetDetails)
   },
   methods: {
     datasets(item) {

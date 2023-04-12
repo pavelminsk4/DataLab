@@ -490,6 +490,51 @@ export default {
     }
   },
 
+  async [action.GET_OVERALL_TOP_AUTHORS]({commit}, {projectId, widgetId}) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const overallTopAuthors = await api.getOverallTopAuthors({
+        projectId,
+        widgetId,
+      })
+      commit(mutator.SET_OVERALL_TOP_AUTHORS, overallTopAuthors)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
+  async [action.GET_AUTHORS_BY_LANGUAGE]({commit}, {projectId, widgetId}) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const authorsByLanguage = await api.getAuthorsByLanguage({
+        projectId,
+        widgetId,
+      })
+      commit(mutator.SET_AUTHORS_BY_LANGUAGE, authorsByLanguage)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
+  async [action.GET_AUTHORS_BY_SENTIMENT]({commit}, {projectId, widgetId}) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const authorsBySentiment = await api.getAuthorsBySentiment({
+        projectId,
+        widgetId,
+      })
+      commit(mutator.SET_AUTHORS_BY_SENTIMENT, authorsBySentiment)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
   async [action.GET_SELECTED_DIMENSIONS]({commit}, selectedDimensions) {
     commit(mutator.SET_LOADING, true)
     try {

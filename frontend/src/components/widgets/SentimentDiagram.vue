@@ -39,6 +39,7 @@ export default {
       return ['Positive', 'Negative', 'Neutral'].map((el) => el + ' posts')
     },
     chartValues() {
+      console.log(Object.values(this.sentimentDiagram))
       return [
         {
           data: Object.values(this.sentimentDiagram),

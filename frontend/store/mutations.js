@@ -171,8 +171,21 @@ export default {
   [mutator.SET_SOURCES_BY_COUNTRY](state, data) {
     state.sourcesByCountry = data
   },
+
   [mutator.SET_OVERALL_TOP_SOURCES](state, data) {
     state.overallTopSources = data
+  },
+
+  [mutator.SET_OVERALL_TOP_AUTHORS](state, data) {
+    state.overallTopAuthors = data
+  },
+
+  [mutator.SET_AUTHORS_BY_LANGUAGE](state, data) {
+    state.authorsByLanguage = data
+  },
+
+  [mutator.SET_AUTHORS_BY_SENTIMENT](state, data) {
+    state.authorsBySentiment = data
   },
 
   [mutator.SET_AVAILABLE_WIDGETS](state, data) {

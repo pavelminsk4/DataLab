@@ -72,6 +72,18 @@ export default {
     return state.volume
   },
 
+  [get.AUTHORS_BY_SENTIMENT](state) {
+    return state.authorsBySentiment
+  },
+
+  [get.AUTHORS_BY_LANGUAGE](state) {
+    return state.authorsByLanguage
+  },
+
+  [get.OVERALL_TOP_AUTHORS](state) {
+    return state.overallTopAuthors
+  },
+
   [get.CLIPPING_FEED_CONTENT_WIDGET](state) {
     return state.clippingFeedContent
   },
