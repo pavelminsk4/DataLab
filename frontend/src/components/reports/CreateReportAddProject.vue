@@ -7,7 +7,11 @@
     <template v-if="projects.length">
       <tr v-for="(project, index) in projects" :key="index" class="project-row">
         <td>
-          <BaseCheckbox v-model="selectedProjects" :id="project.id" />
+          <BaseCheckbox
+            v-model="selectedProjects"
+            :id="project.id"
+            :value="{id: project.id, title: project.title}"
+          />
         </td>
         <td>{{ project.title }}</td>
         <td></td>
@@ -39,7 +43,6 @@
       </tr>
     </template>
   </BaseTable>
-
   <footer class="create-reports__footer">
     <ButtonWithArrow
       :is-disabled="isDisableNextBtn"

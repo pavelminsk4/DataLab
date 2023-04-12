@@ -8,7 +8,7 @@
     <MultiSelect
       v-model="selectedValues"
       :options="projects"
-      :is-disabled="templateChecked"
+      :is-disabled="!templateChecked"
       :select-name="templateTitle"
       item-name="project"
     />

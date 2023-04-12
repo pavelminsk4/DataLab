@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div v-if="projects.length" class="wrapper">
     <ReportTemplateCard
       v-for="templateTittle in templateTitles"
       v-model:templateChecked="templates[templateTittle].checked"
@@ -12,6 +12,8 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
+
 import ReportTemplateCard from '@/components/reports/ReportTemplateCard.vue'
 
 export default {
@@ -42,6 +44,9 @@ export default {
       },
     }
   },
+  computed: {
+    ...mapState(['newReport']),
+  },
   created() {
     this.templateTitles = [
       'dashboard',
@@ -50,9 +55,11 @@ export default {
       'demography',
       'influencers',
     ]
-    this.projects = ['Saudi Arabia', 'Labor', 'Cyberpunk', 'The Witcher', 'WoW']
-    this.templateTitles.map(
-      (template) => (this.templates[template].selectedProjects = this.projects)
+    this.projects = this.newReport.projects
+    this.templateTitles.forEach((template) =>
+      this.projects.forEach((project) =>
+        this.templates[template].selectedProjects.push(project.id)
+      )
     )
   },
 }

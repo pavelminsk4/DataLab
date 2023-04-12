@@ -1,6 +1,6 @@
 <template>
   <label class="checkbox-container">
-    <input v-model="isChecked" type="checkbox" :id="id" :value="id" />
+    <input v-model="isChecked" type="checkbox" :id="id" :value="value || id" />
     <span v-if="hasIcon" class="checkmark">
       <CheckIcon class="checkmark-icon" />
     </span>
@@ -19,6 +19,7 @@ export default {
     label: {type: String},
     id: {type: [Number, String], default: 'checkbox'},
     hasIcon: {type: Boolean, default: true},
+    value: {type: [String, Number, Object], default: null},
   },
   emits: ['update:modelValue'],
   computed: {

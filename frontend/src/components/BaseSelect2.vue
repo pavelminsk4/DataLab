@@ -3,7 +3,7 @@
     <button
       :class="[
         'select__button',
-        !isDisabled && 'disable',
+        isDisabled && 'disable',
         hasError && 'select__error',
       ]"
       @click="toggle"
@@ -13,7 +13,7 @@
         <ArrowDownIcon />
       </div>
     </button>
-    <ul :class="[isOpen && 'open', 'select__options']">
+    <ul :class="[isOpen && 'open', 'select__options', 'scroll']">
       <slot>
         <li
           v-for="option in options"
@@ -38,7 +38,7 @@ export default {
   props: {
     options: {type: Array, required: true},
     modelValue: {type: [Boolean, Array, String], required: true},
-    isDisabled: {type: Boolean, default: true},
+    isDisabled: {type: Boolean, default: false},
     hasError: {type: Boolean, default: false},
     selectName: {type: String, required: true},
     itemName: {type: String, default: 'item'},
@@ -106,6 +106,7 @@ export default {
     padding: 15px;
 
     width: 100%;
+    max-height: 300px;
     z-index: 1;
 
     list-style: none;
@@ -115,6 +116,7 @@ export default {
     box-shadow: 1px 2px 6px rgba(135, 135, 135, 0.25);
 
     visibility: hidden;
+    overflow-y: auto;
   }
 
   &__button {

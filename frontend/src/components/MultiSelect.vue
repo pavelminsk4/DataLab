@@ -1,11 +1,9 @@
 <template>
   <BaseSelect
     v-model="selectedValues"
+    v-bind="$attrs"
     :options="options"
     :has-error="hasError"
-    :is-disabled="isDisabled"
-    :item-name="itemName"
-    :select-name="selectName"
     :placeholder="selectPlaceholder"
   >
     <li>
@@ -14,8 +12,8 @@
       </BaseCheckbox>
     </li>
     <li v-for="option in options" :key="option">
-      <BaseCheckbox v-model="selectedValues" :id="option" class="option">
-        <span class="option__title">{{ option }}</span>
+      <BaseCheckbox v-model="selectedValues" :id="option.id" class="option">
+        <span class="option__title">{{ option.title }}</span>
       </BaseCheckbox>
     </li>
   </BaseSelect>
@@ -30,8 +28,6 @@ export default {
   props: {
     options: {type: Array, required: true},
     modelValue: {type: Array, required: true},
-    isDisabled: {type: Boolean, default: true},
-    selectName: {type: String, required: true},
     itemName: {type: String, default: 'item'},
   },
   emits: ['update:templateChecked', 'update:modelValue'],
@@ -56,7 +52,8 @@ export default {
       },
       set(val) {
         this.isSelectAll = val
-        const currProjects = this.isSelectAll ? this.options : []
+        const allOptions = this.options.map((option) => option.id)
+        const currProjects = this.isSelectAll ? allOptions : []
         this.$emit('update:modelValue', currProjects)
       },
     },
