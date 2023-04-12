@@ -12,6 +12,7 @@
 
   <div class="search-settings-wrapper">
     <SimpleModeTab
+      :module-name="moduleName"
       @show-result="showResults"
       @update-collection="updateCollection"
       @save-project="createWorkspaceAndProject"

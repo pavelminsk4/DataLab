@@ -58,12 +58,13 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
+import {get} from '@store/constants'
+
 import BaseTag from '@/components/BaseTag'
 import OnlineSearchForm from '@/components/project/OnlineSearchForm'
 import SocialSearchForm from '@/components/project/SocialSearchForm'
 import BaseButton from '@/components/common/BaseButton'
-import {mapGetters} from 'vuex'
-import {get} from '@store/constants'
 import SaveIcon from '@/components/icons/SaveIcon'
 
 export default {
