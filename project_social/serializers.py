@@ -4,8 +4,8 @@ from api.serializers import UserSerializer
 from rest_framework import serializers
 from .models import *
 
-class ProjectSocialSerializer(serializers.ModelSerializer):
-  users = UserSerializer
+class ProjectSocialSerializer(WritableNestedModelSerializer):
+  members = UserSerializer(many=True, required=False)
   note = serializers.CharField(max_length=1000, allow_blank=True)
   class Meta:
     model = ProjectSocial
