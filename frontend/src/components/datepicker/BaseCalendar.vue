@@ -151,7 +151,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions([action.UPDATE_ADDITIONAL_FILTERS, action.POST_SEARCH]),
+    ...mapActions([action.UPDATE_ADDITIONAL_FILTERS]),
     handleDate(modelData) {
       try {
         this.selectedDate = [
@@ -175,25 +175,6 @@ export default {
           ),
         ]
         this[action.UPDATE_ADDITIONAL_FILTERS]({date_range: this.selectedDate})
-        this[action.POST_SEARCH]({
-          keywords: this.keywords?.keywords || [],
-          additions: this.keywords?.additional_keywords || [],
-          exceptions: this.keywords?.ignore_keywords || [],
-          country: this.additionalFilters?.country || [],
-          language: this.additionalFilters?.language || [],
-          sentiment: this.additionalFilters?.sentiment || [],
-          date_range: this.additionalFilters?.date_range || [],
-          source: this.additionalFilters?.source || [],
-          author: this.additionalFilters?.author || [],
-          posts_per_page: 20,
-          page_number: 1,
-          sort_posts: [],
-          country_dimensions: [],
-          language_dimensions: [],
-          source_dimensions: [],
-          author_dimensions: [],
-          sentiment_dimensions: [],
-        })
       } catch (e) {
         console.log(e)
       }
