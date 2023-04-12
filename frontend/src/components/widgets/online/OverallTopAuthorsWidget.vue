@@ -39,13 +39,8 @@ export default {
       })
     }
   },
-  mounted() {
-    console.log(this.overallTopAuthors)
-  },
   methods: {
     ...mapActions([action.GET_OVERALL_TOP_AUTHORS]),
   },
 }
 </script>
-
-<style lang="scss" scoped></style>

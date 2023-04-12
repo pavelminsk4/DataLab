@@ -32,10 +32,6 @@ export default {
       widgetId: this.widgetDetails.id,
     })
   },
-
-  mounted() {
-    console.log(this.authorsBySentiment)
-  },
   methods: {
     ...mapActions([action.GET_AUTHORS_BY_SENTIMENT]),
   },

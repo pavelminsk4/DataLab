@@ -80,9 +80,6 @@ export default {
       return this.isSettings ? 'div' : 'WidgetsLayout'
     },
   },
-  mounted() {
-    console.log(this.widgetDetails)
-  },
   methods: {
     datasets(item) {
       const barPercent =

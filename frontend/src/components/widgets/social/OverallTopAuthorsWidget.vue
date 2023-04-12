@@ -44,9 +44,6 @@ export default {
       })
     }
   },
-  mounted() {
-    console.log(this.widgetData)
-  },
   methods: {
     ...mapActions([action.GET_OVERALL_TOP_AUTHORS]),
   },
