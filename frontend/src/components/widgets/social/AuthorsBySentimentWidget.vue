@@ -27,17 +27,6 @@ export default {
     authorsBySentiment() {
       return this.socialWidgets.authorsBySentiment
     },
-    labels() {
-      return this.authorsBySentiment.map((el) => el.sentiment)
-    },
-    chartValues() {
-      return [
-        {
-          color: '#516BEE',
-          data: this.authorsBySentiment.map((el) => el.user_count),
-        },
-      ]
-    },
   },
   created() {
     if (!this.authorsBySentiment.length) {

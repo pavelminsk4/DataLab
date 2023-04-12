@@ -51,6 +51,9 @@ const state = {
   sentimentDiagram: [],
   sentimentNumberOfResult: [],
   authorsByCountry: [],
+  authorsByLanguage: [],
+  authorsBySentiment: [],
+  overallTopAuthors: [],
   dimensions: [],
   templates: [],
   newWorkspace: {

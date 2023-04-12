@@ -316,6 +316,7 @@ export const widgetsConfig = {
 
   overall_top_authors: {
     ...WIDGET_DEFAULT_SETTINGS,
+    hasAggregationPeriod: false,
     actionName: action.GET_OVERALL_TOP_AUTHORS,
     defaultChartType: 'SentimentBarChart',
     availableTypes: null,
@@ -328,6 +329,7 @@ export const widgetsConfig = {
   },
   authors_by_language: {
     ...WIDGET_DEFAULT_SETTINGS,
+    hasAggregationPeriod: false,
     actionName: action.GET_AUTHORS_BY_LANGUAGE,
     defaultChartType: 'DoughnutChart',
     availableTypes: SIMPLE_CHARTS,
@@ -340,6 +342,7 @@ export const widgetsConfig = {
   },
   authors_by_sentiment: {
     ...WIDGET_DEFAULT_SETTINGS,
+    hasAggregationPeriod: false,
     actionName: action.GET_AUTHORS_BY_SENTIMENT,
     defaultChartType: 'DoughnutChart',
     availableTypes: SIMPLE_CHARTS,

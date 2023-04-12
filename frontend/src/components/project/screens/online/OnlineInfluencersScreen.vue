@@ -51,8 +51,11 @@ export default {
     this.widgets = [
       {name: 'top_sharing_sources', isFullWidth: false},
       {name: 'authors_by_country', isFullWidth: false},
+      {name: 'overall_top_authors', isFullWidth: true},
       {name: 'overall_top_sources', isFullWidth: true},
       {name: 'sources_by_language', isFullWidth: false},
+      {name: 'authors_by_language', isFullWidth: false},
+      {name: 'authors_by_sentiment', isFullWidth: false},
     ]
   },
   methods: {

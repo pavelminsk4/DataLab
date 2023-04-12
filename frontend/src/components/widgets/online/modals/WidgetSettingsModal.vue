@@ -84,6 +84,9 @@ export default {
       action.GET_SOURCES_BY_COUNTRY,
       action.GET_TOP_SHARING_SOURCES,
       action.GET_SOURCES_BY_LANGUAGE,
+      action.GET_OVERALL_TOP_AUTHORS,
+      action.GET_AUTHORS_BY_LANGUAGE,
+      action.GET_AUTHORS_BY_SENTIMENT,
       action.POST_DIMENSIONS_FOR_WIDGET,
     ]),
 

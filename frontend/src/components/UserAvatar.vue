@@ -47,11 +47,11 @@ export default {
       if (this.firstName && this.lastName) {
         return `${this.firstName[0]}${this.lastName[0]}`.toUpperCase()
       }
-      return this.username[0].toUpperCase()
+      return this.username[0]?.toUpperCase()
     },
     acronymColor() {
       const code =
-        this.acronym.split().reduce((a, c) => a * c.charCodeAt(0), 1) %
+        this.acronym?.split().reduce((a, c) => a * c.charCodeAt(0), 1) %
         PREDEFINED_COLORS.length
       return PREDEFINED_COLORS[code]
     },
