@@ -17,6 +17,7 @@ import {mapState} from 'vuex'
 import ReportTemplateCard from '@/components/reports/ReportTemplateCard.vue'
 
 export default {
+  name: 'ChooseReportTemplateCard',
   components: {ReportTemplateCard},
   data() {
     return {
@@ -46,6 +47,9 @@ export default {
   },
   computed: {
     ...mapState(['newReport']),
+    projects() {
+      return this.newReport.projects
+    },
   },
   created() {
     this.templateTitles = [
@@ -55,7 +59,7 @@ export default {
       'demography',
       'influencers',
     ]
-    this.projects = this.newReport.projects
+
     this.templateTitles.forEach((template) =>
       this.projects.forEach((project) =>
         this.templates[template].selectedProjects.push(project.id)
