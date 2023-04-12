@@ -1,20 +1,29 @@
 <template>
   <div :id="`select-${selectName}`" class="select">
     <button
-      @click="toggle"
       :class="[
         'select__button',
         !isDisabled && 'disable',
         hasError && 'select__error',
       ]"
+      @click="toggle"
     >
       <div class="select__placeholder">
-        <span>{{ selectPlaceholder }}</span>
+        <span>{{ placeholder || selectedValues }}</span>
         <ArrowDownIcon />
       </div>
     </button>
     <ul :class="[isOpen && 'open', 'select__options']">
-      <slot></slot>
+      <slot>
+        <li
+          v-for="option in options"
+          :key="option"
+          class="option"
+          @click="selectedValues = option"
+        >
+          {{ option }}
+        </li>
+      </slot>
     </ul>
   </div>
 </template>
@@ -23,14 +32,16 @@
 import ArrowDownIcon from '@/components/icons/ArrowDownIcon'
 
 export default {
+  name: 'BaseSelect',
   components: {ArrowDownIcon},
   props: {
     options: {type: Array, required: true},
-    modelValue: {type: [Boolean, Array], required: true},
-    isDisabled: {type: Boolean, required: true},
+    modelValue: {type: [Boolean, Array, String], required: true},
+    isDisabled: {type: Boolean, default: true},
     hasError: {type: Boolean, default: false},
     selectName: {type: String, required: true},
     itemName: {type: String, default: 'item'},
+    placeholder: {type: String, default: ''},
   },
   data() {
     return {
@@ -45,19 +56,6 @@ export default {
       set(val) {
         this.$emit('update:modelValue', val)
       },
-    },
-    selectPlaceholder() {
-      const length = this.selectedValues.length
-      switch (length) {
-        case 0:
-          return `Select at least one ${this.itemName}`
-        case 1:
-          return this.selectedValues.toString()
-        case this.options.length:
-          return `All ${this.itemName}s`
-        default:
-          return `${length} ${this.itemName}s selected`
-      }
     },
   },
   created() {
@@ -133,6 +131,21 @@ export default {
   }
   .open {
     visibility: visible;
+  }
+}
+
+.option {
+  display: flex;
+  gap: 10px;
+
+  cursor: pointer;
+  &__title {
+    display: flex;
+    align-self: center;
+
+    height: 100%;
+
+    font-size: 16px;
   }
 }
 </style>

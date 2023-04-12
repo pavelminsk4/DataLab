@@ -16,14 +16,21 @@
 
     <section class="setting">
       <span class="setting__title">Template</span>
+      <BaseSelect
+        v-model="settings.template"
+        :options="options"
+        select-name="template"
+      />
     </section>
   </aside>
 </template>
 
 <script>
 import BaseRadio from '@/components/BaseRadio'
+import BaseSelect from '@/components/BaseSelect2'
 export default {
-  components: {BaseRadio},
+  name: 'ReportsSettingsTemplate',
+  components: {BaseRadio, BaseSelect},
   data() {
     return {
       settings: {
@@ -32,6 +39,9 @@ export default {
         template: 'Select template',
       },
     }
+  },
+  created() {
+    this.options = ['template_1', 'template_2', 'template_3']
   },
 }
 </script>

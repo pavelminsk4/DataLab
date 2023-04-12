@@ -5,25 +5,13 @@
         capitalizeFirstLetter(templateTitle)
       }}</span>
     </BaseCheckbox>
-    <BaseSelect
+    <MultiSelect
       v-model="selectedValues"
       :options="projects"
       :is-disabled="templateChecked"
-      :has-error="hasError"
       :select-name="templateTitle"
       item-name="project"
-    >
-      <li>
-        <BaseCheckbox v-model="isSelectAllProxy" class="option">
-          <span class="option__title">All projects</span>
-        </BaseCheckbox>
-      </li>
-      <li v-for="option in projects" :key="option">
-        <BaseCheckbox v-model="selectedValues" :id="option" class="option">
-          <span class="option__title">{{ option }}</span>
-        </BaseCheckbox>
-      </li>
-    </BaseSelect>
+    />
     <div class="card__preview">
       <img
         :src="require(`@/assets/reports/templates/${templateTitle}.png`)"
@@ -37,11 +25,11 @@
 import {capitalizeFirstLetter} from '@/lib/utilities'
 
 import BaseCheckbox from '@/components/BaseCheckbox2'
-import BaseSelect from '@/components/BaseSelect2'
+import MultiSelect from '@/components/MultiSelect'
 
 export default {
   name: 'ReportTemplateCard',
-  components: {BaseSelect, BaseCheckbox},
+  components: {BaseCheckbox, MultiSelect},
   props: {
     templateTitle: {type: String, required: true},
     projects: {type: Array, required: true},
@@ -71,19 +59,6 @@ export default {
         this.$emit('update:selectedProjects', val)
         this.isSelectAll = this.projects.length === val.length
       },
-    },
-    isSelectAllProxy: {
-      get() {
-        return this.isSelectAll
-      },
-      set(val) {
-        this.isSelectAll = val
-        const currProjects = this.isSelectAll ? this.projects : []
-        this.$emit('update:selectedProjects', currProjects)
-      },
-    },
-    hasError() {
-      return !this.selectedValues.length
     },
   },
   methods: {
@@ -117,19 +92,6 @@ export default {
     font-size: 16px;
 
     height: 100%;
-  }
-
-  .option {
-    display: flex;
-    gap: 10px;
-    &__title {
-      display: flex;
-      align-self: center;
-
-      height: 100%;
-
-      font-size: 16px;
-    }
   }
 }
 </style>
