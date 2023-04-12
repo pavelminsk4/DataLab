@@ -29,7 +29,7 @@ class ContentVolumeTop5SourcesWidgetTests(APITestCase):
     widget_pk = pr1.widgets_list_2.content_volume_top_5_source_widget_id
     url = reverse('widgets:content_volume_top_5_source_widget', kwargs={'pk':pr1.pk, 'widget_pk':widget_pk})
     data = {
-            'smpl_freq': "day"
+            'aggregation_period': "day"
     }
     response = self.client.post(url, data, format='json')
     self.assertEqual(response.status_code, status.HTTP_200_OK)

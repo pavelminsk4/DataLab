@@ -29,7 +29,7 @@ class SentimentForPeriodWidgetTests(APITestCase):
     widget_pk = pr.widgets_list_2.sentiment_for_period_widget_id
     url = reverse('widgets:sentiment_for_period_widget', kwargs={'pk':pr.pk, 'widget_pk':widget_pk})
     data = {
-            'smpl_freq': "day"
+            'aggregation_period': "day"
     }
     response = self.client.post(url, data, format='json')
     self.assertEqual(response.status_code, status.HTTP_200_OK)

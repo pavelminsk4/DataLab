@@ -7,9 +7,9 @@ from project.models import Project
 from django.db.models import Count
 import json
 
-def post_agregator_volume(posts, smpl_freq):
-  posts_per_smpl_freq = posts.annotate(date=Trunc('entry_published', smpl_freq)).values("date").annotate(created_count=Count('id')).order_by("date")
-  return list(posts_per_smpl_freq)
+def post_agregator_volume(posts, aggregation_period):
+  posts_per_aggregation_period = posts.annotate(date=Trunc('entry_published', aggregation_period)).values("date").annotate(created_count=Count('id')).order_by("date")
+  return list(posts_per_aggregation_period)
 
 def volume(request, pk, widget_pk):
   project = get_object_or_404(Project, pk=pk)
@@ -17,6 +17,6 @@ def volume(request, pk, widget_pk):
   widget = WidgetDescription.objects.get(id=widget_pk)
   posts = post_agregetor_for_each_widget(widget, posts)
   body = json.loads(request.body)
-  smpl_freq = body['smpl_freq']
-  res = post_agregator_volume(posts, smpl_freq)
+  aggregation_period = body['aggregation_period']
+  res = post_agregator_volume(posts, aggregation_period)
   return JsonResponse(res, safe = False)
