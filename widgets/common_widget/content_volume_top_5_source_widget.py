@@ -32,5 +32,7 @@ def content_volume_top_5_source(request, pk, widget_pk):
   posts = post_agregator_with_dimensions(project)
   widget = WidgetDescription.objects.get(id=widget_pk)
   posts = post_agregetor_for_each_widget(widget, posts)
-  res = agregator_results_content_volume_top_sources(posts, widget.aggregation_period, widget.top_counts)
+  body = json.loads(request.body)
+  aggregation_period = body['aggregation_period']
+  res = agregator_results_content_volume_top_sources(posts, aggregation_period, widget.top_counts)
   return JsonResponse(res, safe = False)

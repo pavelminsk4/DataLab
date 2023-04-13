@@ -17,7 +17,10 @@ class ContentVolumeWidgetTests(APITestCase):
                                 end_search_date=datetime(2023, 10, 16), country_filter=[], author_filter=[], source_filter=[], creator=user)
     widget_pk = pr.social_widgets_list.content_volume_id
     url = reverse('project_social:social_content_volume', kwargs={'pk':pr.pk, 'widget_pk':widget_pk})
-    response = self.client.get(url)
+    data = {
+            'aggregation_period': "day"
+           }
+    response = self.client.post(url, data, format='json')
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     res = [
             {'created_count': 1, 'date': '2020-10-10 00:00:00+00:00'},

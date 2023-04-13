@@ -4,6 +4,7 @@ from django.http import JsonResponse
 from django.db.models import Count
 from django.db.models.functions import Trunc
 from .filters_for_widgets import *
+import json
 
 def post_agregator_sentiment_for_period(posts, aggregation_period):
   negative_posts = posts.annotate(date=Trunc('entry_published', aggregation_period)).values("date").filter(sentiment='negative').annotate(count_negative=Count('sentiment')).order_by("date")
@@ -26,5 +27,7 @@ def sentiment_for_period(request, pk, widget_pk):
   posts = post_agregator_with_dimensions(project)
   widget = WidgetDescription.objects.get(id=widget_pk)
   posts = post_agregetor_for_each_widget(widget, posts)
-  results = post_agregator_sentiment_for_period(posts, widget.aggregation_period)
+  body = json.loads(request.body)
+  aggregation_period = body['aggregation_period']
+  results = post_agregator_sentiment_for_period(posts, aggregation_period)
   return JsonResponse(results, safe = False)  
