@@ -104,10 +104,11 @@ export default {
     )
   },
 
-  async getGenderVolumeWidget(projectId, widgetId) {
+  async getGenderVolumeWidget(projectId, widgetId, value) {
     return fetch(
       'put',
-      `${moduleName}/social_gender_volume/${projectId}/${widgetId}`
+      `${moduleName}/social_gender_volume/${projectId}/${widgetId}`,
+      value
     )
   },
 
