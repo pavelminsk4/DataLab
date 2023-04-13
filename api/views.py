@@ -178,13 +178,12 @@ def search(request):
     'sentiment',
     )
 
-  for post in posts:
+  p = Paginator(posts, posts_per_page)
+  posts_list=list(p.page(page_number))
+  for post in posts_list:
     src = post['feedlink__source1']
     post['feedlink__source1'] = src if '<img' not in str(src) else re.findall('alt="(.*)"', src)[0]
     post['category'] = classification(Post.objects.get(pk=post['id']))
-
-  p = Paginator(posts, posts_per_page)
-  posts_list=list(p.page(page_number))
   res = { 'num_pages': p.num_pages, 'num_posts': p.count, 'posts': posts_list }
   return JsonResponse(res, safe = False)
 
