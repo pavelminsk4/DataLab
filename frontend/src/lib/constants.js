@@ -1,52 +1,16 @@
 export const months = [
-  {
-    text: 'January',
-    value: 0,
-  },
-  {
-    text: 'February',
-    value: 1,
-  },
-  {
-    text: 'March',
-    value: 2,
-  },
-  {
-    text: 'April',
-    value: 3,
-  },
-  {
-    text: 'May',
-    value: 4,
-  },
-  {
-    text: 'June',
-    value: 5,
-  },
-  {
-    text: 'July',
-    value: 6,
-  },
-  {
-    text: 'August',
-    value: 7,
-  },
-  {
-    text: 'September',
-    value: 8,
-  },
-  {
-    text: 'October',
-    value: 9,
-  },
-  {
-    text: 'November',
-    value: 10,
-  },
-  {
-    text: 'December',
-    value: 11,
-  },
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
 ]
 
 export const years = [
@@ -335,5 +299,76 @@ export const years = [
     text: '2040',
   },
 ]
+export const onlineWidgetsList = {
+  summary: [
+    {name: 'summary_widget'},
+    {name: 'content_volume_top_5_source_widget'},
+    {name: 'sentiment_for_period_widget'},
+    {name: 'volume_widget'},
+    {name: 'top_10_countries_widget', isFullWidth: true},
+    {name: 'top_10_authors_by_volume_widget'},
+    {name: 'top_keywords'},
+  ],
+  sentiment: [
+    {name: 'sentiment_number_of_results'},
+    {name: 'sentiment_diagram'},
+    {name: 'sentiment_top_10_authors_widget'},
+    {name: 'top_keywords'},
+    {name: 'sentiment_top_10_sources_widget', isFullWidth: true},
+    {name: 'sentiment_top_10_countries_widget'},
+    {name: 'sentiment_top_10_languages_widget'},
+    {name: 'sentiment_top_keywords'},
+  ],
+  demography: [
+    {name: 'top_sharing_sources', isFullWidth: false},
+    {name: 'sources_by_language', isFullWidth: false},
+    {name: 'overall_top_sources', isFullWidth: true},
+    {name: 'sources_by_country', isFullWidth: false},
+  ],
+  influencers: [
+    {name: 'top_sharing_sources', isFullWidth: false},
+    {name: 'authors_by_country', isFullWidth: false},
+    {name: 'overall_top_authors', isFullWidth: true},
+    {name: 'overall_top_sources', isFullWidth: true},
+    {name: 'sources_by_language', isFullWidth: false},
+    {name: 'authors_by_language', isFullWidth: false},
+    {name: 'authors_by_sentiment', isFullWidth: false},
+  ],
+}
+
+export const socialWidgetsList = {
+  summary: [
+    {name: 'summary'},
+    {name: 'sentiment'},
+    {name: 'content_volume'},
+    {name: 'top_keywords'},
+    {name: 'top_authors'},
+    {name: 'gender_volume'},
+  ],
+  sentiment: [
+    {name: 'sentiment_number_of_results'},
+    {name: 'sentiment_diagram'},
+    {name: 'sentiment_authors'},
+    {name: 'sentiment_locations'},
+    {name: 'sentiment_languages'},
+    {name: 'sentiment_by_gender'},
+    {name: 'sentiment_top_keywords'},
+  ],
+  demography: [
+    {name: 'top_sharing_sources', isFullWidth: false},
+    {name: 'authors_by_language', isFullWidth: false},
+    {name: 'overall_top_authors', isFullWidth: true},
+    {name: 'top_authors_by_gender', isFullWidth: true},
+    {name: 'authors_by_location', isFullWidth: false},
+    {name: 'authors_by_gender', isFullWidth: false},
+  ],
+  influencers: [
+    {name: 'top_sharing_sources', isFullWidth: false},
+    {name: 'authors_by_sentiment', isFullWidth: false},
+    {name: 'overall_top_authors', isFullWidth: true},
+    {name: 'authors_by_gender', isFullWidth: false},
+    {name: 'authors_by_language', isFullWidth: false},
+  ],
+}
 
 export const PREDEFINED_COLORS = ['#EE51AF', '#00B884', '#516BEE', '#DD8500']

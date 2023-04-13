@@ -9,7 +9,7 @@
         class="select-year"
       />
       <BaseCalendarSelect
-        :options="monthArray"
+        :options="months"
         :value="currentMonth(month)"
         :name="'month-year'"
         @select-option="updateMonth"
@@ -29,7 +29,7 @@ import {defineComponent, computed} from 'vue'
 import BaseCalendarSelect from '@/components/datepicker/BaseCalendarSelect'
 import CalendarControlIcon from '@/components/icons/CalendarControlIcon'
 
-import {months, years} from '@/lib/constants'
+import {years, months} from '@/lib/constants'
 
 export default defineComponent({
   components: {CalendarControlIcon, BaseCalendarSelect},
@@ -70,21 +70,17 @@ export default defineComponent({
       updateMonthYear(month, year)
     }
 
-    const currentMonth = (month) => {
-      return months.filter((el) => el.value === month)[0].text
+    const currentMonth = (numOfMonth) => {
+      return months[numOfMonth]
     }
 
     const yearsArray = computed(() => {
       return years.map((el) => el.text)
     })
 
-    const monthArray = computed(() => {
-      return months.map((el) => el.text)
-    })
-
     const updateMonth = (option) => {
       const selectedMonth = computed(() => {
-        return months.filter((el) => el.text === option)
+        return [{text: option, value: months.indexOf(option)}]
       })
 
       updateMonthYear(selectedMonth.value[0].value, props.year)
@@ -100,7 +96,7 @@ export default defineComponent({
       updateYear,
       updateMonth,
       yearsArray,
-      monthArray,
+      months,
       currentMonth,
     }
   },
