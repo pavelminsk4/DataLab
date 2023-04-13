@@ -1,5 +1,5 @@
 from drf_writable_nested.serializers import WritableNestedModelSerializer
-from tweet_binder.models import TweetBinderPost
+from tweet_binder.models import *
 from api.serializers import UserSerializer
 from rest_framework import serializers
 from .models import *
@@ -43,4 +43,21 @@ class WidgetsListSerializer(WritableNestedModelSerializer):
 
   class Meta:
     model = AccountAnalysisWidgetsList
+    fields = '__all__'
+
+class TweetBinderPostSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = TweetBinderPost
+    fields = '__all__'
+
+class TweetBinderUserTrackerSerializer(serializers.ModelSerializer):
+  account_analysis_project = ProjectAccountAnalysisSerializer()
+  class Meta:
+    model = TweetBinderUserTracker
+    fields = '__all__'
+
+class TweetBinderUserTrackerAnalysisSerializer(serializers.ModelSerializer):
+  user_alias = TweetBinderUserTrackerSerializer()
+  class Meta:
+    model = TweetBinderUserTrackerAnalysis
     fields = '__all__'

@@ -1,4 +1,5 @@
 from rest_framework.generics import ListAPIView, CreateAPIView, UpdateAPIView, DestroyAPIView
+from .widgets.dashboard.summary import *
 from django.shortcuts import render
 from rest_framework import viewsets
 from .serializers import *
@@ -29,3 +30,6 @@ class WorkspaceAccountAnalysisUpdate(UpdateAPIView):
 class WorkspaceAccountAnalysisDelete(DestroyAPIView):
   queryset = WorkspaceAccountAnalysis.objects.all()
   serializer_class = WorkspaceAccountAnalysisSerializer
+
+def account_analysis_summary_widget(request, pk, widget_pk):
+  return account_analysis_summary(pk, widget_pk)
