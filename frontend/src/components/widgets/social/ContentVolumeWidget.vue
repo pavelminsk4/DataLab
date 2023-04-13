@@ -72,7 +72,7 @@ export default {
           country_dim_pivot: this.widgetDetails.country_dim_pivot || null,
           sentiment_dim_pivot: this.widgetDetails.sentiment_dim_pivot || null,
           source_dim_pivot: this.widgetDetails.source_dim_pivot || null,
-          smpl_freq: this.widgetDetails.aggregation_period,
+          aggregation_period: this.widgetDetails.aggregation_period,
         },
         widgetId: this.widgetDetails.id,
       })

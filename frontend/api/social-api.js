@@ -98,16 +98,17 @@ export default {
 
   async getContentVolumeWidget({projectId, value, widgetId}) {
     return fetch(
-      'get',
+      'put',
       `${moduleName}/social_content_volume/${projectId}/${widgetId}`,
       value
     )
   },
 
-  async getGenderVolumeWidget(projectId, widgetId) {
+  async getGenderVolumeWidget(projectId, widgetId, value) {
     return fetch(
-      'get',
-      `${moduleName}/social_gender_volume/${projectId}/${widgetId}`
+      'put',
+      `${moduleName}/social_gender_volume/${projectId}/${widgetId}`,
+      value
     )
   },
 
@@ -181,7 +182,7 @@ export default {
   // Content Volume
   async getContentVolumeTopLocations({projectId, value, widgetId}) {
     return fetch(
-      'get',
+      'put',
       `${moduleName}/social_content_volume_by_top_locations/${projectId}/${widgetId}`,
       value
     )
@@ -195,7 +196,7 @@ export default {
   },
   async getContentVolumeTopLanguages({projectId, value, widgetId}) {
     return fetch(
-      'get',
+      'put',
       `${moduleName}/social_content_volume_by_top_languages/${projectId}/${widgetId}`,
       value
     )
@@ -229,7 +230,7 @@ export default {
   },
   async getSentimentForPeriod({projectId, value, widgetId}) {
     return fetch(
-      'get',
+      'put',
       `${moduleName}/social_sentiment/${projectId}/${widgetId}`,
       value
     )

@@ -148,6 +148,7 @@ export const widgetsConfig = {
   },
   sentiment_top_10_languages_widget: {
     ...WIDGET_DEFAULT_SETTINGS,
+    hasAggregationPeriod: false,
     actionName: action.GET_SENTIMENT_TOP_LANGUAGES,
     defaultChartType: 'BarChart',
     availableTypes: SENTIMENTS_CHARTS,
@@ -172,7 +173,6 @@ export const widgetsConfig = {
   },
   content_volume_top_5_source_widget: {
     ...WIDGET_DEFAULT_SETTINGS,
-    hasAggregationPeriod: false,
     actionName: action.GET_CONTENT_VOLUME_TOP_SOURCES,
     defaultChartType: 'MultiLineChart',
     availableTypes: MULTI_CHARTS,
@@ -323,6 +323,7 @@ export const widgetsConfig = {
   },
   top_authors_by_gender: {
     ...WIDGET_DEFAULT_SETTINGS,
+    hasPreview: false,
     actionName: action.GET_TOP_AUTHORS_BY_GENDER,
     defaultChartType: 'SentimentBarChart',
     availableTypes: null,

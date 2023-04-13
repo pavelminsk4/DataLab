@@ -51,10 +51,17 @@ export default {
     }
   },
 
-  async [action.GET_GENDER_VOLUME_WIDGET]({commit}, {projectId, widgetId}) {
+  async [action.GET_GENDER_VOLUME_WIDGET](
+    {commit},
+    {projectId, widgetId, value}
+  ) {
     commit(mutator.SET_LOADING, true, {root: true})
     try {
-      const data = await api.social.getGenderVolumeWidget(projectId, widgetId)
+      const data = await api.social.getGenderVolumeWidget(
+        projectId,
+        widgetId,
+        value
+      )
       commit(mutator.SET_GENDER_VOLUME_WIDGET, data)
     } catch (e) {
       console.log(e)

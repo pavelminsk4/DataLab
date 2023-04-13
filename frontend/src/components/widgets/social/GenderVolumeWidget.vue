@@ -41,6 +41,14 @@ export default {
       this[action.GET_GENDER_VOLUME_WIDGET]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,
+        value: {
+          author_dim_pivot: this.widgetDetails.author_dim_pivot || null,
+          language_dim_pivot: this.widgetDetails.language_dim_pivot || null,
+          country_dim_pivot: this.widgetDetails.country_dim_pivot || null,
+          sentiment_dim_pivot: this.widgetDetails.sentiment_dim_pivot || null,
+          source_dim_pivot: this.widgetDetails.source_dim_pivot || null,
+          aggregation_period: this.widgetDetails.aggregation_period,
+        },
       })
     }
   },
