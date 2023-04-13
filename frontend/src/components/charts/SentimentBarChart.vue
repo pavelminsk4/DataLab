@@ -61,7 +61,6 @@ export default {
       }
     },
     chartData() {
-      console.log(this.chartValues)
       return [
         {
           labels: [''],

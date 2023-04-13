@@ -113,6 +113,7 @@ export default {
 }
 
 .report-add-users {
+  width: 100%;
   margin-top: 32px;
 }
 </style>

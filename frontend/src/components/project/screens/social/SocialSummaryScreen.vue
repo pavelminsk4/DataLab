@@ -14,6 +14,7 @@ const {mapActions, mapGetters: mapGettersSocial} =
   createNamespacedHelpers('social/widgets')
 
 import {getWidgetDetails} from '@lib/utilities'
+import {socialWidgetsList} from '@/lib/constants'
 
 import WidgetsList from '@/components/widgets/WidgetsList'
 
@@ -35,7 +36,7 @@ export default {
     selectedWidgets: {
       get() {
         if (!this.availableWidgets) return
-        return this.widgets
+        return socialWidgetsList.summary
           .map((widget) => {
             if (this.availableWidgets[widget.name]) {
               return {
@@ -53,14 +54,6 @@ export default {
     },
   },
   async created() {
-    this.widgets = [
-      {name: 'summary'},
-      {name: 'sentiment'},
-      {name: 'content_volume'},
-      {name: 'top_keywords'},
-      {name: 'top_authors'},
-      {name: 'gender_volume'},
-    ]
     if (!this.availableWidgets) {
       await this[action.GET_AVAILABLE_WIDGETS](this.currentProject.id)
     }

@@ -12,6 +12,7 @@ import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
 import {getWidgetDetails} from '@lib/utilities'
+import {onlineWidgetsList} from '@/lib/constants'
 
 import WidgetsList from '@/components/widgets/WidgetsList'
 
@@ -30,7 +31,7 @@ export default {
     selectedWidgets: {
       get() {
         if (!this.availableWidgets) return
-        return this.widgets
+        return onlineWidgetsList.sentiment
           .map((widget) => {
             if (this.availableWidgets[widget.name]) {
               return {
@@ -46,18 +47,6 @@ export default {
           .filter((widgets) => widgets)
       },
     },
-  },
-  async created() {
-    this.widgets = [
-      {name: 'sentiment_number_of_results'},
-      {name: 'sentiment_diagram'},
-      {name: 'sentiment_top_10_authors_widget'},
-      {name: 'top_keywords'},
-      {name: 'sentiment_top_10_sources_widget', isFullWidth: true},
-      {name: 'sentiment_top_10_countries_widget'},
-      {name: 'sentiment_top_10_languages_widget'},
-      {name: 'sentiment_top_keywords'},
-    ]
   },
   methods: {
     ...mapActions([action.UPDATE_AVAILABLE_WIDGETS]),

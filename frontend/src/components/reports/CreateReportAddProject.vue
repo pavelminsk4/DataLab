@@ -18,7 +18,11 @@
           />
         </td>
         <td>{{ project.title }}</td>
-        <td></td>
+        <td>
+          <div class="chips-height">
+            <BaseChips :chips-type="project.source" />
+          </div>
+        </td>
         <td>
           <TagsCollapsible
             v-if="project.keywords.length"
@@ -64,6 +68,7 @@ import createReportMixin from '@/lib/mixins/create-report.js'
 import TagsCollapsible from '@components/TagsCollapsible.vue'
 import BaseTable from '@components/common/BaseTable'
 import BaseCheckbox from '@/components/BaseCheckbox2'
+import BaseChips from '@/components/BaseChips.vue'
 
 const {mapActions: mapSocialActions} = createNamespacedHelpers('social')
 
@@ -76,6 +81,7 @@ export default {
     TagsCollapsible,
     BaseTable,
     BaseCheckbox,
+    BaseChips,
   },
   data() {
     return {
@@ -91,7 +97,7 @@ export default {
   created() {
     this.tableHeader = [
       {name: 'project name', width: ''},
-      {name: 'type', width: ''},
+      {name: 'type', width: '14%'},
       {name: 'keywords', width: '20%'},
       {name: 'assigned user', width: '11%'},
       {name: 'creator', width: '16%'},
@@ -156,5 +162,9 @@ export default {
 .creator {
   display: flex;
   align-items: center;
+}
+
+.chips-height {
+  height: 28px;
 }
 </style>

@@ -110,7 +110,7 @@ export default {
 
     height: auto;
     max-height: 110px;
-    width: 516px;
+    width: 100%;
     padding: 8px;
 
     background: var(--background-secondary-color);
@@ -212,7 +212,7 @@ export default {
 }
 
 .email-field-error-wrapper {
-  width: fit-content;
+  width: 100%;
   border-radius: 10px;
 }
 </style>

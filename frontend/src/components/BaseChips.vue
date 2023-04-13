@@ -26,8 +26,14 @@ export default {
   methods: {
     capitalizeFirstLetter,
     currTitle(chipsTitle) {
-      if (chipsTitle.match('TVRadio')) return 'TV&Radio'
-      return capitalizeFirstLetter(chipsTitle)
+      switch (chipsTitle) {
+        case 'TVRadio':
+          return 'TV&Radio'
+        case 'Social':
+          return 'Social Media'
+        default:
+          return capitalizeFirstLetter(chipsTitle)
+      }
     },
   },
 }
