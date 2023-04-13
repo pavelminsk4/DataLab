@@ -34,6 +34,9 @@ import SocialMainWidget from '@/components/widgets/social/SocialMainWidget'
 
 const {mapActions} = createNamespacedHelpers('social')
 
+const {mapActions: mapSocialWidgetsActions} =
+  createNamespacedHelpers('social/widgets')
+
 export default {
   name: 'SocialWidgetSettingsModal',
   components: {
@@ -60,38 +63,54 @@ export default {
   },
   methods: {
     ...mapActions([
-      action.GET_VOLUME_WIDGET,
-      action.GET_SUMMARY_WIDGET,
-      action.GET_CLIPPING_FEED_CONTENT_WIDGET,
-      action.GET_TOP_AUTHORS_WIDGET,
-      action.GET_TOP_BRANDS_WIDGET,
-      action.GET_TOP_COUNTRIES_WIDGET,
-      action.GET_TOP_LANGUAGES_WIDGET,
-      action.GET_SENTIMENT_TOP_SOURCES,
-      action.GET_SENTIMENT_TOP_COUNTRIES,
-      action.GET_SENTIMENT_TOP_AUTHORS,
-      action.GET_SENTIMENT_TOP_LANGUAGES,
       action.UPDATE_AVAILABLE_WIDGETS,
-      action.GET_SENTIMENT_FOR_PERIOD,
-      action.GET_CONTENT_VOLUME_TOP_AUTHORS,
-      action.GET_CONTENT_VOLUME_TOP_COUNTRIES,
-      action.GET_CONTENT_VOLUME_TOP_SOURCES,
-      action.GET_SELECTED_DIMENSIONS,
       action.POST_DIMENSIONS_FOR_WIDGET,
     ]),
+    ...mapSocialWidgetsActions([
+      action.GET_SUMMARY_WIDGET,
+      action.GET_TOP_AUTHORS_WIDGET,
+      action.GET_TOP_LOCATIONS_WIDGET,
+      action.GET_TOP_LANGUAGES_WIDGET,
+      action.GET_CONTENT_VOLUME_WIDGET,
+      action.GET_CONTENT_VOLUME_TOP_AUTHORS,
+      action.GET_CONTENT_VOLUME_TOP_LANGUAGES,
+      action.GET_CONTENT_VOLUME_TOP_LOCATIONS,
+      action.GET_SENTIMENT_FOR_PERIOD,
+      action.GET_GENDER_VOLUME_WIDGET,
+      action.GET_SENTIMENT_BY_GENDER,
+      action.GET_SENTIMENT_TOP_AUTHORS,
+      action.GET_SENTIMENT_TOP_LOCATIONS,
+      action.GET_SENTIMENT_TOP_LANGUAGES,
+      action.GET_TOP_KEYWORDS_WIDGET,
+      action.GET_SENTIMENT_DIAGRAM,
+      action.GET_TOP_SHARING_SOURCES,
+      action.GET_OVERALL_TOP_AUTHORS,
+      action.GET_TOP_AUTHORS_BY_GENDER,
+      action.GET_SENTIMENT_NUMBER_OF_RESULT,
+      action.GET_SENTIMENT_TOP_KEYWORDS_WIDGET,
+      action.GET_AUTHORS_BY_LANGUAGE,
+      action.GET_AUTHORS_BY_LOCATION,
+      action.GET_AUTHORS_BY_SENTIMENT,
+      action.GET_AUTHORS_BY_GENDER,
+      action.GET_CLIPPING_FEED_CONTENT_WIDGET,
+    ]),
 
-    saveGeneralChanges(newSettings) {
-      this[action.UPDATE_AVAILABLE_WIDGETS]({
+    async saveGeneralChanges(newSettings) {
+      await this[action.UPDATE_AVAILABLE_WIDGETS]({
         projectId: this.widgetDetails.projectId,
         widgetsList: {
           [this.widgetName]: {
             id: this.widgetDetails.id,
             title: newSettings.newWidgetTitle || this.widgetDetails.title,
             description: newSettings.newWidgetDescription,
-            aggregation_period: this.widgetDetails.aggregation_period,
+            aggregation_period:
+              newSettings.newAggregationPeriod ||
+              this.widgetDetails.aggregation_period,
           },
         },
       })
+
+      this.updateCurrentWidget(newSettings)
     },
 
     async saveDimensionsForWidget() {
@@ -99,7 +118,7 @@ export default {
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,
         data: {
-          smpl_freq: this.widgetDetails.aggregation_period,
+          aggregation_period: this.widgetDetails.aggregation_period,
           author_dim_pivot: this.selectedDimensions.authors,
           language_dim_pivot: this.selectedDimensions.languages,
           country_dim_pivot: this.selectedDimensions.countries,
@@ -111,7 +130,7 @@ export default {
       await this[this.widgetDetails.actionName]({
         projectId: this.widgetDetails.projectId,
         value: {
-          smpl_freq: 'day',
+          aggregation_period: this.widgetDetails.aggregation_period,
           author_dim_pivot: this.widgetDetails.author_dim_pivot || null,
           language_dim_pivot: this.widgetDetails.language_dim_pivot || null,
           country_dim_pivot: this.widgetDetails.country_dim_pivot || null,
@@ -130,6 +149,33 @@ export default {
             id: this.widgetDetails.id,
             chart_type: this.newChartType,
           },
+        },
+      })
+    },
+
+    updateCurrentWidget(newSettings) {
+      this[this.widgetDetails.actionName]({
+        projectId: this.widgetDetails.projectId,
+        widgetId: this.widgetDetails.id,
+        value: {
+          author_dim_pivot: this.widgetDetails.author_dim_pivot || null,
+          language_dim_pivot: this.widgetDetails.language_dim_pivot || null,
+          country_dim_pivot: this.widgetDetails.country_dim_pivot || null,
+          sentiment_dim_pivot: this.widgetDetails.sentiment_dim_pivot || null,
+          source_dim_pivot: this.widgetDetails.source_dim_pivot || null,
+          aggregation_period:
+            newSettings?.newAggregationPeriod ||
+            this.widgetDetails.aggregation_period,
+        },
+      })
+    },
+
+    async changeAggregationPeriod(aggregationPeriod) {
+      await this[this.widgetDetails.actionName]({
+        projectId: this.widgetDetails.projectId,
+        widgetId: this.widgetDetails.id,
+        value: {
+          aggregation_period: aggregationPeriod,
         },
       })
     },
