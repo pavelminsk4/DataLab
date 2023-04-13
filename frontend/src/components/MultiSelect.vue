@@ -12,7 +12,12 @@
       </BaseCheckbox>
     </li>
     <li v-for="option in options" :key="option">
-      <BaseCheckbox v-model="selectedValues" :id="option.id" class="option">
+      <BaseCheckbox
+        v-model="selectedValues"
+        :id="option.id"
+        :value="option"
+        class="option"
+      >
         <span class="option__title">{{ option.title }}</span>
       </BaseCheckbox>
     </li>
@@ -52,8 +57,7 @@ export default {
       },
       set(val) {
         this.isSelectAll = val
-        const allOptions = this.options.map((option) => option.id)
-        const currProjects = this.isSelectAll ? allOptions : []
+        const currProjects = this.isSelectAll ? this.options : []
         this.$emit('update:modelValue', currProjects)
       },
     },

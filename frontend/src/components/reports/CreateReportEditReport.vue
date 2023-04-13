@@ -6,7 +6,13 @@
     </BaseButton>
   </div>
 
-  <div class="report-widgets-view"></div>
+  <div class="report-widgets-view">
+    <div v-for="project in projects" :key="project.id">
+      <h3>{{ project.title }}</h3>
+
+      <div class="report-widgets-list"></div>
+    </div>
+  </div>
 
   <footer class="create-reports__footer">
     <BaseButton @click="saveReport">
@@ -17,7 +23,9 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
 // import {action} from '@store/constants'
+
 import AddWidgetsIcon from '@/components/icons/AddWidgetsIcon'
 import SaveIcon from '@/components/icons/SaveIcon'
 
@@ -26,6 +34,41 @@ import BaseButton from '@/components/common/BaseButton'
 export default {
   name: 'CreateReportEditReport',
   components: {AddWidgetsIcon, BaseButton, SaveIcon},
+  computed: {
+    ...mapState(['newReport']),
+    projects() {
+      return [
+        {
+          id: 1,
+          title: 'pr1',
+        },
+        {
+          id: 4,
+          title: 'pr4',
+        },
+        {
+          id: 41,
+          title: 'pr41',
+        },
+        {
+          id: 16,
+          title: 'pr16',
+        },
+      ]
+    },
+    templates() {
+      return {
+        dashboard: {
+          checked: false,
+          selectedProjects: this.projects,
+        },
+        summary: {
+          checked: false,
+          selectedProjects: this.projects,
+        },
+      }
+    },
+  },
   methods: {
     saveReport() {
       this.$router.push({name: ''})

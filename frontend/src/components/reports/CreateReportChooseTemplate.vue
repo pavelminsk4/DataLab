@@ -9,21 +9,30 @@
       :key="templateTittle"
     />
   </div>
+
+  <footer class="create-reports__footer">
+    <ButtonWithArrow @click="nextStep">
+      <span>Next</span>
+    </ButtonWithArrow>
+  </footer>
 </template>
 
 <script>
 import {mapState} from 'vuex'
+import {action} from '@store/constants'
+import createReportMixin from '@/lib/mixins/create-report.js'
 
 import ReportTemplateCard from '@/components/reports/ReportTemplateCard.vue'
 
 export default {
   name: 'CreateReportChooseTemplate',
+  mixins: [createReportMixin],
   components: {ReportTemplateCard},
   data() {
     return {
       templates: {
         dashboard: {
-          checked: true,
+          checked: false,
           selectedProjects: [],
         },
         summary: {
@@ -39,7 +48,7 @@ export default {
           selectedProjects: [],
         },
         influencers: {
-          checked: true,
+          checked: false,
           selectedProjects: [],
         },
       },
@@ -50,21 +59,33 @@ export default {
     projects() {
       return this.newReport.projects
     },
+    templateTitles() {
+      return Object.keys(this.templates)
+    },
   },
   created() {
-    this.templateTitles = [
-      'dashboard',
-      'summary',
-      'sentiment',
-      'demography',
-      'influencers',
-    ]
-
-    this.templateTitles.forEach((template) =>
-      this.projects.forEach((project) =>
-        this.templates[template].selectedProjects.push(project.id)
-      )
+    this.templateTitles.forEach(
+      (template) => (this.templates[template].selectedProjects = this.projects)
     )
+  },
+  methods: {
+    nextStep() {
+      const nextStep = 5
+      const nextStepName = this.getNextStepName(nextStep)
+
+      const selectedTemplates = {}
+      this.templateTitles.forEach((templateName) => {
+        if (this.templates[templateName].checked) {
+          selectedTemplates[templateName] = this.templates[templateName]
+        }
+      })
+
+      this[action.UPDATE_NEW_REPORT]({
+        step: nextStep,
+        templates: selectedTemplates,
+      })
+      this.$router.push({name: nextStepName})
+    },
   },
 }
 </script>
