@@ -4,6 +4,7 @@ from django.http import JsonResponse
 from django.db.models import Count
 from django.db.models.functions import Trunc
 from .filters_for_widgets import *
+import json
 
 def agregator_results_content_volume_top_authors(posts, aggregation_period, top_counts):
   filtred_posts = missing_authors_filter(posts)
@@ -31,5 +32,7 @@ def content_volume_top_5_authors(request, pk, widget_pk):
   posts = post_agregator_with_dimensions(project)
   widget = WidgetDescription.objects.get(id=widget_pk)
   posts = post_agregetor_for_each_widget(widget, posts)
-  res = agregator_results_content_volume_top_authors(posts, widget.aggregation_period, widget.top_counts)
+  body = json.loads(request.body)
+  aggregation_period = body['aggregation_period']
+  res = agregator_results_content_volume_top_authors(posts, aggregation_period, widget.top_counts)
   return JsonResponse(res, safe = False)

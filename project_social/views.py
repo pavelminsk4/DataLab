@@ -170,19 +170,19 @@ def social_top_authors(request, pk, widget_pk):
   return top_authors(pk, widget_pk)
 
 def social_content_volume(request, pk, widget_pk):
-  return content_volume(pk, widget_pk)
+  return content_volume(request, pk, widget_pk)
 
 def social_content_volume_by_top_locations(request, pk, widget_pk):
-  return content_volume_by_top_locations(pk, widget_pk)
+  return content_volume_by_top_locations(request, pk, widget_pk)
 
 def social_content_volume_by_top_authors(request, pk, widget_pk):
-  return content_volume_by_top_authors(pk, widget_pk)
+  return content_volume_by_top_authors(request, pk, widget_pk)
 
 def social_content_volume_by_top_languages(request, pk, widget_pk):
-  return content_volume_by_top_languages(pk, widget_pk)
+  return content_volume_by_top_languages(request, pk, widget_pk)
 
 def social_sentiment(request, pk, widget_pk):
-  return sentiment(pk, widget_pk)
+  return sentiment(request, pk, widget_pk)
 
 def social_sentiment_authors(request, pk, widget_pk):
   return sentiment_authors(pk, widget_pk)
@@ -194,7 +194,7 @@ def social_sentiment_locations(request, pk, widget_pk):
   return sentiment_locations(pk, widget_pk)
 
 def social_gender_volume(request, pk, widget_pk):
-  return gender_volume(pk, widget_pk)
+  return gender_volume(request, pk, widget_pk)
 
 def social_sentiment_by_gender(request, pk, widget_pk):
   return sentiment_by_gender(pk, widget_pk)

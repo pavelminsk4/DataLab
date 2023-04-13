@@ -4,6 +4,7 @@ from project_social.models import ProjectSocial
 from django.db.models.functions import Trunc
 from django.http import JsonResponse
 from django.db.models import Count
+import json
 
 def post_agregator_gender_volume(posts, aggregation_period, top_counts):
   top_authors = list(map(lambda x: x['user_gender'], list(posts.values('user_gender').annotate(count=Count('user_gender')).order_by('-count')[:top_counts])))
@@ -27,10 +28,12 @@ def post_agregator_gender_volume(posts, aggregation_period, top_counts):
     res.append({top_authors[elem]: list_dates})
   return res
 
-def gender_volume(pk, widget_pk):
+def gender_volume(request, pk, widget_pk):
   project = ProjectSocial.objects.get(id=pk)
   posts = post_agregator_with_dimensions(project)
   widget = SocialWidgetDescription.objects.get(id=widget_pk)
   posts = post_agregetor_for_each_widget(widget, posts)
-  res = post_agregator_gender_volume(posts, widget.aggregation_period, widget.top_counts)
+  body = json.loads(request.body)
+  aggregation_period = body['aggregation_period']
+  res = post_agregator_gender_volume(posts, aggregation_period, widget.top_counts)
   return JsonResponse(res, safe = False)

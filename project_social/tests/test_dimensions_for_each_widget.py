@@ -21,6 +21,7 @@ class DimensionsForEachWidgetTests(APITestCase):
     widget_pk = pr.social_widgets_list.content_volume_by_top_authors_id
     url = reverse('project_social:dimensions_for_each_widgets', kwargs={'project_pk':pr.pk, 'widget_pk':widget_pk})
     data = {
+            'aggregation_period': "day",    
             'author_dim_pivot': [],
             'country_dim_pivot': [],
             'source_dim_pivot': [],
@@ -31,7 +32,10 @@ class DimensionsForEachWidgetTests(APITestCase):
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     self.assertEqual(json.loads(response.content), {})
     url = reverse('project_social:social_content_volume_by_top_languages', kwargs={'pk':pr.pk, 'widget_pk':widget_pk})
-    response = self.client.get(url)
+    data = {
+            'aggregation_period': "day"
+           }
+    response = self.client.post(url, data, format='json')
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     res = [
             {'En': [

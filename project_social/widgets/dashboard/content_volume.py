@@ -4,6 +4,7 @@ from project_social.models import ProjectSocial
 from django.db.models.functions import Trunc
 from django.http import JsonResponse
 from django.db.models import Count
+import json
 
 def post_agregator_volume(posts, aggregation_period):
   posts = posts.annotate(date_trunc=Trunc('date', aggregation_period)).values("date_trunc").annotate(created_count=Count('id')).order_by("date")
@@ -19,10 +20,12 @@ def post_agregator_volume(posts, aggregation_period):
     list_dates.append({"date": date, "created_count": count})
   return list_dates
 
-def content_volume(pk, widget_pk):
+def content_volume(request, pk, widget_pk):
   project = ProjectSocial.objects.get(id=pk)
   posts = post_agregator_with_dimensions(project)
   widget = SocialWidgetDescription.objects.get(id=widget_pk)
   posts = post_agregetor_for_each_widget(widget, posts)
-  res = post_agregator_volume(posts, widget.aggregation_period)
+  body = json.loads(request.body)
+  aggregation_period = body['aggregation_period']
+  res = post_agregator_volume(posts, aggregation_period)
   return JsonResponse(res, safe = False)
