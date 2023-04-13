@@ -29,7 +29,7 @@
           </div>
         </td>
         <td v-if="item.gender">
-          <ChipsGender :gender-type="item.gender" />
+          <BaseChips :chips-type="item.gender" />
         </td>
         <td v-if="item.media_type" class="icon-wrapper">
           <component :is="`${item.media_type}Icon`" />
@@ -51,7 +51,7 @@ import WidgetsLayout from '@/components/layout/WidgetsLayout'
 import BaseTable from '@/components/common/BaseTable'
 import UserAvatar from '@/components/UserAvatar'
 import TwitterIcon from '@/components/icons/TwitterIcon'
-import ChipsGender from '@/components/ChipsGender'
+import BaseChips from '@/components/BaseChips'
 
 export default {
   name: 'OverallTopWidget',
@@ -61,7 +61,7 @@ export default {
     WidgetsLayout,
     UserAvatar,
     TwitterIcon,
-    ChipsGender,
+    BaseChips,
   },
   props: {
     widgetData: {type: Array, required: true},

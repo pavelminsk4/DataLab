@@ -10,7 +10,11 @@
           <BaseCheckbox
             v-model="selectedProjects"
             :id="project.id"
-            :value="{id: project.id, title: project.title}"
+            :value="{
+              id: project.id,
+              title: project.title,
+              moduleType: project.source,
+            }"
           />
         </td>
         <td>{{ project.title }}</td>

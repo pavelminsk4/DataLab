@@ -22,7 +22,7 @@
             <component :is="capitalizeFirstLetter(item.source) + 'Icon'" />
             {{ item.source }}
           </div>
-          <ChipsGender :gender-type="item.gender" />
+          <BaseChips :chips-type="item.gender" />
         </template>
 
         <template #sentimentBar v-if="checkSentimentData(item.sentiments)">
@@ -42,7 +42,7 @@ import {createNamespacedHelpers} from 'vuex'
 import {get, action} from '@store/constants'
 import {capitalizeFirstLetter} from '@/lib/utilities'
 
-import ChipsGender from '@/components/ChipsGender'
+import BaseChips from '@/components/BaseChips'
 import TwitterIcon from '@/components/icons/TwitterIcon'
 import ChartsView from '@/components/charts/ChartsView'
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
@@ -57,7 +57,7 @@ export default {
     SharingSourcesCard,
     TwitterIcon,
     ChartsView,
-    ChipsGender,
+    BaseChips,
   },
   props: {
     widgetDetails: {type: Object, required: true},

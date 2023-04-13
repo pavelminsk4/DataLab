@@ -46,7 +46,6 @@ import WidgetsLayout from '@/components/layout/WidgetsLayout'
 import BaseTable from '@/components/common/BaseTable'
 import UserAvatar from '@/components/UserAvatar'
 import TwitterIcon from '@/components/icons/TwitterIcon'
-import ChipsGender from '@/components/ChipsGender'
 
 export default {
   name: 'OverallTopWidget',
@@ -56,7 +55,6 @@ export default {
     WidgetsLayout,
     UserAvatar,
     TwitterIcon,
-    ChipsGender,
   },
   props: {
     widgetData: {type: Array, required: true},

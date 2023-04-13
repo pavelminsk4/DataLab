@@ -52,6 +52,8 @@ export default {
   flex-direction: column;
   gap: 20px;
 
+  width: 38vw;
+
   &__title {
     font-size: 16px;
     font-weight: 500 !important;
