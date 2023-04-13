@@ -95,7 +95,7 @@ export default {
           creator: this.userInfo.id,
           title: this.projectName,
           description: this.description,
-          source: 'Online',
+          source: this.moduleName,
           workspace: +this.workspaceId ? this.workspaceId : null,
         })
         this.$router.push({
