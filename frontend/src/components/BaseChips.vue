@@ -1,5 +1,5 @@
 <template>
-  <div :class="['chips-wrapper', chipsType]">
+  <div :class="['chips-wrapper', chipsType.toLowerCase()]">
     <component :is="`${chipsType}Icon`" />
     <span>{{ title }}</span>
   </div>
@@ -63,13 +63,13 @@ export default {
   background: var(--background-additional-color);
 }
 
-.Online {
+.online {
   background: var(--background-additional-color);
 }
-.Social {
+.social {
   background: var(--background-additional-color);
 }
-.TVRadio {
+.tvradio {
   background: var(--background-additional-color);
 }
 </style>

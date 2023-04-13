@@ -1,7 +1,7 @@
 <template>
   <aside class="wrapper">
     <h4 class="wrapper__title">Projects list</h4>
-    <ul class="projects">
+    <div class="projects">
       <a
         v-for="project in projects"
         :key="project.id"
@@ -15,12 +15,14 @@
         </div>
         <div>{{ project.title }}</div>
       </a>
-    </ul>
+    </div>
   </aside>
 </template>
 
 <script>
+import {mapState} from 'vuex'
 import BaseChips from '@/components/BaseChips.vue'
+
 export default {
   name: 'ReportsProjectsList',
   components: {BaseChips},
@@ -29,18 +31,11 @@ export default {
       currProjectId: null,
     }
   },
-  created() {
-    this.projects = [
-      {id: 120, title: 'المغرب', moduleType: 'Online'},
-      {id: 89, title: 'a', moduleType: 'Online'},
-      {id: 106, title: 'Dimension', moduleType: 'Online'},
-      {id: 107, title: 'Argentina', moduleType: 'Online'},
-      {id: 108, title: 'Alert', moduleType: 'Online'},
-      {id: 109, title: 'Second Alert', moduleType: 'Online'},
-      {id: 101, title: 'السعودية', moduleType: 'Online'},
-      {id: 54, title: 'bel', moduleType: 'Online'},
-      {id: 79, title: '1year', moduleType: 'Online'},
-    ]
+  computed: {
+    ...mapState(['newReport']),
+    projects() {
+      return this.newReport.projects
+    },
   },
   methods: {
     handleClick({currentTarget}) {
