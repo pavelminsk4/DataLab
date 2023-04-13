@@ -1,3 +1,4 @@
+from account_analysis.models import ProjectAccountAnalysis
 from django.contrib.postgres.fields import ArrayField
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -253,6 +254,7 @@ class TweetBinderUserTracker(models.Model):
    end_date = models.DateTimeField(blank=True, null=True)
    created_at = models.DateTimeField(auto_now_add=True)
    updated_at = models.DateTimeField(auto_now=True)
+   account_analysis_project = models.ForeignKey(ProjectAccountAnalysis, blank=True, null=True, on_delete=models.CASCADE)
 
    def __str__(self):
       return self.user_alias
@@ -297,7 +299,7 @@ class TweetBinderUserTrackerAnalysis(models.Model):
   updated_at = models.DateTimeField(auto_now=True)
 
   def __str__(self):
-      return self.user_alias
+      return self.user_alias.user_alias
 
 @receiver(post_save, sender=TweetBinderUserTracker)
 def greate_user_tracker_project(sender, instance, created, **kwargs):
@@ -352,3 +354,8 @@ def add_data_account_to_database(data_account, instance):
                 'updated_at_start': data_account[1]["updatedAt"],
             }
   TweetBinderUserTrackerAnalysis.objects.create(**new_data)
+
+@receiver(post_save, sender=ProjectAccountAnalysis)
+def create_user_tracker(sender, instance, created, **kwargs):
+  if created:
+    TweetBinderUserTracker.objects.create(user_alias=instance.profile_handle, start_date=instance.start_search_date, end_date=instance.end_search_date, account_analysis_project=instance)  

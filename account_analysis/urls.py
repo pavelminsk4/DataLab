@@ -14,6 +14,8 @@ urlpatterns = [
     path("workspaces/create/", views.WorkspaceAccountAnalysisCreate.as_view(),name="account_analysis_workspaces_create"),
     path("workspaces/update/<int:pk>/",views.WorkspaceAccountAnalysisUpdate.as_view(),name="account_analysis_workspaces_update"),
     path("workspaces/delete/<int:pk>/",views.WorkspaceAccountAnalysisDelete.as_view(),name="account_analysis_workspaces_delete"),
+    #=======Widgets======
+    path("account_analysis_summary_widget/<int:pk>/<int:widget_pk>",views.account_analysis_summary_widget,name="account_analysis_summary_widget"),
 ]
 
 router.register('projects', ProjectsAccountAnalysisViewSet)

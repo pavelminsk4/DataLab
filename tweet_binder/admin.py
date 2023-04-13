@@ -23,8 +23,8 @@ class LiveSearchProjectAdmin(admin.ModelAdmin):
 
 @admin.register(TweetBinderUserTracker)
 class TweetBinderUserTrackerAdmin(admin.ModelAdmin):
-    list_display = ('user_alias', 'start_date', 'end_date', 'created_at', 'updated_at')
-    search_fields = ('user_alias',)
+    list_display = ('user_alias', 'start_date', 'end_date', 'created_at', 'updated_at', 'account_analysis_project_id')
+    search_fields = ('user_alias', 'account_analysis_project_id')
 
 @admin.register(TweetBinderUserTrackerAnalysis)
 class TweetBinderUserTrackerAnalysisAdmin(admin.ModelAdmin):
