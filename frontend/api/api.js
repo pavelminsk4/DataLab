@@ -348,21 +348,23 @@ export default {
   async getRegularReports(departmentId) {
     return fetch('get', `/reports/${departmentId}/regular_reports/`)
   },
-  async createRegularReport({projectId, data}) {
-    const response = await $api.post(
-      `/projects/${projectId}/reports/regular_reports/`,
+  async createRegularReport(departmentId, data) {
+    return fetch('post', `/reports/${departmentId}/regular_reports/`, data)
+  },
+  async updateRegularReport(departmentId, regularReportId, data) {
+    fetch(
+      'patch',
+      `/reports/${departmentId}/regular_reports/${regularReportId}`,
       data
     )
-    return response.data
+  },
+  async deleteRegularReport(departmentId, regularReportId) {
+    fetch(
+      'delete',
+      `/reports/${departmentId}/regular_reports/${regularReportId}`
+    )
   },
 
-  async updateRegularReport({projectId, regularReportId, data}) {
-    const response = await $api.patch(
-      `/projects/${projectId}/reports/regular_reports/${regularReportId}/`,
-      data
-    )
-    return response.data
-  },
   async downloadInstantlyReport(projectId) {
     const response = await $api.get(
       `/projects/${projectId}/reports/instantly_report`,

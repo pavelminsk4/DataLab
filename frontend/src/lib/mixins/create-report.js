@@ -1,4 +1,4 @@
-import {mapActions} from 'vuex'
+import {mapActions, mapState} from 'vuex'
 import {action} from '@store/constants'
 
 import ButtonWithArrow from '@/components/common/ButtonWithArrow'
@@ -6,6 +6,7 @@ import ButtonWithArrow from '@/components/common/ButtonWithArrow'
 export default {
   components: {ButtonWithArrow},
   computed: {
+    ...mapState(['newReport']),
     routeName() {
       return this.$route.name
     },

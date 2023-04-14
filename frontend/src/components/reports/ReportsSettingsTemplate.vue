@@ -5,7 +5,7 @@
     <section class="setting">
       <span class="setting__title">Language</span>
       <BaseRadio v-model="settings.language" value="English" label="English" />
-      <BaseRadio v-model="settings.language" value="Arabic" label="Arabic" />
+      <!-- <BaseRadio v-model="settings.language" value="Arabic" label="Arabic" /> -->
     </section>
 
     <section class="setting">
@@ -26,19 +26,58 @@
 </template>
 
 <script>
+import {action} from '@store/constants'
+import createReportMixin from '@/lib/mixins/create-report.js'
+
 import BaseRadio from '@/components/BaseRadio'
 import BaseSelect from '@/components/BaseSelect2'
 export default {
   name: 'ReportsSettingsTemplate',
+  mixins: [createReportMixin],
   components: {BaseRadio, BaseSelect},
   data() {
     return {
       settings: {
-        language: 'English',
-        format: 'PDF',
-        template: 'Select template',
+        newLanguage: '',
+        newFormat: '',
+        newTemplate: 'Select template',
       },
     }
+  },
+  computed: {
+    language: {
+      get() {
+        return this.newLanguage || this.newReport.language
+      },
+      set(val) {
+        this.newLanguage = val
+        this[action.UPDATE_NEW_REPORT]({
+          language: val,
+        })
+      },
+    },
+    format: {
+      get() {
+        return this.newFormat || this.newReport.format
+      },
+      set(val) {
+        this.newFormat = val
+        this[action.UPDATE_NEW_REPORT]({
+          format: val,
+        })
+      },
+    },
+    template: {
+      get() {
+        return this.newTemplate || this.newReport.template
+      },
+      set(val) {
+        this.newTemplate = val
+        this[action.UPDATE_NEW_REPORT]({
+          template: val,
+        })
+      },
+    },
   },
   created() {
     this.options = ['template_1', 'template_2', 'template_3']

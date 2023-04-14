@@ -65,19 +65,21 @@ export default {
     },
 
     projectsWithTemplates() {
-      const projectsData = {}
-
-      Object.keys(this.templates).forEach((templateName) => {
-        this.templates[templateName].selectedProjects.forEach((project) => {
-          const currentTemplates = projectsData[project.id]?.templates || []
-          projectsData[project.id] = {
-            ...project,
-            templates: [...currentTemplates, templateName],
-          }
-        })
+      const projectsWithTemplates = this.projects.map((project) => {
+        const templates = Object.keys(this.templates).filter((templateName) =>
+          this.templates[templateName].selectedProjects.find(
+            (selectProject) => {
+              return selectProject.id === project.id
+            }
+          )
+        )
+        return {
+          ...project,
+          templates: templates,
+        }
       })
 
-      return Object.values(projectsData)
+      return projectsWithTemplates
     },
     onlineDashboardWidgets() {
       if (!this.onlineAvailableWidgets) return []

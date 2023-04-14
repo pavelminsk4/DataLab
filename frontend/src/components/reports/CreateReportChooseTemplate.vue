@@ -18,7 +18,6 @@
 </template>
 
 <script>
-import {mapState} from 'vuex'
 import {action} from '@store/constants'
 import createReportMixin from '@/lib/mixins/create-report.js'
 
@@ -55,7 +54,6 @@ export default {
     }
   },
   computed: {
-    ...mapState(['newReport']),
     projects() {
       return this.newReport.projects
     },

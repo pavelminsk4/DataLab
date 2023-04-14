@@ -44,13 +44,26 @@
           >
             <td class="td_name">{{ item.title }}</td>
             <td class="regularity">
-              <div class="test">type</div>
-              <div class="test">type</div>
+              <div
+                v-for="(reportType, index) in getReportTypes(item)"
+                :key="`report-type-${index}`"
+                class="report-type"
+              >
+                {{ reportType.type }}
+              </div>
             </td>
             <td>date</td>
-            <td>time</td>
-            <td>language</td>
-            <td>format</td>
+            <td>
+              <div
+                v-for="(reportType, index) in getReportTypes(item)"
+                :key="`report-type-${index}`"
+                class="report-type"
+              >
+                {{ reportType.time }}
+              </div>
+            </td>
+            <td>{{ item.report_language }}</td>
+            <td>{{ item.report_format }}</td>
             <td>
               <UsersIconsBar :users="item.user" />
             </td>
@@ -162,12 +175,51 @@ export default {
       this.reportValue.name = title
       this.currentReportId = id
     },
+    getReportTypes(report) {
+      const reportsTypes = []
+      if (report.hourly_enabled)
+        reportsTypes.push({
+          type: 'Hourly',
+          time: report.h_hour,
+          date: '',
+        })
+      if (report.daily_enabled)
+        reportsTypes.push({
+          type: 'Daily',
+          time: this.getTime(report.d_hour, report.d_minute),
+          date: '',
+        })
+      if (report.weekly_enabled)
+        reportsTypes.push({
+          type: 'Weekly',
+          time: this.getTime(report.w_hour, report.w_minute),
+          date: '',
+        })
+      if (report.monthly_enabled)
+        reportsTypes.push({
+          type: 'Monthly',
+          time: this.getTime(report.m_hour, report.m_minute),
+          date: '',
+        })
+
+      return reportsTypes
+    },
+    addZero(number) {
+      return number.length === 1 ? `0${number}` : number
+    },
+    getTime(hours, minutes) {
+      if (hours === '*') return ''
+
+      const currentHours = hours === '12' ? '12' : this.addZero(hours % 12)
+      const meridiem = hours > 12 ? 'pm' : 'am'
+      return `${currentHours}:${this.addZero(minutes)} ${meridiem}`
+    },
   },
 }
 </script>
 
 <style lang="scss" scoped>
-.test {
+.report-type {
   padding: 10px 0;
 }
 .content-header {

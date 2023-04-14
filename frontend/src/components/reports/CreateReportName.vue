@@ -60,7 +60,7 @@ export default {
   computed: {
     ...mapGetters({
       // change
-      user: get.USER_INFO,
+      department: get.DEPARTMENT,
     }),
     users() {
       //change
@@ -84,16 +84,16 @@ export default {
     },
     nextStep() {
       const nextStep = 2
-      const nextStepName = this.getNextStepName(nextStep)
+      // const nextStepName = this.getNextStepName(nextStep)
 
       this[action.UPDATE_NEW_REPORT]({
         step: nextStep,
         title: this.reportName,
         description: this.reportDescription,
         users: this.selectedUsers,
-        department: this.user.user_profile.department.id,
+        department: this.department?.id,
       })
-      this.$router.push({name: nextStepName})
+      // this.$router.push({name: nextStepName})
     },
   },
 }
