@@ -29,7 +29,7 @@ import {defineComponent, computed} from 'vue'
 import BaseCalendarSelect from '@/components/datepicker/BaseCalendarSelect'
 import CalendarControlIcon from '@/components/icons/CalendarControlIcon'
 
-import {years, months} from '@/lib/constants'
+import {months, years} from '@/lib/constants'
 
 export default defineComponent({
   components: {CalendarControlIcon, BaseCalendarSelect},
@@ -75,7 +75,7 @@ export default defineComponent({
     }
 
     const yearsArray = computed(() => {
-      return years.map((el) => el.text)
+      return years.map((el) => el.toString())
     })
 
     const updateMonth = (option) => {
