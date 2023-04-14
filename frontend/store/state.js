@@ -96,6 +96,7 @@ const initialState = {
     name: '',
     description: '',
     projects: [],
+    templates: {},
   },
 }
 
