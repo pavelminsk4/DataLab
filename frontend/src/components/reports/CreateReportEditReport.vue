@@ -168,7 +168,6 @@ export default {
     },
 
     selectedWidgets(widgetsList, moduleType, projectId) {
-      moduleType = moduleType.toLowerCase()
       if (!this[`${moduleType}AvailableWidgets`]) return
       return widgetsList.map((widget) => {
         if (this[`${moduleType}AvailableWidgets`][widget.name]) {
