@@ -20,8 +20,10 @@ export default {
   props: {
     chipsType: {type: String, required: true},
   },
-  created() {
-    this.title = this.currTitle(this.chipsType)
+  computed: {
+    title() {
+      return this.currTitle(this.chipsType)
+    },
   },
   methods: {
     capitalizeFirstLetter,

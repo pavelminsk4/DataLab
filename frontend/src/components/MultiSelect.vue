@@ -70,7 +70,7 @@ export default {
         case 0:
           return `Select at least one ${this.itemName}`
         case 1:
-          return this.selectedValues.toString()
+          return this.selectedValues[0].title
         case this.options.length:
           return `All ${this.itemName}s`
         default:
