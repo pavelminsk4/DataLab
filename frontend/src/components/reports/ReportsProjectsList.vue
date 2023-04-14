@@ -6,7 +6,6 @@
         v-for="project in projects"
         :key="project.id"
         :id="project.id"
-        :href="'#' + project.id"
         :class="['projects__item', currProjectId === project.id && 'active']"
         @click.stop="handleClick"
       >
@@ -39,7 +38,12 @@ export default {
   },
   methods: {
     handleClick({currentTarget}) {
-      this.currProjectId = +currentTarget.id
+      const id = +currentTarget.id
+      this.currProjectId = id
+      const targetEl = document.getElementById(id)
+      if (targetEl) {
+        targetEl.scrollIntoView({behavior: 'smooth', alignToTop: true})
+      }
     },
   },
 }
