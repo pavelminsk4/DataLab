@@ -136,6 +136,8 @@ h4 {
 .scroll {
   overflow: auto;
 
+  scroll-behavior: smooth;
+
   &::-webkit-scrollbar {
     height: 5px;
     width: 5px;

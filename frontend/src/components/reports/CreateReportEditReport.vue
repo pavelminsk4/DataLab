@@ -6,20 +6,27 @@
     </BaseButton>
   </div>
 
-  <div class="report-projects-view">
-    <div
+  <ul class="report-projects-view">
+    <li
       v-for="project in reportProjects"
       :key="project.id"
+      :id="project.id"
       class="report-widgets-view"
     >
-      <h3 class="project-title">{{ project.title }}</h3>
-
-      <div class="report-widgets-list">
-        <!-- <WidgetsList /> -->
+      <div class="project__header">
+        <ReportsProjectIcon />
+        <h3 class="project__title">{{ project.title }}</h3>
       </div>
-    </div>
-  </div>
-  {{ reportProjects }}
+
+      <div v-if="project.widgetsList" class="report-widgets-list">
+        <WidgetsList
+          :module-name="project.moduleType"
+          :selected-widgets="project.widgetsList"
+          :current-project="project"
+        />
+      </div>
+    </li>
+  </ul>
   <footer class="create-reports__footer">
     <BaseButton @click="saveReport">
       <SaveIcon />
@@ -33,18 +40,26 @@ import {mapState, mapActions, createNamespacedHelpers} from 'vuex'
 import {action} from '@store/constants'
 
 import {onlineWidgetsList, socialWidgetsList} from '@/lib/constants'
+import {getWidgetDetails} from '@lib/utilities'
 
 import AddWidgetsIcon from '@/components/icons/AddWidgetsIcon'
 import SaveIcon from '@/components/icons/SaveIcon'
+import ReportsProjectIcon from '@/components/icons/ReportsProjectIcon'
 
 import BaseButton from '@/components/common/BaseButton'
-// import WidgetsList from '@/components/widgets/WidgetsList'
+import WidgetsList from '@/components/widgets/WidgetsList'
 
 const {mapActions: mapActionsSocial} = createNamespacedHelpers('social')
 
 export default {
   name: 'CreateReportEditReport',
-  components: {AddWidgetsIcon, BaseButton, SaveIcon},
+  components: {
+    AddWidgetsIcon,
+    BaseButton,
+    SaveIcon,
+    ReportsProjectIcon,
+    WidgetsList,
+  },
   computed: {
     ...mapState({
       newReport: (state) => state.newReport,
@@ -65,21 +80,19 @@ export default {
     },
 
     projectsWithTemplates() {
-      const projectsWithTemplates = this.projects.map((project) => {
-        const templates = Object.keys(this.templates).filter((templateName) =>
-          this.templates[templateName].selectedProjects.find(
-            (selectProject) => {
-              return selectProject.id === project.id
-            }
-          )
-        )
-        return {
-          ...project,
-          templates: templates,
-        }
+      const projectsData = {}
+
+      Object.keys(this.templates).forEach((templateName) => {
+        this.templates[templateName].selectedProjects.forEach((project) => {
+          const currentTemplates = projectsData[project.id]?.templates || []
+          projectsData[project.id] = {
+            ...project,
+            templates: [...currentTemplates, templateName],
+          }
+        })
       })
 
-      return projectsWithTemplates
+      return Object.values(projectsData)
     },
     onlineDashboardWidgets() {
       if (!this.onlineAvailableWidgets) return []
@@ -116,7 +129,7 @@ export default {
         })
 
         widgetsList = [...new Set(widgetsList)]
-
+        widgetsList = this.selectedWidgets(widgetsList, moduleType, project.id)
         return {
           ...project,
           widgetsList,
@@ -153,6 +166,23 @@ export default {
 
       console.log()
     },
+
+    selectedWidgets(widgetsList, moduleType, projectId) {
+      moduleType = moduleType.toLowerCase()
+      if (!this[`${moduleType}AvailableWidgets`]) return
+      return widgetsList.map((widget) => {
+        if (this[`${moduleType}AvailableWidgets`][widget.name]) {
+          return {
+            widgetDetails: getWidgetDetails(
+              widget.name,
+              this[`${moduleType}AvailableWidgets`][widget.name],
+              projectId
+            ),
+            isFullWidth: true,
+          }
+        }
+      })
+    },
   },
 }
 </script>
@@ -166,15 +196,9 @@ export default {
 .report-projects-view {
   display: flex;
   flex-direction: column;
-  align-items: center;
 
   width: 100%;
-  padding: 32px;
-  margin-top: 20px;
-
-  background-color: var(--background-secondary-color);
-  border: var(--border-primary);
-  border-radius: var(--border-radius);
+  padding: 15px 0px;
 }
 
 .report-widgets-view {
@@ -183,13 +207,34 @@ export default {
   align-items: center;
 
   width: 100%;
+  padding: 35px;
+
+  background-color: var(--background-secondary-color);
+  border: var(--border-primary);
+  border-radius: var(--border-radius);
 
   &:not(:last-child) {
     margin-bottom: 30px;
   }
 }
 
-.project-title {
-  align-self: flex-start;
+.report-widgets-list {
+  width: 70%;
+}
+
+.project {
+  &__header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    gap: 8px;
+
+    width: 100%;
+  }
+
+  &__title {
+    align-self: flex-start;
+  }
 }
 </style>

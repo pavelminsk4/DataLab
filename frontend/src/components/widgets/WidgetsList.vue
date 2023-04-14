@@ -9,9 +9,8 @@
   />
   <ul class="widgets">
     <li
-      v-for="item in selectedWidgets"
-      :key="item.i"
-      :static="item.static"
+      v-for="(item, index) in selectedWidgets"
+      :key="index"
       :class="['widgets__item', item.isFullWidth && 'grow']"
     >
       <component

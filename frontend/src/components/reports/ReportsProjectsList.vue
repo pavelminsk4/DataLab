@@ -13,7 +13,7 @@
         <div class="chips-height">
           <BaseChips :chips-type="project.moduleType" />
         </div>
-        <div>{{ project.title }}</div>
+        <div class="projects__title">{{ project.title }}</div>
       </a>
     </div>
   </aside>
@@ -66,7 +66,7 @@ export default {
 
     &__item {
       display: grid;
-      grid-template-columns: 30% 70%;
+      grid-template-columns: 45% 65%;
       align-items: center;
 
       padding-left: 5px;
@@ -81,9 +81,22 @@ export default {
       &:hover {
         box-shadow: 0px 6px 18px rgba(113, 93, 231, 0.2);
       }
+
+      @media (max-width: 1100px) {
+        grid-template-columns: 57% 43%;
+        gap: 5px;
+      }
+
       .chips-height {
         height: 28px;
       }
+    }
+
+    &__title {
+      width: 80%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
 }
