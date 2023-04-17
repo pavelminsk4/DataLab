@@ -31,12 +31,12 @@ app.conf.beat_schedule = {
   },
   'calculate-summary-vector': {
     'task': 'ml_components.tasks.calculate_summary_vector',
-    'schedule': crontab(hour=15, minute=20, day_of_week='*'),
+    'schedule': crontab(hour='*/3', minute='0', day_of_week='*'),
     'args': (),
   },
   'calculate-imp-sentiment': {
     'task': 'project.tasks.imp_sentiment',
-    'schedule': crontab(hour='*/4', minute='*', day_of_week='*'),
+    'schedule': crontab(hour='*/3', minute='0', day_of_week='*'),
     'args': (),
   },
 }
