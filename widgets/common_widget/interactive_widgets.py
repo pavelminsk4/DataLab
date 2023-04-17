@@ -9,6 +9,7 @@ def interactive_widgets(request, project_pk, widget_pk):
   project = Project.objects.get(id=project_pk)
   posts = post_agregator_with_dimensions(project)
   widget = WidgetDescription.objects.get(id=widget_pk)
+  posts = post_agregetor_for_each_widget(widget, posts)
   body = json.loads(request.body)
   posts_per_page = body['posts_per_page']
   page_number = body['page_number']
@@ -24,17 +25,17 @@ def interactive_widgets(request, project_pk, widget_pk):
   elif widget.default_title == 'Top 10 authors by volume':
     posts = author_dimensions_posts(first_value, posts)
   elif widget.default_title == 'Sentiment top 10 sources widget':
-    posts = sentiment_dimensions_posts(first_value, posts)
-    posts = source_dimensions_posts(second_value, posts)
+    posts = sentiment_dimensions_posts(second_value, posts)
+    posts = source_dimensions_posts(first_value, posts)
   elif widget.default_title == 'Sentiment top 10 countries widget':
-    posts = sentiment_dimensions_posts(first_value, posts)
-    posts = country_dimensions_posts(second_value, posts)
+    posts = sentiment_dimensions_posts(second_value, posts)
+    posts = country_dimensions_posts(first_value, posts)
   elif widget.default_title == 'Sentiment top 10 authors widget':
-    posts = sentiment_dimensions_posts(first_value, posts)
-    posts = author_dimensions_posts(second_value, posts)
+    posts = sentiment_dimensions_posts(second_value, posts)
+    posts = author_dimensions_posts(first_value, posts)
   elif widget.default_title == 'Sentiment top 10 languages widget':
-    posts = sentiment_dimensions_posts(first_value, posts)
-    posts = language_dimensions_posts(second_value, posts)
+    posts = sentiment_dimensions_posts(second_value, posts)
+    posts = language_dimensions_posts(first_value, posts)
   elif widget.default_title == 'Content Volume by Top 5 authors':
     posts = author_dimensions_posts(first_value, posts).filter(entry_published__range=dates)
   elif widget.default_title == "Content Volume by Top 5 countries":
@@ -42,7 +43,14 @@ def interactive_widgets(request, project_pk, widget_pk):
   elif widget.default_title == "Content Volume by Top 5 sources":
     posts = source_dimensions_posts(first_value, posts).filter(entry_published__range=dates)
   elif widget.default_title == 'Sentiment for period widget':
-    posts = sentiment_dimensions_posts(first_value, posts).filter(entry_published__range=dates)  
+    posts = sentiment_dimensions_posts(first_value, posts).filter(entry_published__range=dates)
+  elif widget.default_title == 'Content volume':
+    posts = posts.filter(entry_published__range=dates)
+  elif widget.default_title == 'Top keywords':
+    posts = posts.filter(entry_summary__icontains=first_value[0])
+  elif widget.default_title == 'Sentiment top keywords':
+    posts = sentiment_dimensions_posts(second_value, posts)
+    posts = posts.filter(entry_summary__icontains=first_value[0])         
   posts = posts.values(
     'id',
     'entry_title',
