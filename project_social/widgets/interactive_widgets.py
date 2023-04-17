@@ -12,27 +12,37 @@ def interactive_widgets(request, project_pk, widget_pk):
   body = json.loads(request.body)
   posts_per_page = body['posts_per_page']
   page_number = body['page_number']
+  first_value = body['first_value']
+  second_value = body['second_value']
+  dates = body['dates']
   if widget.default_title == 'Top languages':
-    posts = language_filter_posts([body['data']], posts)
+    posts = language_filter_posts(first_value, posts)
   elif widget.default_title == 'Top locations':
-    posts = country_filter_posts([body['data']], posts)
+    posts = country_filter_posts(first_value, posts)
   elif widget.default_title == 'Top authors':
-    posts = author_filter_posts([body['data']], posts)
+    posts = author_filter_posts(first_value, posts)
   elif widget.default_title == 'Social sentiment locations':
-    posts = sentiment_filter_posts([body['data']], posts)
-    posts = country_filter_posts([body['value']], posts)
+    posts = sentiment_filter_posts(first_value, posts)
+    posts = country_filter_posts(second_value, posts)
   elif widget.default_title == 'Social sentiment authors':
-    posts = sentiment_filter_posts([body['data']], posts)
-    posts = author_filter_posts([body['value']], posts)
+    posts = sentiment_filter_posts(first_value, posts)
+    posts = author_filter_posts(second_value, posts)
+  elif widget.default_title == 'Social sentiment by gender':
+    posts = sentiment_filter_posts(first_value, posts)
+    posts = posts.filter(reduce(lambda x,y: x | y, [Q(user_gender=gender) for gender in second_value]))
   elif widget.default_title == 'Social sentiment locations':
-    posts = sentiment_filter_posts([body['data']], posts)
-    posts = country_filter_posts([body['value']], posts)
+    posts = sentiment_filter_posts(first_value, posts)
+    posts = country_filter_posts(second_value, posts)
   elif widget.default_title == 'Content volume by top authors':
-    posts = author_dimensions_posts([body['data']], posts).filter(creation_date__range=body['dates'])
+    posts = author_dimensions_posts(first_value, posts).filter(creation_date__range=dates)
   elif widget.default_title == "Content volume by top locations":
-    posts = country_dimensions_posts([body['data']], posts).filter(creation_date__range=body['dates'])
+    posts = country_dimensions_posts(first_value, posts).filter(creation_date__range=dates)
   elif widget.default_title == "Content volume by top languages":
-    posts = language_dimensions_posts([body['data']], posts).filter(creation_date__range=body['dates'])
+    posts = language_dimensions_posts(first_value, posts).filter(creation_date__range=dates)
+  elif widget.default_title == "Content volume":
+    posts = posts.filter(creation_date__range=dates)
+  elif widget.default_title == 'Social sentiment':
+    posts = sentiment_filter_posts(first_value, posts).filter(creation_date__range=dates)
   posts = posts.values(
     'id',
     'post_id',

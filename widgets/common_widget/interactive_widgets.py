@@ -12,28 +12,37 @@ def interactive_widgets(request, project_pk, widget_pk):
   body = json.loads(request.body)
   posts_per_page = body['posts_per_page']
   page_number = body['page_number']
+  first_value = body['first_value']
+  second_value = body['second_value']
+  dates = body['dates']
   if widget.default_title == 'Top 10 languages':
-    posts = language_filter_posts(body['language'], posts)
+    posts = language_dimensions_posts(first_value, posts)
   elif widget.default_title == 'Top 10 brands by volume':
-    posts = source_filter_posts(body['source'], posts)
+    posts = source_dimensions_posts(first_value, posts)
   elif widget.default_title == 'Top 10 countries by volume':
-    posts = country_filter_posts(body['country'], posts)
+    posts = country_dimensions_posts(first_value, posts)
   elif widget.default_title == 'Top 10 authors by volume':
-    posts = author_filter_posts(body['author'], posts)
+    posts = author_dimensions_posts(first_value, posts)
   elif widget.default_title == 'Sentiment top 10 sources widget':
-    posts = posts.filter(sentiment=body['sentiment'], feedlink__source1=body['s_value'])
+    posts = sentiment_dimensions_posts(first_value, posts)
+    posts = source_dimensions_posts(second_value, posts)
   elif widget.default_title == 'Sentiment top 10 countries widget':
-    posts = posts.filter(sentiment=body['sentiment'], feedlink__country=body['s_value'])
+    posts = sentiment_dimensions_posts(first_value, posts)
+    posts = country_dimensions_posts(second_value, posts)
   elif widget.default_title == 'Sentiment top 10 authors widget':
-    posts = posts.filter(sentiment=body['sentiment'], entry_author=body['s_value'])
+    posts = sentiment_dimensions_posts(first_value, posts)
+    posts = author_dimensions_posts(second_value, posts)
   elif widget.default_title == 'Sentiment top 10 languages widget':
-    posts = posts.filter(sentiment=body['sentiment'], feed_language__language=body['s_value'])
+    posts = sentiment_dimensions_posts(first_value, posts)
+    posts = language_dimensions_posts(second_value, posts)
   elif widget.default_title == 'Content Volume by Top 5 authors':
-    posts = author_dimensions_posts(body['value'], posts).filter(entry_published__range=body['dates'])
+    posts = author_dimensions_posts(first_value, posts).filter(entry_published__range=dates)
   elif widget.default_title == "Content Volume by Top 5 countries":
-    posts = country_dimensions_posts(body['value'], posts).filter(entry_published__range=body['dates'])
+    posts = country_dimensions_posts(first_value, posts).filter(entry_published__range=dates)
   elif widget.default_title == "Content Volume by Top 5 sources":
-    posts = source_dimensions_posts(body['value'], posts).filter(entry_published__range=body['dates'])
+    posts = source_dimensions_posts(first_value, posts).filter(entry_published__range=dates)
+  elif widget.default_title == 'Sentiment for period widget':
+    posts = sentiment_dimensions_posts(first_value, posts).filter(entry_published__range=dates)  
   posts = posts.values(
     'id',
     'entry_title',
