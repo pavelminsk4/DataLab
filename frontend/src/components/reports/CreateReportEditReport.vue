@@ -81,7 +81,6 @@ export default {
 
     projectsWithTemplates() {
       const projectsData = {}
-
       Object.keys(this.templates).forEach((templateName) => {
         this.templates[templateName].selectedProjects.forEach((project) => {
           const currentTemplates = projectsData[project.id]?.templates || []
@@ -92,7 +91,7 @@ export default {
         })
       })
 
-      return Object.values(projectsData)
+      return projectsWithTemplates
     },
     onlineDashboardWidgets() {
       if (!this.onlineAvailableWidgets) return []
