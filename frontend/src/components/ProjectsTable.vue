@@ -48,8 +48,8 @@
 import {mapActions} from 'vuex'
 import {action} from '@store/constants'
 
-import UsersIconsBar from '@components/UsersIconsBar.vue'
-import TagsCollapsible from '@components/TagsCollapsible.vue'
+import UsersIconsBar from '@components/UsersIconsBar'
+import TagsCollapsible from '@components/TagsCollapsible'
 import AreYouSureModal from '@/components/modals/AreYouSureModal'
 import BaseTable from '@components/common/BaseTable'
 import BaseTableRow from '@components/common/BaseTableRow'

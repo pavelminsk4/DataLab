@@ -59,7 +59,6 @@ export default {
   },
   computed: {
     ...mapGetters({
-      // change
       department: get.DEPARTMENT,
     }),
     users() {

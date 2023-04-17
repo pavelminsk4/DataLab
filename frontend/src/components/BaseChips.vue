@@ -61,10 +61,10 @@ export default {
 }
 
 .male {
-  background: var(--neutral-secondary-color);
+  background: var(--chips-background-male-color);
 }
 .female {
-  background: #ffe3e8;
+  background: var(--chips-background-female-color);
 }
 
 .undefined {

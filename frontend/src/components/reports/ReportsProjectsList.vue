@@ -20,7 +20,7 @@
 
 <script>
 import {mapState} from 'vuex'
-import BaseChips from '@/components/BaseChips.vue'
+import BaseChips from '@/components/BaseChips'
 
 export default {
   name: 'ReportsProjectsList',

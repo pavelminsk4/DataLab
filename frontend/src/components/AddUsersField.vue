@@ -35,7 +35,7 @@
 
 <script>
 import AddButtonIcon from '@/components/icons/AddButtonIcon'
-import DivWithError from '@/components/DivWithError.vue'
+import DivWithError from '@/components/DivWithError'
 import DeleteTagButton from '@/components/icons/DeleteTagButton'
 
 export default {

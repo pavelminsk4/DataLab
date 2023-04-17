@@ -97,7 +97,7 @@ import BaseButton from '@/components/common/BaseButton'
 import BaseInput from '@/components/common/BaseInput'
 import MainLayout from '@components/layout/MainLayout'
 import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
-import UsersIconsBar from '@components/UsersIconsBar.vue'
+import UsersIconsBar from '@components/UsersIconsBar'
 import AreYouSureModal from '@/components/modals/AreYouSureModal'
 import BaseTable from '@components/common/BaseTable'
 import BaseTableRow from '@components/common/BaseTableRow'
@@ -156,7 +156,6 @@ export default {
   methods: {
     goToReport(event, reportId) {
       if (!event.target.closest('.checkbox-container')) {
-        // this.$emit('open-report', reportId)
         return reportId
       }
     },

@@ -63,7 +63,7 @@ export default {
   --error-primary-color: var(--negative-primary-color);
 
   --male-bg-color: #e5e9fc;
-  --female-bg-color: #e5e9fc;
+  --female-bg-color: #ffe3e8;
 
   --icon-primary-color: #797d80;
   --icon-hover-color: var(--primary-color);

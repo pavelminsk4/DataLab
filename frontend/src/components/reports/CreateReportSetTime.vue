@@ -230,7 +230,7 @@ export default {
       },
       set(val) {
         const currentIndex = this.weekDays.indexOf(val)
-        this.week.w_day_of_week = currentIndex ? currentIndex : 7
+        this.week.w_day_of_week = currentIndex || 7
       },
     },
     timePickerDay: {
@@ -329,8 +329,6 @@ export default {
         ...data,
       })
       this.$router.push({name: nextStepName})
-
-      console.log(data)
     },
   },
 }

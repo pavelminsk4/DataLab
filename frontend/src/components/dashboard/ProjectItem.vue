@@ -52,7 +52,7 @@ import {mapActions} from 'vuex'
 import {action} from '@store/constants'
 
 import PlusIcon from '@components/icons/PlusIcon'
-import UsersIconsBar from '@components/UsersIconsBar.vue'
+import UsersIconsBar from '@components/UsersIconsBar'
 import BaseTooltipSettings from '@/components/BaseTooltipSettings'
 import EditIcon from '@/components/icons/EditIcon'
 import DeleteIcon from '@/components/icons/DeleteIcon'

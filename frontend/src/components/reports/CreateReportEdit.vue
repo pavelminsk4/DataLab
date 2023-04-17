@@ -165,8 +165,6 @@ export default {
     }),
     saveReport() {
       this.$router.push({name: ''})
-
-      console.log()
     },
 
     selectedWidgets(widgetsList, moduleType, projectId) {

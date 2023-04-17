@@ -63,12 +63,12 @@ import {mapActions, mapGetters, createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
 import createReportMixin from '@/lib/mixins/create-report.js'
 
-// import UsersIconsBar from '@components/UsersIconsBar.vue'
+// import UsersIconsBar from '@components/UsersIconsBar'
 // import UserAvatar from '@components/UserAvatar'
-import TagsCollapsible from '@components/TagsCollapsible.vue'
+import TagsCollapsible from '@components/TagsCollapsible'
 import BaseTable from '@components/common/BaseTable'
 import BaseCheckbox from '@/components/BaseCheckbox2'
-import BaseChips from '@/components/BaseChips.vue'
+import BaseChips from '@/components/BaseChips'
 
 const {mapActions: mapSocialActions} = createNamespacedHelpers('social')
 
@@ -131,8 +131,6 @@ export default {
         projects: this.selectedProjects,
       })
       this.$router.push({name: nextStepName})
-
-      console.log(this.selectedProjects)
     },
   },
 }

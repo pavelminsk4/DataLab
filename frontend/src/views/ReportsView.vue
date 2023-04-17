@@ -36,13 +36,6 @@ export default {
     },
     goToReport(reportId) {
       return reportId
-      // this.$router.push({
-      //   name: 'OnlineAnalytics',
-      //   params: {
-      //     workspaceId: this.workspaceId,
-      //     reportId,
-      //   },
-      // })
     },
   },
 }

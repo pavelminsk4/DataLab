@@ -5,7 +5,6 @@
     <section class="setting">
       <span class="setting__title">Language</span>
       <BaseRadio v-model="settings.language" value="English" label="English" />
-      <!-- <BaseRadio v-model="settings.language" value="Arabic" label="Arabic" /> -->
     </section>
 
     <section class="setting">

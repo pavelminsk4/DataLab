@@ -21,7 +21,7 @@
 import {action} from '@store/constants'
 import createReportMixin from '@/lib/mixins/create-report.js'
 
-import ReportTemplateCard from '@/components/reports/ReportTemplateCard.vue'
+import ReportTemplateCard from '@/components/reports/ReportTemplateCard'
 
 export default {
   name: 'CreateReportChooseTemplate',

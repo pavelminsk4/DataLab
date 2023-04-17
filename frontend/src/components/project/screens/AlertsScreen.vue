@@ -52,7 +52,7 @@ import {action, get} from '@store/constants'
 
 import BlankPage from '@/components/BlankPage'
 import BaseButton from '@/components/common/BaseButton'
-import UsersIconsBar from '@components/UsersIconsBar.vue'
+import UsersIconsBar from '@components/UsersIconsBar'
 import NavigationBar from '@/components/navigation/NavigationBar'
 import BaseTooltipSettings from '@/components/BaseTooltipSettings'
 
