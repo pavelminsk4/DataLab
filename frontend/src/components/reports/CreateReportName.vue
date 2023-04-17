@@ -84,7 +84,7 @@ export default {
     },
     nextStep() {
       const nextStep = 2
-      // const nextStepName = this.getNextStepName(nextStep)
+      const nextStepName = this.getNextStepName(nextStep)
 
       this[action.UPDATE_NEW_REPORT]({
         step: nextStep,
@@ -93,7 +93,7 @@ export default {
         users: this.selectedUsers,
         department: this.department?.id,
       })
-      // this.$router.push({name: nextStepName})
+      this.$router.push({name: nextStepName})
     },
   },
 }

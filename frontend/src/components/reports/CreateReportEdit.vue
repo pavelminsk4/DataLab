@@ -52,7 +52,7 @@ import WidgetsList from '@/components/widgets/WidgetsList'
 const {mapActions: mapActionsSocial} = createNamespacedHelpers('social')
 
 export default {
-  name: 'CreateReportEditReport',
+  name: 'CreateReportEdit',
   components: {
     AddWidgetsIcon,
     BaseButton,
