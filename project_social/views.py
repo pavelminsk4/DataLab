@@ -28,6 +28,7 @@ from .widgets.demography.authors_by_language import *
 from .widgets.demography.authors_by_gender import *
 from rest_framework import viewsets, filters
 from django.core.paginator import Paginator
+from .widgets.interactive_widgets import *
 from django.http import JsonResponse
 from django.db.models import Q
 from functools import reduce
@@ -234,6 +235,9 @@ def dimensions_for_each_widgets(request, project_pk, widget_pk):
 
 def social_authors_by_gender(request, pk, widget_pk):
   return authors_by_gender(pk, widget_pk)
+
+def interactive_data_for_widgets(request, project_pk, widget_pk):
+  return interactive_widgets(request, project_pk, widget_pk)
 
 class ProjectSocialWidgetsAPIView(RetrieveAPIView):
  serializer_class = WidgetsListSerializer
