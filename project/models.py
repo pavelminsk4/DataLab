@@ -56,6 +56,7 @@ class Project(models.Model):
   country_dimensions = ArrayField(models.CharField(max_length=50), blank=True, null=True)
   source_dimensions = ArrayField(models.CharField(max_length=50), blank=True, null=True)
   sentiment_dimensions = ArrayField(models.CharField(max_length=10), blank=True, null=True)
+  query_filter = models.CharField(max_length=300, blank=False, null=True)
 
   def save(self, *args, **kwargs):
     total_projects_count = 0
