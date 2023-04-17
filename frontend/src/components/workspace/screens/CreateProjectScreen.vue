@@ -40,7 +40,7 @@ import BaseButton from '@/components/common/BaseButton'
 import BaseInput from '@/components/common/BaseInput'
 import BaseTextarea from '@/components/common/BaseTextarea'
 import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
-import ProgressBar from '@/components/workspace/ProgressBar'
+import ProgressBar from '@/components/workspace/WorkspaceProgressBar'
 
 export default {
   name: 'CreateProjectScreen',

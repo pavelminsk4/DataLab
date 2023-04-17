@@ -96,8 +96,8 @@ export default {
         name: 'Reports',
         description: '',
         buttonName: 'Add Report',
-        openRouteName: '',
-        createRouteName: '',
+        openRouteName: 'Reports',
+        createRouteName: 'CreateReport',
         color: '#E5E9FC',
         isMain: false,
         imageUrl: require('@/assets/modules/reports.svg'),
@@ -157,12 +157,5 @@ export default {
 
 .module-name {
   font-size: 20px;
-}
-
-.disable {
-  pointer-events: none;
-  cursor: auto;
-
-  opacity: 50%;
 }
 </style>

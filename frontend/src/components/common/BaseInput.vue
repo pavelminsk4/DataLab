@@ -1,23 +1,27 @@
 <template>
-  <div :class="['input-wrapper', hasError && 'error']">
-    <SearchIcon v-if="isSearch" class="search-icon" />
-    <input
-      v-bind="$attrs"
-      :type="inputType"
-      :value="modelValue"
-      :class="['input', isSearch && 'input-search']"
-      :placeholder="placeholder"
-      :autocomplete="autocomplete"
-      @input="handleInput"
-    />
+  <label v-if="label" :for="label">
+    <div class="label">{{ label }}</div>
+    <div :class="['input-wrapper', hasError && 'error']">
+      <SearchIcon v-if="isSearch" class="search-icon" />
+      <input
+        v-bind="$attrs"
+        :type="inputType"
+        :id="label"
+        :value="modelValue"
+        :class="['input', isSearch && 'input-search']"
+        :placeholder="placeholder"
+        :autocomplete="autocomplete"
+        @input="handleInput"
+      />
 
-    <div v-if="hasError" class="error-container">
-      {{ errorMessage }}
-      <ErrorIcon class="error-icon" />
+      <div v-if="hasError" class="error-container">
+        {{ errorMessage }}
+        <ErrorIcon class="error-icon" />
+      </div>
+
+      <slot></slot>
     </div>
-
-    <slot></slot>
-  </div>
+  </label>
 </template>
 
 <script>
@@ -27,34 +31,14 @@ import ErrorIcon from '@/components/icons/ErrorIcon'
 export default {
   name: 'BaseInput',
   props: {
-    modelValue: {
-      type: [String, Number],
-      required: true,
-    },
-    inputType: {
-      type: String,
-      default: 'text',
-    },
-    isSearch: {
-      type: Boolean,
-      default: false,
-    },
-    placeholder: {
-      type: String,
-      default: 'Enter text',
-    },
-    hasError: {
-      type: Boolean,
-      default: false,
-    },
-    errorMessage: {
-      type: String,
-      default: 'Error',
-    },
-    autocomplete: {
-      type: String,
-      default: '',
-    },
+    modelValue: {type: [String, Number], required: true},
+    inputType: {type: String, default: 'text'},
+    isSearch: {type: Boolean, default: false},
+    placeholder: {type: String, default: 'Enter text'},
+    hasError: {type: Boolean, default: false},
+    errorMessage: {type: String, default: 'Error'},
+    autocomplete: {type: String, default: ''},
+    label: {type: String, default: ''},
   },
   components: {
     ErrorIcon,
@@ -69,6 +53,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.label {
+  margin-bottom: 4px;
+
+  color: var(--typography-title-color);
+}
+
 .input-wrapper {
   position: relative;
 

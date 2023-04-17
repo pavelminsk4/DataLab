@@ -1,10 +1,26 @@
 <template>
-  <router-view></router-view>
+  <router-view v-if="userInfo"></router-view>
 </template>
 
 <script>
+import {mapActions, mapGetters} from 'vuex'
+import {action, get} from '@store/constants'
+
 export default {
   name: 'App',
+  computed: {
+    ...mapGetters({
+      userInfo: get.USER_INFO,
+    }),
+  },
+  created() {
+    if (!this.userInfo) {
+      this[action.GET_USER_INFORMATION]()
+    }
+  },
+  methods: {
+    ...mapActions([action.GET_USER_INFORMATION]),
+  },
 }
 </script>
 
@@ -44,8 +60,10 @@ export default {
   --negative-primary-color: #ed2549;
   --negative-secondary-color: #e5e9fc;
 
+  --error-primary-color: var(--negative-primary-color);
+
   --male-bg-color: #e5e9fc;
-  --female-bg-color: #e5e9fc;
+  --female-bg-color: #ffe3e8;
 
   --icon-primary-color: #797d80;
   --icon-hover-color: var(--primary-color);
@@ -118,6 +136,8 @@ h4 {
 .scroll {
   overflow: auto;
 
+  scroll-behavior: smooth;
+
   &::-webkit-scrollbar {
     height: 5px;
     width: 5px;
@@ -135,6 +155,13 @@ h4 {
     background: var(--primary-color);
     border-radius: 10px;
   }
+}
+
+.disable {
+  pointer-events: none;
+  cursor: auto;
+
+  opacity: 50%;
 }
 
 .overflow-hidden {

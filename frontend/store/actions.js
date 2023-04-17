@@ -644,18 +644,6 @@ export default {
     }
   },
 
-  async [action.GET_REGULAR_REPORTS]({commit}, projectId) {
-    commit(mutator.SET_LOADING, true)
-    try {
-      const regularReports = await api.getRegularReports(projectId)
-      commit(mutator.SET_REGULAR_REPORTS, regularReports)
-    } catch (e) {
-      console.log(e)
-    } finally {
-      commit(mutator.SET_LOADING, false)
-    }
-  },
-
   async [action.GET_COMPANY_USERS]({commit}, companyId) {
     commit(mutator.SET_LOADING, true)
     try {
@@ -736,21 +724,6 @@ export default {
     }
   },
 
-  async [action.CREATE_NEW_REGULAR_REPORT](
-    {commit, dispatch},
-    {projectId, data}
-  ) {
-    commit(mutator.SET_LOADING, true)
-    try {
-      await api.createRegularReport({projectId, data})
-      await dispatch(action.GET_REGULAR_REPORTS, projectId)
-    } catch (e) {
-      console.log(e)
-    } finally {
-      commit(mutator.SET_LOADING, false)
-    }
-  },
-
   async [action.CREATE_NEW_USER]({commit}, data) {
     commit(mutator.SET_LOADING, true)
     try {
@@ -789,21 +762,6 @@ export default {
     try {
       await api.updateUserData({userId, data})
       await dispatch(action.GET_COMPANY_USERS, currentUserId)
-    } catch (e) {
-      console.log(e)
-    } finally {
-      commit(mutator.SET_LOADING, false)
-    }
-  },
-
-  async [action.UPDATE_REGULAR_REPORT](
-    {dispatch, commit},
-    {projectId, regularReportId, data}
-  ) {
-    commit(mutator.SET_LOADING, true)
-    try {
-      await api.updateRegularReport({projectId, regularReportId, data})
-      await dispatch(action.GET_REGULAR_REPORTS, projectId)
     } catch (e) {
       console.log(e)
     } finally {
@@ -1021,5 +979,67 @@ export default {
 
   async [action.CLEAR_INTERACTIVE_DATA]({commit}) {
     commit(mutator.RESET_INTERACTIVE_DATA)
+  },
+
+  // Reports
+  async [action.GET_REGULAR_REPORTS]({commit}, departmentId) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const regularReports = await api.getRegularReports(departmentId)
+      commit(mutator.SET_REGULAR_REPORTS, regularReports)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+  async [action.CREATE_REGULAR_REPORT](
+    {commit, dispatch},
+    {departmentId, data}
+  ) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      await api.createRegularReport(departmentId, data)
+      await dispatch(action.GET_REGULAR_REPORTS, departmentId)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+  async [action.UPDATE_REGULAR_REPORT](
+    {dispatch, commit},
+    {departmentId, regularReportId, data}
+  ) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      await api.updateRegularReport(departmentId, regularReportId, data)
+      await dispatch(action.GET_REGULAR_REPORTS, departmentId)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+  async [action.DELETE_REGULAR_REPORT](
+    {dispatch, commit},
+    {departmentId, regularReportId}
+  ) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      await api.deleteRegularReport(departmentId, regularReportId)
+      await dispatch(action.GET_REGULAR_REPORTS, departmentId)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
+  async [action.UPDATE_NEW_REPORT]({commit}, data) {
+    commit(mutator.SET_NEW_REPORT, data)
+  },
+  async [action.CLEAR_NEW_REPORT]({commit}) {
+    commit(mutator.SET_NEW_REPORT)
   },
 }

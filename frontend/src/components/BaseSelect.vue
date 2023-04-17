@@ -69,50 +69,17 @@ export default {
   components: {ArrowDownIcon, ErrorIcon},
   emits: ['update:modelValue', 'select-option'],
   props: {
-    list: {
-      type: Array,
-      default: null,
-    },
-    placeholder: {
-      type: String,
-      default: 'Select option',
-    },
-    name: {
-      type: String,
-      required: true,
-    },
-    modelValue: {
-      type: String,
-      required: true,
-    },
-    isSearch: {
-      type: Boolean,
-      default: false,
-    },
-    isRejectSelection: {
-      type: Boolean,
-      default: true,
-    },
-    currentValue: {
-      type: String,
-      required: false,
-    },
-    isClearSelectedValue: {
-      type: Boolean,
-      default: false,
-    },
-    hasError: {
-      type: Boolean,
-      default: false,
-    },
-    errorMessage: {
-      type: String,
-      default: 'Error',
-    },
-    selectTitle: {
-      type: String,
-      default: '',
-    },
+    list: {type: Array, default: null},
+    placeholder: {type: String, default: 'Select option'},
+    name: {type: String, required: true},
+    modelValue: {type: String, required: true},
+    isSearch: {type: Boolean, default: false},
+    isRejectSelection: {type: Boolean, default: true},
+    currentValue: {type: String, required: false},
+    isClearSelectedValue: {type: Boolean, default: false},
+    hasError: {type: Boolean, default: false},
+    errorMessage: {type: String, default: 'Error'},
+    selectTitle: {type: String, default: ''},
   },
   data() {
     return {
@@ -152,6 +119,7 @@ export default {
       this.$emit('update:modelValue', e.target.value, this.name)
     },
     select(option) {
+      this.$emit('update:modelValue', option)
       this.$emit('select-option', this.name, option, this.visible)
       this.value = option
       this.search = option
@@ -181,6 +149,7 @@ export default {
 
   border: 1px solid var(--border-color);
   border-radius: 10px;
+  background-color: var(--background-secondary-color);
 
   cursor: pointer;
 
@@ -234,6 +203,7 @@ export default {
   list-style-type: none;
   overflow-y: auto;
   overflow-x: hidden;
+  background-color: var(--background-secondary-color);
 }
 .select-search {
   outline: none;

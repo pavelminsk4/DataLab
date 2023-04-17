@@ -188,10 +188,6 @@ export default {
     return state.alerts
   },
 
-  [get.REGULAR_REPORTS](state) {
-    return state.regularReports
-  },
-
   [get.DIMENSION_LANGUAGES](state) {
     return state.dimensionLanguages
   },
@@ -249,5 +245,19 @@ export default {
 
   [get.INTERACTIVE_DATA](state) {
     return state.interactiveData
+  },
+
+  [get.ALL_PROJECTS](state) {
+    const onlineProjects = state.projects
+    const socialProjects = state.social.projects
+    return [...onlineProjects, ...socialProjects].sort()
+  },
+
+  // Reports
+  [get.REGULAR_REPORTS](state) {
+    return state.regularReports
+  },
+  [get.CREATE_REPORTS_STEP](state) {
+    return state.newReport.step
   },
 }

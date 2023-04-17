@@ -1,6 +1,6 @@
 <template>
   <label class="checkbox-container">
-    <input v-model="isChecked" type="checkbox" :id="id" :value="id" />
+    <input v-model="isChecked" type="checkbox" :id="id" :value="value || id" />
     <span v-if="hasIcon" class="checkmark">
       <CheckIcon class="checkmark-icon" />
     </span>
@@ -19,6 +19,7 @@ export default {
     label: {type: String},
     id: {type: [Number, String], default: 'checkbox'},
     hasIcon: {type: Boolean, default: true},
+    value: {type: [String, Number, Object], default: null},
   },
   emits: ['update:modelValue'],
   computed: {
@@ -36,6 +37,8 @@ export default {
 
 <style lang="scss" scoped>
 .checkbox-container {
+  --checkbox-width: 20px;
+
   position: relative;
 
   display: flex;
@@ -91,8 +94,8 @@ export default {
   align-items: center;
   justify-content: center;
 
-  height: 20px;
-  width: 20px;
+  height: var(--checkbox-width);
+  width: var(--checkbox-width);
 
   border: 1px solid var(--typography-secondary-color);
   border-radius: 4px;

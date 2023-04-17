@@ -14,9 +14,6 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
-import {action, get} from '@store/constants'
-
 import MainHeader from '@components/navigation/MainHeader'
 
 export default {
@@ -25,23 +22,8 @@ export default {
     MainHeader,
   },
   props: {
-    isTwoColumns: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  computed: {
-    ...mapGetters({
-      userInfo: get.USER_INFO,
-    }),
-  },
-  created() {
-    if (!this.userInfo) {
-      this[action.GET_USER_INFORMATION]()
-    }
-  },
-  methods: {
-    ...mapActions([action.GET_USER_INFORMATION]),
+    isTwoColumns: {type: Boolean, default: false},
+    widthSecondColumns: {type: String, default: '100%'},
   },
 }
 </script>
@@ -71,8 +53,6 @@ export default {
 }
 
 .second-column {
-  width: 100%;
-
   background-color: var(--background-secondary-color);
 }
 

@@ -9,9 +9,8 @@
   />
   <ul class="widgets">
     <li
-      v-for="item in selectedWidgets"
-      :key="item.i"
-      :static="item.static"
+      v-for="(item, index) in selectedWidgets"
+      :key="index"
       :class="['widgets__item', item.isFullWidth && 'grow']"
     >
       <component
@@ -103,7 +102,7 @@ export default {
   list-style: none;
   .widgets__item {
     width: calc(50% - 15px);
-    min-height: 450px;
+    min-height: 400px;
     .summary-widget__container {
       display: block;
     }

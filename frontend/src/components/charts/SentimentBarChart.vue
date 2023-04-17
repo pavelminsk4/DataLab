@@ -1,11 +1,6 @@
 <template>
   <div class="chart-container">
-    <Bar
-      :data="chartData[0]"
-      :options="chartOptions"
-      :height="24"
-      :width="100"
-    />
+    <Bar :data="chartData[0]" :options="chartOptions" :height="24" />
   </div>
 </template>
 

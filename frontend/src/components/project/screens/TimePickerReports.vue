@@ -231,7 +231,7 @@ import ArrowDownIcon from '@/components/icons/ArrowDownIcon'
 import BaseInput from '@/components/common/BaseInput'
 import BaseSwitcher from '@/components/BaseSwitcher'
 import ClockIcon from '@/components/icons/ClockIcon'
-import DivWithError from '@/components/DivWithError.vue'
+import DivWithError from '@/components/DivWithError'
 import GeneralSettingReport from '@/components/project/screens/GeneralSettingReport'
 
 export default {

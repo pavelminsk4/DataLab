@@ -224,10 +224,6 @@ export default {
     state.alerts = [...data]
   },
 
-  [mutator.SET_REGULAR_REPORTS](state, data) {
-    state.regularReports = [...data]
-  },
-
   [mutator.RESET_STATE](state) {
     state.currentStep = 'Step1'
     state.keywords = {}
@@ -290,5 +286,15 @@ export default {
 
   [mutator.SET_INTERACTIVE_DATA](state, posts) {
     state.interactiveData = posts
+  },
+
+  // Reports
+  [mutator.SET_REGULAR_REPORTS](state, data) {
+    state.regularReports = data
+  },
+  [mutator.SET_NEW_REPORT](state, data) {
+    if (data) {
+      state.newReport = {...state.newReport, ...data}
+    }
   },
 }

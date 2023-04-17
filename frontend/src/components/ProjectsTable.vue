@@ -1,5 +1,9 @@
 <template>
-  <BaseTable :table-header="tableHeader" @select-all="selectAll">
+  <BaseTable
+    :table-header="tableHeader"
+    :selected-items="selectedProjects"
+    @select-all="selectAll"
+  >
     <BaseTableRow
       v-for="(item, index) in values"
       :key="index"
@@ -24,7 +28,7 @@
         </div>
       </td>
       <td>
-        <MembersIconsBar :members="projectMembers(item.members)" />
+        <UsersIconsBar :users="projectMembers(item.members)" />
       </td>
       <td class="project-creation-date">
         {{ projectCreationDate(item.created_at) }}
@@ -44,8 +48,8 @@
 import {mapActions} from 'vuex'
 import {action} from '@store/constants'
 
-import MembersIconsBar from '@components/MembersIconsBar.vue'
-import TagsCollapsible from '@components/TagsCollapsible.vue'
+import UsersIconsBar from '@components/UsersIconsBar'
+import TagsCollapsible from '@components/TagsCollapsible'
 import AreYouSureModal from '@/components/modals/AreYouSureModal'
 import BaseTable from '@components/common/BaseTable'
 import BaseTableRow from '@components/common/BaseTableRow'
@@ -55,7 +59,7 @@ export default {
   name: 'ProjectsTable',
   components: {
     AreYouSureModal,
-    MembersIconsBar,
+    UsersIconsBar,
     TagsCollapsible,
     BaseTable,
     BaseTableRow,

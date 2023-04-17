@@ -12,6 +12,7 @@ import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
 import {getWidgetDetails} from '@lib/utilities'
+import {onlineWidgetsList} from '@/lib/constants'
 
 import WidgetsList from '@/components/widgets/WidgetsList'
 
@@ -30,7 +31,7 @@ export default {
     selectedWidgets: {
       get() {
         if (!this.availableWidgets) return
-        return this.widgets
+        return onlineWidgetsList.demography
           .map((widget) => {
             if (this.availableWidgets[widget.name]) {
               return {
@@ -46,14 +47,6 @@ export default {
           .filter((widgets) => widgets)
       },
     },
-  },
-  async created() {
-    this.widgets = [
-      {name: 'top_sharing_sources', isFullWidth: false},
-      {name: 'sources_by_language', isFullWidth: false},
-      {name: 'overall_top_sources', isFullWidth: true},
-      {name: 'sources_by_country', isFullWidth: false},
-    ]
   },
   methods: {
     ...mapActions([action.UPDATE_AVAILABLE_WIDGETS]),

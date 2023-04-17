@@ -1,0 +1,43 @@
+<template>
+  <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M14.5 18C13.9477 18 13.5 17.5523 13.5 17L13.5 12C13.5 11.4477 13.9477 11 14.5 11C15.0523 11 15.5 11.4477 15.5 12L15.5 17C15.5 17.5523 15.0523 18 14.5 18Z"
+      fill="white"
+    />
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M11 14.5C11 13.9477 11.4477 13.5 12 13.5H17C17.5523 13.5 18 13.9477 18 14.5C18 15.0523 17.5523 15.5 17 15.5H12C11.4477 15.5 11 15.0523 11 14.5Z"
+      fill="white"
+    />
+    <rect
+      x="3"
+      y="3"
+      width="5"
+      height="5"
+      rx="1"
+      stroke="white"
+      stroke-width="2"
+    />
+    <rect
+      x="12"
+      y="3"
+      width="5"
+      height="5"
+      rx="1"
+      stroke="white"
+      stroke-width="2"
+    />
+    <rect
+      x="3"
+      y="12"
+      width="5"
+      height="5"
+      rx="1"
+      stroke="white"
+      stroke-width="2"
+    />
+  </svg>
+</template>

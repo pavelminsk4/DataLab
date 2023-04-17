@@ -35,7 +35,7 @@
 
 <script>
 import AddButtonIcon from '@/components/icons/AddButtonIcon'
-import DivWithError from '@/components/DivWithError.vue'
+import DivWithError from '@/components/DivWithError'
 import DeleteTagButton from '@/components/icons/DeleteTagButton'
 
 export default {
@@ -46,22 +46,10 @@ export default {
     DeleteTagButton,
   },
   props: {
-    hasError: {
-      type: Boolean,
-      default: false,
-    },
-    errorMessage: {
-      type: String,
-      default: '',
-    },
-    selectedUsers: {
-      type: Array,
-      default: () => [],
-    },
-    usersEmails: {
-      type: Array,
-      default: () => [],
-    },
+    hasError: {type: Boolean, default: false},
+    errorMessage: {type: String, default: ''},
+    selectedUsers: {type: Array, default: () => []},
+    usersEmails: {type: Array, default: () => []},
   },
   data() {
     return {
@@ -122,13 +110,12 @@ export default {
 
     height: auto;
     max-height: 110px;
-    width: 516px;
+    width: 100%;
     padding: 8px;
 
-    background: var(--secondary-bg-color);
-    border: 1px solid var(--input-border-color);
-    box-shadow: 0 4px 10px rgba(16, 16, 16, 0.25);
-    border-radius: 10px;
+    background: var(--background-secondary-color);
+    border: var(--border-primary);
+    border-radius: var(--border-radius);
 
     overflow-x: auto;
 
@@ -155,7 +142,7 @@ export default {
     .duplicate {
       color: var(--typography-primary-color);
 
-      background: var(--negative-status);
+      background: var(--error-primary-color);
       animation: shake 1s;
     }
     .add-users-button {
@@ -199,10 +186,10 @@ export default {
     max-height: 250px;
 
     outline: 1px solid var(--button-primary-color);
-    border-top: 1px solid var(--modal-line-color);
+    border-top: var(--border-primary);
     box-shadow: 0 3px 4px rgba(5, 95, 252, 0.49);
     border-radius: 0 0 10px 10px;
-    background-color: var(--secondary-bg-color);
+    background-color: var(--background-secondary-color);
 
     font-size: 14px;
     list-style-type: none;
@@ -225,7 +212,7 @@ export default {
 }
 
 .email-field-error-wrapper {
-  width: fit-content;
+  width: 100%;
   border-radius: 10px;
 }
 </style>
