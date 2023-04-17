@@ -15,6 +15,8 @@ import CreateReportEdit from '@/components/reports/CreateReportEdit'
 
 import UserRolesScreen from '@/components/settings/UserRolesScreen'
 
+import AlertsView from '@/views/AlertsView'
+
 export const routes = [
   {
     name: 'MainView',
@@ -118,5 +120,11 @@ export const routes = [
         },
       },
     ],
+  },
+
+  {
+    name: 'Alerts',
+    path: '/alerts',
+    component: AlertsView,
   },
 ]
