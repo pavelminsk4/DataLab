@@ -123,3 +123,93 @@ class InteractiveWidgetsTests(APITestCase):
     response = self.client.post(url, data, format='json')
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     self.assertEqual(json.loads(response.content)['posts'][0]['id'], post_id)
+  
+  def test_sentiment_diagram(self):
+    flink1 = Feedlinks.objects.first()
+    sp2 = Speech.objects.get(language='Georgian')
+    pr = Project.objects.first()
+    post_id = Post.objects.all().get(entry_title='Second post title').pk
+    widget_pk = pr.widgets_list_2.sentiment_diagram_id
+    url = reverse('widgets:interactive_widgets', kwargs={'project_pk':pr.pk, 'widget_pk':widget_pk})
+    data = {
+      'first_value': [],
+      'second_value': ['negative'],
+      'dates': [],
+      'posts_per_page': 10,
+      'page_number': 1,
+    }
+    response = self.client.post(url, data, format='json')
+    self.assertEqual(response.status_code, status.HTTP_200_OK)
+    self.assertEqual(json.loads(response.content)['posts'][0]['id'], post_id)
+
+  def test_authors_by_country(self):
+    flink1 = Feedlinks.objects.first()
+    sp2 = Speech.objects.get(language='Georgian')
+    pr = Project.objects.first()
+    post_id = Post.objects.all().get(entry_title='First post title').pk
+    widget_pk = pr.widgets_list_2.authors_by_country_id
+    url = reverse('widgets:interactive_widgets', kwargs={'project_pk':pr.pk, 'widget_pk':widget_pk})
+    data = {
+      'first_value': ['AFP'],
+      'second_value': ['England'],
+      'dates': [],
+      'posts_per_page': 10,
+      'page_number': 1,
+    }
+    response = self.client.post(url, data, format='json')
+    self.assertEqual(response.status_code, status.HTTP_200_OK)
+    self.assertEqual(json.loads(response.content)['posts'][0]['id'], post_id)
+  
+  def test_authors_by_sentiment(self):
+    flink1 = Feedlinks.objects.first()
+    sp2 = Speech.objects.get(language='Georgian')
+    pr = Project.objects.first()
+    post_id = Post.objects.all().get(entry_title='First post title').pk
+    widget_pk = pr.widgets_list_2.authors_by_sentiment_id
+    url = reverse('widgets:interactive_widgets', kwargs={'project_pk':pr.pk, 'widget_pk':widget_pk})
+    data = {
+      'first_value': ['AFP'],
+      'second_value': ['neutral'],
+      'dates': [],
+      'posts_per_page': 10,
+      'page_number': 1,
+    }
+    response = self.client.post(url, data, format='json')
+    self.assertEqual(response.status_code, status.HTTP_200_OK)
+    self.assertEqual(json.loads(response.content)['posts'][0]['id'], post_id)
+  
+  def test_sources_by_country(self):
+    flink1 = Feedlinks.objects.first()
+    sp2 = Speech.objects.get(language='Georgian')
+    pr = Project.objects.first()
+    post_id = Post.objects.all().get(entry_title='First post title').pk
+    widget_pk = pr.widgets_list_2.sources_by_country_id
+    url = reverse('widgets:interactive_widgets', kwargs={'project_pk':pr.pk, 'widget_pk':widget_pk})
+    data = {
+      'first_value': ['Time'],
+      'second_value': ['England'],
+      'dates': [],
+      'posts_per_page': 10,
+      'page_number': 1,
+    }
+    response = self.client.post(url, data, format='json')
+    self.assertEqual(response.status_code, status.HTTP_200_OK)
+    self.assertEqual(json.loads(response.content)['posts'][0]['id'], post_id)
+
+  def test_sources_by_language(self):
+    flink1 = Feedlinks.objects.first()
+    sp2 = Speech.objects.get(language='Georgian')
+    pr = Project.objects.first()
+    post_id = Post.objects.all().get(entry_title='First post title').pk
+    widget_pk = pr.widgets_list_2.sources_by_language_id
+    url = reverse('widgets:interactive_widgets', kwargs={'project_pk':pr.pk, 'widget_pk':widget_pk})
+    data = {
+      'first_value': ['Time'],
+      'second_value': ['English'],
+      'dates': [],
+      'posts_per_page': 10,
+      'page_number': 1,
+    }
+    response = self.client.post(url, data, format='json')
+    self.assertEqual(response.status_code, status.HTTP_200_OK)
+    self.assertEqual(json.loads(response.content)['posts'][0]['id'], post_id)
