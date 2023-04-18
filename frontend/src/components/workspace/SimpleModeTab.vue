@@ -31,6 +31,9 @@
         @update:modelValue="updateCollection"
       />
 
+      <div class="second-title">TEST Expert mode</div>
+      <BaseTextarea v-model="exprtModeTest" placeholder="Enter code" />
+
       <div class="filters-title">
         Refine youre search with additional filters
       </div>
@@ -66,6 +69,7 @@ import OnlineSearchForm from '@/components/project/OnlineSearchForm'
 import SocialSearchForm from '@/components/project/SocialSearchForm'
 import BaseButton from '@/components/common/BaseButton'
 import SaveIcon from '@/components/icons/SaveIcon'
+import BaseTextarea from '../common/BaseTextarea.vue'
 
 export default {
   name: 'SimpleModeTab',
@@ -75,11 +79,13 @@ export default {
     OnlineSearchForm,
     SocialSearchForm,
     BaseTag,
+    BaseTextarea,
   },
   props: {
     mainKeywords: {type: Array, default: () => []},
     additionalKeywords: {type: Array, default: () => []},
     excludeKeywords: {type: Array, default: () => []},
+    expertModeTestTest: {type: String, default: ''},
     currentProject: {type: [Array, Object], default: () => []},
     isDisabledButton: {type: Boolean, default: false},
     moduleName: {type: String, default: 'Online'},
@@ -87,12 +93,23 @@ export default {
   data() {
     return {
       mainKeywordsError: null,
+      newExprtModeTest: null,
     }
   },
   computed: {
     ...mapGetters({
       searchData: get.SEARCH_DATA,
     }),
+    exprtModeTest: {
+      get() {
+        if (this.newExprtModeTest === '') return this.newExprtModeTest
+        return this.newExprtModeTest || this.expertModeTestTest
+      },
+      set(val) {
+        this.newExprtModeTest = val
+        this.$emit('update-query-filter', this.newExprtModeTest)
+      },
+    },
   },
   methods: {
     updateCollection(name, value) {
