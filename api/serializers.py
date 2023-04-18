@@ -35,7 +35,7 @@ class UserUpdateSerializer(serializers.ModelSerializer):
     fields = ["first_name", "last_name", "email"]
 
 class ProjectSerializer(serializers.ModelSerializer):
-  users = UserSerializer
+  members = UserSerializer(many=True, required=False)
   note = serializers.CharField(max_length=1000, allow_blank=True)
   class Meta:
     model = Project
