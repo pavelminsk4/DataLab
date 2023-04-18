@@ -49,3 +49,5 @@ wordcloud
 django-ndarrayfield==1.0.0rc4 # model field for ML
 sentence-transformers==2.2.2 # ML part
 protobuf==3.19.0 # ML part
+
+boolean-parser==0.1.4 # Expert Mode
