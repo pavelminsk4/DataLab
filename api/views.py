@@ -344,10 +344,10 @@ class AlertsViewSet(viewsets.ModelViewSet):
   serializer_class = AlertsSerializer
   queryset = Alert.objects.all()
 
-class ProjAlertsViewSet(ListAPIView):
+class DepAlertsViewSet(ListAPIView):
   serializer_class = AlertsSerializer
   def get_queryset(self):
-    return Alert.objects.filter(project_id=self.kwargs['pk'])
+    return Alert.objects.filter(department_id=self.kwargs['pk'])
 
 class RegisterView(generics.CreateAPIView):
   queryset = User.objects.all()

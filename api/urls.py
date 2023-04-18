@@ -47,7 +47,7 @@ urlpatterns = [
   path('projects/<int:pk>/list_authors', views.ListAuthorsInProject.as_view() ,name='list_authors'),
 
   #path('projects/<int:pk>/dimension_source', views.dimension_source, name='dim_source'),
-  path('projects/<int:pk>/alerts', views.ProjAlertsViewSet.as_view(), name='proj_alerts'),
+  path('departments/<int:pk>/alerts', views.DepAlertsViewSet.as_view(), name='dep_alerts'),
   path('register/', RegisterView.as_view(), name='auth_register'),
   path('company_users/<int:pk>/', CompanyUsersView.as_view(), name='company_users'),
   # Profile
