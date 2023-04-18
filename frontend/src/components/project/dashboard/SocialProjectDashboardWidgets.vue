@@ -3,8 +3,6 @@
     v-if="isOpenWidgetSettingsModal"
     :widgetDetails="selectedWidgets[currentWidgetIndex].widgetDetails"
     @close="closeModal"
-    @open-interactive-widget="openInteractiveData"
-    @open-sentiment-interactive="openSentimentInteractiveData"
   />
 
   <grid-layout
@@ -33,8 +31,6 @@
         :widgetDetails="item.widgetDetails"
         @delete-widget="deleteWidget(item.widgetDetails.name)"
         @open-settings-modal="openModal(index)"
-        @open-interactive-data="openInteractiveData"
-        @open-sentiment-interactive="openSentimentInteractiveData"
       />
     </grid-item>
   </grid-layout>
@@ -156,17 +152,6 @@ export default {
     openModal(widgetIndex) {
       this.currentWidgetIndex = widgetIndex
       this.isOpenWidgetSettingsModal = !this.isOpenWidgetSettingsModal
-    },
-    openInteractiveData(val, widgetId, fieldName) {
-      this.$emit('open-interactive-widget', val, widgetId, fieldName)
-    },
-    openSentimentInteractiveData(source, sentiment, widgetId) {
-      this.$emit(
-        'open-sentiment-interactive-widget',
-        source,
-        sentiment,
-        widgetId
-      )
     },
     closeModal() {
       this.togglePageScroll(false)

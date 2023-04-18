@@ -1,11 +1,17 @@
 <template>
+  <InteractiveWidgetModal
+    v-if="inreractiveDataModal.isShow"
+    :widget-id="widgetId"
+    :current-project="currentProject"
+    class="interactive-widgets"
+    @close="closeInteractiveModal"
+  />
+
   <component
     :is="`${moduleName}WidgetSettingsModal`"
     v-if="isOpenWidgetSettingsModal"
     :widgetDetails="currentWidget"
     @close="closeModal"
-    @open-interactive-widget="openInteractiveData"
-    @open-sentiment-interactive="openSentimentInteractiveData"
   />
   <ul class="widgets">
     <li
@@ -17,8 +23,6 @@
         :is="`${moduleName}MainWidget`"
         :widgetDetails="item.widgetDetails"
         @open-settings-modal="openModal(item.widgetDetails)"
-        @open-interactive-data="openInteractiveData"
-        @open-sentiment-interactive="openSentimentInteractiveData"
       />
     </li>
   </ul>
@@ -31,6 +35,7 @@ import SocialWidgetSettingsModal from '@/components/widgets/social/modals/Widget
 
 import OnlineMainWidget from '@/components/widgets/online/OnlineMainWidget'
 import SocialMainWidget from '@/components/widgets/social/SocialMainWidget'
+import InteractiveWidgetModal from '@/components/modals/InteractiveWidgetModal'
 
 export default {
   name: 'WidgetsList',
@@ -39,6 +44,7 @@ export default {
     SocialMainWidget,
     OnlineWidgetSettingsModal,
     SocialWidgetSettingsModal,
+    InteractiveWidgetModal,
   },
   emits: [
     'update-page',
@@ -61,10 +67,14 @@ export default {
   computed: {
     ...mapGetters({
       availableWidgets: get.AVAILABLE_WIDGETS,
+      inreractiveDataModal: get.INTERACTIVE_DATA_MODAL,
     }),
   },
   methods: {
-    ...mapActions([action.UPDATE_AVAILABLE_WIDGETS]),
+    ...mapActions([
+      action.UPDATE_AVAILABLE_WIDGETS,
+      action.CLEAR_INTERACTIVE_DATA,
+    ]),
     updatePage(page, posts) {
       this.$emit('update-page', page, posts)
     },
@@ -75,20 +85,14 @@ export default {
       this.currentWidget = widget
       this.isOpenWidgetSettingsModal = !this.isOpenWidgetSettingsModal
     },
-    openInteractiveData(val, widgetId, fieldName) {
-      this.$emit('open-interactive-widget', val, widgetId, fieldName)
-    },
-    openSentimentInteractiveData(source, sentiment, widgetId) {
-      this.$emit(
-        'open-sentiment-interactive-widget',
-        source,
-        sentiment,
-        widgetId
-      )
-    },
     closeModal() {
       this.togglePageScroll(false)
       this.isOpenWidgetSettingsModal = false
+    },
+
+    closeInteractiveModal() {
+      this.togglePageScroll(false)
+      this[action.CLEAR_INTERACTIVE_DATA]()
     },
   },
 }

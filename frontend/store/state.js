@@ -83,6 +83,9 @@ const initialState = {
     end_search_date: null,
   },
   isShowCalendarContents: false,
+  inreractiveDataModal: {
+    isShow: false,
+  },
   availableWidgets: null,
   alerts: [],
   companyUsers: [],

@@ -15,7 +15,9 @@
           </BaseTooltip>
         </div>
 
-        <div class="word">{{ capitalizeFirstLetter(text) }}</div>
+        <div class="word" @click="openInteractiveWidget(text)">
+          {{ capitalizeFirstLetter(text) }}
+        </div>
       </div>
     </template>
   </vue-word-cloud>
@@ -53,6 +55,9 @@ export default {
     getCount(word) {
       const labelIndex = this.labels.indexOf(word)
       return this.chartValues[0].data[labelIndex].toFixed(2)
+    },
+    openInteractiveWidget(word) {
+      this.$emit('open-interactive-data', word)
     },
   },
 }

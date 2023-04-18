@@ -1,7 +1,7 @@
 <template>
   <div class="analytics-wrapper">
     <InteractiveWidgetModal
-      v-if="isOpenInteractiveModal"
+      v-if="inreractiveDataModal.isShow"
       :widget-id="widgetId"
       :current-project="currentProject"
       class="interactive-widgets"
@@ -88,8 +88,6 @@
       :project-id="currentProject.id"
       :currentProject="currentProject"
       @update-page="showResults"
-      @open-interactive-widget="openInteractiveWidgetModal"
-      @open-sentiment-interactive-widget="openSentimentInteractiveWidgetModal"
     />
   </div>
 </template>
@@ -139,7 +137,6 @@ export default {
       isOpenDownloadReportModal: false,
       sortValue: '',
       sortingValue: '',
-      isOpenInteractiveModal: false,
       widgetId: null,
       page: 1,
       countPosts: 4,
@@ -165,6 +162,7 @@ export default {
       keywords: get.KEYWORDS,
       searchData: get.SEARCH_DATA,
       numberOfPosts: get.POSTS_NUMBER,
+      inreractiveDataModal: get.INTERACTIVE_DATA_MODAL,
     }),
     currentKeywords() {
       return this.currentProject?.keywords
@@ -235,56 +233,21 @@ export default {
         console.log(e)
       }
     },
-    showInteractiveData(widgetId, data) {
-      this.widgetId = widgetId
-
-      this.isOpenInteractiveModal = true
-
-      this[action.POST_INTERACTIVE_WIDGETS]({
-        projectId: this.currentProject.id,
-        widgetId: widgetId,
-        data: {
-          ...data,
-          page_number: this.page,
-          posts_per_page: this.countPosts,
-        },
-      })
-    },
-
-    openInteractiveWidgetModal(val, widgetId, fieldName) {
-      this.fieldName = fieldName
-      this.value = val
-      this.showInteractiveData(widgetId, {
-        [fieldName]: val,
-      })
-    },
-
-    openSentimentInteractiveWidgetModal(source, sentiment, widgetId) {
-      this.source = source
-      this.sentiment = sentiment
-
-      this.showInteractiveData(widgetId, {
-        s_value: source,
-        sentiment: sentiment,
-      })
-    },
 
     closeInteractiveModal() {
       this.togglePageScroll(false)
-      this.isOpenInteractiveModal = false
       this[action.CLEAR_INTERACTIVE_DATA]()
     },
 
     updatePageAndCountPosts(page, countPosts) {
-      this.page = page
-      this.countPosts = countPosts
-
-      this.showInteractiveData(this.widgetId, {
-        [this.fieldName]: this.value,
-        s_value: this.source,
-        sentiment: this.sentiment,
-        page_number: page,
-        posts_per_page: countPosts,
+      this[action.POST_INTERACTIVE_WIDGETS]({
+        projectId: this.inreractiveDataModal.projectId,
+        widgetId: this.inreractiveDataModal.widgetId,
+        data: {
+          ...this.inreractiveDataModal.data,
+          page_number: page,
+          posts_per_page: countPosts,
+        },
       })
     },
 

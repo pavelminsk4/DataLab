@@ -10,6 +10,7 @@
       :labels="labels"
       :chart-type="chartType"
       :chart-values="chartValues"
+      :widget-details="widgetDetails"
     />
   </component>
 </template>

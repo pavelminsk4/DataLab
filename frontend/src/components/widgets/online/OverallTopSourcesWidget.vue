@@ -39,9 +39,6 @@ export default {
   },
   methods: {
     ...mapActions([action.GET_OVERALL_TOP_SOURCES]),
-    openInteractiveModal(val) {
-      this.$emit('open-interactive-data', val, this.widgetDetails.id, 'author')
-    },
   },
 }
 </script>

@@ -50,9 +50,6 @@ export default {
   },
   methods: {
     ...mapActions([action.GET_TOP_LANGUAGES_WIDGET]),
-    openInteractiveModal(val) {
-      this.$emit('open-interactive-data', val, this.widgetDetails.id, 'author')
-    },
   },
 }
 </script>

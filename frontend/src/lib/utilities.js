@@ -31,13 +31,19 @@ export const defaultDate = (date) =>
     year: 'numeric',
   })
 
-export const getWidgetDetails = (widgetName, widgetData, projectId) => {
+export const getWidgetDetails = (
+  widgetName,
+  widgetData,
+  projectId,
+  moduleName
+) => {
   return {
     ...widgetData,
     ...widgetsConfig[widgetName],
     name: widgetName,
     widgetName: stringToPascalCase(widgetName),
     isWidget: true,
+    moduleName: moduleName,
     projectId,
   }
 }

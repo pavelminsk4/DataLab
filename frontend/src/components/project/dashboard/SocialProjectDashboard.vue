@@ -92,7 +92,6 @@
 
       <SocialProjectDashboardWidgets
         :project-id="currentProject.id"
-        @open-interactive-widget="openInteractiveWidgetModal"
         @update-available-widgets="updateAvailableWidgets"
       />
     </div>

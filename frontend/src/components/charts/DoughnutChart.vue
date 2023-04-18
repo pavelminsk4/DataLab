@@ -52,6 +52,13 @@ export default {
           easing: 'easeInOutQuad',
           duration: 520,
         },
+        onClick: (e, dataOptions) => {
+          this.$emit(
+            'open-interactive-data',
+            this.labels[dataOptions[0].index],
+            dataOptions[0].element.$datalabels[0].$context.dataset.label?.toLowerCase()
+          )
+        },
         onHover: (event, chartElement) => {
           const target = event.native ? event.native.target : event.target
           target.style.cursor = chartElement[0] ? 'pointer' : 'default'

@@ -36,7 +36,11 @@
         </td>
         <td>{{ item.posts }}</td>
         <td>
-          <ChartsView :chart-values="datasets(item)" :chart-type="chartType" />
+          <ChartsView
+            :chart-values="datasets(item)"
+            :chart-type="chartType"
+            :widget-details="widgetDetails"
+          />
         </td>
         <td>{{ item.reach }}</td>
         <td>{{ item.engagements }}</td>

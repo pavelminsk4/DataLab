@@ -266,6 +266,7 @@ export default {
 
   [mutator.RESET_INTERACTIVE_DATA](state) {
     state.interactiveData = []
+    state.inreractiveDataModal = {isShow: false}
   },
 
   [mutator.SET_DISPLAY_CALENDAR](state, value) {
@@ -296,5 +297,8 @@ export default {
     if (data) {
       state.newReport = {...state.newReport, ...data}
     }
+  },
+  [mutator.SET_INTERACTIVE_DATA_MODAL](state, data) {
+    state.inreractiveDataModal = {...state.inreractiveDataModal, ...data}
   },
 }

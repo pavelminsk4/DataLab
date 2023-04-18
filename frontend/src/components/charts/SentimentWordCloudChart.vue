@@ -17,7 +17,9 @@
           </BaseTooltip>
         </div>
 
-        <div class="word">{{ capitalizeFirstLetter(text) }}</div>
+        <div class="word" @click="openInteractiveWidget(text, item)">
+          {{ capitalizeFirstLetter(text) }}
+        </div>
       </div>
     </template>
   </vue-word-cloud>
@@ -52,6 +54,9 @@ export default {
           color: sentimentData.color,
         }
       })
+    },
+    openInteractiveWidget(word, item) {
+      this.$emit('open-interactive-data', word, item.type)
     },
   },
 }

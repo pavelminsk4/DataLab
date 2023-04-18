@@ -2,6 +2,7 @@
   <component
     :is="widgetWrapper"
     :title="widgetDetails.title"
+    :widget-details="widgetDetails"
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
   >
@@ -9,6 +10,7 @@
       :labels="labels"
       :chart-values="chartValues"
       :chart-type="chartType"
+      :widget-details="widgetDetails"
       :is-display-legend="!isSettings"
     />
   </component>
