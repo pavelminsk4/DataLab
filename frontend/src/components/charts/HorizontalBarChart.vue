@@ -4,7 +4,6 @@
 
 <script>
 import {Bar} from 'vue-chartjs'
-import {lowerFirstLetter} from '@/lib/utilities'
 
 import {
   Chart as ChartJS,
@@ -32,11 +31,9 @@ export default {
       return {
         onClick: (e, dataOptions) => {
           this.$emit(
-            'open-sentiment-interactive-data',
+            'open-interactive-data',
             this.labels[dataOptions[0].index],
-            lowerFirstLetter(
-              dataOptions[0].element.$datalabels[0].$context.dataset.label
-            )
+            dataOptions[0].element.$datalabels[0].$context.dataset.label?.toLowerCase()
           )
         },
         indexAxis: 'y',

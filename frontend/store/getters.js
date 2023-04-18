@@ -246,7 +246,6 @@ export default {
   [get.INTERACTIVE_DATA](state) {
     return state.interactiveData
   },
-
   [get.ALL_PROJECTS](state) {
     const onlineProjects = state.projects
     const socialProjects = state.social.projects
@@ -259,5 +258,8 @@ export default {
   },
   [get.CREATE_REPORTS_STEP](state) {
     return state.newReport.step
+  },
+  [get.INTERACTIVE_DATA_MODAL](state) {
+    return state.inreractiveDataModal
   },
 }

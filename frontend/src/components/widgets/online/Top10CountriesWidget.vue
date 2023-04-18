@@ -43,9 +43,6 @@ export default {
   },
   methods: {
     ...mapActions([action.GET_TOP_COUNTRIES_WIDGET]),
-    openInteractiveModal(val) {
-      this.$emit('open-interactive-data', val, this.widgetDetails.id, 'author')
-    },
   },
 }
 </script>

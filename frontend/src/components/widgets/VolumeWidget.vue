@@ -9,8 +9,8 @@
       :labels="labels"
       :chart-type="chartType"
       :chart-values="chartValues"
+      :widget-details="widgetDetails"
       :is-display-legend="!isSettings"
-      @open-sentiment-interactive-modal="openInteractiveModal"
     />
   </component>
 </template>
@@ -38,16 +38,6 @@ export default {
         this.newChartType ||
         this.widgetDetails.chart_type ||
         this.widgetDetails.defaultChartType
-      )
-    },
-  },
-  methods: {
-    openInteractiveModal(source, sentiment) {
-      this.$emit(
-        'open-sentiment-interactive',
-        source,
-        sentiment,
-        this.widgetDetails.id
       )
     },
   },

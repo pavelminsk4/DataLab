@@ -7,12 +7,13 @@
     :labels="labels"
     :chart-values="chartValues"
     :isDisplayLegend="isDisplayLegend"
-    @open-sentiment-interactive-data="openSentimentInteractiveData"
+    @open-interactive-data="openInteractiveData"
   />
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import {mapState, mapActions} from 'vuex'
+import {action} from '@store/constants'
 
 import BaseSpinner from '@/components/BaseSpinner'
 import BarChart from '@/components/charts/BarChart'
@@ -45,10 +46,10 @@ export default {
     SentimentWordCloudChart,
     SentimentBarChart,
   },
-  emits: ['open-sentiment-interactive-modal'],
   props: {
     labels: {type: Array, default: () => []},
     chartType: {type: String, required: true},
+    widgetDetails: {type: Object, required: true},
     chartValues: {type: Array, required: true, default: () => []},
     isDisplayLegend: {type: Boolean, default: true, required: false},
   },
@@ -56,8 +57,40 @@ export default {
     ...mapState(['loading']),
   },
   methods: {
-    openSentimentInteractiveData(source, sentiment) {
-      this.$emit('open-sentiment-interactive-modal', source, sentiment)
+    ...mapActions([
+      action.SHOW_INTERACTIVE_DATA_MODAL,
+      action.POST_INTERACTIVE_WIDGETS,
+    ]),
+    showIteractiveModalData(data) {
+      this[action.SHOW_INTERACTIVE_DATA_MODAL]({
+        isShow: true,
+        projectId: this.widgetDetails.projectId,
+        widgetId: this.widgetDetails.id,
+        data: {
+          ...data,
+          page_number: 1,
+          posts_per_page: 2,
+        },
+      })
+    },
+    openInteractiveData(firstValue, secondValue) {
+      const startOfTheDay = new Date(firstValue)
+
+      if (startOfTheDay.toString() !== 'Invalid Date') {
+        let endOfTheDay = new Date(firstValue)
+        endOfTheDay.setHours(23, 59, 59)
+        this.showIteractiveModalData({
+          first_value: secondValue || [],
+          second_value: [],
+          dates: [startOfTheDay, endOfTheDay],
+        })
+      } else {
+        this.showIteractiveModalData({
+          first_value: [firstValue.replace(/ posts/gi, '')],
+          second_value: [secondValue],
+          dates: [],
+        })
+      }
     },
   },
 }

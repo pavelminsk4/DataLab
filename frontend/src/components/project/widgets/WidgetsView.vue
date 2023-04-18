@@ -3,8 +3,6 @@
     v-if="isOpenWidgetSettingsModal"
     :widgetDetails="selectedWidgets[currentWidgetIndex].widgetDetails"
     @close="closeModal"
-    @open-interactive-widget="openInteractiveData"
-    @open-sentiment-interactive="openSentimentInteractiveData"
   />
   <div class="analytics-wrapper">
     <SearchResults
@@ -39,8 +37,6 @@
           :widgetDetails="item.widgetDetails"
           @delete-widget="deleteWidget(item.widgetDetails.name)"
           @open-settings-modal="openModal(index)"
-          @open-interactive-data="openInteractiveData"
-          @open-sentiment-interactive="openSentimentInteractiveData"
         />
       </grid-item>
     </grid-layout>
@@ -68,13 +64,7 @@ export default {
     GridLayout: VueGridLayout.GridLayout,
     GridItem: VueGridLayout.GridItem,
   },
-  emits: [
-    'update-page',
-    'update-posts-count',
-    'set-sorting-value',
-    'open-interactive-widget',
-    'open-sentiment-interactive-widget',
-  ],
+  emits: ['update-page', 'update-posts-count', 'set-sorting-value'],
   props: {
     projectId: {type: Number, required: true},
     currentProject: {type: [Array, Object], required: false},
@@ -112,7 +102,8 @@ export default {
                 widgetDetails: getWidgetDetails(
                   widgetName,
                   this.availableWidgets[widgetName],
-                  this.projectId
+                  this.projectId,
+                  this.currentProject.source
                 ),
               }
             }
@@ -143,17 +134,6 @@ export default {
     openModal(widgetIndex) {
       this.currentWidgetIndex = widgetIndex
       this.isOpenWidgetSettingsModal = !this.isOpenWidgetSettingsModal
-    },
-    openInteractiveData(val, widgetId, fieldName) {
-      this.$emit('open-interactive-widget', val, widgetId, fieldName)
-    },
-    openSentimentInteractiveData(source, sentiment, widgetId) {
-      this.$emit(
-        'open-sentiment-interactive-widget',
-        source,
-        sentiment,
-        widgetId
-      )
     },
     closeModal() {
       this.togglePageScroll(false)

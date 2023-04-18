@@ -9,6 +9,7 @@
       :labels="labels"
       :chart-values="chartValues"
       :chart-type="chartType"
+      :widget-details="widgetDetails"
       :is-display-legend="!isSettings"
     />
   </component>
@@ -73,14 +74,6 @@ export default {
   },
   methods: {
     defaultDate,
-    openInteractiveModal(source, sentiment) {
-      this.$emit(
-        'open-sentiment-interactive-data',
-        source,
-        sentiment,
-        this.widgetDetails.id
-      )
-    },
   },
 }
 </script>

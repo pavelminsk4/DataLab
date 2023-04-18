@@ -43,9 +43,6 @@ export default {
   },
   methods: {
     ...mapActions([action.GET_AUTHORS_BY_LANGUAGE]),
-    openInteractiveModal(val) {
-      this.$emit('open-interactive-data', val, this.widgetDetails.id, 'author')
-    },
   },
 }
 </script>

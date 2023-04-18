@@ -8,7 +8,11 @@
     @open-modal="$emit('open-settings-modal')"
   >
     <div class="sentiment-keywords-wrapper">
-      <ChartsView :chart-type="chartType" :chart-values="chartValues" />
+      <ChartsView
+        :chart-type="chartType"
+        :chart-values="chartValues"
+        :widget-details="widgetDetails"
+      />
     </div>
   </component>
 </template>
@@ -69,16 +73,19 @@ export default {
 
       return [
         {
+          type: 'neutral',
           data: neutral.data,
           labels: neutral.labels,
           color: '#516BEE',
         },
         {
+          type: 'positive',
           data: positive.data,
           labels: positive.labels,
           color: '#00B884',
         },
         {
+          type: 'negative',
           data: negative.data,
           labels: negative.labels,
           color: '#ED2549',

@@ -17,8 +17,6 @@
         :is-settings="true"
         :new-chart-type="newChartType"
         class="widget-view"
-        @open-interactive-data="openInteractiveData"
-        @open-sentiment-interactive="openSentimentInteractiveData"
       />
     </WidgetSettingsScreen>
   </BaseModal>
@@ -178,13 +176,6 @@ export default {
           aggregation_period: aggregationPeriod,
         },
       })
-    },
-
-    openInteractiveData(val, widgetId, fieldName) {
-      this.$emit('open-interactive-widget', val, widgetId, fieldName)
-    },
-    openSentimentInteractiveData(source, sentiment, widgetId) {
-      this.$emit('open-sentiment-interactive', source, sentiment, widgetId)
     },
   },
 }

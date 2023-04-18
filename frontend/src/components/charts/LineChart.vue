@@ -67,7 +67,11 @@ export default {
     chartOptions() {
       return {
         onClick: (e, dataOptions) => {
-          this.$emit('open-interactive-data', this.labels[dataOptions[0].index])
+          this.$emit(
+            'open-interactive-data',
+            this.labels[dataOptions[0].index],
+            dataOptions[0].element.$datalabels[0].$context.dataset.label
+          )
         },
         responsive: true,
         maintainAspectRatio: false,

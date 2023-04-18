@@ -20,6 +20,7 @@
         <template #sentimentBar v-if="checkSentimentData(item.sentiments)">
           <span class="chart-title">Sentiment</span>
           <ChartsView
+            :widget-details="widgetDetails"
             :chart-values="datasets(item)"
             chart-type="SentimentBarChart"
           />

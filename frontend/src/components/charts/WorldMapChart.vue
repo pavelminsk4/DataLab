@@ -61,6 +61,12 @@ export default {
     },
     options() {
       return {
+        onClick: (e, dataOptions) => {
+          this.$emit(
+            'open-interactive-data',
+            this.chartData.labels[dataOptions[0].index]
+          )
+        },
         showOutline: false,
         showGraticule: false,
         plugins: {

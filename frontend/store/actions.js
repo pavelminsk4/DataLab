@@ -941,6 +941,18 @@ export default {
     }
   },
 
+  async [action.SHOW_INTERACTIVE_DATA_MODAL]({commit, dispatch}, value) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      commit(mutator.SET_INTERACTIVE_DATA_MODAL, value)
+      await dispatch(action.POST_INTERACTIVE_WIDGETS, value)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
   async [action.UPDATE_PROJECT_STATE]({commit}, newProject) {
     commit(mutator.SET_NEW_PROJECT, newProject)
   },

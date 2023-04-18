@@ -9,6 +9,7 @@
       :labels="labels"
       :chart-values="chartValues"
       :chart-type="chartType"
+      :widget-details="widgetDetails"
       :is-display-legend="!isSettings"
     />
   </component>
@@ -48,11 +49,6 @@ export default {
     },
     widgetWrapper() {
       return this.isSettings ? 'div' : 'WidgetsLayout'
-    },
-  },
-  methods: {
-    openInteractiveModal(val) {
-      this.$emit('open-interactive-data', val, this.widgetDetails.id, 'author')
     },
   },
 }
