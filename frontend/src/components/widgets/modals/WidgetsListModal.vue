@@ -50,6 +50,10 @@ export default {
       type: Number,
       required: true,
     },
+    widgetList: {
+      type: Object,
+      default: null,
+    },
   },
   data() {
     return {
@@ -57,7 +61,10 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({widgets: get.AVAILABLE_WIDGETS}),
+    ...mapGetters({availableWidgets: get.AVAILABLE_WIDGETS}),
+    widgets() {
+      return this.widgetList || this.availableWidgets
+    },
     widgetNames() {
       if (this.widgets) {
         return Object.values(this.widgets).filter((el) => el.default_title)
