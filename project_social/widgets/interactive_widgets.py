@@ -43,6 +43,22 @@ def interactive_widgets(request, project_pk, widget_pk):
     posts = posts.filter(creation_date__range=dates)
   elif widget.default_title == 'Social sentiment':
     posts = sentiment_filter_posts(first_value, posts).filter(creation_date__range=dates)
+  elif widget.default_title == 'Social gender volume':
+    posts = posts.filter(reduce(lambda x,y: x | y, [Q(user_gender=gender) for gender in first_value])).filter(creation_date__range=dates)
+  elif widget.default_title == 'Top keywords':
+    posts = posts.filter(text__icontains=first_value[0])
+  elif widget.default_title == 'Sentiment top keywords':
+    posts = sentiment_filter_posts(second_value, posts).filter(text__icontains=first_value[0])
+  elif widget.default_title == 'Sentiment diagram':
+    posts = sentiment_filter_posts(second_value, posts)
+  elif widget.default_title == 'Authors by location':
+    posts = country_filter_posts(first_value, posts)
+  elif widget.default_title == 'Authors by language':
+    posts = language_filter_posts(first_value, posts)
+  elif widget.default_title == 'Authors by sentiment':
+    posts = posts.filter(sentiment=first_value[0].lower())
+  elif widget.default_title == 'Authors by gender':
+    posts = posts.filter(reduce(lambda x,y: x | y, [Q(user_gender=gender) for gender in first_value]))
   posts = posts.values(
     'id',
     'post_id',
