@@ -367,8 +367,8 @@ class ProfileViewSet(RetrieveUpdateAPIView):
   def get_queryset(self):
     return Profile.objects.filter(user__email=self.kwargs['user__email'])
 
-class RegularReportViewSet(viewsets.ModelViewSet):
-  serializer_class = RegularReportSerializer
+class RegularReportCreateViewSet(viewsets.ModelViewSet):
+  serializer_class = RegularReportCreateSerializer
   queryset = RegularReport.objects.all()
 
 def widgets_map(request):
