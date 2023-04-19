@@ -2,7 +2,7 @@
   <WidgetsListModal
     v-if="isOpenWidgetsModal"
     :project-id="currentProjectId"
-    :widgetList="reportWidgetsList[currentProjectId]"
+    :widgetList="newWidgetsLists[currentProjectId]"
     @close="isOpenWidgetsModal = false"
     @update-available-widgets="updateAvailableWidgets"
   />
@@ -18,7 +18,7 @@
         <h3 class="project__title">
           <ReportsProjectIcon /> {{ project.title }}
         </h3>
-        <BaseButton @click="addWidget">
+        <BaseButton @click="addWidget(project.id)">
           <AddWidgetsIcon />
           <span>Add widgets</span>
         </BaseButton>
@@ -72,6 +72,8 @@ export default {
     return {
       isOpenWidgetsModal: false,
       currentProjectId: 0,
+      newReportWidgetsLists: null,
+      widgetsName: {},
     }
   },
   computed: {
@@ -131,6 +133,11 @@ export default {
         })
 
         widgetsList = [...new Set(widgetsList)]
+        // TODO: temp
+        this.widgetsName[project.id] = [
+          ...new Set(widgetsList.map((w) => w.name)),
+        ]
+        // -----
         widgetsList = this.selectedWidgets(widgetsList, moduleType, project.id)
         return {
           ...project,
@@ -139,6 +146,30 @@ export default {
       })
       console.log('FINISH', projectsWithWidgets)
       return projectsWithWidgets
+    },
+
+    newWidgetsLists: {
+      get() {
+        if (this.newReportWidgetsLists) return this.newReportWidgetsLists
+
+        const newReportWidgetsLists = {
+          ...this.reportWidgetsList,
+        }
+        console.log('PR', this.widgetsName)
+        this.projects.forEach((project) => {
+          console.log('PR -> for', project.id)
+          console.log('PR -> for ob', this.widgetsName[project.id])
+          const widgetsNames = this.widgetsName[project.id]
+          widgetsNames.forEach((widgetName) => {
+            newReportWidgetsLists[project.id][widgetName].is_active = true
+          })
+        })
+        console.log(newReportWidgetsLists)
+        return newReportWidgetsLists
+      },
+      set(val) {
+        this.newReportWidgetsLists = val
+      },
     },
   },
   created() {
@@ -159,8 +190,18 @@ export default {
       this.isOpenWidgetsModal = true
       this.currentProjectId = projectId
     },
-    updateAvailableWidgets({projectId, updatedList}) {
-      console.log('UPDATE WW', projectId, updatedList)
+    updateAvailableWidgets({projectId, widgetsList}) {
+      console.log('UPDATE WW', projectId, widgetsList)
+      this.newWidgetsLists = {
+        ...this.newWidgetsLists,
+        [projectId]: widgetsList,
+      }
+      // добавить виджет и надо бы удалить виджет -__-
+      const index = this.reportProjects.findIndex(
+        (project) => project.id === projectId
+      )
+
+      this.reportProjects[index].widgetsList.push()
     },
     createReport() {
       console.log(this.newReport)
@@ -171,14 +212,14 @@ export default {
         .filter((widgetName) => widgetsList[widgetName].is_active)
         .map((widgetName) => ({name: widgetName}))
     },
-    selectedWidgets(widgetsList, moduleType, projectId) {
+    selectedWidgets(widgetsList, projectId) {
       if (!this.reportWidgetsList[projectId]) return
       return widgetsList.map((widget) => {
         if (this.reportWidgetsList[projectId][widget.name]) {
           return {
             widgetDetails: getWidgetDetails(
               widget.name,
-              this[`${moduleType}AvailableWidgets`][widget.name],
+              this.reportWidgetsList[projectId][widget.name],
               projectId
             ),
             isFullWidth: true,

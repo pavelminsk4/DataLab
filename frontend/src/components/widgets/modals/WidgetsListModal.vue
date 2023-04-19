@@ -124,7 +124,7 @@ export default {
         })
       }
     },
-    async saveCollectionWidgets() {
+    saveCollectionWidgets() {
       this.$emit('update-available-widgets', {
         projectId: this.projectId,
         widgetsList: this.availableCollection,
