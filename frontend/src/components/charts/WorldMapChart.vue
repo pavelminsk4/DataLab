@@ -1,5 +1,5 @@
 <template>
-  <Choropleth :data="chartData" :options="options" />
+  <Choropleth :data="chartData" :options="chartOptions" />
 </template>
 
 <script>
@@ -35,6 +35,8 @@ export default {
   components: {Choropleth},
   props: {
     chartValues: {type: Array, default: () => []},
+    data: {type: Object, default: () => {}},
+    options: {type: Object, default: () => {}},
   },
   computed: {
     chartData() {
@@ -59,7 +61,7 @@ export default {
         ],
       }
     },
-    options() {
+    chartOptions() {
       return {
         onClick: (e, dataOptions) => {
           this.$emit(

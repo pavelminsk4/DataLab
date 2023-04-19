@@ -1,7 +1,7 @@
 <template>
   <InteractiveWidgetModal
     v-if="inreractiveDataModal.isShow"
-    :widget-id="widgetId"
+    :widget-id="inreractiveDataModal.widgetId"
     :current-project="currentProject"
     class="interactive-widgets"
     @show-results="updatePageAndCountPosts"

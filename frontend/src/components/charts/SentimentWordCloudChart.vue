@@ -34,6 +34,7 @@ import BaseTooltip from '@/components/BaseTooltip'
 export default {
   name: 'SentimentWordCloudChart',
   components: {BaseTooltip, VueWordCloud},
+  emits: ['open-interactive-data'],
   props: {
     labels: {type: Array, default: () => []},
     chartValues: {type: Array, default: () => []},
@@ -43,7 +44,7 @@ export default {
     capitalizeFirstLetter,
     getCount(word, sentimentData) {
       const index = sentimentData.labels.indexOf(word)
-      return sentimentData.data[index].toFixed(2)
+      return sentimentData.data[index]?.toFixed(2)
     },
     words(sentimentData) {
       return sentimentData.labels.map((label) => {

@@ -91,7 +91,7 @@ export default {
 
       return Object.keys(item.sentiments).map((key) => {
         return {
-          data: [(item.sentiments[key] * barPercent).toFixed()],
+          data: [(item.sentiments[key] * barPercent)?.toFixed()],
           backgroundColor: colors[key],
           borderRadius: 12,
         }
