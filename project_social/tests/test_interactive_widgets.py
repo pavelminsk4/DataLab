@@ -178,3 +178,131 @@ class InteractiveWidgetsTests(APITestCase):
     response = self.client.post(url, data, format='json')
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     self.assertEqual(json.loads(response.content)['posts'][0]['id'], post_id)
+
+  def test_social_gender_volume(self):
+    pr = ProjectSocial.objects.first()
+    widget_pk = pr.social_widgets_list.gender_volume_id
+    url = reverse('project_social:social_interactive_widgets', kwargs={'project_pk':pr.pk, 'widget_pk':widget_pk})
+    post_id = TweetBinderPost.objects.all().get(user_name='First_name').pk
+    data = {
+      'first_value': ['male'],
+      'second_value': [''],
+      'dates':[datetime(2020, 10, 10), datetime(2020, 10, 10)],
+      'posts_per_page': 10,
+      'page_number': 1,
+    }
+    response = self.client.post(url, data, format='json')
+    self.assertEqual(response.status_code, status.HTTP_200_OK)
+    self.assertEqual(json.loads(response.content)['posts'][0]['id'], post_id)
+
+  def test_top_keywords(self):
+    pr = ProjectSocial.objects.first()
+    widget_pk = pr.social_widgets_list.top_keywords_id
+    url = reverse('project_social:social_interactive_widgets', kwargs={'project_pk':pr.pk, 'widget_pk':widget_pk})
+    post_id = TweetBinderPost.objects.all().get(user_name='First_name').pk
+    data = {
+      'first_value': ['first'],
+      'second_value': [''],
+      'dates':[datetime(2020, 10, 10), datetime(2020, 10, 10)],
+      'posts_per_page': 10,
+      'page_number': 1,
+    }
+    response = self.client.post(url, data, format='json')
+    self.assertEqual(response.status_code, status.HTTP_200_OK)
+    self.assertEqual(json.loads(response.content)['posts'][0]['id'], post_id)
+
+  def test_sentiment_top_keywords(self):
+    pr = ProjectSocial.objects.first()
+    widget_pk = pr.social_widgets_list.top_keywords_id
+    url = reverse('project_social:social_interactive_widgets', kwargs={'project_pk':pr.pk, 'widget_pk':widget_pk})
+    post_id = TweetBinderPost.objects.all().get(user_name='First_name').pk
+    data = {
+      'first_value': ['first'],
+      'second_value': ['neutral'],
+      'dates':[],
+      'posts_per_page': 10,
+      'page_number': 1,
+    }
+    response = self.client.post(url, data, format='json')
+    self.assertEqual(response.status_code, status.HTTP_200_OK)
+    self.assertEqual(json.loads(response.content)['posts'][0]['id'], post_id)
+
+  def test_sentiment_diagram(self):
+    pr = ProjectSocial.objects.first()
+    widget_pk = pr.social_widgets_list.sentiment_diagram_id
+    url = reverse('project_social:social_interactive_widgets', kwargs={'project_pk':pr.pk, 'widget_pk':widget_pk})
+    post_id = TweetBinderPost.objects.all().get(user_name='First_name').pk
+    data = {
+      'first_value': [],
+      'second_value': ['neutral'],
+      'dates':[],
+      'posts_per_page': 10,
+      'page_number': 1,
+    }
+    response = self.client.post(url, data, format='json')
+    self.assertEqual(response.status_code, status.HTTP_200_OK)
+    self.assertEqual(json.loads(response.content)['posts'][0]['id'], post_id)
+
+  def test_authors_by_location(self):
+    pr = ProjectSocial.objects.first()
+    widget_pk = pr.social_widgets_list.authors_by_location_id
+    url = reverse('project_social:social_interactive_widgets', kwargs={'project_pk':pr.pk, 'widget_pk':widget_pk})
+    post_id = TweetBinderPost.objects.all().get(user_name='First_name').pk
+    data = {
+      'first_value': ['USA'],
+      'second_value': [],
+      'dates':[],
+      'posts_per_page': 10,
+      'page_number': 1,
+    }
+    response = self.client.post(url, data, format='json')
+    self.assertEqual(response.status_code, status.HTTP_200_OK)
+    self.assertEqual(json.loads(response.content)['posts'][0]['id'], post_id)
+
+  def test_authors_by_languages(self):
+    pr = ProjectSocial.objects.first()
+    widget_pk = pr.social_widgets_list.authors_by_language_id
+    url = reverse('project_social:social_interactive_widgets', kwargs={'project_pk':pr.pk, 'widget_pk':widget_pk})
+    post_id = TweetBinderPost.objects.all().get(user_name='First_name').pk
+    data = {
+      'first_value': ['En'],
+      'second_value': [],
+      'dates':[],
+      'posts_per_page': 10,
+      'page_number': 1,
+    }
+    response = self.client.post(url, data, format='json')
+    self.assertEqual(response.status_code, status.HTTP_200_OK)
+    self.assertEqual(json.loads(response.content)['posts'][0]['id'], post_id)
+  
+  def test_authors_by_sentiment(self):
+    pr = ProjectSocial.objects.first()
+    widget_pk = pr.social_widgets_list.authors_by_sentiment_id
+    url = reverse('project_social:social_interactive_widgets', kwargs={'project_pk':pr.pk, 'widget_pk':widget_pk})
+    post_id = TweetBinderPost.objects.all().get(user_name='First_name').pk
+    data = {
+      'first_value': ['neutral'],
+      'second_value': [],
+      'dates':[],
+      'posts_per_page': 10,
+      'page_number': 1,
+    }
+    response = self.client.post(url, data, format='json')
+    self.assertEqual(response.status_code, status.HTTP_200_OK)
+    self.assertEqual(json.loads(response.content)['posts'][0]['id'], post_id)
+
+  def test_authors_by_gender(self):
+    pr = ProjectSocial.objects.first()
+    widget_pk = pr.social_widgets_list.authors_by_gender_id
+    url = reverse('project_social:social_interactive_widgets', kwargs={'project_pk':pr.pk, 'widget_pk':widget_pk})
+    post_id = TweetBinderPost.objects.all().get(user_name='First_name').pk
+    data = {
+      'first_value': ['male'],
+      'second_value': [],
+      'dates':[],
+      'posts_per_page': 10,
+      'page_number': 1,
+    }
+    response = self.client.post(url, data, format='json')
+    self.assertEqual(response.status_code, status.HTTP_200_OK)
+    self.assertEqual(json.loads(response.content)['posts'][0]['id'], post_id)
