@@ -75,7 +75,7 @@
                   :last-name="item.creator?.last_name"
                   :username="item.creator?.username"
                 />
-                <div>{{ item.creator.username }}</div>
+                <div>{{ item.creator?.username }}</div>
               </div>
             </td>
           </BaseTableRow>

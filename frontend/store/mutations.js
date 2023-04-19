@@ -288,6 +288,9 @@ export default {
   [mutator.SET_INTERACTIVE_DATA](state, posts) {
     state.interactiveData = posts
   },
+  [mutator.SET_INTERACTIVE_DATA_MODAL](state, data) {
+    state.inreractiveDataModal = {...state.inreractiveDataModal, ...data}
+  },
 
   // Reports
   [mutator.SET_REGULAR_REPORTS](state, data) {
@@ -315,10 +318,6 @@ export default {
       online: onlineList,
       social: socialList,
     }
-  },
-
-  [mutator.SET_INTERACTIVE_DATA_MODAL](state, data) {
-    state.inreractiveDataModal = {...state.inreractiveDataModal, ...data}
   },
 
   [mutator.SET_WIDGETS_LISTS](state, {id, projectList}) {

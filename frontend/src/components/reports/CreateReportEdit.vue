@@ -138,7 +138,7 @@ export default {
           ...new Set(widgetsList.map((w) => w.name)),
         ]
         // -----
-        widgetsList = this.selectedWidgets(widgetsList, moduleType, project.id)
+        widgetsList = this.selectedWidgets(widgetsList, project.id)
         return {
           ...project,
           widgetsList,
@@ -155,10 +155,10 @@ export default {
         const newReportWidgetsLists = {
           ...this.reportWidgetsList,
         }
-        console.log('PR', this.widgetsName)
+        // console.log('PR', this.widgetsName)
         this.projects.forEach((project) => {
-          console.log('PR -> for', project.id)
-          console.log('PR -> for ob', this.widgetsName[project.id])
+          // console.log('PR -> for', project.id)
+          // console.log('PR -> for ob', this.widgetsName[project.id])
           const widgetsNames = this.widgetsName[project.id]
           widgetsNames.forEach((widgetName) => {
             newReportWidgetsLists[project.id][widgetName].is_active = true
@@ -179,12 +179,50 @@ export default {
     ...mapActions({
       getOnlineAvailableWidgets: action.GET_AVAILABLE_WIDGETS,
       getWidgetsList: action.GET_WIDGETS_LISTS,
+      createReport: action.CREATE_REGULAR_REPORT,
     }),
     ...mapActionsSocial({
       getSocialAvailableWidgets: action.GET_AVAILABLE_WIDGETS,
     }),
     saveReport() {
-      this.$router.push({name: ''})
+      const items = this.reportProjects.map((project) => {
+        const isSocial = project.moduleType === 'Social'
+        const prefix = isSocial ? 'soc_' : 'onl_'
+        const widgetsObj = {}
+
+        Object.keys(this.reportWidgetsList[project.id]).forEach(
+          (widgetName) => {
+            widgetsObj[prefix + widgetName] = false
+          }
+        )
+
+        project.widgetsList.forEach((widget) => {
+          widgetsObj[prefix + widget.widgetDetails.name] = true
+        })
+
+        console.log(widgetsObj)
+
+        return {
+          module_type: isSocial ? 'ProjectSocial' : 'Project',
+          module_project_id: project.id,
+          ...widgetsObj,
+        }
+      })
+      console.log('SAVE', {
+        departmentId: this.newReport.department,
+        data: {
+          ...this.newReport,
+          items,
+        },
+      })
+      this.createReport({
+        departmentId: this.newReport.department,
+        data: {
+          ...this.newReport,
+          items,
+        },
+      })
+      this.$router.push({name: 'Reports'})
     },
     addWidget(projectId) {
       this.isOpenWidgetsModal = true
@@ -202,9 +240,6 @@ export default {
       )
 
       this.reportProjects[index].widgetsList.push()
-    },
-    createReport() {
-      console.log(this.newReport)
     },
 
     getDashboardWidgets(widgetsList) {
