@@ -11,8 +11,7 @@
   <ProgressBar />
 
   <div class="form-wrapper">
-    <h4 class="label">Name</h4>
-    <BaseInput v-model="workspaceName" />
+    <BaseInput v-model="workspaceName" label="Name" />
 
     <h4 class="label">Description</h4>
     <BaseTextarea
