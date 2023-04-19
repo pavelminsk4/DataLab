@@ -62,12 +62,11 @@ export default {
   },
 
   async postInteractiveWidget({projectId, widgetId, data}) {
-    // return fetch(
-    //   'post',
-    //   `${moduleName}/widgets/interactive_widgets/${projectId}/${widgetId}`,
-    //   data
-    // )
-    return {projectId, widgetId, data}
+    return fetch(
+      'post',
+      `${moduleName}/social_interactive_widgets/${projectId}/${widgetId}`,
+      data
+    )
   },
 
   //filters

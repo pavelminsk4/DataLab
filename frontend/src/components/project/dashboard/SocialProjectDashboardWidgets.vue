@@ -67,6 +67,7 @@ export default {
   ],
   props: {
     projectId: {type: Number, required: true},
+    moduleName: {type: String, required: true},
   },
   data() {
     return {
@@ -107,7 +108,8 @@ export default {
                 widgetDetails: getWidgetDetails(
                   widgetName,
                   this.availableWidgets[widgetName],
-                  this.projectId
+                  this.projectId,
+                  this.moduleName
                 ),
               }
             }

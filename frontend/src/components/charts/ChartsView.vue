@@ -63,24 +63,29 @@ export default {
     ]),
     showIteractiveModalData(data) {
       this[action.SHOW_INTERACTIVE_DATA_MODAL]({
-        isShow: true,
-        projectId: this.widgetDetails.projectId,
-        widgetId: this.widgetDetails.id,
-        data: {
-          ...data,
-          page_number: 1,
-          posts_per_page: 2,
+        value: {
+          isShow: true,
+          projectId: this.widgetDetails.projectId,
+          widgetId: this.widgetDetails.id,
+          data: {
+            ...data,
+            page_number: 1,
+            posts_per_page: 2,
+          },
         },
+        moduleType: this.widgetDetails.moduleName,
       })
     },
     openInteractiveData(firstValue, secondValue) {
+      console.log(this.widgetDetails)
+
       const startOfTheDay = new Date(firstValue)
 
       if (startOfTheDay.toString() !== 'Invalid Date') {
         let endOfTheDay = new Date(firstValue)
         endOfTheDay.setHours(23, 59, 59)
         this.showIteractiveModalData({
-          first_value: secondValue || [],
+          first_value: Array.isArray(secondValue) ? secondValue : [secondValue],
           second_value: [],
           dates: [startOfTheDay, endOfTheDay],
         })

@@ -189,7 +189,9 @@ export default {
         data,
       })
 
-      commit(mutator.SET_INTERACTIVE_DATA, response)
+      commit(mutator.SET_INTERACTIVE_DATA, response, {
+        root: true,
+      })
     } catch (e) {
       console.log(e)
     } finally {

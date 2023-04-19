@@ -11,23 +11,12 @@
       <BaseTabs :main-settings="tabs" default-tab="Top Results" class="tabs" />
 
       <div class="cards">
-        <ClippingCard
+        <component
+          :is="postCard"
           v-for="(item, index) in posts"
           :key="'result' + index"
-          :id="item.id"
           :img="cardImg(item)"
-          :title="item.entry_title"
-          :country="item.feedlink__country"
-          :entry-link="item.entry_links_href"
-          :summary="item.entry_summary"
-          :sentiment="item.sentiment"
-          :published="item.entry_published"
-          :source-link="item.feedlink__sourceurl"
-          :source="item.feedlink__source1"
-          :language="item.feed_language__language"
-          :potential-reach="item.feedlink__alexaglobalrank"
-          :widget-id="widgetId"
-          :currentProject="currentProject"
+          :post-details="item"
           class="clipping-card"
         />
       </div>
@@ -52,8 +41,9 @@ import {mapGetters, mapState} from 'vuex'
 import {get} from '@store/constants'
 
 import BaseModal from '@/components/modals/BaseModal'
-import ClippingCard from '@/components/ClippingCard'
 import BaseSpinner from '@/components/BaseSpinner'
+import OnlinePostCard from '@/components/OnlinePostCard'
+import SocialPostCard from '@/components/SocialPostCard'
 import BaseTabs from '@/components/project/widgets/modals/BaseTabs'
 import PaginationControlPanel from '@/components/PaginationControlPanel'
 
@@ -63,18 +53,13 @@ export default {
     PaginationControlPanel,
     BaseTabs,
     BaseSpinner,
-    ClippingCard,
     BaseModal,
+    OnlinePostCard,
+    SocialPostCard,
   },
   props: {
-    widgetId: {
-      type: Number,
-      required: false,
-    },
-    currentProject: {
-      type: [Array, Object],
-      required: true,
-    },
+    widgetId: {type: Number, required: false},
+    currentProject: {type: [Array, Object], required: true},
   },
   data() {
     return {
@@ -89,6 +74,9 @@ export default {
     ...mapGetters({
       interactiveWidgets: get.INTERACTIVE_DATA,
     }),
+    postCard() {
+      return this.currentProject.source + 'PostCard'
+    },
     posts() {
       return this.interactiveWidgets.posts
     },

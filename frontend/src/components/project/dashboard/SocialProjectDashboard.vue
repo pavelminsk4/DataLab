@@ -1,11 +1,13 @@
 <template>
   <div v-if="currentProject" class="project-dashboard-wrapper">
     <InteractiveWidgetModal
-      v-if="openModal === 'InteractiveWidgetModal'"
+      v-if="inreractiveDataModal.isShow"
       :widget-id="widgetId"
       :current-project="currentProject"
       class="interactive-widgets"
-      @close="toggleWidgetsModal(null)"
+      @update-page="updatePageAndCountPosts"
+      @update-posts-count="updatePageAndCountPosts"
+      @close="closeInteractiveModal"
     />
 
     <WidgetsListModal
@@ -92,6 +94,7 @@
 
       <SocialProjectDashboardWidgets
         :project-id="currentProject.id"
+        :module-name="currentProject.source"
         @update-available-widgets="updateAvailableWidgets"
       />
     </div>
@@ -134,10 +137,7 @@ export default {
     SearchResults,
   },
   props: {
-    currentProject: {
-      type: [Array, Object],
-      required: false,
-    },
+    currentProject: {type: [Array, Object], required: false},
   },
   emits: ['update-page', 'update-posts-count'],
   data() {
@@ -155,6 +155,7 @@ export default {
       searchData: get.SEARCH_DATA,
       numberOfPosts: get.POSTS_NUMBER,
       clippingData: get.CLIPPING_FEED_CONTENT_WIDGET,
+      inreractiveDataModal: get.INTERACTIVE_DATA_MODAL,
     }),
     currentKeywords() {
       return this.currentProject?.keywords
@@ -188,7 +189,10 @@ export default {
     this.showResults()
   },
   methods: {
-    ...mapActions([action.UPDATE_ADDITIONAL_FILTERS]),
+    ...mapActions([
+      action.UPDATE_ADDITIONAL_FILTERS,
+      action.CLEAR_INTERACTIVE_DATA,
+    ]),
     ...mapSocialActions([
       action.POST_SEARCH,
       action.POST_INTERACTIVE_WIDGETS,
@@ -252,6 +256,11 @@ export default {
     async updateAvailableWidgets(data) {
       await this[action.UPDATE_AVAILABLE_WIDGETS](data)
       this.toggleWidgetsModal(null)
+    },
+
+    closeInteractiveModal() {
+      this.togglePageScroll(false)
+      this[action.CLEAR_INTERACTIVE_DATA]()
     },
   },
 }
