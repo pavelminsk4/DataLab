@@ -28,9 +28,8 @@
         v-model="currentPage"
         :pages="numberOfPages"
         :posts-on-page="postsOnPage"
-        :new-count-posts="countPosts"
-        @update-page="pageChange"
-        @update-posts-count="updatePostsCount"
+        :count-posts="countPosts"
+        @update-page="updatePage"
       />
     </div>
   </BaseModal>
@@ -97,12 +96,9 @@ export default {
       ]
       return images.filter((el) => el !== 'None')[0] || 'None'
     },
-    updatePostsCount(page, countPosts) {
+    updatePage(page, countPosts) {
       this.countPosts = countPosts
-      this.$emit('update-posts-count', page, countPosts)
-    },
-    pageChange(page) {
-      this.$emit('update-page', page, this.countPosts)
+      this.$emit('show-results', page, countPosts)
     },
   },
 }

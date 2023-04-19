@@ -47,7 +47,7 @@ def interactive_widgets(request, project_pk, widget_pk):
   elif widget.default_title == 'Sentiment top keywords':
     posts = sentiment_dimensions_posts(second_value, posts).filter(entry_summary__icontains=first_value[0])
   elif widget.default_title == 'Sentiment diagram':
-    posts = sentiment_dimensions_posts(second_value, posts)
+    posts = posts.filter(sentiment=first_value[0].lower())
   elif widget.default_title == 'Authors by country':
     posts = country_dimensions_posts(first_value, posts)
   elif widget.default_title == 'Authors by language':

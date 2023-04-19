@@ -4,6 +4,7 @@
     :widget-id="widgetId"
     :current-project="currentProject"
     class="interactive-widgets"
+    @show-results="updatePageAndCountPosts"
     @close="closeInteractiveModal"
   />
 
@@ -29,13 +30,15 @@
 </template>
 <script>
 import {action, get} from '@store/constants'
-import {mapActions, mapGetters} from 'vuex'
+import {mapActions, mapGetters, createNamespacedHelpers} from 'vuex'
 import OnlineWidgetSettingsModal from '@/components/widgets/online/modals/WidgetSettingsModal'
 import SocialWidgetSettingsModal from '@/components/widgets/social/modals/WidgetSettingsModal'
 
 import OnlineMainWidget from '@/components/widgets/online/OnlineMainWidget'
 import SocialMainWidget from '@/components/widgets/social/SocialMainWidget'
 import InteractiveWidgetModal from '@/components/modals/InteractiveWidgetModal'
+
+const {mapActions: mapSocialActions} = createNamespacedHelpers('social')
 
 export default {
   name: 'WidgetsList',
@@ -46,13 +49,6 @@ export default {
     SocialWidgetSettingsModal,
     InteractiveWidgetModal,
   },
-  emits: [
-    'update-page',
-    'update-posts-count',
-    'set-sorting-value',
-    'open-interactive-widget',
-    'open-sentiment-interactive-widget',
-  ],
   props: {
     currentProject: {type: [Array, Object], required: false},
     selectedWidgets: {type: Array, required: true},
@@ -74,13 +70,11 @@ export default {
     ...mapActions([
       action.UPDATE_AVAILABLE_WIDGETS,
       action.CLEAR_INTERACTIVE_DATA,
+      action.POST_INTERACTIVE_WIDGETS,
     ]),
-    updatePage(page, posts) {
-      this.$emit('update-page', page, posts)
-    },
-    updatePosts(page, posts) {
-      this.$emit('update-posts-count', page, posts)
-    },
+    ...mapSocialActions({
+      postSocialInteractiveData: action.POST_INTERACTIVE_WIDGETS,
+    }),
     openModal(widget) {
       this.currentWidget = widget
       this.isOpenWidgetSettingsModal = !this.isOpenWidgetSettingsModal
@@ -93,6 +87,26 @@ export default {
     closeInteractiveModal() {
       this.togglePageScroll(false)
       this[action.CLEAR_INTERACTIVE_DATA]()
+    },
+
+    updatePageAndCountPosts(page, countPosts) {
+      const interactiveValues = {
+        projectId: this.inreractiveDataModal.projectId,
+        widgetId: this.inreractiveDataModal.widgetId,
+        data: {
+          ...this.inreractiveDataModal.data,
+          page_number: page,
+          posts_per_page: countPosts,
+        },
+      }
+
+      if (this.moduleName === 'Online') {
+        this[action.POST_INTERACTIVE_WIDGETS](interactiveValues)
+      }
+
+      if (this.moduleName === 'Social') {
+        this.postSocialInteractiveData(interactiveValues)
+      }
     },
   },
 }

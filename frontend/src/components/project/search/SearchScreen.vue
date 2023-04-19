@@ -26,8 +26,7 @@
       <SearchResults
         :module-name="moduleName"
         :clipping-content="clippingContent"
-        @update-page="showResults"
-        @update-posts-count="showResults"
+        @show-results="showResults"
       />
     </div>
   </div>

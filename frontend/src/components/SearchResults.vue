@@ -24,9 +24,8 @@
         v-model="currentPage"
         :pages="numberOfPages"
         :posts-on-page="postsOnPage"
-        :new-count-posts="countPosts"
-        @update-page="pageChange"
-        @update-posts-count="updatePostsCount"
+        :count-posts="countPosts"
+        @update-page="updatePage"
       />
     </div>
 
@@ -59,7 +58,7 @@ export default {
     CreateWorkspaceRightSide,
     BaseSpinner,
   },
-  emits: ['update-page', 'update-posts-count', 'add-sorting-value'],
+  emits: ['show-results'],
   props: {
     clippingContent: {type: [Array, Object], default: () => []},
     searchLoading: {type: Boolean, default: false},
@@ -127,11 +126,8 @@ export default {
       ]
       return images.filter((el) => el !== 'None')[0] || 'None'
     },
-    updatePostsCount(page, countPosts) {
+    updatePage(page, countPosts) {
       this.countPosts = countPosts
-      this.$emit('show-results', page, countPosts)
-    },
-    pageChange(page, countPosts) {
       this.$emit('show-results', page, countPosts)
     },
   },

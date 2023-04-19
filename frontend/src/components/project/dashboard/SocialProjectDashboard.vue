@@ -5,8 +5,7 @@
       :widget-id="widgetId"
       :current-project="currentProject"
       class="interactive-widgets"
-      @update-page="updatePageAndCountPosts"
-      @update-posts-count="updatePageAndCountPosts"
+      @show-results="updatePageAndCountPosts"
       @close="closeInteractiveModal"
     />
 
@@ -139,7 +138,6 @@ export default {
   props: {
     currentProject: {type: [Array, Object], required: false},
   },
-  emits: ['update-page', 'update-posts-count'],
   data() {
     return {
       openModal: null,
@@ -261,6 +259,18 @@ export default {
     closeInteractiveModal() {
       this.togglePageScroll(false)
       this[action.CLEAR_INTERACTIVE_DATA]()
+    },
+
+    updatePageAndCountPosts(page, countPosts) {
+      this[action.POST_INTERACTIVE_WIDGETS]({
+        projectId: this.inreractiveDataModal.projectId,
+        widgetId: this.inreractiveDataModal.widgetId,
+        data: {
+          ...this.inreractiveDataModal.data,
+          page_number: page,
+          posts_per_page: countPosts,
+        },
+      })
     },
   },
 }

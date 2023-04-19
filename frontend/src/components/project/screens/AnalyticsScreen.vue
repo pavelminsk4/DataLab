@@ -5,8 +5,7 @@
       :widget-id="widgetId"
       :current-project="currentProject"
       class="interactive-widgets"
-      @update-page="updatePageAndCountPosts"
-      @update-posts-count="updatePageAndCountPosts"
+      @show-results="updatePageAndCountPosts"
       @close="closeInteractiveModal"
     />
 
@@ -129,7 +128,6 @@ export default {
       required: false,
     },
   },
-  emits: ['update-page', 'update-posts-count'],
   data() {
     return {
       isOpenWidgetsModal: false,

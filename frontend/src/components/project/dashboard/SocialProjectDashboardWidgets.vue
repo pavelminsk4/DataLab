@@ -148,9 +148,6 @@ export default {
         },
       })
     },
-    updatePage(page, posts) {
-      this.$emit('update-page', page, posts)
-    },
     openModal(widgetIndex) {
       this.currentWidgetIndex = widgetIndex
       this.isOpenWidgetSettingsModal = !this.isOpenWidgetSettingsModal

@@ -64,7 +64,7 @@ export default {
     GridLayout: VueGridLayout.GridLayout,
     GridItem: VueGridLayout.GridItem,
   },
-  emits: ['update-page', 'update-posts-count', 'set-sorting-value'],
+  emits: ['update-page'],
   props: {
     projectId: {type: Number, required: true},
     currentProject: {type: [Array, Object], required: false},

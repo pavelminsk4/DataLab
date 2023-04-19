@@ -70,15 +70,13 @@ export default {
           data: {
             ...data,
             page_number: 1,
-            posts_per_page: 2,
+            posts_per_page: 4,
           },
         },
         moduleType: this.widgetDetails.moduleName,
       })
     },
     openInteractiveData(firstValue, secondValue) {
-      console.log(this.widgetDetails)
-
       const startOfTheDay = new Date(firstValue)
 
       if (startOfTheDay.toString() !== 'Invalid Date') {

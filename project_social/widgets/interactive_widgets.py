@@ -20,16 +20,16 @@ def interactive_widgets(request, project_pk, widget_pk):
   elif widget.default_title == 'Top locations':
     posts = country_filter_posts(first_value, posts)
   elif widget.default_title == 'Top authors':
-    posts = author_filter_posts(first_value, posts)
+    posts = posts.filter(user_name=first_value[0])
   elif widget.default_title == 'Social sentiment locations':
-    posts = sentiment_filter_posts(first_value, posts)
-    posts = country_filter_posts(second_value, posts)
+    posts = sentiment_filter_posts(second_value, posts)
+    posts = country_filter_posts(first_value, posts)
   elif widget.default_title == 'Social sentiment authors':
-    posts = sentiment_filter_posts(first_value, posts)
-    posts = author_filter_posts(second_value, posts)
+    posts = sentiment_filter_posts(second_value, posts)
+    posts = author_filter_posts(first_value, posts)
   elif widget.default_title == 'Social sentiment by gender':
-    posts = sentiment_filter_posts(first_value, posts)
-    posts = posts.filter(reduce(lambda x,y: x | y, [Q(user_gender=gender) for gender in second_value]))
+    posts = sentiment_filter_posts(second_value, posts)
+    posts = posts.filter(reduce(lambda x,y: x | y, [Q(user_gender=gender) for gender in first_value]))
   elif widget.default_title == 'Social sentiment locations':
     posts = sentiment_filter_posts(first_value, posts)
     posts = country_filter_posts(second_value, posts)
@@ -50,7 +50,7 @@ def interactive_widgets(request, project_pk, widget_pk):
   elif widget.default_title == 'Sentiment top keywords':
     posts = sentiment_filter_posts(second_value, posts).filter(text__icontains=first_value[0])
   elif widget.default_title == 'Sentiment diagram':
-    posts = sentiment_filter_posts(second_value, posts)
+    posts = posts.filter(sentiment=first_value[0].lower())
   elif widget.default_title == 'Authors by location':
     posts = country_filter_posts(first_value, posts)
   elif widget.default_title == 'Authors by language':

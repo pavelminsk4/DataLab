@@ -947,7 +947,6 @@ export default {
   ) {
     commit(mutator.SET_LOADING, true)
     try {
-      console.log(value, moduleType)
       commit(mutator.SET_INTERACTIVE_DATA_MODAL, value)
       switch (moduleType) {
         case 'Online':
