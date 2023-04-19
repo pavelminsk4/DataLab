@@ -9,6 +9,7 @@
       :labels="labels"
       :chart-values="chartValues"
       :chart-type="chartType"
+      :widget-details="widgetDetails"
       :is-display-legend="!isSettings"
     />
   </component>

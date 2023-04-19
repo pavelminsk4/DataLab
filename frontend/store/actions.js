@@ -941,11 +941,22 @@ export default {
     }
   },
 
-  async [action.SHOW_INTERACTIVE_DATA_MODAL]({commit, dispatch}, value) {
+  async [action.SHOW_INTERACTIVE_DATA_MODAL](
+    {commit, dispatch},
+    {value, moduleType}
+  ) {
     commit(mutator.SET_LOADING, true)
     try {
       commit(mutator.SET_INTERACTIVE_DATA_MODAL, value)
-      await dispatch(action.POST_INTERACTIVE_WIDGETS, value)
+      switch (moduleType) {
+        case 'Online':
+          return await dispatch(action.POST_INTERACTIVE_WIDGETS, value)
+        case 'Social':
+          return await dispatch(
+            `social/${action.POST_INTERACTIVE_WIDGETS}`,
+            value
+          )
+      }
     } catch (e) {
       console.log(e)
     } finally {

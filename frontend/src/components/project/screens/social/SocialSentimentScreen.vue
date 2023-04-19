@@ -43,7 +43,8 @@ export default {
                 widgetDetails: getWidgetDetails(
                   widget.name,
                   this.availableWidgets[widget.name],
-                  this.currentProject.id
+                  this.currentProject.id,
+                  this.currentProject.source
                 ),
                 isFullWidth: widget.isFullWidth,
               }

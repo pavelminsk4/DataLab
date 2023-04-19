@@ -11,8 +11,7 @@
   <ProgressBar />
 
   <div class="form-wrapper">
-    <h4 class="label">Name</h4>
-    <BaseInput :placeholder="'Project Name'" v-model="projectName" />
+    <BaseInput v-model="projectName" label="Name" placeholder="Project Name" />
 
     <h4 class="label">Description</h4>
     <BaseTextarea

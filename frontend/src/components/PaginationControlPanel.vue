@@ -2,7 +2,7 @@
   <BaseDropdown
     name="posts-on-page"
     custom-style="top: auto; bottom: 25px"
-    :selected-value="newCountPosts"
+    :selected-value="countPosts"
   >
     <div
       v-for="(item, index) in postsOnPage"
@@ -31,24 +31,12 @@ import BaseDropdown from '@/components/BaseDropdown'
 export default {
   name: 'PaginationControlPanel',
   components: {BaseDropdown, VPagination},
-  emits: ['update-page', 'update-posts-count', 'update:modelValue'],
+  emits: ['update-page', 'update:modelValue'],
   props: {
-    pages: {
-      type: Number,
-      required: true,
-    },
-    modelValue: {
-      type: Number,
-      default: 1,
-    },
-    newCountPosts: {
-      type: Number,
-      default: 20,
-    },
-    postsOnPage: {
-      type: Array,
-      required: true,
-    },
+    pages: {type: Number, required: true},
+    modelValue: {type: Number, default: 1},
+    countPosts: {type: Number, default: 20},
+    postsOnPage: {type: Array, required: true},
   },
   data() {
     return {
@@ -68,7 +56,8 @@ export default {
   },
   methods: {
     updatePostsCount(value) {
-      this.$emit('update-posts-count', this.page, value)
+      this.$emit('update:modelValue', 1)
+      this.$emit('update-page', 1, value)
     },
   },
 }
