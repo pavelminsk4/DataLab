@@ -132,8 +132,8 @@ class InteractiveWidgetsTests(APITestCase):
     widget_pk = pr.widgets_list_2.sentiment_diagram_id
     url = reverse('widgets:interactive_widgets', kwargs={'project_pk':pr.pk, 'widget_pk':widget_pk})
     data = {
-      'first_value': [],
-      'second_value': ['negative'],
+      'first_value': ['negative'],
+      'second_value': [],
       'dates': [],
       'posts_per_page': 10,
       'page_number': 1,
