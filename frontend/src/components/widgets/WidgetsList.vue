@@ -115,6 +115,9 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.interactive-widgets {
+  z-index: 1001;
+}
 .widgets {
   display: flex;
   flex-wrap: wrap;
