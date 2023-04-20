@@ -58,12 +58,11 @@ export default {
     }
   },
   computed: {
-    ...mapState(['companyUsers']),
+    ...mapState(['companyUsers', 'userInfo']),
     ...mapGetters({
       department: get.DEPARTMENT,
     }),
     usersEmails() {
-      console.log(this.companyUsers)
       return this.companyUsers?.filter((el) => el.email) || []
     },
   },
@@ -88,8 +87,9 @@ export default {
         step: nextStep,
         title: this.reportName,
         description: this.reportDescription,
-        users: this.selectedUsers,
+        user: this.selectedUsers.map((user) => user.id),
         department: this.department?.id,
+        creator: this.userInfo.id,
       })
       this.$router.push({name: nextStepName})
     },

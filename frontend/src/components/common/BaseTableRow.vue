@@ -6,7 +6,7 @@
     <slot></slot>
     <td>
       <div class="action-buttons">
-        <button class="action-button" @click.stop="$emit('delete-project')">
+        <button class="action-button" @click.stop="$emit('delete-entity')">
           <DeleteIcon />
         </button>
       </div>
@@ -49,6 +49,9 @@ export default {
 <style lang="scss" scoped>
 tr {
   position: relative;
+  td {
+    vertical-align: initial;
+  }
 
   &:last-child {
     .divider {

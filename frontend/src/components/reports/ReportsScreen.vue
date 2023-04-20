@@ -39,7 +39,7 @@
             v-model="selectedReport"
             :id="item.id"
             class="report-table"
-            @delete-project="toggleDeleteModal(item.title, item.id)"
+            @delete-entity="toggleDeleteModal(item.title, item.id)"
             @click="goToReport($event, item.id)"
           >
             <td class="td_name">{{ item.title }}</td>
@@ -52,7 +52,15 @@
                 {{ reportType.type }}
               </div>
             </td>
-            <td>date</td>
+            <td>
+              <div
+                v-for="(reportType, index) in getReportTypes(item)"
+                :key="`report-type-${index}`"
+                class="report-type"
+              >
+                {{ reportType.date }}
+              </div>
+            </td>
             <td>
               <div
                 v-for="(reportType, index) in getReportTypes(item)"
@@ -91,6 +99,10 @@
 </template>
 
 <script>
+import {mapActions, mapGetters} from 'vuex'
+import {action, get} from '@store/constants'
+import {weekDays} from '@/lib/constants'
+
 import SortIcon from '@components/icons/SortIcon'
 
 import BaseButton from '@/components/common/BaseButton'
@@ -134,6 +146,9 @@ export default {
     }
   },
   computed: {
+    ...mapGetters({
+      department: get.DEPARTMENT,
+    }),
     filteredReports() {
       if (!this.search) return this.reports
       return this.reports?.filter((report) =>
@@ -154,6 +169,7 @@ export default {
     ]
   },
   methods: {
+    ...mapActions([action.DELETE_REGULAR_REPORT]),
     goToReport(event, reportId) {
       if (!event.target.closest('.checkbox-container')) {
         return reportId
@@ -165,8 +181,11 @@ export default {
         : []
     },
     deleteReport(id) {
+      this[action.DELETE_REGULAR_REPORT]({
+        departmentId: this.department.id,
+        regularReportId: id,
+      })
       this.toggleDeleteModal()
-      return id
     },
     toggleDeleteModal(title, id) {
       this.isOpenDeleteModal = !this.isOpenDeleteModal
@@ -179,26 +198,26 @@ export default {
       if (report.hourly_enabled)
         reportsTypes.push({
           type: 'Hourly',
-          time: report.h_hour,
+          time: `every ${report.h_hour}h`,
           date: '',
         })
       if (report.daily_enabled)
         reportsTypes.push({
           type: 'Daily',
           time: this.getTime(report.d_hour, report.d_minute),
-          date: '',
+          date: 'every day',
         })
       if (report.weekly_enabled)
         reportsTypes.push({
           type: 'Weekly',
           time: this.getTime(report.w_hour, report.w_minute),
-          date: '',
+          date: this.getDayWeek(report.w_day_of_week),
         })
       if (report.monthly_enabled)
         reportsTypes.push({
           type: 'Monthly',
           time: this.getTime(report.m_hour, report.m_minute),
-          date: '',
+          date: this.getDate(report.m_day_of_month),
         })
 
       return reportsTypes
@@ -212,6 +231,22 @@ export default {
       const currentHours = hours === '12' ? '12' : this.addZero(hours % 12)
       const meridiem = hours > 12 ? 'pm' : 'am'
       return `${currentHours}:${this.addZero(minutes)} ${meridiem}`
+    },
+    getDayWeek(numberOfDay) {
+      const index = +numberOfDay === 7 ? '0' : numberOfDay
+      return weekDays[index]
+    },
+    getDate(numberOfMonth) {
+      const currentDate = new Date()
+      const today = currentDate.getDate()
+      const month = currentDate.getMonth()
+      const isPast = today > numberOfMonth
+      // TODO: add condition for =
+      currentDate.setDate(numberOfMonth)
+      if (isPast) {
+        currentDate.setMonth(+month + 1)
+      }
+      return currentDate.toDateString()
     },
   },
 }

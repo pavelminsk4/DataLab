@@ -1063,7 +1063,6 @@ export default {
     commit(mutator.SET_LOADING, true)
     try {
       const widgetsList = await api.getReportWidgetsList()
-      console.log('action', widgetsList)
       commit(mutator.SET_REPORT_WIDGETS_LIST, widgetsList)
     } catch (e) {
       console.log(e)

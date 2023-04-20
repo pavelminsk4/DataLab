@@ -361,7 +361,7 @@ export default {
   async deleteRegularReport(departmentId, regularReportId) {
     fetch(
       'delete',
-      `/reports/${departmentId}/regular_reports/${regularReportId}`
+      `/reports/${departmentId}/regular_reports/${regularReportId}/`
     )
   },
   async getReportWidgetsList() {

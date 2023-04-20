@@ -9,7 +9,7 @@
       :key="index"
       v-model="selectedProjects"
       :id="item.id"
-      @delete-project="toggleDeleteModal(item.title, item.id)"
+      @delete-entity="toggleDeleteModal(item.title, item.id)"
       @click="goToProject($event, item.id)"
     >
       <td class="td_name">{{ item.title }}</td>

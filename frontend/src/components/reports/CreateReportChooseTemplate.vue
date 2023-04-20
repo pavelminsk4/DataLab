@@ -78,22 +78,6 @@ export default {
         }
       })
 
-      // const projectWithTemplates = this.projects.map((project) => {
-      //   const templates = Object.keys(this.templates).filter((templateName) =>
-      //     this.templates[templateName].selectedProjects.find(
-      //       (selectProject) => {
-      //         return selectProject.id === project.id
-      //       }
-      //     )
-      //   )
-      //   return {
-      //     ...project,
-      //     templates: templates,
-      //   }
-      // })
-
-      // console.log('templ', selectedTemplates)
-
       this[action.UPDATE_NEW_REPORT]({
         step: nextStep,
         templates: selectedTemplates,

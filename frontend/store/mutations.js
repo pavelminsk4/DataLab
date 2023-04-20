@@ -306,7 +306,6 @@ export default {
       ...widget,
       name: widget.name.toLowerCase().split(' ').join('_'),
     }))
-    console.log(reportWidgetsList)
 
     const onlineList = reportWidgetsList.filter(
       (widget) => widget.type === 'Online'

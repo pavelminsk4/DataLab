@@ -144,7 +144,6 @@ export default {
           widgetsList,
         }
       })
-      console.log('FINISH', projectsWithWidgets)
       return projectsWithWidgets
     },
 
@@ -155,16 +154,14 @@ export default {
         const newReportWidgetsLists = {
           ...this.reportWidgetsList,
         }
-        // console.log('PR', this.widgetsName)
+
         this.projects.forEach((project) => {
-          // console.log('PR -> for', project.id)
-          // console.log('PR -> for ob', this.widgetsName[project.id])
           const widgetsNames = this.widgetsName[project.id]
           widgetsNames.forEach((widgetName) => {
             newReportWidgetsLists[project.id][widgetName].is_active = true
           })
         })
-        console.log(newReportWidgetsLists)
+
         return newReportWidgetsLists
       },
       set(val) {
@@ -184,7 +181,7 @@ export default {
     ...mapActionsSocial({
       getSocialAvailableWidgets: action.GET_AVAILABLE_WIDGETS,
     }),
-    saveReport() {
+    async saveReport() {
       const items = this.reportProjects.map((project) => {
         const isSocial = project.moduleType === 'Social'
         const prefix = isSocial ? 'soc_' : 'onl_'
@@ -200,21 +197,13 @@ export default {
           widgetsObj[prefix + widget.widgetDetails.name] = true
         })
 
-        console.log(widgetsObj)
-
         return {
           module_type: isSocial ? 'ProjectSocial' : 'Project',
           module_project_id: project.id,
           ...widgetsObj,
         }
       })
-      console.log('SAVE', {
-        departmentId: this.newReport.department,
-        data: {
-          ...this.newReport,
-          items,
-        },
-      })
+
       this.createReport({
         departmentId: this.newReport.department,
         data: {
@@ -229,12 +218,11 @@ export default {
       this.currentProjectId = projectId
     },
     updateAvailableWidgets({projectId, widgetsList}) {
-      console.log('UPDATE WW', projectId, widgetsList)
       this.newWidgetsLists = {
         ...this.newWidgetsLists,
         [projectId]: widgetsList,
       }
-      // добавить виджет и надо бы удалить виджет -__-
+      // TODO: fix select widgets
       const index = this.reportProjects.findIndex(
         (project) => project.id === projectId
       )
