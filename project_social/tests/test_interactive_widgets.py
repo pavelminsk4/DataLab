@@ -73,8 +73,8 @@ class InteractiveWidgetsTests(APITestCase):
     url = reverse('project_social:social_interactive_widgets', kwargs={'project_pk':pr.pk, 'widget_pk':widget_pk})
     post_id = TweetBinderPost.objects.all().get(user_name='First_name').pk
     data = {
-      'first_value': ['neutral'],
-      'second_value': ['First_name'],
+      'first_value': ['First_name'],
+      'second_value': ['neutral'],
       'dates': [],
       'posts_per_page': 10,
       'page_number': 1,
@@ -89,8 +89,8 @@ class InteractiveWidgetsTests(APITestCase):
     url = reverse('project_social:social_interactive_widgets', kwargs={'project_pk':pr.pk, 'widget_pk':widget_pk})
     post_id = TweetBinderPost.objects.all().get(user_name='First_name').pk
     data = {
-      'first_value': ['neutral'],
-      'second_value': ['USA'],
+      'first_value': ['USA'],
+      'second_value': ['neutral'],
       'dates': [],
       'posts_per_page': 10,
       'page_number': 1,
@@ -105,8 +105,8 @@ class InteractiveWidgetsTests(APITestCase):
     url = reverse('project_social:social_interactive_widgets', kwargs={'project_pk':pr.pk, 'widget_pk':widget_pk})
     post_id = TweetBinderPost.objects.all().get(user_name='First_name').pk
     data = {
-      'first_value': ['neutral'],
-      'second_value': ['En'],
+      'first_value': ['En'],
+      'second_value': ['neutral'],
       'dates': [],
       'posts_per_page': 10,
       'page_number': 1,
@@ -137,8 +137,8 @@ class InteractiveWidgetsTests(APITestCase):
     url = reverse('project_social:social_interactive_widgets', kwargs={'project_pk':pr.pk, 'widget_pk':widget_pk})
     post_id = TweetBinderPost.objects.all().get(user_name='First_name').pk
     data = {
-      'first_value': ['neutral'],
-      'second_value': ['male'],
+      'first_value': ['male'],
+      'second_value': ['neutral'],
       'dates': [],
       'posts_per_page': 10,
       'page_number': 1,
@@ -233,8 +233,8 @@ class InteractiveWidgetsTests(APITestCase):
     url = reverse('project_social:social_interactive_widgets', kwargs={'project_pk':pr.pk, 'widget_pk':widget_pk})
     post_id = TweetBinderPost.objects.all().get(user_name='First_name').pk
     data = {
-      'first_value': [],
-      'second_value': ['neutral'],
+      'first_value': ['neutral'],
+      'second_value': [],
       'dates':[],
       'posts_per_page': 10,
       'page_number': 1,
