@@ -2,8 +2,10 @@
   <div v-if="projects.length" class="wrapper">
     <ReportTemplateCard
       v-for="templateTittle in templateTitles"
-      v-model:templateChecked="templates[templateTittle].checked"
-      v-model:selectedProjects="templates[templateTittle].selectedProjects"
+      v-model:templateChecked="widgetsTemplates[templateTittle].checked"
+      v-model:selectedProjects="
+        widgetsTemplates[templateTittle].selectedProjects
+      "
       :templateTitle="templateTittle"
       :projects="projects"
       :key="templateTittle"
@@ -19,6 +21,7 @@
 
 <script>
 import {action} from '@store/constants'
+import {mapState} from 'vuex'
 import createReportMixin from '@/lib/mixins/create-report.js'
 
 import ReportTemplateCard from '@/components/reports/ReportTemplateCard'
@@ -29,7 +32,7 @@ export default {
   components: {ReportTemplateCard},
   data() {
     return {
-      templates: {
+      widgetsTemplates: {
         dashboard: {
           checked: false,
           selectedProjects: [],
@@ -54,16 +57,18 @@ export default {
     }
   },
   computed: {
+    ...mapState(['templates']),
     projects() {
       return this.newReport.projects
     },
     templateTitles() {
-      return Object.keys(this.templates)
+      return Object.keys(this.widgetsTemplates)
     },
   },
   created() {
     this.templateTitles.forEach(
-      (template) => (this.templates[template].selectedProjects = this.projects)
+      (template) =>
+        (this.widgetsTemplates[template].selectedProjects = this.projects)
     )
   },
   methods: {
@@ -73,15 +78,21 @@ export default {
 
       const selectedTemplates = {}
       this.templateTitles.forEach((templateName) => {
-        if (this.templates[templateName].checked) {
-          selectedTemplates[templateName] = this.templates[templateName]
+        if (this.widgetsTemplates[templateName].checked) {
+          selectedTemplates[templateName] = this.widgetsTemplates[templateName]
         }
       })
 
-      this[action.UPDATE_NEW_REPORT]({
+      const reportData = {
         step: nextStep,
-        templates: selectedTemplates,
-      })
+        widgetsTemplates: selectedTemplates,
+      }
+
+      if (!this.newReport.report_template) {
+        reportData.report_template = this.templates[0].id
+      }
+
+      this[action.UPDATE_NEW_REPORT](reportData)
       this.$router.push({name: nextStepName})
     },
   },

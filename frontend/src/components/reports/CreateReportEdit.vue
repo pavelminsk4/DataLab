@@ -87,8 +87,8 @@ export default {
     projects() {
       return this.newReport.projects
     },
-    templates() {
-      return this.newReport.templates
+    widgetsTemplates() {
+      return this.newReport.widgetsTemplates
     },
     widgetsList() {
       return {
@@ -99,16 +99,17 @@ export default {
 
     projectsWithTemplates() {
       const projectsWithTemplates = this.projects.map((project) => {
-        const templates = Object.keys(this.templates).filter((templateName) =>
-          this.templates[templateName].selectedProjects.find(
-            (selectProject) => {
-              return selectProject.id === project.id
-            }
-          )
+        const templates = Object.keys(this.widgetsTemplates).filter(
+          (templateName) =>
+            this.widgetsTemplates[templateName].selectedProjects.find(
+              (selectProject) => {
+                return selectProject.id === project.id
+              }
+            )
         )
         return {
           ...project,
-          templates: templates,
+          widgetsTemplates: templates,
         }
       })
 
@@ -120,7 +121,7 @@ export default {
         const moduleType = project.moduleType.toLowerCase()
 
         let widgetsList = []
-        project.templates.forEach((template) => {
+        project.widgetsTemplates.forEach((template) => {
           let templateWidgets = []
           if (template === 'dashboard') {
             templateWidgets = this.getDashboardWidgets(

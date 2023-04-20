@@ -99,11 +99,11 @@ const initialState = {
     step: 1,
     name: '',
     description: '',
-    language: 'English',
-    format: 'PDF',
-    template: 'Select template',
+    report_language: 'English',
+    report_format: 'PDF',
+    report_template: '',
     projects: [],
-    templates: {},
+    widgetsTemplates: {},
   },
 }
 

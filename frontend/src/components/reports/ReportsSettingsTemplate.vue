@@ -17,7 +17,7 @@
       <span class="setting__title">Template</span>
       <BaseSelect
         v-model="template"
-        :options="options"
+        :options="templatesOptions"
         select-name="template"
       />
     </section>
@@ -26,6 +26,7 @@
 
 <script>
 import {action} from '@store/constants'
+import {mapActions} from 'vuex'
 import createReportMixin from '@/lib/mixins/create-report.js'
 
 import BaseRadio from '@/components/BaseRadio'
@@ -39,45 +40,58 @@ export default {
       newLanguage: '',
       newFormat: '',
       newTemplate: 'Select template',
+      templates: [],
     }
   },
   computed: {
     language: {
       get() {
-        return this.newLanguage || this.newReport.language
+        return this.newLanguage || this.newReport.report_language
       },
       set(val) {
         this.newLanguage = val
         this[action.UPDATE_NEW_REPORT]({
-          language: val,
+          report_language: val,
         })
       },
     },
     format: {
       get() {
-        return this.newFormat || this.newReport.format
+        return this.newFormat || this.newReport.report_format
       },
       set(val) {
         this.newFormat = val
         this[action.UPDATE_NEW_REPORT]({
-          format: val,
+          report_format: val,
         })
       },
     },
+    templatesOptions() {
+      return this.templates.map((template) => template.title)
+    },
     template: {
       get() {
-        return this.newTemplate || this.newReport.template
+        const defaultTemplate = 'Select template'
+        const currentTemplate = this.templates.find(
+          (template) => template.id === this.newReport.report_template
+        )?.title
+        return currentTemplate || defaultTemplate
       },
       set(val) {
-        this.newTemplate = val
+        const templateId = this.templates.find(
+          (template) => template.title === val
+        ).id
         this[action.UPDATE_NEW_REPORT]({
-          template: val,
+          report_template: templateId,
         })
       },
     },
   },
-  created() {
-    this.options = ['template_1', 'template_2', 'template_3']
+  async created() {
+    this.templates = await this[action.GET_TEMPLATES]()
+  },
+  methods: {
+    ...mapActions([action.GET_TEMPLATES]),
   },
 }
 </script>
