@@ -288,6 +288,9 @@ export default {
   [mutator.SET_INTERACTIVE_DATA](state, posts) {
     state.interactiveData = posts
   },
+  [mutator.SET_INTERACTIVE_DATA_MODAL](state, data) {
+    state.inreractiveDataModal = {...state.inreractiveDataModal, ...data}
+  },
 
   // Reports
   [mutator.SET_REGULAR_REPORTS](state, data) {
@@ -298,7 +301,25 @@ export default {
       state.newReport = {...state.newReport, ...data}
     }
   },
-  [mutator.SET_INTERACTIVE_DATA_MODAL](state, data) {
-    state.inreractiveDataModal = {...state.inreractiveDataModal, ...data}
+  [mutator.SET_REPORT_WIDGETS_LIST](state, data) {
+    const reportWidgetsList = Object.values(data).map((widget) => ({
+      ...widget,
+      name: widget.name.toLowerCase().split(' ').join('_'),
+    }))
+
+    const onlineList = reportWidgetsList.filter(
+      (widget) => widget.type === 'Online'
+    )
+    const socialList = reportWidgetsList.filter(
+      (widget) => widget.type === 'Social'
+    )
+    state.reportWidgetsList = {
+      online: onlineList,
+      social: socialList,
+    }
+  },
+
+  [mutator.SET_WIDGETS_LISTS](state, {id, projectList}) {
+    state.reportWidgetsList = {...state.reportWidgetsList, [id]: projectList}
   },
 }

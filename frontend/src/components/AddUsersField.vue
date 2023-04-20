@@ -128,7 +128,7 @@ export default {
       padding: 8px;
 
       border-radius: 8px;
-      background-color: rgba(255, 255, 255, 0.2);
+      background-color: var(--neutral-secondary-color);
 
       cursor: pointer;
 
@@ -136,7 +136,11 @@ export default {
       font-weight: 400;
       font-size: 14px;
       line-height: 20px;
-      color: var(--typography-primary-color);
+      color: var(--neutral-primary-color);
+
+      svg {
+        color: var(--neutral-primary-color);
+      }
     }
 
     .duplicate {
@@ -178,7 +182,7 @@ export default {
 
   .select-list {
     position: absolute;
-    z-index: 1;
+    z-index: 11;
 
     padding: 0;
     margin: 0;

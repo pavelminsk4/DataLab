@@ -4,19 +4,19 @@
 
     <section class="setting">
       <span class="setting__title">Language</span>
-      <BaseRadio v-model="settings.language" value="English" label="English" />
+      <BaseRadio v-model="language" value="English" label="English" />
     </section>
 
     <section class="setting">
       <span class="setting__title">Format</span>
-      <BaseRadio v-model="settings.format" value="PDF" label="PDF" />
-      <BaseRadio v-model="settings.format" value="DOC" label="DOC" />
+      <BaseRadio v-model="format" value="PDF" label="PDF" />
+      <BaseRadio v-model="format" value="DOC" label="DOC" />
     </section>
 
     <section class="setting">
       <span class="setting__title">Template</span>
       <BaseSelect
-        v-model="settings.template"
+        v-model="template"
         :options="options"
         select-name="template"
       />
@@ -36,11 +36,9 @@ export default {
   components: {BaseRadio, BaseSelect},
   data() {
     return {
-      settings: {
-        newLanguage: '',
-        newFormat: '',
-        newTemplate: 'Select template',
-      },
+      newLanguage: '',
+      newFormat: '',
+      newTemplate: 'Select template',
     }
   },
   computed: {

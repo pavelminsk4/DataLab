@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
+import {mapActions, mapGetters, mapState} from 'vuex'
 import {action, get} from '@store/constants'
 import createReportMixin from '@/lib/mixins/create-report.js'
 
@@ -58,22 +58,20 @@ export default {
     }
   },
   computed: {
+    ...mapState(['companyUsers', 'userInfo']),
     ...mapGetters({
       department: get.DEPARTMENT,
     }),
-    users() {
-      //change
-      return []
-    },
     usersEmails() {
-      return this.users.filter((el) => el.email) || []
+      return this.companyUsers?.filter((el) => el.email) || []
     },
   },
   created() {
     this[action.CLEAR_NEW_REPORT]()
+    this[action.GET_COMPANY_USERS](this.department.id)
   },
   methods: {
-    ...mapActions([action.CLEAR_NEW_REPORT]),
+    ...mapActions([action.CLEAR_NEW_REPORT, action.GET_COMPANY_USERS]),
     selectUser(user) {
       this.selectedUsers.push(user)
       this.errors.usersEmailError = null
@@ -89,8 +87,9 @@ export default {
         step: nextStep,
         title: this.reportName,
         description: this.reportDescription,
-        users: this.selectedUsers,
+        user: this.selectedUsers.map((user) => user.id),
         department: this.department?.id,
+        creator: this.userInfo.id,
       })
       this.$router.push({name: nextStepName})
     },

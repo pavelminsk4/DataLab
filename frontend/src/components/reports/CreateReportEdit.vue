@@ -1,10 +1,11 @@
 <template>
-  <div class="add-widgets-button">
-    <BaseButton @click="saveReport">
-      <AddWidgetsIcon />
-      <span>Add widgets</span>
-    </BaseButton>
-  </div>
+  <WidgetsListModal
+    v-if="isOpenWidgetsModal"
+    :project-id="currentProjectId"
+    :widgetList="newWidgetsLists[currentProjectId]"
+    @close="isOpenWidgetsModal = false"
+    @update-available-widgets="updateAvailableWidgets"
+  />
 
   <ul class="report-projects-view">
     <li
@@ -14,8 +15,13 @@
       class="report-widgets-view"
     >
       <div class="project__header">
-        <ReportsProjectIcon />
-        <h3 class="project__title">{{ project.title }}</h3>
+        <h3 class="project__title">
+          <ReportsProjectIcon /> {{ project.title }}
+        </h3>
+        <BaseButton @click="addWidget(project.id)">
+          <AddWidgetsIcon />
+          <span>Add widgets</span>
+        </BaseButton>
       </div>
 
       <div v-if="project.widgetsList" class="report-widgets-list">
@@ -48,6 +54,7 @@ import ReportsProjectIcon from '@/components/icons/ReportsProjectIcon'
 
 import BaseButton from '@/components/common/BaseButton'
 import WidgetsList from '@/components/widgets/WidgetsList'
+import WidgetsListModal from '@/components/widgets/modals/WidgetsListModal'
 
 const {mapActions: mapActionsSocial} = createNamespacedHelpers('social')
 
@@ -59,12 +66,23 @@ export default {
     SaveIcon,
     ReportsProjectIcon,
     WidgetsList,
+    WidgetsListModal,
+  },
+  data() {
+    return {
+      isOpenWidgetsModal: false,
+      currentProjectId: 0,
+      newReportWidgetsLists: null,
+      widgetsName: {},
+    }
   },
   computed: {
     ...mapState({
+      loading: (state) => state.loading,
       newReport: (state) => state.newReport,
       onlineAvailableWidgets: (state) => state.availableWidgets,
       socialAvailableWidgets: (state) => state.social.availableWidgets,
+      reportWidgetsList: (state) => state.reportWidgetsList,
     }),
     projects() {
       return this.newReport.projects
@@ -96,24 +114,6 @@ export default {
 
       return projectsWithTemplates
     },
-    onlineDashboardWidgets() {
-      if (!this.onlineAvailableWidgets) return []
-      const dashboardWidgetsName = Object.keys(
-        this.onlineAvailableWidgets
-      ).filter(
-        (widgetName) => this.onlineAvailableWidgets[widgetName].is_active
-      )
-      return dashboardWidgetsName.map((widgetName) => ({name: widgetName}))
-    },
-    socialDashboardWidgets() {
-      if (!this.socialAvailableWidgets) return []
-      const dashboardWidgetsName = Object.keys(
-        this.socialAvailableWidgets
-      ).filter(
-        (widgetName) => this.socialAvailableWidgets[widgetName].is_active
-      )
-      return dashboardWidgetsName.map((widgetName) => ({name: widgetName}))
-    },
 
     reportProjects() {
       const projectsWithWidgets = this.projectsWithTemplates.map((project) => {
@@ -123,7 +123,9 @@ export default {
         project.templates.forEach((template) => {
           let templateWidgets = []
           if (template === 'dashboard') {
-            templateWidgets = this[`${moduleType}DashboardWidgets`]
+            templateWidgets = this.getDashboardWidgets(
+              this.reportWidgetsList[project.id] || {}
+            )
           } else {
             templateWidgets = this.widgetsList[moduleType][template]
           }
@@ -131,50 +133,116 @@ export default {
         })
 
         widgetsList = [...new Set(widgetsList)]
-        widgetsList = this.selectedWidgets(widgetsList, moduleType, project.id)
+        // TODO: temp
+        this.widgetsName[project.id] = [
+          ...new Set(widgetsList.map((w) => w.name)),
+        ]
+        // -----
+        widgetsList = this.selectedWidgets(widgetsList, project.id)
         return {
           ...project,
           widgetsList,
         }
       })
-
       return projectsWithWidgets
+    },
+
+    newWidgetsLists: {
+      get() {
+        if (this.newReportWidgetsLists) return this.newReportWidgetsLists
+
+        const newReportWidgetsLists = {
+          ...this.reportWidgetsList,
+        }
+
+        this.projects.forEach((project) => {
+          const widgetsNames = this.widgetsName[project.id]
+          widgetsNames.forEach((widgetName) => {
+            newReportWidgetsLists[project.id][widgetName].is_active = true
+          })
+        })
+
+        return newReportWidgetsLists
+      },
+      set(val) {
+        this.newReportWidgetsLists = val
+      },
     },
   },
   created() {
-    const onlineProject = this.projects.find(
-      (project) => project.moduleType === 'Online'
-    )
-    const socialProject = this.projects.find(
-      (project) => project.moduleType === 'Social'
-    )
-
-    if (onlineProject) {
-      this.getOnlineAvailableWidgets(onlineProject.id)
-    }
-    if (socialProject) {
-      this.getSocialAvailableWidgets(socialProject.id)
-    }
+    this.getWidgetsList(this.projects)
   },
   methods: {
     ...mapActions({
       getOnlineAvailableWidgets: action.GET_AVAILABLE_WIDGETS,
+      getWidgetsList: action.GET_WIDGETS_LISTS,
+      createReport: action.CREATE_REGULAR_REPORT,
     }),
     ...mapActionsSocial({
       getSocialAvailableWidgets: action.GET_AVAILABLE_WIDGETS,
     }),
-    saveReport() {
-      this.$router.push({name: ''})
+    async saveReport() {
+      const items = this.reportProjects.map((project) => {
+        const isSocial = project.moduleType === 'Social'
+        const prefix = isSocial ? 'soc_' : 'onl_'
+        const widgetsObj = {}
+
+        Object.keys(this.reportWidgetsList[project.id]).forEach(
+          (widgetName) => {
+            widgetsObj[prefix + widgetName] = false
+          }
+        )
+
+        project.widgetsList.forEach((widget) => {
+          widgetsObj[prefix + widget.widgetDetails.name] = true
+        })
+
+        return {
+          module_type: isSocial ? 'ProjectSocial' : 'Project',
+          module_project_id: project.id,
+          ...widgetsObj,
+        }
+      })
+
+      this.createReport({
+        departmentId: this.newReport.department,
+        data: {
+          ...this.newReport,
+          items,
+        },
+      })
+      this.$router.push({name: 'Reports'})
+    },
+    addWidget(projectId) {
+      this.isOpenWidgetsModal = true
+      this.currentProjectId = projectId
+    },
+    updateAvailableWidgets({projectId, widgetsList}) {
+      this.newWidgetsLists = {
+        ...this.newWidgetsLists,
+        [projectId]: widgetsList,
+      }
+      // TODO: fix select widgets
+      const index = this.reportProjects.findIndex(
+        (project) => project.id === projectId
+      )
+
+      this.reportProjects[index].widgetsList.push()
     },
 
-    selectedWidgets(widgetsList, moduleType, projectId) {
-      if (!this[`${moduleType}AvailableWidgets`]) return
+    getDashboardWidgets(widgetsList) {
+      return Object.keys(widgetsList)
+        .filter((widgetName) => widgetsList[widgetName].is_active)
+        .map((widgetName) => ({name: widgetName}))
+    },
+    selectedWidgets(widgetsList, projectId) {
+      if (!this.reportWidgetsList[projectId]) return
       return widgetsList.map((widget) => {
-        if (this[`${moduleType}AvailableWidgets`][widget.name]) {
+        if (this.reportWidgetsList[projectId][widget.name]) {
           return {
             widgetDetails: getWidgetDetails(
               widget.name,
-              this[`${moduleType}AvailableWidgets`][widget.name],
+              this.reportWidgetsList[projectId][widget.name],
               projectId
             ),
             isFullWidth: true,
@@ -224,16 +292,20 @@ export default {
 .project {
   &__header {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
 
-    gap: 8px;
-
     width: 100%;
+    margin-bottom: 10px;
   }
 
   &__title {
-    align-self: flex-start;
+    display: flex;
+    align-items: center;
+
+    svg {
+      margin-right: 8px;
+    }
   }
 }
 </style>

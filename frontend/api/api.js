@@ -348,11 +348,11 @@ export default {
   async getRegularReports(departmentId) {
     return fetch('get', `/reports/${departmentId}/regular_reports/`)
   },
-  async createRegularReport(departmentId, data) {
-    return fetch('post', `/reports/${departmentId}/regular_reports/`, data)
+  async createRegularReport(data) {
+    return fetch('post', `/regularreports/`, data)
   },
   async updateRegularReport(departmentId, regularReportId, data) {
-    fetch(
+    return fetch(
       'patch',
       `/reports/${departmentId}/regular_reports/${regularReportId}`,
       data
@@ -361,8 +361,11 @@ export default {
   async deleteRegularReport(departmentId, regularReportId) {
     fetch(
       'delete',
-      `/reports/${departmentId}/regular_reports/${regularReportId}`
+      `/reports/${departmentId}/regular_reports/${regularReportId}/`
     )
+  },
+  async getReportWidgetsList() {
+    return fetch('get', `/report_widgets_list`)
   },
 
   async downloadInstantlyReport(projectId) {

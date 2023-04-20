@@ -13,15 +13,71 @@ class Templates(models.Model):
   def __str__(self):
     return self.title
 
-class RegularReport(models.Model):
+class ReportItem(models.Model):
   MODULE_TYPE_CHOICES = [
     ('Project', 'Online'),
     ('ProjectSocial', 'Social'),
   ]
+  module_type = models.CharField(max_length=70)
+  module_project_id = models.IntegerField(blank=True, null=True)
 
+  onl_summary_widget = models.BooleanField(default=False)
+  onl_volume_widget = models.BooleanField(default=False)
+  onl_clipping_feed_content_widget = models.BooleanField(default=False)
+  onl_top_10_authors_by_volume_widget = models.BooleanField(default=False)
+  onl_top_10_brands_widget = models.BooleanField(default=False)
+  onl_top_10_countries_widget = models.BooleanField(default=False)
+  onl_top_10_languages_widget = models.BooleanField(default=False)
+  onl_content_volume_top_5_source_widget = models.BooleanField(default=False)
+  onl_sentiment_top_10_sources_widget = models.BooleanField(default=False)
+  onl_sentiment_top_10_countries_widget = models.BooleanField(default=False)
+  onl_sentiment_top_10_authors_widget = models.BooleanField(default=False)
+  onl_sentiment_top_10_languages_widget = models.BooleanField(default=False)
+  onl_sentiment_for_period_widget = models.BooleanField(default=False)
+  onl_content_volume_top_5_authors_widget = models.BooleanField(default=False)
+  onl_content_volume_top_5_countries_widget = models.BooleanField(default=False)
+  onl_top_keywords = models.BooleanField(default=False)
+  onl_sentiment_top_keywords = models.BooleanField(default=False)
+  onl_sentiment_number_of_results = models.BooleanField(default=False)
+  onl_sentiment_diagram = models.BooleanField(default=False)
+  onl_authors_by_country = models.BooleanField(default=False)
+  onl_top_sharing_sources = models.BooleanField(default=False)
+  onl_overall_top_sources = models.BooleanField(default=False)
+  onl_sources_by_country = models.BooleanField(default=False)
+  onl_sources_by_language = models.BooleanField(default=False)
+  onl_authors_by_language = models.BooleanField(default=False)
+  onl_authors_by_sentiment = models.BooleanField(default=False)
+  onl_overall_top_authors = models.BooleanField(default=False)
+  
+  soc_summary = models.BooleanField(default=False)
+  soc_clipping_feed_content = models.BooleanField(default=False)
+  soc_top_locations = models.BooleanField(default=False)
+  soc_top_authors = models.BooleanField(default=False)
+  soc_top_languages = models.BooleanField(default=False)
+  soc_content_volume = models.BooleanField(default=False)
+  soc_content_volume_by_top_locations = models.BooleanField(default=False)
+  soc_content_volume_by_top_authors = models.BooleanField(default=False)
+  soc_content_volume_by_top_languages = models.BooleanField(default=False)
+  soc_sentiment = models.BooleanField(default=False)
+  soc_gender_volume = models.BooleanField(default=False)
+  soc_sentiment_number_of_results = models.BooleanField(default=False)
+  soc_sentiment_authors = models.BooleanField(default=False)
+  soc_sentiment_locations = models.BooleanField(default=False)
+  soc_sentiment_languages = models.BooleanField(default=False)
+  soc_sentiment_by_gender = models.BooleanField(default=False)
+  soc_top_keywords = models.BooleanField(default=False)
+  soc_sentiment_top_keywords = models.BooleanField(default=False)
+  soc_sentiment_diagram = models.BooleanField(default=False)
+  soc_top_sharing_sources = models.BooleanField(default=False)
+  soc_overall_top_authors = models.BooleanField(default=False)
+  soc_top_authors_by_gender = models.BooleanField(default=False)
+  soc_authors_by_language = models.BooleanField(default=False)
+  soc_authors_by_location = models.BooleanField(default=False)
+  soc_authors_by_sentiment = models.BooleanField(default=False)
+  soc_authors_by_gender = models.BooleanField(default=False)
+
+class RegularReport(models.Model):
   title = models.CharField(max_length=50)
-  module_type = models.CharField(max_length=70, choices=MODULE_TYPE_CHOICES)
-  module_project_id = models.IntegerField()
   department = models.ForeignKey('accounts.department', on_delete=models.SET_NULL, null=True)
   project = models.ForeignKey('project.Project', on_delete=models.SET_NULL, null=True, blank=True)
   creator = models.ForeignKey(User,related_name='regular_report_creator', on_delete=models.SET_NULL, null=True)
@@ -66,16 +122,9 @@ class RegularReport(models.Model):
   report_template = models.ForeignKey(Templates, related_name='regular_report_templates', on_delete=models.SET_NULL, null=True, blank=True)
   report_format = models.CharField(max_length=3, default='pdf', blank=True)
   report_language = models.CharField(max_length=10, default='English')
-  dashboard_is_active = models.BooleanField(default=False)
-  summary_is_active = models.BooleanField(default=False)
-  sentiment_is_active = models.BooleanField(default=False)
-  demography_is_active = models.BooleanField(default=False)
-  gender_is_active = models.BooleanField(default=False)
-  photo_video_is_active = models.BooleanField(default=False)
-  influencers_is_active = models.BooleanField(default=False)
-  topic_is_active = models.BooleanField(default=False)
   created_at = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True)
+  items = models.ManyToManyField(ReportItem, null=True)
 
   def __str__(self):
     return self.title

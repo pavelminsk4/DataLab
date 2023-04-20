@@ -22,6 +22,7 @@ from widgets.common_widget.filters_for_widgets import *
 from ml_components.models import *
 from sentence_transformers import util
 import numpy as np
+from . import variables
 
 # ==== User API =======================
 class UserList(ListAPIView):
@@ -366,6 +367,10 @@ class ProfileViewSet(RetrieveUpdateAPIView):
   def get_queryset(self):
     return Profile.objects.filter(user__email=self.kwargs['user__email'])
 
-class RegularReportViewSet(viewsets.ModelViewSet):
-  serializer_class = RegularReportSerializer
-  queryset = RegularReport.objects.all()    
+class RegularReportCreateViewSet(viewsets.ModelViewSet):
+  serializer_class = RegularReportCreateSerializer
+  queryset = RegularReport.objects.all()
+
+def widgets_map(request):
+  res = variables.WIDGETS_MAP
+  return JsonResponse(res)

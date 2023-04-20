@@ -127,6 +127,7 @@ export default {
     try {
       const availableWidgets = await api.getListOfDisplayedWidgets(projectId)
       commit(mutator.SET_AVAILABLE_WIDGETS, availableWidgets)
+      return availableWidgets
     } catch (e) {
       console.log(e)
     } finally {
@@ -1022,7 +1023,7 @@ export default {
   ) {
     commit(mutator.SET_LOADING, true)
     try {
-      await api.createRegularReport(departmentId, data)
+      await api.createRegularReport(data)
       await dispatch(action.GET_REGULAR_REPORTS, departmentId)
     } catch (e) {
       console.log(e)
@@ -1052,6 +1053,42 @@ export default {
     try {
       await api.deleteRegularReport(departmentId, regularReportId)
       await dispatch(action.GET_REGULAR_REPORTS, departmentId)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+  async [action.GET_REPORT_WIDGETS_LIST]({commit}) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const widgetsList = await api.getReportWidgetsList()
+      commit(mutator.SET_REPORT_WIDGETS_LIST, widgetsList)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
+  async [action.GET_WIDGETS_LISTS]({commit, dispatch}, projects) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const projectsWidgetsList = {}
+
+      projects.forEach(async (project) => {
+        let currentAction = ''
+        if (project.moduleType === 'Online')
+          currentAction = action.GET_AVAILABLE_WIDGETS
+
+        if (project.moduleType === 'Social')
+          currentAction = `social/${action.GET_AVAILABLE_WIDGETS}`
+
+        const projectList = await dispatch(currentAction, project.id)
+
+        commit(mutator.SET_WIDGETS_LISTS, {id: project.id, projectList})
+        projectsWidgetsList[project.id] = projectList
+      })
     } catch (e) {
       console.log(e)
     } finally {

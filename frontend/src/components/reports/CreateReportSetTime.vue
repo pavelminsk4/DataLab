@@ -152,6 +152,7 @@
 <script>
 import {action} from '@store/constants'
 import createReportMixin from '@/lib/mixins/create-report.js'
+import {weekDays} from '@/lib/constants'
 
 import CalendarIcon from '@/components/icons/CalendarIcon'
 
@@ -278,15 +279,7 @@ export default {
       return index + 1 + additionalWord
     })
 
-    this.weekDays = [
-      'Sunday',
-      'Monday',
-      'Tuesday',
-      'Wednesday',
-      'Thursday',
-      'Friday',
-      'Saturday',
-    ]
+    this.weekDays = weekDays
 
     this.dayOfMonth = new Array(31).fill(0).map((item, index) => index + 1)
   },

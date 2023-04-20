@@ -52,12 +52,14 @@ urlpatterns = [
   path('company_users/<int:pk>/', CompanyUsersView.as_view(), name='company_users'),
   # Profile
   path('profileuser/<str:user__email>/', ProfileViewSet.as_view(), name='profile_users'),
+  # ReportWidgetsList
+  path('report_widgets_list', views.widgets_map, name='report_widgets_list'),
   ]
 
 router.register('dimensions', DimensionsViewSet)
 router.register('templates', TemplatesViewSet)
 router.register('projects', ProjectsViewSet)
 router.register('alerts', AlertsViewSet)
-router.register('regularreports', RegularReportViewSet)
+router.register('regularreports', RegularReportCreateViewSet)
 
 urlpatterns += router.urls
