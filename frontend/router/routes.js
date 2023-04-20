@@ -1,3 +1,5 @@
+import store from '@store'
+
 import MainView from '@/views/MainView'
 import ReportsView from '@/views/ReportsView'
 
@@ -59,11 +61,27 @@ export const routes = [
         props: {
           secondColumn: {step: 'step2'},
         },
+        beforeEnter: (to, from, next) => {
+          const currentStep = `ReportStep${store.state.newReport.step}`
+
+          if (to.name !== currentStep) {
+            return next({name: 'ReportStep1'})
+          }
+          return next()
+        },
       },
       {
         name: 'ReportStep3',
         path: 'step3',
         component: CreateReportAddProject,
+        beforeEnter: (to, from, next) => {
+          const currentStep = `ReportStep${store.state.newReport.step}`
+
+          if (to.name !== currentStep) {
+            return next({name: 'ReportStep1'})
+          }
+          return next()
+        },
       },
 
       {
@@ -73,6 +91,14 @@ export const routes = [
           default: CreateReportChooseTemplate,
           secondColumn: ReportsSettingsTemplate,
         },
+        beforeEnter: (to, from, next) => {
+          const currentStep = `ReportStep${store.state.newReport.step}`
+
+          if (to.name !== currentStep) {
+            return next({name: 'ReportStep1'})
+          }
+          return next()
+        },
       },
 
       {
@@ -81,6 +107,14 @@ export const routes = [
         components: {
           default: CreateReportEdit,
           secondColumn: ReportsProjectsList,
+        },
+        beforeEnter: (to, from, next) => {
+          const currentStep = `ReportStep${store.state.newReport.step}`
+
+          if (to.name !== currentStep) {
+            return next({name: 'ReportStep1'})
+          }
+          return next()
         },
       },
     ],
