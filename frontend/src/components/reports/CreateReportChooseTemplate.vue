@@ -64,6 +64,15 @@ export default {
     templateTitles() {
       return Object.keys(this.widgetsTemplates)
     },
+    selectedWidgetsTemplates() {
+      const selectedTemplates = {}
+      this.templateTitles.forEach((templateName) => {
+        if (this.widgetsTemplates[templateName].checked) {
+          selectedTemplates[templateName] = this.widgetsTemplates[templateName]
+        }
+      })
+      return selectedTemplates
+    },
   },
   created() {
     this.templateTitles.forEach(
@@ -76,16 +85,11 @@ export default {
       const nextStep = 5
       const nextStepName = this.getNextStepName(nextStep)
 
-      const selectedTemplates = {}
-      this.templateTitles.forEach((templateName) => {
-        if (this.widgetsTemplates[templateName].checked) {
-          selectedTemplates[templateName] = this.widgetsTemplates[templateName]
-        }
-      })
+      const projectsWithTemplates = this.getProjectsWithTemplates()
 
       const reportData = {
         step: nextStep,
-        widgetsTemplates: selectedTemplates,
+        widgetsTemplates: projectsWithTemplates,
       }
 
       if (!this.newReport.report_template) {
@@ -94,6 +98,24 @@ export default {
 
       this[action.UPDATE_NEW_REPORT](reportData)
       this.$router.push({name: nextStepName})
+    },
+    getProjectsWithTemplates() {
+      const projectsWithTemplates = new Map()
+      this.projects.forEach((project) => {
+        const templates = this.templateTitles.filter((templateName) =>
+          this.widgetsTemplates[templateName].selectedProjects.find(
+            (selectProject) => {
+              return selectProject.id === project.id
+            }
+          )
+        )
+        projectsWithTemplates.set(project.id, {
+          ...project,
+          widgetsTemplates: templates,
+        })
+      })
+
+      return projectsWithTemplates
     },
   },
 }

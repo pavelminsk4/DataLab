@@ -97,24 +97,24 @@ export default {
       }
     },
 
-    projectsWithTemplates() {
-      const projectsWithTemplates = this.projects.map((project) => {
-        const templates = Object.keys(this.widgetsTemplates).filter(
-          (templateName) =>
-            this.widgetsTemplates[templateName].selectedProjects.find(
-              (selectProject) => {
-                return selectProject.id === project.id
-              }
-            )
-        )
-        return {
-          ...project,
-          widgetsTemplates: templates,
-        }
-      })
+    // projectsWithTemplates() {
+    //   const projectsWithTemplates = this.projects.map((project) => {
+    //     const templates = Object.keys(this.widgetsTemplates).filter(
+    //       (templateName) =>
+    //         this.widgetsTemplates[templateName].selectedProjects.find(
+    //           (selectProject) => {
+    //             return selectProject.id === project.id
+    //           }
+    //         )
+    //     )
+    //     return {
+    //       ...project,
+    //       widgetsTemplates: templates,
+    //     }
+    //   })
 
-      return projectsWithTemplates
-    },
+    //   return projectsWithTemplates
+    // },
 
     reportProjects() {
       const projectsWithWidgets = this.projectsWithTemplates.map((project) => {
@@ -171,12 +171,12 @@ export default {
     },
   },
   created() {
-    this.getWidgetsList(this.projects)
+    this.getWidgetsLists(this.projects)
   },
   methods: {
     ...mapActions({
       getOnlineAvailableWidgets: action.GET_AVAILABLE_WIDGETS,
-      getWidgetsList: action.GET_WIDGETS_LISTS,
+      getWidgetsLists: action.GET_WIDGETS_LISTS,
       createReport: action.CREATE_REGULAR_REPORT,
     }),
     ...mapActionsSocial({
