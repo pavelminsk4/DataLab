@@ -552,6 +552,7 @@ export default {
     try {
       const templates = await api.getTemplates()
       commit(mutator.SET_TEMPLATES, templates)
+      return templates
     } catch (e) {
       console.log(e)
     } finally {

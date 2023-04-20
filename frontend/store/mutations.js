@@ -197,7 +197,7 @@ export default {
   },
 
   [mutator.SET_TEMPLATES](state, data) {
-    state.templates = [...data]
+    state.templates = data
   },
 
   [mutator.SET_DIMENSION_AUTHORS](state, data) {

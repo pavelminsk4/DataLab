@@ -249,7 +249,10 @@ export default {
   [get.ALL_PROJECTS](state) {
     const onlineProjects = state.projects
     const socialProjects = state.social.projects
-    return [...onlineProjects, ...socialProjects].sort()
+    return [...onlineProjects, ...socialProjects].sort(
+      (a, b) =>
+        a.title.toLowerCase().charCodeAt() - b.title.toLowerCase().charCodeAt()
+    )
   },
 
   // Reports
