@@ -1,7 +1,9 @@
 <template>
   <div :class="['chips-wrapper', chipsType.toLowerCase()]">
     <component :is="`${chipsType}Icon`" />
-    <span>{{ title }}</span>
+    <slot>
+      <span>{{ title }}</span>
+    </slot>
   </div>
 </template>
 
@@ -60,10 +62,12 @@ export default {
   }
 }
 
-.male {
+.male,
+.doc {
   background: var(--chips-background-male-color);
 }
-.female {
+.female,
+.pdf {
   background: var(--chips-background-female-color);
 }
 

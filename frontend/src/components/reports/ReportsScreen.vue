@@ -71,7 +71,11 @@
               </div>
             </td>
             <td>{{ item.report_language }}</td>
-            <td>{{ item.report_format }}</td>
+            <td>
+              <BaseChips :chipsType="item.report_format">
+                {{ item.report_format.toUpperCase() }}
+              </BaseChips>
+            </td>
             <td>
               <UsersIconsBar :users="item.user" />
             </td>
@@ -114,6 +118,7 @@ import AreYouSureModal from '@/components/modals/AreYouSureModal'
 import BaseTable from '@components/common/BaseTable'
 import BaseTableRow from '@components/common/BaseTableRow'
 import UserAvatar from '@components/UserAvatar'
+import BaseChips from '@/components/BaseChips'
 
 export default {
   name: 'ReportsScreen',
@@ -128,6 +133,7 @@ export default {
     BaseTableRow,
     UserAvatar,
     SortIcon,
+    BaseChips,
   },
   props: {
     reports: {type: Array, default: () => []},
@@ -308,5 +314,7 @@ export default {
 .regularity {
   display: flex;
   flex-direction: column;
+
+  font-weight: 600;
 }
 </style>
