@@ -10,7 +10,22 @@
     <div v-else class="interactive-modal-wrapper">
       <BaseTabs :main-settings="tabs" default-tab="Top Results" class="tabs" />
 
-      <div class="cards">
+      <div class="settings-panel">
+        <div class="results">{{ allAvailablePosts }} results</div>
+
+        <component
+          v-for="(item, index) in displayTypes"
+          :key="item + index"
+          :is="item + 'Icon'"
+          :class="[
+            'display-type',
+            postsDisplayType === item.toLowerCase() && 'active-type',
+          ]"
+          @click="updateDisplayType(item)"
+        />
+      </div>
+
+      <div :class="[postsDisplayType]">
         <component
           :is="postCard"
           v-for="(item, index) in posts"
@@ -45,6 +60,8 @@ import OnlinePostCard from '@/components/OnlinePostCard'
 import SocialPostCard from '@/components/SocialPostCard'
 import BaseTabs from '@/components/project/widgets/modals/BaseTabs'
 import PaginationControlPanel from '@/components/PaginationControlPanel'
+import NormalIcon from '@/components/icons/PostsDisplayNormalIcon.vue'
+import CompactIcon from '@/components/icons/PostsDisplayCompactIcon.vue'
 
 export default {
   name: 'InteractiveWidgetModal',
@@ -55,6 +72,8 @@ export default {
     BaseModal,
     OnlinePostCard,
     SocialPostCard,
+    NormalIcon,
+    CompactIcon,
   },
   props: {
     widgetId: {type: Number, required: false},
@@ -66,6 +85,8 @@ export default {
       countPosts: 4,
       postsOnPage: [4, 8, 16],
       tabs: ['Top Results'],
+      displayTypes: ['Normal', 'Compact'],
+      postsDisplayType: 'normal',
     }
   },
   computed: {
@@ -100,6 +121,9 @@ export default {
       this.countPosts = countPosts
       this.$emit('show-results', page, countPosts)
     },
+    updateDisplayType(type) {
+      this.postsDisplayType = type.toLowerCase()
+    },
   },
 }
 </script>
@@ -117,7 +141,6 @@ export default {
 
 .tabs {
   width: 100%;
-  margin-bottom: 25px;
 }
 
 .interactive-modal-wrapper {
@@ -128,14 +151,58 @@ export default {
 
   height: 100%;
 
-  .cards {
+  .settings-panel {
     display: flex;
-    flex-wrap: wrap;
-    gap: 32px;
+    justify-content: flex-end;
+    align-items: center;
 
-    .clipping-card {
-      flex: 1;
+    width: 100%;
+    margin: 30px 0 25px 0;
+
+    .results {
+      margin-right: 40px;
+
+      font-style: normal;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 20px;
+      color: var(--typography-primary-color);
     }
+
+    .active-type {
+      border: 1px solid var(--primary-color);
+      background-color: var(--primary-active-color);
+
+      color: var(--primary-color);
+    }
+
+    .display-type {
+      width: 36px;
+      height: 36px;
+      padding: 10px;
+      margin-right: 12px;
+
+      border-radius: 4px;
+      background-color: var(--background-primary-color);
+
+      cursor: pointer;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+
+  .normal {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .compact {
+    display: grid;
+    grid-gap: 32px;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 300px;
   }
 }
 
