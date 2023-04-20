@@ -70,6 +70,8 @@ export default {
 
   --chips-background-primary-color: var(--background-secondary-color);
   --chips-background-secondary-color: #eef1f3;
+  --chips-background-female-color: var(--female-bg-color);
+  --chips-background-male-color: var(--male-bg-color);
 
   --input-border-color: var(--border-color);
   --modal-border-color: #404046;
