@@ -30,6 +30,11 @@ class ProjectAccountAnalysis(models.Model):
   language_filter = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
   country_filter = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
   sentiment_filter = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
+  source_filter = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
+  language_dimensions = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
+  country_dimensions = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
+  sentiment_dimensions = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
+  source_dimensions = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
   members = models.ManyToManyField(User, related_name='projects_account_analysis', blank=True, null=True)
 
   def __str__(self):
