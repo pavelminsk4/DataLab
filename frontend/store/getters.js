@@ -262,7 +262,9 @@ export default {
   [get.CREATE_REPORTS_STEP](state) {
     return state.newReport.step
   },
-  [get.INTERACTIVE_DATA_MODAL](state) {
-    return state.inreractiveDataModal
+
+  // Alerts
+  [get.CREATE_ALERT_STEP](state) {
+    return state.newAlert.step
   },
 }

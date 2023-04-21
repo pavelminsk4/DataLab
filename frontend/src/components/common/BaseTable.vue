@@ -15,7 +15,7 @@
         <th v-if="hasCheckbox && hasActions" style="width: 80px">Actions</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody class="scroll">
       <slot></slot>
     </tbody>
   </table>

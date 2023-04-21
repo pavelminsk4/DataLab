@@ -7,9 +7,7 @@
         :back-page="{name: 'main page', routName: 'MainView'}"
       />
 
-      <BaseButton @click="$emit('create-alert')">
-        Create new report
-      </BaseButton>
+      <BaseButton @click="$emit('create-alert')"> Create new alert </BaseButton>
     </div>
     <template v-if="alerts.length"> </template>
     <div v-else class="no-alerts">

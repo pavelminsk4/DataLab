@@ -87,7 +87,6 @@ const initialState = {
     isShow: false,
   },
   availableWidgets: null,
-  alerts: [],
   companyUsers: [],
   interactiveData: [],
   paginationData: {},
@@ -104,6 +103,15 @@ const initialState = {
     report_template: '',
     projects: [],
     widgetsTemplates: {},
+  },
+
+  // Alerts
+  alerts: [],
+  newAlert: {
+    step: 1,
+    title: '',
+    description: '',
+    projects: [],
   },
 }
 

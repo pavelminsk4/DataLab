@@ -253,10 +253,6 @@ export default {
     )
   },
 
-  async getAlerts(projectId) {
-    return fetch('get', `/projects/${projectId}/alerts`)
-  },
-
   async createWorkspace(workspace) {
     return fetch('post', '/workspace/create/', workspace)
   },
@@ -269,20 +265,12 @@ export default {
     return fetch('post', '/clipping_feed_content_widget/create', data)
   },
 
-  async createAlert(data) {
-    return fetch('post', '/alerts/', data)
-  },
-
   async createUser(data) {
     return fetch('post', '/register/', data)
   },
 
   async setUserDepartment({email, data}) {
     return fetch('patch', `/profileuser/${email}/`, data)
-  },
-
-  async updateAlert({data, alertId}) {
-    return fetch('put', `/alerts/${alertId}/`, data)
   },
 
   async updateUserData({userId, data}) {
@@ -299,10 +287,6 @@ export default {
 
   async deleteProject(projectId) {
     return fetch('delete', `/projects/${projectId}/`)
-  },
-
-  async deleteAlert(alertId) {
-    return fetch('delete', `/alerts/${alertId}/`)
   },
 
   async postSearch(request) {
@@ -376,5 +360,23 @@ export default {
       }
     )
     return URL.createObjectURL(response.data)
+  },
+
+  // Alerts
+
+  async createAlert(data) {
+    return fetch('post', '/alerts/', data)
+  },
+
+  async getAlerts(departmentId) {
+    return fetch('get', `/departments/${departmentId}/alerts`)
+  },
+
+  async updateAlert({data, alertId}) {
+    return fetch('put', `/alerts/${alertId}/`, data)
+  },
+
+  async deleteAlert(alertId) {
+    return fetch('delete', `/alerts/${alertId}/`)
   },
 }
