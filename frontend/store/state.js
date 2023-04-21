@@ -93,7 +93,7 @@ const initialState = {
 
   //reports
   regularReports: [],
-  reportWidgetsList: [],
+  reportWidgetsLists: [],
   newReport: {
     step: 1,
     name: '',

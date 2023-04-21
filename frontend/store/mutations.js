@@ -323,24 +323,24 @@ export default {
     }
   },
   [mutator.SET_REPORT_WIDGETS_LIST](state, data) {
-    const reportWidgetsList = Object.values(data).map((widget) => ({
+    const reportWidgetsLists = Object.values(data).map((widget) => ({
       ...widget,
       name: widget.name.toLowerCase().split(' ').join('_'),
     }))
 
-    const onlineList = reportWidgetsList.filter(
+    const onlineList = reportWidgetsLists.filter(
       (widget) => widget.type === 'Online'
     )
-    const socialList = reportWidgetsList.filter(
+    const socialList = reportWidgetsLists.filter(
       (widget) => widget.type === 'Social'
     )
-    state.reportWidgetsList = {
+    state.reportWidgetsLists = {
       online: onlineList,
       social: socialList,
     }
   },
 
   [mutator.SET_WIDGETS_LISTS](state, {id, projectList}) {
-    state.reportWidgetsList = {...state.reportWidgetsList, [id]: projectList}
+    state.reportWidgetsLists = {...state.reportWidgetsLists, [id]: projectList}
   },
 }
