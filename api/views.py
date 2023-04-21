@@ -14,7 +14,7 @@ from countries_plus.models import Country
 from dateutil import parser
 from django.db.models.functions import ExtractYear
 from widgets.models import ClippingFeedContentWidget, WidgetsList2, Dimensions, ProjectDimensions
-from alerts.models import Alert
+from alerts.models import Alert, AlertItem
 from rest_framework import viewsets, generics, filters, status
 from django.core.paginator import Paginator
 from widgets.common_widget.volume_widget import *
@@ -340,9 +340,8 @@ class ListAuthorsInProject(generics.ListAPIView):
     return queryset 
 
 # === Alerts ====
-
 class AlertsViewSet(viewsets.ModelViewSet):
-  serializer_class = AlertsSerializer
+  serializer_class = AlertCreateSerializer
   queryset = Alert.objects.all()
 
 class DepAlertsViewSet(ListAPIView):
