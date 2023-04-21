@@ -56,6 +56,7 @@ class TestsProjectsAPI(APITestCase):
       "source_dimensions": None,
       "sentiment_dimensions": None,
       "query_filter": None,
+      "expert_mode": False,
     }
     res2 = {
       "id": pr2.id,
@@ -95,5 +96,6 @@ class TestsProjectsAPI(APITestCase):
       "source_dimensions": None,
       "sentiment_dimensions": None,
       "query_filter": None,
+      "expert_mode": False,
     }
     self.assertEqual(json.loads(response.content), [res1, res2])

@@ -226,6 +226,7 @@ export default {
           source_dimensions: this.currentProject.source_dimensions,
           author_dimensions: this.currentProject.author_dimensions,
           sentiment_dimensions: this.currentProject.sentiment_dimensions,
+          query_filter: this.currentProject.query_filter,
         })
       } catch (e) {
         console.log(e)

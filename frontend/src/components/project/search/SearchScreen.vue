@@ -19,6 +19,8 @@
         :additional-keywords="currentAdditionalKeywords"
         :current-project="currentProject"
         :is-disabled-button="!currentKeywords.length"
+        :expert-mode-test-test="currentProject?.query_filter"
+        @update-query-filter="updateQueryFilterTest"
         @save-project="updateProjectData"
         @show-result="showResults"
         @update-collection="updateKeywordsCollection"
@@ -47,6 +49,11 @@ export default {
     keywords: {type: Object, required: true},
     clippingContent: {type: Array, required: true},
     numberOfPosts: {type: Number, required: true},
+  },
+  data() {
+    return {
+      query: '',
+    }
   },
   computed: {
     currentKeywords() {
@@ -93,6 +100,7 @@ export default {
         source_dimensions: [],
         author_dimensions: [],
         sentiment_dimensions: [],
+        query_filter: this.query || this.currentProject?.query_filter,
       })
     },
     updateProjectData() {
@@ -126,6 +134,7 @@ export default {
           null,
         country_filter: this.additionalFilters?.country || null,
         sort_posts: [],
+        query_filter: this.query || this.currentProject?.query_filter,
       })
 
       this.showResults()
@@ -133,6 +142,9 @@ export default {
 
     updateKeywordsCollection(name, value) {
       this.$emit('update-collection', name, value)
+    },
+    updateQueryFilterTest(value) {
+      this.query = value
     },
   },
 }

@@ -27,7 +27,8 @@ DATA = {
       'language_dimensions':[],
       'country_dimensions':[],
       'source_dimensions':[],
-      'sentiment_dimensions':[]
+      'sentiment_dimensions':[],
+      'query_filter': '',
       }
 
 

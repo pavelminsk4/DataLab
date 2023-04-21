@@ -22,6 +22,7 @@ from widgets.common_widget.filters_for_widgets import *
 from ml_components.models import *
 from sentence_transformers import util
 import numpy as np
+from project.expert_mode import Parser
 from . import variables
 
 # ==== User API =======================
@@ -112,49 +113,14 @@ def data_range_posts(start_date, end_date):
 
 def search(request):
   body = json.loads(request.body)
-  keys = body['keywords']
-  exceptions = body['exceptions']
-  additions = body['additions']
-  country = body['country']
-  language = body['language']
-  source = body['source']
-  author = body['author']
-  sentiment = body['sentiment']
-  country_dimensions = body['country_dimensions']
-  language_dimensions = body['language_dimensions']
-  source_dimensions = body['source_dimensions']
-  author_dimensions = body['author_dimensions']
-  sentiment_dimensions = body['sentiment_dimensions']
   date_range = body['date_range']
   posts_per_page = body['posts_per_page']
   page_number = body['page_number']
   sort_posts = body['sort_posts']
+  query_filter = body['query_filter']
   posts = data_range_posts(date_range[0], date_range[1])
-  posts = keywords_posts(keys, posts)
-  if additions:
-    posts = additional_keywords_posts(posts, additions)
-  if exceptions:
-    posts = exclude_keywords_posts(posts, exceptions)
-  if country:
-    posts = posts.filter(feedlink__country=country)
-  if language:
-    posts = posts.filter(feed_language__language=language)
-  if source:
-    posts = posts.filter(feedlink__source1=source)
-  if author:
-    posts = posts.filter(entry_author=author)
-  if sentiment:
-    posts = posts.filter(sentiment=sentiment)
-  if country_dimensions:
-    posts = posts.filter(reduce(lambda x,y: x | y, [Q(feedlink__country=country) for country in country_dimensions]))
-  if language_dimensions:
-    posts = posts.filter(reduce(lambda x,y: x | y, [Q(feed_language__language=language) for language in language_dimensions]))  
-  if source_dimensions:
-    posts = posts.filter(reduce(lambda x,y: x | y, [Q(feedlink__source1=source) for source in source_dimensions]))  
-  if author_dimensions:
-    posts = posts.filter(reduce(lambda x,y: x | y, [Q(entry_author=author) for author in author_dimensions]))
-  if sentiment_dimensions:
-    posts = posts.filter(reduce(lambda x,y: x | y, [Q(sentiment=sentiment) for sentiment in sentiment_dimensions]))    
+  parser = Parser(query_filter)
+  posts = filter_with_constructor(body, posts) if not parser.can_parse() else posts.filter(parser.get_filter_query())
   if sort_posts == 'source':
     posts = posts.order_by('feedlink__source1')
   elif sort_posts == 'country':
@@ -369,6 +335,47 @@ class ProfileViewSet(RetrieveUpdateAPIView):
 class RegularReportCreateViewSet(viewsets.ModelViewSet):
   serializer_class = RegularReportCreateSerializer
   queryset = RegularReport.objects.all()
+
+def filter_with_constructor(body, posts):
+  keys = body['keywords']
+  exceptions = body['exceptions']
+  additions = body['additions']
+  country = body['country']
+  language = body['language']
+  source = body['source']
+  author = body['author']
+  sentiment = body['sentiment']
+  country_dimensions = body['country_dimensions']
+  language_dimensions = body['language_dimensions']
+  source_dimensions = body['source_dimensions']
+  author_dimensions = body['author_dimensions']
+  sentiment_dimensions = body['sentiment_dimensions']  
+  posts = keywords_posts(keys, posts)
+  if additions:
+    posts = additional_keywords_posts(posts, additions)
+  if exceptions:
+    posts = exclude_keywords_posts(posts, exceptions)
+  if country:
+    posts = posts.filter(feedlink__country=country)
+  if language:
+    posts = posts.filter(feed_language__language=language)
+  if source:
+    posts = posts.filter(feedlink__source1=source)
+  if author:
+    posts = posts.filter(entry_author=author)
+  if sentiment:
+    posts = posts.filter(sentiment=sentiment)
+  if country_dimensions:
+    posts = posts.filter(reduce(lambda x,y: x | y, [Q(feedlink__country=country) for country in country_dimensions]))
+  if language_dimensions:
+    posts = posts.filter(reduce(lambda x,y: x | y, [Q(feed_language__language=language) for language in language_dimensions]))  
+  if source_dimensions:
+    posts = posts.filter(reduce(lambda x,y: x | y, [Q(feedlink__source1=source) for source in source_dimensions]))  
+  if author_dimensions:
+    posts = posts.filter(reduce(lambda x,y: x | y, [Q(entry_author=author) for author in author_dimensions]))
+  if sentiment_dimensions:
+    posts = posts.filter(reduce(lambda x,y: x | y, [Q(sentiment=sentiment) for sentiment in sentiment_dimensions])) 
+  return posts
 
 def widgets_map(request):
   res = variables.WIDGETS_MAP
