@@ -26,13 +26,9 @@ class TestParser(APITestCase):
     self.assertEqual(Parser("'cat' and (dog or 'bird')").can_parse(), True)
     self.assertEqual(Parser("dsfdsfsd").can_parse(), True)
     self.assertEqual(Parser("'cat' and ('dog' or 'bird cow')").can_parse(), True)
-    # self.assertEqual(Parser("'cat' and ('dog' or 'bird cow:')").can_parse(), False)
-    # self.assertEqual(Parser("'cat' and (source: or 'bird cow:')").can_parse(), False)
     self.assertEqual(Parser("'cat' and (source:wolf or 'bird cow')").can_parse(), True)
-    # self.assertEqual(Parser("fsdf dsfs").can_parse(), False)
     self.assertEqual(Parser("").can_parse(), False)
     self.assertEqual(Parser(" ").can_parse(), False)
-    # there should be more tests
 
   def test_simple_parse(self):
     posts = Post.objects.filter(Parser("'bird'").get_filter_query())
@@ -45,4 +41,6 @@ class TestParser(APITestCase):
     self.assertEqual(posts.count(), 1)
     self.assertEqual(posts.first().entry_title, 'cat dog')
     posts = Post.objects.filter(Parser("bird and source:'third_source'").get_filter_query())
+    self.assertEqual(posts.count(), 3)
+    posts = Post.objects.filter(Parser("bird and source:third_source").get_filter_query())
     self.assertEqual(posts.count(), 3)

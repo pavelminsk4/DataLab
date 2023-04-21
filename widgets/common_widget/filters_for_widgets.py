@@ -1,6 +1,7 @@
 from project.models import Post
 from django.db.models import Q
 from functools import reduce
+from project.expert_mode import Parser
 
 def keywords_posts(keys, posts):
   posts = posts.filter(reduce(lambda x,y: x | y, [Q(entry_title__contains=key) for key in keys]))
@@ -68,6 +69,10 @@ def sentiment_dimensions_posts(sentiments, posts):
 
 def posts_agregator(project):
   posts = data_range_posts(project.start_search_date, project.end_search_date)
+  parser = Parser(project.query_filter)
+  if parser.can_parse():
+    return posts.filter(parser.get_filter_query())
+
   posts = keywords_posts(project.keywords, posts)
   if project.additional_keywords!=[]:
     posts = additional_keywords_posts(posts, project.additional_keywords)
