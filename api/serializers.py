@@ -6,7 +6,7 @@ from drf_writable_nested.serializers import WritableNestedModelSerializer
 from countries_plus.models import Country
 from widgets.models import WidgetsList2, ClippingFeedContentWidget, WidgetDescription, Dimensions, ProjectDimensions
 from reports.models import Templates, RegularReport, ReportItem
-from alerts.models import Alert
+from alerts.models import Alert, AlertItem
 from project.models import Post
 
 from rest_framework.validators import UniqueValidator
@@ -170,7 +170,20 @@ class TemplatesSerializer(WritableNestedModelSerializer):
     model = Templates
     fields = '__all__'
 
+class AlertItemSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = AlertItem
+    fields = '__all__'
+
+class AlertCreateSerializer(WritableNestedModelSerializer):
+  items = AlertItemSerializer(many=True)
+  class Meta:
+    model = Alert
+    fields = '__all__'
+  
 class AlertsSerializer(WritableNestedModelSerializer):
+  creator = UserSerializer(required=False)
+  user = UserSerializer(many=True, required=False)
   class Meta:
     model = Alert
     fields = '__all__'
