@@ -2,6 +2,7 @@ from rest_framework.generics import ListAPIView, CreateAPIView, UpdateAPIView, D
 from .widgets.dashboard.summary import *
 from django.shortcuts import render
 from rest_framework import viewsets
+from .widgets.dimensions import *
 from .serializers import *
 from .models import *
 
@@ -33,3 +34,6 @@ class WorkspaceAccountAnalysisDelete(DestroyAPIView):
 
 def account_analysis_summary_widget(request, pk, widget_pk):
   return account_analysis_summary(pk, widget_pk)
+
+def dimensions_for_each_widgets(request, pk, widget_pk):
+  return dimensions_for_each(pk, widget_pk)

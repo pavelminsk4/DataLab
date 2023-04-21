@@ -31,10 +31,12 @@ class ProjectAccountAnalysis(models.Model):
   country_filter = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
   sentiment_filter = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
   source_filter = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
+  author_filter = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
   language_dimensions = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
   country_dimensions = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
   sentiment_dimensions = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
   source_dimensions = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
+  author_dimensions = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
   members = models.ManyToManyField(User, related_name='projects_account_analysis', blank=True, null=True)
 
   def __str__(self):
@@ -77,6 +79,7 @@ class AccountAnalysisWidgetDescription(models.Model):
   country_dimensions = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
   language_dimensions = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
   sentiment_dimensions = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
+  author_dimensions = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
   chart_type = models.CharField(max_length=150, default=None, null=True, blank=True)
   top_counts = models.IntegerField(default=5)  
 
