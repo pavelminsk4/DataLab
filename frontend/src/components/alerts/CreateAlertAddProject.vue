@@ -93,7 +93,3 @@ export default {
   margin: 40px 0 20px 0;
 }
 </style>
-{ "items": [{"module_type":"Project", "module_project_id":1}], "title": "TEst",
-"triggered_on_every_n_new_posts": 1, "how_many_posts_to_send": 1,
-"alert_condition": "", "creator": 1, "department": null, "project": null,
-"user": [1] }
