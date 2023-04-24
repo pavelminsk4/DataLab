@@ -1,6 +1,6 @@
 <template>
   <tr :class="isSelectedProxy && 'selected-row'">
-    <td>
+    <td class="checkbox-containter">
       <BaseCheckbox v-model="modelValueProxy" :id="id" />
     </td>
     <slot></slot>
@@ -47,6 +47,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.checkbox-containter {
+  vertical-align: middle;
+}
 tr {
   position: relative;
   td {

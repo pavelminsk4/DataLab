@@ -115,11 +115,11 @@ export default {
   },
   created() {
     this.tableHeader = [
-      {name: 'Alert name', width: '25%'},
-      {name: 'Trigger', width: ''},
-      {name: `Assigned Users`, width: ''},
-      {name: `Creator `, width: ''},
-      {name: `Date`, width: ''},
+      {name: 'Alert name', width: '38%'},
+      {name: 'Trigger', width: '14%'},
+      {name: `Assigned Users`, width: '10%'},
+      {name: `Creator `, width: '14%'},
+      {name: `Date`, width: '10%'},
     ]
   },
   methods: {
