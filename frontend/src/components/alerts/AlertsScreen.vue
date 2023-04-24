@@ -174,7 +174,11 @@ export default {
 }
 .table-wrapper {
   height: calc(100% - 200px);
+  .alert-table td {
+    vertical-align: initial;
+  }
 }
+
 .creator {
   display: flex;
   align-items: center;

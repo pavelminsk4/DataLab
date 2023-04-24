@@ -78,9 +78,6 @@ export default {
       })
       this.$router.push({name: 'Alerts'})
     },
-    setLoading() {
-      this.isLoading = !this.isLoading
-    },
   },
 }
 </script>
