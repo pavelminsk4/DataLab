@@ -7,9 +7,13 @@
       label=" "
     />
   </div>
-  <div class="wrapper scroll">
-    <ProjectsTableWithModules v-model="selectedProjects" :projects="projects" />
+  <div v-if="findedProjects.length" class="wrapper scroll">
+    <ProjectsTableWithModules
+      v-model="selectedProjects"
+      :projects="findedProjects"
+    />
   </div>
+  <div v-else>No search results</div>
   <footer class="create-reports__footer">
     <ButtonWithArrow :is-disabled="isDisableNextBtn" @click="nextStep">
       <span>Next</span>
@@ -18,7 +22,7 @@
 </template>
 
 <script>
-import {mapActions, mapGetters, createNamespacedHelpers} from 'vuex'
+import {mapActions, mapGetters, mapState, createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
 const {mapActions: mapSocialActions} = createNamespacedHelpers('social')
 
@@ -38,9 +42,17 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({projects: get.ALL_PROJECTS}),
+    ...mapGetters({projects: get.ALL_PROJECTS, department: get.DEPARTMENT}),
+    ...mapState({
+      newAlert: (state) => state.newAlert,
+    }),
     isDisableNextBtn() {
       return !this.selectedProjects.length
+    },
+    findedProjects() {
+      return this.projects.filter((project) =>
+        project.title.includes(this.searchText)
+      )
     },
   },
   created() {
@@ -48,14 +60,26 @@ export default {
     this.getSocialProjects()
   },
   methods: {
-    ...mapActions({getOnlineProjects: action.GET_PROJECTS}),
+    ...mapActions({
+      getOnlineProjects: action.GET_PROJECTS,
+      createNewAlert: action.CREATE_NEW_ALERT,
+    }),
     ...mapSocialActions({getSocialProjects: action.GET_PROJECTS}),
     nextStep() {
-      this[action.UPDATE_NEW_ALERT]({
-        step: 1,
-        projects: this.selectedProjects,
+      const projects = this.selectedProjects.map((project) => {
+        const newModule =
+          project.moduleType === 'Online' ? 'Project' : 'ProjectSocial'
+
+        return {module_type: newModule, module_project_id: project.id}
+      })
+      this.createNewAlert({
+        data: {...this.newAlert, items: projects},
+        projectId: this.department.id,
       })
       this.$router.push({name: 'Alerts'})
+    },
+    setLoading() {
+      this.isLoading = !this.isLoading
     },
   },
 }
@@ -72,3 +96,7 @@ export default {
   margin: 40px 0 20px 0;
 }
 </style>
+{ "items": [{"module_type":"Project", "module_project_id":1}], "title": "TEst",
+"triggered_on_every_n_new_posts": 1, "how_many_posts_to_send": 1,
+"alert_condition": "", "creator": 1, "department": null, "project": null,
+"user": [1] }

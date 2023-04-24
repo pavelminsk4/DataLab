@@ -38,8 +38,8 @@
 </template>
 
 <script>
-import {mapActions} from 'vuex'
-import {action} from '@store/constants'
+import {mapActions, mapState, mapGetters} from 'vuex'
+import {action, get} from '@store/constants'
 import createAlertMixin from '@/lib/mixins/create-alerts.js'
 
 import BaseInput from '@/components/common/BaseInput'
@@ -62,20 +62,22 @@ export default {
     }
   },
   computed: {
-    users() {
-      //change
-      return []
-    },
+    ...mapState(['companyUsers', 'userInfo']),
+
+    ...mapGetters({
+      department: get.DEPARTMENT,
+    }),
     usersEmails() {
-      return this.users.filter((el) => el.email) || []
+      return this.companyUsers?.filter((el) => el.email) || []
     },
   },
 
   created() {
     this[action.CLEAR_NEW_ALERT]()
+    this[action.GET_COMPANY_USERS](this.department.id)
   },
   methods: {
-    ...mapActions([action.CLEAR_NEW_ALERT]),
+    ...mapActions([action.CLEAR_NEW_ALERT, action.GET_COMPANY_USERS]),
     selectUser(user) {
       this.selectedUsers.push(user)
       this.errors.usersEmailError = null
@@ -91,7 +93,9 @@ export default {
         step: nextStep,
         title: this.alertName,
         description: this.alertDescription,
-        users: this.selectedUsers,
+        user: this.selectedUsers.map((user) => user.id),
+        department: this.department?.id,
+        creator: this.userInfo.id,
       })
 
       this.$router.push({name: nextStepName})

@@ -1061,6 +1061,7 @@ export default {
   async [action.CREATE_NEW_ALERT]({commit, dispatch}, {data, projectId}) {
     commit(mutator.SET_LOADING, true)
     try {
+      console.log(data, projectId)
       await api.createAlert(data)
       await dispatch(action.GET_ALERTS, projectId)
     } catch (e) {

@@ -59,7 +59,7 @@ export default {
 
       this[action.UPDATE_NEW_ALERT]({
         step: nextStep,
-        triggerInWeek: this.triggerInWeek,
+        alert_condition: this.triggerInWeek.toString(),
         triggered_on_every_n_new_posts: this.triggerFrequency,
         how_many_posts_to_send: this.triggerPostCount,
       })
