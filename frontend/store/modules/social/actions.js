@@ -150,6 +150,7 @@ export default {
         root: true,
       })
       commit(mutator.SET_AVAILABLE_WIDGETS, availableWidgets)
+      return availableWidgets
     } catch (e) {
       console.log(e)
     } finally {

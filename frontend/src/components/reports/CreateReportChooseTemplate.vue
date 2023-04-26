@@ -95,21 +95,21 @@ export default {
       if (!this.newReport.report_template) {
         reportData.report_template = this.templates[0].id
       }
-      console.log('nextStep', reportData)
+
       this[action.UPDATE_NEW_REPORT](reportData)
       this.$router.push({name: nextStepName})
     },
     getProjectsWithTemplates() {
       const projectsWithTemplates = new Map()
       this.projects.forEach((project) => {
-        const templates = this.templateTitles.filter((templateName) => {
-          console.log('FILTER', templateName, this.selectedWidgetsTemplates)
-          return this.widgetsTemplates[templateName].selectedProjects.find(
-            (selectProject) => {
-              return selectProject.id === project.id
-            }
-          )
-        })
+        const templates = Object.keys(this.selectedWidgetsTemplates).filter(
+          (templateName) =>
+            this.widgetsTemplates[templateName].selectedProjects.find(
+              (selectProject) => {
+                return selectProject.id === project.id
+              }
+            )
+        )
 
         projectsWithTemplates.set(project.id, {
           ...project,

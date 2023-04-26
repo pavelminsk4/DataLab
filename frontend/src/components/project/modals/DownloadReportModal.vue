@@ -159,6 +159,7 @@ export default {
     ...mapState(['loading']),
     ...mapGetters({
       templates: get.TEMPLATES,
+      department: get.DEPARTMENT,
     }),
     titleTemplates() {
       return this.templates.map((el) => el.title)
@@ -261,7 +262,10 @@ export default {
 
       this.loading = true
       try {
-        const res = await this[action.GET_INSTANTLY_REPORT](this.projectId)
+        const res = await this[action.GET_INSTANTLY_REPORT]({
+          departmentId: this.department.id,
+          projectId: this.projectId,
+        })
 
         const anchor = document.createElement('a')
         anchor.href = res

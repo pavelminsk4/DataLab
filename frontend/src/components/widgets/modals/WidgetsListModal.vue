@@ -46,14 +46,8 @@ export default {
     BaseModal,
   },
   props: {
-    projectId: {
-      type: Number,
-      required: true,
-    },
-    widgetList: {
-      type: Object,
-      default: null,
-    },
+    projectId: {type: Number, required: true},
+    widgetList: {type: Object, default: null},
   },
   data() {
     return {
@@ -91,13 +85,13 @@ export default {
       const notActiveWidgets = Object.assign(
         {},
         ...widgetsKeys.map((el) => ({
-          [el]: {is_active: false, id: this.widgets[el].id},
+          [el]: {...this.widgets[el], is_active: false},
         }))
       )
       const activeWidgets = Object.assign(
         {},
         ...this.collectionProxy.map((el) => ({
-          [el]: {is_active: true, id: this.widgets[el].id},
+          [el]: {...this.widgets[el], is_active: true},
         }))
       )
       return {...notActiveWidgets, ...activeWidgets}

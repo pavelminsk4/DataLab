@@ -314,6 +314,10 @@ export default {
     }
   },
 
+  [mutator.SET_WIDGETS_LISTS](state, {id, projectList}) {
+    state.reportWidgetsLists.set(id, projectList)
+  },
+
   // Alerts
   [mutator.SET_NEW_ALERT](state, data) {
     if (data) {
@@ -338,9 +342,5 @@ export default {
       online: onlineList,
       social: socialList,
     }
-  },
-
-  [mutator.SET_WIDGETS_LISTS](state, {id, projectList}) {
-    state.reportWidgetsLists = {...state.reportWidgetsLists, [id]: projectList}
   },
 }

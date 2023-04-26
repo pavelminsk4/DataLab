@@ -81,14 +81,14 @@ export const routes = [
         name: 'ReportStep3',
         path: 'step3',
         component: CreateReportAddProject,
-        // beforeEnter: (to, from, next) => {
-        //   const currentStep = `ReportStep${store.state.newReport.step}`
+        beforeEnter: (to, from, next) => {
+          const currentStep = `ReportStep${store.state.newReport.step}`
 
-        //   if (to.name !== currentStep) {
-        //     return next({name: 'ReportStep1'})
-        //   }
-        //   return next()
-        // },
+          if (to.name !== currentStep) {
+            return next({name: 'ReportStep1'})
+          }
+          return next()
+        },
       },
 
       {
@@ -98,14 +98,14 @@ export const routes = [
           default: CreateReportChooseTemplate,
           secondColumn: ReportsSettingsTemplate,
         },
-        // beforeEnter: (to, from, next) => {
-        //   const currentStep = `ReportStep${store.state.newReport.step}`
+        beforeEnter: (to, from, next) => {
+          const currentStep = `ReportStep${store.state.newReport.step}`
 
-        //   if (to.name !== currentStep) {
-        //     return next({name: 'ReportStep1'})
-        //   }
-        //   return next()
-        // },
+          if (to.name !== currentStep) {
+            return next({name: 'ReportStep1'})
+          }
+          return next()
+        },
       },
 
       {

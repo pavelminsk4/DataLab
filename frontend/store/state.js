@@ -93,7 +93,7 @@ const initialState = {
 
   //reports
   regularReports: [],
-  reportWidgetsLists: [],
+  reportWidgetsLists: new Map(),
   newReport: {
     step: 1,
     name: '',
