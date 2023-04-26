@@ -246,6 +246,11 @@ export default {
   [get.INTERACTIVE_DATA](state) {
     return state.interactiveData
   },
+
+  [get.INTERACTIVE_DATA_MODAL](state) {
+    return state.inreractiveDataModal
+  },
+
   [get.ALL_PROJECTS](state) {
     const onlineProjects = state.projects
     const socialProjects = state.social.projects
