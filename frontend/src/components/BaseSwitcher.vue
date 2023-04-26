@@ -31,7 +31,12 @@ export default {
       }
     },
     indicatorStyles() {
-      return {transform: this.value ? 'translateX(14px)' : 'translateX(0)'}
+      return {
+        transform: this.value ? 'translateX(14px)' : 'translateX(0)',
+        backgroundColor: this.value
+          ? 'var(--primary-color)'
+          : 'var(--icon-primary-color)',
+      }
     },
   },
   methods: {
@@ -44,11 +49,11 @@ export default {
 
 <style scoped>
 .turn-on {
-  background-color: var(--button-primary-color);
+  background-color: white;
 }
 
 .turn-off {
-  background-color: var(--typography-secondary-color);
+  background-color: var(--background-additional-color);
 }
 
 .toggle-wrapper {
@@ -88,7 +93,6 @@ export default {
   width: 15px;
 
   border-radius: 100px;
-  background-color: var(--secondary-bg-color);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
   transition: transform 0.4s ease;

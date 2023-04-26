@@ -1,5 +1,17 @@
 import {mutator} from '@store/constants'
 
+const initialAlert = {
+  step: 1,
+  title: '',
+  description: '',
+  user: [],
+  department: null,
+  creator: null,
+  alert_condition: '',
+  triggered_on_every_n_new_posts: '',
+  how_many_posts_to_send: '',
+}
+
 export default {
   [mutator.SET_LOADING](state, loading) {
     state.loading = loading
@@ -221,7 +233,7 @@ export default {
   },
 
   [mutator.SET_ALERTS](state, data) {
-    state.alerts = [...data]
+    state.alerts = data
   },
 
   [mutator.RESET_STATE](state) {
@@ -299,6 +311,15 @@ export default {
   [mutator.SET_NEW_REPORT](state, data) {
     if (data) {
       state.newReport = {...state.newReport, ...data}
+    }
+  },
+
+  // Alerts
+  [mutator.SET_NEW_ALERT](state, data) {
+    if (data) {
+      state.newAlert = {...state.newAlert, ...data}
+    } else {
+      state.newAlert = initialAlert
     }
   },
   [mutator.SET_REPORT_WIDGETS_LIST](state, data) {

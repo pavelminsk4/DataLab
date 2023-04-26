@@ -11,7 +11,7 @@
         :class="['input', isSearch && 'input-search']"
         :placeholder="placeholder"
         :autocomplete="autocomplete"
-        @input="handleInput"
+        @input="debounceInput"
       />
 
       <div v-if="hasError" class="error-container">
@@ -25,6 +25,8 @@
 </template>
 
 <script>
+import debounce from 'lodash/debounce'
+
 import SearchIcon from '@components/icons/SearchIcon'
 import ErrorIcon from '@/components/icons/ErrorIcon'
 
@@ -45,9 +47,9 @@ export default {
     SearchIcon,
   },
   methods: {
-    handleInput(e) {
+    debounceInput: debounce(function (e) {
       this.$emit('update:modelValue', e.target.value)
-    },
+    }, 500),
   },
 }
 </script>

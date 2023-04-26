@@ -87,7 +87,6 @@ const initialState = {
     isShow: false,
   },
   availableWidgets: null,
-  alerts: [],
   companyUsers: [],
   interactiveData: [],
   paginationData: {},
@@ -104,6 +103,20 @@ const initialState = {
     report_template: '',
     projects: [],
     widgetsTemplates: {},
+  },
+
+  // Alerts
+  alerts: [],
+  newAlert: {
+    step: 1,
+    title: '',
+    description: '',
+    user: [],
+    department: null,
+    creator: null,
+    alert_condition: '',
+    triggered_on_every_n_new_posts: '',
+    how_many_posts_to_send: '',
   },
 }
 
