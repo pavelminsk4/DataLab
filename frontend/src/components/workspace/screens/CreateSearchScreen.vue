@@ -127,6 +127,7 @@ export default {
           source_dimensions: [],
           author_dimensions: [],
           sentiment_dimensions: [],
+          query_filter: [],
         })
       } catch (e) {
         console.log(e)

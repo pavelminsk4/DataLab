@@ -23,6 +23,7 @@ from ml_components.models import *
 from sentence_transformers import util
 import numpy as np
 from project.expert_mode import Parser
+from deep_translator import GoogleTranslator
 from . import variables
 
 # ==== User API =======================
@@ -150,7 +151,13 @@ def search(request):
   for post in posts_list:
     src = post['feedlink__source1']
     post['feedlink__source1'] = src if '<img' not in str(src) else re.findall('alt="(.*)"', src)[0]
-    post['category'] = classification(Post.objects.get(pk=post['id']))
+    category=classification(Post.objects.get(pk=post['id']))
+    target_lang=post["feed_language__language"].lower()
+    try:
+      category=GoogleTranslator(source='en', target=target_lang).translate(category)
+    except: 
+      pass
+    post["category"]=category
   res = { 'num_pages': p.num_pages, 'num_posts': p.count, 'posts': posts_list }
   return JsonResponse(res, safe = False)
 
