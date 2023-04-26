@@ -32,16 +32,15 @@ class Alert(models.Model):
   def __str__(self):
     return self.title
 
-@receiver(post_save, sender=Alert)
+@receiver(post_save, sender=AlertItem)
 def define_initial_posts_count(sender, instance, created, **kwargs):
   if created:
-    for item in instance.items.all():
-      if item.module_type == 'Project':
-        initial_posts_count = posts_agregator(item.module_project_id).count()
-      if instance.module_type == 'ProjectSocial':
-        initial_posts_count = social_posts_agregator(item.module_project_id).count()
-      item.previous_posts_count = initial_posts_count
-      item.save()
+    if instance.module_type == 'Project':
+      initial_posts_count = posts_agregator(instance.module_project_id).count()
+    if instance.module_type == 'ProjectSocial':
+      initial_posts_count = social_posts_agregator(instance.module_project_id).count()
+    instance.previous_posts_count = initial_posts_count
+    instance.save()
 
 @receiver(pre_delete, sender=Alert)
 def delete_related_items(sender, instance, *args, **kwargs):
