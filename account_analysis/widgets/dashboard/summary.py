@@ -6,7 +6,7 @@ from django.http import JsonResponse
 def account_analysis_summary(pk, widget_pk):
   project = ProjectAccountAnalysis.objects.get(id=pk)
   account_analysis_tracker = TweetBinderUserTracker.objects.get(account_analysis_project=project)
-  user_tracker_analysis = TweetBinderUserTrackerAnalysis.objects.get(user_alias=account_analysis_tracker)
+  user_tracker_analysis = TweetBinderUserTracker.objects.create(user_alias=project.profile_handle, start_date=project.start_search_date, end_date=project.end_search_date, account_analysis_project=project)
   posts = posts_aggregator(project)
   res = {
     'user_name': posts.filter(user_alias=project.profile_handle).first().user_name,

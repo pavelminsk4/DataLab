@@ -40,6 +40,7 @@ class AccountAnalysisWidgetDescriptionSerializer(WritableNestedModelSerializer):
 
 class WidgetsListSerializer(WritableNestedModelSerializer):
   summary = AccountAnalysisWidgetDescriptionSerializer()
+  profile_timeline = AccountAnalysisWidgetDescriptionSerializer()
 
   class Meta:
     model = AccountAnalysisWidgetsList
