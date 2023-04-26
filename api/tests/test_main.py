@@ -109,7 +109,7 @@ class SearchTests(APITestCase):
     'feedlink__source1': 'CNN',
     'feedlink__sourceurl':None,
     'feedlink__alexaglobalrank': 0,
-    'category': 'لم يتم حساب المصفوفة اللاح.'
+    'category': 'لم يتم حساب المصفوفة اللاحقة.'
     }
 
   def db_seeder(self):
