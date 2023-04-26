@@ -23,6 +23,7 @@
       <component
         :is="`${moduleName}MainWidget`"
         :widgetDetails="item.widgetDetails"
+        :isShowDeleteBtn="item.isShowDeleteBtn"
         @open-settings-modal="openModal(item.widgetDetails)"
       />
     </li>

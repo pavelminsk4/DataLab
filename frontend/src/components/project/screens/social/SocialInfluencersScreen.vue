@@ -46,6 +46,7 @@ export default {
                   this.currentProject.source
                 ),
                 isFullWidth: widget.isFullWidth,
+                isShowDeleteBtn: false,
               }
             }
           })
