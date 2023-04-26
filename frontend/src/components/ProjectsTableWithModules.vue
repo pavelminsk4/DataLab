@@ -5,11 +5,15 @@
     @select-all="selectAll"
   >
     <template v-if="projects.length">
-      <tr v-for="(project, index) in projects" :key="index" class="project-row">
+      <tr
+        v-for="(project, index) in projects"
+        :key="index"
+        :id="project.id"
+        :class="('project-row', isSelected(project.id) && 'selected')"
+      >
         <td>
           <BaseCheckbox
             v-model="selectedProjects"
-            :id="project.id"
             :value="{
               id: project.id,
               title: project.title,
@@ -103,6 +107,9 @@ export default {
           })
         : []
     },
+    isSelected(projectId) {
+      return this.selectedProjects.find((project) => project.id === projectId)
+    },
   },
 }
 </script>
@@ -110,5 +117,8 @@ export default {
 <style lang="scss">
 .wrapper {
   height: 50vh;
+  .selected {
+    background-color: var(--primary-active-color);
+  }
 }
 </style>

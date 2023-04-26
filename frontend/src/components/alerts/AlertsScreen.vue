@@ -58,13 +58,7 @@
     </template>
     <div v-else class="no-alerts">
       <img src="@/assets/alerts/no-alerts.svg" alt="No alerts image" />
-      <div class="no-alerts__text">
-        No alerts created
-        <img
-          src="@/assets/alerts/mailbox.svg"
-          alt="open mailbox with raised flag image"
-        />
-      </div>
+      <div class="no-alerts__text">No alerts created &#x1F4EC;</div>
     </div>
   </MainLayout>
 </template>
