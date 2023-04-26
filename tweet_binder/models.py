@@ -354,8 +354,3 @@ def add_data_account_to_database(data_account, instance):
                 'updated_at_start': data_account[1]["updatedAt"],
             }
   TweetBinderUserTrackerAnalysis.objects.create(**new_data)
-
-@receiver(post_save, sender=ProjectAccountAnalysis)
-def create_user_tracker(sender, instance, created, **kwargs):
-  if created:
-    TweetBinderUserTracker.objects.create(user_alias=instance.profile_handle, start_date=instance.start_search_date, end_date=instance.end_search_date, account_analysis_project=instance)  
