@@ -52,4 +52,4 @@ protobuf==3.19.0 # ML part
 
 boolean-parser==0.1.4 # Expert Mode
 
-googletrans==4.0.0rc1 # translation
+deep-translator # translation
