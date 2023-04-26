@@ -144,7 +144,6 @@ export default {
       this.toggleDeleteModal()
     },
     selectAll(isSelectAll) {
-      console.log('selectAll', isSelectAll)
       this.selectedAlerts = isSelectAll
         ? this.alerts.map((value) => value.id)
         : []
