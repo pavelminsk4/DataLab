@@ -1,7 +1,7 @@
 from django.db import models
 from project.models import Project
 from django.contrib.auth.models import User
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, pre_delete
 from django.dispatch import receiver
 
 from alerts.services.online_posts_agregator import posts_agregator
@@ -31,3 +31,20 @@ class Alert(models.Model):
 
   def __str__(self):
     return self.title
+
+@receiver(post_save, sender=Alert)
+def define_initial_posts_count(sender, instance, created, **kwargs):
+  if created:
+    for item in instance.items.all():
+      if item.module_type == 'Project':
+        initial_posts_count = posts_agregator(item.module_project_id).count()
+      if instance.module_type == 'ProjectSocial':
+        initial_posts_count = social_posts_agregator(item.module_project_id).count()
+      item.previous_posts_count = initial_posts_count
+      item.save()
+
+@receiver(pre_delete, sender=Alert)
+def delete_related_items(sender, instance, *args, **kwargs):
+  items = instance.items.all()
+  for item in items:
+    item.delete()
