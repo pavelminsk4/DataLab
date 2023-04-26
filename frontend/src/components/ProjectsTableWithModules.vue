@@ -1,5 +1,9 @@
 <template>
-  <BaseTable :table-header="tableHeader" :has-actions="false">
+  <BaseTable
+    :table-header="tableHeader"
+    :has-actions="false"
+    @select-all="selectAll"
+  >
     <template v-if="projects.length">
       <tr v-for="(project, index) in projects" :key="index" class="project-row">
         <td>
@@ -87,6 +91,17 @@ export default {
     },
     projectCreationDate(date) {
       return new Date(date).toLocaleDateString('ro-RO')
+    },
+    selectAll(isSelectAll) {
+      this.selectedProjects = isSelectAll
+        ? this.projects.map((value) => {
+            return {
+              id: value.id,
+              title: value.title,
+              moduleType: value.source,
+            }
+          })
+        : []
     },
   },
 }

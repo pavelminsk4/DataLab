@@ -19,7 +19,7 @@
 
     <template v-if="alerts.length">
       <div class="table-wrapper scroll">
-        <BaseTable :table-header="tableHeader">
+        <BaseTable :table-header="tableHeader" @select-all="selectAll">
           <BaseTableRow
             v-for="(alert, index) in alerts"
             :key="index"
@@ -148,6 +148,12 @@ export default {
         alertId: id,
       })
       this.toggleDeleteModal()
+    },
+    selectAll(isSelectAll) {
+      console.log('selectAll', isSelectAll)
+      this.selectedAlerts = isSelectAll
+        ? this.alerts.map((value) => value.id)
+        : []
     },
   },
 }
