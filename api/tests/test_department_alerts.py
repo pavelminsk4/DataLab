@@ -1,6 +1,6 @@
 from rest_framework.test import APITestCase
 from rest_framework import status
-from alerts.models import Alert
+from alerts.models import Alert, AlertItem
 from accounts.models import department
 from project.models import Project
 from project_social.models import ProjectSocial
@@ -29,28 +29,31 @@ class DepartmentAlertsTests(APITestCase):
         end_search_date=datetime(2022, 10, 16),
         creator=user,
       )
+    item1 = AlertItem.objects.create(
+      module_type='Project',
+      module_project_id=pr.id,
+      previous_posts_count=0,
+    )
+    item2 = AlertItem.objects.create(
+      module_type='ProjectSocial',
+      module_project_id=pr_soc.id,
+      previous_posts_count=0,
+    )
     a1 = Alert.objects.create(
         title='First Alert',
-        module_type='Project',
-        module_project_id=pr.id,
         department=dep1,
       )
+    a1.items.set([item1, item2])
     a2 = Alert.objects.create(
         title='Test Alert',
-        module_type='ProjectSocial',
-        module_project_id=pr_soc.id,
-        department=dep1,
+        department=dep2,
       )
     a3 = Alert.objects.create(
         title='Weekly Alert',
-        module_type='Project',
-        module_project_id=pr.id,
         department=dep2,
       )
     a4 = Alert.objects.create(
         title='Hourly Alert',
-        module_type='ProjectSocial',
-        module_project_id=pr_soc.id,
         department=dep2,
       )
     url = reverse('dep_alerts', kwargs={'pk':dep1.pk})
@@ -60,8 +63,7 @@ class DepartmentAlertsTests(APITestCase):
       {
         'id': a1.pk,
         'title': 'First Alert',
-        'module_type': 'Project',
-        'module_project_id': pr.id,
+        'items': [item1.id, item2.id],
         'creator': None,
         'department': dep1.id,
         'project': None,
@@ -69,25 +71,8 @@ class DepartmentAlertsTests(APITestCase):
         'triggered_on_every_n_new_posts': 1,
         'how_many_posts_to_send': 1,
         'alert_condition': None,
-        'privious_posts_count': 0,
         'updated_at': a1.updated_at.replace(tzinfo=None).isoformat() + 'Z',
         'created_at': a1.created_at.replace(tzinfo=None).isoformat() + 'Z',
-      },
-      {
-        'id': a2.pk,
-        'title': 'Test Alert',
-        'module_type': 'ProjectSocial',
-        'module_project_id': pr_soc.id,
-        'creator': None,
-        'department': dep1.id,
-        'project': None,
-        'user': [],
-        'triggered_on_every_n_new_posts': 1,
-        'how_many_posts_to_send': 1,
-        'alert_condition': None,
-        'privious_posts_count': 0,
-        'updated_at': a2.updated_at.replace(tzinfo=None).isoformat() + 'Z',
-        'created_at': a2.created_at.replace(tzinfo=None).isoformat() + 'Z',
       },
     ]
     self.assertEqual(json.loads(response.content), res)
