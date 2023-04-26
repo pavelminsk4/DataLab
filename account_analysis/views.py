@@ -1,4 +1,5 @@
 from rest_framework.generics import ListAPIView, CreateAPIView, UpdateAPIView, DestroyAPIView
+from .widgets.dashboard.profile_timeline import *
 from .widgets.dashboard.summary import *
 from django.shortcuts import render
 from rest_framework import viewsets
@@ -37,3 +38,6 @@ def account_analysis_summary_widget(request, pk, widget_pk):
 
 def dimensions_for_each_widgets(request, pk, widget_pk):
   return dimensions_for_each(pk, widget_pk)
+
+def profile_timeline_widget(request, pk, widget_pk):
+  return profile_timeline(request, pk, widget_pk)

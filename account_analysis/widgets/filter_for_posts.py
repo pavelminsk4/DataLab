@@ -3,7 +3,7 @@ from django.db.models import Q
 from functools import reduce
 
 def keyword_posts(profile, posts):
-  posts = posts.filter(Q(user_alias__icontains=profile)|Q(text__icontains=f'@{profile}'))
+  posts = posts.filter(Q(user_alias__icontains=profile)|Q(text__icontains=f'@{profile}')|Q(user_name__icontains=profile))
   return posts
 
 def data_range_posts(start_date, end_date):
