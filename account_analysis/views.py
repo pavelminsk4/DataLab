@@ -1,4 +1,5 @@
 from rest_framework.generics import ListAPIView, CreateAPIView, UpdateAPIView, DestroyAPIView
+from tweet_binder.models import TweetBinderPost
 from .widgets.dashboard.most_frequent_post_types import *
 from .widgets.dashboard.profile_timeline import *
 from .widgets.dashboard.summary import *
@@ -45,3 +46,7 @@ def profile_timeline_widget(request, pk, widget_pk):
 
 def most_frequent_post_types_widget(request, pk, widget_pk):
   return most_frequent_post_types(pk, widget_pk)
+
+def list_of_profile_handle(request):
+  profile_handles = TweetBinderPost.objects.order_by("user_alias").values("user_alias", "user_picture").distinct()
+  return JsonResponse(list(profile_handles), safe = False)
