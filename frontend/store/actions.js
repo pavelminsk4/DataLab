@@ -884,10 +884,23 @@ export default {
     }
   },
 
-  async [action.GET_INSTANTLY_REPORT]({commit}, projectId) {
+  async [action.GET_INSTANTLY_REPORT]({commit}, {departmentId, projectId}) {
     commit(mutator.SET_LOADING, true)
     try {
-      return api.downloadInstantlyReport(projectId)
+      return api.downloadInstantlyReport(departmentId, projectId)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+  async [action.GET_SOCIAL_INSTANTLY_REPORT](
+    {commit},
+    {departmentId, projectId}
+  ) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      return api.downloadSocialInstantlyReport(departmentId, projectId)
     } catch (e) {
       console.log(e)
     } finally {
@@ -1006,17 +1019,6 @@ export default {
     try {
       await api.deleteRegularReport(departmentId, regularReportId)
       await dispatch(action.GET_REGULAR_REPORTS, departmentId)
-    } catch (e) {
-      console.log(e)
-    } finally {
-      commit(mutator.SET_LOADING, false)
-    }
-  },
-  async [action.GET_REPORT_WIDGETS_LIST]({commit}) {
-    commit(mutator.SET_LOADING, true)
-    try {
-      const widgetsList = await api.getReportWidgetsList()
-      commit(mutator.SET_REPORT_WIDGETS_LIST, widgetsList)
     } catch (e) {
       console.log(e)
     } finally {

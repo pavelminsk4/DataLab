@@ -25,6 +25,7 @@
         :widgetDetails="item.widgetDetails"
         :isShowDeleteBtn="item.isShowDeleteBtn"
         @open-settings-modal="openModal(item.widgetDetails)"
+        @delete-widget="$emit('delete-widget', item.widgetDetails.name)"
       />
     </li>
   </ul>
@@ -50,6 +51,7 @@ export default {
     SocialWidgetSettingsModal,
     InteractiveWidgetModal,
   },
+  emits: ['delete-widget'],
   props: {
     currentProject: {type: [Array, Object], required: false},
     selectedWidgets: {type: Array, required: true},
