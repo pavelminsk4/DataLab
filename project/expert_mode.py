@@ -7,7 +7,6 @@ class Parser:
   def __init__(self, query):
     self.query = query
 
-
   def can_parse(self):
     try:
       parse(self.__get_expression())
@@ -22,7 +21,7 @@ class Parser:
   def __simple_parse(self, cond):
     if hasattr(cond, 'data'):
       return Q(**{cond.name : cond.value})
-    if not hasattr(cond, 'logicop'):
+    elif not hasattr(cond, 'logicop'):
       return cond
     elif(cond.logicop == 'or'):
       return (reduce(lambda x, y: self.__simple_parse(x) | self.__simple_parse(y), cond.conditions))
@@ -33,7 +32,7 @@ class Parser:
 
   def __get_expression(self):
     parsed_query = self.query.replace('\'','\"').lower()
-    regex = r'([a-z_]+((:\s+)|:)([a-z_]+|\"(.*?)\"))|[a-z_]+|\"(.*?)\"|\S' # a | 'a' | a:b | a:'b' | a: 'b' | : | ( | )
+    regex = r'([a-z_]+((:\s+)|:)(>|<|=)[0-9]+)|([a-z_]+((:\s+)|:)([a-z_]+|\"(.*?)\"))|[a-z_]+|\"(.*?)\"|\S' # a | 'a' | a:b | a:'b' | a: 'b' | : | ( | )
     words = re.finditer(regex, parsed_query)
     tokens = map(lambda w: self._Token(w.group()).define(), words)
     return reduce(lambda x, y: x + y.tostring(), tokens, '')
