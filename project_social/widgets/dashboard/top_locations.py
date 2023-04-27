@@ -19,3 +19,19 @@ def top_locations(pk, widget_pk):
   posts = post_agregetor_for_each_widget(widget, posts)
   res = post_agregator_top_locations(posts, widget.aggregation_period, widget.top_counts)
   return JsonResponse(res, safe = False)
+
+def top_locations_report(pk, widget_pk):
+  project = ProjectSocial.objects.get(id=pk)
+  posts = post_agregator_with_dimensions(project)
+  widget = SocialWidgetDescription.objects.get(id=widget_pk)
+  posts = post_agregetor_for_each_widget(widget, posts)
+  res = post_agregator_top_locations(posts, widget.aggregation_period, widget.top_counts)
+  context = {}
+  labels = []
+  data = []
+  for r in res:
+    labels.append(r['locationString'])
+    data.append(int(r['locations_count']))
+  context['labels'] = labels
+  context['data'] = data
+  return context
