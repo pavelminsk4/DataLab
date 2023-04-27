@@ -89,7 +89,8 @@ class AccountAnalysisWidgetDescription(models.Model):
 class AccountAnalysisWidgetsList(models.Model):
   project = models.OneToOneField(ProjectAccountAnalysis, on_delete=models.CASCADE, related_name='account_analysis_widgets_list', editable=False)
   summary = models.ForeignKey(AccountAnalysisWidgetDescription,on_delete=models.CASCADE,related_name='account_analysis_summary', null=True)
-  profile_timeline = models.ForeignKey(AccountAnalysisWidgetDescription,on_delete=models.CASCADE,related_name='account_analysis_profile_timeline', null=True) 
+  profile_timeline = models.ForeignKey(AccountAnalysisWidgetDescription,on_delete=models.CASCADE,related_name='account_analysis_profile_timeline', null=True)
+  most_frequent_post_types = models.ForeignKey(AccountAnalysisWidgetDescription,on_delete=models.CASCADE,related_name='account_analysis_most_frequent_post_types', null=True)
   
   def __str__(self):
     return str(self.project)  
@@ -106,6 +107,9 @@ def create_social_widget_description(sender, instance, created, **kwargs):
     wd1.save()
     wd2 = AccountAnalysisWidgetDescription.objects.create(title='Profile timeline', default_title='Profile timeline')
     wd2.save()
+    wd3 = AccountAnalysisWidgetDescription.objects.create(title='Most frequent post types', default_title='Most frequent post types')
+    wd3.save()
     instance.summary = wd1
     instance.profile_timeline = wd2
+    instance.most_frequent_post_types = wd3
     instance.save()

@@ -1,4 +1,5 @@
 from rest_framework.generics import ListAPIView, CreateAPIView, UpdateAPIView, DestroyAPIView
+from .widgets.dashboard.most_frequent_post_types import *
 from .widgets.dashboard.profile_timeline import *
 from .widgets.dashboard.summary import *
 from django.shortcuts import render
@@ -41,3 +42,6 @@ def dimensions_for_each_widgets(request, pk, widget_pk):
 
 def profile_timeline_widget(request, pk, widget_pk):
   return profile_timeline(request, pk, widget_pk)
+
+def most_frequent_post_types_widget(request, pk, widget_pk):
+  return most_frequent_post_types(pk, widget_pk)
