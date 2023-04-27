@@ -318,4 +318,27 @@ export default {
       social: socialList,
     }
   },
+
+  [mutator.SET_WIDGETS_LISTS](state, {id, projectList}) {
+    state.reportWidgetsList = {...state.reportWidgetsList, [id]: projectList}
+  },
+
+  // Account Analysis
+  [mutator.SET_NEW_ACCOUNT_ANALYSIS_WORKSPACE](state, data) {
+    if (data) {
+      state.newAccountAnalysisWorkspace = {
+        ...state.newAccountAnalysisWorkspace,
+        ...data,
+      }
+    }
+  },
+
+  [mutator.SET_NEW_ACCOUNT_ANALYSIS_PROJECT](state, data) {
+    if (data) {
+      state.newAccountAnalysisProject = {
+        ...state.newAccountAnalysisProject,
+        ...data,
+      }
+    }
+  },
 }

@@ -13,8 +13,23 @@ module.exports = {
       moduleNameMapper: {
         '@/(.*)$': '<rootDir>/src/$1',
         '@store/(.*)$': '<rootDir>/store/$1',
+        '@components/(.*)$': '<rootDir>/src/components/$1',
       },
+      testEnvironmentOptions: {
+        customExportConditions: ['node', 'node-addons'],
+      },
+      transform: {
+        '^.+\\.js$': 'babel-jest',
+        '^.+\\.vue$': '@vue/vue3-jest',
+        '.+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2|webp)$':
+          'jest-transform-stub',
+      },
+      testEnvironment: 'jsdom',
       passWithNoTests: true,
+      testMatch: ['<rootDir>/**/?(*.)+(spec).[jt]s?(x)'],
     },
   ],
+  testEnvironmentOptions: {
+    customExportConditions: ['node', 'node-addons'],
+  },
 }

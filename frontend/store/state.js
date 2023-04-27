@@ -104,6 +104,53 @@ const initialState = {
     projects: [],
     widgetsTemplates: {},
   },
+
+  // Alerts
+  alerts: [],
+  newAlert: {
+    step: 1,
+    title: '',
+    description: '',
+    user: [],
+    department: null,
+    creator: null,
+    alert_condition: '',
+    triggered_on_every_n_new_posts: '',
+    how_many_posts_to_send: '',
+  },
+
+  // Account Analysis
+  newAccountAnalysisWorkspace: {
+    step: 1,
+    title: '',
+    description: '',
+    department: null,
+    members: [],
+    account_analysis_workspace_projects: [],
+    projects: [],
+  },
+
+  newAccountAnalysisProject: {
+    title: '',
+    profile_handle: '',
+    start_search_date: null,
+    end_search_date: null,
+    min_followers: null,
+    max_followers: null,
+    language_filter: [],
+    country_filter: [],
+    sentiment_filter: [],
+    source_filter: [],
+    author_filter: [],
+    language_dimensions: [],
+    country_dimensions: [],
+    sentiment_dimensions: [],
+    source_dimensions: [],
+    author_dimensions: [],
+    creator: null,
+    workspace: null,
+    members: [],
+  },
 }
 
 const state = {...initialState}

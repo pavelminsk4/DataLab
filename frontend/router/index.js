@@ -3,6 +3,7 @@ import {routes} from '@router/routes'
 import OnlineModuleRoutes from '@router/OnlineModuleRoutes'
 import SocialMediaRoutes from '@router/SocialMediaRoutes'
 import AlertsModuleRoutes from '@router/AlertsModuleRoutes'
+import AccountAnalysisRoutes from '@router/AccountAnalysisRoutes'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -15,6 +16,7 @@ const router = createRouter({
     ...OnlineModuleRoutes,
     ...SocialMediaRoutes,
     ...AlertsModuleRoutes,
+    ...AccountAnalysisRoutes,
   ],
 })
 
