@@ -1,5 +1,5 @@
-from .filling_social_summary_widget import social_summarry_widget_image
 from .filling_social_top_locations_widget import social_top_locations_widget_image
+from .filling_social_top_authors_widget import social_top_authors_widget_image
 from docx.shared import Pt, Inches
 from django.shortcuts import get_object_or_404
 from docx.oxml.shared import OxmlElement
@@ -93,12 +93,12 @@ def filling_templates_for_social_reports(document, item, screenshots_list):
     p3.font.size = Pt(20)
     document.add_paragraph()
 
-  if item.soc_summary:
-    social_summarry_widget_image(document, screenshots_list['summary'])
-    document.add_page_break()
-
   if item.soc_top_locations:
     social_top_locations_widget_image(document, screenshots_list['top_locations'])
+    document.add_page_break()
+  
+  if item.soc_top_authors:
+    social_top_authors_widget_image(document, screenshots_list['top_authors'])
     document.add_page_break()
 
   return document

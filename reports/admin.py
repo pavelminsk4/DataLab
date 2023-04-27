@@ -1,7 +1,8 @@
 from django.contrib import admin
-from .models import Templates, RegularReport
+from .models import Templates, RegularReport, ReportItem
 
 admin.site.register(Templates)
+admin.site.register(ReportItem)
 
 @admin.register(RegularReport)
 class RegularReportAdmin(admin.ModelAdmin):
@@ -18,3 +19,4 @@ class RegularReportAdmin(admin.ModelAdmin):
         'created_at',
         'updated_at',
         )
+

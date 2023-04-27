@@ -60,3 +60,9 @@ def social_top_locations_screenshot(request, dep_pk, proj_pk):
   wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).top_locations.pk
   context = top_locations_report(proj_pk, wd_pk)
   return render(request, 'social_reports/top_locations_screenshot.html', context)
+
+from project_social.widgets.dashboard.top_authors import top_authors_report
+def social_top_authors_screenshot(request, dep_pk, proj_pk):
+  wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).top_authors.pk
+  context = top_authors_report(proj_pk, wd_pk)
+  return render(request, 'social_reports/top_authors_screenshot.html', context)
