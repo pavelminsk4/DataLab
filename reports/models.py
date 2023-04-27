@@ -193,22 +193,3 @@ def create_periodic_task(sender, instance, created, **kwargs):
       )
       instance.monthly_periodic_task = periodic_task
     instance.save()
-
-@receiver(pre_delete, sender=RegularReport)
-def delete_periodic_task(sender, instance, **kwargs):
-  if instance.hourly_crontab_schedule:
-    instance.hourly_crontab_schedule.delete()
-  if instance.hourly_periodic_task:
-    instance.hourly_periodic_task.delete()
-  if instance.daily_crontab_schedule:
-    instance.daily_crontab_schedule.delete()
-  if instance.daily_periodic_task:
-    instance.daily_periodic_task.delete()
-  if instance.weekly_crontab_schedule:
-    instance.weekly_crontab_schedule.delete()
-  if instance.weekly_periodic_task:
-    instance.weekly_periodic_task.delete()
-  if instance.monthly_crontab_schedule:
-    instance.monthly_crontab_schedule.delete()
-  if instance.monthly_periodic_task:
-    instance.monthly_periodic_task.delete()

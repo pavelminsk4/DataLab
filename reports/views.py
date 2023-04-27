@@ -3,11 +3,14 @@ from project.models import Project
 from project_social.models import ProjectSocial
 from docx import Document
 from .chartjs.chartjs import prepare_widget_images
+from reports.social_chartjs.social_chartjs import prepare_social_widget_images
 from .serializers import RegularReportSerializer
 from .models import RegularReport
 from rest_framework import viewsets
 from reports.views_filling.filling_for_report import filling_templates_for_instant_and_regular_reports
 from .services.pdf_handler import convert_docx_to_pdf
+from django.shortcuts import render
+from project_social.models import ProjectSocial, SocialWidgetsList
 
 def filling_template(template_path, project_id):
   document = Document(template_path)
@@ -51,3 +54,9 @@ class RegularReportViewSet(viewsets.ModelViewSet):
   serializer_class = RegularReportSerializer
   def get_queryset(self):
     return RegularReport.objects.filter(department_id=self.kwargs['dep_pk'])
+
+from project_social.widgets.dashboard.top_locations import top_locations_report
+def social_top_locations_screenshot(request, dep_pk, proj_pk):
+  wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).top_locations.pk
+  context = top_locations_report(proj_pk, wd_pk)
+  return render(request, 'social_reports/top_locations_screenshot.html', context)
