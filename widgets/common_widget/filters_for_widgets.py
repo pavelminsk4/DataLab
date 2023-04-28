@@ -1,7 +1,7 @@
 from project.models import Post
 from django.db.models import Q
 from functools import reduce
-from project.expert_mode import Parser
+from project.online_parser import Parser
 
 def keywords_posts(keys, posts):
   posts = posts.filter(reduce(lambda x,y: x | y, [Q(entry_title__contains=key) for key in keys]))
