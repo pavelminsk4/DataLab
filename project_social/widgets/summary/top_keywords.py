@@ -1,6 +1,6 @@
 from project_social.models import SocialWidgetDescription
 from project_social.widgets.filters_for_widgets import *
-from widgets.common_widget.stopwords import STOPWORDS
+from common.stopwords import STOPWORDS
 from project_social.models import ProjectSocial
 from django.http import JsonResponse
 import collections
