@@ -1,4 +1,4 @@
-const initialAlert = {
+export const initialAlert = {
   step: 1,
   title: '',
   description: '',
@@ -16,4 +16,3 @@ const alertsState = {
 }
 
 export default alertsState
-export {initialAlert}
