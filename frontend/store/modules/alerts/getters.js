@@ -1,8 +1,6 @@
 import {get} from '@store/constants'
 
 export default {
-  // Alerts
-
   [get.ALERTS](state) {
     return state.alerts
   },
