@@ -2,8 +2,6 @@ import api from '@api/api'
 import {action, mutator} from '@store/constants'
 
 export default {
-  // Alerts
-
   async [action.CREATE_NEW_ALERT]({commit, dispatch}, {data, projectId}) {
     commit(mutator.SET_LOADING, true)
     try {
