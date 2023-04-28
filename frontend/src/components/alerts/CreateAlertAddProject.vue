@@ -25,13 +25,13 @@
 import {mapActions, mapGetters, mapState, createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
 
-const {mapActions: mapSocialActions} = createNamespacedHelpers('social')
-const {mapActions: mapActionsAlerts} = createNamespacedHelpers('alerts')
+import createAlertMixin from '@/lib/mixins/create-alerts.js'
 
 import ProjectsTableWithModules from '@/components/ProjectsTableWithModules'
 import BaseInput from '@components/common/BaseInput'
 
-import createAlertMixin from '@/lib/mixins/create-alerts.js'
+const {mapActions: mapSocialActions} = createNamespacedHelpers('social')
+const {mapActions: mapActionsAlerts} = createNamespacedHelpers('alerts')
 
 export default {
   name: 'CreateAlertAddProject',
