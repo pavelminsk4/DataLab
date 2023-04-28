@@ -4,7 +4,7 @@ from project.models import Project
 from django.http import JsonResponse
 import collections
 import itertools
-from widgets.common_widget.stopwords import STOPWORDS
+from common.stopwords import STOPWORDS
 
 def post_agg_top_keywords(posts):
   words = list(itertools.chain(

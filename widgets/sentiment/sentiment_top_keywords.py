@@ -4,7 +4,7 @@ from project.models import Project
 from django.http import JsonResponse
 from collections import Counter
 import itertools
-from widgets.common_widget.stopwords import STOPWORDS
+from common.stopwords import STOPWORDS
 
 def post_agg_sentiment_top_keywords(posts):
   return { 

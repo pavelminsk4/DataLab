@@ -81,7 +81,7 @@ class RegularReport(models.Model):
   department = models.ForeignKey('accounts.department', on_delete=models.SET_NULL, null=True)
   project = models.ForeignKey('project.Project', on_delete=models.SET_NULL, null=True, blank=True)
   creator = models.ForeignKey(User,related_name='regular_report_creator', on_delete=models.SET_NULL, null=True)
-  user = models.ManyToManyField(User, null=True, blank=True)
+  user = models.ManyToManyField(User, blank=True)
   email_title = models.TextField(max_length=500, null=True, blank=True)
   h_template = models.ForeignKey(Templates, on_delete=models.SET_NULL, null=True, blank=True, related_name='%(class)s_h_template')
   h_minute = models.CharField(max_length=4, default='*')
@@ -124,7 +124,7 @@ class RegularReport(models.Model):
   report_language = models.CharField(max_length=10, default='English')
   created_at = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True)
-  items = models.ManyToManyField(ReportItem, null=True)
+  items = models.ManyToManyField(ReportItem, blank=True)
 
   def __str__(self):
     return self.title

@@ -21,11 +21,11 @@ class Alert(models.Model):
   creator = models.ForeignKey(User, related_name='alert_creator', on_delete=models.SET_NULL, null=True)
   department = models.ForeignKey('accounts.department', on_delete=models.SET_NULL, null=True)
   project = models.ForeignKey(Project, on_delete=models.SET_NULL, null=True, related_name='alerts')
-  user = models.ManyToManyField(User, blank=True, null=True)
+  user = models.ManyToManyField(User, blank=True)
   triggered_on_every_n_new_posts = models.IntegerField(default=1)
   how_many_posts_to_send = models.IntegerField(default=1)
   alert_condition = models.CharField(max_length=50, blank=True, null=True)
-  items = models.ManyToManyField(AlertItem, null=True, related_name='alert')
+  items = models.ManyToManyField(AlertItem, blank=True, related_name='alert')
   created_at = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True)
 
