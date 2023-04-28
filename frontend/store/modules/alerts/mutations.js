@@ -1,5 +1,5 @@
 import {mutator} from '@store/constants'
-import {initialAlert} from './state'
+import {newAlert} from './state'
 
 export default {
   [mutator.SET_LOADING](state, loading) {
@@ -10,7 +10,7 @@ export default {
     if (data) {
       state.newAlert = {...state.newAlert, ...data}
     } else {
-      state.newAlert = initialAlert
+      state.newAlert = newAlert
     }
   },
 

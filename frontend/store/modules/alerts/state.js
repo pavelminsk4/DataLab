@@ -1,4 +1,4 @@
-export const initialAlert = {
+export const newAlert = {
   step: 1,
   title: '',
   description: '',
@@ -12,7 +12,7 @@ export const initialAlert = {
 
 const alertsState = {
   alerts: [],
-  newAlert: {...initialAlert},
+  newAlert: {...newAlert},
 }
 
 export default alertsState
