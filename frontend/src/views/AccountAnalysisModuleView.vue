@@ -11,7 +11,7 @@ import AccountAnalysisScreen from '@/components/account-analysis/AccountAnalysis
 const {mapActions, mapGetters} = createNamespacedHelpers('accountAnalysis')
 
 export default {
-  name: 'AccountAnalysisView',
+  name: 'AccountAnalysisModuleView',
   components: {
     AccountAnalysisScreen,
   },

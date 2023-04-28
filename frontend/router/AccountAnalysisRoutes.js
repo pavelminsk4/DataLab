@@ -1,4 +1,4 @@
-import AccountAnalysisView from '@/views/AccountAnalysisView'
+import AccountAnalysisModuleView from '@/views/AccountAnalysisModuleView'
 import CreateAccountAnalysisView from '@/views/CreateAccountAnalysisView'
 
 import CreateAccountAnalysisProject from '@/components/account-analysis/CreateAccountAnalysisProject'
@@ -9,7 +9,7 @@ export default [
   {
     name: 'AccountAnalysis',
     path: '/account-analysis-module',
-    component: AccountAnalysisView,
+    component: AccountAnalysisModuleView,
   },
 
   {

@@ -1,10 +1,10 @@
 import {mount} from '@vue/test-utils'
 
-import AccountAnalysisView from '@components/account-analysis/AccountAnalysisView.vue'
+import AccountAnalysisModuleView from '@components/account-analysis/AccountAnalysisModuleView'
 
-const wrapper = mount(AccountAnalysisView)
+const wrapper = mount(AccountAnalysisModuleView)
 
-describe('AccountAnalysisView component', () => {
+describe('AccountAnalysisModuleView component', () => {
   it('should displayed the html tag which was passed in slot', () => {
     expect(wrapper.text()).toMatch('test')
   })
