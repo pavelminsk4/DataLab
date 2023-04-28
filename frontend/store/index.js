@@ -5,6 +5,7 @@ import mutations from '@store/mutations'
 import getters from '@store/getters'
 
 import social from '@store/modules/social'
+import alerts from '@store/modules/alerts'
 
 const store = createStore({
   state() {
@@ -23,6 +24,7 @@ const store = createStore({
   },
   modules: {
     social,
+    alerts,
   },
 })
 

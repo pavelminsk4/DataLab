@@ -24,12 +24,14 @@
 <script>
 import {mapActions, mapGetters, mapState, createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
-const {mapActions: mapSocialActions} = createNamespacedHelpers('social')
+
+import createAlertMixin from '@/lib/mixins/create-alerts.js'
 
 import ProjectsTableWithModules from '@/components/ProjectsTableWithModules'
 import BaseInput from '@components/common/BaseInput'
 
-import createAlertMixin from '@/lib/mixins/create-alerts.js'
+const {mapActions: mapSocialActions} = createNamespacedHelpers('social')
+const {mapActions: mapActionsAlerts} = createNamespacedHelpers('alerts')
 
 export default {
   name: 'CreateAlertAddProject',
@@ -44,7 +46,7 @@ export default {
   computed: {
     ...mapGetters({projects: get.ALL_PROJECTS, department: get.DEPARTMENT}),
     ...mapState({
-      newAlert: (state) => state.newAlert,
+      newAlert: (state) => state.alerts.newAlert,
     }),
     isDisableNextBtn() {
       return !this.selectedProjects.length
@@ -62,6 +64,8 @@ export default {
   methods: {
     ...mapActions({
       getOnlineProjects: action.GET_PROJECTS,
+    }),
+    ...mapActionsAlerts({
       createNewAlert: action.CREATE_NEW_ALERT,
     }),
     ...mapSocialActions({getSocialProjects: action.GET_PROJECTS}),

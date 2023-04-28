@@ -38,13 +38,15 @@
 </template>
 
 <script>
-import {mapActions, mapState, mapGetters} from 'vuex'
+import {mapActions, mapState, mapGetters, createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
 import createAlertMixin from '@/lib/mixins/create-alerts.js'
 
 import BaseInput from '@/components/common/BaseInput'
 import BaseTextarea from '@/components/common/BaseTextarea'
 import AddUsersField from '@/components/AddUsersField'
+
+const {mapActions: mapActionsAlerts} = createNamespacedHelpers('alerts')
 
 export default {
   name: 'CreateAlertName',
@@ -63,7 +65,6 @@ export default {
   },
   computed: {
     ...mapState(['companyUsers', 'userInfo']),
-
     ...mapGetters({
       department: get.DEPARTMENT,
     }),
@@ -77,7 +78,8 @@ export default {
     this[action.GET_COMPANY_USERS](this.department.id)
   },
   methods: {
-    ...mapActions([action.CLEAR_NEW_ALERT, action.GET_COMPANY_USERS]),
+    ...mapActions([action.GET_COMPANY_USERS]),
+    ...mapActionsAlerts([action.CLEAR_NEW_ALERT]),
     selectUser(user) {
       this.selectedUsers.push(user)
       this.errors.usersEmailError = null

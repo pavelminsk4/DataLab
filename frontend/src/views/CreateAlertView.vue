@@ -31,18 +31,20 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
+import {createNamespacedHelpers} from 'vuex'
 import {get} from '@store/constants'
 
 import MainLayout from '@/components/layout/MainLayout'
 import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
 import AlertsProgressBar from '@/components/alerts/AlertsProgressBar'
 
+const {mapGetters: mapGettersAlerts} = createNamespacedHelpers('alerts')
+
 export default {
   name: 'CreateAlertView',
   components: {MainLayout, MainLayoutTitleBlock, AlertsProgressBar},
   computed: {
-    ...mapGetters([get.CREATE_ALERTS_STEP]),
+    ...mapGettersAlerts([get.CREATE_ALERTS_STEP]),
     currentStep() {
       return `step${this[get.CREATE_ALERTS_STEP]}`
     },

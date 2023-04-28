@@ -65,7 +65,7 @@
 
 <script>
 import {action, get} from '@store/constants'
-import {mapActions, mapGetters} from 'vuex'
+import {mapGetters, createNamespacedHelpers} from 'vuex'
 
 import MainLayout from '@/components/layout/MainLayout'
 import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
@@ -75,6 +75,8 @@ import BaseButton from '@/components/common/BaseButton'
 import UsersIconsBar from '@components/UsersIconsBar'
 import UserAvatar from '@components/UserAvatar'
 import AreYouSureModal from '@/components/modals/AreYouSureModal'
+
+const {mapActions: mapActionsAlerts} = createNamespacedHelpers('alerts')
 
 export default {
   name: 'AlertsScreen',
@@ -117,7 +119,7 @@ export default {
     ]
   },
   methods: {
-    ...mapActions([action.DELETE_ALERT]),
+    ...mapActionsAlerts([action.DELETE_ALERT]),
     alertTriggerCount(count) {
       return `Every ${count} new ${count < 2 ? 'post' : 'posts'}`
     },

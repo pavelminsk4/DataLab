@@ -49,7 +49,7 @@ export default {
   methods: {
     debounceInput: debounce(function (e) {
       this.$emit('update:modelValue', e.target.value)
-    }, 500),
+    }, 100),
   },
 }
 </script>
