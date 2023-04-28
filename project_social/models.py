@@ -35,7 +35,7 @@ class ProjectSocial(models.Model):
   country_filter = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
   source_filter = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
   sentiment_filter = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
-  members = models.ManyToManyField(User, related_name='projects_social', blank=True, null=True)
+  members = models.ManyToManyField(User, related_name='projects_social', blank=True)
   author_dimensions = ArrayField(models.CharField(max_length=50), blank=True, null=True)
   language_dimensions = ArrayField(models.CharField(max_length=50), blank=True, null=True)
   country_dimensions = ArrayField(models.CharField(max_length=50), blank=True, null=True)
