@@ -1,5 +1,5 @@
 import re
-from project.expert_mode import Parser
+from common.query_parser import Parser
 
 class SocialParser(Parser):
   class _Token:

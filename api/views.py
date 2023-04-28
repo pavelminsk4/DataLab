@@ -11,10 +11,9 @@ import re
 from django.db.models import Q
 from functools import reduce
 from countries_plus.models import Country
-from dateutil import parser
 from django.db.models.functions import ExtractYear
 from widgets.models import ClippingFeedContentWidget, WidgetsList2, Dimensions, ProjectDimensions
-from alerts.models import Alert, AlertItem
+from alerts.models import Alert
 from rest_framework import viewsets, generics, filters, status
 from django.core.paginator import Paginator
 from widgets.common_widget.volume_widget import *
@@ -22,7 +21,7 @@ from widgets.common_widget.filters_for_widgets import *
 from ml_components.models import *
 from sentence_transformers import util
 import numpy as np
-from project.expert_mode import Parser
+from project.online_parser import OnlineParser
 from deep_translator import GoogleTranslator
 from . import variables
 
@@ -120,7 +119,7 @@ def search(request):
   sort_posts = body['sort_posts']
   query_filter = body['query_filter']
   posts = data_range_posts(date_range[0], date_range[1])
-  parser = Parser(query_filter)
+  parser = OnlineParser(query_filter)
   posts = filter_with_constructor(body, posts) if not parser.can_parse() else posts.filter(parser.get_filter_query())
   if sort_posts == 'source':
     posts = posts.order_by('feedlink__source1')

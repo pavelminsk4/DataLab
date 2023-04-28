@@ -1,23 +1,20 @@
 from rest_framework.test import APITestCase
 from django.urls import reverse
-from datetime import datetime
 from rest_framework import status
 import json
-from project.models import Post, Project, Speech, Feedlinks
-from django.contrib.auth.models import User
+from project.models import Project
+from common.factories.post import PostFactory
+from common.factories.project import ProjectFactory
+from common.factories.speech import SpeechFactory
+from common.factories.feedlinks import FeedlinksFactory
 
 class TopKeywordsTests(APITestCase):
   def setUp(self):
-    user = User.objects.create(username='Arturo')
-    flink1 = Feedlinks.objects.create(country = 'England', source1='Time')
-    sp1 = Speech.objects.create(language='English')
-    Post.objects.create(feedlink=flink1, entry_title='First post title', feed_language=sp1, entry_published=datetime(2021, 9, 3, 6, 37), entry_author='AFP', sentiment='neutral',
-                        entry_summary = 'the keyword uno dos', summary_vector=[])
-    Post.objects.create(feedlink=flink1, entry_title='Second post title', feed_language=sp1, entry_published=datetime(2022, 9, 3, 6, 37), entry_author='AFP', sentiment='neutral',
-                        entry_summary = 'the keyword text', summary_vector=[])
-    Project.objects.create(title='Project1', keywords=['post'], additional_keywords=[], ignore_keywords=[], start_search_date=datetime(2020, 10, 10),
-                                end_search_date=datetime(2023, 10, 16), creator=user, language_dimensions=[], country_dimensions=[], 
-                                source_dimensions=[], author_dimensions=[], sentiment_dimensions = [])
+    flink = FeedlinksFactory()
+    sp = SpeechFactory()
+    PostFactory(entry_summary='the keyword uno dos', feed_language=sp, feedlink=flink)
+    PostFactory(entry_summary='the keyword text', feed_language=sp, feedlink=flink)
+    ProjectFactory()
   
   def test_top_keywords_api(self):
     pr = Project.objects.first()
