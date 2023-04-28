@@ -1,19 +1,19 @@
 <template>
-  <AccountAnalysisScreen @create-workspace="createWorkspace" />
+  <AccountAnalysisModuleScreen @create-workspace="createWorkspace" />
 </template>
 
 <script>
 import {createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
 
-import AccountAnalysisScreen from '@/components/account-analysis/AccountAnalysisScreen'
+import AccountAnalysisModuleScreen from '@/components/account-analysis/AccountAnalysisModuleScreen'
 
 const {mapActions, mapGetters} = createNamespacedHelpers('accountAnalysis')
 
 export default {
   name: 'AccountAnalysisModuleView',
   components: {
-    AccountAnalysisScreen,
+    AccountAnalysisModuleScreen,
   },
   computed: {
     ...mapGetters({

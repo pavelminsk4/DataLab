@@ -39,7 +39,7 @@ import MainLayout from '@components/layout/MainLayout'
 import PlusIcon from '@/components/icons/PlusIcon.vue'
 
 export default {
-  name: 'AccountAnalysisWorkspacesView',
+  name: 'AccountAnalysisModuleScreen',
   components: {
     MainLayout,
     MainLayoutTitleBlock,
