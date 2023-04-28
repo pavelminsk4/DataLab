@@ -3,18 +3,23 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
+import {createNamespacedHelpers, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
 import AlertsScreen from '@/components/alerts/AlertsScreen'
+
+const {mapActions, mapGetters: mapGettersAlerts} =
+  createNamespacedHelpers('alerts')
 
 export default {
   name: 'AlertsView',
   components: {AlertsScreen},
   computed: {
     ...mapGetters({
-      alerts: get.ALERTS,
       department: get.DEPARTMENT,
+    }),
+    ...mapGettersAlerts({
+      alerts: get.ALERTS,
     }),
   },
   async created() {
