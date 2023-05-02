@@ -1,12 +1,12 @@
 <template>
   <MainLayout>
     <div class="content-header">
-      <MainLayoutTitleBlock
-        title="Account Analysis"
-        :back-page="{name: 'main page', routName: 'MainView'}"
-      />
+      <MainLayoutTitleBlock title="Account Analysis" />
 
       <BaseButtonWithTooltip
+        v-if="!workspaces?.length"
+        :is-disabled="isProjectCreationAvailable"
+        :has-tooltip="isProjectCreationAvailable"
         class="create-new-button"
         @click="$emit('create-workspace')"
       >
@@ -15,7 +15,14 @@
       </BaseButtonWithTooltip>
     </div>
 
-    <div class="no-account-analysis-wrapper">
+    <WorkspacesScreen
+      v-if="workspaces?.length"
+      :workspaces="workspaces"
+      @create-workspace="$emit('create-workspace')"
+      :isProjectCreationAvailable="isProjectCreationAvailable"
+    />
+
+    <div v-else class="no-account-analysis-wrapper">
       <img
         src="@/assets/account-analysis/no-account-analysis-workspaces.svg"
         alt="No account analysis image"
@@ -26,17 +33,12 @@
 </template>
 
 <script>
-// import {mapActions, mapGetters, createNamespacedHelpers} from 'vuex'
-// import {action, get} from '@store/constants'
-// import {
-//   action as actionAccountAnalysis,
-//   get as getAccount,
-// } from '@store/constants'
-
-import BaseButtonWithTooltip from '@/components/BaseButtonWithTooltip.vue'
-import MainLayoutTitleBlock from '@/components/layout/MainLayoutTitleBlock.vue'
+import BaseButtonWithTooltip from '@/components/BaseButtonWithTooltip'
+import MainLayoutTitleBlock from '@/components/layout/MainLayoutTitleBlock'
 import MainLayout from '@components/layout/MainLayout'
-import PlusIcon from '@/components/icons/PlusIcon.vue'
+import PlusIcon from '@/components/icons/PlusIcon'
+
+import WorkspacesScreen from '@/components/dashboard/WorkspacesScreen'
 
 export default {
   name: 'AccountAnalysisModuleScreen',
@@ -45,6 +47,17 @@ export default {
     MainLayoutTitleBlock,
     BaseButtonWithTooltip,
     PlusIcon,
+    WorkspacesScreen,
+  },
+  props: {
+    workspaces: {
+      type: Array,
+      default: () => [],
+    },
+    isProjectCreationAvailable: {
+      type: Boolean,
+      default: true,
+    },
   },
 }
 </script>

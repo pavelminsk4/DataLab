@@ -3,23 +3,37 @@
     <div
       v-for="(item, index) in sources"
       :key="item.name + index"
-      :class="['source-tab', selectedSouce === item.name && 'active-source']"
+      :class="[
+        'source-tab',
+        selectedSouce === item.name && 'active-source',
+        item.disabled && 'disable',
+      ]"
     >
       <component :is="item.name.concat() + 'Icon'" class="icon" />
-      {{ item.name }}
+      {{ item.name.concat() }}
     </div>
   </div>
 </template>
 
 <script>
-import TikTokIcon from '../icons/TikTokIcon.vue'
-import TwitterIcon from '../icons/TwitterIcon.vue'
+import TikTokIcon from '@/components/icons/TikTokIcon'
+import TwitterIcon from '@/components/icons/TwitterIcon'
+import InstagramIcon from '@/components/icons/InstagramIcon'
+import FacebookIcon from '@/components/icons/FacebookIcon'
+import YoutubeIcon from '@/components/icons/YoutubeIcon'
+import LinkedInIcon from '@/components/icons/LinkedInIcon'
+import GoogleReviewsIcon from '@/components/icons/GoogleReviewsIcon'
 
 export default {
   name: 'AccountAnalysisSourcesTabs',
   components: {
     TikTokIcon,
     TwitterIcon,
+    FacebookIcon,
+    InstagramIcon,
+    YoutubeIcon,
+    LinkedInIcon,
+    GoogleReviewsIcon,
   },
   props: {
     selected: {type: String, default: ''},
@@ -33,24 +47,31 @@ export default {
     this.sources = [
       {
         name: 'Twitter',
+        disabled: false,
       },
       {
         name: 'Instagram',
+        disabled: true,
       },
       {
         name: 'Facebook',
+        disabled: true,
       },
       {
         name: 'Youtube',
+        disabled: true,
       },
       {
         name: 'TikTok',
+        disabled: true,
       },
       {
-        name: 'Linkedln',
+        name: 'LinkedIn',
+        disabled: true,
       },
       {
         name: 'GoogleReviews',
+        disabled: true,
       },
     ]
   },
@@ -63,7 +84,6 @@ export default {
   gap: 2px;
 
   padding: 4px;
-  height: 56px;
 
   background: var(--background-secondary-color);
   border: var(--border-primary);

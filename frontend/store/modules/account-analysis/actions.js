@@ -20,7 +20,9 @@ export default {
   ) {
     commit(mutator.SET_LOADING, true)
     try {
-      await dispatch(action.UPDATE_NEW_ACCOUNT_ANALYSIS_WORKSPACE, data)
+      await dispatch(action.UPDATE_NEW_ACCOUNT_ANALYSIS_WORKSPACE, data, {
+        root: true,
+      })
       await api.accountAnalysis.createWorkspace(data)
       await dispatch(action.GET_WORKSPACES)
     } catch (e) {

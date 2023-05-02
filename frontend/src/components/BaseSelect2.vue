@@ -14,7 +14,7 @@
       </div>
     </button>
     <ul :class="[isOpen && 'open', 'select__options', 'scroll']">
-      <slot>
+      <slot :close="toggle">
         <li
           v-for="option in options"
           :key="option"
@@ -39,6 +39,7 @@ export default {
     options: {type: Array, required: true},
     modelValue: {type: [Boolean, Array, String], required: true},
     isDisabled: {type: Boolean, default: false},
+    isCloseOptions: {type: Boolean, default: false},
     hasError: {type: Boolean, default: false},
     selectName: {type: String, required: true},
     itemName: {type: String, default: 'item'},

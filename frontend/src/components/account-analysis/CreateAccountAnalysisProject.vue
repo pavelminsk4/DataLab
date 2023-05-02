@@ -1,33 +1,46 @@
 <template>
   <div class="form-wrapper">
-    <AccountAnalysisSourcesTabs />
+    <AccountAnalysisSourcesTabs class="tabs" />
 
     <BaseInput
       v-model="projectName"
       label="Name"
       placeholder="Project Name"
-      class="input-name"
+      class="input-name-field"
     />
 
-    <div>Profile</div>
+    <div class="select-name">Profile</div>
 
     <BaseSelect
-      v-model="profileHandle"
+      v-model="profileHandleProxy"
       :options="profileOptions"
+      :is-close-options="isCloseSelect"
       select-name="profile-handle"
+      class="select-profile-handle"
     >
-      <li
-        v-for="(option, index) in profileOptions"
-        :key="option.user_alias + index"
-        @click="handleClick"
-      >
-        <img :src="option.user_picture" alt="User picture" />
-        {{ option.user_alias }}
-      </li>
+      <template v-slot="{close}">
+        <li
+          v-for="(option, index) in profileOptions"
+          :key="option.user_alias + index"
+          class="profile-handle-item"
+          @click="handleClick($event, close)"
+        >
+          <img
+            :src="option.user_picture"
+            alt="User picture"
+            class="user-picture"
+          />
+          {{ option.user_alias }}
+        </li>
+      </template>
     </BaseSelect>
 
-    <footer>
-      <ButtonWithArrow :is-disabled="!projectName" @click="saveChanges">
+    <footer class="create-project__footer">
+      <ButtonWithArrow
+        :is-disabled="!projectName"
+        class="button"
+        @click="saveChanges"
+      >
         <span>Save Project</span>
       </ButtonWithArrow>
     </footer>
@@ -60,6 +73,8 @@ export default {
     return {
       projectName: '',
       profileHandle: '',
+      emptyProfileHandle: 'Enter profile handle',
+      isCloseSelect: false,
       selectedUsers: [],
       errors: {
         usersEmailError: null,
@@ -75,6 +90,15 @@ export default {
     ...mapAccountAnalysisState({
       profileHandleOptions: (state) => state.listOfProfileHandle,
     }),
+    profileHandleProxy: {
+      get() {
+        return this.profileHandle || this.emptyProfileHandle
+      },
+      set(val) {
+        this.profileHandle = val
+        this.$emit('update:modelValue', val)
+      },
+    },
     profileOptions() {
       return this.profileHandleOptions
     },
@@ -89,8 +113,9 @@ export default {
       action.CREATE_NEW_ACCOUNT_ANALYSIS_WORKSPACE,
       action.CREATE_NEW_ACCOUNT_ANALYSIS_PROJECT,
     ]),
-    handleClick({target}) {
-      this.profileHandle = target.innerText
+    handleClick(event, func) {
+      this.profileHandle = event.target.innerText
+      func()
     },
     async saveChanges() {
       await this[action.UPDATE_NEW_ACCOUNT_ANALYSIS_PROJECT]({
@@ -122,14 +147,56 @@ export default {
 
   width: 90%;
   margin-top: 40px;
-}
 
-.input-name {
-  margin-bottom: 32px;
-}
+  .tabs {
+    margin-bottom: 36px;
+  }
 
-.report-add-users {
-  width: 100%;
-  margin-top: 32px;
+  .input-name-field {
+    max-width: 408px;
+    margin-bottom: 32px;
+  }
+
+  .select-name {
+    margin-bottom: 4px;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--typography-title-color);
+  }
+
+  .select-profile-handle {
+    max-width: 408px;
+    margin-bottom: 40px;
+
+    .profile-handle-item {
+      display: flex;
+      gap: 12px;
+
+      padding: 5px 10px;
+
+      border-radius: 12px;
+
+      cursor: pointer;
+
+      &:hover {
+        background-color: var(--primary-active-color);
+      }
+      .user-picture {
+        width: 20px;
+        height: 20px;
+        border-radius: 100%;
+      }
+    }
+  }
+
+  .create-project__footer {
+    display: flex;
+    justify-content: flex-end;
+
+    max-width: 408px;
+  }
 }
 </style>

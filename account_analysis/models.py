@@ -39,7 +39,6 @@ class ProjectAccountAnalysis(models.Model):
   sentiment_dimensions = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
   source_dimensions = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
   author_dimensions = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
-  members = models.ManyToManyField(User, related_name='projects_account_analysis', blank=True, null=True)
 
   def __str__(self):
     return self.title
