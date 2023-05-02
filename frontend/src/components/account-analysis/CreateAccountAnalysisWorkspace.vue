@@ -66,7 +66,7 @@ export default {
         step: nextStep,
         title: this.workspaceName,
         description: this.workspaceDescription,
-        department: this.department?.id,
+        department: this.department.id,
         members: [this.userInfo.id],
       })
       this.$router.push({name: nextStepName})

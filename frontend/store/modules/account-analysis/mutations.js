@@ -9,4 +9,7 @@ export default {
       ...workspace,
     }))
   },
+  [mutator.SET_LIST_OF_PROFILE_HANDLE](state, data) {
+    state.listOfProfileHandle = data
+  },
 }

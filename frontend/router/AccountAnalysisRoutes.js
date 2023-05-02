@@ -1,3 +1,5 @@
+import store from '@store'
+
 import AccountAnalysisModuleView from '@/views/AccountAnalysisModuleView'
 import CreateAccountAnalysisView from '@/views/CreateAccountAnalysisView'
 
@@ -39,6 +41,18 @@ export default [
         },
         props: {
           secondColumn: {step: 'step2'},
+        },
+        beforeEnter: (to, from, next) => {
+          const currentStep = `AccountAnalysisWorkspaceStep${store.state.newAccountAnalysisWorkspace.step}`
+          const workspaceId = to.params.workspaceId
+
+          if (to.name !== currentStep) {
+            return next({
+              name: 'AccountAnalysisWorkspaceStep1',
+              params: {workspaceId},
+            })
+          }
+          return next()
         },
       },
     ],

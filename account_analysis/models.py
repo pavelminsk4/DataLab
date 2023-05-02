@@ -19,42 +19,40 @@ class WorkspaceAccountAnalysis(models.Model):
 
 
 class ProjectAccountAnalysis(models.Model):
-    title = models.CharField(max_length=100)
-    creator = models.ForeignKey(User,related_name='creator_account_analysis', on_delete=models.SET_NULL, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    profile_handle = models.CharField(max_length=100)
-    workspace = models.ForeignKey(WorkspaceAccountAnalysis, related_name='account_analysis_workspace_projects', blank=True, null=True, on_delete=models.CASCADE)
-    start_search_date = models.DateTimeField(blank=True, null=True)
-    end_search_date = models.DateTimeField(blank=True, null=True)
-    min_followers = models.IntegerField(blank=True, default=0, null=True)
-    max_followers = models.IntegerField(blank=True, default=1000000000, null=True)
-    language_filter = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
-    country_filter = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
-    sentiment_filter = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
-    source_filter = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
-    author_filter = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
-    language_dimensions = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
-    country_dimensions = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
-    sentiment_dimensions = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
-    source_dimensions = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
-    author_dimensions = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
-    count_posts = models.IntegerField(blank=True, default=0, null=True)
-    followers = models.IntegerField(blank=True, default=0, null=True)
+  title = models.CharField(max_length=100)
+  creator = models.ForeignKey(User,related_name='creator_account_analysis', on_delete=models.SET_NULL, null=True)
+  created_at = models.DateTimeField(auto_now_add=True)
+  updated_at = models.DateTimeField(auto_now=True)
+  profile_handle = models.CharField(max_length=100)
+  workspace = models.ForeignKey(WorkspaceAccountAnalysis, related_name='account_analysis_workspace_projects', blank=True, null=True, on_delete=models.CASCADE)
+  start_search_date = models.DateTimeField(null=True, blank=True)
+  end_search_date = models.DateTimeField(null=True, blank=True)
+  min_followers = models.IntegerField(default=0, null=True, blank=True)
+  max_followers = models.IntegerField(default=1000000000, null=True, blank=True)
+  language_filter = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
+  country_filter = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
+  sentiment_filter = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
+  source_filter = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
+  author_filter = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
+  language_dimensions = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
+  country_dimensions = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
+  sentiment_dimensions = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
+  source_dimensions = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
+  author_dimensions = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
+  members = models.ManyToManyField(User, related_name='projects_account_analysis', blank=True, null=True)
 
-    def __str__(self):
-        return self.title
+  def __str__(self):
+    return self.title
 
-    def save(self, *args, **kwargs):
-        total_projects_count = 0
-        if self.workspace:
-            for workspace in self.workspace.department.workspaces.all():
-                total_projects_count += workspace.projects.all().count()
-            if total_projects_count < self.workspace.department.max_projects_account_analysis:
-                return super(ProjectAccountAnalysis, self).save(*args, **kwargs)
-            raise ValidationError('Projects creation limit reached')
-        super(ProjectAccountAnalysis, self).save(*args, **kwargs)
-
+  def save(self, *args, **kwargs):
+    total_projects_count = 0
+    if self.workspace:
+        for workspace in self.workspace.department.workspaces.all():
+            total_projects_count += workspace.projects.all().count()
+        if total_projects_count < self.workspace.department.max_projects_account_analysis:
+            return super(ProjectAccountAnalysis, self).save(*args, **kwargs)
+        raise ValidationError('Projects creation limit reached')
+    super(ProjectAccountAnalysis, self).save(*args, **kwargs)
 
 @receiver(post_save, sender=ProjectAccountAnalysis)
 def increase_cur_number_of_projects(sender, instance, created, **kwargs):

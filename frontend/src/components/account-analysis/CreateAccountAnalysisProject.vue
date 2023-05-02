@@ -9,10 +9,25 @@
       class="input-name"
     />
 
-    <BaseSelect v-model="profileHandle" />
+    <div>Profile</div>
 
-    <footer class="create-reports__footer">
-      <ButtonWithArrow :is-disabled="!projectName" @click="nextStep">
+    <BaseSelect
+      v-model="profileHandle"
+      :options="profileOptions"
+      select-name="profile-handle"
+    >
+      <li
+        v-for="(option, index) in profileOptions"
+        :key="option.user_alias + index"
+        @click="handleClick"
+      >
+        <img :src="option.user_picture" alt="User picture" />
+        {{ option.user_alias }}
+      </li>
+    </BaseSelect>
+
+    <footer>
+      <ButtonWithArrow :is-disabled="!projectName" @click="saveChanges">
         <span>Save Project</span>
       </ButtonWithArrow>
     </footer>
@@ -20,13 +35,18 @@
 </template>
 
 <script>
-import {mapActions, mapGetters, mapState} from 'vuex'
-import {action, get} from '@store/constants'
+import {mapState, mapActions, createNamespacedHelpers} from 'vuex'
+import {action} from '@store/constants'
 import createReportMixin from '@/lib/mixins/create-report.js'
 
 import BaseInput from '@/components/common/BaseInput'
 import BaseSelect from '../BaseSelect2.vue'
 import AccountAnalysisSourcesTabs from '@/components/account-analysis/AccountAnalysisSourcesTabs'
+
+const {
+  mapActions: mapAccountAnalysisActions,
+  mapState: mapAccountAnalysisState,
+} = createNamespacedHelpers('accountAnalysis')
 
 export default {
   name: 'CreateAccountAnalysisProject',
@@ -48,39 +68,48 @@ export default {
     }
   },
   computed: {
-    ...mapState(['companyUsers', 'userInfo']),
-    ...mapGetters({
-      department: get.DEPARTMENT,
+    ...mapState({
+      newWorkspace: (state) => state.newAccountAnalysisWorkspace,
+      newProject: (state) => state.newAccountAnalysisProject,
     }),
-    usersEmails() {
-      return this.companyUsers?.filter((el) => el.email) || []
+    ...mapAccountAnalysisState({
+      profileHandleOptions: (state) => state.listOfProfileHandle,
+    }),
+    profileOptions() {
+      return this.profileHandleOptions
     },
   },
   created() {
-    this[action.CLEAR_NEW_REPORT]()
-    this[action.GET_COMPANY_USERS](this.department.id)
+    this[action.GET_LIST_OF_PROFILE_HANDLE]()
   },
   methods: {
-    ...mapActions([action.CLEAR_NEW_REPORT, action.GET_COMPANY_USERS]),
-    selectUser(user) {
-      this.selectedUsers.push(user)
-      this.errors.usersEmailError = null
+    ...mapActions([action.UPDATE_NEW_ACCOUNT_ANALYSIS_PROJECT]),
+    ...mapAccountAnalysisActions([
+      action.GET_LIST_OF_PROFILE_HANDLE,
+      action.CREATE_NEW_ACCOUNT_ANALYSIS_WORKSPACE,
+      action.CREATE_NEW_ACCOUNT_ANALYSIS_PROJECT,
+    ]),
+    handleClick({target}) {
+      this.profileHandle = target.innerText
     },
-    removeUser(index) {
-      this.selectedUsers.splice(index, 1)
-    },
-    nextStep() {
-      const nextStep = 2
-      const nextStepName = this.getNextStepName(nextStep)
-
-      this[action.UPDATE_NEW_REPORT]({
-        step: nextStep,
+    async saveChanges() {
+      await this[action.UPDATE_NEW_ACCOUNT_ANALYSIS_PROJECT]({
         title: this.projectName,
-        user: this.selectedUsers.map((user) => user.id),
-        department: this.department?.id,
-        creator: this.userInfo.id,
+        profile_handle: this.profileHandle,
+        source_filter: 'twitter',
       })
-      this.$router.push({name: nextStepName})
+      await this[action.CREATE_NEW_ACCOUNT_ANALYSIS_WORKSPACE]({
+        ...this.newWorkspace,
+        projects: [
+          {
+            ...this.newProject,
+            title: this.projectName,
+            profile_handle: this.profileHandle,
+            source_filter: ['twitter'],
+            members: [1],
+          },
+        ],
+      })
     },
   },
 }

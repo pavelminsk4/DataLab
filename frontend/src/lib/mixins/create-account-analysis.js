@@ -11,7 +11,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions([action.UPDATE_NEW_WORKSPACE]),
+    ...mapActions([action.UPDATE_NEW_ACCOUNT_ANALYSIS_WORKSPACE]),
     getNextStepName(nextStep) {
       return this.routeName.replace(/\d/g, nextStep)
     },
