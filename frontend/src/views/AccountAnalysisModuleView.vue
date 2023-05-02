@@ -14,6 +14,8 @@ export default {
     if (!this.workspaces?.length) {
       this[action.GET_WORKSPACES]()
     }
+
+    console.log(this.department?.current_number_of_account_analysis_projects)
   },
   methods: {
     ...mapActions([action.GET_WORKSPACES]),
