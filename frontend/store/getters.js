@@ -272,9 +272,4 @@ export default {
   [get.CREATE_ALERT_STEP](state) {
     return state.newAlert.step
   },
-
-  // Account Analysis
-  [get.CREATE_ACCOUNT_ANALYSIS_STEP](state) {
-    return state.newAccountAnalysisWorkspace.step
-  },
 }

@@ -84,12 +84,16 @@ export default {
   },
   computed: {
     ...mapState({
+      userInfo: (state) => state.userInfo,
       newWorkspace: (state) => state.newAccountAnalysisWorkspace,
       newProject: (state) => state.newAccountAnalysisProject,
     }),
     ...mapAccountAnalysisState({
       profileHandleOptions: (state) => state.listOfProfileHandle,
     }),
+    workspaceId() {
+      return this.$route.params.workspaceId
+    },
     profileHandleProxy: {
       get() {
         return this.profileHandle || this.emptyProfileHandle
@@ -121,20 +125,26 @@ export default {
       await this[action.UPDATE_NEW_ACCOUNT_ANALYSIS_PROJECT]({
         title: this.projectName,
         profile_handle: this.profileHandle,
-        source_filter: 'twitter',
+        source_filter: ['twitter'],
+        members: [this.userInfo.id],
+        creator: this.userInfo.id,
       })
-      await this[action.CREATE_NEW_ACCOUNT_ANALYSIS_WORKSPACE]({
-        ...this.newWorkspace,
-        projects: [
-          {
-            ...this.newProject,
-            title: this.projectName,
-            profile_handle: this.profileHandle,
-            source_filter: ['twitter'],
-            members: [1],
-          },
-        ],
-      })
+
+      if (+this.workspaceId) {
+        await this[action.CREATE_NEW_ACCOUNT_ANALYSIS_PROJECT]({
+          ...this.newProject,
+          workspace: +this.workspaceId,
+        })
+      } else {
+        await this[action.CREATE_NEW_ACCOUNT_ANALYSIS_WORKSPACE]({
+          ...this.newWorkspace,
+          projects: [
+            {
+              ...this.newProject,
+            },
+          ],
+        })
+      }
     },
   },
 }

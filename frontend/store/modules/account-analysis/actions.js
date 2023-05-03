@@ -56,4 +56,19 @@ export default {
       commit(mutator.SET_LOADING, false)
     }
   },
+
+  async [action.DELETE_ACCOUNT_ANALYSIS_PROJECT](
+    {commit, dispatch},
+    projectId
+  ) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      await api.accountAnalysis.deleteAccountAnalysisProject(projectId)
+      await dispatch(action.GET_WORKSPACES)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
 }

@@ -28,9 +28,6 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
-import {get} from '@store/constants'
-
 import MainLayout from '@components/layout/MainLayout'
 import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
 import ProgressBar from '@/components/account-analysis/AccountAnalysisProgressBar'
@@ -43,9 +40,8 @@ export default {
     ProgressBar,
   },
   computed: {
-    ...mapGetters([get.CREATE_ACCOUNT_ANALYSIS_STEP]),
     currentStep() {
-      return `step${this[get.CREATE_ACCOUNT_ANALYSIS_STEP]}`
+      return `step${this.$route.name.toString().slice(-1)}`
     },
     accountAnalysisData() {
       const data = {

@@ -40,13 +40,10 @@ export default {
     }
   },
   computed: {
-    ...mapState(['companyUsers', 'userInfo']),
+    ...mapState(['userInfo']),
     ...mapGetters({
       department: get.DEPARTMENT,
     }),
-    usersEmails() {
-      return this.companyUsers?.filter((el) => el.email) || []
-    },
   },
   created() {
     this[action.CLEAR_STATE]()

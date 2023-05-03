@@ -110,7 +110,7 @@ export default {
         description: 'Monitor social media content created by influencers',
         buttonName: 'Add Report',
         openRouteName: 'AccountAnalysis',
-        createRouteName: '',
+        createRouteName: 'AccountAnalysisCreateWorkspace',
         color: '#E5E9FC',
         imageUrl: require('@/assets/modules/account-analysis.svg'),
         backgroundPosition: 'right bottom',

@@ -19,6 +19,8 @@
       v-if="workspaces?.length"
       :workspaces="workspaces"
       @create-workspace="$emit('create-workspace')"
+      @open-workspace="openWorkspaceFolder"
+      @add-new-project="addNewProject"
       :isProjectCreationAvailable="isProjectCreationAvailable"
     />
 
@@ -57,6 +59,14 @@ export default {
     isProjectCreationAvailable: {
       type: Boolean,
       default: true,
+    },
+  },
+  methods: {
+    openWorkspaceFolder(workspaceId) {
+      this.$emit('open-workspace', workspaceId)
+    },
+    addNewProject(workspaceId) {
+      this.$emit('add-new-project', workspaceId)
     },
   },
 }

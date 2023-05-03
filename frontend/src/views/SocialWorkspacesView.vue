@@ -64,10 +64,6 @@ export default {
     ...mapGetters({department: get.DEPARTMENT}),
     ...mapSocialGetters({workspaces: getSocial.WORKSPACES}),
     isProjectCreationAvailable() {
-      console.log(
-        this.department?.current_number_of_projects >=
-          this.department?.max_projects
-      )
       return (
         this.department?.current_number_of_projects >=
         this.department?.max_projects

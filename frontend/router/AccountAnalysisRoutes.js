@@ -1,17 +1,34 @@
 import store from '@store'
 
 import AccountAnalysisModuleView from '@/views/AccountAnalysisModuleView'
+import AccountAnalysisWorkspacesView from '@/views/AccountAnalysisWorkspacesView'
 import CreateAccountAnalysisView from '@/views/CreateAccountAnalysisView'
 
 import CreateAccountAnalysisProject from '@/components/account-analysis/CreateAccountAnalysisProject'
 import CreateAccountAnalysisWorkspace from '@/components/account-analysis/CreateAccountAnalysisWorkspace'
 import CreateAccountAnalysisRightSide from '@/components/account-analysis/CreateAccountAnalysisRightSide'
+import AccountAnalysisWorkspaceView from '@/components/account-analysis/AccountAnalysisWorkspaceView'
 
 export default [
   {
     name: 'AccountAnalysis',
     path: '/account-analysis-module',
     component: AccountAnalysisModuleView,
+    redirect: () => ({name: 'AccountAnalysisWorkspaces'}),
+
+    children: [
+      {
+        name: 'AccountAnalysisWorkspaces',
+        path: '',
+        component: AccountAnalysisWorkspacesView,
+      },
+
+      {
+        name: 'AccountAnalysisWorkspace',
+        path: 'workspace/:workspaceId',
+        component: AccountAnalysisWorkspaceView,
+      },
+    ],
   },
 
   {
@@ -31,6 +48,7 @@ export default [
           default: {moduleName: 'AccountAnalysis'},
           secondColumn: {step: 'step1'},
         },
+        params: {step: 'step1'},
       },
       {
         name: 'AccountAnalysisWorkspaceStep2',
@@ -42,11 +60,12 @@ export default [
         props: {
           secondColumn: {step: 'step2'},
         },
+        params: {step: 'step2'},
         beforeEnter: (to, from, next) => {
           const currentStep = `AccountAnalysisWorkspaceStep${store.state.newAccountAnalysisWorkspace.step}`
           const workspaceId = to.params.workspaceId
 
-          if (to.name !== currentStep) {
+          if (to.name !== currentStep && workspaceId === 'new') {
             return next({
               name: 'AccountAnalysisWorkspaceStep1',
               params: {workspaceId},

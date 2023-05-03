@@ -14,9 +14,6 @@
     >
       <td class="td_name">{{ item.title }}</td>
       <td>
-        <TagsCollapsible v-if="item.keywords?.length" :tags="item.keywords" />
-      </td>
-      <td>
         <div class="creator">
           <UserAvatar
             :avatar-url="currentMember(item.creator)?.user_profile.photo"
@@ -27,12 +24,8 @@
           <div>{{ currentMember(item.creator)?.username }}</div>
         </div>
       </td>
-      <td>
-        <UsersIconsBar :users="projectMembers(item.members)" />
-      </td>
-      <td class="project-creation-date">
-        {{ projectCreationDate(item.created_at) }}
-      </td>
+
+      <td class="td_name">{{ defaultDate(item.created_at) }}</td>
     </BaseTableRow>
   </BaseTable>
 
@@ -45,36 +38,29 @@
 </template>
 
 <script>
-import {mapActions} from 'vuex'
+import {createNamespacedHelpers} from 'vuex'
 import {action} from '@store/constants'
+import {defaultDate} from '@/lib/utilities'
 
-import UsersIconsBar from '@components/UsersIconsBar'
-import TagsCollapsible from '@components/TagsCollapsible'
 import AreYouSureModal from '@/components/modals/AreYouSureModal'
 import BaseTable from '@components/common/BaseTable'
 import BaseTableRow from '@components/common/BaseTableRow'
 import UserAvatar from '@components/UserAvatar'
 
+const {mapActions} = createNamespacedHelpers('accountAnalysis')
+
 export default {
-  name: 'ProjectsTable',
+  name: 'AccountAnalysisProjectsTable',
   components: {
     AreYouSureModal,
-    UsersIconsBar,
-    TagsCollapsible,
     BaseTable,
     BaseTableRow,
     UserAvatar,
   },
   emits: ['go-to-project'],
   props: {
-    values: {
-      type: Array,
-      default: () => [],
-    },
-    members: {
-      type: Array,
-      default: () => [],
-    },
+    values: {type: Array, default: () => []},
+    members: {type: Array, default: () => []},
   },
   data() {
     return {
@@ -90,21 +76,15 @@ export default {
   created() {
     this.tableHeader = [
       {name: 'project name', width: ''},
-      {name: 'keywords', width: '20%'},
-      {name: 'creator', width: '16%'},
-      {name: 'assigned user', width: '11%'},
-      {name: 'date', width: '11%'},
+      {name: 'creator', width: '20%'},
+      {name: 'Date', width: '16%'},
     ]
   },
   methods: {
-    ...mapActions([action.DELETE_PROJECT]),
+    defaultDate,
+    ...mapActions([action.DELETE_ACCOUNT_ANALYSIS_PROJECT]),
     currentMember(id) {
       return this.members.find((el) => el.id === id)
-    },
-    projectMembers(projectMembersIds) {
-      return this.members.filter((member) =>
-        projectMembersIds?.includes(member.id)
-      )
     },
     projectCreationDate(date) {
       return new Date(date).toLocaleDateString('ro-RO')
@@ -115,7 +95,7 @@ export default {
       }
     },
     deleteProject(id) {
-      this[action.DELETE_PROJECT](id)
+      this[action.DELETE_ACCOUNT_ANALYSIS_PROJECT](id)
       this.toggleDeleteModal()
     },
     toggleDeleteModal(title, id) {
