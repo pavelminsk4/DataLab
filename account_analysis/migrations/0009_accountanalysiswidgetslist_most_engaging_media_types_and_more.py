@@ -3,6 +3,18 @@
 from django.db import migrations, models
 import django.db.models.deletion
 
+def populate_new_columns(apps, schema_editor):
+    AccountAnalysisWidgetsList = apps.get_model('account_analysis', 'AccountAnalysisWidgetsList')
+    AccountAnalysisWidgetDescription = apps.get_model('account_analysis', 'AccountAnalysisWidgetDescription')
+    wl = AccountAnalysisWidgetsList.objects.all()
+    for i in wl:
+        wd5 = AccountAnalysisWidgetDescription.objects.create(title='Most frequent media types', default_title='Most frequent media types')
+        wd5.save()
+        wd6 = AccountAnalysisWidgetDescription.objects.create(title='Most engaging media types', default_title='Most engaging media types')
+        wd6.save()
+        i.most_frequent_media_types = wd5
+        i.most_engaging_media_types = wd6
+        i.save()
 
 class Migration(migrations.Migration):
 
@@ -31,4 +43,5 @@ class Migration(migrations.Migration):
             name='followers',
             field=models.IntegerField(blank=True, default=0, null=True),
         ),
+        migrations.RunPython(code=populate_new_columns, reverse_code=migrations.RunPython.noop),
     ]
