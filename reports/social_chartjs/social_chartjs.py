@@ -1,5 +1,4 @@
 from project_social.models import *
-import time
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from selenium.webdriver.common.by import By
@@ -23,19 +22,17 @@ storage_folder = 'reports/temp/'
 
 
 def prepare_social_widget_images(item):
-    soc_pr = ProjectSocial.objects.get(id=item.module_project_id)
+    pk = item.module_project_id
     driver = run_chrome_driver()
     screenshot_list = {}
     if item.soc_summary:
-        screenshot_list.append(screen_summary(driver, soc_pr.pk))
+        screenshot_list.append(screen_summary(driver, pk))
     if item.soc_top_locations:
-        screenshot_list['top_locations'] = screen_top_locations(
-            driver, soc_pr.pk)
+        screenshot_list['top_locations'] = screen_top_locations(driver, pk)
     if item.soc_top_authors:
-        screenshot_list['top_authors'] = screen_top_authors(driver, soc_pr.pk)
+        screenshot_list['top_authors'] = screen_top_authors(driver, pk)
     if item.soc_top_languages:
-        screenshot_list['top_languages'] = screen_top_languages(
-            driver, soc_pr.pk)
+        screenshot_list['top_languages'] = screen_top_languages(driver, pk)
     return screenshot_list
 
 
