@@ -18,6 +18,11 @@ urlpatterns = [
          name="account_analysis_workspaces_update"),
     path("workspaces/delete/<int:pk>/", views.WorkspaceAccountAnalysisDelete.as_view(),
          name="account_analysis_workspaces_delete"),
+    # Widgets List
+    path('account_analysis_projects/<int:pk>/widgets_list',
+         views.AccountAnalysisProjectWidgetsAPIView.as_view(), name='account_analysis_widgets_list'),
+    path('account_analysis_projects/<int:pk>/widgets_list/update',
+         views.UpdateAccountAnalysisProjectsWidgetsAPIView.as_view(), name='update_account_analysis_widgets_list'),
     # =======Widgets======
     path("account_analysis_summary_widget/<int:pk>/<int:widget_pk>",
          views.account_analysis_summary_widget, name="account_analysis_summary_widget"),
