@@ -1,4 +1,4 @@
-from rest_framework.generics import ListAPIView, CreateAPIView, UpdateAPIView, DestroyAPIView
+from rest_framework.generics import ListAPIView, CreateAPIView, UpdateAPIView, DestroyAPIView, RetrieveAPIView
 from tweet_binder.models import TweetBinderPost
 from .widgets.dashboard.most_frequent_post_types import *
 from .widgets.dashboard.most_engaging_post_types import *
@@ -25,6 +25,19 @@ class WorkspaceAccountAnalysisList(ListAPIView):
             return WorkspaceAccountAnalysis.objects.filter(members=user)
 
         return WorkspaceAccountAnalysis.objects.none()
+
+class AccountAnalysisProjectWidgetsAPIView(RetrieveAPIView):
+    serializer_class = WidgetsListSerializer
+
+    def get_object(self):
+        return AccountAnalysisWidgetsList.objects.get(project_id=self.kwargs['pk'])
+
+
+class UpdateAccountAnalysisProjectsWidgetsAPIView(UpdateAPIView):
+    serializer_class = WidgetsListSerializer
+
+    def get_object(self):
+        return AccountAnalysisWidgetsList.objects.get(project_id=self.kwargs['pk'])
 
 
 class WorkspaceAccountAnalysisCreate(CreateAPIView):
