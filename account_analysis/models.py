@@ -25,10 +25,10 @@ class ProjectAccountAnalysis(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     profile_handle = models.CharField(max_length=100)
     workspace = models.ForeignKey(WorkspaceAccountAnalysis, related_name='account_analysis_workspace_projects', blank=True, null=True, on_delete=models.CASCADE)
-    start_search_date = models.DateTimeField()
-    end_search_date = models.DateTimeField()
-    min_followers = models.IntegerField(default=0)
-    max_followers = models.IntegerField(default=1000000000)
+    start_search_date = models.DateTimeField(blank=True, null=True)
+    end_search_date = models.DateTimeField(blank=True, null=True)
+    min_followers = models.IntegerField(blank=True, default=0, null=True)
+    max_followers = models.IntegerField(blank=True, default=1000000000, null=True)
     language_filter = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
     country_filter = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
     sentiment_filter = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
@@ -39,7 +39,8 @@ class ProjectAccountAnalysis(models.Model):
     sentiment_dimensions = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
     source_dimensions = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
     author_dimensions = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
-    members = models.ManyToManyField(User, related_name='projects_account_analysis', blank=True)
+    count_posts = models.IntegerField(blank=True, default=0, null=True)
+    followers = models.IntegerField(blank=True, default=0, null=True)
 
     def __str__(self):
         return self.title
@@ -99,6 +100,8 @@ class AccountAnalysisWidgetsList(models.Model):
     profile_timeline = models.ForeignKey(AccountAnalysisWidgetDescription, on_delete=models.CASCADE, related_name='account_analysis_profile_timeline', null=True)
     most_frequent_post_types = models.ForeignKey(AccountAnalysisWidgetDescription, on_delete=models.CASCADE, related_name='account_analysis_most_frequent_post_types', null=True)
     most_engaging_post_types = models.ForeignKey(AccountAnalysisWidgetDescription, on_delete=models.CASCADE, related_name='account_analysis_most_engaging_post_types', null=True)
+    most_frequent_media_types = models.ForeignKey(AccountAnalysisWidgetDescription, on_delete=models.CASCADE, related_name='account_analysis_most_frequent_media_types', null=True)
+    most_engaging_media_types = models.ForeignKey(AccountAnalysisWidgetDescription, on_delete=models.CASCADE, related_name='account_analysis_most_engaging_media_types', null=True)
 
     def __str__(self):
         return str(self.project)
@@ -121,8 +124,14 @@ def create_social_widget_description(sender, instance, created, **kwargs):
         wd3.save()
         wd4 = AccountAnalysisWidgetDescription.objects.create(title='Most engaging post types', default_title='Most engaging post types')
         wd4.save()
+        wd5 = AccountAnalysisWidgetDescription.objects.create(title='Most frequent media types', default_title='Most frequent media types')
+        wd5.save()
+        wd6 = AccountAnalysisWidgetDescription.objects.create(title='Most engaging media types', default_title='Most engaging media types')
+        wd6.save()
         instance.summary = wd1
         instance.profile_timeline = wd2
         instance.most_frequent_post_types = wd3
         instance.most_engaging_post_types = wd4
+        instance.most_frequent_media_types = wd5
+        instance.most_engaging_media_types = wd6
         instance.save()
