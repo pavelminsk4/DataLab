@@ -32,6 +32,10 @@ urlpatterns = [
          views.most_frequent_post_types_widget, name="most_frequent_post_types_widget"),
     path("most_engaging_post_types_widget/<int:pk>/<int:widget_pk>",
          views.most_engaging_post_types_widget, name="most_engaging_post_types_widget"),
+    path("most_frequent_media_types_widget/<int:pk>/<int:widget_pk>",
+         views.most_frequent_media_types_widget, name="most_frequent_media_types_widget"),
+    path("most_engaging_media_types_widget/<int:pk>/<int:widget_pk>",
+         views.most_engaging_media_types_widget, name="most_engaging_media_types_widget"),     
     path('dimensions_for_each_widgets/<int:project_pk>/<int:widget_pk>',
          views.dimensions_for_each_widgets, name='dimensions_for_each_widgets'),
     # =======Profile Handle======

@@ -1,5 +1,7 @@
 from rest_framework.generics import ListAPIView, CreateAPIView, UpdateAPIView, DestroyAPIView, RetrieveAPIView
 from tweet_binder.models import TweetBinderPost
+from .widgets.dashboard.most_engaging_media_types import *
+from .widgets.dashboard.most_frequent_media_types import *
 from .widgets.dashboard.most_frequent_post_types import *
 from .widgets.dashboard.most_engaging_post_types import *
 from .widgets.dashboard.profile_timeline import *
@@ -25,6 +27,7 @@ class WorkspaceAccountAnalysisList(ListAPIView):
             return WorkspaceAccountAnalysis.objects.filter(members=user)
 
         return WorkspaceAccountAnalysis.objects.none()
+
 
 class AccountAnalysisProjectWidgetsAPIView(RetrieveAPIView):
     serializer_class = WidgetsListSerializer
@@ -73,6 +76,12 @@ def most_frequent_post_types_widget(request, pk, widget_pk):
 
 def most_engaging_post_types_widget(request, pk, widget_pk):
     return most_engaging_post_types(pk, widget_pk)
+
+def most_frequent_media_types_widget(request, pk, widget_pk):
+    return most_frequent_media_types(pk, widget_pk)
+
+def most_engaging_media_types_widget(request, pk, widget_pk):
+    return most_engaging_media_types(pk, widget_pk)
 
 
 def list_of_profile_handle(request):
