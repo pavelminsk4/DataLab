@@ -28,6 +28,7 @@ import WordCloudChart from '@/components/charts/WordCloudChart'
 import WorldMapChart from '@/components/charts/WorldMapChart'
 import SentimentWordCloudChart from '@/components/charts/SentimentWordCloudChart'
 import SentimentBarChart from '@/components/charts/SentimentBarChart'
+import ComboChart from '@/components/charts/ComboChart'
 
 export default {
   name: 'ChartsView',
@@ -45,6 +46,7 @@ export default {
     WorldMapChart,
     SentimentWordCloudChart,
     SentimentBarChart,
+    ComboChart,
   },
   props: {
     labels: {type: Array, default: () => []},

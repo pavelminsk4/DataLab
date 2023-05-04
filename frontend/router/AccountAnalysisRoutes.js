@@ -9,13 +9,15 @@ import CreateAccountAnalysisWorkspace from '@/components/account-analysis/Create
 import CreateAccountAnalysisRightSide from '@/components/account-analysis/CreateAccountAnalysisRightSide'
 import AccountAnalysisWorkspaceView from '@/components/account-analysis/AccountAnalysisWorkspaceView'
 
+import AccountAnalysisView from '@/views/account-analysis/AccountAnalysisView'
+import AccountAnalysisDashboardScreen from '@/components/account-analysis/screens/AccountAnalysisDashboardScreen'
+
 export default [
   {
     name: 'AccountAnalysis',
     path: '/account-analysis-module',
     component: AccountAnalysisModuleView,
     redirect: () => ({name: 'AccountAnalysisWorkspaces'}),
-
     children: [
       {
         name: 'AccountAnalysisWorkspaces',
@@ -71,6 +73,26 @@ export default [
               params: {workspaceId},
             })
           }
+          return next()
+        },
+      },
+    ],
+  },
+
+  {
+    name: 'AccountAnalysisFeatures',
+    path: '/account-analysis-module/features',
+    component: AccountAnalysisView,
+    redirect: () => ({name: 'AccountAnalysisDashBoard'}),
+    children: [
+      {
+        name: 'AccountAnalysisDashboard',
+        path: 'dashboard',
+        component: AccountAnalysisDashboardScreen,
+
+        beforeEnter: (to, from, next) => {
+          if (!store.state.accountAnalysis.currentProjectId)
+            return next({name: 'AccountAnalysis'})
           return next()
         },
       },

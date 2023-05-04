@@ -391,6 +391,14 @@ export const widgetsConfig = {
     defaultChartType: 'MultiLineChart',
     availableTypes: MULTI_CHARTS,
   },
+
+  // Account analysis
+  profile_timeline: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    actionName: action.GET_PROFILE_TIMELINE,
+    defaultChartType: 'ComboChart',
+    availableTypes: null,
+  },
 }
 
 export const summaryWidgetConfig = [

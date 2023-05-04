@@ -116,6 +116,7 @@ export default {
       action.GET_LIST_OF_PROFILE_HANDLE,
       action.CREATE_NEW_ACCOUNT_ANALYSIS_WORKSPACE,
       action.CREATE_NEW_ACCOUNT_ANALYSIS_PROJECT,
+      action.SET_CURRENT_PROJECT_ID,
     ]),
     handleClick(event, func) {
       this.profileHandle = event.target.innerText
@@ -145,6 +146,8 @@ export default {
           ],
         })
       }
+      this[action.SET_CURRENT_PROJECT_ID](+this.workspaceId)
+      this.$router.push({name: 'AccountAnalysisDashboard'})
     },
   },
 }

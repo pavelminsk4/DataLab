@@ -26,7 +26,7 @@
       <AccountAnalysisProjectsTable
         :values="filteredProjects"
         :members="workspace?.members"
-        @go-to-project="goToProjectSettings"
+        @go-to-project="goToProject"
       />
     </div>
   </MainLayout>
@@ -89,8 +89,8 @@ export default {
   },
   methods: {
     ...mapActions([action.CLEAR_STATE]),
-    goToProjectSettings(projectId) {
-      this.$emit('open-project', projectId)
+    goToProject() {
+      this.$router.push({name: 'AccountAnalysisDashboard'})
     },
     createProject() {
       this.$router.push({

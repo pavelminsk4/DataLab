@@ -22,4 +22,20 @@ export default {
   async deleteAccountAnalysisProject(projectId) {
     return fetch('delete', `${moduleName}/projects/${projectId}/ `)
   },
+
+  // Widgets
+  async getAllWidgets(projectId) {
+    return fetch(
+      'get',
+      `${moduleName}/account_analysis_projects/${projectId}/widgets_list`
+    )
+  },
+
+  async getProfileTimeline(projectId, widgetId, value) {
+    return fetch(
+      'post',
+      `${moduleName}/profile_timeline_widget/${projectId}/${widgetId}`,
+      {aggregation_period: value}
+    )
+  },
 }
