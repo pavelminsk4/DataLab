@@ -1,9 +1,9 @@
 const state = {
   loading: false,
   workspaces: [],
-  currentProjectId: null,
+  newProjectId: null,
+  newWorkspaceId: null,
   listOfProfileHandle: [],
-
   availableWidgets: [],
 }
 

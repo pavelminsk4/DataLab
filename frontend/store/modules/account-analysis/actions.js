@@ -23,7 +23,12 @@ export default {
       await dispatch(action.UPDATE_NEW_ACCOUNT_ANALYSIS_WORKSPACE, data, {
         root: true,
       })
-      await api.accountAnalysis.createWorkspace(data)
+      const response = await api.accountAnalysis.createWorkspace(data)
+      commit(mutator.SET_ACCOUNT_ANALYSIS_WORKSPACE_ID, response.id)
+      commit(
+        mutator.SET_ACCOUNT_ANALYSIS_PROJECT_ID,
+        response.account_analysis_workspace_projects[0].id
+      )
       await dispatch(action.GET_WORKSPACES)
     } catch (e) {
       console.log(e)
@@ -35,7 +40,8 @@ export default {
   async [action.CREATE_NEW_ACCOUNT_ANALYSIS_PROJECT]({commit, dispatch}, data) {
     commit(mutator.SET_LOADING, true)
     try {
-      await api.accountAnalysis.createProject(data)
+      const response = await api.accountAnalysis.createProject(data)
+      commit(mutator.SET_ACCOUNT_ANALYSIS_PROJECT_ID, response.id)
       await dispatch(action.GET_WORKSPACES)
     } catch (e) {
       console.log(e)
@@ -88,9 +94,5 @@ export default {
     } finally {
       commit(mutator.SET_LOADING, false)
     }
-  },
-
-  async [action.SET_CURRENT_PROJECT_ID]({commit}, id) {
-    commit(mutator.SET_CURRENT_PROJECT_ID, id)
   },
 }

@@ -82,10 +82,7 @@ export default {
   },
   methods: {
     defaultDate,
-    ...mapActions([
-      action.DELETE_ACCOUNT_ANALYSIS_PROJECT,
-      action.SET_CURRENT_PROJECT_ID,
-    ]),
+    ...mapActions([action.DELETE_ACCOUNT_ANALYSIS_PROJECT]),
     currentMember(id) {
       return this.members.find((el) => el.id === id)
     },
@@ -94,7 +91,6 @@ export default {
     },
     goToProject(event, id) {
       if (!event.target.closest('.checkbox-container')) {
-        this[action.SET_CURRENT_PROJECT_ID](id)
         this.$emit('go-to-project', id)
       }
     },

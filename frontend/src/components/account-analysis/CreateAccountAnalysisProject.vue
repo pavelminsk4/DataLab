@@ -90,6 +90,8 @@ export default {
     }),
     ...mapAccountAnalysisState({
       profileHandleOptions: (state) => state.listOfProfileHandle,
+      newProjectId: (state) => state.newProjectId,
+      newWorkspaceId: (state) => state.newWorkspaceId,
     }),
     workspaceId() {
       return this.$route.params.workspaceId
@@ -116,11 +118,10 @@ export default {
       action.GET_LIST_OF_PROFILE_HANDLE,
       action.CREATE_NEW_ACCOUNT_ANALYSIS_WORKSPACE,
       action.CREATE_NEW_ACCOUNT_ANALYSIS_PROJECT,
-      action.SET_CURRENT_PROJECT_ID,
     ]),
-    handleClick(event, func) {
+    handleClick(event, closeSelect) {
       this.profileHandle = event.target.innerText
-      func()
+      closeSelect()
     },
     async saveChanges() {
       await this[action.UPDATE_NEW_ACCOUNT_ANALYSIS_PROJECT]({
@@ -146,8 +147,13 @@ export default {
           ],
         })
       }
-      this[action.SET_CURRENT_PROJECT_ID](+this.workspaceId)
-      this.$router.push({name: 'AccountAnalysisDashboard'})
+      this.$router.push({
+        name: 'AccountAnalysisDashboard',
+        params: {
+          projectId: this.newProjectId,
+          workspaceId: this.newWorkspaceId || this.workspaceId,
+        },
+      })
     },
   },
 }

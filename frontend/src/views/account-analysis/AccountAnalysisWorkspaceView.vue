@@ -89,8 +89,11 @@ export default {
   },
   methods: {
     ...mapActions([action.CLEAR_STATE]),
-    goToProject() {
-      this.$router.push({name: 'AccountAnalysisDashboard'})
+    goToProject(projectId) {
+      this.$router.push({
+        name: 'AccountAnalysisDashboard',
+        params: {projectId, workspaceId: this.workspaceId},
+      })
     },
     createProject() {
       this.$router.push({

@@ -6,11 +6,16 @@
 import {createNamespacedHelpers} from 'vuex'
 import {get, action} from '@store/constants'
 
+import AccountAnalysisSummaryWidget from '@/components/widgets/AccountAnalysisSummaryWidget'
+
 const {mapActions, mapGetters} = createNamespacedHelpers(
   'accountAnalysis/widgets'
 )
 
 export default {
+  components: {
+    AccountAnalysisSummaryWidget,
+  },
   props: {
     widgetDetails: {type: Object, required: true},
   },

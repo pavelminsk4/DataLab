@@ -11,8 +11,12 @@ export default {
     }))
   },
 
-  [mutator.SET_CURRENT_PROJECT_ID](state, id) {
-    state.currentProjectId = id
+  [mutator.SET_ACCOUNT_ANALYSIS_WORKSPACE_ID](state, id) {
+    state.newWorkspaceId = id
+  },
+
+  [mutator.SET_ACCOUNT_ANALYSIS_PROJECT_ID](state, id) {
+    state.newProjectId = id
   },
 
   [mutator.SET_LIST_OF_PROFILE_HANDLE](state, data) {

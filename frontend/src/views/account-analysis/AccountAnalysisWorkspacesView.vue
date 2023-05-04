@@ -12,7 +12,7 @@
 import {createNamespacedHelpers, mapGetters} from 'vuex'
 import {get} from '@store/constants'
 
-import AccountAnalysisModuleScreen from '@/components/account-analysis/AccountAnalysisModuleScreen'
+import AccountAnalysisModuleScreen from '@/components/account-analysis/screens/AccountAnalysisModuleScreen'
 
 const {mapState: mapAccountAnalyticsState} =
   createNamespacedHelpers('accountAnalysis')

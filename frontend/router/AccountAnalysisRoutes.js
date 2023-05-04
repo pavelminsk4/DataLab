@@ -1,13 +1,13 @@
 import store from '@store'
 
-import AccountAnalysisModuleView from '@/views/AccountAnalysisModuleView'
-import AccountAnalysisWorkspacesView from '@/views/AccountAnalysisWorkspacesView'
-import CreateAccountAnalysisView from '@/views/CreateAccountAnalysisView'
+import AccountAnalysisModuleView from '@/views/account-analysis/AccountAnalysisModuleView'
+import AccountAnalysisWorkspacesView from '@/views/account-analysis/AccountAnalysisWorkspacesView'
+import CreateAccountAnalysisView from '@/views/account-analysis/CreateAccountAnalysisView'
+import AccountAnalysisWorkspaceView from '@/views/account-analysis/AccountAnalysisWorkspaceView'
 
 import CreateAccountAnalysisProject from '@/components/account-analysis/CreateAccountAnalysisProject'
 import CreateAccountAnalysisWorkspace from '@/components/account-analysis/CreateAccountAnalysisWorkspace'
 import CreateAccountAnalysisRightSide from '@/components/account-analysis/CreateAccountAnalysisRightSide'
-import AccountAnalysisWorkspaceView from '@/components/account-analysis/AccountAnalysisWorkspaceView'
 
 import AccountAnalysisView from '@/views/account-analysis/AccountAnalysisView'
 import AccountAnalysisDashboardScreen from '@/components/account-analysis/screens/AccountAnalysisDashboardScreen'
@@ -81,20 +81,14 @@ export default [
 
   {
     name: 'AccountAnalysisFeatures',
-    path: '/account-analysis-module/features',
+    path: '/account-analysis-module/workspace/:workspaceId/project/:projectId/features',
     component: AccountAnalysisView,
-    redirect: () => ({name: 'AccountAnalysisDashBoard'}),
+    redirect: () => ({name: 'AccountAnalysisDashboard'}),
     children: [
       {
         name: 'AccountAnalysisDashboard',
         path: 'dashboard',
         component: AccountAnalysisDashboardScreen,
-
-        beforeEnter: (to, from, next) => {
-          if (!store.state.accountAnalysis.currentProjectId)
-            return next({name: 'AccountAnalysis'})
-          return next()
-        },
       },
     ],
   },
