@@ -8,10 +8,11 @@
 
 <script>
 import ProfileTimeline from '@/components/widgets/account-analysis/ProfileTimeline'
+import Summary from '@/components/widgets/account-analysis/AccountAnalysisSummary'
 
 export default {
   name: 'AccountAnalysisMainWidget',
-  components: {ProfileTimeline},
+  components: {ProfileTimeline, Summary},
   props: {
     widgetDetails: {type: Object, required: true},
   },

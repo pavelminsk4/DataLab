@@ -17,4 +17,20 @@ export default {
       commit(mutator.SET_LOADING, false, {root: true})
     }
   },
+
+  async [action.GET_SUMMARY]({commit}, {projectId, widgetId, value}) {
+    commit(mutator.SET_LOADING, true, {root: true})
+    try {
+      const summary = await api.accountAnalysis.getSummary(
+        projectId,
+        widgetId,
+        value
+      )
+      commit(mutator.SET_GET_SUMMARY, summary)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false, {root: true})
+    }
+  },
 }

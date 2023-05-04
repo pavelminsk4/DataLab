@@ -38,4 +38,12 @@ export default {
       {aggregation_period: value}
     )
   },
+
+  async getSummary(projectId, widgetId, value) {
+    return fetch(
+      'get',
+      `${moduleName}/account_analysis_summary_widget/${projectId}/${widgetId}`,
+      {aggregation_period: value}
+    )
+  },
 }
