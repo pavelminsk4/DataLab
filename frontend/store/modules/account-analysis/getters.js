@@ -7,4 +7,8 @@ export default {
   [get.WORKSPACES](state) {
     return state.workspaces
   },
+
+  [get.AVAILABLE_WIDGETS](state) {
+    return state.availableWidgets
+  },
 }

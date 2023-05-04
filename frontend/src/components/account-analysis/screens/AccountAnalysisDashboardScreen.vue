@@ -3,26 +3,26 @@
     v-if="selectedWidgets"
     :current-project="currentProject"
     :selected-widgets="selectedWidgets"
-    module-name="Online"
+    module-name="AccountAnalysis"
   />
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
+import {createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
 
+import {accountAnalysisWidgetsList} from '@/lib/constants'
 import {getWidgetDetails} from '@lib/utilities'
-import {onlineWidgetsList} from '@/lib/constants'
 
 import WidgetsList from '@/components/widgets/WidgetsList'
 
+const {mapActions, mapGetters} = createNamespacedHelpers('accountAnalysis')
+
 export default {
-  name: 'OnlineInfluencersScreen',
-  components: {
-    WidgetsList,
-  },
+  name: 'AccountAnalysisDashboardScreen',
+  components: {WidgetsList},
   props: {
-    currentProject: {type: [Array, Object], required: false},
+    currentProject: {type: Object, required: true},
   },
   computed: {
     ...mapGetters({
@@ -31,7 +31,7 @@ export default {
     selectedWidgets: {
       get() {
         if (!this.availableWidgets) return
-        return onlineWidgetsList.influencers
+        return accountAnalysisWidgetsList.dashboard
           .map((widget) => {
             if (this.availableWidgets[widget.name]) {
               return {
@@ -50,24 +50,14 @@ export default {
       },
     },
   },
+  created() {
+    this.widgets = accountAnalysisWidgetsList
+    if (!this.availableWidgets.length) {
+      this[action.GET_AVAILABLE_WIDGETS](this.currentProject.id)
+    }
+  },
   methods: {
-    ...mapActions([action.UPDATE_AVAILABLE_WIDGETS]),
+    ...mapActions([action.GET_AVAILABLE_WIDGETS]),
   },
 }
 </script>
-
-<style lang="scss" scoped>
-.summary {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-}
-.summary__header {
-  display: flex;
-  justify-content: space-between;
-
-  .btn-report {
-    align-self: flex-end;
-  }
-}
-</style>

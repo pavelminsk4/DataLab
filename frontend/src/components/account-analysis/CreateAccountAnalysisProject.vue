@@ -53,7 +53,7 @@ import {action} from '@store/constants'
 import createReportMixin from '@/lib/mixins/create-report.js'
 
 import BaseInput from '@/components/common/BaseInput'
-import BaseSelect from '../BaseSelect2.vue'
+import BaseSelect from '@/components/BaseSelect2'
 import AccountAnalysisSourcesTabs from '@/components/account-analysis/AccountAnalysisSourcesTabs'
 
 const {
@@ -90,6 +90,8 @@ export default {
     }),
     ...mapAccountAnalysisState({
       profileHandleOptions: (state) => state.listOfProfileHandle,
+      newProjectId: (state) => state.newProjectId,
+      newWorkspaceId: (state) => state.newWorkspaceId,
     }),
     workspaceId() {
       return this.$route.params.workspaceId
@@ -117,9 +119,9 @@ export default {
       action.CREATE_NEW_ACCOUNT_ANALYSIS_WORKSPACE,
       action.CREATE_NEW_ACCOUNT_ANALYSIS_PROJECT,
     ]),
-    handleClick(event, func) {
+    handleClick(event, closeSelect) {
       this.profileHandle = event.target.innerText
-      func()
+      closeSelect()
     },
     async saveChanges() {
       await this[action.UPDATE_NEW_ACCOUNT_ANALYSIS_PROJECT]({
@@ -145,6 +147,13 @@ export default {
           ],
         })
       }
+      this.$router.push({
+        name: 'AccountAnalysisDashboard',
+        params: {
+          projectId: this.newProjectId,
+          workspaceId: this.newWorkspaceId || this.workspaceId,
+        },
+      })
     },
   },
 }

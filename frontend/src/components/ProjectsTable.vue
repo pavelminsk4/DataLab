@@ -14,7 +14,7 @@
     >
       <td class="td_name">{{ item.title }}</td>
       <td>
-        <TagsCollapsible v-if="item.keywords?.length" :tags="item.keywords" />
+        <TagsCollapsible v-if="item.keywords.length" :tags="item.keywords" />
       </td>
       <td>
         <div class="creator">
@@ -24,7 +24,7 @@
             :last-name="currentMember(item.creator)?.last_name"
             :username="currentMember(item.creator)?.username"
           />
-          <div>{{ currentMember(item.creator)?.username }}</div>
+          <div>{{ currentMember(item.creator).username }}</div>
         </div>
       </td>
       <td>
@@ -103,7 +103,7 @@ export default {
     },
     projectMembers(projectMembersIds) {
       return this.members.filter((member) =>
-        projectMembersIds?.includes(member.id)
+        projectMembersIds.includes(member.id)
       )
     },
     projectCreationDate(date) {

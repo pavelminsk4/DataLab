@@ -26,7 +26,6 @@
 
 <script>
 import debounce from 'lodash/debounce'
-
 import SearchIcon from '@/components/icons/SearchIcon'
 import ErrorIcon from '@/components/icons/ErrorIcon'
 

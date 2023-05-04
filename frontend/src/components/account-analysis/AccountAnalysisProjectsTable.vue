@@ -43,9 +43,9 @@ import {action} from '@store/constants'
 import {defaultDate} from '@/lib/utilities'
 
 import AreYouSureModal from '@/components/modals/AreYouSureModal'
-import BaseTable from '@components/common/BaseTable'
-import BaseTableRow from '@components/common/BaseTableRow'
-import UserAvatar from '@components/UserAvatar'
+import BaseTable from '@/components/common/BaseTable'
+import BaseTableRow from '@/components/common/BaseTableRow'
+import UserAvatar from '@/components/UserAvatar'
 
 const {mapActions} = createNamespacedHelpers('accountAnalysis')
 
