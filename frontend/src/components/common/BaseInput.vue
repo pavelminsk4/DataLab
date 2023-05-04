@@ -27,7 +27,7 @@
 <script>
 import debounce from 'lodash/debounce'
 
-import SearchIcon from '@components/icons/SearchIcon'
+import SearchIcon from '@/components/icons/SearchIcon'
 import ErrorIcon from '@/components/icons/ErrorIcon'
 
 export default {

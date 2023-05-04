@@ -1,13 +1,11 @@
-// import {createStore} from 'vuex'
-// import getters from '@store/getters'
-// import mockState from '@store/state'
-// import actions from '@store/actions'
+import {createStore} from 'vuex'
+import getters from '@store/getters'
+import state from '@store/state'
 
-// export const createNewStore = (newState) => {
-//   return createStore({
-//     state: {...mockState, ...newState},
-//     getters,
-//     actions,
-//     dispatch: jest.fn(),
-//   })
-// }
+export const createNewStore = () => {
+  return createStore({
+    state,
+    getters,
+    dispatch: jest.fn(),
+  })
+}

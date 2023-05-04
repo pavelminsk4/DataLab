@@ -23,7 +23,7 @@ import createAccountAnalysisMixin from '@/lib/mixins/create-account-analysis.js'
 
 import BaseInput from '@/components/common/BaseInput'
 import BaseTextarea from '@/components/common/BaseTextarea'
-import ButtonWithArrow from '@/components/common/ButtonWithArrow.vue'
+import ButtonWithArrow from '@/components/common/ButtonWithArrow'
 
 export default {
   name: 'CreateAccountAnalysisWorkspace',
