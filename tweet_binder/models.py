@@ -14,6 +14,7 @@ from .services.live_search import *
 from celery import shared_task
 from .services.login import *
 from django.db import models
+from transformers import pipeline
 
 import time
 import os
@@ -75,6 +76,7 @@ class TweetBinderPost(models.Model):
   videos = ArrayField(models.CharField(max_length=200), blank=True, null=True)
   created_at = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True)
+  imp_sentiment = models.CharField(max_length=50, blank=True, null=True)
 
   def __str__(self):
       return self.post_id
@@ -165,6 +167,11 @@ def live_search_type(keyword, keyword_and, keyword_or, keyword_nor, limit):
     auth_token = json.loads(login(email, password))['authToken'] 
     live_search(keyword, keyword_and, keyword_or, keyword_nor, limit, auth_token, live_search_url)
 
+def calculate_sentiment(text):
+   model_path = "cardiffnlp/twitter-xlm-roberta-base-sentiment"
+   sentiment_task = pipeline("sentiment-analysis", model=model_path, tokenizer=model_path, max_length=512, truncation=True)
+   return sentiment_task(text)[0]['label']
+
 def add_post_to_database(data_tweets):
   tweets = []
   for tweet in data_tweets:
@@ -222,6 +229,7 @@ def add_post_to_database(data_tweets):
                 'user_gender': tweet['user']['gender'], 
                 'user_value': tweet['user']['value'],
                 'videos': tweet['videos'],
+                'imp_sentiment': calculate_sentiment(tweet['text'])
             }
     tweets.append(new_tweet)
     try:
