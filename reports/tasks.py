@@ -7,7 +7,7 @@ import environ
 from pathlib import Path
 import mimetypes
 from widgets.models import *
-from reports.classes.project_pdf import Factory_PDF
+from reports.classes.factory_pdf import FactoryPDF
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -40,5 +40,5 @@ def regular_report_sender(report_id, crontab_type):
     template_path = reg_report.report_template.layout_file
     files = []
     for item in reg_report.items.all():
-        files.append(Factory_PDF(item, template_path, reg_report.report_format).define().generate())
+        files.append(FactoryPDF(item, template_path, reg_report.report_format).define().generate())
     send_email_with(files, reg_report, crontab_type)

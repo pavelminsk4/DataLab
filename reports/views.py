@@ -6,7 +6,6 @@ from project.models import Project
 from project_social.models import ProjectSocial
 from docx import Document
 from .chartjs.chartjs import prepare_widget_images
-from reports.social_chartjs.social_chartjs import prepare_social_widget_images
 from .serializers import RegularReportSerializer
 from .models import RegularReport
 from rest_framework import viewsets

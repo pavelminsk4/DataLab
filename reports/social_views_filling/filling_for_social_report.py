@@ -109,17 +109,17 @@ def filling_templates_for_social_reports(document, item, screenshots_list):
 
     if item.soc_top_locations:
         social_top_locations_widget_image(
-            document, screenshots_list['top_locations'])
+            document, screenshots_list['soc_top_locations'])
         document.add_page_break()
 
     if item.soc_top_authors:
         social_top_authors_widget_image(
-            document, screenshots_list['top_authors'])
+            document, screenshots_list['soc_top_authors'])
         document.add_page_break()
 
     if item.soc_top_languages:
         social_top_languages_widget_image(
-            document, screenshots_list['top_languages'])
+            document, screenshots_list['soc_top_languages'])
         document.add_page_break()
 
     return document

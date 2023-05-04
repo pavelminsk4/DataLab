@@ -1,10 +1,10 @@
-from .project_pdf import Project_PDF
+from .project_pdf import ProjectPDF
 from docx import Document
 from reports.chartjs.chartjs import prepare_widget_images_for_regular
 from reports.views_filling.filling_for_report import filling_templates_for_instant_and_regular_reports
 from reports.services.pdf_handler import convert_docx_to_pdf
 
-class Online_PDF(Project_PDF):
+class OnlinePDF(ProjectPDF):
     def generate(self):
         prepare_widget_images_for_regular(self.item)
         document = Document(self.template_path)
