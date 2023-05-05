@@ -388,6 +388,7 @@ export const widgetsConfig = {
   gender_volume: {
     ...WIDGET_DEFAULT_SETTINGS,
     actionName: action.GET_GENDER_VOLUME_WIDGET,
+    hasAggregationPeriod: false,
     defaultChartType: 'MultiLineChart',
     availableTypes: MULTI_CHARTS,
   },
@@ -416,6 +417,14 @@ export const widgetsConfig = {
       {text: 'AVG retweets per post', iconName: 'Reposts'},
       {text: 'AVG engagement rate', iconName: 'Graph'},
     ],
+  },
+
+  most_frequent_post_types: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    actionName: action.GET_MOST_FREQUENT_POST_TYPES,
+    hasAggregationPeriod: false,
+    defaultChartType: 'DoughnutChart',
+    availableTypes: SIMPLE_CHARTS,
   },
 }
 

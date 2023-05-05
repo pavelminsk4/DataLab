@@ -33,6 +33,6 @@ def post_aggregator_profile_timeline(posts, aggregation_period):
                 count_post += posts_total[elem]['created_count']
                 count_likes += posts_favorites[elem]['count_favorites']
                 count_retweets += posts_retweets[elem]['count_retweets']
-        results.append({"date": date, "created_count": count_post, "enagagement": count_likes +
+        results.append({"date": date, "created_count": count_post, "engagement": count_likes +
                        count_retweets, "likes": count_likes, "retweets": count_retweets})
     return results

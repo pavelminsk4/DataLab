@@ -51,8 +51,7 @@ export default {
     },
   },
   created() {
-    this.widgets = accountAnalysisWidgetsList
-    if (!this.availableWidgets.length) {
+    if (!this.availableWidgets.length && this.currentProject) {
       this[action.GET_AVAILABLE_WIDGETS](this.currentProject.id)
     }
   },

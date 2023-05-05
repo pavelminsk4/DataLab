@@ -9,10 +9,17 @@
 <script>
 import ProfileTimeline from '@/components/widgets/account-analysis/ProfileTimeline'
 import Summary from '@/components/widgets/account-analysis/AccountAnalysisSummary'
+import MostFrequentMediaTypes from '@/components/widgets/account-analysis/MostFrequentMediaTypes'
+import MostFrequentPostTypes from '@/components/widgets/account-analysis/MostFrequentPostTypes'
 
 export default {
   name: 'AccountAnalysisMainWidget',
-  components: {ProfileTimeline, Summary},
+  components: {
+    ProfileTimeline,
+    Summary,
+    MostFrequentMediaTypes,
+    MostFrequentPostTypes,
+  },
   props: {
     widgetDetails: {type: Object, required: true},
   },

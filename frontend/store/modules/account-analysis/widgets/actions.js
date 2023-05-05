@@ -33,4 +33,37 @@ export default {
       commit(mutator.SET_LOADING, false, {root: true})
     }
   },
+
+  async [action.GET_MOST_FREQUENT_POST_TYPES]({commit}, {projectId, widgetId}) {
+    commit(mutator.SET_LOADING, true, {root: true})
+    try {
+      const postTypes = await api.accountAnalysis.getMostFrequentPostTypes(
+        projectId,
+        widgetId
+      )
+      commit(mutator.SET_MOST_FREQUENT_POST_TYPES, postTypes)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false, {root: true})
+    }
+  },
+
+  async [action.GET_MOST_FREQUENT_MEDIA_TYPES](
+    {commit},
+    {projectId, widgetId}
+  ) {
+    commit(mutator.SET_LOADING, true, {root: true})
+    try {
+      const summary = await api.accountAnalysis.getMostFrequentMediaTypes(
+        projectId,
+        widgetId
+      )
+      commit(mutator.SET_MOST_FREQUENT_MEDIA_TYPES, summary)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false, {root: true})
+    }
+  },
 }
