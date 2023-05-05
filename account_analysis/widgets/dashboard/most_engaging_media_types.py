@@ -25,13 +25,8 @@ def post_aggregator_most_engaging_media_types(posts):
                                      (Q(count_textlength__gt=0) & Q(count_images__gt=0)) | 
                                      (Q(videos__isnull=False) & Q(count_images__gt=0)))
     engagement = Sum(F('count_favorites') + F('count_retweets'))
-    return {'count_link': link_posts.count(),
-            'link_engaging': link_posts.aggregate(count=engagement)['count'],
-            'count_text': text_posts.count(),
+    return {'link_engaging': link_posts.aggregate(count=engagement)['count'],
             'text_engaging': text_posts.aggregate(count=engagement)['count'],
-            'count_video': video_posts.count(),
             'video_engaging': video_posts.aggregate(count=engagement)['count'],
-            'count_photo': photo_posts.count(),
             'photo_engaging': photo_posts.aggregate(count=engagement)['count'],
-            'count_combination': combination_posts.count(),
             'combination_engaging': combination_posts.aggregate(count=engagement)['count']}
