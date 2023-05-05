@@ -316,7 +316,7 @@ def greate_user_tracker_project(sender, instance, created, **kwargs):
     start_date = instance.start_date
     end_date = instance.end_date
     url = api_route + '/user-trackers/multi'
-    auth_token = json.loads(login(email, password))['authToken'] 
+    auth_token = json.loads(login(email, password))['authToken']
     tracker_id = json.loads(greate_user_tracker(user_alias, auth_token, url))['ok'][0]['resourceId']
     time.sleep(10)
     data_account = json.loads(get_user_tracker_stats(tracker_id, int(datetime.timestamp(start_date)), int(datetime.timestamp(end_date)), auth_token))
@@ -324,41 +324,42 @@ def greate_user_tracker_project(sender, instance, created, **kwargs):
     stop_user_trackers(api_route + '/user-trackers/delete', auth_token, tracker_id)
 
 def add_data_account_to_database(data_account, instance):
+  n = 1 if len(data_account) > 1 else 0
   new_data = {  
                 'user_alias': instance,
                 'tracker_id_start': data_account[0]["_id"],
-                'tracker_id_end': data_account[1]["_id"],
+                'tracker_id_end': data_account[n]["_id"],
                 'mentions_start': data_account[0]["mentions"],
-                'mentions_end': data_account[1]["mentions"],
+                'mentions_end': data_account[n]["mentions"],
                 'tweets_start': data_account[0]["tweets"],
-                'tweets_end': data_account[1]["tweets"],
+                'tweets_end': data_account[n]["tweets"],
                 'deleted_start': data_account[0]["deleted"],
-                'deleted_end': data_account[1]["deleted"],
+                'deleted_end': data_account[n]["deleted"],
                 'originals_start': data_account[0]["originals"],
-                'originals_end': data_account[1]["originals"],
+                'originals_end': data_account[n]["originals"],
                 'retweet_statuses_start': data_account[0]["retweetStatuses"],
-                'retweet_statuses_end': data_account[1]["retweetStatuses"],
+                'retweet_statuses_end': data_account[n]["retweetStatuses"],
                 'retweets_start': data_account[0]["retweets"],
-                'retweets_end': data_account[1]["retweets"],
+                'retweets_end': data_account[n]["retweets"],
                 'favorites_start': data_account[0]["favorites"],
-                'favorites_end': data_account[1]["favorites"], 
+                'favorites_end': data_account[n]["favorites"], 
                 'followers_start': data_account[0]["followers"],
-                'followers_end': data_account[1]["followers"],
+                'followers_end': data_account[n]["followers"],
                 'following_start': data_account[0]["following"],
-                'following_end': data_account[1]["following"],
+                'following_end': data_account[n]["following"],
                 'lists_start': data_account[0]["lists"],
-                'lists_end': data_account[1]["lists"],
+                'lists_end': data_account[n]["lists"],
                 'followers_following_start': data_account[0]["followersFollowing"],
-                'followers_following_end': data_account[1]["followersFollowing"],
+                'followers_following_end': data_account[n]["followersFollowing"],
                 'user_value_start': data_account[0]["userValue"],
-                'user_value_end': data_account[1]["userValue"],
+                'user_value_end': data_account[n]["userValue"],
                 'engagement_value_start': data_account[0]["engagementValue"],
-                'engagement_value_end': data_account[1]["engagementValue"],
+                'engagement_value_end': data_account[n]["engagementValue"],
                 'global_score_start': data_account[0]["globalScore"],
-                'global_score_end': data_account[1]["globalScore"],
+                'global_score_end': data_account[n]["globalScore"],
                 'created_at_start': data_account[0]["createdAt"],
-                'created_at_end': data_account[1]["createdAt"],
+                'created_at_end': data_account[n]["createdAt"],
                 'updated_at_start': data_account[0]["updatedAt"],
-                'updated_at_start': data_account[1]["updatedAt"],
+                'updated_at_start': data_account[n]["updatedAt"],
             }
   TweetBinderUserTrackerAnalysis.objects.create(**new_data)

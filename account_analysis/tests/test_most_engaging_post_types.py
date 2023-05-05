@@ -25,10 +25,7 @@ class MostEngagingPostTypeslineWidgetTests(APITestCase):
                       'pk': pr.pk, 'widget_pk': widget_pk})
         response = self.client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        res = {'count_replies': 3,
-               'count_retweets': 2,
-               'count_tweets': 3,
-               'replies_engagement': 10,
+        res = {'replies_engagement': 10,
                'retweets_engagement': 6,
                'tweets_engagement': 10}
         self.assertEqual(json.loads(response.content), res)
