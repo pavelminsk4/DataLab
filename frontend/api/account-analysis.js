@@ -41,9 +41,23 @@ export default {
 
   async getSummary(projectId, widgetId, value) {
     return fetch(
-      'get',
+      'post',
       `${moduleName}/account_analysis_summary_widget/${projectId}/${widgetId}`,
       {aggregation_period: value}
+    )
+  },
+
+  async getMostFrequentPostTypes(projectId, widgetId) {
+    return fetch(
+      'post',
+      `${moduleName}/most_frequent_post_types_widget/${projectId}/${widgetId}`
+    )
+  },
+
+  async getMostFrequentMediaTypes(projectId, widgetId) {
+    return fetch(
+      'post',
+      `${moduleName}/most_frequent_media_types_widget/${projectId}/${widgetId}`
     )
   },
 }

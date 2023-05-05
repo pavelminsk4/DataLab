@@ -1,5 +1,8 @@
 <template>
-  <AccountAnalysisFeaturesView :current-project="currentProject" />
+  <AccountAnalysisFeaturesView
+    v-if="currentProject"
+    :current-project="currentProject"
+  />
 </template>
 
 <script>
