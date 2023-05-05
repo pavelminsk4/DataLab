@@ -38,6 +38,7 @@ import SocialWidgetSettingsModal from '@/components/widgets/social/modals/Widget
 
 import OnlineMainWidget from '@/components/widgets/online/OnlineMainWidget'
 import SocialMainWidget from '@/components/widgets/social/SocialMainWidget'
+import AccountAnalysisMainWidget from '@/components/widgets/account-analysis/AccountAnalysisMainWidget'
 import InteractiveWidgetModal from '@/components/modals/InteractiveWidgetModal'
 
 const {mapActions: mapSocialActions} = createNamespacedHelpers('social')
@@ -49,6 +50,7 @@ export default {
     SocialMainWidget,
     OnlineWidgetSettingsModal,
     SocialWidgetSettingsModal,
+    AccountAnalysisMainWidget,
     InteractiveWidgetModal,
   },
   emits: ['delete-widget'],
@@ -114,7 +116,12 @@ export default {
   },
 }
 </script>
+
 <style lang="scss" scoped>
+.interactive-widgets {
+  z-index: 1001;
+}
+
 .widgets {
   display: flex;
   flex-wrap: wrap;

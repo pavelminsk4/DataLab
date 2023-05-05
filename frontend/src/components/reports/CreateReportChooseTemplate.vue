@@ -93,7 +93,7 @@ export default {
       }
 
       if (!this.newReport.report_template) {
-        reportData.report_template = this.templates[0].id
+        reportData.report_template = this.templates[0]?.id || ''
       }
 
       this[action.UPDATE_NEW_REPORT](reportData)

@@ -391,6 +391,32 @@ export const widgetsConfig = {
     defaultChartType: 'MultiLineChart',
     availableTypes: MULTI_CHARTS,
   },
+
+  // Account analysis
+  profile_timeline: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    actionName: action.GET_PROFILE_TIMELINE,
+    defaultChartType: 'BarLineChart',
+    availableTypes: null,
+  },
+
+  account_analysis_summary_widget: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    actionName: action.GET_ACCOUNT_ANALYSIS_SUMMARY_WIDGET,
+    hasAggregationPeriod: false,
+    defaultChartType: null,
+    settingsTabs: ['General', 'Dimensions'],
+    icons: [
+      {text: 'Total Followers', iconName: 'List'},
+      {text: 'Total Following', iconName: 'MatrixDots'},
+      {text: 'Total Tweets', iconName: 'Twitter'},
+      {text: 'Tweets this period', iconName: 'Calendar'},
+      {text: 'Engagements', iconName: 'Engagements'},
+      {text: 'AVG likes per post', iconName: 'Heart'},
+      {text: 'AVG retweets per post', iconName: 'Reposts'},
+      {text: 'AVG engagement rate', iconName: 'Graph'},
+    ],
+  },
 }
 
 export const summaryWidgetConfig = [

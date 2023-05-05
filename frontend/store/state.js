@@ -104,6 +104,38 @@ const initialState = {
     projects: [],
     widgetsTemplates: {},
   },
+  // Account Analysis
+  newAccountAnalysisWorkspace: {
+    step: 1,
+    title: '',
+    description: '',
+    department: null,
+    members: [],
+    account_analysis_workspace_projects: [],
+    projects: [],
+  },
+
+  newAccountAnalysisProject: {
+    title: '',
+    profile_handle: '',
+    start_search_date: null,
+    end_search_date: null,
+    min_followers: null,
+    max_followers: null,
+    language_filter: [],
+    country_filter: [],
+    sentiment_filter: [],
+    source_filter: [],
+    author_filter: [],
+    language_dimensions: [],
+    country_dimensions: [],
+    sentiment_dimensions: [],
+    source_dimensions: [],
+    author_dimensions: [],
+    creator: null,
+    workspace: null,
+    members: [],
+  },
 }
 
 const state = {...initialState}

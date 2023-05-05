@@ -31,7 +31,7 @@ export default {
     selectedWidgets: {
       get() {
         if (!this.availableWidgets) return
-        return onlineWidgetsList.sentiment
+        return onlineWidgetsList.influencers
           .map((widget) => {
             if (this.availableWidgets[widget.name]) {
               return {

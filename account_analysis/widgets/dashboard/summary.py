@@ -20,7 +20,7 @@ def account_analysis_summary(pk, widget_pk):
     'total_following': user_tracker_analysis.following_end,
     'total_tweets': user_tracker_analysis.tweets_end,
     'tweets_this_period': float(user_tracker_analysis.tweets_end) - float(user_tracker_analysis.tweets_start),
-    'enagagements': user_tracker_analysis.engagement_value_end,
+    'engagements': user_tracker_analysis.engagement_value_end,
     'avg_likes_per_post': (float(user_tracker_analysis.favorites_end) - float(user_tracker_analysis.favorites_start))/(float(user_tracker_analysis.tweets_end) - float(user_tracker_analysis.tweets_start)),
     'avg_retweets_per_post':(float(user_tracker_analysis.retweets_end) - float(user_tracker_analysis.retweets_start))/(float(user_tracker_analysis.tweets_end) - float(user_tracker_analysis.tweets_start)),
     'avg_engagement_rate': (float(user_tracker_analysis.engagement_value_end) - float(user_tracker_analysis.engagement_value_start))/(float(user_tracker_analysis.tweets_end) - float(user_tracker_analysis.tweets_start)),

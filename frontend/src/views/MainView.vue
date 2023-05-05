@@ -10,16 +10,12 @@
           --module-background-color: ${item.color};
           --module-background-image: url(${item.imageUrl});
           --module-background-position: ${item.backgroundPosition};`"
-        :class="[
-          'module-card',
-          item.isMain && 'module-card_main',
-          !item.openRouteName && 'disable',
-        ]"
+        :class="['module-card', !item.openRouteName && 'disable']"
         @click="$router.push({name: item.openRouteName})"
       >
         <div>
           <h3 class="module-name">{{ item.name }}</h3>
-          <p>{{ item.description }}</p>
+          <p class="module-description">{{ item.description }}</p>
         </div>
 
         <BaseButton
@@ -66,7 +62,6 @@ export default {
         openRouteName: 'OnlineHome',
         createRouteName: 'OnlineCreateWorkspace',
         color: '#E0E5FF',
-        isMain: true,
         imageUrl: require('@/assets/modules/online.svg'),
         backgroundPosition: 'right 33px bottom',
       },
@@ -77,7 +72,6 @@ export default {
         openRouteName: 'SocialHome',
         createRouteName: 'SocialCreateWorkspace',
         color: '#FCDCE3',
-        isMain: true,
         imageUrl: require('@/assets/modules/social-media.svg'),
         backgroundPosition: 'right 23px bottom',
       },
@@ -88,7 +82,6 @@ export default {
         openRouteName: '',
         createRouteName: '',
         color: '#C0DFF4',
-        isMain: true,
         imageUrl: require('@/assets/modules/tv&radio.svg'),
         backgroundPosition: 'right bottom',
       },
@@ -99,7 +92,6 @@ export default {
         openRouteName: 'Reports',
         createRouteName: 'CreateReport',
         color: '#E5E9FC',
-        isMain: false,
         imageUrl: require('@/assets/modules/reports.svg'),
         backgroundPosition: 'right 14px bottom 12px',
       },
@@ -110,8 +102,17 @@ export default {
         openRouteName: 'Alerts',
         createRouteName: 'CreateAlert',
         color: '#FFEDF1',
-        isMain: false,
         imageUrl: require('@/assets/modules/alerts.svg'),
+        backgroundPosition: 'right bottom',
+      },
+      {
+        name: 'Account Analysis',
+        description: 'Monitor social media content created by influencers',
+        buttonName: 'Add Report',
+        openRouteName: 'AccountAnalysis',
+        createRouteName: 'AccountAnalysisCreateWorkspace',
+        color: '#E5E9FC',
+        imageUrl: require('@/assets/modules/account-analysis.svg'),
         backgroundPosition: 'right bottom',
       },
     ]
@@ -133,8 +134,8 @@ export default {
   flex-direction: column;
   justify-content: space-between;
 
-  width: 320px;
-  height: 160px;
+  width: 436px;
+  height: 196px;
   padding: 20px;
 
   background: no-repeat var(--module-background-position)
@@ -148,14 +149,13 @@ export default {
   &:hover {
     transform: scale(1.075);
   }
-
-  &_main {
-    width: 436px;
-    height: 196px;
-  }
 }
 
 .module-name {
   font-size: 20px;
+}
+
+.module-description {
+  width: 60%;
 }
 </style>

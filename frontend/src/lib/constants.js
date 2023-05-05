@@ -104,4 +104,11 @@ export const socialWidgetsList = {
   ],
 }
 
+export const accountAnalysisWidgetsList = {
+  dashboard: [
+    {name: 'summary', isFullWidth: true},
+    {name: 'profile_timeline', isFullWidth: true},
+  ],
+}
+
 export const PREDEFINED_COLORS = ['#EE51AF', '#00B884', '#516BEE', '#DD8500']

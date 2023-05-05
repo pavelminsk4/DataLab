@@ -263,4 +263,13 @@ export default {
   [get.CREATE_REPORTS_STEP](state) {
     return state.newReport.step
   },
+
+  // Alerts
+
+  [get.ALERTS](state) {
+    return state.alerts
+  },
+  [get.CREATE_ALERT_STEP](state) {
+    return state.newAlert.step
+  },
 }
