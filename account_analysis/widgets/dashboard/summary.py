@@ -14,18 +14,21 @@ def account_analysis_summary(pk, widget_pk):
   difference_tweets = float(user_tracker_analysis.tweets_end) - float(user_tracker_analysis.tweets_start)
   res = {
     'user_name': user_post.user_name,
+    'user_picture': user_post.user_picture,
     'user_alias': project.profile_handle,
     'user_bio': user_post.user_bio,
+    'user_value': user_post.user_value,
     'verified': user_post.user_verified,
     'location': user_post.user_location,
-    'user_value': user_post.user_value,
-    'total_followers': user_tracker_analysis.followers_end,
-    'total_following': user_tracker_analysis.following_end,
-    'total_tweets': user_tracker_analysis.tweets_end,
-    'tweets_this_period': difference_tweets,
-    'engagements': user_tracker_analysis.engagement_value_end,
-    'avg_likes_per_post': (float(user_tracker_analysis.favorites_end) - float(user_tracker_analysis.favorites_start)) / difference_tweets if difference_tweets else 0,
-    'avg_retweets_per_post':(float(user_tracker_analysis.retweets_end) - float(user_tracker_analysis.retweets_start))/ difference_tweets if difference_tweets else 0, 
-    'avg_engagement_rate': (float(user_tracker_analysis.engagement_value_end) - float(user_tracker_analysis.engagement_value_start)) / difference_tweets if difference_tweets else 0,
+    'stats' : {
+      'total_followers': user_tracker_analysis.followers_end,
+      'total_following': user_tracker_analysis.following_end,
+      'total_tweets': user_tracker_analysis.tweets_end,
+      'tweets_this_period': difference_tweets,
+      'engagements': user_tracker_analysis.engagement_value_end,
+      'avg_likes_per_post': (float(user_tracker_analysis.favorites_end) - float(user_tracker_analysis.favorites_start)) / difference_tweets if difference_tweets else 0,
+      'avg_retweets_per_post':(float(user_tracker_analysis.retweets_end) - float(user_tracker_analysis.retweets_start))/ difference_tweets if difference_tweets else 0,
+      'avg_engagement_rate': (float(user_tracker_analysis.engagement_value_end) - float(user_tracker_analysis.engagement_value_start)) / difference_tweets if difference_tweets else 0,
     }
+  }
   return JsonResponse(res, safe=False)

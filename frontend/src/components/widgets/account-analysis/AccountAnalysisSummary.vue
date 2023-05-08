@@ -1,5 +1,5 @@
 <template>
-  <AccountAnalysisSummaryWidget />
+  <AccountAnalysisSummaryWidget :widget-data="summary" />
 </template>
 
 <script>
@@ -25,13 +25,6 @@ export default {
     }),
     summary() {
       return this.accountAnalysisWidgets.summary
-    },
-    labels() {
-      return ''
-    },
-    chartValues() {
-      if (!this.summary.length) return
-      return ''
     },
   },
   created() {

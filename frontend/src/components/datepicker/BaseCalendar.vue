@@ -232,10 +232,6 @@ export default {
   z-index: 2;
 }
 
-.open-calendar {
-  transform: rotate(180deg);
-}
-
 .fixed-period-wrapper {
   display: flex;
   flex-wrap: wrap;

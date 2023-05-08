@@ -130,7 +130,7 @@ export default {
   list-style: none;
   .widgets__item {
     width: calc(50% - 15px);
-    min-height: 400px;
+    min-height: 230px;
     .summary-widget__container {
       display: block;
     }
