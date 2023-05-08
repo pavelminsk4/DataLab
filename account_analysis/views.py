@@ -4,6 +4,7 @@ from .widgets.dashboard.most_engaging_media_types import *
 from .widgets.dashboard.most_frequent_media_types import *
 from .widgets.dashboard.most_frequent_post_types import *
 from .widgets.dashboard.most_engaging_post_types import *
+from .widgets.optimization.optimal_post_length import *
 from .widgets.dashboard.profile_timeline import *
 from .widgets.dashboard.follower_growth import *
 from .widgets.dashboard.summary import *
@@ -86,6 +87,9 @@ def most_engaging_media_types_widget(request, pk, widget_pk):
 
 def follower_growth_widget(request, pk, widget_pk):
     return follower_growth(request, pk, widget_pk)
+
+def optimal_post_length_widgets(request, pk, widget_pk):
+    return optimal_post_length(pk, widget_pk)
 
 def list_of_profile_handle(request):
     profile_handles = TweetBinderPost.objects.order_by(
