@@ -162,8 +162,8 @@ export default {
     selectedValueProxy: {
       get() {
         return (
-          this.capitalizeFirstLetter(this.currentProject.sentiment_filter) ||
-          this.selectedValue
+          this.selectedValue ||
+          this.capitalizeFirstLetter(this.currentProject.sentiment_filter)
         )
       },
       set(sentiment) {
@@ -202,6 +202,7 @@ export default {
       language: this.currentProject.language_filter,
       source: this.currentProject.source_filter,
       author: this.currentProject.author_filter,
+      sentiment: this.currentProject.sentiment_filter,
     })
   },
   watch: {
