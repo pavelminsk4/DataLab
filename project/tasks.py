@@ -41,7 +41,7 @@ def post_creator():
   ssl._create_default_https_context = ssl._create_unverified_context #fix SSL issue in local machine and prod server
   datas = []
   i = 0
-  for sample in split_links(1):
+  for sample in split_links(10):
   #sample = split_links(10).page(162)
     for feed in sample:
       print('---->i')

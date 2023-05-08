@@ -153,7 +153,7 @@ export default {
       get() {
         return (
           this.selectedValue ||
-          this.capitalizeFirstLetter(this.currentProject.sentiment_filter[0])
+          this.capitalizeFirstLetter(this.currentProject.sentiment_filter)
         )
       },
       set(sentiment) {
