@@ -27,6 +27,7 @@
 
       <DimensionsScreen
         v-if="panelName === 'Dimensions'"
+        :module-name="widgetDetails.moduleName"
         :project-id="widgetDetails.projectId"
         :authors-dimensions="widgetDetails.author_dim_pivot"
         :countries-dimensions="widgetDetails.country_dim_pivot"
@@ -38,7 +39,7 @@
 
       <ChartTypesRadio
         v-if="panelName === 'Chart Layout'"
-        :selected="widgetDetails.chart_type"
+        :selected="widgetDetails.chart_type || widgetDetails.defaultChartType"
         :widget-name="widgetDetails.name"
         :project-id="widgetDetails.projectId"
         :widget-data="widgetDetails"

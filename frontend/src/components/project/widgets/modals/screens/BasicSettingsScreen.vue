@@ -1,11 +1,11 @@
 <template>
   <div class="options-wrapper">
-    <div class="title">Widget Title</div>
     <BaseInput
       v-model="title"
+      label="Widget Title"
       :hasError="!!errors.titleError"
       :errorMessage="errors.titleError"
-      class="input-title"
+      class="input-title title"
       @update="errors.titleError = null"
     />
 

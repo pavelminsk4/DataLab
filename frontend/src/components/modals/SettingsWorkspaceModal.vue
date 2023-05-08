@@ -19,14 +19,13 @@
 
       <section class="form-sections">
         <div v-if="settingName === 'General'" class="settings-wrapper">
-          <div class="form-title">Workspace name</div>
-
           <BaseInput
             v-model.trim="title"
+            label="Workspace name"
             :is-settings="true"
             :hasError="!!titleError"
             :errorMessage="titleError"
-            class="input-settings"
+            class="form-title"
             @blur="validation"
           />
 
@@ -166,16 +165,12 @@ export default {
   margin-top: 25px;
 
   .form-title {
-    margin-bottom: 12px;
+    margin: 20px 0 12px 0;
 
     font-weight: 500;
     font-size: 14px;
     line-height: 110%;
     color: var(--typography-primary-color);
-  }
-
-  .input-settings {
-    margin-bottom: 24px;
   }
 
   .button {

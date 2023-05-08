@@ -19,6 +19,8 @@ from docx.oxml.shared import OxmlElement
 from docx.oxml.ns import qn
 from docx.enum.table import WD_ALIGN_VERTICAL
 from docx.shared import RGBColor
+from project.models import Project
+from widgets.models import WidgetsList2, ClippingFeedContentWidget
 
 def export_title(project_id):
   proj = get_object_or_404(Project, pk=project_id)

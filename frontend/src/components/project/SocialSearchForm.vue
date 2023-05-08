@@ -132,10 +132,10 @@ export default {
       sentiments: ['Negative', 'Neutral', 'Positive'],
       selectedValue: '',
       clearValue: false,
-      country: '',
-      language: '',
-      source: '',
-      author: '',
+      country: [],
+      language: [],
+      source: [],
+      author: [],
     }
   },
   computed: {
@@ -152,17 +152,17 @@ export default {
     selectedValueProxy: {
       get() {
         return (
-          this.capitalizeFirstLetter(this.currentProject.sentiment_filter) ||
-          this.selectedValue
+          this.selectedValue ||
+          this.capitalizeFirstLetter(this.currentProject.sentiment_filter[0])
         )
       },
       set(sentiment) {
         this.selectedValue = sentiment
         if (sentiment === 'All sentiments') {
-          this[action.UPDATE_ADDITIONAL_FILTERS]({sentiment: null})
+          this[action.UPDATE_ADDITIONAL_FILTERS]({sentiment: []})
         } else {
           this[action.UPDATE_ADDITIONAL_FILTERS]({
-            sentiment: this.selectedValue?.toLocaleLowerCase(),
+            sentiment: [this.selectedValue?.toLocaleLowerCase()],
           })
         }
       },
@@ -182,27 +182,28 @@ export default {
     },
   },
   created() {
-    this.country = this.currentProject?.country_filter || ''
-    this.language = this.currentProject?.language_filter || ''
-    this.source = this.currentProject?.source_filter || ''
-    this.author = this.currentProject?.author_filter || ''
+    this.country = this.currentProject?.country_filter || []
+    this.language = this.currentProject?.language_filter || []
+    this.source = this.currentProject?.source_filter || []
+    this.author = this.currentProject?.author_filter || []
 
     this[action.UPDATE_ADDITIONAL_FILTERS]({
       country: this.currentProject.country_filter,
       language: this.currentProject.language_filter,
       source: this.currentProject.source_filter,
       author: this.currentProject.author_filter,
+      sentiment: this.currentProject.sentiment_filter,
     })
   },
   watch: {
     async keywords() {
       if (!this.keywords.keywords?.length) {
         this.clearValue = true
-        this.country = ''
-        this.language = ''
-        this.source = ''
-        this.author = ''
-        this.selectedValue = ''
+        this.country = []
+        this.language = []
+        this.source = []
+        this.author = []
+        this.selectedValue = []
       }
     },
   },
@@ -222,10 +223,10 @@ export default {
     selectItem(name, val) {
       try {
         this[name] = val
-        if (val === 'Reject selection') {
+        if (val === '') {
           this[action.UPDATE_ADDITIONAL_FILTERS]({[name]: null})
         } else {
-          this[action.UPDATE_ADDITIONAL_FILTERS]({[name]: val})
+          this[action.UPDATE_ADDITIONAL_FILTERS]({[name]: [val]})
         }
       } catch (e) {
         console.log(e)

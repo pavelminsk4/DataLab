@@ -69,6 +69,7 @@ const SIMPLE_CHARTS = [
   CHARTS.pie,
   CHARTS.radar,
   CHARTS.doughnut,
+  CHARTS.horizontalBarChart,
 ]
 const SENTIMENTS_CHARTS = [CHARTS.horizontalBarChart, CHARTS.bar]
 
@@ -184,6 +185,7 @@ export const widgetsConfig = {
     hasAggregationPeriod: false,
     actionName: action.GET_TOP_KEYWORDS_WIDGET,
     defaultChartType: 'WordCloudChart',
+    settingsTabs: ['General', 'Dimensions'],
   },
 
   sentiment_diagram: {
@@ -208,6 +210,7 @@ export const widgetsConfig = {
     hasAggregationPeriod: false,
     actionName: action.GET_SENTIMENT_TOP_KEYWORDS_WIDGET,
     defaultChartType: 'SentimentWordCloudChart',
+    settingsTabs: ['General', 'Dimensions'],
   },
 
   authors_by_country: {
@@ -215,6 +218,7 @@ export const widgetsConfig = {
     hasAggregationPeriod: false,
     actionName: action.GET_AUTHORS_BY_COUNTRY,
     defaultChartType: 'WorldMapChart',
+    settingsTabs: ['General', 'Dimensions'],
   },
 
   sources_by_language: {
@@ -240,6 +244,7 @@ export const widgetsConfig = {
     actionName: action.GET_OVERALL_TOP_SOURCES,
     defaultChartType: 'SentimentBarChart',
     availableTypes: null,
+    settingsTabs: ['General', 'Dimensions'],
   },
 
   //social widgets
@@ -294,6 +299,7 @@ export const widgetsConfig = {
     hasAggregationPeriod: false,
     defaultChartType: null,
     availableTypes: null,
+    settingsTabs: ['General', 'Dimensions'],
   },
   content_volume_by_top_locations: {
     ...WIDGET_DEFAULT_SETTINGS,
@@ -316,10 +322,12 @@ export const widgetsConfig = {
 
   overall_top_authors: {
     ...WIDGET_DEFAULT_SETTINGS,
+    hasPreview: false,
     hasAggregationPeriod: false,
     actionName: action.GET_OVERALL_TOP_AUTHORS,
     defaultChartType: 'SentimentBarChart',
     availableTypes: null,
+    settingsTabs: ['General', 'Dimensions'],
   },
   top_authors_by_gender: {
     ...WIDGET_DEFAULT_SETTINGS,

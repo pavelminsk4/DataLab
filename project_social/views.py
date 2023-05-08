@@ -114,15 +114,15 @@ def twitter_posts_search(request):
   if exceptions:
     posts = exclude_keywords_posts(posts, exceptions)
   if country:
-    posts = posts.filter(locationString=country)
+    posts = posts.filter(reduce(lambda x,y: x | y, [Q(locationString=c) for c in country]))
   if language:
-    posts = posts.filter(language=language)
+    posts = posts.filter(reduce(lambda x,y: x | y, [Q(language=lan) for lan in language])) 
   if source:
-    posts = posts.filter(source=source)
+    posts = posts.filter(reduce(lambda x,y: x | y, [Q(source=s) for s in source])) 
   if author:
-    posts = posts.filter(user_name=author)
+    posts = posts.filter(reduce(lambda x,y: x | y, [Q(user_name=a) for a in author]))
   if sentiment:
-    posts = posts.filter(sentiment=sentiment)
+    posts = posts.filter(reduce(lambda x,y: x | y, [Q(sentiment=sen) for sen in sentiment])) 
   if country_dimensions:
     posts = posts.filter(reduce(lambda x,y: x | y, [Q(locationString=country) for country in country_dimensions]))
   if language_dimensions:

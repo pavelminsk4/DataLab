@@ -69,6 +69,32 @@ export default {
     )
   },
 
+  async postDimensionsForWidget({projectId, widgetId, data}) {
+    return fetch(
+      'patch',
+      `${moduleName}/dimensions_for_each_widgets/${projectId}/${widgetId}`,
+      data
+    )
+  },
+
+  async getDimensionAuthors(projectId) {
+    return fetch('get', `${moduleName}/projects/${projectId}/dimension_authors`)
+  },
+
+  async getDimensionLanguages(projectId) {
+    return fetch(
+      'get',
+      `${moduleName}/projects/${projectId}/dimension_languages`
+    )
+  },
+
+  async getDimensionCountries(projectId) {
+    return fetch(
+      'get',
+      `${moduleName}/projects/${projectId}/dimension_countries`
+    )
+  },
+
   //filters
   async getCountries(word) {
     return fetch('get', `${moduleName}/social_locations_list?search=${word}`)

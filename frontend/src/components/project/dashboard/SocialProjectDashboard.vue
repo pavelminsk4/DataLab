@@ -58,13 +58,13 @@
       </BaseDropdown>
 
       <div class="menu-buttons">
-        <BaseButton
+        <!-- <BaseButton
           :is-not-background="true"
           class="button-upload"
           @click="toggleWidgetsModal('DownloadReportModal')"
         >
           <ReportsUploadIcon /> Download Report
-        </BaseButton>
+        </BaseButton> -->
 
         <div class="navigation-bar">
           <BaseButton
@@ -111,7 +111,7 @@ import PlusIcon from '@/components/icons/PlusIcon'
 import WidgetsListModal from '@/components/widgets/modals/WidgetsListModal'
 import DimensionsIcon from '@/components/icons/DimensionsIcon'
 import SocialDimensionsModal from '@/components/project/modals/social/SocialDimensionsModal'
-import ReportsUploadIcon from '@/components/icons/ReportsUploadIcon'
+// import ReportsUploadIcon from '@/components/icons/ReportsUploadIcon'
 import DownloadReportModal from '@/components/project/modals/DownloadReportModal'
 import BaseDropdown from '@/components/BaseDropdown'
 import MainLayoutTitleBlock from '@/components/layout/MainLayoutTitleBlock'
@@ -126,7 +126,7 @@ export default {
     MainLayoutTitleBlock,
     BaseDropdown,
     DownloadReportModal,
-    ReportsUploadIcon,
+    // ReportsUploadIcon,
     SocialDimensionsModal,
     DimensionsIcon,
     WidgetsListModal,

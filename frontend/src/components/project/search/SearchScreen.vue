@@ -5,7 +5,7 @@
       :description="currentProject.note"
       :back-page="{
         name: 'workspace',
-        routName: 'SocialWorkspace',
+        routName: `${moduleName}Workspace`,
       }"
     >
       <div class="search-results-count">{{ numberOfPosts }} results</div>
@@ -79,10 +79,7 @@ export default {
           this.keywords?.ignore_keywords || this.currentExcludeKeywords,
         country: this.additionalFilters?.country || [],
         language: this.additionalFilters?.language || [],
-        sentiment:
-          this.additionalFilters?.sentiment ||
-          this.currentProject?.sentiment_filter ||
-          [],
+        sentiment: this.additionalFilters?.sentiment,
         date_range: [
           this.additionalFilters?.date_range[0] ||
             this.currentProject?.start_search_date,
@@ -107,11 +104,11 @@ export default {
       this.$emit('update-project', {
         title: this.currentProject?.title,
         note: this.currentProject?.note || '',
-        keywords: this.currentKeywords || this.keywords?.keywords,
+        keywords: this.keywords?.keywords || this.currentKeywords,
         additional_keywords:
-          this.currentAdditionalKeywords || this.keywords?.additional_keywords,
+          this.keywords?.additional_keywords || this.currentAdditionalKeywords,
         ignore_keywords:
-          this.currentExcludeKeywords || this.keywords?.ignore_keywords,
+          this.keywords?.ignore_keywords || this.currentExcludeKeywords,
         max_items: '',
         image: null,
         arabic_name: '',
@@ -128,10 +125,7 @@ export default {
         source_filter: this.additionalFilters?.source || null,
         author_filter: this.additionalFilters?.author || null,
         language_filter: this.additionalFilters?.language || null,
-        sentiment_filter:
-          this.additionalFilters?.sentiment ||
-          this.currentProject?.sentiment_filter ||
-          null,
+        sentiment_filter: this.additionalFilters?.sentiment,
         country_filter: this.additionalFilters?.country || null,
         sort_posts: [],
         query_filter: this.query || this.currentProject?.query_filter,

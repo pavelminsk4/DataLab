@@ -11,7 +11,7 @@
   <component
     :is="`${moduleName}WidgetSettingsModal`"
     v-if="isOpenWidgetSettingsModal"
-    :widgetDetails="currentWidget"
+    :widgetDetails="selectedWidgets[currentWidgetIndex].widgetDetails"
     @close="closeModal"
   />
   <ul class="widgets">
@@ -63,6 +63,7 @@ export default {
     return {
       isOpenWidgetSettingsModal: false,
       currentWidget: null,
+      currentWidgetIndex: 0,
     }
   },
   computed: {
@@ -81,6 +82,9 @@ export default {
       postSocialInteractiveData: action.POST_INTERACTIVE_WIDGETS,
     }),
     openModal(widget) {
+      this.currentWidgetIndex = this.selectedWidgets.findIndex(
+        (element) => element.widgetDetails.name === widget.name
+      )
       this.currentWidget = widget
       this.isOpenWidgetSettingsModal = !this.isOpenWidgetSettingsModal
     },
