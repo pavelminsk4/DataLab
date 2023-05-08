@@ -401,6 +401,13 @@ export const widgetsConfig = {
     availableTypes: null,
   },
 
+  most_engaging_post_types: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    actionName: action.GET_MOST_ENGAGING_POST_TYPES,
+    defaultChartType: 'BarChart',
+    availableTypes: null,
+  },
+
   account_analysis_summary_widget: {
     ...WIDGET_DEFAULT_SETTINGS,
     actionName: action.GET_ACCOUNT_ANALYSIS_SUMMARY_WIDGET,

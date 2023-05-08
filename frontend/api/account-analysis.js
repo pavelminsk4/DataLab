@@ -60,4 +60,11 @@ export default {
       `${moduleName}/most_frequent_media_types_widget/${projectId}/${widgetId}`
     )
   },
+  async getMostEngagingPostTypes(projectId, widgetId, value) {
+    return fetch(
+      'post',
+      `${moduleName}/most_engaging_post_types_widget/${projectId}/${widgetId}`,
+      {aggregation_period: value}
+    )
+  },
 }

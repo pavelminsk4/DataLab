@@ -11,6 +11,7 @@ import ProfileTimeline from '@/components/widgets/account-analysis/ProfileTimeli
 import Summary from '@/components/widgets/account-analysis/AccountAnalysisSummary'
 import MostFrequentMediaTypes from '@/components/widgets/account-analysis/MostFrequentMediaTypes'
 import MostFrequentPostTypes from '@/components/widgets/account-analysis/MostFrequentPostTypes'
+import MostEngagingPostTypes from '@/components/widgets/account-analysis/MostEngagingPostTypesWidget'
 
 export default {
   name: 'AccountAnalysisMainWidget',
@@ -19,6 +20,7 @@ export default {
     Summary,
     MostFrequentMediaTypes,
     MostFrequentPostTypes,
+    MostEngagingPostTypes,
   },
   props: {
     widgetDetails: {type: Object, required: true},

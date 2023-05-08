@@ -66,4 +66,23 @@ export default {
       commit(mutator.SET_LOADING, false, {root: true})
     }
   },
+
+  async [action.GET_MOST_ENGAGING_POST_TYPES](
+    {commit},
+    {projectId, widgetId, value}
+  ) {
+    commit(mutator.SET_LOADING, true, {root: true})
+    try {
+      const postTypes = await api.accountAnalysis.getMostEngagingPostTypes(
+        projectId,
+        widgetId,
+        value
+      )
+      commit(mutator.SET_MOST_ENGAGING_POST_TYPES, postTypes)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false, {root: true})
+    }
+  },
 }

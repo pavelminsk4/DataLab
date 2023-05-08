@@ -3,6 +3,7 @@ const state = {
   summary: {},
   mostFrequentPostTypes: {},
   mostFrequentMediaTypes: {},
+  mostEngagingPostTypes: {},
 }
 
 export default state

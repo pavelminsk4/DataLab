@@ -110,6 +110,7 @@ export const accountAnalysisWidgetsList = {
     {name: 'profile_timeline', isFullWidth: true},
     {name: 'most_frequent_post_types', isFullWidth: false},
     // {name: 'most_frequent_media_types', isFullWidth: false},
+    {name: 'most_engaging_post_types', isFullWidth: false},
   ],
 }
 
