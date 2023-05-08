@@ -103,6 +103,7 @@ class AccountAnalysisWidgetsList(models.Model):
     most_frequent_media_types = models.ForeignKey(AccountAnalysisWidgetDescription, on_delete=models.CASCADE, related_name='account_analysis_most_frequent_media_types', null=True)
     most_engaging_media_types = models.ForeignKey(AccountAnalysisWidgetDescription, on_delete=models.CASCADE, related_name='account_analysis_most_engaging_media_types', null=True)
     follower_growth = models.ForeignKey(AccountAnalysisWidgetDescription, on_delete=models.CASCADE, related_name='follower_growth', null=True)
+    optimal_post_length = models.ForeignKey(AccountAnalysisWidgetDescription, on_delete=models.CASCADE, related_name='optimal_post_length', null=True)
 
     def __str__(self):
         return str(self.project)
@@ -131,6 +132,8 @@ def create_social_widget_description(sender, instance, created, **kwargs):
         wd6.save()
         wd7 = AccountAnalysisWidgetDescription.objects.create(title='Follower growth', default_title='Follower growth')
         wd7.save()
+        wd8 = AccountAnalysisWidgetDescription.objects.create(title='Optimal post length', default_title='Optimal post length')
+        wd8.save()
         instance.summary = wd1
         instance.profile_timeline = wd2
         instance.most_frequent_post_types = wd3
@@ -138,4 +141,5 @@ def create_social_widget_description(sender, instance, created, **kwargs):
         instance.most_frequent_media_types = wd5
         instance.most_engaging_media_types = wd6
         instance.follower_growth = wd7
+        instance.optimal_post_length = wd8
         instance.save()
