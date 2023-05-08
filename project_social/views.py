@@ -1,4 +1,5 @@
-from rest_framework.generics import ListAPIView, CreateAPIView, DestroyAPIView, UpdateAPIView, RetrieveAPIView, ListCreateAPIView
+from rest_framework.generics import ListAPIView, CreateAPIView, DestroyAPIView, UpdateAPIView, RetrieveAPIView
+from rest_framework import viewsets, filters, generics
 from .widgets.dashboard.content_volume_by_top_locations import *
 from .widgets.dashboard.content_volume_by_top_languages import *
 from .widgets.dashboard.content_volume_by_top_authors import *
@@ -26,9 +27,9 @@ from .widgets.demography.top_authors_by_gender import *
 from .widgets.demography.authors_by_location import *
 from .widgets.demography.authors_by_language import *
 from .widgets.demography.authors_by_gender import *
-from rest_framework import viewsets, filters
 from django.core.paginator import Paginator
 from .widgets.interactive_widgets import *
+from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from django.db.models import Q
 from functools import reduce
@@ -253,9 +254,9 @@ class UpdateSocialProjectsWidgetsAPIView(UpdateAPIView):
   
 class SocialAuthorList(ListAPIView):
   serializer_class = TweetBinderPostAuthorSerializer
-  queryset = TweetBinderPost.objects.distinct('user_name')
+  queryset = TweetBinderPost.objects.distinct('user_alias')
   filter_backends = [filters.SearchFilter]
-  search_fields = ['^user_name']
+  search_fields = ['^user_alias']
 
 class SocialLocationList(ListAPIView):
   serializer_class = TweetBinderPostLocationSerializer
@@ -278,3 +279,33 @@ class SocialClippingWidgetDelete(DestroyAPIView):
 class SocialClippingWidget(viewsets.ModelViewSet):
   serializer_class = SocialClippingWidgetSerializer
   queryset = SocialClippingWidget.objects.all()
+
+class ListAuthorsInProject(generics.ListAPIView):
+  serializer_class = TweetBinderPostAuthorSerializer
+  
+  def get_queryset(self):
+    pk = self.kwargs.get('pk', None)
+    project = get_object_or_404(ProjectSocial, pk=pk)
+    posts = posts_agregator(project)
+    queryset = posts.values('user_alias').order_by('user_alias').distinct()
+    return queryset   
+
+class ListLanguagesInProject(generics.ListAPIView):
+  serializer_class = TweetBinderPostLanguageSerializer
+  
+  def get_queryset(self):
+    pk = self.kwargs.get('pk', None)
+    project = get_object_or_404(ProjectSocial, pk=pk)
+    posts = posts_agregator(project)
+    queryset = posts.values('language').order_by('language').distinct()
+    return queryset   
+
+class ListLocationsInProject(generics.ListAPIView):
+  serializer_class = TweetBinderPostLocationSerializer
+  
+  def get_queryset(self):
+    pk = self.kwargs.get('pk', None)
+    project = get_object_or_404(ProjectSocial, pk=pk)
+    posts = posts_agregator(project)
+    queryset = posts.values('locationString').order_by('locationString').distinct()
+    return queryset   

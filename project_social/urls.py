@@ -51,6 +51,10 @@ urlpatterns = [
   path('social_authors_list', views.SocialAuthorList.as_view(), name='social_authors_list'),
   path('social_locations_list', views.SocialLocationList.as_view(), name='social_locations_list'),
   path('social_languages_list', views.SocialLanguageList.as_view(), name='social_languages_list'),
+  # Data for dimensions on the widget
+  path('projects/<int:pk>/dimension_languages', views.ListLanguagesInProject.as_view(), name='dim_languages'),
+  path('projects/<int:pk>/dimension_countries', views.ListLocationsInProject.as_view(), name='dim_countries'),
+  path('projects/<int:pk>/dimension_authors', views.ListAuthorsInProject.as_view() ,name='dim_authors'),
 ]
 
 router.register('projects', ProjectsSotialViewSet)
