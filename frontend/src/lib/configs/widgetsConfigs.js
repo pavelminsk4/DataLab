@@ -421,7 +421,7 @@ export const widgetsConfig = {
     actionName: action.GET_MOST_FREQUENT_POST_TYPES,
     hasAggregationPeriod: false,
     defaultChartType: 'DoughnutChart',
-    availableTypes: SIMPLE_CHARTS,
+    availableTypes: null,
   },
 }
 
