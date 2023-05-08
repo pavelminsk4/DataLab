@@ -1,6 +1,6 @@
 <template>
   <MostEngagingTypesWidget
-    v-if="mostEngagingPostTypes.length"
+    v-if="Object.values(mostEngagingPostTypes)"
     v-bind="$attrs"
     :widget-details="widgetDetails"
     :labels="labels"
@@ -38,14 +38,19 @@ export default {
     },
     chartValues() {
       return [
-        {color: '#551EB9', data: this.mostEngagingPostTypes.count_replies},
-        {color: '#01A4EE', data: this.mostEngagingPostTypes.count_retweets},
-        {color: '#FFBB01', data: this.mostEngagingPostTypes.count_tweets},
+        {
+          color: ['#551EB9', '#01A4EE', '#FFBB01'],
+          data: [
+            +this.mostEngagingPostTypes.tweets_engagement,
+            +this.mostEngagingPostTypes.replies_engagement,
+            +this.mostEngagingPostTypes.retweets_engagement,
+          ],
+        },
       ]
     },
   },
   created() {
-    if (!this.mostEngagingPostTypes.length) {
+    if (!Object.values(this.mostEngagingPostTypes).length) {
       this[action.GET_MOST_ENGAGING_POST_TYPES]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,
