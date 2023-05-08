@@ -256,6 +256,7 @@ export default {
     display: flex;
     gap: 10px;
 
+    height: auto;
     padding: 8px 12px;
 
     font-style: normal;

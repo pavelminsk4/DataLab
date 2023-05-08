@@ -207,6 +207,14 @@ export default {
     }
   },
 
+  [get.SOCIAL_DIMENSIONS_LIST](state) {
+    return {
+      authors: state.dimensionAuthors?.map((el) => el.user_alias),
+      countries: state.dimensionCountries?.map((el) => el.locationString),
+      languages: state.dimensionLanguages?.map((el) => el.language),
+    }
+  },
+
   [get.DIMENSION_SOURCES](state) {
     return state.dimensionSources
   },

@@ -32,11 +32,9 @@ def filling_social_template(template_path, proj_pk):
 
 
 def report_generator(proj_pk, model):
-    proj = model.objects.get(id=proj_pk)
-    format = proj.report_format
-    template_path = str(proj.report_template.layout_file)
+    template_path = 'static/report_templates/RSDC_Export_Template_EN.docx'
     docx_path = 'tmp/temp.docx'
-    report_path = 'tmp/temp.' + format
+    report_path = 'tmp/temp.pdf'
     if model == Project:
         prepare_widget_images(proj_pk)
         filling_template(template_path, proj_pk)
@@ -51,7 +49,6 @@ def report_generator(proj_pk, model):
     }
     response.as_attachment = True
     return response
-
 
 def online_instantly_report(request, proj_pk, dep_pk):
     return report_generator(proj_pk, Project)

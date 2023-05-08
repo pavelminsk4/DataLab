@@ -233,4 +233,77 @@ export default {
       commit(mutator.SET_LOADING, false)
     }
   },
+
+  async [action.POST_DIMENSIONS_FOR_WIDGET](
+    {commit},
+    {projectId, widgetId, data}
+  ) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      await api.social.postDimensionsForWidget({projectId, widgetId, data})
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
+  async [action.GET_DIMENSION_AUTHORS]({commit}, projectId) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const dimensionAuthors = await api.social.getDimensionAuthors(projectId)
+      commit(mutator.SET_DIMENSION_AUTHORS, dimensionAuthors, {
+        root: true,
+      })
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
+  async [action.GET_DIMENSION_COUNTRIES]({commit}, projectId) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const dimensionCountries = await api.social.getDimensionCountries(
+        projectId
+      )
+      commit(mutator.SET_DIMENSION_COUNTRIES, dimensionCountries, {
+        root: true,
+      })
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
+  async [action.GET_DIMENSION_LANGUAGES]({commit}, projectId) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const dimensionLanguages = await api.social.getDimensionLanguages(
+        projectId
+      )
+      commit(mutator.SET_DIMENSION_LANGUAGES, dimensionLanguages, {
+        root: true,
+      })
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
+  async [action.GET_SOCIAL_DIMENSIONS_OPTIONS]({commit, dispatch}, projectId) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      await dispatch(action.GET_DIMENSION_AUTHORS, projectId)
+      await dispatch(action.GET_DIMENSION_COUNTRIES, projectId)
+      await dispatch(action.GET_DIMENSION_LANGUAGES, projectId)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
 }

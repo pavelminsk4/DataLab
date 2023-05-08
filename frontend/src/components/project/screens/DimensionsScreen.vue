@@ -46,9 +46,10 @@
       class="select"
     />
 
-    <div class="title">Source</div>
+    <div v-if="moduleName === 'Online'" class="title">Source</div>
 
     <SelectWithCheckboxes
+      v-if="moduleName === 'Online'"
       v-model="source"
       name="Sources"
       placeholder="Enter the source"
@@ -78,12 +79,15 @@
 
 <script>
 import {action, get} from '@store/constants'
-import {mapActions, mapGetters} from 'vuex'
+import {action as actionSocial} from '@store/constants'
+import {mapActions, mapGetters, createNamespacedHelpers} from 'vuex'
 import {capitalizeFirstLetter} from '@/lib/utilities'
 
 import BaseCheckbox from '@/components/BaseCheckbox2'
 import SelectWithCheckboxes from '@/components/SelectWithCheckboxes'
 import FilterChips from '@/components/FilterChips'
+
+const {mapActions: mapSocialActions} = createNamespacedHelpers('social')
 
 export default {
   name: 'DimensionsScreen',
@@ -93,6 +97,10 @@ export default {
     FilterChips,
   },
   props: {
+    moduleName: {
+      type: String,
+      required: true,
+    },
     projectId: {
       type: [String, Number],
       required: false,
@@ -138,7 +146,8 @@ export default {
       dimensionLanguages: get.DIMENSION_LANGUAGES,
       dimensionSources: get.DIMENSION_SOURCES,
       selectedDimensions: get.SELECTED_DIMENSIONS,
-      dimensionsList: get.DIMENSIONS_LIST,
+      dimensionsListOnline: get.DIMENSIONS_LIST,
+      dimensionsListSocial: get.SOCIAL_DIMENSIONS_LIST,
     }),
     selectedAuthorsProxy: {
       get() {
@@ -194,13 +203,27 @@ export default {
         ...this.selectedSentimentsProxy,
       ]
     },
+    dimensionsList() {
+      if (this.moduleName === 'Online') return this.dimensionsListOnline
+
+      if (this.moduleName === 'Social') return this.dimensionsListSocial
+
+      return []
+    },
   },
   created() {
     this.sentiments = ['neutral', 'negative', 'positive']
 
-    this[action.GET_DIMENSIONS_OPTIONS](this.projectId)
+    if (this.moduleName === 'Online') {
+      this[action.GET_DIMENSIONS_OPTIONS](this.projectId)
+    }
+
+    if (this.moduleName === 'Social') {
+      this[actionSocial.GET_SOCIAL_DIMENSIONS_OPTIONS](this.projectId)
+    }
   },
   methods: {
+    ...mapSocialActions([actionSocial.GET_SOCIAL_DIMENSIONS_OPTIONS]),
     ...mapActions([
       action.UPDATE_PROJECT,
       action.GET_WORKSPACES,

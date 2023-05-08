@@ -27,6 +27,7 @@
 
       <DimensionsScreen
         v-if="panelName === 'Dimensions'"
+        :module-name="widgetDetails.moduleName"
         :project-id="widgetDetails.projectId"
         :authors-dimensions="widgetDetails.author_dim_pivot"
         :countries-dimensions="widgetDetails.country_dim_pivot"
