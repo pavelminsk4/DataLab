@@ -26,6 +26,10 @@ class OptimalPostLengthWidgetTests(APITestCase):
                 'from 0 to 45': 2.0,
                 'from 140': 2.0,
                 'from 46 to 90': 2.0,
-                'from 91 to 140': 2.0
+                'from 91 to 140': 2.0,
+                'posts from 0 to 45': 2,
+                'posts from 46 to 90': 1,
+                'post from 91 to 140': 1,
+                'post from 140': 1,
               }
         self.assertEqual(json.loads(response.content), res)

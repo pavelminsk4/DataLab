@@ -75,7 +75,7 @@ class WidgetsListSerializer(WritableNestedModelSerializer):
 class TweetBinderPostAuthorSerializer(serializers.ModelSerializer):
   class Meta:
     model = TweetBinderPost
-    fields = ['user_name']
+    fields = ['user_alias']
 
 class TweetBinderPostLocationSerializer(serializers.ModelSerializer):
   class Meta:

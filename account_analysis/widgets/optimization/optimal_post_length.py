@@ -16,6 +16,10 @@ def optimal_post_length(pk, widget_pk):
             'from 0 to 45': posts_from_0_to_45.aggregate(engagement=engagement)['engagement']/posts_from_0_to_45.count() if posts_from_0_to_45.count() else 0,
             'from 46 to 90': posts_from_46_to_90.aggregate(engagement=engagement)['engagement']/posts_from_46_to_90.count() if posts_from_46_to_90.count() else 0,
             'from 91 to 140': posts_from_91_to_140.aggregate(engagement=engagement)['engagement']/posts_from_91_to_140.count() if posts_from_91_to_140.count() else 0,
-            'from 140': posts_from_140.aggregate(engagement=engagement)['engagement']/posts_from_140.count() if posts_from_140.count() else 0
+            'from 140': posts_from_140.aggregate(engagement=engagement)['engagement']/posts_from_140.count() if posts_from_140.count() else 0,
+            'posts from 0 to 45': posts_from_0_to_45.count(),
+            'posts from 46 to 90': posts_from_46_to_90.count(),
+            'post from 91 to 140': posts_from_91_to_140.count(),
+            'post from 140': posts_from_140.count(),
           }
     return JsonResponse(res, safe=False)
