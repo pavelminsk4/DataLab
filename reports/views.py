@@ -11,6 +11,7 @@ from .serializers import RegularReportSerializer
 from .models import RegularReport
 from rest_framework import viewsets
 from reports.views_filling.filling_for_report import filling_templates_for_instant_and_regular_reports
+from .services.pdf_handler import convert_docx_to_pdf
 from django.shortcuts import render
 from project_social.models import ProjectSocial, SocialWidgetsList
 
