@@ -7,9 +7,6 @@
       <section class="form-section">
         <div class="title-section">
           <h3>Instant Report</h3>
-          <div class="regular-report-link">
-            Go to Regular Report <LinkArrowIcon />
-          </div>
         </div>
 
         <div class="form">
@@ -110,7 +107,6 @@ import BaseSelect from '@/components/BaseSelect'
 import BaseModal from '@/components/modals/BaseModal'
 import DivWithError from '@/components/DivWithError'
 import BaseCheckbox from '@/components/BaseCheckbox2'
-import LinkArrowIcon from '@/components/icons/LinkArrowIcon'
 import ReportsUploadIcon from '@/components/icons/ReportsUploadIcon'
 import ReportsIcon from '@/components/icons/ReportsIcon'
 
@@ -125,7 +121,6 @@ export default {
     BaseCheckbox,
     DivWithError,
     BaseModal,
-    LinkArrowIcon,
   },
   props: {
     projectId: {
@@ -302,21 +297,6 @@ export default {
       display: flex;
       justify-content: space-between;
       align-items: center;
-
-      .regular-report-link {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-
-        margin-left: 22px;
-
-        cursor: pointer;
-        color: var(--primary-color);
-
-        &:hover {
-          text-decoration: underline;
-        }
-      }
     }
 
     .form {

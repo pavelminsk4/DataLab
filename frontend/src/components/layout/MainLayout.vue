@@ -57,8 +57,6 @@ export default {
 }
 
 .content {
-  z-index: 2;
-
   overflow: auto;
 
   width: 100%;

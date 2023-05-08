@@ -85,6 +85,7 @@ export default {
       action.GET_OVERALL_TOP_AUTHORS,
       action.GET_AUTHORS_BY_LANGUAGE,
       action.GET_AUTHORS_BY_SENTIMENT,
+      action.GET_SENTIMENT_TOP_KEYWORDS_WIDGET,
       action.POST_DIMENSIONS_FOR_WIDGET,
     ]),
 

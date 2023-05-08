@@ -4,8 +4,7 @@
       <MainLayoutTitleBlock
         v-if="workspace?.title"
         :title="workspace.title"
-        description="
-            Select the project you want to work on or create a new search"
+        :description="workspace.description"
         :back-page="backPage"
       >
         <component :is="`${moduleName}Icon`" class="online-icon" />
@@ -27,7 +26,8 @@
 
       <BaseInput
         v-model="search"
-        placeholder="Search users..."
+        label=" "
+        placeholder="Search project..."
         :isSearch="true"
         class="search-users"
       />

@@ -15,6 +15,7 @@
       <div class="search-wrapper">
         <BaseInput
           v-model="search"
+          label=" "
           placeholder="Search users..."
           :isSearch="true"
           class="search-users"
@@ -92,38 +93,44 @@
         <section v-if="isExistingUser || isNewUser" class="user-data">
           <section v-if="isNewUser">
             <h4 class="group-label">Personal info</h4>
-            <div class="label">Email</div>
             <BaseInput
               v-model="email"
+              label="Email"
               :hasError="!!errors.email"
               :errorMessage="errors.email"
               class="input-field"
             />
-            <div class="label">First name</div>
-            <BaseInput v-model="firstName" class="input-field" />
-            <div class="label">Last name</div>
-            <BaseInput v-model="lastName" class="input-field" />
+            <BaseInput
+              v-model="firstName"
+              label="First name"
+              class="input-field"
+            />
+            <BaseInput
+              v-model="lastName"
+              label="Last name"
+              class="input-field"
+            />
 
             <h4 class="group-label">Profile settings</h4>
-            <div class="label">Username</div>
             <BaseInput
               v-model="username"
+              label="Username"
               :hasError="!!errors.username"
               :errorMessage="errors.username"
               class="input-field"
             />
-            <div class="label">Password</div>
             <BaseInput
               v-model="password"
+              label="Password"
               :hasError="!!errors.password"
               :errorMessage="errors.password"
               autocomplete="new-password"
               input-type="password"
               class="input-field"
             />
-            <div class="label">Confirm password</div>
             <BaseInput
               v-model="confirmPassword"
+              label="Confirm password"
               :hasError="!!errors.password2"
               :errorMessage="errors.password2"
               autocomplete="new-password"
@@ -168,12 +175,21 @@
               </BaseButton>
             </div>
 
-            <div class="label">Name</div>
-            <BaseInput v-model="existingUserNameProxy" class="input-field" />
-            <div class="label">Surname</div>
-            <BaseInput v-model="existingUserSurnameProxy" class="input-field" />
-            <div class="label">E-mail</div>
-            <BaseInput v-model="existingUserEmailProxy" class="input-field" />
+            <BaseInput
+              v-model="existingUserNameProxy"
+              label="Name"
+              class="input-field"
+            />
+            <BaseInput
+              v-model="existingUserSurnameProxy"
+              label="Surname"
+              class="input-field"
+            />
+            <BaseInput
+              v-model="existingUserEmailProxy"
+              label="E-mail"
+              class="input-field"
+            />
 
             <div class="action-button">
               <BaseButton @click="updateUserData">
@@ -581,10 +597,6 @@ export default {
 
     font-weight: 500;
     font-size: 16px;
-  }
-
-  .label {
-    color: var(--typography-title-color);
   }
 
   .input-field {

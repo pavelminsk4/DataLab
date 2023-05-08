@@ -6,10 +6,10 @@
   >
     <WidgetSettingsScreen
       :widget-details="widgetDetails"
-      @save-dimensions-settings="saveDimensionsChanges"
-      @change-aggregation-period="changeAggregationPeriod"
       @save-general-settings="saveGeneralChanges"
+      @save-dimensions-settings="saveDimensionsChanges"
       @update-chart-type="($event) => (newChartType = $event)"
+      @change-aggregation-period="changeAggregationPeriod"
       @save-chart-settings="saveChartType"
     >
       <SocialMainWidget
