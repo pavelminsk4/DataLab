@@ -26,7 +26,7 @@ export default {
         widgetId,
         value
       )
-      commit(mutator.SET_GET_SUMMARY, summary)
+      commit(mutator.SET_SUMMARY, summary)
     } catch (e) {
       console.log(e)
     } finally {

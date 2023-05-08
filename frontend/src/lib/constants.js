@@ -106,7 +106,7 @@ export const socialWidgetsList = {
 
 export const accountAnalysisWidgetsList = {
   dashboard: [
-    // {name: 'summary', isFullWidth: true},
+    {name: 'summary', isFullWidth: true},
     {name: 'profile_timeline', isFullWidth: true},
     {name: 'most_frequent_post_types', isFullWidth: false},
     // {name: 'most_frequent_media_types', isFullWidth: false},

@@ -16,9 +16,6 @@
           default-tab="Account Activity"
           class="tabs"
         />
-        <BaseButton :is-not-background="true" class="btn-report">
-          <ReportsUploadIcon /> Download Report
-        </BaseButton>
       </div>
       <router-view :current-project="currentProject"></router-view>
     </div>
@@ -31,9 +28,6 @@ import MainLayoutTitleBlock from '@/components/layout/MainLayoutTitleBlock'
 import SideBar from '@/components/navigation/SideBar'
 
 import BaseTabs from '@/components/project/widgets/modals/BaseTabs'
-import BaseButton from '@/components/common/BaseButton'
-import ReportsUploadIcon from '@/components/icons/ReportsUploadIcon'
-
 export default {
   name: 'AccountAnalysisFeaturesView',
   components: {
@@ -41,8 +35,6 @@ export default {
     MainLayoutTitleBlock,
     SideBar,
     BaseTabs,
-    BaseButton,
-    ReportsUploadIcon,
   },
   props: {
     currentProject: {type: [Array, Object], required: false},
@@ -54,6 +46,11 @@ export default {
     }))
     this.tabs = ['Account Activity', 'Mentions']
   },
+  methods: {
+    openCalendar() {
+      this.isOpenCalendar = !this.isOpenCalendar
+    },
+  },
 }
 </script>
 
@@ -64,15 +61,12 @@ export default {
   gap: 30px;
 
   padding: 0px 0px 20px 70px;
-}
-.features__header {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  &__header {
+    position: relative;
 
-  .btn-report {
-    margin-top: 25px;
-    align-self: flex-end;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 }
 </style>

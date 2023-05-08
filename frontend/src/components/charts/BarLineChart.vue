@@ -43,6 +43,7 @@ export default {
       ],
     }
     this.options = {
+      mainAspectRatio: false,
       responsive: true,
       plugins: {
         legend: {

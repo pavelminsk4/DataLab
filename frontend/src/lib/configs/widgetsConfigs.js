@@ -407,16 +407,6 @@ export const widgetsConfig = {
     hasAggregationPeriod: false,
     defaultChartType: null,
     settingsTabs: ['General', 'Dimensions'],
-    icons: [
-      {text: 'Total Followers', iconName: 'List'},
-      {text: 'Total Following', iconName: 'MatrixDots'},
-      {text: 'Total Tweets', iconName: 'Twitter'},
-      {text: 'Tweets this period', iconName: 'Calendar'},
-      {text: 'Engagements', iconName: 'Engagements'},
-      {text: 'AVG likes per post', iconName: 'Heart'},
-      {text: 'AVG retweets per post', iconName: 'Reposts'},
-      {text: 'AVG engagement rate', iconName: 'Graph'},
-    ],
   },
 
   most_frequent_post_types: {
