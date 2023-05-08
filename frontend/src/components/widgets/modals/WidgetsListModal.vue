@@ -148,6 +148,8 @@ export default {
       border-radius: 10px;
       border: 1px solid var(--border-color);
 
+      height: auto;
+
       font-style: normal;
       font-weight: 400;
       font-size: 14px;
