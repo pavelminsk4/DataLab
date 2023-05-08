@@ -2,7 +2,7 @@ import aspose.words as aw
 
 lic = aw.License()
 
-Try to set license from the folder with the python script.
+#Try to set license from the folder with the python script.
 try :
     lic.set_license("Aspose.Total.Product.Family.lic")
     print("License set successfully.")
