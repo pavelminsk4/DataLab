@@ -14,7 +14,7 @@ from reports.views_filling.filling_for_report import filling_templates_for_insta
 from .services.pdf_handler import convert_docx_to_pdf
 from django.shortcuts import render
 from project_social.models import ProjectSocial, SocialWidgetsList
-# from .services.pdf_handler import convert_docx_to_pdf
+from .services.pdf_handler import convert_docx_to_pdf
 
 
 def filling_template(template_path, project_id):
@@ -44,7 +44,7 @@ def report_generator(proj_pk, model):
     if model == ProjectSocial:
         prepare_social_widget_images(proj_pk)
         filling_social_template(template_path, proj_pk)
-    # convert_docx_to_pdf(docx_path, report_path)
+    convert_docx_to_pdf(docx_path, report_path)
     response = FileResponse(open(report_path, 'rb'))
     response.headers = {
         'Content-Type': 'application/%s' % (format),

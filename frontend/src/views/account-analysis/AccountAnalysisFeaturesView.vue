@@ -46,11 +46,6 @@ export default {
     }))
     this.tabs = ['Account Activity', 'Mentions']
   },
-  methods: {
-    openCalendar() {
-      this.isOpenCalendar = !this.isOpenCalendar
-    },
-  },
 }
 </script>
 
@@ -62,8 +57,6 @@ export default {
 
   padding: 0px 0px 20px 70px;
   &__header {
-    position: relative;
-
     display: flex;
     flex-direction: column;
     justify-content: space-between;
