@@ -118,7 +118,7 @@ const initialState = {
   newAccountAnalysisProject: {
     title: '',
     profile_handle: '',
-    start_search_date: '2023-04-05T13:00:20Z',
+    start_search_date: '2023-01-05T13:00:20Z',
     end_search_date: '2023-05-05T13:00:20Z',
     min_followers: null,
     max_followers: null,

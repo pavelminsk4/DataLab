@@ -4,6 +4,8 @@ const state = {
   mostFrequentPostTypes: {},
   mostFrequentMediaTypes: {},
   mostEngagingPostTypes: {},
+  followerGrowth: {},
+  optimalPostLength: {},
 }
 
 export default state

@@ -1,6 +1,6 @@
 <template>
   <MainLayout>
-    <SideBar :nav-urls="navUrls" />
+    <SideBar :nav-urls="navUrls" @open-tab="openTab" />
 
     <div class="features">
       <div class="features__header">
@@ -40,11 +40,18 @@ export default {
     currentProject: {type: [Array, Object], required: false},
   },
   created() {
-    this.navUrls = ['Dashboard'].map((item) => ({
+    this.navUrls = ['Dashboard', 'Optimization'].map((item) => ({
       name: item,
       routeName: `AccountAnalysis${item}`,
     }))
     this.tabs = ['Account Activity', 'Mentions']
+  },
+  methods: {
+    openTab(pathName) {
+      this.$router.push({
+        name: pathName,
+      })
+    },
   },
 }
 </script>

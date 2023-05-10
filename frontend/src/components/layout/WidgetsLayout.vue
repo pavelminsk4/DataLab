@@ -4,7 +4,7 @@
       <div class="title">{{ title }}</div>
 
       <div class="setting-buttons">
-        <div v-if="isShowSettings" class="button" @click="openSettingsModal">
+        <div v-if="isShowSettingsBtn" class="button" @click="openSettingsModal">
           <SettingsIcon />
         </div>
         <div v-if="isShowDeleteBtn" class="button" @click="deleteWidget">
@@ -32,7 +32,7 @@ export default {
   components: {CrossIcon, BaseSpinner, SettingsIcon},
   props: {
     title: {type: String, default: ''},
-    isShowSettings: {type: Boolean, default: true},
+    isShowSettingsBtn: {type: Boolean, default: true},
     isShowDeleteBtn: {type: Boolean, default: true},
   },
   computed: {

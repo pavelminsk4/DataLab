@@ -9,9 +9,11 @@
 <script>
 import ProfileTimeline from '@/components/widgets/account-analysis/ProfileTimeline'
 import Summary from '@/components/widgets/account-analysis/AccountAnalysisSummary'
+import FollowerGrowth from '@/components/widgets/account-analysis/FollowerGrowth'
 import MostFrequentMediaTypes from '@/components/widgets/account-analysis/MostFrequentMediaTypes'
 import MostFrequentPostTypes from '@/components/widgets/account-analysis/MostFrequentPostTypes'
 import MostEngagingPostTypes from '@/components/widgets/account-analysis/MostEngagingPostTypesWidget'
+import OptimalPostLength from '@/components/widgets/account-analysis/OptimalPostLength'
 
 export default {
   name: 'AccountAnalysisMainWidget',
@@ -21,6 +23,8 @@ export default {
     MostFrequentMediaTypes,
     MostFrequentPostTypes,
     MostEngagingPostTypes,
+    FollowerGrowth,
+    OptimalPostLength,
   },
   props: {
     widgetDetails: {type: Object, required: true},

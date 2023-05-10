@@ -85,4 +85,39 @@ export default {
       commit(mutator.SET_LOADING, false, {root: true})
     }
   },
+
+  async [action.GET_FOLLOWER_GROWTH]({commit}, {projectId, widgetId, value}) {
+    commit(mutator.SET_LOADING, true, {root: true})
+    try {
+      const followerGrowth = await api.accountAnalysis.getFollowerGrowth(
+        projectId,
+        widgetId,
+        value
+      )
+      commit(mutator.SET_FOLLOWER_GROWTH, followerGrowth)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false, {root: true})
+    }
+  },
+
+  async [action.GET_OPTIMAL_POST_LENGTH](
+    {commit},
+    {projectId, widgetId, value}
+  ) {
+    commit(mutator.SET_LOADING, true, {root: true})
+    try {
+      const optimalPostLength = await api.accountAnalysis.getOptimalPostLength(
+        projectId,
+        widgetId,
+        value
+      )
+      commit(mutator.SET_OPTIMAL_POST_LENGTH, optimalPostLength)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false, {root: true})
+    }
+  },
 }

@@ -10,7 +10,7 @@ router = routers.SimpleRouter()
 
 urlpatterns = [
     # ========Workspaces and Progects=========
-    path('workspaces/', views.WorkspaceAccountAnalysisList.as_view(), name='account_analysis_workspaces_list'), 
+    path('workspaces/', views.WorkspaceAccountAnalysisList.as_view(), name='account_analysis_workspaces_list'),
     path('workspaces/create/', views.WorkspaceAccountAnalysisCreate.as_view(), name='account_analysis_workspaces_create'),
     path('workspaces/update/<int:pk>/', views.WorkspaceAccountAnalysisUpdate.as_view(), name='account_analysis_workspaces_update'),
     path('workspaces/delete/<int:pk>/', views.WorkspaceAccountAnalysisDelete.as_view(), name='account_analysis_workspaces_delete'),
@@ -24,8 +24,8 @@ urlpatterns = [
     path('most_engaging_post_types_widget/<int:pk>/<int:widget_pk>', views.most_engaging_post_types_widget, name='most_engaging_post_types_widget'),
     path('most_frequent_media_types_widget/<int:pk>/<int:widget_pk>', views.most_frequent_media_types_widget, name='most_frequent_media_types_widget'),
     path('most_engaging_media_types_widget/<int:pk>/<int:widget_pk>', views.most_engaging_media_types_widget, name='most_engaging_media_types_widget'),
-    path('follower_growth/<int:pk>/<int:widget_pk>', views.follower_growth_widget, name='follower_growth_widget'),
-    path('optimal_post_length_widgets/<int:pk>/<int:widget_pk>', views.optimal_post_length_widgets, name='optimal_post_length_widgets'),     
+    path('follower_growth_widget/<int:pk>/<int:widget_pk>', views.follower_growth_widget, name='follower_growth_widget'),
+    path('optimal_post_length_widget/<int:pk>/<int:widget_pk>', views.optimal_post_length_widgets, name='optimal_post_length_widgets'),
     path('dimensions_for_each_widgets/<int:project_pk>/<int:widget_pk>', views.dimensions_for_each_widgets, name='dimensions_for_each_widgets'),
     # =======Profile Handle======
     path('list_of_profile_handle', views.list_of_profile_handle, name='list_of_profile_handle'),

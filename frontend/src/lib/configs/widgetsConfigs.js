@@ -431,6 +431,14 @@ export const widgetsConfig = {
     defaultChartType: 'DoughnutChart',
     availableTypes: null,
   },
+
+  optimal_post_length: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    actionName: action.GET_OPTIMAL_POST_LENGTH,
+    hasAggregationPeriod: false,
+    defaultChartType: 'BarChart',
+    availableTypes: null,
+  },
 }
 
 export const summaryWidgetConfig = [

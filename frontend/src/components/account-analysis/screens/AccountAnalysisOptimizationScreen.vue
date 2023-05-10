@@ -19,7 +19,7 @@ import WidgetsList from '@/components/widgets/WidgetsList'
 const {mapActions, mapGetters} = createNamespacedHelpers('accountAnalysis')
 
 export default {
-  name: 'AccountAnalysisDashboardScreen',
+  name: 'AccountAnalysisOptimizationScreen',
   components: {WidgetsList},
   props: {
     currentProject: {type: Object, required: true},
@@ -31,7 +31,7 @@ export default {
     selectedWidgets: {
       get() {
         if (!this.availableWidgets) return
-        return accountAnalysisWidgetsList.dashboard
+        return accountAnalysisWidgetsList.optimization
           .map((widget) => {
             if (this.availableWidgets[widget.name]) {
               return {

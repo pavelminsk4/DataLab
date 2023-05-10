@@ -24,6 +24,7 @@
         :is="`${moduleName}MainWidget`"
         :widgetDetails="item.widgetDetails"
         :isShowDeleteBtn="item.isShowDeleteBtn"
+        :isShowSettingsBtn="item.isShowSettingsBtn"
         @open-settings-modal="openModal(item.widgetDetails)"
         @delete-widget="$emit('delete-widget', item.widgetDetails.name)"
       />
