@@ -9,7 +9,7 @@
       class="input-name-field"
     />
 
-    <div class="select-name">Profile</div>
+    <div class="title">Profile</div>
 
     <BaseSelect
       v-model="profileHandleProxy"
@@ -35,6 +35,8 @@
       </template>
     </BaseSelect>
 
+    <CommonCalendar position="top" class="date-picker" />
+
     <footer class="create-project__footer">
       <ButtonWithArrow
         :is-disabled="!projectName"
@@ -55,6 +57,7 @@ import createReportMixin from '@/lib/mixins/create-report.js'
 import BaseInput from '@/components/common/BaseInput'
 import BaseSelect from '@/components/BaseSelect2'
 import AccountAnalysisSourcesTabs from '@/components/account-analysis/AccountAnalysisSourcesTabs'
+import CommonCalendar from '@/components/datepicker/CommonCalendar'
 
 const {
   mapActions: mapAccountAnalysisActions,
@@ -68,6 +71,7 @@ export default {
     BaseInput,
     BaseSelect,
     AccountAnalysisSourcesTabs,
+    CommonCalendar,
   },
   data() {
     return {
@@ -84,6 +88,7 @@ export default {
   },
   computed: {
     ...mapState({
+      additionalFilters: (state) => state.additionalFilters,
       userInfo: (state) => state.userInfo,
       newWorkspace: (state) => state.newAccountAnalysisWorkspace,
       newProject: (state) => state.newAccountAnalysisProject,
@@ -108,17 +113,34 @@ export default {
     profileOptions() {
       return this.profileHandleOptions
     },
+    defaultDateRange() {
+      return [this.getLastWeeksDate(), new Date()]
+    },
   },
   created() {
     this[action.GET_LIST_OF_PROFILE_HANDLE]()
+
+    if (this.defaultDateRange.length) {
+      this[action.UPDATE_ADDITIONAL_FILTERS]({
+        date_range: this.defaultDateRange,
+      })
+    }
   },
   methods: {
-    ...mapActions([action.UPDATE_NEW_ACCOUNT_ANALYSIS_PROJECT]),
+    ...mapActions([
+      action.UPDATE_NEW_ACCOUNT_ANALYSIS_PROJECT,
+      action.UPDATE_ADDITIONAL_FILTERS,
+    ]),
     ...mapAccountAnalysisActions([
       action.GET_LIST_OF_PROFILE_HANDLE,
       action.CREATE_NEW_ACCOUNT_ANALYSIS_WORKSPACE,
       action.CREATE_NEW_ACCOUNT_ANALYSIS_PROJECT,
     ]),
+    getLastWeeksDate() {
+      const now = new Date()
+
+      return new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7)
+    },
     handleClick(event, closeSelect) {
       this.profileHandle = event.target.innerText
       closeSelect()
@@ -130,6 +152,8 @@ export default {
         source_filter: ['twitter'],
         members: [this.userInfo.id],
         creator: this.userInfo.id,
+        start_search_date: this.additionalFilters.date_range[0],
+        end_search_date: this.additionalFilters.date_range[1],
       })
 
       if (+this.workspaceId) {
@@ -176,19 +200,9 @@ export default {
     margin-bottom: 32px;
   }
 
-  .select-name {
-    margin-bottom: 4px;
-
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 20px;
-    color: var(--typography-title-color);
-  }
-
   .select-profile-handle {
     max-width: 408px;
-    margin-bottom: 40px;
+    margin-bottom: 32px;
 
     .profile-handle-item {
       display: flex;
@@ -209,6 +223,11 @@ export default {
         border-radius: 100%;
       }
     }
+  }
+
+  .date-picker {
+    max-width: 408px;
+    margin-bottom: 40px;
   }
 
   .create-project__footer {
