@@ -19,6 +19,10 @@ export default {
     state.mostEngagingPostTypes = data
   },
 
+  [mutator.SET_MOST_ENGAGING_MEDIA_TYPES](state, data) {
+    state.mostEngagingMediaTypes = data
+  },
+
   [mutator.SET_FOLLOWER_GROWTH](state, data) {
     state.followerGrowth = data
   },

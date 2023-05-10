@@ -1,10 +1,15 @@
 <template>
-  <div>Follower growth s</div>
+  <FollowerGrowthWidget
+    v-if="followerGrowth.length"
+    :widget-data="followerGrowth"
+    :widget-details="widgetDetails"
+  />
 </template>
 
 <script>
 import {createNamespacedHelpers} from 'vuex'
 import {get, action} from '@store/constants'
+import FollowerGrowthWidget from '@/components/widgets/FollowerGrowthWidget.vue'
 
 const {mapActions, mapGetters} = createNamespacedHelpers(
   'accountAnalysis/widgets'
@@ -15,12 +20,14 @@ export default {
   props: {
     widgetDetails: {type: Object, required: true},
   },
+  components: {
+    FollowerGrowthWidget,
+  },
   computed: {
     ...mapGetters({
       accountAnalysisWidgets: get.ACCOUNT_ANALYSIS_WIDGETS,
     }),
     followerGrowth() {
-      console.log(this.widgetDetails)
       return this.accountAnalysisWidgets.followerGrowth
     },
   },

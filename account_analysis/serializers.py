@@ -59,6 +59,8 @@ class WidgetsListSerializer(WritableNestedModelSerializer):
     most_engaging_post_types = AccountAnalysisWidgetDescriptionSerializer()
     follower_growth = AccountAnalysisWidgetDescriptionSerializer()
     optimal_post_length = AccountAnalysisWidgetDescriptionSerializer()
+    most_frequent_media_types = AccountAnalysisWidgetDescriptionSerializer()
+    most_engaging_media_types = AccountAnalysisWidgetDescriptionSerializer()
 
     class Meta:
         model = AccountAnalysisWidgetsList

@@ -12,7 +12,8 @@ import Summary from '@/components/widgets/account-analysis/AccountAnalysisSummar
 import FollowerGrowth from '@/components/widgets/account-analysis/FollowerGrowth'
 import MostFrequentMediaTypes from '@/components/widgets/account-analysis/MostFrequentMediaTypes'
 import MostFrequentPostTypes from '@/components/widgets/account-analysis/MostFrequentPostTypes'
-import MostEngagingPostTypes from '@/components/widgets/account-analysis/MostEngagingPostTypesWidget'
+import MostEngagingPostTypes from '@/components/widgets/account-analysis/MostEngagingPostTypes'
+import MostEngagingMediaTypes from '@/components/widgets/account-analysis/MostEngagingMediaTypes'
 import OptimalPostLength from '@/components/widgets/account-analysis/OptimalPostLength'
 
 export default {
@@ -25,6 +26,7 @@ export default {
     MostEngagingPostTypes,
     FollowerGrowth,
     OptimalPostLength,
+    MostEngagingMediaTypes,
   },
   props: {
     widgetDetails: {type: Object, required: true},

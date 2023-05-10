@@ -34,17 +34,15 @@ export default {
       return this.accountAnalysisWidgets.mostEngagingPostTypes
     },
     labels() {
-      return ['Replies', 'Retweets', 'Tweets']
+      return Object.keys(this.mostEngagingPostTypes).map(
+        (type) => type.split('_')[0]
+      )
     },
     chartValues() {
       return [
         {
           color: ['#551EB9', '#01A4EE', '#FFBB01'],
-          data: [
-            +this.mostEngagingPostTypes.tweets_engagement,
-            +this.mostEngagingPostTypes.replies_engagement,
-            +this.mostEngagingPostTypes.retweets_engagement,
-          ],
+          data: Object.values(this.mostEngagingPostTypes),
         },
       ]
     },
