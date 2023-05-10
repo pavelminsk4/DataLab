@@ -44,7 +44,7 @@ export default {
       return [
         {
           color: ['#FFBB00'],
-          data: Object.values(this.widgetData),
+          data: Object.values(this.widgetData).map((value) => value.toFixed()),
         },
       ]
     },

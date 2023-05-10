@@ -1,10 +1,8 @@
 <template>
-  <div class="container">
-    <OptimalPostLengthWidget
-      :widget-details="widgetDetails"
-      :widget-data="optimalPostLength"
-    />
-  </div>
+  <OptimalPostLengthWidget
+    :widget-details="widgetDetails"
+    :widget-data="optimalPostLength"
+  />
 </template>
 
 <script>
@@ -47,9 +45,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss">
-.container {
-  min-height: 450px;
-}
-</style>
