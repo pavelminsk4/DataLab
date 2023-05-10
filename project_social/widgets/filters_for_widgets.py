@@ -3,7 +3,7 @@ from django.db.models import Q
 from functools import reduce
 
 def keywords_posts(keys, posts):
-  posts = posts.filter(reduce(lambda x,y: x | y, [Q(text__contains=key) for key in keys]))
+  posts = posts.filter(reduce(lambda x,y: x | y, [Q(text__contains=key) | Q(user_name__contains=key) | Q(user_alias__contains=key) for key in keys]))
   return posts
 
 def exclude_keywords_posts(posts, exceptions):
