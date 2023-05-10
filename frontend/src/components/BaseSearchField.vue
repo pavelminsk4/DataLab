@@ -46,38 +46,14 @@
 export default {
   emits: ['update:modelValue', 'select-option'],
   props: {
-    list: {
-      type: Array,
-      default: null,
-    },
-    placeholder: {
-      type: String,
-      default: 'Select option',
-    },
-    name: {
-      type: String,
-      required: true,
-    },
-    modelValue: {
-      type: String,
-      required: true,
-    },
-    isSearch: {
-      type: Boolean,
-      default: false,
-    },
-    isRejectSelection: {
-      type: Boolean,
-      default: true,
-    },
-    currentValue: {
-      type: String,
-      required: false,
-    },
-    isClearSelectedValue: {
-      type: Boolean,
-      default: false,
-    },
+    list: {type: Array, default: null},
+    placeholder: {type: String, default: 'Select option'},
+    name: {type: String, required: true},
+    modelValue: {type: [String, Array], required: true},
+    isSearch: {type: Boolean, default: false},
+    isRejectSelection: {type: Boolean, default: true},
+    currentValue: {type: [String, Array], required: false},
+    isClearSelectedValue: {type: Boolean, default: false},
   },
   data() {
     return {

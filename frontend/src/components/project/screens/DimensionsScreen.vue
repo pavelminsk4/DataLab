@@ -97,34 +97,13 @@ export default {
     FilterChips,
   },
   props: {
-    moduleName: {
-      type: String,
-      required: true,
-    },
-    projectId: {
-      type: [String, Number],
-      required: false,
-    },
-    authorsDimensions: {
-      type: Array,
-      required: false,
-    },
-    countriesDimensions: {
-      type: Array,
-      required: false,
-    },
-    languagesDimensions: {
-      type: Array,
-      required: false,
-    },
-    sourcesDimensions: {
-      type: Array,
-      required: false,
-    },
-    sentimentsDimensions: {
-      type: Array,
-      required: false,
-    },
+    moduleName: {type: String, required: true},
+    projectId: {type: [String, Number], required: false},
+    authorsDimensions: {type: Array, required: false},
+    countriesDimensions: {type: Array, required: false},
+    languagesDimensions: {type: Array, required: false},
+    sourcesDimensions: {type: Array, required: false},
+    sentimentsDimensions: {type: Array, required: false},
   },
   data() {
     return {

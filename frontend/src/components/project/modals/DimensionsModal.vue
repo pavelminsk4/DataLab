@@ -5,6 +5,7 @@
   >
     <DimensionsScreen
       :project-id="projectId"
+      :module-name="moduleName"
       :authors-dimensions="currentProject.author_dimensions"
       :countries-dimensions="currentProject.country_dimensions"
       :languages-dimensions="currentProject.language_dimensions"
@@ -29,6 +30,7 @@ export default {
     BaseModal,
   },
   props: {
+    moduleName: {type: String, required: true},
     projectId: {type: [String, Number], required: false},
     currentProject: {type: [Array, Object], required: false},
   },

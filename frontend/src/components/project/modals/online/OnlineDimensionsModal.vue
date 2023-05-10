@@ -2,6 +2,7 @@
   <DimensionsModal
     :project-id="projectId"
     :currentProject="currentProject"
+    :module-name="currentProject.source"
     @save-dimensions-settings="saveChanges"
   />
 </template>

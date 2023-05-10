@@ -123,10 +123,7 @@ export default {
     WidgetsView,
   },
   props: {
-    currentProject: {
-      type: [Array, Object],
-      required: false,
-    },
+    currentProject: {type: [Array, Object], required: false},
   },
   data() {
     return {

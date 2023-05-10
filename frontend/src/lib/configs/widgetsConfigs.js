@@ -484,6 +484,28 @@ export const summaryWidgetConfig = [
   },
 ]
 
+export const socialSummaryWidgetConfig = [
+  ...summaryWidgetConfig,
+  {
+    name: 'Likes',
+    valueName: 'likes',
+    iconName: 'LikeIcon',
+    backgroundColor: '#ED2549',
+  },
+  {
+    name: 'Reply',
+    valueName: 'replies',
+    iconName: 'RepliesIcon',
+    backgroundColor: '#A0B8BE',
+  },
+  {
+    name: 'Retweet',
+    valueName: 'retweets',
+    iconName: 'RetweetsIcon',
+    backgroundColor: '#57C7B3',
+  },
+]
+
 export const sentimentOverallWidgetConfig = [
   {
     name: 'Positive posts',
