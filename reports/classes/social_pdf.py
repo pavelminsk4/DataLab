@@ -1,6 +1,5 @@
 from reports.classes.project_pdf import ProjectPDF
 from reports.classes.report_document import ReportDocument
-from reports.social_views_filling.filling_for_social_report import filling_templates_for_social_reports
 from docx import Document
 from reports.services.pdf_handler import convert_docx_to_pdf
 from reports.classes.screen_driver import ScreenDriver
