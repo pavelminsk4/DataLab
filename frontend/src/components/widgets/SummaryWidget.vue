@@ -24,7 +24,10 @@
 </template>
 
 <script>
-import {summaryWidgetConfig} from '@/lib/configs/widgetsConfigs'
+import {
+  summaryWidgetConfig,
+  socialSummaryWidgetConfig,
+} from '@/lib/configs/widgetsConfigs'
 
 import NewPostIcon from '@/components/icons/NewPostIcon'
 import NeutralIcon from '@/components/icons/NeutralIcon'
@@ -34,11 +37,17 @@ import SourceIcon from '@/components/icons/SourceIcon'
 import PotentialReachIcon from '@/components/icons/PotentialReachIcon'
 import CountryIcon from '@/components/icons/CountryIcon'
 import AuthorsIcon from '@/components/icons/AuthorsIcon'
+import LikeIcon from '@/components/icons/LikeIcon'
+import RepliesIcon from '@/components/icons/RepliesIcon'
+import RetweetsIcon from '@/components/icons/RetweetsIcon'
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
 
 export default {
   name: 'SummaryWidget',
   components: {
+    LikeIcon,
+    RepliesIcon,
+    RetweetsIcon,
     NewPostIcon,
     NeutralIcon,
     NegativeIcon,
@@ -60,7 +69,12 @@ export default {
     },
   },
   created() {
-    this.widgetMetrics = summaryWidgetConfig
+    if (this.widgetDetails.moduleName === 'Online') {
+      this.widgetMetrics = summaryWidgetConfig
+    }
+    if (this.widgetDetails.moduleName === 'Social') {
+      this.widgetMetrics = socialSummaryWidgetConfig
+    }
   },
 }
 </script>
