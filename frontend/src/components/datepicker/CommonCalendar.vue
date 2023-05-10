@@ -18,6 +18,7 @@
 <script>
 import {mapActions, mapState, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
+import {defaultDate} from '@/lib/utilities'
 
 import CalendarIcon from '@/components/icons/CalendarIcon'
 import BaseCalendar from '@/components/datepicker/BaseCalendar'
@@ -41,28 +42,22 @@ export default {
     calendarDate() {
       if (this.additionalFilters?.date_range?.length) {
         const currentDate = this.additionalFilters?.date_range.map((el) =>
-          this.formatDate(el)
+          this.defaultDate(el)
         )
 
         return `${currentDate[0]} - ${currentDate[1]}`
       } else {
-        return `${this.formatDate(this.getLastWeeksDate())} - ${this.formatDate(
-          new Date()
-        )}`
+        return `${this.defaultDate(
+          this.getLastWeeksDate()
+        )} - ${this.defaultDate(new Date())}`
       }
     },
   },
   methods: {
     ...mapActions([action.REFRESH_DISPLAY_CALENDAR]),
+    defaultDate,
     openCalendar() {
       this[action.REFRESH_DISPLAY_CALENDAR](!this.isShowCalendarContents)
-    },
-    formatDate(date) {
-      return date.toLocaleString('en-US', {
-        month: 'short',
-        day: 'numeric',
-        year: 'numeric',
-      })
     },
     getLastWeeksDate() {
       const now = new Date()

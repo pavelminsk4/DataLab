@@ -64,18 +64,7 @@
     />
   </div>
 
-  <span class="second-title">Date</span>
-  <div class="filters">
-    <div class="trigger-wrapper" @click="openCalendar">
-      <CalendarIcon />
-      <div class="calendar-date">{{ calendarDate }}</div>
-      <ArrowDownIcon :class="[isShowCalendarContents && 'open-calendar']" />
-    </div>
-    <BaseCalendar
-      v-if="isShowCalendarContents"
-      :current-project="currentProject"
-    />
-  </div>
+  <CommonCalendar />
 
   <span class="second-title">Sentiment</span>
 
@@ -108,17 +97,15 @@
 </template>
 
 <script>
-import {mapState, mapActions, mapGetters} from 'vuex'
+import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
 import BaseRadio from '@/components/BaseRadio'
-import BaseCalendar from '@/components/datepicker/BaseCalendar'
 import BaseSearchField from '@/components/BaseSearchField'
 import PositiveIcon from '@/components/icons/PositiveIcon'
 import NegativeIcon from '@/components/icons/NegativeIcon'
 import NeutralIcon from '@/components/icons/NeutralIcon'
-import CalendarIcon from '@/components/icons/CalendarIcon'
-import ArrowDownIcon from '@/components/icons/ArrowDownIcon'
+import CommonCalendar from '@/components/datepicker/CommonCalendar'
 
 export default {
   name: 'OnlineSearchForm',
@@ -128,9 +115,7 @@ export default {
     PositiveIcon,
     NegativeIcon,
     NeutralIcon,
-    CalendarIcon,
-    ArrowDownIcon,
-    BaseCalendar,
+    CommonCalendar,
   },
   props: {
     currentProject: {
@@ -150,14 +135,12 @@ export default {
     }
   },
   computed: {
-    ...mapState(['isShowCalendarContents']),
     ...mapGetters({
       countries: get.COUNTRIES,
       languages: get.LANGUAGES,
       sources: get.SOURCES,
       authors: get.AUTHORS,
       keywords: get.KEYWORDS,
-      additionalFilters: get.ADDITIONAL_FILTERS,
     }),
     selectedValueProxy: {
       get() {
@@ -176,19 +159,6 @@ export default {
           })
         }
       },
-    },
-    calendarDate() {
-      if (this.additionalFilters?.date_range?.length) {
-        const currentDate = this.additionalFilters?.date_range.map((el) =>
-          this.formatDate(el)
-        )
-
-        return `${currentDate[0]} - ${currentDate[1]}`
-      } else {
-        return `${this.formatDate(this.getLastWeeksDate())} - ${this.formatDate(
-          new Date()
-        )}`
-      }
     },
   },
   created() {
@@ -224,7 +194,6 @@ export default {
       action.GET_COUNTRIES,
       action.GET_LANGUAGES,
       action.UPDATE_ADDITIONAL_FILTERS,
-      action.REFRESH_DISPLAY_CALENDAR,
     ]),
     selectItem(name, val) {
       try {
@@ -265,20 +234,6 @@ export default {
       } catch (e) {
         console.log(e)
       }
-    },
-    openCalendar() {
-      this[action.REFRESH_DISPLAY_CALENDAR](!this.isShowCalendarContents)
-    },
-    formatDate(date) {
-      return date.toLocaleString('en-US', {
-        month: 'short',
-        day: 'numeric',
-        year: 'numeric',
-      })
-    },
-    getLastWeeksDate() {
-      const now = new Date()
-      return new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7)
     },
   },
 }
@@ -325,45 +280,6 @@ export default {
   .radio-icon {
     margin-right: 4px;
   }
-}
-
-.filters {
-  position: relative;
-
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 20px;
-
-  width: 100%;
-  margin-bottom: 25px;
-
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 20px;
-  color: var(--typography-secondary-color);
-}
-
-.trigger-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-
-  width: 100%;
-  padding: 10px 12px;
-
-  background: var(--chips-background-primary-color);
-  border-radius: 8px;
-
-  cursor: pointer;
-}
-
-.calendar-date {
-  flex-grow: 1;
-}
-
-.open-calendar {
-  transform: rotate(180deg);
 }
 
 .neutral-item {
