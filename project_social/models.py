@@ -98,9 +98,9 @@ class SocialWidgetsList(models.Model):
   top_authors = models.ForeignKey(SocialWidgetDescription,on_delete=models.CASCADE,related_name='social_top_authors', null=True)
   top_languages = models.ForeignKey(SocialWidgetDescription,on_delete=models.CASCADE,related_name='social_top_languages', null=True)
   content_volume = models.ForeignKey(SocialWidgetDescription,on_delete=models.CASCADE,related_name='social_content_volume', null=True)
-  content_volume_by_top_locations = models.ForeignKey(SocialWidgetDescription,on_delete=models.CASCADE,related_name='social_content_volume_by_top_locations', null=True)
-  content_volume_by_top_authors = models.ForeignKey(SocialWidgetDescription,on_delete=models.CASCADE,related_name='social_content_volume_by_top_authors', null=True)
-  content_volume_by_top_languages = models.ForeignKey(SocialWidgetDescription,on_delete=models.CASCADE,related_name='social_content_volume_by_top_languages', null=True)
+  content_volume_top_locations = models.ForeignKey(SocialWidgetDescription,on_delete=models.CASCADE,related_name='social_content_volume_top_locations', null=True)
+  content_volume_top_authors = models.ForeignKey(SocialWidgetDescription,on_delete=models.CASCADE,related_name='social_content_volume_top_authors', null=True)
+  content_volume_top_languages = models.ForeignKey(SocialWidgetDescription,on_delete=models.CASCADE,related_name='social_content_volume_top_languages', null=True)
   sentiment = models.ForeignKey(SocialWidgetDescription,on_delete=models.CASCADE,related_name='social_sentiment', null=True)
   gender_volume = models.ForeignKey(SocialWidgetDescription,on_delete=models.CASCADE,related_name='social_genter_volume', null=True)
   sentiment_number_of_results = models.ForeignKey(SocialWidgetDescription,on_delete=models.CASCADE,related_name='social_sentiment_number_of_results', null=True)
@@ -188,9 +188,9 @@ def create_social_widget_description(sender, instance, created, **kwargs):
     instance.top_authors = wd4
     instance.top_languages = wd5
     instance.content_volume = wd6
-    instance.content_volume_by_top_locations = wd7
-    instance.content_volume_by_top_authors = wd8
-    instance.content_volume_by_top_languages = wd9
+    instance.content_volume_top_locations = wd7
+    instance.content_volume_top_authors = wd8
+    instance.content_volume_top_languages = wd9
     instance.sentiment = wd10
     instance.gender_volume = wd11
     instance.sentiment_number_of_results = wd12

@@ -28,7 +28,7 @@ def post_agregator_content_volume_top_languages(posts, aggregation_period, top_c
     res.append({top_languages[elem]: list_dates})
   return res
 
-def content_volume_by_top_languages(request, pk, widget_pk):
+def content_volume_top_languages(request, pk, widget_pk):
   project = ProjectSocial.objects.get(id=pk)
   posts = post_agregator_with_dimensions(project)
   widget = SocialWidgetDescription.objects.get(id=widget_pk)

@@ -1,11 +1,11 @@
 import factory
 from .user import UserFactory
-from project.models import Project
+from project_social.models import ProjectSocial
 
 
-class ProjectFactory(factory.django.DjangoModelFactory):
+class ProjectSocialFactory(factory.django.DjangoModelFactory):
     class Meta:
-        model = Project
+        model = ProjectSocial
 
     title =                 factory.Faker('name')
     keywords =              ['post']

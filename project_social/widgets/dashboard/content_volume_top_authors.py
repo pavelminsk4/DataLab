@@ -28,7 +28,7 @@ def post_agregator_content_volume_top_authors(posts, aggregation_period, top_cou
     res.append({top_authors[elem]: list_dates})
   return res
 
-def content_volume_by_top_authors(request, pk, widget_pk):
+def content_volume_top_authors(request, pk, widget_pk):
   project = ProjectSocial.objects.get(id=pk)
   posts = post_agregator_with_dimensions(project)
   widget = SocialWidgetDescription.objects.get(id=widget_pk)

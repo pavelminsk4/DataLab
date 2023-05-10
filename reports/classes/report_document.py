@@ -11,7 +11,7 @@ class ReportDocument:
         self.widget_list = self.project.social_widgets_list
 
 
-    def fill_document(self):
+    def fill(self):
         self.__foreach_paragraph(self.__fill_introduction)
         self.__fill_content()
         return self.document
