@@ -1,6 +1,6 @@
 <template>
   <MostEngagingTypesWidget
-    v-if="Object.values(mostEngagingPostTypes)"
+    v-if="!isAllEmptyFields(mostEngagingPostTypes)"
     v-bind="$attrs"
     :widget-details="widgetDetails"
     :labels="labels"
@@ -13,6 +13,7 @@ import {createNamespacedHelpers} from 'vuex'
 import {get, action} from '@store/constants'
 
 import MostEngagingTypesWidget from '@/components/widgets/MostEngagingTypesWidget'
+import {isAllEmptyFields} from '@/lib/utilities'
 
 const {mapActions, mapGetters} = createNamespacedHelpers(
   'accountAnalysis/widgets'
@@ -48,7 +49,7 @@ export default {
     },
   },
   created() {
-    if (!Object.values(this.mostEngagingPostTypes).length) {
+    if (isAllEmptyFields(this.mostEngagingPostTypes)) {
       this[action.GET_MOST_ENGAGING_POST_TYPES]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,
@@ -58,6 +59,7 @@ export default {
   },
   methods: {
     ...mapActions([action.GET_MOST_ENGAGING_POST_TYPES]),
+    isAllEmptyFields,
   },
 }
 </script>
