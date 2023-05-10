@@ -106,12 +106,15 @@ export const socialWidgetsList = {
 
 export const accountAnalysisWidgetsList = {
   dashboard: [
-    {name: 'summary', isFullWidth: true},
+    {name: 'summary', isFullWidth: true, minHeight: 230},
     {name: 'profile_timeline', isFullWidth: true},
+    {name: 'follower_growth', isFullWidth: true},
     {name: 'most_frequent_post_types', isFullWidth: false},
-    // {name: 'most_frequent_media_types', isFullWidth: false},
+    {name: 'most_frequent_media_types', isFullWidth: false},
     {name: 'most_engaging_post_types', isFullWidth: false},
+    {name: 'most_engaging_media_types', isFullWidth: false},
   ],
+  optimization: [{name: 'optimal_post_length', isFullWidth: false}],
 }
 
 export const PREDEFINED_COLORS = ['#EE51AF', '#00B884', '#516BEE', '#DD8500']

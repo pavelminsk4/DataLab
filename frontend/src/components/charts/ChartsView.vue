@@ -53,7 +53,7 @@ export default {
     chartType: {type: String, required: true},
     widgetDetails: {type: Object, required: true},
     chartValues: {type: Array, required: true, default: () => []},
-    isDisplayLegend: {type: Boolean, default: true, required: false},
+    isDisplayLegend: {type: Boolean, default: true},
   },
   computed: {
     ...mapState(['loading']),

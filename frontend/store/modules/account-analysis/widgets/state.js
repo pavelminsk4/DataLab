@@ -1,9 +1,12 @@
 const state = {
-  profileTimeline: {},
-  summary: {},
+  followerGrowth: {},
   mostFrequentPostTypes: {},
   mostFrequentMediaTypes: {},
   mostEngagingPostTypes: {},
+  mostEngagingMediaTypes: {},
+  optimalPostLength: {},
+  profileTimeline: {},
+  summary: {},
 }
 
 export default state

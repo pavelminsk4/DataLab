@@ -1,20 +1,26 @@
 <template>
-  <div>Most frequent media types</div>
-  <!-- <VolumeWidget /> -->
+  <VolumeWidget
+    v-if="widgets"
+    v-bind="$attrs"
+    :widget-details="widgetDetails"
+    :labels="labels"
+    :chart-values="chartValues"
+  />
 </template>
 
 <script>
 import {createNamespacedHelpers} from 'vuex'
 import {get, action} from '@store/constants'
 
+import VolumeWidget from '@/components/widgets/VolumeWidget.vue'
+
 const {mapGetters, mapActions} = createNamespacedHelpers(
   'accountAnalysis/widgets'
 )
 
-// import VolumeWidget from '../VolumeWidget.vue'
 export default {
   name: 'MostFrequentMediaTypes',
-  // components: {VolumeWidget},
+  components: {VolumeWidget},
   props: {
     widgetDetails: {type: Object, required: true},
   },
@@ -26,22 +32,28 @@ export default {
       return this.widgets.mostFrequentMediaTypes
     },
     labels() {
-      return 'labels'
+      return Object.keys(this.mostFrequentMediaTypes).map(
+        (label) => label.split('_')[1]
+      )
     },
     chartValues() {
-      return 'chartValues'
+      return [
+        {
+          data: Object.values(this.mostFrequentMediaTypes),
+        },
+      ]
     },
   },
   created() {
     if (!this.mostFrequentMediaTypes.length) {
-      this[action.GET_MOST_FREQUENT_POST_TYPES]({
+      this[action.GET_MOST_FREQUENT_MEDIA_TYPES]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,
       })
     }
   },
   methods: {
-    ...mapActions([action.GET_MOST_FREQUENT_POST_TYPES]),
+    ...mapActions([action.GET_MOST_FREQUENT_MEDIA_TYPES]),
   },
 }
 </script>

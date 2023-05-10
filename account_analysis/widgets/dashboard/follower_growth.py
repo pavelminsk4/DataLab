@@ -16,7 +16,7 @@ def follower_growth(request, pk, widget_pk):
 
 
 def post_aggregator_follower_growth(posts, aggregation_period):
-    posts_total = posts.annotate(date_trunc=Trunc('date', aggregation_period)).values('date_trunc').distinct().order_by('date')
-    dates = [str(posts_total[elem]['date_trunc']) for elem in range(len(posts_total))]
-    results = [{ d: list(posts.filter(date=d))[-1].user_followers} for d in dates]
+    posts_total = posts.annotate(date_trunc=Trunc('date', aggregation_period)).values('user_followers', 'date_trunc').order_by('date')
+    dates = set([str(posts_total[elem]['date_trunc']) for elem in range(len(posts_total))])
+    results = [{date: post['user_followers'] for post in posts_total} for date in sorted(list(dates))]
     return results

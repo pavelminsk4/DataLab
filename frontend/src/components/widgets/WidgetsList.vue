@@ -19,11 +19,13 @@
       v-for="(item, index) in selectedWidgets"
       :key="index"
       :class="['widgets__item', item.isFullWidth && 'grow']"
+      :style="{minHeight: item.minHeight}"
     >
       <component
         :is="`${moduleName}MainWidget`"
         :widgetDetails="item.widgetDetails"
         :isShowDeleteBtn="item.isShowDeleteBtn"
+        :isShowSettingsBtn="item.isShowSettingsBtn"
         @open-settings-modal="openModal(item.widgetDetails)"
         @delete-widget="$emit('delete-widget', item.widgetDetails.name)"
       />
@@ -35,6 +37,7 @@ import {action, get} from '@store/constants'
 import {mapActions, mapGetters, createNamespacedHelpers} from 'vuex'
 import OnlineWidgetSettingsModal from '@/components/widgets/online/modals/WidgetSettingsModal'
 import SocialWidgetSettingsModal from '@/components/widgets/social/modals/WidgetSettingsModal'
+import AccountAnalysisWidgetSettingsModal from '@/components/widgets/account-analysis/modals/WidgetSettingsModal'
 
 import OnlineMainWidget from '@/components/widgets/online/OnlineMainWidget'
 import SocialMainWidget from '@/components/widgets/social/SocialMainWidget'
@@ -50,6 +53,7 @@ export default {
     SocialMainWidget,
     OnlineWidgetSettingsModal,
     SocialWidgetSettingsModal,
+    AccountAnalysisWidgetSettingsModal,
     AccountAnalysisMainWidget,
     InteractiveWidgetModal,
   },
@@ -134,7 +138,6 @@ export default {
   list-style: none;
   .widgets__item {
     width: calc(50% - 15px);
-    min-height: 230px;
     .summary-widget__container {
       display: block;
     }

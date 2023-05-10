@@ -407,17 +407,26 @@ export const widgetsConfig = {
     actionName: action.GET_PROFILE_TIMELINE,
     defaultChartType: 'BarLineChart',
     availableTypes: null,
+    settingsTabs: ['General', 'Dimensions'],
   },
 
   most_engaging_post_types: {
     ...WIDGET_DEFAULT_SETTINGS,
     actionName: action.GET_MOST_ENGAGING_POST_TYPES,
     defaultChartType: 'BarChart',
-    availableTypes: null,
+    availableTypes: SIMPLE_CHARTS,
   },
 
-  account_analysis_summary_widget: {
+  most_engaging_media_types: {
     ...WIDGET_DEFAULT_SETTINGS,
+    actionName: action.GET_MOST_ENGAGING_MEDIA_TYPES,
+    defaultChartType: 'BarChart',
+    availableTypes: SIMPLE_CHARTS,
+  },
+
+  account_analysis_summary: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    height: '250px',
     actionName: action.GET_ACCOUNT_ANALYSIS_SUMMARY_WIDGET,
     hasAggregationPeriod: false,
     defaultChartType: null,
@@ -429,7 +438,32 @@ export const widgetsConfig = {
     actionName: action.GET_MOST_FREQUENT_POST_TYPES,
     hasAggregationPeriod: false,
     defaultChartType: 'DoughnutChart',
+    availableTypes: SIMPLE_CHARTS,
+  },
+
+  most_frequent_media_types: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    actionName: action.GET_MOST_FREQUENT_MEDIA_TYPES,
+    hasAggregationPeriod: false,
+    defaultChartType: 'DoughnutChart',
+    availableTypes: SIMPLE_CHARTS,
+  },
+
+  optimal_post_length: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    actionName: action.GET_OPTIMAL_POST_LENGTH,
+    hasAggregationPeriod: false,
+    defaultChartType: 'BarChart',
+    availableTypes: SIMPLE_CHARTS,
+  },
+
+  follower_growth: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    actionName: action.GET_FOLLOWER_GROWTH,
+    hasAggregationPeriod: false,
+    defaultChartType: 'LineChart',
     availableTypes: null,
+    settingsTabs: ['General', 'Dimensions'],
   },
 }
 

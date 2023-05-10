@@ -60,11 +60,44 @@ export default {
       `${moduleName}/most_frequent_media_types_widget/${projectId}/${widgetId}`
     )
   },
+
   async getMostEngagingPostTypes(projectId, widgetId, value) {
     return fetch(
       'post',
       `${moduleName}/most_engaging_post_types_widget/${projectId}/${widgetId}`,
       {aggregation_period: value}
+    )
+  },
+
+  async getMostEngagingMediaTypes(projectId, widgetId, value) {
+    return fetch(
+      'post',
+      `${moduleName}/most_engaging_media_types_widget/${projectId}/${widgetId}`,
+      {aggregation_period: value}
+    )
+  },
+
+  async getFollowerGrowth(projectId, widgetId, value) {
+    return fetch(
+      'post',
+      `${moduleName}/follower_growth_widget/${projectId}/${widgetId}`,
+      {aggregation_period: value}
+    )
+  },
+
+  async getOptimalPostLength(projectId, widgetId, value) {
+    return fetch(
+      'post',
+      `${moduleName}/optimal_post_length_widget/${projectId}/${widgetId}`,
+      {aggregation_period: value}
+    )
+  },
+
+  async updateAvailableWidgets({projectId, data}) {
+    return fetch(
+      'patch',
+      `${moduleName}/account_analysis_projects/${projectId}/widgets_list/update`,
+      data
     )
   },
 }

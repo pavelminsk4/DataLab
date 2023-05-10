@@ -1,36 +1,39 @@
 <template>
-  <AccountAnalysisSummaryWidget :widget-data="summary" />
+  <FollowerGrowthWidget
+    v-if="followerGrowth.length"
+    :widget-data="followerGrowth"
+    :widget-details="widgetDetails"
+  />
 </template>
 
 <script>
 import {createNamespacedHelpers} from 'vuex'
 import {get, action} from '@store/constants'
-
-import AccountAnalysisSummaryWidget from '@/components/widgets/AccountAnalysisSummaryWidget'
+import FollowerGrowthWidget from '@/components/widgets/FollowerGrowthWidget.vue'
 
 const {mapActions, mapGetters} = createNamespacedHelpers(
   'accountAnalysis/widgets'
 )
 
 export default {
-  name: 'AccountAnalysisSummary',
-  components: {
-    AccountAnalysisSummaryWidget,
-  },
+  name: 'FollowerGrowth',
   props: {
     widgetDetails: {type: Object, required: true},
+  },
+  components: {
+    FollowerGrowthWidget,
   },
   computed: {
     ...mapGetters({
       accountAnalysisWidgets: get.ACCOUNT_ANALYSIS_WIDGETS,
     }),
-    summary() {
-      return this.accountAnalysisWidgets.summary
+    followerGrowth() {
+      return this.accountAnalysisWidgets.followerGrowth
     },
   },
   created() {
-    if (!this.summary.length) {
-      this[action.GET_SUMMARY]({
+    if (!this.followerGrowth.length) {
+      this[action.GET_FOLLOWER_GROWTH]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,
         value: this.widgetDetails.aggregation_period,
@@ -38,7 +41,9 @@ export default {
     }
   },
   methods: {
-    ...mapActions([action.GET_SUMMARY]),
+    ...mapActions([action.GET_FOLLOWER_GROWTH]),
   },
 }
 </script>
+
+<style lang="scss" scoped></style>

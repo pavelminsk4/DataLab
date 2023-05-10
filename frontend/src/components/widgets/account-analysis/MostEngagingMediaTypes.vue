@@ -1,6 +1,6 @@
 <template>
   <MostEngagingTypesWidget
-    v-if="Object.values(mostEngagingPostTypes)"
+    v-if="!isAllEmptyFields(mostEngagingMediaTypes)"
     v-bind="$attrs"
     :widget-details="widgetDetails"
     :labels="labels"
@@ -13,13 +13,14 @@ import {createNamespacedHelpers} from 'vuex'
 import {get, action} from '@store/constants'
 
 import MostEngagingTypesWidget from '@/components/widgets/MostEngagingTypesWidget'
+import {isAllEmptyFields} from '@/lib/utilities'
 
 const {mapActions, mapGetters} = createNamespacedHelpers(
   'accountAnalysis/widgets'
 )
 
 export default {
-  name: 'MostEngagingPostTypesWidget',
+  name: 'MostEngagingMediaTypesWidget',
   components: {
     MostEngagingTypesWidget,
   },
@@ -30,28 +31,26 @@ export default {
     ...mapGetters({
       accountAnalysisWidgets: get.ACCOUNT_ANALYSIS_WIDGETS,
     }),
-    mostEngagingPostTypes() {
-      return this.accountAnalysisWidgets.mostEngagingPostTypes
+    mostEngagingMediaTypes() {
+      return this.accountAnalysisWidgets.mostEngagingMediaTypes
     },
     labels() {
-      return ['Replies', 'Retweets', 'Tweets']
+      return Object.keys(this.mostEngagingMediaTypes).map(
+        (type) => type.split('_')[0]
+      )
     },
     chartValues() {
       return [
         {
           color: ['#551EB9', '#01A4EE', '#FFBB01'],
-          data: [
-            +this.mostEngagingPostTypes.tweets_engagement,
-            +this.mostEngagingPostTypes.replies_engagement,
-            +this.mostEngagingPostTypes.retweets_engagement,
-          ],
+          data: Object.values(this.mostEngagingMediaTypes),
         },
       ]
     },
   },
   created() {
-    if (!Object.values(this.mostEngagingPostTypes).length) {
-      this[action.GET_MOST_ENGAGING_POST_TYPES]({
+    if (isAllEmptyFields(this.mostEngagingMediaTypes)) {
+      this[action.GET_MOST_ENGAGING_MEDIA_TYPES]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,
         value: this.widgetDetails.aggregation_period,
@@ -59,7 +58,8 @@ export default {
     }
   },
   methods: {
-    ...mapActions([action.GET_MOST_ENGAGING_POST_TYPES]),
+    ...mapActions([action.GET_MOST_ENGAGING_MEDIA_TYPES]),
+    isAllEmptyFields,
   },
 }
 </script>

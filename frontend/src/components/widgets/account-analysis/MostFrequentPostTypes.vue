@@ -1,13 +1,11 @@
 <template>
-  <div class="container">
-    <VolumeWidget
-      v-if="widgets"
-      v-bind="$attrs"
-      :widget-details="widgetDetails"
-      :labels="labels"
-      :chart-values="chartValues"
-    />
-  </div>
+  <VolumeWidget
+    v-if="widgets"
+    v-bind="$attrs"
+    :widget-details="widgetDetails"
+    :labels="labels"
+    :chart-values="chartValues"
+  />
 </template>
 
 <script>
@@ -58,9 +56,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss">
-.container {
-  height: 500px;
-}
-</style>
