@@ -26,6 +26,7 @@
       @save-settings="saveSettings"
       @add-new-project="addNewProject"
       @open-workspace="openWorkspace"
+      @delete-workspace="deleteWorkspace"
     />
 
     <BlankPage v-else page-name="SocialMediaWorkspaces" />
@@ -72,7 +73,10 @@ export default {
   },
   methods: {
     ...mapActions([action.UPDATE_CURRENT_STEP]),
-    ...mapSocialActions([actionSocial.UPDATE_WORKSPACE]),
+    ...mapSocialActions([
+      actionSocial.UPDATE_WORKSPACE,
+      actionSocial.DELETE_WORKSPACE,
+    ]),
     createWorkspace() {
       this.$router.push({
         name: 'SocialCreateWorkspace',
@@ -92,6 +96,10 @@ export default {
 
     openWorkspace(workspaceId) {
       this.$router.push({name: 'SocialWorkspace', params: {workspaceId}})
+    },
+
+    deleteWorkspace(workspaceId) {
+      this[actionSocial.DELETE_WORKSPACE](workspaceId)
     },
   },
 }

@@ -48,9 +48,6 @@
 </template>
 
 <script>
-import {mapActions} from 'vuex'
-import {action} from '@store/constants'
-
 import PlusIcon from '@components/icons/PlusIcon'
 import UsersIconsBar from '@components/UsersIconsBar'
 import BaseTooltipSettings from '@/components/BaseTooltipSettings'
@@ -60,7 +57,7 @@ import AreYouSureModal from '@/components/modals/AreYouSureModal'
 import BaseButton from '@/components/common/BaseButton'
 
 export default {
-  name: 'ProjectItem',
+  name: 'WorkspaceCard',
   components: {
     AreYouSureModal,
     BaseButton,
@@ -70,28 +67,18 @@ export default {
     UsersIconsBar,
     PlusIcon,
   },
-  emits: ['add-new-project', 'navigate-to-workspace', 'open-modal'],
+  emits: [
+    'add-new-project',
+    'navigate-to-workspace',
+    'open-modal',
+    'delete-workspace',
+  ],
   props: {
-    title: {
-      type: String,
-      default: '',
-    },
-    description: {
-      type: String,
-      default: '',
-    },
-    id: {
-      type: Number,
-      required: true,
-    },
-    members: {
-      type: [Array, Object],
-      required: true,
-    },
-    numberProjects: {
-      type: Number,
-      default: 0,
-    },
+    title: {type: String, default: ''},
+    description: {type: String, default: ''},
+    id: {type: Number, required: true},
+    members: {type: [Array, Object], required: true},
+    numberProjects: {type: Number, default: 0},
   },
   data() {
     return {
@@ -104,7 +91,6 @@ export default {
     }
   },
   methods: {
-    ...mapActions([action.DELETE_WORKSPACE]),
     openWorkspace() {
       this.$emit('navigate-to-workspace')
     },
@@ -115,7 +101,8 @@ export default {
       this.$emit('open-modal', this.id)
     },
     deleteWorkspace() {
-      this[action.DELETE_WORKSPACE](this.id)
+      this.$emit('delete-workspace')
+      this.toggleDeleteModal()
     },
     toggleDeleteModal() {
       this.isOpenDeleteModal = !this.isOpenDeleteModal

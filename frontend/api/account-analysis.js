@@ -15,6 +15,14 @@ export default {
     return fetch('post', `${moduleName}/workspaces/create/`, workspace)
   },
 
+  async deleteWorkspace(workspaceId) {
+    return fetch('delete', `${moduleName}/workspaces/delete/${workspaceId}/`)
+  },
+
+  async updateWorkspace({workspaceId, data}) {
+    return fetch('put', `${moduleName}/workspaces/update/${workspaceId}/`, data)
+  },
+
   async createProject(project) {
     return fetch('post', `${moduleName}/projects/ `, project)
   },

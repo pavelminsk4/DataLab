@@ -18,10 +18,12 @@
     <WorkspacesScreen
       v-if="workspaces?.length"
       :workspaces="workspaces"
+      :isProjectCreationAvailable="isProjectCreationAvailable"
       @create-workspace="$emit('create-workspace')"
       @open-workspace="openWorkspaceFolder"
       @add-new-project="addNewProject"
-      :isProjectCreationAvailable="isProjectCreationAvailable"
+      @save-settings="saveSettings"
+      @delete-workspace="deleteWorkspace"
     />
 
     <div v-else class="no-account-analysis-wrapper">
@@ -35,12 +37,16 @@
 </template>
 
 <script>
+import {createNamespacedHelpers} from 'vuex'
+import {action} from '@store/constants'
+
 import BaseButtonWithTooltip from '@/components/BaseButtonWithTooltip'
+import WorkspacesScreen from '@/components/dashboard/WorkspacesScreen'
 import MainLayoutTitleBlock from '@/components/layout/MainLayoutTitleBlock'
 import MainLayout from '@components/layout/MainLayout'
 import PlusIcon from '@/components/icons/PlusIcon'
 
-import WorkspacesScreen from '@/components/dashboard/WorkspacesScreen'
+const {mapActions} = createNamespacedHelpers('accountAnalysis')
 
 export default {
   name: 'AccountAnalysisModuleScreen',
@@ -62,11 +68,19 @@ export default {
     },
   },
   methods: {
+    ...mapActions([action.UPDATE_WORKSPACE, action.DELETE_WORKSPACE]),
     openWorkspaceFolder(workspaceId) {
       this.$emit('open-workspace', workspaceId)
     },
     addNewProject(workspaceId) {
       this.$emit('add-new-project', workspaceId)
+    },
+    saveSettings(settings) {
+      this[action.UPDATE_WORKSPACE](settings)
+    },
+
+    deleteWorkspace(workspaceId) {
+      this[action.DELETE_WORKSPACE](workspaceId)
     },
   },
 }

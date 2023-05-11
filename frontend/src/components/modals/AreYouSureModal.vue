@@ -25,10 +25,7 @@ export default {
   name: 'AreYouSureModal',
   components: {BaseModal, BaseButton},
   props: {
-    itemToDelete: {
-      type: Object,
-      default: () => {},
-    },
+    itemToDelete: {type: Object, default: () => {}},
   },
 }
 </script>
