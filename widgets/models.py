@@ -38,33 +38,33 @@ class WidgetsList(models.Model):
 
 class WidgetsList2(models.Model):
   project = models.OneToOneField(Project, on_delete=models.CASCADE, related_name='widgets_list_2', editable=False)
-  summary_widget = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='sum_widg_description', null=True)
-  volume_widget = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='vol_widg_description', null=True)
-  clipping_feed_content_widget = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='cl_fd_cont_widg_description',null=True)
-  top_10_authors_by_volume_widget = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='top_10_auth_by_vol_widg_description',null=True)
-  top_10_brands_widget = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='top_10_brands_widg_description', null=True)
-  top_10_countries_widget = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='top_10_countries_widg_description', null=True)
-  top_10_languages_widget = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='top_10_languages_widg_description', null=True)
-  content_volume_top_5_source_widget = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='content_volume_top_5_source_widget', null=True)
-  sentiment_top_10_sources_widget = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='sentiment_top_10_sources_widget', null=True)
-  sentiment_top_10_countries_widget = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='sentiment_top_10_countries_widget', null=True)
-  sentiment_top_10_authors_widget = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='sentiment_top_10_authors_widget', null=True)
-  sentiment_top_10_languages_widget = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='sentiment_top_10_languages_widget', null=True)
-  sentiment_for_period_widget = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='sentiment_for_period_widget', null=True)
-  content_volume_top_5_authors_widget = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='content_volume_top_5_authors_widget', null=True)
-  content_volume_top_5_countries_widget = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='content_volume_top_5_countries_widget', null=True)
-  top_keywords = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='top_keywords', null=True)
-  sentiment_top_keywords = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='sentiment_top_keywords', null=True)
-  sentiment_number_of_results = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='sentiment_number_of_results', null=True)
-  sentiment_diagram = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='sentiment_diagram',null=True)
-  authors_by_country = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='authors_by_country',null=True)
-  top_sharing_sources = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='top_sharing_sources',null=True)
-  overall_top_sources = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='overall_top_sources',null=True)
-  sources_by_country = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='sources_by_country',null=True)
-  sources_by_language = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='sources_by_language',null=True)
-  authors_by_language = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='authors_by_language',null=True)
-  authors_by_sentiment = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='authors_by_sentiment',null=True)
-  overall_top_authors = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='overall_top_authors',null=True)
+  summary = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='onl_summary', null=True)
+  volume = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='onl_volume', null=True)
+  clipping_feed_content = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='onl_clipping_feed_content',null=True)
+  top_authors = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='onl_top_authors',null=True)
+  top_brands = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='onl_top_brands', null=True)
+  top_countries = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='onl_top_countries', null=True)
+  top_languages = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='onl_top_languages', null=True)
+  content_volume_top_sources = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='onl_content_volume_top_sources', null=True)
+  sentiment_top_sources = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='onl_sentiment_top_sources', null=True)
+  sentiment_top_countries = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='onl_sentiment_top_countries', null=True)
+  sentiment_top_authors = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='onl_sentiment_top_authors', null=True)
+  sentiment_top_languages = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='onl_sentiment_top_languages', null=True)
+  sentiment_for_period = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='onl_sentiment_for_period', null=True)
+  content_volume_top_authors = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='onl_content_volume_top_authors', null=True)
+  content_volume_top_countries = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='onl_content_volume_top_countries', null=True)
+  top_keywords = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='onl_top_keywords', null=True)
+  sentiment_top_keywords = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='onl_sentiment_top_keywords', null=True)
+  sentiment_number_of_results = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='onl_sentiment_number_of_results', null=True)
+  sentiment_diagram = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='onl_sentiment_diagram',null=True)
+  authors_by_country = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='onl_authors_by_country',null=True)
+  top_sharing_sources = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='onl_top_sharing_sources',null=True)
+  overall_top_sources = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='onl_overall_top_sources',null=True)
+  sources_by_country = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='onl_sources_by_country',null=True)
+  sources_by_language = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='onl_sources_by_language',null=True)
+  authors_by_language = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='onl_authors_by_language',null=True)
+  authors_by_sentiment = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='onl_authors_by_sentiment',null=True)
+  overall_top_authors = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='onl_overall_top_authors',null=True)
 
   def __str__(self):
     return str(self.project)
@@ -78,80 +78,34 @@ def create_widgets_list(sender, instance, created, **kwargs):
 def create_widget_description(sender, instance, created, **kwargs):
   if created:
     wd1 = WidgetDescription.objects.create(title='Summary', default_title='Summary')
-    wd1.linked_dimensions.add(Dimensions.objects.get_or_create(title='Author')[0]) # List of permited dimensions ???
-    wd1.linked_dimensions.add(Dimensions.objects.get_or_create(title='Language')[0]) # Second permited dimension 
     wd1.save()
     wd2 = WidgetDescription.objects.create(title='Content volume', default_title='Content volume')
-    wd2.linked_dimensions.add(Dimensions.objects.get_or_create(title='Author')[0]) # List of permited dimensions ???
-    wd2.linked_dimensions.add(Dimensions.objects.get_or_create(title='Country')[0])
-    wd2.linked_dimensions.add(Dimensions.objects.get_or_create(title='Language')[0]) # Second permited dimension
-    wd2.linked_dimensions.add(Dimensions.objects.get_or_create(title='All Data')[0])
     wd2.save()
     wd3 = WidgetDescription.objects.create(title='Clipping feed content', default_title='Clipping feed content')
-    wd3.linked_dimensions.add(Dimensions.objects.get_or_create(title='Author')[0]) # List of permited dimensions ???
-    wd3.linked_dimensions.add(Dimensions.objects.get_or_create(title='City')[0]) # Second permited dimension
     wd3.save()
-    wd4 = WidgetDescription.objects.create(title='Top authors by volume', default_title='Top 10 authors by volume')
-    wd4.linked_dimensions.add(Dimensions.objects.get_or_create(title='Author')[0]) # List of permited dimensions ???
-    wd4.linked_dimensions.add(Dimensions.objects.get_or_create(title='City')[0]) # Second permited dimension
+    wd4 = WidgetDescription.objects.create(title='Top authors', default_title='Top authors')
     wd4.save()
-    wd5 = WidgetDescription.objects.create(title='Top brands by volume', default_title='Top 10 brands by volume')
-    wd5.linked_dimensions.add(Dimensions.objects.get_or_create(title='Country')[0])
-    wd5.linked_dimensions.add(Dimensions.objects.get_or_create(title='Author')[0])
-    wd5.linked_dimensions.add(Dimensions.objects.get_or_create(title='Language')[0])
-    wd5.linked_dimensions.add(Dimensions.objects.get_or_create(title='Sentiment')[0])
+    wd5 = WidgetDescription.objects.create(title='Top brands', default_title='Top brands')
     wd5.save()
-    wd6 = WidgetDescription.objects.create(title='Top countries by volume', default_title='Top 10 countries by volume')
-    wd6.linked_dimensions.add(Dimensions.objects.get_or_create(title='Source')[0])
-    wd6.linked_dimensions.add(Dimensions.objects.get_or_create(title='Author')[0])
-    wd6.linked_dimensions.add(Dimensions.objects.get_or_create(title='Language')[0])
-    wd6.linked_dimensions.add(Dimensions.objects.get_or_create(title='Sentiment')[0])
+    wd6 = WidgetDescription.objects.create(title='Top countries', default_title='Top countries')
     wd6.save()
-    wd7 = WidgetDescription.objects.create(title='Top languages', default_title='Top 10 languages')
-    wd7.linked_dimensions.add(Dimensions.objects.get_or_create(title='Source')[0])
-    wd7.linked_dimensions.add(Dimensions.objects.get_or_create(title='Author')[0])
-    wd7.linked_dimensions.add(Dimensions.objects.get_or_create(title='Country')[0])
+    wd7 = WidgetDescription.objects.create(title='Top languages', default_title='Top languages')
     wd7.save()
-    wd8 = WidgetDescription.objects.create(title='Content Volume by top sources', default_title='Content Volume by Top 5 sources')
-    wd8.linked_dimensions.add(Dimensions.objects.get_or_create(title='Language')[0])
-    wd8.linked_dimensions.add(Dimensions.objects.get_or_create(title='Author')[0])
-    wd8.linked_dimensions.add(Dimensions.objects.get_or_create(title='Country')[0])
+    wd8 = WidgetDescription.objects.create(title='Content Volume by top sources', default_title='Content Volume by top sources')
     wd8.save()
-    wd9 = WidgetDescription.objects.create(title='Sentiment top sources widget', default_title='Sentiment top 10 sources widget')
-    wd9.linked_dimensions.add(Dimensions.objects.get_or_create(title='Language')[0])
-    wd9.linked_dimensions.add(Dimensions.objects.get_or_create(title='Author')[0])
-    wd9.linked_dimensions.add(Dimensions.objects.get_or_create(title='Country')[0])
+    wd9 = WidgetDescription.objects.create(title='Sentiment top sources', default_title='Sentiment top sources')
     wd9.save()
-    wd10 = WidgetDescription.objects.create(title='Sentiment top countries widget', default_title='Sentiment top 10 countries widget')
-    wd10.linked_dimensions.add(Dimensions.objects.get_or_create(title='Language')[0])
-    wd10.linked_dimensions.add(Dimensions.objects.get_or_create(title='Author')[0])
-    wd10.linked_dimensions.add(Dimensions.objects.get_or_create(title='Source')[0])
+    wd10 = WidgetDescription.objects.create(title='Sentiment top countries', default_title='Sentiment top countries')
     wd10.save()
-    wd11 = WidgetDescription.objects.create(title='Sentiment top authors widget', default_title='Sentiment top 10 authors widget')
-    wd11.linked_dimensions.add(Dimensions.objects.get_or_create(title='Language')[0])
-    wd11.linked_dimensions.add(Dimensions.objects.get_or_create(title='Country')[0])
-    wd11.linked_dimensions.add(Dimensions.objects.get_or_create(title='Source')[0])
+    wd11 = WidgetDescription.objects.create(title='Sentiment top authors', default_title='Sentiment top authors')
     wd11.save()
-    wd12 = WidgetDescription.objects.create(title='Sentiment top languages widget', default_title='Sentiment top 10 languages widget')
-    wd12.linked_dimensions.add(Dimensions.objects.get_or_create(title='Country')[0])
-    wd12.linked_dimensions.add(Dimensions.objects.get_or_create(title='Country')[0])
-    wd12.linked_dimensions.add(Dimensions.objects.get_or_create(title='Source')[0])
+    wd12 = WidgetDescription.objects.create(title='Sentiment top languages', default_title='Sentiment top languages')
     wd12.save()
-    wd13 = WidgetDescription.objects.create(title='Sentiment for period widget', default_title='Sentiment for period widget')
-    wd13.linked_dimensions.add(Dimensions.objects.get_or_create(title='Country')[0])
-    wd13.linked_dimensions.add(Dimensions.objects.get_or_create(title='Author')[0])
-    wd13.linked_dimensions.add(Dimensions.objects.get_or_create(title='Source')[0])
-    wd13.linked_dimensions.add(Dimensions.objects.get_or_create(title='Language')[0])
+    wd13 = WidgetDescription.objects.create(title='Sentiment for period', default_title='Sentiment for period')
     wd13.save()
-    wd14 = WidgetDescription.objects.create(title='Content volume by top authors', default_title='Content Volume by Top 5 authors')
-    wd14.linked_dimensions.add(Dimensions.objects.get_or_create(title='Country')[0])
-    wd14.linked_dimensions.add(Dimensions.objects.get_or_create(title='Source')[0])
-    wd14.linked_dimensions.add(Dimensions.objects.get_or_create(title='Language')[0])
+    wd14 = WidgetDescription.objects.create(title='Content volume by top authors', default_title='Content Volume by authors')
     wd14.save()
-    wd15 = WidgetDescription.objects.create(title='Content volume by top countries', default_title='Content Volume by Top 5 countries')
-    wd15.linked_dimensions.add(Dimensions.objects.get_or_create(title='Author')[0])
-    wd15.linked_dimensions.add(Dimensions.objects.get_or_create(title='Source')[0])
-    wd15.linked_dimensions.add(Dimensions.objects.get_or_create(title='Language')[0])
+    wd15 = WidgetDescription.objects.create(title='Content volume by top countries', default_title='Content Volume by countries')
     wd15.save()
     wd16 = WidgetDescription.objects.create(title='Top keywords', default_title='Top keywords')
     wd16.save()
@@ -177,21 +131,21 @@ def create_widget_description(sender, instance, created, **kwargs):
     wd26.save()
     wd27 = WidgetDescription.objects.create(title='Overall top authors', default_title='Overall top authors')
     wd27.save()
-    instance.summary_widget = wd1
-    instance.volume_widget = wd2
-    instance.clipping_feed_content_widget = wd3
-    instance.top_10_authors_by_volume_widget = wd4
-    instance.top_10_brands_widget = wd5
-    instance.top_10_countries_widget = wd6
-    instance.top_10_languages_widget = wd7
-    instance.content_volume_top_5_source_widget = wd8
-    instance.sentiment_top_10_sources_widget = wd9
-    instance.sentiment_top_10_countries_widget = wd10
-    instance.sentiment_top_10_authors_widget = wd11
-    instance.sentiment_top_10_languages_widget = wd12
-    instance.sentiment_for_period_widget = wd13
-    instance.content_volume_top_5_authors_widget = wd14
-    instance.content_volume_top_5_countries_widget = wd15
+    instance.summary = wd1
+    instance.volume = wd2
+    instance.clipping_feed_content = wd3
+    instance.top_authors = wd4
+    instance.top_brands = wd5
+    instance.top_countries = wd6
+    instance.top_languages = wd7
+    instance.content_volume_top_sources = wd8
+    instance.sentiment_top_sources = wd9
+    instance.sentiment_top_countries = wd10
+    instance.sentiment_top_authors = wd11
+    instance.sentiment_top_languages = wd12
+    instance.sentiment_for_period = wd13
+    instance.content_volume_top_authors = wd14
+    instance.content_volume_top_countries = wd15
     instance.top_keywords = wd16
     instance.sentiment_top_keywords = wd17
     instance.sentiment_number_of_results = wd18

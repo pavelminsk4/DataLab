@@ -1,4 +1,4 @@
-from widgets.common_widget.sentiment_for_period_widget import *
+from widgets.common_widget.sentiment_for_period import *
 from project.models import *
 from quickchart import QuickChart
 

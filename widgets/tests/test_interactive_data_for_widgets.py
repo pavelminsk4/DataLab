@@ -20,7 +20,7 @@ class InteractiveWidgetsTests(APITestCase):
 
   def test_top_10_interactive_widgets(self):
     pr = Project.objects.first()
-    widget_pk = pr.widgets_list_2.top_10_languages_widget_id
+    widget_pk = pr.widgets_list_2.top_languages_id
     url = reverse('widgets:interactive_widgets', kwargs={'project_pk':pr.pk, 'widget_pk':widget_pk})
     post1 = Post.objects.all().get(entry_title='First post title').pk
     data = {
@@ -39,7 +39,7 @@ class InteractiveWidgetsTests(APITestCase):
     sp2 = Speech.objects.get(language='Georgian')
     pr = Project.objects.first()
     post_id = Post.objects.all().get(entry_title='Second post title').pk
-    widget_pk = pr.widgets_list_2.sentiment_top_10_languages_widget_id
+    widget_pk = pr.widgets_list_2.sentiment_top_languages_id
     url = reverse('widgets:interactive_widgets', kwargs={'project_pk':pr.pk, 'widget_pk':widget_pk})
     data = {
       'second_value': ['negative'],
@@ -57,7 +57,7 @@ class InteractiveWidgetsTests(APITestCase):
     sp2 = Speech.objects.get(language='Georgian')
     pr = Project.objects.first()
     post_id = Post.objects.all().get(entry_title='Second post title').pk
-    widget_pk = pr.widgets_list_2.sentiment_for_period_widget_id
+    widget_pk = pr.widgets_list_2.sentiment_for_period_id
     url = reverse('widgets:interactive_widgets', kwargs={'project_pk':pr.pk, 'widget_pk':widget_pk})
     data = {
       'first_value': ['negative'],
@@ -75,7 +75,7 @@ class InteractiveWidgetsTests(APITestCase):
     sp2 = Speech.objects.get(language='Georgian')
     pr = Project.objects.first()
     post_id = Post.objects.all().get(entry_title='Second post title').pk
-    widget_pk = pr.widgets_list_2.volume_widget_id
+    widget_pk = pr.widgets_list_2.volume_id
     url = reverse('widgets:interactive_widgets', kwargs={'project_pk':pr.pk, 'widget_pk':widget_pk})
     data = {
       'first_value': [],

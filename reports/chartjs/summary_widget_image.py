@@ -1,4 +1,4 @@
-from widgets.common_widget.summary_widget import *
+from widgets.common_widget.summary import *
 from project.models import *
 from quickchart import QuickChart
 import json

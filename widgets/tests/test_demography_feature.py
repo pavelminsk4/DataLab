@@ -27,7 +27,7 @@ class DemographyFeatureTests(APITestCase):
   def test_top_sharing_sources(self):
     pr = Project.objects.first()
     widget_pk = pr.widgets_list_2.top_sharing_sources_id
-    url = reverse('widgets:top_sharing_sources', kwargs={'pk':pr.pk, 'widget_pk':widget_pk})
+    url = reverse('widgets:onl_top_sharing_sources', kwargs={'pk':pr.pk, 'widget_pk':widget_pk})
     response = self.client.get(url)
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     res = [
@@ -53,7 +53,7 @@ class DemographyFeatureTests(APITestCase):
   def test_sources_by_country(self):
     pr = Project.objects.first()
     widget_pk = pr.widgets_list_2.sources_by_country_id
-    url = reverse('widgets:sources_by_country', kwargs={'pk':pr.pk, 'widget_pk':widget_pk})
+    url = reverse('widgets:onl_sources_by_country', kwargs={'pk':pr.pk, 'widget_pk':widget_pk})
     response = self.client.get(url)
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     res = [
@@ -65,7 +65,7 @@ class DemographyFeatureTests(APITestCase):
   def test_sources_by_language(self):
     pr = Project.objects.first()
     widget_pk = pr.widgets_list_2.sources_by_language_id
-    url = reverse('widgets:sources_by_language', kwargs={'pk':pr.pk, 'widget_pk':widget_pk})
+    url = reverse('widgets:onl_sources_by_language', kwargs={'pk':pr.pk, 'widget_pk':widget_pk})
     response = self.client.get(url)
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     res = [
@@ -77,7 +77,7 @@ class DemographyFeatureTests(APITestCase):
   def test_overall_top_sources(self):
     pr = Project.objects.first()
     widget_pk = pr.widgets_list_2.overall_top_sources_id
-    url = reverse('widgets:overall_top_sources', kwargs={'pk':pr.pk, 'widget_pk':widget_pk})
+    url = reverse('widgets:onl_overall_top_sources', kwargs={'pk':pr.pk, 'widget_pk':widget_pk})
     response = self.client.get(url)
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     res = [

@@ -21,7 +21,7 @@ class SentimentNumberOfResultsTests(APITestCase):
     pr = Project.objects.first()
     res = {'positive': 1, 'negative': 0, 'neutral': 1}
     widget_pk = pr.widgets_list_2.sentiment_number_of_results_id
-    url = reverse('widgets:sentiment_number_of_results', kwargs={'pk':pr.pk, 'widget_pk':widget_pk})
+    url = reverse('widgets:onl_sentiment_number_of_results', kwargs={'pk':pr.pk, 'widget_pk':widget_pk})
     response = self.client.get(url)
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     self.assertEqual(json.loads(response.content), res)
@@ -30,7 +30,7 @@ def test_sentiment_diagram(self):
     pr = Project.objects.first()
     res = {'positive': 1, 'negative': 0, 'neutral': 1}
     widget_pk = pr.widgets_list_2.sentiment_diagram_id
-    url = reverse('widgets:sentiment_diagram', kwargs={'pk':pr.pk, 'widget_pk':widget_pk})
+    url = reverse('widgets:onl_sentiment_diagram', kwargs={'pk':pr.pk, 'widget_pk':widget_pk})
     response = self.client.get(url)
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     self.assertEqual(json.loads(response.content), res)

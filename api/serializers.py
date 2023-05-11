@@ -79,21 +79,21 @@ class WidgetDescriptionSerializer(WritableNestedModelSerializer):
     fields = '__all__'
 
 class WidgetsListSerializer(WritableNestedModelSerializer):
-  summary_widget = WidgetDescriptionSerializer()
-  volume_widget = WidgetDescriptionSerializer()
-  top_10_authors_by_volume_widget = WidgetDescriptionSerializer()
-  top_10_brands_widget = WidgetDescriptionSerializer()
-  top_10_countries_widget = WidgetDescriptionSerializer()
-  top_10_languages_widget = WidgetDescriptionSerializer()
-  content_volume_top_5_source_widget = WidgetDescriptionSerializer()
-  sentiment_top_10_sources_widget = WidgetDescriptionSerializer()
-  sentiment_top_10_countries_widget = WidgetDescriptionSerializer()
-  sentiment_top_10_authors_widget = WidgetDescriptionSerializer()
-  sentiment_top_10_languages_widget = WidgetDescriptionSerializer()
-  sentiment_for_period_widget = WidgetDescriptionSerializer()
-  content_volume_top_5_authors_widget = WidgetDescriptionSerializer()
-  content_volume_top_5_countries_widget = WidgetDescriptionSerializer()
-  clipping_feed_content_widget = WidgetDescriptionSerializer()
+  summary = WidgetDescriptionSerializer()
+  volume = WidgetDescriptionSerializer()
+  top_authors = WidgetDescriptionSerializer()
+  top_brands = WidgetDescriptionSerializer()
+  top_countries = WidgetDescriptionSerializer()
+  top_languages = WidgetDescriptionSerializer()
+  content_volume_top_sources = WidgetDescriptionSerializer()
+  sentiment_top_sources = WidgetDescriptionSerializer()
+  sentiment_top_countries = WidgetDescriptionSerializer()
+  sentiment_top_authors = WidgetDescriptionSerializer()
+  sentiment_top_languages = WidgetDescriptionSerializer()
+  sentiment_for_period = WidgetDescriptionSerializer()
+  content_volume_top_authors = WidgetDescriptionSerializer()
+  content_volume_top_countries = WidgetDescriptionSerializer()
+  clipping_feed_content = WidgetDescriptionSerializer()
   top_keywords = WidgetDescriptionSerializer()
   sentiment_top_keywords = WidgetDescriptionSerializer()
   sentiment_number_of_results = WidgetDescriptionSerializer()
@@ -109,21 +109,21 @@ class WidgetsListSerializer(WritableNestedModelSerializer):
   class Meta:
     model = WidgetsList2
     fields = [
-      'summary_widget',
-      'volume_widget',
-      'top_10_authors_by_volume_widget',
-      'top_10_brands_widget',
-      'top_10_countries_widget',
-      'top_10_languages_widget',
-      'content_volume_top_5_source_widget',
-      'sentiment_top_10_sources_widget',
-      'sentiment_top_10_countries_widget',
-      'sentiment_top_10_authors_widget',
-      'sentiment_top_10_languages_widget',
-      'sentiment_for_period_widget',
-      'content_volume_top_5_authors_widget',
-      'content_volume_top_5_countries_widget',
-      'clipping_feed_content_widget',
+      'summary',
+      'volume',
+      'top_authors',
+      'top_brands',
+      'top_countries',
+      'top_languages',
+      'content_volume_top_sources',
+      'sentiment_top_sources',
+      'sentiment_top_countries',
+      'sentiment_top_authors',
+      'sentiment_top_languages',
+      'sentiment_for_period',
+      'content_volume_top_authors',
+      'content_volume_top_countries',
+      'clipping_feed_content',
       'top_keywords',
       'sentiment_top_keywords',
       'sentiment_number_of_results',

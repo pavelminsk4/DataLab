@@ -25,7 +25,7 @@ class AuthorsByCountryTests(APITestCase):
     pr = Project.objects.create(title='Project1', keywords=['post'], additional_keywords=[], ignore_keywords=[], start_search_date=datetime(2020, 10, 10),
                                 end_search_date=datetime(2023, 10, 16), language_filter=sp, author_filter='', source_filter='', creator=user)
     widget_pk = pr.widgets_list_2.authors_by_country_id
-    url = reverse('widgets:authors_by_country', kwargs={'pk':pr.pk, 'widget_pk':widget_pk})
+    url = reverse('widgets:onl_authors_by_country', kwargs={'pk':pr.pk, 'widget_pk':widget_pk})
     response = self.client.get(url)
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     res = [

@@ -6,7 +6,7 @@ import json
 from project.models import Post, Project, Speech, Feedlinks
 from django.contrib.auth.models import User
 
-class SentimentTop10AuthorsWidgetTests(APITestCase):
+class SentimentTop10LanguagessWidgetTests(APITestCase):
   def test_response_list(self):
     user = User.objects.create(username='Pablo')
     flink1 = Feedlinks.objects.create(country = 'England')
@@ -26,19 +26,19 @@ class SentimentTop10AuthorsWidgetTests(APITestCase):
     # test first project with None field
     pr = Project.objects.create(title='Project1', keywords=['post'], additional_keywords=[], ignore_keywords=[], start_search_date=datetime(2020, 10, 10), 
                                 end_search_date=datetime(2023, 10, 16), source_filter='', author_filter='', language_filter='', creator=user)
-    widget_pk = pr.widgets_list_2.sentiment_top_10_authors_widget_id
-    url = reverse('widgets:sentiment_top_10_authors_widget', kwargs={'pk':pr.pk, 'widget_pk':widget_pk})
+    widget_pk = pr.widgets_list_2.sentiment_top_languages_id
+    url = reverse('widgets:onl_sentiment_top_languages', kwargs={'pk':pr.pk, 'widget_pk':widget_pk})
     response = self.client.get(url)
     self.assertEqual(response.status_code, status.HTTP_200_OK)
-    res = {'AFP': [
-                    {'sentiment': 'neutral', 'sentiment_count': 3},
-                    {'sentiment': 'negative', 'sentiment_count': 2},
-                    {'sentiment': 'positive', 'sentiment_count': 1}
-                 ],
-          'EFE': [
-                  {'sentiment': 'neutral', 'sentiment_count': 1},
-                  {'sentiment': 'negative', 'sentiment_count': 0},
-                  {'sentiment': 'positive', 'sentiment_count': 0}
-                 ],               
+    res = {'English (United States)': [
+                                        {'sentiment': 'neutral', 'sentiment_count': 2},
+                                        {'sentiment': 'negative', 'sentiment_count': 1},
+                                        {'sentiment': 'positive', 'sentiment_count': 0}
+                                      ],
+           'Spain': [
+                     {'sentiment': 'neutral', 'sentiment_count': 3},
+                     {'sentiment': 'negative', 'sentiment_count': 1},
+                     {'sentiment': 'positive', 'sentiment_count': 1}
+                    ]
           }
     self.assertEqual(json.loads(response.content), res)

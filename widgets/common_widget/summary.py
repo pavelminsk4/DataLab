@@ -1,9 +1,6 @@
 from widgets.models import WidgetDescription
-from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
-from project.models import Project, Post
-from django.db.models import Q
-from functools import reduce
+from project.models import Project
 from .filters_for_widgets import *
 
 def calculate_summary_widget(posts):

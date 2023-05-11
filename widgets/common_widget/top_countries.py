@@ -8,7 +8,7 @@ def post_agregator_top_countries(posts, top_counts):
   results = posts.values('feedlink__country').annotate(country_count=Count('feedlink__country')).order_by('-country_count')[:top_counts]
   return list(results)
 
-def top_10_countries(pk, widget_pk):
+def top_countries(pk, widget_pk):
   project = Project.objects.get(id=pk)
   posts = post_agregator_with_dimensions(project)
   widget = WidgetDescription.objects.get(id=widget_pk)

@@ -17,7 +17,7 @@ def post_agregator_sentiment_top_languages(posts, top_counts):
      results[top_languages[i]].append({'sentiment': sen, 'sentiment_count': 0})
   return results      
 
-def sentiment_top_10_languages(pk, widget_pk):
+def sentiment_top_languages(pk, widget_pk):
   project = Project.objects.get(id=pk)
   posts = post_agregator_with_dimensions(project)
   widget = WidgetDescription.objects.get(id=widget_pk)

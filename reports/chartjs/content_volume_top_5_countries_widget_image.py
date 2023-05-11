@@ -1,4 +1,4 @@
-from widgets.common_widget.content_volume_top_5_source_widget import *
+from widgets.common_widget.content_volume_top_sources import *
 from project.models import *
 from quickchart import QuickChart
 from .services.algorithm_for_count_content_volume_widgets import algorithm_for_count_volume_widgets

@@ -6,7 +6,7 @@ import json
 from project.models import Post, Project, Speech, Feedlinks
 from django.contrib.auth.models import User
 
-class ContentVolumeTop5AuthorsWidgetTests(APITestCase):
+class Top10LanguagesWidgetTests(APITestCase):
   def test_response_list(self):
     user = User.objects.create(username='Pablo')
     flink1 = Feedlinks.objects.create(country = 'England')
@@ -24,25 +24,25 @@ class ContentVolumeTop5AuthorsWidgetTests(APITestCase):
     post7 = Post.objects.create(feedlink=flink4, entry_title='5 post title', feed_language=sp2, entry_published=datetime(2023, 9, 3, 6, 37), entry_author='AFP', summary_vector=[])
     post8 = Post.objects.create(feedlink=flink4, entry_title='6 post title', feed_language=sp2, entry_published=datetime(2023, 9, 3, 6, 37), entry_author='', summary_vector=[])
     # test first project with None field
-    pr1 = Project.objects.create(title='Project1', keywords=['post'], additional_keywords=[], ignore_keywords=[], start_search_date=datetime(2020, 10, 10),
-                                end_search_date=datetime(2023, 10, 16), country_filter='', author_filter='', language_filter='', creator=user) 
-    widget_pk = pr1.widgets_list_2.content_volume_top_5_authors_widget_id
-    url = reverse('widgets:content_volume_top_5_authors_widget', kwargs={'pk':pr1.pk, 'widget_pk':widget_pk})
-    data = {
-            'aggregation_period': "day"
-    }
-    response = self.client.post(url, data, format='json')
+    pr1 = Project.objects.create(title='Project1', keywords=['post'], additional_keywords=[], ignore_keywords=[], start_search_date=datetime(2020, 10, 10), 
+                                end_search_date=datetime(2023, 10, 16), country_filter='', author_filter='', source_filter='', creator=user)
+    widget_pk = pr1.widgets_list_2.top_languages_id
+    url = reverse('widgets:onl_top_languages', kwargs={'pk':pr1.pk, 'widget_pk':widget_pk})
+    response = self.client.get(url)
     self.assertEqual(response.status_code, status.HTTP_200_OK)
-    res =  [
-            {'AFP': [
-                      {'date': '2021-09-03 00:00:00+00:00', 'post_count': 1},
-                      {'date': '2022-09-03 00:00:00+00:00', 'post_count': 1},
-                      {'date': '2023-09-03 00:00:00+00:00', 'post_count': 4}
-                    ]},
-            {'EFE': [
-                      {'date': '2021-09-03 00:00:00+00:00', 'post_count': 0},
-                      {'date': '2022-09-03 00:00:00+00:00', 'post_count': 0},
-                      {'date': '2023-09-03 00:00:00+00:00', 'post_count': 1}
-                    ]},
-           ]
-    self.assertEqual(json.loads(response.content), res)
+    res1 = [
+      {'feed_language__language': 'Spain', 'language_count': 5},
+      {'feed_language__language': 'English (United States)', 'language_count': 3},
+    ]
+    self.assertEqual(json.loads(response.content), res1)
+    # test second project with author, source filters
+    pr2 = Project.objects.create(title='Project2', keywords=['post'], additional_keywords=[], ignore_keywords=[], start_search_date=datetime(2020, 10, 10), 
+                                end_search_date=datetime(2023, 10, 16), country_filter='USA', author_filter='AFP', source_filter='Time', creator=user)
+    widget_pk = pr2.widgets_list_2.top_languages_id
+    url = reverse('widgets:onl_top_languages', kwargs={'pk':pr2.pk, 'widget_pk':widget_pk})
+    response = self.client.get(url)
+    self.assertEqual(response.status_code, status.HTTP_200_OK)
+    res2 = [
+      {'feed_language__language': 'Spain', 'language_count': 1}
+    ]
+    self.assertEqual(json.loads(response.content), res2)

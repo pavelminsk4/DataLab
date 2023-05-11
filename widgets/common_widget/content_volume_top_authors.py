@@ -6,7 +6,7 @@ from django.db.models.functions import Trunc
 from .filters_for_widgets import *
 import json
 
-def agregator_results_content_volume_top_authors(posts, aggregation_period, top_counts):
+def aggregator_results_content_volume_top_authors(posts, aggregation_period, top_counts):
   filtred_posts = missing_authors_filter(posts)
   top_authors = list(map(lambda x: x['entry_author'], list(filtred_posts.values('entry_author').annotate(author_count=Count('entry_author')).order_by('-author_count')[:top_counts])))
   results = [{author: list(filtred_posts.filter(entry_author=author).annotate(date=Trunc('entry_published', aggregation_period)).values("date").annotate(created_count=Count('id')).order_by("date"))} for author in top_authors]
@@ -27,12 +27,12 @@ def agregator_results_content_volume_top_authors(posts, aggregation_period, top_
     res.append({top_authors[elem]: list_dates})
   return res
 
-def content_volume_top_5_authors(request, pk, widget_pk):
+def content_volume_top_authors(request, pk, widget_pk):
   project = Project.objects.get(id=pk)
   posts = post_agregator_with_dimensions(project)
   widget = WidgetDescription.objects.get(id=widget_pk)
   posts = post_agregetor_for_each_widget(widget, posts)
   body = json.loads(request.body)
   aggregation_period = body['aggregation_period']
-  res = agregator_results_content_volume_top_authors(posts, aggregation_period, widget.top_counts)
+  res = aggregator_results_content_volume_top_authors(posts, aggregation_period, widget.top_counts)
   return JsonResponse(res, safe = False)
