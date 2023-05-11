@@ -26,7 +26,7 @@
     </div>
 
     <div class="items-wrapper scroll">
-      <ProjectItem
+      <WorkspaceCard
         v-for="(item, index) in sortWorkspaces"
         :key="index"
         :title="item.title"
@@ -35,6 +35,7 @@
         :id="item.id"
         :members="item.members"
         @open-modal="toggleModal(item)"
+        @delete-workspace="$emit('delete-workspace', item.id)"
         @add-new-project="$emit('add-new-project', item.id)"
         @navigate-to-workspace="$emit('open-workspace', item.id)"
       />
@@ -53,7 +54,7 @@ import PlusIcon from '@/components/icons/PlusIcon'
 
 import BaseButtonWithTooltip from '@/components/BaseButtonWithTooltip'
 import BaseSpinner from '@/components/BaseSpinner'
-import ProjectItem from '@components/dashboard/ProjectItem'
+import WorkspaceCard from '@components/dashboard/WorkspaceCard'
 import SettingsWorkspaceModal from '@/components/modals/SettingsWorkspaceModal'
 
 export default {
@@ -63,7 +64,7 @@ export default {
     BaseSpinner,
     SortIcon,
     PlusIcon,
-    ProjectItem,
+    WorkspaceCard,
     SettingsWorkspaceModal,
   },
   props: {
@@ -81,6 +82,7 @@ export default {
     'add-new-project',
     'save-settings',
     'open-workspace',
+    'delete-workspace',
   ],
   data() {
     return {

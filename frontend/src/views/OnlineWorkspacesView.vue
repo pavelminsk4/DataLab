@@ -26,6 +26,7 @@
       @save-settings="saveSettings"
       @add-new-project="addNewProject"
       @open-workspace="openWorkspace"
+      @delete-workspace="deleteWorkspace"
     />
 
     <BlankPage v-else page-name="OnlineWorkspaces" />
@@ -69,7 +70,11 @@ export default {
     },
   },
   methods: {
-    ...mapActions([action.UPDATE_CURRENT_STEP, action.UPDATE_WORKSPACE]),
+    ...mapActions([
+      action.UPDATE_CURRENT_STEP,
+      action.UPDATE_WORKSPACE,
+      action.DELETE_WORKSPACE,
+    ]),
     createWorkspace() {
       this.$router.push({
         name: 'OnlineCreateWorkspace',
@@ -89,6 +94,10 @@ export default {
 
     openWorkspace(workspaceId) {
       this.$router.push({name: 'OnlineWorkspace', params: {workspaceId}})
+    },
+
+    deleteWorkspace(workspaceId) {
+      this[action.DELETE_WORKSPACE](workspaceId)
     },
   },
 }

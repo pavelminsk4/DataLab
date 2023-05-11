@@ -50,6 +50,21 @@ export default {
     }
   },
 
+  async [action.UPDATE_WORKSPACE]({commit}, {workspaceId, data}) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const responseData = await api.accountAnalysis.updateWorkspace({
+        workspaceId,
+        data,
+      })
+      commit(mutator.UPDATE_WORKSPACE, responseData)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
   async [action.GET_LIST_OF_PROFILE_HANDLE]({commit}) {
     commit(mutator.SET_LOADING, true)
     try {
@@ -77,6 +92,19 @@ export default {
       commit(mutator.SET_LOADING, false)
     }
   },
+
+  async [action.DELETE_WORKSPACE]({commit, dispatch}, workspaceId) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      await api.accountAnalysis.deleteWorkspace(workspaceId)
+      await dispatch(action.GET_WORKSPACES)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
   async [action.GET_AVAILABLE_WIDGETS]({commit}, projectId) {
     commit(mutator.SET_LOADING, true)
     try {

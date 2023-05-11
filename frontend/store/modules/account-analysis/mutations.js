@@ -11,6 +11,13 @@ export default {
     }))
   },
 
+  [mutator.UPDATE_WORKSPACE](state, workspace) {
+    const currentWorkspaceIdex = state.workspaces.findIndex(
+      (w) => w.id === workspace.id
+    )
+    state.workspaces[currentWorkspaceIdex] = workspace
+  },
+
   [mutator.SET_ACCOUNT_ANALYSIS_WORKSPACE_ID](state, id) {
     state.newWorkspaceId = id
   },
