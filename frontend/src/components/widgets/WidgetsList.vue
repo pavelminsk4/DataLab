@@ -134,7 +134,10 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+
   gap: 30px;
+  padding-left: 0px;
+
   list-style: none;
   .widgets__item {
     width: calc(50% - 15px);

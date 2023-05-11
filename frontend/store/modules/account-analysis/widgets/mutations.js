@@ -34,4 +34,10 @@ export default {
   [mutator.SET_TOP_HASHTAGS](state, data) {
     state.topHashtags = data
   },
+
+  [mutator.CLEAR_WIDGETS_DATA](state) {
+    for (const widget in state) {
+      state[widget] = {}
+    }
+  },
 }
