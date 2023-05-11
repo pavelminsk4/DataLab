@@ -465,6 +465,14 @@ export const widgetsConfig = {
     availableTypes: null,
     settingsTabs: ['General', 'Dimensions'],
   },
+
+  top_hashtags: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    actionName: action.GET_TOP_HASHTAGS,
+    hasAggregationPeriod: false,
+    defaultChartType: 'HorizontalBarChart',
+    availableTypes: SIMPLE_CHARTS,
+  },
 }
 
 export const summaryWidgetConfig = [

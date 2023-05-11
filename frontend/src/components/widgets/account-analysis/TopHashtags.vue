@@ -1,40 +1,41 @@
 <template>
-  <FollowerGrowthWidget
-    v-if="!isAllEmptyFields(followerGrowth)"
-    :widget-data="followerGrowth"
+  <TopHashtagsWidget
+    v-if="topHashtags.length"
+    v-bind="$attrs"
     :widget-details="widgetDetails"
+    :widget-data="topHashtags"
   />
 </template>
 
 <script>
 import {createNamespacedHelpers} from 'vuex'
 import {get, action} from '@store/constants'
-import FollowerGrowthWidget from '@/components/widgets/FollowerGrowthWidget'
-import {isAllEmptyFields} from '@lib/utilities'
+
+import TopHashtagsWidget from '@/components/widgets/TopHashtagsWidget'
 
 const {mapActions, mapGetters} = createNamespacedHelpers(
   'accountAnalysis/widgets'
 )
 
 export default {
-  name: 'FollowerGrowth',
+  name: 'TopHashtags',
   props: {
     widgetDetails: {type: Object, required: true},
   },
   components: {
-    FollowerGrowthWidget,
+    TopHashtagsWidget,
   },
   computed: {
     ...mapGetters({
       accountAnalysisWidgets: get.ACCOUNT_ANALYSIS_WIDGETS,
     }),
-    followerGrowth() {
-      return this.accountAnalysisWidgets.followerGrowth
+    topHashtags() {
+      return this.accountAnalysisWidgets.topHashtags
     },
   },
   created() {
-    if (isAllEmptyFields(this.followerGrowth)) {
-      this[action.GET_FOLLOWER_GROWTH]({
+    if (!this.topHashtags.length) {
+      this[action.GET_TOP_HASHTAGS]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,
         value: this.widgetDetails.aggregation_period,
@@ -42,8 +43,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions([action.GET_FOLLOWER_GROWTH]),
-    isAllEmptyFields,
+    ...mapActions([action.GET_TOP_HASHTAGS]),
   },
 }
 </script>

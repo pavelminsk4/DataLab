@@ -31,6 +31,14 @@ export default {
     )
   },
 
+  async updateAvailableWidgets({projectId, data}) {
+    return fetch(
+      'patch',
+      `${moduleName}/account_analysis_projects/${projectId}/widgets_list/update`,
+      data
+    )
+  },
+
   async getProfileTimeline(projectId, widgetId, value) {
     return fetch(
       'post',
@@ -93,11 +101,11 @@ export default {
     )
   },
 
-  async updateAvailableWidgets({projectId, data}) {
+  async getTopHashtags(projectId, widgetId, value) {
     return fetch(
-      'patch',
-      `${moduleName}/account_analysis_projects/${projectId}/widgets_list/update`,
-      data
+      'post',
+      `${moduleName}/top_hashtags_widget/${projectId}/${widgetId}`,
+      {aggregation_period: value}
     )
   },
 }
