@@ -208,21 +208,21 @@ export default {
   async getContentVolumeTopLocations({projectId, value, widgetId}) {
     return fetch(
       'put',
-      `${moduleName}/social_content_volume_by_top_locations/${projectId}/${widgetId}`,
+      `${moduleName}/social_content_volume_top_locations/${projectId}/${widgetId}`,
       value
     )
   },
   async getContentVolumeTopAuthors({projectId, value, widgetId}) {
     return fetch(
       'post',
-      `${moduleName}/social_content_volume_by_top_authors/${projectId}/${widgetId}`,
+      `${moduleName}/social_content_volume_top_authors/${projectId}/${widgetId}`,
       value
     )
   },
   async getContentVolumeTopLanguages({projectId, value, widgetId}) {
     return fetch(
       'put',
-      `${moduleName}/social_content_volume_by_top_languages/${projectId}/${widgetId}`,
+      `${moduleName}/social_content_volume_top_languages/${projectId}/${widgetId}`,
       value
     )
   },
