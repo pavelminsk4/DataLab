@@ -25,7 +25,8 @@ urlpatterns = [
     path('most_frequent_media_types_widget/<int:pk>/<int:widget_pk>', views.most_frequent_media_types_widget, name='most_frequent_media_types_widget'),
     path('most_engaging_media_types_widget/<int:pk>/<int:widget_pk>', views.most_engaging_media_types_widget, name='most_engaging_media_types_widget'),
     path('follower_growth_widget/<int:pk>/<int:widget_pk>', views.follower_growth_widget, name='follower_growth_widget'),
-    path('optimal_post_length_widget/<int:pk>/<int:widget_pk>', views.optimal_post_length_widgets, name='optimal_post_length_widgets'),
+    path('optimal_post_length_widget/<int:pk>/<int:widget_pk>', views.optimal_post_length_widget, name='optimal_post_length_widget'),
+    path('top_hashtags_widget/<int:pk>/<int:widget_pk>', views.top_hashtags_widget, name='top_hashtags'),
     path('dimensions_for_each_widgets/<int:project_pk>/<int:widget_pk>', views.dimensions_for_each_widgets, name='dimensions_for_each_widgets'),
     # =======Profile Handle======
     path('list_of_profile_handle', views.list_of_profile_handle, name='list_of_profile_handle'),

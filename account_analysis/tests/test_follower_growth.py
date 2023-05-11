@@ -28,7 +28,7 @@ class FollowerGrowthWidgetTests(APITestCase):
         }
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        res = [{'2020-10-10 00:00:00+00:00': 100},
-               {'2021-10-10 00:00:00+00:00': 150},
-               {'2022-10-10 00:00:00+00:00': 200}]
+        res = {'2020-10-10 00:00:00+00:00': 100,
+               '2021-10-10 00:00:00+00:00': 150,
+               '2022-10-10 00:00:00+00:00': 200}
         self.assertEqual(json.loads(response.content), res)

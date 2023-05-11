@@ -12,7 +12,7 @@ DATA = {
       'country':[],
       'language':[],
       'sentiment':[],
-      'date_range':[],
+      'date_range':['2018-09-02T06:44:00+00:00', '2024-09-30T06:44:00+00:00'],
       'source':[],
       'author':[],
       'posts_per_page': 20,
@@ -105,7 +105,6 @@ class SearchTwitterPostsTests(APITestCase):
     self.db_seeder()
     data = copy.deepcopy(DATA)
     data['keywords'] = ['second']
-    data['date_range'] = ['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z']
     response = self.client.post(url, data, format='json')
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':1, 'posts':[ex2]}) 
@@ -114,37 +113,33 @@ class SearchTwitterPostsTests(APITestCase):
     self.db_seeder()
     data = copy.deepcopy(DATA)
     data['keywords'] = ['first']
-    data['country'] = 'USA'
-    data['date_range'] = ['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z']
+    data['country'] = ['USA']
     response = self.client.post(url, data, format='json')
     self.assertEqual(response.status_code, status.HTTP_200_OK)
-    self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':1, 'posts':[ex1]})
+    self.assertEqual(json.loads(response.content), {'num_pages': 1, 'num_posts': 1,  'posts': [ex1]})
 
   def test_search_by_language(self):
     self.db_seeder()
     data = copy.deepcopy(DATA)
     data['keywords'] = ['4']
-    data['language'] = 'Arabic'
-    data['date_range'] = ['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z']
+    data['language'] = ['Arabic']
     response = self.client.post(url, data, format='json')
     self.assertEqual(response.status_code, status.HTTP_200_OK)
-    self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':1, 'posts':[ex4]})
+    self.assertEqual(json.loads(response.content), {'num_pages': 1, 'num_posts': 1,  'posts': [ex4]})
 
   def test_search_filtering_by_sentiment(self):
     self.db_seeder()
     data = copy.deepcopy(DATA)
     data['keywords'] = ['4']
-    data['sentiment'] = 'negative'
-    data['date_range'] = ['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z']
+    data['sentiment'] = ['negative']
     response = self.client.post(url, data, format='json')
     self.assertEqual(response.status_code, status.HTTP_200_OK)
-    self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':1, 'posts':[ex4]})
+    self.assertEqual(json.loads(response.content), {'num_pages': 1, 'num_posts': 1,  'posts': [ex4]})
 
   def test_serarch_filtering_by_date(self):
     self.db_seeder()
     data = copy.deepcopy(DATA)
     data['keywords'] = ['third']
-    data['date_range'] = ['2023-09-02T06:44:00.000Z', '2023-09-30T06:44:00.000Z']
     response = self.client.post(url, data, format='json')
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':1, 'posts':[ex3]})
@@ -153,8 +148,7 @@ class SearchTwitterPostsTests(APITestCase):
     self.db_seeder()
     data = copy.deepcopy(DATA)
     data['keywords'] = ['first']
-    data['date_range'] = ['2022-09-02T00:00:00.000Z', '2022-11-30T00:44:00.000Z']
-    data['author'] = '11111111'
+    data['author'] = ['11111111']
     response = self.client.post(url, data, format='json')
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     self.assertEqual(json.loads(response.content), {'num_pages': 1, 'num_posts': 1, 'posts': [ex1]})
