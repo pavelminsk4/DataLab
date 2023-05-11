@@ -93,7 +93,7 @@ export default {
   },
 
   [get.CLIPPING_WIDGETS_DETAILS](state) {
-    return state.availableWidgets?.clipping_feed_content_widget
+    return state.availableWidgets?.clipping_feed_content
   },
 
   [get.TOP_AUTHORS](state) {

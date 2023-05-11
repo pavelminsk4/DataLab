@@ -85,8 +85,8 @@ export default {
       get() {
         return Object.keys(this.availableWidgets)
           .map((widgetName, index) => {
-            widgetsConfig.clipping_feed_content_widget.height = this
-              .clippingData.length
+            widgetsConfig.clipping_feed_content.height = this.clippingData
+              .length
               ? 13
               : 3.8
 
