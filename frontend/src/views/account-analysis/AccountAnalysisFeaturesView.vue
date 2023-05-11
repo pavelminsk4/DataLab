@@ -29,7 +29,6 @@ import {createNamespacedHelpers} from 'vuex'
 import MainLayout from '@components/layout/MainLayout'
 import MainLayoutTitleBlock from '@/components/layout/MainLayoutTitleBlock'
 import SideBar from '@/components/navigation/SideBar'
-
 import BaseTabs from '@/components/project/widgets/modals/BaseTabs'
 
 const {mapActions} = createNamespacedHelpers('accountAnalysis/widgets')
