@@ -30,4 +30,8 @@ export default {
   [mutator.SET_OPTIMAL_POST_LENGTH](state, data) {
     state.optimalPostLength = data
   },
+
+  [mutator.SET_TOP_HASHTAGS](state, data) {
+    state.topHashtags = data
+  },
 }

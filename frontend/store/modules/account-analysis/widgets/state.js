@@ -7,6 +7,7 @@ const state = {
   optimalPostLength: {},
   profileTimeline: {},
   summary: {},
+  topHashtags: {},
 }
 
 export default state

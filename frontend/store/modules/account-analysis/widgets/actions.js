@@ -137,4 +137,20 @@ export default {
       commit(mutator.SET_LOADING, false, {root: true})
     }
   },
+
+  async [action.GET_TOP_HASHTAGS]({commit}, {projectId, widgetId, value}) {
+    commit(mutator.SET_LOADING, true, {root: true})
+    try {
+      const topHashtags = await api.accountAnalysis.getTopHashtags(
+        projectId,
+        widgetId,
+        value
+      )
+      commit(mutator.SET_TOP_HASHTAGS, topHashtags)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false, {root: true})
+    }
+  },
 }

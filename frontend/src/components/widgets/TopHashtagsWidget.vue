@@ -6,9 +6,9 @@
     @open-modal="$emit('open-settings-modal')"
   >
     <ChartsView
-      :labels="labels"
+      :labels="chartValues.labels"
       :chart-type="chartType"
-      :chart-values="chartValues"
+      :chart-values="chartValues.data"
       :widget-details="widgetDetails"
       :is-display-legend="!isSettings"
     />
@@ -19,11 +19,10 @@
 import ChartsView from '@/components/charts/ChartsView'
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
 
-import {defaultDate} from '@/lib/utilities'
-
 export default {
-  name: 'FollowerGrowthWidget',
+  name: 'TopHashtagsWidget',
   components: {ChartsView, WidgetsLayout},
+
   props: {
     widgetDetails: {type: Object, required: true},
     widgetData: {type: Object, required: true},
@@ -41,17 +40,23 @@ export default {
         this.widgetDetails.defaultChartType
       )
     },
-    labels() {
-      return Object.keys(this.widgetData).map((key) =>
-        defaultDate(key.split(',')[0])
-      )
-    },
     chartValues() {
-      return [
-        {
-          data: Object.values(this.widgetData),
-        },
-      ]
+      const labels = []
+      const values = []
+      this.widgetData.forEach((el) => {
+        labels.push(el[0])
+        values.push(el[1])
+      })
+
+      return {
+        labels,
+        data: [
+          {
+            color: ['#516BEE'],
+            data: values,
+          },
+        ],
+      }
     },
   },
 }

@@ -42,12 +42,12 @@ export default {
     },
     chartValues() {
       if (!this.profileTimeline.length) return
-      const retweets = []
+      const tweets = []
       const engagement = []
       this.profileTimeline.map((el) => {
-        retweets.push(el.retweets), engagement.push(el.engagement)
+        tweets.push(el.created_count), engagement.push(el.engagement)
       })
-      return [retweets, engagement]
+      return [tweets, engagement]
     },
   },
   created() {
