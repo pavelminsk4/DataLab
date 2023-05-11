@@ -250,13 +250,6 @@ export const widgetsConfig = {
   },
 
   //social widgets
-  clipping_feed_content: {
-    ...WIDGET_DEFAULT_SETTINGS,
-    actionName: action.GET_CLIPPING_FEED_CONTENT_WIDGET,
-    hasAggregationPeriod: false,
-    defaultChartType: null,
-    settingsTabs: ['General'],
-  },
   content_volume: {
     ...WIDGET_DEFAULT_SETTINGS,
     actionName: action.GET_CONTENT_VOLUME_WIDGET,
