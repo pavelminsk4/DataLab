@@ -23,11 +23,17 @@
 </template>
 
 <script>
+import {action} from '@store/constants'
+import {createNamespacedHelpers} from 'vuex'
+
 import MainLayout from '@components/layout/MainLayout'
 import MainLayoutTitleBlock from '@/components/layout/MainLayoutTitleBlock'
 import SideBar from '@/components/navigation/SideBar'
 
 import BaseTabs from '@/components/project/widgets/modals/BaseTabs'
+
+const {mapActions} = createNamespacedHelpers('accountAnalysis/widgets')
+
 export default {
   name: 'AccountAnalysisFeaturesView',
   components: {
@@ -40,13 +46,15 @@ export default {
     currentProject: {type: [Array, Object], required: false},
   },
   created() {
-    this.navUrls = ['Dashboard', 'Optimization'].map((item) => ({
-      name: item,
-      routeName: `AccountAnalysis${item}`,
-    }))
+    this[action.CLEAR_WIDGETS_DATA](),
+      (this.navUrls = ['Dashboard', 'Optimization'].map((item) => ({
+        name: item,
+        routeName: `AccountAnalysis${item}`,
+      })))
     this.tabs = ['Account Activity', 'Mentions']
   },
   methods: {
+    ...mapActions([action.CLEAR_WIDGETS_DATA]),
     openTab(pathName) {
       this.$router.push({
         name: pathName,

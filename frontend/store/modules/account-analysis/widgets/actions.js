@@ -153,4 +153,8 @@ export default {
       commit(mutator.SET_LOADING, false, {root: true})
     }
   },
+
+  [action.CLEAR_WIDGETS_DATA]({commit}) {
+    commit(mutator.CLEAR_WIDGETS_DATA)
+  },
 }
