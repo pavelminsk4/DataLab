@@ -9,7 +9,7 @@
 <script>
 import {createNamespacedHelpers} from 'vuex'
 import {get, action} from '@store/constants'
-import FollowerGrowthWidget from '@/components/widgets/FollowerGrowthWidget.vue'
+import FollowerGrowthWidget from '@/components/widgets/FollowerGrowthWidget'
 import {isAllEmptyFields} from '@lib/utilities'
 
 const {mapActions, mapGetters} = createNamespacedHelpers(

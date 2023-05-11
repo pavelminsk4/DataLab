@@ -11,7 +11,7 @@
 import {createNamespacedHelpers} from 'vuex'
 import {get, action} from '@store/constants'
 
-import TopHashtagsWidget from '../TopHashtagsWidget.vue'
+import TopHashtagsWidget from '@/components/widgets/TopHashtagsWidget'
 
 const {mapActions, mapGetters} = createNamespacedHelpers(
   'accountAnalysis/widgets'
