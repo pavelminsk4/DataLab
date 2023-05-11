@@ -13,6 +13,7 @@ class TweetBinderPostFactory(factory.django.DjangoModelFactory):
     count_textlength = '1'
     count_images     = '1'
     count_links      = '1'
+    count_hashtags   = '1'
     language         = 'En'
     user_name        = 'First_name'
     user_alias       = '@first'
@@ -33,3 +34,4 @@ class TweetBinderPostFactory(factory.django.DjangoModelFactory):
     sentiment        = 'neutral'
     type             = ['origin']
     videos           = ['www.video.com']
+    hashtags         = ['test']

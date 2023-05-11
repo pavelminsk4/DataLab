@@ -19,7 +19,7 @@ class OptimalPostLengthWidgetTests(APITestCase):
     def test_response_list(self):
         pr = ProjectAccountAnalysis.objects.first()
         widget_pk = pr.account_analysis_widgets_list.optimal_post_length_id
-        url = reverse('account_analysis:optimal_post_length_widgets', kwargs={'pk': pr.pk, 'widget_pk': widget_pk})
+        url = reverse('account_analysis:optimal_post_length_widget', kwargs={'pk': pr.pk, 'widget_pk': widget_pk})
         response = self.client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         res = {

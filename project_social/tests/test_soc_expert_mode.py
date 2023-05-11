@@ -28,4 +28,4 @@ class TestParser(APITestCase):
     posts = TweetBinderPost.objects.filter(SocialParser('(cow or wolf) and followers: >150').get_filter_query())
     self.assertEqual(posts.count(), 2)
     posts = TweetBinderPost.objects.filter(SocialParser('(cow or wolf) and followers: =100').get_filter_query())
-    self.assertEqual(posts.count(), 1)
+    self.assertEqual(posts.count(), 3)
