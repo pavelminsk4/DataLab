@@ -84,12 +84,6 @@ export default {
     TimePickerCustom,
     Datepicker,
   },
-  props: {
-    currentProject: {
-      type: [Object, Array],
-      required: false,
-    },
-  },
   data() {
     return {
       hoursStartDate: '',
@@ -100,7 +94,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['additionalFilters', 'keywords']),
+    ...mapState(['additionalFilters']),
     presetRanges() {
       return [
         {

@@ -108,18 +108,7 @@ export default {
         },
       })
 
-      await this[this.widgetDetails.actionName]({
-        projectId: this.widgetDetails.projectId,
-        value: {
-          aggregation_period: this.widgetDetails.aggregation_period,
-          author_dim_pivot: this.widgetDetails.author_dim_pivot || null,
-          language_dim_pivot: this.widgetDetails.language_dim_pivot || null,
-          country_dim_pivot: this.widgetDetails.country_dim_pivot || null,
-          sentiment_dim_pivot: this.widgetDetails.sentiment_dim_pivot || null,
-          source_dim_pivot: this.widgetDetails.source_dim_pivot || null,
-        },
-        widgetId: this.widgetDetails.id,
-      })
+      this.updateCurrentWidget()
     },
 
     async saveChartType() {
