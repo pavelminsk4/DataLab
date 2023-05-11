@@ -93,7 +93,7 @@ export const widgetsConfig = {
     availableTypes: SIMPLE_CHARTS,
   },
 
-  clipping_feed_content_widget: {
+  clipping_feed_content: {
     ...WIDGET_DEFAULT_SETTINGS,
     actionName: action.GET_CLIPPING_FEED_CONTENT_WIDGET,
     hasAggregationPeriod: false,

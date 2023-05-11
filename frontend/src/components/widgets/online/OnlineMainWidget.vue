@@ -15,7 +15,7 @@ import TopLanguages from '@/components/widgets/online/Top10LanguagesWidget'
 import TopAuthors from '@/components/widgets/online/Top10AuthorsByVolumeWidget'
 import TopSharingSources from '@/components/widgets/online/TopSharingSourcesWidget'
 import SentimentForPeriod from '@/components/widgets/online/SentimentForPeriodWidget'
-import ClippingFeedContentWidget from '@/components/widgets/online/ClippingFeedContentWidget'
+import ClippingFeedContent from '@/components/widgets/online/ClippingFeedContentWidget'
 import SentimentTopAuthors from '@/components/widgets/online/SentimentTop10AuthorsWidget'
 import SentimentTopSources from '@/components/widgets/online/SentimentTop10SourcesWidget'
 import SentimentTopLanguages from '@/components/widgets/online/SentimentTop10LanguagesWidget'
@@ -38,7 +38,7 @@ import AuthorsBySentiment from '@/components/widgets/online/AuthorsBySentimentWi
 export default {
   name: 'OnlineMainWidget',
   components: {
-    ClippingFeedContentWidget,
+    ClippingFeedContent,
     Volume,
     Summary,
     TopBrands,
