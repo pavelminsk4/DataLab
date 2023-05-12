@@ -9,7 +9,7 @@
 import {createNamespacedHelpers} from 'vuex'
 import {get, action} from '@store/constants'
 
-import OptimalPostLengthWidget from '@/components/widgets/OptimalPostLengthWidget.vue'
+import OptimalPostLengthWidget from '@/components/widgets/OptimalPostLengthWidget'
 
 const {mapActions, mapGetters} = createNamespacedHelpers(
   'accountAnalysis/widgets'
