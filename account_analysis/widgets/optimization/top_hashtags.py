@@ -1,6 +1,6 @@
 from account_analysis.widgets.filter_for_posts import posts_aggregator
 from account_analysis.models import ProjectAccountAnalysis, AccountAnalysisWidgetDescription
-from django.db.models import Sum, F, Q
+from django.db.models import Sum, F
 from django.http import JsonResponse
 
 

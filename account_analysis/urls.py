@@ -27,9 +27,12 @@ urlpatterns = [
     path('follower_growth_widget/<int:pk>/<int:widget_pk>', views.follower_growth_widget, name='follower_growth_widget'),
     path('optimal_post_length_widget/<int:pk>/<int:widget_pk>', views.optimal_post_length_widget, name='optimal_post_length_widget'),
     path('top_hashtags_widget/<int:pk>/<int:widget_pk>', views.top_hashtags_widget, name='top_hashtags'),
+    path('optimal_number_of_hashtags_widget/<int:pk>/<int:widget_pk>', views.optimal_number_of_hashtags_widget, name='optimal_number_of_hashtags'),
     path('dimensions_for_each_widgets/<int:project_pk>/<int:widget_pk>', views.dimensions_for_each_widgets, name='dimensions_for_each_widgets'),
     # =======Profile Handle======
     path('list_of_profile_handle', views.list_of_profile_handle, name='list_of_profile_handle'),
+    # =======Search========
+    path('search_posts/<int:project_pk>', views.search_posts, name='search_posts'),
 ]
 
 router.register('projects', ProjectsAccountAnalysisViewSet)

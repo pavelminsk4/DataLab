@@ -60,8 +60,6 @@ def posts_aggregator(project):
     posts = country_filter_posts(project.country_filter, posts)
   if project.sentiment_filter:
     posts = sentiment_filter_posts(project.sentiment_filter, posts)
-  if project.source_filter:
-    posts = source_filter_posts(project.source_filter, posts)
   if project.author_filter:
     posts = author_filter_posts(project.author_filter, posts)  
   if project.author_dimensions:
@@ -70,8 +68,6 @@ def posts_aggregator(project):
     posts = language_dimensions_posts(project.language_dimensions, posts)
   if project.country_dimensions:
     posts = country_dimensions_posts(project.country_dimensions, posts)
-  if project.source_dimensions:
-    posts = source_dimensions_posts(project.source_dimensions, posts)
   if project.sentiment_dimensions:
     posts = sentiment_dimensions_posts(project.sentiment_dimensions, posts)    
   return posts
