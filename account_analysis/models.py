@@ -105,6 +105,7 @@ class AccountAnalysisWidgetsList(models.Model):
     follower_growth = models.ForeignKey(AccountAnalysisWidgetDescription, on_delete=models.CASCADE, related_name='follower_growth', null=True)
     optimal_post_length = models.ForeignKey(AccountAnalysisWidgetDescription, on_delete=models.CASCADE, related_name='optimal_post_length', null=True)
     top_hashtags = models.ForeignKey(AccountAnalysisWidgetDescription, on_delete=models.CASCADE, related_name='top_hashtags', null=True)
+    optimal_number_of_hashtags = models.ForeignKey(AccountAnalysisWidgetDescription, on_delete=models.CASCADE, related_name='optimal_number_of_hashtags', null=True)
 
     def __str__(self):
         return str(self.project)
@@ -137,6 +138,8 @@ def create_social_widget_description(sender, instance, created, **kwargs):
         wd8.save()
         wd9 = AccountAnalysisWidgetDescription.objects.create(title='Top hashtags', default_title='Top hashtags')
         wd9.save()
+        wd10 = AccountAnalysisWidgetDescription.objects.create(title='Optimal number of hashtags', default_title='Optimal number of hashtags')
+        wd10.save()
         instance.summary = wd1
         instance.profile_timeline = wd2
         instance.most_frequent_post_types = wd3
@@ -146,4 +149,5 @@ def create_social_widget_description(sender, instance, created, **kwargs):
         instance.follower_growth = wd7
         instance.optimal_post_length = wd8
         instance.top_hashtags = wd9
+        instance.optimal_number_of_hashtags = wd10
         instance.save()

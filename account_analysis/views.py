@@ -1,5 +1,6 @@
 from rest_framework.generics import ListAPIView, CreateAPIView, UpdateAPIView, DestroyAPIView, RetrieveAPIView
 from tweet_binder.models import TweetBinderPost
+from .widgets.optimization.optimal_number_of_hashtags import *
 from .widgets.dashboard.most_engaging_media_types import *
 from .widgets.dashboard.most_frequent_media_types import *
 from .widgets.dashboard.most_frequent_post_types import *
@@ -94,6 +95,27 @@ def optimal_post_length_widget(request, pk, widget_pk):
 
 def top_hashtags_widget(request, pk, widget_pk):
     return top_hashtags(pk, widget_pk)
+
+def optimal_number_of_hashtags_widget(request, pk, widget_pk):
+    return optimal_number_of_hashtags(pk, widget_pk)
+
+def search_posts(request, project_pk):
+    project = ProjectAccountAnalysis.objects.get(id=project_pk)
+    posts = posts_aggregator(project)
+    posts = posts.annotate(engagement=Sum(F('count_favorites') + F('count_retweets')))
+    posts = posts.values('id', 
+                         'post_id', 
+                         'type', 
+                         'images',
+                         'user_picture', 
+                         'text', 
+                         'sentiment',
+                         'date', 
+                         'count_totalretweets', 
+                         'count_replies', 
+                         'count_favorites',
+                         'engagement')
+    return JsonResponse(list(posts), safe=False)
 
 def list_of_profile_handle(request):
     profile_handles = TweetBinderPost.objects.order_by(
