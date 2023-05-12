@@ -8,7 +8,7 @@ def create_content_volume_top_5_authors_widget_image(project_id, widget_pk):
   posts = post_agregator_with_dimensions(proj)
   widget = WidgetDescription.objects.get(id=widget_pk)
   posts = post_agregetor_for_each_widget(widget, posts)
-  smpl_freq = proj.widgets_list_2.content_volume_top_5_source_widget.aggregation_period
+  smpl_freq = proj.widgets_list_2.content_volume_top_authors.aggregation_period
   top_authors = list(map(lambda x: x['entry_author'], list(posts.values('entry_author').annotate(author_count=Count('entry_author')).order_by('-author_count')[:10])))
   results = [{author: list(posts.filter(entry_author=author).annotate(date=Trunc('entry_published', smpl_freq)).values("date").annotate(created_count=Count('id')).order_by("date"))} for author in top_authors]
   res, colors = algorithm_for_count_volume_widgets(top_authors, results)
