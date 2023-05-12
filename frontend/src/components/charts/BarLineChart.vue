@@ -4,6 +4,11 @@
 
 <script>
 import {Bar} from 'vue-chartjs'
+import {Chart as ChartJS} from 'chart.js'
+
+import ChartDataLabels from 'chartjs-plugin-datalabels'
+
+ChartJS.register(ChartDataLabels)
 
 export default {
   name: 'BarLineChart',
@@ -23,7 +28,6 @@ export default {
           borderRadius: 12,
           backgroundColor: '#C5EAFF',
           order: 1,
-
           datalabels: {
             display: false,
           },
@@ -36,25 +40,23 @@ export default {
           type: 'line',
           order: 0,
           datalabels: {
+            anchor: 'start',
             align: 'top',
-            offset: 20,
+            clamp: true,
           },
         },
       ],
     }
+
     this.options = {
       responsive: true,
       maintainAspectRatio: false,
       plugins: {
         legend: {
           display: false,
-          position: 'top',
         },
         title: {
           display: false,
-        },
-        tooltip: {
-          position: 'nearest',
         },
       },
     }
