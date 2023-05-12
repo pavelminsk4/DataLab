@@ -1,8 +1,6 @@
 <template>
   <component
-    :is="'WidgetsLayout'"
-    :isShowDeleteBtn="isShowDeleteBtn"
-    :isShowSettingsBtn="isShowSettingsBtn"
+    :is="widgetWrapper"
     :title="widgetDetails.title"
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
@@ -27,6 +25,7 @@ export default {
   props: {
     widgetDetails: {type: Object, required: true},
     widgetData: {type: Object, required: true},
+    isSettings: {type: Boolean, default: false},
     newChartType: {type: String, default: ''},
   },
   computed: {
@@ -36,6 +35,9 @@ export default {
         this.widgetDetails.chart_type ||
         this.widgetDetails.defaultChartType
       )
+    },
+    widgetWrapper() {
+      return this.isSettings ? 'div' : 'WidgetsLayout'
     },
     labels() {
       return Object.keys(this.widgetData)

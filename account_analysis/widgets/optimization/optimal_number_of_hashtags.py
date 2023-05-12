@@ -22,16 +22,20 @@ def optimal_number_of_hashtags(pk, widget_pk):
             engagement_from_3_to_4 += p['engagement']
         elif len(p['hashtags']) >= 5:
             count_from_5 += 1
-            engagement_from_5 += p['engagement']                  
+            engagement_from_5 += p['engagement']
 
     res = {
-            'count_zero': count_zero,
-            'count_from_1_to_2': count_from_1_to_2,
-            'count_from_3_to_4': count_from_3_to_4,
-            'count_from_5': count_from_5,
-            'engagement_zero': engagement_zero,
-            'engagement_from_1_to_2': engagement_from_1_to_2,
-            'engagement_from_3_to_4': engagement_from_3_to_4,
-            'engagement_from_5': engagement_from_5
+            'frequency': {
+                'count_zero': count_zero,
+                'count_from_1_to_2': count_from_1_to_2,
+                'count_from_3_to_4': count_from_3_to_4,
+                'count_from_5': count_from_5,
+            },
+            'engagement': {
+                '0 hashtags': engagement_zero,
+                '1-2 hashtags': engagement_from_1_to_2,
+                '3-4 hashtags': engagement_from_3_to_4,
+                '5+ hashtags': engagement_from_5
+            }
           }
     return JsonResponse(res, safe=False)

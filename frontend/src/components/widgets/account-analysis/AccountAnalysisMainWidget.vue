@@ -15,6 +15,7 @@ import MostFrequentPostTypes from '@/components/widgets/account-analysis/MostFre
 import MostEngagingPostTypes from '@/components/widgets/account-analysis/MostEngagingPostTypes'
 import MostEngagingMediaTypes from '@/components/widgets/account-analysis/MostEngagingMediaTypes'
 import OptimalPostLength from '@/components/widgets/account-analysis/OptimalPostLength'
+import OptimalNumberOfHashtags from '@/components/widgets/account-analysis/OptimalNumberOfHashtags'
 import TopHashtags from '@/components/widgets/account-analysis/TopHashtags'
 
 export default {
@@ -29,6 +30,7 @@ export default {
     OptimalPostLength,
     MostEngagingMediaTypes,
     TopHashtags,
+    OptimalNumberOfHashtags,
   },
   props: {
     widgetDetails: {type: Object, required: true},

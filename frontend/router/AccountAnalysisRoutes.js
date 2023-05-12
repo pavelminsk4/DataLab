@@ -12,6 +12,7 @@ import CreateAccountAnalysisRightSide from '@/components/account-analysis/Create
 import AccountAnalysisView from '@/views/account-analysis/AccountAnalysisView'
 import AccountAnalysisDashboardScreen from '@/components/account-analysis/screens/AccountAnalysisDashboardScreen'
 import AccountAnalysisOptimizationScreen from '@/components/account-analysis/screens/AccountAnalysisOptimizationScreen'
+import AccountAnalysisPostsScreen from '@/components/account-analysis/screens/AccountAnalysisPostsScreen'
 
 export default [
   {
@@ -95,6 +96,11 @@ export default [
         name: 'AccountAnalysisOptimization',
         path: 'optimization',
         component: AccountAnalysisOptimizationScreen,
+      },
+      {
+        name: 'AccountAnalysisPosts',
+        path: 'posts',
+        component: AccountAnalysisPostsScreen,
       },
     ],
   },

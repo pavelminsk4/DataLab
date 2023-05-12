@@ -47,6 +47,7 @@ export default {
                 ),
                 isFullWidth: widget.isFullWidth,
                 isShowDeleteBtn: false,
+                minHeight: widget.minHeight || 400,
               }
             }
           })

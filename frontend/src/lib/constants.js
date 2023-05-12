@@ -118,6 +118,7 @@ export const accountAnalysisWidgetsList = {
     {name: 'summary', isFullWidth: true, minHeight: 230},
     {name: 'top_hashtags', isFullWidth: true},
     {name: 'optimal_post_length', isFullWidth: false},
+    {name: 'optimal_number_of_hashtags', isFullWidth: false},
   ],
 }
 
