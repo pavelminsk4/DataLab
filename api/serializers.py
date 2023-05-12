@@ -108,35 +108,7 @@ class WidgetsListSerializer(WritableNestedModelSerializer):
   top_sharing_sources = WidgetDescriptionSerializer()
   class Meta:
     model = WidgetsList2
-    fields = [
-      'summary',
-      'volume',
-      'top_authors',
-      'top_brands',
-      'top_countries',
-      'top_languages',
-      'content_volume_top_sources',
-      'sentiment_top_sources',
-      'sentiment_top_countries',
-      'sentiment_top_authors',
-      'sentiment_top_languages',
-      'sentiment_for_period',
-      'content_volume_top_authors',
-      'content_volume_top_countries',
-      'clipping_feed_content',
-      'top_keywords',
-      'sentiment_top_keywords',
-      'sentiment_number_of_results',
-      'sentiment_diagram',
-      'authors_by_country',
-      'authors_by_sentiment',
-      'authors_by_language',
-      'overall_top_authors',
-      'overall_top_sources',
-      'sources_by_country',
-      'sources_by_language',
-      'top_sharing_sources',
-    ]
+    fields = '__all__'
 
 class ClippingFeedContentWidgetListSerializer(serializers.ListSerializer):
   def create(self, validated_data):

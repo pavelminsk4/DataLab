@@ -2,7 +2,7 @@ from rest_framework.test import APITestCase
 from django.urls import reverse
 from rest_framework import status
 import json
-from project.models import Post, Project, Speech, Feedlinks
+from project.models import Post, Project
 from common.factories.post import PostFactory
 from common.factories.project import ProjectFactory
 from common.factories.speech import SpeechFactory

@@ -28,7 +28,7 @@ class ReportItem(models.Model):
   onl_top_brands = models.BooleanField(default=False)
   onl_top_countries = models.BooleanField(default=False)
   onl_top_languages = models.BooleanField(default=False)
-  onl_content_volume_top_source = models.BooleanField(default=False)
+  onl_content_volume_top_sources = models.BooleanField(default=False)
   onl_sentiment_top_sources = models.BooleanField(default=False)
   onl_sentiment_top_countries = models.BooleanField(default=False)
   onl_sentiment_top_authors = models.BooleanField(default=False)
