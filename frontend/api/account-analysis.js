@@ -109,6 +109,14 @@ export default {
     )
   },
 
+  async getOptimalNumberOfHashtags(projectId, widgetId, value) {
+    return fetch(
+      'post',
+      `${moduleName}/optimal_number_of_hashtags_widget/${projectId}/${widgetId}`,
+      {aggregation_period: value}
+    )
+  },
+
   async getTopHashtags(projectId, widgetId, value) {
     return fetch(
       'post',

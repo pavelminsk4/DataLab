@@ -157,4 +157,28 @@ export default {
   [action.CLEAR_WIDGETS_DATA]({commit}) {
     commit(mutator.CLEAR_WIDGETS_DATA)
   },
+
+  async [action.GET_OPTIMAL_NUMBER_OF_HASHTAGS](
+    {commit},
+    {projectId, widgetId, value}
+  ) {
+    commit(mutator.SET_LOADING, true, {root: true})
+    try {
+      const optimalNumberOfHashtags =
+        await api.accountAnalysis.getOptimalNumberOfHashtags(
+          projectId,
+          widgetId,
+          value
+        )
+      commit(mutator.SET_OPTIMAL_NUMBER_OF_HASHTAGS, optimalNumberOfHashtags)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false, {root: true})
+    }
+  },
+
+  [action.CLEAR_WIDGETS_DATA]({commit}) {
+    commit(mutator.CLEAR_WIDGETS_DATA)
+  },
 }

@@ -473,6 +473,14 @@ export const widgetsConfig = {
     defaultChartType: 'HorizontalBarChart',
     availableTypes: SIMPLE_CHARTS,
   },
+
+  optimal_number_of_hashtags: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    actionName: action.GET_OPTIMAL_NUMBER_OF_HASHTAGS,
+    hasAggregationPeriod: false,
+    defaultChartType: 'HorizontalBarChart',
+    availableTypes: SIMPLE_CHARTS,
+  },
 }
 
 export const summaryWidgetConfig = [

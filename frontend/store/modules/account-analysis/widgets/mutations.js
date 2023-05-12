@@ -35,6 +35,10 @@ export default {
     state.topHashtags = data
   },
 
+  [mutator.SET_OPTIMAL_NUMBER_OF_HASHTAGS](state, data) {
+    state.optimalNumberOfHashtags = data
+  },
+
   [mutator.CLEAR_WIDGETS_DATA](state) {
     for (const widget in state) {
       state[widget] = {}
