@@ -38,7 +38,7 @@ def interactive_widgets(request, project_pk, widget_pk):
     posts = country_dimensions_posts(first_value, posts).filter(entry_published__range=dates)
   elif widget.default_title == 'Content Volume by Top sources':
     posts = source_dimensions_posts(first_value, posts).filter(entry_published__range=dates)
-  elif widget.default_title == 'Sentiment for period widget':
+  elif widget.default_title == 'Sentiment for period':
     posts = posts.filter(sentiment=first_value[0].lower()).filter(entry_published__range=dates)
   elif widget.default_title == 'Content volume':
     posts = posts.filter(entry_published__range=dates)
