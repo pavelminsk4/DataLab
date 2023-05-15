@@ -1,16 +1,20 @@
 <template>
-  <div>
+  <div class="common-calendar">
     <span class="title">Date</span>
+
     <div class="date-wrapper">
-      <div class="trigger-wrapper" @click="openCalendar">
+      <div
+        class="trigger-wrapper"
+        :style="`width: ${width}px`"
+        @click="openCalendar"
+      >
         <CalendarIcon />
         <div class="calendar-date">{{ calendarDate }}</div>
         <ArrowDownIcon :class="[isShowCalendarContents && 'open-calendar']" />
       </div>
-      <BaseCalendar
-        v-if="isShowCalendarContents"
-        :class="[`calendar-position-${position}`]"
-      />
+      <div :class="['calendar', `calendar-position-${position}`]">
+        <BaseCalendar v-if="isShowCalendarContents" />
+      </div>
     </div>
   </div>
 </template>
@@ -32,6 +36,7 @@ export default {
     ArrowDownIcon,
   },
   props: {
+    width: {type: String, default: '100%'},
     position: {type: String, default: 'bottom'},
   },
   computed: {
@@ -68,6 +73,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.common-calendar {
+  position: relative;
+
+  margin-bottom: 40px;
+}
+
 .title {
   margin-bottom: 4px;
 
@@ -79,10 +90,10 @@ export default {
 }
 
 .date-wrapper {
-  position: relative;
+  position: absolute;
 
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: flex-end;
   gap: 20px;
 
@@ -98,10 +109,9 @@ export default {
     display: flex;
     align-items: center;
     gap: 10px;
-
-    width: 100%;
     padding: 10px 12px;
 
+    border: 1px solid var(--input-border-color);
     background: var(--chips-background-primary-color);
     border-radius: 8px;
 
@@ -115,6 +125,10 @@ export default {
       transform: rotate(180deg);
     }
   }
+}
+
+.calendar {
+  position: absolute;
 }
 
 .calendar-position-bottom {

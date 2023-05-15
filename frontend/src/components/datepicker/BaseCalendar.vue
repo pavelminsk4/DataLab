@@ -1,67 +1,59 @@
 <template>
-  <Datepicker
-    v-model="selectedDateProxy"
-    :month-year-component="monthYearCustom"
-    :enableTimePicker="false"
-    :action-row-component="actionRowCustom"
-    range
-    inline
-    class="datepicker-wrapper"
-    @update:modelValue="handleDate"
-    @internalModelChange="modelChange"
-    @open="openCalendar"
-    @closed="openCalendar"
-  >
-    <template #right-sidebar>
-      <div class="fixed-period-wrapper">
-        <div
-          v-for="(item, index) in presetRanges"
-          :key="'default-' + index"
-          @click="addPeriod(item.range)"
-          :class="[
-            'fixed-period',
-            isSelectedDefaultRange(item.range) &&
-              selectedDate &&
-              'active-range',
-          ]"
-        >
-          {{ item.label }}
+  <div class="calendar-wrapper">
+    <Datepicker
+      v-model="selectedDateProxy"
+      :month-year-component="monthYearCustom"
+      :enableTimePicker="false"
+      :action-row-component="actionRowCustom"
+      range
+      inline
+      @internalModelChange="modelChange"
+      @open="openCalendar"
+      @closed="openCalendar"
+    >
+      <template #right-sidebar>
+        <div class="fixed-period-wrapper">
+          <div
+            v-for="(item, index) in presetRanges"
+            :key="'default-' + index"
+            @click="addPeriod(item.range)"
+            :class="[
+              'fixed-period',
+              isSelectedDefaultRange(item.range) &&
+                isSelectedDateOnCalendar &&
+                'active-range',
+            ]"
+          >
+            {{ item.label }}
+          </div>
         </div>
-      </div>
+      </template>
+    </Datepicker>
+    <div class="custom-date">
+      <div class="hint">FORMAT: dd/mm/yyyy hh:mm am OR pm</div>
 
-      <div class="right-side-title">Start date</div>
-      <div class="time-picker">
-        <div class="current-date">{{ formatDate(selectedDateProxy[0]) }}</div>
-        <TimePickerCustom
-          :name-hours="'hoursStartDate'"
-          :name-minutes="'minutesStartDate'"
-          @update:hours="updateTimePicker"
-          @update:minutes="updateTimePicker"
-        />
-      </div>
-
-      <div class="right-side-title">Ending date</div>
-
-      <div class="time-picker">
-        <div class="current-date">
-          {{ formatDate(selectedDateProxy[1]) }}
-        </div>
-        <TimePickerCustom
-          :name-hours="'hoursEndDate'"
-          :name-minutes="'minutesEndDate'"
-          @update:hours="updateTimePicker"
-          @update:minutes="updateTimePicker"
-        />
-      </div>
-    </template>
-  </Datepicker>
+      <BaseInput
+        v-model="firstDate"
+        label="Start date"
+        :hasError="hasError"
+        :errorMessage="errorMessage"
+        class="custom-input-field"
+      />
+      <BaseInput
+        v-model="lastDate"
+        label="Ending date"
+        :hasError="hasError"
+        :errorMessage="errorMessage"
+        class="custom-input-field"
+      />
+    </div>
+  </div>
 </template>
 
 <script>
 import {mapActions, mapState} from 'vuex'
 import {action} from '@store/constants'
 
-import TimePickerCustom from '@/components/datepicker/TimePickerCustom'
 import ActionRowCustom from '@/components/datepicker/ActionRowCustom'
 import MonthYearCustom from '@/components/datepicker/MonthYearCustom'
 
@@ -77,12 +69,16 @@ import {
 } from 'date-fns'
 
 import '@vuepic/vue-datepicker/dist/main.css'
+import BaseInput from '../common/BaseInput.vue'
+
+const START_DATE = {type: 'startDate', index: 0}
+const ENDING_DATE = {type: 'endingDate', index: 1}
 
 export default {
   name: 'BaseCalendar',
   components: {
-    TimePickerCustom,
     Datepicker,
+    BaseInput,
   },
   data() {
     return {
@@ -90,7 +86,12 @@ export default {
       minutesStartDate: '',
       hoursEndDate: '',
       minutesEndDate: '',
-      selectedDate: true,
+      selectedDate: null,
+      isSelectedDateOnCalendar: true,
+      startDate: null,
+      endingDate: null,
+      errorMessage: '',
+      hasError: false,
     }
   },
   computed: {
@@ -122,20 +123,38 @@ export default {
         },
       ]
     },
+    firstDate: {
+      get() {
+        return (
+          this.formatDateForInput(this.startDate) ||
+          this.formatDateForInput(this.selectedDateProxy[0])
+        )
+      },
+      set(val) {
+        this.setDateFromInput(val, START_DATE)
+      },
+    },
+    lastDate: {
+      get() {
+        return (
+          this.formatDateForInput(this.endingDate) ||
+          this.formatDateForInput(this.selectedDateProxy[1])
+        )
+      },
+      set(val) {
+        this.setDateFromInput(val, ENDING_DATE)
+      },
+    },
     selectedDateProxy: {
       get() {
         return this.additionalFilters?.date_range || this.lastWeekDate
       },
       set(val) {
-        this.selectedDate = val
         this[action.UPDATE_ADDITIONAL_FILTERS]({date_range: val})
       },
     },
     lastWeekDate() {
       return [this.getLastWeekDate(), endOfToday()]
-    },
-    timePickerCustom() {
-      return TimePickerCustom
     },
     monthYearCustom() {
       return MonthYearCustom
@@ -146,51 +165,69 @@ export default {
   },
   methods: {
     ...mapActions([action.UPDATE_ADDITIONAL_FILTERS]),
-    handleDate(modelData) {
-      try {
-        this.selectedDate = [
-          new Date(
-            modelData[0].getFullYear(),
-            modelData[0].getMonth(),
-            modelData[0].getDate(),
-            this.hoursStartDate || modelData[0].getHours(),
-            this.minutesStartDate || modelData[0].getMinutes(),
-            0,
-            0
-          ),
-          new Date(
-            modelData[1].getFullYear(),
-            modelData[1].getMonth(),
-            modelData[1].getDate(),
-            this.hoursEndDate || modelData[1].getHours(),
-            this.minutesEndDate || modelData[1].getMinutes(),
-            0,
-            0
-          ),
-        ]
-        this[action.UPDATE_ADDITIONAL_FILTERS]({date_range: this.selectedDate})
-      } catch (e) {
-        console.log(e)
+    formatDateForInput(date) {
+      return date
+        ?.toLocaleString('en-AU', {
+          year: 'numeric',
+          month: 'numeric',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: 'numeric',
+        })
+        .replace(',', '')
+    },
+    setDateFromInput(value, dateType) {
+      var formatDateRegex =
+        /([0-9]{2})\/([0-9]{2})\/([0-9]{4}) ([0-9]{1,2}):([0-9]{2})\s*[aApP][mM]/
+      if (!formatDateRegex.test(value)) {
+        return false
+      } else {
+        let dateArray = value.toUpperCase().split(/[\s/:]/g)
+        let collectDate = new Date(
+          dateArray[2],
+          parseInt(dateArray[1]) - 1,
+          dateArray[0],
+          ...this.convertTime12to24(
+            value.toUpperCase().substring(value.length - 8)
+          )
+        )
+        this[dateType.type] = collectDate
+        this.selectedDateProxy[dateType.index] = collectDate
+        this.validateDateRange(this.selectedDateProxy)
+        this[action.UPDATE_ADDITIONAL_FILTERS]({
+          date_range: this.selectedDateProxy,
+        })
       }
     },
-    formatDate(date) {
-      return date.toLocaleString('en-US', {
-        month: 'short',
-        day: 'numeric',
-        year: 'numeric',
-      })
-    },
     modelChange(date) {
-      this.selectedDate = this.isSelectedDefaultRange(date)
+      this.startDate = date[0]
+      this.endingDate = date[1]
+      this.isSelectedDateOnCalendar = this.isSelectedDefaultRange(date)
+    },
+    validateDateRange(datesArray) {
+      if (datesArray[0] < datesArray[1]) {
+        this.hasError = false
+      } else {
+        this.errorMessage = 'Enter the correct time range!'
+        this.hasError = true
+      }
+    },
+    convertTime12to24(time12h) {
+      const [time, modifier] = time12h.split(' ')
+      let [hours, minutes] = time.split(':')
+      if (hours === '12') {
+        hours = '00'
+      }
+      if (modifier === 'PM') {
+        hours = parseInt(hours, 10) + 12
+      }
+      return [hours, minutes]
     },
     addPeriod(range) {
       this.selectedDateProxy = range
     },
     openCalendar() {
       this.isOpenCalendar = !this.isOpenCalendar
-    },
-    updateTimePicker(value, name) {
-      this[name] = value
     },
     getLastWeekDate() {
       const now = new Date()
@@ -219,11 +256,31 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.datepicker-wrapper {
-  position: absolute;
-  top: 100%;
-  left: 0;
+.calendar-wrapper {
+  position: relative;
   z-index: 2;
+  .custom-date {
+    position: absolute;
+    top: 100px;
+    right: 31px;
+
+    display: flex;
+    flex-direction: column;
+
+    width: 235px;
+    margin-top: 20px;
+
+    .hint {
+      font-size: 10px;
+    }
+
+    .custom-input-field {
+      margin-bottom: 20px;
+      border-radius: 10px;
+
+      white-space: nowrap;
+    }
+  }
 }
 
 .fixed-period-wrapper {
@@ -273,33 +330,11 @@ export default {
   line-height: 110%;
   color: var(--typography-primary-color);
 }
-
-.time-picker {
-  display: flex;
-  align-items: center;
-
-  margin-bottom: 25px;
-
-  .current-date {
-    margin-right: 8px;
-    padding: 10px 16px;
-
-    background: var(--chips-background-primary-color);
-    border: var(--border-primary);
-    border-radius: 10px;
-
-    white-space: nowrap;
-
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 20px;
-    color: var(--typography-primary-color);
-  }
-}
 </style>
 
 <style lang="scss">
 .dp__menu {
+  height: 400px;
   padding: 39px 40px 39px 31px;
 
   background: var(--background-secondary-color);
@@ -371,6 +406,7 @@ export default {
 }
 
 .dp__sidebar_right {
+  width: 235px;
   margin-left: 35px;
   padding: 0;
 

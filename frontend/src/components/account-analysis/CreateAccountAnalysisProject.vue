@@ -35,7 +35,7 @@
       </template>
     </BaseSelect>
 
-    <CommonCalendar position="top" class="date-picker" />
+    <CommonCalendar width="408" position="top" class="date-picker" />
 
     <footer class="create-project__footer">
       <ButtonWithArrow
