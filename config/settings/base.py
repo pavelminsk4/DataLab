@@ -16,6 +16,7 @@ ALLOWED_HOSTS = ['staging.datalab.net', 'datalab.net', '46.151.214.110', 'localh
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -44,7 +45,16 @@ INSTALLED_APPS = [
     'ml_components.apps.MlComponentsConfig',
     'account_analysis.apps.AccountAnalysisConfig',
     'drf_multitokenauth',
+    'twenty_four_seven.apps.TwentyFourSevenConfig',
 ]
+
+ASGI_APPLICATION = 'config.asgi.application'
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer'
+    }
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

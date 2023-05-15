@@ -56,3 +56,5 @@ deep-translator # translation
 webdriver-manager==3.8.6
 
 drf-multitokenauth
+
+factory-boy==3.2.1
