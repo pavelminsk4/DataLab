@@ -1,8 +1,8 @@
 from rest_framework.generics import ListAPIView, CreateAPIView, DestroyAPIView, UpdateAPIView, RetrieveAPIView
 from rest_framework import viewsets, filters, generics
-from .widgets.dashboard.content_volume_by_top_locations import *
-from .widgets.dashboard.content_volume_by_top_languages import *
-from .widgets.dashboard.content_volume_by_top_authors import *
+from .widgets.dashboard.content_volume_top_locations import *
+from .widgets.dashboard.content_volume_top_languages import *
+from .widgets.dashboard.content_volume_top_authors import *
 from .widgets.sentiment.sentiment_number_of_results import *
 from .widgets.sentiment.sentiment_top_keywords import *
 from .widgets.dashboard.sentiment_languages import *
@@ -174,14 +174,14 @@ def social_top_authors(request, pk, widget_pk):
 def social_content_volume(request, pk, widget_pk):
   return content_volume(request, pk, widget_pk)
 
-def social_content_volume_by_top_locations(request, pk, widget_pk):
-  return content_volume_by_top_locations(request, pk, widget_pk)
+def social_content_volume_top_locations(request, pk, widget_pk):
+  return content_volume_top_locations(request, pk, widget_pk)
 
-def social_content_volume_by_top_authors(request, pk, widget_pk):
-  return content_volume_by_top_authors(request, pk, widget_pk)
+def social_content_volume_top_authors(request, pk, widget_pk):
+  return content_volume_top_authors(request, pk, widget_pk)
 
-def social_content_volume_by_top_languages(request, pk, widget_pk):
-  return content_volume_by_top_languages(request, pk, widget_pk)
+def social_content_volume_top_languages(request, pk, widget_pk):
+  return content_volume_top_languages(request, pk, widget_pk)
 
 def social_sentiment(request, pk, widget_pk):
   return sentiment(request, pk, widget_pk)

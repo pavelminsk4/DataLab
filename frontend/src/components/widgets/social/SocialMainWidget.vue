@@ -18,9 +18,9 @@ import TopAuthors from '@/components/widgets/social/TopAuthorsWidget'
 import TopKeywords from '@/components/widgets/social/TopKeywordsWidget'
 import TopSharingSources from '@/components/widgets/social/TopSharingSourcesWidget'
 
-import ContentVolumeByTopLocations from '@/components/widgets/social/ContentVolumeTopLocationsWidget'
-import ContentVolumeByTopAuthors from '@/components/widgets/social/ContentVolumeTopAuthorsWidget'
-import ContentVolumeByTopLanguages from '@/components/widgets/social/ContentVolumeTopLanguagesWidget'
+import ContentVolumeTopLocations from '@/components/widgets/social/ContentVolumeTopLocationsWidget'
+import ContentVolumeTopAuthors from '@/components/widgets/social/ContentVolumeTopAuthorsWidget'
+import ContentVolumeTopLanguages from '@/components/widgets/social/ContentVolumeTopLanguagesWidget'
 import AuthorsByLanguage from '@/components/widgets/social/AuthorsByLanguageWidget'
 import AuthorsByLocation from '@/components/widgets/social/AuthorsByLocationWidget'
 import AuthorsBySentiment from '@/components/widgets/social/AuthorsBySentimentWidget'
@@ -49,9 +49,9 @@ export default {
     TopAuthors,
     TopKeywords,
     TopSharingSources,
-    ContentVolumeByTopLocations,
-    ContentVolumeByTopAuthors,
-    ContentVolumeByTopLanguages,
+    ContentVolumeTopLocations,
+    ContentVolumeTopAuthors,
+    ContentVolumeTopLanguages,
     Sentiment,
     SentimentAuthors,
     SentimentLanguages,

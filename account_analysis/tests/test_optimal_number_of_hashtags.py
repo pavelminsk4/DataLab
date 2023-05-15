@@ -22,14 +22,18 @@ class OptimalNumberOfHashtagsWidgetTests(APITestCase):
         url = reverse('account_analysis:optimal_number_of_hashtags', kwargs={'pk': pr.pk, 'widget_pk': widget_pk})
         response = self.client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        res = { 
-                'count_from_1_to_2': 3,
-                'count_from_3_to_4': 1,
-                'count_from_5': 0,
-                'count_zero': 1,
-                'engagement_from_1_to_2': 13,
-                'engagement_from_3_to_4': 6,
-                'engagement_from_5': 0,
-                'engagement_zero': 2
+        res = {
+                'engagement': {
+                                '0 hashtags': 2,
+                                '1-2 hashtags': 13,
+                                '3-4 hashtags': 6,
+                                '5+ hashtags': 0
+                              },
+                'frequency': {
+                                'count_from_1_to_2': 3,
+                                'count_from_3_to_4': 1,
+                                'count_from_5': 0,
+                                'count_zero': 1
+                             }
               }
         self.assertEqual(json.loads(response.content), res)

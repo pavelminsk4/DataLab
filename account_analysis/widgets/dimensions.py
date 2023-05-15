@@ -1,7 +1,5 @@
 from account_analysis.models import AccountAnalysisWidgetDescription
 from django.http import JsonResponse
-from django.db.models import Q
-from functools import reduce
 import json
 
 def dimensions_for_each(request, widget_pk):

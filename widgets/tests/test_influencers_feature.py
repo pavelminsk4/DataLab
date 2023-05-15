@@ -27,7 +27,7 @@ class InfluencersFeatureTests(APITestCase):
   def test_authors_by_sentiment(self):
     pr = Project.objects.first()
     widget_pk = pr.widgets_list_2.authors_by_sentiment_id
-    url = reverse('widgets:authors_by_sentiment', kwargs={'pk':pr.pk, 'widget_pk':widget_pk})
+    url = reverse('widgets:onl_authors_by_sentiment', kwargs={'pk':pr.pk, 'widget_pk':widget_pk})
     response = self.client.get(url)
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     res = [
@@ -40,7 +40,7 @@ class InfluencersFeatureTests(APITestCase):
   def test_authors_by_language(self):
     pr = Project.objects.first()
     widget_pk = pr.widgets_list_2.authors_by_language_id
-    url = reverse('widgets:authors_by_language', kwargs={'pk':pr.pk, 'widget_pk':widget_pk})
+    url = reverse('widgets:onl_authors_by_language', kwargs={'pk':pr.pk, 'widget_pk':widget_pk})
     response = self.client.get(url)
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     res = [
@@ -52,7 +52,7 @@ class InfluencersFeatureTests(APITestCase):
   def test_overall_top_authors(self):
     pr = Project.objects.first()
     widget_pk = pr.widgets_list_2.overall_top_sources_id
-    url = reverse('widgets:overall_top_authors', kwargs={'pk':pr.pk, 'widget_pk':widget_pk})
+    url = reverse('widgets:onl_overall_top_authors', kwargs={'pk':pr.pk, 'widget_pk':widget_pk})
     response = self.client.get(url)
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     res = [

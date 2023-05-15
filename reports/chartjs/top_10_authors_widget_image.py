@@ -1,4 +1,4 @@
-from widgets.common_widget.top_10_authors_by_volume_widget import *
+from widgets.common_widget.top_authors import *
 from project.models import *
 from quickchart import QuickChart
 from .services.algorithm_for_count_top_10_widgets import algorithm_for_count_top_10_widgets

@@ -1,4 +1,4 @@
-from widgets.common_widget.sentiment_top_10_countries_widget import *
+from widgets.common_widget.sentiment_top_countries import *
 from project.models import *
 from quickchart import QuickChart
 from .services.algorithm_for_count_sentiment_top_10_widgets import algorithm_for_count_sentiment_top_10_widgets

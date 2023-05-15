@@ -355,7 +355,7 @@ def filter_with_constructor(body, posts):
   language_dimensions = body['language_dimensions']
   source_dimensions = body['source_dimensions']
   author_dimensions = body['author_dimensions']
-  sentiment_dimensions = body['sentiment_dimensions']  
+  sentiment_dimensions = body['sentiment_dimensions']
   posts = keywords_posts(keys, posts)
   if additions:
     posts = additional_keywords_posts(posts, additions)

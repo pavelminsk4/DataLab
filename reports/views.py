@@ -6,7 +6,6 @@ from project.models import Project
 from project_social.models import ProjectSocial
 from docx import Document
 from .chartjs.chartjs import prepare_widget_images
-from reports.social_chartjs.social_chartjs import prepare_social_widget_images
 from .serializers import RegularReportSerializer
 from .models import RegularReport
 from rest_framework import viewsets
@@ -14,6 +13,8 @@ from reports.views_filling.filling_for_report import filling_templates_for_insta
 from .services.pdf_handler import convert_docx_to_pdf
 from django.shortcuts import render
 from project_social.models import ProjectSocial, SocialWidgetsList
+from reports.classes.social_pdf import SocialPDF
+from reports.classes.converter import Converter
 
 
 def filling_template(template_path, project_id):
@@ -22,26 +23,18 @@ def filling_template(template_path, project_id):
         document, project_id)
     document.save('tmp/temp.docx')
 
-
-def prepare_social_widget_images(proj_pk):
-    return True
-
-
-def filling_social_template(template_path, proj_pk):
-    return True
-
-
 def report_generator(proj_pk, model):
     template_path = 'static/report_templates/RSDC_Export_Template_EN.docx'
     docx_path = 'tmp/temp.docx'
     report_path = 'tmp/temp.pdf'
+    proj = model.objects.get(id=proj_pk)
     if model == Project:
         prepare_widget_images(proj_pk)
         filling_template(template_path, proj_pk)
+        convert_docx_to_pdf(docx_path, report_path)
     if model == ProjectSocial:
-        prepare_social_widget_images(proj_pk)
-        filling_social_template(template_path, proj_pk)
-    convert_docx_to_pdf(docx_path, report_path)
+        item = Converter(proj).convert_to_item()
+        report_path = SocialPDF(item, 'pdf', template_path).generate()
     response = FileResponse(open(report_path, 'rb'))
     response.headers = {
         'Content-Type': 'application/%s' % (format),

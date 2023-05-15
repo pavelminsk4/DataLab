@@ -26,8 +26,8 @@ class FilterForWidgetsTests(APITestCase):
     pr = Project.objects.create(title='Project1', keywords=['post'], additional_keywords=[], ignore_keywords=[], start_search_date=datetime(2020, 10, 10),
                                 end_search_date=datetime(2023, 10, 16), creator=user, language_dimensions=['English', 'Spain'], country_dimensions=['England', 'USA'], 
                                 source_dimensions=['Time', 'BBC'], author_dimensions=['AFP'], sentiment_dimensions = ['negative', 'neutral', 'positive'])
-    widget_pk = pr.widgets_list_2.sentiment_top_10_authors_widget_id
-    url = reverse('widgets:sentiment_top_10_authors_widget', kwargs={'pk':pr.pk, 'widget_pk':widget_pk})
+    widget_pk = pr.widgets_list_2.sentiment_top_authors_id
+    url = reverse('widgets:onl_sentiment_top_authors', kwargs={'pk':pr.pk, 'widget_pk':widget_pk})
     response = self.client.get(url)
     self.assertEqual(response.status_code, status.HTTP_200_OK)   
     res = {'AFP':[

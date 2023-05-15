@@ -21,8 +21,8 @@ class WidgetTests(APITestCase):
     clipped_post1 = ClippingFeedContentWidget.objects.create(project=pr1, post=post1)
     clipped_post2 = ClippingFeedContentWidget.objects.create(project=pr1, post=post2)
     clipped_post3 = ClippingFeedContentWidget.objects.create(project=pr2, post=post3)
-    widget_pk = pr1.widgets_list_2.clipping_feed_content_widget_id
-    url = reverse('widgets:clipping_feed_content_widget', kwargs={'pk': pr1.id, 'widget_pk':widget_pk})
+    widget_pk = pr1.widgets_list_2.clipping_feed_content_id
+    url = reverse('widgets:onl_clipping_feed_content', kwargs={'pk': pr1.id, 'widget_pk':widget_pk})
     response = self.client.get(url)
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     pst1 = {

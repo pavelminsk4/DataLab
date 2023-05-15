@@ -1,4 +1,4 @@
-from widgets.common_widget.sentiment_for_period_widget import *
+from widgets.common_widget.sentiment_for_period import *
 from project.models import *
 from quickchart import QuickChart
 
@@ -7,7 +7,7 @@ def create_sentiment_for_period_widget_image(project_id, widget_pk):
   posts = post_agregator_with_dimensions(proj)
   widget = WidgetDescription.objects.get(id=widget_pk)
   posts = post_agregetor_for_each_widget(widget, posts)
-  smpl_freq = proj.widgets_list_2.sentiment_for_period_widget.aggregation_period
+  smpl_freq = proj.widgets_list_2.sentiment_for_period.aggregation_period
   negative_posts = posts.annotate(date=Trunc('entry_published', smpl_freq)).values("date").filter(sentiment='negative').annotate(count_negative=Count('sentiment')).order_by("date")
   neutral_posts = posts.annotate(date=Trunc('entry_published', smpl_freq)).values("date").filter(sentiment='neutral').annotate(count_neutral=Count('sentiment')).order_by("date")
   positive_posts = posts.annotate(date=Trunc('entry_published', smpl_freq)).values("date").filter(sentiment='positive').annotate(count_positive=Count('sentiment')).order_by("date")
