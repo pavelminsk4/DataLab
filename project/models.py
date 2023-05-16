@@ -287,3 +287,12 @@ class Status(models.Model):
 
   def __str__(self):
     return self.progress
+
+
+class ChangingSentiment(models.Model):
+  sentiment = models.CharField('sentiment', max_length=10)
+  department = models.ForeignKey('accounts.department', on_delete=models.CASCADE)
+  post =  models.ForeignKey(Post,on_delete=models.CASCADE)
+
+  def ___str__(self):
+    return self.sentiment
