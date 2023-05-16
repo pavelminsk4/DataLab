@@ -5,6 +5,7 @@ const state = {
   newWorkspaceId: null,
   listOfProfileHandle: [],
   availableWidgets: [],
+  posts: [],
 }
 
 export default state

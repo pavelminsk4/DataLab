@@ -46,11 +46,7 @@ export default {
   },
   created() {
     this[action.CLEAR_WIDGETS_DATA](),
-      (this.navUrls = [
-        'Dashboard',
-        'Optimization',
-        // 'Posts'
-      ].map((item) => ({
+      (this.navUrls = ['Dashboard', 'Optimization', 'Posts'].map((item) => ({
         name: item,
         routeName: `AccountAnalysis${item}`,
       })))
