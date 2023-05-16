@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'project_social.apps.ProjectSocialConfig',
     'ml_components.apps.MlComponentsConfig',
     'account_analysis.apps.AccountAnalysisConfig',
+    'drf_multitokenauth',
 ]
 
 MIDDLEWARE = [
@@ -53,6 +54,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'api.middleware.DisableCSRF',
     #'rollbar.contrib.django.middleware.RollbarNotifierMiddleware',
 ]
 

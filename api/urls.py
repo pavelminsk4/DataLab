@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
 from rest_framework import routers
 from .views import *
@@ -6,6 +6,7 @@ from .views import *
 router = routers.SimpleRouter()
 
 urlpatterns = [
+  path('auth/', include('drf_multitokenauth.urls', namespace='multi_token_auth')),
   # User
   path("users/",views.UserList.as_view(),name="users_list"),
   path('logged_in_user', views.LoggedInUserView.as_view(), name='logged_in_user'),

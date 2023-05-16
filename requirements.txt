@@ -54,3 +54,5 @@ boolean-parser==0.1.4 # Expert Mode
 
 deep-translator # translation
 webdriver-manager==3.8.6
+
+drf-multitokenauth
