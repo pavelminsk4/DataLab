@@ -1,5 +1,5 @@
 <template>
-  <post-card-layout :post-details="postDetails">
+  <account-analysis-post-card-layout :post-details="postDetails">
     <template #footer>
       <div class="option">
         <h4>Date</h4>
@@ -25,11 +25,11 @@
         <a :href="postDetails.link" target="_blank" class="link">&#8599;</a>
       </div>
     </template>
-  </post-card-layout>
+  </account-analysis-post-card-layout>
 </template>
 
 <script>
-import PostCardLayout from '@/components/account-analysis/PostCardLayout2'
+import AccountAnalysisPostCardLayout from '@/components/account-analysis/AccountAnalysisPostCardLayout'
 import LikeIcon from '@/components/icons/LikeIcon'
 import RepliesIcon from '@/components/icons/RepliesIcon'
 import RetweetsIcon from '@/components/icons/RetweetsIcon'
@@ -37,7 +37,7 @@ import RetweetsIcon from '@/components/icons/RetweetsIcon'
 export default {
   name: 'AccountAnalysisPostCard',
   components: {
-    PostCardLayout,
+    AccountAnalysisPostCardLayout,
     LikeIcon,
     RepliesIcon,
     RetweetsIcon,

@@ -1,18 +1,14 @@
 <template>
   <section class="container">
     <section class="filters">
-      <!-- <div class="filters__sort">
-        <span> Sort by </span>
-        <div>Date^</div>
-      </div> -->
-      <div class="filters__input">
+      <!-- <div class="filters__input">
         <BaseInput
           v-model="searchText"
           :isSearch="true"
           placeholder="Search posts..."
           label=" "
         />
-      </div>
+      </div> -->
     </section>
     <section class="posts">
       <AccountAnalysisPostCard
@@ -39,7 +35,7 @@ import {action} from '@store/constants'
 import {createNamespacedHelpers, mapState} from 'vuex'
 
 import AccountAnalysisPostCard from '@/components/account-analysis/AccountAnalysisPostCard'
-import BaseInput from '@/components/common/BaseInput'
+// import BaseInput from '@/components/common/BaseInput'
 import PaginationControlPanel from '@/components/PaginationControlPanel'
 
 const {mapState: mapStateAccountAnalysis, mapActions} =
@@ -47,7 +43,11 @@ const {mapState: mapStateAccountAnalysis, mapActions} =
 
 export default {
   name: 'AccountAnalysisPostsScreen',
-  components: {AccountAnalysisPostCard, BaseInput, PaginationControlPanel},
+  components: {
+    AccountAnalysisPostCard,
+    // BaseInput,
+    PaginationControlPanel,
+  },
   props: {
     currentProject: {type: Object, required: true},
   },

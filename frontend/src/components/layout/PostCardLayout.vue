@@ -1,7 +1,7 @@
 <template>
   <div :class="['search-result-card', `search-result-${sentiment}`]">
     <div class="body-card">
-      <div v-if="postImage" class="result-img">
+      <div class="result-img">
         <img
           v-if="postImage !== 'None'"
           :src="postImage"
@@ -87,7 +87,7 @@ export default {
   },
   props: {
     isClippingWidget: {type: Boolean, default: false},
-    postImage: {type: [String, Boolean], required: false},
+    postImage: {type: String, required: false},
     sentiment: {type: String, required: false},
     category: {type: String, required: false},
     isClippingPost: {type: Boolean, default: false},
