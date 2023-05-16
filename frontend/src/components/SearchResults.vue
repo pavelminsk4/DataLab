@@ -105,7 +105,7 @@ export default {
     getLastWeeksDate() {
       const now = new Date()
 
-      return new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7)
+      return new Date(now.getFullYear(), now.getMonth(), now.getDate() - 6)
     },
     formatDate(date) {
       return date.toLocaleString('en-US', {

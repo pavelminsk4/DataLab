@@ -139,7 +139,7 @@ export default {
     getLastWeeksDate() {
       const now = new Date()
 
-      return new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7)
+      return new Date(now.getFullYear(), now.getMonth(), now.getDate() - 6)
     },
     handleClick(event, closeSelect) {
       this.profileHandle = event.target.innerText
@@ -227,7 +227,7 @@ export default {
 
   .date-picker {
     max-width: 408px;
-    margin-bottom: 40px;
+    margin-bottom: 72px;
   }
 
   .create-project__footer {

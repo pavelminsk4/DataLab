@@ -69,7 +69,7 @@ import {
 } from 'date-fns'
 
 import '@vuepic/vue-datepicker/dist/main.css'
-import BaseInput from '../common/BaseInput.vue'
+import BaseInput from '@/components/common/BaseInput'
 
 const START_DATE = {type: 'startDate', index: 0}
 const ENDING_DATE = {type: 'endingDate', index: 1}
