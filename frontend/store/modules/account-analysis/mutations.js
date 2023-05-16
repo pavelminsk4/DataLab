@@ -33,4 +33,8 @@ export default {
   [mutator.SET_AVAILABLE_WIDGETS](state, data) {
     state.availableWidgets = data
   },
+
+  [mutator.SET_POSTS](state, data) {
+    state.posts = data
+  },
 }

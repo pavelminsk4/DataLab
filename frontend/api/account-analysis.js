@@ -31,6 +31,10 @@ export default {
     return fetch('delete', `${moduleName}/projects/${projectId}/ `)
   },
 
+  async getPosts(projectId, value) {
+    return fetch('post', `${moduleName}/search_posts/${projectId}`, value)
+  },
+
   // Widgets
   async getAllWidgets(projectId) {
     return fetch(
