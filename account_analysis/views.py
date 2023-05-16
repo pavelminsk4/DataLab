@@ -1,5 +1,6 @@
 from rest_framework.generics import ListAPIView, CreateAPIView, UpdateAPIView, DestroyAPIView, RetrieveAPIView
 from tweet_binder.models import TweetBinderPost
+from django.core.paginator import Paginator
 from .widgets.optimization.optimal_number_of_hashtags import *
 from .widgets.dashboard.most_engaging_media_types import *
 from .widgets.dashboard.most_frequent_media_types import *
@@ -100,12 +101,16 @@ def optimal_number_of_hashtags_widget(request, pk, widget_pk):
     return optimal_number_of_hashtags(pk, widget_pk)
 
 def search_posts(request, project_pk):
+    body = json.loads(request.body)
+    posts_per_page = body['posts_per_page']
+    page_number = body['page_number']
     project = ProjectAccountAnalysis.objects.get(id=project_pk)
     posts = posts_aggregator(project)
     posts = posts.annotate(engagement=Sum(F('count_favorites') + F('count_retweets')))
     posts = posts.values('id', 
                          'post_id', 
-                         'type', 
+                         'type',
+                         'inreplyto',
                          'images',
                          'user_picture', 
                          'text', 
@@ -115,7 +120,13 @@ def search_posts(request, project_pk):
                          'count_replies', 
                          'count_favorites',
                          'engagement')
-    return JsonResponse(list(posts), safe=False)
+    posts = list(posts)
+    for p in posts:
+        p['link'] = f'https://twitter.com/user/status/{p["post_id"]}'
+    p = Paginator(posts, posts_per_page)
+    posts_list=list(p.page(page_number))
+    res = { 'num_pages': p.num_pages, 'num_posts': p.count, 'posts': posts_list }
+    return JsonResponse(res, safe=False)
 
 def list_of_profile_handle(request):
     profile_handles = TweetBinderPost.objects.order_by(
