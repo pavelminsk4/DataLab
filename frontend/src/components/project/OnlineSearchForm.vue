@@ -64,7 +64,7 @@
     />
   </div>
 
-  <CommonCalendar />
+  <CommonCalendar class="date-picker" />
 
   <span class="second-title">Sentiment</span>
 
@@ -246,6 +246,10 @@ export default {
   justify-content: space-between;
 
   margin-bottom: 20px;
+}
+
+.date-picker {
+  margin-bottom: 60px;
 }
 
 .second-title {

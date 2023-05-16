@@ -45,7 +45,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .custom-action-row {
   position: absolute;
-  right: 40px;
+  right: 30px;
   bottom: 35px;
 
   display: flex;
