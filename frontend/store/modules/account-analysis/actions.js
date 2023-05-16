@@ -147,12 +147,18 @@ export default {
     }
   },
 
-  async [action.GET_POSTS]({commit}, projectId) {
+  async [action.GET_POSTS]({commit}, {projectId, value}) {
     commit(mutator.SET_LOADING, true)
     try {
-      const {posts} = await api.accountAnalysis.getPosts(projectId)
-      commit(mutator.SET_POSTS, posts)
-      return posts
+      const response = await api.accountAnalysis.getPosts(projectId, value)
+      commit(mutator.SET_NUMBER_OF_POSTS, response.num_posts, {
+        root: true,
+      })
+      commit(mutator.SET_NUMBER_OF_PAGES, response.num_pages, {
+        root: true,
+      })
+      commit(mutator.SET_POSTS, response.posts)
+      return response
     } catch (e) {
       console.log(e)
     } finally {
