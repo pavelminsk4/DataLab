@@ -5,7 +5,7 @@
         <RepliesIcon />
         <span
           >Replying to
-          <span class="alias">{{ postDetails.inreplyto || 'simple' }}</span>
+          <span class="alias">@{{ postDetails.inreplyto }}</span>
         </span>
       </div>
       <div v-if="checkType('retweet')">Retweet</div>
@@ -53,7 +53,7 @@ export default {
 
 <style lang="scss" scoped>
 .post-card {
-  height: 200px;
+  height: 210px;
 
   background: var(--background-secondary-color);
 
@@ -101,7 +101,7 @@ export default {
     flex-wrap: nowrap;
     justify-content: space-around;
 
-    gap: 10px;
+    padding: 10px 0px 5px 20px;
 
     height: 25%;
 

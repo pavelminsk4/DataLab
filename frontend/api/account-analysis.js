@@ -32,7 +32,10 @@ export default {
   },
 
   async getPosts(projectId) {
-    return fetch('get', `${moduleName}/search_posts/${projectId}`)
+    return fetch('post', `${moduleName}/search_posts/${projectId}`, {
+      posts_per_page: 60,
+      page_number: 1,
+    })
   },
 
   // Widgets

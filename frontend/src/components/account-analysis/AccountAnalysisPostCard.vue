@@ -22,10 +22,7 @@
         <span> {{ postDetails.count_totalretweets }}</span>
       </div>
       <div class="option stat">
-        <span>Views</span>
-      </div>
-      <div class="option stat">
-        <span> Link</span>
+        <a :href="postDetails.link" target="_blank" class="link">&#8599;</a>
       </div>
     </template>
   </post-card-layout>
@@ -39,7 +36,12 @@ import RetweetsIcon from '@/components/icons/RetweetsIcon'
 
 export default {
   name: 'AccountAnalysisPostCard',
-  components: {PostCardLayout, LikeIcon, RepliesIcon, RetweetsIcon},
+  components: {
+    PostCardLayout,
+    LikeIcon,
+    RepliesIcon,
+    RetweetsIcon,
+  },
   props: {
     postDetails: {type: Object, required: true},
   },
@@ -60,12 +62,31 @@ export default {
 .option {
   display: flex;
   flex-direction: column;
-
   justify-content: center;
+
+  width: 100%;
+
+  padding-right: 5px;
+
+  border-right: var(--border-primary);
+
+  &:nth-child(n + 1) {
+    padding-left: 5px;
+  }
+
+  &:last-child {
+    border-right: none;
+  }
 
   &__text {
     font-weight: 400;
     font-size: 11px;
+  }
+
+  .link {
+    text-decoration: none;
+    color: var(--primary-color);
+    font-size: 25px;
   }
 }
 
@@ -81,5 +102,9 @@ h4 {
 
   text-transform: uppercase;
   color: var(--typography-secondary-color);
+}
+
+span {
+  font-size: 12px;
 }
 </style>
