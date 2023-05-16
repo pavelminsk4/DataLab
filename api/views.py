@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import ProjectSerializer, Workspace
 from django.contrib.auth.models import User
-from project.models import Project, Workspace, Post, Speech, Feedlinks
+from project.models import Project, Workspace, Post, Speech, Feedlinks, ChangingSentiment
 from django.http import JsonResponse
 import json
 import re
@@ -24,6 +24,7 @@ import numpy as np
 from project.online_parser import OnlineParser
 from deep_translator import GoogleTranslator
 from . import variables
+from django.http import HttpResponse
 
 # ==== User API =======================
 class UserList(ListAPIView):
@@ -386,3 +387,12 @@ def filter_with_constructor(body, posts):
 def widgets_map(request):
   res = variables.WIDGETS_MAP
   return JsonResponse(res)
+
+
+def change_sentiment(request, pk, department_pk,sentiment):
+  try:
+    updated_values = {'sentiment': sentiment}
+    ChangingSentiment.objects.update_or_create(post_id=pk,department_id=department_pk,defaults=updated_values)
+  except:
+    return HttpResponse(status=406)
+  return HttpResponse(status=201)
