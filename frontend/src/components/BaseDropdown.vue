@@ -27,22 +27,10 @@ export default {
   name: 'BaseDropdown',
   components: {ArrowDownIcon},
   props: {
-    title: {
-      type: String,
-      default: '',
-    },
-    selectedValue: {
-      type: [Number, String],
-      required: false,
-    },
-    name: {
-      type: String,
-      required: true,
-    },
-    customStyle: {
-      type: String,
-      required: false,
-    },
+    title: {type: String, default: ''},
+    selectedValue: {type: [Number, String]},
+    name: {type: String, required: true},
+    customStyle: {type: String},
   },
   data() {
     return {
@@ -108,8 +96,9 @@ export default {
     min-width: 100%;
 
     background: var(--progress-line);
-    border: 1px solid var(--modal-border-color);
-    border-radius: 10px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    box-shadow: 1px 2px 6px rgba(135, 135, 135, 0.25);
 
     font-size: 12px;
     color: var(--typography-primary-color);

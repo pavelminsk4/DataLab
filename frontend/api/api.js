@@ -55,6 +55,13 @@ export default {
     return fetch('get', `/projects/${projectId}/widgets_list`)
   },
 
+  async changePostSentiment(postId, departmentId, newSentiment) {
+    return fetch(
+      'get',
+      `/change_sentiment/${postId}/${departmentId}/${newSentiment}`
+    )
+  },
+
   async getSummaryWidget(projectId, widgetId) {
     return fetch('get', `/widgets/onl_summary/${projectId}/${widgetId}`)
   },

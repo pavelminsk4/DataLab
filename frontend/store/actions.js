@@ -98,6 +98,20 @@ export default {
     }
   },
 
+  async [action.CHANGE_POST_SENTIMENT](
+    {commit},
+    {postId, departmentId, newSentiment}
+  ) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      await api.changePostSentiment(postId, departmentId, newSentiment)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
   async [action.GET_SUMMARY_WIDGET]({commit}, {projectId, widgetId}) {
     commit(mutator.SET_LOADING, true)
     try {
