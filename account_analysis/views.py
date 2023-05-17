@@ -2,6 +2,7 @@ from rest_framework.generics import ListAPIView, CreateAPIView, UpdateAPIView, D
 from tweet_binder.models import TweetBinderPost
 from django.core.paginator import Paginator
 from .widgets.optimization.optimal_number_of_hashtags import *
+from .widgets.optimization.average_engagements_by_day import *
 from .widgets.dashboard.most_engaging_media_types import *
 from .widgets.dashboard.most_frequent_media_types import *
 from .widgets.dashboard.most_frequent_post_types import *
@@ -99,6 +100,9 @@ def top_hashtags_widget(request, pk, widget_pk):
 
 def optimal_number_of_hashtags_widget(request, pk, widget_pk):
     return optimal_number_of_hashtags(pk, widget_pk)
+
+def average_engagements_by_day_widget(request, pk, widget_pk):
+    return average_engagements_by_day(pk, widget_pk)
 
 def search_posts(request, project_pk):
     body = json.loads(request.body)
