@@ -29,6 +29,7 @@ import SentimentIcon from '@/components/icons/SentimentIcon'
 import DemographyIcon from '@/components/icons/DemographyIcon'
 import InfluencersIcon from '@/components/icons/InfluencersIcon'
 import OptimizationIcon from '@/components/icons/OptimizationIcon'
+import FollowersIcon from '@/components/icons/FollowersIcon'
 import PostsIcon from '@/components/icons/PostsIcon'
 
 export default {
@@ -45,6 +46,7 @@ export default {
     InfluencersIcon,
     OptimizationIcon,
     PostsIcon,
+    FollowersIcon,
   },
   props: {
     navUrls: {type: Array, required: true},
