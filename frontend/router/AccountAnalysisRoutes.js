@@ -13,6 +13,7 @@ import AccountAnalysisView from '@/views/account-analysis/AccountAnalysisView'
 import AccountAnalysisDashboardScreen from '@/components/account-analysis/screens/AccountAnalysisDashboardScreen'
 import AccountAnalysisOptimizationScreen from '@/components/account-analysis/screens/AccountAnalysisOptimizationScreen'
 import AccountAnalysisPostsScreen from '@/components/account-analysis/screens/AccountAnalysisPostsScreen'
+import AccountAnalysisFollowersScreen from '@/components/account-analysis/screens/AccountAnalysisFollowersScreen'
 
 export default [
   {
@@ -101,6 +102,11 @@ export default [
         name: 'AccountAnalysisPosts',
         path: 'posts',
         component: AccountAnalysisPostsScreen,
+      },
+      {
+        name: 'AccountAnalysisFollowers',
+        path: 'followers',
+        component: AccountAnalysisFollowersScreen,
       },
     ],
   },
