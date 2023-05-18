@@ -1,4 +1,5 @@
 from django.utils.deprecation import MiddlewareMixin
+import logging
 
 class DisableCSRF(MiddlewareMixin):
     """Middleware for disabling CSRF in an specified app name.
