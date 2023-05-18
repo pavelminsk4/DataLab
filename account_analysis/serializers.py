@@ -63,6 +63,7 @@ class WidgetsListSerializer(WritableNestedModelSerializer):
     most_engaging_media_types = AccountAnalysisWidgetDescriptionSerializer()
     top_hashtags = AccountAnalysisWidgetDescriptionSerializer()
     optimal_number_of_hashtags = AccountAnalysisWidgetDescriptionSerializer()
+    average_engagements_by_day = AccountAnalysisWidgetDescriptionSerializer()
 
     class Meta:
         model = AccountAnalysisWidgetsList
