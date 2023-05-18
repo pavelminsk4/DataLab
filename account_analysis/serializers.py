@@ -64,6 +64,7 @@ class WidgetsListSerializer(WritableNestedModelSerializer):
     top_hashtags = AccountAnalysisWidgetDescriptionSerializer()
     optimal_number_of_hashtags = AccountAnalysisWidgetDescriptionSerializer()
     average_engagements_by_day = AccountAnalysisWidgetDescriptionSerializer()
+    optimal_post_time = AccountAnalysisWidgetDescriptionSerializer()
 
     class Meta:
         model = AccountAnalysisWidgetsList
