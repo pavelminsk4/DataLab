@@ -107,6 +107,7 @@ class AccountAnalysisWidgetsList(models.Model):
     top_hashtags = models.ForeignKey(AccountAnalysisWidgetDescription, on_delete=models.CASCADE, related_name='top_hashtags', null=True)
     optimal_number_of_hashtags = models.ForeignKey(AccountAnalysisWidgetDescription, on_delete=models.CASCADE, related_name='optimal_number_of_hashtags', null=True)
     average_engagements_by_day = models.ForeignKey(AccountAnalysisWidgetDescription, on_delete=models.CASCADE, related_name='average_engagements_by_day', null=True)
+    optimal_post_time = models.ForeignKey(AccountAnalysisWidgetDescription, on_delete=models.CASCADE, related_name='optimal_post_time', null=True)
 
     def __str__(self):
         return str(self.project)
@@ -143,6 +144,8 @@ def create_social_widget_description(sender, instance, created, **kwargs):
         wd10.save()
         wd11 = AccountAnalysisWidgetDescription.objects.create(title='Average engagements by day', default_title='Average engagements by day')
         wd11.save()
+        wd12 = AccountAnalysisWidgetDescription.objects.create(title='Optimal post time', default_title='Optimal post time')
+        wd12.save()
         instance.summary = wd1
         instance.profile_timeline = wd2
         instance.most_frequent_post_types = wd3
@@ -154,4 +157,5 @@ def create_social_widget_description(sender, instance, created, **kwargs):
         instance.top_hashtags = wd9
         instance.optimal_number_of_hashtags = wd10
         instance.average_engagements_by_day = wd11
+        instance.optimal_post_time = wd12
         instance.save()

@@ -8,6 +8,7 @@ from .widgets.dashboard.most_frequent_media_types import *
 from .widgets.dashboard.most_frequent_post_types import *
 from .widgets.dashboard.most_engaging_post_types import *
 from .widgets.optimization.optimal_post_length import *
+from .widgets.optimization.optimal_post_time import *
 from .widgets.optimization.top_hashtags import *
 from .widgets.dashboard.profile_timeline import *
 from .widgets.dashboard.follower_growth import *
@@ -103,6 +104,9 @@ def optimal_number_of_hashtags_widget(request, pk, widget_pk):
 
 def average_engagements_by_day_widget(request, pk, widget_pk):
     return average_engagements_by_day(pk, widget_pk)
+
+def optimal_post_time_widget(request, pk, widget_pk):
+    return optimal_post_time(pk, widget_pk)
 
 def search_posts(request, project_pk):
     body = json.loads(request.body)
