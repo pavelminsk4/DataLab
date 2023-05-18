@@ -1,15 +1,17 @@
 <template>
-  <div class="container" @click="openDropdown">
-    <BaseChips :chips-type="chipsType" />
-    <ul v-if="isOpen" :id="`dropdown-${postId}`" class="dropdown">
+  <div class="container" :id="`dropdown-${postId}`" @click="openDropdown">
+    <BaseChips :chips-type="newType || chipsType" :id="`chips-${postId}`" />
+    <ul v-if="isOpen" class="dropdown">
       <li
         v-for="option in options"
-        :value="option"
         :key="option"
         class="dropdown__item"
-        @click="closeDropdown"
+        @click="changePostSentiment"
       >
-        {{ option }}
+        <BaseChips
+          :chips-type="option.toLowerCase()"
+          style="background-color: var(--background-secondary-color)"
+        />
       </li>
     </ul>
   </div>
@@ -31,6 +33,7 @@ export default {
   data() {
     return {
       isOpen: false,
+      newType: '',
     }
   },
   computed: {
@@ -39,10 +42,8 @@ export default {
     }),
   },
   created() {
-    this.dropdownStyles =
-      'top: auto; bottom: 25px; background-color: var(--background-secondary-color);'
     this.options = ['Negative', 'Neutral', 'Positive']
-    // document.addEventListener('click', this.closeDropdown)
+    document.addEventListener('click', this.closeDropdown)
   },
   unmounted() {
     document.removeEventListener('click', this.closeDropdown)
@@ -55,31 +56,42 @@ export default {
 
     closeDropdown({target}) {
       const dropdownList = document.getElementById(`dropdown-${this.postId}`)
+      if (!dropdownList) return
 
       if (!dropdownList?.contains(target)) {
-        this.isOpenDropdown = false
+        this.isOpen = false
       }
     },
-    changePostSentiment() {
-      this[action.CHANGE_POST_SENTIMENT]({
+
+    async changePostSentiment({currentTarget}) {
+      const newSentiment = currentTarget.innerText.toLowerCase()
+      const request = await this[action.CHANGE_POST_SENTIMENT]({
         postId: this.postId,
         departmentId: this.department.id,
-        newSentiment: 'neutral',
+        newSentiment,
       })
+      if (request.toString().includes('Error')) {
+        prompt('Something goes wrong')
+        return
+      }
+      this.newType = newSentiment
     },
   },
 }
 </script>
 
-<style type="scss">
+<style lang="scss">
 .container {
   display: flex;
+
+  position: relative;
 
   cursor: pointer;
 
   .dropdown {
     position: absolute;
 
+    margin-top: 35px;
     padding: 10px;
 
     background: var(--background-secondary-color);

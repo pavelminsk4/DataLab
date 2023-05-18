@@ -2,6 +2,7 @@
   <post-card-layout
     :sentiment="postDetails.sentiment"
     :post-image="img"
+    :post-id="postDetails.id"
     :is-clipping-widget="isClippingWidget"
     :is-clipping-post="isClippingPost"
     @add-clipping-post="addClippingFeedPost"

@@ -3,6 +3,7 @@
     :sentiment="postDetails.sentiment"
     :category="postDetails.category"
     :post-image="img"
+    :post-id="postDetails.id"
     :is-clipping-widget="isClippingWidget"
     :is-clipping-post="isClippingPost"
     @add-clipping-post="addClippingFeedPost"
