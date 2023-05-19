@@ -16,11 +16,13 @@ def optimal_post_time(pk, widget_pk):
                         'retweets': posts_of_day.aggregate(Sum('count_retweets'))['count_retweets__sum'] if posts_of_day.count() else 0,
                         'tweets': posts_of_day.count()})
         results.append(res)
-    res = {'Monday': results[1],
-           'Tuesday': results[2],
-           'Wednesday': results[3],
-           'Thursday': results[4],
-           'Friday': results[5],
+    res = {
            'Saturday': results[6],
-           'Sunday': results[0]}
+           'Friday': results[5],
+           'Thursday': results[4],
+           'Wednesday': results[3],
+           'Tuesday': results[2],
+           'Monday': results[1],
+           'Sunday': results[0]
+           }
     return JsonResponse(res, safe=False)
