@@ -29,6 +29,7 @@ import WorldMapChart from '@/components/charts/WorldMapChart'
 import SentimentWordCloudChart from '@/components/charts/SentimentWordCloudChart'
 import SentimentBarChart from '@/components/charts/SentimentBarChart'
 import BarLineChart from '@/components/charts/BarLineChart'
+import HeatmapChart from '@/components/charts/HeatmapChart'
 
 export default {
   name: 'ChartsView',
@@ -47,6 +48,7 @@ export default {
     SentimentWordCloudChart,
     SentimentBarChart,
     BarLineChart,
+    HeatmapChart,
   },
   props: {
     labels: {type: Array, default: () => []},

@@ -43,6 +43,10 @@ export default {
     state.averageEngagementsByDay = data
   },
 
+  [mutator.SET_OPTIMAL_POST_TIME](state, data) {
+    state.optimalPostTime = data
+  },
+
   [mutator.CLEAR_WIDGETS_DATA](state) {
     for (const widget in state) {
       state[widget] = {}

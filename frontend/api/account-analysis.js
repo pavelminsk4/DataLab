@@ -136,4 +136,12 @@ export default {
       {aggregation_period: value}
     )
   },
+
+  async getOptimalPostTime(projectId, widgetId, value) {
+    return fetch(
+      'post',
+      `${moduleName}/optimal_post_time_widget/${projectId}/${widgetId}`,
+      {aggregation_period: value}
+    )
+  },
 }
