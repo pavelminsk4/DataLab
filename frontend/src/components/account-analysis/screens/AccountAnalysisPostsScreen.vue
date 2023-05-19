@@ -94,6 +94,8 @@ export default {
 
   gap: 20px;
 
+  cursor: default;
+
   .filters {
     display: flex;
 

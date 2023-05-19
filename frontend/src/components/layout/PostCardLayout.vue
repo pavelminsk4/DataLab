@@ -23,12 +23,8 @@
             <slot name="post-type"></slot>
           </div>
 
-          <div :class="['type', `status-${sentiment}`]">
-            <component
-              :is="capitalizeFirstLetter(sentiment) + 'Icon'"
-              :class="['status-' + sentiment]"
-            />
-            {{ capitalizeFirstLetter(sentiment) }}
+          <div :class="['type', `status`]">
+            <SentimentChips :chips-type="sentiment" :post-id="postId" />
           </div>
 
           <div class="type category"><HashtagIcon /> {{ category }}</div>
@@ -62,34 +58,29 @@ import {mapGetters} from 'vuex'
 import {get} from '@store/constants'
 import {capitalizeFirstLetter} from '@lib/utilities'
 
-import OnlineIcon from '@/components/icons/OnlineIcon'
-import NeutralIcon from '@/components/icons/NeutralIcon'
-import PositiveIcon from '@/components/icons/PositiveIcon'
-import NegativeIcon from '@/components/icons/NegativeIcon'
 import ClippingIcon from '@/components/icons/ClippingIcon'
 import BaseTooltip from '@/components/BaseTooltip'
 import NoImageIcon from '@/components/icons/NoImageIcon'
 import CloseIcon from '@/components/icons/CloseIcon'
 import HashtagIcon from '@/components/icons/HashtagIcon'
+import SentimentChips from '@/components/SentimentChips'
 
 export default {
   name: 'PostCardLayout',
   components: {
+    SentimentChips,
     CloseIcon,
     NoImageIcon,
     BaseTooltip,
     ClippingIcon,
-    NeutralIcon,
-    NegativeIcon,
-    PositiveIcon,
-    OnlineIcon,
     HashtagIcon,
   },
   props: {
     isClippingWidget: {type: Boolean, default: false},
-    postImage: {type: String, required: false},
-    sentiment: {type: String, required: false},
-    category: {type: String, required: false},
+    postImage: {type: String},
+    postId: {type: Number},
+    sentiment: {type: String},
+    category: {type: String},
     isClippingPost: {type: Boolean, default: false},
   },
   computed: {
@@ -188,6 +179,8 @@ export default {
           justify-content: center;
           gap: 4px;
 
+          height: 30px;
+
           padding: 6px 8px;
 
           border-radius: 2px 12px 12px 2px;
@@ -204,19 +197,8 @@ export default {
           background-color: var(--hashtag-bg-color);
         }
 
-        .status-neutral {
-          background-color: var(--neutral-secondary-color);
-          color: var(--neutral-primary-color);
-        }
-
-        .status-positive {
-          background-color: var(--positive-secondary-color);
-          color: var(--positive-primary-color);
-        }
-
-        .status-negative {
-          background-color: var(--negative-secondary-color);
-          color: var(--negative-primary-color);
+        .status {
+          background-color: transparent;
         }
 
         .clipping-wrapper {

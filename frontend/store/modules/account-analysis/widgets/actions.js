@@ -178,6 +178,26 @@ export default {
     }
   },
 
+  async [action.GET_AVERAGE_ENGAGEMENTS_BY_DAY](
+    {commit},
+    {projectId, widgetId, value}
+  ) {
+    commit(mutator.SET_LOADING, true, {root: true})
+    try {
+      const averageEngagements =
+        await api.accountAnalysis.getAverageEngagemensByDay(
+          projectId,
+          widgetId,
+          value
+        )
+      commit(mutator.SET_AVERAGE_ENGAGEMENTS_BY_DAY, averageEngagements)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false, {root: true})
+    }
+  },
+
   [action.CLEAR_WIDGETS_DATA]({commit}) {
     commit(mutator.CLEAR_WIDGETS_DATA)
   },

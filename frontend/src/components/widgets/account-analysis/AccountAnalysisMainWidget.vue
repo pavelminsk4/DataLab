@@ -17,6 +17,7 @@ import MostEngagingMediaTypes from '@/components/widgets/account-analysis/MostEn
 import OptimalPostLength from '@/components/widgets/account-analysis/OptimalPostLength'
 import OptimalNumberOfHashtags from '@/components/widgets/account-analysis/OptimalNumberOfHashtags'
 import TopHashtags from '@/components/widgets/account-analysis/TopHashtags'
+import AverageEngagementsByDay from '@/components/widgets/account-analysis/AverageEngagementsByDay'
 
 export default {
   name: 'AccountAnalysisMainWidget',
@@ -31,6 +32,7 @@ export default {
     MostEngagingMediaTypes,
     TopHashtags,
     OptimalNumberOfHashtags,
+    AverageEngagementsByDay,
   },
   props: {
     widgetDetails: {type: Object, required: true},

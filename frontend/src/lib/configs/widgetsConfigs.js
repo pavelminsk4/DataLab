@@ -448,6 +448,14 @@ export const widgetsConfig = {
     defaultChartType: 'HorizontalBarChart',
     availableTypes: SIMPLE_CHARTS,
   },
+
+  average_engagements_by_day: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    actionName: action.GET_OPTIMAL_NUMBER_OF_HASHTAGS,
+    hasAggregationPeriod: false,
+    defaultChartType: 'BarChart',
+    availableTypes: SIMPLE_CHARTS,
+  },
 }
 
 export const summaryWidgetConfig = [

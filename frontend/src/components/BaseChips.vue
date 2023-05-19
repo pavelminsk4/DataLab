@@ -71,9 +71,6 @@ export default {
   border-radius: 2px 12px 12px 2px;
 
   overflow: hidden;
-  &:not(:last-child) {
-    margin-right: 6px;
-  }
 }
 
 .male,

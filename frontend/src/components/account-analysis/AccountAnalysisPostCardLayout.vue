@@ -14,7 +14,10 @@
       </div>
       <div class="post-card__chips">
         <div class="chips__container">
-          <BaseChips :chips-type="postDetails.sentiment" />
+          <SentimentChips
+            :chips-type="postDetails.sentiment"
+            :post-id="postDetails.id"
+          />
         </div>
         <div class="chips__container">
           <BaseChips chips-type="topic"> Topic</BaseChips>
@@ -30,6 +33,7 @@
 <script>
 import {isAllEmptyFields} from '@lib/utilities'
 
+import SentimentChips from '@/components/SentimentChips'
 import BaseChips from '@/components/BaseChips'
 import RepliesIcon from '@/components/icons/RepliesIcon'
 
@@ -38,6 +42,7 @@ export default {
   components: {
     RepliesIcon,
     BaseChips,
+    SentimentChips,
   },
   props: {
     postDetails: {type: Object, required: true},
