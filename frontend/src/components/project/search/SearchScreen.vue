@@ -35,6 +35,9 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
+import {get} from '@store/constants'
+
 import MainLayoutTitleBlock from '@/components/layout/MainLayoutTitleBlock'
 import SimpleModeTab from '@/components/workspace/SimpleModeTab'
 import SearchResults from '@/components/SearchResults'
@@ -56,6 +59,9 @@ export default {
     }
   },
   computed: {
+    ...mapGetters({
+      department: get.DEPARTMENT,
+    }),
     currentKeywords() {
       return this.currentProject?.keywords
     },
@@ -98,6 +104,7 @@ export default {
         author_dimensions: [],
         sentiment_dimensions: [],
         query_filter: this.query || this.currentProject?.query_filter,
+        department_id: this.department.id,
       })
     },
     updateProjectData() {
@@ -129,6 +136,7 @@ export default {
         country_filter: this.additionalFilters?.country || null,
         sort_posts: [],
         query_filter: this.query || this.currentProject?.query_filter,
+        department_id: this.department.id,
       })
 
       this.showResults()
