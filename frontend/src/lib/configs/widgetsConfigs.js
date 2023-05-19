@@ -456,6 +456,15 @@ export const widgetsConfig = {
     defaultChartType: 'BarChart',
     availableTypes: SIMPLE_CHARTS,
   },
+
+  optimal_post_time: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    actionName: action.GET_OPTIMAL_POST_TIME,
+    hasAggregationPeriod: false,
+    defaultChartType: 'HeatmapChart',
+    availableTypes: null,
+    settingsTabs: ['General', 'Dimensions'],
+  },
 }
 
 export const summaryWidgetConfig = [

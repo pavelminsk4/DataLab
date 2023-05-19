@@ -198,6 +198,22 @@ export default {
     }
   },
 
+  async [action.GET_OPTIMAL_POST_TIME]({commit}, {projectId, widgetId, value}) {
+    commit(mutator.SET_LOADING, true, {root: true})
+    try {
+      const optimalPostTime = await api.accountAnalysis.getOptimalPostTime(
+        projectId,
+        widgetId,
+        value
+      )
+      commit(mutator.SET_OPTIMAL_POST_TIME, optimalPostTime)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false, {root: true})
+    }
+  },
+
   [action.CLEAR_WIDGETS_DATA]({commit}) {
     commit(mutator.CLEAR_WIDGETS_DATA)
   },

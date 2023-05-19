@@ -6,6 +6,7 @@ const state = {
   mostEngagingPostTypes: {},
   mostEngagingMediaTypes: {},
   optimalPostLength: {},
+  optimalPostTime: {},
   optimalNumberOfHashtags: {},
   profileTimeline: {},
   summary: {},

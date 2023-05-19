@@ -11,17 +11,16 @@ def optimal_post_time(pk, widget_pk):
         res = []
         for hour in range(0, 24):
             posts_of_day = posts.filter(date__week_day=day_of_week).filter(date__hour=hour)
-            res.append({'AVG eng': (posts_of_day.aggregate(engagement=Sum(F('count_favorites') + F('count_retweets')))['engagement'])/posts_of_day.count() if posts_of_day.count() else 0,
+            res.append({'engagements': (posts_of_day.aggregate(engagement=Sum(F('count_favorites') + F('count_retweets')))['engagement'])/posts_of_day.count() if posts_of_day.count() else 0,
                         'likes': posts_of_day.aggregate(Sum('count_favorites'))['count_favorites__sum'] if posts_of_day.count() else 0,
                         'retweets': posts_of_day.aggregate(Sum('count_retweets'))['count_retweets__sum'] if posts_of_day.count() else 0,
                         'tweets': posts_of_day.count()})
-        results.append(res)    
-    res = {'Monday': results[1], 
+        results.append(res)
+    res = {'Monday': results[1],
            'Tuesday': results[2],
            'Wednesday': results[3],
            'Thursday': results[4],
            'Friday': results[5],
            'Saturday': results[6],
            'Sunday': results[0]}
-    print(res)
     return JsonResponse(res, safe=False)
