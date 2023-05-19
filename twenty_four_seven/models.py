@@ -1,0 +1,73 @@
+from django.db import models
+from django.contrib.auth.models import User
+from django.contrib.postgres.fields import ArrayField
+from project.models import Post
+from tweet_binder.models import TweetBinderPost
+
+
+class WorkspaceTwentyFourSeven(models.Model):
+    title = models.CharField(max_length=100)
+    description = models.CharField(max_length=1000, null=True, blank=True)
+    members = models.ManyToManyField(User, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    department = models.ForeignKey('accounts.department', on_delete=models.SET_NULL, null=True, related_name='twenty_four_seven_workspaces')
+
+    def __str__(self):
+        return self.title
+
+
+class ProjectTwentyFourSeven(models.Model):
+    title = models.CharField(max_length=100)
+    creator = models.ForeignKey(User,related_name='creator_tfs', on_delete=models.SET_NULL, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    note = models.CharField(max_length=200, null=True, blank=True)
+    keywords = ArrayField(models.CharField(max_length=200), blank=True, null=True)
+    ignore_keywords = ArrayField(models.CharField(max_length=200), blank=True, null=True)
+    additional_keywords = ArrayField(models.CharField(max_length=200), blank=True, null=True)
+    workspace = models.ForeignKey(WorkspaceTwentyFourSeven, related_name='tfs_workspace_projects', blank=True, null=True, on_delete=models.CASCADE)
+    start_search_date = models.DateTimeField()
+    end_search_date = models.DateTimeField()
+    author_filter = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
+    language_filter = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
+    country_filter = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
+    source_filter = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
+    sentiment_filter = ArrayField(models.CharField(max_length=100), default=None, null=True, blank=True)
+    members = models.ManyToManyField(User, related_name='projects_tfs', blank=True)
+    author_dimensions = ArrayField(models.CharField(max_length=50), blank=True, null=True)
+    language_dimensions = ArrayField(models.CharField(max_length=50), blank=True, null=True)
+    country_dimensions = ArrayField(models.CharField(max_length=50), blank=True, null=True)
+    source_dimensions = ArrayField(models.CharField(max_length=50), blank=True, null=True)
+    sentiment_dimensions = ArrayField(models.CharField(max_length=10), blank=True, null=True)
+
+    def __str__(self):
+        return self.title
+
+
+class Item(models.Model):
+    STATUS_CHOICES = [
+        ('PCK', 'Picking'),
+        ('SUM', 'Summary'),
+        ('QA', 'Q&A Check'),
+        ('PING', 'Publishing'),
+        ('PED', 'Published'),
+    ]
+
+    online_post = models.OneToOneField(Post, on_delete=models.CASCADE, blank=True, null=True)
+    social_post = models.OneToOneField(TweetBinderPost, on_delete=models.CASCADE, blank=True, null=True)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Picking')
+    header = models.CharField(max_length=100, blank=True, null=True)
+    text = models.CharField(max_length=500, blank=True, null=True)
+    original_content = models.TextField(blank=True, null=True)
+    in_work = models.BooleanField(default=False)
+    project = models.ForeignKey(ProjectTwentyFourSeven, on_delete=models.CASCADE, related_name='tfs_project_items')
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['project_id', 'online_post'], name='twenty four seven online item uniqueness constraint'),
+            models.UniqueConstraint(fields=['project_id', 'social_post'], name='twenty four seven social item uniqueness constraint')
+        ]
+
+    def __str__(self):
+        return str(self.project)
