@@ -114,7 +114,7 @@ def data_range_posts(start_date, end_date):
 
 def search(request):
   body = json.loads(request.body)
-  department_id=body["department_id"]
+  department_id = body['department_id']
   date_range = body['date_range']
   posts_per_page = body['posts_per_page']
   page_number = body['page_number']
@@ -149,10 +149,12 @@ def search(request):
 
   p = Paginator(posts, posts_per_page)
   posts_list=list(p.page(page_number))
+  department_changing=ChangingSentiment.objects.filter(department_id=department_id).values()
+  dict_changing={x['post_id']: x['sentiment'] for x in department_changing}
   for post in posts_list:
-    mydata = ChangingSentiment.objects.filter(department_id=department_id, post_id=post['id'])
-    if mydata:
-      post['sentiment']=mydata.values_list("sentiment",flat=True)[0]
+    if(post['id'] in dict_changing):
+      new_sentiment = dict_changing[post['id']]
+      post['sentiment'] = new_sentiment
     src = post['feedlink__source1']
     post['feedlink__source1'] = src if '<img' not in str(src) else re.findall('alt="(.*)"', src)[0]
     category=classification(Post.objects.get(pk=post['id']))
