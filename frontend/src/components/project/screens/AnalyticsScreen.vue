@@ -158,6 +158,7 @@ export default {
       searchData: get.SEARCH_DATA,
       numberOfPosts: get.POSTS_NUMBER,
       inreractiveDataModal: get.INTERACTIVE_DATA_MODAL,
+      department: get.DEPARTMENT,
     }),
     currentKeywords() {
       return this.currentProject?.keywords
@@ -224,6 +225,7 @@ export default {
           author_dimensions: this.currentProject.author_dimensions,
           sentiment_dimensions: this.currentProject.sentiment_dimensions,
           query_filter: this.currentProject.query_filter,
+          department_id: this.department.id,
         })
       } catch (e) {
         console.log(e)
