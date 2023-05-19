@@ -32,7 +32,6 @@ export default {
       searchData: get.SEARCH_DATA,
       numberOfPosts: get.POSTS_NUMBER,
       availableWidgets: get.AVAILABLE_WIDGETS,
-      department: get.DEPARTMENT,
     }),
   },
   async created() {
@@ -62,10 +61,7 @@ export default {
     ]),
     showResults(filters) {
       try {
-        this[action.POST_SEARCH]({
-          ...filters,
-          department_id: this.department.id,
-        })
+        this[action.POST_SEARCH](filters)
       } catch (e) {
         console.log(e)
       }
