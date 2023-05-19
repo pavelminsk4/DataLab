@@ -27,6 +27,7 @@ export default {
     widgetData: {type: Object, required: true},
     isSettings: {type: Boolean, default: false},
     newChartType: {type: String, default: ''},
+    colors: {type: Array, default: () => []},
   },
   computed: {
     chartType() {
@@ -45,8 +46,10 @@ export default {
     chartValues() {
       return [
         {
-          color: ['#FFBB00'],
-          data: Object.values(this.widgetData).map((value) => value.toFixed()),
+          color: this.colors.length ? this.colors : ['#FFBB00'],
+          data: Object.values(this.widgetData).map((value) =>
+            value ? value.toFixed() : 0
+          ),
         },
       ]
     },

@@ -103,7 +103,12 @@ export default {
     {postId, departmentId, newSentiment}
   ) {
     try {
-      await api.changePostSentiment(postId, departmentId, newSentiment)
+      const response = await api.changePostSentiment(
+        postId,
+        departmentId,
+        newSentiment
+      )
+      return response
     } catch (e) {
       return e
     }

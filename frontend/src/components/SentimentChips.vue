@@ -70,11 +70,10 @@ export default {
         departmentId: this.department.id,
         newSentiment,
       })
-      if (request.toString().includes('Error')) {
-        prompt('Something goes wrong')
+      if (request instanceof Error) {
+        console.log(request.toString())
         return
-      }
-      this.newType = newSentiment
+      } else this.newType = newSentiment
     },
   },
 }

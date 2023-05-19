@@ -57,7 +57,7 @@ export default {
 
   async changePostSentiment(postId, departmentId, newSentiment) {
     return fetch(
-      'get',
+      'post',
       `/change_sentiment/${postId}/${departmentId}/${newSentiment}`
     )
   },

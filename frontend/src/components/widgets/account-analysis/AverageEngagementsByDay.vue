@@ -1,8 +1,8 @@
 <template>
   <OptimalPostLengthWidget
-    v-if="!isAllEmptyFields(optimalNumberOfHashtags)"
+    v-if="!isAllEmptyFields(averageEngagementsByDay)"
     :widget-details="widgetDetails"
-    :widget-data="optimalNumberOfHashtags"
+    :widget-data="averageEngagementsByDay"
     :colors="colors"
   />
 </template>
@@ -19,7 +19,7 @@ const {mapActions, mapGetters} = createNamespacedHelpers(
 )
 
 export default {
-  name: 'OptimalNumberOfHashtags',
+  name: 'AverageEngagemntsByDay',
   props: {
     widgetDetails: {type: Object, required: true},
   },
@@ -30,14 +30,14 @@ export default {
     ...mapGetters({
       accountAnalysisWidgets: get.ACCOUNT_ANALYSIS_WIDGETS,
     }),
-    optimalNumberOfHashtags() {
-      return this.accountAnalysisWidgets.optimalNumberOfHashtags.engagement
+    averageEngagementsByDay() {
+      return this.accountAnalysisWidgets.averageEngagementsByDay
     },
   },
   created() {
-    this.colors = ['#5A12B3']
-    if (isAllEmptyFields(this.optimalNumberOfHashtags)) {
-      this[action.GET_OPTIMAL_NUMBER_OF_HASHTAGS]({
+    this.colors = ['#FF0099']
+    if (isAllEmptyFields(this.averageEngagementsByDay)) {
+      this[action.GET_AVERAGE_ENGAGEMENTS_BY_DAY]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,
         value: this.widgetDetails.aggregation_period,
@@ -45,7 +45,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions([action.GET_OPTIMAL_NUMBER_OF_HASHTAGS]),
+    ...mapActions([action.GET_AVERAGE_ENGAGEMENTS_BY_DAY]),
     isAllEmptyFields,
   },
 }

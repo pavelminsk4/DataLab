@@ -39,6 +39,10 @@ export default {
     state.optimalNumberOfHashtags = data
   },
 
+  [mutator.SET_AVERAGE_ENGAGEMENTS_BY_DAY](state, data) {
+    state.averageEngagementsByDay = data
+  },
+
   [mutator.CLEAR_WIDGETS_DATA](state) {
     for (const widget in state) {
       state[widget] = {}

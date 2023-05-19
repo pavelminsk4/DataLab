@@ -128,4 +128,12 @@ export default {
       {aggregation_period: value}
     )
   },
+
+  async getAverageEngagemensByDay(projectId, widgetId, value) {
+    return fetch(
+      'post',
+      `${moduleName}/average_engagements_by_day_widget/${projectId}/${widgetId}`,
+      {aggregation_period: value}
+    )
+  },
 }
