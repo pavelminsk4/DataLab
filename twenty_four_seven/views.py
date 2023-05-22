@@ -12,9 +12,21 @@ class ItemViewSet(viewsets.ModelViewSet):
     serializer_class = ItemSerializer
 
 
-class WorkspaceTwentyFourSevenlList(ListAPIView):
-    serializer_class = WorkspaceTwentyFourSevenSerializer
+class TwentyFourSevenProjectViewSet(viewsets.ModelViewSet):
+    def get_queryset(self):
+        user = self.request.user
+        if not user.is_anonymous:
+            return ProjectTwentyFourSeven.objects.filter(members=user)
 
+        return ProjectTwentyFourSeven.objects.none()
+
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return ProjectTwentyFourSevenPostSerializer
+        return ProjectTwentyFourSevenSerializer
+
+
+class WorkspaceTwentyFourSevenViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         user = self.request.user
         if not user.is_anonymous:
@@ -22,25 +34,10 @@ class WorkspaceTwentyFourSevenlList(ListAPIView):
 
         return WorkspaceTwentyFourSeven.objects.none()
 
-
-class WorkspaceTwentyFourSevenCreate(CreateAPIView):
-    queryset = WorkspaceTwentyFourSeven.objects.all()
-    serializer_class = WorkspaceTwentyFourSevenCreateSerializer
-
-
-class WorkspaceTwentyFourSevenUpdate(UpdateAPIView):
-    queryset = WorkspaceTwentyFourSeven.objects.all()
-    serializer_class = WorkspaceTwentyFourSevenSerializer
-
-
-class WorkspaceTwentyFourSevenDelete(DestroyAPIView):
-    queryset = WorkspaceTwentyFourSeven.objects.all()
-    serializer_class = WorkspaceTwentyFourSevenSerializer
-
-
-class TwentyFourSevenProjectViewSet(viewsets.ModelViewSet):
-    queryset = ProjectTwentyFourSeven.objects.all()
-    serializer_class = ProjectTwentyFourSevenSerializer
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return WorkspaceTwentyFourSevenPostSerializer
+        return WorkspaceTwentyFourSevenSerializer
 
 
 def whatsapp(request):
