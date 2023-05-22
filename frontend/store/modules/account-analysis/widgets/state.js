@@ -11,6 +11,7 @@ const state = {
   profileTimeline: {},
   summary: {},
   topHashtags: {},
+  topPostsByEngagements: {},
 }
 
 export default state

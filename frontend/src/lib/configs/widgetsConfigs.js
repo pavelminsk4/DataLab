@@ -302,6 +302,7 @@ export const widgetsConfig = {
     actionName: action.GET_TOP_AUTHORS_BY_GENDER,
     defaultChartType: 'SentimentBarChart',
     availableTypes: null,
+    settingsTabs: ['General', 'Dimensions'],
   },
   authors_by_language: {
     ...WIDGET_DEFAULT_SETTINGS,
@@ -462,6 +463,14 @@ export const widgetsConfig = {
     actionName: action.GET_OPTIMAL_POST_TIME,
     hasAggregationPeriod: false,
     defaultChartType: 'HeatmapChart',
+    availableTypes: null,
+    settingsTabs: ['General', 'Dimensions'],
+  },
+  top_posts_by_engagements: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    actionName: action.GET_TOP_POSTS_BY_ENGAGEMENTS,
+    hasPreview: false,
+    hasAggregationPeriod: false,
     availableTypes: null,
     settingsTabs: ['General', 'Dimensions'],
   },

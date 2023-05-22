@@ -144,4 +144,12 @@ export default {
       {aggregation_period: value}
     )
   },
+
+  async getTopPostsByEngagements(projectId, widgetId, value) {
+    return fetch(
+      'post',
+      `${moduleName}/top_posts_by_engagements_widget/${projectId}/${widgetId}`,
+      {aggregation_period: value}
+    )
+  },
 }

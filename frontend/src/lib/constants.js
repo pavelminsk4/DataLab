@@ -113,6 +113,7 @@ export const accountAnalysisWidgetsList = {
     {name: 'most_frequent_media_types', isFullWidth: false},
     {name: 'most_engaging_post_types', isFullWidth: false},
     {name: 'most_engaging_media_types', isFullWidth: false},
+    {name: 'top_posts_by_engagements', isFullWidth: true},
   ],
   optimization: [
     {name: 'summary', isFullWidth: true, minHeight: 230},

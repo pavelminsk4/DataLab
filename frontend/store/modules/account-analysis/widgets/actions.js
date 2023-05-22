@@ -214,6 +214,26 @@ export default {
     }
   },
 
+  async [action.GET_TOP_POSTS_BY_ENGAGEMENTS](
+    {commit},
+    {projectId, widgetId, value}
+  ) {
+    commit(mutator.SET_LOADING, true, {root: true})
+    try {
+      const topPostsByEngagements =
+        await api.accountAnalysis.getTopPostsByEngagements(
+          projectId,
+          widgetId,
+          value
+        )
+      commit(mutator.SET_TOP_POSTS_BY_ENGAGEMENTS, topPostsByEngagements)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false, {root: true})
+    }
+  },
+
   [action.CLEAR_WIDGETS_DATA]({commit}) {
     commit(mutator.CLEAR_WIDGETS_DATA)
   },
