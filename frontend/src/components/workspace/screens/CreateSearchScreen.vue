@@ -63,6 +63,7 @@ export default {
       newWorkspace: get.NEW_WORKSPACE,
       newProjectId: get.NEW_PROJECT_ID,
       newWorkspaceId: get.NEW_WORKSPACE_ID,
+      department: get.DEPARTMENT,
     }),
     step() {
       return this.$route.name
@@ -128,6 +129,7 @@ export default {
           author_dimensions: [],
           sentiment_dimensions: [],
           query_filter: [],
+          department_id: this.department.id,
         })
       } catch (e) {
         console.log(e)
@@ -150,6 +152,7 @@ export default {
           language_filter: this.additionalFilters?.language || null,
           sentiment_filter: this.additionalFilters?.sentiment || null,
           country_filter: this.additionalFilters?.country || null,
+          department_id: this.department.id,
         })
 
         if (+this.workspaceId) {
