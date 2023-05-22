@@ -15,7 +15,7 @@ def top_posts_by_engagements(pk, widget_pk):
         res['text'] = elem.text
         res['sentiment'] = elem.sentiment
         res['engagement'] = elem.count_favorites + elem.count_retweets
-        res['engmt_rate'] = (elem.count_favorites + elem.count_retweets)/elem.user_followers
+        res['engmt_rate'] = ((elem.count_favorites + elem.count_retweets)/elem.user_followers) * 100
         res['date'] = elem.date.strftime('%b %d, %Y %I:%M %p')
         results.append(res)
     return JsonResponse(results, safe=False)
