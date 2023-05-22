@@ -29,6 +29,7 @@ DATA = {
       'source_dimensions':[],
       'sentiment_dimensions':[],
       'query_filter': '',
+      'department_id':1,
       }
 
 
