@@ -19,6 +19,7 @@ import OptimalNumberOfHashtags from '@/components/widgets/account-analysis/Optim
 import TopHashtags from '@/components/widgets/account-analysis/TopHashtags'
 import AverageEngagementsByDay from '@/components/widgets/account-analysis/AverageEngagementsByDay'
 import OptimalPostTime from '@/components/widgets/account-analysis/OptimalPostTime'
+import TopPostsByEngagements from '@/components/widgets/account-analysis/TopPostsByEngagements'
 
 export default {
   name: 'AccountAnalysisMainWidget',
@@ -35,6 +36,7 @@ export default {
     OptimalNumberOfHashtags,
     AverageEngagementsByDay,
     OptimalPostTime,
+    TopPostsByEngagements,
   },
   props: {
     widgetDetails: {type: Object, required: true},
