@@ -2,6 +2,7 @@ import $api from '../http'
 
 import social from './social-api'
 import accountAnalysis from './account-analysis'
+import twenyFourSeven from './tweny-four-seven'
 
 const endpoint = (resource) => `/api${resource}`
 
@@ -13,6 +14,7 @@ export const fetch = async (action, resource, payload = null) => {
 export default {
   social,
   accountAnalysis,
+  twenyFourSeven,
 
   async logout() {
     const response = await $api.get('/accounts/logout/')
