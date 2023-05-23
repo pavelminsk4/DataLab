@@ -9,6 +9,7 @@ from .widgets.dashboard.top_posts_by_engagements import *
 from .widgets.dashboard.most_frequent_post_types import *
 from .widgets.dashboard.most_engaging_post_types import *
 from .widgets.optimization.optimal_post_length import *
+from .widgets.optimization.best_times_to_post import *
 from .widgets.optimization.optimal_post_time import *
 from .widgets.optimization.top_hashtags import *
 from .widgets.dashboard.profile_timeline import *
@@ -111,6 +112,9 @@ def optimal_post_time_widget(request, pk, widget_pk):
 
 def top_posts_by_engagements_widget(request, pk, widget_pk):
     return top_posts_by_engagements(pk, widget_pk)
+
+def best_times_to_post_widget(request, pk, widget_pk):
+    return best_times_to_post(pk, widget_pk)
 
 def search_posts(request, project_pk):
     body = json.loads(request.body)
