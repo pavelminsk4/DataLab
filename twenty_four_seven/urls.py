@@ -6,15 +6,10 @@ from django.urls import path
 
 router = routers.SimpleRouter()
 
-urlpatterns = [
-    path('twenty_four_seven_workspaces/',views.WorkspaceTwentyFourSevenlList.as_view(),name="twenty_four_seven_workspaces_list"),
-    path('twenty_four_seven_workspaces/create/', views.WorkspaceTwentyFourSevenCreate.as_view(),name="twenty_four_seven_workspaces_create"),
-    path('twenty_four_seven_workspaces/update/<int:pk>/',views.WorkspaceTwentyFourSevenUpdate.as_view(),name="twenty_four_seven_workspaces_update"),
-    path('twenty_four_seven_workspaces/delete/<int:pk>/',views.WorkspaceTwentyFourSevenDelete.as_view(),name="twenty_four_seven_workspaces_delete"),    
-    path('whatsapp/', views.whatsapp, name='whatsapp'),
-]
+urlpatterns = []
 
-router.register('projects', TwentyFourSevenProjectViewSet)
-router.register('items', ItemViewSet)
+router.register('workspaces', WorkspaceTwentyFourSevenViewSet, basename='tfs_workspaces')
+router.register('projects', TwentyFourSevenProjectViewSet, basename='tfs_projects')
+router.register('items', ItemViewSet, basename='tfs_items')
 
 urlpatterns += router.urls
