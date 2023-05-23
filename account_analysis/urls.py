@@ -31,6 +31,7 @@ urlpatterns = [
     path('average_engagements_by_day_widget/<int:pk>/<int:widget_pk>', views.average_engagements_by_day_widget, name='average_engagements_by_day'),
     path('optimal_post_time_widget/<int:pk>/<int:widget_pk>', views.optimal_post_time_widget, name='optimal_post_time'),
     path('top_posts_by_engagements_widget/<int:pk>/<int:widget_pk>', views.top_posts_by_engagements_widget, name='top_posts_by_engagements'),
+    path('best_times_to_post_widget/<int:pk>/<int:widget_pk>', views.best_times_to_post_widget, name='best_times_to_post'),
     path('dimensions_for_each_widgets/<int:project_pk>/<int:widget_pk>', views.dimensions_for_each_widgets, name='dimensions_for_each_widgets'),
     # =======Profile Handle======
     path('list_of_profile_handle', views.list_of_profile_handle, name='list_of_profile_handle'),
