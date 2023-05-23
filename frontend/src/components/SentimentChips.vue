@@ -71,7 +71,6 @@ export default {
         newSentiment,
       })
       if (request instanceof Error) {
-        console.log(request.toString())
         return
       } else this.newType = newSentiment
     },

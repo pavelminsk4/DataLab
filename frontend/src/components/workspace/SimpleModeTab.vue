@@ -34,6 +34,8 @@
       <div class="second-title">TEST Expert mode</div>
       <BaseTextarea v-model="exprtModeTest" placeholder="Enter code" />
 
+      <slot name="module-type"> </slot>
+
       <div class="filters-title">
         Refine youre search with additional filters
       </div>
@@ -67,9 +69,10 @@ import {get} from '@store/constants'
 import BaseTag from '@/components/BaseTag'
 import OnlineSearchForm from '@/components/project/OnlineSearchForm'
 import SocialSearchForm from '@/components/project/SocialSearchForm'
+import TFSSearchForm from '@/components/tweny-four-seven/TFSSearchForm'
 import BaseButton from '@/components/common/BaseButton'
 import SaveIcon from '@/components/icons/SaveIcon'
-import BaseTextarea from '../common/BaseTextarea.vue'
+import BaseTextarea from '@/components/common/BaseTextarea'
 
 export default {
   name: 'SimpleModeTab',
@@ -78,6 +81,7 @@ export default {
     BaseButton,
     OnlineSearchForm,
     SocialSearchForm,
+    TFSSearchForm,
     BaseTag,
     BaseTextarea,
   },
