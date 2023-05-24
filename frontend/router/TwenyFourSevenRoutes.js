@@ -9,7 +9,7 @@ import CreateTFSWorkspace from '@/components/tweny-four-seven/CreateTFSWorkspace
 import CreateTFSProject from '@/components/tweny-four-seven/CreateTFSProject'
 import CreateSearchTFS from '@/components/tweny-four-seven/CreateSearchTFS'
 import CreateTFSRightSide from '@/components/tweny-four-seven/CreateTFSRightSide'
-import TFSSearchResults from '@/components/tweny-four-seven/TFSSearchResults'
+import SearchResults from '@/components/SearchResults'
 
 export default [
   {
@@ -82,10 +82,10 @@ export default [
         path: 'step3',
         components: {
           default: CreateSearchTFS,
-          secondColumn: TFSSearchResults,
+          secondColumn: SearchResults,
         },
         props: {
-          secondColumn: {step: 'step3'},
+          secondColumn: {step: 'step3', moduleName: 'TFS'},
           default: (route) => ({
             workspaceId: route.params.workspaceId,
             moduleName: 'TFS',

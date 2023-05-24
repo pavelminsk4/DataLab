@@ -3,8 +3,8 @@
     <template #default>
       <div class="create-report-step-content">
         <MainLayoutTitleBlock
-          :title="accountAnalysisData.title"
-          :description="accountAnalysisData.description"
+          :title="TFSData.title"
+          :description="TFSData.description"
           :back-page="{
             name: 'main page',
             routName: 'MainView',
@@ -43,7 +43,7 @@ export default {
     currentStep() {
       return `step${this.$route.name.toString().slice(-1)}`
     },
-    accountAnalysisData() {
+    TFSData() {
       const data = {
         step1: {
           title: 'The Workspaces',

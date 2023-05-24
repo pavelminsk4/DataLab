@@ -169,7 +169,7 @@ const initialState = {
     creator: null,
     workspace: null,
     members: [],
-    project_type: 'online',
+    project_type: '',
   },
 }
 

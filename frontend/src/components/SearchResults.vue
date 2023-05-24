@@ -46,6 +46,7 @@ import {lowerFirstLetter} from '@/lib/utilities'
 import BaseSpinner from '@/components/BaseSpinner'
 import OnlinePostCard from '@/components/OnlinePostCard'
 import SocialPostCard from '@/components/SocialPostCard'
+import TFSPostCard from '@/components/TFSPostCard'
 import CreateWorkspaceRightSide from '@/components/workspace/CreateWorkspaceRightSide'
 import PaginationControlPanel from '@/components/PaginationControlPanel'
 
@@ -54,6 +55,7 @@ export default {
   components: {
     OnlinePostCard,
     SocialPostCard,
+    TFSPostCard,
     PaginationControlPanel,
     CreateWorkspaceRightSide,
     BaseSpinner,
@@ -86,6 +88,7 @@ export default {
       availableWidgets: get.AVAILABLE_WIDGETS,
     }),
     postCard() {
+      console.log(this.moduleName)
       return this.moduleName + 'PostCard'
     },
     routerName() {

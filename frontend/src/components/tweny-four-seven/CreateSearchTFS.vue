@@ -135,6 +135,7 @@ export default {
         language_filter: this.additionalFilters?.language || null,
         sentiment_filter: this.additionalFilters?.sentiment || null,
         country_filter: this.additionalFilters?.country || null,
+        project_type: this.selectedModuleType,
       })
 
       if (+this.workspaceId) {
