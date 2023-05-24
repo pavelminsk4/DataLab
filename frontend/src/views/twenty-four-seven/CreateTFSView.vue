@@ -30,7 +30,7 @@
 <script>
 import MainLayout from '@components/layout/MainLayout'
 import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
-import ProgressBar from '@/components/tweny-four-seven/TFSProgressBar'
+import ProgressBar from '@/components/twenty-four-seven/TFSProgressBar'
 
 export default {
   name: 'CreateTFSView',

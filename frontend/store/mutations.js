@@ -354,7 +354,6 @@ export default {
   },
 
   [mutator.SET_NEW_TFS_PROJECT](state, data) {
-    console.log(data)
     if (data) {
       state.newTFSProject = {
         ...state.newTFSProject,

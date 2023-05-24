@@ -7,7 +7,7 @@
         :description="workspace.description"
         :back-page="{
           name: 'main page',
-          routName: 'TwenyFourSevenWorkspaces',
+          routName: 'TwentyFourSevenWorkspaces',
         }"
       >
       </MainLayoutTitleBlock>
@@ -38,7 +38,7 @@ import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
 import PlusIcon from '@/components/icons/PlusIcon'
 import ProjectsTable from '@/components/ProjectsTable'
 
-const {mapState: mapTFSState} = createNamespacedHelpers('twenyFourSeven')
+const {mapState: mapTFSState} = createNamespacedHelpers('twentyFourSeven')
 
 export default {
   name: 'TFSWorkspaceView',

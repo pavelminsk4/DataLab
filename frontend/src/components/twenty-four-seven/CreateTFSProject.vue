@@ -29,7 +29,7 @@
 <script>
 import {mapActions, mapState} from 'vuex'
 import {action} from '@store/constants'
-import TFSMixin from '@/lib/mixins/tweny-four-seven.js'
+import TFSMixin from '@/lib/mixins/twenty-four-seven.js'
 
 import BaseInput from '@/components/common/BaseInput'
 import BaseTextarea from '@/components/common/BaseTextarea'

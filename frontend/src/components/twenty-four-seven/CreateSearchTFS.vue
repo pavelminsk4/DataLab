@@ -35,7 +35,7 @@ import BaseRadio from '@/components/BaseRadio'
 import SimpleModeTab from '@/components/workspace/SimpleModeTab'
 import OnlineIcon from '@/components/icons/OnlineIcon'
 
-const {mapActions: mapTFSActions} = createNamespacedHelpers('twenyFourSeven')
+const {mapActions: mapTFSActions} = createNamespacedHelpers('twentyFourSeven')
 
 export default {
   name: 'CreateSearchTFS',

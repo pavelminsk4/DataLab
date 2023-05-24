@@ -1,25 +1,25 @@
 import store from '@store'
 
-import TFSModuleView from '@/views/tweny-four-seven/TFSModuleView'
-import TFSWorkspacesView from '@/views/tweny-four-seven/TFSWorkspacesView'
-import CreateTFSView from '@/views/tweny-four-seven/CreateTFSView'
-import TFSWorkspaceView from '@/views/tweny-four-seven/TFSWorkspaceView'
+import TFSModuleView from '@/views/twenty-four-seven/TFSModuleView'
+import TFSWorkspacesView from '@/views/twenty-four-seven/TFSWorkspacesView'
+import CreateTFSView from '@/views/twenty-four-seven/CreateTFSView'
+import TFSWorkspaceView from '@/views/twenty-four-seven/TFSWorkspaceView'
 
-import CreateTFSWorkspace from '@/components/tweny-four-seven/CreateTFSWorkspace'
-import CreateTFSProject from '@/components/tweny-four-seven/CreateTFSProject'
-import CreateSearchTFS from '@/components/tweny-four-seven/CreateSearchTFS'
-import CreateTFSRightSide from '@/components/tweny-four-seven/CreateTFSRightSide'
+import CreateTFSWorkspace from '@/components/twenty-four-seven/CreateTFSWorkspace'
+import CreateTFSProject from '@/components/twenty-four-seven/CreateTFSProject'
+import CreateSearchTFS from '@/components/twenty-four-seven/CreateSearchTFS'
+import CreateTFSRightSide from '@/components/twenty-four-seven/CreateTFSRightSide'
 import SearchResults from '@/components/SearchResults'
 
 export default [
   {
-    name: 'TwenyFourSeven',
-    path: '/tweny-four-seven-module',
+    name: 'TwentyFourSeven',
+    path: '/twenty-four-seven-module',
     component: TFSModuleView,
-    redirect: () => ({name: 'TwenyFourSevenWorkspaces'}),
+    redirect: () => ({name: 'TwentyFourSevenWorkspaces'}),
     children: [
       {
-        name: 'TwenyFourSevenWorkspaces',
+        name: 'TwentyFourSevenWorkspaces',
         path: '',
         component: TFSWorkspacesView,
       },
@@ -33,8 +33,8 @@ export default [
   },
 
   {
-    name: 'TwenyFourSevenCreateWorkspace',
-    path: '/tweny-four-seven-module/workspace/:workspaceId/create',
+    name: 'TwentyFourSevenCreateWorkspace',
+    path: '/twenty-four-seven-module/workspace/:workspaceId/create',
     component: CreateTFSView,
     redirect: () => ({name: 'TFSWorkspaceStep1'}),
     children: [
@@ -65,7 +65,6 @@ export default [
         params: {step: 'step2'},
         beforeEnter: (to, from, next) => {
           const workspaceId = to.params.workspaceId
-          console.log(to.params.workspaceId)
           const currentStep = `TFSWorkspaceStep${store.state.newTFSWorkspace.step}`
 
           if (to.name !== currentStep && workspaceId === 'new') {

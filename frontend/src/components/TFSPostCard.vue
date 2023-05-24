@@ -52,7 +52,7 @@ import {get} from '@store/constants'
 import {defaultDate} from '@lib/utilities'
 
 import OnlineIcon from '@/components/icons/OnlineIcon'
-import TFSPostCardLayout from '@/components/tweny-four-seven/TFSPostCardLayout'
+import TFSPostCardLayout from '@/components/twenty-four-seven/TFSPostCardLayout'
 
 export default {
   name: 'TFSPostCard',

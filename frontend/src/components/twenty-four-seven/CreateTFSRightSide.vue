@@ -13,15 +13,15 @@ export default {
   created() {
     this.stepsImages = {
       step1: {
-        src: require('@/assets/tweny-four-seven/workspace-name.svg'),
+        src: require('@/assets/twenty-four-seven/workspace-name.svg'),
         alt: 'Create the 24/7 workspace',
       },
       step2: {
-        src: require('@/assets/tweny-four-seven/project-name.svg'),
+        src: require('@/assets/twenty-four-seven/project-name.svg'),
         alt: 'Create the 24/7 project',
       },
       step3: {
-        src: require('@/assets/tweny-four-seven/define-search.svg'),
+        src: require('@/assets/twenty-four-seven/define-search.svg'),
         alt: 'Define the search',
       },
     }

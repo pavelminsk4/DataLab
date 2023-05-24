@@ -6,7 +6,7 @@
 
     <div
       v-if="!loading && searchData.length"
-      class="search-result-cards scroll"
+      :class="['search-result-cards scroll', `${routerName}-cards`]"
     >
       <component
         :is="postCard"
@@ -88,7 +88,7 @@ export default {
       availableWidgets: get.AVAILABLE_WIDGETS,
     }),
     postCard() {
-      console.log(this.moduleName)
+      console.log(this.routerName)
       return this.moduleName + 'PostCard'
     },
     routerName() {
@@ -166,6 +166,12 @@ export default {
 
 .analytics-page {
   height: 100%;
+}
+
+.tfsworkspacestep3-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
 }
 
 .pagination-wrapper {

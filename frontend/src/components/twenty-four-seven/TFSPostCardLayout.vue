@@ -47,7 +47,7 @@ import {capitalizeFirstLetter} from '@lib/utilities'
 import HashtagIcon from '@/components/icons/HashtagIcon'
 import SentimentChips from '@/components/SentimentChips'
 
-import TFSCardStatuses from '@/components/tweny-four-seven/TFSCardStatuses'
+import TFSCardStatuses from '@/components/twenty-four-seven/TFSCardStatuses'
 
 export default {
   name: 'TFSPostCardLayout',

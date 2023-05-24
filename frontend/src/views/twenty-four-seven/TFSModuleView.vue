@@ -6,7 +6,7 @@
 import {createNamespacedHelpers} from 'vuex'
 import {action} from '@store/constants'
 
-const {mapActions} = createNamespacedHelpers('twenyFourSeven')
+const {mapActions} = createNamespacedHelpers('twentyFourSeven')
 
 export default {
   name: 'TFSModuleView',

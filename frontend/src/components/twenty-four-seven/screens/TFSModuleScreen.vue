@@ -28,7 +28,7 @@
 
     <div v-else class="no-tfs-wrapper">
       <img
-        src="@/assets/tweny-four-seven/no-tfs-workspaces.svg"
+        src="@/assets/twenty-four-seven/no-tfs-workspaces.svg"
         alt="No 24/7 image"
       />
       <div>There's nothing here &#128064;</div>
@@ -46,7 +46,7 @@ import MainLayoutTitleBlock from '@/components/layout/MainLayoutTitleBlock'
 import MainLayout from '@components/layout/MainLayout'
 import PlusIcon from '@/components/icons/PlusIcon'
 
-const {mapActions} = createNamespacedHelpers('twenyFourSeven')
+const {mapActions} = createNamespacedHelpers('twentyFourSeven')
 
 export default {
   name: 'TFSModuleScreen',
