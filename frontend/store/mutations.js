@@ -341,4 +341,24 @@ export default {
       }
     }
   },
+
+  // 24/7
+
+  [mutator.SET_NEW_TFS_WORKSPACE](state, data) {
+    if (data) {
+      state.newTFSWorkspace = {
+        ...state.newTFSWorkspace,
+        ...data,
+      }
+    }
+  },
+
+  [mutator.SET_NEW_TFS_PROJECT](state, data) {
+    if (data) {
+      state.newTFSProject = {
+        ...state.newTFSProject,
+        ...data,
+      }
+    }
+  },
 }

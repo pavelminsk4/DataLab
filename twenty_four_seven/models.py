@@ -83,7 +83,7 @@ def attach_online_posts(id):
 @receiver(post_save, sender=ProjectTwentyFourSeven)
 def attach_items(sender, instance, created, **kwargs):
   if created:
-    if instance.project_type == 'Online':
+    if instance.project_type == 'online':
         attach_online_posts.delay(instance.pk)
 
 

@@ -52,12 +52,12 @@
 <script>
 import {mapState, mapActions, createNamespacedHelpers} from 'vuex'
 import {action} from '@store/constants'
-import createReportMixin from '@/lib/mixins/create-report.js'
 
 import BaseInput from '@/components/common/BaseInput'
 import BaseSelect from '@/components/BaseSelect2'
 import AccountAnalysisSourcesTabs from '@/components/account-analysis/AccountAnalysisSourcesTabs'
 import CommonCalendar from '@/components/datepicker/CommonCalendar'
+import ButtonWithArrow from '@/components/common/ButtonWithArrow'
 
 const {
   mapActions: mapAccountAnalysisActions,
@@ -66,12 +66,12 @@ const {
 
 export default {
   name: 'CreateAccountAnalysisProject',
-  mixins: [createReportMixin],
   components: {
     BaseInput,
     BaseSelect,
     AccountAnalysisSourcesTabs,
     CommonCalendar,
+    ButtonWithArrow,
   },
   data() {
     return {

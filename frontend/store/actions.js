@@ -1139,4 +1139,14 @@ export default {
   async [action.UPDATE_NEW_ACCOUNT_ANALYSIS_PROJECT]({commit}, data) {
     commit(mutator.SET_NEW_ACCOUNT_ANALYSIS_PROJECT, data)
   },
+
+  // 24/7
+
+  async [action.UPDATE_NEW_TFS_WORKSPACE]({commit}, data) {
+    commit(mutator.SET_NEW_TFS_WORKSPACE, data)
+  },
+
+  async [action.UPDATE_NEW_TFS_PROJECT]({commit}, data) {
+    commit(mutator.SET_NEW_TFS_PROJECT, data)
+  },
 }

@@ -136,6 +136,41 @@ const initialState = {
     workspace: null,
     members: [],
   },
+
+  // 24/7
+  newTFSWorkspace: {
+    step: 1,
+    title: '',
+    description: '',
+    department: null,
+    members: [],
+    tfs_workspace_projects: [],
+    projects: [],
+  },
+
+  newTFSProject: {
+    step: 2,
+    title: '',
+    profile_handle: '',
+    start_search_date: null,
+    end_search_date: null,
+    min_followers: null,
+    max_followers: null,
+    language_filter: [],
+    country_filter: [],
+    sentiment_filter: [],
+    source_filter: [],
+    author_filter: [],
+    language_dimensions: [],
+    country_dimensions: [],
+    sentiment_dimensions: [],
+    source_dimensions: [],
+    author_dimensions: [],
+    creator: null,
+    workspace: null,
+    members: [],
+    project_type: '',
+  },
 }
 
 const state = {...initialState}

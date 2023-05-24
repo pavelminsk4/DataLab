@@ -7,6 +7,7 @@ import getters from '@store/getters'
 import social from '@store/modules/social'
 import alerts from '@store/modules/alerts'
 import accountAnalysis from '@store/modules/account-analysis'
+import twentyFourSeven from '@store/modules/twenty-four-seven'
 
 const store = createStore({
   state() {
@@ -27,6 +28,7 @@ const store = createStore({
     social,
     alerts,
     accountAnalysis,
+    twentyFourSeven,
   },
 })
 

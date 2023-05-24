@@ -86,8 +86,18 @@ export default {
         backgroundPosition: 'right bottom',
       },
       {
+        name: '24/7',
+        description: 'Collect and process news for your publications',
+        buttonName: 'Add Report',
+        openRouteName: 'TwentyFourSeven',
+        createRouteName: 'TwentyFourSevenCreateWorkspace',
+        color: '#C0DFF4',
+        imageUrl: require('@/assets/modules/tfs.svg'),
+        backgroundPosition: 'right 0 bottom 0',
+      },
+      {
         name: 'Reports',
-        description: '',
+        description: 'Regular reports with analytics',
         buttonName: 'Add Report',
         openRouteName: 'Reports',
         createRouteName: 'CreateReport',
@@ -97,7 +107,7 @@ export default {
       },
       {
         name: 'Alerts',
-        description: '',
+        description: 'Get the news when given thresholds are met',
         buttonName: 'Add Alert',
         openRouteName: 'Alerts',
         createRouteName: 'CreateAlert',

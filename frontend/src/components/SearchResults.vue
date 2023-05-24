@@ -6,7 +6,7 @@
 
     <div
       v-if="!loading && searchData.length"
-      class="search-result-cards scroll"
+      :class="['search-result-cards scroll', `${routerName}-cards`]"
     >
       <component
         :is="postCard"
@@ -46,6 +46,7 @@ import {lowerFirstLetter} from '@/lib/utilities'
 import BaseSpinner from '@/components/BaseSpinner'
 import OnlinePostCard from '@/components/OnlinePostCard'
 import SocialPostCard from '@/components/SocialPostCard'
+import TFSPostCard from '@/components/TFSPostCard'
 import CreateWorkspaceRightSide from '@/components/workspace/CreateWorkspaceRightSide'
 import PaginationControlPanel from '@/components/PaginationControlPanel'
 
@@ -54,6 +55,7 @@ export default {
   components: {
     OnlinePostCard,
     SocialPostCard,
+    TFSPostCard,
     PaginationControlPanel,
     CreateWorkspaceRightSide,
     BaseSpinner,
@@ -86,6 +88,7 @@ export default {
       availableWidgets: get.AVAILABLE_WIDGETS,
     }),
     postCard() {
+      console.log(this.routerName)
       return this.moduleName + 'PostCard'
     },
     routerName() {
@@ -163,6 +166,12 @@ export default {
 
 .analytics-page {
   height: 100%;
+}
+
+.tfsworkspacestep3-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
 }
 
 .pagination-wrapper {
