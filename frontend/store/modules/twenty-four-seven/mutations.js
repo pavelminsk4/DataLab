@@ -19,4 +19,11 @@ export default {
   [mutator.SET_TFS_PROJECT_ID](state, id) {
     state.newProjectId = id
   },
+
+  [mutator.UPDATE_WORKSPACE](state, workspace) {
+    const currentWorkspaceIdex = state.workspaces.findIndex(
+      (currentWorkspace) => currentWorkspace.id === workspace.id
+    )
+    state.workspaces[currentWorkspaceIdex] = workspace
+  },
 }

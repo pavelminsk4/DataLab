@@ -88,7 +88,7 @@ export default {
       {
         name: '24/7',
         description: 'Collect and process news for your publications',
-        buttonName: 'Add Report',
+        buttonName: 'Add Workspace',
         openRouteName: 'TwentyFourSeven',
         createRouteName: 'TwentyFourSevenCreateWorkspace',
         color: '#C0DFF4',

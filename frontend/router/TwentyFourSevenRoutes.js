@@ -4,12 +4,15 @@ import TFSModuleView from '@/views/twenty-four-seven/TFSModuleView'
 import TFSWorkspacesView from '@/views/twenty-four-seven/TFSWorkspacesView'
 import CreateTFSView from '@/views/twenty-four-seven/CreateTFSView'
 import TFSWorkspaceView from '@/views/twenty-four-seven/TFSWorkspaceView'
+import TFSDashboardView from '@/views/twenty-four-seven/TFSDashboardView'
 
 import CreateTFSWorkspace from '@/components/twenty-four-seven/CreateTFSWorkspace'
 import CreateTFSProject from '@/components/twenty-four-seven/CreateTFSProject'
 import CreateSearchTFS from '@/components/twenty-four-seven/CreateSearchTFS'
 import CreateTFSRightSide from '@/components/twenty-four-seven/CreateTFSRightSide'
 import SearchResults from '@/components/SearchResults'
+
+import TFSDashboardScreen from '@/components/twenty-four-seven/screens/TFSDashboardScreen'
 
 export default [
   {
@@ -109,6 +112,20 @@ export default [
 
           return next()
         },
+      },
+    ],
+  },
+
+  {
+    name: 'TFSDashboard',
+    path: '/twenty-four-seven/workspace/:workspaceId/project/:projectId/',
+    component: TFSDashboardView,
+    redirect: () => ({name: 'TFSDashboardScreen'}),
+    children: [
+      {
+        name: 'TFSDashboardScreen',
+        path: 'dashboard',
+        component: TFSDashboardScreen,
       },
     ],
   },

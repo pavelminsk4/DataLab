@@ -43,4 +43,43 @@ export default {
       commit(mutator.SET_LOADING, false)
     }
   },
+
+  async [action.UPDATE_WORKSPACE]({commit}, {workspaceId, data}) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const responseData = await api.twentyFourSeven.updateWorkspace({
+        workspaceId,
+        data,
+      })
+      commit(mutator.UPDATE_WORKSPACE, responseData)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
+  async [action.DELETE_WORKSPACE]({commit, dispatch}, workspaceId) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      await api.twentyFourSeven.deleteWorkspace(workspaceId)
+      await dispatch(action.GET_WORKSPACES)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
+  async [action.DELETE_PROJECT]({commit, dispatch}, projectId) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      await api.twentyFourSeven.deleteProject(projectId)
+      await dispatch(action.GET_WORKSPACES)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
 }

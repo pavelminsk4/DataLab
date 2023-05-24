@@ -70,6 +70,7 @@ export default {
       this[action.UPDATE_NEW_TFS_PROJECT]({
         step: nextStepName,
         creator: this.userInfo.id,
+        members: [this.userInfo.id],
         title: this.projectName,
         description: this.projectDescription,
         source: this.moduleName,
