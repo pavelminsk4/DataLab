@@ -23,7 +23,11 @@
     </div>
 
     <div class="projects-wrapper scroll">
-      <ProjectsTable :values="filteredProjects" :members="workspace?.members" />
+      <TFSProjectsTable
+        :values="filteredProjects"
+        :members="workspace?.members"
+        @go-to-project="goToProject"
+      />
     </div>
   </MainLayout>
 </template>
@@ -36,7 +40,7 @@ import BaseButtonWithTooltip from '@/components/BaseButtonWithTooltip'
 import MainLayout from '@components/layout/MainLayout'
 import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
 import PlusIcon from '@/components/icons/PlusIcon'
-import ProjectsTable from '@/components/ProjectsTable'
+import TFSProjectsTable from '@/components/twenty-four-seven/TFSProjectsTable'
 
 const {mapState: mapTFSState} = createNamespacedHelpers('twentyFourSeven')
 
@@ -46,8 +50,8 @@ export default {
     BaseButtonWithTooltip,
     MainLayout,
     MainLayoutTitleBlock,
-    ProjectsTable,
     PlusIcon,
+    TFSProjectsTable,
   },
   data() {
     return {
@@ -88,6 +92,13 @@ export default {
       this.$router.push({
         name: 'TFSWorkspaceStep2',
         params: {workspaceId: this.workspaceId},
+      })
+    },
+    goToProject(projectId) {
+      console.log(this.workspaceId)
+      this.$router.push({
+        name: 'TFSDashboard',
+        params: {projectId, workspaceId: this.workspaceId},
       })
     },
   },

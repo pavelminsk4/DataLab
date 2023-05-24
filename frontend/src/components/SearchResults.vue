@@ -88,7 +88,6 @@ export default {
       availableWidgets: get.AVAILABLE_WIDGETS,
     }),
     postCard() {
-      console.log(this.routerName)
       return this.moduleName + 'PostCard'
     },
     routerName() {

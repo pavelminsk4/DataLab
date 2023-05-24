@@ -30,7 +30,7 @@ export default {
 
   [mutator.UPDATE_WORKSPACE](state, workspace) {
     const currentWorkspaceIdex = state.workspaces.findIndex(
-      (w) => w.id === workspace.id
+      (currentWorkspace) => currentWorkspace.id === workspace.id
     )
     state.workspaces[currentWorkspaceIdex] = workspace
   },
