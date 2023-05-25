@@ -4,7 +4,14 @@ from api.serializers import UserSerializer
 from drf_writable_nested.serializers import WritableNestedModelSerializer
 
 
+class PostSerializer(WritableNestedModelSerializer):
+    
+    class Meta:
+        model = Post
+        fields = '__all__'
+
 class ItemSerializer(serializers.ModelSerializer):
+    online_post = PostSerializer(required=False)
 
     class Meta:
         model = Item
@@ -12,7 +19,6 @@ class ItemSerializer(serializers.ModelSerializer):
 
 
 class ProjectTwentyFourSevenPostSerializer(WritableNestedModelSerializer):
-    tfs_project_items = ItemSerializer(many=True, required=False)
 
     class Meta:
         model = ProjectTwentyFourSeven
@@ -29,7 +35,6 @@ class WorkspaceTwentyFourSevenPostSerializer(WritableNestedModelSerializer):
 
 class ProjectTwentyFourSevenSerializer(WritableNestedModelSerializer):
     members = UserSerializer(many=True, required=False)
-    tfs_project_items = ItemSerializer(many=True, required=False)
     
     class Meta:
         model = ProjectTwentyFourSeven
