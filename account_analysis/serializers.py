@@ -68,6 +68,7 @@ class WidgetsListSerializer(WritableNestedModelSerializer):
     top_posts_by_engagements = AccountAnalysisWidgetDescriptionSerializer()
     best_times_to_post = AccountAnalysisWidgetDescriptionSerializer()
     mention_timeline = AccountAnalysisWidgetDescriptionSerializer()
+    most_frequent_mention_media_types = AccountAnalysisWidgetDescriptionSerializer()
 
     class Meta:
         model = AccountAnalysisWidgetsList
