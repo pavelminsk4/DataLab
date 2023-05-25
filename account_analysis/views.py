@@ -1,6 +1,7 @@
 from rest_framework.generics import ListAPIView, CreateAPIView, UpdateAPIView, DestroyAPIView, RetrieveAPIView
 from tweet_binder.models import TweetBinderPost
 from django.core.paginator import Paginator
+from .widgets.dashboard.mentions.most_frequent_mention_media_types import *
 from .widgets.optimization.optimal_number_of_hashtags import *
 from .widgets.optimization.average_engagements_by_day import *
 from .widgets.dashboard.mentions.mention_timeline import *
@@ -119,6 +120,9 @@ def best_times_to_post_widget(request, pk, widget_pk):
 
 def mention_timeline_widget(request, pk, widget_pk):
     return mention_timeline(request, pk, widget_pk)
+
+def most_frequent_mention_media_types_widget(request, pk, widget_pk):
+    return most_frequent_mention_media_types(pk, widget_pk)
 
 def search_posts(request, project_pk):
     body = json.loads(request.body)
