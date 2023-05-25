@@ -1,15 +1,16 @@
 from .views import *
-from twenty_four_seven import views
 from rest_framework import routers
-from django.urls import path
+from rest_framework_nested import routers
 
-
-router = routers.SimpleRouter()
 
 urlpatterns = []
 
+router = routers.SimpleRouter()
 router.register('workspaces', WorkspaceTwentyFourSevenViewSet, basename='tfs_workspaces')
 router.register('projects', TwentyFourSevenProjectViewSet, basename='tfs_projects')
-router.register('items', ItemViewSet, basename='tfs_items')
+
+items_router = routers.NestedSimpleRouter(router, r'projects', lookup='project')
+items_router.register(r'items', ItemViewSet, basename='project-items')
 
 urlpatterns += router.urls
+urlpatterns += items_router.urls
