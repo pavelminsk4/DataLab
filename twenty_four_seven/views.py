@@ -5,11 +5,19 @@ from .serializers import *
 from django.http import JsonResponse
 import json
 from .whatsapp import *
+from rest_framework.pagination import PageNumberPagination
+
+
+class StandardResultsSetPagination(PageNumberPagination):
+    page_size = 100
+    page_size_query_param = 'page_size'
+    max_page_size = 1000
 
 
 class ItemViewSet(viewsets.ModelViewSet):
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
+    pagination_class = StandardResultsSetPagination
 
 
 class TwentyFourSevenProjectViewSet(viewsets.ModelViewSet):
