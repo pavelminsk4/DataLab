@@ -3,6 +3,7 @@ from tweet_binder.models import TweetBinderPost
 from django.core.paginator import Paginator
 from .widgets.optimization.optimal_number_of_hashtags import *
 from .widgets.optimization.average_engagements_by_day import *
+from .widgets.dashboard.mentions.mention_timeline import *
 from .widgets.dashboard.most_engaging_media_types import *
 from .widgets.dashboard.most_frequent_media_types import *
 from .widgets.dashboard.top_posts_by_engagements import *
@@ -115,6 +116,9 @@ def top_posts_by_engagements_widget(request, pk, widget_pk):
 
 def best_times_to_post_widget(request, pk, widget_pk):
     return best_times_to_post(pk, widget_pk)
+
+def mention_timeline_widget(request, pk, widget_pk):
+    return mention_timeline(request, pk, widget_pk)
 
 def search_posts(request, project_pk):
     body = json.loads(request.body)
