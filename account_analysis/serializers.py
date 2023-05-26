@@ -70,6 +70,7 @@ class WidgetsListSerializer(WritableNestedModelSerializer):
     mention_timeline = AccountAnalysisWidgetDescriptionSerializer()
     most_frequent_mention_media_types = AccountAnalysisWidgetDescriptionSerializer()
     mention_sentiment = AccountAnalysisWidgetDescriptionSerializer()
+    top_mentions_by_engagements = AccountAnalysisWidgetDescriptionSerializer()
 
     class Meta:
         model = AccountAnalysisWidgetsList

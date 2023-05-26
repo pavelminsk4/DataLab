@@ -113,6 +113,7 @@ class AccountAnalysisWidgetsList(models.Model):
     mention_timeline = models.ForeignKey(AccountAnalysisWidgetDescription, on_delete=models.CASCADE, related_name='mention_timeline', null=True)
     most_frequent_mention_media_types = models.ForeignKey(AccountAnalysisWidgetDescription, on_delete=models.CASCADE, related_name='most_frequent_mention_media_types', null=True)
     mention_sentiment = models.ForeignKey(AccountAnalysisWidgetDescription, on_delete=models.CASCADE, related_name='mention_sentiment', null=True)
+    top_mentions_by_engagements = models.ForeignKey(AccountAnalysisWidgetDescription, on_delete=models.CASCADE, related_name='top_mentions_by_engagements', null=True)
 
     def __str__(self):
         return str(self.project)
@@ -161,6 +162,8 @@ def create_social_widget_description(sender, instance, created, **kwargs):
         wd16.save()
         wd17 = AccountAnalysisWidgetDescription.objects.create(title='Mention sentiment', default_title='Mention sentiment')
         wd17.save()
+        wd18 = AccountAnalysisWidgetDescription.objects.create(title='Top mentions by engagements', default_title='Top mentions by engagements')
+        wd18.save()
         instance.summary = wd1
         instance.profile_timeline = wd2
         instance.most_frequent_post_types = wd3
@@ -178,4 +181,5 @@ def create_social_widget_description(sender, instance, created, **kwargs):
         instance.mention_timeline = wd15
         instance.most_frequent_mention_media_types = wd16
         instance.mention_sentiment = wd17
+        instance.top_mentions_by_engagements = wd18
         instance.save()
