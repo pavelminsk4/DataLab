@@ -10,7 +10,22 @@
 
   <ProgressBar />
 
-  <div class="search-settings-wrapper">
+  <div
+    :class="['switcher', isExpertMode && 'switcher__active']"
+    @click="switchTrigger"
+  >
+    <span>Expert mode</span>
+    <BaseSwitcher label="Expert mode" :value="isExpertMode" />
+  </div>
+
+  <ExpertModeTab
+    v-if="isExpertMode"
+    @save-project="createWorkspaceAndProject"
+    @show-result="showResults"
+    @update-query-filter="updateQueryFilterTest"
+  />
+
+  <div v-else class="search-settings-wrapper">
     <SimpleModeTab
       :module-name="moduleName"
       @show-result="showResults"
@@ -27,6 +42,8 @@ import {action, get} from '@store/constants'
 import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
 import ProgressBar from '@/components/workspace/WorkspaceProgressBar'
 import SimpleModeTab from '@/components/workspace/SimpleModeTab'
+import BaseSwitcher from '@/components/BaseSwitcher'
+import ExpertModeTab from '@/components/workspace/ExpertModeTab'
 
 export default {
   name: 'CreateSearchScreen',
@@ -34,22 +51,20 @@ export default {
     MainLayoutTitleBlock,
     ProgressBar,
     SimpleModeTab,
+    BaseSwitcher,
+    ExpertModeTab,
   },
   emits: ['create-project', 'create-workspace', 'show-results'],
   props: {
-    workspaceId: {
-      type: String,
-      default: null,
-    },
-    moduleName: {
-      type: String,
-      default: '',
-    },
+    workspaceId: {type: String, default: null},
+    moduleName: {type: String, default: ''},
   },
   data() {
     return {
       searchLoading: false,
       buttonLoading: false,
+      isExpertMode: false,
+      expertModeQuery: '',
     }
   },
   computed: {
@@ -128,7 +143,7 @@ export default {
           source_dimensions: [],
           author_dimensions: [],
           sentiment_dimensions: [],
-          query_filter: [],
+          query_filter: this.expertModeQuery,
           department_id: this.department.id,
         })
       } catch (e) {
@@ -142,6 +157,7 @@ export default {
       try {
         this.buttonLoading = true
         this[action.UPDATE_PROJECT_STATE]({
+          department_id: this.department.id,
           keywords: this.keywords?.keywords,
           additional_keywords: this.keywords?.additional_keywords,
           ignore_keywords: this.keywords?.ignore_keywords,
@@ -152,7 +168,7 @@ export default {
           language_filter: this.additionalFilters?.language || null,
           sentiment_filter: this.additionalFilters?.sentiment || null,
           country_filter: this.additionalFilters?.country || null,
-          department_id: this.department.id,
+          query_filter: this.expertModeQuery,
         })
 
         if (+this.workspaceId) {
@@ -170,6 +186,14 @@ export default {
         console.log(e)
       }
     },
+
+    updateQueryFilterTest(value) {
+      this.expertModeQuery = value
+    },
+
+    switchTrigger() {
+      this.isExpertMode = !this.isExpertMode
+    },
   },
 }
 </script>
@@ -186,6 +210,29 @@ export default {
 @media screen and (max-width: 1000px) {
   .search-settings-wrapper {
     gap: 20px;
+  }
+}
+.switcher {
+  display: flex;
+  flex-wrap: nowrap;
+
+  max-width: 45%;
+
+  margin-top: 20px;
+  gap: 10px;
+  padding: 14px 12px;
+
+  border: 1px solid #dee0e3;
+  border-radius: 8px;
+
+  cursor: pointer;
+  user-select: none;
+
+  &__active {
+    background-color: var(--primary-active-color);
+
+    border: 1px solid var(--primary-color);
+    border-radius: 8px;
   }
 }
 </style>

@@ -18,10 +18,7 @@
 export default {
   name: 'BaseSwitcher',
   props: {
-    value: {
-      type: Boolean,
-      required: true,
-    },
+    value: {type: Boolean, required: true},
   },
   computed: {
     backgroundStyles() {

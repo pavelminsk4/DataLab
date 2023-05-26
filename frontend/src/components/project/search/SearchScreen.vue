@@ -12,24 +12,40 @@
     </MainLayoutTitleBlock>
 
     <div class="search-settings-wrapper">
-      <SimpleModeTab
-        :module-name="moduleName"
-        :main-keywords="currentKeywords"
-        :exclude-keywords="currentExcludeKeywords"
-        :additional-keywords="currentAdditionalKeywords"
-        :current-project="currentProject"
-        :is-disabled-button="!currentKeywords.length"
-        :expert-mode-test-test="currentProject?.query_filter"
-        @update-query-filter="updateQueryFilterTest"
-        @save-project="updateProjectData"
-        @show-result="showResults"
-        @update-collection="updateKeywordsCollection"
-      />
-      <SearchResults
-        :module-name="moduleName"
-        :clipping-content="clippingContent"
-        @show-results="showResults"
-      />
+      <div
+        :class="['switcher', isExpertMode && 'switcher__active']"
+        @click="switchTrigger"
+      >
+        <span>Expert mode</span>
+        <BaseSwitcher label="Expert mode" :value="isExpertMode" />
+      </div>
+      <div class="search">
+        <ExpertModeTab
+          v-if="isExpertMode"
+          @save-project="updateProjectData"
+          @show-result="showResults"
+          @update-query-filter="updateQueryFilterTest"
+        />
+        <SimpleModeTab
+          v-else
+          :module-name="moduleName"
+          :main-keywords="currentKeywords"
+          :exclude-keywords="currentExcludeKeywords"
+          :additional-keywords="currentAdditionalKeywords"
+          :current-project="currentProject"
+          :is-disabled-button="!currentKeywords.length"
+          :expert-mode-test-test="currentProject?.query_filter"
+          @update-query-filter="updateQueryFilterTest"
+          @save-project="updateProjectData"
+          @show-result="showResults"
+          @update-collection="updateKeywordsCollection"
+        />
+        <SearchResults
+          :module-name="moduleName"
+          :clipping-content="clippingContent"
+          @show-results="showResults"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -41,10 +57,18 @@ import {get} from '@store/constants'
 import MainLayoutTitleBlock from '@/components/layout/MainLayoutTitleBlock'
 import SimpleModeTab from '@/components/workspace/SimpleModeTab'
 import SearchResults from '@/components/SearchResults'
+import BaseSwitcher from '@/components/BaseSwitcher'
+import ExpertModeTab from '@/components/workspace/ExpertModeTab'
 
 export default {
   name: 'SearchScreen',
-  components: {SearchResults, SimpleModeTab, MainLayoutTitleBlock},
+  components: {
+    SearchResults,
+    SimpleModeTab,
+    MainLayoutTitleBlock,
+    BaseSwitcher,
+    ExpertModeTab,
+  },
   props: {
     moduleName: {type: String, default: 'Online'},
     currentProject: {type: [Array, Object], required: true},
@@ -56,6 +80,7 @@ export default {
   data() {
     return {
       query: '',
+      isExpertMode: false,
     }
   },
   computed: {
@@ -78,7 +103,9 @@ export default {
   methods: {
     showResults(pageNumber, numberOfPosts) {
       this.$emit('show-results', {
-        keywords: this.keywords?.keywords || this.currentKeywords,
+        keywords: this.query
+          ? null
+          : this.keywords?.keywords || this.currentKeywords,
         additions:
           this.keywords?.additional_keywords || this.currentAdditionalKeywords,
         exceptions:
@@ -111,7 +138,9 @@ export default {
       this.$emit('update-project', {
         title: this.currentProject?.title,
         note: this.currentProject?.note || '',
-        keywords: this.keywords?.keywords || this.currentKeywords,
+        keywords: this.query
+          ? null
+          : this.keywords?.keywords || this.currentKeywords,
         additional_keywords:
           this.keywords?.additional_keywords || this.currentAdditionalKeywords,
         ignore_keywords:
@@ -148,14 +177,46 @@ export default {
     updateQueryFilterTest(value) {
       this.query = value
     },
+
+    switchTrigger() {
+      this.isExpertMode = !this.isExpertMode
+    },
   },
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .search-settings-wrapper {
   display: flex;
+  flex-direction: column;
 
   width: 100%;
+
+  .search {
+    display: flex;
+  }
+}
+
+.switcher {
+  display: flex;
+  flex-wrap: nowrap;
+
+  max-width: 45%;
+
+  gap: 10px;
+  padding: 14px 12px;
+
+  border: 1px solid #dee0e3;
+  border-radius: 8px;
+
+  cursor: pointer;
+  user-select: none;
+
+  &__active {
+    background-color: var(--primary-active-color);
+
+    border: 1px solid var(--primary-color);
+    border-radius: 8px;
+  }
 }
 </style>
