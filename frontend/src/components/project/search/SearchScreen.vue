@@ -24,7 +24,7 @@
           v-if="isExpertMode"
           @save-project="updateProjectData"
           @show-result="showResults"
-          @update-query-filter="updateQueryFilterTest"
+          @update-query-filter="updateQueryFilter"
         />
         <SimpleModeTab
           v-else
@@ -35,7 +35,7 @@
           :current-project="currentProject"
           :is-disabled-button="!currentKeywords.length"
           :expert-mode-test-test="currentProject?.query_filter"
-          @update-query-filter="updateQueryFilterTest"
+          @update-query-filter="updateQueryFilter"
           @save-project="updateProjectData"
           @show-result="showResults"
           @update-collection="updateKeywordsCollection"
@@ -174,7 +174,7 @@ export default {
     updateKeywordsCollection(name, value) {
       this.$emit('update-collection', name, value)
     },
-    updateQueryFilterTest(value) {
+    updateQueryFilter(value) {
       this.query = value
     },
 
@@ -202,11 +202,10 @@ export default {
   flex-wrap: nowrap;
 
   max-width: 45%;
-
   gap: 10px;
   padding: 14px 12px;
 
-  border: 1px solid #dee0e3;
+  border: var(--border-primary);
   border-radius: 8px;
 
   cursor: pointer;

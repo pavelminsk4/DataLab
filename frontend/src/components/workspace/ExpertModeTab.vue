@@ -14,10 +14,10 @@
             :class="['highlighted', bracketsError.isError && 'textarea-error']"
           />
           <textarea
-            class="textarea"
-            id="textarea"
-            ref="textarea"
             v-model="textAreaValue"
+            ref="textarea"
+            id="textarea"
+            class="textarea"
             @input="handleInput"
           />
         </div>
@@ -26,7 +26,7 @@
           <div class="hints__section">
             <span
               v-for="item in hints.syntax"
-              :class="['hint']"
+              class="hint"
               :style="{color: item.color}"
               :key="item.value"
               >{{ item.value }}</span
@@ -36,8 +36,7 @@
           <div class="hints__section">
             <span
               v-for="item in hints.filters"
-              :class="['hint']"
-              :style="{color: '#8E00D1'}"
+              class="hint defaultColor"
               :key="item"
               >{{ item }}</span
             >
@@ -177,7 +176,6 @@ export default {
   flex-direction: column;
 
   width: 95%;
-
   gap: 30px;
   margin: 20px 0 0 -24px;
   padding: 0 40px 0 24px;
@@ -189,20 +187,14 @@ export default {
   }
   .expert-area {
     display: flex;
-
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 20px;
-
     gap: 5px;
+
     .line-numbers {
       display: flex;
       flex-direction: column;
       align-items: flex-end;
 
       padding: 10px 0px;
-
       width: 20px;
 
       color: var(--typography-secondary-color);
@@ -216,10 +208,10 @@ export default {
 
       .highlighted {
         position: absolute;
+        overflow: hidden;
 
         width: 100%;
         height: 400px;
-
         padding: 10px;
 
         background: transparent;
@@ -227,14 +219,13 @@ export default {
         border-radius: var(--border-radius);
         pointer-events: none;
 
-        overflow: hidden;
-
         word-break: break-word;
       }
       .textarea {
+        overflow-y: hidden;
+
         width: 100%;
         height: 400px;
-
         padding: 10px;
 
         background-color: var(--background-secondary-color);
@@ -243,19 +234,13 @@ export default {
 
         caret-color: black;
         color: transparent;
-
-        overflow-y: hidden;
-        resize: none;
-
-        font-style: normal;
-        font-weight: 400;
         font-size: 14px;
-        line-height: 20px;
+
+        resize: none;
       }
 
       .textarea-error {
         border-color: var(--primary-color);
-
         box-shadow: -3px -3px 0px #fcedf3, 3px -3px 0px #fcedf3,
           -3px 3px 0px #fcedf3, 3px 3px 0px #fcedf3;
       }
@@ -339,11 +324,6 @@ export default {
 <style lang="scss">
 .defaultColor {
   color: #8e00d1;
-
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 20px;
 }
 
 .OR {
