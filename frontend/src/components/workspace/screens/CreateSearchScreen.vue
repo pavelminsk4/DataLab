@@ -230,7 +230,6 @@ export default {
 
   &__active {
     background-color: var(--primary-active-color);
-
     border: 1px solid var(--primary-color);
     border-radius: 8px;
   }
