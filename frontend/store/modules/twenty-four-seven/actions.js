@@ -82,4 +82,32 @@ export default {
       commit(mutator.SET_LOADING, false)
     }
   },
+
+  async [action.GET_TFS_ITEMS]({commit}, {projectId, status}) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const items = await api.twentyFourSeven.getItems(projectId, status)
+      commit(mutator.SET_TFS_ITEMS, {items, status})
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
+  async [action.UPDATE_ITEM_STATUS](
+    {commit, dispatch},
+    {projectId, itemId, value, oldStatus}
+  ) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      await api.twentyFourSeven.updateItemStatus(projectId, itemId, value)
+      await dispatch(action.GET_TFS_ITEMS, {projectId, status: value.status})
+      await dispatch(action.GET_TFS_ITEMS, {projectId, status: oldStatus})
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
 }

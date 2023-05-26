@@ -26,4 +26,26 @@ export default {
   async deleteProject(projectId) {
     return fetch('delete', `${moduleName}/projects/${projectId}/ `)
   },
+
+  async getItems(projectId, status) {
+    if (status === 'Q&A Check') {
+      return fetch(
+        'get',
+        `${moduleName}/projects/${projectId}/items/?page=1&&status=Q%26A%20Check`
+      )
+    }
+
+    return fetch(
+      'get',
+      `${moduleName}/projects/${projectId}/items/?page=1&&status=${status}`
+    )
+  },
+
+  async updateItemStatus(projectId, itemId, value) {
+    return fetch(
+      'patch',
+      `${moduleName}/projects/${projectId}/items/${itemId}/`,
+      value
+    )
+  },
 }

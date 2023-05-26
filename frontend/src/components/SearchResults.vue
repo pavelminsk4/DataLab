@@ -15,6 +15,7 @@
         :is-clipping-post="selectedClippingElement(item.id)"
         :img="cardImg(item)"
         :post-details="item"
+        :is-status-show="false"
         class="clipping-card"
       />
     </div>

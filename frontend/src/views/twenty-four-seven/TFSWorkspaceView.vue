@@ -95,7 +95,6 @@ export default {
       })
     },
     goToProject(projectId) {
-      console.log(this.workspaceId)
       this.$router.push({
         name: 'TFSDashboard',
         params: {projectId, workspaceId: this.workspaceId},

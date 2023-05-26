@@ -26,4 +26,8 @@ export default {
     )
     state.workspaces[currentWorkspaceIdex] = workspace
   },
+
+  [mutator.SET_TFS_ITEMS](state, {items, status}) {
+    state.items[status] = items.results
+  },
 }

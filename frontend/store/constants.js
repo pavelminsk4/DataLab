@@ -153,6 +153,9 @@ export const action = {
 
   UPDATE_NEW_TFS_WORKSPACE: 'UPDATE_NEW_TFS_WORKSPACE',
   UPDATE_NEW_TFS_PROJECT: 'UPDATE_NEW_TFS_PROJECT',
+  UPDATE_ITEM_STATUS: 'UPDATE_ITEM_STATUS',
+
+  GET_TFS_ITEMS: 'GET_TFS_ITEMS',
 }
 
 export const mutator = {
@@ -280,6 +283,8 @@ export const mutator = {
 
   SET_TFS_WORKSPACE_ID: 'SET_TFS_WORKSPACE_ID',
   SET_TFS_PROJECT_ID: 'SET_TFS_PROJECT_ID',
+
+  SET_TFS_ITEMS: 'SET_TFS_ITEMS',
 }
 
 export const get = {
