@@ -34,6 +34,7 @@ urlpatterns = [
     path('best_times_to_post_widget/<int:pk>/<int:widget_pk>', views.best_times_to_post_widget, name='best_times_to_post'),
     path('mention_timeline_widget/<int:pk>/<int:widget_pk>', views.mention_timeline_widget, name='mention_timeline'),
     path('most_frequent_mention_media_types_widget/<int:pk>/<int:widget_pk>', views.most_frequent_mention_media_types_widget, name='most_frequent_mention_media_types'),
+    path('mention_sentiment_widget/<int:pk>/<int:widget_pk>', views.mention_sentiment_widget, name='mention_sentiment'),
     path('dimensions_for_each_widgets/<int:project_pk>/<int:widget_pk>', views.dimensions_for_each_widgets, name='dimensions_for_each_widgets'),
     # =======Profile Handle======
     path('list_of_profile_handle', views.list_of_profile_handle, name='list_of_profile_handle'),
