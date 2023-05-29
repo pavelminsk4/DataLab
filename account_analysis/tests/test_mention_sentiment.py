@@ -1,12 +1,9 @@
 from common.factories.account_analysis_project import AccountAnalysisProjectFactory
 from common.factories.tweet_binder_post import TweetBinderPostFactory
 from account_analysis.models import ProjectAccountAnalysis
-from tweet_binder.models import TweetBinderPost
 from rest_framework.test import APITestCase
-from django.contrib.auth.models import User
 from rest_framework import status
 from django.urls import reverse
-from datetime import datetime
 import json
 
 class MentionSentimentWidgetTests(APITestCase):
