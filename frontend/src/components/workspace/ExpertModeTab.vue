@@ -99,7 +99,7 @@ export default {
     const {textarea} = this.$refs
 
     const lines = []
-    for (let i = 1; i < textarea.offsetHeight / 20; i++) {
+    for (let i = 1; i < textarea.offsetHeight / 20 - 1; i++) {
       lines.push(`<span id=line-${i}>${i}</span>`)
     }
     lineNumbers.innerHTML = lines.join('')

@@ -14,7 +14,7 @@
     >
       <td class="td_name">{{ item.title }}</td>
       <td>
-        <TagsCollapsible v-if="item.keywords.length" :tags="item.keywords" />
+        <TagsCollapsible v-if="item.keywords?.length" :tags="item.keywords" />
       </td>
       <td>
         <div class="creator">

@@ -33,7 +33,7 @@
           :exclude-keywords="currentExcludeKeywords"
           :additional-keywords="currentAdditionalKeywords"
           :current-project="currentProject"
-          :is-disabled-button="!currentKeywords.length"
+          :is-disabled-button="!currentKeywords?.length"
           :expert-mode-test-test="currentProject?.query_filter"
           @update-query-filter="updateQueryFilter"
           @save-project="updateProjectData"
@@ -102,10 +102,8 @@ export default {
   },
   methods: {
     showResults(pageNumber, numberOfPosts) {
-      this.$emit('show-results', {
-        keywords: this.query
-          ? null
-          : this.keywords?.keywords || this.currentKeywords,
+      const project = {
+        keywords: this.keywords?.keywords || this.currentKeywords,
         additions:
           this.keywords?.additional_keywords || this.currentAdditionalKeywords,
         exceptions:
@@ -130,17 +128,22 @@ export default {
         source_dimensions: [],
         author_dimensions: [],
         sentiment_dimensions: [],
-        query_filter: this.query || this.currentProject?.query_filter,
+        query_filter: this.currentProject?.query_filter,
         department_id: this.department.id,
-      })
+      }
+
+      if (this.isExpertMode) {
+        project.query_filter = this.query
+        project.keywords = []
+      }
+
+      this.$emit('show-results', project)
     },
     updateProjectData() {
-      this.$emit('update-project', {
+      const project = {
         title: this.currentProject?.title,
         note: this.currentProject?.note || '',
-        keywords: this.query
-          ? null
-          : this.keywords?.keywords || this.currentKeywords,
+        keywords: this.keywords?.keywords || this.currentKeywords,
         additional_keywords:
           this.keywords?.additional_keywords || this.currentAdditionalKeywords,
         ignore_keywords:
@@ -164,9 +167,16 @@ export default {
         sentiment_filter: this.additionalFilters?.sentiment,
         country_filter: this.additionalFilters?.country || null,
         sort_posts: [],
-        query_filter: this.query || this.currentProject?.query_filter,
+        query_filter: this.currentProject?.query_filter,
         department_id: this.department.id,
-      })
+      }
+
+      if (this.isExpertMode) {
+        project.query_filter = this.query
+        project.keywords = []
+      }
+
+      this.$emit('update-project', project)
 
       this.showResults()
     },
@@ -194,6 +204,7 @@ export default {
 
   .search {
     display: flex;
+    gap: 5px;
   }
 }
 
