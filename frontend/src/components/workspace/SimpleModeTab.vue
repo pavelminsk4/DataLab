@@ -31,9 +31,6 @@
         @update:modelValue="updateCollection"
       />
 
-      <div class="second-title">TEST Expert mode</div>
-      <BaseTextarea v-model="exprtModeTest" placeholder="Enter code" />
-
       <slot name="module-type"> </slot>
 
       <div class="filters-title">
