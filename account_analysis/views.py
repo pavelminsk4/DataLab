@@ -9,6 +9,7 @@ from .widgets.dashboard.mentions.mention_sentiment import *
 from .widgets.dashboard.mentions.mention_timeline import *
 from .widgets.dashboard.most_engaging_media_types import *
 from .widgets.dashboard.most_frequent_media_types import *
+from .widgets.dashboard.mentions.mention_summary import *
 from .widgets.dashboard.top_posts_by_engagements import *
 from .widgets.dashboard.most_frequent_post_types import *
 from .widgets.dashboard.most_engaging_post_types import *
@@ -131,6 +132,9 @@ def mention_sentiment_widget(request, pk, widget_pk):
 
 def top_mentions_by_engagements_widget(request, pk, widget_pk):
     return top_mentions_by_engagements(pk, widget_pk)
+
+def mention_summary_widget(request, pk, widget_pk):
+    return mention_summary(pk, widget_pk)
 
 def search_posts(request, project_pk):
     body = json.loads(request.body)

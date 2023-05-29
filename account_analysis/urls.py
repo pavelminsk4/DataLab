@@ -32,6 +32,7 @@ urlpatterns = [
     path('optimal_post_time_widget/<int:pk>/<int:widget_pk>', views.optimal_post_time_widget, name='optimal_post_time'),
     path('top_posts_by_engagements_widget/<int:pk>/<int:widget_pk>', views.top_posts_by_engagements_widget, name='top_posts_by_engagements'),
     path('best_times_to_post_widget/<int:pk>/<int:widget_pk>', views.best_times_to_post_widget, name='best_times_to_post'),
+    path('mention_summary_widget/<int:pk>/<int:widget_pk>', views.mention_summary_widget, name='mention_summary'),
     path('mention_timeline_widget/<int:pk>/<int:widget_pk>', views.mention_timeline_widget, name='mention_timeline'),
     path('most_frequent_mention_media_types_widget/<int:pk>/<int:widget_pk>', views.most_frequent_mention_media_types_widget, name='most_frequent_mention_media_types'),
     path('mention_sentiment_widget/<int:pk>/<int:widget_pk>', views.mention_sentiment_widget, name='mention_sentiment'),
