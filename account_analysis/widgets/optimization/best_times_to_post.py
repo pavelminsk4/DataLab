@@ -12,7 +12,7 @@ def best_times_to_post(pk, widget_pk):
         for hour in range(0, 24):
             posts_of_day = posts.filter(date__week_day=day_of_week).filter(date__hour=hour)
             results.append({
-                        'date': posts_of_day.first().date.strftime('%A') if posts_of_day.first() else None,
+                        'date': posts_of_day.first().date.strftime('%A, %-I %p') if posts_of_day.first() else None,
                         'engagements': (posts_of_day.aggregate(engagement=Sum(F('count_favorites') + F('count_retweets')))['engagement'])/posts_of_day.count() if posts_of_day.count() else 0,
                         'likes': posts_of_day.aggregate(Sum('count_favorites'))['count_favorites__sum'] if posts_of_day.count() else 0,
                         'retweets': posts_of_day.aggregate(Sum('count_retweets'))['count_retweets__sum'] if posts_of_day.count() else 0,
