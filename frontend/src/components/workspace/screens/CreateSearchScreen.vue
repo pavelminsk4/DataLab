@@ -125,7 +125,7 @@ export default {
       try {
         this.searchLoading = true
 
-        this.$emit('show-results', {
+        const project = {
           keywords: this.keywords?.keywords,
           additions: this.keywords?.additional_keywords,
           exceptions: this.keywords?.ignore_keywords || [],
@@ -143,9 +143,16 @@ export default {
           source_dimensions: [],
           author_dimensions: [],
           sentiment_dimensions: [],
-          query_filter: this.expertModeQuery,
           department_id: this.department.id,
-        })
+        }
+
+        if (this.isExpertMode) {
+          project.query_filter = this.expertModeQuery
+          project.sentiment = []
+          project.keywords = []
+        }
+
+        this.$emit('show-results', project)
       } catch (e) {
         console.log(e)
       } finally {

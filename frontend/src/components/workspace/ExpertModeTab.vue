@@ -51,6 +51,7 @@
 
     <div class="buttons">
       <BaseButton
+        :is-disabled="bracketsError.isError || !textAreaValue"
         :is-not-background="true"
         class="apply-settings"
         @click="showResults"
@@ -58,7 +59,10 @@
         Preview
       </BaseButton>
 
-      <BaseButton :is-disabled="bracketsError.isError" @click="saveProject">
+      <BaseButton
+        :is-disabled="bracketsError.isError || !textAreaValue"
+        @click="saveProject"
+      >
         <SaveIcon class="save-icon" /> Save Project
       </BaseButton>
     </div>
@@ -237,6 +241,10 @@ export default {
         font-size: 14px;
 
         resize: none;
+
+        &:focus {
+          outline: 0;
+        }
       }
 
       .textarea-error {
