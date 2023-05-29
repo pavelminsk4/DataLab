@@ -3,6 +3,8 @@ from rest_framework import routers
 from rest_framework_nested import routers
 
 
+app_name = 'twenty_four_seven'
+
 urlpatterns = []
 
 router = routers.SimpleRouter()

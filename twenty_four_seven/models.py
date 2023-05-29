@@ -94,6 +94,7 @@ class Item(models.Model):
         ('QA', 'Q&A Check'),
         ('PING', 'Publishing'),
         ('PED', 'Published'),
+        ('IRR', 'Irrelevant'),
     ]
 
     online_post = models.ForeignKey(Post, on_delete=models.CASCADE, blank=True, null=True)
@@ -103,6 +104,7 @@ class Item(models.Model):
     text = models.CharField(max_length=500, blank=True, null=True)
     original_content = models.TextField(blank=True, null=True)
     in_work = models.BooleanField(default=False)
+    is_back = models.BooleanField(default=False)
     project = models.ForeignKey(ProjectTwentyFourSeven, on_delete=models.CASCADE, related_name='tfs_project_items', blank=True, null=True)
 
     class Meta:
