@@ -22,7 +22,7 @@
     v-if="isExpertMode"
     @save-project="createWorkspaceAndProject"
     @show-result="showResults"
-    @update-query-filter="updateQueryFilterTest"
+    @update-query-filter="updateQueryFilter"
   />
 
   <div v-else class="search-settings-wrapper">
@@ -163,7 +163,8 @@ export default {
     async createWorkspaceAndProject() {
       try {
         this.buttonLoading = true
-        this[action.UPDATE_PROJECT_STATE]({
+
+        const project = {
           department_id: this.department.id,
           keywords: this.keywords?.keywords,
           additional_keywords: this.keywords?.additional_keywords,
@@ -175,8 +176,15 @@ export default {
           language_filter: this.additionalFilters?.language || null,
           sentiment_filter: this.additionalFilters?.sentiment || null,
           country_filter: this.additionalFilters?.country || null,
-          query_filter: this.expertModeQuery,
-        })
+        }
+
+        if (this.isExpertMode) {
+          project.query_filter = this.expertModeQuery
+          project.sentiment = []
+          project.keywords = []
+        }
+
+        this[action.UPDATE_PROJECT_STATE](project)
 
         if (+this.workspaceId) {
           await this.$emit('create-project', this.newProject)
@@ -194,7 +202,7 @@ export default {
       }
     },
 
-    updateQueryFilterTest(value) {
+    updateQueryFilter(value) {
       this.expertModeQuery = value
     },
 
