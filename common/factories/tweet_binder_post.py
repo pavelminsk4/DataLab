@@ -35,3 +35,4 @@ class TweetBinderPostFactory(factory.django.DjangoModelFactory):
     type             = ['origin']
     videos           = ['www.video.com']
     hashtags         = ['test']
+    user_value       = '100'
