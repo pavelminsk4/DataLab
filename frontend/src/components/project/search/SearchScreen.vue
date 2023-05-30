@@ -128,13 +128,9 @@ export default {
         source_dimensions: [],
         author_dimensions: [],
         sentiment_dimensions: [],
-        query_filter: this.currentProject?.query_filter,
+        query_filter: this.query || this.currentProject?.query_filter,
         department_id: this.department.id,
-      }
-
-      if (this.isExpertMode) {
-        project.query_filter = this.query
-        project.keywords = []
+        expert_mode: this.isExpertMode,
       }
 
       this.$emit('show-results', project)
@@ -167,13 +163,9 @@ export default {
         sentiment_filter: this.additionalFilters?.sentiment,
         country_filter: this.additionalFilters?.country || null,
         sort_posts: [],
-        query_filter: this.currentProject?.query_filter,
+        query_filter: this.query || this.currentProject?.query_filter,
         department_id: this.department.id,
-      }
-
-      if (this.isExpertMode) {
-        project.query_filter = this.query
-        project.keywords = []
+        expert_mode: this.isExpertMode,
       }
 
       this.$emit('update-project', project)
