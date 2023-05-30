@@ -226,6 +226,7 @@ export default {
           sentiment_dimensions: this.currentProject.sentiment_dimensions,
           query_filter: this.currentProject.query_filter,
           department_id: this.department.id,
+          expert_mode: this.currentProject.expert_mode,
         })
       } catch (e) {
         console.log(e)
