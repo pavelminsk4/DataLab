@@ -77,6 +77,9 @@ import SaveIcon from '@/components/icons/SaveIcon'
 export default {
   name: 'ExpertModeTab',
   components: {BaseButton, CommonCalendar, ErrorIcon, SaveIcon},
+  props: {
+    defaultQuery: {type: String, default: ''},
+  },
   data() {
     return {
       bracketsError: {
@@ -93,12 +96,18 @@ export default {
         {value: '( )', color: '#8e00d1'},
         {value: 'OR', color: 'var(--neutral-primary-color)'},
         {value: 'AND', color: 'var(--positive-primary-color)'},
-        {value: 'AND_NOT', color: 'var(--negative-primary-color)'},
+        {value: 'NOT', color: 'var(--negative-primary-color)'},
       ],
       filters: ['author', 'country', 'language', 'source', 'sentiment'],
     }
   },
   mounted() {
+    if (this.defaultQuery) {
+      this.validateBrackets(this.defaultQuery)
+      this.textAreaValue = this.defaultQuery
+      this.highlightedSyntax = this.replaceLogicalOperators(this.defaultQuery)
+    }
+
     const lineNumbers = document.getElementById('line-numbers')
     const {textarea} = this.$refs
 
@@ -148,10 +157,7 @@ export default {
         .replace(/\)/g, '<span class="defaultColor">)</span>')
         .replace(/\bOR\b/g, '<span class="defaultColor OR">OR</span>')
         .replace(/\bAND\b/g, '<span class="defaultColor AND">AND</span>')
-        .replace(
-          /\bAND_NOT\b/g,
-          '<span class="defaultColor AND_NOT">AND_NOT</span>'
-        )
+        .replace(/\bNOT\b/g, '<span class="defaultColor NOT">NOT</span>')
     },
 
     handleInput({target: {value}}) {
@@ -342,7 +348,7 @@ export default {
   color: var(--positive-primary-color);
 }
 
-.AND_NOT {
+.NOT {
   color: var(--negative-primary-color);
 }
 </style>

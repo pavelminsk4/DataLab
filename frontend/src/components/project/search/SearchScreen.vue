@@ -22,6 +22,7 @@
       <div class="search">
         <ExpertModeTab
           v-if="isExpertMode"
+          :default-query="currentProject.query_filter"
           @save-project="updateProjectData"
           @show-result="showResults"
           @update-query-filter="updateQueryFilter"
@@ -98,6 +99,7 @@ export default {
     },
   },
   mounted() {
+    this.isExpertMode = this.currentProject.expert_mode
     this.showResults()
   },
   methods: {
@@ -110,7 +112,7 @@ export default {
           this.keywords?.ignore_keywords || this.currentExcludeKeywords,
         country: this.additionalFilters?.country || [],
         language: this.additionalFilters?.language || [],
-        sentiment: this.additionalFilters?.sentiment,
+        sentiment: this.additionalFilters?.sentiment || [],
         date_range: [
           this.additionalFilters?.date_range[0] ||
             this.currentProject?.start_search_date,
