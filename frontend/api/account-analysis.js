@@ -152,4 +152,12 @@ export default {
       {aggregation_period: value}
     )
   },
+
+  async getBestTimesToPost(projectId, widgetId, value) {
+    return fetch(
+      'post',
+      `${moduleName}/best_times_to_post_widget/${projectId}/${widgetId}`,
+      {aggregation_period: value}
+    )
+  },
 }

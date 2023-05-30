@@ -234,6 +234,25 @@ export default {
     }
   },
 
+  async [action.GET_BEST_TIMES_TO_POST](
+    {commit},
+    {projectId, widgetId, value}
+  ) {
+    commit(mutator.SET_LOADING, true, {root: true})
+    try {
+      const bestTimesToPost = await api.accountAnalysis.getBestTimesToPost(
+        projectId,
+        widgetId,
+        value
+      )
+      commit(mutator.SET_BEST_TIMES_TO_POST, bestTimesToPost)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false, {root: true})
+    }
+  },
+
   [action.CLEAR_WIDGETS_DATA]({commit}) {
     commit(mutator.CLEAR_WIDGETS_DATA)
   },

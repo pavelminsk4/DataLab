@@ -51,6 +51,10 @@ export default {
     state.topPostsByEngagements = data
   },
 
+  [mutator.SET_BEST_TIMES_TO_POST](state, data) {
+    state.bestTimesToPost = data
+  },
+
   [mutator.CLEAR_WIDGETS_DATA](state) {
     for (const widget in state) {
       state[widget] = {}
