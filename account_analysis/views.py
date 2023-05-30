@@ -1,6 +1,7 @@
 from rest_framework.generics import ListAPIView, CreateAPIView, UpdateAPIView, DestroyAPIView, RetrieveAPIView
 from tweet_binder.models import TweetBinderPost
 from django.core.paginator import Paginator
+from .widgets.optimization.mentions.average_engagements_by_day_for_mentions import *
 from .widgets.dashboard.mentions.most_frequent_mention_media_types import *
 from .widgets.dashboard.mentions.top_mentions_by_engagements import *
 from .widgets.optimization.mentions.audience_mention_time import *
@@ -21,12 +22,10 @@ from .widgets.optimization.top_hashtags import *
 from .widgets.dashboard.profile_timeline import *
 from .widgets.dashboard.follower_growth import *
 from .widgets.dashboard.summary import *
-from django.shortcuts import render
 from rest_framework import viewsets
 from .widgets.dimensions import *
 from .serializers import *
 from .models import *
-
 
 class ProjectsAccountAnalysisViewSet(viewsets.ModelViewSet):
     queryset = ProjectAccountAnalysis.objects.all()
@@ -139,6 +138,9 @@ def mention_summary_widget(request, pk, widget_pk):
 
 def audience_mention_time_widget(request, pk, widget_pk):
     return audience_mention_time(pk, widget_pk)
+
+def average_engagements_by_day_for_mentions_widget(request, pk, widget_pk):
+    return average_engagements_by_day_for_mentions(pk, widget_pk)
 
 def search_posts(request, project_pk):
     body = json.loads(request.body)

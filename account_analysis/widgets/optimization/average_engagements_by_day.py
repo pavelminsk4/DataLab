@@ -7,6 +7,9 @@ from django.http import JsonResponse
 def average_engagements_by_day(pk, widget_pk):
     project = ProjectAccountAnalysis.objects.get(id=pk)
     posts = posts_aggregator(project)
+    return calculate(posts)
+
+def calculate(posts):
     posts_sunday = posts.filter(date__week_day=1).aggregate(engagement=Sum(F('count_favorites') + F('count_retweets')))
     posts_monday = posts.filter(date__week_day=2).aggregate(engagement=Sum(F('count_favorites') + F('count_retweets')))
     posts_tuesday = posts.filter(date__week_day=3).aggregate(engagement=Sum(F('count_favorites') + F('count_retweets')))
