@@ -155,9 +155,9 @@ export default {
         .replace(/\n/g, '<br>')
         .replace(/\(/g, '<span class="defaultColor">(</span>')
         .replace(/\)/g, '<span class="defaultColor">)</span>')
-        .replace(/\bOR\b/g, '<span class="defaultColor OR">OR</span>')
-        .replace(/\bAND\b/g, '<span class="defaultColor AND">AND</span>')
-        .replace(/\bNOT\b/g, '<span class="defaultColor NOT">NOT</span>')
+        .replace(/\bOR\b/g, '<span class="defaultColor or">OR</span>')
+        .replace(/\bAND\b/g, '<span class="defaultColor and">AND</span>')
+        .replace(/\bNOT\b/g, '<span class="defaultColor not">NOT</span>')
     },
 
     handleInput({target: {value}}) {
@@ -340,15 +340,15 @@ export default {
   color: #8e00d1;
 }
 
-.OR {
+.or {
   color: var(--neutral-primary-color);
 }
 
-.AND {
+.and {
   color: var(--positive-primary-color);
 }
 
-.NOT {
+.not {
   color: var(--negative-primary-color);
 }
 </style>
