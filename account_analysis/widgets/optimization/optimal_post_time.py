@@ -1,11 +1,14 @@
-from account_analysis.models import ProjectAccountAnalysis, AccountAnalysisWidgetDescription
 from account_analysis.widgets.filter_for_posts import posts_aggregator
+from account_analysis.models import ProjectAccountAnalysis
 from django.db.models import Sum, F
 from django.http import JsonResponse
 
 def optimal_post_time(pk, widget_pk):
     project = ProjectAccountAnalysis.objects.get(id=pk)
     posts = posts_aggregator(project)
+    return calculation(posts)
+
+def calculation(posts):    
     results = []
     for day_of_week in range(1, 8):
         res = []
