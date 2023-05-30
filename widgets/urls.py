@@ -32,6 +32,7 @@ urlpatterns = [
   path('onl_overall_top_authors/<int:pk>/<int:widget_pk>', views.onl_overall_top_authors, name='onl_overall_top_authors'),
   path('onl_authors_by_language/<int:pk>/<int:widget_pk>', views.onl_authors_by_language, name='onl_authors_by_language'),
   path('onl_authors_by_sentiment/<int:pk>/<int:widget_pk>', views.onl_authors_by_sentiment, name='onl_authors_by_sentiment'),
+  path('onl_top_keywords_by_country/<int:pk>/<int:widget_pk>', views.onl_top_keywords_by_country, name='onl_top_keywords_by_country'),
   path('dimensions_for_each_widgets/<int:project_pk>/<int:widget_pk>', views.dimensions_for_each_widgets, name='dimensions_for_each_widgets'),
   path('interactive_widgets/<int:project_pk>/<int:widget_pk>', views.interactive_data_for_widgets, name='interactive_widgets'),
 ]

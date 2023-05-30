@@ -65,6 +65,7 @@ class WidgetsList2(models.Model):
   authors_by_language = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='onl_authors_by_language',null=True)
   authors_by_sentiment = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='onl_authors_by_sentiment',null=True)
   overall_top_authors = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='onl_overall_top_authors',null=True)
+  top_keywords_by_country = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='onl_top_keywords_by_country',null=True)
 
   def __str__(self):
     return str(self.project)
@@ -131,6 +132,8 @@ def create_widget_description(sender, instance, created, **kwargs):
     wd26.save()
     wd27 = WidgetDescription.objects.create(title='Overall top authors', default_title='Overall top authors')
     wd27.save()
+    wd28 = WidgetDescription.objects.create(title='Top keywords by country', default_title='Top keywords by country')
+    wd28.save()
     instance.summary = wd1
     instance.volume = wd2
     instance.clipping_feed_content = wd3
@@ -158,6 +161,7 @@ def create_widget_description(sender, instance, created, **kwargs):
     instance.authors_by_language = wd25
     instance.authors_by_sentiment = wd26
     instance.overall_top_authors = wd27
+    instance.top_keywords_by_country = wd28
     instance.save()
 
 class ClippingFeedContentWidget(models.Model):
