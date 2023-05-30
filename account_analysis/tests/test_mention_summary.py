@@ -22,13 +22,13 @@ class MentionSummaryWidgetTests(APITestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         res = {
-                'mention': 4, 
-                'language': 1, 
-                'countries': 1, 
-                'authors': 1, 
-                'neutral': 4, 
-                'negative': 4, 
-                'positive': 4, 
+                'authors': 1,
+                'countries': 1,
+                'language': 1,
+                'mention': 4,
+                'negative': 0,
+                'neutral': 4,
+                'positive': 0,
                 'potential_rates': 400.0
               }
         self.assertEqual(json.loads(response.content), res)

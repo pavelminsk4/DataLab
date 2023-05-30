@@ -38,6 +38,7 @@ urlpatterns = [
     path('mention_sentiment_widget/<int:pk>/<int:widget_pk>', views.mention_sentiment_widget, name='mention_sentiment'),
     path('top_mentions_by_engagements_widget/<int:pk>/<int:widget_pk>', views.top_mentions_by_engagements_widget, name='top_mentions_by_engagements'),
     path('audience_mention_time_widget/<int:pk>/<int:widget_pk>', views.audience_mention_time_widget, name='audience_mention_time'),
+    path('average_engagements_by_day_for_mentions_widget/<int:pk>/<int:widget_pk>', views.average_engagements_by_day_for_mentions_widget, name='average_engagements_by_day_for_mentions'),
     path('dimensions_for_each_widgets/<int:project_pk>/<int:widget_pk>', views.dimensions_for_each_widgets, name='dimensions_for_each_widgets'),
     # =======Profile Handle======
     path('list_of_profile_handle', views.list_of_profile_handle, name='list_of_profile_handle'),

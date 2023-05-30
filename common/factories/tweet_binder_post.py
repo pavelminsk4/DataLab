@@ -31,7 +31,6 @@ class TweetBinderPostFactory(factory.django.DjangoModelFactory):
     user_alias       = '@first'
     user_followers   = '100'
     locationString   = 'Nostramo'
-    sentiment        = 'neutral'
     type             = ['origin']
     videos           = ['www.video.com']
     hashtags         = ['test']
