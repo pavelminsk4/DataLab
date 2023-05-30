@@ -28,6 +28,6 @@ export default {
   },
 
   [mutator.SET_TFS_ITEMS](state, {items, status}) {
-    state.items[status] = items.results
+    state.items[status] = items
   },
 }

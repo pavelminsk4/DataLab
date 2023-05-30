@@ -14,6 +14,7 @@
         v-if="isStatusShow"
         :status="cardStatus"
         :post-id="postDetails.id"
+        :isBack="isBack"
         @change-status-card="changeStatusCard"
       />
     </template>
@@ -75,7 +76,8 @@ export default {
   props: {
     img: {type: String, required: false},
     itemId: {type: Number, required: true},
-    cardStatus: {type: String, required: true},
+    isBack: {type: Boolean, default: true},
+    cardStatus: {type: String, required: false},
     postDetails: {type: Object, required: true},
     isStatusShow: {type: Boolean, default: true},
   },

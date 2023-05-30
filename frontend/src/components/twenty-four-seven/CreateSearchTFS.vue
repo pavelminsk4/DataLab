@@ -123,6 +123,7 @@ export default {
           sentiment_dimensions: [],
           query_filter: [],
           department_id: this.department.id,
+          expert_mode: false,
         })
       } catch (e) {
         console.log(e)

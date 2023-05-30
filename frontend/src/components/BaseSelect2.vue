@@ -37,7 +37,7 @@ export default {
   components: {ArrowDownIcon},
   props: {
     options: {type: Array, required: true},
-    modelValue: {type: [Boolean, Array, String], required: true},
+    modelValue: {type: [Boolean, Array, String, Number], required: true},
     isDisabled: {type: Boolean, default: false},
     isCloseOptions: {type: Boolean, default: false},
     hasError: {type: Boolean, default: false},
@@ -56,6 +56,7 @@ export default {
         return this.modelValue
       },
       set(val) {
+        console.log(val)
         this.$emit('update:modelValue', val)
       },
     },

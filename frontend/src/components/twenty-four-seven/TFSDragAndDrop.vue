@@ -3,17 +3,24 @@
     <div
       v-for="(item, index) in statuses"
       :key="'status' + index"
-      :id="'zone-' + index"
+      :id="item.status"
       class="drop-zone"
       @drop="onDrop($event, index)"
-      @dragenter.prevent
-      @dragover.prevent
+      @dragenter="getTestEnter($event, index)"
+      @dragover="getSelectArea($event, item.allowedToDarag)"
       @mousedown="getIdArea(index)"
     >
-      <div class="drop-section">
-        {{ item.status }}
-        <div class="results">1000</div>
-      </div>
+      <TFSColumnHeader
+        v-model="item.page"
+        :value="item.page"
+        :status="item.status"
+        :status-color="item.color"
+        :number-of-pages="numberOfPages(item.status)"
+        :number-of-results="this.itemsTest[item.status]?.count"
+        @update-page="updatePage"
+        @decrease-arrow="decrease(index, item.status)"
+        @increase-arrow="increase(index, item.status)"
+      />
 
       <div
         v-for="item1 in getList(item.status)"
@@ -24,6 +31,7 @@
       >
         <TFSPostCard
           :postDetails="item1.online_post"
+          :isBack="item1.is_back"
           :cardStatus="item1.status"
           :itemId="item1.id"
           class="post-card"
@@ -36,28 +44,53 @@
 
 <script>
 import TFSPostCard from '@/components/TFSPostCard'
+import TFSColumnHeader from '@/components/twenty-four-seven/drag-n-drop/TFSColumnHeader'
+
+const MIN_PAGES_NUMBER = 1
 
 export default {
   name: 'TFSDragAndDrop',
-  components: {TFSPostCard},
+  components: {TFSPostCard, TFSColumnHeader},
   props: {
     itemsTest: {type: Object, reqared: true},
   },
   data() {
     return {
+      numberOfPage: 1,
       currentAreaId: null,
+      newAreaId: null,
       statuses: [
-        {status: 'Picking', list: 1, items: []},
-        {status: 'Summary', list: 2, items: []},
-        {status: 'Q&A Check', list: 3, items: []},
-        {status: 'Publishing', list: 4, items: []},
-        {status: 'Published', list: 5, items: []},
+        {
+          status: 'Picking',
+          page: 1,
+          color: '#2A7697',
+          allowedToDarag: ['Summary', 'Irrelevant'],
+        },
+        {
+          status: 'Summary',
+          page: 1,
+          color: '#3746A6',
+          allowedToDarag: ['Q&A Check', 'Irrelevant'],
+        },
+        {
+          status: 'Q&A Check',
+          page: 1,
+          color: '#AB3E00',
+          allowedToDarag: ['Summary', 'Publishing', 'Irrelevant'],
+        },
+        {
+          status: 'Publishing',
+          page: 1,
+          color: '#2A8500',
+          allowedToDarag: ['Published', 'Summary', 'Q&A Check', 'Irrelevant'],
+        },
+        {status: 'Published', page: 1, color: '#961CCF', allowedToDarag: []},
       ],
     }
   },
   methods: {
     getList(status) {
-      return this.itemsTest[status]
+      return this.itemsTest[status]?.results
     },
 
     startDrag($event, item) {
@@ -66,15 +99,25 @@ export default {
       $event.dataTransfer.setData('itemID', item.id)
     },
 
-    async onDrop($event, index) {
-      const itemID = $event.dataTransfer.getData('itemID')
-      console.log(itemID)
-      await this.$emit(
-        'update-status',
-        itemID,
-        this.statuses[index].status,
-        this.statuses[this.currentAreaId].status
-      )
+    onDrop($event, index) {
+      this.statuses[this.currentAreaId].allowedToDarag.filter((el) => {
+        // const statusId = document.getElementById(el)
+        console.log(this.statuses[this.currentAreaId])
+        const itemID = $event.dataTransfer.getData('itemID')
+        let test12345 = document.getElementById(el)
+        let isBack = index > this.currentAreaId
+        test12345.style.background = ''
+        if (el === this.newAreaId) {
+          this.$emit(
+            'update-status',
+            itemID,
+            this.statuses[index].status,
+            this.statuses[this.currentAreaId].status,
+            this.statuses[index].page,
+            !isBack
+          )
+        }
+      })
     },
 
     getIdArea(id) {
@@ -82,7 +125,69 @@ export default {
     },
 
     changeStatus(itemId, newStatus, oldStatus) {
-      this.$emit('change-status-via-dropdown', itemId, newStatus, oldStatus)
+      let newStatusIndex = this.statuses.findIndex(
+        (el) => el.status === newStatus
+      )
+      let isBack = newStatusIndex > this.currentAreaId
+      this.$emit(
+        'change-status-via-dropdown',
+        itemId,
+        newStatus,
+        oldStatus,
+        this.numberOfPage,
+        !isBack
+      )
+    },
+
+    countResults(item) {
+      return this.itemsTest[item.status]?.count
+    },
+
+    numberOfPages(status) {
+      let countOfPages = Math.ceil(this.itemsTest[status]?.count / 20)
+      return Array.from({length: countOfPages}, (_, i) => +i + 1)
+    },
+
+    updatePage(page, status) {
+      this.$emit('update-page', page, status)
+    },
+
+    increase(index, status) {
+      let countOfPages = Math.ceil(this.itemsTest[status]?.count / 20)
+
+      if (this.statuses[index].page >= countOfPages) return
+
+      this.statuses[index].page = +this.statuses[index].page + 1
+      let newValue = this.statuses[index].page
+
+      if (newValue >= countOfPages) return
+
+      this.updatePage(newValue, status)
+    },
+    decrease(index, status) {
+      if (this.statuses[index].page <= MIN_PAGES_NUMBER) return
+
+      this.statuses[index].page -= 1
+      let newValue = this.statuses[index].page
+
+      this.updatePage(newValue, status)
+    },
+
+    async getSelectArea($event) {
+      $event.preventDefault()
+      await this.statuses[this.currentAreaId].allowedToDarag.filter((el) => {
+        if (el === $event.target.id) {
+          this.newAreaId = $event.target.id
+          $event.target.style.background = '#DAF9CE'
+        }
+        return
+      })
+
+      // $event.target.style.background = ''
+      return
+    },
+    getTestEnter($event) {
+      $event.preventDefault()
     },
   },
 }
@@ -95,34 +200,6 @@ export default {
   .drop-zone {
     width: 320px;
     flex-shrink: 0;
-    .drop-section {
-      display: flex;
-      gap: 4px;
-
-      padding: 12px 20px;
-      margin-bottom: 24px;
-
-      border-top: 3px solid var(--neutral-primary-color);
-      border-radius: 8px;
-      background-color: var(--background-secondary-color);
-
-      font-style: normal;
-      font-weight: 500;
-      font-size: 16px;
-      line-height: 20px;
-      color: var(--typography-title-color);
-
-      .results {
-        padding: 2px 5px;
-
-        border-radius: 14px;
-        background-color: var(--icon-primary-color);
-
-        text-align: center;
-        font-size: 14px;
-        color: var(--button-text-color);
-      }
-    }
   }
 }
 

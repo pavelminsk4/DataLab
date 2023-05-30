@@ -94,6 +94,7 @@ export default {
   background-color: var(--background-secondary-color);
 
   color: var(--typography-title-color);
+  background-color: var(--picking-card-color);
 
   .header {
     padding: 12px 20px 0;
@@ -147,7 +148,6 @@ export default {
       .type-request {
         display: flex;
         align-items: center;
-        justify-content: center;
         gap: 8px;
 
         .type {

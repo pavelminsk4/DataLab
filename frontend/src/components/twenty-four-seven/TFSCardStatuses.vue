@@ -6,7 +6,7 @@
   >
     <div class="statuses-wrapper">
       <div :style="`background-color: ${statuses[status].color}`" class="title">
-        {{ status }}
+        {{ getTitle(status) }}
       </div>
       <div
         v-if="statuses[status].availableStatusesForMoving.length"
@@ -46,6 +46,7 @@ export default {
     ArrowDownIcon,
   },
   props: {
+    isBack: {type: Boolean, default: true},
     postId: {type: Number, reqired: true},
     status: {type: String, reqired: true},
   },
@@ -118,6 +119,9 @@ export default {
     },
     changeStatus(newStatus) {
       this.$emit('change-status-card', newStatus)
+    },
+    getTitle(status) {
+      return this.isBack ? 'Back to ' + status.toLowerCase() : status
     },
   },
 }
