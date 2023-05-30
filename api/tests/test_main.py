@@ -30,6 +30,7 @@ DATA = {
       'sentiment_dimensions':[],
       'query_filter': '',
       'department_id':1,
+      'expert_mode': False,
       }
 
 

@@ -24,6 +24,7 @@ from .demography.sources_by_country import get_sources_by_country
 from .demography.sources_by_language import get_sources_by_language
 from .demography.overall_top_sources import get_overall_top_sources
 from .demography.top_sharing_sources import get_top_sharing_sources
+from .demography.top_keywords_by_country import get_top_keywords_by_country
 from .common_widget.dimensions_for_widgets import dimensions_for_each
 from .common_widget.interactive_widgets import interactive_widgets
 
@@ -81,6 +82,8 @@ def onl_authors_by_sentiment(request, pk, widget_pk):
   return get_authors_by_sentiment(pk, widget_pk)
 def onl_authors_by_language(request, pk, widget_pk):
   return get_authors_by_language(pk, widget_pk)
+def onl_top_keywords_by_country(request, pk, widget_pk):
+  return get_top_keywords_by_country(pk, widget_pk)
 def dimensions_for_each_widgets(request, project_pk, widget_pk):
   return dimensions_for_each(request, widget_pk)
 def interactive_data_for_widgets(request, project_pk, widget_pk):

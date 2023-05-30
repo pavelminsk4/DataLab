@@ -106,6 +106,8 @@ class WidgetsListSerializer(WritableNestedModelSerializer):
   sources_by_country = WidgetDescriptionSerializer()
   sources_by_language = WidgetDescriptionSerializer()
   top_sharing_sources = WidgetDescriptionSerializer()
+  top_keywords_by_country = WidgetDescriptionSerializer()
+
   class Meta:
     model = WidgetsList2
     fields = '__all__'
