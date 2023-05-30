@@ -1,5 +1,6 @@
 const state = {
   averageEngagementsByDay: {},
+  bestTimesToPost: [],
   followerGrowth: {},
   mostFrequentPostTypes: {},
   mostFrequentMediaTypes: {},

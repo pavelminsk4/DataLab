@@ -118,9 +118,10 @@ export const accountAnalysisWidgetsList = {
   optimization: [
     {name: 'summary', isFullWidth: true, minHeight: 230},
     {name: 'optimal_post_time', isFullWidth: true},
-    {name: 'top_hashtags', isFullWidth: true},
+    {name: 'best_times_to_post', isFullWidth: false},
     {name: 'optimal_post_length', isFullWidth: false},
-    {name: 'optimal_number_of_hashtags', isFullWidth: false},
+    {name: 'top_hashtags', isFullWidth: true},
+    {name: 'optimal_number_of_hashtags', isFullWidth: true},
     {name: 'average_engagements_by_day', isFullWidth: true},
   ],
 }

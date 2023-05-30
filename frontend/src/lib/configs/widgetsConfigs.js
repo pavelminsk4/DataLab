@@ -474,6 +474,15 @@ export const widgetsConfig = {
     availableTypes: null,
     settingsTabs: ['General', 'Dimensions'],
   },
+
+  best_times_to_post: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    actionName: action.GET_BEST_TIMES_TO_POST,
+    hasPreview: false,
+    hasAggregationPeriod: false,
+    availableTypes: null,
+    settingsTabs: ['General', 'Dimensions'],
+  },
 }
 
 export const summaryWidgetConfig = [
