@@ -16,9 +16,9 @@ class StandardResultsSetPagination(PageNumberPagination):
 
 class ItemViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
-        if self.request.GET: 
+        if self.request.GET:
             status = self.request.GET.get('status')
-            return Item.objects.filter(status=status)
+            return Item.objects.filter(project__pk=self.kwargs['project_pk'], status=status)
         return Item.objects.all()
     serializer_class = ItemSerializer
     pagination_class = StandardResultsSetPagination
@@ -57,4 +57,4 @@ def whatsapp(request):
     phone_number = body['phone_number']
     message_content = body['message_content']
     res = whatsappp_sender(phone_number, message_content)
-    return JsonResponse(res, safe = False)
+    return JsonResponse(res, safe=False)
