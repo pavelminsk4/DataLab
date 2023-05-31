@@ -132,7 +132,7 @@ export const accountAnalysisWidgetsList = {
       {name: 'mention_timeline', isFullWidth: true},
       {name: 'most_frequent_mention_media_types', isFullWidth: false},
     ],
-    optimization: [{name: 'summary', isFullWidth: true, minHeight: 230}],
+    optimization: [{name: 'audience_mention_time', isFullWidth: true}],
   },
 }
 

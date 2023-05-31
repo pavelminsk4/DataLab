@@ -20,7 +20,7 @@ export default {
   },
   created() {
     this.xAxis = this.chartValues[0].data.map((_value, index) => {
-      const hours = index === 0 ? 12 : index % 12
+      const hours = index % 12 || 12
       const meridiem = index > 12 ? 'PM' : 'AM'
       return `${hours} ${meridiem}`
     })
@@ -67,5 +67,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped></style>

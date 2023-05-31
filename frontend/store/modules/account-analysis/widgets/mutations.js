@@ -63,6 +63,10 @@ export default {
     state.mostFrequentMentionMediaTypes = data
   },
 
+  [mutator.SET_AUDIENCE_MENTION_TIME](state, data) {
+    state.audienceMentionTime = data
+  },
+
   [mutator.CLEAR_WIDGETS_DATA](state) {
     for (const widget in state) {
       state[widget] = {}

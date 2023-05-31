@@ -6,6 +6,7 @@
     @open-modal="$emit('open-settings-modal')"
   >
     <ChartsView
+      v-if="labels.length"
       :labels="labels"
       :chart-type="chartType"
       :chart-values="chartValues"
@@ -20,7 +21,7 @@ import ChartsView from '@/components/charts/ChartsView'
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
 
 export default {
-  name: 'OptimalPostLengthWidget',
+  name: 'TimeMapWidget',
   components: {ChartsView, WidgetsLayout},
   props: {
     widgetDetails: {type: Object, required: true},

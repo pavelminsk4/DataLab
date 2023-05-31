@@ -176,4 +176,12 @@ export default {
       {aggregation_period: value}
     )
   },
+
+  async getAudienceMentionTime(projectId, widgetId, value) {
+    return fetch(
+      'post',
+      `${moduleName}/audience_mention_time_widget/${projectId}/${widgetId}`,
+      {aggregation_period: value}
+    )
+  },
 }

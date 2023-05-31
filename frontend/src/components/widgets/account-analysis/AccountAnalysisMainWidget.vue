@@ -24,6 +24,7 @@ import BestTimesToPost from '@/components/widgets/account-analysis/BestTimesToPo
 
 import MentionTimeline from '@/components/widgets/account-analysis/mentions/MentionTimeline'
 import MostFrequentMentionMediaTypes from '@/components/widgets/account-analysis/mentions/MostFrequentMentionMediaTypes'
+import AudienceMentionTime from '@/components/widgets/account-analysis/mentions/AudienceMentionTime'
 
 export default {
   name: 'AccountAnalysisMainWidget',
@@ -44,6 +45,7 @@ export default {
     BestTimesToPost,
     MentionTimeline,
     MostFrequentMentionMediaTypes,
+    AudienceMentionTime,
   },
   props: {
     widgetDetails: {type: Object, required: true},
