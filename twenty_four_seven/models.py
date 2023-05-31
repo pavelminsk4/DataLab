@@ -94,6 +94,7 @@ class Item(models.Model):
         ('Q&A Check', 'Q&A Check'),
         ('Publishing', 'Publishing'),
         ('Published', 'Published'),
+        ('Irrelevant','Irrelevant'),
     ]
 
     online_post = models.ForeignKey(Post, on_delete=models.CASCADE, blank=True, null=True)

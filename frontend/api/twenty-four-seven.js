@@ -24,7 +24,7 @@ export default {
   },
 
   async deleteProject(projectId) {
-    return fetch('delete', `${moduleName}/projects/${projectId}/ `)
+    return fetch('delete', `${moduleName}/projects/${projectId}/`)
   },
 
   async getItems(projectId, status, page) {

@@ -1,6 +1,6 @@
 <template>
   <post-card-layout
-    :sentiment="postDetails.sentiment"
+    :sentiment="postDetails.sentiment || ''"
     :category="postDetails.category"
     :post-image="img"
     :post-id="postDetails.id"

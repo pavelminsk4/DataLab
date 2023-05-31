@@ -1,6 +1,6 @@
 <template>
   <TFSPostCardLayout
-    :sentiment="postDetails.sentiment"
+    :sentiment="postDetails.sentiment || ''"
     :category="postDetails.category"
     :date="this.defaultDate(this.postDetails.entry_published)"
     :source="this.postDetails.feedlink__sourceurl"

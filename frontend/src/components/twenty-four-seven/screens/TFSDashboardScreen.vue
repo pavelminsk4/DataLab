@@ -28,10 +28,10 @@ export default {
   },
   created() {
     if (isAllEmptyFields(this.items)) {
-      defaultStatuses.forEach((element) => {
+      defaultStatuses.forEach((status) => {
         this[action.GET_TFS_ITEMS]({
           projectId: this.projectId,
-          status: element,
+          status: status,
           page: 1,
         })
       })

@@ -78,7 +78,7 @@ export default {
     },
 
     onDrop($event, index) {
-      this.statuses[this.currentColumnId].allowedToDarag.filter(
+      this.statuses[this.currentColumnId].allowedToDrag.filter(
         (allowedStatus) => {
           const postId = $event.dataTransfer.getData('itemId')
 
@@ -102,7 +102,7 @@ export default {
     addBGToAvailColumn($event) {
       $event.preventDefault()
 
-      this.statuses[this.currentColumnId].allowedToDarag.filter((el) => {
+      this.statuses[this.currentColumnId].allowedToDrag.filter((el) => {
         if (el === $event.target.id) {
           this.newAreaId = $event.target.id
           $event.target.style.background = '#DAF9CE'
@@ -143,12 +143,12 @@ export default {
       this.$emit('update-page', page, status)
     },
 
-    numberOfPages(status) {
-      return Array.from({length: this.countOfPages(status)}, (_, i) => +i + 1)
-    },
-
     countOfPages(status) {
       return Math.ceil(this.cardResults[status]?.count / 20)
+    },
+
+    numberOfPages(status) {
+      return Array.from({length: this.countOfPages(status)}, (_, i) => +i + 1)
     },
 
     isBack(newStatus) {

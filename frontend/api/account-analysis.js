@@ -24,11 +24,11 @@ export default {
   },
 
   async createProject(project) {
-    return fetch('post', `${moduleName}/projects/ `, project)
+    return fetch('post', `${moduleName}/projects/`, project)
   },
 
   async deleteAccountAnalysisProject(projectId) {
-    return fetch('delete', `${moduleName}/projects/${projectId}/ `)
+    return fetch('delete', `${moduleName}/projects/${projectId}/`)
   },
 
   async getPosts(projectId, value) {

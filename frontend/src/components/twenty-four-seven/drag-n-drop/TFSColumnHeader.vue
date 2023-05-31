@@ -1,6 +1,6 @@
 <template>
   <div :style="`border-top: 3px solid ${statusColor};`" class="column-header">
-    {{ status }}
+    <span>{{ status }}</span>
     <div class="results">{{ numberOfResults }}</div>
 
     <div class="pagination-wrapper">
@@ -31,17 +31,17 @@ import ArrowDownIcon from '@/components/icons/ArrowDownIcon'
 export default {
   name: 'TFSColumnHeader',
   components: {BaseSelect, ArrowDownIcon},
-  data() {
-    return {
-      newPageNumber: null,
-    }
-  },
   props: {
     value: {type: [Number, String], required: true},
     status: {type: String, required: true},
     statusColor: {type: String, required: true},
     numberOfResults: {type: Number, required: false},
     numberOfPages: {type: Array, required: true},
+  },
+  data() {
+    return {
+      newPageNumber: null,
+    }
   },
   methods: {
     updatePage(newPage) {

@@ -72,7 +72,6 @@ export default {
       const dropdownList = document.getElementById(
         `dropdown-statuses-${this.postId}`
       )
-      if (!dropdownList) return
 
       if (!dropdownList?.contains(target)) {
         this.isOpen = false

@@ -3,14 +3,26 @@ from .models import *
 from api.serializers import UserSerializer
 from drf_writable_nested.serializers import WritableNestedModelSerializer
 from project.models import *
+
+
 class PostSerializer(WritableNestedModelSerializer):
     feedlink__country = serializers.CharField(source='feedlink.country')
     feed_language__language = serializers.CharField(source='feed_language.language')
     feedlink__alexaglobalrank = serializers.CharField(source='feedlink.alexaglobalrank')
     class Meta:
         model = Post
-        fields = ['id', 'entry_title', 'entry_summary', 'entry_links_href', 'entry_published', 'sentiment', 'feedlink__country', 'feed_language__language', 'feedlink__alexaglobalrank']
-        
+        fields = [
+            'id',
+            'entry_title',
+            'entry_summary',
+            'entry_links_href',
+            'entry_published',
+            'sentiment',
+            'feedlink__country',
+            'feed_language__language',
+            'feedlink__alexaglobalrank',
+        ]
+
 
 class ItemSerializer(serializers.ModelSerializer):
     online_post = PostSerializer(required=False)

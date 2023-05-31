@@ -53,18 +53,6 @@ export default {
     SentimentChips,
     HashtagIcon,
   },
-  data() {
-    return {
-      cardBackground: {
-        Picking: '#EFF9FE',
-        Summary: '#E8EBFF',
-        'Q&A Check': '#FFF2E9',
-        Publishing: '#F4FFEF',
-        Published: '#FAF0FF',
-        Irrelevant: '#C6C9CC',
-      },
-    }
-  },
   props: {
     postId: {type: [Number, String]},
     sentiment: {type: String},
@@ -78,6 +66,16 @@ export default {
     isLoadingClippingWidget() {
       return this.isLoading.clippingWidget
     },
+  },
+  created() {
+    this.cardBackground = {
+      Picking: '#EFF9FE',
+      Summary: '#E8EBFF',
+      'Q&A Check': '#FFF2E9',
+      Publishing: '#F4FFEF',
+      Published: '#FAF0FF',
+      Irrelevant: '#C6C9CC',
+    }
   },
   methods: {
     capitalizeFirstLetter,
