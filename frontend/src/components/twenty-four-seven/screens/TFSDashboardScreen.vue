@@ -1,6 +1,6 @@
 <template>
   <TFSDragAndDrop
-    :itemsTest="items"
+    :card-results="items"
     @update-status="updateStatus"
     @change-status-via-dropdown="updateStatus"
     @update-page="updatePage"
