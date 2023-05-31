@@ -38,6 +38,7 @@
 </template>
 
 <script>
+import {cardStatuses} from '@/lib/configs/tfsStatusesConfig'
 import ArrowDownIcon from '@/components/icons/ArrowDownIcon'
 
 export default {
@@ -57,47 +58,7 @@ export default {
     }
   },
   created() {
-    this.statuses = {
-      Picking: {
-        color: '#2A7697',
-        availableStatusesForMoving: [
-          {title: 'Summary', color: '#3746A6'},
-          {title: 'Irrelevant', color: '#797D80'},
-        ],
-      },
-      Summary: {
-        color: '#3746A6',
-        availableStatusesForMoving: [
-          {title: 'Q&A Check', color: '#AB3E00'},
-          {title: 'Irrelevant', color: '#797D80'},
-        ],
-      },
-      'Q&A Check': {
-        color: '#AB3E00',
-        availableStatusesForMoving: [
-          {title: 'Publishing', color: '#168400'},
-          {title: 'Summary', color: '#3746A6'},
-          {title: 'Irrelevant', color: '#797D80'},
-        ],
-      },
-      Publishing: {
-        color: '#168500',
-        availableStatusesForMoving: [
-          {title: 'Published', color: '#961CCF'},
-          {title: 'Summary', color: '#3746A6'},
-          {title: 'Q&A Check', color: '#AB3E00'},
-          {title: 'Irrelevant', color: '#797D80'},
-        ],
-      },
-      Published: {
-        color: '#961CCF',
-        availableStatusesForMoving: [],
-      },
-      Irrelevant: {
-        color: '#797D80',
-        availableStatusesForMoving: [{title: 'Picking', color: '#2A7697'}],
-      },
-    }
+    this.statuses = cardStatuses
     document.addEventListener('click', this.closeDropdown)
   },
   unmounted() {

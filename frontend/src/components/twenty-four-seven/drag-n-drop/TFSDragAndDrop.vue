@@ -43,6 +43,8 @@
 </template>
 
 <script>
+import {dragAndDropStatuses} from '@/lib/configs/tfsStatusesConfig'
+
 import TFSPostCard from '@/components/TFSPostCard'
 import TFSColumnHeader from '@/components/twenty-four-seven/drag-n-drop/TFSColumnHeader'
 
@@ -59,34 +61,10 @@ export default {
       numberOfPage: 1,
       currentColumnId: null,
       newAreaId: null,
-      statuses: [
-        {
-          status: 'Picking',
-          page: 1,
-          color: '#2A7697',
-          allowedToDarag: ['Summary', 'Irrelevant'],
-        },
-        {
-          status: 'Summary',
-          page: 1,
-          color: '#3746A6',
-          allowedToDarag: ['Q&A Check', 'Irrelevant'],
-        },
-        {
-          status: 'Q&A Check',
-          page: 1,
-          color: '#AB3E00',
-          allowedToDarag: ['Summary', 'Publishing', 'Irrelevant'],
-        },
-        {
-          status: 'Publishing',
-          page: 1,
-          color: '#2A8500',
-          allowedToDarag: ['Published', 'Summary', 'Q&A Check', 'Irrelevant'],
-        },
-        {status: 'Published', page: 1, color: '#961CCF', allowedToDarag: []},
-      ],
     }
+  },
+  created() {
+    this.statuses = dragAndDropStatuses
   },
   methods: {
     getCardInformation(status) {
