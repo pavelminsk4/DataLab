@@ -55,6 +55,14 @@ export default {
     state.bestTimesToPost = data
   },
 
+  [mutator.SET_MENTION_TIMELINE](state, data) {
+    state.mentionTimeline = data
+  },
+
+  [mutator.SET_MOST_FREQUENT_MENTION_MEDIA_TYPES](state, data) {
+    state.mostFrequentMentionMediaTypes = data
+  },
+
   [mutator.CLEAR_WIDGETS_DATA](state) {
     for (const widget in state) {
       state[widget] = {}

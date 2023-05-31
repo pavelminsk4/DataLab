@@ -1,6 +1,6 @@
 <template>
   <EngagementsTimelineWidget
-    v-if="profileTimeline.length"
+    v-if="mentionTimeline.length"
     v-bind="$attrs"
     :widget-details="widgetDetails"
     :labels="labels"
@@ -20,7 +20,7 @@ const {mapActions, mapGetters} = createNamespacedHelpers(
 )
 
 export default {
-  name: 'ProfileTimeline',
+  name: 'MentionTimeline',
   components: {
     EngagementsTimelineWidget,
   },
@@ -31,28 +31,28 @@ export default {
     ...mapGetters({
       accountAnalysisWidgets: get.ACCOUNT_ANALYSIS_WIDGETS,
     }),
-    profileTimeline() {
-      return this.accountAnalysisWidgets.profileTimeline
+    mentionTimeline() {
+      return this.accountAnalysisWidgets.mentionTimeline
     },
     labels() {
-      if (!this.profileTimeline.length) return
-      return this.profileTimeline.map((el) => {
+      if (!this.mentionTimeline.length) return
+      return this.mentionTimeline.map((el) => {
         return defaultDate(el.date).split(',')[0]
       })
     },
     chartValues() {
-      if (!this.profileTimeline.length) return
+      if (!this.mentionTimeline.length) return
       const tweets = []
       const engagement = []
-      this.profileTimeline.map((el) => {
+      this.mentionTimeline.map((el) => {
         tweets.push(el.created_count), engagement.push(el.engagement)
       })
       return [tweets, engagement]
     },
   },
   created() {
-    if (!this.profileTimeline.length) {
-      this[action.GET_PROFILE_TIMELINE]({
+    if (!this.mentionTimeline.length) {
+      this[action.GET_MENTION_TIMELINE]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,
         value: this.widgetDetails.aggregation_period,
@@ -60,7 +60,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions([action.GET_PROFILE_TIMELINE]),
+    ...mapActions([action.GET_MENTION_TIMELINE]),
   },
 }
 </script>

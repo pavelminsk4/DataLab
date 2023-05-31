@@ -23,6 +23,7 @@ export default {
   components: {WidgetsList},
   props: {
     currentProject: {type: Object, required: true},
+    currentTab: {type: String, required: true},
   },
   computed: {
     ...mapGetters({
@@ -31,7 +32,7 @@ export default {
     selectedWidgets: {
       get() {
         if (!this.availableWidgets) return
-        return accountAnalysisWidgetsList.optimization
+        return accountAnalysisWidgetsList[this.currentTab].optimization
           .map((widget) => {
             if (this.availableWidgets[widget.name]) {
               return {

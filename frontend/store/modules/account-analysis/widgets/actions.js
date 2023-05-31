@@ -253,6 +253,44 @@ export default {
     }
   },
 
+  async [action.GET_MENTION_TIMELINE]({commit}, {projectId, widgetId, value}) {
+    commit(mutator.SET_LOADING, true, {root: true})
+    try {
+      const mentionTimeline = await api.accountAnalysis.getMentionTimeline(
+        projectId,
+        widgetId,
+        value
+      )
+      commit(mutator.SET_MENTION_TIMELINE, mentionTimeline)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false, {root: true})
+    }
+  },
+
+  async [action.GET_MOST_FREQUENT_MENTION_MEDIA_TYPES](
+    {commit},
+    {projectId, widgetId}
+  ) {
+    commit(mutator.SET_LOADING, true, {root: true})
+    try {
+      const mostFrequentMentionMediaTypes =
+        await api.accountAnalysis.getMostFrequentMentionMediaTypes(
+          projectId,
+          widgetId
+        )
+      commit(
+        mutator.SET_MOST_FREQUENT_MENTION_MEDIA_TYPES,
+        mostFrequentMentionMediaTypes
+      )
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false, {root: true})
+    }
+  },
+
   [action.CLEAR_WIDGETS_DATA]({commit}) {
     commit(mutator.CLEAR_WIDGETS_DATA)
   },

@@ -160,4 +160,20 @@ export default {
       {aggregation_period: value}
     )
   },
+
+  async getMentionTimeline(projectId, widgetId, value) {
+    return fetch(
+      'post',
+      `${moduleName}/mention_timeline_widget/${projectId}/${widgetId}`,
+      {aggregation_period: value}
+    )
+  },
+
+  async getMostFrequentMentionMediaTypes(projectId, widgetId, value) {
+    return fetch(
+      'post',
+      `${moduleName}/most_frequent_mention_media_types_widget/${projectId}/${widgetId}`,
+      {aggregation_period: value}
+    )
+  },
 }

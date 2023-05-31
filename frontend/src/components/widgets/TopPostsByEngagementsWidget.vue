@@ -13,7 +13,7 @@
     >
       <tr v-for="item in widgetData" :key="item.date" class="base-table__row">
         <td>
-          <component :is="item.type" />
+          <component :is="item.type + 'Icon'" />
         </td>
         <td class="tweet-text">{{ item.text }}</td>
         <td>
@@ -37,9 +37,9 @@ import WidgetsLayout from '@/components/layout/WidgetsLayout'
 import BaseTable from '@/components/common/BaseTable'
 import BaseChips from '@/components/BaseChips'
 
-import text from '@/components/icons/TextIcon'
-import retweet from '@/components/icons/RetweetsIcon'
-import reply from '@/components/icons/ReplyFilledIcon'
+import textIcon from '@/components/icons/TextIcon'
+import retweetIcon from '@/components/icons/RetweetsIcon'
+import replyIcon from '@/components/icons/ReplyFilledIcon'
 
 export default {
   name: 'TopPostsByEngagementsWidget',
@@ -48,9 +48,9 @@ export default {
     BaseTable,
     WidgetsLayout,
     BaseChips,
-    text,
-    retweet,
-    reply,
+    textIcon,
+    retweetIcon,
+    replyIcon,
   },
   props: {
     widgetData: {type: Array, required: true},

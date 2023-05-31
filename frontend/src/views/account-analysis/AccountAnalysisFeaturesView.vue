@@ -15,9 +15,13 @@
           :main-settings="tabs"
           default-tab="Account Activity"
           class="tabs"
+          @update-setting-panel="updateSettingPanel"
         />
       </div>
-      <router-view :current-project="currentProject"></router-view>
+      <router-view
+        :current-project="currentProject"
+        :current-tab="currentTab"
+      ></router-view>
     </div>
   </MainLayout>
 </template>
@@ -30,6 +34,7 @@ import MainLayout from '@components/layout/MainLayout'
 import MainLayoutTitleBlock from '@/components/layout/MainLayoutTitleBlock'
 import SideBar from '@/components/navigation/SideBar'
 import BaseTabs from '@/components/project/widgets/modals/BaseTabs'
+import {stringToPascalCase} from '@/lib/utilities'
 
 const {mapActions} = createNamespacedHelpers('accountAnalysis/widgets')
 
@@ -43,6 +48,11 @@ export default {
   },
   props: {
     currentProject: {type: [Array, Object], required: false},
+  },
+  data() {
+    return {
+      currentTab: 'AccountActivity',
+    }
   },
   created() {
     this[action.CLEAR_WIDGETS_DATA](),
@@ -59,10 +69,14 @@ export default {
   },
   methods: {
     ...mapActions([action.CLEAR_WIDGETS_DATA]),
+    stringToPascalCase,
     openTab(pathName) {
       this.$router.push({
         name: pathName,
       })
+    },
+    updateSettingPanel(val) {
+      this.currentTab = stringToPascalCase(val)
     },
   },
 }
