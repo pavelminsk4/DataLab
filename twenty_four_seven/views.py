@@ -16,8 +16,7 @@ class StandardResultsSetPagination(PageNumberPagination):
 
 class ItemViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
-        if self.request.GET:
-            print(self.request.GET.get('status'))
+        if self.request.GET: 
             status = self.request.GET.get('status')
             return Item.objects.filter(status=status)
         return Item.objects.all()

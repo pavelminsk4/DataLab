@@ -28,16 +28,11 @@ export default {
   },
 
   async getItems(projectId, status, page) {
-    if (status === 'Q&A Check') {
-      return fetch(
-        'get',
-        `${moduleName}/projects/${projectId}/items/?page=${page}&page_size=20&status=Q%26A%20Check`
-      )
-    }
-
     return fetch(
       'get',
-      `${moduleName}/projects/${projectId}/items/?page=${page}&page_size=20&status=${status}`
+      `${moduleName}/projects/${projectId}/items/?page=${page}&page_size=20&status=${encodeURIComponent(
+        status
+      )}`
     )
   },
 
