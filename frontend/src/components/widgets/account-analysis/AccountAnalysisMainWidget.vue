@@ -22,6 +22,9 @@ import OptimalPostTime from '@/components/widgets/account-analysis/OptimalPostTi
 import TopPostsByEngagements from '@/components/widgets/account-analysis/TopPostsByEngagements'
 import BestTimesToPost from '@/components/widgets/account-analysis/BestTimesToPost'
 
+import MentionTimeline from '@/components/widgets/account-analysis/mentions/MentionTimeline'
+import MostFrequentMentionMediaTypes from '@/components/widgets/account-analysis/mentions/MostFrequentMentionMediaTypes'
+
 export default {
   name: 'AccountAnalysisMainWidget',
   components: {
@@ -39,6 +42,8 @@ export default {
     OptimalPostTime,
     TopPostsByEngagements,
     BestTimesToPost,
+    MentionTimeline,
+    MostFrequentMentionMediaTypes,
   },
   props: {
     widgetDetails: {type: Object, required: true},

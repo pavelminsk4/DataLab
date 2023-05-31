@@ -483,6 +483,21 @@ export const widgetsConfig = {
     availableTypes: null,
     settingsTabs: ['General', 'Dimensions'],
   },
+
+  mention_timeline: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    defaultChartType: 'BarLineChart',
+    availableTypes: null,
+    settingsTabs: ['General', 'Dimensions'],
+  },
+
+  most_frequent_mention_media_types: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    actionName: action.GET_MOST_FREQUENT_MENTION_MEDIA_TYPES,
+    hasAggregationPeriod: false,
+    defaultChartType: 'DoughnutChart',
+    availableTypes: SIMPLE_CHARTS,
+  },
 }
 
 export const summaryWidgetConfig = [
