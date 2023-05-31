@@ -13,11 +13,15 @@
         />
         <BaseTabs
           :main-settings="tabs"
-          default-tab="Account Activity"
+          :default-tab="currentTab"
           class="tabs"
+          @update-setting-panel="updateSettingPanel"
         />
       </div>
-      <router-view :current-project="currentProject"></router-view>
+      <router-view
+        :current-project="currentProject"
+        :current-tab="currentTab"
+      ></router-view>
     </div>
   </MainLayout>
 </template>
@@ -44,6 +48,11 @@ export default {
   props: {
     currentProject: {type: [Array, Object], required: false},
   },
+  data() {
+    return {
+      currentTab: 'Account Activity',
+    }
+  },
   created() {
     this[action.CLEAR_WIDGETS_DATA](),
       (this.navUrls = [
@@ -63,6 +72,9 @@ export default {
       this.$router.push({
         name: pathName,
       })
+    },
+    updateSettingPanel(val) {
+      this.currentTab = val
     },
   },
 }

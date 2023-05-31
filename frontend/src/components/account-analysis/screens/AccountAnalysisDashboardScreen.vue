@@ -13,6 +13,7 @@ import {action, get} from '@store/constants'
 
 import {accountAnalysisWidgetsList} from '@/lib/constants'
 import {getWidgetDetails} from '@lib/utilities'
+import {stringToPascalCase} from '@/lib/utilities'
 
 import WidgetsList from '@/components/widgets/WidgetsList'
 
@@ -23,6 +24,7 @@ export default {
   components: {WidgetsList},
   props: {
     currentProject: {type: Object, required: true},
+    currentTab: {type: String, required: true},
   },
   computed: {
     ...mapGetters({
@@ -30,8 +32,10 @@ export default {
     }),
     selectedWidgets: {
       get() {
+        const tab = stringToPascalCase(this.currentTab)
+
         if (!this.availableWidgets) return
-        return accountAnalysisWidgetsList.dashboard
+        return accountAnalysisWidgetsList[tab].dashboard
           .map((widget) => {
             if (this.availableWidgets[widget.name]) {
               return {

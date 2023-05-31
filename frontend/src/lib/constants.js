@@ -105,25 +105,31 @@ export const socialWidgetsList = {
 }
 
 export const accountAnalysisWidgetsList = {
-  dashboard: [
-    {name: 'summary', isFullWidth: true, minHeight: 230},
-    {name: 'profile_timeline', isFullWidth: true},
-    {name: 'follower_growth', isFullWidth: true},
-    {name: 'most_frequent_post_types', isFullWidth: false},
-    {name: 'most_frequent_media_types', isFullWidth: false},
-    {name: 'most_engaging_post_types', isFullWidth: false},
-    {name: 'most_engaging_media_types', isFullWidth: false},
-    {name: 'top_posts_by_engagements', isFullWidth: true},
-  ],
-  optimization: [
-    {name: 'summary', isFullWidth: true, minHeight: 230},
-    {name: 'optimal_post_time', isFullWidth: true},
-    {name: 'best_times_to_post', isFullWidth: false},
-    {name: 'optimal_post_length', isFullWidth: false},
-    {name: 'top_hashtags', isFullWidth: true},
-    {name: 'optimal_number_of_hashtags', isFullWidth: true},
-    {name: 'average_engagements_by_day', isFullWidth: true},
-  ],
+  AccountActivity: {
+    dashboard: [
+      {name: 'summary', isFullWidth: true, minHeight: 230},
+      {name: 'profile_timeline', isFullWidth: true},
+      {name: 'follower_growth', isFullWidth: true},
+      {name: 'most_frequent_post_types', isFullWidth: false},
+      {name: 'most_frequent_media_types', isFullWidth: false},
+      {name: 'most_engaging_post_types', isFullWidth: false},
+      {name: 'most_engaging_media_types', isFullWidth: false},
+      {name: 'top_posts_by_engagements', isFullWidth: true},
+    ],
+    optimization: [
+      {name: 'summary', isFullWidth: true, minHeight: 230},
+      {name: 'optimal_post_time', isFullWidth: true},
+      {name: 'best_times_to_post', isFullWidth: false},
+      {name: 'optimal_post_length', isFullWidth: false},
+      {name: 'top_hashtags', isFullWidth: true},
+      {name: 'optimal_number_of_hashtags', isFullWidth: true},
+      {name: 'average_engagements_by_day', isFullWidth: true},
+    ],
+  },
+
+  Mentions: {
+    dashboard: [{name: 'profile_timeline', isFullWidth: true}],
+  },
 }
 
 export const PREDEFINED_COLORS = ['#EE51AF', '#00B884', '#516BEE', '#DD8500']
