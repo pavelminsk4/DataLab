@@ -1,6 +1,6 @@
 <template>
   <post-card-layout
-    :sentiment="postDetails.sentiment"
+    :sentiment="postDetails.sentiment || ''"
     :post-image="img"
     :post-id="postDetails.id"
     :is-clipping-widget="isClippingWidget"

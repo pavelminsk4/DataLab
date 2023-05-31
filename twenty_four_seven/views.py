@@ -15,7 +15,11 @@ class StandardResultsSetPagination(PageNumberPagination):
 
 
 class ItemViewSet(viewsets.ModelViewSet):
-    queryset = Item.objects.all()
+    def get_queryset(self):
+        if self.request.GET: 
+            status = self.request.GET.get('status')
+            return Item.objects.filter(status=status)
+        return Item.objects.all()
     serializer_class = ItemSerializer
     pagination_class = StandardResultsSetPagination
 

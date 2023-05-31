@@ -1,13 +1,24 @@
 <template>
   <TFSPostCardLayout
-    :sentiment="postDetails.sentiment"
+    :sentiment="postDetails.sentiment || ''"
     :category="postDetails.category"
     :date="this.defaultDate(this.postDetails.entry_published)"
     :source="this.postDetails.feedlink__sourceurl"
     :post-image="img"
     :post-id="postDetails.id"
+    :status="cardStatus"
     background-color="#EFFCFE"
   >
+    <template #header>
+      <TFSCardStatuses
+        v-if="isStatusShow"
+        :status="cardStatus"
+        :post-id="postDetails.id"
+        :isBack="isBack"
+        @change-status-card="changeStatusCard"
+      />
+    </template>
+
     <template #title>
       <a
         class="title"
@@ -53,16 +64,22 @@ import {defaultDate} from '@lib/utilities'
 
 import OnlineIcon from '@/components/icons/OnlineIcon'
 import TFSPostCardLayout from '@/components/twenty-four-seven/TFSPostCardLayout'
+import TFSCardStatuses from '@/components/twenty-four-seven/TFSCardStatuses'
 
 export default {
   name: 'TFSPostCard',
   components: {
     OnlineIcon,
     TFSPostCardLayout,
+    TFSCardStatuses,
   },
   props: {
     img: {type: String, required: false},
+    itemId: {type: Number, required: true},
+    isBack: {type: Boolean, default: true},
+    cardStatus: {type: String, required: false},
     postDetails: {type: Object, required: true},
+    isStatusShow: {type: Boolean, default: true},
   },
   computed: {
     ...mapGetters({
@@ -87,6 +104,9 @@ export default {
     getUrl(source) {
       if (!source) return ''
       return source.includes('http') ? source : `http://${source}`
+    },
+    changeStatusCard(newStatus) {
+      this.$emit('change-status', this.itemId, newStatus, this.cardStatus)
     },
   },
 }

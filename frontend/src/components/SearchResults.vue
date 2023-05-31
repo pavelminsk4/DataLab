@@ -15,6 +15,8 @@
         :is-clipping-post="selectedClippingElement(item.id)"
         :img="cardImg(item)"
         :post-details="item"
+        :item-id="item.id"
+        :is-status-show="false"
         class="clipping-card"
       />
     </div>
@@ -170,7 +172,10 @@ export default {
 .tfsworkspacestep3-cards {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 32px;
+
+  margin: 15px 0;
 }
 
 .pagination-wrapper {

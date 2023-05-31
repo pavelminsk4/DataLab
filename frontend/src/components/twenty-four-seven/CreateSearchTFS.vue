@@ -35,7 +35,8 @@ import BaseRadio from '@/components/BaseRadio'
 import SimpleModeTab from '@/components/workspace/SimpleModeTab'
 import OnlineIcon from '@/components/icons/OnlineIcon'
 
-const {mapActions: mapTFSActions} = createNamespacedHelpers('twentyFourSeven')
+const {mapActions: mapTFSActions, mapState: mapTFSState} =
+  createNamespacedHelpers('twentyFourSeven')
 
 export default {
   name: 'CreateSearchTFS',
@@ -60,6 +61,10 @@ export default {
       keywords: (state) => state.keywords,
       newWorkspace: (state) => state.newTFSWorkspace,
       newProject: (state) => state.newTFSProject,
+    }),
+    ...mapTFSState({
+      newProjectId: (state) => state.newProjectId,
+      newWorkspaceId: (state) => state.newWorkspaceId,
     }),
     ...mapGetters({department: get.DEPARTMENT}),
     defaultDateRange() {
@@ -118,6 +123,7 @@ export default {
           sentiment_dimensions: [],
           query_filter: [],
           department_id: this.department.id,
+          expert_mode: false,
         })
       } catch (e) {
         console.log(e)

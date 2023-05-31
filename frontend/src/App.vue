@@ -99,6 +99,8 @@ export default {
 
   --clipping-card: #242733;
 
+  --picking-card-color: #effcfe;
+
   --header-height: 52px;
 
   --hover-circle-gradient: radial-gradient(

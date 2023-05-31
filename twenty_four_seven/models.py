@@ -89,12 +89,12 @@ def attach_items(sender, instance, created, **kwargs):
 
 class Item(models.Model):
     STATUS_CHOICES = [
-        ('PCK', 'Picking'),
-        ('SUM', 'Summary'),
-        ('QA', 'Q&A Check'),
-        ('PING', 'Publishing'),
-        ('PED', 'Published'),
-        ('IRR', 'Irrelevant'),
+        ('Picking', 'Picking'),
+        ('Summary', 'Summary'),
+        ('Q&A Check', 'Q&A Check'),
+        ('Publishing', 'Publishing'),
+        ('Published', 'Published'),
+        ('Irrelevant','Irrelevant'),
     ]
 
     online_post = models.ForeignKey(Post, on_delete=models.CASCADE, blank=True, null=True)

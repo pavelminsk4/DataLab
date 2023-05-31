@@ -48,7 +48,7 @@ export default {
     },
   },
   created() {
-    if (!this.widgetData.length) {
+    if (!this.widgetData) {
       this[action.GET_TOP_AUTHORS_BY_GENDER]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,

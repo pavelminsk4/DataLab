@@ -1,10 +1,10 @@
 <template>
   <div
-    :style="`background-color: ${backgroundColor}`"
+    :style="`background-color: ${cardBackground[status]}`"
     class="search-result-card"
   >
     <div class="header">
-      <TFSCardStatuses />
+      <slot name="header"></slot>
       <div class="additional-info">
         <span>{{ date }}</span>
         <span>{{ source }}</span>
@@ -47,28 +47,35 @@ import {capitalizeFirstLetter} from '@lib/utilities'
 import HashtagIcon from '@/components/icons/HashtagIcon'
 import SentimentChips from '@/components/SentimentChips'
 
-import TFSCardStatuses from '@/components/twenty-four-seven/TFSCardStatuses'
-
 export default {
   name: 'TFSPostCardLayout',
   components: {
     SentimentChips,
     HashtagIcon,
-    TFSCardStatuses,
   },
   props: {
-    postId: {type: Number},
+    postId: {type: [Number, String]},
     sentiment: {type: String},
     category: {type: String},
     source: {type: String},
     date: {type: String},
-    backgroundColor: {type: String},
+    status: {type: String},
   },
   computed: {
     ...mapGetters({isLoading: get.LOADING_WIDGETS}),
     isLoadingClippingWidget() {
       return this.isLoading.clippingWidget
     },
+  },
+  created() {
+    this.cardBackground = {
+      Picking: '#EFF9FE',
+      Summary: '#E8EBFF',
+      'Q&A Check': '#FFF2E9',
+      Publishing: '#F4FFEF',
+      Published: '#FAF0FF',
+      Irrelevant: '#C6C9CC',
+    }
   },
   methods: {
     capitalizeFirstLetter,
@@ -85,6 +92,7 @@ export default {
   background-color: var(--background-secondary-color);
 
   color: var(--typography-title-color);
+  background-color: var(--picking-card-color);
 
   .header {
     padding: 12px 20px 0;
@@ -138,7 +146,6 @@ export default {
       .type-request {
         display: flex;
         align-items: center;
-        justify-content: center;
         gap: 8px;
 
         .type {
