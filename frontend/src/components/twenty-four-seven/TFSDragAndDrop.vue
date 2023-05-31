@@ -6,7 +6,7 @@
       :id="itemStatus.status"
       class="drop-zone"
       @drop="onDrop($event, index)"
-      @dragover="AddBGToAvailColumn($event)"
+      @dragover="addBGToAvailColumn($event)"
       @mousedown="getCurrentColumnId(index)"
       @dragenter.prevent
     >
@@ -121,7 +121,7 @@ export default {
       )
     },
 
-    AddBGToAvailColumn($event) {
+    addBGToAvailColumn($event) {
       $event.preventDefault()
 
       this.statuses[this.currentColumnId].allowedToDarag.filter((el) => {
