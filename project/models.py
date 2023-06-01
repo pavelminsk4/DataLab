@@ -8,6 +8,7 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save, pre_delete
 from ndarraydjango.fields import NDArrayField
 import numpy as np
+from pgvector.django import VectorField
 
 class Workspace(models.Model):
   title = models.CharField(max_length=100)
@@ -258,6 +259,7 @@ class Post(models.Model):
   updatedsentiment = models.DecimalField(max_digits=4, decimal_places=2,default=0)
   is_sentiment = models.BooleanField(default=False)
   summary_vector = ArrayField(NDArrayField(shape=(384), dtype=np.float32), blank=True)
+  vector = VectorField(dimensions=384,default=tuple(np.zeros(384)))
 
   class Meta:
     indexes = [
