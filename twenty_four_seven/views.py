@@ -6,6 +6,7 @@ from django.http import JsonResponse
 import json
 from .whatsapp import *
 from rest_framework.pagination import PageNumberPagination
+from pgvector.django import CosineDistance
 
 
 class StandardResultsSetPagination(PageNumberPagination):
@@ -58,3 +59,19 @@ def whatsapp(request):
     message_content = body['message_content']
     res = whatsappp_sender(phone_number, message_content)
     return JsonResponse(res, safe=False)
+
+
+class RelatedContentViewSet(viewsets.ModelViewSet):
+    def get_queryset(self):
+        item_id = self.request.GET['item']
+        return top_similar(item_id)
+
+    serializer_class = ItemSerializer
+
+
+def top_similar(item_id):
+    item = Item.objects.get(id=item_id)
+    project = ProjectTwentyFourSeven.objects.get(id=item.project.id)
+    items = project.tfs_project_items
+    items = items.order_by(CosineDistance('online_post__vector', item.online_post.vector))[:5]
+    return items

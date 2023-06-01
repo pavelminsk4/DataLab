@@ -13,6 +13,7 @@ router.register('projects', TwentyFourSevenProjectViewSet, basename='tfs_project
 
 items_router = routers.NestedSimpleRouter(router, r'projects', lookup='project')
 items_router.register(r'items', ItemViewSet, basename='project-items')
+router.register('related_content', RelatedContentViewSet, basename='tfs_related_content')
 
 urlpatterns += router.urls
 urlpatterns += items_router.urls
