@@ -1,6 +1,5 @@
 <template>
   <BestTimesToPostWidget
-    v-if="bestTimesToPost.length"
     v-bind="$attrs"
     :widget-details="widgetDetails"
     :widget-data="bestTimesToPost"

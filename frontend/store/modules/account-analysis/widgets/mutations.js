@@ -67,6 +67,14 @@ export default {
     state.audienceMentionTime = data
   },
 
+  [mutator.SET_TOP_MENTIONS_BY_ENGAGEMENTS](state, data) {
+    state.topMentionsByEngagements = data
+  },
+
+  [mutator.SET_AVERAGE_ENGAGEMENTS_BY_DAY_FOR_MENTIONS](state, data) {
+    state.averageEngagementsByDayForMentions = data
+  },
+
   [mutator.CLEAR_WIDGETS_DATA](state) {
     for (const widget in state) {
       state[widget] = {}

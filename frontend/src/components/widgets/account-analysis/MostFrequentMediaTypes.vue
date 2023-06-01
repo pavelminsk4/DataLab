@@ -1,6 +1,6 @@
 <template>
   <VolumeWidget
-    v-if="widgets"
+    v-if="!isAllEmptyFields(mostFrequentMediaTypes)"
     v-bind="$attrs"
     :widget-details="widgetDetails"
     :labels="labels"
@@ -13,6 +13,7 @@ import {createNamespacedHelpers} from 'vuex'
 import {get, action} from '@store/constants'
 
 import VolumeWidget from '@/components/widgets/VolumeWidget.vue'
+import {isAllEmptyFields} from '@/lib/utilities'
 
 const {mapGetters, mapActions} = createNamespacedHelpers(
   'accountAnalysis/widgets'
@@ -45,7 +46,7 @@ export default {
     },
   },
   created() {
-    if (!this.mostFrequentMediaTypes.length) {
+    if (isAllEmptyFields(this.mostFrequentMediaTypes)) {
       this[action.GET_MOST_FREQUENT_MEDIA_TYPES]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,
@@ -54,6 +55,7 @@ export default {
   },
   methods: {
     ...mapActions([action.GET_MOST_FREQUENT_MEDIA_TYPES]),
+    isAllEmptyFields,
   },
 }
 </script>

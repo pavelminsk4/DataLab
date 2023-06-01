@@ -10,33 +10,32 @@
         />
       </div> -->
     </section>
-    <section class="posts">
-      <AccountAnalysisPostCard
-        v-for="post in findedposts"
-        :post-details="post"
-        :key="post.id"
-      />
+    <section v-if="findedposts.length">
+      <component :is="`${currentTab}PostsLayout`" :posts="findedposts" />
+      <div class="pagination-wrapper">
+        <PaginationControlPanel
+          v-model="currentPage"
+          :pages="numberOfPages"
+          :posts-on-page="postsOnPage"
+          :count-posts="countPosts"
+          @update-page="updatePage"
+        />
+      </div>
     </section>
 
-    <div class="pagination-wrapper">
-      <PaginationControlPanel
-        v-model="currentPage"
-        :pages="numberOfPages"
-        :posts-on-page="postsOnPage"
-        :count-posts="countPosts"
-        @update-page="updatePage"
-      />
-    </div>
+    <section v-else class="no-posts">
+      <img src="@/assets/account-analysis/no-posts.svg" alt="No posts image" />
+      <span> No posts here&#128532;</span>
+    </section>
   </section>
 </template>
 
 <script>
 import {action} from '@store/constants'
 import {createNamespacedHelpers, mapState} from 'vuex'
-
-import AccountAnalysisPostCard from '@/components/account-analysis/AccountAnalysisPostCard'
 // import BaseInput from '@/components/common/BaseInput'
 import PaginationControlPanel from '@/components/PaginationControlPanel'
+import AccountActivityPostsLayout from '@/components/account-analysis/AccountActivityPostsLayout'
 
 const {mapState: mapStateAccountAnalysis, mapActions} =
   createNamespacedHelpers('accountAnalysis')
@@ -44,12 +43,13 @@ const {mapState: mapStateAccountAnalysis, mapActions} =
 export default {
   name: 'AccountAnalysisPostsScreen',
   components: {
-    AccountAnalysisPostCard,
     // BaseInput,
     PaginationControlPanel,
+    AccountActivityPostsLayout,
   },
   props: {
     currentProject: {type: Object, required: true},
+    currentTab: {type: String, required: true},
   },
   data() {
     return {
@@ -60,21 +60,34 @@ export default {
     }
   },
   computed: {
-    ...mapStateAccountAnalysis(['posts']),
+    ...mapStateAccountAnalysis(['accountActivityPosts', 'mentionsPosts']),
     ...mapState(['numberOfPages']),
     findedposts() {
-      return this.posts.filter((post) => post.text.includes(this.searchText))
+      const currentPosts =
+        this.currentTab === 'Mentions'
+          ? this.mentionsPosts
+          : this.accountActivityPosts
+      return currentPosts.filter((post) => post.text.includes(this.searchText))
     },
   },
   created() {
-    if (!this.posts.length) {
+    if (!this.accountActivityPosts.length) {
+      this.getPosts(this.currentPage, this.countPosts)
+    }
+
+    if (!this.mentionsPosts.length) {
       this.getPosts(this.currentPage, this.countPosts)
     }
   },
   methods: {
-    ...mapActions([action.GET_POSTS]),
+    ...mapActions([
+      action.GET_ACCOUNT_ACTIVITY_POSTS,
+      action.GET_MENTIONS_POSTS,
+    ]),
     getPosts(page, countPosts) {
-      this[action.GET_POSTS]({
+      const actionName =
+        this.currentTab === 'Mentions' ? 'MENTIONS' : 'ACCOUNT_ACTIVITY'
+      this[action[`GET_${actionName}_POSTS`]]({
         projectId: this.currentProject.id,
         value: {posts_per_page: countPosts, page_number: page},
       })
@@ -113,14 +126,6 @@ export default {
     }
   }
 
-  .posts {
-    display: grid;
-    grid-template-columns: 45% 2fr;
-
-    gap: 50px;
-    margin-bottom: 50px;
-  }
-
   .pagination-wrapper {
     position: absolute;
     bottom: 0;
@@ -135,6 +140,15 @@ export default {
 
     border: 1px solid var(--input-border-color);
     background-color: var(--background-primary-color);
+  }
+
+  .no-posts {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding-bottom: 55px;
   }
 }
 </style>

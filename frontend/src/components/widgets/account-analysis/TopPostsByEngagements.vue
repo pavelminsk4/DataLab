@@ -37,7 +37,7 @@ export default {
   created() {
     this.tableHeader = [
       {name: '', width: '3%'},
-      {name: 'Tweet caption', width: '50%'},
+      {name: 'Tweet caption', width: '40%'},
       {name: 'Sentiment', width: '10%'},
       {name: 'Engagements', width: '8%'},
       {name: 'ENGMT Rate', width: '8%'},

@@ -1,14 +1,15 @@
 <template>
   <OptimalPostLengthWidget
     :widget-details="widgetDetails"
-    :widget-data="optimalPostLength"
+    :widget-data="averageEngagementsByDayForMentions"
+    :colors="colors"
   />
 </template>
 
 <script>
 import {createNamespacedHelpers} from 'vuex'
 import {get, action} from '@store/constants'
-
+import {isAllEmptyFields} from '@lib/utilities'
 import OptimalPostLengthWidget from '@/components/widgets/OptimalPostLengthWidget'
 
 const {mapActions, mapGetters} = createNamespacedHelpers(
@@ -16,24 +17,24 @@ const {mapActions, mapGetters} = createNamespacedHelpers(
 )
 
 export default {
-  name: 'FollowerGrowth',
+  name: 'AverageEngagementsByDayForMentions',
   props: {
     widgetDetails: {type: Object, required: true},
   },
-  components: {
-    OptimalPostLengthWidget,
-  },
+  components: {OptimalPostLengthWidget},
   computed: {
     ...mapGetters({
       accountAnalysisWidgets: get.ACCOUNT_ANALYSIS_WIDGETS,
     }),
-    optimalPostLength() {
-      return this.accountAnalysisWidgets.optimalPostLength
+
+    averageEngagementsByDayForMentions() {
+      return this.accountAnalysisWidgets.averageEngagementsByDayForMentions
     },
   },
   created() {
-    if (!this.optimalPostLength.length) {
-      this[action.GET_OPTIMAL_POST_LENGTH]({
+    this.colors = ['#FF0099']
+    if (isAllEmptyFields(this.averageEngagementsByDayForMentions)) {
+      this[action.GET_AVERAGE_ENGAGEMENTS_BY_DAY_FOR_MENTIONS]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,
         value: this.widgetDetails.aggregation_period,
@@ -41,7 +42,10 @@ export default {
     }
   },
   methods: {
-    ...mapActions([action.GET_OPTIMAL_POST_LENGTH]),
+    ...mapActions([action.GET_AVERAGE_ENGAGEMENTS_BY_DAY_FOR_MENTIONS]),
+    isAllEmptyFields,
   },
 }
 </script>
+
+<style lang="scss" scoped></style>

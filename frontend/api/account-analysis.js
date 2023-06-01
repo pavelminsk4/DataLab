@@ -31,8 +31,13 @@ export default {
     return fetch('delete', `${moduleName}/projects/${projectId}/`)
   },
 
-  async getPosts(projectId, value) {
+  async getAccountActivityPosts(projectId, value) {
     return fetch('post', `${moduleName}/search_posts/${projectId}`, value)
+  },
+
+  async getMentionsPosts() {
+    return []
+    // return fetch('post', `${moduleName}/search_posts/${projectId}`, value)
   },
 
   // Widgets
@@ -181,6 +186,22 @@ export default {
     return fetch(
       'post',
       `${moduleName}/audience_mention_time_widget/${projectId}/${widgetId}`,
+      {aggregation_period: value}
+    )
+  },
+
+  async getTopMentinosByEngagements(projectId, widgetId, value) {
+    return fetch(
+      'post',
+      `${moduleName}/top_mentions_by_engagements_widget/${projectId}/${widgetId}`,
+      {aggregation_period: value}
+    )
+  },
+
+  async getAverageEngagemensByDayForMentions(projectId, widgetId, value) {
+    return fetch(
+      'post',
+      `${moduleName}/average_engagements_by_day_for_mentions_widget/${projectId}/${widgetId}`,
       {aggregation_period: value}
     )
   },

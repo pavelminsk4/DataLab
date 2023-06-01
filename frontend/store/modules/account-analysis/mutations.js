@@ -34,7 +34,11 @@ export default {
     state.availableWidgets = data
   },
 
-  [mutator.SET_POSTS](state, data) {
-    state.posts = data
+  [mutator.SET_ACCOUNT_ACTIVITY_POSTS](state, data) {
+    state.accountActivityPosts = data
+  },
+
+  [mutator.SET_MENTIONS_POSTS](state, data) {
+    state.mentionsPosts = data
   },
 }
