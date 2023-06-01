@@ -310,12 +310,12 @@ export default {
   ) {
     commit(mutator.SET_LOADING, true, {root: true})
     try {
-      const topMentinosByEngagements =
-        await api.accountAnalysis.getTopMentinosByEngagements(
+      const topMentionsByEngagements =
+        await api.accountAnalysis.getTopMentionsByEngagements(
           projectId,
           widgetId
         )
-      commit(mutator.SET_TOP_MENTIONS_BY_ENGAGEMENTS, topMentinosByEngagements)
+      commit(mutator.SET_TOP_MENTIONS_BY_ENGAGEMENTS, topMentionsByEngagements)
     } catch (e) {
       console.log(e)
     } finally {

@@ -23,7 +23,7 @@
         <td>
           <BaseChips :chipsType="item.sentiment" />
         </td>
-        <td>{{ item.engagement }}</td>
+        <td>{{ item.engagements }}</td>
         <td>{{ item.likes }}</td>
         <td>{{ item.retweets }}</td>
         <td class="date-cell">

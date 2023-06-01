@@ -13,7 +13,7 @@ def top_mentions_by_engagements(pk, widget_pk):
     for elem in top_posts:
         res = {}
         res['alias'] = elem.user_alias
-        res['engagement'] = elem.count_favorites + elem.count_retweets
+        res['engagements'] = elem.count_favorites + elem.count_retweets
         res['date'] = elem.date.strftime('%b %d, %Y %I:%M %p')
         res['name'] = elem.user_name
         res['likes'] = elem.count_favorites
