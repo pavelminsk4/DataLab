@@ -1,6 +1,6 @@
 <template>
   <OptimalPostLengthWidget
-    v-if="!isAllEmptyFields(optimalNumberOfHashtags)"
+    v-if="!isAllFieldsEmpty(optimalNumberOfHashtags)"
     :widget-details="widgetDetails"
     :widget-data="optimalNumberOfHashtags"
     :colors="colors"
@@ -12,7 +12,7 @@ import {createNamespacedHelpers} from 'vuex'
 import {get, action} from '@store/constants'
 
 import OptimalPostLengthWidget from '@/components/widgets/OptimalPostLengthWidget'
-import {isAllEmptyFields} from '@lib/utilities'
+import {isAllFieldsEmpty} from '@lib/utilities'
 
 const {mapActions, mapGetters} = createNamespacedHelpers(
   'accountAnalysis/widgets'
@@ -36,7 +36,7 @@ export default {
   },
   created() {
     this.colors = ['#5A12B3']
-    if (isAllEmptyFields(this.optimalNumberOfHashtags)) {
+    if (isAllFieldsEmpty(this.optimalNumberOfHashtags)) {
       this[action.GET_OPTIMAL_NUMBER_OF_HASHTAGS]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,
@@ -46,7 +46,7 @@ export default {
   },
   methods: {
     ...mapActions([action.GET_OPTIMAL_NUMBER_OF_HASHTAGS]),
-    isAllEmptyFields,
+    isAllFieldsEmpty,
   },
 }
 </script>

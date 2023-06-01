@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import {isAllEmptyFields} from '@lib/utilities'
+import {isAllFieldsEmpty} from '@lib/utilities'
 
 import SentimentChips from '@/components/SentimentChips'
 import BaseChips from '@/components/BaseChips'
@@ -49,7 +49,7 @@ export default {
   },
   methods: {
     checkType(type) {
-      if (!isAllEmptyFields(this.postDetails))
+      if (!isAllFieldsEmpty(this.postDetails))
         return this.postDetails.type.includes(type)
     },
   },

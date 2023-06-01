@@ -10,7 +10,7 @@
 import {mapGetters, createNamespacedHelpers} from 'vuex'
 import {get} from '@store/constants'
 import {action} from '@store/constants'
-import {isAllEmptyFields} from '@lib/utilities'
+import {isAllFieldsEmpty} from '@lib/utilities'
 
 import SummaryWidget from '@/components/widgets/SummaryWidget'
 
@@ -35,7 +35,7 @@ export default {
     },
   },
   async created() {
-    if (isAllEmptyFields(this.summary)) {
+    if (isAllFieldsEmpty(this.summary)) {
       this[action.GET_SUMMARY_WIDGET]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,

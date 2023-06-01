@@ -190,7 +190,7 @@ export default {
     )
   },
 
-  async getTopMentinosByEngagements(projectId, widgetId, value) {
+  async getTopMentionsByEngagements(projectId, widgetId, value) {
     return fetch(
       'post',
       `${moduleName}/top_mentions_by_engagements_widget/${projectId}/${widgetId}`,

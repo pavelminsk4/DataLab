@@ -104,7 +104,7 @@
 <script>
 import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
-import {isAllEmptyFields} from '@lib/utilities'
+import {isAllFieldsEmpty} from '@lib/utilities'
 
 import AddUsersField from '@/components/AddUsersField'
 import BaseInput from '@/components/common/BaseInput'
@@ -297,7 +297,7 @@ export default {
         ? null
         : defaultErrorMessage
 
-      return isAllEmptyFields(this.errors)
+      return isAllFieldsEmpty(this.errors)
     },
     selectUser(item) {
       this.usersId.push(item.id)

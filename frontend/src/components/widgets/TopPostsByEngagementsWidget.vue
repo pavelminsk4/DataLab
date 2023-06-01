@@ -19,7 +19,7 @@
         <td>
           <BaseChips :chipsType="item.sentiment" />
         </td>
-        <td>{{ item.engagement }}</td>
+        <td>{{ item.engagements }}</td>
         <td>
           {{ item.engmt_rate.toFixed() }}
         </td>

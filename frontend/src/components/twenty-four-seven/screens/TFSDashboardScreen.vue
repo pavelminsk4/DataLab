@@ -10,7 +10,7 @@
 <script>
 import {createNamespacedHelpers} from 'vuex'
 import {action} from '@store/constants'
-import {isAllEmptyFields} from '@/lib/utilities'
+import {isAllFieldsEmpty} from '@/lib/utilities'
 import {defaultStatuses} from '@/lib/configs/tfsStatusesConfig'
 
 import TFSDragAndDrop from '@/components/twenty-four-seven/drag-n-drop/TFSDragAndDrop'
@@ -27,7 +27,7 @@ export default {
     },
   },
   created() {
-    if (isAllEmptyFields(this.items)) {
+    if (isAllFieldsEmpty(this.items)) {
       defaultStatuses.forEach((status) => {
         this[action.GET_TFS_ITEMS]({
           projectId: this.projectId,

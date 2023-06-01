@@ -9,7 +9,7 @@
 <script>
 import {action} from '@store/constants'
 import {createNamespacedHelpers} from 'vuex'
-import {isAllEmptyFields} from '@lib/utilities'
+import {isAllFieldsEmpty} from '@lib/utilities'
 
 import SentimentWidget from '@/components/widgets/SentimentWidget'
 
@@ -25,7 +25,7 @@ export default {
     ...mapState(['sentimentByGender']),
   },
   created() {
-    if (isAllEmptyFields(this.sentimentByGender)) {
+    if (isAllFieldsEmpty(this.sentimentByGender)) {
       this[action.GET_SENTIMENT_BY_GENDER]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,

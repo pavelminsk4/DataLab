@@ -10,13 +10,14 @@
 
 <script>
 import AccountAnalysisPostCard from '@/components/account-analysis/AccountAnalysisPostCard'
+
 export default {
   name: 'AccountActivityPostsLayout',
-  props: {
-    posts: {type: Array, required: true},
-  },
   components: {
     AccountAnalysisPostCard,
+  },
+  props: {
+    posts: {type: Array, required: true},
   },
 }
 </script>

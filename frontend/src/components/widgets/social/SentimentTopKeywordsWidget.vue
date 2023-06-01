@@ -8,7 +8,7 @@
 <script>
 import {action, get} from '@store/constants'
 import {createNamespacedHelpers} from 'vuex'
-import {isAllEmptyFields} from '@/lib/utilities'
+import {isAllFieldsEmpty} from '@/lib/utilities'
 
 import SentimentKeywordsWidget from '@/components/widgets/SentimentKeywordsWidget'
 
@@ -31,7 +31,7 @@ export default {
     },
   },
   created() {
-    if (isAllEmptyFields(this.sentimentTopKeywords)) {
+    if (isAllFieldsEmpty(this.sentimentTopKeywords)) {
       this[action.GET_SENTIMENT_TOP_KEYWORDS]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,
