@@ -508,6 +508,22 @@ export const widgetsConfig = {
     availableTypes: null,
     settingsTabs: ['General', 'Dimensions'],
   },
+
+  top_mentions_by_engagements: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    actionName: action.GET_TOP_MENTIONS_BY_ENGAGEMENTS,
+    hasPreview: false,
+    hasAggregationPeriod: false,
+    availableTypes: null,
+    settingsTabs: ['General', 'Dimensions'],
+  },
+
+  average_engagements_by_day_for_mentions: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    actionName: action.GET_AVERAGE_ENGAGEMENTS_BY_DAY_FOR_MENTIONS,
+    defaultChartType: 'BarChart',
+    availableTypes: SIMPLE_CHARTS,
+  },
 }
 
 export const summaryWidgetConfig = [

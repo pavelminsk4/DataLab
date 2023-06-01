@@ -25,6 +25,8 @@ import BestTimesToPost from '@/components/widgets/account-analysis/BestTimesToPo
 import MentionTimeline from '@/components/widgets/account-analysis/mentions/MentionTimeline'
 import MostFrequentMentionMediaTypes from '@/components/widgets/account-analysis/mentions/MostFrequentMentionMediaTypes'
 import AudienceMentionTime from '@/components/widgets/account-analysis/mentions/AudienceMentionTime'
+import TopMentionsByEngagements from '@/components/widgets/account-analysis/mentions/TopMentionsByEngagements'
+import AverageEngagementsByDayForMentions from '@/components/widgets/account-analysis/mentions/AverageEngagementsByDayForMentions'
 
 export default {
   name: 'AccountAnalysisMainWidget',
@@ -46,6 +48,8 @@ export default {
     MentionTimeline,
     MostFrequentMentionMediaTypes,
     AudienceMentionTime,
+    TopMentionsByEngagements,
+    AverageEngagementsByDayForMentions,
   },
   props: {
     widgetDetails: {type: Object, required: true},

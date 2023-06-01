@@ -7,7 +7,7 @@
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
   >
-    <ul class="container">
+    <ul v-if="widgetData.length" class="container">
       <li v-for="item in widgetData" :key="item.date" class="row">
         <span class="stats__item">{{ item.weekday }}</span>
         <span class="stats__item" style="font-size: 16px">{{ item.time }}</span>

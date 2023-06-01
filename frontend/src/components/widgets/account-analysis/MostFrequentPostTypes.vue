@@ -1,6 +1,6 @@
 <template>
   <VolumeWidget
-    v-if="widgets"
+    v-if="!isAllEmptyFields(mostFrequentPostTypes)"
     v-bind="$attrs"
     :widget-details="widgetDetails"
     :labels="labels"
@@ -12,11 +12,13 @@
 import {createNamespacedHelpers} from 'vuex'
 import {get, action} from '@store/constants'
 
+import {isAllEmptyFields} from '@/lib/utilities'
+
 const {mapGetters, mapActions} = createNamespacedHelpers(
   'accountAnalysis/widgets'
 )
 
-import VolumeWidget from '../VolumeWidget.vue'
+import VolumeWidget from '@/components/widgets/VolumeWidget'
 export default {
   name: 'MostFrequentPostTypes',
   components: {VolumeWidget},
@@ -44,7 +46,7 @@ export default {
     },
   },
   created() {
-    if (!this.mostFrequentPostTypes.length) {
+    if (isAllEmptyFields(this.mostFrequentPostTypes)) {
       this[action.GET_MOST_FREQUENT_POST_TYPES]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,
@@ -53,6 +55,7 @@ export default {
   },
   methods: {
     ...mapActions([action.GET_MOST_FREQUENT_POST_TYPES]),
+    isAllEmptyFields,
   },
 }
 </script>

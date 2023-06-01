@@ -13,17 +13,20 @@
     >
       <tr v-for="item in widgetData" :key="item.date" class="base-table__row">
         <td>
-          <component :is="item.type + 'Icon'" />
+          <UserAvatar :avatar-url="item.picture" />
+        </td>
+        <td class="author-cell">
+          <span>{{ item.name }}</span>
+          <span class="author-cell__alias">@{{ item.alias }}</span>
         </td>
         <td class="tweet-text">{{ item.text }}</td>
         <td>
           <BaseChips :chipsType="item.sentiment" />
         </td>
         <td>{{ item.engagement }}</td>
-        <td>
-          {{ item.engmt_rate.toFixed() }}
-        </td>
-        <td>
+        <td>{{ item.likes }}</td>
+        <td>{{ item.retweets }}</td>
+        <td class="date-cell">
           {{ item.date }}
         </td>
       </tr>
@@ -36,10 +39,7 @@ import ChartsView from '@/components/charts/ChartsView'
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
 import BaseTable from '@/components/common/BaseTable'
 import BaseChips from '@/components/BaseChips'
-
-import textIcon from '@/components/icons/TextIcon'
-import retweetIcon from '@/components/icons/RetweetsIcon'
-import replyIcon from '@/components/icons/ReplyFilledIcon'
+import UserAvatar from '@/components/UserAvatar'
 
 export default {
   name: 'TopPostsByEngagementsWidget',
@@ -48,9 +48,7 @@ export default {
     BaseTable,
     WidgetsLayout,
     BaseChips,
-    textIcon,
-    retweetIcon,
-    replyIcon,
+    UserAvatar,
   },
   props: {
     widgetData: {type: Array, required: true},
@@ -78,10 +76,22 @@ export default {
   }
 
   .tweet-text {
-    max-width: 450px;
+    max-width: 300px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+  .author-cell {
+    display: flex;
+    flex-direction: column;
+
+    &__alias {
+      font-size: 11px;
+    }
+  }
+
+  .date-cell {
+    font-size: 11px;
   }
 }
 </style>

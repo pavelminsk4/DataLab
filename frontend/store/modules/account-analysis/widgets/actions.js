@@ -304,6 +304,47 @@ export default {
     }
   },
 
+  async [action.GET_TOP_MENTIONS_BY_ENGAGEMENTS](
+    {commit},
+    {projectId, widgetId}
+  ) {
+    commit(mutator.SET_LOADING, true, {root: true})
+    try {
+      const topMentinosByEngagements =
+        await api.accountAnalysis.getTopMentinosByEngagements(
+          projectId,
+          widgetId
+        )
+      commit(mutator.SET_TOP_MENTIONS_BY_ENGAGEMENTS, topMentinosByEngagements)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false, {root: true})
+    }
+  },
+
+  async [action.GET_AVERAGE_ENGAGEMENTS_BY_DAY_FOR_MENTIONS](
+    {commit},
+    {projectId, widgetId}
+  ) {
+    commit(mutator.SET_LOADING, true, {root: true})
+    try {
+      const averageEngagementsForMentions =
+        await api.accountAnalysis.getAverageEngagemensByDayForMentions(
+          projectId,
+          widgetId
+        )
+      commit(
+        mutator.SET_AVERAGE_ENGAGEMENTS_BY_DAY_FOR_MENTIONS,
+        averageEngagementsForMentions
+      )
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false, {root: true})
+    }
+  },
+
   [action.CLEAR_WIDGETS_DATA]({commit}) {
     commit(mutator.CLEAR_WIDGETS_DATA)
   },

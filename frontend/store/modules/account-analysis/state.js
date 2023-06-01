@@ -1,11 +1,12 @@
 const state = {
+  accountActivityPosts: [],
+  availableWidgets: [],
+  listOfProfileHandle: [],
   loading: false,
-  workspaces: [],
   newProjectId: null,
   newWorkspaceId: null,
-  listOfProfileHandle: [],
-  availableWidgets: [],
-  posts: [],
+  mentionsPosts: [],
+  workspaces: [],
 }
 
 export default state

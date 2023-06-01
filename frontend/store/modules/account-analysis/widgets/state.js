@@ -1,6 +1,7 @@
 const state = {
   audienceMentionTime: [],
   averageEngagementsByDay: {},
+  averageEngagementsByDayForMentions: {},
   bestTimesToPost: [],
   followerGrowth: {},
   mentionTimeline: [],
@@ -15,6 +16,7 @@ const state = {
   profileTimeline: {},
   summary: {},
   topHashtags: {},
+  topMentionsByEngagements: [],
   topPostsByEngagements: {},
 }
 
