@@ -9,7 +9,7 @@
 <script>
 import {createNamespacedHelpers} from 'vuex'
 import {get, action} from '@store/constants'
-import {isAllEmptyFields} from '@lib/utilities'
+import {isAllFieldsEmpty} from '@lib/utilities'
 import OptimalPostLengthWidget from '@/components/widgets/OptimalPostLengthWidget'
 
 const {mapActions, mapGetters} = createNamespacedHelpers(
@@ -33,7 +33,7 @@ export default {
   },
   created() {
     this.colors = ['#FF0099']
-    if (isAllEmptyFields(this.averageEngagementsByDayForMentions)) {
+    if (isAllFieldsEmpty(this.averageEngagementsByDayForMentions)) {
       this[action.GET_AVERAGE_ENGAGEMENTS_BY_DAY_FOR_MENTIONS]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,
@@ -43,7 +43,7 @@ export default {
   },
   methods: {
     ...mapActions([action.GET_AVERAGE_ENGAGEMENTS_BY_DAY_FOR_MENTIONS]),
-    isAllEmptyFields,
+    isAllFieldsEmpty,
   },
 }
 </script>

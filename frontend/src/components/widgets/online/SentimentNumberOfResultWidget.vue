@@ -9,7 +9,7 @@
 <script>
 import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
-import {isAllEmptyFields} from '@lib/utilities'
+import {isAllFieldsEmpty} from '@lib/utilities'
 
 import SentimentOverallWidget from '@/components/widgets/SentimentOverallWidget'
 
@@ -25,7 +25,7 @@ export default {
     }),
   },
   created() {
-    if (isAllEmptyFields(this.numOfResults)) {
+    if (isAllFieldsEmpty(this.numOfResults)) {
       this[action.GET_SENTIMENT_NUMBER_OF_RESULT]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,

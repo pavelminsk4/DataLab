@@ -16,13 +16,13 @@ const address = {
   houseNumber: null,
 }
 
-describe('isAllEmptyFields', () => {
+describe('isAllFieldsEmpty', () => {
   it('returns true when all fields are empty', () => {
-    expect(utils.isAllEmptyFields(obj)).toBe(true)
+    expect(utils.isAllFieldsEmpty(obj)).toBe(true)
   })
 
   it('returns false when one field is not empty', () => {
-    expect(utils.isAllEmptyFields({...obj, email: 'email@email.com'})).toBe(
+    expect(utils.isAllFieldsEmpty({...obj, email: 'email@email.com'})).toBe(
       false
     )
   })
@@ -30,16 +30,16 @@ describe('isAllEmptyFields', () => {
   describe('when one field is object', () => {
     const newObj = {...obj, address}
     it('returns true if all fields are empty', () => {
-      expect(utils.isAllEmptyFields(newObj)).toBe(true)
+      expect(utils.isAllFieldsEmpty(newObj)).toBe(true)
     })
 
     it('returns false if one field is not empty', () => {
       newObj.address.city = 'City'
-      expect(utils.isAllEmptyFields(newObj)).toBe(false)
+      expect(utils.isAllFieldsEmpty(newObj)).toBe(false)
 
       newObj.phone = 856421324
       newObj.address.city = null
-      expect(utils.isAllEmptyFields(newObj)).toBe(false)
+      expect(utils.isAllFieldsEmpty(newObj)).toBe(false)
     })
   })
 })

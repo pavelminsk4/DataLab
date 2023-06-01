@@ -9,7 +9,7 @@
 <script>
 import {action, get} from '@store/constants'
 import {createNamespacedHelpers} from 'vuex'
-import {isAllEmptyFields} from '@lib/utilities'
+import {isAllFieldsEmpty} from '@lib/utilities'
 
 import SentimentWidget from '@/components/widgets/SentimentWidget'
 
@@ -30,7 +30,7 @@ export default {
     },
   },
   created() {
-    if (isAllEmptyFields(this.sentimentTopLanguages)) {
+    if (isAllFieldsEmpty(this.sentimentTopLanguages)) {
       this[action.GET_SENTIMENT_TOP_LANGUAGES]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,

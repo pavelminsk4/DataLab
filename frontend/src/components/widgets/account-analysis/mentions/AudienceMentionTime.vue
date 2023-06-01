@@ -8,7 +8,7 @@
 <script>
 import {createNamespacedHelpers} from 'vuex'
 import {get, action} from '@store/constants'
-import {isAllEmptyFields} from '@lib/utilities'
+import {isAllFieldsEmpty} from '@lib/utilities'
 
 import TimeMapWidget from '@/components/widgets/TimeMapWidget'
 
@@ -31,7 +31,7 @@ export default {
     },
   },
   created() {
-    if (isAllEmptyFields(this.audienceMentionTime)) {
+    if (isAllFieldsEmpty(this.audienceMentionTime)) {
       this[action.GET_AUDIENCE_MENTION_TIME]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,
@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     ...mapActions([action.GET_AUDIENCE_MENTION_TIME]),
-    isAllEmptyFields,
+    isAllFieldsEmpty,
   },
 }
 </script>

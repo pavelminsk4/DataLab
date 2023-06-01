@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import {isAllEmptyFields} from '@lib/utilities'
+import {isAllFieldsEmpty} from '@lib/utilities'
 
 import BaseInput from '@/components/common/BaseInput'
 import BaseSelect from '@/components/BaseSelect'
@@ -67,7 +67,7 @@ export default {
         this.newTitle = value
         this.errors.titleError = this.newTitle ? null : 'required'
 
-        if (!isAllEmptyFields(this.errors)) return
+        if (!isAllFieldsEmpty(this.errors)) return
         this.$emit('update-general-data', this.newTitle, 'newWidgetTitle')
       },
     },

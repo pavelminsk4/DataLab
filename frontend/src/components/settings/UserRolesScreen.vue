@@ -209,7 +209,7 @@
 <script>
 import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
-import {isAllEmptyFields} from '@lib/utilities'
+import {isAllFieldsEmpty} from '@lib/utilities'
 
 import AddUserIcon from '@/components/icons/AddUserIcon'
 import AreYouSureModal from '@/components/modals/AreYouSureModal'
@@ -405,7 +405,7 @@ export default {
         })
       }
 
-      if (!isAllEmptyFields(this.errors)) return
+      if (!isAllFieldsEmpty(this.errors)) return
 
       await this[action.PUT_USER_DEPARTMENT]({
         email: this.email,
@@ -480,7 +480,7 @@ export default {
       }
       this.errors.email = this.email ? null : defaultErrorMessage
 
-      return isAllEmptyFields(this.errors)
+      return isAllFieldsEmpty(this.errors)
     },
     isActiveUser(user) {
       return this.isExistingUser && this.existingUserData.id === user.id

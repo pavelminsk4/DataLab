@@ -1,6 +1,6 @@
 <template>
   <FollowerGrowthWidget
-    v-if="!isAllEmptyFields(followerGrowth)"
+    v-if="!isAllFieldsEmpty(followerGrowth)"
     :widget-data="followerGrowth"
     :widget-details="widgetDetails"
   />
@@ -10,7 +10,7 @@
 import {createNamespacedHelpers} from 'vuex'
 import {get, action} from '@store/constants'
 import FollowerGrowthWidget from '@/components/widgets/FollowerGrowthWidget'
-import {isAllEmptyFields} from '@lib/utilities'
+import {isAllFieldsEmpty} from '@lib/utilities'
 
 const {mapActions, mapGetters} = createNamespacedHelpers(
   'accountAnalysis/widgets'
@@ -33,7 +33,7 @@ export default {
     },
   },
   created() {
-    if (isAllEmptyFields(this.followerGrowth)) {
+    if (isAllFieldsEmpty(this.followerGrowth)) {
       this[action.GET_FOLLOWER_GROWTH]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,
@@ -43,7 +43,7 @@ export default {
   },
   methods: {
     ...mapActions([action.GET_FOLLOWER_GROWTH]),
-    isAllEmptyFields,
+    isAllFieldsEmpty,
   },
 }
 </script>
