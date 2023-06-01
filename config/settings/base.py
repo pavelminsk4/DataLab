@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'account_analysis.apps.AccountAnalysisConfig',
     'drf_multitokenauth',
     'twenty_four_seven.apps.TwentyFourSevenConfig',
+    'comparison.apps.ComparisonConfig',
 ]
 
 ASGI_APPLICATION = 'config.asgi.application'
