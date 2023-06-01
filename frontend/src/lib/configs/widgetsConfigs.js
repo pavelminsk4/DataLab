@@ -466,6 +466,7 @@ export const widgetsConfig = {
     availableTypes: null,
     settingsTabs: ['General', 'Dimensions'],
   },
+
   top_posts_by_engagements: {
     ...WIDGET_DEFAULT_SETTINGS,
     actionName: action.GET_TOP_POSTS_BY_ENGAGEMENTS,
@@ -497,6 +498,15 @@ export const widgetsConfig = {
     hasAggregationPeriod: false,
     defaultChartType: 'DoughnutChart',
     availableTypes: SIMPLE_CHARTS,
+  },
+
+  audience_mention_time: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    actionName: action.GET_AUDIENCE_MENTION_TIME,
+    hasAggregationPeriod: false,
+    defaultChartType: 'HeatmapChart',
+    availableTypes: null,
+    settingsTabs: ['General', 'Dimensions'],
   },
 }
 

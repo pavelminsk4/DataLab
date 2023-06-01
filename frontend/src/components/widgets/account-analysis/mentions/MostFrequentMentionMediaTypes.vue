@@ -12,7 +12,7 @@
 import {createNamespacedHelpers} from 'vuex'
 import {get, action} from '@store/constants'
 
-import VolumeWidget from '@/components/widgets/VolumeWidget.vue'
+import VolumeWidget from '@/components/widgets/VolumeWidget'
 
 const {mapGetters, mapActions} = createNamespacedHelpers(
   'accountAnalysis/widgets'

@@ -291,6 +291,19 @@ export default {
     }
   },
 
+  async [action.GET_AUDIENCE_MENTION_TIME]({commit}, {projectId, widgetId}) {
+    commit(mutator.SET_LOADING, true, {root: true})
+    try {
+      const audienceMentionTime =
+        await api.accountAnalysis.getAudienceMentionTime(projectId, widgetId)
+      commit(mutator.SET_AUDIENCE_MENTION_TIME, audienceMentionTime)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false, {root: true})
+    }
+  },
+
   [action.CLEAR_WIDGETS_DATA]({commit}) {
     commit(mutator.CLEAR_WIDGETS_DATA)
   },

@@ -1,4 +1,5 @@
 const state = {
+  audienceMentionTime: [],
   averageEngagementsByDay: {},
   bestTimesToPost: [],
   followerGrowth: {},

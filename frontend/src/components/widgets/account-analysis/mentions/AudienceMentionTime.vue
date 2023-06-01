@@ -1,7 +1,7 @@
 <template>
   <TimeMapWidget
     :widget-details="widgetDetails"
-    :widget-data="optimalPostTime"
+    :widget-data="audienceMentionTime"
   />
 </template>
 
@@ -17,7 +17,7 @@ const {mapActions, mapGetters} = createNamespacedHelpers(
 )
 
 export default {
-  name: 'OptimalPostTime',
+  name: 'AudienceMentionTime',
   props: {
     widgetDetails: {type: Object, required: true},
   },
@@ -26,13 +26,13 @@ export default {
     ...mapGetters({
       accountAnalysisWidgets: get.ACCOUNT_ANALYSIS_WIDGETS,
     }),
-    optimalPostTime() {
-      return this.accountAnalysisWidgets.optimalPostTime
+    audienceMentionTime() {
+      return this.accountAnalysisWidgets.audienceMentionTime
     },
   },
   created() {
-    if (isAllEmptyFields(this.optimalPostTime)) {
-      this[action.GET_OPTIMAL_POST_TIME]({
+    if (isAllEmptyFields(this.audienceMentionTime)) {
+      this[action.GET_AUDIENCE_MENTION_TIME]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,
         value: this.widgetDetails.aggregation_period,
@@ -40,7 +40,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions([action.GET_OPTIMAL_POST_TIME]),
+    ...mapActions([action.GET_AUDIENCE_MENTION_TIME]),
     isAllEmptyFields,
   },
 }
