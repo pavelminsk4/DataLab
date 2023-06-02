@@ -34,8 +34,10 @@
           :is-back="postInfo.is_back"
           :card-status="postInfo.status"
           :item-id="postInfo.id"
+          :is-show-work-button="true"
           class="post-card"
           @change-status="changeStatus"
+          @open-modal="$emit('open-modal', postInfo)"
         />
       </div>
     </div>
@@ -99,12 +101,13 @@ export default {
       )
     },
 
-    addBGToAvailColumn($event) {
+    async addBGToAvailColumn($event) {
       $event.preventDefault()
 
-      this.statuses[this.currentColumnId].allowedToDrag.filter((el) => {
+      this.newAreaId = $event.target.id
+      await this.statuses[this.currentColumnId].allowedToDrag.filter((el) => {
         if (el === $event.target.id) {
-          this.newAreaId = $event.target.id
+          console.log(this.newAreaId)
           $event.target.style.background = '#DAF9CE'
         }
       })
@@ -156,7 +159,7 @@ export default {
         (el) => el.status === newStatus
       )
 
-      return newStatusIndex > this.currentColumnId
+      return newStatusIndex >= this.currentColumnId
     },
 
     getCurrentColumnId(id) {

@@ -36,6 +36,10 @@ export default {
     )
   },
 
+  async getRelatedContent(itemId) {
+    return fetch('get', `${moduleName}/related_content/?item=${itemId}`)
+  },
+
   async updateItemStatus(projectId, itemId, value) {
     return fetch(
       'patch',

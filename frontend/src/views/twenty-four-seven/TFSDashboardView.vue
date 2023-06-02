@@ -6,7 +6,7 @@
           title="Account"
           :back-page="{
             name: 'main page',
-            routName: `AccountAnalysisWorkspaces`,
+            routName: `TwentyFourSevenWorkspaces`,
           }"
         />
       </div>
@@ -48,12 +48,14 @@ export default {
     },
   },
   async created() {
+    this[action.CLEAR_ITEMS]()
+
     if (!this.workspaces?.length) {
       await this[action.GET_WORKSPACES]()
     }
   },
   methods: {
-    ...mapActions([action.GET_WORKSPACES]),
+    ...mapActions([action.GET_WORKSPACES, action.CLEAR_ITEMS]),
   },
 }
 </script>

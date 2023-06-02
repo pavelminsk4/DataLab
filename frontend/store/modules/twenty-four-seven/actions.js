@@ -95,6 +95,18 @@ export default {
     }
   },
 
+  async [action.GET_TFS_RELATED_CONTENT]({commit}, itemId) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const relatedContent = await api.twentyFourSeven.getRelatedContent(itemId)
+      commit(mutator.SET_TFS_RELATED_CONTENT, relatedContent)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
   async [action.UPDATE_ITEM_STATUS](
     {commit, dispatch},
     {projectId, itemId, value, oldStatus, page}
@@ -113,5 +125,9 @@ export default {
     } finally {
       commit(mutator.SET_LOADING, false)
     }
+  },
+
+  async [action.CLEAR_ITEMS]({commit}) {
+    commit(mutator.RESET_ITEMS)
   },
 }

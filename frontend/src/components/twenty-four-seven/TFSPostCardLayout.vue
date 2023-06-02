@@ -1,8 +1,5 @@
 <template>
-  <div
-    :style="`background-color: ${cardBackground[status]}`"
-    class="search-result-card"
-  >
+  <div :style="`background-color: ${background}`" class="search-result-card">
     <div class="header">
       <slot name="header"></slot>
       <div class="additional-info">
@@ -36,6 +33,10 @@
     <div class="post-card__information">
       <slot name="information"></slot>
     </div>
+
+    <div class="post-card__buttons">
+      <slot name="buttons"></slot>
+    </div>
   </div>
 </template>
 
@@ -60,11 +61,15 @@ export default {
     source: {type: String},
     date: {type: String},
     status: {type: String},
+    isRelated: {type: Boolean, default: false},
   },
   computed: {
     ...mapGetters({isLoading: get.LOADING_WIDGETS}),
     isLoadingClippingWidget() {
       return this.isLoading.clippingWidget
+    },
+    background() {
+      return this.isRelated ? '#FCEDF3' : this.cardBackground[this.status]
     },
   },
   created() {
@@ -186,7 +191,7 @@ export default {
   display: flex;
 
   margin-top: 12px;
-  padding: 14px 20px 24px;
+  padding: 14px 20px 18px;
 
   border-top: var(--border-primary);
 
@@ -220,5 +225,13 @@ export default {
       color: var(--typography-title-color);
     }
   }
+}
+
+.post-card__buttons {
+  display: flex;
+  justify-content: space-between;
+
+  height: 36px;
+  padding: 0 20px;
 }
 </style>
