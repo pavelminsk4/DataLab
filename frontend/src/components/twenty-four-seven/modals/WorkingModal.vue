@@ -1,11 +1,11 @@
 <template>
   <BaseModal modal-frame-style="width:90vw;" class="working-modal">
-    <WorkingScreen :post="postInfo"
-  /></BaseModal>
+    <WorkingScreen :post="postInfo" />
+  </BaseModal>
 </template>
 
 <script>
-import BaseModal from '@/components/modals/BaseModal.vue'
+import BaseModal from '@/components/modals/BaseModal'
 import WorkingScreen from '@/components/twenty-four-seven/modals/screens/WorkingScreen'
 
 export default {

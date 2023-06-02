@@ -6,7 +6,7 @@
       :id="itemStatus.status"
       class="drop-zone"
       @drop="onDrop($event, index)"
-      @dragover="addBGToAvailColumn($event)"
+      @dragover="addBGToAvailColumn($event, index)"
       @mousedown="getCurrentColumnId(index)"
       @dragenter.prevent
     >
@@ -101,15 +101,15 @@ export default {
       )
     },
 
-    async addBGToAvailColumn($event) {
+    addBGToAvailColumn($event, index) {
       $event.preventDefault()
 
-      this.newAreaId = $event.target.id
-      await this.statuses[this.currentColumnId].allowedToDrag.filter((el) => {
+      this.newAreaId = this.statuses[index].status
+      this.statuses[this.currentColumnId].allowedToDrag.filter((el) => {
         if (el === $event.target.id) {
-          console.log(this.newAreaId)
           $event.target.style.background = '#DAF9CE'
         }
+        return
       })
     },
 

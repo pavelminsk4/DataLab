@@ -159,18 +159,18 @@ export default {
         font-size: 14px;
         line-height: 20px;
 
-        // &:not(:last-child):after {
-        //   content: '';
-        //   position: absolute;
-        //   top: 50%;
-        //   right: -8.5px;
-        //   transform: translateY(-50%);
+        &:not(:last-child):after {
+          content: '';
+          position: absolute;
+          top: 50%;
+          right: -8.5px;
+          transform: translateY(-50%);
 
-        //   width: 4px;
-        //   height: 4px;
-        //   border-radius: 100px;
-        //   background-color: var(--icon-primary-color);
-        // }
+          width: 4px;
+          height: 4px;
+          border-radius: 100px;
+          background-color: var(--icon-primary-color);
+        }
       }
 
       .active-tab {
