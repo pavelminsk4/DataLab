@@ -9,10 +9,10 @@ import json
 
 class TopMentionsByEngagementsWidgetTests(APITestCase):
     def setUp(self):
-        TweetBinderPostFactory(type=['original', 'reply', 'retweet'], text = 'First twitter post @First_name', user_name = 'Second_name')
-        TweetBinderPostFactory(type=['original', 'reply'], text = 'First twitter post @First_name', user_name = 'Third_name')
+        TweetBinderPostFactory(type=['original', 'reply', 'retweet'], text='First twitter post @First_name', user_name = 'Second_name')
+        TweetBinderPostFactory(type=['original', 'reply'], text='First twitter post @First_name', user_name = 'Third_name')
         TweetBinderPostFactory(text = 'First twitter post @First_name')
-        TweetBinderPostFactory(count_retweets='2', count_favorites='2', type=['original', 'reply', 'retweet'], text = 'First twitter post @First_name')
+        TweetBinderPostFactory(count_retweets='2', count_favorites='2', type=['original', 'reply', 'retweet'], text='First twitter post @First_name')
         AccountAnalysisProjectFactory()
 
     def test_response_list(self):
@@ -21,10 +21,8 @@ class TopMentionsByEngagementsWidgetTests(APITestCase):
         url = reverse('account_analysis:top_mentions_by_engagements', kwargs={'pk': pr.pk, 'widget_pk': widget_pk})
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        res = [
-                {'name': 'First_name', 'text': 'First twitter post @First_name', 'sentiment': 'neutral', 'engagement': 4, 'likes': 2, 'retweets': 2, 'date': 'Oct 10, 2020 12:00 AM'}, 
-                {'name': 'Second_name', 'text': 'First twitter post @First_name', 'sentiment': 'neutral', 'engagement': 2, 'likes': 1, 'retweets': 1, 'date': 'Oct 10, 2020 12:00 AM'}, 
-                {'name': 'Third_name', 'text': 'First twitter post @First_name', 'sentiment': 'neutral', 'engagement': 2, 'likes': 1, 'retweets': 1, 'date': 'Oct 10, 2020 12:00 AM'}, 
-                {'name': 'First_name', 'text': 'First twitter post @First_name', 'sentiment': 'neutral', 'engagement': 2, 'likes': 1, 'retweets': 1, 'date': 'Oct 10, 2020 12:00 AM'}
-              ]
+        res = [{'alias': '@first', 'engagements': 4, 'date': 'Oct 10, 2020 12:00 AM', 'name': 'First_name', 'likes': 2, 'text': 'First twitter post @First_name', 'picture': None, 'retweets': 2, 'sentiment': 'neutral'},
+               {'alias': '@first', 'engagements': 2, 'date': 'Oct 10, 2020 12:00 AM', 'name': 'Second_name', 'likes': 1, 'text': 'First twitter post @First_name', 'picture': None, 'retweets': 1, 'sentiment': 'neutral'},
+               {'alias': '@first', 'engagements': 2, 'date': 'Oct 10, 2020 12:00 AM', 'name': 'Third_name', 'likes': 1, 'text': 'First twitter post @First_name', 'picture': None, 'retweets': 1, 'sentiment': 'neutral'},
+               {'alias': '@first', 'engagements': 2, 'date': 'Oct 10, 2020 12:00 AM', 'name': 'First_name', 'likes': 1, 'text': 'First twitter post @First_name', 'picture': None, 'retweets': 1, 'sentiment': 'neutral'}]
         self.assertEqual(json.loads(response.content), res)
