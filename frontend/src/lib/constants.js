@@ -131,7 +131,8 @@ export const accountAnalysisWidgetsList = {
     dashboard: [
       {name: 'mention_summary', isFullWidth: true, minHeight: 230},
       {name: 'mention_timeline', isFullWidth: true},
-      {name: 'most_frequent_mention_media_types', isFullWidth: true},
+      {name: 'mention_sentiment', isFullWidth: false},
+      {name: 'most_frequent_mention_media_types', isFullWidth: false},
       {name: 'top_mentions_by_engagements', isFullWidth: true},
     ],
     optimization: [

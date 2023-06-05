@@ -524,6 +524,14 @@ export const widgetsConfig = {
     defaultChartType: 'BarChart',
     availableTypes: SIMPLE_CHARTS,
   },
+
+  mention_sentiment: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    hasAggregationPeriod: false,
+    actionName: action.GET_MENTION_SENTIMENT,
+    defaultChartType: 'DoughnutChart',
+    availableTypes: SIMPLE_CHARTS,
+  },
 }
 
 export const summaryWidgetConfig = [

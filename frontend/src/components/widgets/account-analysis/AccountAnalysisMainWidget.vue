@@ -27,6 +27,7 @@ import MostFrequentMentionMediaTypes from '@/components/widgets/account-analysis
 import AudienceMentionTime from '@/components/widgets/account-analysis/mentions/AudienceMentionTime'
 import TopMentionsByEngagements from '@/components/widgets/account-analysis/mentions/TopMentionsByEngagements'
 import AverageEngagementsByDayForMentions from '@/components/widgets/account-analysis/mentions/AverageEngagementsByDayForMentions'
+import MentionSentiment from '@/components/widgets/account-analysis/mentions/MentionSentiment'
 import MentionSummary from '@/components/widgets/account-analysis/mentions/MentionSummary'
 
 export default {
@@ -51,6 +52,7 @@ export default {
     AudienceMentionTime,
     TopMentionsByEngagements,
     AverageEngagementsByDayForMentions,
+    MentionSentiment,
     MentionSummary,
   },
   props: {

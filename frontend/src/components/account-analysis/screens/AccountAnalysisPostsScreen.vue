@@ -71,13 +71,7 @@ export default {
     },
   },
   created() {
-    if (!this.accountActivityPosts.length) {
-      this.getPosts(this.currentPage, this.countPosts)
-    }
-
-    if (!this.mentionsPosts.length) {
-      this.getPosts(this.currentPage, this.countPosts)
-    }
+    this.checkForPosts()
   },
   methods: {
     ...mapActions([
@@ -87,6 +81,7 @@ export default {
     getPosts(page, countPosts) {
       const actionName =
         this.currentTab === 'Mentions' ? 'MENTIONS' : 'ACCOUNT_ACTIVITY'
+      console.log(this.currentPage, page)
       this[action[`GET_${actionName}_POSTS`]]({
         projectId: this.currentProject.id,
         value: {posts_per_page: countPosts, page_number: page},
@@ -95,6 +90,23 @@ export default {
     updatePage(page, countPosts) {
       this.countPosts = countPosts
       this.getPosts(page, countPosts)
+    },
+    checkForPosts() {
+      if (
+        !this.accountActivityPosts.length &&
+        this.currentTab === 'AccountActivity'
+      ) {
+        this.getPosts(this.currentPage, this.countPosts)
+      }
+
+      if (!this.mentionsPosts.length && this.currentTab === 'Mentions') {
+        this.getPosts(this.currentPage, this.countPosts)
+      }
+    },
+  },
+  watch: {
+    currentTab() {
+      this.checkForPosts()
     },
   },
 }

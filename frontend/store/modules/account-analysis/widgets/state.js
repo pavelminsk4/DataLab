@@ -5,6 +5,7 @@ const state = {
   bestTimesToPost: [],
   followerGrowth: {},
   mentionTimeline: [],
+  mentionSentiment: [],
   mentionSummary: [],
   mostFrequentPostTypes: {},
   mostFrequentMediaTypes: {},

@@ -213,4 +213,12 @@ export default {
       {aggregation_period: value}
     )
   },
+
+  async getMentionSentiment(projectId, widgetId, value) {
+    return fetch(
+      'post',
+      `${moduleName}/mention_sentiment_widget/${projectId}/${widgetId}`,
+      {aggregation_period: value}
+    )
+  },
 }
