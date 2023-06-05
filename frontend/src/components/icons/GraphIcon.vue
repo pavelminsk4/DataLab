@@ -1,31 +1,16 @@
 <template>
   <svg
-    width="28"
-    height="28"
-    viewBox="0 0 28 28"
+    width="15"
+    height="16"
+    viewBox="0 0 15 16"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <rect width="28" height="28" rx="4" fill="#EA6E8F" />
+    <rect y="4.44507" width="3.55536" height="11.5549" rx="1" fill="white" />
+    <rect x="5.33594" width="3.55536" height="15.9991" rx="1" fill="white" />
     <rect
-      x="7"
-      y="10.4451"
-      width="3.55536"
-      height="11.5549"
-      rx="1"
-      fill="white"
-    />
-    <rect
-      x="12.332"
-      y="6"
-      width="3.55536"
-      height="15.9991"
-      rx="1"
-      fill="white"
-    />
-    <rect
-      x="17.668"
-      y="16.666"
+      x="10.668"
+      y="10.666"
       width="3.55536"
       height="5.33304"
       rx="1"

@@ -205,4 +205,12 @@ export default {
       {aggregation_period: value}
     )
   },
+
+  async getMentionSummary(projectId, widgetId, value) {
+    return fetch(
+      'post',
+      `${moduleName}/mention_summary_widget/${projectId}/${widgetId}`,
+      {aggregation_period: value}
+    )
+  },
 }

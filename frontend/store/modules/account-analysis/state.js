@@ -1,11 +1,11 @@
 const state = {
-  accountActivityPosts: [],
+  accountActivityPosts: null,
   availableWidgets: [],
   listOfProfileHandle: [],
   loading: false,
   newProjectId: null,
   newWorkspaceId: null,
-  mentionsPosts: [],
+  mentionsPosts: null,
   workspaces: [],
 }
 

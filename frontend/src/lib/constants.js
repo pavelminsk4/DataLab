@@ -107,7 +107,7 @@ export const socialWidgetsList = {
 export const accountAnalysisWidgetsList = {
   AccountActivity: {
     dashboard: [
-      {name: 'summary', isFullWidth: true, minHeight: 230},
+      // {name: 'summary', isFullWidth: true, minHeight: 230},
       {name: 'profile_timeline', isFullWidth: true},
       {name: 'follower_growth', isFullWidth: true},
       {name: 'most_frequent_post_types', isFullWidth: false},
@@ -117,7 +117,7 @@ export const accountAnalysisWidgetsList = {
       {name: 'top_posts_by_engagements', isFullWidth: true},
     ],
     optimization: [
-      {name: 'summary', isFullWidth: true, minHeight: 230},
+      // {name: 'summary', isFullWidth: true, minHeight: 230},
       {name: 'optimal_post_time', isFullWidth: true},
       {name: 'best_times_to_post', isFullWidth: false},
       {name: 'optimal_post_length', isFullWidth: false},
@@ -129,11 +129,13 @@ export const accountAnalysisWidgetsList = {
 
   Mentions: {
     dashboard: [
+      {name: 'mention_summary', isFullWidth: true, minHeight: 230},
       {name: 'mention_timeline', isFullWidth: true},
       {name: 'most_frequent_mention_media_types', isFullWidth: true},
       {name: 'top_mentions_by_engagements', isFullWidth: true},
     ],
     optimization: [
+      {name: 'mention_summary', isFullWidth: true, minHeight: 230},
       {name: 'audience_mention_time', isFullWidth: true},
       {name: 'average_engagements_by_day_for_mentions', isFullWidth: true},
     ],

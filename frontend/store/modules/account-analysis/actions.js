@@ -182,7 +182,7 @@ export default {
       commit(mutator.SET_NUMBER_OF_PAGES, response.num_pages, {
         root: true,
       })
-      commit(mutator.SET_MENTIONS_POSTS, response.posts)
+      commit(mutator.SET_MENTIONS_POSTS, response.posts || [])
       return response
     } catch (e) {
       console.log(e)
