@@ -34,12 +34,12 @@ export const years = [
 
 export const onlineWidgetsList = {
   summary: [
-    {name: 'summary_widget'},
-    {name: 'content_volume_top_5_source_widget'},
-    {name: 'sentiment_for_period_widget'},
-    {name: 'volume_widget'},
-    {name: 'top_10_countries_widget', isFullWidth: true},
-    {name: 'top_10_authors_by_volume_widget'},
+    {name: 'summary'},
+    {name: 'volume'},
+    {name: 'sentiment_for_period'},
+    {name: 'volume'},
+    {name: 'top_brands', isFullWidth: true},
+    {name: 'top_authors'},
     {name: 'top_keywords'},
   ],
   sentiment: [
