@@ -30,4 +30,12 @@ export default {
   [mutator.SET_TFS_ITEMS](state, {items, status}) {
     state.items[status] = items
   },
+
+  [mutator.SET_TFS_RELATED_CONTENT](state, relatedContent) {
+    state.relatedContent = relatedContent
+  },
+
+  [mutator.RESET_TFS_ITEMS](state) {
+    state.items = {}
+  },
 }

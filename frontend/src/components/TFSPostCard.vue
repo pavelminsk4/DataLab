@@ -7,16 +7,20 @@
     :post-image="img"
     :post-id="postDetails.id"
     :status="cardStatus"
-    background-color="#EFFCFE"
+    :is-related="isRelatedContent"
   >
     <template #header>
-      <TFSCardStatuses
-        v-if="isStatusShow"
-        :status="cardStatus"
-        :post-id="postDetails.id"
-        :isBack="isBack"
-        @change-status-card="changeStatusCard"
-      />
+      <div class="post-card-header">
+        <TFSCardStatuses
+          v-if="isStatusShow"
+          :status="cardStatus"
+          :post-id="postDetails.id"
+          :isBack="isBack"
+          @change-status-card="changeStatusCard"
+        />
+
+        <div v-if="isRelatedContent" class="related">Related</div>
+      </div>
     </template>
 
     <template #title>
@@ -54,6 +58,16 @@
         </div>
       </div>
     </template>
+
+    <template #buttons>
+      <div
+        v-if="isWorkButtonShow"
+        class="work-button"
+        @click="$emit('open-modal')"
+      >
+        Take to work
+      </div>
+    </template>
   </TFSPostCardLayout>
 </template>
 
@@ -77,6 +91,8 @@ export default {
     img: {type: String, required: false},
     itemId: {type: Number, required: true},
     isBack: {type: Boolean, default: true},
+    isRelatedContent: {type: Boolean, default: false},
+    isWorkButtonShow: {type: Boolean, default: false},
     cardStatus: {type: String, required: false},
     postDetails: {type: Object, required: true},
     isStatusShow: {type: Boolean, default: true},
@@ -129,5 +145,33 @@ export default {
   &:hover {
     color: var(--primary-hover-color);
   }
+}
+
+.post-card-header {
+  display: flex;
+  justify-content: space-between;
+
+  .related {
+    padding: 6px 8px;
+
+    border-radius: 4px;
+    background-color: var(--background-secondary-color);
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 12px;
+    color: var(--typography-primary-color);
+  }
+}
+
+.work-button {
+  cursor: pointer;
+
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--button-primary-color);
 }
 </style>

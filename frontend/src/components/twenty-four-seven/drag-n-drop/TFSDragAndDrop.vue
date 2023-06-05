@@ -6,7 +6,7 @@
       :id="itemStatus.status"
       class="drop-zone"
       @drop="onDrop($event, index)"
-      @dragover="addBGToAvailColumn($event)"
+      @dragover="addBGToAvailColumn($event, index)"
       @mousedown="getCurrentColumnId(index)"
       @dragenter.prevent
     >
@@ -34,8 +34,10 @@
           :is-back="postInfo.is_back"
           :card-status="postInfo.status"
           :item-id="postInfo.id"
+          :is-work-button-show="true"
           class="post-card"
           @change-status="changeStatus"
+          @open-modal="$emit('open-modal', postInfo)"
         />
       </div>
     </div>
@@ -99,14 +101,15 @@ export default {
       )
     },
 
-    addBGToAvailColumn($event) {
+    addBGToAvailColumn($event, index) {
       $event.preventDefault()
 
+      this.newAreaId = this.statuses[index].status
       this.statuses[this.currentColumnId].allowedToDrag.filter((el) => {
         if (el === $event.target.id) {
-          this.newAreaId = $event.target.id
           $event.target.style.background = '#DAF9CE'
         }
+        return
       })
     },
 
@@ -156,7 +159,7 @@ export default {
         (el) => el.status === newStatus
       )
 
-      return newStatusIndex > this.currentColumnId
+      return newStatusIndex >= this.currentColumnId
     },
 
     getCurrentColumnId(id) {

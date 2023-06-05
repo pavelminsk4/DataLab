@@ -1,9 +1,11 @@
 <template>
+  <TFSWorkingModal v-if="postInfo" :post-info="postInfo" @close="close" />
   <TFSDragAndDrop
     :card-results="items"
     @update-status="updateStatus"
     @change-status-via-dropdown="updateStatus"
     @update-page="updatePage"
+    @open-modal="openModal"
   />
 </template>
 
@@ -14,12 +16,21 @@ import {isAllFieldsEmpty} from '@/lib/utilities'
 import {defaultStatuses} from '@/lib/configs/tfsStatusesConfig'
 
 import TFSDragAndDrop from '@/components/twenty-four-seven/drag-n-drop/TFSDragAndDrop'
+import TFSWorkingModal from '@/components/twenty-four-seven/modals/TFSWorkingModal'
 
 const {mapActions, mapState} = createNamespacedHelpers('twentyFourSeven')
 
 export default {
   name: 'TFSDashboardScreen',
-  components: {TFSDragAndDrop},
+  components: {TFSDragAndDrop, TFSWorkingModal},
+  props: {
+    currentProject: {type: Object, default: () => {}},
+  },
+  data() {
+    return {
+      postInfo: null,
+    }
+  },
   computed: {
     ...mapState(['items']),
     projectId() {
@@ -36,11 +47,16 @@ export default {
         })
       })
     }
+    if (isAllFieldsEmpty(this.items)) {
+      this.$router.push({
+        name: 'TFSDashboard',
+      })
+    }
   },
   methods: {
-    ...mapActions([action.GET_TFS_ITEMS, action.UPDATE_ITEM_STATUS]),
+    ...mapActions([action.GET_TFS_ITEMS, action.UPDATE_TFS_ITEM_STATUS]),
     async updateStatus(itemId, newStatus, oldStatus, page, isBack) {
-      await this[action.UPDATE_ITEM_STATUS]({
+      await this[action.UPDATE_TFS_ITEM_STATUS]({
         projectId: this.projectId,
         itemId: itemId,
         value: {status: newStatus, is_back: isBack},
@@ -53,6 +69,17 @@ export default {
         projectId: this.projectId,
         status: status,
         page: page,
+      })
+    },
+    openModal(postInfo) {
+      this.$router.push({
+        query: {modal: 'Working', tab: 'Original content'},
+      })
+      this.postInfo = postInfo
+    },
+    close() {
+      this.$router.push({
+        name: 'TFSDashboard',
       })
     },
   },
