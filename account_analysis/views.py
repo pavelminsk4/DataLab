@@ -148,7 +148,19 @@ def search_posts(request, project_pk):
     page_number = body['page_number']
     project = ProjectAccountAnalysis.objects.get(id=project_pk)
     posts = posts_aggregator(project)
-    posts = posts.annotate(engagement=Sum(F('count_favorites') + F('count_retweets')))
+    return calculate(posts, posts_per_page, page_number)
+
+def search_posts_mentions(request, project_pk):
+    body = json.loads(request.body)
+    posts_per_page = body['posts_per_page']
+    page_number = body['page_number']
+    project = ProjectAccountAnalysis.objects.get(id=project_pk)
+    posts = posts_aggregator(project)
+    posts = posts.filter(text__icontains=f'@{project.profile_handle}')
+    return calculate(posts, posts_per_page, page_number)
+
+def calculate(posts, posts_per_page, page_number):    
+    posts = posts.annotate(engagements=Sum(F('count_favorites') + F('count_retweets')))
     posts = posts.values('id', 
                          'post_id', 
                          'type',
@@ -161,7 +173,7 @@ def search_posts(request, project_pk):
                          'count_totalretweets', 
                          'count_replies', 
                          'count_favorites',
-                         'engagement')
+                         'engagements')
     posts = list(posts)
     for p in posts:
         p['link'] = f'https://twitter.com/user/status/{p["post_id"]}'

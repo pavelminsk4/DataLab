@@ -44,6 +44,7 @@ urlpatterns = [
     path('list_of_profile_handle', views.list_of_profile_handle, name='list_of_profile_handle'),
     # =======Search========
     path('search_posts/<int:project_pk>', views.search_posts, name='search_posts'),
+    path('search_posts_mentions/<int:project_pk>', views.search_posts_mentions, name='search_posts_mentions'),
 ]
 
 router.register('projects', ProjectsAccountAnalysisViewSet)
