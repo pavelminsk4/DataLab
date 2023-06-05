@@ -6,7 +6,7 @@ from django.http import JsonResponse
 import json
 from .whatsapp import *
 from rest_framework.pagination import PageNumberPagination
-from pgvector.django import CosineDistance
+from sentence_transformers import util
 
 
 class StandardResultsSetPagination(PageNumberPagination):
@@ -70,8 +70,17 @@ class RelatedContentViewSet(viewsets.ModelViewSet):
 
 
 def top_similar(item_id):
-    item = Item.objects.get(id=item_id)
-    project = ProjectTwentyFourSeven.objects.get(id=item.project.id)
-    items = project.tfs_project_items
-    items = items.order_by(CosineDistance('online_post__vector', item.online_post.vector))[:5]
+    try:
+        item = Item.objects.get(id=item_id)
+        project = item.project
+        items = project.tfs_project_items.exclude(online_post__summary_vector=[])
+        vectors = items.values('online_post__id', 'online_post__summary_vector')
+        id_list = np.array([i['online_post__id'] for i in vectors])
+        posts_vector = np.array([i['online_post__summary_vector'] for i in vectors])
+        cosine_scores = util.cos_sim(np.array([item.online_post.summary_vector[0]]), posts_vector.reshape(len(items),384))
+        cosine_scores = cosine_scores.reshape(1,-1)[0]
+        result = cosine_scores.argsort(descending=True)[1:6]
+        items = items.filter(online_post__pk__in=id_list[result])
+    except:
+        items = Item.objects.none()
     return items
