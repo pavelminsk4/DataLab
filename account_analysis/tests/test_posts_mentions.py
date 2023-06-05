@@ -26,6 +26,7 @@ class PostsMentionsTests(APITestCase):
                 'sentiment': 'neutral',
                 'text': 'First twitter post @First_name',
                 'type': ['origin'],
+                'user_alias': '@first',
                 'user_picture': None
             }
     self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':1, 'posts': [post]})

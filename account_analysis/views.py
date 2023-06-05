@@ -173,7 +173,8 @@ def calculate(posts, posts_per_page, page_number):
                          'count_totalretweets', 
                          'count_replies', 
                          'count_favorites',
-                         'engagements')
+                         'engagements', 
+                         'user_alias')
     posts = list(posts)
     for p in posts:
         p['link'] = f'https://twitter.com/user/status/{p["post_id"]}'
