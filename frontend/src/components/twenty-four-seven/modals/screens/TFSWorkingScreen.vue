@@ -57,7 +57,7 @@ import TFSPostCard from '@/components/TFSPostCard'
 const {mapState, mapActions} = createNamespacedHelpers('twentyFourSeven')
 
 export default {
-  name: 'WorkingScreen',
+  name: 'TFSWorkingScreen',
   components: {TFSPostCard},
   props: {
     post: {type: Object, required: true},

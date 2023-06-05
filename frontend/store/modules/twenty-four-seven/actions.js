@@ -107,7 +107,7 @@ export default {
     }
   },
 
-  async [action.UPDATE_ITEM_STATUS](
+  async [action.UPDATE_TFS_ITEM_STATUS](
     {commit, dispatch},
     {projectId, itemId, value, oldStatus, page}
   ) {
@@ -127,7 +127,7 @@ export default {
     }
   },
 
-  async [action.CLEAR_ITEMS]({commit}) {
-    commit(mutator.RESET_ITEMS)
+  async [action.CLEAR_TFS_ITEMS]({commit}) {
+    commit(mutator.RESET_TFS_ITEMS)
   },
 }

@@ -35,7 +35,7 @@ export default {
     state.relatedContent = relatedContent
   },
 
-  [mutator.RESET_ITEMS](state) {
+  [mutator.RESET_TFS_ITEMS](state) {
     state.items = {}
   },
 }

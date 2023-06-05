@@ -1,9 +1,5 @@
 <template>
-  <WorkingModal
-    v-if="modalName === 'Working' && postInfo"
-    :post-info="postInfo"
-    @close="close"
-  />
+  <TFSWorkingModal v-if="postInfo" :post-info="postInfo" @close="close" />
   <TFSDragAndDrop
     :card-results="items"
     @update-status="updateStatus"
@@ -20,13 +16,13 @@ import {isAllFieldsEmpty} from '@/lib/utilities'
 import {defaultStatuses} from '@/lib/configs/tfsStatusesConfig'
 
 import TFSDragAndDrop from '@/components/twenty-four-seven/drag-n-drop/TFSDragAndDrop'
-import WorkingModal from '@/components/twenty-four-seven/modals/WorkingModal.vue'
+import TFSWorkingModal from '@/components/twenty-four-seven/modals/TFSWorkingModal'
 
 const {mapActions, mapState} = createNamespacedHelpers('twentyFourSeven')
 
 export default {
   name: 'TFSDashboardScreen',
-  components: {TFSDragAndDrop, WorkingModal},
+  components: {TFSDragAndDrop, TFSWorkingModal},
   props: {
     currentProject: {type: Object, default: () => {}},
   },
@@ -39,9 +35,6 @@ export default {
     ...mapState(['items']),
     projectId() {
       return this.$route.params.projectId
-    },
-    modalName() {
-      return this.$route.query?.modal
     },
   },
   created() {
@@ -61,9 +54,9 @@ export default {
     }
   },
   methods: {
-    ...mapActions([action.GET_TFS_ITEMS, action.UPDATE_ITEM_STATUS]),
+    ...mapActions([action.GET_TFS_ITEMS, action.UPDATE_TFS_ITEM_STATUS]),
     async updateStatus(itemId, newStatus, oldStatus, page, isBack) {
-      await this[action.UPDATE_ITEM_STATUS]({
+      await this[action.UPDATE_TFS_ITEM_STATUS]({
         projectId: this.projectId,
         itemId: itemId,
         value: {status: newStatus, is_back: isBack},

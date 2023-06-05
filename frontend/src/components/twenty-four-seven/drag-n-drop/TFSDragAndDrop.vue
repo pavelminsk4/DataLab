@@ -34,7 +34,7 @@
           :is-back="postInfo.is_back"
           :card-status="postInfo.status"
           :item-id="postInfo.id"
-          :is-show-work-button="true"
+          :is-work-button-show="true"
           class="post-card"
           @change-status="changeStatus"
           @open-modal="$emit('open-modal', postInfo)"

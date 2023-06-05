@@ -61,7 +61,7 @@
 
     <template #buttons>
       <div
-        v-if="isShowWorkButton"
+        v-if="isWorkButtonShow"
         class="work-button"
         @click="$emit('open-modal')"
       >
@@ -92,7 +92,7 @@ export default {
     itemId: {type: Number, required: true},
     isBack: {type: Boolean, default: true},
     isRelatedContent: {type: Boolean, default: false},
-    isShowWorkButton: {type: Boolean, default: false},
+    isWorkButtonShow: {type: Boolean, default: false},
     cardStatus: {type: String, required: false},
     postDetails: {type: Object, required: true},
     isStatusShow: {type: Boolean, default: true},

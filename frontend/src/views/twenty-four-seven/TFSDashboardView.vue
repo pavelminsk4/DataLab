@@ -48,14 +48,14 @@ export default {
     },
   },
   async created() {
-    this[action.CLEAR_ITEMS]()
+    this[action.CLEAR_TFS_ITEMS]()
 
     if (!this.workspaces?.length) {
       await this[action.GET_WORKSPACES]()
     }
   },
   methods: {
-    ...mapActions([action.GET_WORKSPACES, action.CLEAR_ITEMS]),
+    ...mapActions([action.GET_WORKSPACES, action.CLEAR_TFS_ITEMS]),
   },
 }
 </script>
