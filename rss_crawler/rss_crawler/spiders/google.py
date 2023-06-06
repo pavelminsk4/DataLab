@@ -4,7 +4,7 @@ import ssl
 import re
 import socket
 import os
-from rss_crawler.items import RssCrawlerItem, CrawlerKeyword, Feedlinks, CrawlerOption
+from rss_crawler.items import RssCrawlerItem, CrawlerKeyword, Feedlinks, CrawlerOption, NewFeedlinks
 from serpapi import GoogleSearch
 from urllib.parse import urlparse
 
@@ -58,7 +58,7 @@ class GoogleSpider(scrapy.Spider):
         return start_urls
 
     urls = collect_start_urls(keywords, secret_key, options)
-    allowed_domains = urls
+    # allowed_domains = urls
     start_urls = urls
 
     def parse(self, response):
@@ -96,6 +96,8 @@ class GoogleSpider(scrapy.Spider):
                 feed = 'http://{}'.format(feed)
             in_feedlinks = Feedlinks.objects.filter(url=feed)
             if feedparser.parse(feed).bozo == False and len(feedparser.parse(feed).entries)!=0 and not in_feedlinks:
+            in_newfeedlinks = NewFeedlinks.objects.filter(url=feed)
+            if feedparser.parse(feed).bozo == False and len(feedparser.parse(feed).entries)!=0 and not (in_feedlinks or in_newfeedlinks):
                 item = RssCrawlerItem()
                 item['url'] = feed
                 try:
