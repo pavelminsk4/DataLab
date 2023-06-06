@@ -58,7 +58,7 @@ import {defaultDate} from '@lib/utilities'
 
 import LikeIcon from '@/components/icons/LikeIcon'
 import RepliesIcon from '@/components/icons/RepliesIcon'
-import RetweetsIcon from '@/components/icons/RetweetsIcon'
+import RetweetIcon from '@/components/icons/RetweetIcon'
 import TwitterIcon from '@/components/icons/TwitterIcon'
 
 import PostCardLayout from '@/components/layout/PostCardLayout'
@@ -71,7 +71,7 @@ export default {
     LikeIcon,
     PostCardLayout,
     RepliesIcon,
-    RetweetsIcon,
+    RetweetIcon,
     TwitterIcon,
   },
   props: {
@@ -104,7 +104,7 @@ export default {
           isIcon: true,
         },
         {
-          name: 'RetweetsIcon',
+          name: 'RetweetIcon',
           value: this.postDetails.count_retweets,
           isIcon: true,
         },

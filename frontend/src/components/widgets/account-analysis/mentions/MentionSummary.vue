@@ -9,7 +9,9 @@
 <script>
 import {createNamespacedHelpers} from 'vuex'
 import {get, action} from '@store/constants'
+
 import AccountAnalysisSummaryWidget from '@/components/widgets/AccountAnalysisSummaryWidget'
+
 import {isAllFieldsEmpty} from '@lib/utilities'
 
 const {mapActions, mapGetters} = createNamespacedHelpers(
@@ -51,7 +53,7 @@ export default {
         {
           name: 'Authors number',
           value: stats.authors,
-          iconName: 'Authors',
+          iconName: 'Author',
         },
         {name: 'Neutral mention', value: stats.neutral, iconName: 'Neutral'},
         {name: 'Negative mention', value: stats.negative, iconName: 'Negative'},

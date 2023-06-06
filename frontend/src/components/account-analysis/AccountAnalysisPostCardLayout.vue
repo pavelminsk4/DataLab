@@ -21,7 +21,7 @@
         <span> {{ postDetails.count_replies }}</span>
       </div>
       <div class="option stat">
-        <RetweetsIcon />
+        <RetweetIcon />
         <span> {{ postDetails.count_totalretweets }}</span>
       </div>
       <div class="option stat">
@@ -35,14 +35,14 @@
 import RepliesIcon from '@/components/icons/RepliesIcon'
 
 import LikeIcon from '@/components/icons/LikeIcon'
-import RetweetsIcon from '@/components/icons/RetweetsIcon'
+import RetweetIcon from '@/components/icons/RetweetIcon'
 
 export default {
   name: 'PostCardLayout',
   components: {
     RepliesIcon,
     LikeIcon,
-    RetweetsIcon,
+    RetweetIcon,
   },
   props: {
     postDetails: {type: Object, required: true},

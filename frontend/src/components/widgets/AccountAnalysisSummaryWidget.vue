@@ -49,14 +49,13 @@
 import {isAllFieldsEmpty} from '@/lib/utilities'
 
 import BaseSpinner from '@/components/BaseSpinner'
-
 import VerifiedIcon from '@/components/icons/VerifiedIcon'
 import LocationIcon from '@/components/icons/LocationIcon'
 import StarIcon from '@/components/icons/StarIcon'
 import NewPostIcon from '@/components/icons/NewPostIcon'
 import LanguageSymbolsIcon from '@/components/icons/LanguageSymbolsIcon'
 import CountryIcon from '@/components/icons/CountryIcon'
-import AuthorsIcon from '@/components/icons/AuthorsIcon'
+import AuthorIcon from '@/components/icons/AuthorIcon'
 import NeutralIcon from '@/components/icons/NeutralIcon'
 import NegativeIcon from '@/components/icons/NegativeIcon'
 import PositiveIcon from '@/components/icons/PositiveIcon'
@@ -67,7 +66,7 @@ import TwitterIcon from '@/components/icons/TwitterIcon'
 import CalendarIcon from '@/components/icons/CalendarIcon'
 import EngagementIcon from '@/components/icons/EngagementIcon'
 import HeartIcon from '@/components/icons/HeartIcon'
-import RetweetsIcon from '@/components/icons/RetweetsIcon'
+import RetweetIcon from '@/components/icons/RetweetIcon'
 
 export default {
   props: {
@@ -82,7 +81,7 @@ export default {
     NewPostIcon,
     LanguageSymbolsIcon,
     CountryIcon,
-    AuthorsIcon,
+    AuthorIcon,
     NeutralIcon,
     NegativeIcon,
     PositiveIcon,
@@ -93,7 +92,7 @@ export default {
     CalendarIcon,
     EngagementIcon,
     HeartIcon,
-    RetweetsIcon,
+    RetweetIcon,
   },
   methods: {
     isVerified(cond) {
@@ -234,7 +233,7 @@ export default {
   background-color: #a0b8be;
 }
 
-.authors {
+.author {
   background-color: #ec809d;
 }
 
@@ -266,7 +265,7 @@ export default {
   background-color: #7546ff;
 }
 
-.retweets {
+.retweet {
   background-color: #3088f0;
 }
 </style>

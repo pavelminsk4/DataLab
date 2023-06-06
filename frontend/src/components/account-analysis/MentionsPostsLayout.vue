@@ -2,8 +2,8 @@
   <section class="posts">
     <MentionsPostCard
       v-for="post in posts"
-      :post-details="post"
       :key="post.id"
+      :post-details="post"
     />
   </section>
 </template>

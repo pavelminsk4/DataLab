@@ -1,5 +1,5 @@
 <template>
-  <AccountAnalysisSummaryWidget :widget-data="summary" :stats="statistiscs" />
+  <AccountAnalysisSummaryWidget :widget-data="summary" :stats="statistics" />
 </template>
 
 <script>
@@ -7,6 +7,7 @@ import {createNamespacedHelpers} from 'vuex'
 import {get, action} from '@store/constants'
 
 import AccountAnalysisSummaryWidget from '@/components/widgets/AccountAnalysisSummaryWidget'
+
 import {isAllFieldsEmpty} from '@/lib/utilities'
 
 const {mapActions, mapGetters} = createNamespacedHelpers(
@@ -28,7 +29,7 @@ export default {
     summary() {
       return this.accountAnalysisWidgets.summary
     },
-    statistiscs() {
+    statistics() {
       const {stats} = this.summary
       if (isAllFieldsEmpty(stats)) return []
       return [
@@ -65,7 +66,7 @@ export default {
         {
           name: 'AVG retweets per post',
           value: stats.avg_retweets_per_post,
-          iconName: 'Retweets',
+          iconName: 'Retweet',
         },
         {
           name: 'AVG engagements rate',

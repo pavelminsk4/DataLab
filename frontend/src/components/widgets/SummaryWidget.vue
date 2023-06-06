@@ -36,10 +36,10 @@ import PositiveIcon from '@/components/icons/PositiveIcon'
 import SourceIcon from '@/components/icons/SourceIcon'
 import PotentialReachIcon from '@/components/icons/PotentialReachIcon'
 import CountryIcon from '@/components/icons/CountryIcon'
-import AuthorsIcon from '@/components/icons/AuthorsIcon'
+import AuthorIcon from '@/components/icons/AuthorIcon'
 import LikeIcon from '@/components/icons/LikeIcon'
 import RepliesIcon from '@/components/icons/RepliesIcon'
-import RetweetsIcon from '@/components/icons/RetweetsIcon'
+import RetweetIcon from '@/components/icons/RetweetIcon'
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
 
 export default {
@@ -47,7 +47,7 @@ export default {
   components: {
     LikeIcon,
     RepliesIcon,
-    RetweetsIcon,
+    RetweetIcon,
     NewPostIcon,
     NeutralIcon,
     NegativeIcon,
@@ -55,7 +55,7 @@ export default {
     SourceIcon,
     PotentialReachIcon,
     CountryIcon,
-    AuthorsIcon,
+    AuthorIcon,
     WidgetsLayout,
   },
   props: {

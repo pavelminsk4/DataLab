@@ -38,7 +38,7 @@ import BaseTable from '@/components/common/BaseTable'
 import BaseChips from '@/components/BaseChips'
 
 import textIcon from '@/components/icons/TextIcon'
-import retweetIcon from '@/components/icons/RetweetsIcon'
+import retweetIcon from '@/components/icons/RetweetIcon'
 import replyIcon from '@/components/icons/ReplyFilledIcon'
 
 export default {

@@ -27,6 +27,6 @@ def mention_summary(pk, widget_pk):
             'negative': posts.filter(sentiment='negative').count(),
             'positive': posts.filter(sentiment='positive').count(),
             'potential_rates': posts.aggregate(value=Sum('user_value'))['value'],
-            }
+        }
     }
     return JsonResponse(res, safe=False)

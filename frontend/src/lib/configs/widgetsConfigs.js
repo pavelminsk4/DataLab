@@ -580,7 +580,7 @@ export const summaryWidgetConfig = [
   {
     name: 'Authors',
     valueName: 'authors',
-    iconName: 'AuthorsIcon',
+    iconName: 'AuthorIcon',
     backgroundColor: '#EA6E8F',
   },
 ]
@@ -602,7 +602,7 @@ export const socialSummaryWidgetConfig = [
   {
     name: 'Retweet',
     valueName: 'retweets',
-    iconName: 'RetweetsIcon',
+    iconName: 'RetweetIcon',
     backgroundColor: '#57C7B3',
   },
 ]
