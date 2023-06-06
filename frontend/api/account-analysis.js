@@ -35,9 +35,12 @@ export default {
     return fetch('post', `${moduleName}/search_posts/${projectId}`, value)
   },
 
-  async getMentionsPosts() {
-    return []
-    // return fetch('post', `${moduleName}/search_posts/${projectId}`, value)
+  async getMentionsPosts(projectId, value) {
+    return fetch(
+      'post',
+      `${moduleName}/search_posts_mentions/${projectId}`,
+      value
+    )
   },
 
   // Widgets

@@ -1,110 +1,96 @@
 <template>
   <account-analysis-post-card-layout :post-details="postDetails">
-    <template #footer>
-      <div class="option">
-        <h4>Date</h4>
-        <span class="option__text"> {{ formateDate(postDetails.date) }}</span>
-      </div>
-      <div class="option">
-        <h4>Engagements</h4>
-        <span class="option__text"> {{ postDetails.engagement }}</span>
-      </div>
-      <div class="option stat">
-        <LikeIcon />
-        <span> {{ postDetails.count_favorites }}</span>
-      </div>
-      <div class="option stat">
+    <div class="card-body">
+      <div v-if="checkType('reply')" class="card-body__reply">
         <RepliesIcon />
-        <span> {{ postDetails.count_replies }}</span>
+        <span>
+          Replying to
+          <span class="alias">@{{ postDetails.inreplyto }}</span>
+        </span>
       </div>
-      <div class="option stat">
-        <RetweetsIcon />
-        <span> {{ postDetails.count_totalretweets }}</span>
+      <div v-if="checkType('retweet')">Retweet</div>
+      <div class="card-body__text">
+        {{ postDetails.text }}
       </div>
-      <div class="option stat">
-        <a :href="postDetails.link" target="_blank" class="link">&#8599;</a>
+      <div class="card-body__chips">
+        <div class="chips__card-body">
+          <SentimentChips
+            :chips-type="postDetails.sentiment"
+            :post-id="postDetails.id"
+          />
+        </div>
+        <div class="chips__card-body">
+          <BaseChips chips-type="topic"> Topic</BaseChips>
+        </div>
       </div>
-    </template>
+    </div>
   </account-analysis-post-card-layout>
 </template>
 
 <script>
 import AccountAnalysisPostCardLayout from '@/components/account-analysis/AccountAnalysisPostCardLayout'
-import LikeIcon from '@/components/icons/LikeIcon'
+import SentimentChips from '@/components/SentimentChips'
+import BaseChips from '@/components/BaseChips'
 import RepliesIcon from '@/components/icons/RepliesIcon'
-import RetweetsIcon from '@/components/icons/RetweetsIcon'
+
+import {isAllFieldsEmpty} from '@lib/utilities'
 
 export default {
   name: 'AccountAnalysisPostCard',
   components: {
     AccountAnalysisPostCardLayout,
-    LikeIcon,
+    SentimentChips,
+    BaseChips,
     RepliesIcon,
-    RetweetsIcon,
   },
   props: {
     postDetails: {type: Object, required: true},
   },
   methods: {
-    formateDate(date) {
-      return new Date(date)
-        .toLocaleString()
-        .split(', ')
-        .reverse()
-        .join(', ')
-        .replaceAll('/', '.')
+    checkType(type) {
+      if (!isAllFieldsEmpty(this.postDetails))
+        return this.postDetails.type.includes(type)
     },
   },
 }
 </script>
 
 <style lang="scss" scoped>
-.option {
+.card-body {
+  position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
 
-  width: 100%;
+  gap: 20px;
+  height: 100%;
 
-  padding-right: 5px;
+  cursor: pointer;
 
-  border-right: var(--border-primary);
+  &__chips {
+    display: flex;
 
-  &:nth-child(n + 1) {
-    padding-left: 5px;
+    gap: 8px;
+    .chips__container {
+      height: fit-content;
+    }
   }
 
-  &:last-child {
-    border-right: none;
+  &__reply {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+    .alias {
+      color: var(--primary-color);
+    }
   }
 
   &__text {
-    font-weight: 400;
-    font-size: 11px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
-
-  .link {
-    text-decoration: none;
-    color: var(--primary-color);
-    font-size: 25px;
-  }
-}
-
-.stat {
-  align-items: center;
-  flex-direction: row;
-
-  gap: 5px;
-}
-h4 {
-  font-weight: 500;
-  font-size: 10px;
-
-  text-transform: uppercase;
-  color: var(--typography-secondary-color);
-}
-
-span {
-  font-size: 12px;
 }
 </style>

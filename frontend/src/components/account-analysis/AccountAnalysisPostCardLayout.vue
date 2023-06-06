@@ -1,56 +1,60 @@
 <template>
   <div :class="['post-card', `${postDetails.sentiment}-border`]">
     <div class="post-card__body">
-      <div v-if="checkType('reply')" class="post-card__reply">
-        <RepliesIcon />
-        <span
-          >Replying to
-          <span class="alias">@{{ postDetails.inreplyto }}</span>
-        </span>
-      </div>
-      <div v-if="checkType('retweet')">Retweet</div>
-      <div class="post-card__text">
-        {{ postDetails.text }}
-      </div>
-      <div class="post-card__chips">
-        <div class="chips__container">
-          <SentimentChips
-            :chips-type="postDetails.sentiment"
-            :post-id="postDetails.id"
-          />
-        </div>
-        <div class="chips__container">
-          <BaseChips chips-type="topic"> Topic</BaseChips>
-        </div>
-      </div>
+      <slot></slot>
     </div>
     <div class="post-card__footer">
-      <slot name="footer"></slot>
+      <div class="option">
+        <h4>Date</h4>
+        <span class="option__text"> {{ formateDate(postDetails.date) }}</span>
+      </div>
+      <div class="option">
+        <h4>Engagements</h4>
+        <span class="option__text"> {{ postDetails.engagements }}</span>
+      </div>
+      <div class="option stat">
+        <LikeIcon />
+        <span> {{ postDetails.count_favorites }}</span>
+      </div>
+      <div class="option stat">
+        <RepliesIcon />
+        <span> {{ postDetails.count_replies }}</span>
+      </div>
+      <div class="option stat">
+        <RetweetsIcon />
+        <span> {{ postDetails.count_totalretweets }}</span>
+      </div>
+      <div class="option stat">
+        <a :href="postDetails.link" target="_blank" class="link">&#8599;</a>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import {isAllFieldsEmpty} from '@lib/utilities'
-
-import SentimentChips from '@/components/SentimentChips'
-import BaseChips from '@/components/BaseChips'
 import RepliesIcon from '@/components/icons/RepliesIcon'
+
+import LikeIcon from '@/components/icons/LikeIcon'
+import RetweetsIcon from '@/components/icons/RetweetsIcon'
 
 export default {
   name: 'PostCardLayout',
   components: {
     RepliesIcon,
-    BaseChips,
-    SentimentChips,
+    LikeIcon,
+    RetweetsIcon,
   },
   props: {
     postDetails: {type: Object, required: true},
   },
   methods: {
-    checkType(type) {
-      if (!isAllFieldsEmpty(this.postDetails))
-        return this.postDetails.type.includes(type)
+    formateDate(date) {
+      return new Date(date)
+        .toLocaleString()
+        .split(', ')
+        .reverse()
+        .join(', ')
+        .replaceAll('/', '.')
     },
   },
 }
@@ -58,7 +62,7 @@ export default {
 
 <style lang="scss" scoped>
 .post-card {
-  height: 210px;
+  height: fit-content;
 
   background: var(--background-secondary-color);
 
@@ -73,32 +77,6 @@ export default {
     padding: 20px 20px 10px;
 
     height: 75%;
-  }
-
-  &__reply {
-    display: flex;
-    align-items: center;
-
-    gap: 10px;
-    .alias {
-      color: var(--primary-color);
-    }
-  }
-
-  &__text {
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  &__chips {
-    display: flex;
-
-    gap: 8px;
-    .chips__container {
-      height: fit-content;
-    }
   }
 
   &__footer {
@@ -123,5 +101,54 @@ export default {
 
 .negative-border {
   border-left: 3px solid var(--negative-primary-color);
+}
+
+.option {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  width: 100%;
+
+  padding-right: 5px;
+
+  border-right: var(--border-primary);
+
+  &:nth-child(n + 1) {
+    padding-left: 5px;
+  }
+
+  &:last-child {
+    border-right: none;
+  }
+
+  &__text {
+    font-weight: 400;
+    font-size: 11px;
+  }
+
+  .link {
+    text-decoration: none;
+    color: var(--primary-color);
+    font-size: 25px;
+  }
+}
+
+.stat {
+  align-items: center;
+  flex-direction: row;
+
+  gap: 5px;
+}
+h4 {
+  font-weight: 500;
+  font-size: 10px;
+
+  text-transform: uppercase;
+  color: var(--typography-secondary-color);
+}
+
+span {
+  font-size: 12px;
 }
 </style>

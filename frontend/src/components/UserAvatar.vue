@@ -22,7 +22,7 @@ export default {
   props: {
     avatarUrl: {
       type: String,
-      default: '',
+      default: require('@/assets/defaultAvatar.png'),
     },
     firstName: {
       type: String,

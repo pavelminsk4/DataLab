@@ -35,7 +35,9 @@ import {action} from '@store/constants'
 import {createNamespacedHelpers, mapState} from 'vuex'
 // import BaseInput from '@/components/common/BaseInput'
 import PaginationControlPanel from '@/components/PaginationControlPanel'
+
 import AccountActivityPostsLayout from '@/components/account-analysis/AccountActivityPostsLayout'
+import MentionsPostsLayout from '@/components/account-analysis/MentionsPostsLayout'
 
 const {mapState: mapStateAccountAnalysis, mapActions} =
   createNamespacedHelpers('accountAnalysis')
@@ -46,6 +48,7 @@ export default {
     // BaseInput,
     PaginationControlPanel,
     AccountActivityPostsLayout,
+    MentionsPostsLayout,
   },
   props: {
     currentProject: {type: Object, required: true},
@@ -53,9 +56,9 @@ export default {
   },
   data() {
     return {
-      searchText: '',
       currentPage: 1,
       countPosts: 20,
+      searchText: '',
       postsOnPage: [20, 50, 100],
     }
   },
@@ -81,7 +84,6 @@ export default {
     getPosts(page, countPosts) {
       const actionName =
         this.currentTab === 'Mentions' ? 'MENTIONS' : 'ACCOUNT_ACTIVITY'
-      console.log(this.currentPage, page)
       this[action[`GET_${actionName}_POSTS`]]({
         projectId: this.currentProject.id,
         value: {posts_per_page: countPosts, page_number: page},
