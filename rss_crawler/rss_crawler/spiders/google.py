@@ -95,7 +95,6 @@ class GoogleSpider(scrapy.Spider):
             if not re.match('(?:http|ftp|https)://', feed):
                 feed = 'http://{}'.format(feed)
             in_feedlinks = Feedlinks.objects.filter(url=feed)
-            if feedparser.parse(feed).bozo == False and len(feedparser.parse(feed).entries)!=0 and not in_feedlinks:
             in_newfeedlinks = NewFeedlinks.objects.filter(url=feed)
             if feedparser.parse(feed).bozo == False and len(feedparser.parse(feed).entries)!=0 and not (in_feedlinks or in_newfeedlinks):
                 item = RssCrawlerItem()
