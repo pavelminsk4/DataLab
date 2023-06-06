@@ -7,6 +7,8 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from api.views import filter_with_constructor, data_range_posts
 from celery import shared_task
+from bs4 import BeautifulSoup
+import requests
 
 
 class WorkspaceTwentyFourSeven(models.Model):
@@ -78,6 +80,13 @@ def attach_online_posts(id):
         item = Item.objects.create(online_post=post)
         item.save()
         instance.tfs_project_items.add(item)
+        if post.full_text is None:
+            try:
+                post.full_text = get_full_text(post.entry_link)
+            except:
+                post.full_text = 'Please follow the link for the full text of the news.'
+            post.save()
+
 
 
 @receiver(post_save, sender=ProjectTwentyFourSeven)
@@ -115,3 +124,27 @@ class Item(models.Model):
 
     def __str__(self):
         return str(self.project)
+
+
+def find_tags(tags):
+    result_tags = []
+    for tag in tags:
+        if tag.find('a') is None and tag.parent.name != 'a' and not tag.has_attr('class'):
+            result_tags.append(tag.get_text().strip())
+    return result_tags
+
+
+@shared_task
+def get_full_text(url):
+    resp = requests.get(url)
+    if resp.status_code != 200:
+        return None
+    else:
+        page = resp.text
+        soup = BeautifulSoup(page, 'html.parser')
+        p_tags = soup.find_all('p')
+        p_tags_text = find_tags(p_tags)
+        sentence_list = [sentence for sentence in p_tags_text if not '\n' in sentence]
+        sentence_list = [sentence for sentence in sentence_list if '.' in sentence]
+        full_text = '\n'.join(sentence_list)
+        return full_text

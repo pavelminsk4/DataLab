@@ -9,6 +9,8 @@ class PostSerializer(WritableNestedModelSerializer):
     feedlink__country = serializers.CharField(source='feedlink.country')
     feed_language__language = serializers.CharField(source='feed_language.language')
     feedlink__alexaglobalrank = serializers.CharField(source='feedlink.alexaglobalrank')
+    feedlink__sourceurl = serializers.CharField(source='feedlink.sourceurl')
+
     class Meta:
         model = Post
         fields = [
@@ -21,6 +23,9 @@ class PostSerializer(WritableNestedModelSerializer):
             'feedlink__country',
             'feed_language__language',
             'feedlink__alexaglobalrank',
+            'full_text',
+            'feed_image_link',
+            'feedlink__sourceurl',
         ]
 
 
