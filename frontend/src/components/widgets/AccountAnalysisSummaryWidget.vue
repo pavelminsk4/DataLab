@@ -61,6 +61,13 @@ import NeutralIcon from '@/components/icons/NeutralIcon'
 import NegativeIcon from '@/components/icons/NegativeIcon'
 import PositiveIcon from '@/components/icons/PositiveIcon'
 import GraphIcon from '@/components/icons/GraphIcon'
+import ListIcon from '@/components/icons/ListIcon'
+import MatrixDotsIcon from '@/components/icons/MatrixDotsIcon'
+import TwitterIcon from '@/components/icons/TwitterIcon'
+import CalendarIcon from '@/components/icons/CalendarIcon'
+import EngagementIcon from '@/components/icons/EngagementIcon'
+import HeartIcon from '@/components/icons/HeartIcon'
+import RetweetsIcon from '@/components/icons/RetweetsIcon'
 
 export default {
   props: {
@@ -80,6 +87,13 @@ export default {
     NegativeIcon,
     PositiveIcon,
     GraphIcon,
+    ListIcon,
+    MatrixDotsIcon,
+    TwitterIcon,
+    CalendarIcon,
+    EngagementIcon,
+    HeartIcon,
+    RetweetsIcon,
   },
   methods: {
     isVerified(cond) {
@@ -226,5 +240,33 @@ export default {
 
 .graph {
   background-color: #fc732d;
+}
+
+.calendar {
+  background-color: #a0b8be;
+}
+
+.twitter {
+  background-color: #516bee;
+}
+
+.list {
+  background-color: #2ea8dd;
+}
+
+.matrixdots {
+  background-color: #57c7b3;
+}
+
+.heart {
+  background-color: #ed2549;
+}
+
+.engagement {
+  background-color: #7546ff;
+}
+
+.retweets {
+  background-color: #3088f0;
 }
 </style>

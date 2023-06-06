@@ -107,7 +107,7 @@ export const socialWidgetsList = {
 export const accountAnalysisWidgetsList = {
   AccountActivity: {
     dashboard: [
-      // {name: 'summary', isFullWidth: true, minHeight: 230},
+      {name: 'summary', isFullWidth: true, minHeight: 230},
       {name: 'profile_timeline', isFullWidth: true},
       {name: 'follower_growth', isFullWidth: true},
       {name: 'most_frequent_post_types', isFullWidth: false},
@@ -117,7 +117,7 @@ export const accountAnalysisWidgetsList = {
       {name: 'top_posts_by_engagements', isFullWidth: true},
     ],
     optimization: [
-      // {name: 'summary', isFullWidth: true, minHeight: 230},
+      {name: 'summary', isFullWidth: true, minHeight: 230},
       {name: 'optimal_post_time', isFullWidth: true},
       {name: 'best_times_to_post', isFullWidth: false},
       {name: 'optimal_post_length', isFullWidth: false},

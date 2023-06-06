@@ -1,70 +1,70 @@
 <template>
   <svg
     width="18"
-    height="20"
-    viewBox="0 0 18 20"
+    height="19"
+    viewBox="0 0 18 19"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
-      d="M1.57715 7.83688H16.4304"
-      stroke="#797D80"
+      d="M1.57812 7.1694H16.4314"
+      stroke="white"
       stroke-width="2"
       stroke-linecap="round"
       stroke-linejoin="round"
     />
     <path
-      d="M12.7017 11.0914H12.7094"
-      stroke="#797D80"
+      d="M12.7025 10.4253H12.7102"
+      stroke="white"
       stroke-width="2"
       stroke-linecap="round"
       stroke-linejoin="round"
     />
     <path
-      d="M9.00397 11.0914H9.01169"
-      stroke="#797D80"
+      d="M9.00323 10.4253H9.01095"
+      stroke="white"
       stroke-width="2"
       stroke-linecap="round"
       stroke-linejoin="round"
     />
     <path
-      d="M5.29816 11.0914H5.30588"
-      stroke="#797D80"
+      d="M5.30011 10.4253H5.30783"
+      stroke="white"
       stroke-width="2"
       stroke-linecap="round"
       stroke-linejoin="round"
     />
     <path
-      d="M12.7017 14.3302H12.7094"
-      stroke="#797D80"
+      d="M12.7025 13.6635H12.7102"
+      stroke="white"
       stroke-width="2"
       stroke-linecap="round"
       stroke-linejoin="round"
     />
     <path
-      d="M9.00397 14.3302H9.01169"
-      stroke="#797D80"
+      d="M9.00323 13.6635H9.01095"
+      stroke="white"
       stroke-width="2"
       stroke-linecap="round"
       stroke-linejoin="round"
     />
     <path
-      d="M5.29816 14.3302H5.30588"
-      stroke="#797D80"
+      d="M5.30011 13.6635H5.30783"
+      stroke="white"
       stroke-width="2"
       stroke-linecap="round"
       stroke-linejoin="round"
     />
     <path
-      d="M12.3699 1.66663V4.40894"
-      stroke="#797D80"
+      d="M12.3704 1V3.74232"
+      stroke="white"
       stroke-width="2"
       stroke-linecap="round"
       stroke-linejoin="round"
     />
     <path
-      d="M5.63795 1.66663V4.40894"
-      stroke="#797D80"
+      d="M5.636 1V3.74232"
+      stroke="white"
       stroke-width="2"
       stroke-linecap="round"
       stroke-linejoin="round"
@@ -72,8 +72,8 @@
     <path
       fill-rule="evenodd"
       clip-rule="evenodd"
-      d="M12.5319 2.98267H5.4758C3.02856 2.98267 1.5 4.34594 1.5 6.85185V14.3932C1.5 16.9385 3.02856 18.3333 5.4758 18.3333H12.5242C14.9791 18.3333 16.5 16.9622 16.5 14.4563V6.85185C16.5077 4.34594 14.9868 2.98267 12.5319 2.98267Z"
-      stroke="#797D80"
+      d="M12.5319 2.31641H5.4758C3.02856 2.31641 1.5 3.67968 1.5 6.18559V13.727C1.5 16.2723 3.02856 17.6671 5.4758 17.6671H12.5242C14.9791 17.6671 16.5 16.2959 16.5 13.79V6.18559C16.5077 3.67968 14.9868 2.31641 12.5319 2.31641Z"
+      stroke="white"
       stroke-width="2"
       stroke-linecap="round"
       stroke-linejoin="round"
