@@ -524,6 +524,14 @@ export const widgetsConfig = {
     defaultChartType: 'BarChart',
     availableTypes: SIMPLE_CHARTS,
   },
+
+  mention_sentiment: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    hasAggregationPeriod: false,
+    actionName: action.GET_MENTION_SENTIMENT,
+    defaultChartType: 'DoughnutChart',
+    availableTypes: SIMPLE_CHARTS,
+  },
 }
 
 export const summaryWidgetConfig = [
@@ -572,7 +580,7 @@ export const summaryWidgetConfig = [
   {
     name: 'Authors',
     valueName: 'authors',
-    iconName: 'AuthorsIcon',
+    iconName: 'AuthorIcon',
     backgroundColor: '#EA6E8F',
   },
 ]
@@ -594,7 +602,7 @@ export const socialSummaryWidgetConfig = [
   {
     name: 'Retweet',
     valueName: 'retweets',
-    iconName: 'RetweetsIcon',
+    iconName: 'RetweetIcon',
     backgroundColor: '#57C7B3',
   },
 ]

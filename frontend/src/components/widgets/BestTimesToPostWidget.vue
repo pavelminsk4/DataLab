@@ -19,7 +19,7 @@
           <span>{{ item.likes }}</span>
         </div>
         <div class="stats__item">
-          <RetweetsIcon />
+          <RetweetIcon />
           <span>{{ item.retweets }}</span>
         </div>
         <div class="stats__item">
@@ -34,12 +34,12 @@
 <script>
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
 import LikeIcon from '@/components/icons/LikeIcon'
-import RetweetsIcon from '@/components/icons/RetweetsIcon'
+import RetweetIcon from '@/components/icons/RetweetIcon'
 import RepliesIcon from '@/components/icons/RepliesIcon'
 
 export default {
   name: 'BestTimesToPostWidget',
-  components: {WidgetsLayout, LikeIcon, RetweetsIcon, RepliesIcon},
+  components: {WidgetsLayout, LikeIcon, RetweetIcon, RepliesIcon},
   props: {
     widgetDetails: {type: Object, required: true},
     widgetData: {type: Object, required: true},

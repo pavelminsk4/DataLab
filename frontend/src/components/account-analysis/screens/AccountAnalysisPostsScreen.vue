@@ -35,7 +35,9 @@ import {action} from '@store/constants'
 import {createNamespacedHelpers, mapState} from 'vuex'
 // import BaseInput from '@/components/common/BaseInput'
 import PaginationControlPanel from '@/components/PaginationControlPanel'
+
 import AccountActivityPostsLayout from '@/components/account-analysis/AccountActivityPostsLayout'
+import MentionsPostsLayout from '@/components/account-analysis/MentionsPostsLayout'
 
 const {mapState: mapStateAccountAnalysis, mapActions} =
   createNamespacedHelpers('accountAnalysis')
@@ -46,6 +48,7 @@ export default {
     // BaseInput,
     PaginationControlPanel,
     AccountActivityPostsLayout,
+    MentionsPostsLayout,
   },
   props: {
     currentProject: {type: Object, required: true},
@@ -53,9 +56,9 @@ export default {
   },
   data() {
     return {
-      searchText: '',
       currentPage: 1,
       countPosts: 20,
+      searchText: '',
       postsOnPage: [20, 50, 100],
     }
   },
@@ -71,13 +74,7 @@ export default {
     },
   },
   created() {
-    if (!this.accountActivityPosts.length) {
-      this.getPosts(this.currentPage, this.countPosts)
-    }
-
-    if (!this.mentionsPosts.length) {
-      this.getPosts(this.currentPage, this.countPosts)
-    }
+    this.checkForPosts()
   },
   methods: {
     ...mapActions([
@@ -95,6 +92,23 @@ export default {
     updatePage(page, countPosts) {
       this.countPosts = countPosts
       this.getPosts(page, countPosts)
+    },
+    checkForPosts() {
+      if (
+        !this.accountActivityPosts.length &&
+        this.currentTab === 'AccountActivity'
+      ) {
+        this.getPosts(this.currentPage, this.countPosts)
+      }
+
+      if (!this.mentionsPosts.length && this.currentTab === 'Mentions') {
+        this.getPosts(this.currentPage, this.countPosts)
+      }
+    },
+  },
+  watch: {
+    currentTab() {
+      this.checkForPosts()
     },
   },
 }

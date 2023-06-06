@@ -345,6 +345,36 @@ export default {
     }
   },
 
+  async [action.GET_MENTION_SUMMARY]({commit}, {projectId, widgetId}) {
+    commit(mutator.SET_LOADING, true, {root: true})
+    try {
+      const mentionSummary = await api.accountAnalysis.getMentionSummary(
+        projectId,
+        widgetId
+      )
+      commit(mutator.SET_MENTION_SUMMARY, mentionSummary)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false, {root: true})
+    }
+  },
+
+  async [action.GET_MENTION_SENTIMENT]({commit}, {projectId, widgetId}) {
+    commit(mutator.SET_LOADING, true, {root: true})
+    try {
+      const mentionSentiment = await api.accountAnalysis.getMentionSentiment(
+        projectId,
+        widgetId
+      )
+      commit(mutator.SET_MENTION_SENTIMENT, mentionSentiment)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false, {root: true})
+    }
+  },
+
   [action.CLEAR_WIDGETS_DATA]({commit}) {
     commit(mutator.CLEAR_WIDGETS_DATA)
   },

@@ -75,6 +75,14 @@ export default {
     state.averageEngagementsByDayForMentions = data
   },
 
+  [mutator.SET_MENTION_SUMMARY](state, data) {
+    state.mentionSummary = data
+  },
+
+  [mutator.SET_MENTION_SENTIMENT](state, data) {
+    state.mentionSentiment = data
+  },
+
   [mutator.CLEAR_WIDGETS_DATA](state) {
     for (const widget in state) {
       state[widget] = {}

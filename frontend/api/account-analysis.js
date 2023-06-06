@@ -35,9 +35,12 @@ export default {
     return fetch('post', `${moduleName}/search_posts/${projectId}`, value)
   },
 
-  async getMentionsPosts() {
-    return []
-    // return fetch('post', `${moduleName}/search_posts/${projectId}`, value)
+  async getMentionsPosts(projectId, value) {
+    return fetch(
+      'post',
+      `${moduleName}/search_posts_mentions/${projectId}`,
+      value
+    )
   },
 
   // Widgets
@@ -202,6 +205,22 @@ export default {
     return fetch(
       'post',
       `${moduleName}/average_engagements_by_day_for_mentions_widget/${projectId}/${widgetId}`,
+      {aggregation_period: value}
+    )
+  },
+
+  async getMentionSummary(projectId, widgetId, value) {
+    return fetch(
+      'post',
+      `${moduleName}/mention_summary_widget/${projectId}/${widgetId}`,
+      {aggregation_period: value}
+    )
+  },
+
+  async getMentionSentiment(projectId, widgetId, value) {
+    return fetch(
+      'post',
+      `${moduleName}/mention_sentiment_widget/${projectId}/${widgetId}`,
       {aggregation_period: value}
     )
   },
