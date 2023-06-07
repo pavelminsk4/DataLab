@@ -1,5 +1,9 @@
 <template>
-  <TFSWorkingModal v-if="postInfo" :post-info="postInfo" @close="close" />
+  <TFSWorkingModal
+    v-if="modalName === 'Working' && postInfo"
+    :post="postInfo"
+    @close="close"
+  />
   <TFSDragAndDrop
     :card-results="items"
     @update-status="updateStatus"
@@ -35,6 +39,9 @@ export default {
     ...mapState(['items']),
     projectId() {
       return this.$route.params.projectId
+    },
+    modalName() {
+      return this.$route.query?.modal
     },
   },
   created() {
@@ -73,6 +80,7 @@ export default {
     },
     openModal(postInfo) {
       this.$router.push({
+        name: 'TFSDashboard',
         query: {modal: 'Working', tab: 'Original content'},
       })
       this.postInfo = postInfo

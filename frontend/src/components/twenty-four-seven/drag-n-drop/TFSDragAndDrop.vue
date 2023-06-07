@@ -85,7 +85,9 @@ export default {
           const postId = $event.dataTransfer.getData('itemId')
 
           let allowedElement = document.getElementById(allowedStatus)
-          allowedElement.style.background = ''
+          if (allowedElement) {
+            allowedElement.style.background = 'transparent'
+          }
           if (allowedStatus === this.newAreaId) {
             this.$emit(
               'update-status',

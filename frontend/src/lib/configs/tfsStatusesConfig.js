@@ -7,6 +7,13 @@ export const defaultStatuses = [
   'Irrelevant',
 ]
 
+export const modalTabs = {
+  Picking: ['Original content'],
+  Summary: ['Original content', 'Summary'],
+  'Q&A Check': ['Original content', 'Q&A Check'],
+  Publishing: ['Original content', 'Story report'],
+}
+
 export const dragAndDropStatuses = [
   {
     status: 'Picking',

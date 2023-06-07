@@ -40,7 +40,7 @@ export default {
     return fetch('get', `${moduleName}/related_content/?item=${itemId}`)
   },
 
-  async updateItemStatus(projectId, itemId, value) {
+  async updateItem(projectId, itemId, value) {
     return fetch(
       'patch',
       `${moduleName}/projects/${projectId}/items/${itemId}/`,
