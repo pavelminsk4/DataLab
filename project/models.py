@@ -8,7 +8,7 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save, pre_delete
 from ndarraydjango.fields import NDArrayField
 import numpy as np
-from pgvector.django import VectorField
+
 
 class Workspace(models.Model):
   title = models.CharField(max_length=100)

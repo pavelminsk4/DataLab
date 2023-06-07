@@ -18,17 +18,17 @@ def calculate_summary_widget(posts):
   retweets_quantity = reduce(lambda x, y: x + y, [x['count_retweets'] for x in posts.values('count_retweets')], 0)
   
   return {
-    'posts':posts_quantity,
-    'sources':1,
-    'authors':authors_quantity,
-    'countries':countries_quantity,
-    'languages':languages_quantity,
-    'pos':pos_posts,
-    'neg':neg_posts,
-    'neut':neut_posts,
-    'likes':likes_quantity,
-    'replies':replies_quantity,
-    'retweets':retweets_quantity,
+    'posts': posts_quantity,
+    'sources': 1,
+    'authors': authors_quantity,
+    'countries': countries_quantity,
+    'languages': languages_quantity,
+    'pos': pos_posts,
+    'neg': neg_posts,
+    'neut': neut_posts,
+    'likes': likes_quantity,
+    'replies': replies_quantity,
+    'retweets': retweets_quantity,
     }
 
 def summary(pk, widget_pk):

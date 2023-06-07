@@ -1,6 +1,6 @@
-import factory
-from .user import UserFactory
 from account_analysis.models import ProjectAccountAnalysis
+from common.factories.user import UserFactory
+import factory
 
 
 class AccountAnalysisProjectFactory(factory.django.DjangoModelFactory):

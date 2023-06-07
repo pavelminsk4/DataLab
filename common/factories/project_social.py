@@ -1,6 +1,6 @@
-import factory
-from .user import UserFactory
 from project_social.models import ProjectSocial
+from common.factories.user import UserFactory
+import factory
 
 
 class ProjectSocialFactory(factory.django.DjangoModelFactory):

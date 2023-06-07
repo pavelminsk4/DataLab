@@ -1,5 +1,5 @@
 import factory
-from .user import UserFactory
+from common.factories.user import UserFactory
 from project.models import Project
 
 

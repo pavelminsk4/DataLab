@@ -6,5 +6,5 @@ class WorkspaceFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Workspace
 
-    title =      'Sensika'
+    title      = factory.Faker('name')
     department = factory.SubFactory(DepartmentFactory)
