@@ -132,7 +132,7 @@ export const widgetsConfig = {
     ...WIDGET_DEFAULT_SETTINGS,
     hasAggregationPeriod: false,
     actionName: action.GET_SENTIMENT_TOP_SOURCES,
-    defaultChartType: 'BarChart',
+    defaultChartType: 'HorizontalBarChart',
     availableTypes: SENTIMENTS_CHARTS,
   },
   sentiment_top_countries: {

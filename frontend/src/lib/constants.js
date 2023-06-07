@@ -45,11 +45,11 @@ export const onlineWidgetsList = {
   sentiment: [
     {name: 'sentiment_number_of_results'},
     {name: 'sentiment_diagram'},
-    {name: 'sentiment_top_10_authors_widget'},
+    {name: 'sentiment_top_authors'},
     {name: 'top_keywords'},
-    {name: 'sentiment_top_10_sources_widget', isFullWidth: true},
-    {name: 'sentiment_top_10_countries_widget'},
-    {name: 'sentiment_top_10_languages_widget'},
+    {name: 'sentiment_top_sources', isFullWidth: true},
+    {name: 'sentiment_top_countries'},
+    {name: 'sentiment_top_languages'},
     {name: 'sentiment_top_keywords'},
   ],
   demography: [

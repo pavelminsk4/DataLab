@@ -41,7 +41,7 @@ import {stringToPascalCase} from '@/lib/utilities'
 import {modalTabs} from '@/lib/configs/tfsStatusesConfig'
 
 import BaseModal from '@/components/modals/BaseModal'
-import TFSOriginalContentTab from '../TFSOriginalContentTab'
+import TFSOriginalContentTab from '@/components/twenty-four-seven/TFSOriginalContentTab'
 import TFSStoryReportTab from '@/components/twenty-four-seven/TFSStoryReportTab'
 import TFSSummaryTab from '@/components/twenty-four-seven/TFSSummaryTab'
 import ContentWithPosts from '@/components/twenty-four-seven/ContentWithPosts'
