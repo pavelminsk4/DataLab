@@ -1,46 +1,69 @@
+const CARD_STATUSES = {
+  PICKING: 'Picking',
+  SUMMARY: 'Summary',
+  QACHECK: 'Q&A Check',
+  PUBLISHING: 'Publishing',
+  PUBLISHED: 'Published',
+  IRRELEVANT: 'Irrelevant',
+}
+
 export const defaultStatuses = [
-  'Picking',
-  'Summary',
-  'Q&A Check',
-  'Publishing',
-  'Published',
-  'Irrelevant',
+  CARD_STATUSES.PICKING,
+  CARD_STATUSES.SUMMARY,
+  CARD_STATUSES.QACHECK,
+  CARD_STATUSES.PUBLISHING,
+  CARD_STATUSES.PUBLISHED,
+  CARD_STATUSES.IRRELEVANT,
 ]
 
 export const modalTabs = {
-  Picking: ['Original content'],
-  Summary: ['Original content', 'Summary'],
-  'Q&A Check': ['Original content', 'Q&A Check'],
-  Publishing: ['Original content', 'Story report'],
+  [CARD_STATUSES.PICKING]: ['Original content'],
+  [CARD_STATUSES.SUMMARY]: ['Original content', 'Summary'],
+  [CARD_STATUSES.QACHECK]: ['Original content', 'Q&A Check'],
+  [CARD_STATUSES.PUBLISHING]: ['Original content', 'Story report'],
 }
 
-export const dragAndDropStatuses = [
-  {
-    status: 'Picking',
+export const dragAndDropStatuses = {
+  [CARD_STATUSES.PICKING]: {
+    status: CARD_STATUSES.PICKING,
     page: 1,
     color: '#2A7697',
-    allowedToDrag: ['Summary', 'Irrelevant'],
+    allowedToDrag: [CARD_STATUSES.SUMMARY, CARD_STATUSES.IRRELEVANT],
   },
-  {
-    status: 'Summary',
+  [CARD_STATUSES.SUMMARY]: {
+    status: CARD_STATUSES.SUMMARY,
     page: 1,
     color: '#3746A6',
-    allowedToDrag: ['Q&A Check', 'Irrelevant'],
+    allowedToDrag: [CARD_STATUSES.QACHECK, CARD_STATUSES.IRRELEVANT],
   },
-  {
-    status: 'Q&A Check',
+  [CARD_STATUSES.QACHECK]: {
+    status: CARD_STATUSES.QACHECK,
     page: 1,
     color: '#AB3E00',
-    allowedToDrag: ['Summary', 'Publishing', 'Irrelevant'],
+    allowedToDrag: [
+      CARD_STATUSES.SUMMARY,
+      CARD_STATUSES.PUBLISHING,
+      CARD_STATUSES.IRRELEVANT,
+    ],
   },
-  {
-    status: 'Publishing',
+  [CARD_STATUSES.PUBLISHING]: {
+    status: CARD_STATUSES.PUBLISHING,
     page: 1,
     color: '#2A8500',
-    allowedToDrag: ['Published', 'Summary', 'Q&A Check', 'Irrelevant'],
+    allowedToDrag: [
+      CARD_STATUSES.PUBLISHED,
+      CARD_STATUSES.SUMMARY,
+      CARD_STATUSES.QACHECK,
+      CARD_STATUSES.IRRELEVANT,
+    ],
   },
-  {status: 'Published', page: 1, color: '#961CCF', allowedToDrag: []},
-]
+  [CARD_STATUSES.PUBLISHED]: {
+    status: CARD_STATUSES.PUBLISHED,
+    page: 1,
+    color: '#961CCF',
+    allowedToDrag: [],
+  },
+}
 
 const SUMMARY = {
   color: '#3746A6',

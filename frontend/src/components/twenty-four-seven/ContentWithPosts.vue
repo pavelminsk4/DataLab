@@ -67,16 +67,14 @@ export default {
 
       margin-bottom: 28px;
 
+      font-weight: 600;
+
       .title {
-        font-style: normal;
-        font-weight: 600;
         font-size: 20px;
         color: var(--typography-primary-color);
       }
 
       .results {
-        font-style: normal;
-        font-weight: 600;
         font-size: 14px;
         color: var(--typography-secondary-color);
       }

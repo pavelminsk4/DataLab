@@ -17,7 +17,7 @@
 
         <div class="content-wrapper">
           <TFSSummaryTab
-            v-if="activeTab === 'Summary' || activeTab === 'Q&A Check'"
+            v-if="currentTab"
             :post="post"
             @save-summary="saveSummary"
           />
@@ -68,6 +68,9 @@ export default {
     panelTabs() {
       return modalTabs[this.post.status]
     },
+    currentTab() {
+      return this.activeTab === 'Summary' || this.activeTab === 'Q&A Check'
+    },
   },
   created() {
     this[action.GET_TFS_RELATED_CONTENT](this.post.id)
@@ -87,7 +90,7 @@ export default {
     async saveSummary(header, text) {
       await this[action.UPDATE_TFS_ITEM_DATA]({
         projectId: this.post.project,
-        itemId: this.post.id,
+        postId: this.post.id,
         value: {header, text, status: this.post.status},
         page: 1,
       })

@@ -62,10 +62,10 @@ export default {
   },
   methods: {
     ...mapActions([action.GET_TFS_ITEMS, action.UPDATE_TFS_ITEM_STATUS]),
-    async updateStatus(itemId, newStatus, oldStatus, page, isBack) {
+    async updateStatus(postId, newStatus, oldStatus, page, isBack) {
       await this[action.UPDATE_TFS_ITEM_STATUS]({
         projectId: this.projectId,
-        itemId: itemId,
+        postId: postId,
         value: {status: newStatus, is_back: isBack},
         oldStatus,
         page: page,

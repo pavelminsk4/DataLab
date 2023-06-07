@@ -4,10 +4,10 @@
       v-for="(itemStatus, index) in statuses"
       :key="'status' + index"
       :id="itemStatus.status"
-      class="drop-zone"
-      @drop="onDrop($event, index)"
-      @dragover="addBGToAvailColumn($event, index)"
-      @mousedown="getCurrentColumnId(index)"
+      :class="['drop-zone', isHighlighted(itemStatus.status) && 'highlighted']"
+      @drop="onDrop($event, itemStatus.status)"
+      @dragover="addBGToAvailColumn($event, itemStatus.status)"
+      @mousedown="getCurrentColumnId(itemStatus.status)"
       @dragenter.prevent
     >
       <TFSColumnHeader
@@ -61,12 +61,15 @@ export default {
   data() {
     return {
       numberOfPage: 1,
-      currentColumnId: null,
-      newAreaId: null,
+      currentColumnName: null,
+      newColumnName: null,
+      highlightedColumns: [],
     }
   },
-  created() {
-    this.statuses = dragAndDropStatuses
+  computed: {
+    statuses() {
+      return dragAndDropStatuses
+    },
   },
   methods: {
     getCardInformation(status) {
@@ -77,25 +80,24 @@ export default {
       $event.dataTransfer.dropEffect = 'move'
       $event.dataTransfer.effectAllowed = 'move'
       $event.dataTransfer.setData('itemId', item.id)
+
+      this.highlightedColumns = this.statuses[item.status].allowedToDrag
     },
 
-    onDrop($event, index) {
-      this.statuses[this.currentColumnId].allowedToDrag.filter(
+    onDrop($event, status) {
+      this.highlightedColumns = []
+
+      this.statuses[this.currentColumnName].allowedToDrag.filter(
         (allowedStatus) => {
           const postId = $event.dataTransfer.getData('itemId')
-
-          let allowedElement = document.getElementById(allowedStatus)
-          if (allowedElement) {
-            allowedElement.style.background = 'transparent'
-          }
-          if (allowedStatus === this.newAreaId) {
+          if (allowedStatus === this.newColumnName) {
             this.$emit(
               'update-status',
               postId,
-              this.statuses[index].status,
-              this.statuses[this.currentColumnId].status,
-              this.statuses[index].page,
-              !this.isBack(this.statuses[index].status)
+              this.statuses[status].status,
+              this.statuses[this.currentColumnName].status,
+              this.statuses[status].page,
+              !this.isBack(this.statuses[status].status)
             )
           }
           return
@@ -103,16 +105,13 @@ export default {
       )
     },
 
+    isHighlighted(status) {
+      return this.highlightedColumns.includes(status)
+    },
+
     addBGToAvailColumn($event, index) {
       $event.preventDefault()
-
-      this.newAreaId = this.statuses[index].status
-      this.statuses[this.currentColumnId].allowedToDrag.filter((el) => {
-        if (el === $event.target.id) {
-          $event.target.style.background = '#DAF9CE'
-        }
-        return
-      })
+      this.newColumnName = this.statuses[index].status
     },
 
     changeStatus(itemId, newStatus, oldStatus) {
@@ -157,15 +156,16 @@ export default {
     },
 
     isBack(newStatus) {
-      let newStatusIndex = this.statuses.findIndex(
-        (el) => el.status === newStatus
-      )
-
-      return newStatusIndex >= this.currentColumnId
+      return this.findIndex(newStatus) >= this.findIndex(this.currentColumnName)
     },
 
-    getCurrentColumnId(id) {
-      this.currentColumnId = id
+    findIndex(statusName) {
+      const statusesValue = Object.keys(this.statuses)
+      return statusesValue.findIndex((el) => el.status === statusName)
+    },
+
+    getCurrentColumnId(statusName) {
+      this.currentColumnName = statusName
     },
   },
 }
@@ -188,6 +188,10 @@ export default {
         width: 290px;
       }
     }
+  }
+
+  .highlighted {
+    background-color: #daf9ce;
   }
 }
 

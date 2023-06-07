@@ -1,9 +1,9 @@
 <template>
   <div class="post-title">
-    {{ post.online_post.entry_title }}
+    {{ title }}
   </div>
   <div class="post-description">
-    {{ post.online_post.entry_summary }}
+    {{ description }}
   </div>
 </template>
 
@@ -13,6 +13,14 @@ export default {
   emits: ['save-summary'],
   props: {
     post: {type: Object, required: true},
+  },
+  computed: {
+    title() {
+      return this.post.online_post.entry_title
+    },
+    description() {
+      return this.post.online_post.entry_summary
+    },
   },
 }
 </script>

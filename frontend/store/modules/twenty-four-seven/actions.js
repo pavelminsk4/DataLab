@@ -109,11 +109,11 @@ export default {
 
   async [action.UPDATE_TFS_ITEM_STATUS](
     {commit, dispatch},
-    {projectId, itemId, value, oldStatus, page}
+    {projectId, postId, value, oldStatus, page}
   ) {
     commit(mutator.SET_LOADING, true)
     try {
-      await api.twentyFourSeven.updateItem(projectId, itemId, value)
+      await api.twentyFourSeven.updatePostDetails(projectId, postId, value)
       await dispatch(action.GET_TFS_ITEMS, {
         projectId,
         page,
@@ -129,11 +129,11 @@ export default {
 
   async [action.UPDATE_TFS_ITEM_DATA](
     {commit, dispatch},
-    {projectId, itemId, value, page}
+    {projectId, postId, value, page}
   ) {
     commit(mutator.SET_LOADING, true)
     try {
-      await api.twentyFourSeven.updateItem(projectId, itemId, value)
+      await api.twentyFourSeven.updatePostDetails(projectId, postId, value)
       await dispatch(action.GET_TFS_ITEMS, {
         projectId,
         status: value.status,
