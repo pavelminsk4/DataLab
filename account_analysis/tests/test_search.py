@@ -14,20 +14,20 @@ class SearchTests(APITestCase):
     response = self.client.post(url, {'posts_per_page': 20, 'page_number': 1}, format='json')
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     posts = {
-                'count_favorites': 1,
-                'count_replies': 1,
-                'count_totalretweets': None,
-                'date': '2020-10-10T00:00:00Z',
-                'engagements': 2,
-                'id': tw.id,
-                'images': None,
-                'inreplyto': None,
-                'link': f'https://twitter.com/user/status/{tw.post_id}',
-                'post_id': str(tw.post_id),
-                'sentiment': 'neutral',
-                'text': 'First twitter post',
-                'type': ['origin'],
-                'user_alias': '@first',
-                'user_picture': None
-            }
+              'id': tw.pk,
+              'post_id': str(tw.post_id),
+              'type': ['origin'],
+              'inreplyto': None,
+              'images': None,
+              'user_picture': None,
+              'text': 'First twitter post',
+              'sentiment': 'neutral',
+              'date': '2020-10-10T00:00:00Z',
+              'count_totalretweets': None,
+              'count_replies': 1,
+              'count_favorites': 1,
+              'user_alias': '@first',
+              'user_name': 'First_name',
+              'engagements': 2,
+              'link': f'https://twitter.com/user/status/{tw.post_id}'}
     self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':1, 'posts': [posts]})

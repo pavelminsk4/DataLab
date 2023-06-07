@@ -9,10 +9,10 @@ import json
 
 class MentionSummaryWidgetTests(APITestCase):
     def setUp(self):
-        TweetBinderPostFactory(type=['original', 'reply', 'retweet'], text = 'First twitter post @First_name', user_name = 'Second_name')
-        TweetBinderPostFactory(type=['original', 'reply'], text = 'First twitter post @First_name', user_name = 'Third_name')
-        TweetBinderPostFactory(text = 'First twitter post @First_name')
-        TweetBinderPostFactory(count_retweets='2', count_favorites='2', type=['original', 'reply', 'retweet'], text = 'First twitter post @First_name')
+        TweetBinderPostFactory(type=['original', 'reply', 'retweet'], text='First twitter post @First_name', user_name='Second_name', user_alias='Second_name')
+        TweetBinderPostFactory(type=['original', 'reply'], text='First twitter post @First_name', user_name='Third_name', user_alias='Third_name')
+        TweetBinderPostFactory(text='First twitter post @First_name', user_alias='First_name', user_name='First_name')
+        TweetBinderPostFactory(count_retweets='2', count_favorites='2', type=['original', 'reply', 'retweet'], text='First twitter post @First_name')
         AccountAnalysisProjectFactory()
 
     def test_response_list(self):
@@ -22,13 +22,22 @@ class MentionSummaryWidgetTests(APITestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         res = {
-                'authors': 1,
-                'countries': 1,
-                'language': 1,
-                'mention': 4,
-                'negative': 0,
-                'neutral': 4,
-                'positive': 0,
-                'potential_rates': 400.0
-              }
+                'location': None,
+                'stats': {
+                            'authors': 4,
+                            'countries': 1,
+                            'language': 1,
+                            'mention': 4,
+                            'negative': 0,
+                            'neutral': 4,
+                            'positive': 0,
+                            'potential_rates': 400.0
+                        },
+                'user_alias': 'First_name',
+                'user_bio': None,
+                'user_name': 'First_name',
+                'user_picture': None,
+                'user_value': 100.0,
+                'verified': False
+                }
         self.assertEqual(json.loads(response.content), res)
