@@ -1,12 +1,12 @@
-from django.contrib.auth.models import User
+from widgets.models import WidgetsList2, ClippingFeedContentWidget, WidgetDescription, Dimensions, ProjectDimensions
+from drf_writable_nested.serializers import WritableNestedModelSerializer
+from reports.models import Templates, RegularReport, ReportItem
 from project.models import Project, Workspace, Speech
 from accounts.models import Profile, department
-from rest_framework import serializers
-from drf_writable_nested.serializers import WritableNestedModelSerializer
+from django.contrib.auth.models import User
 from countries_plus.models import Country
-from widgets.models import WidgetsList2, ClippingFeedContentWidget, WidgetDescription, Dimensions, ProjectDimensions
-from reports.models import Templates, RegularReport, ReportItem
 from alerts.models import Alert, AlertItem
+from rest_framework import serializers
 from project.models import Post
 
 from rest_framework.validators import UniqueValidator
@@ -107,6 +107,7 @@ class WidgetsListSerializer(WritableNestedModelSerializer):
   sources_by_language = WidgetDescriptionSerializer()
   top_sharing_sources = WidgetDescriptionSerializer()
   top_keywords_by_country = WidgetDescriptionSerializer()
+  languages_by_country = WidgetDescriptionSerializer()
 
   class Meta:
     model = WidgetsList2

@@ -1,29 +1,29 @@
 from rest_framework.generics import ListAPIView, CreateAPIView, DestroyAPIView, UpdateAPIView, RetrieveAPIView, ListCreateAPIView, RetrieveUpdateAPIView
-from .serializers import *
-from rest_framework.response import Response
-from rest_framework.views import APIView
-from .serializers import ProjectSerializer, Workspace
-from django.contrib.auth.models import User
+from widgets.models import ClippingFeedContentWidget, WidgetsList2, Dimensions, ProjectDimensions
 from project.models import Project, Workspace, Post, Speech, Feedlinks, ChangingSentiment
+from widgets.common_widget.filters_for_widgets import post_agregator_with_dimensions
+from rest_framework import viewsets, generics, filters, status
+from widgets.common_widget.filters_for_widgets import *
+from .serializers import ProjectSerializer, Workspace
+from project.online_parser import OnlineParser
+from rest_framework.response import Response
+from deep_translator import GoogleTranslator
+from django.core.paginator import Paginator
+from django.contrib.auth.models import User
+from countries_plus.models import Country
+from rest_framework.views import APIView
+from sentence_transformers import util
+from django.http import HttpResponse
 from django.http import JsonResponse
-import json
-import re
+from ml_components.models import *
+from alerts.models import Alert
 from django.db.models import Q
 from functools import reduce
-from countries_plus.models import Country
-from widgets.models import ClippingFeedContentWidget, WidgetsList2, Dimensions, ProjectDimensions
-from alerts.models import Alert
-from rest_framework import viewsets, generics, filters, status
-from django.core.paginator import Paginator
-from widgets.common_widget.filters_for_widgets import *
-from ml_components.models import *
-from sentence_transformers import util
-import numpy as np
-from project.online_parser import OnlineParser
-from deep_translator import GoogleTranslator
+from .serializers import *
 from . import variables
-from django.http import HttpResponse
-from widgets.common_widget.filters_for_widgets import post_agregator_with_dimensions
+import numpy as np
+import json
+import re
 
 
 # ==== User API =======================
