@@ -259,6 +259,7 @@ class Post(models.Model):
   updatedsentiment = models.DecimalField(max_digits=4, decimal_places=2,default=0)
   is_sentiment = models.BooleanField(default=False)
   summary_vector = ArrayField(NDArrayField(shape=(384), dtype=np.float32), blank=True)
+  full_text = models.TextField('full_text', null=True, blank=True)
 
   class Meta:
     indexes = [
