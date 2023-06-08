@@ -1,11 +1,18 @@
-from .views import *
+from twenty_four_seven.views import translator
+from twenty_four_seven.views import WorkspaceTwentyFourSevenViewSet
+from twenty_four_seven.views import TwentyFourSevenProjectViewSet
+from twenty_four_seven.views import ItemViewSet
+from twenty_four_seven.views import RelatedContentViewSet
 from rest_framework import routers
 from rest_framework_nested import routers
+from django.urls import path
 
 
 app_name = 'twenty_four_seven'
 
-urlpatterns = []
+urlpatterns = [
+    path('translator/', translator, name='translator')
+]
 
 router = routers.SimpleRouter()
 router.register('workspaces', WorkspaceTwentyFourSevenViewSet, basename='tfs_workspaces')
