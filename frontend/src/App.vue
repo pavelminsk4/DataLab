@@ -84,6 +84,8 @@ export default {
   --box-shadow-color: #0b56d9;
   --progress-line: #34353b;
 
+  --link-color: #0016dc;
+
   --disabled-color: #3e4047;
 
   --tag-color: #30f47e;

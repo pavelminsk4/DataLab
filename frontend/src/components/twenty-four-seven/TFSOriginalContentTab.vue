@@ -19,7 +19,7 @@ export default {
       return this.post.online_post.entry_title
     },
     description() {
-      return this.post.online_post.entry_summary
+      return this.post.online_post.full_text
     },
   },
 }
