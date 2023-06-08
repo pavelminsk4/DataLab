@@ -11,12 +11,10 @@ import re
 from django.db.models import Q
 from functools import reduce
 from countries_plus.models import Country
-from django.db.models.functions import ExtractYear
 from widgets.models import ClippingFeedContentWidget, WidgetsList2, Dimensions, ProjectDimensions
 from alerts.models import Alert
 from rest_framework import viewsets, generics, filters, status
 from django.core.paginator import Paginator
-from widgets.common_widget.volume_widget import *
 from widgets.common_widget.filters_for_widgets import *
 from ml_components.models import *
 from sentence_transformers import util
@@ -25,6 +23,8 @@ from project.online_parser import OnlineParser
 from deep_translator import GoogleTranslator
 from . import variables
 from django.http import HttpResponse
+from widgets.common_widget.filters_for_widgets import post_agregator_with_dimensions
+
 
 # ==== User API =======================
 class UserList(ListAPIView):
@@ -131,49 +131,23 @@ def search(request):
     posts = posts.order_by('feedlink__country')
   elif sort_posts == 'language':
     posts = posts.order_by('feed_language__language')
-  posts = posts.values(
-    'id',
-    'entry_title',
-    'entry_published',
-    'entry_summary',
-    'entry_media_thumbnail_url',
-    'entry_media_content_url',
-    'feed_image_href',
-    'feed_image_link',
-    'feed_language__language',
-    'entry_author', 'entry_links_href',
-    'feedlink__country',
-    'feedlink__source1',
-    'feedlink__sourceurl',
-    'feedlink__alexaglobalrank',
-    'sentiment',
-    )
-
+  posts = posts_values(posts)
   p = Paginator(posts, posts_per_page)
-  posts_list=list(p.page(page_number))
-  department_changing=ChangingSentiment.objects.filter(department_id=department_id).values()
-  dict_changing={x['post_id']: x['sentiment'] for x in department_changing}
+  posts_list = list(p.page(page_number))
+  department_changing = ChangingSentiment.objects.filter(department_id=department_id).values()
+  dict_changing = {x['post_id']: x['sentiment'] for x in department_changing}
+  themes = MlCategory.objects.all()
   for post in posts_list:
-    if(post['id'] in dict_changing):
-      new_sentiment = dict_changing[post['id']]
-      post['sentiment'] = new_sentiment
-    src = post['feedlink__source1']
-    post['feedlink__source1'] = src if '<img' not in str(src) else re.findall('alt="(.*)"', src)[0]
-    category=classification(Post.objects.get(pk=post['id']))
-    target_lang=post["feed_language__language"].lower()
-    try:
-      category=GoogleTranslator(source='en', target=target_lang).translate(category)
-    except: 
-      pass
-    post["category"]=category
+    post = change_post_sentiment(post, dict_changing)
+    post = change_post_source_name(post)
+    post = add_post_category(post, themes)
   res = { 'num_pages': p.num_pages, 'num_posts': p.count, 'posts': posts_list }
   return JsonResponse(res, safe = False)
 
-def classification(post):
+def classification(post, themes):
   if post.summary_vector != []:
-    themes = MlCategory.objects.all()
-    categories_list=list(themes.values_list('category_title',flat=True))
-    categories_vector=np.array([themes.values_list('category_vector',flat=True)]).reshape(len(themes),384)
+    categories_list = list(themes.values_list('category_title',flat=True))
+    categories_vector = np.array([themes.values_list('category_vector',flat=True)]).reshape(len(themes),384)
     cosine_scores = util.cos_sim(post.summary_vector[0], categories_vector)
     cosine_scores = cosine_scores.reshape(1,-1)[0]
     answer = cosine_scores.argsort(descending=True)[0]
@@ -210,11 +184,6 @@ def sources(request):
     set = []
   sources_list = list(set)
   return JsonResponse(sources_list, safe = False)
-
-def years(request):
-  years = Post.objects.annotate(year=ExtractYear('entry_published')).values('year').distinct().order_by('year')
-  years_list = list(years)
-  return JsonResponse(years_list, safe = False)
 
 #=== Widgets =====
 class ProjectWidgetsAPIView(RetrieveAPIView):
@@ -293,8 +262,8 @@ def dimension_languages(request, pk):
   project = get_object_or_404(Project, pk=pk)
   posts = posts_agregator(project)
   languages = posts.values('feed_language__language').distinct()
-  languagess_list = list(languages)
-  return JsonResponse(languagess_list, safe = False)
+  languages_list = list(languages)
+  return JsonResponse(languages_list, safe = False)
 
 def dimension_countries(requset, pk):
   project = get_object_or_404(Project, pk=pk)
@@ -407,3 +376,66 @@ def change_sentiment(request, pk, department_pk,sentiment):
   except:
     return HttpResponse(status=406)
   return HttpResponse(status=201)
+
+
+def project_posts(request, pk):
+  body = json.loads(request.body)
+  posts_per_page = body['posts_per_page']
+  page_number = body['page_number']
+  department_id = body['department_id']
+  posts = post_agregator_with_dimensions(Project.objects.get(pk))
+  posts = posts_values(posts)
+  p = Paginator(posts, posts_per_page)
+  posts_list = list(p.page(page_number))
+  department_changing = ChangingSentiment.objects.filter(department_id=department_id).values()
+  dict_changing = {x['post_id']: x['sentiment'] for x in department_changing}
+  themes = MlCategory.objects.all()
+  for post in posts_list:
+    post = change_post_sentiment(post, dict_changing)
+    post = change_post_source_name(post)
+    post = add_post_category(post, themes)
+  res = { 'num_pages': p.num_pages, 'num_posts': p.count, 'posts': posts_list }
+  return JsonResponse(res, safe = False)
+
+
+def change_post_sentiment(post, dict_changing):
+    if post['id'] in dict_changing:
+        new_sentiment = dict_changing[post['id']]
+        post['sentiment'] = new_sentiment
+    return post
+
+
+def change_post_source_name(post):
+    src = post['feedlink__source1']
+    post['feedlink__source1'] = src if '<img' not in str(src) else re.findall('alt="(.*)"', src)[0]
+    return post
+
+
+def add_post_category(post, themes):
+    category = classification(Post.objects.get(pk=post['id']), themes)
+    target_lang = post['feed_language__language'].lower()
+    try:
+      category = GoogleTranslator(source='en', target=target_lang).translate(category)
+    except:
+      pass
+    post['category'] = category
+    return post
+
+def posts_values(posts):
+  return posts.values(
+    'id',
+    'entry_title',
+    'entry_published',
+    'entry_summary',
+    'entry_media_thumbnail_url',
+    'entry_media_content_url',
+    'feed_image_href',
+    'feed_image_link',
+    'feed_language__language',
+    'entry_author', 'entry_links_href',
+    'feedlink__country',
+    'feedlink__source1',
+    'feedlink__sourceurl',
+    'feedlink__alexaglobalrank',
+    'sentiment',
+    )
