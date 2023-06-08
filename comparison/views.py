@@ -25,6 +25,6 @@ def get_projects(request):
     social_ws = request.user.user_profile.department.social_workspaces.all()
     res = {
         'Online': [{ws.title: [{'title': pr.title, 'id': pr.id} for pr in ws.projects.all()]} for ws in online_ws],
-        'Social': [{ws.title: [{'title': pr.title, 'id': pr.id} for pr in ws.projects.all()]} for ws in social_ws],
+        'Social': [{ws.title: [{'title': pr.title, 'id': pr.id} for pr in ws.social_workspace_projects.all()]} for ws in social_ws],
     }
     return JsonResponse(res, safe=False)
