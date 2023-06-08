@@ -34,9 +34,8 @@
   </div>
 
   <div class="buttons">
-    <BaseButton :is-not-background="true" :is-disabled="true">
-      Send to Watsapp
-    </BaseButton>
+    <BaseInput v-model="phoneNumber" label=" " placeholder="+966 *** *** ***" />
+    <BaseButton> Send to Watsapp </BaseButton>
   </div>
 </template>
 
@@ -46,6 +45,7 @@ import BaseButton from '@/components/common/BaseButton'
 import PostStoryReportIcon from '@/components/icons/PostStoryReportIcon'
 import PencilIcon from '@/components/icons/PencilIcon'
 import RelatedIcon from '@/components/icons/RelatedIcon'
+import BaseInput from '../common/BaseInput.vue'
 
 const {mapState} = createNamespacedHelpers('twentyFourSeven')
 
@@ -56,10 +56,16 @@ export default {
     PostStoryReportIcon,
     PencilIcon,
     RelatedIcon,
+    BaseInput,
   },
   emits: ['save-summary'],
   props: {
     post: {type: Object, required: true},
+  },
+  data() {
+    return {
+      phoneNumber: '',
+    }
   },
   computed: {
     ...mapState(['relatedContent']),
@@ -110,6 +116,7 @@ export default {
 .buttons {
   display: flex;
   justify-content: flex-end;
+  gap: 16px;
 
   margin: 36px -24px 0;
   padding: 18px 24px 0 0;
