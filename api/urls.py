@@ -24,6 +24,7 @@ urlpatterns = [
   path("workspace/<int:pk>", views.SingleWorkspace.as_view(), name="single_workspace"),
   # Search
   path("search", views.search, name='search'),
+  path('projects/<int:pk>/posts', views.project_posts, name='project_posts'),
   # Countries
   path('countries/<str:frst_letters>', views.CountriesList.as_view(), name='countries_list'),
   # Speeches
@@ -32,8 +33,6 @@ urlpatterns = [
   path('sources', views.sources, name='sources_list'),
   # Authors
   path('authors/<str:frst_letters>', views.AuthorList.as_view(), name='authors_list'),
-  # Years range
-  path('years', views.years, name='years_range'),
   # ClippingFeedContentWidget
   path('clipping_feed_content_widget/create', views.ClippingFeedContentWidgetCreate.as_view(), name='cl_fd_cont_widg_create'),
   path('projects/<int:proj_pk>/clipping_feed_content_widget/delete/<int:post_pk>', views.ClippingFeedContentWidgetDelete.as_view(), name='cl_fd_cont_widg_delete'),

@@ -1,28 +1,28 @@
-from project.models import Project, Post, Feedlinks, Speech
+from common.factories.feedlinks import FeedlinksFactory
+from common.factories.project import ProjectFactory
+from common.factories.speech import SpeechFactory
+from common.factories.post import PostFactory
 from django.contrib.auth.models import User
 from rest_framework.test import APITestCase
+from project.models import Project
 from rest_framework import status
 from django.urls import reverse
-from datetime import datetime
 import json
 
 class DemographyFeatureTests(APITestCase):
   def setUp(self):
-    user = User.objects.create(username='Vikernes')
-    flink1 = Feedlinks.objects.create(source1='one_source', country='England', sourceurl='google')
-    flink2 = Feedlinks.objects.create(source1='two_source', country='USA', sourceurl='youtube')
-    flink3 = Feedlinks.objects.create(source1='third_source', country='England', sourceurl='twitter')
-    sp1 = Speech.objects.create(language='English')
-    sp2 = Speech.objects.create(language='Spanish')
-    Post.objects.create(feedlink=flink1, entry_title='First post title', feed_language=sp1, entry_published=datetime(2021, 9, 3, 6, 37), entry_author='AFP', summary_vector=[], sentiment='negative')
-    Post.objects.create(feedlink=flink2, entry_title='Second post title', feed_language=sp1, entry_published=datetime(2022, 9, 3, 6, 37), entry_author='AFP', summary_vector=[], sentiment='positive')
-    Post.objects.create(feedlink=flink2, entry_title='Third post title', feed_language=sp2, entry_published=datetime(2023, 9, 3, 6, 37), entry_author='AFP', summary_vector=[], sentiment='negative')
-    Post.objects.create(feedlink=flink3, entry_title='4 post title', feed_language=sp1, entry_published=datetime(2023, 9, 3, 6, 37), entry_author='AFP', summary_vector=[], sentiment='neutral')
-    Post.objects.create(feedlink=flink3, entry_title='5 post title', feed_language=sp2, entry_published=datetime(2023, 9, 3, 6, 37), entry_author='AFP', summary_vector=[], sentiment='neutral')
-    Post.objects.create(feedlink=flink3, entry_title='6 post title', feed_language=sp2, entry_published=datetime(2023, 9, 3, 6, 37), entry_author='EFE', summary_vector=[], sentiment='positive')
-
-    Project.objects.create(title='Project1', keywords=['post'], additional_keywords=[], ignore_keywords=[], start_search_date=datetime(2020, 10, 10),
-                                end_search_date=datetime(2023, 10, 16), language_filter='', author_filter='', source_filter='', creator=user)
+    flink1 = FeedlinksFactory(source1='one_source', country='England', sourceurl='google')
+    flink2 = FeedlinksFactory(source1='two_source', country='USA', sourceurl='youtube')
+    flink3 = FeedlinksFactory(source1='third_source', country='England', sourceurl='twitter')
+    sp1 = SpeechFactory(language='English')
+    sp2 = SpeechFactory(language='Spanish')
+    PostFactory(feedlink=flink1, feed_language=sp1, sentiment='negative')
+    PostFactory(feedlink=flink2, feed_language=sp1, sentiment='positive')
+    PostFactory(feedlink=flink2, feed_language=sp2, sentiment='negative')
+    PostFactory(feedlink=flink3, feed_language=sp1, sentiment='neutral')
+    PostFactory(feedlink=flink3, feed_language=sp2, sentiment='neutral')
+    PostFactory(feedlink=flink3, feed_language=sp2, sentiment='positive')
+    ProjectFactory()
 
   def test_top_sharing_sources(self):
     pr = Project.objects.first()
