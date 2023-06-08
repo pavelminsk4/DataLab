@@ -2,7 +2,6 @@ from common.factories.feedlinks import FeedlinksFactory
 from common.factories.project import ProjectFactory
 from common.factories.speech import SpeechFactory
 from common.factories.post import PostFactory
-from django.contrib.auth.models import User
 from rest_framework.test import APITestCase
 from project.models import Project
 from rest_framework import status
@@ -73,6 +72,18 @@ class DemographyFeatureTests(APITestCase):
             {'feed_language__language': 'Spanish', 'source_count': 2},
           ]
     self.assertEqual(json.loads(response.content), res)
+
+  def test_languages_by_country(self):
+    pr = Project.objects.first()
+    widget_pk = pr.widgets_list_2.languages_by_country_id
+    url = reverse('widgets:onl_languages_by_country', kwargs={'pk':pr.pk, 'widget_pk':widget_pk})
+    response = self.client.get(url)
+    self.assertEqual(response.status_code, status.HTTP_200_OK)
+    res = [
+            {'England': {'English': 2, 'Spanish': 2}},
+            {'USA': {'English': 1, 'Spanish': 1}}
+          ]
+    self.assertEqual(json.loads(response.content), res)  
     
   def test_overall_top_sources(self):
     pr = Project.objects.first()
