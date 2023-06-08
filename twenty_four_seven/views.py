@@ -1,12 +1,20 @@
 from rest_framework.generics import ListAPIView, CreateAPIView, DestroyAPIView, UpdateAPIView
-from .models import *
-from rest_framework import viewsets
-from .serializers import *
-from django.http import JsonResponse
-import json
-from .whatsapp import *
+from twenty_four_seven.serializers import ProjectTwentyFourSevenPostSerializer
+from twenty_four_seven.serializers import ProjectTwentyFourSevenSerializer
+from twenty_four_seven.serializers import WorkspaceTwentyFourSevenPostSerializer
+from twenty_four_seven.serializers import WorkspaceTwentyFourSevenSerializer
 from rest_framework.pagination import PageNumberPagination
+from twenty_four_seven.serializers import ItemSerializer
+from twenty_four_seven.models import WorkspaceTwentyFourSeven
+from twenty_four_seven.models import ProjectTwentyFourSeven
+from twenty_four_seven.models import Item
+from twenty_four_seven.whatsapp import whatsappp_sender
+from deep_translator import GoogleTranslator
 from sentence_transformers import util
+from django.http import JsonResponse
+from rest_framework import viewsets
+import numpy as np
+import json
 
 
 class StandardResultsSetPagination(PageNumberPagination):
@@ -84,3 +92,11 @@ def top_similar(item_id):
     except:
         items = Item.objects.none()
     return items
+
+
+def translator(request):
+    data = json.loads(request.body)
+    text = data['text']
+    target_lang = data['target_lang']
+    translated_text = GoogleTranslator(source='auto', target=target_lang).translate(text=text)
+    return JsonResponse({'translated_text': translated_text}, safe=False)
