@@ -10,6 +10,7 @@ from twenty_four_seven.models import ProjectTwentyFourSeven
 from twenty_four_seven.models import Item
 from twenty_four_seven.whatsapp import whatsappp_sender
 from deep_translator import GoogleTranslator
+from common.ai_summary import ai_summary
 from sentence_transformers import util
 from django.http import JsonResponse
 from rest_framework import viewsets
@@ -100,3 +101,12 @@ def translator(request):
     target_lang = data['target_lang']
     translated_text = GoogleTranslator(source='auto', target=target_lang).translate(text=text)
     return JsonResponse({'translated_text': translated_text}, safe=False)
+
+
+def summary(request, item_pk):
+    item = Item.objects.get(id=item_pk)
+    post = item.online_post
+    text = post.full_text or post.entry_summary or post.entry_title
+    lang = item.online_post.feed_language.language
+    summary = ai_summary(text, lang)
+    return JsonResponse({'summary': summary}, safe=False)
