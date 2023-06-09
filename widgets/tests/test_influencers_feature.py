@@ -44,8 +44,8 @@ class InfluencersFeatureTests(APITestCase):
     response = self.client.get(url)
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     res = [
-            {'feed_language__language': 'Spanish', 'author_count': 2},
-            {'feed_language__language': 'English', 'author_count': 1},
+            {'Spanish': {'AFP': 2, 'EFE': 1}},
+            {'English': {'AFP': 3}}
           ]
     self.assertEqual(json.loads(response.content), res)
 

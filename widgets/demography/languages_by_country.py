@@ -9,7 +9,7 @@ def get_languages_by_country(pk, widget_pk):
   posts = post_agregator_with_dimensions(project)
   widget = WidgetDescription.objects.get(id=widget_pk)
   posts = post_agregetor_for_each_widget(widget, posts)
-  top_countries = [i['feedlink__country'] for i in posts.values('feedlink__country').annotate(language_count=Count('feed_language__language')).order_by('-language_count')[:5]]
+  top_countries = [i['feedlink__country'] for i in posts.values('feedlink__country').annotate(language_count=Count('feed_language__language', distinct=True)).order_by('-language_count')[:5]]
   results =[]
   for country in top_countries:
     top_languages = posts.filter(feedlink__country=country).values('feed_language__language').annotate(posts_count=Count('id')).order_by('-posts_count')[:5]

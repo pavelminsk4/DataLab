@@ -9,5 +9,9 @@ def get_sources_by_language(pk, widget_pk):
   posts = post_agregator_with_dimensions(project)
   widget = WidgetDescription.objects.get(id=widget_pk)
   posts = post_agregetor_for_each_widget(widget, posts)
-  posts = list(posts.values('feed_language__language').annotate(source_count=Count('feedlink', distinct=True)).order_by('-source_count')[:widget.top_counts])
-  return JsonResponse(posts, safe = False)
+  top_languages = [i['feed_language__language'] for i in posts.values('feed_language__language').annotate(sources_count=Count('feedlink__source1', distinct=True)).order_by('-sources_count')[:5]]
+  results = []
+  for language in top_languages:
+    top_sources = posts.filter(feed_language__language=language).values('feedlink__source1').annotate(posts_count=Count('id')).order_by('-posts_count')[:5]
+    results.append({language: {source['feedlink__source1']: source['posts_count'] for source in top_sources}})
+  return JsonResponse(results, safe = False)
