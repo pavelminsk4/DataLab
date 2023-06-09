@@ -3,12 +3,13 @@
     @click="openDropdown"
     :class="[`dropdown-wrapper-${name}`, 'dropdown-wrapper']"
   >
-    <div class="title">{{ title }}</div>
-    <div v-if="selectedValue" class="selected-value">{{ selectedValue }}</div>
-    <ArrowDownIcon
-      :class="[isOpenDropdown && 'arrow-open-dropdown', 'arrow-down']"
-    />
-
+    <div class="container">
+      <div class="title">{{ title }}</div>
+      <div v-if="selectedValue" class="selected-value">{{ selectedValue }}</div>
+      <ArrowDownIcon
+        :class="[isOpenDropdown && 'arrow-open-dropdown', 'arrow-down']"
+      />
+    </div>
     <div
       v-if="isOpenDropdown"
       :style="customStyle"
@@ -28,7 +29,7 @@ export default {
   components: {ArrowDownIcon},
   props: {
     title: {type: String, default: ''},
-    selectedValue: {type: [Number, String]},
+    selectedValue: {type: [Number, String, Object]},
     name: {type: String, required: true},
     customStyle: {type: String},
   },
@@ -82,7 +83,7 @@ export default {
   }
 
   .dropdown {
-    z-index: 1000;
+    z-index: 2;
 
     position: absolute;
     top: 30px;
@@ -121,6 +122,10 @@ export default {
 .arrow-open-dropdown {
   transform: rotate(180deg);
   color: var(--button-primary-color);
+}
+
+.container {
+  align-items: center;
 }
 </style>
 

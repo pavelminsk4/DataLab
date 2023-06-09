@@ -6,6 +6,7 @@ import AlertsModuleRoutes from '@router/AlertsModuleRoutes'
 import AccountAnalysisRoutes from '@router/AccountAnalysisRoutes'
 import TwentyFourSevenRoutes from '@router/TwentyFourSevenRoutes'
 import LegalRoutes from '@router/LegalRoutes'
+import ComparisonModuleRoutes from '@router/ComparisonModuleRoutes'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -21,6 +22,7 @@ const router = createRouter({
     ...AccountAnalysisRoutes,
     ...TwentyFourSevenRoutes,
     ...LegalRoutes,
+    ...ComparisonModuleRoutes,
   ],
 })
 
