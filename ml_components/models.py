@@ -15,6 +15,18 @@ class MlCategory(models.Model):
   def __str__(self):
     return self.category_title
   
+
+class RelatedThreshold(models.Model):
+  is_active = models.BooleanField(default=False)
+  description = models.CharField(max_length=100)
+  threshold = models.FloatField(blank=True, null=True)
+  updated_at = models.DateTimeField(auto_now=True)
+  created_at = models.DateTimeField(auto_now_add=True)
+  
+  def __str__(self):
+    return self.description
+  
+
 @receiver(post_save, sender=MlCategory)
 def calculate_category_vector(sender, instance, created, **kwargs):
   if created:
