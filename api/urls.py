@@ -54,7 +54,7 @@ urlpatterns = [
   path('profileuser/<str:user__email>/', ProfileViewSet.as_view(), name='profile_users'),
   # ReportWidgetsList
   path('report_widgets_list', views.widgets_map, name='report_widgets_list'),
-  path('change_sentiment/<int:pk>/<int:department_pk>/<str:sentiment>',views.change_sentiment,name='change_sent')
+  path('change_online_sentiment/<int:pk>/<int:department_pk>/<str:sentiment>',views.change_online_sentiment,name='change_sent'),
   ]
 
 router.register('dimensions', DimensionsViewSet)

@@ -31,11 +31,14 @@ from django.core.paginator import Paginator
 from .widgets.interactive_widgets import *
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
+from django.http import HttpResponse
 from django.db.models import Q
 from functools import reduce
 from .serializers import *
 from .models import *
 import json
+
+from .models import ChangingTweetbinderSentiment
 
 # === Social Workspace API ===========
 
@@ -88,6 +91,14 @@ def data_range_posts(start_date, end_date):
   interval = [start_date, end_date]
   posts = TweetBinderPost.objects.filter(date__range=interval)
   return posts
+
+def change_social_sentiment(request, pk, department_pk,sentiment):
+  try:
+    updated_values = {'sentiment': sentiment}
+    ChangingTweetbinderSentiment.objects.update_or_create(tweet_post_id=pk,department_id=department_pk,defaults=updated_values)
+  except:
+    return HttpResponse(status=406)
+  return HttpResponse(status=201)
 
 def twitter_posts_search(request):
   body = json.loads(request.body)
