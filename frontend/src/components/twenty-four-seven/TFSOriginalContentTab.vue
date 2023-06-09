@@ -10,7 +10,7 @@
 <script>
 export default {
   name: 'TFSOriginalContentTab',
-  emits: ['save-summary'],
+  emits: ['save-summary', 'send-to-whatsapp'],
   props: {
     post: {type: Object, required: true},
   },
@@ -19,7 +19,7 @@ export default {
       return this.post.online_post.entry_title
     },
     description() {
-      return this.post.online_post.entry_summary
+      return this.post.online_post.full_text
     },
   },
 }

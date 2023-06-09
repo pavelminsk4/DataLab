@@ -26,7 +26,7 @@
             v-else
             :is="`TFS${stringToPascalCase(activeTab)}Tab`"
             :post="post"
-            @save-summary="saveSummary"
+            @send-to-whatsapp="sendToWhatsapp"
           />
         </div>
       </section>
@@ -79,6 +79,7 @@ export default {
     ...mapActions([
       action.GET_TFS_RELATED_CONTENT,
       action.UPDATE_TFS_ITEM_DATA,
+      action.SEND_TFS_MESSAGE_TO_WHATSAPP,
     ]),
     stringToPascalCase,
     changeTab(tabName) {
@@ -93,6 +94,12 @@ export default {
         postId: this.post.id,
         value: {header, text, status: this.post.status},
         page: 1,
+      })
+    },
+    sendToWhatsapp(phoneNumber, messageContent) {
+      this[action.SEND_TFS_MESSAGE_TO_WHATSAPP]({
+        phoneNumber,
+        message: messageContent,
       })
     },
   },
