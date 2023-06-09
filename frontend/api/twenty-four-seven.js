@@ -54,4 +54,8 @@ export default {
       message_content: message,
     })
   },
+
+  async updateOriginalContentLanguage(value) {
+    return fetch('post', `${moduleName}/translator/`, value)
+  },
 }

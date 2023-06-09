@@ -4,10 +4,10 @@
       <div class="title"><PostStoryReportIcon /> Post</div>
       <a
         class="summary link"
-        :href="post.online_post.feed_image_link"
+        :href="post.online_post.entry_links_href"
         target="_blank"
       >
-        {{ post.online_post.feed_image_link }}
+        {{ post.online_post.entry_links_href }}
       </a>
     </div>
 

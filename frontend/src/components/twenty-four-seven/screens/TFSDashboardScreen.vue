@@ -61,7 +61,11 @@ export default {
     }
   },
   methods: {
-    ...mapActions([action.GET_TFS_ITEMS, action.UPDATE_TFS_ITEM_STATUS]),
+    ...mapActions([
+      action.GET_TFS_ITEMS,
+      action.UPDATE_TFS_ITEM_STATUS,
+      action.CLEAR_TFS_WHATSAPP_MESSAGE,
+    ]),
     async updateStatus(postId, newStatus, oldStatus, page, isBack) {
       await this[action.UPDATE_TFS_ITEM_STATUS]({
         projectId: this.projectId,
@@ -86,6 +90,7 @@ export default {
       this.postInfo = postInfo
     },
     close() {
+      this[action.CLEAR_TFS_WHATSAPP_MESSAGE]()
       this.$router.push({
         name: 'TFSDashboard',
       })

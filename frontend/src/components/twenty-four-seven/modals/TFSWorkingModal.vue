@@ -27,6 +27,7 @@
             :is="`TFS${stringToPascalCase(activeTab)}Tab`"
             :post="post"
             @send-to-whatsapp="sendToWhatsapp"
+            @change-original-content-language="changeLanguage"
           />
         </div>
       </section>
@@ -80,6 +81,7 @@ export default {
       action.GET_TFS_RELATED_CONTENT,
       action.UPDATE_TFS_ITEM_DATA,
       action.SEND_TFS_MESSAGE_TO_WHATSAPP,
+      action.UPDATE_TFS_ORIGINAL_CONTENT_LANGUAGE,
     ]),
     stringToPascalCase,
     changeTab(tabName) {
@@ -100,6 +102,12 @@ export default {
       this[action.SEND_TFS_MESSAGE_TO_WHATSAPP]({
         phoneNumber,
         message: messageContent,
+      })
+    },
+    changeLanguage(newLanguage, text) {
+      this[action.UPDATE_TFS_ORIGINAL_CONTENT_LANGUAGE]({
+        target_lang: newLanguage.toLowerCase(),
+        text,
       })
     },
   },

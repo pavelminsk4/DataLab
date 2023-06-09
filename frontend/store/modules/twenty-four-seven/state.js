@@ -6,6 +6,7 @@ const state = {
   newProjectId: null,
   newWorkspaceId: null,
   statusMessage: null,
+  textTranslation: null,
 }
 
 export default state
