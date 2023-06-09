@@ -68,8 +68,8 @@ class DemographyFeatureTests(APITestCase):
     response = self.client.get(url)
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     res = [
-            {'feed_language__language': 'English', 'source_count': 3},
-            {'feed_language__language': 'Spanish', 'source_count': 2},
+            {'English': {'one_source': 1, 'third_source': 1, 'two_source': 1}},
+            {'Spanish': {'third_source': 2, 'two_source': 1}}
           ]
     self.assertEqual(json.loads(response.content), res)
 
