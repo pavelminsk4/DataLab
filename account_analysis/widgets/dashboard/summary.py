@@ -1,7 +1,7 @@
-from account_analysis.widgets.filter_for_posts import *
+from account_analysis.widgets.filter_for_posts import posts_aggregator
+from account_analysis.models import ProjectAccountAnalysis
+from tweet_binder.models import TweetBinderPost
 from django.db.models import Sum, F
-from account_analysis.models import *
-from tweet_binder.models import *
 from django.http import JsonResponse
 
 def account_analysis_summary(pk, widget_pk):
@@ -22,12 +22,12 @@ def account_analysis_summary(pk, widget_pk):
     'stats' : {
       'total_followers': posts.last().user_followers,
       'total_following': posts.first().user_followers,
-      'total_tweets': project.count_posts,
-      'tweets_this_period': project.count_posts,
+      'total_tweets': posts.count(),
+      'tweets_this_period': posts.count(),
       'engagements': engagements,
-      'avg_likes_per_post': (float(posts.last().user_followers) - float(posts.first().user_followers)) / project.count_posts if project.count_posts else 0,
-      'avg_retweets_per_post':(float(posts.last().count_retweets) - float(posts.first().count_retweets))/ project.count_posts if project.count_posts else 0,
-      'avg_engagement_rate': engagements / project.count_posts if project.count_posts else 0,
+      'avg_likes_per_post': float(posts.aggregate(count=Sum('count_favorites'))['count']) / posts.count() if posts.count() else 0,
+      'avg_retweets_per_post': float(posts.aggregate(count=Sum('count_retweets'))['count']) / posts.count() if posts.count() else 0,
+      'avg_engagement_rate': engagements / posts.count() if posts.count() else 0,
     }
   }
   return JsonResponse(res, safe=False)
