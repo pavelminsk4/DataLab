@@ -291,7 +291,7 @@ class Status(models.Model):
     return self.progress
 
 
-class ChangingSentiment(models.Model):
+class ChangingOnlineSentiment(models.Model):
   sentiment = models.CharField('sentiment', max_length=10)
   department = models.ForeignKey('accounts.department', on_delete=models.CASCADE)
   post =  models.ForeignKey(Post,on_delete=models.CASCADE)

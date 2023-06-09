@@ -1,10 +1,11 @@
 from rest_framework.generics import ListAPIView, CreateAPIView, DestroyAPIView, UpdateAPIView, RetrieveAPIView, ListCreateAPIView, RetrieveUpdateAPIView
 from widgets.models import ClippingFeedContentWidget, WidgetsList2, Dimensions, ProjectDimensions
-from project.models import Project, Workspace, Post, Speech, Feedlinks, ChangingSentiment
+from project.models import Project, Workspace, Post, Speech, Feedlinks, ChangingOnlineSentiment
 from widgets.common_widget.filters_for_widgets import post_agregator_with_dimensions
 from rest_framework import viewsets, generics, filters, status
 from widgets.common_widget.filters_for_widgets import *
 from .serializers import ProjectSerializer, Workspace
+from django.shortcuts import get_object_or_404
 from project.online_parser import OnlineParser
 from rest_framework.response import Response
 from deep_translator import GoogleTranslator
@@ -134,7 +135,7 @@ def search(request):
   posts = posts_values(posts)
   p = Paginator(posts, posts_per_page)
   posts_list = list(p.page(page_number))
-  department_changing = ChangingSentiment.objects.filter(department_id=department_id).values()
+  department_changing = ChangingOnlineSentiment.objects.filter(department_id=department_id).values()
   dict_changing = {x['post_id']: x['sentiment'] for x in department_changing}
   themes = MlCategory.objects.all()
   for post in posts_list:
@@ -368,15 +369,13 @@ def widgets_map(request):
   res = variables.WIDGETS_MAP
   return JsonResponse(res)
 
-
-def change_sentiment(request, pk, department_pk,sentiment):
+def change_online_sentiment(request, pk, department_pk,sentiment):
   try:
     updated_values = {'sentiment': sentiment}
-    ChangingSentiment.objects.update_or_create(post_id=pk,department_id=department_pk,defaults=updated_values)
+    ChangingOnlineSentiment.objects.update_or_create(post_id=pk,department_id=department_pk,defaults=updated_values)
   except:
     return HttpResponse(status=406)
   return HttpResponse(status=201)
-
 
 def project_posts(request, pk):
   body = json.loads(request.body)
@@ -387,7 +386,7 @@ def project_posts(request, pk):
   posts = posts_values(posts)
   p = Paginator(posts, posts_per_page)
   posts_list = list(p.page(page_number))
-  department_changing = ChangingSentiment.objects.filter(department_id=department_id).values()
+  department_changing = ChangingOnlineSentiment.objects.filter(department_id=department_id).values()
   dict_changing = {x['post_id']: x['sentiment'] for x in department_changing}
   themes = MlCategory.objects.all()
   for post in posts_list:

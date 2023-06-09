@@ -60,7 +60,7 @@ export default {
   async changePostSentiment(postId, departmentId, newSentiment) {
     return fetch(
       'post',
-      `/change_sentiment/${postId}/${departmentId}/${newSentiment}`
+      `/change_online_sentiment/${postId}/${departmentId}/${newSentiment}`
     )
   },
 
