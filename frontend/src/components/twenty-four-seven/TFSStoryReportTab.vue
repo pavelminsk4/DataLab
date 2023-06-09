@@ -68,7 +68,7 @@ export default {
     RelatedIcon,
     BaseInput,
   },
-  emits: ['send-to-whatsapp'],
+  emits: ['send-to-whatsapp', 'change-original-content-language'],
   props: {
     post: {type: Object, required: true},
   },
