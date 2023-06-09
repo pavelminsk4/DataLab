@@ -5,6 +5,7 @@ const state = {
   relatedContent: [],
   newProjectId: null,
   newWorkspaceId: null,
+  statusMessage: null,
 }
 
 export default state

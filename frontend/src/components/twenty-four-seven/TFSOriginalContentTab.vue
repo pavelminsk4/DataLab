@@ -10,7 +10,7 @@
 <script>
 export default {
   name: 'TFSOriginalContentTab',
-  emits: ['save-summary'],
+  emits: ['save-summary', 'send-to-whatsapp'],
   props: {
     post: {type: Object, required: true},
   },

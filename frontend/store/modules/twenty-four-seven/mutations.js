@@ -35,6 +35,10 @@ export default {
     state.relatedContent = relatedContent
   },
 
+  [mutator.SET_TFS_STATUS_MESSAGE](state, statusMessage) {
+    state.statusMessage = statusMessage
+  },
+
   [mutator.RESET_TFS_ITEMS](state) {
     state.items = {}
   },

@@ -146,6 +146,24 @@ export default {
     }
   },
 
+  async [action.SEND_TFS_MESSAGE_TO_WHATSAPP](
+    {commit},
+    {phoneNumber, message}
+  ) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const response = await api.twentyFourSeven.sendMessageToWhatsapp(
+        phoneNumber,
+        message
+      )
+      commit(mutator.SET_TFS_STATUS_MESSAGE, response.status)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
   async [action.CLEAR_TFS_ITEMS]({commit}) {
     commit(mutator.RESET_TFS_ITEMS)
   },

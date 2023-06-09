@@ -47,4 +47,11 @@ export default {
       value
     )
   },
+
+  async sendMessageToWhatsapp(phoneNumber, message) {
+    return fetch('post', `${moduleName}/whatsapp/`, {
+      phone_number: phoneNumber,
+      message_content: message,
+    })
+  },
 }

@@ -1,8 +1,9 @@
-from twenty_four_seven.views import translator
 from twenty_four_seven.views import WorkspaceTwentyFourSevenViewSet
 from twenty_four_seven.views import TwentyFourSevenProjectViewSet
-from twenty_four_seven.views import ItemViewSet
 from twenty_four_seven.views import RelatedContentViewSet
+from twenty_four_seven.views import ItemViewSet
+from twenty_four_seven.views import translator
+from twenty_four_seven.views import whatsapp
 from rest_framework import routers
 from rest_framework_nested import routers
 from django.urls import path
@@ -11,7 +12,8 @@ from django.urls import path
 app_name = 'twenty_four_seven'
 
 urlpatterns = [
-    path('translator/', translator, name='translator')
+    path('translator/', translator, name='translator'),
+    path('whatsapp/', whatsapp, name='whatsapp'),
 ]
 
 router = routers.SimpleRouter()

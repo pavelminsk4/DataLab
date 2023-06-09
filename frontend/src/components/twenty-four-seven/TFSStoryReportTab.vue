@@ -34,8 +34,18 @@
   </div>
 
   <div class="buttons">
-    <BaseInput v-model="phoneNumber" label=" " placeholder="+966 *** *** ***" />
-    <BaseButton> Send to Watsapp </BaseButton>
+    <BaseInput
+      v-model="phoneNumber"
+      :hasError="isMessageSent"
+      :error-message="statusMessage"
+      label=" "
+      type="tel"
+      placeholder="+** *** *** ***"
+      class="phone-input"
+    />
+    <BaseButton @click="$emit('send-to-whatsapp', phoneNumber, messageContent)">
+      Send to Whatsapp
+    </BaseButton>
   </div>
 </template>
 
@@ -45,7 +55,7 @@ import BaseButton from '@/components/common/BaseButton'
 import PostStoryReportIcon from '@/components/icons/PostStoryReportIcon'
 import PencilIcon from '@/components/icons/PencilIcon'
 import RelatedIcon from '@/components/icons/RelatedIcon'
-import BaseInput from '../common/BaseInput.vue'
+import BaseInput from '@/components/common/BaseInput'
 
 const {mapState} = createNamespacedHelpers('twentyFourSeven')
 
@@ -58,7 +68,7 @@ export default {
     RelatedIcon,
     BaseInput,
   },
-  emits: ['save-summary'],
+  emits: ['send-to-whatsapp'],
   props: {
     post: {type: Object, required: true},
   },
@@ -68,11 +78,19 @@ export default {
     }
   },
   computed: {
-    ...mapState(['relatedContent']),
+    ...mapState(['relatedContent', 'statusMessage']),
     relatedLinks() {
       return this.relatedContent.map(
         (element) => element.online_post.entry_links_href
       )
+    },
+    messageContent() {
+      return `${this.post.online_post.feed_image_link} ${this.post.header} ${
+        this.post.text
+      } ${this.relatedLinks.join(' ')}`
+    },
+    isMessageSent() {
+      return this.statusMessage === 'Message not sent'
     },
   },
 }
@@ -122,5 +140,9 @@ export default {
   padding: 18px 24px 0 0;
 
   border-top: 1px solid var(--border-color);
+
+  .phone-input {
+    margin-top: -4px;
+  }
 }
 </style>
