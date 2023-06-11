@@ -94,7 +94,6 @@ export default {
   .workspace {
     z-index: 2;
 
-    position: absolute;
     top: 35px;
     right: 2px;
 
