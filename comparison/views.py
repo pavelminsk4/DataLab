@@ -1,39 +1,44 @@
+from comparison.serializers import WorkspaceComparisonCreateSerializer
+from comparison.serializers import ProjectComparisonCreateSerializer
 from comparison.serializers import WorkspaceComparisonSerializer
 from comparison.serializers import ProjectComparisonSerializer
-from django.shortcuts import get_object_or_404
+from comparison.serializers import ComparisonItemSerializer
+from comparison.models import WorkspaceComparison
+from comparison.models import ProjectComparison
+from comparison.models import ComparisonItem
 from django.http import JsonResponse
 from rest_framework import viewsets
-from rest_framework import status
 
-class ProjectComparisonViewSet(viewsets.ViewSet):
-    def list(self, request, **kwargs):
-        department = request.user.user_profile.department
-        queryset = department.comparison_workspaces.get(id=kwargs['workspace_pk']).cmpr_workspace_projects.all()
-        serializer = ProjectComparisonSerializer(queryset, many=True)
-        return JsonResponse(serializer.data, safe=False)
+
+class WorkspaceComparisonViewSet(viewsets.ModelViewSet):
+    def get_queryset(self):
+        user = self.request.user
+        if not user.is_anonymous:
+            return WorkspaceComparison.objects.filter(members=user)
+        return WorkspaceComparison.objects.none()
     
-    def retrieve(self, request, **kwargs):
-        department = request.user.user_profile.department
-        queryset = department.comparison_workspaces.get(id=kwargs['workspace_pk']).cmpr_workspace_projects.all()
-        project = get_object_or_404(queryset, pk=kwargs['pk'])
-        serializer = ProjectComparisonSerializer(project)
-        return JsonResponse(serializer.data, safe=False)
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return WorkspaceComparisonCreateSerializer
+        return WorkspaceComparisonSerializer
 
 
-class WorkspaceComparisonViewSet(viewsets.ViewSet):
-    def list(self, request):
-        department = request.user.user_profile.department
-        queryset = department.comparison_workspaces.all()
-        serializer = WorkspaceComparisonSerializer(queryset, many=True)
-        return JsonResponse(serializer.data, safe=False)
+class ProjectComparisonViewSet(viewsets.ModelViewSet):
+    def get_queryset(self):
+        user = self.request.user
+        if not user.is_anonymous:
+            return ProjectComparison.objects.filter(members=user)
+        return ProjectComparison.objects.none()
     
-    def create(self, request):
-        data = request.data
-        serializer = WorkspaceComparisonSerializer(data=data, many=True)
-        serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
-        headers = self.get_success_headers(serializer.data)
-        return JsonResponse(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return ProjectComparisonCreateSerializer
+        return ProjectComparisonSerializer
+
+
+class ItemComparisonViewSet(viewsets.ModelViewSet):
+    serializer_class = ComparisonItemSerializer
+    queryset = ComparisonItem.objects.all()
 
 
 def get_projects(request):

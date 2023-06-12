@@ -9,12 +9,26 @@ class ComparisonItemSerializer(WritableNestedModelSerializer):
         fields = '__all__'
 
 
+class ProjectComparisonCreateSerializer(WritableNestedModelSerializer):
+    class Meta:
+        model = ProjectComparison
+        fields = '__all__'
+
+
 class ProjectComparisonSerializer(WritableNestedModelSerializer):
     members = UserSerializer(many=True, required=False)
     cmpr_items = ComparisonItemSerializer(many=True, required=False)
 
     class Meta:
         model = ProjectComparison
+        fields = '__all__'
+
+
+class WorkspaceComparisonCreateSerializer(WritableNestedModelSerializer):
+    cmpr_workspace_projects = ProjectComparisonCreateSerializer(many=True, required=False)
+
+    class Meta:
+        model = WorkspaceComparison
         fields = '__all__'
 
 
