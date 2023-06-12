@@ -13,6 +13,9 @@
   />
 
   <div class="buttons">
+    <BaseButton @click="$emit('create-ai-summary')" :is-not-background="true">
+      AI Summary
+    </BaseButton>
     <BaseButton @click="$emit('save-summary', header, text)">
       <SaveIcon /> Save
     </BaseButton>
@@ -20,15 +23,19 @@
 </template>
 
 <script>
+import {createNamespacedHelpers} from 'vuex'
+
 import BaseButton from '@/components/common/BaseButton'
 import BaseInput from '@/components/common/BaseInput'
 import BaseTextarea from '@/components/common/BaseTextarea'
 import SaveIcon from '@/components/icons/SaveIcon'
 
+const {mapState} = createNamespacedHelpers('twentyFourSeven')
+
 export default {
   name: 'TFSSummaryTab',
   components: {BaseInput, BaseTextarea, BaseButton, SaveIcon},
-  emits: ['save-summary'],
+  emits: ['save-summary', 'create-ai-summary'],
   props: {
     post: {type: Object, required: true},
   },
@@ -39,6 +46,7 @@ export default {
     }
   },
   computed: {
+    ...mapState(['aiSummary']),
     header: {
       get() {
         if (this.newHeader === '') return this.newHeader
@@ -51,7 +59,7 @@ export default {
     text: {
       get() {
         if (this.newText === '') return this.newText
-        return this.newText || this.post.text
+        return this.newText || this.aiSummary || this.post.text
       },
       set(value) {
         this.newText = value
@@ -69,6 +77,7 @@ export default {
 .buttons {
   display: flex;
   justify-content: flex-end;
+  gap: 16px;
 
   margin: 36px -24px 0;
   padding: 18px 24px 0 0;

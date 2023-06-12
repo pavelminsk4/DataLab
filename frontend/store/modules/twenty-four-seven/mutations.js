@@ -44,6 +44,10 @@ export default {
     state.textTranslation.text = text
   },
 
+  [mutator.SET_TFS_AI_SUMMARY](state, summary) {
+    state.aiSummary = summary
+  },
+
   [mutator.RESET_TFS_ITEMS](state) {
     state.items = {}
   },
