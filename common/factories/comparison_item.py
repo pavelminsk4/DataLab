@@ -6,7 +6,10 @@ import factory
 class ComparisonItemFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = ComparisonItem
+        exclude = ['pr']
 
     module_type       = 'Project'
-    module_project_id = factory.SubFactory(ProjectFactory).id
     project           = factory.SubFactory(ProjectComparisonFactory)
+    
+    pr                = factory.SubFactory(ProjectFactory)
+    module_project_id = factory.LazyAttribute(lambda o: o.pr.id)

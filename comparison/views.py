@@ -1,23 +1,44 @@
-from comparison.serializers import WorkspaceComparisonPostSerializer
-from comparison.serializers import ProjectComparisonPostSerializer
+from comparison.serializers import WorkspaceComparisonCreateSerializer
+from comparison.serializers import ProjectComparisonCreateSerializer
 from comparison.serializers import WorkspaceComparisonSerializer
 from comparison.serializers import ProjectComparisonSerializer
+from comparison.serializers import ComparisonItemSerializer
+from comparison.models import WorkspaceComparison
+from comparison.models import ProjectComparison
+from comparison.models import ComparisonItem
 from django.http import JsonResponse
 from rest_framework import viewsets
 
 
-class ProjectComparisonViewSet(viewsets.ModelViewSet):
+class WorkspaceComparisonViewSet(viewsets.ModelViewSet):
+    def get_queryset(self):
+        user = self.request.user
+        if not user.is_anonymous:
+            return WorkspaceComparison.objects.filter(members=user)
+        return WorkspaceComparison.objects.none()
+    
     def get_serializer_class(self):
         if self.request.method == 'POST':
-            return ProjectComparisonPostSerializer
+            return WorkspaceComparisonCreateSerializer
+        return WorkspaceComparisonSerializer
+
+
+class ProjectComparisonViewSet(viewsets.ModelViewSet):
+    def get_queryset(self):
+        user = self.request.user
+        if not user.is_anonymous:
+            return ProjectComparison.objects.filter(members=user, workspace=self.kwargs['workspace_pk'])
+        return ProjectComparison.objects.none()
+
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return ProjectComparisonCreateSerializer
         return ProjectComparisonSerializer
 
 
-class WorkspaceComparisonViewSet(viewsets.ModelViewSet):
-    def get_serializer_class(self):
-        if self.request.method == 'POST':
-            return WorkspaceComparisonPostSerializer
-        return WorkspaceComparisonSerializer
+class ItemComparisonViewSet(viewsets.ModelViewSet):
+    serializer_class = ComparisonItemSerializer
+    queryset = ComparisonItem.objects.all()
 
 
 def get_projects(request):
