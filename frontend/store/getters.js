@@ -184,15 +184,15 @@ export default {
     return state.dimensions
   },
 
-  [get.DIMENSION_LANGUAGES](state) {
+  [get.FILTERS_LANGUAGES](state) {
     return state.dimensionLanguages
   },
 
-  [get.DIMENSION_COUNTRIES](state) {
+  [get.FILTERS_COUNTRIES](state) {
     return state.dimensionCountries
   },
 
-  [get.DIMENSION_AUTHORS](state) {
+  [get.FILTERS_AUTHORS](state) {
     return state.dimensionAuthors
   },
 
@@ -207,7 +207,7 @@ export default {
     }
   },
 
-  [get.SOCIAL_DIMENSIONS_LIST](state) {
+  [get.SOCIAL_FILTERS_LIST](state) {
     return {
       authors: state.dimensionAuthors?.map((el) => el.user_alias),
       countries: state.dimensionCountries?.map((el) => el.locationString),
@@ -215,12 +215,12 @@ export default {
     }
   },
 
-  [get.DIMENSION_SOURCES](state) {
+  [get.FILTERS_SOURCES](state) {
     return state.dimensionSources
   },
 
-  [get.SELECTED_DIMENSIONS](state) {
-    return state.selectedDimensions
+  [get.SELECTED_FILTERS](state) {
+    return state.selectedFilters
   },
 
   [get.TEMPLATES](state) {

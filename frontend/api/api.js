@@ -229,7 +229,7 @@ export default {
     )
   },
 
-  async getDimensions() {
+  async getFilters() {
     return fetch('get', '/dimensions/')
   },
 
@@ -237,19 +237,19 @@ export default {
     return fetch('get', '/templates/')
   },
 
-  async getDimensionAuthors(projectId) {
+  async getFiltersAuthors(projectId) {
     return fetch('get', `/projects/${projectId}/list_authors`)
   },
 
-  async getDimensionLanguages(projectId) {
+  async getFiltersLanguages(projectId) {
     return fetch('get', `/projects/${projectId}/dimension_languages`)
   },
 
-  async getDimensionCountries(projectId) {
+  async getFiltersCountries(projectId) {
     return fetch('get', `/projects/${projectId}/dimension_countries`)
   },
 
-  async getDimensionSources(projectId) {
+  async getFiltersSources(projectId) {
     return fetch('get', `/projects/${projectId}/dimension_sources`)
   },
 
@@ -300,7 +300,7 @@ export default {
     return fetch('post', '/search', request)
   },
 
-  async postDimensionsForWidget({projectId, widgetId, data}) {
+  async postFiltersForWidget({projectId, widgetId, data}) {
     return fetch(
       'patch',
       `/widgets/dimensions_for_each_widgets/${projectId}/${widgetId}`,

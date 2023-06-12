@@ -1,31 +1,31 @@
 <template>
   <BaseModal
     modal-frame-style="max-width: 60vw; min-width: 40vw; max-height: 80vh;"
-    title="Widgets Dimensions"
+    title="Widgets Filters"
   >
-    <DimensionsScreen
+    <FiltersScreen
       :project-id="projectId"
       :module-name="moduleName"
-      :authors-dimensions="currentProject.author_dimensions"
-      :countries-dimensions="currentProject.country_dimensions"
-      :languages-dimensions="currentProject.language_dimensions"
-      :sources-dimensions="currentProject.source_dimensions"
-      :sentiments-dimensions="currentProject.sentiment_dimensions"
+      :authors-filters="currentProject.author_dimensions"
+      :countries-filters="currentProject.country_dimensions"
+      :languages-filters="currentProject.language_dimensions"
+      :sources-filters="currentProject.source_dimensions"
+      :sentiments-filters="currentProject.sentiment_dimensions"
     />
 
-    <BaseButton class="button" @click="saveDimensionsSettings">Save</BaseButton>
+    <BaseButton class="button" @click="saveFiltersSettings">Save</BaseButton>
   </BaseModal>
 </template>
 
 <script>
 import BaseModal from '@/components/modals/BaseModal'
 import BaseButton from '@/components/common/BaseButton'
-import DimensionsScreen from '@/components/project/screens/DimensionsScreen'
+import FiltersScreen from '@/components/project/screens/FiltersScreen'
 
 export default {
-  name: 'DimensionsModal',
+  name: 'FiltersModal',
   components: {
-    DimensionsScreen,
+    FiltersScreen,
     BaseButton,
     BaseModal,
   },
@@ -35,8 +35,8 @@ export default {
     currentProject: {type: [Array, Object], required: false},
   },
   methods: {
-    saveDimensionsSettings() {
-      this.$emit('save-dimensions-settings')
+    saveFiltersSettings() {
+      this.$emit('save-filters-settings')
     },
   },
 }

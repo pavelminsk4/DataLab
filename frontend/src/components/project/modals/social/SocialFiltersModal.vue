@@ -1,28 +1,29 @@
 <template>
-  <DimensionsModal
+  <FiltersModal
     :project-id="projectId"
     :currentProject="currentProject"
     :module-name="currentProject.source"
-    @save-dimensions-settings="saveChanges"
+    @save-filters-settings="saveChanges"
   />
 </template>
 
 <script>
+import {mapGetters, createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
-import {mapActions, mapGetters} from 'vuex'
+import FiltersModal from '@/components/project/modals/FiltersModal'
 
-import DimensionsModal from '@/components/project/modals/DimensionsModal'
+const {mapActions} = createNamespacedHelpers('social')
 
 export default {
-  name: 'OnlineDimensionsModal',
-  components: {DimensionsModal},
+  name: 'SocialFiltersModal',
+  components: {FiltersModal},
   props: {
     projectId: {type: [String, Number], required: false},
     currentProject: {type: [Array, Object], required: false},
   },
   computed: {
     ...mapGetters({
-      selectedDimensions: get.SELECTED_DIMENSIONS,
+      selectedFilters: get.SELECTED_FILTERS,
     }),
   },
   methods: {
@@ -32,11 +33,11 @@ export default {
         await this[action.UPDATE_PROJECT]({
           projectId: this.projectId,
           data: {
-            sentiment_dimensions: this.selectedDimensions.sentiments,
-            author_dimensions: this.selectedDimensions.authors,
-            country_dimensions: this.selectedDimensions.countries,
-            language_dimensions: this.selectedDimensions.languages,
-            source_dimensions: this.selectedDimensions.sources,
+            sentiment_dimensions: this.selectedFilters.sentiments,
+            author_dimensions: this.selectedFilters.authors,
+            country_dimensions: this.selectedFilters.countries,
+            language_dimensions: this.selectedFilters.languages,
+            source_dimensions: this.selectedFilters.sources,
           },
         })
 

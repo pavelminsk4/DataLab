@@ -25,15 +25,15 @@
         @change-aggregation-period="changeAggregationPeriod"
       />
 
-      <DimensionsScreen
-        v-if="panelName === 'Dimensions'"
+      <FiltersScreen
+        v-if="panelName === 'Filters'"
         :module-name="widgetDetails.moduleName"
         :project-id="widgetDetails.projectId"
-        :authors-dimensions="widgetDetails.author_dim_pivot"
-        :countries-dimensions="widgetDetails.country_dim_pivot"
-        :languages-dimensions="widgetDetails.language_dim_pivot"
-        :sources-dimensions="widgetDetails.source_dim_pivot"
-        :sentiments-dimensions="widgetDetails.sentiment_dim_pivot"
+        :authors-filters="widgetDetails.author_dim_pivot"
+        :countries-filters="widgetDetails.country_dim_pivot"
+        :languages-filters="widgetDetails.language_dim_pivot"
+        :sources-filters="widgetDetails.source_dim_pivot"
+        :sentiments-filters="widgetDetails.sentiment_dim_pivot"
         class="dimensions-tab"
       />
 
@@ -58,7 +58,7 @@ import {mapGetters} from 'vuex'
 import {get} from '@store/constants'
 
 import BaseTabs from '@/components/project/widgets/modals/BaseTabs'
-import DimensionsScreen from '@/components/project/screens/DimensionsScreen'
+import FiltersScreen from '@/components/project/screens/FiltersScreen'
 import BasicSettingsScreen from '@/components/project/widgets/modals/screens/BasicSettingsScreen'
 import ChartTypesRadio from '@/components/project/widgets/modals/screens/ChartTypesRadio'
 import BaseButton from '@/components/common/BaseButton'
@@ -71,7 +71,7 @@ export default {
     BaseButton,
     ChartTypesRadio,
     BaseTabs,
-    DimensionsScreen,
+    FiltersScreen,
     BasicSettingsScreen,
   },
   props: {
@@ -87,7 +87,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      selectedDimensions: get.SELECTED_DIMENSIONS,
+      selectedFilters: get.SELECTED_FILTERS,
     }),
   },
   methods: {
@@ -107,8 +107,8 @@ export default {
           newAggregationPeriod: this.newAggregationPeriod,
         })
       }
-      if (this.panelName === 'Dimensions') {
-        this.$emit('save-dimensions-settings', '')
+      if (this.panelName === 'Filters') {
+        this.$emit('save-filters-settings', '')
       }
       if (this.panelName === 'Chart Layout') {
         this.$emit('save-chart-settings')

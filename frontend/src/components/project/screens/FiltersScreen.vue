@@ -90,7 +90,7 @@ import FilterChips from '@/components/FilterChips'
 const {mapActions: mapSocialActions} = createNamespacedHelpers('social')
 
 export default {
-  name: 'DimensionsScreen',
+  name: 'FiltersScreen',
   components: {
     BaseCheckbox,
     SelectWithCheckboxes,
@@ -99,11 +99,11 @@ export default {
   props: {
     moduleName: {type: String, required: true},
     projectId: {type: [String, Number], required: false},
-    authorsDimensions: {type: Array, required: false},
-    countriesDimensions: {type: Array, required: false},
-    languagesDimensions: {type: Array, required: false},
-    sourcesDimensions: {type: Array, required: false},
-    sentimentsDimensions: {type: Array, required: false},
+    authorsFilters: {type: Array, required: false},
+    countriesFilters: {type: Array, required: false},
+    languagesFilters: {type: Array, required: false},
+    sourcesFilters: {type: Array, required: false},
+    sentimentsFilters: {type: Array, required: false},
   },
   data() {
     return {
@@ -120,57 +120,57 @@ export default {
   },
   computed: {
     ...mapGetters({
-      dimensionAuthors: get.DIMENSION_AUTHORS,
-      dimensionCounties: get.DIMENSION_COUNTRIES,
-      dimensionLanguages: get.DIMENSION_LANGUAGES,
-      dimensionSources: get.DIMENSION_SOURCES,
-      selectedDimensions: get.SELECTED_DIMENSIONS,
+      dimensionAuthors: get.FILTERS_AUTHORS,
+      dimensionCounties: get.FILTERS_COUNTRIES,
+      dimensionLanguages: get.FILTERS_LANGUAGES,
+      dimensionSources: get.FILTERS_SOURCES,
+      selectedFilters: get.SELECTED_FILTERS,
       dimensionsListOnline: get.DIMENSIONS_LIST,
-      dimensionsListSocial: get.SOCIAL_DIMENSIONS_LIST,
+      dimensionsListSocial: get.SOCIAL_FILTERS_LIST,
     }),
     selectedAuthorsProxy: {
       get() {
-        return this.authors || this.authorsDimensions || []
+        return this.authors || this.authorsFilters || []
       },
       set(val) {
         this.authors = val
-        this.updateSelectedDimensions()
+        this.updateSelectedFilters()
       },
     },
     selectedCountriesProxy: {
       get() {
-        return this.countries || this.countriesDimensions || []
+        return this.countries || this.countriesFilters || []
       },
       set(val) {
         this.countries = val
-        this.updateSelectedDimensions()
+        this.updateSelectedFilters()
       },
     },
     selectedLanguagesProxy: {
       get() {
-        return this.languages || this.languagesDimensions || []
+        return this.languages || this.languagesFilters || []
       },
       set(val) {
         this.languages = val
-        this.updateSelectedDimensions()
+        this.updateSelectedFilters()
       },
     },
     selectedSourcesProxy: {
       get() {
-        return this.sources || this.sourcesDimensions || []
+        return this.sources || this.sourcesFilters || []
       },
       set(val) {
         this.sources = val
-        this.updateSelectedDimensions()
+        this.updateSelectedFilters()
       },
     },
     selectedSentimentsProxy: {
       get() {
-        return this.selectedSentiments || this.sentimentsDimensions || []
+        return this.selectedSentiments || this.sentimentsFilters || []
       },
       set(val) {
         this.selectedSentiments = val
-        this.updateSelectedDimensions()
+        this.updateSelectedFilters()
       },
     },
     chipsItems() {
@@ -194,24 +194,24 @@ export default {
     this.sentiments = ['neutral', 'negative', 'positive']
 
     if (this.moduleName === 'Online') {
-      this[action.GET_DIMENSIONS_OPTIONS](this.projectId)
+      this[action.GET_FILTERS_OPTIONS](this.projectId)
     }
 
     if (this.moduleName === 'Social') {
-      this[actionSocial.GET_SOCIAL_DIMENSIONS_OPTIONS](this.projectId)
+      this[actionSocial.GET_SOCIAL_FILTERS_OPTIONS](this.projectId)
     }
   },
   methods: {
-    ...mapSocialActions([actionSocial.GET_SOCIAL_DIMENSIONS_OPTIONS]),
+    ...mapSocialActions([actionSocial.GET_SOCIAL_FILTERS_OPTIONS]),
     ...mapActions([
       action.UPDATE_PROJECT,
       action.GET_WORKSPACES,
-      action.GET_DIMENSIONS_OPTIONS,
-      action.GET_SELECTED_DIMENSIONS,
+      action.GET_FILTERS_OPTIONS,
+      action.GET_SELECTED_FILTERS,
     ]),
     capitalizeFirstLetter,
-    updateSelectedDimensions() {
-      this[action.GET_SELECTED_DIMENSIONS]({
+    updateSelectedFilters() {
+      this[action.GET_SELECTED_FILTERS]({
         authors: this.selectedAuthorsProxy,
         countries: this.selectedCountriesProxy,
         languages: this.selectedLanguagesProxy,
@@ -244,7 +244,7 @@ export default {
         return el === item ? this.selectedLanguagesProxy.splice(index, 1) : null
       })
 
-      this.updateSelectedDimensions()
+      this.updateSelectedFilters()
     },
     async clearAll() {
       this.selectedLanguagesProxy = []
@@ -253,7 +253,7 @@ export default {
       this.selectedSentimentsProxy = []
       this.selectedAuthorsProxy = []
 
-      await this.updateSelectedDimensions()
+      await this.updateSelectedFilters()
     },
   },
 }

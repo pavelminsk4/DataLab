@@ -7,7 +7,7 @@
     <WidgetSettingsScreen
       :widget-details="widgetDetails"
       @save-general-settings="saveGeneralChanges"
-      @save-dimensions-settings="saveDimensionsChanges"
+      @save-filters-settings="saveFiltersChanges"
       @update-chart-type="($event) => (newChartType = $event)"
       @change-aggregation-period="changeAggregationPeriod"
       @save-chart-settings="saveChartType"
@@ -48,7 +48,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      selectedDimensions: get.SELECTED_DIMENSIONS,
+      selectedFilters: get.SELECTED_FILTERS,
     }),
     widgetName() {
       return this.widgetDetails.name
@@ -72,7 +72,7 @@ export default {
       action.GET_CONTENT_VOLUME_TOP_AUTHORS,
       action.GET_CONTENT_VOLUME_TOP_COUNTRIES,
       action.GET_CONTENT_VOLUME_TOP_SOURCES,
-      action.GET_SELECTED_DIMENSIONS,
+      action.GET_SELECTED_FILTERS,
       action.GET_TOP_KEYWORDS_WIDGET,
       action.GET_SENTIMENT_TOP_KEYWORDS,
       action.GET_AUTHORS_BY_COUNTRY,
@@ -86,7 +86,7 @@ export default {
       action.GET_AUTHORS_BY_LANGUAGE,
       action.GET_AUTHORS_BY_SENTIMENT,
       action.GET_SENTIMENT_TOP_KEYWORDS_WIDGET,
-      action.POST_DIMENSIONS_FOR_WIDGET,
+      action.POST_FILTERS_FOR_WIDGET,
     ]),
 
     updateCurrentWidget(newSettings) {
@@ -124,17 +124,17 @@ export default {
       this.updateCurrentWidget(newSettings)
     },
 
-    async saveDimensionsChanges() {
-      await this[action.POST_DIMENSIONS_FOR_WIDGET]({
+    async saveFiltersChanges() {
+      await this[action.POST_FILTERS_FOR_WIDGET]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,
         data: {
           aggregation_period: this.widgetDetails.aggregation_period,
-          author_dim_pivot: this.selectedDimensions.authors,
-          language_dim_pivot: this.selectedDimensions.languages,
-          country_dim_pivot: this.selectedDimensions.countries,
-          sentiment_dim_pivot: this.selectedDimensions.sentiments,
-          source_dim_pivot: this.selectedDimensions.sources,
+          author_dim_pivot: this.selectedFilters.authors,
+          language_dim_pivot: this.selectedFilters.languages,
+          country_dim_pivot: this.selectedFilters.countries,
+          sentiment_dim_pivot: this.selectedFilters.sentiments,
+          source_dim_pivot: this.selectedFilters.sources,
         },
       })
 
