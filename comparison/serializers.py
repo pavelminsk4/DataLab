@@ -1,5 +1,5 @@
-from drf_writable_nested.serializers import WritableNestedModelSerializer
 from comparison.models import ProjectComparison, WorkspaceComparison, ComparisonItem
+from drf_writable_nested.serializers import WritableNestedModelSerializer
 from api.serializers import UserSerializer
 
 
@@ -10,6 +10,8 @@ class ComparisonItemSerializer(WritableNestedModelSerializer):
 
 
 class ProjectComparisonCreateSerializer(WritableNestedModelSerializer):
+    cmpr_items = ComparisonItemSerializer(many=True, required=False)
+
     class Meta:
         model = ProjectComparison
         fields = '__all__'

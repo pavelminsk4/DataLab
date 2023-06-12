@@ -27,9 +27,9 @@ class ProjectComparisonViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         user = self.request.user
         if not user.is_anonymous:
-            return ProjectComparison.objects.filter(members=user)
+            return ProjectComparison.objects.filter(members=user, workspace=self.kwargs['workspace_pk'])
         return ProjectComparison.objects.none()
-    
+
     def get_serializer_class(self):
         if self.request.method == 'POST':
             return ProjectComparisonCreateSerializer

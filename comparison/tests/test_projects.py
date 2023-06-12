@@ -1,13 +1,13 @@
-from common.factories.comparison_item import ComparisonItemFactory
-from common.factories.project_comparison import ProjectComparisonFactory
 from common.factories.workspace_comparison import WorkspaceComparisonFactory
+from common.factories.project_comparison import ProjectComparisonFactory
+from comparison.models import ProjectComparison, WorkspaceComparison
+from common.factories.comparison_item import ComparisonItemFactory
 from common.factories.department import DepartmentFactory
 from common.factories.workspace import WorkspaceFactory
 from common.factories.project import ProjectFactory
-from common.factories.user import UserFactory
-from comparison.models import ProjectComparison, WorkspaceComparison
-from rest_framework.test import APITestCase
 from accounts.models import Profile, department
+from common.factories.user import UserFactory
+from rest_framework.test import APITestCase
 from project.models import Project
 from django.urls import reverse
 import json
@@ -23,7 +23,9 @@ class ComparisonProjectsTests(APITestCase):
         ws = WorkspaceFactory(department=dep, title='Avril Lavigne')
         pr = ProjectFactory(workspace=ws, title='Girlfriend')
         wscmpr = WorkspaceComparisonFactory(department=dep)
+        wscmpr.members.set([user])
         prcmpr = ProjectComparisonFactory(workspace=wscmpr)
+        prcmpr.members.set([user])
         ComparisonItemFactory(module_project_id=pr.id, project=prcmpr)
         self.client.force_login(user)
 
@@ -56,24 +58,21 @@ class ComparisonProjectsTests(APITestCase):
 
     def test_workspace_create(self):
         dep = department.objects.first()
-        data = [{
+        pr = Project.objects.first()
+        data = {
             'title': 'Workspace',
             'description': '',
             'department': dep.pk,
             'members': [],
-            'comparison_projects': [{
-                'title': 'project',
-                'creator': 'null',
-                'members': [],
-                'project_type': '',
-                'comparison_items': [{
-                    'module_type': '',
-                    'module_project_id': '',
-                    'project': ''
-                }]
-            }],
-        }]
+            'cmpr_workspace_projects':[{
+                    'title': 'ProjTitle',
+                    'members': [],
+                    'cmpr_items': [{
+                        'module_type': 'Project',
+                        'module_project_id': pr.id,
+                    }],
+                }],
+        }
         url = reverse('comparison:cmpr_workspaces-list')
         response = self.client.post(url, data, format='json')
-        print(json.loads(response.content))
-        self.assertEqual(json.loads(response.content), 1)
+        self.assertEqual(json.loads(response.content)['cmpr_workspace_projects'][0]['title'], 'ProjTitle')
