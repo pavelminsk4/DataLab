@@ -23,6 +23,7 @@
           <TFSSummaryTab
             v-if="currentTab"
             :post="post"
+            @create-ai-summary="createAISummary"
             @save-summary="saveSummary"
           />
 
@@ -82,6 +83,7 @@ export default {
   },
   methods: {
     ...mapActions([
+      action.CREATE_TFS_AI_SUMMARY,
       action.GET_TFS_RELATED_CONTENT,
       action.UPDATE_TFS_ITEM_DATA,
       action.SEND_TFS_MESSAGE_TO_WHATSAPP,
@@ -114,6 +116,9 @@ export default {
         title,
         text,
       })
+    },
+    createAISummary() {
+      this[action.CREATE_TFS_AI_SUMMARY](this.post.id)
     },
     openModal(postInfo) {
       this.$emit('open-modal', postInfo)

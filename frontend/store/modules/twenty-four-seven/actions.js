@@ -191,6 +191,18 @@ export default {
     }
   },
 
+  async [action.CREATE_TFS_AI_SUMMARY]({commit}, postId) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const response = await api.twentyFourSeven.createAISummary(postId)
+      commit(mutator.SET_TFS_AI_SUMMARY, response.summary)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
   async [action.CLEAR_TFS_ITEMS]({commit}) {
     commit(mutator.RESET_TFS_ITEMS)
   },

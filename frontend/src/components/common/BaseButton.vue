@@ -23,18 +23,9 @@ export default {
   name: 'BaseButton',
   components: {BaseButtonSpinner},
   props: {
-    isNotBackground: {
-      type: Boolean,
-      default: false,
-    },
-    isDisabled: {
-      type: Boolean,
-      default: false,
-    },
-    buttonLoading: {
-      type: Boolean,
-      default: false,
-    },
+    isNotBackground: {type: Boolean, default: false},
+    isDisabled: {type: Boolean, default: false},
+    buttonLoading: {type: Boolean, default: false},
   },
   computed: {
     ...mapGetters({isGlobalLoading: get.LOADING}),

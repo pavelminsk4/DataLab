@@ -7,6 +7,7 @@ const state = {
   newWorkspaceId: null,
   statusMessage: null,
   textTranslation: {title: '', text: ''},
+  aiSummary: null,
 }
 
 export default state

@@ -61,4 +61,8 @@ export default {
       text: value,
     })
   },
+
+  async createAISummary(postId) {
+    return fetch('get', `${moduleName}/summary/${postId}/`)
+  },
 }
