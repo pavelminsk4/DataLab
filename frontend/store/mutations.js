@@ -192,7 +192,7 @@ export default {
     state.availableWidgets = {...data}
   },
 
-  [mutator.SET_DIMENSIONS](state, data) {
+  [mutator.SET_FILTERS](state, data) {
     state.dimensions = [...data]
   },
 
@@ -200,24 +200,24 @@ export default {
     state.templates = data
   },
 
-  [mutator.SET_DIMENSION_AUTHORS](state, data) {
+  [mutator.SET_FILTERS_AUTHORS](state, data) {
     state.dimensionAuthors = [...data]
   },
 
-  [mutator.SET_DIMENSION_LANGUAGES](state, data) {
+  [mutator.SET_FILTERS_LANGUAGES](state, data) {
     state.dimensionLanguages = [...data]
   },
 
-  [mutator.SET_DIMENSION_COUNTRIES](state, data) {
+  [mutator.SET_FILTERS_COUNTRIES](state, data) {
     state.dimensionCountries = [...data]
   },
 
-  [mutator.SET_DIMENSION_SOURCES](state, data) {
+  [mutator.SET_FILTERS_SOURCES](state, data) {
     state.dimensionSources = [...data]
   },
 
-  [mutator.SET_SELECTED_DIMENSIONS](state, data) {
-    state.selectedDimensions = {...data}
+  [mutator.SET_SELECTED_FILTERS](state, data) {
+    state.selectedFilters = {...data}
   },
 
   [mutator.RESET_STATE](state) {

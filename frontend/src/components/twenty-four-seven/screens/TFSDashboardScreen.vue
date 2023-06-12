@@ -2,6 +2,7 @@
   <TFSWorkingModal
     v-if="modalName === 'Working' && postInfo"
     :post="postInfo"
+    @open-modal="openModal"
     @close="close"
   />
   <TFSDragAndDrop
@@ -64,7 +65,9 @@ export default {
     ...mapActions([
       action.GET_TFS_ITEMS,
       action.UPDATE_TFS_ITEM_STATUS,
+      action.GET_TFS_RELATED_CONTENT,
       action.CLEAR_TFS_WHATSAPP_MESSAGE,
+      action.CLEAR_TFS_RELATED_CONTENT,
     ]),
     async updateStatus(postId, newStatus, oldStatus, page, isBack) {
       await this[action.UPDATE_TFS_ITEM_STATUS]({
@@ -83,11 +86,15 @@ export default {
       })
     },
     openModal(postInfo) {
+      this[action.CLEAR_TFS_RELATED_CONTENT]()
+
       this.$router.push({
         name: 'TFSDashboard',
         query: {modal: 'Working', tab: 'Original content'},
       })
       this.postInfo = postInfo
+
+      this[action.GET_TFS_RELATED_CONTENT](postInfo.id)
     },
     close() {
       this[action.CLEAR_TFS_WHATSAPP_MESSAGE]()

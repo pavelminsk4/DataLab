@@ -16,13 +16,13 @@
       @update-available-widgets="updateAvailableWidgets"
     />
 
-    <OnlineDimensionsModal
-      v-if="isOpenDimensionModal"
+    <OnlineFiltersModal
+      v-if="isOpenFilterModal"
       :project-id="currentProject.id"
       :current-project="currentProject"
       @update-search-results="showResults"
-      @close="toggleWidgetsModal('isOpenDimensionModal')"
-      @close-modal="toggleWidgetsModal('isOpenDimensionModal')"
+      @close="toggleWidgetsModal('isOpenFilterModal')"
+      @close-modal="toggleWidgetsModal('isOpenFilterModal')"
     />
 
     <DownloadReportModal
@@ -75,9 +75,9 @@
             Add Widgets
           </BaseButton>
 
-          <DimensionsIcon
-            class="dimensions-button"
-            @click="toggleWidgetsModal('isOpenDimensionModal')"
+          <FiltersIcon
+            class="filters-button"
+            @click="toggleWidgetsModal('isOpenFilterModal')"
           />
         </div>
       </div>
@@ -99,8 +99,8 @@ import WidgetsView from '@/components/project/widgets/WidgetsView'
 import BaseButton from '@/components/common/BaseButton'
 import PlusIcon from '@/components/icons/PlusIcon'
 import WidgetsListModal from '@/components/widgets/modals/WidgetsListModal'
-import DimensionsIcon from '@/components/icons/DimensionsIcon'
-import OnlineDimensionsModal from '@/components/project/modals/online/OnlineDimensionsModal'
+import FiltersIcon from '@/components/icons/FiltersIcon'
+import OnlineFiltersModal from '@/components/project/modals/online/OnlineFiltersModal'
 import ReportsUploadIcon from '@/components/icons/ReportsUploadIcon'
 import DownloadReportModal from '@/components/project/modals/DownloadReportModal'
 import BaseDropdown from '@/components/BaseDropdown'
@@ -115,8 +115,8 @@ export default {
     BaseDropdown,
     DownloadReportModal,
     ReportsUploadIcon,
-    OnlineDimensionsModal,
-    DimensionsIcon,
+    OnlineFiltersModal,
+    FiltersIcon,
     WidgetsListModal,
     PlusIcon,
     BaseButton,
@@ -128,7 +128,7 @@ export default {
   data() {
     return {
       isOpenWidgetsModal: false,
-      isOpenDimensionModal: false,
+      isOpenFilterModal: false,
       isOpenDownloadReportModal: false,
       sortValue: '',
       sortingValue: '',
@@ -316,7 +316,7 @@ export default {
   line-height: 20px;
 }
 
-.dimensions-button {
+.filters-button {
   cursor: pointer;
 
   &:hover {

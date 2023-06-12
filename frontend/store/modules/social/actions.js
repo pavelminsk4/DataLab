@@ -234,13 +234,13 @@ export default {
     }
   },
 
-  async [action.POST_DIMENSIONS_FOR_WIDGET](
+  async [action.POST_FILTERS_FOR_WIDGET](
     {commit},
     {projectId, widgetId, data}
   ) {
     commit(mutator.SET_LOADING, true)
     try {
-      await api.social.postDimensionsForWidget({projectId, widgetId, data})
+      await api.social.postFiltersForWidget({projectId, widgetId, data})
     } catch (e) {
       console.log(e)
     } finally {
@@ -248,11 +248,11 @@ export default {
     }
   },
 
-  async [action.GET_DIMENSION_AUTHORS]({commit}, projectId) {
+  async [action.GET_FILTER_AUTHORS]({commit}, projectId) {
     commit(mutator.SET_LOADING, true)
     try {
-      const dimensionAuthors = await api.social.getDimensionAuthors(projectId)
-      commit(mutator.SET_DIMENSION_AUTHORS, dimensionAuthors, {
+      const dimensionAuthors = await api.social.getFiltersAuthors(projectId)
+      commit(mutator.SET_FILTERS_AUTHORS, dimensionAuthors, {
         root: true,
       })
     } catch (e) {
@@ -262,13 +262,11 @@ export default {
     }
   },
 
-  async [action.GET_DIMENSION_COUNTRIES]({commit}, projectId) {
+  async [action.GET_FILTER_COUNTRIES]({commit}, projectId) {
     commit(mutator.SET_LOADING, true)
     try {
-      const dimensionCountries = await api.social.getDimensionCountries(
-        projectId
-      )
-      commit(mutator.SET_DIMENSION_COUNTRIES, dimensionCountries, {
+      const dimensionCountries = await api.social.getFiltersCountries(projectId)
+      commit(mutator.SET_FILTERS_COUNTRIES, dimensionCountries, {
         root: true,
       })
     } catch (e) {
@@ -278,13 +276,11 @@ export default {
     }
   },
 
-  async [action.GET_DIMENSION_LANGUAGES]({commit}, projectId) {
+  async [action.GET_FILTER_LANGUAGES]({commit}, projectId) {
     commit(mutator.SET_LOADING, true)
     try {
-      const dimensionLanguages = await api.social.getDimensionLanguages(
-        projectId
-      )
-      commit(mutator.SET_DIMENSION_LANGUAGES, dimensionLanguages, {
+      const dimensionLanguages = await api.social.getFiltersLanguages(projectId)
+      commit(mutator.SET_FILTERS_LANGUAGES, dimensionLanguages, {
         root: true,
       })
     } catch (e) {
@@ -294,12 +290,12 @@ export default {
     }
   },
 
-  async [action.GET_SOCIAL_DIMENSIONS_OPTIONS]({commit, dispatch}, projectId) {
+  async [action.GET_SOCIAL_FILTERS_OPTIONS]({commit, dispatch}, projectId) {
     commit(mutator.SET_LOADING, true)
     try {
-      await dispatch(action.GET_DIMENSION_AUTHORS, projectId)
-      await dispatch(action.GET_DIMENSION_COUNTRIES, projectId)
-      await dispatch(action.GET_DIMENSION_LANGUAGES, projectId)
+      await dispatch(action.GET_FILTER_AUTHORS, projectId)
+      await dispatch(action.GET_FILTER_COUNTRIES, projectId)
+      await dispatch(action.GET_FILTER_LANGUAGES, projectId)
     } catch (e) {
       console.log(e)
     } finally {

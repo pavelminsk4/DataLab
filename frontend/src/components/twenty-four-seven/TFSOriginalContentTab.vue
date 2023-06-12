@@ -43,10 +43,10 @@ export default {
   computed: {
     ...mapState(['textTranslation']),
     title() {
-      return this.post.online_post.entry_title
+      return this.textTranslation?.title || this.post.online_post.entry_title
     },
     description() {
-      return this.textTranslation || this.post.online_post.full_text
+      return this.textTranslation?.text || this.post.online_post.full_text
     },
   },
   methods: {
@@ -59,6 +59,7 @@ export default {
       this.$emit(
         'change-original-content-language',
         newLanguage,
+        this.title,
         this.description
       )
     },

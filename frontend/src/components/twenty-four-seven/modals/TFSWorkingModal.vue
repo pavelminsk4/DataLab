@@ -1,7 +1,11 @@
 <template>
   <BaseModal modal-frame-style="width:90vw;" class="working-modal">
     <div class="working-wrapper">
-      <ContentWithPosts :post="post" :related-content="relatedContent" />
+      <ContentWithPosts
+        :post="post"
+        :related-content="relatedContent"
+        @open-modal="openModal"
+      />
 
       <section class="working-content-wrapper">
         <div class="panel-tabs">
@@ -104,11 +108,15 @@ export default {
         message: messageContent,
       })
     },
-    changeLanguage(newLanguage, text) {
+    changeLanguage(newLanguage, title, text) {
       this[action.UPDATE_TFS_ORIGINAL_CONTENT_LANGUAGE]({
-        target_lang: newLanguage.toLowerCase(),
+        newLanguage: newLanguage.toLowerCase(),
+        title,
         text,
       })
+    },
+    openModal(postInfo) {
+      this.$emit('open-modal', postInfo)
     },
   },
 }

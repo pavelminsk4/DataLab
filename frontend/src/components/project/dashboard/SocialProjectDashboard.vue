@@ -16,8 +16,8 @@
       @update-available-widgets="updateAvailableWidgets"
     />
 
-    <SocialDimensionsModal
-      v-if="openModal === 'SocialDimensionsModal'"
+    <SocialFiltersModal
+      v-if="openModal === 'SocialFiltersModal'"
       :project-id="currentProject.id"
       :current-project="currentProject"
       @update-search-results="showResults"
@@ -75,9 +75,9 @@
             Add Widgets
           </BaseButton>
 
-          <DimensionsIcon
-            class="dimensions-button"
-            @click="toggleWidgetsModal('SocialDimensionsModal')"
+          <FiltersIcon
+            class="filters-button"
+            @click="toggleWidgetsModal('SocialFiltersModal')"
           />
         </div>
       </div>
@@ -109,8 +109,8 @@ import SocialProjectDashboardWidgets from '@/components/project/dashboard/Social
 import BaseButton from '@/components/common/BaseButton'
 import PlusIcon from '@/components/icons/PlusIcon'
 import WidgetsListModal from '@/components/widgets/modals/WidgetsListModal'
-import DimensionsIcon from '@/components/icons/DimensionsIcon'
-import SocialDimensionsModal from '@/components/project/modals/social/SocialDimensionsModal'
+import FiltersIcon from '@/components/icons/FiltersIcon'
+import SocialFiltersModal from '@/components/project/modals/social/SocialFiltersModal'
 // import ReportsUploadIcon from '@/components/icons/ReportsUploadIcon'
 import DownloadReportModal from '@/components/project/modals/DownloadReportModal'
 import BaseDropdown from '@/components/BaseDropdown'
@@ -127,8 +127,8 @@ export default {
     BaseDropdown,
     DownloadReportModal,
     // ReportsUploadIcon,
-    SocialDimensionsModal,
-    DimensionsIcon,
+    SocialFiltersModal,
+    FiltersIcon,
     WidgetsListModal,
     PlusIcon,
     BaseButton,
@@ -347,7 +347,7 @@ export default {
   line-height: 20px;
 }
 
-.dimensions-button {
+.filters-button {
   cursor: pointer;
 
   &:hover {

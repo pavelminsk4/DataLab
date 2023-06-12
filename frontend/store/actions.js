@@ -372,11 +372,11 @@ export default {
     }
   },
 
-  async [action.GET_DIMENSIONS]({commit}) {
+  async [action.GET_FILTERS]({commit}) {
     commit(mutator.SET_LOADING, true)
     try {
-      const dimensions = await api.getDimensions()
-      commit(mutator.SET_DIMENSIONS, dimensions)
+      const dimensions = await api.getFilters()
+      commit(mutator.SET_FILTERS, dimensions)
     } catch (e) {
       console.log(e)
     } finally {
@@ -552,10 +552,10 @@ export default {
     }
   },
 
-  async [action.GET_SELECTED_DIMENSIONS]({commit}, selectedDimensions) {
+  async [action.GET_SELECTED_FILTERS]({commit}, selectedFilters) {
     commit(mutator.SET_LOADING, true)
     try {
-      commit(mutator.SET_SELECTED_DIMENSIONS, selectedDimensions)
+      commit(mutator.SET_SELECTED_FILTERS, selectedFilters)
     } catch (e) {
       console.log(e)
     } finally {
@@ -576,11 +576,11 @@ export default {
     }
   },
 
-  async [action.GET_DIMENSION_AUTHORS]({commit}, projectId) {
+  async [action.GET_FILTER_AUTHORS]({commit}, projectId) {
     commit(mutator.SET_LOADING, true)
     try {
-      const dimensionAuthors = await api.getDimensionAuthors(projectId)
-      commit(mutator.SET_DIMENSION_AUTHORS, dimensionAuthors)
+      const dimensionAuthors = await api.getFiltersAuthors(projectId)
+      commit(mutator.SET_FILTERS_AUTHORS, dimensionAuthors)
     } catch (e) {
       console.log(e)
     } finally {
@@ -588,11 +588,11 @@ export default {
     }
   },
 
-  async [action.GET_DIMENSION_LANGUAGES]({commit}, projectId) {
+  async [action.GET_FILTER_LANGUAGES]({commit}, projectId) {
     commit(mutator.SET_LOADING, true)
     try {
-      const dimensionLanguages = await api.getDimensionLanguages(projectId)
-      commit(mutator.SET_DIMENSION_LANGUAGES, dimensionLanguages)
+      const dimensionLanguages = await api.getFiltersLanguages(projectId)
+      commit(mutator.SET_FILTERS_LANGUAGES, dimensionLanguages)
     } catch (e) {
       console.log(e)
     } finally {
@@ -600,11 +600,11 @@ export default {
     }
   },
 
-  async [action.GET_DIMENSION_COUNTRIES]({commit}, projectId) {
+  async [action.GET_FILTER_COUNTRIES]({commit}, projectId) {
     commit(mutator.SET_LOADING, true)
     try {
-      const dimensionCountries = await api.getDimensionCountries(projectId)
-      commit(mutator.SET_DIMENSION_COUNTRIES, dimensionCountries)
+      const dimensionCountries = await api.getFiltersCountries(projectId)
+      commit(mutator.SET_FILTERS_COUNTRIES, dimensionCountries)
     } catch (e) {
       console.log(e)
     } finally {
@@ -612,11 +612,11 @@ export default {
     }
   },
 
-  async [action.GET_DIMENSION_COUNTRIES]({commit}, projectId) {
+  async [action.GET_FILTER_COUNTRIES]({commit}, projectId) {
     commit(mutator.SET_LOADING, true)
     try {
-      const dimensionCountries = await api.getDimensionCountries(projectId)
-      commit(mutator.SET_DIMENSION_COUNTRIES, dimensionCountries)
+      const dimensionCountries = await api.getFiltersCountries(projectId)
+      commit(mutator.SET_FILTERS_COUNTRIES, dimensionCountries)
     } catch (e) {
       console.log(e)
     } finally {
@@ -624,11 +624,11 @@ export default {
     }
   },
 
-  async [action.GET_DIMENSION_SOURCES]({commit}, projectId) {
+  async [action.GET_FILTER_SOURCES]({commit}, projectId) {
     commit(mutator.SET_LOADING, true)
     try {
-      const dimensionSources = await api.getDimensionSources(projectId)
-      commit(mutator.SET_DIMENSION_SOURCES, dimensionSources)
+      const dimensionSources = await api.getFiltersSources(projectId)
+      commit(mutator.SET_FILTERS_SOURCES, dimensionSources)
     } catch (e) {
       console.log(e)
     } finally {
@@ -636,13 +636,13 @@ export default {
     }
   },
 
-  async [action.GET_DIMENSIONS_OPTIONS]({commit, dispatch}, projectId) {
+  async [action.GET_FILTERS_OPTIONS]({commit, dispatch}, projectId) {
     commit(mutator.SET_LOADING, true)
     try {
-      await dispatch(action.GET_DIMENSION_AUTHORS, projectId)
-      await dispatch(action.GET_DIMENSION_COUNTRIES, projectId)
-      await dispatch(action.GET_DIMENSION_LANGUAGES, projectId)
-      await dispatch(action.GET_DIMENSION_SOURCES, projectId)
+      await dispatch(action.GET_FILTER_AUTHORS, projectId)
+      await dispatch(action.GET_FILTER_COUNTRIES, projectId)
+      await dispatch(action.GET_FILTER_LANGUAGES, projectId)
+      await dispatch(action.GET_FILTER_SOURCES, projectId)
     } catch (e) {
       console.log(e)
     } finally {
@@ -808,13 +808,13 @@ export default {
     }
   },
 
-  async [action.POST_DIMENSIONS_FOR_WIDGET](
+  async [action.POST_FILTERS_FOR_WIDGET](
     {commit},
     {projectId, widgetId, data}
   ) {
     commit(mutator.SET_LOADING, true)
     try {
-      await api.postDimensionsForWidget({projectId, widgetId, data})
+      await api.postFiltersForWidget({projectId, widgetId, data})
     } catch (e) {
       console.log(e)
     } finally {

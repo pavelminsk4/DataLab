@@ -21,7 +21,7 @@ const initialState = {
   dimensionLanguages: null,
   dimensionCountries: null,
   dimensionSources: null,
-  selectedDimensions: {},
+  selectedFilters: {},
   countries: [],
   languages: [],
   sources: [],

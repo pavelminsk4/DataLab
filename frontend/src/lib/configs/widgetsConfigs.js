@@ -5,7 +5,7 @@ const WIDGET_DEFAULT_SETTINGS = {
   isChartShow: false,
   hasPreview: true,
   hasAggregationPeriod: true,
-  settingsTabs: ['General', 'Dimensions', 'Chart Layout'],
+  settingsTabs: ['General', 'Filters', 'Chart Layout'],
 }
 
 const CHARTS = {
@@ -82,7 +82,7 @@ export const widgetsConfig = {
     height: 7,
     hasAggregationPeriod: false,
     defaultChartType: null,
-    settingsTabs: ['General', 'Dimensions'],
+    settingsTabs: ['General', 'Filters'],
   },
 
   volume: {
@@ -187,7 +187,7 @@ export const widgetsConfig = {
     hasAggregationPeriod: false,
     actionName: action.GET_TOP_KEYWORDS_WIDGET,
     defaultChartType: 'WordCloudChart',
-    settingsTabs: ['General', 'Dimensions'],
+    settingsTabs: ['General', 'Filters'],
   },
 
   sentiment_diagram: {
@@ -203,7 +203,7 @@ export const widgetsConfig = {
     actionName: action.GET_SENTIMENT_NUMBER_OF_RESULT,
     hasAggregationPeriod: false,
     defaultChartType: null,
-    settingsTabs: ['General', 'Dimensions'],
+    settingsTabs: ['General', 'Filters'],
   },
 
   sentiment_top_keywords: {
@@ -212,7 +212,7 @@ export const widgetsConfig = {
     hasAggregationPeriod: false,
     actionName: action.GET_SENTIMENT_TOP_KEYWORDS_WIDGET,
     defaultChartType: 'SentimentWordCloudChart',
-    settingsTabs: ['General', 'Dimensions'],
+    settingsTabs: ['General', 'Filters'],
   },
 
   authors_by_country: {
@@ -220,7 +220,7 @@ export const widgetsConfig = {
     hasAggregationPeriod: false,
     actionName: action.GET_AUTHORS_BY_COUNTRY,
     defaultChartType: 'WorldMapChart',
-    settingsTabs: ['General', 'Dimensions'],
+    settingsTabs: ['General', 'Filters'],
   },
 
   sources_by_language: {
@@ -246,7 +246,7 @@ export const widgetsConfig = {
     actionName: action.GET_OVERALL_TOP_SOURCES,
     defaultChartType: 'SentimentBarChart',
     availableTypes: null,
-    settingsTabs: ['General', 'Dimensions'],
+    settingsTabs: ['General', 'Filters'],
   },
 
   //social widgets
@@ -272,7 +272,7 @@ export const widgetsConfig = {
     hasAggregationPeriod: false,
     defaultChartType: null,
     availableTypes: null,
-    settingsTabs: ['General', 'Dimensions'],
+    settingsTabs: ['General', 'Filters'],
   },
   content_volume_top_locations: {
     ...WIDGET_DEFAULT_SETTINGS,
@@ -294,7 +294,7 @@ export const widgetsConfig = {
     actionName: action.GET_OVERALL_TOP_AUTHORS,
     defaultChartType: 'SentimentBarChart',
     availableTypes: null,
-    settingsTabs: ['General', 'Dimensions'],
+    settingsTabs: ['General', 'Filters'],
   },
   top_authors_by_gender: {
     ...WIDGET_DEFAULT_SETTINGS,
@@ -302,7 +302,7 @@ export const widgetsConfig = {
     actionName: action.GET_TOP_AUTHORS_BY_GENDER,
     defaultChartType: 'SentimentBarChart',
     availableTypes: null,
-    settingsTabs: ['General', 'Dimensions'],
+    settingsTabs: ['General', 'Filters'],
   },
   authors_by_language: {
     ...WIDGET_DEFAULT_SETTINGS,
@@ -375,7 +375,7 @@ export const widgetsConfig = {
     actionName: action.GET_PROFILE_TIMELINE,
     defaultChartType: 'BarLineChart',
     availableTypes: null,
-    settingsTabs: ['General', 'Dimensions'],
+    settingsTabs: ['General', 'Filters'],
   },
 
   most_engaging_post_types: {
@@ -398,7 +398,7 @@ export const widgetsConfig = {
     actionName: action.GET_ACCOUNT_ANALYSIS_SUMMARY_WIDGET,
     hasAggregationPeriod: false,
     defaultChartType: null,
-    settingsTabs: ['General', 'Dimensions'],
+    settingsTabs: ['General', 'Filters'],
   },
 
   most_frequent_post_types: {
@@ -431,7 +431,7 @@ export const widgetsConfig = {
     hasAggregationPeriod: false,
     defaultChartType: 'LineChart',
     availableTypes: null,
-    settingsTabs: ['General', 'Dimensions'],
+    settingsTabs: ['General', 'Filters'],
   },
 
   top_hashtags: {
@@ -464,7 +464,7 @@ export const widgetsConfig = {
     hasAggregationPeriod: false,
     defaultChartType: 'HeatmapChart',
     availableTypes: null,
-    settingsTabs: ['General', 'Dimensions'],
+    settingsTabs: ['General', 'Filters'],
   },
 
   top_posts_by_engagements: {
@@ -473,7 +473,7 @@ export const widgetsConfig = {
     hasPreview: false,
     hasAggregationPeriod: false,
     availableTypes: null,
-    settingsTabs: ['General', 'Dimensions'],
+    settingsTabs: ['General', 'Filters'],
   },
 
   best_times_to_post: {
@@ -482,14 +482,14 @@ export const widgetsConfig = {
     hasPreview: false,
     hasAggregationPeriod: false,
     availableTypes: null,
-    settingsTabs: ['General', 'Dimensions'],
+    settingsTabs: ['General', 'Filters'],
   },
 
   mention_timeline: {
     ...WIDGET_DEFAULT_SETTINGS,
     defaultChartType: 'BarLineChart',
     availableTypes: null,
-    settingsTabs: ['General', 'Dimensions'],
+    settingsTabs: ['General', 'Filters'],
   },
 
   most_frequent_mention_media_types: {
@@ -506,7 +506,7 @@ export const widgetsConfig = {
     hasAggregationPeriod: false,
     defaultChartType: 'HeatmapChart',
     availableTypes: null,
-    settingsTabs: ['General', 'Dimensions'],
+    settingsTabs: ['General', 'Filters'],
   },
 
   top_mentions_by_engagements: {
@@ -515,7 +515,7 @@ export const widgetsConfig = {
     hasPreview: false,
     hasAggregationPeriod: false,
     availableTypes: null,
-    settingsTabs: ['General', 'Dimensions'],
+    settingsTabs: ['General', 'Filters'],
   },
 
   average_engagements_by_day_for_mentions: {

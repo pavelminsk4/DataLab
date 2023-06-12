@@ -55,7 +55,10 @@ export default {
     })
   },
 
-  async updateOriginalContentLanguage(value) {
-    return fetch('post', `${moduleName}/translator/`, value)
+  async updateOriginalContentLanguage(newLanguage, value) {
+    return fetch('post', `${moduleName}/translator/`, {
+      target_lang: newLanguage,
+      text: value,
+    })
   },
 }

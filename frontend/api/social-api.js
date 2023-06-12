@@ -69,7 +69,7 @@ export default {
     )
   },
 
-  async postDimensionsForWidget({projectId, widgetId, data}) {
+  async postFiltersForWidget({projectId, widgetId, data}) {
     return fetch(
       'patch',
       `${moduleName}/dimensions_for_each_widgets/${projectId}/${widgetId}`,
@@ -77,18 +77,18 @@ export default {
     )
   },
 
-  async getDimensionAuthors(projectId) {
+  async getFiltersAuthors(projectId) {
     return fetch('get', `${moduleName}/projects/${projectId}/dimension_authors`)
   },
 
-  async getDimensionLanguages(projectId) {
+  async getFiltersLanguages(projectId) {
     return fetch(
       'get',
       `${moduleName}/projects/${projectId}/dimension_languages`
     )
   },
 
-  async getDimensionCountries(projectId) {
+  async getFiltersCountries(projectId) {
     return fetch(
       'get',
       `${moduleName}/projects/${projectId}/dimension_countries`

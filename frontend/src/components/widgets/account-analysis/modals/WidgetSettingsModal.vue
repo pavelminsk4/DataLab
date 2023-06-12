@@ -7,7 +7,7 @@
     <WidgetSettingsScreen
       :widget-details="widgetDetails"
       @save-general-settings="saveGeneralChanges"
-      @save-dimensions-settings="saveDimensionsForWidget"
+      @save-filters-settings="saveFiltersForWidget"
       @update-chart-type="($event) => (newChartType = $event)"
       @change-aggregation-period="changeAggregationPeriod"
       @save-chart-settings="saveChartType"
@@ -54,7 +54,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      selectedDimensions: get.SELECTED_DIMENSIONS,
+      selectedFilters: get.SELECTED_FILTERS,
     }),
     widgetName() {
       return this.widgetDetails.name
@@ -63,7 +63,7 @@ export default {
   methods: {
     ...mapActions([
       action.UPDATE_AVAILABLE_WIDGETS,
-      action.POST_DIMENSIONS_FOR_WIDGET,
+      action.POST_FILTERS_FOR_WIDGET,
     ]),
     ...mapAccountAnalysisWidgetsActions([
       action.GET_PROFILE_TIMELINE,
@@ -94,17 +94,17 @@ export default {
       this.updateCurrentWidget(newSettings)
     },
 
-    async saveDimensionsForWidget() {
-      await this[action.POST_DIMENSIONS_FOR_WIDGET]({
+    async saveFiltersForWidget() {
+      await this[action.POST_FILTERS_FOR_WIDGET]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,
         data: {
           aggregation_period: this.widgetDetails.aggregation_period,
-          author_dim_pivot: this.selectedDimensions.authors,
-          language_dim_pivot: this.selectedDimensions.languages,
-          country_dim_pivot: this.selectedDimensions.countries,
-          sentiment_dim_pivot: this.selectedDimensions.sentiments,
-          source_dim_pivot: this.selectedDimensions.sources,
+          author_dim_pivot: this.selectedFilters.authors,
+          language_dim_pivot: this.selectedFilters.languages,
+          country_dim_pivot: this.selectedFilters.countries,
+          sentiment_dim_pivot: this.selectedFilters.sentiments,
+          source_dim_pivot: this.selectedFilters.sources,
         },
       })
 
