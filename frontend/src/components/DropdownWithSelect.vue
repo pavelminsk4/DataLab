@@ -1,9 +1,9 @@
 <template>
-  <div :class="[`dropdown-wrapper-${name}`, 'dropdown-wrapper']">
+  <div :class="[`dropdown-wrapper-${name}`, 'dropdown-wrapper', 'scroll']">
     <div class="title" @click="openMainDropdown">
       {{ modelValue.title || 'Select project' }}
     </div>
-    <template v-if="isOpenMainDropdown">
+    <section v-if="isOpenMainDropdown" class="container-workspaces">
       <div v-for="workspace in workspaces" :key="workspace" class="workspace">
         <BaseDropdown
           v-for="projects in workspace"
@@ -11,18 +11,20 @@
           :name="Object.keys(workspace)[0]"
           :title="Object.keys(workspace)[0]"
           :custom-style="dropdownStyles"
+          :title-style="titleStyles"
         >
           <span
             v-for="project in projects"
             :key="project.id"
             :value="project"
+            class="project"
             @click="handleProjectClick(project)"
           >
             {{ project.title }}
           </span>
         </BaseDropdown>
       </div>
-    </template>
+    </section>
   </div>
 </template>
 
@@ -46,6 +48,8 @@ export default {
   created() {
     this.dropdownStyles =
       'position: static; background: var(--background-secondary-color); box-shadow: none;'
+    this.titleStyles =
+      'font-size: 16px; font-weight: 500; color: var(--typography-primary-color);'
 
     document.addEventListener('click', this.closeDropdown)
   },
@@ -75,44 +79,51 @@ export default {
 
 <style lang="scss" scoped>
 .dropdown-wrapper {
-  position: relative;
-
   display: flex;
   flex-direction: column;
 
-  padding: 5px;
+  height: fit-content;
 
-  color: var(--typography-title-color);
   background-color: var(--background-secondary-color);
   border: var(--border-primary);
   border-radius: 8px;
 
   cursor: pointer;
-
   white-space: nowrap;
 
-  .workspace {
-    z-index: 2;
+  .title {
+    margin-left: 5px;
+  }
 
-    top: 35px;
-    right: 2px;
+  .container-workspaces {
+    position: absolute;
+    width: 100%;
 
-    display: flex;
-    flex-direction: column;
+    margin-top: 25px;
 
-    cursor: pointer;
-
-    min-width: 100%;
-
-    background-color: #ffffff;
-    box-shadow: 1px 2px 6px rgba(135, 135, 135, 0.25);
+    background-color: var(--background-secondary-color);
+    border: var(--border-primary);
     border-radius: 8px;
 
-    font-size: 12px;
-    color: var(--typography-primary-color);
+    .workspace {
+      z-index: 2;
 
-    &__title {
-      font-size: 16px;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+
+      cursor: pointer;
+      padding: 5px;
+
+      font-size: 12px;
+      color: #484c52;
+      .project {
+        padding-left: 10px;
+      }
+
+      .dropdown-wrapper {
+        border: none;
+      }
     }
   }
 }

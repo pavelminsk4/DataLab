@@ -3,8 +3,8 @@
     @click="openDropdown"
     :class="[`dropdown-wrapper-${name}`, 'dropdown-wrapper']"
   >
-    <div class="container">
-      <div class="title">{{ title }}</div>
+    <div class="container-placeholder">
+      <div :style="titleStyle" class="title">{{ title }}</div>
       <div v-if="selectedValue" class="selected-value">{{ selectedValue }}</div>
       <ArrowDownIcon
         :class="[isOpenDropdown && 'arrow-open-dropdown', 'arrow-down']"
@@ -32,6 +32,7 @@ export default {
     selectedValue: {type: [Number, String, Object]},
     name: {type: String, required: true},
     customStyle: {type: String},
+    titleStyle: {type: String},
   },
   data() {
     return {
@@ -124,8 +125,13 @@ export default {
   color: var(--button-primary-color);
 }
 
-.container {
+.container-placeholder {
+  display: flex;
   align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+  padding: 0px 10px;
 }
 </style>
 
