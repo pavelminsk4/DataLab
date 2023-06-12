@@ -22,7 +22,9 @@
         :card-status="item.status"
         :item-id="item.id"
         :is-related-content="true"
+        :is-work-button-show="true"
         class="post-related-content"
+        @open-modal="$emit('open-modal', item)"
       />
     </div>
   </section>

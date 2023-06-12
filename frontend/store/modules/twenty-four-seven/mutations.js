@@ -39,8 +39,9 @@ export default {
     state.statusMessage = statusMessage
   },
 
-  [mutator.SET_TFS_TRANSLATED_TEXT](state, translatedText) {
-    state.textTranslation = translatedText
+  [mutator.SET_TFS_TRANSLATED_ORIGINAL_CONTENT](state, {title, text}) {
+    state.textTranslation.title = title
+    state.textTranslation.text = text
   },
 
   [mutator.RESET_TFS_ITEMS](state) {
@@ -48,10 +49,14 @@ export default {
   },
 
   [mutator.RESET_TFS_TRANSLATED_TEXT](state) {
-    state.textTranslation = null
+    state.textTranslation = {title: '', text: ''}
   },
 
   [mutator.RESET_TFS_STATUS_MESSAGE](state) {
     state.statusMessage = null
+  },
+
+  [mutator.RESET_TFS_RELATED_CONTENT](state) {
+    state.relatedContent = []
   },
 }
