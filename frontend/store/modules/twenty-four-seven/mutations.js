@@ -39,7 +39,19 @@ export default {
     state.statusMessage = statusMessage
   },
 
+  [mutator.SET_TFS_TRANSLATED_TEXT](state, translatedText) {
+    state.textTranslation = translatedText
+  },
+
   [mutator.RESET_TFS_ITEMS](state) {
     state.items = {}
+  },
+
+  [mutator.RESET_TFS_TRANSLATED_TEXT](state) {
+    state.textTranslation = null
+  },
+
+  [mutator.RESET_TFS_STATUS_MESSAGE](state) {
+    state.statusMessage = null
   },
 }

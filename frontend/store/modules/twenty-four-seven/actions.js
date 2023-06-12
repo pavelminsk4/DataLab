@@ -164,7 +164,29 @@ export default {
     }
   },
 
+  async [action.UPDATE_TFS_ORIGINAL_CONTENT_LANGUAGE]({commit}, value) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const response = await api.twentyFourSeven.updateOriginalContentLanguage(
+        value
+      )
+      commit(mutator.SET_TFS_TRANSLATED_TEXT, response.translated_text)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
   async [action.CLEAR_TFS_ITEMS]({commit}) {
     commit(mutator.RESET_TFS_ITEMS)
+  },
+
+  async [action.CLEAR_TFS_TRANSLATED_TEXT]({commit}) {
+    commit(mutator.RESET_TFS_TRANSLATED_TEXT)
+  },
+
+  async [action.CLEAR_TFS_WHATSAPP_MESSAGE]({commit}) {
+    commit(mutator.RESET_TFS_STATUS_MESSAGE)
   },
 }

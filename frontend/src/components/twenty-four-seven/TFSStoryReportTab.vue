@@ -4,10 +4,10 @@
       <div class="title"><PostStoryReportIcon /> Post</div>
       <a
         class="summary link"
-        :href="post.online_post.feed_image_link"
+        :href="post.online_post.entry_links_href"
         target="_blank"
       >
-        {{ post.online_post.feed_image_link }}
+        {{ post.online_post.entry_links_href }}
       </a>
     </div>
 
@@ -68,7 +68,7 @@ export default {
     RelatedIcon,
     BaseInput,
   },
-  emits: ['send-to-whatsapp'],
+  emits: ['send-to-whatsapp', 'change-original-content-language'],
   props: {
     post: {type: Object, required: true},
   },
