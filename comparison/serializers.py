@@ -1,26 +1,17 @@
 from drf_writable_nested.serializers import WritableNestedModelSerializer
-from comparison.models import ProjectComparison, WorkspaceComparison
+from comparison.models import ProjectComparison, WorkspaceComparison, ComparisonItem
 from api.serializers import UserSerializer
 
 
-
-class ProjectComparisonPostSerializer(WritableNestedModelSerializer):
-
+class ComparisonItemSerializer(WritableNestedModelSerializer):
     class Meta:
-        model = ProjectComparison
-        fields = '__all__'
-
-
-class WorkspaceComparisonPostSerializer(WritableNestedModelSerializer):
-    cmpr_workspace_projects = ProjectComparisonPostSerializer(many=True, required=False)
-
-    class Meta:
-        model = WorkspaceComparison
+        model = ComparisonItem
         fields = '__all__'
 
 
 class ProjectComparisonSerializer(WritableNestedModelSerializer):
     members = UserSerializer(many=True, required=False)
+    cmpr_items = ComparisonItemSerializer(many=True, required=False)
 
     class Meta:
         model = ProjectComparison

@@ -14,7 +14,7 @@ urlpatterns = [
 router = SimpleRouter()
 router.register('workspaces', WorkspaceComparisonViewSet, basename='cmpr_workspaces')
 projects_router = NestedSimpleRouter(router, 'workspaces', lookup='workspace')
-projects_router.register('projects', ProjectComparisonViewSet, basename='workspace-projects')
+projects_router.register('projects', ProjectComparisonViewSet, basename='workspace_projects')
 
 urlpatterns += router.urls
 urlpatterns += projects_router.urls

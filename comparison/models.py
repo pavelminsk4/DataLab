@@ -58,14 +58,14 @@ class ComparisonWidgetDescription(models.Model):
         return str(self.title)
 
 
-@receiver(post_save, sender=ProjectComparison)
-def create_comparison_widget_description(sender, instance, created, **kwargs):
-    if created:
-        instance.comparison_widget_description_set.create(title='Summary', default_title='Summary')
-        instance.comparison_widget_description_set.create(title='Content volume', default_title='Content volume')
-        instance.comparison_widget_description_set.create(title='Top authors', default_title='Top authors')
-        instance.comparison_widget_description_set.create(title='Sentiment', default_title='Sentiment')
-        instance.comparison_widget_description_set.create(title='Top sources', default_title='Top sources')
-        instance.comparison_widget_description_set.create(title='Top keywords', default_title='Top keywords')
-        instance.comparison_widget_description_set.create(title='Top languages', default_title='Top languages')
-        instance.comparison_widget_description_set.create(title='Top countries', default_title='Top countries')
+# @receiver(post_save, sender=ProjectComparison)
+# def create_comparison_widget_description(sender, instance, created, **kwargs):
+#     if created:
+#         instance.comparison_widget_description_set.create(title='Summary', default_title='Summary')
+#         instance.comparison_widget_description_set.create(title='Content volume', default_title='Content volume')
+#         instance.comparison_widget_description_set.create(title='Top authors', default_title='Top authors')
+#         instance.comparison_widget_description_set.create(title='Sentiment', default_title='Sentiment')
+#         instance.comparison_widget_description_set.create(title='Top sources', default_title='Top sources')
+#         instance.comparison_widget_description_set.create(title='Top keywords', default_title='Top keywords')
+#         instance.comparison_widget_description_set.create(title='Top languages', default_title='Top languages')
+#         instance.comparison_widget_description_set.create(title='Top countries', default_title='Top countries')

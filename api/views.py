@@ -420,6 +420,7 @@ def add_post_category(post, themes):
     post['category'] = category
     return post
 
+
 def posts_values(posts):
   return posts.values(
     'id',
@@ -438,3 +439,22 @@ def posts_values(posts):
     'feedlink__alexaglobalrank',
     'sentiment',
     )
+
+def project_posts(request, pk):
+  body = json.loads(request.body)
+  posts_per_page = body['posts_per_page']
+  page_number = body['page_number']
+  dep = request.user.user_profile.department
+  posts = post_agregator_with_dimensions(Project.objects.get(id=pk))
+  posts = posts_values(posts)
+  p = Paginator(posts, posts_per_page)
+  posts_list = list(p.page(page_number))
+  department_changing = ChangingSentiment.objects.filter(department=dep).values()
+  dict_changing = {x['post_id']: x['sentiment'] for x in department_changing}
+  themes = MlCategory.objects.all()
+  for post in posts_list:
+    post = change_post_sentiment(post, dict_changing)
+    post = change_post_source_name(post)
+    post = add_post_category(post, themes)
+  res = { 'num_pages': p.num_pages, 'num_posts': p.count, 'posts': posts_list }
+  return JsonResponse(res, safe = False)
