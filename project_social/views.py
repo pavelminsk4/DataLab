@@ -100,6 +100,33 @@ def change_social_sentiment(request, pk, department_pk,sentiment):
     return HttpResponse(status=406)
   return HttpResponse(status=201)
 
+
+def change_tweet_post_sentiment(post, dict_changing):
+    if post['id'] in dict_changing:
+        new_sentiment = dict_changing[post['id']]
+        post['sentiment'] = new_sentiment
+    return post
+
+
+def posts_values(posts):
+  return posts.values(
+    'id',
+    'post_id',
+    'user_name',
+    'user_alias',
+    'text',
+    'sentiment',
+    'date',
+    'locationString',
+    'language',
+    'count_favorites',
+    'count_retweets',
+    'count_replies',
+    'user_picture',
+    'images',
+    )
+
+
 def twitter_posts_search(request):
   body = json.loads(request.body)
   keys = body['keywords']
@@ -118,6 +145,7 @@ def twitter_posts_search(request):
   date_range = body['date_range']
   posts_per_page = body['posts_per_page']
   page_number = body['page_number']
+  department_id = request.user.user_profile.department
   posts = data_range_posts(date_range[0], date_range[1])
   posts = keywords_posts(keys, posts)
   if additions:
@@ -144,25 +172,13 @@ def twitter_posts_search(request):
     posts = posts.filter(reduce(lambda x,y: x | y, [Q(user_name=author) for author in author_dimensions]))
   if sentiment_dimensions:
     posts = posts.filter(reduce(lambda x,y: x | y, [Q(sentiment=sentiment) for sentiment in sentiment_dimensions]))    
-  posts = posts.values(
-    'id',
-    'post_id',
-    'user_name',
-    'user_alias',
-    'text',
-    'sentiment',
-    'date',
-    'locationString',
-    'language',
-    'count_favorites',
-    'count_retweets',
-    'count_replies',
-    'user_picture',
-    'images',
-    )
-
+  posts = posts_values(posts)
   p = Paginator(posts, posts_per_page)
   posts_list=list(p.page(page_number))
+  department_changing = ChangingTweetbinderSentiment.objects.filter(department_id=department_id).values()
+  dict_changing = {x['tweet_post_id']: x['sentiment'] for x in department_changing}
+  for post in posts_list:
+    post = change_tweet_post_sentiment(post, dict_changing)
   res = { 'num_pages': p.num_pages, 'num_posts': p.count, 'posts': posts_list }
   return JsonResponse(res, safe = False)
 

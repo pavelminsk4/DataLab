@@ -27,6 +27,8 @@ import json
 import re
 
 
+from django.views.decorators.csrf import csrf_exempt
+
 # ==== User API =======================
 class UserList(ListAPIView):
   queryset = User.objects.all()
@@ -115,7 +117,7 @@ def data_range_posts(start_date, end_date):
 
 def search(request):
   body = json.loads(request.body)
-  department_id = body['department_id']
+  department_id = request.user.user_profile.department
   date_range = body['date_range']
   posts_per_page = body['posts_per_page']
   page_number = body['page_number']
