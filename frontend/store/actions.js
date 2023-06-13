@@ -98,12 +98,28 @@ export default {
     }
   },
 
-  async [action.CHANGE_POST_SENTIMENT](
+  async [action.CHANGE_ONLINE_POST_SENTIMENT](
     _context,
     {postId, departmentId, newSentiment}
   ) {
     try {
-      const response = await api.changePostSentiment(
+      const response = await api.changeOnlinePostSentiment(
+        postId,
+        departmentId,
+        newSentiment
+      )
+      return response
+    } catch (e) {
+      return e
+    }
+  },
+
+  async [action.CHANGE_SOCIAL_POST_SENTIMENT](
+    _context,
+    {postId, departmentId, newSentiment}
+  ) {
+    try {
+      const response = await api.changeSocialPostSentiment(
         postId,
         departmentId,
         newSentiment
