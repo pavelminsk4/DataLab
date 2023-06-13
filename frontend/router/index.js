@@ -5,7 +5,7 @@ import SocialMediaRoutes from '@router/SocialMediaRoutes'
 import AlertsModuleRoutes from '@router/AlertsModuleRoutes'
 import AccountAnalysisRoutes from '@router/AccountAnalysisRoutes'
 import TwentyFourSevenRoutes from '@router/TwentyFourSevenRoutes'
-import PolicyRoutes from '@router/PolicyRoutes'
+import LegalRoutes from '@router/LegalRoutes'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -20,7 +20,7 @@ const router = createRouter({
     ...AlertsModuleRoutes,
     ...AccountAnalysisRoutes,
     ...TwentyFourSevenRoutes,
-    ...PolicyRoutes,
+    ...LegalRoutes,
   ],
 })
 

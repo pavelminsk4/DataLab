@@ -1,12 +1,12 @@
-import PolicyView from '@/views/PolicyView'
-import PrivacyScreen from '@components/policy/PrivacyScreen'
-import TermsOfUseScreen from '@components/policy/TermsOfUseScreen'
+import LegalView from '@/views/LegalView'
+import PrivacyScreen from '@components/legal/PrivacyScreen'
+import TermsOfUseScreen from '@components/legal/TermsOfUseScreen'
 
 export default [
   {
-    name: 'Policy',
-    path: '/policy',
-    component: PolicyView,
+    name: 'Legal',
+    path: '/legal',
+    component: LegalView,
     redirect: () => ({name: 'Privacy'}),
     children: [
       {

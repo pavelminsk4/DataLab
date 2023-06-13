@@ -15,7 +15,7 @@ import MainLayout from '@components/layout/MainLayout'
 import LogoIcon from '@/components/icons/LogoIcon'
 
 export default {
-  name: 'PolicyView',
+  name: 'LegalView',
   components: {MainLayout, LogoIcon},
   data() {
     return {
