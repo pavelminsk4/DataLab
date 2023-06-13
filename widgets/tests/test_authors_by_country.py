@@ -27,7 +27,7 @@ class AuthorsByCountryTests(APITestCase):
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     res = [
             {'Greece': {'CFE': 2, 'CFP': 2}}, 
-            {'USA': {'EFP': 2}}, 
-            {'England': {'AFP': 1}}
+            {'England': {'AFP': 1}},
+            {'USA': {'EFP': 2}}
           ]
     self.assertEqual(json.loads(response.content), res)

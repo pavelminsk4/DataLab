@@ -12,6 +12,6 @@ def get_authors_by_country(pk, widget_pk):
   top_countries = [i['feedlink__country'] for i in posts.values('feedlink__country').annotate(author_count=Count('entry_author', distinct=True)).order_by('-author_count')[:5]]
   results = []
   for country in top_countries:
-    top_authors = posts.filter(feedlink__country=country).values('entry_author').annotate(posts_count=Count('id')).order_by('-posts_count')[:5]
-    results.append({country: {author['entry_author']: author['posts_count'] for author in top_authors}})
+    top_authors = posts.filter(feedlink__country=country).values('entry_author').annotate(posts_count=Count('id'))[:5]
+    results.append({country: dict(reversed({author['entry_author']: author['posts_count'] for author in top_authors}.items()))})
   return JsonResponse(results, safe = False)
