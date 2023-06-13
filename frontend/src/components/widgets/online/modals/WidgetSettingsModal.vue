@@ -170,5 +170,7 @@ export default {
 .widget-view {
   height: 100%;
   width: 450px;
+
+  background-color: var(--background-secondary-color);
 }
 </style>
