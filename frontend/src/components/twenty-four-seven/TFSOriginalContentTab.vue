@@ -33,6 +33,7 @@ export default {
   ],
   props: {
     post: {type: Object, required: true},
+    buttonWhatsappLoading: {type: Boolean, required: true},
   },
   data() {
     return {

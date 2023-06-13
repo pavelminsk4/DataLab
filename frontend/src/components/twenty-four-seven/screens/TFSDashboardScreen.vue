@@ -68,6 +68,7 @@ export default {
       action.GET_TFS_RELATED_CONTENT,
       action.CLEAR_TFS_WHATSAPP_MESSAGE,
       action.CLEAR_TFS_RELATED_CONTENT,
+      action.CLEAR_TFS_AI_SUMMARY,
     ]),
     async updateStatus(postId, newStatus, oldStatus, page, isBack) {
       await this[action.UPDATE_TFS_ITEM_STATUS]({
@@ -98,6 +99,8 @@ export default {
     },
     close() {
       this[action.CLEAR_TFS_WHATSAPP_MESSAGE]()
+      this[action.CLEAR_TFS_AI_SUMMARY]()
+
       this.$router.push({
         name: 'TFSDashboard',
       })

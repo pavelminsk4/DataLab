@@ -43,7 +43,10 @@
       placeholder="+** *** *** ***"
       class="phone-input"
     />
-    <BaseButton @click="$emit('send-to-whatsapp', phoneNumber, messageContent)">
+    <BaseButton
+      :button-loading="buttonWhatsappLoading"
+      @click="$emit('send-to-whatsapp', phoneNumber, messageContent)"
+    >
       Send to Whatsapp
     </BaseButton>
   </div>
@@ -71,6 +74,7 @@ export default {
   emits: ['send-to-whatsapp', 'change-original-content-language'],
   props: {
     post: {type: Object, required: true},
+    buttonWhatsappLoading: {type: Boolean, required: true},
   },
   data() {
     return {

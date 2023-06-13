@@ -51,16 +51,4 @@ export default {
   [mutator.RESET_TFS_ITEMS](state) {
     state.items = {}
   },
-
-  [mutator.RESET_TFS_TRANSLATED_TEXT](state) {
-    state.textTranslation = {title: '', text: ''}
-  },
-
-  [mutator.RESET_TFS_STATUS_MESSAGE](state) {
-    state.statusMessage = null
-  },
-
-  [mutator.RESET_TFS_RELATED_CONTENT](state) {
-    state.relatedContent = []
-  },
 }

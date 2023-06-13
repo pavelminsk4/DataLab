@@ -14,7 +14,10 @@
         <span class="results">{{ relatedContent.length }} results</span>
       </div>
 
+      <BaseSpinner v-if="relatedContentLoading" />
+
       <TFSPostCard
+        v-else
         v-for="(item, index) in relatedContent"
         :key="'related' + index"
         :postDetails="item.online_post"
@@ -32,15 +35,18 @@
 
 <script>
 import TFSPostCard from '@/components/TFSPostCard'
+import BaseSpinner from '../BaseSpinner.vue'
 
 export default {
   name: 'ContentWithPosts',
   components: {
     TFSPostCard,
+    BaseSpinner,
   },
   props: {
     post: {type: Object, requied: true},
     relatedContent: {type: Array, requied: true},
+    relatedContentLoading: {type: Boolean, requied: true},
   },
 }
 </script>
@@ -59,6 +65,7 @@ export default {
   .related-content {
     display: flex;
     flex-direction: column;
+    align-items: center;
 
     margin-top: 40px;
 
@@ -67,6 +74,7 @@ export default {
       align-items: center;
       gap: 12px;
 
+      width: 100%;
       margin-bottom: 28px;
 
       font-weight: 600;
