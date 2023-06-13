@@ -425,12 +425,12 @@ def project_posts(request, pk):
   body = json.loads(request.body)
   posts_per_page = body['posts_per_page']
   page_number = body['page_number']
-  dep = request.user.user_profile.department
+  dep_id = body['department_id']
   posts = post_agregator_with_dimensions(Project.objects.get(id=pk))
   posts = posts_values(posts)
   p = Paginator(posts, posts_per_page)
   posts_list = list(p.page(page_number))
-  department_changing = ChangingOnlineSentiment.objects.filter(department=dep).values()
+  department_changing = ChangingOnlineSentiment.objects.filter(department_id=dep_id).values()
   dict_changing = {x['post_id']: x['sentiment'] for x in department_changing}
   themes = MlCategory.objects.all()
   for post in posts_list:
