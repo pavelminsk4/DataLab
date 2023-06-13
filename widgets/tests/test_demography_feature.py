@@ -56,8 +56,8 @@ class DemographyFeatureTests(APITestCase):
     response = self.client.get(url)
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     res = [
-            {'England': {'third_source': 3, 'one_source': 1}},
-            {'USA': {'two_source': 2}},
+            {'England': [['third_source', 3], ['one_source', 1]]},
+            {'USA': [['two_source', 2]]}
           ]
     self.assertEqual(json.loads(response.content), res)
     
@@ -68,8 +68,8 @@ class DemographyFeatureTests(APITestCase):
     response = self.client.get(url)
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     res = [
-            {'English': {'one_source': 1, 'third_source': 1, 'two_source': 1}},
-            {'Spanish': {'third_source': 2, 'two_source': 1}}
+            {'English': [['one_source', 1], ['third_source', 1], ['two_source', 1]]},
+            {'Spanish': [['third_source', 2], ['two_source', 1]]}
           ]
     self.assertEqual(json.loads(response.content), res)
 
@@ -80,8 +80,8 @@ class DemographyFeatureTests(APITestCase):
     response = self.client.get(url)
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     res = [
-            {'England': {'English': 2, 'Spanish': 2}},
-            {'USA': {'English': 1, 'Spanish': 1}}
+            {'England': [['English', 2], ['Spanish', 2]]},
+            {'USA': [['English', 1], ['Spanish', 1]]}
           ]
     self.assertEqual(json.loads(response.content), res)  
     

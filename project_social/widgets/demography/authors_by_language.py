@@ -1,5 +1,6 @@
+from project_social.widgets.filters_for_widgets import post_agregator_with_dimensions, post_agregetor_for_each_widget
 from project_social.models import SocialWidgetDescription
-from project_social.widgets.filters_for_widgets import *
+from common.descending_sort import descending_sort
 from project_social.models import ProjectSocial
 from django.http import JsonResponse
 from django.db.models import Count
@@ -9,5 +10,10 @@ def authors_by_language(pk, widget_pk):
   posts = post_agregator_with_dimensions(project)
   widget = SocialWidgetDescription.objects.get(id=widget_pk)
   posts = post_agregetor_for_each_widget(widget, posts)
-  res =  list(posts.values('language').annotate(user_count=Count('user_alias', distinct=True)).order_by('-user_count')[:widget.top_counts])
-  return JsonResponse(res, safe=False)
+  top_languages = [i['language'] for i in posts.values('language').annotate(author_count=Count('user_alias', distinct=True)).order_by('-author_count')[:5]]
+  results = []
+  for language in top_languages:
+    top_authors = posts.filter(language=language).values('user_alias').annotate(posts_count=Count('id')).order_by('-posts_count')[:5]
+    authors_posts = {author['user_alias']: author['posts_count'] for author in top_authors}
+    results.append({language: descending_sort(authors_posts)})
+  return JsonResponse(results, safe = False)

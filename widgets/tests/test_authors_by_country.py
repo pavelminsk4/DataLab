@@ -18,7 +18,6 @@ class AuthorsByCountryTests(APITestCase):
     PostFactory(feedlink=flink3, entry_author='CFP')
     PostFactory(feedlink=flink3, entry_author='CFP')
     PostFactory(feedlink=flink3, entry_author='CFE')
-    PostFactory(feedlink=flink3, entry_author='CFE')
 
     pr = ProjectFactory()
     widget_pk = pr.widgets_list_2.authors_by_country_id
@@ -26,8 +25,9 @@ class AuthorsByCountryTests(APITestCase):
     response = self.client.get(url)
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     res = [
-            {'Greece': {'CFE': 2, 'CFP': 2}}, 
-            {'England': {'AFP': 1}},
-            {'USA': {'EFP': 2}}
+            {'Greece': [['CFP', 2], ['CFE', 1]]},
+            {'England': [['AFP', 1]]},
+            {'USA': [['EFP', 2]]}
           ]
+
     self.assertEqual(json.loads(response.content), res)
