@@ -1,13 +1,14 @@
+from project.models import Post, Speech, Feedlinks
+from common.factories.user import UserFactory
 from rest_framework.test import APITestCase
+from django.contrib.auth.models import User
+from countries_plus.models import Country
+from accounts.models import department
 from rest_framework import status
 from django.urls import reverse
-from project.models import Post, Speech, Feedlinks
-from accounts.models import department
-from countries_plus.models import Country
-from django.contrib.auth.models import User
+from datetime import datetime
 import json
 import copy
-from datetime import datetime
 
 
 DATA = {
@@ -113,6 +114,10 @@ class SearchTests(APITestCase):
     'feedlink__alexaglobalrank': 0,
     'category': 'لم يتم حساب المصفوفة اللاحقة.'
     }
+
+  def setUp(self):
+      user = UserFactory()
+      self.client.force_login(user)
 
   def db_seeder(self):
     flink1 = Feedlinks.objects.create(country='USA', source1='BBC')

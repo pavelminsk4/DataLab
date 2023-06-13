@@ -3,15 +3,14 @@ from common.factories.project_social import ProjectSocialFactory
 from rest_framework.test import APITestCase
 from rest_framework import status
 from django.urls import reverse
-from datetime import datetime
 import json
 
 class AuthorsByLocationTests(APITestCase):
   def test_response_list(self):
-    TweetBinderPostFactory(user_name='First_name', user_alias='@first', locationString='USA')
-    TweetBinderPostFactory(user_name='Second_name', user_alias='@second', locationString='England')
-    TweetBinderPostFactory(user_name='Second_name', user_alias='@second', locationString='England')
-    TweetBinderPostFactory(user_name='new_name', user_alias='@new', locationString='England')
+    TweetBinderPostFactory(user_alias='@first', locationString='USA')
+    TweetBinderPostFactory(user_alias='@second', locationString='England')
+    TweetBinderPostFactory(user_alias='@second', locationString='England')
+    TweetBinderPostFactory(user_alias='@new', locationString='England')
 
     pr = ProjectSocialFactory()
     widget_pk = pr.social_widgets_list.authors_by_location_id
@@ -19,7 +18,7 @@ class AuthorsByLocationTests(APITestCase):
     response = self.client.get(url)
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     res = [
-            {'England': {'@second': 2, '@new': 1}}, 
-            {'USA': {'@first': 1}}
+            {'England': [['@second', 2], ['@new', 1]]}, 
+            {'USA': [['@first', 1]]}
           ]
     self.assertEqual(json.loads(response.content), res)

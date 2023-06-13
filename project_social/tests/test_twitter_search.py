@@ -1,3 +1,4 @@
+from common.factories.user import UserFactory
 from rest_framework.test import APITestCase
 from tweet_binder.models import *
 from rest_framework import status
@@ -91,6 +92,11 @@ class SearchTwitterPostsTests(APITestCase):
     'user_picture': None, 
     'images':None
     }
+  
+  def setUp(self):
+      user = UserFactory()
+      self.client.force_login(user)
+
   def db_seeder(self):
     TweetBinderPost.objects.create(id=1, post_id=11111111, user_name='11111111', user_alias='11111111', text='first 11111111', sentiment='positive',
                                    date='2022-09-02T06:44:00.00Z', locationString='USA',language='En', count_favorites=1, count_retweets=1, count_replies=2, user_picture=None, images=None, creation_date='2022-09-02T06:44:00.00Z')
