@@ -27,8 +27,6 @@ import json
 import re
 
 
-from django.views.decorators.csrf import csrf_exempt
-
 # ==== User API =======================
 class UserList(ListAPIView):
   queryset = User.objects.all()
