@@ -26,7 +26,9 @@
 
     <template #description>{{ postDetails.text }}</template>
 
-    <template #post-type><TwitterIcon class="icon-size" /> Twitter</template>
+    <template #post-type
+      ><TwitterIcon class="icon-size twitter" /> Twitter</template
+    >
 
     <template #information>
       <div

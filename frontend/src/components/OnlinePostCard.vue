@@ -22,7 +22,7 @@
 
     <template #description>{{ postDetails.entry_summary }}</template>
 
-    <template #post-type><OnlineIcon /> Online</template>
+    <template #post-type><OnlineIcon />Online</template>
 
     <template #information>
       <div

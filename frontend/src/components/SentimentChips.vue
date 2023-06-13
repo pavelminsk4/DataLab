@@ -49,7 +49,10 @@ export default {
     document.removeEventListener('click', this.closeDropdown)
   },
   methods: {
-    ...mapActions([action.CHANGE_POST_SENTIMENT]),
+    ...mapActions([
+      action.CHANGE_ONLINE_POST_SENTIMENT,
+      action.CHANGE_SOCIAL_POST_SENTIMENT,
+    ]),
     openDropdown() {
       this.isOpen = !this.isOpen
     },
@@ -65,11 +68,18 @@ export default {
 
     async changePostSentiment({currentTarget}) {
       const newSentiment = currentTarget.innerText.toLowerCase()
-      const request = await this[action.CHANGE_POST_SENTIMENT]({
-        postId: this.postId,
-        departmentId: this.department.id,
-        newSentiment,
-      })
+
+      const {name} = this.$route
+      let moduleName = 'SOCIAL'
+      if (name.includes('Online')) moduleName = 'ONLINE'
+
+      const request = await this[action[`CHANGE_${moduleName}_POST_SENTIMENT`]](
+        {
+          postId: this.postId,
+          departmentId: this.department.id,
+          newSentiment,
+        }
+      )
       if (request instanceof Error) {
         return
       } else this.newType = newSentiment

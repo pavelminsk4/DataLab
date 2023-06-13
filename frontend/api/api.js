@@ -57,10 +57,17 @@ export default {
     return fetch('get', `/projects/${projectId}/widgets_list`)
   },
 
-  async changePostSentiment(postId, departmentId, newSentiment) {
+  async changeOnlinePostSentiment(postId, departmentId, newSentiment) {
     return fetch(
       'post',
       `/change_online_sentiment/${postId}/${departmentId}/${newSentiment}`
+    )
+  },
+
+  async changeSocialPostSentiment(postId, departmentId, newSentiment) {
+    return fetch(
+      'post',
+      `/social/change_social_sentiment/${postId}/${departmentId}/${newSentiment}`
     )
   },
 
