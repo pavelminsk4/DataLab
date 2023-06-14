@@ -9,12 +9,13 @@ app_name = 'project_social'
 router = routers.SimpleRouter()
 
 urlpatterns = [
-  #========Workspaces and Progects=========  
+  #========Workspaces and Projects=========  
   path("social_workspaces/",views.WorkspaceSocialList.as_view(),name="social_workspaces_list"),
   path("social_workspaces/create/", views.WorkspaceSocialCreate.as_view(),name="social_workspaces_create"),
   path("social_workspaces/update/<int:pk>/",views.WorkspaceSocialUpdate.as_view(),name="social_workspaces_update"),
   path("social_workspaces/delete/<int:pk>/",views.WorkspaceSocialDelete.as_view(),name="social_workspaces_delete"),
   path("twitter_post_search/", views.twitter_posts_search,name="twitter_posts_search"),
+  path('projects/<int:pk>/posts', views.project_posts, name='project_posts'),
   #========Widgets========
   path('social_summary_widget/<int:pk>/<int:widget_pk>', views.social_summary_widget, name='social_summary_widget'),
   path('social_clipping_feed_content/<int:pk>/<int:widget_pk>', views.clipping_feed_content, name='social_clipping_feed_content'),
