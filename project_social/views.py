@@ -1,6 +1,7 @@
 from rest_framework.generics import ListAPIView, CreateAPIView, DestroyAPIView, UpdateAPIView, RetrieveAPIView
 from .widgets.dashboard.content_volume_top_locations import content_volume_top_locations
 from .widgets.dashboard.content_volume_top_languages import content_volume_top_languages
+from .widgets.filters_for_widgets import post_agregator_with_dimensions, posts_agregator
 from .widgets.sentiment.sentiment_number_of_results import sentiment_number_of_results
 from .widgets.dashboard.content_volume_top_authors import content_volume_top_authors
 from .widgets.sentiment.sentiment_top_keywords import sentiment_top_keywords
@@ -23,7 +24,6 @@ from .widgets.dashboard.top_locations import top_locations
 from .widgets.dashboard.clipping_feed import clipping_feed
 from .widgets.dashboard.top_languages import top_languages
 from .widgets.summary.gender_volume import gender_volume
-from .widgets.filters_for_widgets import posts_agregator
 from .widgets.dashboard.top_authors import top_authors
 from rest_framework import viewsets, filters, generics
 from .widgets.summary.top_keywords import top_keywords
@@ -146,7 +146,7 @@ def twitter_posts_search(request):
   posts_per_page = body['posts_per_page']
   page_number = body['page_number']
   department_id = request.user.user_profile.department
-  posts = data_range_posts(date_range[0], date_range[1])
+  posts = data_range_posts(date_range[0], date_range[1]).order_by('-creation_date')
   posts = keywords_posts(keys, posts)
   if additions:
     posts = additional_keywords_posts(posts, additions)
@@ -281,7 +281,7 @@ class UpdateSocialProjectsWidgetsAPIView(UpdateAPIView):
 
   def get_object(self):
     return SocialWidgetsList.objects.get(project_id=self.kwargs['pk'])
-  
+
 class SocialAuthorList(ListAPIView):
   serializer_class = TweetBinderPostAuthorSerializer
   queryset = TweetBinderPost.objects.distinct('user_alias')
@@ -302,7 +302,7 @@ class SocialLanguageList(ListAPIView):
 
 class SocialClippingWidgetDelete(DestroyAPIView):
   serializes_class = SocialClippingWidgetSerializer
-  
+
   def get_object(self):
     return SocialClippingWidget.objects.filter(post_id=self.kwargs['post_pk'], project_id=self.kwargs['project_pk'])
 
@@ -312,23 +312,23 @@ class SocialClippingWidget(viewsets.ModelViewSet):
 
 class ListAuthorsInProject(generics.ListAPIView):
   serializer_class = TweetBinderPostAuthorSerializer
-  
+
   def get_queryset(self):
     pk = self.kwargs.get('pk', None)
     project = get_object_or_404(ProjectSocial, pk=pk)
     posts = posts_agregator(project)
     queryset = posts.values('user_alias').order_by('user_alias').distinct()
-    return queryset   
+    return queryset
 
 class ListLanguagesInProject(generics.ListAPIView):
   serializer_class = TweetBinderPostLanguageSerializer
-  
+
   def get_queryset(self):
     pk = self.kwargs.get('pk', None)
     project = get_object_or_404(ProjectSocial, pk=pk)
     posts = posts_agregator(project)
     queryset = posts.values('language').order_by('language').distinct()
-    return queryset   
+    return queryset
 
 class ListLocationsInProject(generics.ListAPIView):
   serializer_class = TweetBinderPostLocationSerializer
@@ -338,4 +338,20 @@ class ListLocationsInProject(generics.ListAPIView):
     project = get_object_or_404(ProjectSocial, pk=pk)
     posts = posts_agregator(project)
     queryset = posts.values('locationString').order_by('locationString').distinct()
-    return queryset   
+    return queryset
+
+def project_posts(request, pk):
+  body = json.loads(request.body)
+  posts_per_page = body['posts_per_page']
+  page_number = body['page_number']
+  dep_id = body['department_id']
+  posts = post_agregator_with_dimensions(ProjectSocial.objects.get(id=pk)).order_by('-creation_date')
+  posts = posts_values(posts)
+  p = Paginator(posts, posts_per_page)
+  posts_list = list(p.page(page_number))
+  department_changing = ChangingTweetbinderSentiment.objects.filter(department_id=dep_id).values()
+  dict_changing = {x['tweet_post_id']: x['sentiment'] for x in department_changing}
+  for post in posts_list:
+    post = change_tweet_post_sentiment(post, dict_changing)
+  res = { 'num_pages': p.num_pages, 'num_posts': p.count, 'posts': posts_list }
+  return JsonResponse(res, safe = False)
