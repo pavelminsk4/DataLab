@@ -56,3 +56,15 @@ class ComparisonWidgetDescription(models.Model):
 
     def __str__(self):
         return str(self.title)
+
+@receiver(post_save, sender=ProjectComparison)
+def create_comparison_widget_description(sender, instance, created, **kwargs):
+    if created:
+        instance.cmpr_widgets.create(title='Summary', default_title='Summary')
+        instance.cmpr_widgets.create(title='Content volume', default_title='Content volume')
+        instance.cmpr_widgets.create(title='Top authors', default_title='Top authors')
+        instance.cmpr_widgets.create(title='Sentiment', default_title='Sentiment')
+        instance.cmpr_widgets.create(title='Top sources', default_title='Top sources')
+        instance.cmpr_widgets.create(title='Top keywords', default_title='Top keywords')
+        instance.cmpr_widgets.create(title='Top languages', default_title='Top languages')
+        instance.cmpr_widgets.create(title='Top countries', default_title='Top countries')

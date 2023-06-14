@@ -2,6 +2,7 @@ from rest_framework_nested.routers import NestedSimpleRouter
 from comparison.views import WorkspaceComparisonViewSet
 from comparison.views import ProjectComparisonViewSet
 from comparison.views import ItemComparisonViewSet
+from comparison.views import get_summary_feature
 from rest_framework.routers import SimpleRouter
 from comparison.views import get_projects
 from django.urls import path
@@ -10,6 +11,7 @@ app_name = 'comparison'
 
 urlpatterns = [
     path('projects_list', get_projects, name='projects_list'),
+    path('projects/<int:pk>/summary', get_summary_feature, name='summary'),
 ]
 
 router = SimpleRouter()
