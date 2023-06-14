@@ -6,6 +6,7 @@ from common.factories.department import DepartmentFactory
 from common.factories.workspace import WorkspaceFactory
 from common.factories.project import ProjectFactory
 from accounts.models import Profile, department
+from common.factories.post import PostFactory
 from common.factories.user import UserFactory
 from rest_framework.test import APITestCase
 from project.models import Project
@@ -76,3 +77,36 @@ class ComparisonProjectsTests(APITestCase):
         url = reverse('comparison:cmpr_workspaces-list')
         response = self.client.post(url, data, format='json')
         self.assertEqual(json.loads(response.content)['cmpr_workspace_projects'][0]['title'], 'ProjTitle')
+
+    def test_widget_list(self):
+        pr = ProjectComparison.objects.first()
+        self.assertEqual(pr.cmpr_widgets.get(default_title='Summary').title, 'Summary')
+        self.assertEqual(pr.cmpr_widgets.get(default_title='Content volume').title, 'Content volume')
+        self.assertEqual(pr.cmpr_widgets.get(default_title='Top authors').title, 'Top authors')
+        self.assertEqual(pr.cmpr_widgets.get(default_title='Sentiment').title, 'Sentiment')
+        self.assertEqual(pr.cmpr_widgets.get(default_title='Top sources').title, 'Top sources')
+        self.assertEqual(pr.cmpr_widgets.get(default_title='Top keywords').title, 'Top keywords')
+        self.assertEqual(pr.cmpr_widgets.get(default_title='Top languages').title, 'Top languages')
+        self.assertEqual(pr.cmpr_widgets.get(default_title='Top countries').title, 'Top countries')
+
+    def test_summary_feature_online(self):
+        PostFactory()
+        pr = ProjectComparison.objects.first()
+        url = reverse('comparison:summary', kwargs={'pk': pr.id})
+        response = self.client.get(url, format='json')
+        res = [{
+            'Girlfriend': {
+                'Summary': {
+                    'authors': 1,
+                    'countries': 1,
+                    'languages': 1,
+                    'neg': 0,
+                    'neut': 1,
+                    'pos': 0,
+                    'posts': 1,
+                    'reach': 0,
+                    'sources': 1
+                }
+            }
+        }]
+        self.assertEqual(json.loads(response.content), res)

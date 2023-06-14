@@ -2,6 +2,7 @@ from comparison.serializers import WorkspaceComparisonCreateSerializer
 from comparison.serializers import ProjectComparisonCreateSerializer
 from comparison.serializers import WorkspaceComparisonSerializer
 from comparison.serializers import ProjectComparisonSerializer
+from comparison.classes.summary_feature import SummaryFactory
 from comparison.serializers import ComparisonItemSerializer
 from comparison.models import WorkspaceComparison
 from comparison.models import ProjectComparison
@@ -48,4 +49,10 @@ def get_projects(request):
         'Online': [{ws.title: [{'title': pr.title, 'id': pr.id} for pr in ws.projects.all()]} for ws in online_ws],
         'Social': [{ws.title: [{'title': pr.title, 'id': pr.id} for pr in ws.social_workspace_projects.all()]} for ws in social_ws],
     }
+    return JsonResponse(res, safe=False)
+
+
+def get_summary_feature(request, pk):
+    pr = ProjectComparison.objects.get(id=pk)
+    res = [SummaryFactory(item).define().get_widgets() for item in pr.cmpr_items.all()]
     return JsonResponse(res, safe=False)
