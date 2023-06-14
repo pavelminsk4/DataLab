@@ -1,44 +1,44 @@
 from rest_framework.generics import ListAPIView, CreateAPIView, DestroyAPIView, UpdateAPIView, RetrieveAPIView
+from .widgets.dashboard.content_volume_top_locations import content_volume_top_locations
+from .widgets.dashboard.content_volume_top_languages import content_volume_top_languages
+from .widgets.sentiment.sentiment_number_of_results import sentiment_number_of_results
+from .widgets.dashboard.content_volume_top_authors import content_volume_top_authors
+from .widgets.sentiment.sentiment_top_keywords import sentiment_top_keywords
+from .widgets.demography.top_authors_by_gender import top_authors_by_gender
+from .widgets.influencers.authors_by_sentiment import authors_by_sentiment
+from .widgets.influencers.top_sharing_sources import top_sharing_sources
+from .widgets.influencers.overall_top_authors import overall_top_authors
+from .widgets.demography.authors_by_language import authors_by_language
+from .widgets.demography.authors_by_location import authors_by_location
+from .widgets.demography.keywords_by_country import keywords_by_country
+from .widgets.dashboard.sentiment_languages import sentiment_languages
+from .widgets.dashboard.sentiment_locations import sentiment_locations
+from .widgets.sentiment.sentiment_by_gender import sentiment_by_gender
+from .widgets.demography.authors_by_gender import authors_by_gender
+from .widgets.dashboard.sentiment_authors import sentiment_authors
+from .widgets.dimensions_for_widgets import dimensions_for_each
+from .widgets.dashboard.content_volume import content_volume
+from .widgets.interactive_widgets import interactive_widgets
+from .widgets.dashboard.top_locations import top_locations
+from .widgets.dashboard.clipping_feed import clipping_feed
+from .widgets.dashboard.top_languages import top_languages
+from .widgets.summary.gender_volume import gender_volume
+from .widgets.filters_for_widgets import posts_agregator
+from .widgets.dashboard.top_authors import top_authors
 from rest_framework import viewsets, filters, generics
-from .widgets.dashboard.content_volume_top_locations import *
-from .widgets.dashboard.content_volume_top_languages import *
-from .widgets.dashboard.content_volume_top_authors import *
-from .widgets.sentiment.sentiment_number_of_results import *
-from .widgets.sentiment.sentiment_top_keywords import *
-from .widgets.dashboard.sentiment_languages import *
-from .widgets.dashboard.sentiment_locations import *
-from .widgets.sentiment.sentiment_by_gender import *
-from .widgets.dashboard.sentiment_authors import *
+from .widgets.summary.top_keywords import top_keywords
+from .widgets.dashboard.summary_widget import summary
+from .widgets.dashboard.sentiment import sentiment
+from .models import ChangingTweetbinderSentiment
 from tweet_binder.models import TweetBinderPost
-from .widgets.dashboard.summary_widget import *
-from .widgets.dashboard.content_volume import *
-from .widgets.dashboard.clipping_feed import *
-from .widgets.dashboard.top_locations import *
-from .widgets.dashboard.top_languages import *
-from .widgets.dimensions_for_widgets import *
-from .widgets.summary.gender_volume import *
-from .widgets.dashboard.top_authors import *
-from .widgets.summary.top_keywords import *
-from .widgets.dashboard.sentiment import *
-from .widgets.influencers.top_sharing_sources import *
-from .widgets.influencers.authors_by_sentiment import *
-from .widgets.influencers.overall_top_authors import *
-from .widgets.demography.top_authors_by_gender import *
-from .widgets.demography.authors_by_location import *
-from .widgets.demography.authors_by_language import *
-from .widgets.demography.authors_by_gender import *
-from django.core.paginator import Paginator
-from .widgets.interactive_widgets import *
 from django.shortcuts import get_object_or_404
+from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.http import HttpResponse
 from django.db.models import Q
 from functools import reduce
 from .serializers import *
-from .models import *
 import json
-
-from .models import ChangingTweetbinderSentiment
 
 # === Social Workspace API ===========
 
@@ -263,6 +263,9 @@ def dimensions_for_each_widgets(request, project_pk, widget_pk):
 
 def social_authors_by_gender(request, pk, widget_pk):
   return authors_by_gender(pk, widget_pk)
+
+def social_keywords_by_country(request, pk, widget_pk):
+  return keywords_by_country(pk, widget_pk)
 
 def interactive_data_for_widgets(request, project_pk, widget_pk):
   return interactive_widgets(request, project_pk, widget_pk)

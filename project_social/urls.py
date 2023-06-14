@@ -42,6 +42,7 @@ urlpatterns = [
   path('social_authors_by_location/<int:pk>/<int:widget_pk>', views.social_authors_by_location, name='social_authors_by_location'),
   path('social_authors_by_sentiment/<int:pk>/<int:widget_pk>', views.social_authors_by_sentiment, name='social_authors_by_sentiment'),
   path('social_authors_by_gender/<int:pk>/<int:widget_pk>', views.social_authors_by_gender, name='social_authors_by_gender'),
+  path('social_keywords_by_country/<int:pk>/<int:widget_pk>', views.social_keywords_by_country, name='social_keywords_by_country'),
   path('dimensions_for_each_widgets/<int:project_pk>/<int:widget_pk>', views.dimensions_for_each_widgets, name='dimensions_for_each_widgets'),
   path('social_interactive_widgets/<int:project_pk>/<int:widget_pk>', views.interactive_data_for_widgets, name='social_interactive_widgets'),
   #========Widgets List========
