@@ -29,8 +29,23 @@ class PostSerializer(WritableNestedModelSerializer):
         ]
 
 
-class ItemSerializer(serializers.ModelSerializer):
+class NestedItemSerializer(WritableNestedModelSerializer):
     online_post = PostSerializer(required=False)
+
+    class Meta:
+        model = Item
+        exclude = ['linked_items']
+
+
+class ItemPatchSerializer(WritableNestedModelSerializer):
+    class Meta:
+        model = Item
+        fields = '__all__'
+
+
+class ItemSerializer(WritableNestedModelSerializer):
+    online_post = PostSerializer(required=False)
+    linked_items = NestedItemSerializer(many=True, required=False)
 
     class Meta:
         model = Item

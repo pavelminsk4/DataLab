@@ -115,7 +115,8 @@ class Item(models.Model):
     in_work = models.BooleanField(default=False)
     is_back = models.BooleanField(default=False)
     project = models.ForeignKey(ProjectTwentyFourSeven, on_delete=models.CASCADE, related_name='tfs_project_items', blank=True, null=True)
-
+    linked_items = models.ManyToManyField(to='self', related_name='attached_items', symmetrical=False, blank=True)
+    
     class Meta:
         constraints = [
             models.UniqueConstraint(fields=['project_id', 'online_post'], name='twenty four seven online item uniqueness constraint'),
