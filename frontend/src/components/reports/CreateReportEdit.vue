@@ -264,6 +264,7 @@ export default {
               this.reportWidgetsLists.get(projectId)[widgetName],
               projectId
             ),
+            minHeight: 450,
           }
         }
       })
