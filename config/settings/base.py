@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'drf_multitokenauth',
     'twenty_four_seven.apps.TwentyFourSevenConfig',
     'comparison.apps.ComparisonConfig',
+    'query_counter',
 ]
 
 ASGI_APPLICATION = 'config.asgi.application'
@@ -67,6 +68,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'api.middleware.DisableCSRF',
     #'rollbar.contrib.django.middleware.RollbarNotifierMiddleware',
+    'query_counter.middleware.DjangoQueryCounterMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'

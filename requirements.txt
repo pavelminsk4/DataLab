@@ -62,3 +62,4 @@ factory-boy==3.2.1
 daphne==4.0.0
 channels==4.0.0
 drf-nested-routers==0.93.4
+django-query-counter==0.2.2
