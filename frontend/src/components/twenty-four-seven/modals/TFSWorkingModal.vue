@@ -4,6 +4,7 @@
       <ContentWithPosts
         :post="post"
         :related-content="relatedContent"
+        :relatedContentLoading="relatedContentLoading"
         @open-modal="openModal"
       />
 
@@ -23,6 +24,7 @@
           <TFSSummaryTab
             v-if="currentTab"
             :post="post"
+            :buttonAISummaryLoading="aiSummaryLoading"
             @create-ai-summary="createAISummary"
             @save-summary="saveSummary"
           />
@@ -31,6 +33,7 @@
             v-else
             :is="`TFS${stringToPascalCase(activeTab)}Tab`"
             :post="post"
+            :buttonWhatsappLoading="whatsappLoading"
             @send-to-whatsapp="sendToWhatsapp"
             @change-original-content-language="changeLanguage"
           />
@@ -66,6 +69,13 @@ export default {
   props: {
     post: {type: Object, required: true},
   },
+  data() {
+    return {
+      whatsappLoading: false,
+      aiSummaryLoading: false,
+      relatedContentLoading: false,
+    }
+  },
   computed: {
     ...mapState(['items', 'relatedContent']),
     activeTab() {
@@ -79,7 +89,7 @@ export default {
     },
   },
   created() {
-    this[action.GET_TFS_RELATED_CONTENT](this.post.id)
+    this.getRelatedContent()
   },
   methods: {
     ...mapActions([
@@ -96,6 +106,17 @@ export default {
         query: {modal: 'Working', tab: tabName},
       })
     },
+    async getRelatedContent() {
+      this.relatedContentLoading = true
+
+      try {
+        await this[action.GET_TFS_RELATED_CONTENT](this.post.id)
+      } catch (error) {
+        console.log(error)
+      } finally {
+        this.relatedContentLoading = false
+      }
+    },
     async saveSummary(header, text) {
       await this[action.UPDATE_TFS_ITEM_DATA]({
         projectId: this.post.project,
@@ -104,11 +125,19 @@ export default {
         page: 1,
       })
     },
-    sendToWhatsapp(phoneNumber, messageContent) {
-      this[action.SEND_TFS_MESSAGE_TO_WHATSAPP]({
-        phoneNumber,
-        message: messageContent,
-      })
+    async sendToWhatsapp(phoneNumber, messageContent) {
+      this.whatsappLoading = true
+
+      try {
+        await this[action.SEND_TFS_MESSAGE_TO_WHATSAPP]({
+          phoneNumber,
+          message: messageContent,
+        })
+      } catch (error) {
+        console.log(error)
+      } finally {
+        this.whatsappLoading = false
+      }
     },
     changeLanguage(newLanguage, title, text) {
       this[action.UPDATE_TFS_ORIGINAL_CONTENT_LANGUAGE]({
@@ -117,8 +146,16 @@ export default {
         text,
       })
     },
-    createAISummary() {
-      this[action.CREATE_TFS_AI_SUMMARY](this.post.id)
+    async createAISummary() {
+      this.aiSummaryLoading = true
+
+      try {
+        await this[action.CREATE_TFS_AI_SUMMARY](this.post.id)
+      } catch (error) {
+        console.log(error)
+      } finally {
+        this.aiSummaryLoading = false
+      }
     },
     openModal(postInfo) {
       this.$emit('open-modal', postInfo)

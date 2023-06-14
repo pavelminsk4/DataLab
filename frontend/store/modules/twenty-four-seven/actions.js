@@ -208,14 +208,21 @@ export default {
   },
 
   async [action.CLEAR_TFS_TRANSLATED_TEXT]({commit}) {
-    commit(mutator.RESET_TFS_TRANSLATED_TEXT)
+    commit(mutator.SET_TFS_TRANSLATED_ORIGINAL_CONTENT, {
+      title: '',
+      text: '',
+    })
   },
 
   async [action.CLEAR_TFS_WHATSAPP_MESSAGE]({commit}) {
-    commit(mutator.RESET_TFS_STATUS_MESSAGE)
+    commit(mutator.SET_TFS_STATUS_MESSAGE, null)
   },
 
   async [action.CLEAR_TFS_RELATED_CONTENT]({commit}) {
-    commit(mutator.RESET_TFS_RELATED_CONTENT)
+    commit(mutator.SET_TFS_RELATED_CONTENT, [])
+  },
+
+  async [action.CLEAR_TFS_AI_SUMMARY]({commit}) {
+    commit(mutator.SET_TFS_AI_SUMMARY, null)
   },
 }

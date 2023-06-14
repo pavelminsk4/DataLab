@@ -13,7 +13,11 @@
   />
 
   <div class="buttons">
-    <BaseButton @click="$emit('create-ai-summary')" :is-not-background="true">
+    <BaseButton
+      :is-not-background="true"
+      :button-loading="buttonAISummaryLoading"
+      @click="$emit('create-ai-summary')"
+    >
       AI Summary
     </BaseButton>
     <BaseButton @click="$emit('save-summary', header, text)">
@@ -38,6 +42,7 @@ export default {
   emits: ['save-summary', 'create-ai-summary'],
   props: {
     post: {type: Object, required: true},
+    buttonAISummaryLoading: {type: Boolean, required: true},
   },
   data() {
     return {

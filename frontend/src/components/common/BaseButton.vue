@@ -9,8 +9,10 @@
     ]"
     :disabled="isDisabledBtn"
   >
-    <BaseButtonSpinner v-if="isLoading" />
-    <slot v-else></slot>
+    <BaseButtonSpinner v-if="isLoading" class="spinner" />
+    <div :class="[isLoading && 'hide-content', 'button-content']">
+      <slot></slot>
+    </div>
   </button>
 </template>
 
@@ -41,6 +43,8 @@ export default {
 
 <style lang="scss">
 .base-button {
+  position: relative;
+
   flex-shrink: 0;
   display: flex;
   align-items: center;
@@ -65,6 +69,23 @@ export default {
 
   &:hover {
     background: var(--button-primary-hover-color);
+  }
+
+  .spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .button-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hide-content {
+    opacity: 0;
   }
 
   svg {
