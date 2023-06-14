@@ -193,6 +193,7 @@ export const widgetsConfig = {
   top_keywords_by_country: {
     ...WIDGET_DEFAULT_SETTINGS,
     height: 15,
+    hasPreview: false,
     hasAggregationPeriod: false,
     actionName: action.GET_TOP_KEYWORDS_WIDGET,
     defaultChartType: 'WordCloudChart',
