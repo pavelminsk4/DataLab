@@ -1,56 +1,5 @@
 <template>
-  <BaseTable
-    :table-header="tableHeader"
-    :has-actions="false"
-    @select-all="selectAll"
-  >
-    <template v-if="projects.length">
-      <tr v-for="(project, index) in projects" :key="index" class="project-row">
-        <td>
-          <BaseCheckbox
-            v-model="selectedProjects"
-            :id="project.id"
-            :value="{
-              id: project.id,
-              title: project.title,
-              moduleType: project.source,
-            }"
-          />
-        </td>
-        <td>{{ project.title }}</td>
-        <td>
-          <div class="chips-height">
-            <BaseChips :chips-type="project.source" />
-          </div>
-        </td>
-        <td>
-          <TagsCollapsible
-            v-if="project.keywords.length"
-            :tags="project.keywords"
-          />
-        </td>
-        <td>
-          <div class="creator">
-            <!-- <UserAvatar
-              :avatar-url="currentMember(project.creator)?.user_profile.photo"
-              :first-name="currentMember(project.creator)?.first_name"
-              :last-name="currentMember(project.creator)?.last_name"
-              :username="currentMember(project.creator)?.username"
-            />
-            <div>{{ currentMember(project.creator).username }}</div> -->
-          </div>
-        </td>
-        <td>
-          <!-- <UsersIconsBar :users="projectMembers(project.members)" /> -->
-        </td>
-        <td class="project-creation-date">
-          {{ projectCreationDate(project.created_at) }}
-        </td>
-
-        <div class="divider"></div>
-      </tr>
-    </template>
-  </BaseTable>
+  <ProjectsTableWithModules v-model="selectedProjects" :projects="projects" />
   <footer class="create-reports__footer">
     <ButtonWithArrow :is-disabled="isDisableNextBtn" @click="nextStep">
       <span>Next</span>
@@ -63,12 +12,7 @@ import {mapActions, mapGetters, createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
 import createReportMixin from '@/lib/mixins/create-report.js'
 
-// import UsersIconsBar from '@components/UsersIconsBar'
-// import UserAvatar from '@components/UserAvatar'
-import TagsCollapsible from '@components/TagsCollapsible'
-import BaseTable from '@components/common/BaseTable'
-import BaseCheckbox from '@/components/BaseCheckbox2'
-import BaseChips from '@/components/BaseChips'
+import ProjectsTableWithModules from '@/components/ProjectsTableWithModules'
 
 const {mapActions: mapSocialActions} = createNamespacedHelpers('social')
 
@@ -76,12 +20,7 @@ export default {
   name: 'CreateReportAddProject',
   mixins: [createReportMixin],
   components: {
-    // UsersIconsBar,
-    // UserAvatar,
-    TagsCollapsible,
-    BaseTable,
-    BaseCheckbox,
-    BaseChips,
+    ProjectsTableWithModules,
   },
   data() {
     return {
