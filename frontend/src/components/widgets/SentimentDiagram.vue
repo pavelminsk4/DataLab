@@ -18,6 +18,7 @@
 <script>
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
 import ChartsView from '@/components/charts/ChartsView'
+import {capitalizeFirstLetter} from '@lib/utilities'
 
 export default {
   name: 'SentimentDiagram',
@@ -37,13 +38,22 @@ export default {
       )
     },
     labels() {
-      return ['Positive', 'Negative', 'Neutral'].map((el) => el + ' posts')
+      return Object.keys(this.sentimentDiagram).map(
+        (el) => capitalizeFirstLetter(el) + ' posts'
+      )
     },
     chartValues() {
+      const colors = {
+        positive: '#00b884',
+        negative: '#ed2549',
+        neutral: '#516bee',
+      }
       return [
         {
           data: Object.values(this.sentimentDiagram),
-          colors: ['#00b884', '#ed2549', '#516bee'],
+          colors: this.labels.map(
+            (label) => colors[label.toLowerCase().split(' ')[0]]
+          ),
         },
       ]
     },

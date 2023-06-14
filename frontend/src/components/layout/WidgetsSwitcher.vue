@@ -32,7 +32,7 @@ export default {
 <style lang="scss" scoped>
 .wrapper {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-around;
   align-items: center;
 
   position: relative;
@@ -46,7 +46,14 @@ export default {
   border-radius: 0 0 8px 8px;
 
   .tab {
-    padding-right: 25px;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+
+    width: 100%;
+
+    text-align: center;
 
     &:not(:last-child) {
       border-right: 1px solid var(--border-color);

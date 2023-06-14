@@ -190,6 +190,15 @@ export const widgetsConfig = {
     settingsTabs: ['General', 'Filters'],
   },
 
+  top_keywords_by_country: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    height: 15,
+    hasAggregationPeriod: false,
+    actionName: action.GET_TOP_KEYWORDS_WIDGET,
+    defaultChartType: 'WordCloudChart',
+    settingsTabs: ['General', 'Filters'],
+  },
+
   sentiment_diagram: {
     ...WIDGET_DEFAULT_SETTINGS,
     hasAggregationPeriod: false,

@@ -74,7 +74,13 @@ export default {
     },
   },
   created() {
-    this.checkForPosts()
+    if (!this.accountActivityPosts) {
+      this.getPosts(this.currentPage, this.countPosts)
+    }
+
+    if (!this.mentionsPosts) {
+      this.getPosts(this.currentPage, this.countPosts)
+    }
   },
   methods: {
     ...mapActions([

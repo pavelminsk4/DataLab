@@ -54,6 +54,8 @@ export const onlineWidgetsList = {
     {name: 'sources_by_country', isFullWidth: false},
     {name: 'top_sharing_sources', isFullWidth: false},
     {name: 'sources_by_language', isFullWidth: false},
+    {name: 'top_keywords', isFullWidth: false},
+    {name: 'top_keywords_by_country', isFullWidth: false},
     {name: 'overall_top_sources', isFullWidth: true},
   ],
   influencers: [
