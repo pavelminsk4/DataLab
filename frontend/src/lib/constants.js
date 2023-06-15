@@ -51,10 +51,10 @@ export const onlineWidgetsList = {
     {name: 'sentiment_top_keywords'},
   ],
   demography: [
-    {name: 'top_sharing_sources', isFullWidth: false},
+    {name: 'sources_by_country', isFullWidth: false},
     {name: 'sources_by_language', isFullWidth: false},
-    {name: 'overall_top_sources', isFullWidth: true},
-    // {name: 'sources_by_country', isFullWidth: false},
+    {name: 'top_keywords', isFullWidth: false},
+    {name: 'top_keywords_by_country', isFullWidth: false},
   ],
   influencers: [
     {name: 'top_sharing_sources', isFullWidth: false},

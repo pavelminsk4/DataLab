@@ -27,10 +27,12 @@ export default {
     },
   },
   created() {
-    this[action.GET_AUTHORS_BY_SENTIMENT]({
-      projectId: this.widgetDetails.projectId,
-      widgetId: this.widgetDetails.id,
-    })
+    if (!this.authorsBySentiment.length) {
+      this[action.GET_AUTHORS_BY_SENTIMENT]({
+        projectId: this.widgetDetails.projectId,
+        widgetId: this.widgetDetails.id,
+      })
+    }
   },
   methods: {
     ...mapActions([action.GET_AUTHORS_BY_SENTIMENT]),

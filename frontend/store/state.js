@@ -48,6 +48,7 @@ const initialState = {
   contentVolumeTopCountries: [],
   sentimentTopKeywordsWidget: {},
   topKeywordsWidget: [],
+  topKeywordsByCountryWidget: [],
   sentimentDiagram: [],
   sentimentNumberOfResult: [],
   authorsByCountry: [],

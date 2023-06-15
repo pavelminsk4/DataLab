@@ -156,6 +156,10 @@ export default {
     return state.topKeywordsWidget
   },
 
+  [get.TOP_KEYWORDS_BY_COUNTRY_WIDGET](state) {
+    return state.topKeywordsByCountryWidget
+  },
+
   [get.SENTIMENT_DIAGRAM](state) {
     return state.sentimentDiagram
   },

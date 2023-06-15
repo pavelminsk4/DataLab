@@ -74,7 +74,9 @@ export default {
     },
   },
   created() {
-    this.checkForPosts()
+    if (!this.accountActivityPosts.length || !this.mentionsPosts.length) {
+      this.getPosts(this.currentPage, this.countPosts)
+    }
   },
   methods: {
     ...mapActions([

@@ -173,6 +173,13 @@ export default {
     return fetch('post', `/widgets/onl_top_keywords/${projectId}/${widgetId}`)
   },
 
+  async getTopKeywordsByCountryWidget({projectId, widgetId}) {
+    return fetch(
+      'post',
+      `/widgets/onl_top_keywords_by_country/${projectId}/${widgetId}`
+    )
+  },
+
   async getAuthorsByCountry({projectId, widgetId}) {
     return fetch(
       'post',

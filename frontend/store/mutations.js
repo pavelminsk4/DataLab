@@ -148,6 +148,10 @@ export default {
     state.topKeywordsWidget = data
   },
 
+  [mutator.SET_TOP_KEYWORDS_BY_COUNTRY_WIDGET](state, data) {
+    state.topKeywordsByCountryWidget = data
+  },
+
   [mutator.SET_TOP_SHARING_SOURCES](state, data) {
     state.topSharingSources = data
   },
