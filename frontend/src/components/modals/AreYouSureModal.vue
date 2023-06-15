@@ -1,10 +1,9 @@
 <template>
   <BaseModal>
     <template #title>
-      Are you sure you want to delete {{ itemToDelete.type }}
-      <span class="active-option">
-        {{ itemToDelete.name }}
-      </span>
+      <span>Are you sure you want to delete</span>
+      <span>&nbsp; {{ itemToDelete.type }}</span>
+      <span class="active-option"> &nbsp; {{ itemToDelete.name }} </span>
       ?
     </template>
 
