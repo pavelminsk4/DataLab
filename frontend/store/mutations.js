@@ -303,6 +303,12 @@ export default {
   },
 
   [mutator.SET_WIDGETS_LISTS](state, {id, projectList}) {
+    for (const key in projectList) {
+      if (typeof projectList[key] !== 'object') {
+        delete projectList[key]
+      }
+    }
+
     state.reportWidgetsLists.set(id, projectList)
   },
   [mutator.SET_REPORT_WIDGETS_LIST](state, data) {
@@ -321,10 +327,6 @@ export default {
       online: onlineList,
       social: socialList,
     }
-  },
-
-  [mutator.SET_WIDGETS_LISTS](state, {id, projectList}) {
-    state.reportWidgetsList = {...state.reportWidgetsList, [id]: projectList}
   },
 
   // Account Analysis
