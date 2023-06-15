@@ -229,6 +229,14 @@ export const widgetsConfig = {
     ...WIDGET_DEFAULT_SETTINGS,
     hasAggregationPeriod: false,
     actionName: action.GET_AUTHORS_BY_COUNTRY,
+    defaultChartType: 'DoughnutChart',
+    availableTypes: SIMPLE_CHARTS,
+  },
+
+  volume_by_country: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    hasAggregationPeriod: false,
+    actionName: action.GET_VOLUME_BY_COUNTRY,
     defaultChartType: 'WorldMapChart',
     settingsTabs: ['General', 'Filters'],
   },
