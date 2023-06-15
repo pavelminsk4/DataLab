@@ -154,6 +154,7 @@ export default {
       numberOfPosts: get.POSTS_NUMBER,
       clippingData: get.CLIPPING_FEED_CONTENT_WIDGET,
       inreractiveDataModal: get.INTERACTIVE_DATA_MODAL,
+      department: get.DEPARTMENT,
     }),
     currentKeywords() {
       return this.currentProject?.keywords
@@ -231,6 +232,9 @@ export default {
           source_dimensions: this.currentProject.source_dimensions,
           author_dimensions: this.currentProject.author_dimensions,
           sentiment_dimensions: this.currentProject.sentiment_dimensions,
+          query_filter: this.query || this.currentProject?.query_filter,
+          department_id: this.department.id,
+          expert_mode: this.currentProject.expert_mode,
         })
       } catch (e) {
         console.log(e)

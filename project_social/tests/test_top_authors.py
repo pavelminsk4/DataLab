@@ -10,8 +10,8 @@ class TopLocationWidgetTests(APITestCase):
     def test_response_list(self):
         TweetBinderPostFactory(user_name='First_name',)
         TweetBinderPostFactory(user_name='Second_name')
-
         pr = ProjectSocialFactory()
+
         widget_pk = pr.social_widgets_list.top_authors_id
         url = reverse('project_social:social_top_authors', kwargs={'pk': pr.pk, 'widget_pk': widget_pk})
         response = self.client.get(url)
