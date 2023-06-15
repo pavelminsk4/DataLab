@@ -73,9 +73,7 @@ export default {
       return this.currentStatuses
     },
     activeStatusCards() {
-      return Object.values(this.statuses).filter(
-        (element) => element.isShow === true
-      )
+      return Object.values(this.statuses).filter((element) => element.isShow)
     },
   },
   methods: {

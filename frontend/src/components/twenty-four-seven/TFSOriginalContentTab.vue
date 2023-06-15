@@ -24,12 +24,20 @@
 <script>
 import {createNamespacedHelpers} from 'vuex'
 import {action} from '@store/constants'
+
 import BaseSpinner from '@/components/BaseSpinner'
 
 const {mapState, mapActions} = createNamespacedHelpers('twentyFourSeven')
 
+const LANGUAGES_NAMES = {
+  ORIGINAL: 'Original',
+  ENGLISH: 'English',
+  ARABIC: 'Arabic',
+}
+
 export default {
   name: 'TFSOriginalContentTab',
+  components: {BaseSpinner},
   emits: [
     'save-summary',
     'send-to-whatsapp',
@@ -42,8 +50,8 @@ export default {
   },
   data() {
     return {
-      languages: ['Original', 'English', 'Arabic'],
-      selectedLanguage: 'Original',
+      languages: Object.values(LANGUAGES_NAMES),
+      selectedLanguage: LANGUAGES_NAMES.ORIGINAL,
     }
   },
   computed: {
@@ -59,7 +67,7 @@ export default {
     ...mapActions([action.CLEAR_TFS_TRANSLATED_TEXT]),
     changeLanguage(newLanguage) {
       this.selectedLanguage = newLanguage
-      if (newLanguage === 'Original')
+      if (newLanguage === LANGUAGES_NAMES.ORIGINAL)
         return this[action.CLEAR_TFS_TRANSLATED_TEXT]()
       this.$emit(
         'change-original-content-language',
@@ -69,7 +77,6 @@ export default {
       )
     },
   },
-  components: {BaseSpinner},
 }
 </script>
 

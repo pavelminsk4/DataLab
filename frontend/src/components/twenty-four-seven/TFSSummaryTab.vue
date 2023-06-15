@@ -14,7 +14,7 @@
 
   <div class="buttons">
     <BaseButton
-      v-if="currentTab === 'Summary'"
+      v-if="isSummaryTab"
       :is-not-background="true"
       :button-loading="buttonAISummaryLoading"
       @click="$emit('create-ai-summary')"
@@ -39,6 +39,11 @@ import BaseTextarea from '@/components/common/BaseTextarea'
 import SaveIcon from '@/components/icons/SaveIcon'
 
 const {mapState} = createNamespacedHelpers('twentyFourSeven')
+
+const TABS = {
+  ORIGINAL_CONTENT: 'Original content',
+  SUMMARY: 'Summary',
+}
 
 export default {
   name: 'TFSSummaryTab',
@@ -75,6 +80,9 @@ export default {
       set(value) {
         this.newText = value
       },
+    },
+    isSummaryTab() {
+      return this.currentTab === TABS.SUMMARY
     },
   },
 }

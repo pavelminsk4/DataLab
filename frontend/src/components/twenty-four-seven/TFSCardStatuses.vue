@@ -9,9 +9,7 @@
         {{ getTitle(status) }}
       </div>
       <div
-        v-if="
-          statuses[status].availableStatusesForMoving.length && isShowDropdown
-        "
+        v-if="showArrow"
         :style="`background-color: ${statuses[status].color}`"
         class="icon-wrapper"
       >
@@ -19,14 +17,7 @@
       </div>
     </div>
 
-    <ul
-      v-if="
-        isOpen &&
-        isShowDropdown &&
-        statuses[status].availableStatusesForMoving.length
-      "
-      class="dropdown"
-    >
+    <ul v-if="showDropdown" class="dropdown">
       <li
         v-for="option in statuses[status].availableStatusesForMoving"
         :key="option"
@@ -63,6 +54,17 @@ export default {
       dropdownStatusesItems: [],
       isOpen: false,
     }
+  },
+  computed: {
+    availableStatusesLength() {
+      return this.statuses[this.status].availableStatusesForMoving.length
+    },
+    showArrow() {
+      return this.availableStatusesLength && this.isShowDropdown
+    },
+    showDropdown() {
+      return this.isOpen && this.showArrow
+    },
   },
   created() {
     this.statuses = cardStatuses
