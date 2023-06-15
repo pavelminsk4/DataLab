@@ -5,6 +5,7 @@
       :is-back="post.is_back"
       :card-status="post.status"
       :item-id="post.id"
+      :is-show-statuses-dropdown="false"
       class="post-card"
     />
 
@@ -26,6 +27,7 @@
         :item-id="item.id"
         :is-related-content="true"
         :is-work-button-show="true"
+        :is-show-statuses-dropdown="false"
         class="post-related-content"
         @open-modal="$emit('open-modal', item)"
       />

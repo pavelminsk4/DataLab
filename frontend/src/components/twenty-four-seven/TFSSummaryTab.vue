@@ -14,13 +14,17 @@
 
   <div class="buttons">
     <BaseButton
+      v-if="isSummaryTab"
       :is-not-background="true"
       :button-loading="buttonAISummaryLoading"
       @click="$emit('create-ai-summary')"
     >
       AI Summary
     </BaseButton>
-    <BaseButton @click="$emit('save-summary', header, text)">
+    <BaseButton
+      :button-loading="buttonSaveLoading"
+      @click="$emit('save-summary', header, text)"
+    >
       <SaveIcon /> Save
     </BaseButton>
   </div>
@@ -36,13 +40,20 @@ import SaveIcon from '@/components/icons/SaveIcon'
 
 const {mapState} = createNamespacedHelpers('twentyFourSeven')
 
+const TABS = {
+  ORIGINAL_CONTENT: 'Original content',
+  SUMMARY: 'Summary',
+}
+
 export default {
   name: 'TFSSummaryTab',
   components: {BaseInput, BaseTextarea, BaseButton, SaveIcon},
   emits: ['save-summary', 'create-ai-summary'],
   props: {
     post: {type: Object, required: true},
+    currentTab: {type: String, required: true},
     buttonAISummaryLoading: {type: Boolean, required: true},
+    buttonSaveLoading: {type: Boolean, required: true},
   },
   data() {
     return {
@@ -69,6 +80,9 @@ export default {
       set(value) {
         this.newText = value
       },
+    },
+    isSummaryTab() {
+      return this.currentTab === TABS.SUMMARY
     },
   },
 }

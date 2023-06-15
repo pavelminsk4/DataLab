@@ -5,8 +5,12 @@
     @open-modal="openModal"
     @close="close"
   />
+
+  <StatusesChips @show-status-cards="showStatusCards" />
+
   <TFSDragAndDrop
     :card-results="items"
+    :current-statuses="currentStatuses"
     @update-status="updateStatus"
     @change-status-via-dropdown="updateStatus"
     @update-page="updatePage"
@@ -18,22 +22,29 @@
 import {createNamespacedHelpers} from 'vuex'
 import {action} from '@store/constants'
 import {isAllFieldsEmpty} from '@/lib/utilities'
-import {defaultStatuses} from '@/lib/configs/tfsStatusesConfig'
+import {
+  defaultStatuses,
+  dragAndDropStatuses,
+} from '@/lib/configs/tfsStatusesConfig'
 
 import TFSDragAndDrop from '@/components/twenty-four-seven/drag-n-drop/TFSDragAndDrop'
 import TFSWorkingModal from '@/components/twenty-four-seven/modals/TFSWorkingModal'
+import StatusesChips from '@/components/twenty-four-seven/StatusesChips'
 
 const {mapActions, mapState} = createNamespacedHelpers('twentyFourSeven')
 
+const IRRELEVANT_STATUS = 'Irrelevant'
+
 export default {
   name: 'TFSDashboardScreen',
-  components: {TFSDragAndDrop, TFSWorkingModal},
+  components: {TFSDragAndDrop, TFSWorkingModal, StatusesChips},
   props: {
     currentProject: {type: Object, default: () => {}},
   },
   data() {
     return {
       postInfo: null,
+      currentStatuses: dragAndDropStatuses,
     }
   },
   computed: {
@@ -84,6 +95,13 @@ export default {
         projectId: this.projectId,
         status: status,
         page: page,
+      })
+    },
+    showStatusCards(status) {
+      defaultStatuses.forEach((key) => {
+        this.currentStatuses[key].isShow = status
+          ? key === status
+          : key !== IRRELEVANT_STATUS
       })
     },
     openModal(postInfo) {

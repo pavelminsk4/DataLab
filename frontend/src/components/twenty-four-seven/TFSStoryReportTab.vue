@@ -1,5 +1,5 @@
 <template>
-  <div class="story-report-wrapper">
+  <div class="story-report-wrapper scroll">
     <div class="item">
       <div class="title"><PostStoryReportIcon /> Post</div>
       <a
@@ -105,6 +105,8 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 16px;
+
+  height: 400px;
 
   .item {
     gap: 8px;

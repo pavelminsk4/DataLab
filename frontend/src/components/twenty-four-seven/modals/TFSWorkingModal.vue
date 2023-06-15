@@ -24,6 +24,8 @@
           <TFSSummaryTab
             v-if="currentTab"
             :post="post"
+            :current-tab="activeTab"
+            :buttonSaveLoading="saveLoading"
             :buttonAISummaryLoading="aiSummaryLoading"
             @create-ai-summary="createAISummary"
             @save-summary="saveSummary"
@@ -34,6 +36,7 @@
             :is="`TFS${stringToPascalCase(activeTab)}Tab`"
             :post="post"
             :buttonWhatsappLoading="whatsappLoading"
+            :translationLoading="translationLoading"
             @send-to-whatsapp="sendToWhatsapp"
             @change-original-content-language="changeLanguage"
           />
@@ -74,6 +77,8 @@ export default {
       whatsappLoading: false,
       aiSummaryLoading: false,
       relatedContentLoading: false,
+      saveLoading: false,
+      translationLoading: false,
     }
   },
   computed: {
@@ -118,12 +123,20 @@ export default {
       }
     },
     async saveSummary(header, text) {
-      await this[action.UPDATE_TFS_ITEM_DATA]({
-        projectId: this.post.project,
-        postId: this.post.id,
-        value: {header, text, status: this.post.status},
-        page: 1,
-      })
+      this.saveLoading = true
+
+      try {
+        await this[action.UPDATE_TFS_ITEM_DATA]({
+          projectId: this.post.project,
+          postId: this.post.id,
+          value: {header, text, status: this.post.status},
+          page: 1,
+        })
+      } catch (error) {
+        console.log(error)
+      } finally {
+        this.saveLoading = false
+      }
     },
     async sendToWhatsapp(phoneNumber, messageContent) {
       this.whatsappLoading = true
@@ -139,12 +152,20 @@ export default {
         this.whatsappLoading = false
       }
     },
-    changeLanguage(newLanguage, title, text) {
-      this[action.UPDATE_TFS_ORIGINAL_CONTENT_LANGUAGE]({
-        newLanguage: newLanguage.toLowerCase(),
-        title,
-        text,
-      })
+    async changeLanguage(newLanguage, title, text) {
+      this.translationLoading = true
+
+      try {
+        await this[action.UPDATE_TFS_ORIGINAL_CONTENT_LANGUAGE]({
+          newLanguage: newLanguage.toLowerCase(),
+          title,
+          text,
+        })
+      } catch (error) {
+        console.log(error)
+      } finally {
+        this.translationLoading = false
+      }
     },
     async createAISummary() {
       this.aiSummaryLoading = true

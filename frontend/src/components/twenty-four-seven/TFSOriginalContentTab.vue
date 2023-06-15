@@ -10,11 +10,14 @@
     </div>
   </div>
 
-  <div class="post-title">
-    {{ title }}
-  </div>
-  <div class="post-description">
-    {{ description }}
+  <BaseSpinner v-if="translationLoading" class="spinner" />
+  <div v-else>
+    <div class="post-title">
+      {{ title }}
+    </div>
+    <div class="post-description">
+      {{ description }}
+    </div>
   </div>
 </template>
 
@@ -22,10 +25,19 @@
 import {createNamespacedHelpers} from 'vuex'
 import {action} from '@store/constants'
 
+import BaseSpinner from '@/components/BaseSpinner'
+
 const {mapState, mapActions} = createNamespacedHelpers('twentyFourSeven')
+
+const LANGUAGES_NAMES = {
+  ORIGINAL: 'Original',
+  ENGLISH: 'English',
+  ARABIC: 'Arabic',
+}
 
 export default {
   name: 'TFSOriginalContentTab',
+  components: {BaseSpinner},
   emits: [
     'save-summary',
     'send-to-whatsapp',
@@ -34,11 +46,12 @@ export default {
   props: {
     post: {type: Object, required: true},
     buttonWhatsappLoading: {type: Boolean, required: true},
+    translationLoading: {type: Boolean, required: true},
   },
   data() {
     return {
-      languages: ['Original', 'English', 'Arabic'],
-      selectedLanguage: 'Original',
+      languages: Object.values(LANGUAGES_NAMES),
+      selectedLanguage: LANGUAGES_NAMES.ORIGINAL,
     }
   },
   computed: {
@@ -54,9 +67,8 @@ export default {
     ...mapActions([action.CLEAR_TFS_TRANSLATED_TEXT]),
     changeLanguage(newLanguage) {
       this.selectedLanguage = newLanguage
-      if (newLanguage === 'Original')
+      if (newLanguage === LANGUAGES_NAMES.ORIGINAL)
         return this[action.CLEAR_TFS_TRANSLATED_TEXT]()
-
       this.$emit(
         'change-original-content-language',
         newLanguage,
@@ -132,5 +144,9 @@ export default {
   font-weight: 400;
   font-size: 14px;
   color: var(--typography-primary-color);
+}
+
+.spinner {
+  margin: 20px auto;
 }
 </style>

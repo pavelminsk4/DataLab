@@ -21,25 +21,40 @@ export const modalTabs = {
   [CARD_STATUSES.SUMMARY]: ['Original content', 'Summary'],
   [CARD_STATUSES.QACHECK]: ['Original content', 'Q&A Check'],
   [CARD_STATUSES.PUBLISHING]: ['Original content', 'Story report'],
+  [CARD_STATUSES.PUBLISHED]: ['Original content', 'Story report'],
 }
 
 export const dragAndDropStatuses = {
+  [CARD_STATUSES.IRRELEVANT]: {
+    status: CARD_STATUSES.IRRELEVANT,
+    page: 1,
+    color: '#797D80',
+    isShow: false,
+    allowedToDrag: [CARD_STATUSES.SUMMARY, CARD_STATUSES.IRRELEVANT],
+  },
   [CARD_STATUSES.PICKING]: {
     status: CARD_STATUSES.PICKING,
     page: 1,
     color: '#2A7697',
+    isShow: true,
     allowedToDrag: [CARD_STATUSES.SUMMARY, CARD_STATUSES.IRRELEVANT],
   },
   [CARD_STATUSES.SUMMARY]: {
     status: CARD_STATUSES.SUMMARY,
     page: 1,
     color: '#3746A6',
-    allowedToDrag: [CARD_STATUSES.QACHECK, CARD_STATUSES.IRRELEVANT],
+    isShow: true,
+    allowedToDrag: [
+      CARD_STATUSES.QACHECK,
+      CARD_STATUSES.IRRELEVANT,
+      CARD_STATUSES.PICKING,
+    ],
   },
   [CARD_STATUSES.QACHECK]: {
     status: CARD_STATUSES.QACHECK,
     page: 1,
     color: '#AB3E00',
+    isShow: true,
     allowedToDrag: [
       CARD_STATUSES.SUMMARY,
       CARD_STATUSES.PUBLISHING,
@@ -50,6 +65,7 @@ export const dragAndDropStatuses = {
     status: CARD_STATUSES.PUBLISHING,
     page: 1,
     color: '#2A8500',
+    isShow: true,
     allowedToDrag: [
       CARD_STATUSES.PUBLISHED,
       CARD_STATUSES.SUMMARY,
@@ -61,7 +77,8 @@ export const dragAndDropStatuses = {
     status: CARD_STATUSES.PUBLISHED,
     page: 1,
     color: '#961CCF',
-    allowedToDrag: [],
+    isShow: true,
+    allowedToDrag: [CARD_STATUSES.PUBLISHING],
   },
 }
 

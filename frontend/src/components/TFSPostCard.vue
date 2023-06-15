@@ -16,6 +16,7 @@
           :status="cardStatus"
           :post-id="postDetails.id"
           :isBack="isBack"
+          :isShowDropdown="isShowStatusesDropdown"
           @change-status-card="changeStatusCard"
         />
 
@@ -96,6 +97,7 @@ export default {
     cardStatus: {type: String, required: false},
     postDetails: {type: Object, required: true},
     isStatusShow: {type: Boolean, default: true},
+    isShowStatusesDropdown: {type: Boolean, default: true},
   },
   computed: {
     ...mapGetters({
