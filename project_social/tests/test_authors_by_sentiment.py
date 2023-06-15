@@ -25,5 +25,9 @@ class AuthorsBySentimentTests(APITestCase):
     url = reverse('project_social:social_authors_by_sentiment', kwargs={'pk':pr.pk, 'widget_pk':widget_pk})
     response = self.client.get(url)
     self.assertEqual(response.status_code, status.HTTP_200_OK)
-    res = {'positive': 3, 'neutral': 1}
+    res = {
+            'negative': [],
+            'neutral': [['First_name', 1]],
+            'positive': [['Second_name', 3]]
+          }
     self.assertEqual(json.loads(response.content), res)
