@@ -74,9 +74,7 @@ export default {
     },
   },
   created() {
-    console.log(!this.accountActivityPosts.length || !this.mentionsPosts.length)
     if (!this.accountActivityPosts.length || !this.mentionsPosts.length) {
-      console.log('if')
       this.getPosts(this.currentPage, this.countPosts)
     }
   },
