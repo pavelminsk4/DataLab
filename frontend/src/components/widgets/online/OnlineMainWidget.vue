@@ -28,6 +28,7 @@ import TopKeywords from '@/components/widgets/online/TopKeywordsWidget'
 import TopKeywordsByCountry from '@/components/widgets/online/TopKeywordsByCountryWidget'
 import SentimentDiagram from '@/components/widgets/online/SentimentDiagramWidget'
 import SentimentNumberOfResults from '@/components/widgets/online/SentimentNumberOfResultWidget'
+import VolumeByCountry from '@/components/widgets/online/VolumeByCountryWidget'
 import AuthorsByCountry from '@/components/widgets/online/AuthorsByCountryWidget'
 import SourcesByLanguage from '@/components/widgets/online/SourcesByLanguageWidget'
 import SourcesByCountry from '@/components/widgets/online/SourcesByCountryWidget'
@@ -58,6 +59,7 @@ export default {
     TopKeywords,
     SentimentDiagram,
     SentimentNumberOfResults,
+    VolumeByCountry,
     AuthorsByCountry,
     TopSharingSources,
     SourcesByLanguage,
