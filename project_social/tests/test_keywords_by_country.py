@@ -7,17 +7,17 @@ from django.urls import reverse
 import json
 
 
-class TopKeywordsByCountryTests(APITestCase):
+class TopKeywordsByLocationTests(APITestCase):
     def setUp(self):
         TweetBinderPostFactory(text='First twitter', locationString='USA')
         TweetBinderPostFactory(text='Second twitter post', locationString='USA')
         TweetBinderPostFactory(text='First twitter', locationString='England')
         ProjectSocialFactory(keywords=['twitter'])
 
-    def test_top_keywords_by_country(self):
+    def test_top_keywords_by_location(self):
         pr = ProjectSocial.objects.first()
-        widget_pk = pr.social_widgets_list.keywords_by_country_id
-        url = reverse('project_social:social_keywords_by_country',kwargs={'pk': pr.pk, 'widget_pk': widget_pk})
+        widget_pk = pr.social_widgets_list.keywords_by_location_id
+        url = reverse('project_social:social_keywords_by_location',kwargs={'pk': pr.pk, 'widget_pk': widget_pk})
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         res = [

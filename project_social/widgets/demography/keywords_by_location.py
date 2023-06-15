@@ -5,7 +5,8 @@ from common.social_keywords import get_keywords
 from django.http import JsonResponse
 from django.db.models import Count
 
-def keywords_by_country(pk, widget_pk):
+
+def keywords_by_location(pk, widget_pk):
     project = ProjectSocial.objects.get(id=pk)
     posts = post_agregator_with_dimensions(project)
     widget = SocialWidgetDescription.objects.get(id=widget_pk)

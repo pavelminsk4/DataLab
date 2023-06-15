@@ -6,12 +6,13 @@ from .widgets.sentiment.sentiment_number_of_results import sentiment_number_of_r
 from .widgets.dashboard.content_volume_top_authors import content_volume_top_authors
 from .widgets.sentiment.sentiment_top_keywords import sentiment_top_keywords
 from .widgets.demography.top_authors_by_gender import top_authors_by_gender
+from .widgets.demography.languages_by_location import languages_by_location
 from .widgets.influencers.authors_by_sentiment import authors_by_sentiment
+from .widgets.demography.keywords_by_location import keywords_by_location
 from .widgets.influencers.top_sharing_sources import top_sharing_sources
 from .widgets.influencers.overall_top_authors import overall_top_authors
 from .widgets.demography.authors_by_language import authors_by_language
 from .widgets.demography.authors_by_location import authors_by_location
-from .widgets.demography.keywords_by_country import keywords_by_country
 from .widgets.dashboard.sentiment_languages import sentiment_languages
 from .widgets.dashboard.sentiment_locations import sentiment_locations
 from .widgets.sentiment.sentiment_by_gender import sentiment_by_gender
@@ -264,8 +265,11 @@ def dimensions_for_each_widgets(request, project_pk, widget_pk):
 def social_authors_by_gender(request, pk, widget_pk):
   return authors_by_gender(pk, widget_pk)
 
-def social_keywords_by_country(request, pk, widget_pk):
-  return keywords_by_country(pk, widget_pk)
+def social_keywords_by_location(request, pk, widget_pk):
+  return keywords_by_location(pk, widget_pk)
+
+def social_languages_by_location(request, pk, widget_pk):
+  return languages_by_location(pk, widget_pk)
 
 def interactive_data_for_widgets(request, project_pk, widget_pk):
   return interactive_widgets(request, project_pk, widget_pk)
