@@ -64,14 +64,12 @@ class TestSocialParser(APITestCase):
         self.assertEqual(json.loads(response.content)['num_posts'], 2)
 
     def test_widget_posts_with_expert_filter(self):
-        pr = ProjectSocialFactory(query_filter='(cow or wolf) and followers:>150', expert_mode=True)
+        pr = ProjectSocialFactory(query_filter='wolf and not (bird or cat)', expert_mode=True)
         widget_pk = pr.social_widgets_list.top_keywords_id
         url = reverse('project_social:social_top_keywords',kwargs={'pk': pr.pk, 'widget_pk': widget_pk})
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         res = [
-            {'key': 'bird', 'value': 1.0},
             {'key': 'wolf', 'value': 1.0},
-            {'key': 'bear', 'value': 0.5},
         ]
         self.assertEqual(json.loads(response.content), res)
