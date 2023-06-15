@@ -39,9 +39,10 @@ export default {
       },
     },
     currentWidgetData() {
-      return this.topKeywordsByCountryWidget.find((el) =>
+      const widgetData = this.topKeywordsByCountryWidget.find((el) =>
         Object.keys(el).includes(this.activeTab)
-      )[this.activeTab]
+      )
+      return widgetData[this.activeTab]
     },
     tabs() {
       return this.topKeywordsByCountryWidget.map((el) =>
