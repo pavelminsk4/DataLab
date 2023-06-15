@@ -33,11 +33,11 @@ class InfluencersFeatureTests(APITestCase):
     url = reverse('widgets:onl_authors_by_sentiment', kwargs={'pk':pr.pk, 'widget_pk':widget_pk})
     response = self.client.get(url)
     self.assertEqual(response.status_code, status.HTTP_200_OK)
-    res = [
-            {'author_count': 2, 'sentiment': 'positive'},
-            {'author_count': 1, 'sentiment': 'negative'},
-            {'author_count': 1, 'sentiment': 'neutral'},
-          ]
+    res = {
+            'negative': [['AFP', 2]],
+            'neutral': [['AFP', 2]],
+            'positive': [['AFP', 1], ['EFE', 1]]
+          }
     self.assertEqual(json.loads(response.content), res)
 
   def test_authors_by_language(self):
