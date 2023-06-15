@@ -102,7 +102,7 @@ export default {
           params: {workspaceId: this.workspaceId},
         })
       } catch (e) {
-        console.log(e)
+        console.error(e)
       }
     },
   },

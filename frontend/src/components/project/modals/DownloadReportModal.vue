@@ -226,7 +226,7 @@ export default {
           },
         })
       } catch (e) {
-        console.log(e)
+        console.error(e)
       }
     },
     validationForm() {
@@ -270,7 +270,7 @@ export default {
         anchor.click()
         document.body.removeChild(anchor)
       } catch (error) {
-        console.log(error)
+        console.error(error)
       } finally {
         this.loading = false
       }

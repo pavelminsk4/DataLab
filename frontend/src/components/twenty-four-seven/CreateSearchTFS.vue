@@ -126,7 +126,7 @@ export default {
           expert_mode: false,
         })
       } catch (e) {
-        console.log(e)
+        console.error(e)
       }
     },
     async saveChanges() {

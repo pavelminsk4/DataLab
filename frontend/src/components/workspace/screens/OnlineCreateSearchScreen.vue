@@ -40,7 +40,7 @@ export default {
       try {
         this[action.POST_SEARCH](data)
       } catch (e) {
-        console.log(e)
+        console.error(e)
       }
     },
     async createWorkspace(workspaceData) {

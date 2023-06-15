@@ -8,7 +8,7 @@ export default {
       await api.logout()
       window.location.href = '/accounts/login/'
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -20,7 +20,7 @@ export default {
       const projects = await api.getProjects()
       commit(mutator.SET_PROJECTS, projects)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -32,7 +32,7 @@ export default {
       const workspaces = await api.getWorkspaces()
       commit(mutator.SET_WORKSPACES, workspaces)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -44,7 +44,7 @@ export default {
       const userInfo = await api.getLoggedUser()
       commit(mutator.SET_USER_INFORMATION, userInfo)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -56,7 +56,7 @@ export default {
       const countries = await api.getCountries(word)
       commit(mutator.SET_COUNTRIES, countries)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -68,7 +68,7 @@ export default {
       const languages = await api.getLanguages(word)
       commit(mutator.SET_LANGUAGES, languages)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -80,7 +80,7 @@ export default {
       const sources = await api.getSources(word)
       commit(mutator.SET_SOURCES, sources)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -92,7 +92,7 @@ export default {
       const authors = await api.getAuthors(word)
       commit(mutator.SET_AUTHORS, authors)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -136,7 +136,7 @@ export default {
       const summary = await api.getSummaryWidget(projectId, widgetId)
       commit(mutator.SET_SUMMARY_WIDGET, summary)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -148,7 +148,7 @@ export default {
       const volume = await api.getVolumeWidget({projectId, value, widgetId})
       commit(mutator.SET_VOLUME_WIDGET, volume)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -161,7 +161,7 @@ export default {
       commit(mutator.SET_AVAILABLE_WIDGETS, availableWidgets)
       return availableWidgets
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -179,7 +179,7 @@ export default {
       )
       commit(mutator.SET_CLIPPING_FEED_CONTENT_WIDGET, clippingFeedContent)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {clippingWidget: false})
     }
@@ -191,7 +191,7 @@ export default {
       const topAuthors = await api.getTopAuthors(projectId, widgetId)
       commit(mutator.SET_TOP_AUTHORS_WIDGET, topAuthors)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -206,7 +206,7 @@ export default {
       )
       commit(mutator.SET_TOP_SHARING_SOURCES, topSharingSources)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -218,7 +218,7 @@ export default {
       const topBrands = await api.getTopBrands(projectId, widgetId)
       commit(mutator.SET_TOP_BRANDS_WIDGET, topBrands)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -230,7 +230,7 @@ export default {
       const topCountries = await api.getTopCountries(projectId, widgetId)
       commit(mutator.SET_TOP_COUNTRIES_WIDGET, topCountries)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -242,7 +242,7 @@ export default {
       const topLanguages = await api.getTopLanguages(projectId, widgetId)
       commit(mutator.SET_TOP_LANGUAGES_WIDGET, topLanguages)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -257,7 +257,7 @@ export default {
       )
       commit(mutator.SET_SENTIMENT_TOP_SOURCES, sentimentTopSources)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -272,7 +272,7 @@ export default {
       )
       commit(mutator.SET_SENTIMENT_TOP_COUNTRIES, sentimentTopCountries)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -287,7 +287,7 @@ export default {
       )
       commit(mutator.SET_SENTIMENT_TOP_LANGUAGES, sentimentTopLanguages)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -302,7 +302,7 @@ export default {
       )
       commit(mutator.SET_SENTIMENT_TOP_AUTHORS, sentimentTopAuthors)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -321,7 +321,7 @@ export default {
       })
       commit(mutator.SET_SENTIMENT_FOR_PERIOD, sentimentForPeriod)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -340,7 +340,7 @@ export default {
       })
       commit(mutator.SET_CONTENT_VOLUME_TOP_SOURCES, contentVolumeTopSources)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -359,7 +359,7 @@ export default {
       })
       commit(mutator.SET_CONTENT_VOLUME_TOP_AUTHORS, contentVolumeTopAuthors)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -382,7 +382,7 @@ export default {
         contentVolumeTopCountries
       )
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -394,7 +394,7 @@ export default {
       const dimensions = await api.getFilters()
       commit(mutator.SET_FILTERS, dimensions)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -412,7 +412,7 @@ export default {
       })
       commit(mutator.SET_SENTIMENT_TOP_KEYWORDS_WIDGET, sentimentTopKeywords)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -424,7 +424,7 @@ export default {
       const topKeywords = await api.getTopKeywordsWidget({projectId, widgetId})
       commit(mutator.SET_TOP_KEYWORDS_WIDGET, topKeywords)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -442,7 +442,7 @@ export default {
       })
       commit(mutator.SET_TOP_KEYWORDS_BY_COUNTRY_WIDGET, topKeywords)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -457,7 +457,7 @@ export default {
       })
       commit(mutator.SET_AUTHORS_BY_COUNTRY, authorsByCountry)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -472,7 +472,7 @@ export default {
       })
       commit(mutator.SET_SENTIMENT_DIAGRAM, sentimentDiagram)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -490,7 +490,7 @@ export default {
       })
       commit(mutator.SET_SENTIMENT_NUMBER_OF_RESULT, sentimentNumberOfResult)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -505,7 +505,7 @@ export default {
       })
       commit(mutator.SET_SOURCES_BY_LANGUAGE, sourcesByLanguage)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -520,7 +520,7 @@ export default {
       })
       commit(mutator.SET_SOURCES_BY_COUNTRY, sourcesByCountry)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -535,7 +535,7 @@ export default {
       })
       commit(mutator.SET_OVERALL_TOP_SOURCES, overallTopSources)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -550,7 +550,7 @@ export default {
       })
       commit(mutator.SET_OVERALL_TOP_AUTHORS, overallTopAuthors)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -565,7 +565,7 @@ export default {
       })
       commit(mutator.SET_AUTHORS_BY_LANGUAGE, authorsByLanguage)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -580,7 +580,7 @@ export default {
       })
       commit(mutator.SET_AUTHORS_BY_SENTIMENT, authorsBySentiment)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -591,7 +591,7 @@ export default {
     try {
       commit(mutator.SET_SELECTED_FILTERS, selectedFilters)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -604,7 +604,7 @@ export default {
       commit(mutator.SET_TEMPLATES, templates)
       return templates
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -616,7 +616,7 @@ export default {
       const dimensionAuthors = await api.getFiltersAuthors(projectId)
       commit(mutator.SET_FILTERS_AUTHORS, dimensionAuthors)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -628,7 +628,7 @@ export default {
       const dimensionLanguages = await api.getFiltersLanguages(projectId)
       commit(mutator.SET_FILTERS_LANGUAGES, dimensionLanguages)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -640,7 +640,7 @@ export default {
       const dimensionCountries = await api.getFiltersCountries(projectId)
       commit(mutator.SET_FILTERS_COUNTRIES, dimensionCountries)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -652,7 +652,7 @@ export default {
       const dimensionCountries = await api.getFiltersCountries(projectId)
       commit(mutator.SET_FILTERS_COUNTRIES, dimensionCountries)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -664,7 +664,7 @@ export default {
       const dimensionSources = await api.getFiltersSources(projectId)
       commit(mutator.SET_FILTERS_SOURCES, dimensionSources)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -678,7 +678,7 @@ export default {
       await dispatch(action.GET_FILTER_LANGUAGES, projectId)
       await dispatch(action.GET_FILTER_SOURCES, projectId)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -690,7 +690,7 @@ export default {
       const companyUsers = await api.getCompanyUsers(companyId)
       commit(mutator.SET_COMPANY_USERS, companyUsers)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -704,7 +704,7 @@ export default {
       commit(mutator.SET_NEW_PROJECT_ID, response.projects[0].id)
       return response
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -719,7 +719,7 @@ export default {
 
       return response
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -734,7 +734,7 @@ export default {
         widgetId: data.widgetId,
       })
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {clippingWidget: false})
     }
@@ -745,7 +745,7 @@ export default {
     try {
       return await api.createUser(data)
     } catch (e) {
-      console.log(e)
+      console.error(e)
       return {
         ...e.response.data,
         hasError: true,
@@ -764,7 +764,7 @@ export default {
       await api.setUserDepartment({email, data})
       await dispatch(action.GET_COMPANY_USERS, userId)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -779,7 +779,7 @@ export default {
       await api.updateUserData({userId, data})
       await dispatch(action.GET_COMPANY_USERS, currentUserId)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -791,7 +791,7 @@ export default {
       const responseData = await api.updateWorkspace({workspaceId, data})
       commit(mutator.UPDATE_WORKSPACE, responseData)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -803,7 +803,7 @@ export default {
       await api.updateProject({projectId, data})
       await dispatch(action.GET_WORKSPACES)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -822,7 +822,7 @@ export default {
       commit(mutator.SET_AVAILABLE_WIDGETS, availableWidgets)
       dispatch(action.GET_AVAILABLE_WIDGETS, projectId)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -836,7 +836,7 @@ export default {
       commit(mutator.SET_NUMBER_OF_POSTS, response.num_posts)
       commit(mutator.SET_NUMBER_OF_PAGES, response.num_pages)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -850,7 +850,7 @@ export default {
     try {
       await api.postFiltersForWidget({projectId, widgetId, data})
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -870,7 +870,7 @@ export default {
 
       commit(mutator.SET_INTERACTIVE_DATA, response)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -888,7 +888,7 @@ export default {
         widgetId: widgetId,
       })
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {clippingWidget: false})
     }
@@ -903,7 +903,7 @@ export default {
       await api.deleteUserFromCompany(userId)
       await dispatch(action.GET_COMPANY_USERS, currentUserId)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -915,7 +915,7 @@ export default {
       await api.deleteWorkspace(workspaceId)
       await dispatch(action.GET_WORKSPACES)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -928,7 +928,7 @@ export default {
       await dispatch(action.GET_WORKSPACES)
       await dispatch(action.GET_USER_INFORMATION)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -939,7 +939,7 @@ export default {
     try {
       return api.downloadInstantlyReport(departmentId, projectId)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -952,7 +952,7 @@ export default {
     try {
       return api.downloadSocialInstantlyReport(departmentId, projectId)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -975,7 +975,7 @@ export default {
           )
       }
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -1028,7 +1028,7 @@ export default {
       const regularReports = await api.getRegularReports(departmentId)
       commit(mutator.SET_REGULAR_REPORTS, regularReports)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -1042,7 +1042,7 @@ export default {
       await api.createRegularReport(data)
       await dispatch(action.GET_REGULAR_REPORTS, departmentId)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -1056,7 +1056,7 @@ export default {
       await api.updateRegularReport(departmentId, regularReportId, data)
       await dispatch(action.GET_REGULAR_REPORTS, departmentId)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -1070,7 +1070,7 @@ export default {
       await api.deleteRegularReport(departmentId, regularReportId)
       await dispatch(action.GET_REGULAR_REPORTS, departmentId)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -1095,7 +1095,7 @@ export default {
         projectsWidgetsList[project.id] = projectList
       })
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -1116,7 +1116,7 @@ export default {
       await api.createAlert(data)
       await dispatch(action.GET_ALERTS, projectId)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -1128,7 +1128,7 @@ export default {
       const alerts = await api.getAlerts(projectId)
       commit(mutator.SET_ALERTS, alerts)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -1140,7 +1140,7 @@ export default {
       await api.updateAlert({data, alertId})
       await dispatch(action.GET_ALERTS, data.project)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -1152,7 +1152,7 @@ export default {
       await api.deleteAlert(alertId)
       await dispatch(action.GET_ALERTS, projectId)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }

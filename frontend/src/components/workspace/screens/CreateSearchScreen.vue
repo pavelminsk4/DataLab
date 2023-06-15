@@ -150,7 +150,7 @@ export default {
 
         this.$emit('show-results', project)
       } catch (e) {
-        console.log(e)
+        console.error(e)
       } finally {
         this.searchLoading = false
       }
@@ -190,7 +190,7 @@ export default {
         await this[action.CLEAR_STATE]()
         this.buttonLoading = false
       } catch (e) {
-        console.log(e)
+        console.error(e)
       }
     },
 

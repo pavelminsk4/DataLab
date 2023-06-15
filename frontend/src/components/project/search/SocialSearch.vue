@@ -77,7 +77,7 @@ export default {
       try {
         this[action.POST_SEARCH](filters)
       } catch (e) {
-        console.log(e)
+        console.error(e)
       }
     },
     updateProject(data) {
@@ -91,7 +91,7 @@ export default {
 
         this[action.GET_WORKSPACES]()
       } catch (e) {
-        console.log(e)
+        console.error(e)
       }
     },
     updateCollection(name, val) {

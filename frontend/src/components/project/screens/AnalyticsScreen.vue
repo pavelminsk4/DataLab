@@ -229,7 +229,7 @@ export default {
           expert_mode: this.currentProject.expert_mode,
         })
       } catch (e) {
-        console.log(e)
+        console.error(e)
       }
     },
 

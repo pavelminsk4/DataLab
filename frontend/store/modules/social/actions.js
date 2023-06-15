@@ -8,7 +8,7 @@ export default {
       const workspaces = await api.social.getWorkspaces()
       commit(mutator.SET_WORKSPACES, workspaces)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -27,7 +27,7 @@ export default {
         projects: response.social_workspace_projects,
       }
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -38,7 +38,7 @@ export default {
       const responseData = await api.social.updateWorkspace({workspaceId, data})
       commit(mutator.UPDATE_WORKSPACE, responseData)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -49,7 +49,7 @@ export default {
       await api.social.deleteWorkspace(workspaceId)
       await dispatch(action.GET_WORKSPACES)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -61,7 +61,7 @@ export default {
       const projects = await api.social.getProjects()
       commit(mutator.SET_PROJECTS, projects)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -74,7 +74,7 @@ export default {
       await dispatch(action.GET_USER_INFORMATION, null, {root: true})
       return response
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -85,7 +85,7 @@ export default {
       await api.social.updateProject({projectId, data})
       await dispatch(action.GET_WORKSPACES)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -103,7 +103,7 @@ export default {
         root: true,
       })
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -118,7 +118,7 @@ export default {
         widgetId: data.widgetId,
       })
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {clippingWidget: false}, {root: true})
     }
@@ -135,7 +135,7 @@ export default {
         widgetId: widgetId,
       })
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {clippingWidget: false}, {root: true})
     }
@@ -152,7 +152,7 @@ export default {
       commit(mutator.SET_AVAILABLE_WIDGETS, availableWidgets)
       return availableWidgets
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -172,7 +172,7 @@ export default {
       })
       dispatch(action.GET_AVAILABLE_WIDGETS, projectId)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -194,7 +194,7 @@ export default {
         root: true,
       })
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -206,7 +206,7 @@ export default {
       const authors = await api.social.getAuthors(word)
       commit(mutator.SET_AUTHORS, authors)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -217,7 +217,7 @@ export default {
       const countries = await api.social.getCountries(word)
       commit(mutator.SET_COUNTRIES, countries)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -228,7 +228,7 @@ export default {
       const languages = await api.social.getLanguages(word)
       commit(mutator.SET_LANGUAGES, languages)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -242,7 +242,7 @@ export default {
     try {
       await api.social.postFiltersForWidget({projectId, widgetId, data})
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -256,7 +256,7 @@ export default {
         root: true,
       })
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -270,7 +270,7 @@ export default {
         root: true,
       })
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -284,7 +284,7 @@ export default {
         root: true,
       })
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -297,7 +297,7 @@ export default {
       await dispatch(action.GET_FILTER_COUNTRIES, projectId)
       await dispatch(action.GET_FILTER_LANGUAGES, projectId)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }

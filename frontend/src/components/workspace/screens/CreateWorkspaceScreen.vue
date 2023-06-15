@@ -95,7 +95,7 @@ export default {
         })
         this.$router.push({name: nextStep})
       } catch (e) {
-        console.log(e)
+        console.error(e)
       }
     },
   },
