@@ -33,6 +33,8 @@ import StatusesChips from '@/components/twenty-four-seven/StatusesChips'
 
 const {mapActions, mapState} = createNamespacedHelpers('twentyFourSeven')
 
+const IRRELEVANT_STATUS = 'Irrelevant'
+
 export default {
   name: 'TFSDashboardScreen',
   components: {TFSDragAndDrop, TFSWorkingModal, StatusesChips},
@@ -96,25 +98,11 @@ export default {
       })
     },
     showStatusCards(status) {
-      let keys = Object.keys(this.testStatuses)
-
-      if (!status) {
-        keys.forEach((key) => {
-          if (key === 'Irrelevant') {
-            this.testStatuses[key].isShow = false
-          } else {
-            this.testStatuses[key].isShow = true
-          }
-        })
-      } else {
-        keys.forEach((key) => {
-          if (key === status) {
-            this.testStatuses[key].isShow = true
-          } else {
-            this.testStatuses[key].isShow = false
-          }
-        })
-      }
+      defaultStatuses.forEach((key) => {
+        this.testStatuses[key].isShow = status
+          ? key === status
+          : key !== IRRELEVANT_STATUS
+      })
     },
     openModal(postInfo) {
       this[action.CLEAR_TFS_RELATED_CONTENT]()

@@ -9,7 +9,9 @@
         {{ getTitle(status) }}
       </div>
       <div
-        v-if="statuses[status].availableStatusesForMoving.length"
+        v-if="
+          statuses[status].availableStatusesForMoving.length && isShowDropdown
+        "
         :style="`background-color: ${statuses[status].color}`"
         class="icon-wrapper"
       >
@@ -18,7 +20,11 @@
     </div>
 
     <ul
-      v-if="isOpen && statuses[status].availableStatusesForMoving.length"
+      v-if="
+        isOpen &&
+        isShowDropdown &&
+        statuses[status].availableStatusesForMoving.length
+      "
       class="dropdown"
     >
       <li
@@ -50,6 +56,7 @@ export default {
     isBack: {type: Boolean, default: true},
     postId: {type: Number, reqired: true},
     status: {type: String, reqired: true},
+    isShowDropdown: {type: Boolean, default: true},
   },
   data() {
     return {

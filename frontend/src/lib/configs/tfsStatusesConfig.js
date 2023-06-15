@@ -21,6 +21,7 @@ export const modalTabs = {
   [CARD_STATUSES.SUMMARY]: ['Original content', 'Summary'],
   [CARD_STATUSES.QACHECK]: ['Original content', 'Q&A Check'],
   [CARD_STATUSES.PUBLISHING]: ['Original content', 'Story report'],
+  [CARD_STATUSES.PUBLISHED]: ['Original content', 'Story report'],
 }
 
 export const dragAndDropStatuses = {
@@ -43,7 +44,11 @@ export const dragAndDropStatuses = {
     page: 1,
     color: '#3746A6',
     isShow: true,
-    allowedToDrag: [CARD_STATUSES.QACHECK, CARD_STATUSES.IRRELEVANT],
+    allowedToDrag: [
+      CARD_STATUSES.QACHECK,
+      CARD_STATUSES.IRRELEVANT,
+      CARD_STATUSES.PICKING,
+    ],
   },
   [CARD_STATUSES.QACHECK]: {
     status: CARD_STATUSES.QACHECK,
@@ -73,7 +78,7 @@ export const dragAndDropStatuses = {
     page: 1,
     color: '#961CCF',
     isShow: true,
-    allowedToDrag: [],
+    allowedToDrag: [CARD_STATUSES.PUBLISHING],
   },
 }
 

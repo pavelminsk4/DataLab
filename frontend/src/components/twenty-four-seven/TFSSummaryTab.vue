@@ -14,13 +14,17 @@
 
   <div class="buttons">
     <BaseButton
+      v-if="currentTab === 'Summary'"
       :is-not-background="true"
       :button-loading="buttonAISummaryLoading"
       @click="$emit('create-ai-summary')"
     >
       AI Summary
     </BaseButton>
-    <BaseButton @click="$emit('save-summary', header, text)">
+    <BaseButton
+      :button-loading="buttonSaveLoading"
+      @click="$emit('save-summary', header, text)"
+    >
       <SaveIcon /> Save
     </BaseButton>
   </div>
@@ -42,7 +46,9 @@ export default {
   emits: ['save-summary', 'create-ai-summary'],
   props: {
     post: {type: Object, required: true},
+    currentTab: {type: String, required: true},
     buttonAISummaryLoading: {type: Boolean, required: true},
+    buttonSaveLoading: {type: Boolean, required: true},
   },
   data() {
     return {
