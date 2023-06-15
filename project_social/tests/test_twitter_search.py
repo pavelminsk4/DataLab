@@ -22,7 +22,9 @@ DATA = {
       'language_dimensions':[],
       'country_dimensions':[],
       'source_dimensions':[],
-      'sentiment_dimensions':[]
+      'sentiment_dimensions':[],
+      'expert_mode': False,
+      'query_filter': '',
       }
 
 class SearchTwitterPostsTests(APITestCase):

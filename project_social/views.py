@@ -29,6 +29,7 @@ from .widgets.dashboard.top_authors import top_authors
 from rest_framework import viewsets, filters, generics
 from .widgets.summary.top_keywords import top_keywords
 from .widgets.dashboard.summary_widget import summary
+from project_social.social_parser import SocialParser
 from .widgets.dashboard.sentiment import sentiment
 from .models import ChangingTweetbinderSentiment
 from tweet_binder.models import TweetBinderPost
@@ -127,9 +128,7 @@ def posts_values(posts):
     'images',
     )
 
-
-def twitter_posts_search(request):
-  body = json.loads(request.body)
+def filter_with_constructor(posts, body):
   keys = body['keywords']
   exceptions = body['exceptions']
   additions = body['additions']
@@ -138,16 +137,6 @@ def twitter_posts_search(request):
   source = body['source']
   author = body['author']
   sentiment = body['sentiment']
-  country_dimensions = body['country_dimensions']
-  language_dimensions = body['language_dimensions']
-  source_dimensions = body['source_dimensions']
-  author_dimensions = body['author_dimensions']
-  sentiment_dimensions = body['sentiment_dimensions']
-  date_range = body['date_range']
-  posts_per_page = body['posts_per_page']
-  page_number = body['page_number']
-  department_id = request.user.user_profile.department
-  posts = data_range_posts(date_range[0], date_range[1]).order_by('-creation_date')
   posts = keywords_posts(keys, posts)
   if additions:
     posts = additional_keywords_posts(posts, additions)
@@ -162,17 +151,38 @@ def twitter_posts_search(request):
   if author:
     posts = posts.filter(reduce(lambda x,y: x | y, [Q(user_name=a) for a in author]))
   if sentiment:
-    posts = posts.filter(reduce(lambda x,y: x | y, [Q(sentiment=sen) for sen in sentiment])) 
-  if country_dimensions:
-    posts = posts.filter(reduce(lambda x,y: x | y, [Q(locationString=country) for country in country_dimensions]))
-  if language_dimensions:
-    posts = posts.filter(reduce(lambda x,y: x | y, [Q(language=language) for language in language_dimensions]))  
-  if source_dimensions:
-    posts = posts.filter(reduce(lambda x,y: x | y, [Q(source=source) for source in source_dimensions]))  
-  if author_dimensions:
-    posts = posts.filter(reduce(lambda x,y: x | y, [Q(user_name=author) for author in author_dimensions]))
-  if sentiment_dimensions:
-    posts = posts.filter(reduce(lambda x,y: x | y, [Q(sentiment=sentiment) for sentiment in sentiment_dimensions]))    
+    posts = posts.filter(reduce(lambda x,y: x | y, [Q(sentiment=sen) for sen in sentiment]))
+  return posts
+
+def filter_with_dimensions(posts, body):
+    country_dimensions = body['country_dimensions']
+    language_dimensions = body['language_dimensions']
+    source_dimensions = body['source_dimensions']
+    author_dimensions = body['author_dimensions']
+    sentiment_dimensions = body['sentiment_dimensions']
+    if country_dimensions:
+        posts = posts.filter(reduce(lambda x,y: x | y, [Q(locationString=country) for country in country_dimensions]))
+    if language_dimensions:
+        posts = posts.filter(reduce(lambda x,y: x | y, [Q(language=language) for language in language_dimensions]))  
+    if source_dimensions:
+        posts = posts.filter(reduce(lambda x,y: x | y, [Q(source=source) for source in source_dimensions]))  
+    if author_dimensions:
+        posts = posts.filter(reduce(lambda x,y: x | y, [Q(user_name=author) for author in author_dimensions]))
+    if sentiment_dimensions:
+        posts = posts.filter(reduce(lambda x,y: x | y, [Q(sentiment=sentiment) for sentiment in sentiment_dimensions]))
+    return posts
+
+def twitter_posts_search(request):
+  body = json.loads(request.body)
+  date_range = body['date_range']
+  posts_per_page = body['posts_per_page']
+  page_number = body['page_number']
+  department_id = request.user.user_profile.department
+  posts = data_range_posts(date_range[0], date_range[1]).order_by('-creation_date')
+  parser = SocialParser(body['query_filter'])
+  expert_mode = parser.can_parse() and body['expert_mode']
+  posts = posts.filter(parser.get_filter_query()) if expert_mode else filter_with_constructor(posts, body)
+  posts = filter_with_dimensions(posts, body)
   posts = posts_values(posts)
   p = Paginator(posts, posts_per_page)
   posts_list=list(p.page(page_number))

@@ -4,16 +4,14 @@ from django.urls import reverse
 import json
 from common.factories.tweet_binder_post import TweetBinderPostFactory
 from common.factories.project_social import ProjectSocialFactory
-from common.factories.user import UserFactory
 
 
 class DimensionsTests(APITestCase):
     def test_response_list(self):
-        user = UserFactory(username='Pablo Escobar')
         TweetBinderPostFactory(user_name='First',  language='En', date='2020-10-10T00:00:00+00:00')
         TweetBinderPostFactory(user_name='Second', language='Sp', date='2020-10-10T00:00:00+00:00')
         TweetBinderPostFactory(user_name='Third',  language='En', date='2021-10-10T00:00:00+00:00')
-        pr = ProjectSocialFactory(creator=user, language_dimensions=['En'])
+        pr = ProjectSocialFactory(language_dimensions=['En'])
         widget_pk = pr.social_widgets_list.content_volume_top_authors_id
         url = reverse('project_social:social_content_volume_top_authors', kwargs={'pk': pr.pk, 'widget_pk': widget_pk})
         data = {'aggregation_period': 'day'}
