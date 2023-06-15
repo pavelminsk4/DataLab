@@ -5,8 +5,12 @@
     @open-modal="openModal"
     @close="close"
   />
+
+  <StatusesChips @show-status-cards="showStatusCards" />
+
   <TFSDragAndDrop
     :card-results="items"
+    :testStats="testStatuses"
     @update-status="updateStatus"
     @change-status-via-dropdown="updateStatus"
     @update-page="updatePage"
@@ -18,22 +22,27 @@
 import {createNamespacedHelpers} from 'vuex'
 import {action} from '@store/constants'
 import {isAllFieldsEmpty} from '@/lib/utilities'
-import {defaultStatuses} from '@/lib/configs/tfsStatusesConfig'
+import {
+  defaultStatuses,
+  dragAndDropStatuses,
+} from '@/lib/configs/tfsStatusesConfig'
 
 import TFSDragAndDrop from '@/components/twenty-four-seven/drag-n-drop/TFSDragAndDrop'
 import TFSWorkingModal from '@/components/twenty-four-seven/modals/TFSWorkingModal'
+import StatusesChips from '@/components/twenty-four-seven/StatusesChips'
 
 const {mapActions, mapState} = createNamespacedHelpers('twentyFourSeven')
 
 export default {
   name: 'TFSDashboardScreen',
-  components: {TFSDragAndDrop, TFSWorkingModal},
+  components: {TFSDragAndDrop, TFSWorkingModal, StatusesChips},
   props: {
     currentProject: {type: Object, default: () => {}},
   },
   data() {
     return {
       postInfo: null,
+      testStatuses: dragAndDropStatuses,
     }
   },
   computed: {
@@ -85,6 +94,27 @@ export default {
         status: status,
         page: page,
       })
+    },
+    showStatusCards(status) {
+      let keys = Object.keys(this.testStatuses)
+
+      if (!status) {
+        keys.forEach((key) => {
+          if (key === 'Irrelevant') {
+            this.testStatuses[key].isShow = false
+          } else {
+            this.testStatuses[key].isShow = true
+          }
+        })
+      } else {
+        keys.forEach((key) => {
+          if (key === status) {
+            this.testStatuses[key].isShow = true
+          } else {
+            this.testStatuses[key].isShow = false
+          }
+        })
+      }
     },
     openModal(postInfo) {
       this[action.CLEAR_TFS_RELATED_CONTENT]()

@@ -4,7 +4,12 @@
       v-for="(itemStatus, index) in statuses"
       :key="'status' + index"
       :id="itemStatus.status"
-      :class="['drop-zone', isHighlighted(itemStatus.status) && 'highlighted']"
+      :class="[
+        'drop-zone',
+        isHighlighted(itemStatus.status) && 'highlighted',
+        !itemStatus.isShow && 'hide-status',
+        activeStatusCards.length === 1 && 'active-status',
+      ]"
       @drop="onDrop($event, itemStatus.status)"
       @dragover="addBGToAvailColumn($event, itemStatus.status)"
       @mousedown="getCurrentColumnId(itemStatus.status)"
@@ -22,21 +27,19 @@
         @increase-arrow="increase(index, itemStatus.status)"
       />
 
-      <div
-        v-for="postInfo in getCardInformation(itemStatus.status)"
-        :key="postInfo.id"
-        class="drag-el"
-        draggable="true"
-        @dragstart="startDrag($event, postInfo)"
-      >
+      <div :class="[activeStatusCards.length === 1 && 'drag-elements']">
         <TFSPostCard
+          v-for="postInfo in getCardInformation(itemStatus.status)"
+          :key="postInfo.id"
           :postDetails="postInfo.online_post"
           :is-back="postInfo.is_back"
           :card-status="postInfo.status"
           :item-id="postInfo.id"
           :is-work-button-show="true"
-          class="post-card"
+          draggable="true"
+          class="drag-el"
           @change-status="changeStatus"
+          @dragstart="startDrag($event, postInfo)"
           @open-modal="$emit('open-modal', postInfo)"
         />
       </div>
@@ -45,7 +48,7 @@
 </template>
 
 <script>
-import {dragAndDropStatuses} from '@/lib/configs/tfsStatusesConfig'
+// import {dragAndDropStatuses} from '@/lib/configs/tfsStatusesConfig'
 
 import TFSPostCard from '@/components/TFSPostCard'
 import TFSColumnHeader from '@/components/twenty-four-seven/drag-n-drop/TFSColumnHeader'
@@ -57,6 +60,7 @@ export default {
   components: {TFSPostCard, TFSColumnHeader},
   props: {
     cardResults: {type: Object, reqared: true},
+    testStats: {type: Object, reqared: true},
   },
   data() {
     return {
@@ -68,7 +72,12 @@ export default {
   },
   computed: {
     statuses() {
-      return dragAndDropStatuses
+      return this.testStats
+    },
+    activeStatusCards() {
+      return Object.values(this.statuses).filter(
+        (element) => element.isShow === true
+      )
     },
   },
   methods: {
@@ -180,14 +189,38 @@ export default {
     margin: 50px auto;
     padding: 10px;
 
+    transition: all 0.3s;
+
     .drag-el {
       padding: 5px;
       margin-bottom: 10px;
+      width: 290px;
 
-      .post-card {
-        width: 290px;
-      }
+      transition: all 0.3s;
     }
+  }
+
+  .hide-status {
+    display: none;
+
+    transition: all 0.3s;
+  }
+
+  .active-status {
+    margin: 0;
+    min-width: 100%;
+
+    transition: all 0.3s;
+  }
+
+  .drag-elements {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    gap: 12px;
+
+    transition: all 0.3s;
   }
 
   .highlighted {

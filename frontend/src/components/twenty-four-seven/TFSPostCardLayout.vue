@@ -79,7 +79,7 @@ export default {
       'Q&A Check': '#FFF2E9',
       Publishing: '#F4FFEF',
       Published: '#FAF0FF',
-      Irrelevant: '#C6C9CC',
+      Irrelevant: '#F2F2F2',
     }
   },
   methods: {
