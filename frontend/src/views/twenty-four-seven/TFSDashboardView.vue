@@ -3,7 +3,7 @@
     <div class="features">
       <div class="features__header">
         <MainLayoutTitleBlock
-          title="Account"
+          :title="currentProject.title"
           :back-page="{
             name: 'main page',
             routName: `TwentyFourSevenWorkspaces`,

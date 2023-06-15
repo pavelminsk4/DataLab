@@ -10,7 +10,7 @@
 
   <TFSDragAndDrop
     :card-results="items"
-    :testStats="testStatuses"
+    :current-statuses="currentStatuses"
     @update-status="updateStatus"
     @change-status-via-dropdown="updateStatus"
     @update-page="updatePage"
@@ -44,7 +44,7 @@ export default {
   data() {
     return {
       postInfo: null,
-      testStatuses: dragAndDropStatuses,
+      currentStatuses: dragAndDropStatuses,
     }
   },
   computed: {
@@ -99,7 +99,7 @@ export default {
     },
     showStatusCards(status) {
       defaultStatuses.forEach((key) => {
-        this.testStatuses[key].isShow = status
+        this.currentStatuses[key].isShow = status
           ? key === status
           : key !== IRRELEVANT_STATUS
       })

@@ -48,8 +48,6 @@
 </template>
 
 <script>
-// import {dragAndDropStatuses} from '@/lib/configs/tfsStatusesConfig'
-
 import TFSPostCard from '@/components/TFSPostCard'
 import TFSColumnHeader from '@/components/twenty-four-seven/drag-n-drop/TFSColumnHeader'
 
@@ -60,7 +58,7 @@ export default {
   components: {TFSPostCard, TFSColumnHeader},
   props: {
     cardResults: {type: Object, reqared: true},
-    testStats: {type: Object, reqared: true},
+    currentStatuses: {type: Object, reqared: true},
   },
   data() {
     return {
@@ -72,7 +70,7 @@ export default {
   },
   computed: {
     statuses() {
-      return this.testStats
+      return this.currentStatuses
     },
     activeStatusCards() {
       return Object.values(this.statuses).filter(
@@ -183,11 +181,11 @@ export default {
 <style lang="scss" scoped>
 .drag-n-drop-wrapper {
   display: flex;
+  justify-content: space-between;
 
   .drop-zone {
     min-width: 320px;
-    margin: 50px auto;
-    padding: 10px;
+    padding: 0 20px 0 0;
 
     transition: all 0.3s;
 
