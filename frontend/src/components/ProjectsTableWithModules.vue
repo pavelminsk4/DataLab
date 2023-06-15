@@ -2,6 +2,7 @@
   <BaseTable
     :table-header="tableHeader"
     :has-actions="false"
+    class="project-table"
     @select-all="selectAll"
   >
     <template v-if="projects.length">
@@ -115,10 +116,32 @@ export default {
 </script>
 
 <style lang="scss">
-.wrapper {
-  height: 50vh;
+.project-table {
   .selected {
     background-color: var(--primary-active-color);
   }
+}
+
+tr {
+  position: relative;
+  td {
+    vertical-align: initial;
+  }
+
+  &:last-child {
+    .divider {
+      display: none;
+    }
+  }
+}
+
+.divider {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+
+  width: calc(100% - 5px);
+
+  border-bottom: var(--border-primary);
 }
 </style>
