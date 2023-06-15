@@ -4,6 +4,7 @@ from twenty_four_seven.serializers import ProjectTwentyFourSevenSerializer
 from twenty_four_seven.serializers import WorkspaceTwentyFourSevenPostSerializer
 from twenty_four_seven.serializers import WorkspaceTwentyFourSevenSerializer
 from rest_framework.pagination import PageNumberPagination
+from twenty_four_seven.serializers import ItemPatchSerializer
 from twenty_four_seven.serializers import ItemSerializer
 from twenty_four_seven.models import WorkspaceTwentyFourSeven
 from twenty_four_seven.models import ProjectTwentyFourSeven
@@ -32,7 +33,12 @@ class ItemViewSet(viewsets.ModelViewSet):
             status = self.request.GET.get('status')
             return Item.objects.filter(project__pk=self.kwargs['project_pk'], status=status)
         return Item.objects.all()
-    serializer_class = ItemSerializer
+    
+    def get_serializer_class(self):
+        if self.request.method == 'PATCH':
+            return ItemPatchSerializer
+        return ItemSerializer
+
     pagination_class = StandardResultsSetPagination
 
 
