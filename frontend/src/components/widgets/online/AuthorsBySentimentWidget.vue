@@ -1,8 +1,8 @@
 <template>
   <div class="container">
     <VolumeWidget
-      v-bind="$attrs"
       v-if="chartValues.length"
+      v-bind="$attrs"
       :widget-details="widgetDetails"
       :labels="labels"
       :chart-values="chartValues"
@@ -55,7 +55,7 @@ export default {
     },
     labels() {
       if (!this.currentWidgetData) return []
-      return this.currentWidgetData.map((el) => el[0] + '')
+      return this.currentWidgetData.map((el) => el[0].toString())
     },
 
     chartValues() {

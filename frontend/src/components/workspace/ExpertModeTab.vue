@@ -153,11 +153,20 @@ export default {
       })
       return highlightedStr
         .replace(/\n/g, '<br>')
-        .replace(/\(/g, '<span class="defaultColor">(</span>')
-        .replace(/\)/g, '<span class="defaultColor">)</span>')
-        .replace(/\bOR\b/g, '<span class="defaultColor or">OR</span>')
-        .replace(/\bAND\b/g, '<span class="defaultColor and">AND</span>')
-        .replace(/\bNOT\b/g, '<span class="defaultColor not">NOT</span>')
+        .replace(/\(/g, '<span class="expert_mode_defaultColor">(</span>')
+        .replace(/\)/g, '<span class="expert_mode_defaultColor">)</span>')
+        .replace(
+          /\bOR\b/g,
+          '<span class="defaultColor expert_mode_or">OR</span>'
+        )
+        .replace(
+          /\bAND\b/g,
+          '<span class="defaultColor expert_mode_and">AND</span>'
+        )
+        .replace(
+          /\bNOT\b/g,
+          '<span class="defaultColor expert_mode_not">NOT</span>'
+        )
     },
 
     handleInput({target: {value}}) {
@@ -336,19 +345,19 @@ export default {
 </style>
 
 <style lang="scss">
-.defaultColor {
+.expert_mode_defaultColor {
   color: #8e00d1;
 }
 
-.or {
+.expert_mode_or {
   color: var(--neutral-primary-color);
 }
 
-.and {
+.expert_mode_and {
   color: var(--positive-primary-color);
 }
 
-.not {
+.expert_mode_not {
   color: var(--negative-primary-color);
 }
 </style>
