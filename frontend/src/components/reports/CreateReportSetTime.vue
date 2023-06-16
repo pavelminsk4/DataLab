@@ -26,6 +26,8 @@
         <Datepicker
           v-model="timePickerDay"
           :is-24="false"
+          :clearable="null"
+          :hide-input-icon="true"
           time-picker
           auto-apply
           placeholder="Time"
@@ -57,6 +59,8 @@
         <Datepicker
           v-model="timePickerWeek"
           :is-24="false"
+          :clearable="null"
+          :hide-input-icon="true"
           time-picker
           auto-apply
           placeholder="Time"
@@ -88,9 +92,11 @@
         <Datepicker
           v-model="timePickerMonth"
           :is-24="false"
+          :clearable="null"
           time-picker
           auto-apply
           placeholder="Time"
+          :hide-input-icon="true"
           menu-class-name="time-picker-menu"
           class="time-picker"
         >
@@ -128,6 +134,7 @@
         :close-on-auto-apply="true"
         :format="formatDate"
         :is-24="false"
+        :clearable="null"
         placeholder="Select date"
         auto-apply
       >
@@ -200,7 +207,7 @@ export default {
         m_minute: '0',
       },
       stopSendingReports: ending.NEVER,
-      stopSendingReportDate: '',
+      stopSendingReportDate: this.tomorrow(),
     }
   },
   computed: {
@@ -297,9 +304,9 @@ export default {
     nextStep() {
       let data = {}
 
-      const endingDate = this.stopSendingReportDate
-        ? this.stopSendingReportDate
-        : null
+      const endingDate = this.isDisableStopSendingDate
+        ? null
+        : this.stopSendingReportDate
 
       if (this.hour.hourly_enabled) {
         data = {...data, ...this.hour, h_ending_date: endingDate}
@@ -322,6 +329,11 @@ export default {
         ...data,
       })
       this.$router.push({name: nextStepName})
+    },
+    tomorrow() {
+      const today = new Date()
+      today.setDate(today.getDate() + 1)
+      return today.toISOString()
     },
   },
 }

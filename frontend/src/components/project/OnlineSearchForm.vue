@@ -204,7 +204,7 @@ export default {
           this[action.UPDATE_ADDITIONAL_FILTERS]({[name]: val})
         }
       } catch (e) {
-        console.log(e)
+        console.error(e)
       }
     },
 
@@ -232,7 +232,7 @@ export default {
             return this[action.GET_SOURCES](searchValue)
         }
       } catch (e) {
-        console.log(e)
+        console.error(e)
       }
     },
   },

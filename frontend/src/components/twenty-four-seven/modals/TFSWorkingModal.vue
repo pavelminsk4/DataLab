@@ -117,7 +117,7 @@ export default {
       try {
         await this[action.GET_TFS_RELATED_CONTENT](this.post.id)
       } catch (error) {
-        console.log(error)
+        console.error(error)
       } finally {
         this.relatedContentLoading = false
       }
@@ -133,7 +133,7 @@ export default {
           page: 1,
         })
       } catch (error) {
-        console.log(error)
+        console.error(error)
       } finally {
         this.saveLoading = false
       }
@@ -147,7 +147,7 @@ export default {
           message: messageContent,
         })
       } catch (error) {
-        console.log(error)
+        console.error(error)
       } finally {
         this.whatsappLoading = false
       }
@@ -162,7 +162,7 @@ export default {
           text,
         })
       } catch (error) {
-        console.log(error)
+        console.error(error)
       } finally {
         this.translationLoading = false
       }
@@ -173,7 +173,7 @@ export default {
       try {
         await this[action.CREATE_TFS_AI_SUMMARY](this.post.id)
       } catch (error) {
-        console.log(error)
+        console.error(error)
       } finally {
         this.aiSummaryLoading = false
       }

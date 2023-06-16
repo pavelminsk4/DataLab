@@ -1,4 +1,5 @@
 import {mutator} from '@store/constants'
+import {newReportInitialState} from '@store/constants/initialState'
 
 export default {
   [mutator.SET_LOADING](state, loading) {
@@ -299,6 +300,8 @@ export default {
   [mutator.SET_NEW_REPORT](state, data) {
     if (data) {
       state.newReport = {...state.newReport, ...data}
+    } else {
+      state.newReport = {...newReportInitialState}
     }
   },
 

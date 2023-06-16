@@ -92,7 +92,7 @@ export default {
         this.$emit('update-general-data', value, 'newAggregationPeriod')
         this.$emit('change-aggregation-period', value)
       } catch (e) {
-        console.log(e)
+        console.error(e)
       }
     },
     capitalizeFirstLater(string) {

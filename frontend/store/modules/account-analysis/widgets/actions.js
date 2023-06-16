@@ -12,7 +12,7 @@ export default {
       )
       commit(mutator.SET_PROFILE_TIMELINE, profileTimeline)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false, {root: true})
     }
@@ -28,7 +28,7 @@ export default {
       )
       commit(mutator.SET_SUMMARY, summary)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false, {root: true})
     }
@@ -43,7 +43,7 @@ export default {
       )
       commit(mutator.SET_MOST_FREQUENT_POST_TYPES, postTypes)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false, {root: true})
     }
@@ -59,7 +59,7 @@ export default {
         await api.accountAnalysis.getMostFrequentMediaTypes(projectId, widgetId)
       commit(mutator.SET_MOST_FREQUENT_MEDIA_TYPES, mostFrequentMediaTypes)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false, {root: true})
     }
@@ -78,7 +78,7 @@ export default {
       )
       commit(mutator.SET_MOST_ENGAGING_POST_TYPES, postTypes)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false, {root: true})
     }
@@ -97,7 +97,7 @@ export default {
       )
       commit(mutator.SET_MOST_ENGAGING_MEDIA_TYPES, mediaTypes)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false, {root: true})
     }
@@ -113,7 +113,7 @@ export default {
       )
       commit(mutator.SET_FOLLOWER_GROWTH, followerGrowth)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false, {root: true})
     }
@@ -132,7 +132,7 @@ export default {
       )
       commit(mutator.SET_OPTIMAL_POST_LENGTH, optimalPostLength)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false, {root: true})
     }
@@ -148,7 +148,7 @@ export default {
       )
       commit(mutator.SET_TOP_HASHTAGS, topHashtags)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false, {root: true})
     }
@@ -172,7 +172,7 @@ export default {
         )
       commit(mutator.SET_OPTIMAL_NUMBER_OF_HASHTAGS, optimalNumberOfHashtags)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false, {root: true})
     }
@@ -192,7 +192,7 @@ export default {
         )
       commit(mutator.SET_AVERAGE_ENGAGEMENTS_BY_DAY, averageEngagements)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false, {root: true})
     }
@@ -208,7 +208,7 @@ export default {
       )
       commit(mutator.SET_OPTIMAL_POST_TIME, optimalPostTime)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false, {root: true})
     }
@@ -228,7 +228,7 @@ export default {
         )
       commit(mutator.SET_TOP_POSTS_BY_ENGAGEMENTS, topPostsByEngagements)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false, {root: true})
     }
@@ -247,7 +247,7 @@ export default {
       )
       commit(mutator.SET_BEST_TIMES_TO_POST, bestTimesToPost)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false, {root: true})
     }
@@ -263,7 +263,7 @@ export default {
       )
       commit(mutator.SET_MENTION_TIMELINE, mentionTimeline)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false, {root: true})
     }
@@ -285,7 +285,7 @@ export default {
         mostFrequentMentionMediaTypes
       )
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false, {root: true})
     }
@@ -298,7 +298,7 @@ export default {
         await api.accountAnalysis.getAudienceMentionTime(projectId, widgetId)
       commit(mutator.SET_AUDIENCE_MENTION_TIME, audienceMentionTime)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false, {root: true})
     }
@@ -317,7 +317,7 @@ export default {
         )
       commit(mutator.SET_TOP_MENTIONS_BY_ENGAGEMENTS, topMentionsByEngagements)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false, {root: true})
     }
@@ -339,7 +339,7 @@ export default {
         averageEngagementsForMentions
       )
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false, {root: true})
     }
@@ -354,7 +354,7 @@ export default {
       )
       commit(mutator.SET_MENTION_SUMMARY, mentionSummary)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false, {root: true})
     }
@@ -369,7 +369,7 @@ export default {
       )
       commit(mutator.SET_MENTION_SENTIMENT, mentionSentiment)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false, {root: true})
     }

@@ -50,8 +50,12 @@ export default {
 
   white-space: nowrap;
 
-  color: var(--negative-status);
+  color: var(--error-primary-color);
 
   font-size: 12px;
+}
+
+.error-icon {
+  color: var(--error-primary-color);
 }
 </style>
