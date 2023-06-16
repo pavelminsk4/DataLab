@@ -7,10 +7,10 @@ import json
 
 class AuthorsBySentimentTests(APITestCase):
   def test_response_list(self):
-    TweetBinderPostFactory(user_alias='@user1', sentiment='neutral')
-    TweetBinderPostFactory(user_alias='@user2', sentiment='positive')
-    TweetBinderPostFactory(user_alias='@user3', sentiment='positive')
-    TweetBinderPostFactory(user_alias='@user4', sentiment='positive')
+    TweetBinderPostFactory(sentiment='neutral')
+    TweetBinderPostFactory(user_name='Second_name', sentiment='positive')
+    TweetBinderPostFactory(user_name='Second_name', sentiment='positive')
+    TweetBinderPostFactory(user_name='New_Name', sentiment='positive')
 
     pr = ProjectSocialFactory()
     widget_pk = pr.social_widgets_list.authors_by_sentiment_id
@@ -20,6 +20,6 @@ class AuthorsBySentimentTests(APITestCase):
     res = {
             'negative': [],
             'neutral': [['First_name', 1]],
-            'positive': [['Second_name', 3]]
+            'positive': [['Second_name', 2], ['New_Name', 1]]
           }
     self.assertEqual(json.loads(response.content), res)
