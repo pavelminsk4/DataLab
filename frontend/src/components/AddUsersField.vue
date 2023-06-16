@@ -1,5 +1,5 @@
 <template>
-  <div class="email-wrapper">
+  <div :class="['email-wrapper', hasError && 'error-margin']">
     <DivWithError
       :hasError="hasError"
       :errorMessage="errorMessage"
@@ -218,5 +218,9 @@ export default {
 .email-field-error-wrapper {
   width: 100%;
   border-radius: 10px;
+}
+
+.error-margin {
+  margin-bottom: 30px;
 }
 </style>

@@ -1,6 +1,12 @@
 <template>
   <div class="form-wrapper">
-    <BaseInput v-model="reportName" label="Name" class="input-name" />
+    <BaseInput
+      v-model="reportName"
+      label="Name"
+      :hasError="!!errors.reportName"
+      :errorMessage="errors.reportName"
+      class="input-name"
+    />
 
     <BaseTextarea
       v-model="reportDescription"
@@ -9,8 +15,8 @@
     />
 
     <AddUsersField
-      :hasError="!!errors.usersEmailError"
-      :errorMessage="errors.usersEmailError"
+      :hasError="!!errors.usersEmail"
+      :errorMessage="errors.usersEmail"
       :selectedUsers="selectedUsers"
       :usersEmails="usersEmails"
       class="report-add-users"
@@ -33,6 +39,7 @@
 import {mapActions, mapGetters, mapState} from 'vuex'
 import {action, get} from '@store/constants'
 import createReportMixin from '@/lib/mixins/create-report.js'
+import {isAllFieldsEmpty} from '@lib/utilities'
 
 import BaseInput from '@/components/common/BaseInput'
 import BaseTextarea from '@/components/common/BaseTextarea'
@@ -48,11 +55,11 @@ export default {
   },
   data() {
     return {
-      reportName: '',
+      newReportName: '',
       reportDescription: '',
       selectedUsers: [],
       errors: {
-        usersEmailError: null,
+        usersEmail: null,
         reportName: null,
       },
     }
@@ -64,6 +71,15 @@ export default {
     }),
     usersEmails() {
       return this.companyUsers?.filter((el) => el.email) || []
+    },
+    reportName: {
+      get() {
+        return this.newReportName
+      },
+      set(val) {
+        this.newReportName = val
+        this.errors.reportName = null
+      },
     },
   },
   created() {
@@ -80,6 +96,8 @@ export default {
       this.selectedUsers.splice(index, 1)
     },
     nextStep() {
+      if (!this.validationData()) return
+
       const nextStep = 2
       const nextStepName = this.getNextStepName(nextStep)
 
@@ -92,6 +110,16 @@ export default {
         creator: this.userInfo.id,
       })
       this.$router.push({name: nextStepName})
+    },
+    validationData() {
+      const defaultErrorMessage = 'required'
+
+      this.errors.reportName = this.reportName ? null : defaultErrorMessage
+      this.errors.usersEmail = this.selectedUsers.length
+        ? null
+        : defaultErrorMessage
+
+      return isAllFieldsEmpty(this.errors)
     },
   },
 }
