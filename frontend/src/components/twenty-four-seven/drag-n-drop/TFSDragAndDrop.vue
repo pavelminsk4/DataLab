@@ -182,8 +182,11 @@ export default {
   justify-content: space-between;
 
   .drop-zone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
     min-width: 320px;
-    padding: 0 20px 0 0;
 
     transition: all 0.3s;
 
@@ -203,16 +206,21 @@ export default {
   }
 
   .active-status {
+    align-items: flex-start;
+
     margin: 0;
     min-width: 100%;
 
     transition: all 0.3s;
+
+    .column-header {
+      width: 100%;
+    }
   }
 
   .drag-elements {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
 
     gap: 12px;
 

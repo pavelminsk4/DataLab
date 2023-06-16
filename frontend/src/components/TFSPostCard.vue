@@ -11,14 +11,22 @@
   >
     <template #header>
       <div class="post-card-header">
-        <TFSCardStatuses
-          v-if="isStatusShow"
-          :status="cardStatus"
-          :post-id="postDetails.id"
-          :isBack="isBack"
-          :isShowDropdown="isShowStatusesDropdown"
-          @change-status-card="changeStatusCard"
-        />
+        <div class="post-controls">
+          <BaseCheckbox
+            v-if="isCheckboxShow"
+            v-model="relatedPost"
+            :id="itemId"
+          />
+
+          <TFSCardStatuses
+            v-if="isStatusShow"
+            :status="cardStatus"
+            :post-id="postDetails.id"
+            :isBack="isBack"
+            :isShowDropdown="isShowStatusesDropdown"
+            @change-status-card="changeStatusCard"
+          />
+        </div>
 
         <div v-if="isRelatedContent" class="related">Related</div>
       </div>
@@ -80,6 +88,7 @@ import {defaultDate} from '@lib/utilities'
 import OnlineIcon from '@/components/icons/OnlineIcon'
 import TFSPostCardLayout from '@/components/twenty-four-seven/TFSPostCardLayout'
 import TFSCardStatuses from '@/components/twenty-four-seven/TFSCardStatuses'
+import BaseCheckbox from '@/components/BaseCheckbox2'
 
 export default {
   name: 'TFSPostCard',
@@ -87,6 +96,7 @@ export default {
     OnlineIcon,
     TFSPostCardLayout,
     TFSCardStatuses,
+    BaseCheckbox,
   },
   props: {
     img: {type: String, required: false},
@@ -98,6 +108,13 @@ export default {
     postDetails: {type: Object, required: true},
     isStatusShow: {type: Boolean, default: true},
     isShowStatusesDropdown: {type: Boolean, default: true},
+    isCheckboxShow: {type: Boolean, default: false},
+    selectedPost: {type: Array, default: () => []},
+  },
+  data() {
+    return {
+      selectedRelatedPost: [],
+    }
   },
   computed: {
     ...mapGetters({
@@ -112,6 +129,15 @@ export default {
           value: this.postDetails.feedlink__alexaglobalrank,
         },
       ]
+    },
+    relatedPost: {
+      get() {
+        return this.selectedPost || this.selectedRelatedPost
+      },
+      set(val) {
+        this.selectedRelatedPost = val
+        this.$emit('add-related-content', val)
+      },
     },
     projectId() {
       return this.$route.params.projectId
@@ -152,6 +178,11 @@ export default {
 .post-card-header {
   display: flex;
   justify-content: space-between;
+
+  .post-controls {
+    display: flex;
+    gap: 16px;
+  }
 
   .related {
     padding: 6px 8px;

@@ -11,7 +11,7 @@
   </div>
 
   <BaseSpinner v-if="translationLoading" class="spinner" />
-  <div v-else>
+  <div v-else :class="[isArabicLanguage && 'arabic-language']">
     <div class="post-title">
       {{ title }}
     </div>
@@ -61,6 +61,9 @@ export default {
     },
     description() {
       return this.textTranslation?.text || this.post.online_post.full_text
+    },
+    isArabicLanguage() {
+      return this.selectedLanguage === LANGUAGES_NAMES.ARABIC
     },
   },
   methods: {
@@ -148,5 +151,13 @@ export default {
 
 .spinner {
   margin: 20px auto;
+}
+
+.arabic-language {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  text-align: end;
 }
 </style>

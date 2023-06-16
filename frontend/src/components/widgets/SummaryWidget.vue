@@ -24,11 +24,6 @@
 </template>
 
 <script>
-import {
-  summaryWidgetConfig,
-  socialSummaryWidgetConfig,
-} from '@/lib/configs/widgetsConfigs'
-
 import NewPostIcon from '@/components/icons/NewPostIcon'
 import NeutralIcon from '@/components/icons/NeutralIcon'
 import NegativeIcon from '@/components/icons/NegativeIcon'
@@ -62,19 +57,12 @@ export default {
     widgetDetails: {type: Object, required: true},
     isSettings: {type: Boolean, default: false},
     summaryWidgetData: {type: Object, required: true},
+    widgetMetrics: {type: Object, required: true},
   },
   computed: {
     widgetWrapper() {
       return this.isSettings ? 'div' : 'WidgetsLayout'
     },
-  },
-  created() {
-    if (this.widgetDetails.moduleName === 'Online') {
-      this.widgetMetrics = summaryWidgetConfig
-    }
-    if (this.widgetDetails.moduleName === 'Social') {
-      this.widgetMetrics = socialSummaryWidgetConfig
-    }
   },
 }
 </script>

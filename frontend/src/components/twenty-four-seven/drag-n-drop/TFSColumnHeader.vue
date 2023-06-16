@@ -57,6 +57,7 @@ export default {
   align-items: center;
   gap: 4px;
 
+  width: 92%;
   padding: 12px 20px;
   margin-bottom: 24px;
 

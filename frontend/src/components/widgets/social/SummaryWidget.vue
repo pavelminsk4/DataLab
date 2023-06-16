@@ -2,6 +2,7 @@
   <SummaryWidget
     v-bind="$attrs"
     :widget-details="widgetDetails"
+    :widget-metrics="widgetMetrics"
     :summary-widget-data="summary"
   />
 </template>
@@ -11,6 +12,7 @@ import {mapGetters, createNamespacedHelpers} from 'vuex'
 import {get} from '@store/constants'
 import {action} from '@store/constants'
 import {isAllFieldsEmpty} from '@lib/utilities'
+import {socialSummaryWidgetConfig} from '@/lib/configs/widgetsConfigs'
 
 import SummaryWidget from '@/components/widgets/SummaryWidget'
 
@@ -35,6 +37,8 @@ export default {
     },
   },
   async created() {
+    this.widgetMetrics = socialSummaryWidgetConfig
+
     if (isAllFieldsEmpty(this.summary)) {
       this[action.GET_SUMMARY_WIDGET]({
         projectId: this.widgetDetails.projectId,
