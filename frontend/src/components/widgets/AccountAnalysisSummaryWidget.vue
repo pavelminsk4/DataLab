@@ -69,6 +69,7 @@ import HeartIcon from '@/components/icons/HeartIcon'
 import RetweetIcon from '@/components/icons/RetweetIcon'
 
 export default {
+  name: 'AccountAnalysisSummaryWidget',
   props: {
     widgetData: {type: Object, required: true},
     stats: {type: Array, required: true},

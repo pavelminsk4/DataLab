@@ -6,7 +6,7 @@
       :class="['tab', isActiveTab(tab) && 'active']"
       @click="switchTab(tab)"
     >
-      {{ tab }}
+      <span :class="[isSentiment && tab]">{{ tab }}</span>
     </div>
   </div>
 </template>
@@ -17,6 +17,7 @@ export default {
   props: {
     tabs: {type: Array, required: true},
     modelValue: {type: String, required: true},
+    isSentiment: {type: Boolean, default: false},
   },
   methods: {
     isActiveTab(tabName) {
@@ -54,15 +55,38 @@ export default {
     width: 100%;
 
     text-align: center;
+    text-transform: capitalize;
 
     &:not(:last-child) {
       border-right: 1px solid var(--border-color);
     }
+    transition: 0.5s;
+  }
+  .positive:before,
+  .negative:before,
+  .neutral:before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 10px;
+    margin-right: 5px;
+  }
+
+  .positive:before {
+    background: var(--positive-primary-color);
+  }
+
+  .negative:before {
+    background: var(--negative-primary-color);
+  }
+
+  .neutral:before {
+    background: var(--neutral-primary-color);
   }
 
   .active {
     color: var(--primary-color);
-    text-decoration: underline;
+    text-decoration: underline 2px;
   }
 }
 </style>

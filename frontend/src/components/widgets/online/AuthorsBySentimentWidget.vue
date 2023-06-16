@@ -1,33 +1,74 @@
 <template>
-  <SentimentDiagram
-    v-if="authorsBySentiment"
-    :widget-details="widgetDetails"
-    :sentiment-diagram="authorsBySentimentValues"
-  />
+  <div class="container">
+    <VolumeWidget
+      v-bind="$attrs"
+      v-if="chartValues.length"
+      :widget-details="widgetDetails"
+      :labels="labels"
+      :chart-values="chartValues"
+    />
+    <WidgetsSwitcher
+      v-if="tabs.length"
+      v-model="activeTab"
+      :tabs="tabs"
+      :isSentiment="true"
+    />
+  </div>
 </template>
 
 <script>
 import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
+import {isAllFieldsEmpty} from '@lib/utilities'
 
-import SentimentDiagram from '@/components/widgets/SentimentDiagram'
+import VolumeWidget from '@/components/widgets/VolumeWidget'
+import WidgetsSwitcher from '@/components/layout/WidgetsSwitcher'
 
 export default {
   name: 'AuthorsBySentimentWidget',
-  components: {SentimentDiagram},
+  components: {VolumeWidget, WidgetsSwitcher},
   props: {
     widgetDetails: {type: Object, required: true},
+  },
+  data() {
+    return {
+      newActiveTab: '',
+    }
   },
   computed: {
     ...mapGetters({
       authorsBySentiment: get.AUTHORS_BY_SENTIMENT,
     }),
-    authorsBySentimentValues() {
-      return this.authorsBySentiment.map((el) => el.author_count)
+    activeTab: {
+      get() {
+        return this.newActiveTab || this.tabs[0]
+      },
+      set(newTab) {
+        this.newActiveTab = newTab
+      },
+    },
+    tabs() {
+      return Object.keys(this.authorsBySentiment)
+    },
+    currentWidgetData() {
+      return this.authorsBySentiment[this.activeTab]
+    },
+    labels() {
+      if (!this.currentWidgetData) return []
+      return this.currentWidgetData.map((el) => el[0] + '')
+    },
+
+    chartValues() {
+      if (!this.currentWidgetData) return []
+      return [
+        {
+          data: this.currentWidgetData.map((el) => el[1]),
+        },
+      ]
     },
   },
   created() {
-    if (!this.authorsBySentiment.length) {
+    if (isAllFieldsEmpty(this.authorsBySentiment)) {
       this[action.GET_AUTHORS_BY_SENTIMENT]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,
@@ -39,3 +80,12 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.container {
+  flex-direction: column;
+
+  max-height: 450px;
+  height: 100%;
+}
+</style>
