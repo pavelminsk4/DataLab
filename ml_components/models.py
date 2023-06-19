@@ -20,6 +20,7 @@ class RelatedThreshold(models.Model):
   is_active = models.BooleanField(default=False)
   description = models.CharField(max_length=100)
   threshold = models.FloatField(blank=True, null=True)
+  tf_idf_method = models.BooleanField(default=False)
   updated_at = models.DateTimeField(auto_now=True)
   created_at = models.DateTimeField(auto_now_add=True)
   

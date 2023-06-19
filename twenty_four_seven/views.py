@@ -17,9 +17,12 @@ from sentence_transformers import util
 from django.http import JsonResponse
 from rest_framework import viewsets
 import numpy as np
+import pandas as pd
 import json
 from django.db.models import Case, When
 
+from sklearn.metrics.pairwise import linear_kernel
+from sklearn.feature_extraction.text import TfidfVectorizer
 
 class StandardResultsSetPagination(PageNumberPagination):
     page_size = 100
@@ -81,14 +84,47 @@ def whatsapp(request):
 class RelatedContentViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         item_id = self.request.GET['item']
-        threshold = RelatedThreshold.objects.filter(is_active=True)
-        try:
-            threshold = list(threshold.values_list('threshold',flat=True))[0]
-        except:
-            return top_similar(item_id)
-        return top_similar(item_id,threshold)
+        defaults = {'is_active':True,
+                    'description':'threshold',
+                    'threshold':0.3,
+                    'tf_idf_method':True}
+        threshold_item, _ = RelatedThreshold.objects.get_or_create(is_active=True,defaults=defaults)
+        threshold = threshold_item.threshold
+        method = threshold_item.tf_idf_method
+        return tfidf_top_similar(item_id,threshold) if method else top_similar(item_id,threshold) 
 
     serializer_class = ItemSerializer
+
+
+def tfidf_top_similar(item_id, threshold):
+    try:
+        item = Item.objects.get(id=item_id)
+        project = ProjectTwentyFourSeven.objects.get(id=item.project.id)
+        items = project.tfs_project_items.all()
+        vectors = items.values('online_post__id', 'online_post__entry_title')
+        id_list = np.array([i['online_post__id'] for i in vectors])
+        titles = np.array([i['online_post__entry_title'] for i in vectors])
+        item_title = item.online_post.entry_title
+        titles_series = pd.Series(titles)
+        tfidf = TfidfVectorizer()
+        tfidf_matrix = tfidf.fit_transform(titles)
+        cosine_sim = linear_kernel(tfidf_matrix, tfidf_matrix)
+        indices = pd.Series(titles_series.index, index=titles_series)
+        idx = indices[item_title]
+        sim_scores = list(enumerate(cosine_sim[idx]))
+        sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
+        result_indices = []
+        for i in sim_scores[1:]:
+            if i[1] > threshold:
+                result_indices.append(i[0])
+            else:
+                break
+        result_id = id_list[result_indices]
+        preserved = Case(*[When(online_post__pk=pk, then=pos) for pos, pk in enumerate(result_id)])
+        items = items.filter(online_post__pk__in=result_id).order_by(preserved)
+        return items
+    except:
+        return Item.objects.none()
 
 
 def top_similar(item_id,threshold=0.5):
