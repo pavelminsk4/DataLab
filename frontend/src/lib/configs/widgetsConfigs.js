@@ -245,7 +245,7 @@ export const widgetsConfig = {
     ...WIDGET_DEFAULT_SETTINGS,
     hasAggregationPeriod: false,
     actionName: action.GET_SOURCES_BY_LANGUAGE,
-    defaultChartType: 'DoughnutChart',
+    defaultChartType: 'BarChart',
     availableTypes: SIMPLE_CHARTS,
   },
 
@@ -262,6 +262,16 @@ export const widgetsConfig = {
     hasPreview: false,
     hasAggregationPeriod: false,
     actionName: action.GET_OVERALL_TOP_SOURCES,
+    defaultChartType: 'SentimentBarChart',
+    availableTypes: null,
+    settingsTabs: ['General', 'Filters'],
+  },
+
+  languages_by_country: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    hasPreview: false,
+    hasAggregationPeriod: false,
+    actionName: action.GET_LANGUAGES_BY_COUNTRY,
     defaultChartType: 'SentimentBarChart',
     availableTypes: null,
     settingsTabs: ['General', 'Filters'],

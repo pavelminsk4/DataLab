@@ -81,6 +81,10 @@ export default {
     state.topBrands = brands
   },
 
+  [mutator.SET_LANGUAGES_BY_COUNTRY](state, languages) {
+    state.languagesByCountry = languages
+  },
+
   [mutator.SET_TOP_LANGUAGES_WIDGET](state, languages) {
     state.topLanguages = languages
   },

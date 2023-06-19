@@ -53,16 +53,18 @@ export const onlineWidgetsList = {
   demography: [
     {name: 'sources_by_country', isFullWidth: false},
     {name: 'authors_by_country', isFullWidth: false},
+    {name: 'languages_by_country', isFullWidth: true},
     {name: 'top_keywords', isFullWidth: false},
     {name: 'top_keywords_by_country', isFullWidth: false},
   ],
   influencers: [
     {name: 'top_sharing_sources', isFullWidth: false},
     {name: 'authors_by_language', isFullWidth: false},
-    {name: 'overall_top_authors', isFullWidth: true},
     {name: 'overall_top_sources', isFullWidth: true},
-    {name: 'sources_by_language', isFullWidth: false},
+    {name: 'overall_top_authors', isFullWidth: true},
+    {name: 'authors_by_country', isFullWidth: false},
     {name: 'authors_by_sentiment', isFullWidth: false},
+    {name: 'sources_by_language', isFullWidth: true},
   ],
 }
 

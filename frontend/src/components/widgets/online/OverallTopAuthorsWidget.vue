@@ -26,9 +26,9 @@ export default {
   created() {
     this.tableHeader = [
       {name: '', width: '5%'},
-      {name: 'Author', width: '15%'},
+      {name: 'Author', width: '30%'},
       {name: 'Posts', width: '10%'},
-      {name: 'Sentiment', width: '25%'},
+      {name: 'Sentiment', width: '35%'},
       {name: 'Reach', width: '10%'},
       {name: 'Engagement', width: '10%'},
     ]

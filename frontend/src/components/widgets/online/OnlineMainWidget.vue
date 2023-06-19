@@ -36,6 +36,7 @@ import OverallTopSources from '@/components/widgets/online/OverallTopSourcesWidg
 import OverallTopAuthors from '@/components/widgets/online/OverallTopAuthorsWidget'
 import AuthorsByLanguage from '@/components/widgets/online/AuthorsByLanguageWidget'
 import AuthorsBySentiment from '@/components/widgets/online/AuthorsBySentimentWidget'
+import LanguagesByCountry from '@/components/widgets/online/LanguagesByCountryWidget'
 
 export default {
   name: 'OnlineMainWidget',
@@ -69,6 +70,7 @@ export default {
     AuthorsByLanguage,
     AuthorsBySentiment,
     TopKeywordsByCountry,
+    LanguagesByCountry,
   },
   props: {
     widgetDetails: {type: Object, required: true},

@@ -327,6 +327,25 @@ export default {
     }
   },
 
+  async [action.GET_LANGUAGES_BY_COUNTRY](
+    {commit},
+    {projectId, value, widgetId}
+  ) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const languagesByCountry = await api.getLanguagesByCountry({
+        projectId,
+        value,
+        widgetId,
+      })
+      commit(mutator.SET_LANGUAGES_BY_COUNTRY, languagesByCountry)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
   async [action.GET_CONTENT_VOLUME_TOP_SOURCES](
     {commit},
     {projectId, value, widgetId}
