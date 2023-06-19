@@ -11,6 +11,8 @@ from .services.get_publications import *
 from .services.delete_report import *
 from .services.basic_search import *
 from .services.live_search import *
+from project.models import Speech
+from langcodes import Language
 from celery import shared_task
 from .services.login import *
 from django.db import models
@@ -172,6 +174,10 @@ def calculate_sentiment(text):
    sentiment_task = pipeline("sentiment-analysis", model=model_path, tokenizer=model_path, max_length=512, truncation=True)
    return sentiment_task(text)[0]['label']
 
+def add_language(language_code):
+  title = Language.get(language_code).display_name()
+  return Speech.objects.get_or_create(language=title)[0]
+
 def add_post_to_database(data_tweets):
   tweets = []
   for tweet in data_tweets:
@@ -203,7 +209,7 @@ def add_post_to_database(data_tweets):
                 'images': tweet['images'], 
                 'inreplyto': tweet['inReplyTo'],  
                 'inreplytoid': tweet['inReplyToId'],  
-                'language': tweet['lang'],  
+                'language': add_language(tweet['lang']),  
                 'links': tweet['links'],  
                 'mentions': tweet['mentions'],  
                 'locationString': tweet['rawLocation']['locationString'],  
