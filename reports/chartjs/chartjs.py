@@ -40,7 +40,7 @@ def prepare_widget_images_for_regular(item):
     if item.onl_volume:
         widget_pk = project.widgets_list_2.volume_id
         volume_widget_image.create_vol_widget_image(project.id, widget_pk)
-    if item.onl_top_authors_volume:
+    if item.onl_top_authors:
         widget_pk = project.widgets_list_2.top_authors_id
         top_10_authors_widget_image.create_top_10_authors_wid_image(project.id, widget_pk)
     if item.onl_top_brands:

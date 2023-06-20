@@ -40,5 +40,5 @@ def regular_report_sender(report_id, crontab_type):
     template_path = reg_report.report_template.layout_file
     files = []
     for item in reg_report.items.all():
-        files.append(FactoryPDF(item, template_path, reg_report.report_format).define().generate())
+        files.append(FactoryPDF(item, reg_report.report_format, template_path).define().generate())
     send_email_with(files, reg_report, crontab_type)
