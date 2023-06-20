@@ -16,6 +16,7 @@ from .widgets.demography.authors_by_location import authors_by_location
 from .widgets.dashboard.sentiment_languages import sentiment_languages
 from .widgets.dashboard.sentiment_locations import sentiment_locations
 from .widgets.sentiment.sentiment_by_gender import sentiment_by_gender
+from .widgets.demography.gender_by_location import gender_by_location
 from .widgets.demography.authors_by_gender import authors_by_gender
 from .widgets.dashboard.sentiment_authors import sentiment_authors
 from .widgets.dimensions_for_widgets import dimensions_for_each
@@ -280,6 +281,9 @@ def social_keywords_by_location(request, pk, widget_pk):
 
 def social_languages_by_location(request, pk, widget_pk):
   return languages_by_location(pk, widget_pk)
+
+def social_gender_by_location(request, pk, widget_pk):
+  return gender_by_location(pk, widget_pk)
 
 def interactive_data_for_widgets(request, project_pk, widget_pk):
   return interactive_widgets(request, project_pk, widget_pk)
