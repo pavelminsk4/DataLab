@@ -1,8 +1,17 @@
-from rest_framework import serializers
-from .models import *
-from api.serializers import UserSerializer
 from drf_writable_nested.serializers import WritableNestedModelSerializer
-from project.models import *
+from twenty_four_seven.models import WorkspaceTwentyFourSeven
+from twenty_four_seven.models import ProjectTwentyFourSeven
+from twenty_four_seven.models import WARecipient
+from twenty_four_seven.models import Item
+from api.serializers import UserSerializer
+from rest_framework import serializers
+from project.models import Post
+
+
+class WARecipientSerializer(WritableNestedModelSerializer):
+    class Meta:
+        model = WARecipient
+        exclude = ['id', 'updated_at', 'created_at']
 
 
 class PostSerializer(WritableNestedModelSerializer):
@@ -69,6 +78,7 @@ class WorkspaceTwentyFourSevenPostSerializer(WritableNestedModelSerializer):
 
 class ProjectTwentyFourSevenSerializer(WritableNestedModelSerializer):
     members = UserSerializer(many=True, required=False)
+    wa_recipient = WARecipientSerializer(many=True, required=False)
     
     class Meta:
         model = ProjectTwentyFourSeven
