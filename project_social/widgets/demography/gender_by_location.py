@@ -16,5 +16,4 @@ def gender_by_location(pk, widget_pk):
         results[location] = {'male': posts.filter(locationString=location, user_gender='male').count(),
                              'female': posts.filter(locationString=location, user_gender='female').count(),
                              'undefined': posts.filter(locationString=location, user_gender='undefined').count()}
-    print(results)
     return JsonResponse(results, safe = False)
