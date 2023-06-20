@@ -33,19 +33,11 @@
     </div>
   </div>
 
-  <div class="buttons">
-    <BaseInput
-      v-model="phoneNumber"
-      :hasError="isMessageSent"
-      :error-message="statusMessage"
-      label=" "
-      type="tel"
-      placeholder="+** *** *** ***"
-      class="phone-input"
-    />
+  <div v-if="isWhatsappFieldsShow" class="buttons">
     <BaseButton
+      :is-disabled="true"
       :button-loading="buttonWhatsappLoading"
-      @click="$emit('send-to-whatsapp', phoneNumber, messageContent)"
+      @click="$emit('send-to-whatsapp', messageContent)"
     >
       Send to Whatsapp
     </BaseButton>
@@ -58,9 +50,10 @@ import BaseButton from '@/components/common/BaseButton'
 import PostStoryReportIcon from '@/components/icons/PostStoryReportIcon'
 import PencilIcon from '@/components/icons/PencilIcon'
 import RelatedIcon from '@/components/icons/RelatedIcon'
-import BaseInput from '@/components/common/BaseInput'
 
 const {mapState} = createNamespacedHelpers('twentyFourSeven')
+
+const PUBLISHING = 'Publishing'
 
 export default {
   name: 'TFSStoryReportTab',
@@ -69,32 +62,29 @@ export default {
     PostStoryReportIcon,
     PencilIcon,
     RelatedIcon,
-    BaseInput,
   },
   emits: ['send-to-whatsapp', 'change-original-content-language'],
   props: {
     post: {type: Object, required: true},
     buttonWhatsappLoading: {type: Boolean, required: true},
-  },
-  data() {
-    return {
-      phoneNumber: '',
-    }
+    translationLoading: {type: Boolean, required: true},
   },
   computed: {
-    ...mapState(['relatedContent', 'statusMessage']),
+    ...mapState(['statusMessage', 'items']),
     relatedLinks() {
-      return this.relatedContent.map(
-        (element) => element.online_post.entry_links_href
-      )
+      const lickedItems = this.items[this.post.status].results.find(
+        (el) => el.id === this.post.id
+      ).linked_items
+
+      return lickedItems.map((element) => element.online_post.entry_links_href)
     },
     messageContent() {
       return `${this.post.online_post.feed_image_link} ${this.post.header} ${
         this.post.text
       } ${this.relatedLinks.join(' ')}`
     },
-    isMessageSent() {
-      return this.statusMessage === 'Message not sent'
+    isWhatsappFieldsShow() {
+      return this.post.status === PUBLISHING
     },
   },
 }
@@ -146,9 +136,5 @@ export default {
   padding: 18px 24px 0 0;
 
   border-top: 1px solid var(--border-color);
-
-  .phone-input {
-    margin-top: -4px;
-  }
 }
 </style>

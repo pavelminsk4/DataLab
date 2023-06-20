@@ -6,6 +6,7 @@
         :related-content="relatedContent"
         :relatedContentLoading="relatedContentLoading"
         @open-modal="openModal"
+        @add-related-content="addRelatedContent"
       />
 
       <section class="working-content-wrapper">
@@ -176,6 +177,18 @@ export default {
         console.error(error)
       } finally {
         this.aiSummaryLoading = false
+      }
+    },
+    async addRelatedContent(items) {
+      try {
+        await this[action.UPDATE_TFS_ITEM_DATA]({
+          projectId: this.post.project,
+          postId: this.post.id,
+          value: {status: this.post.status, linked_items: items},
+          page: 1,
+        })
+      } catch (e) {
+        console.error(e)
       }
     },
     openModal(postInfo) {

@@ -28,8 +28,11 @@
         :is-related-content="true"
         :is-work-button-show="true"
         :is-show-statuses-dropdown="false"
+        :is-checkbox-show="isShowRelatedContent"
+        :selectedPost="linkedContentProxy"
         class="post-related-content"
         @open-modal="$emit('open-modal', item)"
+        @add-related-content="addRelatedContent"
       />
     </div>
   </section>
@@ -37,7 +40,9 @@
 
 <script>
 import TFSPostCard from '@/components/TFSPostCard'
-import BaseSpinner from '../BaseSpinner.vue'
+import BaseSpinner from '@/components/BaseSpinner'
+
+const PUBLISHED = 'Published'
 
 export default {
   name: 'ContentWithPosts',
@@ -49,6 +54,33 @@ export default {
     post: {type: Object, requied: true},
     relatedContent: {type: Array, requied: true},
     relatedContentLoading: {type: Boolean, requied: true},
+  },
+  data() {
+    return {
+      linkedContent: null,
+    }
+  },
+  computed: {
+    currentLinkedPosts() {
+      return this.post.linked_items.map((post) => post.id)
+    },
+    linkedContentProxy: {
+      get() {
+        return this.linkedContent || this.currentLinkedPosts
+      },
+      set(value) {
+        this.linkedContent = value
+      },
+    },
+    isShowRelatedContent() {
+      return this.post.status !== PUBLISHED
+    },
+  },
+  methods: {
+    addRelatedContent(items) {
+      this.linkedContentProxy = items
+      this.$emit('add-related-content', this.linkedContent)
+    },
   },
 }
 </script>

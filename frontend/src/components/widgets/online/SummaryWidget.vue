@@ -2,6 +2,7 @@
   <SummaryWidget
     v-bind="$attrs"
     :widget-details="widgetDetails"
+    :widget-metrics="widgetMetrics"
     :summary-widget-data="summary"
   />
 </template>
@@ -10,6 +11,7 @@
 import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 import {isAllFieldsEmpty} from '@lib/utilities'
+import {summaryWidgetConfig} from '@/lib/configs/widgetsConfigs'
 
 import SummaryWidget from '@/components/widgets/SummaryWidget'
 
@@ -26,6 +28,8 @@ export default {
     }),
   },
   created() {
+    this.widgetMetrics = summaryWidgetConfig
+
     if (isAllFieldsEmpty(this.summary)) {
       this[action.GET_SUMMARY_WIDGET]({
         projectId: this.widgetDetails.projectId,
