@@ -1,13 +1,14 @@
-from django.db import models
-from django.contrib.auth.models import User
+from api.views import filter_with_constructor, data_range_posts
+from phonenumber_field.modelfields import PhoneNumberField
 from django.contrib.postgres.fields import ArrayField
-from project.models import Post
 from tweet_binder.models import TweetBinderPost
 from django.db.models.signals import post_save
+from django.contrib.auth.models import User
 from django.dispatch import receiver
-from api.views import filter_with_constructor, data_range_posts
+from project.models import Post
 from celery import shared_task
 from bs4 import BeautifulSoup
+from django.db import models
 import requests
 
 
@@ -21,6 +22,16 @@ class WorkspaceTwentyFourSeven(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class WARecipient(models.Model):
+    name = models.CharField(max_length=100)
+    mobile_number = PhoneNumberField(null=False, blank=False, unique=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
 
 
 class ProjectTwentyFourSeven(models.Model):
@@ -51,6 +62,7 @@ class ProjectTwentyFourSeven(models.Model):
     source_dimensions = ArrayField(models.CharField(max_length=50), blank=True, null=True)
     sentiment_dimensions = ArrayField(models.CharField(max_length=10), blank=True, null=True)
     project_type = models.CharField(max_length=10, choices=PROJECT_TYPE, default='Online')
+    wa_recipient = models.ManyToManyField(WARecipient, blank=True)
 
     def __str__(self):
         return self.title

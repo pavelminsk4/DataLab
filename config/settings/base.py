@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'twenty_four_seven.apps.TwentyFourSevenConfig',
     'comparison.apps.ComparisonConfig',
     'query_counter',
+    'phonenumber_field',
 ]
 
 ASGI_APPLICATION = 'config.asgi.application'
