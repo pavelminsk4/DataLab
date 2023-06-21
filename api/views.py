@@ -174,17 +174,12 @@ class AuthorList(ListAPIView):
   queryset = Post.objects.distinct('entry_author')
   filter_backends = [filters.SearchFilter]
   search_fields = ['^entry_author']
-
-# === Sources API ========
-
-def sources(request):
-  first_letters = json.loads(request.body)
-  if first_letters!='':
-    set = Feedlinks.objects.filter(source1__istartswith=first_letters).values('source1').distinct().order_by('source1')
-  else:
-    set = []
-  sources_list = list(set)
-  return JsonResponse(sources_list, safe = False)
+  
+class SourceList(ListAPIView):
+  serializer_class = FeedlinksSerializer
+  queryset = Feedlinks.objects.values("source1").distinct()
+  filter_backends = [filters.SearchFilter]
+  search_fields = ['^source1']
 
 #=== Widgets =====
 class ProjectWidgetsAPIView(RetrieveAPIView):

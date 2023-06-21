@@ -1,7 +1,7 @@
 from widgets.models import WidgetsList2, ClippingFeedContentWidget, WidgetDescription, Dimensions, ProjectDimensions
 from drf_writable_nested.serializers import WritableNestedModelSerializer
 from reports.models import Templates, RegularReport, ReportItem
-from project.models import Project, Workspace, Speech
+from project.models import Project, Workspace, Speech, Feedlinks
 from accounts.models import Profile, department
 from django.contrib.auth.models import User
 from countries_plus.models import Country
@@ -167,6 +167,11 @@ class PostsSerializer(WritableNestedModelSerializer):
   class Meta:
     model = Post
     fields = ['entry_author']
+    
+class FeedlinksSerializer(WritableNestedModelSerializer):
+  class Meta:
+    model = Feedlinks
+    fields = ['source1']    
 
 class RegisterSerializer(serializers.ModelSerializer):
   email = serializers.EmailField(
