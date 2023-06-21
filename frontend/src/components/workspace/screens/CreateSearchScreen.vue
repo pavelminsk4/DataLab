@@ -45,6 +45,7 @@ import ProgressBar from '@/components/workspace/WorkspaceProgressBar'
 import SimpleModeTab from '@/components/workspace/SimpleModeTab'
 import BaseSwitcher from '@/components/BaseSwitcher'
 import ExpertModeTab from '@/components/workspace/ExpertModeTab'
+import {expertModeFilters} from '@/lib/constants'
 
 export default {
   name: 'CreateSearchScreen',
@@ -94,10 +95,7 @@ export default {
         date_range: this.defaultDateRange,
       })
     }
-    this.filters =
-      this.moduleName === 'Online'
-        ? ['author', 'country', 'language', 'source', 'sentiment']
-        : ['followers', 'location', 'author', 'sentiment', 'language']
+    this.filters = expertModeFilters[this.moduleName.toLowerCase()]
   },
   watch: {
     keywords() {

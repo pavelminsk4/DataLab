@@ -61,6 +61,7 @@ import SimpleModeTab from '@/components/workspace/SimpleModeTab'
 import SearchResults from '@/components/SearchResults'
 import BaseSwitcher from '@/components/BaseSwitcher'
 import ExpertModeTab from '@/components/workspace/ExpertModeTab'
+import {expertModeFilters} from '@/lib/constants'
 
 export default {
   name: 'SearchScreen',
@@ -102,10 +103,7 @@ export default {
   mounted() {
     this.isExpertMode = this.currentProject.expert_mode
     this.showResults()
-    this.filters =
-      this.moduleName === 'Online'
-        ? ['author', 'country', 'language', 'source', 'sentiment']
-        : ['followers', 'location', 'author', 'sentiment', 'language']
+    this.filters = expertModeFilters[this.moduleName.toLowerCase()]
   },
   methods: {
     showResults(pageNumber, numberOfPosts) {

@@ -37,7 +37,7 @@
           <div class="hints__section">
             <span
               v-for="item in filters"
-              class="hint expert_mode_defaultColor"
+              class="hint expert-mode_defaultColor"
               :key="item"
             >
               {{ item }}
@@ -150,24 +150,24 @@ export default {
         const regex = new RegExp('\\b' + filter + '[:]', 'g')
         highlightedStr = highlightedStr.replace(
           regex,
-          `<span class="expert_mode_defaultColor">${filter}:</span>`
+          `<span class="expert-mode_defaultColor">${filter}:</span>`
         )
       })
       return highlightedStr
         .replace(/\n/g, '<br>')
-        .replace(/\(/g, '<span class="expert_mode_defaultColor">(</span>')
-        .replace(/\)/g, '<span class="expert_mode_defaultColor">)</span>')
+        .replace(/\(/g, '<span class="expert-mode_defaultColor">(</span>')
+        .replace(/\)/g, '<span class="expert-mode_defaultColor">)</span>')
         .replace(
           /\bOR\b/g,
-          '<span class="defaultColor expert_mode_or">OR</span>'
+          '<span class="defaultColor expert-mode_or">OR</span>'
         )
         .replace(
           /\bAND\b/g,
-          '<span class="defaultColor expert_mode_and">AND</span>'
+          '<span class="defaultColor expert-mode_and">AND</span>'
         )
         .replace(
           /\bNOT\b/g,
-          '<span class="defaultColor expert_mode_not">NOT</span>'
+          '<span class="defaultColor expert-mode_not">NOT</span>'
         )
     },
 
@@ -347,19 +347,19 @@ export default {
 </style>
 
 <style lang="scss">
-.expert_mode_defaultColor {
+.expert-mode_defaultColor {
   color: #8e00d1;
 }
 
-.expert_mode_or {
+.expert-mode_or {
   color: var(--neutral-primary-color);
 }
 
-.expert_mode_and {
+.expert-mode_and {
   color: var(--positive-primary-color);
 }
 
-.expert_mode_not {
+.expert-mode_not {
   color: var(--negative-primary-color);
 }
 </style>
