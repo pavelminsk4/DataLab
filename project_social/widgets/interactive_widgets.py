@@ -21,16 +21,16 @@ def interactive_widgets(request, project_pk, widget_pk):
     posts = country_filter_posts(first_value, posts)
   elif widget.default_title == 'Top authors':
     posts = posts.filter(user_name=first_value[0])
-  elif widget.default_title == 'Social sentiment locations':
+  elif widget.default_title == 'Sentiment locations':
     posts = sentiment_filter_posts(second_value, posts)
     posts = country_filter_posts(first_value, posts)
-  elif widget.default_title == 'Social sentiment authors':
+  elif widget.default_title == 'Ssentiment authors':
     posts = sentiment_filter_posts(second_value, posts)
     posts = author_filter_posts(first_value, posts)
-  elif widget.default_title == 'Social sentiment by gender':
+  elif widget.default_title == 'Sentiment by gender':
     posts = sentiment_filter_posts(second_value, posts)
     posts = posts.filter(reduce(lambda x,y: x | y, [Q(user_gender=gender) for gender in first_value]))
-  elif widget.default_title == 'Social sentiment locations':
+  elif widget.default_title == 'Sentiment locations':
     posts = sentiment_filter_posts(first_value, posts)
     posts = country_filter_posts(second_value, posts)
   elif widget.default_title == 'Content volume by top authors':
@@ -41,9 +41,9 @@ def interactive_widgets(request, project_pk, widget_pk):
     posts = language_dimensions_posts(first_value, posts).filter(creation_date__range=dates)
   elif widget.default_title == "Content volume":
     posts = posts.filter(creation_date__range=dates)
-  elif widget.default_title == 'Social sentiment':
+  elif widget.default_title == 'Sentiment':
     posts = sentiment_filter_posts(first_value, posts).filter(creation_date__range=dates)
-  elif widget.default_title == 'Social gender volume':
+  elif widget.default_title == 'Gender volume':
     posts = posts.filter(reduce(lambda x,y: x | y, [Q(user_gender=gender) for gender in first_value])).filter(creation_date__range=dates)
   elif widget.default_title == 'Top keywords':
     posts = posts.filter(text__icontains=first_value[0])
