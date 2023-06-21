@@ -59,6 +59,8 @@ export default {
 .container input {
   position: absolute;
 
+  flex-shrink: 0;
+
   height: 0;
   width: 0;
 
@@ -70,6 +72,7 @@ export default {
   top: 0;
   left: 0;
 
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
