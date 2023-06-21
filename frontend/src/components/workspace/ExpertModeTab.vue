@@ -29,17 +29,19 @@
               class="hint"
               :style="{color: item.color}"
               :key="item.value"
-              >{{ item.value }}</span
             >
+              {{ item.value }}
+            </span>
           </div>
           <h4>Filters</h4>
           <div class="hints__section">
             <span
-              v-for="item in hints.filters"
-              class="hint defaultColor"
+              v-for="item in filters"
+              class="hint expert_mode_defaultColor"
               :key="item"
-              >{{ item }}</span
             >
+              {{ item }}
+            </span>
           </div>
         </div>
       </div>
@@ -79,6 +81,7 @@ export default {
   components: {BaseButton, CommonCalendar, ErrorIcon, SaveIcon},
   props: {
     defaultQuery: {type: String, default: ''},
+    filters: {type: Array, required: true},
   },
   data() {
     return {
@@ -98,7 +101,6 @@ export default {
         {value: 'AND', color: 'var(--positive-primary-color)'},
         {value: 'NOT', color: 'var(--negative-primary-color)'},
       ],
-      filters: ['author', 'country', 'language', 'source', 'sentiment'],
     }
   },
   mounted() {
@@ -144,11 +146,11 @@ export default {
 
     replaceLogicalOperators(value) {
       let highlightedStr = value
-      this.hints.filters.map((filter) => {
+      this.filters.map((filter) => {
         const regex = new RegExp('\\b' + filter + '[:]', 'g')
         highlightedStr = highlightedStr.replace(
           regex,
-          `<span class="defaultColor">${filter}:</span>`
+          `<span class="expert_mode_defaultColor">${filter}:</span>`
         )
       })
       return highlightedStr

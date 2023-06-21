@@ -20,6 +20,7 @@
 
   <ExpertModeTab
     v-if="isExpertMode"
+    :filters="filters"
     @save-project="createWorkspaceAndProject"
     @show-result="showResults"
     @update-query-filter="updateQueryFilter"
@@ -93,6 +94,10 @@ export default {
         date_range: this.defaultDateRange,
       })
     }
+    this.filters =
+      this.moduleName === 'Online'
+        ? ['author', 'country', 'language', 'source', 'sentiment']
+        : ['followers', 'location', 'author', 'sentiment', 'language']
   },
   watch: {
     keywords() {

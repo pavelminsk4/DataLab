@@ -23,6 +23,7 @@
         <ExpertModeTab
           v-if="isExpertMode"
           :default-query="currentProject.query_filter"
+          :filters="filters"
           @save-project="updateProjectData"
           @show-result="showResults"
           @update-query-filter="updateQueryFilter"
@@ -101,6 +102,10 @@ export default {
   mounted() {
     this.isExpertMode = this.currentProject.expert_mode
     this.showResults()
+    this.filters =
+      this.moduleName === 'Online'
+        ? ['author', 'country', 'language', 'source', 'sentiment']
+        : ['followers', 'location', 'author', 'sentiment', 'language']
   },
   methods: {
     showResults(pageNumber, numberOfPosts) {
