@@ -7,10 +7,11 @@
   >
     <div :style="modalFrameStyle" class="base-modal">
       <div class="base-modal-content">
-        <button type="button" class="close" @click="close">
-          <CrossIcon :class="closeIconClass" />
-        </button>
         <div class="base-modal-body scroll">
+          <button type="button" class="close" @click="close">
+            <CrossIcon :class="closeIconClass" />
+          </button>
+
           <div class="title">
             <div v-if="title">{{ title }}</div>
             <slot v-else name="title"></slot>
@@ -141,6 +142,8 @@ export default {
 }
 
 .base-modal-body {
+  position: relative;
+
   overflow-y: auto;
 
   height: 100%;
