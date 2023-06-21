@@ -45,6 +45,7 @@ export default {
 
   margin-top: -5px;
   border-radius: 0 0 8px 8px;
+  padding: 0px 10px;
 
   .tab {
     display: -webkit-box;

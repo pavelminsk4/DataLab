@@ -33,7 +33,7 @@
           <ChartsView
             :widget-details="widgetDetails"
             :chart-values="datasets(item)"
-            chart-type="SentimentBarChart"
+            chart-type="StackedBarChart"
           />
         </template>
       </SharingSourcesCard>

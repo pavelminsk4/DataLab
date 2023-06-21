@@ -90,7 +90,10 @@ export default {
               ? 13
               : 3.8
 
-            if (this.availableWidgets[widgetName].is_active) {
+            if (
+              this.availableWidgets[widgetName].is_active &&
+              widgetsConfig[widgetName]
+            ) {
               return {
                 x: 0,
                 y: this.getYAxisValue(index + 1),

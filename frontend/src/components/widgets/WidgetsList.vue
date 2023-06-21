@@ -146,7 +146,6 @@ export default {
     }
   }
   .grow {
-    display: flex;
     width: 100%;
   }
 }

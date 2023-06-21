@@ -145,6 +145,14 @@ export default {
     )
   },
 
+  async getLanguagesByCountry({projectId, value, widgetId}) {
+    return fetch(
+      'post',
+      `/widgets/onl_languages_by_country/${projectId}/${widgetId}`,
+      value
+    )
+  },
+
   async getContentVolumeTop10Sources({projectId, value, widgetId}) {
     return fetch(
       'post',

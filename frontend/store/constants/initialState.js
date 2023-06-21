@@ -45,6 +45,7 @@ export default {
   topBrands: [],
   topCountries: [],
   topLanguages: [],
+  languagesByCountry: [],
   topSharingSources: [],
   sourcesByLanguage: [],
   sourcesByCountry: [],
