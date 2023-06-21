@@ -1,5 +1,6 @@
 <template>
   <TopEntitiesStackedBarWidget
+    v-if="!isAllFieldsEmpty(languagesByCountry)"
     :widgetData="widgetData"
     :widgetDetails="widgetDetails"
   />
@@ -11,6 +12,7 @@ import {action} from '@store/constants'
 import {PREDEFINED_COLORS} from '@/lib/constants'
 
 import TopEntitiesStackedBarWidget from '@/components/widgets/TopEntitiesStackedBarWidget'
+import {isAllFieldsEmpty} from '@lib/utilities'
 
 export default {
   name: 'LanguagesByCountryWidget',
@@ -46,7 +48,7 @@ export default {
     },
   },
   created() {
-    if (!this.languagesByCountry.length) {
+    if (isAllFieldsEmpty(this.languagesByCountry)) {
       this[action.GET_LANGUAGES_BY_COUNTRY]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,
@@ -55,6 +57,7 @@ export default {
   },
   methods: {
     ...mapActions([action.GET_LANGUAGES_BY_COUNTRY]),
+    isAllFieldsEmpty,
   },
 }
 </script>
