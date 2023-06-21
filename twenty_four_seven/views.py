@@ -104,12 +104,13 @@ def tfidf_top_similar(item_id, threshold):
         vectors = items.values('online_post__id', 'online_post__entry_title')
         id_list = np.array([i['online_post__id'] for i in vectors])
         titles = np.array([i['online_post__entry_title'] for i in vectors])
-        item_title = item.online_post.entry_title
+        item_title = (item.online_post.id, item.online_post.entry_title)
         titles_series = pd.Series(titles)
+        index_series = pd.Series([(id_list[i],titles[i]) for i in range(len(titles))])
         tfidf = TfidfVectorizer()
         tfidf_matrix = tfidf.fit_transform(titles)
         cosine_sim = linear_kernel(tfidf_matrix, tfidf_matrix)
-        indices = pd.Series(titles_series.index, index=titles_series)
+        indices = pd.Series(titles_series.index, index=index_series)
         idx = indices[item_title]
         sim_scores = list(enumerate(cosine_sim[idx]))
         sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
