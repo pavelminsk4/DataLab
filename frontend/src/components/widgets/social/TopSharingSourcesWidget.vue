@@ -21,7 +21,7 @@
           <div class="type">
             <component
               :is="capitalizeFirstLetter(item.source) + 'Icon'"
-              :class="item.source.toLowerCase()"
+              :class="item.source"
             />
             {{ item.source }}
           </div>
