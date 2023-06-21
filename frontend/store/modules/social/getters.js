@@ -21,16 +21,21 @@ export default {
   [get.CLIPPING_WIDGETS_DETAILS](state) {
     return state.availableWidgets?.clipping_feed_content
   },
-
   [get.COUNTRIES](state) {
     return state.countries.map((el) => el.locationString)
   },
-
   [get.LANGUAGES](state) {
     return state.languages.map((el) => el.language)
   },
-
   [get.AUTHORS](state) {
-    return state.authors.map((el) => el.user_name)
+    return state.authors.map((el) => el.user_alias)
+  },
+  [get.SEARCH_LISTS](state, getters) {
+    return {
+      authors: getters[get.AUTHORS],
+      countries: getters[get.COUNTRIES],
+      languages: getters[get.LANGUAGES],
+      sources: getters[get.SOURCES],
+    }
   },
 }

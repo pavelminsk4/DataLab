@@ -11,9 +11,10 @@
         :value="modelValue"
         :class="['input', isSearch && 'input-search']"
         :placeholder="placeholder"
-        @input="handleInput"
         type="text"
         class="select-search"
+        @input="handleInput"
+        @focus="focusInput"
       />
       <div v-else-if="!value && !isSearch" class="placeholder">
         {{ placeholder }}
@@ -30,9 +31,9 @@
           Reject selection
         </li>
         <li
-          :class="[{current: item === value}, 'select-item']"
           v-for="item in selectList"
           :key="item"
+          :class="[{current: item === value}, 'select-item']"
           @click="select(item)"
         >
           {{ item }}
@@ -43,8 +44,10 @@
 </template>
 
 <script>
+import debounce from 'lodash/debounce'
+
 export default {
-  emits: ['update:modelValue', 'select-option'],
+  emits: ['update:modelValue', 'select-option', 'focus-input'],
   props: {
     list: {type: Array, default: null},
     placeholder: {type: String, default: 'Select option'},
@@ -88,9 +91,12 @@ export default {
     },
   },
   methods: {
-    handleInput(e) {
-      this.visible = true
+    handleInput: debounce(function (e) {
       this.$emit('update:modelValue', e.target.value, this.name)
+    }, 500),
+    focusInput({target}) {
+      this.visible = true
+      this.$emit('focus-input', target.value, this.name)
     },
     select(option) {
       this.$emit('select-option', this.name, option, this.visible)

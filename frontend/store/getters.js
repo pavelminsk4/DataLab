@@ -59,6 +59,14 @@ export default {
   [get.AUTHORS](state) {
     return state.authors.map((el) => el.entry_author)
   },
+  [get.SEARCH_LISTS](state, getters) {
+    return {
+      authors: getters[get.AUTHORS],
+      countries: getters[get.COUNTRIES],
+      languages: getters[get.LANGUAGES],
+      sources: getters[get.SOURCES],
+    }
+  },
 
   [get.ADDITIONAL_FILTERS](state) {
     return state.additionalFilters

@@ -1,67 +1,23 @@
 <template>
   <div class="filters-wrapper">
-    <span class="second-title">Country</span>
+    <template v-for="{name, listName} in searchFields" :key="name">
+      <span class="second-title">{{ name }}</span>
 
-    <BaseSearchField
-      v-model="country"
-      name="country"
-      :placeholder="'Enter the country'"
-      :list="countries"
-      :is-search="true"
-      :current-value="country"
-      :is-reject-selection="false"
-      @select-option="selectItem"
-      @update:modelValue="getResult"
-      class="select"
-    />
-
-    <span class="second-title">Author</span>
-
-    <BaseSearchField
-      v-model="author"
-      name="author"
-      :list="authors"
-      :placeholder="'Enter the author'"
-      :current-value="author"
-      :is-search="true"
-      :is-reject-selection="false"
-      :is-clear-selected-value="clearValue"
-      @select-option="selectItem"
-      @update:modelValue="getResult"
-      class="select"
-    />
-
-    <span class="second-title">Language</span>
-
-    <BaseSearchField
-      v-model="language"
-      name="language"
-      placeholder="Enter the language"
-      :list="languages"
-      :is-search="true"
-      :current-value="language"
-      :is-reject-selection="false"
-      :is-clear-selected-value="clearValue"
-      @select-option="selectItem"
-      @update:modelValue="getResult"
-      class="select"
-    />
-
-    <span class="second-title">Source</span>
-
-    <BaseSearchField
-      v-model="source"
-      name="source"
-      placeholder="Enter the source"
-      :list="sources"
-      :is-search="true"
-      :current-value="source"
-      :is-reject-selection="false"
-      :is-clear-selected-value="clearValue"
-      @select-option="selectItem"
-      @update:modelValue="getResult"
-      class="select"
-    />
+      <BaseSearchField
+        v-model="search[name]"
+        :name="name"
+        :placeholder="`Enter the ${name}`"
+        :list="searchLists[listName]"
+        :is-search="true"
+        :current-value="search[name]"
+        :is-reject-selection="false"
+        :is-clear-selected-value="clearValue"
+        class="select"
+        @focus-input="getFilterList"
+        @update:modelValue="getResult"
+        @select-option="selectItem"
+      />
+    </template>
   </div>
 
   <CommonCalendar class="date-picker" />
@@ -107,6 +63,25 @@ import NegativeIcon from '@/components/icons/NegativeIcon'
 import NeutralIcon from '@/components/icons/NeutralIcon'
 import CommonCalendar from '@/components/datepicker/CommonCalendar'
 
+const SEARCH_FIELDS = [
+  {
+    name: 'country',
+    listName: 'countries',
+  },
+  {
+    name: 'author',
+    listName: 'authors',
+  },
+  {
+    name: 'language',
+    listName: 'languages',
+  },
+  {
+    name: 'source',
+    listName: 'sources',
+  },
+]
+
 export default {
   name: 'OnlineSearchForm',
   components: {
@@ -128,18 +103,17 @@ export default {
       sentiments: ['Negative', 'Neutral', 'Positive'],
       selectedValue: '',
       clearValue: false,
-      country: '',
-      language: '',
-      source: '',
-      author: '',
+      search: {
+        country: '',
+        language: '',
+        source: '',
+        author: '',
+      },
     }
   },
   computed: {
     ...mapGetters({
-      countries: get.COUNTRIES,
-      languages: get.LANGUAGES,
-      sources: get.SOURCES,
-      authors: get.AUTHORS,
+      searchLists: get.SEARCH_LISTS,
       keywords: get.KEYWORDS,
     }),
     selectedValueProxy: {
@@ -162,10 +136,11 @@ export default {
     },
   },
   created() {
-    this.country = this.currentProject?.country_filter || ''
-    this.language = this.currentProject?.language_filter || ''
-    this.source = this.currentProject?.source_filter || ''
-    this.author = this.currentProject?.author_filter || ''
+    this.searchFields = SEARCH_FIELDS
+    this.search.country = this.currentProject?.country_filter || ''
+    this.search.language = this.currentProject?.language_filter || ''
+    this.search.source = this.currentProject?.source_filter || ''
+    this.search.author = this.currentProject?.author_filter || ''
 
     this[action.UPDATE_ADDITIONAL_FILTERS]({
       country: this.currentProject.country_filter,
@@ -179,10 +154,10 @@ export default {
     async keywords() {
       if (!this.keywords.keywords?.length) {
         this.clearValue = true
-        this.country = ''
-        this.language = ''
-        this.source = ''
-        this.author = ''
+        this.search.country = ''
+        this.search.language = ''
+        this.search.source = ''
+        this.search.author = ''
         this.selectedValue = ''
       }
     },
@@ -197,7 +172,7 @@ export default {
     ]),
     selectItem(name, val) {
       try {
-        this[name] = val
+        this.search[name] = val
         if (val === 'Reject selection') {
           this[action.UPDATE_ADDITIONAL_FILTERS]({[name]: null})
         } else {
@@ -212,11 +187,8 @@ export default {
       return string?.charAt(0)?.toUpperCase() + string?.slice(1)
     },
 
-    getResult(searchValue, name) {
+    getFilterList(searchValue, name) {
       try {
-        this[name] = searchValue
-        this[action.UPDATE_ADDITIONAL_FILTERS]({[name]: searchValue})
-
         switch (name) {
           case 'country':
             return this[action.GET_COUNTRIES](
@@ -231,6 +203,17 @@ export default {
           case 'source':
             return this[action.GET_SOURCES](searchValue)
         }
+      } catch (error) {
+        console.error(error)
+      }
+    },
+
+    getResult(searchValue, name) {
+      try {
+        this[name] = searchValue
+        this[action.UPDATE_ADDITIONAL_FILTERS]({[name]: searchValue})
+
+        this.getFilterList(searchValue, name)
       } catch (e) {
         console.error(e)
       }
@@ -255,6 +238,7 @@ export default {
 .second-title {
   margin: 20px 0 4px;
 
+  text-transform: capitalize;
   font-size: 14px;
   color: var(--typography-primary-color);
 }
