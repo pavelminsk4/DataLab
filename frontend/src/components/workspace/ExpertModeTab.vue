@@ -29,17 +29,19 @@
               class="hint"
               :style="{color: item.color}"
               :key="item.value"
-              >{{ item.value }}</span
             >
+              {{ item.value }}
+            </span>
           </div>
           <h4>Filters</h4>
           <div class="hints__section">
             <span
-              v-for="item in hints.filters"
-              class="hint defaultColor"
+              v-for="item in filters"
+              class="hint expert-mode_defaultColor"
               :key="item"
-              >{{ item }}</span
             >
+              {{ item }}
+            </span>
           </div>
         </div>
       </div>
@@ -79,6 +81,7 @@ export default {
   components: {BaseButton, CommonCalendar, ErrorIcon, SaveIcon},
   props: {
     defaultQuery: {type: String, default: ''},
+    filters: {type: Array, required: true},
   },
   data() {
     return {
@@ -98,7 +101,6 @@ export default {
         {value: 'AND', color: 'var(--positive-primary-color)'},
         {value: 'NOT', color: 'var(--negative-primary-color)'},
       ],
-      filters: ['author', 'country', 'language', 'source', 'sentiment'],
     }
   },
   mounted() {
@@ -144,28 +146,28 @@ export default {
 
     replaceLogicalOperators(value) {
       let highlightedStr = value
-      this.hints.filters.map((filter) => {
+      this.filters.map((filter) => {
         const regex = new RegExp('\\b' + filter + '[:]', 'g')
         highlightedStr = highlightedStr.replace(
           regex,
-          `<span class="defaultColor">${filter}:</span>`
+          `<span class="expert-mode_defaultColor">${filter}:</span>`
         )
       })
       return highlightedStr
         .replace(/\n/g, '<br>')
-        .replace(/\(/g, '<span class="expert_mode_defaultColor">(</span>')
-        .replace(/\)/g, '<span class="expert_mode_defaultColor">)</span>')
+        .replace(/\(/g, '<span class="expert-mode_defaultColor">(</span>')
+        .replace(/\)/g, '<span class="expert-mode_defaultColor">)</span>')
         .replace(
           /\bOR\b/g,
-          '<span class="defaultColor expert_mode_or">OR</span>'
+          '<span class="defaultColor expert-mode_or">OR</span>'
         )
         .replace(
           /\bAND\b/g,
-          '<span class="defaultColor expert_mode_and">AND</span>'
+          '<span class="defaultColor expert-mode_and">AND</span>'
         )
         .replace(
           /\bNOT\b/g,
-          '<span class="defaultColor expert_mode_not">NOT</span>'
+          '<span class="defaultColor expert-mode_not">NOT</span>'
         )
     },
 
@@ -345,19 +347,19 @@ export default {
 </style>
 
 <style lang="scss">
-.expert_mode_defaultColor {
+.expert-mode_defaultColor {
   color: #8e00d1;
 }
 
-.expert_mode_or {
+.expert-mode_or {
   color: var(--neutral-primary-color);
 }
 
-.expert_mode_and {
+.expert-mode_and {
   color: var(--positive-primary-color);
 }
 
-.expert_mode_not {
+.expert-mode_not {
   color: var(--negative-primary-color);
 }
 </style>

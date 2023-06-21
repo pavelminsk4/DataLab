@@ -141,3 +141,8 @@ export const accountAnalysisWidgetsList = {
 }
 
 export const PREDEFINED_COLORS = ['#EE51AF', '#00B884', '#516BEE', '#DD8500']
+
+export const expertModeFilters = {
+  online: ['author', 'country', 'language', 'source', 'sentiment'],
+  social: ['followers', 'location', 'author', 'sentiment', 'language'],
+}

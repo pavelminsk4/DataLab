@@ -19,7 +19,10 @@
       >
         <template #chips>
           <div class="type">
-            <component :is="capitalizeFirstLetter(item.source) + 'Icon'" />
+            <component
+              :is="capitalizeFirstLetter(item.source) + 'Icon'"
+              :class="item.source"
+            />
             {{ item.source }}
           </div>
           <BaseChips :chips-type="item.gender" />
@@ -144,5 +147,16 @@ export default {
 
 .female {
   background-color: var(--female-bg-color);
+}
+
+.twitter {
+  height: 26px;
+  width: 26px;
+  padding: 4px;
+
+  border-radius: 4px;
+
+  color: var(--button-text-color);
+  background-color: #516bee;
 }
 </style>
