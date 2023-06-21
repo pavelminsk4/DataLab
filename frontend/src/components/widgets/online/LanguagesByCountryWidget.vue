@@ -1,5 +1,5 @@
 <template>
-  <TopEntitiesStackedBar
+  <TopEntitiesStackedBarWidget
     :widgetData="widgetData"
     :widgetDetails="widgetDetails"
   />
@@ -10,11 +10,11 @@ import {mapActions, mapState} from 'vuex'
 import {action} from '@store/constants'
 import {PREDEFINED_COLORS} from '@/lib/constants'
 
-import TopEntitiesStackedBar from '@/components/widgets/TopEntitiesStackedBar'
+import TopEntitiesStackedBarWidget from '@/components/widgets/TopEntitiesStackedBarWidget'
 
 export default {
   name: 'LanguagesByCountryWidget',
-  components: {TopEntitiesStackedBar},
+  components: {TopEntitiesStackedBarWidget},
   props: {
     widgetDetails: {type: Object, required: true},
   },

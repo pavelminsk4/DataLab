@@ -27,9 +27,10 @@ import DoughnutChart from '@/components/charts/DoughnutChart'
 import WordCloudChart from '@/components/charts/WordCloudChart'
 import WorldMapChart from '@/components/charts/WorldMapChart'
 import SentimentWordCloudChart from '@/components/charts/SentimentWordCloudChart'
-import SentimentBarChart from '@/components/charts/SentimentBarChart'
+import StackedBarChart from '@/components/charts/StackedBarChart'
 import BarLineChart from '@/components/charts/BarLineChart'
 import HeatmapChart from '@/components/charts/HeatmapChart'
+import TopEntitiesBarChart from '@/components/charts/TopEntitiesBarChart'
 
 export default {
   name: 'ChartsView',
@@ -46,15 +47,16 @@ export default {
     WordCloudChart,
     WorldMapChart,
     SentimentWordCloudChart,
-    SentimentBarChart,
+    StackedBarChart,
     BarLineChart,
     HeatmapChart,
+    TopEntitiesBarChart,
   },
   props: {
     labels: {type: Array, default: () => []},
     chartType: {type: String, required: true},
     widgetDetails: {type: Object, required: true},
-    chartValues: {type: Array, required: true, default: () => []},
+    chartValues: {type: Array, default: () => []},
     isDisplayLegend: {type: Boolean, default: true},
   },
   computed: {

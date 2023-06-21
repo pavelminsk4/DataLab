@@ -34,7 +34,7 @@ const CHARTS = {
     name: 'Radar chart',
   },
   sentimentBar: {
-    componentName: 'SentimentBarChart',
+    componentName: 'StackedBarChart',
     name: 'Bar chart',
   },
   sentimentHorizontalStackedBar: {
@@ -57,7 +57,7 @@ const CHARTS = {
     componentName: 'SentimentWordCloudChart',
     name: 'Word Cloud',
   },
-  sentimentBarChart: {
+  StackedBarChart: {
     componentName: 'SentimentBarChartChart',
     name: 'Sentiment Bar Chart',
   },
@@ -262,7 +262,7 @@ export const widgetsConfig = {
     hasPreview: false,
     hasAggregationPeriod: false,
     actionName: action.GET_OVERALL_TOP_SOURCES,
-    defaultChartType: 'SentimentBarChart',
+    defaultChartType: 'StackedBarChart',
     availableTypes: null,
     settingsTabs: ['General', 'Filters'],
   },
@@ -272,7 +272,7 @@ export const widgetsConfig = {
     hasPreview: false,
     hasAggregationPeriod: false,
     actionName: action.GET_LANGUAGES_BY_COUNTRY,
-    defaultChartType: 'SentimentBarChart',
+    defaultChartType: 'TopEntitiesBarChart',
     availableTypes: null,
     settingsTabs: ['General', 'Filters'],
   },
@@ -320,7 +320,7 @@ export const widgetsConfig = {
     hasPreview: false,
     hasAggregationPeriod: false,
     actionName: action.GET_OVERALL_TOP_AUTHORS,
-    defaultChartType: 'SentimentBarChart',
+    defaultChartType: 'StackedBarChart',
     availableTypes: null,
     settingsTabs: ['General', 'Filters'],
   },
@@ -328,7 +328,7 @@ export const widgetsConfig = {
     ...WIDGET_DEFAULT_SETTINGS,
     hasPreview: false,
     actionName: action.GET_TOP_AUTHORS_BY_GENDER,
-    defaultChartType: 'SentimentBarChart',
+    defaultChartType: 'StackedBarChart',
     availableTypes: null,
     settingsTabs: ['General', 'Filters'],
   },

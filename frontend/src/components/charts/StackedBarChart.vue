@@ -20,13 +20,13 @@ import {Bar} from 'vue-chartjs'
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 
 export default {
-  name: 'SentimentBarChart',
+  name: 'StackedBarChart',
   components: {
     Bar,
   },
   props: {
     chartValues: {type: Object, required: true},
-    tooltips: {type: Array, default: () => []},
+    isShowTooltips: {type: Boolean, default: false},
   },
   computed: {
     chartOptions() {
@@ -46,10 +46,9 @@ export default {
             display: false,
           },
           tooltip: {
-            enabled: this.tooltips.length || false,
+            enabled: this.isShowTooltips || false,
             position: 'nearest',
             caretSize: 0,
-            intersect: true,
             callbacks: {
               label(context) {
                 const {dataset} = context
