@@ -30,7 +30,7 @@ urlpatterns = [
   # Speeches
   path('speeches/<str:frst_letters>', views.SpeechesList.as_view(), name='speeches_list'),
   # Sources
-  path('sources', views.sources, name='sources_list'),
+  path('sources/<str:frst_letters>', views.SourceList.as_view(), name='sources_list'),
   # Authors
   path('authors/<str:frst_letters>', views.AuthorList.as_view(), name='authors_list'),
   # ClippingFeedContentWidget
