@@ -45,19 +45,27 @@ export default {
   },
 
   [get.COUNTRIES](state) {
-    return state.countries.map((el) => el.name)
+    return state.countries
+      .map((country) => country.name)
+      .filter((country) => country)
   },
 
   [get.LANGUAGES](state) {
-    return state.languages.map((el) => el.language)
+    return state.languages
+      .map((language) => language.language)
+      .filter((language) => language)
   },
 
   [get.SOURCES](state) {
-    return state.sources.map((el) => el.source1)
+    return state.sources
+      .map((source) => source.source1)
+      .filter((source) => source)
   },
 
   [get.AUTHORS](state) {
-    return state.authors.map((el) => el.entry_author)
+    return state.authors
+      .map((author) => author.entry_author)
+      .filter((author) => author)
   },
   [get.SEARCH_LISTS](state, getters) {
     return {
@@ -210,20 +218,32 @@ export default {
 
   [get.DIMENSIONS_LIST](state) {
     return {
-      authors: state.dimensionAuthors?.map((el) => el.entry_author),
-      countries: state.dimensionCountries?.map((el) => el.feedlink__country),
-      languages: state.dimensionLanguages?.map(
-        (el) => el.feed_language__language
-      ),
-      sources: state.dimensionSources?.map((el) => el.feedlink__source1),
+      authors: state.dimensionAuthors
+        ?.map((author) => author.entry_author)
+        .filter((author) => author),
+      countries: state.dimensionCountries
+        ?.map((country) => country.feedlink__country)
+        .filter((country) => country),
+      languages: state.dimensionLanguages
+        ?.map((language) => language.feed_language__language)
+        .filter((language) => language),
+      sources: state.dimensionSources
+        ?.map((source) => source.feedlink__source1)
+        .filter((source) => source),
     }
   },
 
   [get.SOCIAL_FILTERS_LIST](state) {
     return {
-      authors: state.dimensionAuthors?.map((el) => el.user_alias),
-      countries: state.dimensionCountries?.map((el) => el.locationString),
-      languages: state.dimensionLanguages?.map((el) => el.language),
+      authors: state.dimensionAuthors
+        ?.map((author) => author.user_alias)
+        .filter((author) => author),
+      countries: state.dimensionCountries
+        ?.map((country) => country.locationString)
+        .filter((country) => country),
+      languages: state.dimensionLanguages
+        ?.map((language) => language.language)
+        .filter((language) => language),
     }
   },
 

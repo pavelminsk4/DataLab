@@ -22,13 +22,19 @@ export default {
     return state.availableWidgets?.clipping_feed_content
   },
   [get.COUNTRIES](state) {
-    return state.countries.map((el) => el.locationString)
+    return state.countries
+      .map((country) => country.locationString)
+      .filter((country) => country)
   },
   [get.LANGUAGES](state) {
-    return state.languages.map((el) => el.language)
+    return state.languages
+      .map((language) => language.language)
+      .filter((language) => language)
   },
   [get.AUTHORS](state) {
-    return state.authors.map((el) => el.user_alias)
+    return state.authors
+      .map((author) => author.user_alias)
+      .filter((author) => author)
   },
   [get.SEARCH_LISTS](state, getters) {
     return {
