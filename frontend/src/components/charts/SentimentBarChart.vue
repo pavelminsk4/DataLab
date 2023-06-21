@@ -26,6 +26,7 @@ export default {
   },
   props: {
     chartValues: {type: Object, required: true},
+    tooltips: {type: Array, default: () => []},
   },
   computed: {
     chartOptions() {
@@ -45,7 +46,16 @@ export default {
             display: false,
           },
           tooltip: {
-            enabled: false,
+            enabled: this.tooltips.length || false,
+            position: 'nearest',
+            caretSize: 0,
+            intersect: true,
+            callbacks: {
+              label(context) {
+                const {dataset} = context
+                return `${dataset.tooltip}: ${dataset.data[0].toFixed()}`
+              },
+            },
           },
         },
         scales: {

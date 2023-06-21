@@ -142,9 +142,21 @@ export const accountAnalysisWidgetsList = {
   },
 }
 
-export const PREDEFINED_COLORS = ['#EE51AF', '#00B884', '#516BEE', '#DD8500']
-
 export const expertModeFilters = {
   online: ['author', 'country', 'language', 'source', 'sentiment'],
   social: ['followers', 'location', 'author', 'sentiment', 'language'],
 }
+
+export const PREDEFINED_COLORS = [
+  '#EE51AF',
+  '#00B884',
+  '#516BEE',
+  '#DD8500',
+  '#BA82FF',
+  '#C9EA84',
+  '#5A12B3',
+  '#00B1FF',
+  '#FFCC01',
+  '#00D98F',
+  '#5500FF',
+]
