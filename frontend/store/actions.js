@@ -340,7 +340,7 @@ export default {
       })
       commit(mutator.SET_LANGUAGES_BY_COUNTRY, languagesByCountry)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
