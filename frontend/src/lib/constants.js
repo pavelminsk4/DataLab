@@ -46,7 +46,7 @@ export const onlineWidgetsList = {
     {name: 'sentiment_diagram'},
     {name: 'sentiment_top_authors'},
     {name: 'sentiment_top_sources', isFullWidth: true},
-    {name: 'sentiment_top_countries'},
+    // {name: 'sentiment_top_countries'},
     {name: 'sentiment_top_languages'},
     {name: 'sentiment_top_keywords'},
   ],
