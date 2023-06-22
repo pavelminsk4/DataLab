@@ -79,11 +79,11 @@ class DemographyFeatureTests(APITestCase):
     url = reverse('widgets:onl_languages_by_country', kwargs={'pk':pr.pk, 'widget_pk':widget_pk})
     response = self.client.get(url)
     self.assertEqual(response.status_code, status.HTTP_200_OK)
-    res = [
-            {'England': [['English', 2], ['Spanish', 2]]},
-            {'USA': [['English', 1], ['Spanish', 1]]}
-          ]
-    self.assertEqual(json.loads(response.content), res)  
+    res = {
+            'England': [{'language': 'English', 'count': 2}, {'language': 'Spanish', 'count': 2}],
+            'USA': [{'language': 'English', 'count': 1}, {'language': 'Spanish', 'count': 1}]
+          }
+    self.assertEqual(json.loads(response.content), res)
     
   def test_overall_top_sources(self):
     pr = Project.objects.first()

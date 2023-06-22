@@ -14,5 +14,5 @@ def get_languages_by_country(pk, widget_pk):
   results = {}
   for country in top_countries:
     top_languages = posts.filter(feedlink__country=country).values('feed_language__language').annotate(posts_count=Count('id')).order_by('-posts_count')[:5]
-    results[country] = descending_sort({language['feed_language__language']: language['posts_count'] for language in top_languages})
+    results[country] = [{'language': language['feed_language__language'], 'count': language['posts_count']} for language in top_languages]
   return JsonResponse(results, safe = False)
