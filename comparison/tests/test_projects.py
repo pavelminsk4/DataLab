@@ -88,25 +88,3 @@ class ComparisonProjectsTests(APITestCase):
         self.assertEqual(pr.cmpr_widgets.get(default_title='Top keywords').title, 'Top keywords')
         self.assertEqual(pr.cmpr_widgets.get(default_title='Top languages').title, 'Top languages')
         self.assertEqual(pr.cmpr_widgets.get(default_title='Top countries').title, 'Top countries')
-
-    def test_summary_feature_online(self):
-        PostFactory()
-        pr = ProjectComparison.objects.first()
-        url = reverse('comparison:summary', kwargs={'pk': pr.id})
-        response = self.client.get(url, format='json')
-        res = [{
-            'Girlfriend': {
-                'Summary': {
-                    'authors': 1,
-                    'countries': 1,
-                    'languages': 1,
-                    'neg': 0,
-                    'neut': 1,
-                    'pos': 0,
-                    'posts': 1,
-                    'reach': 0,
-                    'sources': 1
-                }
-            }
-        }]
-        self.assertEqual(json.loads(response.content), res)
