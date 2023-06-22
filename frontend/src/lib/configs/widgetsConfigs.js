@@ -57,9 +57,9 @@ const CHARTS = {
     componentName: 'SentimentWordCloudChart',
     name: 'Word Cloud',
   },
-  StackedBarChart: {
-    componentName: 'SentimentBarChartChart',
-    name: 'Sentiment Bar Chart',
+  topEntitiesBarChart: {
+    componentName: 'TopEntitiesBarChart',
+    name: 'Top Entities Bar Chart',
   },
 }
 

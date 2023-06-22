@@ -1,7 +1,8 @@
 <template>
   <TopEntitiesStackedBarWidget
     v-if="!isAllFieldsEmpty(languagesByCountry)"
-    :widgetData="widgetData"
+    :chart-values="widgetData.chartValues"
+    :labels="widgetData.labels"
     :widgetDetails="widgetDetails"
   />
 </template>
@@ -27,16 +28,17 @@ export default {
       const values = labels.map((label) => this.languagesByCountry[label])
       const chartValues = values.map((el) => {
         const max = el.reduce((a, b) => {
-          return a + b[1]
+          return a + Object.values(b)[1]
         }, 0)
 
         return el.map((el, index) => {
+          const elValues = Object.values(el)
           return {
-            data: [(el[1] / max) * 100],
+            data: [(elValues[1] / max) * 100],
             backgroundColor: PREDEFINED_COLORS[index],
             borderRadius: 12,
             barThickness: 'flex',
-            tooltip: el[0],
+            label: elValues[0],
           }
         })
       })

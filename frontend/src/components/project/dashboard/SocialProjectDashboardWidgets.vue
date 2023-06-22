@@ -91,7 +91,10 @@ export default {
         if (!this.availableWidgets) return
         return Object.keys(this.availableWidgets)
           .map((widgetName, index) => {
-            if (this.availableWidgets[widgetName].is_active) {
+            if (
+              this.availableWidgets[widgetName].is_active &&
+              widgetsConfig[widgetName]
+            ) {
               widgetsConfig.clipping_feed_content.height = this.clippingData
                 .length
                 ? 13

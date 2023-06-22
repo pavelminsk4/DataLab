@@ -52,7 +52,7 @@ export default {
             callbacks: {
               label(context) {
                 const {dataset} = context
-                return `${dataset.tooltip}: ${dataset.data[0].toFixed()}`
+                return `${dataset.label}: ${dataset.data[0].toFixed()}`
               },
             },
           },
