@@ -191,7 +191,7 @@ export default {
   display: flex;
 
   margin-top: 12px;
-  padding: 14px 20px 18px;
+  padding: 14px 20px 10px;
 
   border-top: var(--border-primary);
 
@@ -229,6 +229,7 @@ export default {
 
 .post-card__buttons {
   display: flex;
+  align-items: center;
   justify-content: space-between;
 
   height: 36px;

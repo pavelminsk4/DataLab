@@ -29,7 +29,7 @@
         :is-work-button-show="true"
         :is-show-statuses-dropdown="false"
         :is-checkbox-show="isShowRelatedContent"
-        :selectedPost="linkedContentProxy"
+        :selected-post="linkedContentProxy"
         class="post-related-content"
         @open-modal="$emit('open-modal', item)"
         @add-related-content="addRelatedContent"

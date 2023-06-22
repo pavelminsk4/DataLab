@@ -1,5 +1,6 @@
 <template>
   <BaseDropdown
+    v-if="isShowCountPosts"
     name="posts-on-page"
     custom-style="top: auto; bottom: 25px"
     :selected-value="countPosts"
@@ -36,7 +37,8 @@ export default {
     pages: {type: Number, required: true},
     modelValue: {type: Number, default: 1},
     countPosts: {type: Number, default: 20},
-    postsOnPage: {type: Array, required: true},
+    postsOnPage: {type: Array, required: false},
+    isShowCountPosts: {type: Boolean, default: true},
   },
   data() {
     return {
@@ -73,8 +75,8 @@ export default {
     justify-content: center;
     align-items: center;
 
-    width: 20px;
-    height: 20px;
+    width: 32px;
+    height: 32px;
 
     background: var(--background-secondary-color);
     border: var(--border-primary);
@@ -101,7 +103,7 @@ export default {
     align-items: center;
 
     width: 32px;
-    height: 22px;
+    height: 32px;
 
     background: var(--primary-active-color);
     border: var(--border-primary);

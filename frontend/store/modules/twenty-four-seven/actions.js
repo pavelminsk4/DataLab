@@ -139,8 +139,9 @@ export default {
         status: value.status,
         page,
       })
+      return
     } catch (e) {
-      console.error(e)
+      return e
     } finally {
       commit(mutator.SET_LOADING, false)
     }

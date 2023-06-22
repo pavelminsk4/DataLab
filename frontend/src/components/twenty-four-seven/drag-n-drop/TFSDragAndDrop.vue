@@ -41,6 +41,7 @@
           @change-status="changeStatus"
           @dragstart="startDrag($event, postInfo)"
           @open-modal="$emit('open-modal', postInfo)"
+          @open-linked-modal="$emit('open-linked-modal', postInfo)"
         />
       </div>
     </div>

@@ -16,6 +16,7 @@
             v-if="isCheckboxShow"
             v-model="relatedPost"
             :id="itemId"
+            :value="itemId"
           />
 
           <TFSCardStatuses
@@ -69,6 +70,11 @@
     </template>
 
     <template #buttons>
+      <div class="linked-button" @click="$emit('open-linked-modal')">
+        <PlusIcon />
+        <span>Add link to report</span>
+      </div>
+
       <div
         v-if="isWorkButtonShow"
         class="work-button"
@@ -85,10 +91,11 @@ import {mapGetters} from 'vuex'
 import {get} from '@store/constants'
 import {defaultDate} from '@lib/utilities'
 
+import PlusIcon from '@/components/icons/PlusIcon'
 import OnlineIcon from '@/components/icons/OnlineIcon'
+import BaseCheckbox from '@/components/BaseCheckbox2'
 import TFSPostCardLayout from '@/components/twenty-four-seven/TFSPostCardLayout'
 import TFSCardStatuses from '@/components/twenty-four-seven/TFSCardStatuses'
-import BaseCheckbox from '@/components/BaseCheckbox2'
 
 export default {
   name: 'TFSPostCard',
@@ -97,6 +104,7 @@ export default {
     TFSPostCardLayout,
     TFSCardStatuses,
     BaseCheckbox,
+    PlusIcon,
   },
   props: {
     img: {type: String, required: false},
@@ -109,11 +117,11 @@ export default {
     isStatusShow: {type: Boolean, default: true},
     isShowStatusesDropdown: {type: Boolean, default: true},
     isCheckboxShow: {type: Boolean, default: false},
-    selectedPost: {type: Array, default: () => []},
+    selectedPost: {type: [Array, Boolean], required: false},
   },
   data() {
     return {
-      selectedRelatedPost: [],
+      selectedRelatedPosts: [],
     }
   },
   computed: {
@@ -132,11 +140,11 @@ export default {
     },
     relatedPost: {
       get() {
-        return this.selectedPost || this.selectedRelatedPost
+        return this.selectedPost || this.selectedRelatedPosts
       },
       set(val) {
-        this.selectedRelatedPost = val
-        this.$emit('add-related-content', val)
+        this.selectedRelatedPosts = val
+        this.$emit('add-related-content', val, this.itemId)
       },
     },
     projectId() {
@@ -195,6 +203,22 @@ export default {
     font-size: 11px;
     line-height: 12px;
     color: var(--typography-primary-color);
+  }
+}
+
+.linked-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+
+  cursor: pointer;
+
+  font-weight: 500;
+  color: var(--typography-primary-color);
+
+  &:hover {
+    color: var(--primary-hover-color);
   }
 }
 
