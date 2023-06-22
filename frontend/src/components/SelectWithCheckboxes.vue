@@ -24,11 +24,9 @@
       />
       <div v-if="!isSearch">{{ value }}</div>
     </div>
-    <ArrowDownIcon
-      class="arrow"
-      :class="{expanded: visible}"
-      @click.stop="toggle"
-    />
+    <div class="arrow" :class="{expanded: visible}" @click.stop="toggle">
+      <ArrowDownIcon />
+    </div>
     <div :class="{hidden: !visible, visible}">
       <div v-if="visible" class="select-list scroll">
         <BaseCheckbox
@@ -61,42 +59,15 @@ export default {
   components: {BaseCheckbox, ErrorIcon, ArrowDownIcon},
   emits: ['update:modelValue', 'select-option', 'get-selected-items'],
   props: {
-    list: {
-      type: Array,
-      default: null,
-    },
-    placeholder: {
-      type: String,
-      default: 'Select option',
-    },
-    name: {
-      type: String,
-      required: true,
-    },
-    modelValue: {
-      type: String,
-      required: true,
-    },
-    isSearch: {
-      type: Boolean,
-      default: false,
-    },
-    isClearSelectedValue: {
-      type: Boolean,
-      default: false,
-    },
-    hasError: {
-      type: Boolean,
-      default: false,
-    },
-    errorMessage: {
-      type: String,
-      default: 'Error',
-    },
-    selectedCheckboxes: {
-      type: Array,
-      default: () => [],
-    },
+    list: {type: Array, default: null},
+    placeholder: {type: String, default: 'Select option'},
+    name: {type: String, required: true},
+    modelValue: {type: String, required: true},
+    isSearch: {type: Boolean, default: false},
+    isClearSelectedValue: {type: Boolean, default: false},
+    hasError: {type: Boolean, default: false},
+    errorMessage: {type: String, default: 'Error'},
+    selectedCheckboxes: {type: Array, default: () => []},
   },
   data() {
     return {
@@ -137,9 +108,9 @@ export default {
       document.addEventListener('click', this.close)
       this.visible = !this.visible
     },
-    handleInput(e) {
+    handleInput({target}) {
       this.visible = true
-      this.$emit('update:modelValue', e.target.value, this.name)
+      this.$emit('update:modelValue', target.value, this.name)
     },
     select(option) {
       this.$emit('select-option', this.name, option, this.visible)
@@ -151,6 +122,7 @@ export default {
       const elements = document.querySelectorAll(`.selector-${this.name}`)
       if (!Array.from(elements).find((el) => el.contains(target))) {
         this.visible = false
+        this.$emit('update:modelValue', '', this.name)
       }
     },
     isCheckedElement(item) {
@@ -194,8 +166,14 @@ export default {
 
   .arrow {
     position: absolute;
-    right: 18px;
-    top: 40%;
+    right: 8px;
+    top: 0;
+
+    display: flex;
+    align-items: center;
+
+    height: 100%;
+    padding: 0 10px;
 
     transform: rotateZ(0deg) translateY(0px);
     transition-duration: 0.3s;

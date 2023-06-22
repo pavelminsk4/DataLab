@@ -8,7 +8,7 @@
       <slot></slot>
     </div>
 
-    <div class="general-wrapper-settings">
+    <div class="general-wrapper-settings scroll">
       <BaseTabs
         :main-settings="widgetDetails.settingsTabs"
         default-tab="General"
@@ -126,15 +126,17 @@ export default {
 .settings-wrapper {
   display: flex;
 
-  min-height: 660px;
+  width: 75vw;
+  height: 80vh;
 
   background-color: var(--background-primary-color);
 
   .preview-section {
     display: flex;
     flex-direction: column;
-    flex: 1;
+    align-items: center;
 
+    width: 58%;
     height: 350px;
     margin: 24px;
 
@@ -166,7 +168,7 @@ export default {
     flex: 1;
 
     padding: 24px;
-    min-height: 100%;
+    height: 100%;
 
     background-color: var(--background-secondary-color);
 

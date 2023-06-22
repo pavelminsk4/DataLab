@@ -86,6 +86,16 @@ export default {
       //   backgroundPosition: 'right bottom',
       // },
       {
+        name: 'Account Analysis',
+        description: 'Monitor social media content created by influencers',
+        buttonName: 'Add Report',
+        openRouteName: 'AccountAnalysis',
+        createRouteName: 'AccountAnalysisCreateWorkspace',
+        color: '#E5E9FC',
+        imageUrl: require('@/assets/modules/account-analysis.svg'),
+        backgroundPosition: 'right bottom',
+      },
+      {
         name: '24/7',
         description: 'Collect and process news for your publications',
         buttonName: 'Add Workspace',
@@ -113,16 +123,6 @@ export default {
         createRouteName: 'CreateAlert',
         color: '#FFEDF1',
         imageUrl: require('@/assets/modules/alerts.svg'),
-        backgroundPosition: 'right bottom',
-      },
-      {
-        name: 'Account Analysis',
-        description: 'Monitor social media content created by influencers',
-        buttonName: 'Add Report',
-        openRouteName: 'AccountAnalysis',
-        createRouteName: 'AccountAnalysisCreateWorkspace',
-        color: '#E5E9FC',
-        imageUrl: require('@/assets/modules/account-analysis.svg'),
         backgroundPosition: 'right bottom',
       },
     ]
