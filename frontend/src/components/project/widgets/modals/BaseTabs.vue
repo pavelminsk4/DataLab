@@ -70,7 +70,7 @@ export default {
     align-items: center;
     justify-content: center;
 
-    padding: 4px 38px;
+    padding: 4px;
     width: 100%;
 
     text-align: center;

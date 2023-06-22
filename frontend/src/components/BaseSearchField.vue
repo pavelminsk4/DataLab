@@ -4,6 +4,10 @@
     :data-value="value"
     :data-list="list"
   >
+    <div v-if="isLoading" class="spinner">
+      <BaseButtonSpinner />
+    </div>
+
     <div class="label">
       <input
         v-if="isSearch"
@@ -46,8 +50,13 @@
 <script>
 import debounce from 'lodash/debounce'
 
+import BaseButtonSpinner from '@/components/BaseButtonSpinner'
+
 export default {
   emits: ['update:modelValue', 'select-option', 'focus-input'],
+  components: {
+    BaseButtonSpinner,
+  },
   props: {
     list: {type: Array, default: null},
     placeholder: {type: String, default: 'Select option'},
@@ -57,6 +66,7 @@ export default {
     isRejectSelection: {type: Boolean, default: true},
     currentValue: {type: [String, Array], required: false},
     isClearSelectedValue: {type: Boolean, default: false},
+    isLoading: {type: Boolean, default: false},
   },
   data() {
     return {
@@ -162,6 +172,7 @@ export default {
   padding: 0;
   margin: 0;
   width: 100%;
+  min-height: 50px;
   max-height: 250px;
 
   outline: 1px solid var(--button-primary-color);
@@ -219,5 +230,17 @@ export default {
 
 .visible {
   visibility: visible;
+}
+
+.spinner {
+  position: absolute;
+  right: 5px;
+
+  display: flex;
+  align-items: center;
+
+  height: 100%;
+
+  opacity: 0.7;
 }
 </style>

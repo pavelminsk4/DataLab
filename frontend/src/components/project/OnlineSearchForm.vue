@@ -12,8 +12,8 @@
         :current-value="search[name]"
         :is-reject-selection="false"
         :is-clear-selected-value="clearValue"
+        :is-loading="isLoadingFilters[name]"
         class="select"
-        @focus-input="getFilterList"
         @update:modelValue="getResult"
         @select-option="selectItem"
       />
@@ -55,6 +55,7 @@
 <script>
 import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
+import {capitalizeFirstLetter} from '@lib/utilities'
 
 import BaseRadio from '@/components/BaseRadio'
 import BaseSearchField from '@/components/BaseSearchField'
@@ -109,6 +110,12 @@ export default {
         source: '',
         author: '',
       },
+      isLoadingFilters: {
+        country: false,
+        language: false,
+        source: false,
+        author: false,
+      },
     }
   },
   computed: {
@@ -120,7 +127,7 @@ export default {
       get() {
         return (
           this.selectedValue ||
-          this.capitalizeFirstLetter(this.currentProject.sentiment_filter)
+          capitalizeFirstLetter(this.currentProject.sentiment_filter)
         )
       },
       set(sentiment) {
@@ -183,28 +190,23 @@ export default {
       }
     },
 
-    capitalizeFirstLetter(string) {
-      return string?.charAt(0)?.toUpperCase() + string?.slice(1)
-    },
-
-    getFilterList(searchValue, name) {
+    async getFilterList(searchValue, name) {
+      this.isLoadingFilters[name] = true
       try {
         switch (name) {
           case 'country':
-            return this[action.GET_COUNTRIES](
-              this.capitalizeFirstLetter(searchValue)
-            )
+            return await this[action.GET_COUNTRIES](searchValue)
           case 'language':
-            return this[action.GET_LANGUAGES](
-              this.capitalizeFirstLetter(searchValue)
-            )
+            return await this[action.GET_LANGUAGES](searchValue)
           case 'author':
-            return this[action.GET_AUTHORS](searchValue)
+            return await this[action.GET_AUTHORS](searchValue)
           case 'source':
-            return this[action.GET_SOURCES](searchValue)
+            return await this[action.GET_SOURCES](searchValue)
         }
       } catch (error) {
         console.error(error)
+      } finally {
+        this.isLoadingFilters[name] = false
       }
     },
 

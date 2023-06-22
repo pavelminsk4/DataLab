@@ -1,5 +1,6 @@
 import api from '@api/api'
 import {action, mutator} from '@store/constants'
+import {capitalizeFirstLetter} from '@lib/utilities'
 
 export default {
   async [action.LOGOUT]({commit}) {
@@ -51,50 +52,46 @@ export default {
   },
 
   async [action.GET_COUNTRIES]({commit}, word) {
-    commit(mutator.SET_LOADING, true)
     try {
-      const countries = await api.getCountries(word)
+      const countries = await api.getCountries(capitalizeFirstLetter(word))
       commit(mutator.SET_COUNTRIES, countries)
-    } catch (e) {
-      console.error(e)
-    } finally {
-      commit(mutator.SET_LOADING, false)
+      return countries
+    } catch (error) {
+      console.error(error)
+      return error
     }
   },
 
   async [action.GET_LANGUAGES]({commit}, word) {
-    commit(mutator.SET_LOADING, true)
     try {
-      const languages = await api.getLanguages(word)
+      const languages = await api.getLanguages(capitalizeFirstLetter(word))
       commit(mutator.SET_LANGUAGES, languages)
-    } catch (e) {
-      console.error(e)
-    } finally {
-      commit(mutator.SET_LOADING, false)
+      return languages
+    } catch (error) {
+      console.error(error)
+      return error
     }
   },
 
   async [action.GET_SOURCES]({commit}, word) {
-    commit(mutator.SET_LOADING, true)
     try {
       const sources = await api.getSources(word)
       commit(mutator.SET_SOURCES, sources)
-    } catch (e) {
-      console.error(e)
-    } finally {
-      commit(mutator.SET_LOADING, false)
+      return sources
+    } catch (error) {
+      console.error(error)
+      return error
     }
   },
 
   async [action.GET_AUTHORS]({commit}, word) {
-    commit(mutator.SET_LOADING, true)
     try {
       const authors = await api.getAuthors(word)
       commit(mutator.SET_AUTHORS, authors)
-    } catch (e) {
-      console.error(e)
-    } finally {
-      commit(mutator.SET_LOADING, false)
+      return authors
+    } catch (error) {
+      console.error(error)
+      return error
     }
   },
 

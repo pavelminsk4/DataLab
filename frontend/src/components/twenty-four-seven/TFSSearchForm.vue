@@ -99,6 +99,7 @@
 <script>
 import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
+import {capitalizeFirstLetter} from '@lib/utilities'
 
 import BaseRadio from '@/components/BaseRadio'
 import BaseSearchField from '@/components/BaseSearchField'
@@ -146,7 +147,7 @@ export default {
       get() {
         return (
           this.selectedValue ||
-          this.capitalizeFirstLetter(this.currentProject.sentiment_filter)
+          capitalizeFirstLetter(this.currentProject.sentiment_filter)
         )
       },
       set(sentiment) {
@@ -208,10 +209,6 @@ export default {
       }
     },
 
-    capitalizeFirstLetter(string) {
-      return string?.charAt(0)?.toUpperCase() + string?.slice(1)
-    },
-
     getResult(searchValue, name) {
       try {
         this[name] = searchValue
@@ -219,13 +216,9 @@ export default {
 
         switch (name) {
           case 'country':
-            return this[action.GET_COUNTRIES](
-              this.capitalizeFirstLetter(searchValue)
-            )
+            return this[action.GET_COUNTRIES](searchValue)
           case 'language':
-            return this[action.GET_LANGUAGES](
-              this.capitalizeFirstLetter(searchValue)
-            )
+            return this[action.GET_LANGUAGES](searchValue)
           case 'author':
             return this[action.GET_AUTHORS](searchValue)
           case 'source':
