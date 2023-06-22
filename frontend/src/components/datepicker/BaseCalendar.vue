@@ -59,9 +59,6 @@ import MonthYearCustom from '@/components/datepicker/MonthYearCustom'
 
 import Datepicker from '@vuepic/vue-datepicker'
 import {
-  endOfMonth,
-  startOfMonth,
-  subMonths,
   startOfToday,
   endOfToday,
   startOfYesterday,
@@ -112,14 +109,11 @@ export default {
         },
         {
           label: 'Last 3 month',
-          range: [this.getLastThreeMonthsDate(), new Date()],
+          range: [this.getLastFewMonthsDate(3), new Date()],
         },
         {
           label: 'Last month',
-          range: [
-            startOfMonth(subMonths(new Date(), 1)),
-            endOfMonth(subMonths(new Date(), 1)),
-          ],
+          range: [this.getLastFewMonthsDate(1), new Date()],
         },
       ]
     },
@@ -234,10 +228,10 @@ export default {
 
       return new Date(now.getFullYear(), now.getMonth(), now.getDate() - 6)
     },
-    getLastThreeMonthsDate() {
+    getLastFewMonthsDate(count) {
       return new Date(
         new Date().getFullYear(),
-        new Date().getMonth() - 3,
+        new Date().getMonth() - count,
         new Date().getDate()
       )
     },
