@@ -7,7 +7,7 @@
         :href="post.online_post.entry_links_href"
         target="_blank"
       >
-        {{ post.online_post.entry_links_href }}
+        {{ post.online_post.feedlink__sourceurl }}
       </a>
     </div>
 
@@ -24,11 +24,11 @@
       <a
         v-for="(item, index) in relatedLinks"
         :key="'link' + index"
-        :href="item"
+        :href="item.link"
         target="_blank"
         class="summary link"
       >
-        {{ item }}
+        {{ item.linkName }}
       </a>
     </div>
   </div>
@@ -72,11 +72,16 @@ export default {
   computed: {
     ...mapState(['statusMessage', 'items']),
     relatedLinks() {
-      const lickedItems = this.items[this.post.status].results.find(
+      const linkedItems = this.items[this.post.status].results.find(
         (el) => el.id === this.post.id
       ).linked_items
 
-      return lickedItems.map((element) => element.online_post.entry_links_href)
+      return linkedItems.map((element) => {
+        return {
+          link: element.online_post.entry_links_href,
+          linkName: element.online_post.feedlink__sourceurl,
+        }
+      })
     },
     messageContent() {
       return `${this.post.online_post.feed_image_link} ${this.post.header} ${

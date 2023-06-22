@@ -36,11 +36,13 @@
           :card-status="postInfo.status"
           :item-id="postInfo.id"
           :is-work-button-show="true"
+          :is-linked-button-show="true"
           draggable="true"
           class="drag-el"
           @change-status="changeStatus"
           @dragstart="startDrag($event, postInfo)"
           @open-modal="$emit('open-modal', postInfo)"
+          @open-linked-modal="$emit('open-linked-modal', postInfo)"
         />
       </div>
     </div>
@@ -186,14 +188,13 @@ export default {
     flex-direction: column;
     align-items: center;
 
-    min-width: 320px;
+    min-width: 345px;
 
     transition: all 0.3s;
 
     .drag-el {
       padding: 5px;
       margin-bottom: 10px;
-      width: 290px;
 
       transition: all 0.3s;
     }

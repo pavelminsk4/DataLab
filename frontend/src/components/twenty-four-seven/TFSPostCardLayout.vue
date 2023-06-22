@@ -90,7 +90,12 @@ export default {
 
 <style lang="scss" scoped>
 .search-result-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
   width: 320px;
+  height: 360px;
 
   border-radius: 8px;
   box-shadow: 1px 4px 16px rgba(135, 135, 135, 0.2);
@@ -142,10 +147,6 @@ export default {
         font-weight: 400;
         font-size: 14px;
         line-height: 150%;
-
-        &:focus {
-          -webkit-box-orient: revert;
-        }
       }
 
       .type-request {
@@ -186,49 +187,18 @@ export default {
 }
 </style>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .post-card__information {
   display: flex;
 
   margin-top: 12px;
-  padding: 14px 20px 18px;
+  padding: 4px 20px 10px;
 
   border-top: var(--border-primary);
-
-  &_block {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 4px;
-
-    padding-right: 8px;
-    margin-right: 8px;
-
-    border-right: var(--border-primary);
-
-    &:last-child {
-      padding-right: 0;
-      margin-right: 0;
-
-      border-right: none;
-    }
-
-    &_name {
-      font-weight: 500;
-      font-size: 10px;
-      color: var(--typography-secondary-color);
-    }
-
-    &_value {
-      text-decoration: none;
-      font-size: 11px;
-      color: var(--typography-title-color);
-    }
-  }
 }
-
 .post-card__buttons {
   display: flex;
+  align-items: center;
   justify-content: space-between;
 
   height: 36px;
