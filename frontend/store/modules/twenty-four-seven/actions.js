@@ -140,8 +140,8 @@ export default {
         page,
       })
       return
-    } catch (e) {
-      return e
+    } catch (error) {
+      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -192,6 +192,22 @@ export default {
     }
   },
 
+  async [action.UPDATE_AI_SUMMARY_LANGUAGE]({commit}, {newLanguage, text}) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const translatedText =
+        await api.twentyFourSeven.updateOriginalContentLanguage(
+          newLanguage,
+          text
+        )
+      commit(mutator.SET_TRANSLATED_AI_SUMMARY, translatedText.translated_text)
+      return
+    } catch (error) {
+      console.error(error)
+      return error
+    }
+  },
+
   async [action.CREATE_TFS_AI_SUMMARY]({commit}, postId) {
     commit(mutator.SET_LOADING, true)
     try {
@@ -225,5 +241,6 @@ export default {
 
   async [action.CLEAR_TFS_AI_SUMMARY]({commit}) {
     commit(mutator.SET_TFS_AI_SUMMARY, null)
+    commit(mutator.SET_TRANSLATED_AI_SUMMARY, null)
   },
 }

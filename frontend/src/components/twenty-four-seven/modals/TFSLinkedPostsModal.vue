@@ -1,7 +1,7 @@
 <template>
   <BaseModal
     title="Add link to report"
-    modal-frame-style="width:90vw;"
+    modal-frame-style="max-width:90vw;"
     class="working-modal"
   >
     <div class="cards">
@@ -60,14 +60,15 @@ export default {
       return posts?.sort((firstEl, secondEl) => firstEl.id - secondEl.id)
     },
     numberOfPages() {
-      return Math.ceil(this.items[PUBLISHING]?.count / 20)
+      const publishingPostsCount = this.items[PUBLISHING]?.count
+      return publishingPostsCount ? Math.ceil(publishingPostsCount / 20) : 1
     },
   },
   methods: {
     ...mapActions([action.UPDATE_TFS_ITEM_DATA]),
     addedPost(post) {
       return post.linked_items.some(
-        (el) => el.id === this.selectedLinkedPost.id
+        (linkedPost) => linkedPost.id === this.selectedLinkedPost.id
       )
     },
     updatePage(page) {

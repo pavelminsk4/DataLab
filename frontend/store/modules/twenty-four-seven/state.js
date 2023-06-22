@@ -8,6 +8,7 @@ const state = {
   statusMessage: null,
   textTranslation: {title: '', text: ''},
   aiSummary: null,
+  translatedAISummary: null,
 }
 
 export default state

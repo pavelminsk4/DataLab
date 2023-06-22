@@ -70,7 +70,11 @@
     </template>
 
     <template #buttons>
-      <div class="linked-button" @click="$emit('open-linked-modal')">
+      <div
+        v-if="isLinkedButtonShow"
+        class="linked-button"
+        @click="$emit('open-linked-modal')"
+      >
         <PlusIcon />
         <span>Add link to report</span>
       </div>
@@ -117,6 +121,7 @@ export default {
     isStatusShow: {type: Boolean, default: true},
     isShowStatusesDropdown: {type: Boolean, default: true},
     isCheckboxShow: {type: Boolean, default: false},
+    isLinkedButtonShow: {type: Boolean, default: false},
     selectedPost: {type: [Array, Boolean], required: false},
   },
   data() {
@@ -166,16 +171,21 @@ export default {
 
 <style lang="scss" scoped>
 .title {
+  display: -webkit-box;
+
   margin-bottom: 8px;
 
   cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 
   text-decoration: none;
   white-space: pre-wrap;
-  font-style: normal;
   font-weight: 600;
   font-size: 20px;
-  line-height: 28px;
   color: var(--typography-title-color);
 
   &:hover {
@@ -219,6 +229,39 @@ export default {
 
   &:hover {
     color: var(--primary-hover-color);
+  }
+}
+
+.post-card__information {
+  &_block {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 2px;
+
+    padding-right: 8px;
+    margin-right: 8px;
+
+    border-right: var(--border-primary);
+
+    &:last-child {
+      padding-right: 0;
+      margin-right: 0;
+
+      border-right: none;
+    }
+
+    &_name {
+      font-weight: 500;
+      font-size: 10px;
+      color: var(--typography-secondary-color);
+    }
+
+    &_value {
+      text-decoration: none;
+      font-size: 11px;
+      color: var(--typography-title-color);
+    }
   }
 }
 

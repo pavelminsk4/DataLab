@@ -1,14 +1,9 @@
 <template>
-  <div class="languages-tabs">
-    <div
-      v-for="(language, index) in languages"
-      :key="'languages' + index"
-      :class="[selectedLanguage === language && 'active-language', 'language']"
-      @click="changeLanguage(language)"
-    >
-      {{ language }}
-    </div>
-  </div>
+  <TFSLanguagesTabs
+    :languages-tabs="languagesTabs"
+    :selected-language="selectedLanguage"
+    @change-language="changeLanguage"
+  />
 
   <BaseSpinner v-if="translationLoading" class="spinner" />
   <div v-else :class="[isArabicLanguage && 'arabic-language']">
@@ -26,6 +21,7 @@ import {createNamespacedHelpers} from 'vuex'
 import {action} from '@store/constants'
 
 import BaseSpinner from '@/components/BaseSpinner'
+import TFSLanguagesTabs from '@/components/twenty-four-seven/TFSLanguagesTabs'
 
 const {mapState, mapActions} = createNamespacedHelpers('twentyFourSeven')
 
@@ -37,7 +33,7 @@ const LANGUAGES_NAMES = {
 
 export default {
   name: 'TFSOriginalContentTab',
-  components: {BaseSpinner},
+  components: {BaseSpinner, TFSLanguagesTabs},
   emits: [
     'save-summary',
     'send-to-whatsapp',
@@ -50,7 +46,6 @@ export default {
   },
   data() {
     return {
-      languages: Object.values(LANGUAGES_NAMES),
       selectedLanguage: LANGUAGES_NAMES.ORIGINAL,
     }
   },
@@ -65,6 +60,9 @@ export default {
     isArabicLanguage() {
       return this.selectedLanguage === LANGUAGES_NAMES.ARABIC
     },
+  },
+  created() {
+    this.languagesTabs = Object.values(LANGUAGES_NAMES)
   },
   methods: {
     ...mapActions([action.CLEAR_TFS_TRANSLATED_TEXT]),
