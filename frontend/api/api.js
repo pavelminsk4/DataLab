@@ -42,7 +42,7 @@ export default {
   },
 
   async getSources(word) {
-    return fetch('post', '/sources', word)
+    return fetch('get', `/sources/sources?search=${word}`)
   },
 
   async getAuthors(word) {
