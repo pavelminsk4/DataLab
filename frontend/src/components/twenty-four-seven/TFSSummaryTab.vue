@@ -114,7 +114,7 @@ export default {
 
       this[action.UPDATE_AI_SUMMARY_LANGUAGE]({
         newLanguage: newLanguage.toLowerCase(),
-        text: this.aiSummary,
+        text: this.text,
       })
     },
   },

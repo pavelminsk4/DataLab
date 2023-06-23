@@ -144,7 +144,12 @@ export default {
         this.saveLoading = false
       }
     },
-    async sendToWhatsapp(phoneNumber, messageContent) {
+    sendToWhatsapp(phoneNumbers, messageContent) {
+      phoneNumbers.forEach((phone) =>
+        this.sendMessageToWhatsapp(phone, messageContent)
+      )
+    },
+    async sendMessageToWhatsapp(phoneNumber, messageContent) {
       this.whatsappLoading = true
 
       try {

@@ -158,8 +158,10 @@ export default {
         message
       )
       commit(mutator.SET_TFS_STATUS_MESSAGE, response.status)
-    } catch (e) {
-      console.error(e)
+      return response
+    } catch (error) {
+      console.error(error)
+      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }

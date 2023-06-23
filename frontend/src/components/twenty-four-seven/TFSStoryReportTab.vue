@@ -34,22 +34,25 @@
   </div>
 
   <div v-if="isWhatsappFieldsShow" class="buttons">
-    <SelectWithCheckboxes
-      v-model="source"
-      name="Sources"
-      placeholder="Select numbers"
-      :list="recipientsNames"
-      :is-search="true"
-      :selected-checkboxes="selectedSourcesProxy"
-      @get-selected-items="getValuesList"
-      class="select"
+    <MultiSelect
+      v-model="selectedPhoneNumbers"
+      :options="recipientsNames"
+      item-name="number"
+      template-title="Phone numbers"
+      select-name="phone-numbers"
+      class="phone-numbers-select"
     />
-    <BaseButton
-      :button-loading="buttonWhatsappLoading"
-      @click="$emit('send-to-whatsapp', messageContent)"
-    >
-      Send to Whatsapp
-    </BaseButton>
+    <div class="whatsapp-button">
+      <BaseButton
+        :button-loading="buttonWhatsappLoading"
+        @click="$emit('send-to-whatsapp', whatsappNumbers, messageContent)"
+      >
+        Send to Whatsapp
+      </BaseButton>
+      <div v-if="statusMessage" class="error-message">
+        <ErrorIcon class="error-icon" /> {{ statusMessage }}
+      </div>
+    </div>
   </div>
 </template>
 
@@ -59,7 +62,8 @@ import BaseButton from '@/components/common/BaseButton'
 import PostStoryReportIcon from '@/components/icons/PostStoryReportIcon'
 import PencilIcon from '@/components/icons/PencilIcon'
 import RelatedIcon from '@/components/icons/RelatedIcon'
-import SelectWithCheckboxes from '@/components/SelectWithCheckboxes'
+import MultiSelect from '@/components/MultiSelect'
+import ErrorIcon from '@/components/icons/ErrorIcon'
 
 const {mapState} = createNamespacedHelpers('twentyFourSeven')
 
@@ -72,9 +76,14 @@ export default {
     PostStoryReportIcon,
     PencilIcon,
     RelatedIcon,
-    SelectWithCheckboxes,
+    MultiSelect,
+    ErrorIcon,
   },
-  emits: ['send-to-whatsapp', 'change-original-content-language'],
+  emits: [
+    'send-to-whatsapp',
+    'change-original-content-language',
+    'update:selectedNumbers',
+  ],
   props: {
     post: {type: Object, required: true},
     buttonWhatsappLoading: {type: Boolean, required: true},
@@ -83,8 +92,7 @@ export default {
   },
   data() {
     return {
-      source: '',
-      sources: null,
+      selectedNumbers: null,
     }
   },
   computed: {
@@ -101,16 +109,6 @@ export default {
         }
       })
     },
-    selectedSourcesProxy: {
-      get() {
-        return this.sources || []
-      },
-      set(val) {
-        this.sources = val
-        console.log(val)
-        this.updateSelectedFilters()
-      },
-    },
     messageContent() {
       return `${this.post.online_post.feed_image_link} ${this.post.header} ${
         this.post.text
@@ -120,12 +118,23 @@ export default {
       return this.post.status === PUBLISHING
     },
     recipientsNames() {
-      return this.phoneNumbers.map((recipient) => recipient.name)
+      return this.phoneNumbers.map((recipient) => {
+        return {title: recipient.name, id: recipient.mobile_number}
+      })
     },
-  },
-  methods: {
-    getValuesList(items) {
-      this.selectedSourcesProxy = items
+    selectedPhoneNumbers: {
+      get() {
+        return this.selectedNumbers || this.recipientsNames
+      },
+      set(selectedValue) {
+        this.selectedNumbers = selectedValue
+        this.$emit('update:selectedNumbers', selectedValue)
+      },
+    },
+    whatsappNumbers() {
+      return this.selectedPhoneNumbers.map((recipient) =>
+        recipient.id.replace(/[^0-9]/g, '')
+      )
     },
   },
 }
@@ -171,11 +180,39 @@ export default {
 .buttons {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   gap: 16px;
 
   margin: 36px -24px 0;
   padding: 18px 24px 0 0;
 
   border-top: 1px solid var(--border-color);
+
+  .phone-numbers-select {
+    width: 200px;
+    height: 40px;
+  }
+
+  .whatsapp-button {
+    position: relative;
+
+    .error-message {
+      position: absolute;
+
+      display: flex;
+      align-items: center;
+      gap: 4px;
+
+      font-size: 12px;
+      color: var(--error-primary-color);
+
+      .error-icon {
+        width: 12px;
+        height: 12px;
+
+        color: var(--error-primary-color);
+      }
+    }
+  }
 }
 </style>
