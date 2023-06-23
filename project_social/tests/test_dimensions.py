@@ -1,9 +1,9 @@
+from common.factories.tweet_binder_post import TweetBinderPostFactory
+from common.factories.project_social import ProjectSocialFactory
 from rest_framework.test import APITestCase
 from rest_framework import status
 from django.urls import reverse
 import json
-from common.factories.tweet_binder_post import TweetBinderPostFactory
-from common.factories.project_social import ProjectSocialFactory
 
 
 class DimensionsTests(APITestCase):
