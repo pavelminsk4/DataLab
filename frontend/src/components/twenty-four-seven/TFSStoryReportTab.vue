@@ -34,8 +34,17 @@
   </div>
 
   <div v-if="isWhatsappFieldsShow" class="buttons">
+    <SelectWithCheckboxes
+      v-model="source"
+      name="Sources"
+      placeholder="Select numbers"
+      :list="recipientsNames"
+      :is-search="true"
+      :selected-checkboxes="selectedSourcesProxy"
+      @get-selected-items="getValuesList"
+      class="select"
+    />
     <BaseButton
-      :is-disabled="true"
       :button-loading="buttonWhatsappLoading"
       @click="$emit('send-to-whatsapp', messageContent)"
     >
@@ -50,6 +59,7 @@ import BaseButton from '@/components/common/BaseButton'
 import PostStoryReportIcon from '@/components/icons/PostStoryReportIcon'
 import PencilIcon from '@/components/icons/PencilIcon'
 import RelatedIcon from '@/components/icons/RelatedIcon'
+import SelectWithCheckboxes from '@/components/SelectWithCheckboxes'
 
 const {mapState} = createNamespacedHelpers('twentyFourSeven')
 
@@ -62,12 +72,20 @@ export default {
     PostStoryReportIcon,
     PencilIcon,
     RelatedIcon,
+    SelectWithCheckboxes,
   },
   emits: ['send-to-whatsapp', 'change-original-content-language'],
   props: {
     post: {type: Object, required: true},
     buttonWhatsappLoading: {type: Boolean, required: true},
     translationLoading: {type: Boolean, required: true},
+    phoneNumbers: {type: Array, default: () => []},
+  },
+  data() {
+    return {
+      source: '',
+      sources: null,
+    }
   },
   computed: {
     ...mapState(['statusMessage', 'items']),
@@ -83,6 +101,16 @@ export default {
         }
       })
     },
+    selectedSourcesProxy: {
+      get() {
+        return this.sources || []
+      },
+      set(val) {
+        this.sources = val
+        console.log(val)
+        this.updateSelectedFilters()
+      },
+    },
     messageContent() {
       return `${this.post.online_post.feed_image_link} ${this.post.header} ${
         this.post.text
@@ -90,6 +118,14 @@ export default {
     },
     isWhatsappFieldsShow() {
       return this.post.status === PUBLISHING
+    },
+    recipientsNames() {
+      return this.phoneNumbers.map((recipient) => recipient.name)
+    },
+  },
+  methods: {
+    getValuesList(items) {
+      this.selectedSourcesProxy = items
     },
   },
 }

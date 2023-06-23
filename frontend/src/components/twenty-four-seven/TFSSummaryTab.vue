@@ -1,5 +1,6 @@
 <template>
   <TFSLanguagesTabs
+    v-if="isSummaryTab"
     :languages-tabs="languagesTabs"
     :selected-language="selectedLanguage"
     @change-language="changeAISummaryLanguage"

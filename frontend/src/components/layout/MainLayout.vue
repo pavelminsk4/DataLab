@@ -53,6 +53,8 @@ export default {
 }
 
 .second-column {
+  max-width: 100%;
+
   background-color: var(--background-secondary-color);
 }
 
