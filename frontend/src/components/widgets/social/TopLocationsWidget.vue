@@ -34,7 +34,6 @@ export default {
     chartValues() {
       return [
         {
-          color: '#516BEE',
           data: this.topLocations.map((el) => el.locations_count),
         },
       ]

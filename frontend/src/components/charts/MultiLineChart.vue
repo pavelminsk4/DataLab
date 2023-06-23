@@ -138,6 +138,11 @@ export default {
             },
           },
         },
+        elements: {
+          line: {
+            tension: 0.5,
+          },
+        },
       }
     },
     chartData() {

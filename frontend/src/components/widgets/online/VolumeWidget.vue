@@ -55,7 +55,9 @@ export default {
     },
     chartValues() {
       return [
-        {color: '#516BEE', data: this.volumeData.map((el) => el.created_count)},
+        {
+          data: this.volumeData.map((el) => el.created_count),
+        },
       ]
     },
   },

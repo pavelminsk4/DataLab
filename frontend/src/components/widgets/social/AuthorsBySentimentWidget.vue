@@ -73,6 +73,33 @@ export default {
         },
       ]
     },
+    activeTab: {
+      get() {
+        return this.newActiveTab || this.tabs[0]
+      },
+      set(newTab) {
+        this.newActiveTab = newTab
+      },
+    },
+    tabs() {
+      return Object.keys(this.authorsBySentiment)
+    },
+    currentWidgetData() {
+      return this.authorsBySentiment[this.activeTab]
+    },
+    labels() {
+      if (!this.currentWidgetData) return []
+      return this.currentWidgetData.map((el) => el[0].toString())
+    },
+
+    chartValues() {
+      if (!this.currentWidgetData) return []
+      return [
+        {
+          data: this.currentWidgetData.map((values) => values[1]),
+        },
+      ]
+    },
   },
   created() {
     if (!this.widgetDetails.widgetData && !this.authorsBySentiment.length) {

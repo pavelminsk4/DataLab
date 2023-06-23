@@ -34,7 +34,6 @@ export default {
     chartValues() {
       return [
         {
-          color: '#516BEE',
           data: this.topAuthors.map((el) => el.user_count),
         },
       ]

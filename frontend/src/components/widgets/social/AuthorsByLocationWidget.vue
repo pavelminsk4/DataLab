@@ -65,7 +65,6 @@ export default {
       if (!this.currentWidgetData) return []
       return [
         {
-          color: '#516BEE',
           data: this.currentWidgetData[this.activeTab].map((el) => el[1]),
         },
       ]
