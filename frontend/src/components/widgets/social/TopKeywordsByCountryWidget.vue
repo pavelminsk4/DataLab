@@ -41,13 +41,13 @@ export default {
       },
     },
     currentWidgetData() {
-      const widgetData = this.topKeywordsByCountry.find((el) =>
-        Object.keys(el).includes(this.activeTab)
+      const widgetData = this.topKeywordsByCountry.find((values) =>
+        Object.keys(values).includes(this.activeTab)
       )
       return widgetData[this.activeTab]
     },
     tabs() {
-      return this.topKeywordsByCountry.map((el) => Object.keys(el)[0])
+      return this.topKeywordsByCountry.map((values) => Object.keys(values)[0])
     },
   },
   created() {
