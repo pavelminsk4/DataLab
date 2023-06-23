@@ -27,8 +27,8 @@ export default {
       const labels = Object.keys(this.languagesByCountry)
       const values = labels.map((label) => this.languagesByCountry[label])
       const chartValues = values.map((chartValue) => {
-        const sumValues = chartValue.reduce((a, currValue) => {
-          return a + Object.values(currValue)[1]
+        const sumValues = chartValue.reduce((currSum, currValue) => {
+          return currSum + Object.values(currValue)[1]
         }, 0)
 
         return chartValue.map((element, index) => {
