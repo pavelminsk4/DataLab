@@ -1,24 +1,40 @@
 <template>
-  <SentimentDiagram
-    v-if="authorsBySentiment"
-    :widget-details="widgetDetails"
-    :sentiment-diagram="authorsBySentiment"
-  />
+  <div class="container">
+    <VolumeWidget
+      v-if="chartValues.length"
+      v-bind="$attrs"
+      :widget-details="widgetDetails"
+      :labels="labels"
+      :chart-values="chartValues"
+    />
+    <WidgetsSwitcher
+      v-if="tabs.length"
+      v-model="activeTab"
+      :tabs="tabs"
+      :isSentiment="true"
+    />
+  </div>
 </template>
 
 <script>
 import {createNamespacedHelpers} from 'vuex'
 import {get, action} from '@store/constants'
 
-import SentimentDiagram from '@/components/widgets/SentimentDiagram'
+import VolumeWidget from '@/components/widgets/VolumeWidget'
+import WidgetsSwitcher from '@/components/layout/WidgetsSwitcher'
 
 const {mapActions, mapGetters} = createNamespacedHelpers('social/widgets')
 
 export default {
   name: 'AuthorsBySentimentWidget',
-  components: {SentimentDiagram},
+  components: {VolumeWidget, WidgetsSwitcher},
   props: {
     widgetDetails: {type: Object, required: true},
+  },
+  data() {
+    return {
+      newActiveTab: '',
+    }
   },
   computed: {
     ...mapGetters({
@@ -26,6 +42,34 @@ export default {
     }),
     authorsBySentiment() {
       return this.socialWidgets.authorsBySentiment
+    },
+    activeTab: {
+      get() {
+        return this.newActiveTab || this.tabs[0]
+      },
+      set(newTab) {
+        this.newActiveTab = newTab
+      },
+    },
+    tabs() {
+      return Object.keys(this.authorsBySentiment)
+    },
+    currentWidgetData() {
+      return this.authorsBySentiment[this.activeTab]
+    },
+    labels() {
+      if (!this.currentWidgetData) return []
+      return this.currentWidgetData.map((values) => values[0].toString())
+    },
+
+    chartValues() {
+      if (!this.currentWidgetData) return []
+      return [
+        {
+          color: '#516BEE',
+          data: this.currentWidgetData.map((values) => values[1]),
+        },
+      ]
     },
   },
   created() {
@@ -41,3 +85,12 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.container {
+  flex-direction: column;
+
+  max-height: 450px;
+  height: 100%;
+}
+</style>

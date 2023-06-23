@@ -11,9 +11,9 @@
 import {mapActions, mapState} from 'vuex'
 import {action} from '@store/constants'
 import {PREDEFINED_COLORS} from '@/lib/constants'
+import {isAllFieldsEmpty} from '@lib/utilities'
 
 import TopEntitiesStackedBarWidget from '@/components/widgets/TopEntitiesStackedBarWidget'
-import {isAllFieldsEmpty} from '@lib/utilities'
 
 export default {
   name: 'LanguagesByCountryWidget',
