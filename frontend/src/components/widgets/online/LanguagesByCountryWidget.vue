@@ -26,15 +26,15 @@ export default {
     widgetData() {
       const labels = Object.keys(this.languagesByCountry)
       const values = labels.map((label) => this.languagesByCountry[label])
-      const chartValues = values.map((el) => {
-        const max = el.reduce((a, b) => {
-          return a + Object.values(b)[1]
+      const chartValues = values.map((chartValue) => {
+        const sumValues = chartValue.reduce((a, currValue) => {
+          return a + Object.values(currValue)[1]
         }, 0)
 
-        return el.map((el, index) => {
-          const elValues = Object.values(el)
+        return chartValue.map((element, index) => {
+          const elValues = Object.values(element)
           return {
-            data: [(elValues[1] / max) * 100],
+            data: [(elValues[1] / sumValues) * 100],
             backgroundColor: PREDEFINED_COLORS[index],
             borderRadius: 12,
             barThickness: 'flex',

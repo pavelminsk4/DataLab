@@ -1,10 +1,14 @@
 <template>
-  <VolumeWidget
-    v-bind="$attrs"
-    :widget-details="widgetDetails"
-    :labels="labels"
-    :chart-values="chartValues"
-  />
+  <div class="container">
+    <VolumeWidget
+      v-bind="$attrs"
+      v-if="chartValues.length"
+      :widget-details="widgetDetails"
+      :labels="labels"
+      :chart-values="chartValues"
+    />
+    <WidgetsSwitcher v-if="tabs.length" v-model="activeTab" :tabs="tabs" />
+  </div>
 </template>
 
 <script>
@@ -12,14 +16,20 @@ import {createNamespacedHelpers} from 'vuex'
 import {get, action} from '@store/constants'
 
 import VolumeWidget from '@/components/widgets/VolumeWidget'
+import WidgetsSwitcher from '@/components/layout/WidgetsSwitcher'
 
 const {mapActions, mapGetters} = createNamespacedHelpers('social/widgets')
 
 export default {
   name: 'AuthorsByLocationWidget',
-  components: {VolumeWidget},
+  components: {VolumeWidget, WidgetsSwitcher},
   props: {
     widgetDetails: {type: Object, required: true},
+  },
+  data() {
+    return {
+      newActiveTab: '',
+    }
   },
   computed: {
     ...mapGetters({
@@ -28,14 +38,33 @@ export default {
     authorsByLocation() {
       return this.socialWidgets.authorsByLocation
     },
-    labels() {
-      return this.authorsByLocation.map((el) => el.locationString)
+    activeTab: {
+      get() {
+        return this.newActiveTab || this.tabs[0]
+      },
+      set(newTab) {
+        this.newActiveTab = newTab
+      },
     },
+    tabs() {
+      return this.authorsByLocation.map((el) => Object.keys(el).toString())
+    },
+    currentWidgetData() {
+      return this.authorsByLocation.find((el) =>
+        Object.keys(el).includes(this.activeTab)
+      )
+    },
+    labels() {
+      if (!this.currentWidgetData) return []
+      return this.currentWidgetData[this.activeTab].map((el) => el[0] + '')
+    },
+
     chartValues() {
+      if (!this.currentWidgetData) return []
       return [
         {
           color: '#516BEE',
-          data: this.authorsByLocation.map((el) => el.user_count),
+          data: this.currentWidgetData[this.activeTab].map((el) => el[1]),
         },
       ]
     },
@@ -53,3 +82,12 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.container {
+  flex-direction: column;
+
+  max-height: 450px;
+  height: 100%;
+}
+</style>
