@@ -11,7 +11,7 @@ env.read_env(os.path.join(BASE_DIR, '.env'))
 
 SECRET_KEY = 'django-insecure-#v!p9&1x##2u#yt)l=o5ihm(=!&(y(w4j5p-_mbm(k&bc1i!jw'
 
-ALLOWED_HOSTS = ['staging.datalab.net', 'datalab.net', '46.151.214.110', 'localhost', '46.101.224.115', 'www.datalab.net']
+ALLOWED_HOSTS = ['staging.datalab.net', 'datalab.net', '46.151.214.110', 'localhost', '46.101.224.115', 'www.datalab.net', '10.0.2.2']
 
 # Application definition
 

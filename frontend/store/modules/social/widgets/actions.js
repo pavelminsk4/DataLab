@@ -3,14 +3,14 @@ import {action, mutator} from '@store/constants'
 
 export default {
   async [action.GET_SUMMARY_WIDGET]({commit}, {projectId, widgetId}) {
-    commit(mutator.SET_LOADING, true, {root: true})
+    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
       const summary = await api.social.getSummaryWidget(projectId, widgetId)
       commit(mutator.SET_SUMMARY_WIDGET, summary)
     } catch (e) {
       console.error(e)
     } finally {
-      commit(mutator.SET_LOADING, false, {root: true})
+      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
   },
 
@@ -36,7 +36,7 @@ export default {
     {commit},
     {projectId, value, widgetId}
   ) {
-    commit(mutator.SET_LOADING, true, {root: true})
+    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
       const volume = await api.social.getContentVolumeWidget({
         projectId,
@@ -47,7 +47,7 @@ export default {
     } catch (e) {
       console.error(e)
     } finally {
-      commit(mutator.SET_LOADING, false, {root: true})
+      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
   },
 
@@ -55,7 +55,7 @@ export default {
     {commit},
     {projectId, widgetId, value}
   ) {
-    commit(mutator.SET_LOADING, true, {root: true})
+    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
       const data = await api.social.getGenderVolumeWidget(
         projectId,
@@ -66,13 +66,13 @@ export default {
     } catch (e) {
       console.error(e)
     } finally {
-      commit(mutator.SET_LOADING, false, {root: true})
+      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
   },
 
   // Top
   async [action.GET_TOP_LOCATIONS_WIDGET]({commit}, {projectId, widgetId}) {
-    commit(mutator.SET_LOADING, true, {root: true})
+    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
       const topLocation = await api.social.getTopLocationsWidget(
         projectId,
@@ -82,11 +82,11 @@ export default {
     } catch (e) {
       console.error(e)
     } finally {
-      commit(mutator.SET_LOADING, false, {root: true})
+      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
   },
   async [action.GET_TOP_LANGUAGES_WIDGET]({commit}, {projectId, widgetId}) {
-    commit(mutator.SET_LOADING, true, {root: true})
+    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
       const topLanguages = await api.social.getTopLanguagesWidget(
         projectId,
@@ -96,11 +96,11 @@ export default {
     } catch (e) {
       console.error(e)
     } finally {
-      commit(mutator.SET_LOADING, false, {root: true})
+      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
   },
   async [action.GET_TOP_AUTHORS_WIDGET]({commit}, {projectId, widgetId}) {
-    commit(mutator.SET_LOADING, true, {root: true})
+    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
       const topAuthors = await api.social.getTopAuthorsWidget(
         projectId,
@@ -110,18 +110,18 @@ export default {
     } catch (e) {
       console.error(e)
     } finally {
-      commit(mutator.SET_LOADING, false, {root: true})
+      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
   },
   async [action.GET_TOP_KEYWORDS_WIDGET]({commit}, {projectId, widgetId}) {
-    commit(mutator.SET_LOADING, true, {root: true})
+    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
       const topKeywords = await api.social.getTopKeywords({projectId, widgetId})
       commit(mutator.SET_TOP_KEYWORDS_WIDGET, topKeywords)
     } catch (e) {
       console.error(e)
     } finally {
-      commit(mutator.SET_LOADING, false, {root: true})
+      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
   },
 
@@ -159,7 +159,7 @@ export default {
   },
 
   async [action.GET_TOP_SHARING_SOURCES]({commit}, {projectId, widgetId}) {
-    commit(mutator.SET_LOADING, true, {root: true})
+    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
       const topSharingSources = await api.social.getTopSharingSources({
         projectId,
@@ -169,11 +169,11 @@ export default {
     } catch (e) {
       console.error(e)
     } finally {
-      commit(mutator.SET_LOADING, false, {root: true})
+      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
   },
   async [action.GET_OVERALL_TOP_AUTHORS]({commit}, {projectId, widgetId}) {
-    commit(mutator.SET_LOADING, true, {root: true})
+    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
       const data = await api.social.getOverallTopAuthors({
         projectId,
@@ -183,11 +183,11 @@ export default {
     } catch (e) {
       console.error(e)
     } finally {
-      commit(mutator.SET_LOADING, false, {root: true})
+      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
   },
   async [action.GET_TOP_AUTHORS_BY_GENDER]({commit}, {projectId, widgetId}) {
-    commit(mutator.SET_LOADING, true, {root: true})
+    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
       const data = await api.social.getTopAuthorsByGender({
         projectId,
@@ -197,7 +197,7 @@ export default {
     } catch (e) {
       console.error(e)
     } finally {
-      commit(mutator.SET_LOADING, false, {root: true})
+      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
   },
 
@@ -206,7 +206,7 @@ export default {
     {commit},
     {projectId, value, widgetId}
   ) {
-    commit(mutator.SET_LOADING, true, {root: true})
+    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
       const contentVolumeTopCountries =
         await api.social.getContentVolumeTopLocations({
@@ -221,14 +221,14 @@ export default {
     } catch (e) {
       console.error(e)
     } finally {
-      commit(mutator.SET_LOADING, false, {root: true})
+      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
   },
   async [action.GET_CONTENT_VOLUME_TOP_AUTHORS](
     {commit},
     {projectId, value, widgetId}
   ) {
-    commit(mutator.SET_LOADING, true, {root: true})
+    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
       const contentVolumeTopAuthors =
         await api.social.getContentVolumeTopAuthors({
@@ -240,7 +240,7 @@ export default {
     } catch (e) {
       console.error(e)
     } finally {
-      commit(mutator.SET_LOADING, false, {root: true})
+      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
   },
 
@@ -248,7 +248,7 @@ export default {
     {commit},
     {projectId, value, widgetId}
   ) {
-    commit(mutator.SET_LOADING, true, {root: true})
+    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
       const contentVolumeTopLanguages =
         await api.social.getContentVolumeTopLanguages({
@@ -263,11 +263,11 @@ export default {
     } catch (e) {
       console.error(e)
     } finally {
-      commit(mutator.SET_LOADING, false, {root: true})
+      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
   },
   async [action.GET_AUTHORS_BY_LANGUAGE]({commit}, {projectId, widgetId}) {
-    commit(mutator.SET_LOADING, true, {root: true})
+    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
       const data = await api.social.getAuthorsByLanguage({
         projectId,
@@ -277,12 +277,12 @@ export default {
     } catch (e) {
       console.error(e)
     } finally {
-      commit(mutator.SET_LOADING, false, {root: true})
+      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
   },
 
   async [action.GET_AUTHORS_BY_LOCATION]({commit}, {projectId, widgetId}) {
-    commit(mutator.SET_LOADING, true, {root: true})
+    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
       const data = await api.social.getAuthorsByLocation({
         projectId,
@@ -292,12 +292,12 @@ export default {
     } catch (e) {
       console.error(e)
     } finally {
-      commit(mutator.SET_LOADING, false, {root: true})
+      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
   },
 
   async [action.GET_AUTHORS_BY_SENTIMENT]({commit}, {projectId, widgetId}) {
-    commit(mutator.SET_LOADING, true, {root: true})
+    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
       const data = await api.social.getAuthorsBySentiment({
         projectId,
@@ -307,12 +307,12 @@ export default {
     } catch (e) {
       console.error(e)
     } finally {
-      commit(mutator.SET_LOADING, false, {root: true})
+      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
   },
 
   async [action.GET_AUTHORS_BY_GENDER]({commit}, {projectId, widgetId}) {
-    commit(mutator.SET_LOADING, true, {root: true})
+    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
       const data = await api.social.getAuthorsByGender({
         projectId,
@@ -322,13 +322,13 @@ export default {
     } catch (e) {
       console.error(e)
     } finally {
-      commit(mutator.SET_LOADING, false, {root: true})
+      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
   },
 
   // Sentiment
   async [action.GET_SENTIMENT_TOP_LOCATIONS]({commit}, {projectId, widgetId}) {
-    commit(mutator.SET_LOADING, true, {root: true})
+    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
       const sentimentTopCountries = await api.social.getSentimentTopLocations(
         projectId,
@@ -338,11 +338,11 @@ export default {
     } catch (e) {
       console.error(e)
     } finally {
-      commit(mutator.SET_LOADING, false, {root: true})
+      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
   },
   async [action.GET_SENTIMENT_TOP_LANGUAGES]({commit}, {projectId, widgetId}) {
-    commit(mutator.SET_LOADING, true, {root: true})
+    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
       const sentimentTopLanguages = await api.social.getSentimentTopLanguages(
         projectId,
@@ -352,11 +352,11 @@ export default {
     } catch (e) {
       console.error(e)
     } finally {
-      commit(mutator.SET_LOADING, false, {root: true})
+      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
   },
   async [action.GET_SENTIMENT_TOP_AUTHORS]({commit}, {projectId, widgetId}) {
-    commit(mutator.SET_LOADING, true, {root: true})
+    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
       const sentimentTopAuthors = await api.social.getSentimentTopAuthors(
         projectId,
@@ -366,14 +366,14 @@ export default {
     } catch (e) {
       console.error(e)
     } finally {
-      commit(mutator.SET_LOADING, false, {root: true})
+      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
   },
   async [action.GET_SENTIMENT_FOR_PERIOD](
     {commit},
     {projectId, value, widgetId}
   ) {
-    commit(mutator.SET_LOADING, true, {root: true})
+    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
       const sentimentForPeriod = await api.social.getSentimentForPeriod({
         projectId,
@@ -384,11 +384,11 @@ export default {
     } catch (e) {
       console.error(e)
     } finally {
-      commit(mutator.SET_LOADING, false, {root: true})
+      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
   },
   async [action.GET_SENTIMENT_DIAGRAM]({commit}, {projectId, widgetId}) {
-    commit(mutator.SET_LOADING, true, {root: true})
+    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
       const data = await api.social.getSentimentDiagram({
         projectId,
@@ -398,14 +398,14 @@ export default {
     } catch (e) {
       console.error(e)
     } finally {
-      commit(mutator.SET_LOADING, false, {root: true})
+      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
   },
   async [action.GET_SENTIMENT_NUMBER_OF_RESULT](
     {commit},
     {projectId, widgetId}
   ) {
-    commit(mutator.SET_LOADING, true, {root: true})
+    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
       const data = await api.social.getSentimentNumberOfResult({
         projectId,
@@ -415,11 +415,11 @@ export default {
     } catch (e) {
       console.error(e)
     } finally {
-      commit(mutator.SET_LOADING, false, {root: true})
+      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
   },
   async [action.GET_SENTIMENT_TOP_KEYWORDS]({commit}, {projectId, widgetId}) {
-    commit(mutator.SET_LOADING, true, {root: true})
+    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
       const data = await api.social.getSentimentTopKeywords({
         projectId,
@@ -429,11 +429,11 @@ export default {
     } catch (e) {
       console.error(e)
     } finally {
-      commit(mutator.SET_LOADING, false, {root: true})
+      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
   },
   async [action.GET_SENTIMENT_BY_GENDER]({commit}, {projectId, widgetId}) {
-    commit(mutator.SET_LOADING, true, {root: true})
+    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
       const data = await api.social.getSentimentByGender({
         projectId,
@@ -443,7 +443,7 @@ export default {
     } catch (e) {
       console.error(e)
     } finally {
-      commit(mutator.SET_LOADING, false, {root: true})
+      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
   },
 }

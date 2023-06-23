@@ -32,11 +32,15 @@ export default {
   components: {CrossIcon, BaseSpinner, SettingsIcon},
   props: {
     title: {type: String, default: ''},
+    widgetId: {type: Number, default: 0},
     isShowSettingsBtn: {type: Boolean, default: true},
     isShowDeleteBtn: {type: Boolean, default: true},
   },
   computed: {
-    ...mapGetters({isLoading: get.LOADING}),
+    ...mapGetters({loading: get.LOADING_WIDGETS}),
+    isLoading() {
+      return this.loading[this.widgetId] || false
+    },
   },
   methods: {
     openSettingsModal() {

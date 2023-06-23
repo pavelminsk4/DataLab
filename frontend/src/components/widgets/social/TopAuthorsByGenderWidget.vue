@@ -1,6 +1,7 @@
 <template>
   <component
     :is="widgetWrapper"
+    :widget-id="widgetDetails.id"
     :title="widgetDetails.title"
     :is-show-delete-btn="false"
     style="--widget-layout-content-padding: 0px"

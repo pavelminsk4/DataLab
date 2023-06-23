@@ -106,6 +106,7 @@ export const newTFSProjectInitialState = {
 export default {
   loading: false,
   loadingWidgets: {
+    loading: false,
     clippingWidget: false,
   },
   currentStep: '',

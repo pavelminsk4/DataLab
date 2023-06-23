@@ -2,6 +2,7 @@
   <component
     v-if="chartValues.length"
     :is="widgetWrapper"
+    :widget-id="widgetDetails.id"
     :title="widgetDetails.title"
     style="--widget-layout-content-padding: 5px 100px"
     @delete-widget="$emit('delete-widget')"
