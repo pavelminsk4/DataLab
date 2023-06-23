@@ -8,11 +8,11 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(label, index) in widgetData.labels" :key="label">
+        <tr v-for="(label, index) in labels" :key="label">
           <td class="label">{{ label }}</td>
           <td class="chart">
             <StackedBarChart
-              :chart-values="widgetData.chartValues[index]"
+              :chart-values="chartValues[index]"
               :isShowTooltips="true"
             />
           </td>
@@ -29,7 +29,8 @@ export default {
   name: 'TopEntitiesBarChart',
   components: {StackedBarChart},
   props: {
-    widgetData: {type: Object, required: true},
+    labels: {type: Array, required: true},
+    chartValues: {type: Array, required: true},
   },
 }
 </script>

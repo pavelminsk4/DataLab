@@ -7,7 +7,8 @@
     @open-modal="$emit('open-settings-modal')"
   >
     <ChartsView
-      :widget-data="widgetData"
+      :chart-values="chartValues"
+      :labels="labels"
       :chart-type="chartType"
       :widget-details="widgetDetails"
     />
@@ -25,7 +26,8 @@ export default {
     WidgetsLayout,
   },
   props: {
-    widgetData: {type: Object, required: true},
+    labels: {type: Array, required: true},
+    chartValues: {type: Array, required: true},
     widgetDetails: {type: Object, required: true},
     isSettings: {type: Boolean, default: false},
     customTitle: {type: String, default: ''},
