@@ -16,6 +16,7 @@ import TopLocations from '@/components/widgets/social/TopLocationsWidget'
 import TopLanguages from '@/components/widgets/social/TopLanguagesWidget'
 import TopAuthors from '@/components/widgets/social/TopAuthorsWidget'
 import TopKeywords from '@/components/widgets/social/TopKeywordsWidget'
+import KeywordsByLocation from '@/components/widgets/social/TopKeywordsByCountryWidget'
 import TopSharingSources from '@/components/widgets/social/TopSharingSourcesWidget'
 
 import ContentVolumeTopLocations from '@/components/widgets/social/ContentVolumeTopLocationsWidget'
@@ -67,6 +68,7 @@ export default {
     AuthorsByLocation,
     AuthorsBySentiment,
     AuthorsByGender,
+    KeywordsByLocation,
   },
   props: {
     widgetDetails: {type: Object, required: true},

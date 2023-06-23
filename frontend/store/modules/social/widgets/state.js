@@ -12,6 +12,7 @@ const state = {
   topLanguages: [],
   topAuthors: [],
   topKeywords: [],
+  topKeywordsByCountry: [],
   topSharingSources: [],
   overallTopAuthors: [],
   topAuthorsByGender: [],

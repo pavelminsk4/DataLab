@@ -124,6 +124,25 @@ export default {
       commit(mutator.SET_LOADING, false, {root: true})
     }
   },
+
+  async [action.GET_TOP_KEYWORDS_BY_COUNTRY_WIDGET](
+    {commit},
+    {projectId, widgetId}
+  ) {
+    commit(mutator.SET_LOADING, true, {root: true})
+    try {
+      const topKeywords = await api.social.getTopKeywordsByCountry({
+        projectId,
+        widgetId,
+      })
+      commit(mutator.SET_TOP_KEYWORDS_BY_COUNTRY_WIDGET, topKeywords)
+    } catch (error) {
+      return error
+    } finally {
+      commit(mutator.SET_LOADING, false, {root: true})
+    }
+  },
+
   async [action.GET_TOP_SHARING_SOURCES]({commit}, {projectId, widgetId}) {
     commit(mutator.SET_LOADING, true, {root: true})
     try {
@@ -209,6 +228,7 @@ export default {
       commit(mutator.SET_LOADING, false, {root: true})
     }
   },
+
   async [action.GET_CONTENT_VOLUME_TOP_LANGUAGES](
     {commit},
     {projectId, value, widgetId}

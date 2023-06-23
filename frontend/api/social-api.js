@@ -185,6 +185,13 @@ export default {
     )
   },
 
+  async getTopKeywordsByCountry({projectId, widgetId}) {
+    return fetch(
+      'get',
+      `${moduleName}/social_keywords_by_location/${projectId}/${widgetId}`
+    )
+  },
+
   async getOverallTopAuthors({projectId, widgetId}) {
     return fetch(
       'get',
