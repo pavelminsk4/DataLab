@@ -24,7 +24,7 @@
     >
       <grid-item
         class="widget-item"
-        v-for="(item, index) in selectedWidgets"
+        v-for="(item, index) in displayedWidgets"
         :key="item.i"
         :static="item.static"
         :x="item.x"
@@ -37,6 +37,10 @@
           :widgetDetails="item.widgetDetails"
           @delete-widget="deleteWidget(item.widgetDetails.name)"
           @open-settings-modal="openModal(index)"
+        />
+        <BaseObserver
+          v-if="index + 1 === displayedWidgets.length"
+          @intersect="getItems"
         />
       </grid-item>
     </grid-layout>
@@ -51,6 +55,7 @@ import {getWidgetDetails} from '@lib/utilities'
 import {widgetsConfig} from '@/lib/configs/widgetsConfigs'
 
 import SearchResults from '@/components/SearchResults'
+import BaseObserver from '@/components/BaseObserver'
 
 import WidgetSettingsModal from '@/components/widgets/online/modals/WidgetSettingsModal'
 import OnlineMainWidget from '@/components/widgets/online/OnlineMainWidget'
@@ -63,6 +68,7 @@ export default {
     OnlineMainWidget,
     GridLayout: VueGridLayout.GridLayout,
     GridItem: VueGridLayout.GridItem,
+    BaseObserver,
   },
   emits: ['update-page'],
   props: {
@@ -74,6 +80,7 @@ export default {
       layout: [],
       isOpenWidgetSettingsModal: false,
       currentWidgetIndex: 0,
+      countDisplayedWidgets: 2,
     }
   },
   computed: {
@@ -108,6 +115,8 @@ export default {
                   this.projectId,
                   this.currentProject.source
                 ),
+
+                isReady: false,
               }
             }
           })
@@ -116,6 +125,9 @@ export default {
       set(val) {
         this.layout = val
       },
+    },
+    displayedWidgets() {
+      return this.selectedWidgets.slice(0, this.countDisplayedWidgets)
     },
   },
   methods: {
@@ -141,6 +153,9 @@ export default {
     closeModal() {
       this.togglePageScroll(false)
       this.isOpenWidgetSettingsModal = false
+    },
+    getItems() {
+      this.countDisplayedWidgets += 2
     },
   },
 }

@@ -1,6 +1,7 @@
 <template>
   <component
     :is="widgetWrapper"
+    :widget-id="widgetDetails.id"
     :title="widgetDetails.title"
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"

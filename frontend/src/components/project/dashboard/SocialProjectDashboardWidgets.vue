@@ -17,7 +17,7 @@
     class="widgets-wrapper scroll"
   >
     <grid-item
-      v-for="(item, index) in selectedWidgets"
+      v-for="(item, index) in displayedWidgets"
       :static="item.static"
       :x="item.x"
       :y="item.y"
@@ -32,6 +32,10 @@
         @delete-widget="deleteWidget(item.widgetDetails.name)"
         @open-settings-modal="openModal(index)"
       />
+      <BaseObserver
+        v-if="index + 1 === displayedWidgets.length"
+        @intersect="getItems"
+      />
     </grid-item>
   </grid-layout>
 
@@ -45,6 +49,7 @@ import VueGridLayout from 'vue3-grid-layout'
 import {getWidgetDetails} from '@lib/utilities'
 import {widgetsConfig} from '@/lib/configs/widgetsConfigs'
 
+import BaseObserver from '@/components/BaseObserver'
 import SocialMainWidget from '@/components/widgets/social/SocialMainWidget'
 import WidgetSettingsModal from '@/components/widgets/social/modals/WidgetSettingsModal'
 
@@ -58,6 +63,7 @@ export default {
     WidgetSettingsModal,
     GridLayout: VueGridLayout.GridLayout,
     GridItem: VueGridLayout.GridItem,
+    BaseObserver,
   },
   emits: [
     'set-sorting-value',
@@ -74,6 +80,7 @@ export default {
       layout: [],
       isOpenWidgetSettingsModal: false,
       currentWidgetIndex: 0,
+      countDisplayedWidgets: 2,
     }
   },
   computed: {
@@ -123,6 +130,9 @@ export default {
         this.layout = val
       },
     },
+    displayedWidgets() {
+      return this.selectedWidgets.slice(0, this.countDisplayedWidgets)
+    },
   },
   async created() {
     if (
@@ -158,6 +168,9 @@ export default {
     closeModal() {
       this.togglePageScroll(false)
       this.isOpenWidgetSettingsModal = false
+    },
+    getItems() {
+      this.countDisplayedWidgets += 2
     },
   },
 }
