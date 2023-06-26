@@ -25,7 +25,7 @@ class ReportItem(models.Model):
   onl_volume = models.BooleanField(default=False)
   onl_clipping_feed_content = models.BooleanField(default=False)
   onl_top_authors = models.BooleanField(default=False)
-  onl_top_brands = models.BooleanField(default=False)
+  onl_top_sources = models.BooleanField(default=False)
   onl_top_countries = models.BooleanField(default=False)
   onl_top_languages = models.BooleanField(default=False)
   onl_content_volume_top_sources = models.BooleanField(default=False)

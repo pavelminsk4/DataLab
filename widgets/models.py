@@ -42,7 +42,7 @@ class WidgetsList2(models.Model):
   volume = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='onl_volume', null=True)
   clipping_feed_content = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='onl_clipping_feed_content',null=True)
   top_authors = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='onl_top_authors',null=True)
-  top_brands = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='onl_top_brands', null=True)
+  top_sources = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='onl_top_sources', null=True)
   top_countries = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='onl_top_countries', null=True)
   top_languages = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='onl_top_languages', null=True)
   content_volume_top_sources = models.ForeignKey(WidgetDescription,on_delete=models.CASCADE,related_name='onl_content_volume_top_sources', null=True)
@@ -87,7 +87,7 @@ def create_widget_description(sender, instance, created, **kwargs):
     wd3.save()
     wd4 = WidgetDescription.objects.create(title='Top authors', default_title='Top authors')
     wd4.save()
-    wd5 = WidgetDescription.objects.create(title='Top brands', default_title='Top brands')
+    wd5 = WidgetDescription.objects.create(title='Top sources', default_title='Top sources')
     wd5.save()
     wd6 = WidgetDescription.objects.create(title='Top countries', default_title='Top countries')
     wd6.save()
@@ -141,7 +141,7 @@ def create_widget_description(sender, instance, created, **kwargs):
     instance.volume = wd2
     instance.clipping_feed_content = wd3
     instance.top_authors = wd4
-    instance.top_brands = wd5
+    instance.top_sources = wd5
     instance.top_countries = wd6
     instance.top_languages = wd7
     instance.content_volume_top_sources = wd8
