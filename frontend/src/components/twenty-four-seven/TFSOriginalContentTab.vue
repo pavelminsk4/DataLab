@@ -43,6 +43,7 @@ export default {
     post: {type: Object, required: true},
     buttonWhatsappLoading: {type: Boolean, required: true},
     translationLoading: {type: Boolean, required: true},
+    phoneNumbers: {type: Array, default: () => []},
   },
   data() {
     return {

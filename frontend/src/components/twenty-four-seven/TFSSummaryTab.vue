@@ -1,5 +1,6 @@
 <template>
   <TFSLanguagesTabs
+    v-if="isSummaryTab"
     :languages-tabs="languagesTabs"
     :selected-language="selectedLanguage"
     @change-language="changeAISummaryLanguage"
@@ -113,7 +114,7 @@ export default {
 
       this[action.UPDATE_AI_SUMMARY_LANGUAGE]({
         newLanguage: newLanguage.toLowerCase(),
-        text: this.aiSummary,
+        text: this.text,
       })
     },
   },

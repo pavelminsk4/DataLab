@@ -2,6 +2,7 @@
   <TFSWorkingModal
     v-if="modalName === 'Working' && postInfo"
     :post="postInfo"
+    :current-project="currentProject"
     @open-modal="openModal"
     @close="close"
   />

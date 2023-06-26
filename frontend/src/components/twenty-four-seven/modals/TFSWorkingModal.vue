@@ -36,6 +36,7 @@
             v-else
             :is="`TFS${stringToPascalCase(activeTab)}Tab`"
             :post="post"
+            :phone-numbers="phoneNumbers"
             :buttonWhatsappLoading="whatsappLoading"
             :translationLoading="translationLoading"
             @send-to-whatsapp="sendToWhatsapp"
@@ -72,6 +73,7 @@ export default {
   },
   props: {
     post: {type: Object, required: true},
+    currentProject: {type: Object, required: true},
   },
   data() {
     return {
@@ -92,6 +94,9 @@ export default {
     },
     currentTab() {
       return this.activeTab === 'Summary' || this.activeTab === 'Q&A Check'
+    },
+    phoneNumbers() {
+      return this.currentProject.wa_recipient
     },
   },
   created() {
@@ -139,7 +144,12 @@ export default {
         this.saveLoading = false
       }
     },
-    async sendToWhatsapp(phoneNumber, messageContent) {
+    sendToWhatsapp(phoneNumbers, messageContent) {
+      phoneNumbers.forEach((phone) =>
+        this.sendMessageToWhatsapp(phone, messageContent)
+      )
+    },
+    async sendMessageToWhatsapp(phoneNumber, messageContent) {
       this.whatsappLoading = true
 
       try {
