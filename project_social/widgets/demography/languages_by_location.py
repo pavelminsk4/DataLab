@@ -12,8 +12,8 @@ def languages_by_location(pk, widget_pk):
     widget = SocialWidgetDescription.objects.get(id=widget_pk)
     posts = post_agregetor_for_each_widget(widget, posts)
     top_countries = [i['locationString'] for i in posts.values('locationString').annotate(language_count=Count('language', distinct=True)).order_by('-language_count')[:5]]
-    results =[]
+    results = {}
     for country in top_countries:
         top_languages = posts.filter(locationString=country).values('language').annotate(posts_count=Count('id')).order_by('-posts_count')[:5]
-        results.append({country: descending_sort({language['language']: language['posts_count'] for language in top_languages})})
+        results[country] = [{'language': language['language'], 'count': language['posts_count']} for language in top_languages]
     return JsonResponse(results, safe = False)
