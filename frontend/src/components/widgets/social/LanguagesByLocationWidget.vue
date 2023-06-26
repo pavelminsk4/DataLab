@@ -18,7 +18,7 @@ const {mapActions, mapState} = createNamespacedHelpers('social/widgets')
 import TopEntitiesStackedBarWidget from '@/components/widgets/TopEntitiesStackedBarWidget'
 
 export default {
-  name: 'LangaugesByLocationWidget',
+  name: 'LanguagesByLocationWidget',
   components: {TopEntitiesStackedBarWidget},
   props: {
     widgetDetails: {type: Object, required: true},
