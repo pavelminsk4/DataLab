@@ -24,14 +24,18 @@ export default {
       socialWidgets: get.SOCIAL_WIDGETS,
     }),
     sentimentDiagram() {
-      return this.socialWidgets.sentimentDiagram
+      return (
+        this.widgetDetails.widgetData || this.socialWidgets.sentimentDiagram
+      )
     },
   },
   created() {
-    this[action.GET_SENTIMENT_DIAGRAM]({
-      projectId: this.widgetDetails.projectId,
-      widgetId: this.widgetDetails.id,
-    })
+    if (!this.widgetDetails.widgetData) {
+      this[action.GET_SENTIMENT_DIAGRAM]({
+        projectId: this.widgetDetails.projectId,
+        widgetId: this.widgetDetails.id,
+      })
+    }
   },
   methods: {
     ...mapActions([action.GET_SENTIMENT_DIAGRAM]),

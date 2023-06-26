@@ -6,6 +6,7 @@ import AlertsModuleRoutes from '@router/AlertsModuleRoutes'
 import AccountAnalysisRoutes from '@router/AccountAnalysisRoutes'
 import TwentyFourSevenRoutes from '@router/TwentyFourSevenRoutes'
 import LegalRoutes from '@router/LegalRoutes'
+import WidgetsRoutes from '@router/WidgetsRoutes'
 import ComparisonModuleRoutes from '@router/ComparisonModuleRoutes'
 
 const router = createRouter({
@@ -22,6 +23,7 @@ const router = createRouter({
     ...AccountAnalysisRoutes,
     ...TwentyFourSevenRoutes,
     ...LegalRoutes,
+    ...WidgetsRoutes,
     ...ComparisonModuleRoutes,
   ],
 })
