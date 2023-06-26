@@ -152,7 +152,7 @@ export default {
       })
       commit(mutator.SET_LANGUAGES_BY_LOCATION, response)
     } catch (error) {
-      return error
+      console.log(error)
     } finally {
       commit(mutator.SET_LOADING, false, {root: true})
     }
