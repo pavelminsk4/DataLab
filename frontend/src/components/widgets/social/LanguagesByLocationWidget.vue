@@ -52,7 +52,7 @@ export default {
     },
   },
   created() {
-    if (isAllFieldsEmpty(this.languagesByLocation.length)) {
+    if (isAllFieldsEmpty(this.languagesByLocation)) {
       this[action.GET_LANGUAGES_BY_LOCATION]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,
