@@ -4,6 +4,7 @@
     :widget-id="widgetDetails.id"
     :title="customTitle || widgetDetails.title"
     :is-show-delete-btn="false"
+    :is-show-settings-btn="isShowSettingsBtn"
     style="--widget-layout-content-padding: 0px"
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
@@ -12,6 +13,7 @@
       v-if="tableHeader.length"
       :table-header="tableHeader"
       :has-checkbox="false"
+      class="overall-top-authors"
     >
       <tr
         v-for="(item, index) in widgetData"
@@ -74,6 +76,7 @@ export default {
     isSettings: {type: Boolean, default: false},
     customTitle: {type: String, default: ''},
     tableHeader: {type: Array, required: true},
+    isShowSettingsBtn: {type: Boolean, default: true},
   },
   computed: {
     chartType() {
@@ -110,10 +113,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .base-table {
-  thead {
-    background-color: var(--background-primary-color);
-    height: 40px;
-  }
   &__row:nth-child(n + 2) {
     box-shadow: 0 1px 0 var(--border-color) inset;
   }
@@ -128,6 +127,15 @@ export default {
 
   &__alias {
     font-size: 11px;
+  }
+}
+</style>
+
+<style lang="scss">
+.overall-top-authors {
+  thead {
+    background-color: var(--background-primary-color);
+    height: 40px;
   }
 }
 </style>
