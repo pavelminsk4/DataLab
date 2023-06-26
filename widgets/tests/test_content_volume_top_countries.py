@@ -1,52 +1,37 @@
+from common.factories.feedlinks import FeedlinksFactory
+from common.factories.project import ProjectFactory
+from common.factories.post import PostFactory
 from rest_framework.test import APITestCase
-from django.urls import reverse
-from datetime import datetime
 from rest_framework import status
+from django.urls import reverse
 import json
-from project.models import Post, Project, Speech, Feedlinks
-from django.contrib.auth.models import User
+
 
 class ContentVolumeTop5CountriesWidgetTests(APITestCase):
-  def test_response_list(self):
-    user = User.objects.create(username='Pablo')
-    flink1 = Feedlinks.objects.create(country = 'England')
-    flink2 = Feedlinks.objects.create(country = 'USA')
-    flink3 = Feedlinks.objects.create(country = 'USA', source1='Time')
-    flink4 = Feedlinks.objects.create(country = 'Canada')
-    sp1 = Speech.objects.create(language='English (United States)')
-    sp2 = Speech.objects.create(language='Spain')
-    Post.objects.create(feedlink=flink1, entry_title='First post title', feed_language=sp1, entry_published=datetime(2021, 9, 3, 6, 37), entry_author='AFP', summary_vector=[])
-    Post.objects.create(feedlink=flink1, entry_title='Second post title', feed_language=sp1, entry_published=datetime(2022, 9, 3, 6, 37), entry_author='AFP', summary_vector=[])
-    Post.objects.create(feedlink=flink2, entry_title='Third post title', feed_language=sp1, entry_published=datetime(2023, 9, 3, 6, 37), entry_author='AFP', summary_vector=[])
-    Post.objects.create(feedlink=flink2, entry_title='4 post title', feed_language=sp2, entry_published=datetime(2023, 9, 3, 6, 37), entry_author='AFP', summary_vector=[])
-    Post.objects.create(feedlink=flink3, entry_title='5 post title', feed_language=sp2, entry_published=datetime(2023, 9, 3, 6, 37), entry_author='AFP', summary_vector=[])
-    Post.objects.create(feedlink=flink3, entry_title='6 post title', feed_language=sp2, entry_published=datetime(2023, 9, 3, 6, 37), entry_author='EFE', summary_vector=[])
-    Post.objects.create(feedlink=flink4, entry_title='5 post title', feed_language=sp2, entry_published=datetime(2023, 9, 3, 6, 37), entry_author='AFP', summary_vector=[])
-    Post.objects.create(feedlink=flink4, entry_title='6 post title', feed_language=sp2, entry_published=datetime(2023, 9, 3, 6, 37), entry_author='', summary_vector=[])
-    # test first project with None field
-    pr1 = Project.objects.create(title='Project1', keywords=['post'], additional_keywords=[], ignore_keywords=[], start_search_date=datetime(2020, 10, 10),
-                                end_search_date=datetime(2023, 10, 16), country_filter='', author_filter='', language_filter='', creator=user)
-    widget_pk = pr1.widgets_list_2.content_volume_top_countries_id
-    url = reverse('widgets:onl_content_volume_top_countries', kwargs={'pk':pr1.pk, 'widget_pk':widget_pk})
-    data = {
-            'aggregation_period': 'day'
-    }
-    response = self.client.post(url, data, format='json')
-    self.assertEqual(response.status_code, status.HTTP_200_OK)
-    res = [{'USA':
-            [{'date': '2021-09-03 00:00:00+00:00', 'post_count': 0},
-             {'date': '2022-09-03 00:00:00+00:00', 'post_count': 0},
-             {'date': '2023-09-03 00:00:00+00:00', 'post_count': 4}]
-           },
-           {'Canada':
-            [{'date': '2021-09-03 00:00:00+00:00', 'post_count': 0},
-             {'date': '2022-09-03 00:00:00+00:00', 'post_count': 0},
-             {'date': '2023-09-03 00:00:00+00:00', 'post_count': 2}]
-           },
-           {'England':
-            [{'date': '2021-09-03 00:00:00+00:00', 'post_count': 1},
-             {'date': '2022-09-03 00:00:00+00:00', 'post_count': 1},
-             {'date': '2023-09-03 00:00:00+00:00', 'post_count': 0}]
-           },
-          ]
-    self.assertEqual(json.loads(response.content), res)
+    def test_response_list(self):
+        flink1 = FeedlinksFactory(country='England')
+        flink2 = FeedlinksFactory(country='USA')
+        PostFactory(feedlink=flink1, entry_published='2021-09-03 00:00:00+00:00')
+        PostFactory(feedlink=flink1, entry_published='2022-09-03 00:00:00+00:00')
+        PostFactory(feedlink=flink2, entry_published='2023-09-03 00:00:00+00:00')
+        PostFactory(feedlink=flink2, entry_published='2023-09-03 00:00:00+00:00')
+        pr1 = ProjectFactory()
+
+        widget_pk = pr1.widgets_list_2.content_volume_top_countries_id
+        url = reverse('widgets:onl_content_volume_top_countries',kwargs={'pk': pr1.pk, 'widget_pk': widget_pk})
+        data = {'aggregation_period': 'day'}
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        res = [
+            {'England':
+             [{'date': '2021-09-03 00:00:00+00:00', 'post_count': 1},
+              {'date': '2022-09-03 00:00:00+00:00', 'post_count': 1},
+              {'date': '2023-09-03 00:00:00+00:00', 'post_count': 0}]
+             },
+            {'USA':
+             [{'date': '2021-09-03 00:00:00+00:00', 'post_count': 0},
+              {'date': '2022-09-03 00:00:00+00:00', 'post_count': 0},
+              {'date': '2023-09-03 00:00:00+00:00', 'post_count': 2}]
+             },
+        ]
+        self.assertEqual(json.loads(response.content), res)

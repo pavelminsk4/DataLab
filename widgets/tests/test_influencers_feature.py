@@ -2,17 +2,14 @@ from common.factories.feedlinks import FeedlinksFactory
 from common.factories.project import ProjectFactory
 from common.factories.speech import SpeechFactory
 from common.factories.post import PostFactory
-from django.contrib.auth.models import User
 from rest_framework.test import APITestCase
 from project.models import Project
 from rest_framework import status
 from django.urls import reverse
-from datetime import datetime
 import json
 
 class InfluencersFeatureTests(APITestCase):
   def setUp(self):
-    user = User.objects.create(username='Vikernes')
     flink1 = FeedlinksFactory(source1='one_source', country='England', sourceurl='google')
     flink2 = FeedlinksFactory(source1='two_source', country='USA', sourceurl='youtube')
     flink3 = FeedlinksFactory(source1='third_source', country='England', sourceurl='twitter')
@@ -24,7 +21,6 @@ class InfluencersFeatureTests(APITestCase):
     PostFactory(feedlink=flink3, feed_language=sp1, entry_author='AFP', sentiment='neutral')
     PostFactory(feedlink=flink3, feed_language=sp2, entry_author='AFP', sentiment='neutral')
     PostFactory(feedlink=flink3, feed_language=sp2, entry_author='EFE', sentiment='positive')
-
     ProjectFactory()
 
   def test_authors_by_sentiment(self):
