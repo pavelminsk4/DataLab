@@ -368,6 +368,16 @@ export const widgetsConfig = {
     defaultChartType: 'DoughnutChart',
     availableTypes: SIMPLE_CHARTS,
   },
+  languages_by_location: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    hasPreview: false,
+    hasAggregationPeriod: false,
+    actionName: action.GET_LANGUAGES_BY_LOCATION,
+    defaultChartType: 'TopEntitiesBarChart',
+    availableTypes: null,
+    settingsTabs: ['General', 'Filters'],
+  },
+
   // Sentiment
   sentiment_locations: {
     ...WIDGET_DEFAULT_SETTINGS,
