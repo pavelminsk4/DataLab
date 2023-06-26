@@ -91,6 +91,7 @@ export const socialWidgetsList = {
     {name: 'top_keywords'},
     {name: 'keywords_by_location'},
     {name: 'authors_by_location', isFullWidth: false},
+    {name: 'languages_by_location', isFullWidth: true},
     {name: 'sentiment_locations', isFullWidth: true},
     {name: 'authors_by_gender', isFullWidth: true},
   ],

@@ -8,13 +8,14 @@ const state = {
   authorsBySentiment: [],
   authorsByGender: [],
 
+  overallTopAuthors: [],
+  languagesByLocation: [],
   topLocations: [],
   topLanguages: [],
   topAuthors: [],
   topKeywords: [],
   topKeywordsByCountry: [],
   topSharingSources: [],
-  overallTopAuthors: [],
   topAuthorsByGender: [],
 
   contentVolumeTopLocations: [],

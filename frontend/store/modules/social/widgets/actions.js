@@ -143,6 +143,21 @@ export default {
     }
   },
 
+  async [action.GET_LANGUAGES_BY_LOCATION]({commit}, {projectId, widgetId}) {
+    commit(mutator.SET_LOADING, true, {root: true})
+    try {
+      const response = await api.social.getLanguagesByLocation({
+        projectId,
+        widgetId,
+      })
+      commit(mutator.SET_LANGUAGES_BY_LOCATION, response)
+    } catch (error) {
+      return error
+    } finally {
+      commit(mutator.SET_LOADING, false, {root: true})
+    }
+  },
+
   async [action.GET_TOP_SHARING_SOURCES]({commit}, {projectId, widgetId}) {
     commit(mutator.SET_LOADING, true, {root: true})
     try {

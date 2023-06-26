@@ -38,6 +38,7 @@ import SentimentTopKeywords from '@/components/widgets/social/SentimentTopKeywor
 
 import OverallTopAuthors from '@/components/widgets/social/OverallTopAuthorsWidget'
 import TopAuthorsByGender from '@/components/widgets/social/TopAuthorsByGenderWidget'
+import LanguagesByLocation from '@/components/widgets/social/LanguagesByLocationWidget'
 
 export default {
   name: 'SocialMainWidget',
@@ -69,6 +70,7 @@ export default {
     AuthorsBySentiment,
     AuthorsByGender,
     KeywordsByLocation,
+    LanguagesByLocation,
   },
   props: {
     widgetDetails: {type: Object, required: true},

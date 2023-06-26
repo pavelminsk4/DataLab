@@ -210,6 +210,12 @@ export default {
       `${moduleName}/social_authors_by_gender/${projectId}/${widgetId}`
     )
   },
+  async getLanguagesByLocation({projectId, widgetId}) {
+    return fetch(
+      'get',
+      `${moduleName}/social_languages_by_location/${projectId}/${widgetId}`
+    )
+  },
 
   // Content Volume
   async getContentVolumeTopLocations({projectId, value, widgetId}) {
