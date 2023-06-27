@@ -91,7 +91,7 @@ export default {
   },
 
   async getTopBrands(projectId, widgetId) {
-    return fetch('get', `/widgets/onl_top_brands/${projectId}/${widgetId}`)
+    return fetch('get', `/widgets/onl_top_sources/${projectId}/${widgetId}`)
   },
 
   async getTopCountries(projectId, widgetId) {

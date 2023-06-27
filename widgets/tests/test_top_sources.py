@@ -6,7 +6,7 @@ import json
 from project.models import Post, Project, Speech, Feedlinks
 from django.contrib.auth.models import User
 
-class Top10SourcesWidgetTests(APITestCase):
+class SourcesWidgetTests(APITestCase):
   def test_response_list(self):
     user = User.objects.create(username='Pablo')
     flink1 = Feedlinks.objects.create(source1='one_source', country = 'England')
