@@ -40,31 +40,31 @@ export default {
     chartValues() {
       if (!this.currentWidgetData) return []
 
-      let women = []
-      let men = []
-      let unidentified = []
+      let femalesData = []
+      let malesData = []
+      let noGenderTypeData = []
 
       this.currentWidgetData.forEach((el) => {
-        women.push(el.female)
-        men.push(el.male)
-        unidentified.push(el.female)
+        femalesData.push(el.female)
+        malesData.push(el.male)
+        noGenderTypeData.push(el.female)
       })
 
       return [
         {
           label: 'Male',
           color: '#516BEE',
-          data: men,
+          data: malesData,
         },
         {
           label: 'Female',
           color: '#FD7271',
-          data: women,
+          data: femalesData,
         },
         {
           label: 'Undefined',
           color: '#B0B5B8',
-          data: unidentified,
+          data: noGenderTypeData,
         },
       ]
     },
