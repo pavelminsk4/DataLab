@@ -7,8 +7,9 @@ export default {
     try {
       await api.createAlert(data)
       await dispatch(action.GET_ALERTS, projectId)
-    } catch (e) {
-      console.error(e)
+    } catch (error) {
+      console.error(error)
+      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -19,8 +20,9 @@ export default {
     try {
       const alerts = await api.getAlerts(projectId)
       commit(mutator.SET_ALERTS, alerts)
-    } catch (e) {
-      console.error(e)
+    } catch (error) {
+      console.error(error)
+      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -31,8 +33,9 @@ export default {
     try {
       await api.updateAlert({data, alertId})
       await dispatch(action.GET_ALERTS, data.project)
-    } catch (e) {
-      console.error(e)
+    } catch (error) {
+      console.error(error)
+      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -43,8 +46,9 @@ export default {
     try {
       await api.deleteAlert(alertId)
       await dispatch(action.GET_ALERTS, projectId)
-    } catch (e) {
-      console.error(e)
+    } catch (error) {
+      console.error(error)
+      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
