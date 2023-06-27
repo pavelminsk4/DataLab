@@ -2,11 +2,14 @@
   <WidgetsList
     v-if="selectedWidgets"
     :selected-widgets="selectedWidgets"
+    listWidth="100vw"
     module-name="Social"
+    class="widget-screen"
   />
 </template>
 
 <script>
+import {mapState} from 'vuex'
 import {getWidgetDetails} from '@lib/utilities'
 
 import WidgetsList from '@/components/widgets/WidgetsList'
@@ -17,6 +20,7 @@ export default {
     WidgetsList,
   },
   computed: {
+    ...mapState(['widgets']),
     projectId() {
       return this.$route.params.projectId
     },
@@ -39,7 +43,8 @@ export default {
               widgetData: this.widgetData.data,
             },
             isShowDeleteBtn: false,
-            minHeight: 400,
+            isShowSettingsBtn: false,
+            minHeight: '100vh',
           },
         ]
       },
@@ -47,6 +52,7 @@ export default {
   },
   created() {
     this.widgetData = JSON.parse(document.getElementById('context').textContent)
+    this.widgets.hasAnimation = false
   },
 }
 </script>

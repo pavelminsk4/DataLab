@@ -19,7 +19,7 @@
       v-for="(item, index) in selectedWidgets"
       :key="index"
       :class="['widgets__item', item.isFullWidth && 'grow']"
-      :style="{minHeight: item.minHeight}"
+      :style="{minHeight: item.minHeight, width: listWidth}"
     >
       <component
         :is="`${moduleName}MainWidget`"
@@ -62,6 +62,7 @@ export default {
     currentProject: {type: [Array, Object], required: false},
     selectedWidgets: {type: Array, required: true},
     moduleName: {type: String, required: true},
+    listWidth: {type: String, default: ''},
   },
   data() {
     return {

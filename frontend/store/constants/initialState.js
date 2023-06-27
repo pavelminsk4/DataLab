@@ -189,4 +189,8 @@ export default {
   // 24/7
   newTFSWorkspace: {...newTFSWorkspaceInitialState},
   newTFSProject: {...newTFSProjectInitialState},
+
+  widgets: {
+    hasAnimation: true,
+  },
 }

@@ -27,6 +27,7 @@ export default {
   props: {
     labels: {type: Array, default: () => []},
     chartValues: {type: Object, default: () => {}},
+    hasAnimation: {type: Boolean, default: true},
   },
   computed: {
     colors() {
@@ -50,7 +51,7 @@ export default {
         maintainAspectRatio: false,
         animation: {
           easing: 'easeInOutQuad',
-          duration: 520,
+          duration: this.hasAnimation ? 520 : 0,
         },
         onClick: (e, dataOptions) => {
           this.$emit(
