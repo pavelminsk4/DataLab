@@ -18,10 +18,10 @@ export default {
   },
 
   [mutator.UPDATE_WORKSPACE](state, workspace) {
-    const currentWorkspaceIdex = state.workspaces.findIndex(
+    const currentWorkspaceIndex = state.workspaces.findIndex(
       (currentWorkspace) => currentWorkspace.id === workspace.id
     )
-    state.workspaces[currentWorkspaceIdex] = workspace
+    state.workspaces[currentWorkspaceIndex] = workspace
   },
 
   [mutator.SET_PROJECTS](state, projects) {

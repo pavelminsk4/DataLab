@@ -97,8 +97,9 @@ export default {
 
   .container-workspaces {
     position: absolute;
-    width: 100%;
+    z-index: 2;
 
+    width: 100%;
     margin-top: 25px;
 
     background-color: var(--background-secondary-color);

@@ -1,6 +1,6 @@
 import store from '@store'
-import ComparisonModuleView from '@/views/ComparisonModuleView'
 
+import ComparisonModuleView from '@/views/comparison/ComparisonModuleView'
 import CreateComparisonView from '@/views/comparison/CreateComparisonView'
 import CreateComparisonWorkspace from '@/components/comparison/CreateComparisonWorkspace'
 import CreateComparisonProject from '@/components/comparison/CreateComparisonProject'
@@ -26,11 +26,11 @@ export default [
           default: CreateComparisonWorkspace,
           secondColumn: CreateComparisonRightSide,
         },
+        params: {step: 'step1'},
         props: {
           default: {moduleName: 'Comparison '},
           secondColumn: {step: 'step1'},
         },
-        params: {step: 'step1'},
       },
       {
         name: 'ComparisonWorkspaceStep2',
@@ -38,10 +38,6 @@ export default [
         components: {
           default: CreateComparisonProject,
           secondColumn: CreateComparisonRightSide,
-        },
-        props: {
-          default: {moduleName: 'Comparison'},
-          secondColumn: {step: 'step2'},
         },
         params: {step: 'step2'},
         beforeEnter: (to, from, next) => {
@@ -56,6 +52,13 @@ export default [
           }
           return next()
         },
+        props: {
+          default: (route) => ({
+            workspaceId: route.params.workspaceId,
+            moduleName: 'Comparison',
+          }),
+          secondColumn: {step: 'step2'},
+        },
       },
       {
         name: 'ComparisonWorkspaceStep3',
@@ -64,22 +67,26 @@ export default [
           default: CreateDefineComparison,
           secondColumn: CreateComparisonRightSide,
         },
+
+        params: {step: 'step3'},
+        beforeEnter: (to, from, next) => {
+          const {step} = store.state.comparison.newWorkspace
+          const workspaceId = to.params.workspaceId
+
+          if (step !== 3) {
+            return next({
+              name: 'ComparisonWorkspaceStep1',
+              params: {workspaceId},
+            })
+          } else return next()
+        },
         props: {
-          default: {moduleName: 'Comparison'},
+          default: (route) => ({
+            workspaceId: route.params.workspaceId,
+            moduleName: 'Comparison',
+          }),
           secondColumn: {step: 'step3'},
         },
-        params: {step: 'step3'},
-        // beforeEnter: (to, from, next) => {
-        //   const {step} = store.state.comparison.newWorkspace
-        //   const workspaceId = to.params.workspaceId
-
-        //   if (step !== 3) {
-        //     return next({
-        //       name: 'ComparisonWorkspaceStep1',
-        //       params: {workspaceId},
-        //     })
-        //   } else return next()
-        // },
       },
     ],
   },

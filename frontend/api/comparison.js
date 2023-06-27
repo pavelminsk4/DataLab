@@ -3,11 +3,23 @@ import {fetch} from './api'
 const moduleName = '/comparison'
 
 export default {
-  async getWorkspaces() {
+  async getProjects() {
     return fetch('get', `${moduleName}/projects_list`)
   },
 
-  async updateWorkspace({workspaceId, data}) {
-    return fetch('put', `${moduleName}/workspaces/${workspaceId}/`, data)
+  async createWorkspace(workspace) {
+    return fetch('post', `${moduleName}/workspaces/`, workspace)
+  },
+
+  async updateWorkspace({workspaceId, workspace}) {
+    return fetch('put', `${moduleName}/workspaces/${workspaceId}/`, workspace)
+  },
+
+  async deleteWorkspace(workspaceId) {
+    return fetch('delete', `${moduleName}/workspaces/${workspaceId}/`)
+  },
+
+  async getWorkspaces() {
+    return fetch('get', `${moduleName}/workspaces/`)
   },
 }

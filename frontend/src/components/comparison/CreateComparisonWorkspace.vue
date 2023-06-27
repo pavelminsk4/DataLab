@@ -22,7 +22,7 @@ import {action, get} from '@store/constants'
 import ComparisonMixin from '@/lib/mixins/comparison.js'
 
 export default {
-  name: 'CreateTFSWorkspace',
+  name: 'CreateComparisonWorkspace',
   mixins: [ComparisonMixin],
   data() {
     return {

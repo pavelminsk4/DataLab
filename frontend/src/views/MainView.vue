@@ -125,6 +125,16 @@ export default {
         imageUrl: require('@/assets/modules/alerts.svg'),
         backgroundPosition: 'right bottom',
       },
+      {
+        name: 'Comparison module',
+        description: 'Monitor social media content created by influencers ',
+        buttonName: 'Add Workspace',
+        openRouteName: 'Comparison',
+        createRouteName: 'ComparisonCreateWorkspace',
+        color: '#FCDCE3',
+        imageUrl: require('@/assets/modules/comparison.svg'),
+        backgroundPosition: 'right bottom',
+      },
     ]
   },
 }
