@@ -7,7 +7,7 @@
         :description="workspace.description"
         :back-page="{
           name: 'main page',
-          routName: 'TwentyFourSevenWorkspaces',
+          routeName: 'TwentyFourSevenWorkspaces',
         }"
       >
       </MainLayoutTitleBlock>

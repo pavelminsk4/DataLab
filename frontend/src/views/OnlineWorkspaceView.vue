@@ -5,7 +5,7 @@
     :workspace="workspace"
     :back-page="{
       name: 'main page',
-      routName: 'OnlineHome',
+      routeName: 'OnlineHome',
     }"
     @create-project="createProject"
     @open-project="goToProjectSettings"

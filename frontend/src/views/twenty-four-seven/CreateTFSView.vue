@@ -7,7 +7,7 @@
           :description="TFSData.description"
           :back-page="{
             name: 'main page',
-            routName: 'MainView',
+            routeName: 'MainView',
           }"
         />
 

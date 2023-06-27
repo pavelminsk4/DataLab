@@ -3,7 +3,7 @@
     <div class="header">
       <MainLayoutTitleBlock
         title="Comparison Module"
-        :back-page="{name: 'main page', routName: 'MainView'}"
+        :back-page="{name: 'main page', routeName: 'MainView'}"
       />
     </div>
     <AreYouSureModal

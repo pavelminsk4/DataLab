@@ -41,7 +41,7 @@ export default {
   methods: {
     backToPage() {
       this.$router.push({
-        name: this.backPage.routName,
+        name: this.backPage.routeName,
       })
     },
   },

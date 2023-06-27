@@ -4,7 +4,7 @@
     description="Search by keywords and phrases"
     :back-page="{
       name: 'main page',
-      routName: `${moduleName}Home`,
+      routeName: `${moduleName}Home`,
     }"
   />
 

@@ -10,7 +10,7 @@
           description="Set up alerts for your project with highly customized filters"
           :back-page="{
             name: 'main page',
-            routName: 'MainView',
+            routeName: 'MainView',
           }"
         />
 

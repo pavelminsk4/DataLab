@@ -4,7 +4,7 @@
     description="Name the project and choose source Type"
     :back-page="{
       name: 'main page',
-      routName: `${moduleName}Home`,
+      routeName: `${moduleName}Home`,
     }"
   />
 
@@ -69,7 +69,7 @@ export default {
   },
   computed: {
     ...mapState(['currentStep', 'userInfo']),
-    routName() {
+    routeName() {
       return this.$route.name
     },
   },
@@ -87,7 +87,7 @@ export default {
       action.CLEAR_STATE,
     ]),
     nextStep() {
-      const nextStep = this.routName.replace(/\d/g, '3')
+      const nextStep = this.routeName.replace(/\d/g, '3')
       try {
         this[action.UPDATE_CURRENT_STEP](nextStep)
         this[action.UPDATE_PROJECT_STATE]({
