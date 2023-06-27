@@ -37,7 +37,7 @@ export const onlineWidgetsList = {
     {name: 'summary'},
     {name: 'volume'},
     {name: 'sentiment_for_period'},
-    {name: 'top_brands', isFullWidth: true},
+    {name: 'top_sources', isFullWidth: true},
     {name: 'top_authors'},
     {name: 'top_keywords'},
   ],

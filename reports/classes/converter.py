@@ -18,7 +18,7 @@ class Converter:
                 onl_volume = widget_list.volume.is_active,
                 onl_clipping_feed_content = widget_list.clipping_feed_content.is_active,
                 onl_top_authors = widget_list.top_authors.is_active,
-                onl_top_brands = widget_list.top_brands.is_active,
+                onl_top_sources = widget_list.top_sources.is_active,
                 onl_top_countries = widget_list.top_countries.is_active,
                 onl_top_languages = widget_list.top_languages.is_active,
                 onl_content_volume_top_sources = widget_list.content_volume_top_sources.is_active,

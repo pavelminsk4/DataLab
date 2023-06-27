@@ -9,7 +9,7 @@
 <script>
 import Summary from '@/components/widgets/online/SummaryWidget'
 import Volume from '@/components/widgets/online/VolumeWidget'
-import TopBrands from '@/components/widgets/online/Top10BrandsWidget'
+import TopSources from '@/components/widgets/online/Top10BrandsWidget'
 import TopCountries from '@/components/widgets/online/Top10CountriesWidget'
 import TopLanguages from '@/components/widgets/online/Top10LanguagesWidget'
 import TopAuthors from '@/components/widgets/online/Top10AuthorsByVolumeWidget'
@@ -44,7 +44,7 @@ export default {
     ClippingFeedContent,
     Volume,
     Summary,
-    TopBrands,
+    TopSources,
     TopCountries,
     TopLanguages,
     TopAuthors,

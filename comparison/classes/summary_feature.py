@@ -10,7 +10,7 @@ from widgets.sentiment.sentiment_number_of_results import get_sentiment_number_o
 from widgets.common_widget.top_authors import post_agregator_top_auth_by_vol_widget as onl_top_authors
 from widgets.common_widget.top_languages import post_aggregator_top_languages as onl_top_languages
 from widgets.common_widget.top_countries import post_agregator_top_countries as onl_top_countries
-from widgets.common_widget.top_brands import post_agregator_top_brands as onl_top_brands
+from widgets.common_widget.top_sources import post_agregator_top_sources as onl_top_sources
 from widgets.common_widget.volume_widget import post_agregator_volume as onl_volume
 from widgets.summary.top_keywords import post_agg_top_keywords as onl_top_keywords
 from widgets.common_widget.summary import calculate_summary_widget as onl_summary
@@ -45,7 +45,7 @@ class SummaryOnline:
                 'Content volume': onl_volume(self.posts, 'day'),
                 'Top authors':    onl_top_authors(self.posts, 5),
                 'Sentiment':      onl_sentiment(self.posts),
-                'Top sources':    onl_top_brands(self.posts, 5),
+                'Top sources':    onl_top_sources(self.posts, 5),
                 'Top keywords':   onl_top_keywords(self.posts),
                 'Top languages':  onl_top_languages(self.posts, 5),
                 'Top countries':  onl_top_countries(self.posts, 5),

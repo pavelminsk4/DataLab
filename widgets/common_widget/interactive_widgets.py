@@ -18,7 +18,7 @@ def interactive_widgets(request, project_pk, widget_pk):
   dates = body['dates']
   if widget.default_title == 'Top languages':
     posts = language_dimensions_posts(first_value, posts)
-  elif widget.default_title == 'Top brands':
+  elif widget.default_title == 'Top sources':
     posts = source_dimensions_posts(first_value, posts)
   elif widget.default_title == 'Top countries':
     posts = country_dimensions_posts(first_value, posts)

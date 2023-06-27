@@ -82,7 +82,7 @@ class WidgetsListSerializer(WritableNestedModelSerializer):
   summary = WidgetDescriptionSerializer()
   volume = WidgetDescriptionSerializer()
   top_authors = WidgetDescriptionSerializer()
-  top_brands = WidgetDescriptionSerializer()
+  top_sources = WidgetDescriptionSerializer()
   top_countries = WidgetDescriptionSerializer()
   top_languages = WidgetDescriptionSerializer()
   content_volume_top_sources = WidgetDescriptionSerializer()

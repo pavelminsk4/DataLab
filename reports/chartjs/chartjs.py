@@ -9,7 +9,7 @@ def prepare_widget_images(project_id):
     top_10_authors_widget_image.create_top_10_authors_wid_image(project_id, widget_pk)
     widget_pk = project.widgets_list_2.volume_id
     volume_widget_image.create_vol_widget_image(project_id, widget_pk)
-    widget_pk = project.widgets_list_2.top_brands_id
+    widget_pk = project.widgets_list_2.top_sources_id
     top_10_sources_widget_image.create_top_10_sources_wid_image(project_id, widget_pk)
     widget_pk = project.widgets_list_2.top_countries_id
     top_10_countries_widget_image.create_top_10_countries_wid_image(project_id, widget_pk)
@@ -43,8 +43,8 @@ def prepare_widget_images_for_regular(item):
     if item.onl_top_authors:
         widget_pk = project.widgets_list_2.top_authors_id
         top_10_authors_widget_image.create_top_10_authors_wid_image(project.id, widget_pk)
-    if item.onl_top_brands:
-        widget_pk = project.widgets_list_2.top_brands_id
+    if item.onl_top_sources:
+        widget_pk = project.widgets_list_2.top_sources_id
         top_10_sources_widget_image.create_top_10_sources_wid_image(project.id, widget_pk)
     if item.onl_top_countries:
         widget_pk = project.widgets_list_2.top_countries_id

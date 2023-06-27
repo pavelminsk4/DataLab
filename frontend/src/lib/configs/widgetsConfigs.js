@@ -107,7 +107,7 @@ export const widgetsConfig = {
     defaultChartType: 'PieChart',
     availableTypes: SIMPLE_CHARTS,
   },
-  top_brands: {
+  top_sources: {
     ...WIDGET_DEFAULT_SETTINGS,
     actionName: action.GET_TOP_BRANDS_WIDGET,
     hasAggregationPeriod: false,

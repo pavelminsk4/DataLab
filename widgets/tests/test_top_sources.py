@@ -6,7 +6,7 @@ import json
 from project.models import Post, Project, Speech, Feedlinks
 from django.contrib.auth.models import User
 
-class Top10BrandsWidgetTests(APITestCase):
+class SourcesWidgetTests(APITestCase):
   def test_response_list(self):
     user = User.objects.create(username='Pablo')
     flink1 = Feedlinks.objects.create(source1='one_source', country = 'England')
@@ -21,8 +21,8 @@ class Top10BrandsWidgetTests(APITestCase):
     post6 = Post.objects.create(feedlink=flink3, entry_title='6 post title', feed_language=sp, entry_published=datetime(2023, 9, 3, 6, 37), entry_author='EFE', summary_vector=[])
     pr = Project.objects.create(title='Project1', keywords=['post'], additional_keywords=[], ignore_keywords=[], start_search_date=datetime(2020, 10, 10), 
                                 end_search_date=datetime(2023, 10, 16), language_filter=sp, creator=user)
-    widget_pk = pr.widgets_list_2.top_brands_id
-    url = reverse('widgets:onl_top_brands', kwargs={'pk':pr.pk, 'widget_pk':widget_pk})
+    widget_pk = pr.widgets_list_2.top_sources_id
+    url = reverse('widgets:onl_top_sources', kwargs={'pk':pr.pk, 'widget_pk':widget_pk})
     response = self.client.get(url)
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     res = [

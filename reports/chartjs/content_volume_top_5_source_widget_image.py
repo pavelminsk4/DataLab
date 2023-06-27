@@ -9,9 +9,9 @@ def create_content_volume_top_5_source_widget_image(project_id, widget_pk):
   widget = WidgetDescription.objects.get(id=widget_pk)
   posts = post_agregetor_for_each_widget(widget, posts)
   smpl_freq = proj.widgets_list_2.content_volume_top_sources.aggregation_period
-  top_brands = list(map(lambda x: x['feedlink__source1'], list(posts.values('feedlink__source1').annotate(brand_count=Count('feedlink__source1')).order_by('-brand_count')[:10])))
-  results = [{source: list(posts.filter(feedlink__source1=source).annotate(date=Trunc('entry_published', smpl_freq)).values('date').annotate(created_count=Count('id')).order_by('date'))} for source in top_brands]
-  res, colors = algorithm_for_count_volume_widgets(top_brands, results)
+  top_sources = list(map(lambda x: x['feedlink__source1'], list(posts.values('feedlink__source1').annotate(brand_count=Count('feedlink__source1')).order_by('-brand_count')[:10])))
+  results = [{source: list(posts.filter(feedlink__source1=source).annotate(date=Trunc('entry_published', smpl_freq)).values('date').annotate(created_count=Count('id')).order_by('date'))} for source in top_sources]
+  res, colors = algorithm_for_count_volume_widgets(top_sources, results)
   sources = [[source for source in res[i]] for i in range(len(res))]           
   labels_list = [res[0][sources[0][0]][i]['date'][:10] for i in range(len(res[0][sources[0][0]]))]
   data_list = [res[i][sources[i][0]] for i in range(len(sources))]

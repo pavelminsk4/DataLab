@@ -25,9 +25,10 @@ from .common_widget.top_languages import top_languages
 from .common_widget.top_countries import top_countries
 from .common_widget.top_authors import top_authors
 from .common_widget.summary import summary_widget
-from .common_widget.top_brands import top_brands
+from .common_widget.top_sources import top_sources
 from .common_widget.volume_widget import volume
 from .summary.top_keywords import top_keywords
+
 
 def onl_summary(request, pk, widget_pk):
   return summary_widget(pk, widget_pk)
@@ -37,8 +38,8 @@ def onl_clipping_feed_content(request, pk, widget_pk):
   return cl_fd_cont_widg(request, pk, widget_pk)
 def onl_top_authors(request, pk, widget_pk):
   return top_authors(pk, widget_pk)
-def onl_top_brands(request, pk, widget_pk):
-  return top_brands(pk, widget_pk)
+def onl_top_sources(request, pk, widget_pk):
+  return top_sources(pk, widget_pk)
 def onl_top_countries(request, pk, widget_pk):
   return top_countries(pk, widget_pk)
 def onl_top_languages(request, pk, widget_pk):

@@ -66,7 +66,7 @@ def filling_templates_for_instant_and_regular_reports(document, project_id):
               run = cell.add_paragraph().add_run('Summary')
               font_two(run, cell)
               cell.add_paragraph()
-            if proj.volume.is_active or proj.top_authors.is_active or proj.top_brands.is_active or proj.top_countries.is_active or proj.top_languages.is_active:
+            if proj.volume.is_active or proj.top_authors.is_active or proj.top_sources.is_active or proj.top_countries.is_active or proj.top_languages.is_active:
               run = cell.add_paragraph('').add_run('Potential Reach')
               font_one(run, cell)
               if proj.volume.is_active:
@@ -75,8 +75,8 @@ def filling_templates_for_instant_and_regular_reports(document, project_id):
               if proj.top_authors.is_active:
                 run = cell.add_paragraph().add_run(proj.top_authors.title + ' (per ' + proj.top_authors.aggregation_period + ')')
                 font_two(run, cell)
-              if proj.top_brands.is_active:
-                run = cell.add_paragraph().add_run(proj.top_brands.title + ' (per ' + proj.top_brands.aggregation_period + ')')
+              if proj.top_sources.is_active:
+                run = cell.add_paragraph().add_run(proj.top_sources.title + ' (per ' + proj.top_sources.aggregation_period + ')')
                 font_two(run, cell)
               if proj.top_countries.is_active:
                 run = cell.add_paragraph().add_run(proj.top_countries.title + ' (per ' + proj.top_countries.aggregation_period + ')')
@@ -158,7 +158,7 @@ def filling_templates_for_instant_and_regular_reports(document, project_id):
     content_volume_top_5_countries_widget_image(document, proj)
     document.add_page_break()
   
-  if proj.top_authors.is_active or proj.top_brands.is_active or proj.top_countries.is_active or proj.top_languages.is_active:
+  if proj.top_authors.is_active or proj.top_sources.is_active or proj.top_countries.is_active or proj.top_languages.is_active:
     new_section('Top 10')
     top_10_authors_by_volume_widget_image(document, proj)
     top_10_sources_widget_image(document, proj)
@@ -166,7 +166,7 @@ def filling_templates_for_instant_and_regular_reports(document, project_id):
     top_10_languages_widget_image(document, proj)
     document.add_page_break()
 
-  if proj.volume.is_active or proj.top_authors.is_active or proj.top_brands.is_active or proj.top_countries.is_active or proj.top_languages.is_active:
+  if proj.volume.is_active or proj.top_authors.is_active or proj.top_sources.is_active or proj.top_countries.is_active or proj.top_languages.is_active:
     new_section('Sentiment Top 10')
     sentiment_top_10_sources_widget_image(document, proj)
     sentiment_top_10_authors_widget_image(document, proj)
