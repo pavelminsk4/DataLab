@@ -417,6 +417,14 @@ export const widgetsConfig = {
     availableTypes: MULTI_CHARTS,
   },
 
+  gender_by_location: {
+    ...WIDGET_DEFAULT_SETTINGS,
+    actionName: action.GET_GENDER_BY_LOCATION,
+    hasAggregationPeriod: false,
+    defaultChartType: 'BarChart',
+    availableTypes: [CHARTS.bar, CHARTS.horizontalBarChart],
+  },
+
   // Account analysis
   profile_timeline: {
     ...WIDGET_DEFAULT_SETTINGS,

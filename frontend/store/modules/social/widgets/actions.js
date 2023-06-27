@@ -70,6 +70,25 @@ export default {
     }
   },
 
+  async [action.GET_GENDER_BY_LOCATION](
+    {commit},
+    {projectId, widgetId, value}
+  ) {
+    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
+    try {
+      const data = await api.social.getGenderByLocation(
+        projectId,
+        widgetId,
+        value
+      )
+      commit(mutator.SET_GENDER_BY_LOCATION, data)
+    } catch (e) {
+      console.error(e)
+    } finally {
+      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
+    }
+  },
+
   // Top
   async [action.GET_TOP_LOCATIONS_WIDGET]({commit}, {projectId, widgetId}) {
     commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})

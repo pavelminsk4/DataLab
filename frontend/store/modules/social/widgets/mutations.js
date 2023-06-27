@@ -14,6 +14,10 @@ export default {
     state.genderVolume = data
   },
 
+  [mutator.SET_GENDER_BY_LOCATION](state, data) {
+    state.genderByLocation = data
+  },
+
   // Top
   [mutator.SET_TOP_LOCATIONS_WIDGET](state, locations) {
     state.topLocations = locations

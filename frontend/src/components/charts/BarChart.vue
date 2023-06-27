@@ -25,6 +25,7 @@ export default {
   props: {
     labels: {type: Array, default: () => []},
     chartValues: {type: Object, default: () => {}},
+    isDisplayLegend: {type: Boolean, default: false},
   },
   computed: {
     chartOptions() {
@@ -51,7 +52,8 @@ export default {
             display: false,
           },
           legend: {
-            display: false,
+            display: this.isDisplayLegend,
+            position: 'bottom',
           },
           tooltip: {
             yAlign: 'bottom',

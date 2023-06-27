@@ -11,6 +11,7 @@ import Summary from '@/components/widgets/social/SummaryWidget'
 import ClippingFeedContent from '@/components/widgets/social/ClippingFeedContentWidget'
 import ContentVolume from '@/components/widgets/social/ContentVolumeWidget'
 import GenderVolume from '@/components/widgets/social/GenderVolumeWidget'
+import GenderByLocation from '@/components/widgets/social/GenderByLocationWidget'
 
 import TopLocations from '@/components/widgets/social/TopLocationsWidget'
 import TopLanguages from '@/components/widgets/social/TopLanguagesWidget'
@@ -61,6 +62,7 @@ export default {
     SentimentByGender,
     SentimentTopKeywords,
     GenderVolume,
+    GenderByLocation,
     SentimentDiagram,
     SentimentNumberOfResults,
     OverallTopAuthors,
