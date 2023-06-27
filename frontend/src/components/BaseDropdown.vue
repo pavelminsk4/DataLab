@@ -29,10 +29,10 @@ export default {
   components: {ArrowDownIcon},
   props: {
     title: {type: String, default: ''},
-    selectedValue: {type: [Number, String, Object]},
+    selectedValue: {type: [Number, String, Object], default: null},
     name: {type: String, required: true},
-    customStyle: {type: String},
-    titleStyle: {type: String},
+    customStyle: {type: String, default: ''},
+    titleStyle: {type: String, default: ''},
   },
   data() {
     return {
