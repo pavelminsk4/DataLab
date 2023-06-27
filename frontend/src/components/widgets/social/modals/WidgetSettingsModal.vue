@@ -3,6 +3,7 @@
     :title="`${widgetDetails.title} Settings`"
     :is-general-padding="false"
     style="--base-modal-content-padding: 0px"
+    @close="closeSettingsModal"
   >
     <WidgetSettingsScreen
       :widget-details="widgetDetails"
@@ -166,6 +167,18 @@ export default {
           aggregation_period: aggregationPeriod,
         },
       })
+    },
+
+    closeSettingsModal() {
+      this[this.widgetDetails.actionName]({
+        projectId: this.widgetDetails.projectId,
+        widgetId: this.widgetDetails.id,
+        value: {
+          aggregation_period: this.widgetDetails.aggregation_period,
+        },
+      })
+
+      this.$emit('close')
     },
   },
 }
