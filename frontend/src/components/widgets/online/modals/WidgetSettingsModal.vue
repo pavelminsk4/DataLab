@@ -168,6 +168,8 @@ export default {
 
 <style>
 .widget-view {
+  flex: 1;
+
   height: 100%;
   width: 450px;
 

@@ -141,6 +141,10 @@ export default {
         return projectsList
       },
       set(val) {
+        if (!this.newProjectsWidgetsList.size) {
+          this.newProjectsWidgetsList = new Map(this.projectsWidgetsList)
+        }
+
         this.newProjectsWidgetsList.set(val.projectId, val.project)
       },
     },
@@ -161,7 +165,6 @@ export default {
             }
           )
         })
-
         return newReportWidgetsLists
       },
       set(val) {
