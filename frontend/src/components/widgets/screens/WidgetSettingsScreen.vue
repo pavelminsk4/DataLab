@@ -137,7 +137,8 @@ export default {
     align-items: center;
 
     width: 58%;
-    height: 350px;
+    min-height: 350px;
+    height: fit-content;
     margin: 24px;
 
     .chart-title {
