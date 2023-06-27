@@ -98,9 +98,9 @@ export default {
       },
       set(val) {
         this.currentModule = val
-        this.project = {}
-        this.projectToCompare = {}
-        this.projectToCompareOptional = {}
+        this.projects.project = {}
+        this.projects.projectToCompare = {}
+        this.projects.projectToCompareOptional = {}
       },
     },
   },
@@ -125,11 +125,11 @@ export default {
       const module =
         this.currentModule === 'Online' ? 'Project' : 'ProjectSocial'
 
-      for (const project in this.projects) {
-        if (this.projects[project].id) {
+      for (const projectKey in this.projects) {
+        if (this.projects[projectKey].id) {
           projects.push({
             module_type: module,
-            module_project_id: this.projects[project].id,
+            module_project_id: this.projects[projectKey].id,
           })
         }
       }
@@ -148,7 +148,7 @@ export default {
         ],
       }
 
-      if (!this.workspaceId) this[action.CREATE_WORKSPACE](workspace)
+      if (this.workspaceId === 'new') this[action.CREATE_WORKSPACE](workspace)
       else {
         this[action.UPDATE_WORKSPACE]({
           workspaceId: this.workspaceId,
@@ -177,6 +177,7 @@ export default {
   display: flex;
   flex-direction: column;
 
+  margin-bottom: 20px;
   gap: 40px;
   &__module {
     display: flex;

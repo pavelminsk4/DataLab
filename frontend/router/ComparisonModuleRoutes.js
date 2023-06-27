@@ -44,7 +44,7 @@ export default [
           const workspaceId = to.params.workspaceId
           const {step} = store.state.comparison.newWorkspace
 
-          if (step !== 2 && workspaceId === 'new') {
+          if (workspaceId === 'new' && step !== 2) {
             return next({
               name: 'ComparisonWorkspaceStep1',
               params: {workspaceId},
@@ -71,14 +71,23 @@ export default [
         params: {step: 'step3'},
         beforeEnter: (to, from, next) => {
           const {step} = store.state.comparison.newWorkspace
-          const workspaceId = to.params.workspaceId
 
           if (step !== 3) {
-            return next({
-              name: 'ComparisonWorkspaceStep1',
-              params: {workspaceId},
-            })
-          } else return next()
+            const workspaceId = to.params.workspaceId
+            if (workspaceId === 'new') {
+              return next({
+                name: 'ComparisonWorkspaceStep1',
+                params: {workspaceId},
+              })
+            } else {
+              return next({
+                name: 'ComparisonWorkspaceStep2',
+                params: {workspaceId},
+              })
+            }
+          }
+
+          return next()
         },
         props: {
           default: (route) => ({
