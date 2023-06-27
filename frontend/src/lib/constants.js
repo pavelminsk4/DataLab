@@ -94,11 +94,13 @@ export const socialWidgetsList = {
     {name: 'languages_by_location', isFullWidth: true},
     {name: 'sentiment_locations', isFullWidth: true},
     {name: 'authors_by_gender', isFullWidth: true},
+    {name: 'gender_by_location', isFullWidth: true},
   ],
   influencers: [
     {name: 'top_sharing_sources', isFullWidth: false},
     {name: 'authors_by_sentiment', isFullWidth: false},
     {name: 'overall_top_authors', isFullWidth: true},
+    {name: 'top_authors_by_gender', isFullWidth: true},
     {name: 'authors_by_location', isFullWidth: false},
     {name: 'authors_by_gender', isFullWidth: false},
     {name: 'authors_by_language', isFullWidth: false},

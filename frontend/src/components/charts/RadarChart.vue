@@ -28,7 +28,7 @@ export default {
   name: 'RadarChart',
   components: {Radar},
   props: {
-    isDisplayLegend: {type: Boolean, default: true},
+    isLegendDisplayed: {type: Boolean, default: true},
     chartValues: {type: Object, default: () => {}},
     labels: {type: Array, default: () => []},
   },

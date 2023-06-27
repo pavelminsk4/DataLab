@@ -38,7 +38,7 @@ export default {
   props: {
     labels: {type: Array, default: () => []},
     chartValues: {type: Array, default: () => []},
-    isDisplayLegend: {type: Boolean, default: true, required: false},
+    isLegendDisplayed: {type: Boolean, default: true, required: false},
   },
   methods: {
     capitalizeFirstLetter,

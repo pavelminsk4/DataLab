@@ -137,6 +137,14 @@ export default {
     )
   },
 
+  async getGenderByLocation(projectId, widgetId, value) {
+    return fetch(
+      'put',
+      `${moduleName}/social_gender_by_location/${projectId}/${widgetId}`,
+      value
+    )
+  },
+
   async getTopSharingSources({projectId, widgetId}) {
     return fetch(
       'get',

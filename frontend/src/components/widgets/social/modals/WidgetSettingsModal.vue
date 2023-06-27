@@ -75,6 +75,7 @@ export default {
       action.GET_CONTENT_VOLUME_TOP_LOCATIONS,
       action.GET_SENTIMENT_FOR_PERIOD,
       action.GET_GENDER_VOLUME_WIDGET,
+      action.GET_GENDER_BY_LOCATION,
       action.GET_SENTIMENT_BY_GENDER,
       action.GET_SENTIMENT_TOP_AUTHORS,
       action.GET_SENTIMENT_TOP_LOCATIONS,

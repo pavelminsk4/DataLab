@@ -5,7 +5,7 @@
     :title="widgetDetails.title"
     :is-show-delete-btn="false"
     style="--widget-layout-content-padding: 0px"
-    class="height-reset"
+    class="height-reset top-authors-by-gender-widget"
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
   >
@@ -16,6 +16,7 @@
       :widget-details="widgetDetails"
       :is-show-delete-btn="false"
       :is-show-settings="false"
+      :is-show-settings-btn="false"
       :custom-title="`Overall top authors ${genderTypes[index]}`"
       :table-header="tableHeader"
     />
@@ -32,6 +33,7 @@ import WidgetsLayout from '@/components/layout/WidgetsLayout'
 const {mapActions, mapGetters} = createNamespacedHelpers('social/widgets')
 
 export default {
+  name: 'TopAuthorsByGenderWidget',
   components: {OverallTopWidget, WidgetsLayout},
   props: {
     widgetDetails: {type: Object, required: true},
@@ -49,7 +51,7 @@ export default {
     },
   },
   created() {
-    if (!this.widgetData) {
+    if (!this.widgetData.length) {
       this[action.GET_TOP_AUTHORS_BY_GENDER]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,
@@ -76,5 +78,13 @@ export default {
 <style lang="scss" scoped>
 .height-reset {
   height: fit-content;
+}
+</style>
+
+<style lang="scss">
+.top-authors-by-gender-widget {
+  .widget-layout-wrapper {
+    border-radius: 0;
+  }
 }
 </style>
