@@ -137,7 +137,7 @@ export default {
       const workspace = {
         title: this.newWorkspace.title,
         description: this.newWorkspace.description,
-        departament: this.newWorkspace.departament,
+        department: this.newWorkspace.departament,
         members: this.newWorkspace.members,
         cmpr_workspace_projects: [
           {
