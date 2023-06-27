@@ -35,7 +35,7 @@ export default {
   },
   emits: ['open-interactive-data'],
   props: {
-    isDisplayLegend: {type: Boolean, default: true},
+    isLegendDisplayed: {type: Boolean, default: true},
     chartValues: {type: Object, default: () => {}},
     labels: {type: Array, default: () => []},
   },
@@ -82,7 +82,7 @@ export default {
             display: false,
           },
           legend: {
-            display: this.isDisplayLegend,
+            display: this.isLegendDisplayed,
             position: 'bottom',
             onClick: (evt, legendItem, legend) => {
               const datasets = legend.legendItems.map((dataset) => {

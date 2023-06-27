@@ -12,7 +12,7 @@
       :chart-type="chartType"
       :chart-values="chartValues"
       :widget-details="widgetDetails"
-      :is-display-legend="false"
+      :is-legend-displayed="false"
     />
   </component>
 </template>

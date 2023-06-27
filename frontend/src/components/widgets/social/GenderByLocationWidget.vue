@@ -5,7 +5,7 @@
     :widget-details="widgetDetails"
     :labels="labels"
     :chart-values="chartValues"
-    :is-display-legend="true"
+    :is-legend-displayed="true"
   />
 </template>
 
@@ -40,13 +40,13 @@ export default {
     chartValues() {
       if (!this.currentWidgetData) return []
 
-      let female = []
-      let male = []
+      let women = []
+      let men = []
       let unidentified = []
 
       this.currentWidgetData.forEach((el) => {
-        female.push(el.female)
-        male.push(el.male)
+        women.push(el.female)
+        men.push(el.male)
         unidentified.push(el.female)
       })
 
@@ -54,12 +54,12 @@ export default {
         {
           label: 'Male',
           color: '#516BEE',
-          data: female,
+          data: men,
         },
         {
           label: 'Female',
           color: '#FD7271',
-          data: male,
+          data: women,
         },
         {
           label: 'Undefined',

@@ -36,7 +36,7 @@ export default {
   props: {
     labels: {type: Array, default: () => []},
     chartValues: {type: Object, default: () => {}},
-    isDisplayLegend: {type: Boolean, default: false},
+    isLegendDisplayed: {type: Boolean, default: false},
   },
   computed: {
     chartDatasets() {

@@ -11,7 +11,7 @@
       :chart-type="chartType"
       :chart-values="chartValues.data"
       :widget-details="widgetDetails"
-      :is-display-legend="!isSettings"
+      :is-legend-displayed="!isSettings"
     />
   </component>
 </template>

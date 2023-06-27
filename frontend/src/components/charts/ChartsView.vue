@@ -6,7 +6,7 @@
     :is="chartType"
     :labels="labels"
     :chart-values="chartValues"
-    :isDisplayLegend="isDisplayLegend"
+    :isLegendDisplayed="isLegendDisplayed"
     @open-interactive-data="openInteractiveData"
   />
 </template>
@@ -57,7 +57,7 @@ export default {
     chartType: {type: String, required: true},
     widgetDetails: {type: Object, required: true},
     chartValues: {type: Array, default: () => []},
-    isDisplayLegend: {type: Boolean, default: true},
+    isLegendDisplayed: {type: Boolean, default: true},
   },
   computed: {
     ...mapState(['loading']),
