@@ -1,6 +1,6 @@
 <template>
   <BaseModal
-    :title="widgetDetails.title"
+    :title="`${widgetDetails.title} Settings`"
     :is-general-padding="false"
     style="--base-modal-content-padding: 0px"
   >
