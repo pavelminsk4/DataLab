@@ -93,9 +93,7 @@ export default [
               secondColumn: SearchResults,
             },
             beforeEnter: (to, from, next) => {
-              const {step} = store.state.comparison.newWorkspace
-              console.log(to.name)
-              if (to.name !== step) {
+              if (to.name !== store.state.currentStep) {
                 const workspaceId = to.params.workspaceId
                 if (workspaceId === 'new') {
                   return next({
