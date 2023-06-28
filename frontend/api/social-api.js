@@ -1,3 +1,4 @@
+import $api from '../http'
 import {fetch} from './api'
 
 const moduleName = '/social'
@@ -50,9 +51,8 @@ export default {
   },
 
   async downloadInstantReport(departmentId, projectId) {
-    const response = fetch(
-      'get',
-      `${moduleName}/reports/${departmentId}/social_instantly_report/${projectId}/`,
+    const response = await $api.get(
+      `${moduleName}/api/reports/${departmentId}/instantly_report/${projectId}/`,
       {
         responseType: 'blob',
       }
