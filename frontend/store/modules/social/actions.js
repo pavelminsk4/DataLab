@@ -326,7 +326,7 @@ export default {
   async [action.GET_INSTANTLY_REPORT]({commit}, {departmentId, projectId}) {
     commit(mutator.SET_LOADING, true)
     try {
-      return api.social.downloadInstantlyReport(departmentId, projectId)
+      return api.social.downloadInstantReport(departmentId, projectId)
     } catch (error) {
       console.error(error)
       return error

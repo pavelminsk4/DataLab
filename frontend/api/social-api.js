@@ -49,7 +49,7 @@ export default {
     return [projectId, postId]
   },
 
-  async downloadInstantlyReport(departmentId, projectId) {
+  async downloadInstantReport(departmentId, projectId) {
     const response = fetch(
       'get',
       `${moduleName}/reports/${departmentId}/social_instantly_report/${projectId}/`,

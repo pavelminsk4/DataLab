@@ -383,7 +383,7 @@ export default {
     return fetch('get', `/report_widgets_list`)
   },
 
-  async downloadInstantlyReport(departmentId, projectId) {
+  async downloadInstantReport(departmentId, projectId) {
     const response = await $api.get(
       `/api/reports/${departmentId}/instantly_report/${projectId}/`,
       {
