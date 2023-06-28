@@ -78,7 +78,7 @@ export default {
       newProject: (state) => state.newAccountAnalysisProject,
     }),
     ...mapAccountAnalysisState({
-      listOfProfiles: (state) => state.listOfProfileHandle,
+      listOfProfiles: (state) => state.listOfProfilesHandle,
       newProjectId: (state) => state.newProjectId,
       newWorkspaceId: (state) => state.newWorkspaceId,
     }),

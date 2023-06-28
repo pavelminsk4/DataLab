@@ -72,9 +72,9 @@ export default {
   async [action.GET_LIST_OF_PROFILE_HANDLE]({commit}) {
     commit(mutator.SET_LOADING, true)
     try {
-      const listOfProfileHandle =
-        await api.accountAnalysis.getListOfProfileHandle()
-      commit(mutator.SET_LIST_OF_PROFILE_HANDLE, listOfProfileHandle)
+      const listOfProfilesHandle =
+        await api.accountAnalysis.getListOfProfilesHandle()
+      commit(mutator.SET_LIST_OF_PROFILE_HANDLE, listOfProfilesHandle)
     } catch (error) {
       console.error(error)
       return error

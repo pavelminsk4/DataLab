@@ -27,7 +27,7 @@ export default {
   },
 
   [mutator.SET_LIST_OF_PROFILE_HANDLE](state, data) {
-    state.listOfProfileHandle = data
+    state.listOfProfilesHandle = data
   },
 
   [mutator.SET_AVAILABLE_WIDGETS](state, data) {
