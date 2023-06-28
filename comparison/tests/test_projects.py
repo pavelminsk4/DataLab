@@ -6,7 +6,6 @@ from common.factories.department import DepartmentFactory
 from common.factories.workspace import WorkspaceFactory
 from common.factories.project import ProjectFactory
 from accounts.models import Profile, department
-from common.factories.post import PostFactory
 from common.factories.user import UserFactory
 from rest_framework.test import APITestCase
 from project.models import Project

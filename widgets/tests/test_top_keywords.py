@@ -12,9 +12,8 @@ from common.factories.feedlinks import FeedlinksFactory
 class TopKeywordsTests(APITestCase):
     def setUp(self):
         flink = FeedlinksFactory(country='Brasil')
-        sp = SpeechFactory()
-        PostFactory(entry_summary='the keyword uno dos', feed_language=sp, feedlink=flink)
-        PostFactory(entry_summary='the keyword text', feed_language=sp, feedlink=flink)
+        PostFactory(entry_summary='the keyword uno dos', feedlink=flink)
+        PostFactory(entry_summary='the keyword text', feedlink=flink)
         ProjectFactory()
 
     def test_top_keywords_api(self):
