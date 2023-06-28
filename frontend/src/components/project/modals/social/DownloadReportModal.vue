@@ -125,10 +125,7 @@ export default {
     BaseModal,
   },
   props: {
-    projectId: {
-      type: [Number, String],
-      required: true,
-    },
+    projectId: {type: [Number, String], required: true},
   },
   data() {
     return {
@@ -203,13 +200,12 @@ export default {
   },
   methods: {
     ...mapActions([action.GET_TEMPLATES]),
-    ...mapSocialActions([action.GET_INSTANTLY_REPORT]),
+    ...mapSocialActions([action.GET_INSTANT_REPORT]),
     isSelectedItem(item) {
       return this.layout.some((el) => item === el)
     },
     selectItem(name, val) {
-      let element = this.templates.filter((el) => el.title === val)
-      this.template = element[0]
+      this.template = this.templates.find((el) => el.title === val)
     },
     validationForm() {
       const defaultErrorMessage = 'required'
@@ -237,7 +233,7 @@ export default {
 
       this.loading = true
       try {
-        const res = await this[action.GET_INSTANTLY_REPORT]({
+        const res = await this[action.GET_INSTANT_REPORT]({
           departmentId: this.department.id,
           projectId: this.projectId,
         })
