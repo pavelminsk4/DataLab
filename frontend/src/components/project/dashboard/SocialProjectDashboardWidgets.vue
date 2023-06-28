@@ -5,30 +5,16 @@
     @close="closeModal"
   />
 
-  <grid-layout
-    v-if="availableWidgets"
-    v-model:layout="selectedWidgets"
-    :col-num="4"
-    :row-height="30"
-    :is-resizable="false"
-    is-draggable
-    vertical-compact
-    use-css-transforms
-    class="widgets-wrapper scroll"
-  >
-    <grid-item
+  <div v-if="availableWidgets" class="widgets-wrapper scroll">
+    <div
       v-for="(item, index) in displayedWidgets"
-      :static="item.static"
-      :x="item.x"
-      :y="item.y"
-      :w="item.w"
-      :h="item.h"
-      :i="item.i"
       :key="item.i"
+      :static="item.static"
       class="widget-item"
     >
       <SocialMainWidget
         :widgetDetails="item.widgetDetails"
+        :style="`height: ${item.widgetDetails.height};`"
         @delete-widget="deleteWidget(item.widgetDetails.name)"
         @open-settings-modal="openModal(index)"
       />
@@ -36,8 +22,8 @@
         v-if="index + 1 === displayedWidgets.length"
         @intersect="getItems"
       />
-    </grid-item>
-  </grid-layout>
+    </div>
+  </div>
 
   <div v-else class="widgets-wrapper"></div>
 </template>
@@ -45,7 +31,6 @@
 <script>
 import {mapGetters, createNamespacedHelpers} from 'vuex'
 import {get, action} from '@store/constants'
-import VueGridLayout from 'vue3-grid-layout'
 import {getWidgetDetails} from '@lib/utilities'
 import {widgetsConfig} from '@/lib/configs/widgetsConfigs'
 
@@ -61,8 +46,6 @@ export default {
   components: {
     SocialMainWidget,
     WidgetSettingsModal,
-    GridLayout: VueGridLayout.GridLayout,
-    GridItem: VueGridLayout.GridItem,
     BaseObserver,
   },
   emits: [
@@ -97,24 +80,17 @@ export default {
       get() {
         if (!this.availableWidgets) return
         return Object.keys(this.availableWidgets)
-          .map((widgetName, index) => {
+          .map((widgetName) => {
             if (
               this.availableWidgets[widgetName].is_active &&
               widgetsConfig[widgetName]
             ) {
               widgetsConfig.clipping_feed_content.height = this.clippingData
                 .length
-                ? 13
-                : 3.8
+                ? '400px'
+                : '150px'
 
               return {
-                x: 0,
-                y: this.getYAxisValue(index + 1),
-                w: 2,
-                h: widgetsConfig[widgetName].height,
-                i: index,
-                static: false,
-
                 widgetDetails: getWidgetDetails(
                   widgetName,
                   this.availableWidgets[widgetName],
@@ -179,6 +155,7 @@ export default {
 <style lang="scss" scoped>
 .widgets-wrapper {
   display: flex;
+  flex-direction: column;
   gap: 30px;
   overflow: auto;
 

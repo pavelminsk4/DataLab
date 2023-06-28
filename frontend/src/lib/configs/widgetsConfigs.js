@@ -191,6 +191,7 @@ export const widgetsConfig = {
 
   top_keywords_by_country: {
     ...WIDGET_DEFAULT_SETTINGS,
+    height: '450px',
     hasPreview: false,
     hasAggregationPeriod: false,
     actionName: action.GET_TOP_KEYWORDS_WIDGET,
@@ -200,6 +201,7 @@ export const widgetsConfig = {
 
   keywords_by_location: {
     ...WIDGET_DEFAULT_SETTINGS,
+    height: '450px',
     hasPreview: false,
     hasAggregationPeriod: false,
     actionName: action.GET_TOP_KEYWORDS_WIDGET,
@@ -234,6 +236,7 @@ export const widgetsConfig = {
 
   authors_by_country: {
     ...WIDGET_DEFAULT_SETTINGS,
+    height: '450px',
     hasAggregationPeriod: false,
     actionName: action.GET_AUTHORS_BY_COUNTRY,
     defaultChartType: 'DoughnutChart',
@@ -250,6 +253,7 @@ export const widgetsConfig = {
 
   sources_by_language: {
     ...WIDGET_DEFAULT_SETTINGS,
+    height: '450px',
     hasAggregationPeriod: false,
     actionName: action.GET_SOURCES_BY_LANGUAGE,
     defaultChartType: 'BarChart',
@@ -258,6 +262,7 @@ export const widgetsConfig = {
 
   sources_by_country: {
     ...WIDGET_DEFAULT_SETTINGS,
+    height: '450px',
     hasAggregationPeriod: false,
     actionName: action.GET_SOURCES_BY_COUNTRY,
     defaultChartType: 'BarChart',
@@ -340,6 +345,7 @@ export const widgetsConfig = {
   },
   authors_by_language: {
     ...WIDGET_DEFAULT_SETTINGS,
+    height: '450px',
     hasAggregationPeriod: false,
     actionName: action.GET_AUTHORS_BY_LANGUAGE,
     defaultChartType: 'DoughnutChart',
@@ -347,12 +353,14 @@ export const widgetsConfig = {
   },
   authors_by_location: {
     ...WIDGET_DEFAULT_SETTINGS,
+    height: '450px',
     actionName: action.GET_AUTHORS_BY_LOCATION,
     defaultChartType: 'BarChart',
     availableTypes: SIMPLE_CHARTS,
   },
   authors_by_sentiment: {
     ...WIDGET_DEFAULT_SETTINGS,
+    height: '450px',
     hasAggregationPeriod: false,
     actionName: action.GET_AUTHORS_BY_SENTIMENT,
     defaultChartType: 'DoughnutChart',
@@ -360,6 +368,7 @@ export const widgetsConfig = {
   },
   authors_by_gender: {
     ...WIDGET_DEFAULT_SETTINGS,
+    height: '450px',
     actionName: action.GET_AUTHORS_BY_GENDER,
     defaultChartType: 'DoughnutChart',
     availableTypes: SIMPLE_CHARTS,
