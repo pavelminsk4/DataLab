@@ -120,6 +120,12 @@ export default {
       color: #484c52;
       .project {
         padding-left: 10px;
+
+        border-radius: 8px;
+      }
+
+      .project:hover {
+        background-color: var(--primary-active-color);
       }
 
       .dropdown-wrapper {

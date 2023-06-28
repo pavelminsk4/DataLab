@@ -8,7 +8,7 @@
       label="Description"
     />
 
-    <footer class="create-reports__footer">
+    <footer class="create-workspace__footer">
       <ButtonWithArrow :is-disabled="!workspaceName" @click="nextStep">
         <span>Next</span>
       </ButtonWithArrow>
@@ -64,16 +64,17 @@ export default {
   display: flex;
   flex-direction: column;
 
-  width: 56%;
+  width: 75%;
   margin-top: 40px;
+  gap: 15px;
 }
 
 .input-name {
   margin-bottom: 32px;
 }
 
-.report-add-users {
-  width: 100%;
-  margin-top: 32px;
+.create-workspace__footer {
+  display: flex;
+  justify-content: flex-end;
 }
 </style>
