@@ -19,7 +19,7 @@
       :current-value="profileHandle"
       :is-reject-selection="false"
       class="select-profile-handle"
-      @select-option="selectItem"
+      @select-option="selectProfile"
     >
       <template #select-item="item">
         <img :src="getImg(item)" alt="User picture" class="user-picture" />
@@ -150,12 +150,12 @@ export default {
         },
       })
     },
-    selectItem(name, searchValue) {
+    selectProfile(name, searchValue) {
       this.profileHandle = searchValue
     },
-    getImg(selectItem) {
+    getImg(profileData) {
       return this.profileHandleOptions.find(
-        (profileOption) => selectItem.item === profileOption.user_alias
+        (profileOption) => profileData.item === profileOption.user_alias
       )?.user_picture
     },
   },
