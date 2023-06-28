@@ -49,6 +49,18 @@ export default {
     return [projectId, postId]
   },
 
+  async downloadInstantlyReport(departmentId, projectId) {
+    const response = fetch(
+      'get',
+      `${moduleName}/reports/${departmentId}/social_instantly_report/${projectId}/`,
+      {
+        responseType: 'blob',
+      }
+    )
+
+    return URL.createObjectURL(response.data)
+  },
+
   async getAllWidgets(projectId) {
     return fetch('get', `${moduleName}/projects/${projectId}/widgets_list`)
   },
