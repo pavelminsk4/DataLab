@@ -34,5 +34,9 @@ export default {
   width: 39vw;
   height: 100%;
   padding-bottom: 100px;
+
+  img {
+    width: inherit;
+  }
 }
 </style>

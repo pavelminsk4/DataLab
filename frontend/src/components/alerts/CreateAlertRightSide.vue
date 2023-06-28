@@ -32,6 +32,11 @@ export default {
   align-items: center;
 
   height: 100%;
+  width: 100%;
   padding-bottom: 100px;
+
+  img {
+    width: inherit;
+  }
 }
 </style>

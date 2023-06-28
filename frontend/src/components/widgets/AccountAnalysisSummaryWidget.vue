@@ -247,7 +247,7 @@ export default {
 }
 
 .twitter {
-  background-color: #516bee;
+  padding: 0;
 }
 
 .list {

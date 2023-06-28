@@ -1,7 +1,7 @@
 const state = {
   accountActivityPosts: [],
   availableWidgets: [],
-  listOfProfileHandle: [],
+  listOfProfilesHandle: [],
   loading: false,
   newProjectId: null,
   newWorkspaceId: null,

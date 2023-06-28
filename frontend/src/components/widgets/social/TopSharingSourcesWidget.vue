@@ -158,6 +158,5 @@ export default {
   border-radius: 4px;
 
   color: var(--button-text-color);
-  background-color: #516bee;
 }
 </style>

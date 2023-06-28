@@ -10,30 +10,21 @@
     />
 
     <div class="title">Profile</div>
-
-    <BaseSelect
-      v-model="profileHandleProxy"
-      :options="profileOptions"
-      :is-close-options="isCloseSelect"
-      select-name="profile-handle"
+    <BaseSearchField
+      v-model="accountProfile"
+      name="profile-handle-search"
+      placeholder="Enter profile handle"
+      :list="profileNames"
+      :is-search="true"
+      :current-value="accountProfile"
+      :is-reject-selection="false"
       class="select-profile-handle"
+      @select-option="selectProfile"
     >
-      <template v-slot="{close}">
-        <li
-          v-for="(option, index) in profileOptions"
-          :key="option.user_alias + index"
-          class="profile-handle-item"
-          @click="handleClick($event, close)"
-        >
-          <img
-            :src="option.user_picture"
-            alt="User picture"
-            class="user-picture"
-          />
-          {{ option.user_alias }}
-        </li>
+      <template #select-item="item">
+        <img :src="getImg(item)" alt="User picture" class="user-picture" />
       </template>
-    </BaseSelect>
+    </BaseSearchField>
 
     <CommonCalendar width="408" position="top" class="date-picker" />
 
@@ -54,7 +45,7 @@ import {mapState, mapActions, createNamespacedHelpers} from 'vuex'
 import {action} from '@store/constants'
 
 import BaseInput from '@/components/common/BaseInput'
-import BaseSelect from '@/components/BaseSelect2'
+import BaseSearchField from '@/components/BaseSearchField'
 import AccountAnalysisSourcesTabs from '@/components/account-analysis/AccountAnalysisSourcesTabs'
 import CommonCalendar from '@/components/datepicker/CommonCalendar'
 import ButtonWithArrow from '@/components/common/ButtonWithArrow'
@@ -68,22 +59,15 @@ export default {
   name: 'CreateAccountAnalysisProject',
   components: {
     BaseInput,
-    BaseSelect,
     AccountAnalysisSourcesTabs,
     CommonCalendar,
     ButtonWithArrow,
+    BaseSearchField,
   },
   data() {
     return {
       projectName: '',
-      profileHandle: '',
-      emptyProfileHandle: 'Enter profile handle',
-      isCloseSelect: false,
-      selectedUsers: [],
-      errors: {
-        usersEmailError: null,
-        projectName: null,
-      },
+      accountProfile: '',
     }
   },
   computed: {
@@ -94,24 +78,15 @@ export default {
       newProject: (state) => state.newAccountAnalysisProject,
     }),
     ...mapAccountAnalysisState({
-      profileHandleOptions: (state) => state.listOfProfileHandle,
+      listOfProfiles: (state) => state.listOfProfilesHandle,
       newProjectId: (state) => state.newProjectId,
       newWorkspaceId: (state) => state.newWorkspaceId,
     }),
     workspaceId() {
       return this.$route.params.workspaceId
     },
-    profileHandleProxy: {
-      get() {
-        return this.profileHandle || this.emptyProfileHandle
-      },
-      set(val) {
-        this.profileHandle = val
-        this.$emit('update:modelValue', val)
-      },
-    },
-    profileOptions() {
-      return this.profileHandleOptions
+    profileNames() {
+      return this.listOfProfiles.map((el) => el.user_alias)
     },
     defaultDateRange() {
       return [this.getLastWeeksDate(), new Date()]
@@ -141,14 +116,10 @@ export default {
 
       return new Date(now.getFullYear(), now.getMonth(), now.getDate() - 6)
     },
-    handleClick(event, closeSelect) {
-      this.profileHandle = event.target.innerText
-      closeSelect()
-    },
     async saveChanges() {
       await this[action.UPDATE_NEW_ACCOUNT_ANALYSIS_PROJECT]({
         title: this.projectName,
-        profile_handle: this.profileHandle,
+        profile_handle: this.accountProfile,
         source_filter: ['twitter'],
         members: [this.userInfo.id],
         creator: this.userInfo.id,
@@ -179,6 +150,14 @@ export default {
         },
       })
     },
+    selectProfile(name, searchValue) {
+      this.accountProfile = searchValue
+    },
+    getImg(profileData) {
+      return this.listOfProfiles.find(
+        (profileOptions) => profileData.item === profileOptions.user_alias
+      )?.user_picture
+    },
   },
 }
 </script>
@@ -204,24 +183,12 @@ export default {
     max-width: 408px;
     margin-bottom: 32px;
 
-    .profile-handle-item {
-      display: flex;
-      gap: 12px;
+    .user-picture {
+      width: 20px;
+      height: 20px;
+      margin-right: 10px;
 
-      padding: 5px 10px;
-
-      border-radius: 12px;
-
-      cursor: pointer;
-
-      &:hover {
-        background-color: var(--primary-active-color);
-      }
-      .user-picture {
-        width: 20px;
-        height: 20px;
-        border-radius: 100%;
-      }
+      border-radius: 100%;
     }
   }
 

@@ -40,7 +40,7 @@
           :class="[{current: item === value}, 'select-item']"
           @click="select(item)"
         >
-          {{ item }}
+          <slot :item="item" name="select-item"></slot>{{ item }}
         </li>
       </ul>
     </div>
@@ -200,11 +200,15 @@ export default {
 }
 
 .select-item {
+  display: flex;
+  align-items: center;
+
   padding: 9px 9px 9px 19px;
 
   color: var(--typography-primary-color);
 
   &:hover {
+    color: var(--button-text-color);
     background: var(--button-primary-color);
   }
 }
