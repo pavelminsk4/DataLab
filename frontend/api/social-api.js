@@ -52,7 +52,7 @@ export default {
 
   async downloadInstantReport(departmentId, projectId) {
     const response = await $api.get(
-      `/api/reports/${departmentId}/instantly_report/${projectId}/`,
+      `/api/reports/${departmentId}/social_instantly_report/${projectId}/`,
       {
         responseType: 'blob',
       }
