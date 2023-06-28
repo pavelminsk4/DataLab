@@ -36,7 +36,7 @@ export default {
   name: 'BaseSelect',
   components: {ArrowDownIcon},
   props: {
-    options: {type: Array, required: true},
+    options: {type: Array, default: () => []},
     modelValue: {type: [Boolean, Array, String, Number], required: true},
     isDisabled: {type: Boolean, default: false},
     isCloseOptions: {type: Boolean, default: false},

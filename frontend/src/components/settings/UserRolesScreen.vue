@@ -6,7 +6,7 @@
         description="Manage define limits for users"
         :back-page="{
           name: 'main page',
-          routName: 'OnlineHome',
+          routeName: 'OnlineHome',
         }"
       >
         <div class="number-users">{{ companyUsers.length }} users</div>

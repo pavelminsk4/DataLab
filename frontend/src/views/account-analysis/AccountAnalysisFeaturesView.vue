@@ -8,7 +8,7 @@
           title="Account"
           :back-page="{
             name: 'main page',
-            routName: `AccountAnalysisWorkspaces`,
+            routeName: `AccountAnalysisWorkspaces`,
           }"
         />
         <BaseTabs

@@ -194,4 +194,28 @@ svg {
     background-position: 0% 0%;
   }
 }
+
+.base-icon {
+  padding: 2px;
+  border-radius: 5px;
+}
+.online-icon {
+  @extend .base-icon;
+  background-color: #11afd1;
+}
+
+.social-icon {
+  @extend .base-icon;
+  background-color: #246fdf;
+}
+
+.twitter-icon {
+  @extend .base-icon;
+  background-color: #00a6de;
+}
+
+.calendar-icon {
+  @extend .base-icon;
+  background-color: #a0b8be;
+}
 </style>

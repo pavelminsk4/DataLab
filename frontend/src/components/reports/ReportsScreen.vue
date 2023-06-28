@@ -4,7 +4,7 @@
       <MainLayoutTitleBlock
         title="Reports"
         description="Set up and manage reports"
-        :back-page="{name: 'main page', routName: 'MainView'}"
+        :back-page="{name: 'main page', routeName: 'MainView'}"
       />
 
       <BaseButton @click="$emit('create-report')">

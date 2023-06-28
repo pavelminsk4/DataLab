@@ -10,7 +10,7 @@
           :description="description"
           :back-page="{
             name: 'main page',
-            routName: 'MainView',
+            routeName: 'MainView',
           }"
         />
 

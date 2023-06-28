@@ -4,7 +4,7 @@
     description="Create a new workspace on your Dashboard"
     :back-page="{
       name: 'main page',
-      routName: `${moduleName}Home`,
+      routeName: `${moduleName}Home`,
     }"
   />
 
@@ -70,7 +70,7 @@ export default {
     members() {
       return [this.user.id]
     },
-    routName() {
+    routeName() {
       return this.$route.name
     },
   },
@@ -84,7 +84,7 @@ export default {
       action.CLEAR_STATE,
     ]),
     nextStep() {
-      const nextStep = this.routName.replace(/\d/g, '2')
+      const nextStep = this.routeName.replace(/\d/g, '2')
       try {
         this[action.UPDATE_CURRENT_STEP](nextStep)
         this[action.UPDATE_NEW_WORKSPACE]({

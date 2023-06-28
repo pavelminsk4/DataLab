@@ -72,7 +72,7 @@ export default {
   props: {
     moduleName: {type: String, default: 'Online'},
     workspace: {type: Object, default: () => ({})},
-    backPage: {type: Object, default: () => ({name: 'page', routName: ''})},
+    backPage: {type: Object, default: () => ({name: 'page', routeName: ''})},
   },
   data() {
     return {

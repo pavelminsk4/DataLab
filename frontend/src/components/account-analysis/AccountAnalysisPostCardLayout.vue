@@ -62,8 +62,6 @@ export default {
 
 <style lang="scss" scoped>
 .post-card {
-  height: fit-content;
-
   background: var(--background-secondary-color);
 
   box-shadow: 1px 4px 16px rgba(135, 135, 135, 0.2);

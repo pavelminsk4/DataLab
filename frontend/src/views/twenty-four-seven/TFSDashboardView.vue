@@ -6,7 +6,7 @@
           :title="currentProject?.title"
           :back-page="{
             name: 'main page',
-            routName: `TwentyFourSevenWorkspaces`,
+            routeName: `TwentyFourSevenWorkspaces`,
           }"
         />
       </div>

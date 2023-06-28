@@ -87,10 +87,11 @@ export default {
 }
 
 .online {
-  background: var(--background-additional-color);
+  height: 20px;
+  width: fit-content;
 }
 .social {
-  background: var(--background-additional-color);
+  @extend .online;
 }
 .tvradio {
   background: var(--background-additional-color);

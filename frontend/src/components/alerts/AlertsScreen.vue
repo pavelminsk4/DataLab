@@ -4,7 +4,7 @@
       <MainLayoutTitleBlock
         title="Alerts"
         description="Set up alerts for your project with highly customized filters"
-        :back-page="{name: 'main page', routName: 'MainView'}"
+        :back-page="{name: 'main page', routeName: 'MainView'}"
       />
 
       <BaseButton @click="$emit('create-alert')"> Create new alert </BaseButton>

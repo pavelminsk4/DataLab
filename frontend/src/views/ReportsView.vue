@@ -1,7 +1,7 @@
 <template>
   <ReportsScreen
     :reports="reports"
-    :back-page="{name: 'main page', routName: 'MainView'}"
+    :back-page="{name: 'main page', routeName: 'MainView'}"
     @create-report="createReports"
     @open-report="goToReport"
   />

@@ -6,7 +6,7 @@
         :description="currentProject.note"
         :back-page="{
           name: 'workspace',
-          routName: `${currentProject.source}Workspace`,
+          routeName: `${currentProject.source}Workspace`,
         }"
       >
         <div class="search-results">{{ numberOfPosts }} results</div>

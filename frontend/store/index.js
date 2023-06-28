@@ -8,6 +8,7 @@ import social from '@store/modules/social'
 import alerts from '@store/modules/alerts'
 import accountAnalysis from '@store/modules/account-analysis'
 import twentyFourSeven from '@store/modules/twenty-four-seven'
+import comparison from '@store/modules/comparison'
 
 const store = createStore({
   state() {
@@ -29,6 +30,7 @@ const store = createStore({
     alerts,
     accountAnalysis,
     twentyFourSeven,
+    comparison,
   },
 })
 
