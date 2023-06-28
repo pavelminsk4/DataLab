@@ -11,12 +11,12 @@
 
     <div class="title">Profile</div>
     <BaseSearchField
-      v-model="profileHandle"
+      v-model="accountProfile"
       name="profile-handle-search"
       placeholder="Enter profile handle"
-      :list="profileOptions"
+      :list="profileNames"
       :is-search="true"
-      :current-value="profileHandle"
+      :current-value="accountProfile"
       :is-reject-selection="false"
       class="select-profile-handle"
       @select-option="selectProfile"
@@ -67,7 +67,7 @@ export default {
   data() {
     return {
       projectName: '',
-      profileHandle: '',
+      accountProfile: '',
     }
   },
   computed: {
@@ -78,15 +78,15 @@ export default {
       newProject: (state) => state.newAccountAnalysisProject,
     }),
     ...mapAccountAnalysisState({
-      profileHandleOptions: (state) => state.listOfProfileHandle,
+      listOfProfiles: (state) => state.listOfProfileHandle,
       newProjectId: (state) => state.newProjectId,
       newWorkspaceId: (state) => state.newWorkspaceId,
     }),
     workspaceId() {
       return this.$route.params.workspaceId
     },
-    profileOptions() {
-      return this.profileHandleOptions.map((el) => el.user_alias)
+    profileNames() {
+      return this.listOfProfiles.map((el) => el.user_alias)
     },
     defaultDateRange() {
       return [this.getLastWeeksDate(), new Date()]
@@ -119,7 +119,7 @@ export default {
     async saveChanges() {
       await this[action.UPDATE_NEW_ACCOUNT_ANALYSIS_PROJECT]({
         title: this.projectName,
-        profile_handle: this.profileHandle,
+        profile_handle: this.accountProfile,
         source_filter: ['twitter'],
         members: [this.userInfo.id],
         creator: this.userInfo.id,
@@ -151,10 +151,10 @@ export default {
       })
     },
     selectProfile(name, searchValue) {
-      this.profileHandle = searchValue
+      this.accountProfile = searchValue
     },
     getImg(profileData) {
-      return this.profileHandleOptions.find(
+      return this.listOfProfiles.find(
         (profileOption) => profileData.item === profileOption.user_alias
       )?.user_picture
     },
