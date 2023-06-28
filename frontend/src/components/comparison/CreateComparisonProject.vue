@@ -82,19 +82,13 @@ export default {
   display: flex;
   flex-direction: column;
 
-  width: 90%;
+  width: 75%;
   margin-top: 40px;
-
-  .input-name-field {
-    max-width: 408px;
-    margin-bottom: 32px;
-  }
+  gap: 25px;
 
   .create-project__footer {
     display: flex;
     justify-content: flex-end;
-
-    max-width: 408px;
   }
 }
 </style>

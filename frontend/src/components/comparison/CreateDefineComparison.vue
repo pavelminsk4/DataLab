@@ -90,7 +90,10 @@ export default {
     ...mapState(['modulesProjects', 'newWorkspace', 'newProject']),
     currentWorkspaces() {
       if (isAllFieldsEmpty(this.modulesProjects)) return []
-      return this.modulesProjects[this.currentModule]
+
+      return this.modulesProjects[this.currentModule].filter(
+        (workspace) => !isAllFieldsEmpty(workspace)
+      )
     },
     currentModuleProxy: {
       get() {

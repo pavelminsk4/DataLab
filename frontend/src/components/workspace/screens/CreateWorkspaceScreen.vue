@@ -107,8 +107,9 @@ export default {
   display: flex;
   flex-direction: column;
 
-  width: 56%;
+  width: 75%;
   margin-top: 40px;
+  gap: 25px;
 }
 
 .label {
@@ -123,8 +124,6 @@ export default {
 
 .next-button {
   align-self: flex-end;
-
-  margin-top: 32px;
 
   .button-arrow-icon {
     margin-left: 10px;

@@ -5,6 +5,16 @@
         title="Comparison Module"
         :back-page="{name: 'main page', routeName: 'MainView'}"
       />
+      <BaseButtonWithTooltip
+        v-if="!workspaces?.length"
+        :is-disabled="false"
+        :has-tooltip="false"
+        class="create-new-button"
+        @click="$emit('create-workspace')"
+      >
+        <PlusIcon />
+        <span>Create new workspace</span>
+      </BaseButtonWithTooltip>
     </div>
     <AreYouSureModal
       v-if="isOpenDeleteModal"
@@ -41,8 +51,10 @@ import {action} from '@store/constants'
 import ComparisonMixin from '@/lib/mixins/comparison.js'
 
 import AreYouSureModal from '@/components/modals/AreYouSureModal'
+import BaseButtonWithTooltip from '@/components/BaseButtonWithTooltip'
 import MainLayout from '@/components/layout/MainLayout'
 import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
+import PlusIcon from '@/components/icons/PlusIcon'
 import WorkspacesScreen from '@/components/dashboard/WorkspacesScreen'
 
 const {mapActions} = createNamespacedHelpers('comparison')
@@ -52,8 +64,10 @@ export default {
   mixins: [ComparisonMixin],
   components: {
     AreYouSureModal,
+    BaseButtonWithTooltip,
     MainLayout,
     MainLayoutTitleBlock,
+    PlusIcon,
     WorkspacesScreen,
   },
   props: {
@@ -89,6 +103,10 @@ export default {
 .header {
   display: flex;
   justify-content: space-between;
+
+  .create-new-button {
+    align-self: flex-end;
+  }
 }
 
 .no-comparison-workspaces {
