@@ -15,6 +15,7 @@ from django.shortcuts import render
 from project_social.models import ProjectSocial, SocialWidgetsList
 from reports.classes.social_pdf import SocialPDF
 from reports.classes.converter import Converter
+from project_social.widgets.sentiment.sentiment_number_of_results import sentiment_report
 
 
 def filling_template(template_path, project_id):
@@ -74,3 +75,8 @@ def social_top_languages_screenshot(request, dep_pk, proj_pk):
     wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).top_languages.pk
     context = top_languages_report(proj_pk, wd_pk)
     return render(request, 'social_reports/top_languages_screenshot.html', context)
+
+def social_sentiment_diagram_screenshot(request, dep_pk, proj_pk):
+    wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).sentiment_diagram.pk
+    context = {'context': sentiment_report(proj_pk, wd_pk)}
+    return render(request, 'social_reports/sentiment_diagram_screenshot.html', context)

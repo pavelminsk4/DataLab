@@ -37,6 +37,7 @@ export default {
     labels: {type: Array, default: () => []},
     chartValues: {type: Object, default: () => {}},
     isLegendDisplayed: {type: Boolean, default: false},
+    hasAnimation: {type: Boolean, default: true},
   },
   computed: {
     chartDatasets() {
@@ -77,7 +78,7 @@ export default {
         maintainAspectRatio: false,
         animation: {
           easing: 'easeInOutQuad',
-          duration: 520,
+          duration: this.hasAnimation ? 520 : 0,
         },
         onHover: (event, chartElement) => {
           const target = event.native ? event.native.target : event.target

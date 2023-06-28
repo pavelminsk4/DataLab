@@ -1,3 +1,4 @@
+from time import sleep
 from project_social.models import *
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
@@ -10,6 +11,9 @@ from functools import reduce
 from pathlib import Path
 import os
 import environ
+
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 from uuid import uuid4
 
@@ -41,7 +45,8 @@ class ScreenDriver:
             service=FirefoxService(GeckoDriverManager().install())
         )
         username = 'admin2'
-        password = 'admin2'
+        password = 'anadeakey'
+        driver.set_window_size(700, 500, driver.window_handles[0])
         driver.get(base_url)
         driver.find_element('id', 'id_username').send_keys(username)
         driver.find_element('id', 'id_password').send_keys(password)
@@ -51,6 +56,7 @@ class ScreenDriver:
     def __make_screenshot(self, widget, driver):
         url = f'{base_url}api/reports/0/{widget}_screenshot/{str(self.item.module_project_id)}/'
         driver.get(url)
+        WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.TAG_NAME, 'canvas')))      
         screenshot_path = f'{storage_folder}{widget}_{str(uuid4())}.png'
         driver.save_screenshot(screenshot_path)
         return screenshot_path

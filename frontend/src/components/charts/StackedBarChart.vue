@@ -27,6 +27,7 @@ export default {
   props: {
     chartValues: {type: Object, required: true},
     isShowTooltips: {type: Boolean, default: false},
+    hasAnimation: {type: Boolean, default: true},
   },
   computed: {
     chartOptions() {
@@ -36,7 +37,7 @@ export default {
         responsive: true,
         animation: {
           easing: 'easeInOutQuad',
-          duration: 520,
+          duration: this.hasAnimation ? 520 : 0,
         },
         plugins: {
           datalabels: {

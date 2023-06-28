@@ -7,6 +7,7 @@
     :labels="labels"
     :chart-values="chartValues"
     :isLegendDisplayed="isLegendDisplayed"
+    :has-animation="widgets.hasAnimation"
     @open-interactive-data="openInteractiveData"
   />
 </template>
@@ -60,7 +61,7 @@ export default {
     isLegendDisplayed: {type: Boolean, default: true},
   },
   computed: {
-    ...mapState(['loading']),
+    ...mapState(['loading', 'widgets']),
   },
   methods: {
     ...mapActions([
