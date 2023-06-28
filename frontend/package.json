@@ -34,7 +34,6 @@
     "vue-chartjs": "^5.2.0",
     "vue-router": "^4.0.13",
     "vue3-apexcharts": "^1.4.1",
-    "vue3-grid-layout": "^1.0.0",
     "vuewordcloud": "^19.0.0",
     "vuex": "^4.0.2",
     "webpack-bundle-tracker": "^1.6.0"

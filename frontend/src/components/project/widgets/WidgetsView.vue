@@ -11,30 +11,15 @@
       @show-results="updatePageAndPostsCounts"
       class="search-results"
     />
-    <grid-layout
-      v-if="availableWidgets"
-      v-model:layout="selectedWidgets"
-      :col-num="4"
-      :row-height="30"
-      :is-resizable="false"
-      is-draggable
-      vertical-compact
-      use-css-transforms
-      class="widgets-wrapper scroll"
-    >
-      <grid-item
+    <div v-if="availableWidgets" class="widgets-wrapper scroll">
+      <div
         class="widget-item"
         v-for="(item, index) in displayedWidgets"
         :key="item.i"
-        :static="item.static"
-        :x="item.x"
-        :y="item.y"
-        :w="item.w"
-        :h="item.h"
-        :i="item.i"
       >
         <OnlineMainWidget
           :widgetDetails="item.widgetDetails"
+          :style="`height: ${item.widgetDetails.height};`"
           @delete-widget="deleteWidget(item.widgetDetails.name)"
           @open-settings-modal="openModal(index)"
         />
@@ -42,15 +27,14 @@
           v-if="index + 1 === displayedWidgets.length"
           @intersect="getItems"
         />
-      </grid-item>
-    </grid-layout>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
-import VueGridLayout from 'vue3-grid-layout'
 import {getWidgetDetails} from '@lib/utilities'
 import {widgetsConfig} from '@/lib/configs/widgetsConfigs'
 
@@ -66,8 +50,6 @@ export default {
     WidgetSettingsModal,
     SearchResults,
     OnlineMainWidget,
-    GridLayout: VueGridLayout.GridLayout,
-    GridItem: VueGridLayout.GridItem,
     BaseObserver,
   },
   emits: ['update-page'],
@@ -91,24 +73,17 @@ export default {
     selectedWidgets: {
       get() {
         return Object.keys(this.availableWidgets)
-          .map((widgetName, index) => {
+          .map((widgetName) => {
             widgetsConfig.clipping_feed_content.height = this.clippingData
               .length
-              ? 13
-              : 3.8
+              ? '400px'
+              : '150px'
 
             if (
               this.availableWidgets[widgetName].is_active &&
               widgetsConfig[widgetName]
             ) {
               return {
-                x: 0,
-                y: this.getYAxisValue(index + 1),
-                w: 2,
-                h: widgetsConfig[widgetName].height,
-                i: index,
-                static: false,
-
                 widgetDetails: getWidgetDetails(
                   widgetName,
                   this.availableWidgets[widgetName],
@@ -176,6 +151,7 @@ export default {
 }
 .widgets-wrapper {
   display: flex;
+  flex-direction: column;
   gap: 30px;
   overflow: auto;
 

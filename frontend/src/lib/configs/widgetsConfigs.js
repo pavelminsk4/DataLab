@@ -1,7 +1,7 @@
 import {action} from '@store/constants'
 
 const WIDGET_DEFAULT_SETTINGS = {
-  height: 13,
+  height: '350px',
   isChartShow: false,
   hasPreview: true,
   hasAggregationPeriod: true,
@@ -78,8 +78,8 @@ const MULTI_CHARTS = [CHARTS.multiLine, CHARTS.multiRadar]
 export const widgetsConfig = {
   summary: {
     ...WIDGET_DEFAULT_SETTINGS,
+    height: '360px',
     actionName: action.GET_SUMMARY_WIDGET,
-    height: 7,
     hasAggregationPeriod: false,
     defaultChartType: null,
     settingsTabs: ['General', 'Filters'],
@@ -183,7 +183,6 @@ export const widgetsConfig = {
 
   top_keywords: {
     ...WIDGET_DEFAULT_SETTINGS,
-    height: 15,
     hasAggregationPeriod: false,
     actionName: action.GET_TOP_KEYWORDS_WIDGET,
     defaultChartType: 'WordCloudChart',
@@ -192,7 +191,7 @@ export const widgetsConfig = {
 
   top_keywords_by_country: {
     ...WIDGET_DEFAULT_SETTINGS,
-    height: 15,
+    height: '450px',
     hasPreview: false,
     hasAggregationPeriod: false,
     actionName: action.GET_TOP_KEYWORDS_WIDGET,
@@ -202,7 +201,7 @@ export const widgetsConfig = {
 
   keywords_by_location: {
     ...WIDGET_DEFAULT_SETTINGS,
-    height: 15,
+    height: '450px',
     hasPreview: false,
     hasAggregationPeriod: false,
     actionName: action.GET_TOP_KEYWORDS_WIDGET,
@@ -228,7 +227,7 @@ export const widgetsConfig = {
 
   sentiment_top_keywords: {
     ...WIDGET_DEFAULT_SETTINGS,
-    height: 15,
+    height: '420px',
     hasAggregationPeriod: false,
     actionName: action.GET_SENTIMENT_TOP_KEYWORDS_WIDGET,
     defaultChartType: 'SentimentWordCloudChart',
@@ -237,6 +236,7 @@ export const widgetsConfig = {
 
   authors_by_country: {
     ...WIDGET_DEFAULT_SETTINGS,
+    height: '450px',
     hasAggregationPeriod: false,
     actionName: action.GET_AUTHORS_BY_COUNTRY,
     defaultChartType: 'DoughnutChart',
@@ -253,6 +253,7 @@ export const widgetsConfig = {
 
   sources_by_language: {
     ...WIDGET_DEFAULT_SETTINGS,
+    height: '450px',
     hasAggregationPeriod: false,
     actionName: action.GET_SOURCES_BY_LANGUAGE,
     defaultChartType: 'BarChart',
@@ -261,6 +262,7 @@ export const widgetsConfig = {
 
   sources_by_country: {
     ...WIDGET_DEFAULT_SETTINGS,
+    height: '450px',
     hasAggregationPeriod: false,
     actionName: action.GET_SOURCES_BY_COUNTRY,
     defaultChartType: 'BarChart',
@@ -305,7 +307,6 @@ export const widgetsConfig = {
   top_sharing_sources: {
     ...WIDGET_DEFAULT_SETTINGS,
     actionName: action.GET_TOP_SHARING_SOURCES,
-    height: 10,
     hasPreview: false,
     hasAggregationPeriod: false,
     defaultChartType: null,
@@ -344,6 +345,7 @@ export const widgetsConfig = {
   },
   authors_by_language: {
     ...WIDGET_DEFAULT_SETTINGS,
+    height: '450px',
     hasAggregationPeriod: false,
     actionName: action.GET_AUTHORS_BY_LANGUAGE,
     defaultChartType: 'DoughnutChart',
@@ -351,12 +353,14 @@ export const widgetsConfig = {
   },
   authors_by_location: {
     ...WIDGET_DEFAULT_SETTINGS,
+    height: '450px',
     actionName: action.GET_AUTHORS_BY_LOCATION,
     defaultChartType: 'BarChart',
     availableTypes: SIMPLE_CHARTS,
   },
   authors_by_sentiment: {
     ...WIDGET_DEFAULT_SETTINGS,
+    height: '450px',
     hasAggregationPeriod: false,
     actionName: action.GET_AUTHORS_BY_SENTIMENT,
     defaultChartType: 'DoughnutChart',
@@ -364,6 +368,7 @@ export const widgetsConfig = {
   },
   authors_by_gender: {
     ...WIDGET_DEFAULT_SETTINGS,
+    height: '450px',
     actionName: action.GET_AUTHORS_BY_GENDER,
     defaultChartType: 'DoughnutChart',
     availableTypes: SIMPLE_CHARTS,

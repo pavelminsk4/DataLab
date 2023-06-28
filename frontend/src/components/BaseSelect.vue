@@ -72,7 +72,7 @@ export default {
     list: {type: Array, default: null},
     placeholder: {type: String, default: 'Select option'},
     name: {type: String, required: true},
-    modelValue: {type: String, required: true},
+    modelValue: {type: [String, Object], required: true},
     isSearch: {type: Boolean, default: false},
     isRejectSelection: {type: Boolean, default: true},
     currentValue: {type: String, required: false},

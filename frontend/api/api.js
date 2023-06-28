@@ -383,19 +383,9 @@ export default {
     return fetch('get', `/report_widgets_list`)
   },
 
-  async downloadInstantlyReport(departmentId, projectId) {
+  async downloadInstantReport(departmentId, projectId) {
     const response = await $api.get(
       `/api/reports/${departmentId}/instantly_report/${projectId}/`,
-      {
-        responseType: 'blob',
-      }
-    )
-    return URL.createObjectURL(response.data)
-  },
-
-  async downloadSocialInstantlyReport(departmentId, projectId) {
-    const response = await $api.get(
-      `/reports/${departmentId}/social_instantly_report/${projectId}/`,
       {
         responseType: 'blob',
       }

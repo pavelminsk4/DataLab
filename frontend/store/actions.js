@@ -1011,10 +1011,10 @@ export default {
     }
   },
 
-  async [action.GET_INSTANTLY_REPORT]({commit}, {departmentId, projectId}) {
+  async [action.GET_INSTANT_REPORT]({commit}, {departmentId, projectId}) {
     commit(mutator.SET_LOADING, true)
     try {
-      return api.downloadInstantlyReport(departmentId, projectId)
+      return api.downloadInstantReport(departmentId, projectId)
     } catch (error) {
       console.error(error)
       return error

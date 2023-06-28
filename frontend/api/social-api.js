@@ -1,3 +1,4 @@
+import $api from '../http'
 import {fetch} from './api'
 
 const moduleName = '/social'
@@ -47,6 +48,17 @@ export default {
     //   `${moduleName}/projects/${projectId}/clipping_feed_content_widget/delete/${postId}`
     // )
     return [projectId, postId]
+  },
+
+  async downloadInstantReport(departmentId, projectId) {
+    const response = await $api.get(
+      `/api/reports/${departmentId}/social_instantly_report/${projectId}/`,
+      {
+        responseType: 'blob',
+      }
+    )
+
+    return URL.createObjectURL(response.data)
   },
 
   async getAllWidgets(projectId) {
