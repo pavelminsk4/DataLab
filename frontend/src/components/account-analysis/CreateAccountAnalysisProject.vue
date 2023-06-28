@@ -155,7 +155,7 @@ export default {
     },
     getImg(profileData) {
       return this.listOfProfiles.find(
-        (profileOption) => profileData.item === profileOption.user_alias
+        (profileOptions) => profileData.item === profileOptions.user_alias
       )?.user_picture
     },
   },
