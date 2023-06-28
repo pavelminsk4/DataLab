@@ -66,11 +66,7 @@ export default {
 
   width: 75%;
   margin-top: 40px;
-  gap: 15px;
-}
-
-.input-name {
-  margin-bottom: 32px;
+  gap: 25px;
 }
 
 .create-workspace__footer {

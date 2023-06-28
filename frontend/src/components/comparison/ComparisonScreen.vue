@@ -103,6 +103,10 @@ export default {
 .header {
   display: flex;
   justify-content: space-between;
+
+  .create-new-button {
+    align-self: flex-end;
+  }
 }
 
 .no-comparison-workspaces {

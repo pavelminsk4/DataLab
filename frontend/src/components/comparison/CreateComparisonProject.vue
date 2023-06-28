@@ -84,11 +84,7 @@ export default {
 
   width: 75%;
   margin-top: 40px;
-  gap: 15px;
-
-  .input-name-field {
-    margin-bottom: 32px;
-  }
+  gap: 25px;
 
   .create-project__footer {
     display: flex;

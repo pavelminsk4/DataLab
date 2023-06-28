@@ -8,7 +8,7 @@
         <BaseDropdown
           v-for="projects in workspace"
           :key="projects"
-          :name="Object.keys(workspace)[0]"
+          :name="stringToPascalCase(Object.keys(workspace)[0])"
           :title="Object.keys(workspace)[0]"
           :custom-style="dropdownStyles"
           :title-style="titleStyles"
@@ -30,6 +30,7 @@
 
 <script>
 import BaseDropdown from '@/components/BaseDropdown'
+import {stringToPascalCase} from '@/lib/utilities'
 
 export default {
   name: 'DropdownWithSelect',
@@ -57,6 +58,8 @@ export default {
     document.addEventListener('click', this.closeDropdown)
   },
   methods: {
+    stringToPascalCase,
+
     openMainDropdown() {
       this.isOpenMainDropdown = !this.isOpenMainDropdown
     },
