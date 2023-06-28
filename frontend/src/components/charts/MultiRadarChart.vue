@@ -31,6 +31,7 @@ export default {
     isLegendDisplayed: {type: Boolean, default: true},
     chartValues: {type: Object, default: () => {}},
     labels: {type: Array, default: () => []},
+    hasAnimation: {type: Boolean, default: true},
   },
   computed: {
     chartDatasets() {
@@ -55,7 +56,7 @@ export default {
         maintainAspectRatio: false,
         animation: {
           easing: 'easeInOutQuad',
-          duration: 520,
+          duration: this.hasAnimation ? 520 : 0,
         },
         onClick: (e, dataOptions) => {
           this.$emit(

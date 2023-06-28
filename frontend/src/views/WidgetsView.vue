@@ -15,7 +15,7 @@ import {getWidgetDetails} from '@lib/utilities'
 import WidgetsList from '@/components/widgets/WidgetsList'
 
 export default {
-  name: 'TestWidget',
+  name: 'WidgetsView',
   components: {
     WidgetsList,
   },
