@@ -1,7 +1,7 @@
 import {action} from '@store/constants'
 
 const WIDGET_DEFAULT_SETTINGS = {
-  height: 13,
+  height: '350px',
   isChartShow: false,
   hasPreview: true,
   hasAggregationPeriod: true,
@@ -78,8 +78,8 @@ const MULTI_CHARTS = [CHARTS.multiLine, CHARTS.multiRadar]
 export const widgetsConfig = {
   summary: {
     ...WIDGET_DEFAULT_SETTINGS,
+    height: '360px',
     actionName: action.GET_SUMMARY_WIDGET,
-    height: 7,
     hasAggregationPeriod: false,
     defaultChartType: null,
     settingsTabs: ['General', 'Filters'],
@@ -183,7 +183,6 @@ export const widgetsConfig = {
 
   top_keywords: {
     ...WIDGET_DEFAULT_SETTINGS,
-    height: 15,
     hasAggregationPeriod: false,
     actionName: action.GET_TOP_KEYWORDS_WIDGET,
     defaultChartType: 'WordCloudChart',
@@ -192,7 +191,6 @@ export const widgetsConfig = {
 
   top_keywords_by_country: {
     ...WIDGET_DEFAULT_SETTINGS,
-    height: 15,
     hasPreview: false,
     hasAggregationPeriod: false,
     actionName: action.GET_TOP_KEYWORDS_WIDGET,
@@ -202,7 +200,6 @@ export const widgetsConfig = {
 
   keywords_by_location: {
     ...WIDGET_DEFAULT_SETTINGS,
-    height: 15,
     hasPreview: false,
     hasAggregationPeriod: false,
     actionName: action.GET_TOP_KEYWORDS_WIDGET,
@@ -228,7 +225,7 @@ export const widgetsConfig = {
 
   sentiment_top_keywords: {
     ...WIDGET_DEFAULT_SETTINGS,
-    height: 15,
+    height: '420px',
     hasAggregationPeriod: false,
     actionName: action.GET_SENTIMENT_TOP_KEYWORDS_WIDGET,
     defaultChartType: 'SentimentWordCloudChart',
@@ -305,7 +302,6 @@ export const widgetsConfig = {
   top_sharing_sources: {
     ...WIDGET_DEFAULT_SETTINGS,
     actionName: action.GET_TOP_SHARING_SOURCES,
-    height: 10,
     hasPreview: false,
     hasAggregationPeriod: false,
     defaultChartType: null,
