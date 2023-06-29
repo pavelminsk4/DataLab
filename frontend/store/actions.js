@@ -1128,12 +1128,12 @@ export default {
   },
   async [action.UPDATE_REGULAR_REPORT](
     {dispatch, commit},
-    {departmentId, regularReportId, data}
+    {regularReportId, data}
   ) {
     commit(mutator.SET_LOADING, true)
     try {
-      await api.updateRegularReport(departmentId, regularReportId, data)
-      await dispatch(action.GET_REGULAR_REPORTS, departmentId)
+      await api.updateRegularReport(regularReportId, data)
+      await dispatch(action.GET_REGULAR_REPORTS)
     } catch (error) {
       console.error(error)
       return error
