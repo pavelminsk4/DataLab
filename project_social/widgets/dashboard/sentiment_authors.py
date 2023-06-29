@@ -34,5 +34,5 @@ def sentiment_authors_report(pk, widget_pk):
     posts = post_agregetor_for_each_widget(widget, posts)
     return {
         'data': calculate(posts, widget.aggregation_period, widget.top_counts),
-        'widget': {'content_volume_top_locations': model_to_dict(widget)}
+        'widget': {'sentiment_authors': model_to_dict(widget)}
     }
