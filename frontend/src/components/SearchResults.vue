@@ -81,7 +81,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['isSearchPerformed']),
+    ...mapState(['isSearchPerformed', 'newProject']),
     ...mapGetters({
       searchData: get.SEARCH_DATA,
       loading: get.LOADING,
@@ -104,7 +104,10 @@ export default {
     document.addEventListener('click', this.close)
   },
   methods: {
-    ...mapActions([action.REFRESH_DISPLAY_CALENDAR]),
+    ...mapActions([
+      action.UPDATE_PROJECT_STATE,
+      action.REFRESH_DISPLAY_CALENDAR,
+    ]),
     lowerFirstLetter,
     getLastWeeksDate() {
       const now = new Date()
@@ -133,6 +136,13 @@ export default {
     updatePage(page, countPosts) {
       this.countPosts = countPosts
       this.$emit('show-results', page, countPosts)
+      this[action.UPDATE_PROJECT_STATE]({
+        searchFilters: {
+          ...this.newProject.searchFilters,
+          page_number: page,
+          posts_per_page: countPosts,
+        },
+      })
     },
   },
 }

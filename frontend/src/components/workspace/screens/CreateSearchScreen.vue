@@ -151,6 +151,8 @@ export default {
           expert_mode: this.isExpertMode,
         }
 
+        this[action.UPDATE_PROJECT_STATE]({searchFilters: project})
+
         this.$emit('show-results', project)
       } catch (e) {
         console.error(e)

@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import {mapActions} from 'vuex'
+import {mapState, mapActions} from 'vuex'
 import {action} from '@store/constants'
 
 import CreateSearchScreen from '@/components/workspace/screens/CreateSearchScreen'
@@ -27,6 +27,20 @@ export default {
     moduleName: {
       type: String,
       default: '',
+    },
+  },
+  computed: {
+    ...mapState(['newProject']),
+    searchFilters() {
+      return this.newProject.searchFilters
+    },
+  },
+  watch: {
+    'newProject.searchFilters.page_number'() {
+      this.showResults(this.searchFilters)
+    },
+    'newProject.searchFilters.posts_per_page'() {
+      this.showResults(this.searchFilters)
     },
   },
   methods: {
