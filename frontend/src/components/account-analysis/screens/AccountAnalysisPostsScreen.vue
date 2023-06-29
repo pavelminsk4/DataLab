@@ -111,6 +111,7 @@ export default {
   watch: {
     currentTab() {
       this.checkForPosts()
+      this.currentPage = 1
     },
   },
 }
@@ -143,10 +144,6 @@ export default {
   }
 
   .pagination-wrapper {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-
     display: flex;
     justify-content: flex-end;
     gap: 18px;
