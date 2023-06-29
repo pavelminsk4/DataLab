@@ -13,7 +13,7 @@
         <ArrowDownIcon :class="[isShowCalendarContents && 'open-calendar']" />
       </div>
       <div :class="['calendar', `calendar-position-${position}`]">
-        <BaseCalendar v-if="isShowCalendarContents" />
+        <DateRange v-if="isShowCalendarContents" />
       </div>
     </div>
   </div>
@@ -25,13 +25,13 @@ import {action, get} from '@store/constants'
 import {defaultDate} from '@/lib/utilities'
 
 import CalendarIcon from '@/components/icons/CalendarIcon'
-import BaseCalendar from '@/components/datepicker/BaseCalendar'
+import DateRange from '@/components/datepicker/DateRange'
 import ArrowDownIcon from '@/components/icons/ArrowDownIcon'
 
 export default {
   name: 'CommonCalendar',
   components: {
-    BaseCalendar,
+    DateRange,
     CalendarIcon,
     ArrowDownIcon,
   },

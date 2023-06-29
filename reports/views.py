@@ -61,7 +61,7 @@ class RegularReportViewSet(viewsets.ModelViewSet):
     serializer_class = RegularReportSerializer
 
     def get_queryset(self):
-        return RegularReport.objects.filter(department_id=self.kwargs['dep_pk'])
+        return RegularReport.objects.filter(department_id=self.request.user.user_profile.department)
 
 
 def social_top_locations_screenshot(request,proj_pk):

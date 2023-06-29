@@ -360,8 +360,8 @@ export default {
   },
 
   // Reports
-  async getRegularReports(departmentId) {
-    return fetch('get', `/reports/${departmentId}/regular_reports/`)
+  async getRegularReports() {
+    return fetch('get', `/reports/regular_reports/`)
   },
   async createRegularReport(data) {
     return fetch('post', `/regularreports/`, data)
@@ -383,9 +383,9 @@ export default {
     return fetch('get', `/report_widgets_list`)
   },
 
-  async downloadInstantReport(departmentId, projectId) {
+  async downloadInstantReport(projectId) {
     const response = await $api.get(
-      `/api/reports/${departmentId}/instantly_report/${projectId}/`,
+      `/api/reports/instantly_report/${projectId}/`,
       {
         responseType: 'blob',
       }

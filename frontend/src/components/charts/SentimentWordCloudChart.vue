@@ -37,6 +37,7 @@ export default {
   emits: ['open-interactive-data'],
   props: {
     labels: {type: Array, default: () => []},
+    hasAnimation: {type: Boolean, default: true},
     chartValues: {type: Array, default: () => []},
     isLegendDisplayed: {type: Boolean, default: true, required: false},
   },
