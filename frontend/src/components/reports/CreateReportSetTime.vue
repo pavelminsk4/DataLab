@@ -23,21 +23,7 @@
         class="set-time-box"
       >
         <span>Time</span>
-        <Datepicker
-          v-model="timePickerDay"
-          :is-24="false"
-          :clearable="null"
-          :hide-input-icon="true"
-          time-picker
-          auto-apply
-          placeholder="Time"
-          menu-class-name="time-picker-menu"
-          class="time-picker"
-        >
-          <template #input-icon>
-            <svg></svg>
-          </template>
-        </Datepicker>
+        <TimePicker v-model="timePickerDay" />
       </SetTimeCheckbox>
 
       <SetTimeCheckbox
@@ -56,21 +42,7 @@
         />
 
         <span>Time</span>
-        <Datepicker
-          v-model="timePickerWeek"
-          :is-24="false"
-          :clearable="null"
-          :hide-input-icon="true"
-          time-picker
-          auto-apply
-          placeholder="Time"
-          menu-class-name="time-picker-menu"
-          class="time-picker"
-        >
-          <template #input-icon>
-            <svg></svg>
-          </template>
-        </Datepicker>
+        <TimePicker v-model="timePickerWeek" />
       </SetTimeCheckbox>
 
       <SetTimeCheckbox
@@ -89,21 +61,7 @@
         />
 
         <span>Time</span>
-        <Datepicker
-          v-model="timePickerMonth"
-          :is-24="false"
-          :clearable="null"
-          time-picker
-          auto-apply
-          placeholder="Time"
-          :hide-input-icon="true"
-          menu-class-name="time-picker-menu"
-          class="time-picker"
-        >
-          <template #input-icon>
-            <svg></svg>
-          </template>
-        </Datepicker>
+        <TimePicker v-model="timePickerMonth" />
       </SetTimeCheckbox>
     </div>
 
@@ -167,6 +125,7 @@ import Datepicker from '@vuepic/vue-datepicker'
 import SetTimeCheckbox from '@/components/common/SetTimeCheckbox'
 import BaseSelect from '@/components/BaseSelect'
 import BaseRadio from '@/components/BaseRadio'
+import TimePicker from '@/components/datepicker/TimePicker'
 
 const ending = {
   NEVER: 'Never',
@@ -182,6 +141,7 @@ export default {
     Datepicker,
     BaseRadio,
     CalendarIcon,
+    TimePicker,
   },
   data() {
     return {

@@ -2,7 +2,7 @@ import api from '@api/api'
 import {action, mutator} from '@store/constants'
 
 export default {
-  async [action.GET_WORKSPACES](id, {commit}) {
+  async [action.GET_WORKSPACES]({commit}, id) {
     commit(mutator.SET_LOADING, true)
     try {
       const workspaces = await api.twentyFourSeven.getWorkspaces(id)

@@ -327,105 +327,107 @@ export default {
 </style>
 
 <style lang="scss">
-.dp__menu {
-  height: 400px;
-  padding: 39px 40px 39px 31px;
+.calendar-wrapper {
+  .dp__menu {
+    height: 400px;
+    padding: 39px 40px 39px 31px;
 
-  background: var(--background-secondary-color);
-  border: 1px solid var(--input-border-color);
-  border-radius: 10px;
-
-  &:focus {
+    background: var(--background-secondary-color);
     border: 1px solid var(--input-border-color);
-    box-shadow: -4px 4px 20px rgba(16, 16, 16, 0.4);
-  }
-}
+    border-radius: 10px;
 
-.dp__calendar_wrap {
-  .dp__calendar_header {
-    color: var(--typography-title-color);
-
-    font-style: normal;
-    font-weight: 600;
-    font-size: 12px;
-    line-height: 166%;
+    &:focus {
+      border: 1px solid var(--input-border-color);
+      box-shadow: -4px 4px 20px rgba(16, 16, 16, 0.4);
+    }
   }
 
-  .dp__calendar_header_separator {
-    height: 0;
-  }
+  .dp__calendar_wrap {
+    .dp__calendar_header {
+      color: var(--typography-title-color);
 
-  .dp__calendar {
-    .dp__calendar_row {
-      .dp__calendar_item {
-        .dp__range_start,
-        .dp__range_end {
-          border: none;
-          background-color: var(--button-primary-color);
-        }
+      font-style: normal;
+      font-weight: 600;
+      font-size: 12px;
+      line-height: 166%;
+    }
 
-        .dp__range_start {
-          border-top-left-radius: 6px;
-          border-bottom-left-radius: 6px;
-        }
+    .dp__calendar_header_separator {
+      height: 0;
+    }
 
-        .dp__range_end {
-          border-top-right-radius: 6px;
-          border-bottom-right-radius: 6px;
-        }
+    .dp__calendar {
+      .dp__calendar_row {
+        .dp__calendar_item {
+          .dp__range_start,
+          .dp__range_end {
+            border: none;
+            background-color: var(--button-primary-color);
+          }
 
-        .dp__cell_inner {
-          font-style: normal;
-          font-weight: 400;
-          font-size: 12px;
-          line-height: 143%;
-          color: var(--typography-primary-color);
-        }
+          .dp__range_start {
+            border-top-left-radius: 6px;
+            border-bottom-left-radius: 6px;
+          }
 
-        .dp__cell_offset {
-          font-style: normal;
-          font-weight: 400;
-          font-size: 12px;
-          line-height: 143%;
-          color: var(--typography-secondary-color);
-        }
+          .dp__range_end {
+            border-top-right-radius: 6px;
+            border-bottom-right-radius: 6px;
+          }
 
-        .dp__range_between {
-          border: none;
-          background-color: rgba(5, 95, 252, 0.2);
+          .dp__cell_inner {
+            font-style: normal;
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 143%;
+            color: var(--typography-primary-color);
+          }
+
+          .dp__cell_offset {
+            font-style: normal;
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 143%;
+            color: var(--typography-secondary-color);
+          }
+
+          .dp__range_between {
+            border: none;
+            background-color: rgba(5, 95, 252, 0.2);
+          }
         }
       }
     }
   }
-}
 
-.dp__sidebar_right {
-  width: 235px;
-  margin-left: 35px;
-  padding: 0;
+  .dp__sidebar_right {
+    width: 235px;
+    margin-left: 35px;
+    padding: 0;
 
-  border: none;
-}
+    border: none;
+  }
 
-.dp__month_year_select {
-  color: var(--typography-primary-color);
-}
+  .dp__month_year_select {
+    color: var(--typography-primary-color);
+  }
 
-.dp__overlay {
-  background: var(--background-secondary-color);
-}
+  .dp__overlay {
+    background: var(--background-secondary-color);
+  }
 
-.dp__overlay_cell {
-  color: var(--typography-primary-color);
-  background: var(--primary-bg-color);
-}
+  .dp__overlay_cell {
+    color: var(--typography-primary-color);
+    background: var(--primary-bg-color);
+  }
 
-.dp__time_display {
-  color: var(--typography-primary-color);
-}
+  .dp__time_display {
+    color: var(--typography-primary-color);
+  }
 
-.dp__button_bottom {
-  color: var(--typography-primary-color);
-  background-color: var(--button-primary-color);
+  .dp__button_bottom {
+    color: var(--typography-primary-color);
+    background-color: var(--button-primary-color);
+  }
 }
 </style>
