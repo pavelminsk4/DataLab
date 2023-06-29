@@ -166,9 +166,6 @@ export default {
       commit(mutator.SET_NUMBER_OF_POSTS, response.num_posts, {
         root: true,
       })
-      commit(mutator.SET_NUMBER_OF_PAGES, response.num_pages, {
-        root: true,
-      })
       commit(mutator.SET_ACCOUNT_ACTIVITY_POSTS, response.posts)
       return response
     } catch (error) {
@@ -187,9 +184,6 @@ export default {
         value
       )
       commit(mutator.SET_NUMBER_OF_POSTS, response.num_posts, {
-        root: true,
-      })
-      commit(mutator.SET_NUMBER_OF_PAGES, response.num_pages, {
         root: true,
       })
       commit(mutator.SET_MENTIONS_POSTS, response.posts || [])

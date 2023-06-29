@@ -32,7 +32,7 @@
 
 <script>
 import {action} from '@store/constants'
-import {createNamespacedHelpers, mapState} from 'vuex'
+import {createNamespacedHelpers} from 'vuex'
 // import BaseInput from '@/components/common/BaseInput'
 import PaginationControlPanel from '@/components/PaginationControlPanel'
 
@@ -60,11 +60,11 @@ export default {
       countPosts: 20,
       searchText: '',
       postsOnPage: [20, 50, 100],
+      numberOfPages: 0,
     }
   },
   computed: {
     ...mapStateAccountAnalysis(['accountActivityPosts', 'mentionsPosts']),
-    ...mapState(['numberOfPages']),
     findedposts() {
       const currentPosts =
         this.currentTab === 'Mentions'
@@ -83,35 +83,26 @@ export default {
       action.GET_ACCOUNT_ACTIVITY_POSTS,
       action.GET_MENTIONS_POSTS,
     ]),
-    getPosts(page, countPosts) {
+    async getPosts(page, countPosts) {
       const actionName =
         this.currentTab === 'Mentions' ? 'MENTIONS' : 'ACCOUNT_ACTIVITY'
-      this[action[`GET_${actionName}_POSTS`]]({
+
+      const response = await this[action[`GET_${actionName}_POSTS`]]({
         projectId: this.currentProject.id,
         value: {posts_per_page: countPosts, page_number: page},
       })
+
+      this.numberOfPages = response.num_pages
     },
     updatePage(page, countPosts) {
       this.countPosts = countPosts
       this.getPosts(page, countPosts)
     },
-    checkForPosts() {
-      if (
-        !this.accountActivityPosts.length &&
-        this.currentTab === 'AccountActivity'
-      ) {
-        this.getPosts(this.currentPage, this.countPosts)
-      }
-
-      if (!this.mentionsPosts.length && this.currentTab === 'Mentions') {
-        this.getPosts(this.currentPage, this.countPosts)
-      }
-    },
   },
   watch: {
     currentTab() {
-      this.checkForPosts()
       this.currentPage = 1
+      this.getPosts(this.currentPage, this.countPosts)
     },
   },
 }
