@@ -36,7 +36,7 @@ export default {
 
 <style lang="scss">
 .time-picker-wrapper {
-  width: 135px;
+  width: 100px;
   height: 40px;
 
   .dp__input_wrap {

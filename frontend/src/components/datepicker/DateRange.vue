@@ -72,7 +72,7 @@ const START_DATE = {type: 'startDate', index: 0}
 const ENDING_DATE = {type: 'endingDate', index: 1}
 
 export default {
-  name: 'BaseCalendar',
+  name: 'DateRange',
   components: {
     Datepicker,
     BaseInput,

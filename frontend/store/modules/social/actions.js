@@ -323,10 +323,10 @@ export default {
     }
   },
 
-  async [action.GET_INSTANT_REPORT]({commit}, {departmentId, projectId}) {
+  async [action.GET_INSTANT_REPORT]({commit}, {projectId}) {
     commit(mutator.SET_LOADING, true)
     try {
-      return api.social.downloadInstantReport(departmentId, projectId)
+      return api.social.downloadInstantReport(projectId)
     } catch (error) {
       console.error(error)
       return error
