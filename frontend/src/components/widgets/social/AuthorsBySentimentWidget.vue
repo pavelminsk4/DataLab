@@ -61,7 +61,7 @@ export default {
     },
     labels() {
       if (!this.currentWidgetData) return []
-      return this.currentWidgetData.map((el) => el[0].toString())
+      return this.currentWidgetData.map((values) => values[0].toString())
     },
 
     chartValues() {
@@ -69,7 +69,7 @@ export default {
       return [
         {
           color: '#516BEE',
-          data: this.currentWidgetData.map((el) => el[1]),
+          data: this.currentWidgetData.map((values) => values[1]),
         },
       ]
     },
