@@ -19,12 +19,11 @@ export default {
   computed: {
     ...mapGetters({
       reports: get.REGULAR_REPORTS,
-      department: get.DEPARTMENT,
     }),
   },
   async created() {
     if (!this.reports.length) {
-      await this[action.GET_REGULAR_REPORTS](this.department.id)
+      await this[action.GET_REGULAR_REPORTS]()
     }
   },
   methods: {

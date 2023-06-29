@@ -1102,10 +1102,10 @@ export default {
   },
 
   // Reports
-  async [action.GET_REGULAR_REPORTS]({commit}, departmentId) {
+  async [action.GET_REGULAR_REPORTS]({commit}) {
     commit(mutator.SET_LOADING, true)
     try {
-      const regularReports = await api.getRegularReports(departmentId)
+      const regularReports = await api.getRegularReports()
       commit(mutator.SET_REGULAR_REPORTS, regularReports)
     } catch (error) {
       console.error(error)
@@ -1114,14 +1114,11 @@ export default {
       commit(mutator.SET_LOADING, false)
     }
   },
-  async [action.CREATE_REGULAR_REPORT](
-    {commit, dispatch},
-    {departmentId, data}
-  ) {
+  async [action.CREATE_REGULAR_REPORT]({commit, dispatch}, {data}) {
     commit(mutator.SET_LOADING, true)
     try {
       await api.createRegularReport(data)
-      await dispatch(action.GET_REGULAR_REPORTS, departmentId)
+      await dispatch(action.GET_REGULAR_REPORTS)
     } catch (error) {
       console.error(error)
       return error
@@ -1144,14 +1141,11 @@ export default {
       commit(mutator.SET_LOADING, false)
     }
   },
-  async [action.DELETE_REGULAR_REPORT](
-    {dispatch, commit},
-    {departmentId, regularReportId}
-  ) {
+  async [action.DELETE_REGULAR_REPORT]({dispatch, commit}, {regularReportId}) {
     commit(mutator.SET_LOADING, true)
     try {
-      await api.deleteRegularReport(departmentId, regularReportId)
-      await dispatch(action.GET_REGULAR_REPORTS, departmentId)
+      await api.deleteRegularReport(regularReportId)
+      await dispatch(action.GET_REGULAR_REPORTS)
     } catch (error) {
       console.error(error)
       return error

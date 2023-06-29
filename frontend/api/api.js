@@ -360,8 +360,8 @@ export default {
   },
 
   // Reports
-  async getRegularReports(departmentId) {
-    return fetch('get', `/reports/${departmentId}/regular_reports/`)
+  async getRegularReports() {
+    return fetch('get', `/reports/regular_reports/`)
   },
   async createRegularReport(data) {
     return fetch('post', `/regularreports/`, data)
