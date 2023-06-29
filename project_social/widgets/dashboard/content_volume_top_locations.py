@@ -1,5 +1,5 @@
+from project_social.widgets.filters_for_widgets import post_agregator_with_dimensions, post_agregetor_for_each_widget
 from project_social.models import SocialWidgetDescription
-from project_social.widgets.filters_for_widgets import *
 from project_social.models import ProjectSocial
 from django.forms.models import model_to_dict
 from django.db.models.functions import Trunc

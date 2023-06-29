@@ -38,7 +38,7 @@ urlpatterns = [
     path('api/twenty_four_seven/', include('twenty_four_seven.urls')),
     path('api/comparison/', include('comparison.urls')),
     path('workspace/', include('workspace.urls', namespace='workspace')),
-    path('api/reports/<int:dep_pk>/', include('reports.urls')),
+    path('api/reports/', include('reports.urls')),
     path('', include('tweet_binder.urls')),
     re_path('^.*$', TemplateView.as_view(template_name="index.html")),
 ]

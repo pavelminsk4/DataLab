@@ -15,7 +15,12 @@ from django.shortcuts import render
 from project_social.models import ProjectSocial, SocialWidgetsList
 from reports.classes.social_pdf import SocialPDF
 from reports.classes.converter import Converter
+from project_social.widgets.dashboard.content_volume_top_languages import content_volume_top_languages_report
+from project_social.widgets.dashboard.content_volume_top_locations import content_volume_top_locations_report
+from project_social.widgets.dashboard.content_volume_top_authors import content_volume_top_authors_report
 from project_social.widgets.sentiment.sentiment_number_of_results import sentiment_report
+from project_social.widgets.dashboard.sentiment_authors import sentiment_authors_report
+from project_social.widgets.dashboard.content_volume import content_volume_report 
 
 
 def filling_template(template_path, project_id):
@@ -59,39 +64,49 @@ class RegularReportViewSet(viewsets.ModelViewSet):
         return RegularReport.objects.filter(department_id=self.kwargs['dep_pk'])
 
 
-def social_top_locations_screenshot(request, dep_pk, proj_pk):
+def social_top_locations_screenshot(request,proj_pk):
     wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).top_locations.pk
     context = top_locations_report(proj_pk, wd_pk)
     return render(request, 'social_reports/top_locations_screenshot.html', context)
 
 
-def social_top_authors_screenshot(request, dep_pk, proj_pk):
+def social_top_authors_screenshot(request, proj_pk):
     wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).top_authors.pk
     context = top_authors_report(proj_pk, wd_pk)
     return render(request, 'social_reports/top_authors_screenshot.html', context)
 
 
-def social_top_languages_screenshot(request, dep_pk, proj_pk):
+def social_top_languages_screenshot(request, proj_pk):
     wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).top_languages.pk
     context = top_languages_report(proj_pk, wd_pk)
     return render(request, 'social_reports/top_languages_screenshot.html', context)
 
-def social_sentiment_diagram_screenshot(request, dep_pk, proj_pk):
+def social_sentiment_diagram_screenshot(request, proj_pk):
     wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).sentiment_diagram.pk
     context = {'context': sentiment_report(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)
 
-def social_content_volume_top_authors_screenshot(request, dep_pk, proj_pk):
+def social_content_volume_top_authors_screenshot(request, proj_pk):
     wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).content_volume_top_authors.pk
     context = {'context': content_volume_top_authors_report(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)
 
-def social_content_volume_top_languages_screenshot(request, dep_pk, proj_pk):
+def social_content_volume_top_languages_screenshot(request, proj_pk):
     wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).content_volume_top_languages.pk
     context = {'context': content_volume_top_languages_report(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)
 
-def social_content_volume_top_locations_screenshot(request, dep_pk, proj_pk):
+def social_content_volume_top_locations_screenshot(request, proj_pk):
     wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).content_volume_top_locations.pk
     context = {'context': content_volume_top_locations_report(proj_pk, wd_pk)}
+    return render(request, 'social_reports/base_template_screenshot.html', context)
+
+def social_content_volume_screenshot(request, proj_pk):
+    wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).content_volume.pk
+    context = {'context': content_volume_report(proj_pk, wd_pk)}
+    return render(request, 'social_reports/base_template_screenshot.html', context)
+
+def social_sentiment_authors_screenshot(request, proj_pk):
+    wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).sentiment_authors.pk
+    context = {'context': sentiment_authors_report(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)
