@@ -3,7 +3,7 @@ from project_social.widgets.dashboard.top_locations import post_agregator_top_lo
 from project_social.widgets.dashboard.top_authors import post_agregator_top_authors as soc_top_authors
 from project_social.widgets.dashboard.summary_widget import calculate_summary_widget as soc_summary
 from project_social.widgets.sentiment.sentiment_number_of_results import calculate as soc_sentiment
-from project_social.widgets.dashboard.content_volume import post_agregator_volume as soc_volume
+from project_social.widgets.dashboard.content_volume import calculate as soc_volume
 from common.social_keywords import get_keywords as soc_top_keywords
 
 from widgets.sentiment.sentiment_number_of_results import get_sentiment_number_of_results as onl_sentiment
