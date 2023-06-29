@@ -2,6 +2,7 @@
   <BaseTable
     :table-header="tableHeader"
     :has-actions="false"
+    :has-select-all="hasSelectAll"
     class="project-table"
     @select-all="selectAll"
   >
@@ -69,6 +70,7 @@ export default {
   props: {
     modelValue: {type: Array, required: true},
     projects: {type: Array, required: true},
+    hasSelectAll: {type: Boolean, default: true},
   },
   computed: {
     selectedProjects: {

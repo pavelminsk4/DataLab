@@ -3,7 +3,7 @@
     <thead>
       <tr>
         <th v-if="hasCheckbox" style="width: 60px">
-          <BaseCheckbox v-model="isCheckedAllProxy" />
+          <BaseCheckbox v-if="hasSelectAll" v-model="isCheckedAllProxy" />
         </th>
         <th
           v-for="item in tableHeader"
@@ -34,6 +34,7 @@ export default {
     tableHeader: {type: Array, required: true},
     hasCheckbox: {type: Boolean, default: true},
     hasActions: {type: Boolean, default: true},
+    hasSelectAll: {type: Boolean, default: true},
   },
   data() {
     return {
