@@ -36,7 +36,7 @@ export default {
       socialWidgets: get.SOCIAL_WIDGETS,
     }),
     authorsByGender() {
-      return this.socialWidgets.authorsByGender
+      return this.widgetDetails.widgetData || this.socialWidgets.authorsByGender
     },
     activeTab: {
       get() {
@@ -68,7 +68,7 @@ export default {
     },
   },
   created() {
-    if (!this.authorsByGender.length) {
+    if (!this.widgetDetails.widgetData && !this.authorsByGender.length) {
       this[action.GET_AUTHORS_BY_GENDER]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,

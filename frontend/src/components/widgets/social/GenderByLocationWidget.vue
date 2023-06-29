@@ -28,7 +28,9 @@ export default {
       socialWidgets: get.SOCIAL_WIDGETS,
     }),
     genderByLocation() {
-      return this.socialWidgets.genderByLocation
+      return (
+        this.widgetDetails.widgetData || this.socialWidgets.genderByLocation
+      )
     },
     labels() {
       return Object.keys(this.genderByLocation)
@@ -70,7 +72,7 @@ export default {
     },
   },
   created() {
-    if (!this.genderByLocation.length) {
+    if (!this.widgetDetails.widgetData && !this.genderByLocation.length) {
       this[action.GET_GENDER_BY_LOCATION]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,

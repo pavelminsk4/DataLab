@@ -26,7 +26,7 @@ export default {
       socialWidgets: get.SOCIAL_WIDGETS,
     }),
     topLanguages() {
-      return this.socialWidgets.topLanguages
+      return this.widgetDetails.widgetData || this.socialWidgets.topLanguages
     },
     labels() {
       return this.topLanguages.map((el) => el.language)
@@ -41,7 +41,7 @@ export default {
     },
   },
   created() {
-    if (!this.topLanguages.length) {
+    if (!this.widgetDetails.widgetData && !this.topLanguages.length) {
       this[action.GET_TOP_LANGUAGES_WIDGET]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,

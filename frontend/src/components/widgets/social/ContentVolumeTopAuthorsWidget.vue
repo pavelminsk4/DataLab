@@ -25,11 +25,17 @@ export default {
       socialWidgets: get.SOCIAL_WIDGETS,
     }),
     contentVolumeTopAuthors() {
-      return this.socialWidgets.contentVolumeTopAuthors
+      return (
+        this.widgetDetails.widgetData ||
+        this.socialWidgets.contentVolumeTopAuthors
+      )
     },
   },
   created() {
-    if (!this.contentVolumeTopAuthors.length) {
+    if (
+      !this.widgetDetails.widgetData &&
+      !this.contentVolumeTopAuthors.length
+    ) {
       this[action.GET_CONTENT_VOLUME_TOP_AUTHORS]({
         projectId: this.widgetDetails.projectId,
         value: {

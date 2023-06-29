@@ -26,7 +26,7 @@ export default {
       socialWidgets: get.SOCIAL_WIDGETS,
     }),
     topLocations() {
-      return this.socialWidgets?.topLocations
+      return this.widgetDetails.widgetData || this.socialWidgets?.topLocations
     },
     labels() {
       return this.topLocations.map((el) => el.locationString)
@@ -41,7 +41,7 @@ export default {
     },
   },
   created() {
-    if (!this.topLocations.length) {
+    if (!this.widgetDetails.widgetData && !this.topLocations.length) {
       this[action.GET_TOP_LOCATIONS_WIDGET]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,

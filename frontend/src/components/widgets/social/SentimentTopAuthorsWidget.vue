@@ -26,11 +26,16 @@ export default {
       socialWidgets: get.SOCIAL_WIDGETS,
     }),
     sentimentTopAuthors() {
-      return this.socialWidgets.sentimentTopAuthors
+      return (
+        this.widgetDetails.widgetData || this.socialWidgets.sentimentTopAuthors
+      )
     },
   },
   created() {
-    if (isAllFieldsEmpty(this.sentimentTopAuthors)) {
+    if (
+      !this.widgetDetails.widgetData &&
+      isAllFieldsEmpty(this.sentimentTopAuthors)
+    ) {
       this[action.GET_SENTIMENT_TOP_AUTHORS]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,

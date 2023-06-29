@@ -26,11 +26,14 @@ export default {
       socialWidgets: get.SOCIAL_WIDGETS,
     }),
     numOfResults() {
-      return this.socialWidgets.sentimentNumberOfResult
+      return (
+        this.widgetDetails.widgetData ||
+        this.socialWidgets.sentimentNumberOfResult
+      )
     },
   },
   created() {
-    if (isAllFieldsEmpty(this.numOfResults)) {
+    if (!this.widgetDetails.widgetData && isAllFieldsEmpty(this.numOfResults)) {
       this[action.GET_SENTIMENT_NUMBER_OF_RESULT]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,

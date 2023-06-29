@@ -73,14 +73,16 @@ export default {
       socialWidgets: get.SOCIAL_WIDGETS,
     }),
     topSharingSources() {
-      return this.socialWidgets.topSharingSources
+      return (
+        this.widgetDetails.widgetData || this.socialWidgets.topSharingSources
+      )
     },
     widgetWrapper() {
       return this.isSettings ? 'div' : 'WidgetsLayout'
     },
   },
   created() {
-    if (!this.topSharingSources.length) {
+    if (!this.widgetDetails.widgetData && !this.topSharingSources.length) {
       this[action.GET_TOP_SHARING_SOURCES]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,

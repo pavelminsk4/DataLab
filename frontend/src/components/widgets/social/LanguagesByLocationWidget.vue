@@ -9,11 +9,11 @@
 
 <script>
 import {createNamespacedHelpers} from 'vuex'
-import {action} from '@store/constants'
+import {action, get} from '@store/constants'
 import {PREDEFINED_COLORS} from '@/lib/constants'
 import {isAllFieldsEmpty} from '@lib/utilities'
 
-const {mapActions, mapState} = createNamespacedHelpers('social/widgets')
+const {mapActions, mapGetters} = createNamespacedHelpers('social/widgets')
 
 import TopEntitiesStackedBarWidget from '@/components/widgets/TopEntitiesStackedBarWidget'
 
@@ -24,7 +24,14 @@ export default {
     widgetDetails: {type: Object, required: true},
   },
   computed: {
-    ...mapState(['languagesByLocation']),
+    ...mapGetters({
+      socialWidgets: get.SOCIAL_WIDGETS,
+    }),
+    languagesByLocation() {
+      return (
+        this.widgetDetails.widgetData || this.socialWidgets.languagesByLocation
+      )
+    },
     widgetData() {
       const labels = Object.keys(this.languagesByLocation)
       const values = labels.map((label) => this.languagesByLocation[label])
@@ -52,7 +59,10 @@ export default {
     },
   },
   created() {
-    if (isAllFieldsEmpty(this.languagesByLocation)) {
+    if (
+      !this.widgetDetails.widgetData &&
+      isAllFieldsEmpty(this.languagesByLocation)
+    ) {
       this[action.GET_LANGUAGES_BY_LOCATION]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,

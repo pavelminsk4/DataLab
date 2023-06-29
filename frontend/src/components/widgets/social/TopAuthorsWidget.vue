@@ -26,7 +26,7 @@ export default {
       socialWidgets: get.SOCIAL_WIDGETS,
     }),
     topAuthors() {
-      return this.socialWidgets.topAuthors
+      return this.widgetDetails.widgetData || this.socialWidgets.topAuthors
     },
     labels() {
       return this.topAuthors.map((el) => el.user_name)
@@ -41,7 +41,7 @@ export default {
     },
   },
   created() {
-    if (!this.topAuthors.length) {
+    if (!this.widgetDetails.widgetData && !this.topAuthors.length) {
       this[action.GET_TOP_AUTHORS_WIDGET]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,

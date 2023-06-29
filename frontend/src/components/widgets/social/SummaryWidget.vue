@@ -33,13 +33,13 @@ export default {
       availableWidgets: get.AVAILABLE_WIDGETS,
     }),
     summary() {
-      return this.socialWidgets.summary
+      return this.widgetDetails.widgetData || this.socialWidgets.summary
     },
   },
   async created() {
     this.widgetMetrics = socialSummaryWidgetConfig
 
-    if (isAllFieldsEmpty(this.summary)) {
+    if (!this.widgetDetails.widgetData && isAllFieldsEmpty(this.summary)) {
       this[action.GET_SUMMARY_WIDGET]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,
