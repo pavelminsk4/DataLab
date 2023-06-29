@@ -108,6 +108,7 @@ export default {
 
 <style lang="scss" scoped>
 .spinner {
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
