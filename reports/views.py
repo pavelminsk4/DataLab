@@ -79,4 +79,19 @@ def social_top_languages_screenshot(request, dep_pk, proj_pk):
 def social_sentiment_diagram_screenshot(request, dep_pk, proj_pk):
     wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).sentiment_diagram.pk
     context = {'context': sentiment_report(proj_pk, wd_pk)}
-    return render(request, 'social_reports/sentiment_diagram_screenshot.html', context)
+    return render(request, 'social_reports/base_template_screenshot.html', context)
+
+def social_content_volume_top_authors_screenshot(request, dep_pk, proj_pk):
+    wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).content_volume_top_authors.pk
+    context = {'context': content_volume_top_authors_report(proj_pk, wd_pk)}
+    return render(request, 'social_reports/base_template_screenshot.html', context)
+
+def social_content_volume_top_languages_screenshot(request, dep_pk, proj_pk):
+    wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).content_volume_top_languages.pk
+    context = {'context': content_volume_top_languages_report(proj_pk, wd_pk)}
+    return render(request, 'social_reports/base_template_screenshot.html', context)
+
+def social_content_volume_top_locations_screenshot(request, dep_pk, proj_pk):
+    wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).content_volume_top_locations.pk
+    context = {'context': content_volume_top_locations_report(proj_pk, wd_pk)}
+    return render(request, 'social_reports/base_template_screenshot.html', context)
