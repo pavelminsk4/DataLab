@@ -366,18 +366,11 @@ export default {
   async createRegularReport(data) {
     return fetch('post', `/regularreports/`, data)
   },
-  async updateRegularReport(departmentId, regularReportId, data) {
-    return fetch(
-      'patch',
-      `/reports/${departmentId}/regular_reports/${regularReportId}`,
-      data
-    )
+  async updateRegularReport(regularReportId, data) {
+    return fetch('patch', `/reports/regular_reports/${regularReportId}`, data)
   },
-  async deleteRegularReport(departmentId, regularReportId) {
-    fetch(
-      'delete',
-      `/reports/${departmentId}/regular_reports/${regularReportId}/`
-    )
+  async deleteRegularReport(regularReportId) {
+    fetch('delete', `/reports/regular_reports/${regularReportId}/`)
   },
   async getReportWidgetsList() {
     return fetch('get', `/report_widgets_list`)
