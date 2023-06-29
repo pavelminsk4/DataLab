@@ -90,9 +90,16 @@ export default {
         this.department?.max_projects
       )
     },
+    sortedProjects() {
+      const projects = this.workspace?.projects
+      return projects.sort(
+        (projectA, projectB) =>
+          new Date(projectB.created_at) - new Date(projectA.created_at)
+      )
+    },
     filteredProjects() {
-      if (!this.search) return this.workspace?.projects
-      return this.workspace?.projects.filter((project) =>
+      if (!this.search) return this.sortedProjects
+      return this.sortedProjects.filter((project) =>
         project.title.toLowerCase().includes(this.search.toLowerCase())
       )
     },

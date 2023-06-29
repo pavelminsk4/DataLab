@@ -103,6 +103,8 @@ export default {
 
 <style lang="scss" scoped>
 .email-wrapper {
+  position: relative;
+
   .email-field {
     display: flex;
     flex-wrap: wrap;
@@ -182,11 +184,12 @@ export default {
 
   .select-list {
     position: absolute;
+    left: 1;
     z-index: 11;
 
     padding: 0;
     margin: 0;
-    width: 516px;
+    width: calc(100% - 2px);
     max-height: 250px;
 
     outline: 1px solid var(--button-primary-color);

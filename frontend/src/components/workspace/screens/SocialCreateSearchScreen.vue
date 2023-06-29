@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import {createNamespacedHelpers} from 'vuex'
+import {createNamespacedHelpers, mapState} from 'vuex'
 import {action as actionSocial} from '@store/constants'
 
 import CreateSearchScreen from '@/components/workspace/screens/CreateSearchScreen'
@@ -29,6 +29,20 @@ export default {
     moduleName: {
       type: String,
       default: '',
+    },
+  },
+  computed: {
+    ...mapState(['newProject']),
+    searchFilters() {
+      return this.newProject.searchFilters
+    },
+  },
+  watch: {
+    'newProject.searchFilters.page_number'() {
+      this.showResults(this.searchFilters)
+    },
+    'newProject.searchFilters.posts_per_page'() {
+      this.showResults(this.searchFilters)
     },
   },
   methods: {

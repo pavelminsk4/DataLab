@@ -1,5 +1,9 @@
 <template>
-  <ProjectsTableWithModules v-model="selectedProjects" :projects="projects" />
+  <ProjectsTableWithModules
+    v-model="selectedProjects"
+    :projects="projects"
+    :has-select-all="false"
+  />
   <footer class="create-reports__footer">
     <ButtonWithArrow :is-disabled="isDisableNextBtn" @click="nextStep">
       <span>Next</span>
