@@ -87,19 +87,7 @@
 
     <div :class="['stop-sending', isDisableStopSendingDate && 'disable']">
       <p class="stop-sending_label">Date</p>
-      <Datepicker
-        v-model="stopSendingReportDate"
-        :close-on-auto-apply="true"
-        :format="formatDate"
-        :is-24="false"
-        :clearable="null"
-        placeholder="Select date"
-        auto-apply
-      >
-        <template #input-icon>
-          <CalendarIcon class="input-slot-image" />
-        </template>
-      </Datepicker>
+      <DatePicker v-model="stopSendingReportDate" />
     </div>
 
     <footer class="create-reports__footer">
@@ -119,13 +107,11 @@ import {action} from '@store/constants'
 import createReportMixin from '@/lib/mixins/create-report.js'
 import {weekDays} from '@/lib/constants'
 
-import CalendarIcon from '@/components/icons/CalendarIcon'
-
-import Datepicker from '@vuepic/vue-datepicker'
 import SetTimeCheckbox from '@/components/common/SetTimeCheckbox'
 import BaseSelect from '@/components/BaseSelect'
 import BaseRadio from '@/components/BaseRadio'
 import TimePicker from '@/components/datepicker/TimePicker'
+import DatePicker from '@/components/datepicker/DatePicker'
 
 const ending = {
   NEVER: 'Never',
@@ -138,10 +124,9 @@ export default {
   components: {
     SetTimeCheckbox,
     BaseSelect,
-    Datepicker,
     BaseRadio,
-    CalendarIcon,
     TimePicker,
+    DatePicker,
   },
   data() {
     return {
@@ -251,16 +236,6 @@ export default {
     this.dayOfMonth = new Array(31).fill(0).map((item, index) => index + 1)
   },
   methods: {
-    formatDate(date) {
-      return new Date(date).toLocaleString('en-US', {
-        month: 'short',
-        day: 'numeric',
-        year: 'numeric',
-        hour12: true,
-        hour: 'numeric',
-        minute: 'numeric',
-      })
-    },
     nextStep() {
       let data = {}
 
@@ -346,11 +321,5 @@ export default {
   &__time-picker {
     width: 100%;
   }
-}
-
-.input-slot-image {
-  margin-left: 15px;
-
-  color: var(--typography-primary-color);
 }
 </style>

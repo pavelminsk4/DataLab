@@ -8,7 +8,7 @@
     auto-apply
     placeholder="Time"
     menu-class-name="time-picker-menu"
-    class="time-picker"
+    class="time-picker-wrapper"
   />
 </template>
 
@@ -35,7 +35,7 @@ export default {
 </script>
 
 <style lang="scss">
-.time-picker {
+.time-picker-wrapper {
   width: 135px;
   height: 40px;
 
