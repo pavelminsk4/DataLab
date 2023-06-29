@@ -44,14 +44,16 @@ export default {
       socialWidgets: get.SOCIAL_WIDGETS,
     }),
     widgetData() {
-      return this.socialWidgets.topAuthorsByGender
+      return (
+        this.widgetDetails.widgetData || this.socialWidgets.topAuthorsByGender
+      )
     },
     widgetWrapper() {
       return this.isSettings ? 'div' : 'WidgetsLayout'
     },
   },
   created() {
-    if (!this.widgetData.length) {
+    if (!this.widgetDetails.widgetData && !this.widgetData.length) {
       this[action.GET_TOP_AUTHORS_BY_GENDER]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,

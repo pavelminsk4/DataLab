@@ -36,7 +36,9 @@ export default {
       socialWidgets: get.SOCIAL_WIDGETS,
     }),
     authorsByLocation() {
-      return this.socialWidgets.authorsByLocation
+      return (
+        this.widgetDetails.widgetData || this.socialWidgets.authorsByLocation
+      )
     },
     activeTab: {
       get() {
@@ -70,7 +72,7 @@ export default {
     },
   },
   created() {
-    if (!this.authorsByLocation.length) {
+    if (!this.widgetDetails.widgetData && !this.authorsByLocation.length) {
       this[action.GET_AUTHORS_BY_LOCATION]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,

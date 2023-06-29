@@ -26,11 +26,17 @@ export default {
       socialWidgets: get.SOCIAL_WIDGETS,
     }),
     sentimentTopLanguages() {
-      return this.socialWidgets.sentimentTopLanguages
+      return (
+        this.widgetDetails.widgetData ||
+        this.socialWidgets.sentimentTopLanguages
+      )
     },
   },
   created() {
-    if (isAllFieldsEmpty(this.sentimentTopLanguages)) {
+    if (
+      !this.widgetDetails.widgetData &&
+      isAllFieldsEmpty(this.sentimentTopLanguages)
+    ) {
       this[action.GET_SENTIMENT_TOP_LANGUAGES]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,

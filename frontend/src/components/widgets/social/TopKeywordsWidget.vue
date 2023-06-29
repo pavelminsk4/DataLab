@@ -26,11 +26,11 @@ export default {
       socialWidgets: get.SOCIAL_WIDGETS,
     }),
     topKeywords() {
-      return this.socialWidgets.topKeywords
+      return this.widgetDetails.widgetData || this.socialWidgets.topKeywords
     },
   },
   created() {
-    if (!this.topKeywords.length) {
+    if (!this.widgetDetails.widgetData && !this.topKeywords.length) {
       this[action.GET_TOP_KEYWORDS_WIDGET]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,

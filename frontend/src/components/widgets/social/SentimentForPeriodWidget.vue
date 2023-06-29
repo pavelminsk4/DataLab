@@ -25,11 +25,13 @@ export default {
       socialWidgets: get.SOCIAL_WIDGETS,
     }),
     sentimentForPeriod() {
-      return this.socialWidgets.sentimentForPeriod
+      return (
+        this.widgetDetails.widgetData || this.socialWidgets.sentimentForPeriod
+      )
     },
   },
   created() {
-    if (!this.sentimentForPeriod.length) {
+    if (!this.widgetDetails.widgetData && !this.sentimentForPeriod.length) {
       this[action.GET_SENTIMENT_FOR_PERIOD]({
         projectId: this.widgetDetails.projectId,
         value: {

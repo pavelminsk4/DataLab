@@ -12,12 +12,12 @@
 
 <script>
 import {createNamespacedHelpers} from 'vuex'
-import {action} from '@store/constants'
+import {action, get} from '@store/constants'
 
 import KeywordsWidget from '@/components/widgets/KeywordsWidget'
 import WidgetsSwitcher from '@/components/layout/WidgetsSwitcher'
 
-const {mapActions, mapState} = createNamespacedHelpers('social/widgets')
+const {mapActions, mapGetters} = createNamespacedHelpers('social/widgets')
 
 export default {
   name: 'SocialTopKeywordsByCountryWidget',
@@ -31,7 +31,14 @@ export default {
     }
   },
   computed: {
-    ...mapState(['topKeywordsByCountry']),
+    ...mapGetters({
+      socialWidgets: get.SOCIAL_WIDGETS,
+    }),
+    topKeywordsByCountry() {
+      return (
+        this.widgetDetails.widgetData || this.socialWidgets.topKeywordsByCountry
+      )
+    },
     activeTab: {
       get() {
         return this.newActiveTab || this.tabs[0]
@@ -51,10 +58,12 @@ export default {
     },
   },
   created() {
-    this[action.GET_TOP_KEYWORDS_BY_COUNTRY_WIDGET]({
-      projectId: this.widgetDetails.projectId,
-      widgetId: this.widgetDetails.id,
-    })
+    if (!this.widgetDetails.widgetData) {
+      this[action.GET_TOP_KEYWORDS_BY_COUNTRY_WIDGET]({
+        projectId: this.widgetDetails.projectId,
+        widgetId: this.widgetDetails.id,
+      })
+    }
   },
   methods: {
     ...mapActions([action.GET_TOP_KEYWORDS_BY_COUNTRY_WIDGET]),

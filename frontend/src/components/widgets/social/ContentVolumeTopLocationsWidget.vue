@@ -25,11 +25,17 @@ export default {
       socialWidgets: get.SOCIAL_WIDGETS,
     }),
     contentVolumeTopLocations() {
-      return this.socialWidgets.contentVolumeTopLocations
+      return (
+        this.widgetDetails.widgetData ||
+        this.socialWidgets.contentVolumeTopLocations
+      )
     },
   },
   created() {
-    if (!this.contentVolumeTopLocations.length) {
+    if (
+      !this.widgetDetails.widgetData &&
+      !this.contentVolumeTopLocations.length
+    ) {
       this[action.GET_CONTENT_VOLUME_TOP_LOCATIONS]({
         projectId: this.widgetDetails.projectId,
         value: {

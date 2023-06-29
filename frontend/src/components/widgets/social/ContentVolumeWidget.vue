@@ -50,7 +50,7 @@ export default {
       )
     },
     contentVolumeWidgetData() {
-      return this.socialWidgets.contentVolume
+      return this.widgetDetails.widgetData || this.socialWidgets.contentVolume
     },
     labels() {
       return this.contentVolumeWidgetData.map((el) => defaultDate(el.date))
@@ -65,7 +65,10 @@ export default {
     },
   },
   created() {
-    if (!this.contentVolumeWidgetData.length) {
+    if (
+      !this.widgetDetails.widgetData &&
+      !this.contentVolumeWidgetData.length
+    ) {
       this[action.GET_CONTENT_VOLUME_WIDGET]({
         projectId: this.widgetDetails.projectId,
         value: {

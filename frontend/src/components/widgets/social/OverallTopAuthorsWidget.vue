@@ -23,7 +23,9 @@ export default {
       socialWidgets: get.SOCIAL_WIDGETS,
     }),
     widgetData() {
-      return this.socialWidgets.overallTopAuthors
+      return (
+        this.widgetDetails.widgetData || this.socialWidgets.overallTopAuthors
+      )
     },
   },
   created() {
@@ -37,7 +39,7 @@ export default {
       {name: 'Reach', width: '10%'},
       {name: 'Engagement', width: '10%'},
     ]
-    if (!this.widgetData.length) {
+    if (!this.widgetDetails.widgetData && !this.widgetData.length) {
       this[action.GET_OVERALL_TOP_AUTHORS]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,
@@ -49,5 +51,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped></style>

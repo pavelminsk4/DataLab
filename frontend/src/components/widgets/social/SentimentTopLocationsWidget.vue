@@ -26,11 +26,17 @@ export default {
       socialWidgets: get.SOCIAL_WIDGETS,
     }),
     sentimentTopLocations() {
-      return this.socialWidgets.sentimentTopLocations
+      return (
+        this.widgetDetails.widgetData ||
+        this.socialWidgets.sentimentTopLocations
+      )
     },
   },
   created() {
-    if (isAllFieldsEmpty(this.sentimentTopLocations)) {
+    if (
+      !this.widgetDetails.widgetData &&
+      isAllFieldsEmpty(this.sentimentTopLocations)
+    ) {
       this[action.GET_SENTIMENT_TOP_LOCATIONS]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,

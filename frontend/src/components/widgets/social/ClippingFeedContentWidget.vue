@@ -30,11 +30,13 @@ export default {
       availableWidgets: get.AVAILABLE_WIDGETS,
     }),
     clippingFeedContent() {
-      return this.socialWidgets.clippingFeedContent
+      return (
+        this.widgetDetails.widgetData || this.socialWidgets.clippingFeedContent
+      )
     },
   },
   created() {
-    if (!this.clippingFeedContent.length) {
+    if (!this.widgetDetails.widgetData && !this.clippingFeedContent.length) {
       this[action.GET_CLIPPING_FEED_CONTENT_WIDGET]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,

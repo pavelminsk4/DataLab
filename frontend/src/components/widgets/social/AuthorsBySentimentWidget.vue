@@ -41,7 +41,9 @@ export default {
       socialWidgets: get.SOCIAL_WIDGETS,
     }),
     authorsBySentiment() {
-      return this.socialWidgets.authorsBySentiment
+      return (
+        this.widgetDetails.widgetData || this.socialWidgets.authorsBySentiment
+      )
     },
     activeTab: {
       get() {
@@ -73,7 +75,7 @@ export default {
     },
   },
   created() {
-    if (!this.authorsBySentiment.length) {
+    if (!this.widgetDetails.widgetData && !this.authorsBySentiment.length) {
       this[action.GET_AUTHORS_BY_SENTIMENT]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,

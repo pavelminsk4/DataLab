@@ -25,11 +25,17 @@ export default {
       socialWidgets: get.SOCIAL_WIDGETS,
     }),
     contentVolumeTopLanguages() {
-      return this.socialWidgets.contentVolumeTopLanguages
+      return (
+        this.widgetDetails.widgetData ||
+        this.socialWidgets.contentVolumeTopLanguages
+      )
     },
   },
   created() {
-    if (!this.contentVolumeTopLanguages.length) {
+    if (
+      !this.widgetDetails.widgetData &&
+      !this.contentVolumeTopLanguages.length
+    ) {
       this[action.GET_CONTENT_VOLUME_TOP_LANGUAGES]({
         projectId: this.widgetDetails.projectId,
         value: {

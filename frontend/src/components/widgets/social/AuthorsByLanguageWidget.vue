@@ -37,7 +37,9 @@ export default {
       socialWidgets: get.SOCIAL_WIDGETS,
     }),
     authorsByLanguage() {
-      return this.socialWidgets.authorsByLanguage
+      return (
+        this.widgetDetails.widgetData || this.socialWidgets.authorsByLanguage
+      )
     },
     activeTab: {
       get() {
@@ -71,7 +73,7 @@ export default {
     },
   },
   created() {
-    if (!this.authorsByLanguage.length) {
+    if (!this.widgetDetails.widgetData && !this.authorsByLanguage.length) {
       this[action.GET_AUTHORS_BY_LANGUAGE]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,

@@ -9,11 +9,11 @@
 
 <script>
 import {createNamespacedHelpers} from 'vuex'
-import {action} from '@store/constants'
+import {action, get} from '@store/constants'
 
 import ContentVolumeWidget from '@/components/widgets/ContentVolumeWidget'
 
-const {mapActions, mapState} = createNamespacedHelpers('social/widgets')
+const {mapActions, mapGetters} = createNamespacedHelpers('social/widgets')
 
 export default {
   name: 'SocialGenderVolumeWidget',
@@ -22,7 +22,12 @@ export default {
     widgetDetails: {type: Object, required: true},
   },
   computed: {
-    ...mapState(['genderVolume']),
+    ...mapGetters({
+      socialWidgets: get.SOCIAL_WIDGETS,
+    }),
+    genderVolume() {
+      return this.widgetDetails.widgetData || this.socialWidgets.genderVolume
+    },
     colors() {
       const genderColors = ['#FD7271', '#516BEE']
       const noGenderIndex = this.genderVolume.findIndex(
@@ -37,7 +42,7 @@ export default {
     },
   },
   created() {
-    if (!this.genderVolume.length) {
+    if (!this.widgetDetails.widgetData && !this.genderVolume.length) {
       this[action.GET_GENDER_VOLUME_WIDGET]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,
