@@ -1,6 +1,8 @@
 from project_social.widgets.dashboard.content_volume_top_languages import content_volume_top_languages_report
 from project_social.widgets.dashboard.content_volume_top_locations import content_volume_top_locations_report
 from project_social.widgets.dashboard.content_volume_top_authors import content_volume_top_authors_report
+from project_social.widgets.dashboard.sentiment_languages import sentiment_languages_report
+from project_social.widgets.dashboard.sentiment_locations import sentiment_locations_report
 from project_social.widgets.sentiment.sentiment_number_of_results import sentiment_report
 from project_social.widgets.dashboard.sentiment_authors import sentiment_authors_report
 from project_social.widgets.dashboard.content_volume import content_volume_report
@@ -117,4 +119,14 @@ def social_content_volume_screenshot(request, proj_pk):
 def social_sentiment_authors_screenshot(request, proj_pk):
     wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).sentiment_authors.pk
     context = {'context': sentiment_authors_report(proj_pk, wd_pk)}
+    return render(request, 'social_reports/base_template_screenshot.html', context)
+
+def social_sentiment_languages_screenshot(request, proj_pk):
+    wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).sentiment_languages.pk
+    context = {'context': sentiment_languages_report(proj_pk, wd_pk)}
+    return render(request, 'social_reports/base_template_screenshot.html', context)
+
+def social_sentiment_locations_screenshot(request, proj_pk):
+    wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).sentiment_locations.pk
+    context = {'context': sentiment_locations_report(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)

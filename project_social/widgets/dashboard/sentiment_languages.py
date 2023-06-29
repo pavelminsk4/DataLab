@@ -1,11 +1,12 @@
+from project_social.widgets.filters_for_widgets import post_agregator_with_dimensions, post_agregetor_for_each_widget
 from project_social.models import SocialWidgetDescription
-from project_social.widgets.filters_for_widgets import *
 from project_social.models import ProjectSocial
+from django.forms.models import model_to_dict
 from django.db.models.functions import Trunc
 from django.http import JsonResponse
 from django.db.models import Count
 
-def post_agregator_sentiment_top_languages(posts, aggregation_period, top_counts):
+def calculate(posts, aggregation_period, top_counts):
   top_languages = posts.values('language').annotate(language_count=Count('language')).order_by('-language_count').values_list('language', flat=True)[:top_counts]
   results = {language: list(posts.filter(language=language).annotate(date_trunc=Trunc('date', aggregation_period)).values('sentiment').annotate(sentiment_count=Count('sentiment')).order_by('-sentiment_count')) for language in top_languages}
   for i in range(len(results)):
@@ -23,5 +24,15 @@ def sentiment_languages(pk, widget_pk):
   posts = post_agregator_with_dimensions(project)
   widget = SocialWidgetDescription.objects.get(id=widget_pk)
   posts = post_agregetor_for_each_widget(widget, posts)
-  res = post_agregator_sentiment_top_languages(posts, widget.aggregation_period, widget.top_counts)
+  res = calculate(posts, widget.aggregation_period, widget.top_counts)
   return JsonResponse(res, safe = False)
+
+def sentiment_languages_report(pk, widget_pk):
+    project = ProjectSocial.objects.get(id=pk)
+    posts = post_agregator_with_dimensions(project)
+    widget = SocialWidgetDescription.objects.get(id=widget_pk)
+    posts = post_agregetor_for_each_widget(widget, posts)
+    return {
+        'data': calculate(posts, widget.aggregation_period, widget.top_counts),
+        'widget': {'sentiment_languages': model_to_dict(widget)}
+    }

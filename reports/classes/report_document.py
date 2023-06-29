@@ -65,9 +65,8 @@ class ReportDocument:
         if (self.item.soc_content_volume or
             self.item.soc_content_volume_top_locations or
             self.item.soc_content_volume_top_authors or
-                self.item.soc_content_volume_top_languages):
-            self.__font_one(cell.add_paragraph(
-                '').add_run('Content Volume'), cell)
+            self.item.soc_content_volume_top_languages):
+            self.__font_one(cell.add_paragraph('').add_run('Content Volume'), cell)
             if self.item.soc_content_volume:
                 self.__font_two(self.__get_widget_title(cell, self.widget_list.content_volume, True), cell)
             if self.item.soc_content_volume_top_locations:
@@ -79,11 +78,19 @@ class ReportDocument:
             cell.add_paragraph()
 
     def __fill_sentiment_section(self, p, cell):
-        if (self.item.soc_sentiment_diagram):
-            self.__font_one(cell.add_paragraph(
-                '').add_run('Sentiment'), cell)
+        if (self.item.soc_sentiment_diagram or
+            self.item.soc_sentiment_authors or
+            self.item.soc_sentiment_locations or
+            self.item.soc_sentiment_languages):
+            self.__font_one(cell.add_paragraph('').add_run('Sentiment'), cell)
             if self.item.soc_sentiment_diagram:
-                self.__font_two(self.__get_widget_title(cell, self.widget_list.sentiment_diagram, True), cell)
+                self.__font_two(self.__get_widget_title(cell, self.widget_list.sentiment_diagram, False), cell)
+            if self.item.soc_sentiment_authors:
+                self.__font_two(self.__get_widget_title(cell, self.widget_list.soc_sentiment_authors, False), cell)
+            if self.item.soc_sentiment_locations:
+                self.__font_two(self.__get_widget_title(cell, self.widget_list.soc_sentiment_locations, False), cell)
+            if self.item.soc_sentiment_languages:
+                self.__font_two(self.__get_widget_title(cell, self.widget_list.soc_sentiment_languages, False), cell)
             cell.add_paragraph()
 
     def __get_widget_title(self, cell, widget, have_period):
@@ -96,8 +103,22 @@ class ReportDocument:
             self.__get_widget_image(self.screenshot_list['soc_top_authors'], 'Top Authors')
         if self.item.soc_top_languages:
             self.__get_widget_image(self.screenshot_list['soc_top_languages'], 'Top Languages')
+        if self.item.soc_content_volume:
+            self.__get_widget_image(self.screenshot_list['soc_content_volume'], 'Content Volume')
+        if self.item.soc_content_volume_top_locations:
+            self.__get_widget_image(self.screenshot_list['soc_content_volume_top_locations'], 'Content Volume Top Locations')
+        if self.item.soc_content_volume_top_authors:
+            self.__get_widget_image(self.screenshot_list['soc_content_volume_top_authors'], 'Content Volume Top Authors')     
+        if self.item.soc_content_volume_top_languages:
+            self.__get_widget_image(self.screenshot_list['soc_content_volume_top_languages'], 'Content Volume Top Languages') 
         if self.item.soc_sentiment_diagram:
             self.__get_widget_image(self.screenshot_list['soc_sentiment_diagram'], 'Sentiment diagram')
+        if self.item.soc_sentiment_authors:
+            self.__get_widget_image(self.screenshot_list['soc_sentiment_authors'], 'Sentiment authors')
+        if self.item.soc_sentiment_locations:
+            self.__get_widget_image(self.screenshot_list['soc_sentiment_locations'], 'Sentiment locations')
+        if self.item.soc_sentiment_languages:
+            self.__get_widget_image(self.screenshot_list['soc_sentiment_languages'], 'Sentiment languages')
 
     def __get_widget_image(self, widget_image, title_widget):
         # self.document.add_paragraph()
