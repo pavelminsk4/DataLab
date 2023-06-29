@@ -1,9 +1,12 @@
 from comparison.models import ProjectComparison, WorkspaceComparison, ComparisonItem
 from drf_writable_nested.serializers import WritableNestedModelSerializer
+from comparison.fields import ProjectNameField
 from api.serializers import UserSerializer
 
 
 class ComparisonItemSerializer(WritableNestedModelSerializer):
+    project_name = ProjectNameField(required=False)
+
     class Meta:
         model = ComparisonItem
         fields = '__all__'

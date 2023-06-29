@@ -12,8 +12,8 @@ from pathlib import Path
 import os
 import environ
 
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+# from selenium.webdriver.support.wait import WebDriverWait
+# from selenium.webdriver.support import expected_conditions as EC
 
 from uuid import uuid4
 
@@ -29,14 +29,6 @@ class ScreenDriver:
     def __init__(self, item):
         self.item = item
 
-    def get_screenshots(self):
-        driver = self.__run_chrome_driver()
-        item_widgets = model_to_dict(
-            self.item, exclude=['module_type', 'module_project_id', 'id'])
-        return reduce(
-            lambda x, y: {**x, **{y: self.__make_screenshot(y, driver)}} if item_widgets[y] else x,
-            item_widgets, {})
-
     def __run_chrome_driver(self):
         chrome_options = FirefoxOptions()
         chrome_options.add_argument('--headless')
@@ -46,7 +38,7 @@ class ScreenDriver:
         )
         username = 'admin2'
         password = 'anadeakey'
-        driver.set_window_size(700, 500, driver.window_handles[0])
+        driver.set_window_size(700, 500, driver.current_window_handle)
         driver.get(base_url)
         driver.find_element('id', 'id_username').send_keys(username)
         driver.find_element('id', 'id_password').send_keys(password)
@@ -54,9 +46,23 @@ class ScreenDriver:
         return driver
 
     def __make_screenshot(self, widget, driver):
-        url = f'{base_url}api/reports/0/{widget}_screenshot/{str(self.item.module_project_id)}/'
+        url = f'{base_url}/api/reports/{widget}_screenshot/{str(self.item.module_project_id)}/'
         driver.get(url)
-        WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.TAG_NAME, 'canvas')))      
+        # We must to replace sleep with it in the nearest future - WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.TAG_NAME, 'canvas')))
+        sleep(0.5)
         screenshot_path = f'{storage_folder}{widget}_{str(uuid4())}.png'
         driver.save_screenshot(screenshot_path)
         return screenshot_path
+
+    def __check_and_create_tmp_dir(self):
+        if not os.path.exists(storage_folder):
+            os.makedirs(storage_folder)
+
+    def get_screenshots(self):
+        driver = self.__run_chrome_driver()
+        self.__check_and_create_tmp_dir()
+        item_widgets = model_to_dict(
+            self.item, exclude=['module_type', 'module_project_id', 'id'])
+        return reduce(
+            lambda acc, widget: {**acc, **{widget: self.__make_screenshot(widget, driver)}} if item_widgets[widget] else acc,
+            item_widgets, {})
