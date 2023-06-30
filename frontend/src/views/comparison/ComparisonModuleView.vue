@@ -1,8 +1,6 @@
 <template>
-  <router-view
-    :workspaces="workspaces"
-    @create-workspace="createWorkspace"
-  ></router-view>
+  <router-view :workspaces="workspaces" @create-workspace="createWorkspace">
+  </router-view>
 </template>
 
 <script>

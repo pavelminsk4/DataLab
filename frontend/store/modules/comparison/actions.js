@@ -63,7 +63,6 @@ export default {
   ) {
     commit(mutator.SET_LOADING, true)
     try {
-      console.log(data)
       await api.comparison.updateWorkspacesProjects({
         workspaceId,
         data,
