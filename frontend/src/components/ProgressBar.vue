@@ -109,7 +109,12 @@ export default {
 .labels {
   display: flex;
   justify-content: space-between;
+  gap: 10px;
 
   padding: 0 var(--labels-side-padding);
+
+  .label {
+    text-align: center;
+  }
 }
 </style>

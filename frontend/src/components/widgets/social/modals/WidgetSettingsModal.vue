@@ -43,7 +43,7 @@ export default {
     BaseModal,
     SocialMainWidget,
   },
-  emits: ['open-interactive-widget', 'open-sentiment-interactive'],
+  emits: ['open-interactive-widget', 'open-sentiment-interactive', 'close'],
   props: {
     widgetDetails: {type: Object, required: true},
   },

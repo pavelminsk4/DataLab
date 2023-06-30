@@ -29,11 +29,20 @@
         v-if="panelName === 'Filters'"
         :module-name="widgetDetails.moduleName"
         :project-id="widgetDetails.projectId"
-        :authors-filters="widgetDetails.author_dim_pivot"
-        :countries-filters="widgetDetails.country_dim_pivot"
-        :languages-filters="widgetDetails.language_dim_pivot"
+        :authors-filters="
+          widgetDetails.author_dim_pivot || widgetDetails.author_dimensions
+        "
+        :countries-filters="
+          widgetDetails.country_dim_pivot || widgetDetails.country_dimensions
+        "
+        :languages-filters="
+          widgetDetails.language_dim_pivot || widgetDetails.language_dimensions
+        "
         :sources-filters="widgetDetails.source_dim_pivot"
-        :sentiments-filters="widgetDetails.sentiment_dim_pivot"
+        :sentiments-filters="
+          widgetDetails.sentiment_dim_pivot ||
+          widgetDetails.sentiment_dimensions
+        "
         class="dimensions-tab"
       />
 
@@ -54,9 +63,6 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
-import {get} from '@store/constants'
-
 import BaseTabs from '@/components/project/widgets/modals/BaseTabs'
 import FiltersScreen from '@/components/project/screens/FiltersScreen'
 import BasicSettingsScreen from '@/components/project/widgets/modals/screens/BasicSettingsScreen'
@@ -84,11 +90,6 @@ export default {
       newWidgetDescription: '',
       newAggregationPeriod: '',
     }
-  },
-  computed: {
-    ...mapGetters({
-      selectedFilters: get.SELECTED_FILTERS,
-    }),
   },
   methods: {
     updateSettingPanel(val) {
