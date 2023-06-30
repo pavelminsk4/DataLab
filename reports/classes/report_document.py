@@ -86,11 +86,11 @@ class ReportDocument:
             if self.item.soc_sentiment_diagram:
                 self.__font_two(self.__get_widget_title(cell, self.widget_list.sentiment_diagram, False), cell)
             if self.item.soc_sentiment_authors:
-                self.__font_two(self.__get_widget_title(cell, self.widget_list.soc_sentiment_authors, False), cell)
+                self.__font_two(self.__get_widget_title(cell, self.widget_list.sentiment_authors, False), cell)
             if self.item.soc_sentiment_locations:
-                self.__font_two(self.__get_widget_title(cell, self.widget_list.soc_sentiment_locations, False), cell)
+                self.__font_two(self.__get_widget_title(cell, self.widget_list.sentiment_locations, False), cell)
             if self.item.soc_sentiment_languages:
-                self.__font_two(self.__get_widget_title(cell, self.widget_list.soc_sentiment_languages, False), cell)
+                self.__font_two(self.__get_widget_title(cell, self.widget_list.sentiment_languages, False), cell)
             cell.add_paragraph()
 
     def __get_widget_title(self, cell, widget, have_period):
