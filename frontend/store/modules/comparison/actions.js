@@ -41,14 +41,14 @@ export default {
     }
   },
 
-  async [action.UPDATE_WORKSPACE]({commit}, {workspaceId, workspace}) {
+  async [action.UPDATE_WORKSPACE]({commit}, {workspaceId, data}) {
     commit(mutator.SET_LOADING, true)
     try {
-      const response = await api.comparison.updateWorkspace({
+      const responseData = await api.comparison.updateWorkspace({
         workspaceId,
-        workspace,
+        data,
       })
-      commit(mutator.UPDATE_WORKSPACE, response)
+      commit(mutator.UPDATE_WORKSPACE, responseData)
     } catch (error) {
       console.error(error)
       return error

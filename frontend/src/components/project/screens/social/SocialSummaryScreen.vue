@@ -62,10 +62,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions([
-      action.GET_AVAILABLE_WIDGETS,
-      action.UPDATE_AVAILABLE_WIDGETS,
-    ]),
+    ...mapActions([action.GET_AVAILABLE_WIDGETS]),
   },
 }
 </script>

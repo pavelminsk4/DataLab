@@ -1,18 +1,68 @@
 import store from '@store'
 
 import ComparisonModuleView from '@/views/comparison/ComparisonModuleView'
+import ComparisonWorkspaceView from '@/views/comparison/ComparisonWorkspaceView'
+import ComparisonScreen from '@/components/comparison/ComparisonScreen'
 import CreateComparisonView from '@/views/comparison/CreateComparisonView'
 import CreateComparisonWorkspace from '@/components/comparison/CreateComparisonWorkspace'
 import CreateComparisonProject from '@/components/comparison/CreateComparisonProject'
 import CreateComparisonRightSide from '@/components/comparison/CreateComparisonRightSide'
 import CreateDefineComparison from '@/components/comparison/CreateDefineComparison'
 
+import ComparisonFeaturesView from '@/views/comparison/ComparisonFeaturesView'
+import ComparisonSummaryScreen from '@/components/comparison/screens/ComparisonSummaryScreen'
+import ComparisonSentimentScreen from '@/components/comparison/screens/ComparisonSentimentScreen'
+import ComparisonDemographyScreen from '@/components/comparison/screens/ComparisonDemographyScreen'
+import ComparisonInfluencersScreen from '@/components/comparison/screens/ComparisonInfluencersScreen'
+
 export default [
   {
     name: 'Comparison',
-    path: '/comparison',
+    path: '/comparison-module',
     component: ComparisonModuleView,
+    redirect: () => ({name: 'ComparisonWorkspaces'}),
+    children: [
+      {
+        name: 'ComparisonWorkspaces',
+        path: '',
+        component: ComparisonScreen,
+      },
+      {
+        name: 'ComparisonWorkspace',
+        path: 'workspace/:workspaceId',
+        component: ComparisonWorkspaceView,
+      },
+      {
+        name: 'ComparisonFeaturesView',
+        path: 'workspace/:workspaceId/project/:projectId/features',
+        component: ComparisonFeaturesView,
+        redirect: () => ({name: 'ComparisonSummary'}),
+        children: [
+          {
+            name: 'ComparisonSummary',
+            path: 'summary',
+            component: ComparisonSummaryScreen,
+          },
+          {
+            name: 'ComparisonSentiment',
+            path: 'sentiment',
+            component: ComparisonSentimentScreen,
+          },
+          {
+            name: 'ComparisonDemography',
+            path: 'demography',
+            component: ComparisonDemographyScreen,
+          },
+          {
+            name: 'ComparisonInfluencers',
+            path: 'influencers',
+            component: ComparisonInfluencersScreen,
+          },
+        ],
+      },
+    ],
   },
+
   {
     name: 'ComparisonCreateWorkspace',
     path: '/comparison-module/workspace/:workspaceId/create',

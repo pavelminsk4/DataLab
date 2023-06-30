@@ -11,8 +11,8 @@ export default {
     return fetch('post', `${moduleName}/workspaces/`, workspace)
   },
 
-  async updateWorkspace({workspaceId, workspace}) {
-    return fetch('put', `${moduleName}/workspaces/${workspaceId}/`, workspace)
+  async updateWorkspace({workspaceId, data}) {
+    return fetch('put', `${moduleName}/workspaces/${workspaceId}/`, data)
   },
 
   async deleteWorkspace(workspaceId) {
@@ -21,5 +21,8 @@ export default {
 
   async getWorkspaces() {
     return fetch('get', `${moduleName}/workspaces/`)
+  },
+  async getSummaryWidgets(projectId) {
+    return fetch('get', `${moduleName}/projects/${projectId}/summary`)
   },
 }
