@@ -19,7 +19,7 @@ from .models import RegularReport
 from docx import Document
 from rest_framework import viewsets
 from reports.views_filling.filling_for_report import filling_templates_for_instant_and_regular_reports
-# from .services.pdf_handler import convert_docx_to_pdf
+from .services.pdf_handler import convert_docx_to_pdf
 from django.shortcuts import render
 
 from project_social.models import ProjectSocial, SocialWidgetsList
@@ -44,7 +44,7 @@ def report_generator(proj_pk, model):
     if model == Project:
         prepare_widget_images(proj_pk)
         filling_template(template_path, proj_pk)
-        # convert_docx_to_pdf(docx_path, report_path)
+        convert_docx_to_pdf(docx_path, report_path)
     if model == ProjectSocial:
         item = Converter(proj).convert_to_item()
         report_path = SocialPDF(item, 'pdf', template_path).generate()
