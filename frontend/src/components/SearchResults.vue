@@ -113,13 +113,6 @@ export default {
 
       return new Date(now.getFullYear(), now.getMonth(), now.getDate() - 6)
     },
-    formatDate(date) {
-      return date.toLocaleString('en-US', {
-        month: 'short',
-        day: 'numeric',
-        year: 'numeric',
-      })
-    },
     selectedClippingElement(id) {
       return this.clippingContent.some((el) => el.post__id === id)
     },

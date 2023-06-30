@@ -1,4 +1,5 @@
 import {widgetsConfig} from '@/lib/configs/widgetsConfigs'
+import moment from 'moment'
 
 export const capitalizeFirstLetter = (string) =>
   string?.charAt(0)?.toUpperCase() + string?.slice(1)
@@ -24,12 +25,9 @@ export const isAllFieldsEmpty = (obj) => {
   return true
 }
 
-export const defaultDate = (date) =>
-  new Date(date).toLocaleDateString('en-US', {
-    month: 'long',
-    day: 'numeric',
-    year: 'numeric',
-  })
+export const defaultDate = (date) => {
+  return moment(date).format('ll')
+}
 
 export const getWidgetDetails = (
   widgetName,
