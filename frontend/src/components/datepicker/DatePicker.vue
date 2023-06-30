@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import moment from 'moment'
 import Datepicker from '@vuepic/vue-datepicker'
 
 import CalendarIcon from '@/components/icons/CalendarIcon'
@@ -39,14 +40,7 @@ export default {
   },
   methods: {
     formatDate(date) {
-      return new Date(date).toLocaleString('en-US', {
-        month: 'short',
-        day: 'numeric',
-        year: 'numeric',
-        hour12: true,
-        hour: 'numeric',
-        minute: 'numeric',
-      })
+      return moment(date).format('lll')
     },
   },
 }
