@@ -57,6 +57,42 @@ export default {
     }
   },
 
+  async [action.UPDATE_WORKSPACES_PROJECTS](
+    {commit, dispatch},
+    {workspaceId, data}
+  ) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      console.log(data)
+      await api.comparison.updateWorkspacesProjects({
+        workspaceId,
+        data,
+      })
+      await dispatch(action.GET_WORKSPACES)
+    } catch (error) {
+      console.error(error)
+      return error
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
+  async [action.DELETE_WORKSPACE_PROJECT](
+    {commit, dispatch},
+    {workspaceId, projectId}
+  ) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      await api.comparison.deleteWorkspaceProject(workspaceId, projectId)
+      await dispatch(action.GET_WORKSPACES)
+    } catch (error) {
+      console.error(error)
+      return error
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
   async [action.DELETE_WORKSPACE]({commit, dispatch}, workspaceId) {
     commit(mutator.SET_LOADING, true)
     try {

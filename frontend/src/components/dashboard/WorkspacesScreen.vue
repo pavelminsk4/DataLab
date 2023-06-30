@@ -31,7 +31,9 @@
         :key="index"
         :title="item.title"
         :description="item.description"
-        :number-projects="item.projects?.length"
+        :number-projects="
+          item.projects?.length || item.cmpr_workspace_projects?.length
+        "
         :id="item.id"
         :members="item.members"
         @open-modal="toggleModal(item)"

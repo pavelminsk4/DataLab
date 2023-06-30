@@ -6,6 +6,7 @@
       <div class="features__header">
         <MainLayoutTitleBlock
           :title="currentProject.title"
+          :description="currentProject.note"
           :back-page="{
             name: 'workspaces',
             routeName: `ComparisonWorkspaces`,

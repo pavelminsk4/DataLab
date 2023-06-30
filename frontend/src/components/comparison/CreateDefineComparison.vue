@@ -119,8 +119,9 @@ export default {
     isAllFieldsEmpty,
     ...mapActions([
       action.GET_PROJECTS,
+      action.GET_WORKSPACES,
       action.CREATE_WORKSPACE,
-      action.UPDATE_WORKSPACE,
+      action.UPDATE_WORKSPACES_PROJECTS,
       action.UPDATE_NEW_COMPARISON_WORKSPACE,
     ]),
     saveWorkspace() {
@@ -140,36 +141,36 @@ export default {
       const workspace = {
         title: this.newWorkspace.title,
         description: this.newWorkspace.description,
-        department: this.newWorkspace.departament,
+        department: this.newWorkspace.department,
         members: this.newWorkspace.members,
         cmpr_workspace_projects: [
           {
             title: this.newProject.title,
+            note: this.newProject.description,
             members: this.newProject.members,
             cmpr_items: projects,
+            creator: this.newProject.creator,
+            workspace: this.workspaceId === 'new' ? null : this.workspaceId,
           },
         ],
       }
 
-      if (this.workspaceId === 'new') this[action.CREATE_WORKSPACE](workspace)
-      else {
-        this[action.UPDATE_WORKSPACE]({
-          workspaceId: this.workspaceId,
-          workspace: {
+      if (this.workspaceId === 'new') {
+        this[action.CREATE_WORKSPACE](workspace)
+        this.$router.push({
+          name: 'Comparison',
+        })
+      } else {
+        this[action.UPDATE_WORKSPACES_PROJECTS]({
+          data: {
             ...workspace.cmpr_workspace_projects[0],
-            creator: this.newProject.creater,
-            note: '',
-            workspace: null,
-            members: [],
           },
         })
+        this.$router.push({
+          name: 'ComparisonWorkspace',
+          params: this.$route.params.workspaceId,
+        })
       }
-
-      this[action.UPDATE_NEW_COMPARISON_WORKSPACE]()
-
-      this.$router.push({
-        name: 'Comparison',
-      })
     },
   },
 }

@@ -24,7 +24,7 @@
     </div>
 
     <div class="projects-wrapper scroll">
-      <AccountAnalysisProjectsTable
+      <ComparisonProjectsTable
         :values="filteredProjects"
         :members="workspace?.members"
         @go-to-project="goToProject"
@@ -40,7 +40,7 @@ import {action} from '@store/constants'
 import BaseButtonWithTooltip from '@/components/BaseButtonWithTooltip'
 import MainLayout from '@components/layout/MainLayout'
 import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
-import AccountAnalysisProjectsTable from '@/components/account-analysis/AccountAnalysisProjectsTable'
+import ComparisonProjectsTable from '@/components/comparison/ComparisonProjectsTable'
 import PlusIcon from '@/components/icons/PlusIcon'
 import {isAllFieldsEmpty} from '@/lib/utilities'
 
@@ -52,7 +52,7 @@ export default {
     BaseButtonWithTooltip,
     MainLayout,
     MainLayoutTitleBlock,
-    AccountAnalysisProjectsTable,
+    ComparisonProjectsTable,
     PlusIcon,
   },
   props: {
@@ -78,10 +78,9 @@ export default {
         : 'Social'
     },
     filteredProjects() {
-      if (!this.search) return this.workspace?.projects
-      return this.workspace?.cmpr_workspace_projects[0].cmpr_items.filter(
-        (project) =>
-          project.title.toLowerCase().includes(this.search.toLowerCase())
+      if (!this.search) return this.workspace?.cmpr_workspace_projects
+      return this.workspace?.cmpr_workspace_projects.filter((project) =>
+        project.title.toLowerCase().includes(this.search.toLowerCase())
       )
     },
   },
@@ -93,7 +92,7 @@ export default {
     ...mapActions([action.GET_WORKSPACES, action.GET_PROJECTS]),
     goToProject(projectId) {
       this.$router.push({
-        name: 'ComparisonDashboard',
+        name: 'ComparisonFeaturesView',
         params: {projectId, workspaceId: this.workspaceId},
       })
     },
