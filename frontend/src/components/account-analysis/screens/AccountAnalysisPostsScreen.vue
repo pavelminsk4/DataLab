@@ -102,6 +102,7 @@ export default {
   watch: {
     currentTab() {
       this.currentPage = 1
+
       this.getPosts(this.currentPage, this.countPosts)
     },
   },
