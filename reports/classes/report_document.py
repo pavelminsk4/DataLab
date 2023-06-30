@@ -58,7 +58,8 @@ class ReportDocument:
     def __fill_summary_section(self, p, cell):
         if self.item.soc_summary:
             self.__font_one(cell.add_paragraph('').add_run('Report Summary'), cell)
-            self.__font_two(cell.add_paragraph().add_run('Summary'), cell)
+            if self.item.soc_summary:
+                self.__font_two(self.__get_widget_title(cell, self.widget_list.summary, False), cell)
             cell.add_paragraph()
 
     def __fill_potential_reach_section(self, p, cell):
@@ -97,6 +98,8 @@ class ReportDocument:
         return cell.add_paragraph().add_run(f"{widget.title}{f' (per {widget.aggregation_period})' if have_period else ''}")
 
     def __fill_content(self):
+        if self.item.soc_summary:
+            self.__get_widget_image(self.screenshot_list['soc_summary'], 'Summary')
         if self.item.soc_top_locations:
             self.__get_widget_image(self.screenshot_list['soc_top_locations'], 'Top Locations')
         if self.item.soc_top_authors:
