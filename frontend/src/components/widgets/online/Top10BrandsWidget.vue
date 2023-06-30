@@ -29,7 +29,6 @@ export default {
     chartValues() {
       return [
         {
-          color: '#516BEE',
           data: this.topBrands.map((el) => el.brand_count),
         },
       ]

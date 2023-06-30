@@ -29,7 +29,6 @@ export default {
     chartValues() {
       return [
         {
-          color: '#516BEE',
           data: this.topCountries.map((el) => el.country_count),
         },
       ]

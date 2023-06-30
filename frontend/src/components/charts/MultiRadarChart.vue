@@ -40,10 +40,11 @@ export default {
       this.chartValues.forEach((el) => {
         datasetsValue.push({
           label: el.label,
+          data: el.data,
           borderColor: el.color,
           pointBackgroundColor: el.color,
-          pointBorderColor: '#FFFFFF',
-          data: el.data,
+          pointHoverBackgroundColor: '#fff',
+          pointHoverBorderColor: '#7C59ED',
           color: '#70767D',
         })
       })
@@ -129,6 +130,11 @@ export default {
               offsetY: 5,
               font: '12px Comic Sans MS',
             },
+          },
+        },
+        elements: {
+          line: {
+            borderWidth: 2,
           },
         },
       }

@@ -88,7 +88,7 @@ export default {
         datasetsValue.push({
           ...defaultSettings,
           label: el.label,
-          backgroundColor: el.color,
+          backgroundColor: this.chartValues[0]?.colors || el.color || '#516BEE',
           data: el.data,
         })
       })

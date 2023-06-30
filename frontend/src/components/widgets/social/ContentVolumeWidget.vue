@@ -58,7 +58,6 @@ export default {
     chartValues() {
       return [
         {
-          color: '#516BEE',
           data: this.contentVolumeWidgetData.map((el) => el.created_count),
         },
       ]

@@ -29,7 +29,6 @@ export default {
     chartValues() {
       return [
         {
-          color: '#516BEE',
           data: this.topLanguages.map((el) => el.language_count),
         },
       ]

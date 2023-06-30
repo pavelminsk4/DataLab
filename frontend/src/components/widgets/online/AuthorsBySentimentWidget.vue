@@ -62,7 +62,6 @@ export default {
       if (!this.currentWidgetData) return []
       return [
         {
-          color: '#516BEE',
           data: this.currentWidgetData.map((el) => el[1]),
         },
       ]
