@@ -1,30 +1,31 @@
 <template>
   <div
+    :ref="`selector-${name}`"
     :class="[
       'selector',
       {open: visible},
       `selector-${name}`,
       hasError && 'error',
     ]"
-    :data-value="value"
-    :data-list="list"
-    @click="visible = true"
   >
-    <div class="label">
+    <div class="label" @click="visible = true">
       <input
         v-if="isSearch"
         v-bind="$attrs"
+        type="text"
         :value="modelValue"
-        :class="['input', isSearch && 'input-search']"
         :placeholder="placeholder"
+        :class="['input', isSearch && 'input-search', 'select-search']"
         @focus="visible = true"
         @input="handleInput"
-        type="text"
-        class="select-search"
       />
       <div v-if="!isSearch">{{ value }}</div>
     </div>
-    <div class="arrow" :class="{expanded: visible}" @click.stop="toggle">
+    <div
+      :ref="`toggle-btn-${name}`"
+      :class="['arrow', {expanded: visible}]"
+      @click="toggle"
+    >
       <ArrowDownIcon />
     </div>
     <div :class="{hidden: !visible, visible}">
@@ -77,9 +78,6 @@ export default {
       selectedItems: [],
     }
   },
-  mounted() {
-    document.addEventListener('click', this.close)
-  },
   computed: {
     selectList() {
       if (this.isSearch && !!this.modelValue) {
@@ -103,10 +101,27 @@ export default {
       },
     },
   },
+  mounted() {
+    document.addEventListener('click', this.clickOut)
+  },
+  unmounted() {
+    document.removeEventListener('click', this.clickOut)
+  },
+  watch: {
+    isClearSelectedValue() {
+      if (this.isClearSelectedValue) {
+        this.value = ''
+        this.search = ''
+      }
+    },
+  },
   methods: {
     toggle() {
-      document.addEventListener('click', this.close)
-      this.visible = !this.visible
+      if (this.visible) {
+        this.close()
+      } else {
+        this.visible = true
+      }
     },
     handleInput({target}) {
       this.visible = true
@@ -118,11 +133,16 @@ export default {
       this.search = option
       this.visible = false
     },
-    close({target}) {
-      const elements = document.querySelectorAll(`.selector-${this.name}`)
-      if (!Array.from(elements).find((el) => el.contains(target))) {
-        this.visible = false
-        this.$emit('update:modelValue', '', this.name)
+    close() {
+      this.visible = false
+      this.$emit('update:modelValue', '', this.name)
+    },
+    clickOut({target}) {
+      if (!this.visible) return
+      const element = this.$refs[`selector-${this.name}`]
+
+      if (!element.contains(target)) {
+        this.close()
       }
     },
     isCheckedElement(item) {
@@ -141,14 +161,6 @@ export default {
     },
     removeSelectedFilter(index) {
       this.selectedValuesProxy.splice(index, 1)
-    },
-  },
-  watch: {
-    isClearSelectedValue() {
-      if (this.isClearSelectedValue) {
-        this.value = ''
-        this.search = ''
-      }
     },
   },
 }
@@ -180,6 +192,10 @@ export default {
     transition-timing-function: cubic-bezier(0.59, 1.39, 0.37, 1.01);
 
     color: var(--typography-primary-color);
+
+    svg {
+      pointer-events: none;
+    }
 
     &:hover {
       cursor: pointer;

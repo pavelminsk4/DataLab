@@ -220,16 +220,16 @@ export default {
     return {
       authors: state.dimensionAuthors
         ?.map((author) => author.entry_author)
-        .filter((author) => author),
+        .filter((author) => author.trim()),
       countries: state.dimensionCountries
         ?.map((country) => country.feedlink__country)
-        .filter((country) => country),
+        .filter((country) => country.trim()),
       languages: state.dimensionLanguages
         ?.map((language) => language.feed_language__language)
-        .filter((language) => language),
+        .filter((language) => language.trim()),
       sources: state.dimensionSources
         ?.map((source) => source.feedlink__source1)
-        .filter((source) => source),
+        .filter((source) => source.trim()),
     }
   },
 
@@ -237,13 +237,13 @@ export default {
     return {
       authors: state.dimensionAuthors
         ?.map((author) => author.user_alias)
-        .filter((author) => author),
+        .filter((author) => author.trim()),
       countries: state.dimensionCountries
         ?.map((country) => country.locationString)
-        .filter((country) => country),
+        .filter((country) => country.trim()),
       languages: state.dimensionLanguages
         ?.map((language) => language.language)
-        .filter((language) => language),
+        .filter((language) => language.trim()),
     }
   },
 

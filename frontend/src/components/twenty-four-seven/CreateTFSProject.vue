@@ -9,7 +9,7 @@
 
     <BaseTextarea
       v-model="projectDescription"
-      placeholder="Some words about Alert"
+      placeholder="Some words about your project"
       label="Description"
       class="input-name-field"
     />

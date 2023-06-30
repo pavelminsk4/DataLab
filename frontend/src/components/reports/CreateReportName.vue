@@ -10,7 +10,7 @@
 
     <BaseTextarea
       v-model="reportDescription"
-      placeholder="Some words about Workspace"
+      placeholder="Some words about Report"
       label="Description"
     />
 
