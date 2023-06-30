@@ -157,7 +157,7 @@ export default {
     {commit},
     {projectId, widgetId}
   ) {
-    commit(mutator.SET_LOADING, true, {root: true})
+    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
       const topKeywords = await api.social.getTopKeywordsByCountry({
         projectId,
@@ -167,12 +167,12 @@ export default {
     } catch (error) {
       return error
     } finally {
-      commit(mutator.SET_LOADING, false, {root: true})
+      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
   },
 
   async [action.GET_LANGUAGES_BY_LOCATION]({commit}, {projectId, widgetId}) {
-    commit(mutator.SET_LOADING, true, {root: true})
+    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
       const response = await api.social.getLanguagesByLocation({
         projectId,
@@ -182,7 +182,7 @@ export default {
     } catch (error) {
       console.log(error)
     } finally {
-      commit(mutator.SET_LOADING, false, {root: true})
+      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
   },
 

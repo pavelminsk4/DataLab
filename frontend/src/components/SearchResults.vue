@@ -87,7 +87,6 @@ export default {
       loading: get.LOADING,
       additionalFilters: get.ADDITIONAL_FILTERS,
       numberOfPages: get.PAGES_NUMBER,
-      availableWidgets: get.AVAILABLE_WIDGETS,
     }),
     postCard() {
       return this.moduleName + 'PostCard'

@@ -250,12 +250,13 @@ export default {
   },
 
   async [action.POST_FILTERS_FOR_WIDGET](
-    {commit},
+    {commit, dispatch},
     {projectId, widgetId, data}
   ) {
     commit(mutator.SET_LOADING, true)
     try {
       await api.social.postFiltersForWidget({projectId, widgetId, data})
+      dispatch(action.GET_AVAILABLE_WIDGETS, projectId)
     } catch (error) {
       console.error(error)
       return error

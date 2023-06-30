@@ -206,7 +206,7 @@ export default {
   },
 
   async [action.GET_TOP_SHARING_SOURCES]({commit}, {projectId, widgetId}) {
-    commit(mutator.SET_LOADING, true)
+    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true})
     try {
       const topSharingSources = await api.getTopSharingSourcesWidget(
         projectId,
@@ -217,7 +217,7 @@ export default {
       console.error(error)
       return error
     } finally {
-      commit(mutator.SET_LOADING, false)
+      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false})
     }
   },
 
@@ -914,12 +914,13 @@ export default {
   },
 
   async [action.POST_FILTERS_FOR_WIDGET](
-    {commit},
+    {commit, dispatch},
     {projectId, widgetId, data}
   ) {
     commit(mutator.SET_LOADING, true)
     try {
       await api.postFiltersForWidget({projectId, widgetId, data})
+      dispatch(action.GET_AVAILABLE_WIDGETS, projectId)
     } catch (error) {
       console.error(error)
       return error
