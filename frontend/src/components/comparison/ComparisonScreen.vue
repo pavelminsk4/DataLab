@@ -97,7 +97,6 @@ export default {
       this.$router.push({name: 'ComparisonWorkspace', params: {workspaceId}})
     },
     saveSettings(settings) {
-      console.log(settings)
       this[action.UPDATE_WORKSPACE](settings)
     },
   },
