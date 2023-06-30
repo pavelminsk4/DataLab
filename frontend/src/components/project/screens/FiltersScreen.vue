@@ -16,8 +16,8 @@
       :list="dimensionsList.authors"
       :is-search="true"
       :selected-checkboxes="selectedAuthorsProxy"
-      @get-selected-items="getValuesList"
       class="select"
+      @get-selected-items="getValuesList"
     />
 
     <div class="title">Country</div>
@@ -29,8 +29,8 @@
       :list="dimensionsList.countries"
       :is-search="true"
       :selected-checkboxes="selectedCountriesProxy"
-      @get-selected-items="getValuesList"
       class="select"
+      @get-selected-items="getValuesList"
     />
 
     <div class="title">Language</div>
@@ -42,8 +42,8 @@
       :list="dimensionsList.languages"
       :is-search="true"
       :selected-checkboxes="selectedLanguagesProxy"
-      @get-selected-items="getValuesList"
       class="select"
+      @get-selected-items="getValuesList"
     />
 
     <div v-if="moduleName === 'Online'" class="title">Source</div>
@@ -56,8 +56,8 @@
       :list="dimensionsList.sources"
       :is-search="true"
       :selected-checkboxes="selectedSourcesProxy"
-      @get-selected-items="getValuesList"
       class="select"
+      @get-selected-items="getValuesList"
     />
 
     <div class="title">Sentiment</div>
