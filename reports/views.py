@@ -9,6 +9,7 @@ from project_social.widgets.dashboard.content_volume import content_volume_repor
 from project_social.widgets.dashboard.top_languages import top_languages_report
 from project_social.widgets.dashboard.top_locations import top_locations_report
 from project_social.widgets.dashboard.top_authors import top_authors_report
+from project_social.widgets.dashboard.summary_widget import summary_report
 
 from reports.views_filling.filling_for_report import filling_templates_for_instant_and_regular_reports
 from .chartjs.chartjs import prepare_widget_images
@@ -129,4 +130,9 @@ def social_sentiment_languages_screenshot(request, proj_pk):
 def social_sentiment_locations_screenshot(request, proj_pk):
     wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).sentiment_locations.pk
     context = {'context': sentiment_locations_report(proj_pk, wd_pk)}
+    return render(request, 'social_reports/base_template_screenshot.html', context)
+
+def social_summary_screenshot(request, proj_pk):
+    wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).summary.pk
+    context = {'context': summary_report(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)
