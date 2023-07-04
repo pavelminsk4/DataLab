@@ -1,3 +1,6 @@
+from common.factories.feedlinks import FeedlinksFactory
+from common.factories.speech import SpeechFactory
+from common.factories.post import PostFactory
 from project.models import Post, Speech, Feedlinks
 from common.factories.user import UserFactory
 from rest_framework.test import APITestCase
@@ -6,7 +9,6 @@ from countries_plus.models import Country
 from accounts.models import department
 from rest_framework import status
 from django.urls import reverse
-from datetime import datetime
 import json
 import copy
 
@@ -40,7 +42,7 @@ class SearchTests(APITestCase):
   url = reverse('search')
   ex1 = {
     'id':1,
-    'entry_title':'First post title',
+    'entry_title':'First post title nikita',
     'entry_published':'2022-09-03T06:37:00Z',
     'entry_summary': 'First post body',
     'entry_media_thumbnail_url': None,
@@ -116,32 +118,28 @@ class SearchTests(APITestCase):
     }
 
   def setUp(self):
-      user = UserFactory()
-      self.client.force_login(user)
+      self.client.force_login(UserFactory())
+      flink1 = FeedlinksFactory(country='USA', source1='BBC')
+      flink2 = FeedlinksFactory(country='China', source1='CNN')
+      sp1 = SpeechFactory(language='English (United States)')
+      sp2 = SpeechFactory(language='Lithuanian (Lithuania)')
+      sp3 = SpeechFactory(language='Italian (Italy)')
+      sp4 = SpeechFactory(language='Arabic')
+      PostFactory(id=1, feedlink=flink1, entry_title='First post title nikita', entry_summary='First post body', feed_language=sp1, entry_author='Elon Musk', entry_published='2022-09-03T06:37:00Z', sentiment='neutral')
+      PostFactory(id=2, feedlink=flink2, entry_title='Second post title', entry_summary='Second post body', feed_language=sp2, entry_author='Tim Cook', entry_published='2022-10-03T06:37:00Z', sentiment='neutral')
+      PostFactory(id=3, feedlink=flink2, entry_title='Third post', entry_summary='Third post body', feed_language=sp3, entry_author='Bill Gates', entry_published='2022-10-03T06:37:00Z', sentiment='neutral')
+      PostFactory(id=4, feedlink=flink2, entry_title='Fourth post', entry_summary='Fourth post body', feed_language=sp4, entry_author='Steve Jobs', entry_published='2022-10-03T06:37:00Z', sentiment='positive')
 
-  def db_seeder(self):
-    flink1 = Feedlinks.objects.create(country='USA', source1='BBC')
-    flink2 = Feedlinks.objects.create(country='China', source1='CNN')
-    sp1 = Speech.objects.create(language='English (United States)')
-    sp2 = Speech.objects.create(language='Lithuanian (Lithuania)')
-    sp3 = Speech.objects.create(language='Italian (Italy)')
-    sp4 = Speech.objects.create(language='Arabic')
-    Post.objects.create(id=1, feedlink=flink1, entry_title='First post title', entry_summary='First post body', feed_language=sp1, entry_author='Elon Musk', entry_published=datetime(2022, 9, 3, 6, 37), sentiment='neutral', summary_vector=[])
-    Post.objects.create(id=2, feedlink=flink2, entry_title='Second post title', entry_summary='Second post body', feed_language=sp2, entry_author='Tim Cook', entry_published=datetime(2022, 10, 3, 6, 37), sentiment='neutral', summary_vector=[])
-    Post.objects.create(id=3, feedlink=flink2, entry_title='Third post', entry_summary='Third post body', feed_language=sp3, entry_author='Bill Gates', entry_published=datetime(2022, 10, 3, 6, 37), sentiment='neutral', summary_vector=[])
-    Post.objects.create(id=4, feedlink=flink2, entry_title='Fourth post', entry_summary='Fourth post body', feed_language=sp4, entry_author='Steve Jobs', entry_published=datetime(2022, 10, 3, 6, 37), sentiment='positive', summary_vector=[])
 
   def test_search_with_keywords(self):
-    self.db_seeder()
     data = copy.deepcopy(DATA)
-    data['keywords'] = ['First', 'Post']
+    data['keywords'] = ['nikita']
     data['date_range'] = ['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z']
     response = self.client.post(url, data, format='json')
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':1, 'posts':[ex1]}) 
  
   def test_search_with_exclusion_words(self):
-    self.db_seeder()
     data = copy.deepcopy(DATA)
     data['keywords'] = ['post']
     data['exceptions'] = ['First']
@@ -152,7 +150,6 @@ class SearchTests(APITestCase):
     self.assertEqual(len(Post.objects.all()), 4)
 
   def test_search_with_additional_words(self):
-    self.db_seeder()
     data = copy.deepcopy(DATA)
     data['keywords'] = ['post']
     data['additions'] = ['Third']
@@ -162,7 +159,6 @@ class SearchTests(APITestCase):
     self.assertEqual(len(Post.objects.all()), 4)
 
   def test_serch_with_exclusion_and_additional_words(self):
-    self.db_seeder()
     data = copy.deepcopy(DATA)
     data['keywords'] = ['post']
     data['exceptions'] = ['First']
@@ -173,7 +169,6 @@ class SearchTests(APITestCase):
     self.assertEqual(len(Post.objects.all()), 4)
 
   def test_search_by_country(self):
-    self.db_seeder()
     data = copy.deepcopy(DATA)
     data['keywords'] = ['post']
     data['country'] = 'USA'
@@ -183,7 +178,6 @@ class SearchTests(APITestCase):
     self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':1, 'posts':[ex1]})
 
   def test_search_by_language(self):
-    self.db_seeder()
     data = copy.deepcopy(DATA)
     data['keywords'] = ['post']
     data['language'] = 'Arabic'
@@ -193,7 +187,6 @@ class SearchTests(APITestCase):
     self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':1, 'posts':[ex4]})
 
   def test_search_filtering_by_sentiment(self):
-    self.db_seeder()
     data = copy.deepcopy(DATA)
     data['keywords'] = ['post']
     data['sentiment'] = 'positive'
@@ -203,7 +196,6 @@ class SearchTests(APITestCase):
     self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':1, 'posts':[ex4]})
 
   def test_serarch_filtering_by_date(self):
-    self.db_seeder()
     data = copy.deepcopy(DATA)
     data['keywords'] = ['post']
     data['date_range'] = ['2022-09-02T06:44:00.000Z', '2022-09-30T06:44:00.000Z']
@@ -212,7 +204,6 @@ class SearchTests(APITestCase):
     self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':1, 'posts':[ex1]})
 
   def test_search_by_source(self):
-    self.db_seeder()
     data = copy.deepcopy(DATA)
     data['keywords'] = ['post']
     data['date_range'] = ['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z']
@@ -222,7 +213,6 @@ class SearchTests(APITestCase):
     self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':3, 'posts':[ex2, ex3, ex4]})
 
   def test_search_by_author(self):
-    self.db_seeder()
     data = copy.deepcopy(DATA)
     data['keywords'] = ['post']
     data['date_range'] = ['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z']
@@ -278,10 +268,8 @@ class CountriesTests(APITestCase):
 
 class AuthorsTests(APITestCase):
   def test_authors_list(self):
-    flink = Feedlinks.objects.create(country='China', source1='CNN')
-    sp = Speech.objects.create(language='English (United States)')
-    Post.objects.create(feedlink=flink, entry_title='First post title', entry_summary='First post body', feed_language=sp, entry_author='Elon Musk', entry_published=datetime(2022, 9, 3, 6, 37), sentiment='neutral', summary_vector=[])
-    Post.objects.create(feedlink=flink, entry_title='Second post title', entry_summary='Second post body', feed_language=sp, entry_author='Tim Cook', entry_published=datetime(2022, 10, 3, 6, 37), sentiment='neutral', summary_vector=[])
+    PostFactory(entry_author='Elon Musk')
+    PostFactory(entry_author='Tim Cook')
     url = '/api/authors/authors?search=E'
     response = self.client.get(url)
     self.assertEqual(response.status_code, status.HTTP_200_OK)

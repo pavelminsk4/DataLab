@@ -25,7 +25,7 @@ class OnlineParser(Parser):
 
   class _KeywordToken(_Token):
     def tostring(self):
-      return 'entry_title__contains = ' + self.value + ' '
+      return 'entry_title__icontains = ' + self.value + ' '
 
   class _FieldToken(_Token):
     fields = {
