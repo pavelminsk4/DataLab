@@ -150,7 +150,7 @@ export const comparisonWidgetsList = {
   summary: [
     // {name: 'summary', isFullWidth: true},
     {name: 'content_volume'},
-    // {name: 'top_authors'},
+    {name: 'top_authors'},
     // {name: 'sentiment'},
     // {name: 'top_sources'},
     // {name: 'top_keywords', isFullWidth: true},

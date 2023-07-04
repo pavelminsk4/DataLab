@@ -8,10 +8,11 @@
 
 <script>
 import ContentVolume from '@/components/widgets/comparison/ContentVolumeWidget'
+import TopAuthors from '@/components/widgets/comparison/TopAuthorsWidget'
 
 export default {
   name: 'ComparisonMainWidget',
-  components: {ContentVolume},
+  components: {ContentVolume, TopAuthors},
   props: {
     widgetDetails: {type: Object, required: true},
   },

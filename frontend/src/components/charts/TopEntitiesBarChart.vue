@@ -56,8 +56,8 @@ export default {
         .chart {
           width: 85%;
           .chart-container {
-            height: 35px;
             width: 100%;
+            height: v-bind(barHeight);
           }
         }
       }

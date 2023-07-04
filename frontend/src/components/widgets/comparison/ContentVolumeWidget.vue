@@ -16,9 +16,6 @@ export default {
     widgetDetails: {type: Object, required: true},
   },
   computed: {
-    widgetWrapper() {
-      return this.isSettings ? 'div' : 'WidgetsLayout'
-    },
     widgetData() {
       const formatedWidgetData = []
       this.widgetDetails.widgetData.map((project) => {
