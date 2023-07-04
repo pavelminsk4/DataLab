@@ -55,6 +55,14 @@ class ComparisonProjectsTests(APITestCase):
         url = reverse('comparison:workspace_projects-detail', kwargs={'workspace_pk': ws.id, 'pk': pr.id})
         response = self.client.get(url, format='json')
         self.assertEqual(len(json.loads(response.content)['cmpr_items']), 1)
+        
+    def test_projects_destroy(self):
+        ws = WorkspaceComparison.objects.first()
+        pr = ProjectComparison.objects.first()
+        url = reverse('comparison:workspace_projects-detail', kwargs={'workspace_pk': ws.id, 'pk': pr.id})
+        self.assertEqual(ProjectComparison.objects.all().count(), 1)
+        self.client.delete(url, format='json')
+        self.assertEqual(ProjectComparison.objects.all().count(), 0)
 
     def test_workspace_create(self):
         dep = department.objects.first()

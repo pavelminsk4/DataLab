@@ -40,16 +40,17 @@ class SummaryOnline:
 
     def get_widgets(self):
         return {
-            self.project.title: {
-                'Summary':        onl_summary(self.posts),
-                'Content volume': onl_volume(self.posts, 'day'),
-                'Top authors':    onl_top_authors(self.posts, 5),
-                'Sentiment':      onl_sentiment(self.posts),
-                'Top sources':    onl_top_sources(self.posts, 5),
-                'Top keywords':   onl_top_keywords(self.posts),
-                'Top languages':  onl_top_languages(self.posts, 5),
-                'Top countries':  onl_top_countries(self.posts, 5),
-            }
+            'project_name': self.project.title,
+            'widgets': [
+                {'name': 'summary', 'data': onl_summary(self.posts)},
+                {'name': 'content_volume', 'data': onl_volume(self.posts, 'day')},
+                {'name': 'top_authors', 'data': onl_top_authors(self.posts, 5)},
+                {'name': 'sentiment', 'data': onl_sentiment(self.posts)},
+                {'name': 'top_sources', 'data': onl_top_sources(self.posts, 5)},
+                {'name': 'top_keywords', 'data':  onl_top_keywords(self.posts)},
+                {'name': 'top_languages', 'data': onl_top_languages(self.posts, 5)},
+                {'name': 'top_countries', 'data': onl_top_countries(self.posts, 5)},
+            ]
         }
 
 
@@ -60,13 +61,14 @@ class SummarySocial:
 
     def get_widgets(self):
         return {
-            self.project.title: {
-                'Summary':        soc_summary(self.posts),
-                'Content volume': soc_volume(self.posts, 'day'),
-                'Top authors':    soc_top_authors(self.posts, 'day', 5),
-                'Sentiment':      soc_sentiment(self.posts),
-                'Top keywords':   soc_top_keywords(self.posts),
-                'Top languages':  soc_top_languages(self.posts, 'day', 5),
-                'Top locations':  soc_top_locations(self.posts, 'day', 5),
-            }
+            'project_name': self.project.title,
+            'widgets': [
+                {'name': 'summary', 'data': soc_summary(self.posts)},
+                {'name': 'content_volume', 'data': soc_volume(self.posts, 'day')},
+                {'name': 'top_authors', 'data': soc_top_authors(self.posts, 'day', 5)},
+                {'name': 'sentiment', 'data': soc_sentiment(self.posts)},
+                {'name': 'top_keywords', 'data': soc_top_keywords(self.posts)},
+                {'name': 'top_languages', 'data': soc_top_languages(self.posts, 'day', 5)},
+                {'name': 'top_locations', 'data': soc_top_locations(self.posts, 'day', 5)},
+            ]
         }

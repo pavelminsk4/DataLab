@@ -3,12 +3,14 @@ from comparison.serializers import ProjectComparisonCreateSerializer
 from comparison.serializers import WorkspaceComparisonSerializer
 from comparison.serializers import ProjectComparisonSerializer
 from comparison.classes.summary_feature import SummaryFactory
-from comparison.serializers import ComparisonItemSerializer
 from comparison.models import WorkspaceComparison
 from comparison.models import ProjectComparison
 from comparison.models import ComparisonItem
 from django.http import JsonResponse
 from rest_framework import viewsets
+
+from common.utils.restructure_feature import restructure_feature
+from comparison.serializers import ComparisonItemSerializer
 
 
 class WorkspaceComparisonViewSet(viewsets.ModelViewSet):
@@ -54,5 +56,7 @@ def get_projects(request):
 
 def get_summary_feature(request, pk):
     pr = ProjectComparison.objects.get(id=pk)
-    res = [SummaryFactory(item).define().get_widgets() for item in pr.cmpr_items.all()]
+    descriptions = {wd['default_title']: wd for wd in pr.cmpr_widgets.values()}
+    projects_widgets = [SummaryFactory(item).define().get_widgets() for item in pr.cmpr_items.all()]
+    res = restructure_feature(projects_widgets, descriptions)
     return JsonResponse(res, safe=False)
