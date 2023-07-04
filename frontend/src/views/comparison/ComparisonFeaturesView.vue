@@ -37,7 +37,7 @@ export default {
   },
   computed: {
     currentWorkspace() {
-      return this.workspaces.filter((el) => el.id === +this.workspaceId)[0]
+      return this.workspaces.find((el) => el.id === +this.workspaceId)
     },
     workspaceId() {
       return this.$route.params.workspaceId
@@ -47,9 +47,9 @@ export default {
     },
     currentProject() {
       if (isAllFieldsEmpty(this.currentWorkspace)) return
-      return this.currentWorkspace.cmpr_workspace_projects.filter(
+      return this.currentWorkspace.cmpr_workspace_projects.find(
         (el) => el.id === +this.projectId
-      )[0]
+      )
     },
   },
   created() {

@@ -151,8 +151,8 @@ export default {
   height: 20px;
   width: 20px;
 
-  border: 1px solid #9198a7;
-  border-radius: 4px;
+  border: var(--border-primary);
+  border-radius: var(--border-radius);
   background-color: var(--border-color);
 }
 
