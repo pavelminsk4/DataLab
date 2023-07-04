@@ -3,62 +3,53 @@
 <!-- templates/base.html -->
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <link rel="stylesheet" href="{% static "css/style.css" %}" />
-  <link rel="stylesheet" href="{% static "css/registration.css" %}" />
-</head>
-<body>
-  <main>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="{% static "css/style.css" %}" /> <link
+    rel="stylesheet" href="{% static "css/registration.css" %}" />
+  </head>
+  <body>
+    <main>
       <div class="login-wrapper">
-          <section class="form-section">
-              <div class="form-wrapper">
-          {% block content %}
+        <section class="form-section">
+          <img class="logo" src="/../static/img/logo.png" alt="logo" />
+          <div class="form-wrapper">{% block content %} {% endblock %}</div>
+        </section>
 
-          {% endblock %}
-              </div>
-          </section>
-          <div class="screen-title-wrapper">
-             <div class="dashboard-title">
-                 Dashboard
-             </div>
-              <div class="dashboard-description">
-                  Some short describe + analytics screens
-              </div>
-          </div>
-            <img class="dashboard" src="/../static/img/dashboard.png" alt=""/>
+        <img class="dashboard-img" src="/../static/img/dashboard.png" alt="" />
       </div>
-  </main>
-</body>
+    </main>
+  </body>
 
-<script>
-    const togglePassword = document.querySelector("#toggle_password");
-    const password = document.querySelector("#id_password");
-    const openEye = document.querySelector('#open_eye')
-    const closeEye = document.querySelector('#close_eye')
+  <script>
+    const togglePassword = document.querySelector("#toggle_password")
+    const password = document.querySelector("#id_password")
+    const openEye = document.querySelector("#open_eye")
+    const closeEye = document.querySelector("#close_eye")
 
     togglePassword.addEventListener("click", function () {
-        const type = password.getAttribute("type") === "password" ? "text" : "password";
-        password.setAttribute("type", type);
-        closeEye.classList.toggle("toggle-close")
-        openEye.classList.toggle("toggle-open")
-    });
+      const type =
+        password.getAttribute("type") === "password" ? "text" : "password"
+      password.setAttribute("type", type)
+      closeEye.classList.toggle("toggle-close")
+      openEye.classList.toggle("toggle-open")
+    })
 
     function validateEmail(inputText) {
-        let emailField = document.querySelector("#id_email")
-        let wrongBlock = document.querySelector("#wrong_email")
-        let mailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+      let emailField = document.querySelector("#id_email")
+      let wrongBlock = document.querySelector("#wrong_email")
+      let mailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
 
-        function updateFieldStatus() {
-            if(!inputText.toLowerCase().match(mailFormat)) {
-                emailField.classList.remove("wrong-email")
-                wrongBlock.classList.remove("wrong-email-text")
-            }
-
-            emailField.classList.remove("wrong-email")
-            wrongBlock.classList.remove("wrong-email-text")
+      function updateFieldStatus() {
+        if (!inputText.toLowerCase().match(mailFormat)) {
+          emailField.classList.remove("wrong-email")
+          wrongBlock.classList.remove("wrong-email-text")
         }
-        return updateFieldStatus()
+
+        emailField.classList.remove("wrong-email")
+        wrongBlock.classList.remove("wrong-email-text")
+      }
+      return updateFieldStatus()
     }
-</script>
+  </script>
 </html>

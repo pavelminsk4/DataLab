@@ -49,49 +49,39 @@
 }
 
 
-  body {
+body {
     margin: 0;
 
-    color: #ffffff;
-    background: #1D1E1F;
+    background: #ffffff;
+
     font-family: 'Poppins', sans-serif;
+    color: #484C52;
 }
 
 p {
     margin: 0;
 }
 
-.auth {
-    font-weight: 700;
-    font-size: 28px;
-    line-height: 20px;
-    color: #FFFFFF;
-}
-
 .hint, .submit-form, input::placeholder {
     font-family: 'Poppins', sans-serif;
-    font-weight: 200;
     font-size: 14px;
-    line-height: 21px;
 }
 
 .input-label, .control-label {
-   font-weight: 600;
    font-size: 14px;
-   line-height: 110%;
-   color: #FFFFFF;
+   color: #29333D;
 }
 
-.links {
+.links, .back-links {
     cursor: pointer;
 
     text-decoration: none;
-
-    font-style: normal;
     font-weight: 500;
     font-size: 14px;
-    line-height: 120%;
+    color: #E54985;
+}
 
-    color: #055FFC;
+.back-links {
+    color: #29333D;
 }
 
