@@ -312,9 +312,9 @@ def post_creator():
                 my_feed_subtitle_detail = 'None'
 
             try:
-                my_feed_language = add_language(ff['language'])
-            except:
                 my_feed_language = add_language(detect(ent.title)['lang'])
+            except:
+                my_feed_language = 'None'
 
             try:
                 my_feed_rights = ff['rights']
