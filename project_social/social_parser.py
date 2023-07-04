@@ -25,7 +25,7 @@ class SocialParser(Parser):
 
   class _KeywordToken(_Token):
     def tostring(self):
-      return f'(text__contains = {self.value} or user_name__contains = {self.value} or user_alias__contains = {self.value})'
+      return f'(text__icontains = {self.value} or user_name__icontains = {self.value} or user_alias__icontains = {self.value})'
 
   class _FieldToken(_Token):
     fields = {

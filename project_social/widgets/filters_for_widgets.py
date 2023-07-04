@@ -4,7 +4,7 @@ from django.db.models import Q
 from functools import reduce
 
 def keywords_posts(keys, posts):
-  posts = posts.filter(reduce(lambda x,y: x | y, [Q(text__contains=key) | Q(user_name__contains=key) | Q(user_alias__contains=key) for key in keys]))
+  posts = posts.filter(reduce(lambda x,y: x | y, [Q(text__icontains=key) | Q(user_name__icontains=key) | Q(user_alias__icontains=key) for key in keys]))
   return posts
 
 def exclude_keywords_posts(posts, exceptions):
@@ -19,7 +19,7 @@ def exclude_keywords_posts(posts, exceptions):
 
 def additional_keywords_posts(posts, additions):
   for word in additions:
-    posts = posts.filter(text__contains=word)
+    posts = posts.filter(text__icontains=word)
   return posts
 
 def data_range_posts(start_date, end_date):

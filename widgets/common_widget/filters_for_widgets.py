@@ -4,7 +4,7 @@ from functools import reduce
 from project.online_parser import OnlineParser
 
 def keywords_posts(keys, posts):
-  posts = posts.filter(reduce(lambda x,y: x | y, [Q(entry_title__contains=key) for key in keys]))
+  posts = posts.filter(reduce(lambda x,y: x | y, [Q(entry_title__icontains=key) for key in keys]))
   return posts
 
 def exclude_keywords_posts(posts, exceptions):
@@ -19,7 +19,7 @@ def exclude_keywords_posts(posts, exceptions):
 
 def additional_keywords_posts(posts, additions):
   for word in additions:
-    posts = posts.filter(entry_title__contains=word)
+    posts = posts.filter(entry_title__icontains=word)
   return posts
 
 def data_range_posts(start_date, end_date):
