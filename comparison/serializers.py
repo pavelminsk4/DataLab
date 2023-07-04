@@ -21,6 +21,7 @@ class ProjectComparisonCreateSerializer(WritableNestedModelSerializer):
 
 
 class ProjectComparisonSerializer(WritableNestedModelSerializer):
+    creator = UserSerializer(required=False)
     members = UserSerializer(many=True, required=False)
     cmpr_items = ComparisonItemSerializer(many=True, required=False)
 
