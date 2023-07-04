@@ -106,6 +106,7 @@ export default {
     ...mapActions([
       action.UPDATE_PROJECT_STATE,
       action.REFRESH_DISPLAY_CALENDAR,
+      action.UPDATE_NEW_TFS_PROJECT,
     ]),
     lowerFirstLetter,
     getLastWeeksDate() {
@@ -128,6 +129,14 @@ export default {
     updatePage(page, countPosts) {
       this.countPosts = countPosts
       this.$emit('show-results', page, countPosts)
+      if (this.moduleName === 'TFS') {
+        return this[action.UPDATE_NEW_TFS_PROJECT]({
+          searchFilters: {
+            page_number: page,
+            posts_per_page: countPosts,
+          },
+        })
+      }
       this[action.UPDATE_PROJECT_STATE]({
         searchFilters: {
           ...this.newProject.searchFilters,
