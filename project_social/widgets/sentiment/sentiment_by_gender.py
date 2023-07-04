@@ -1,11 +1,13 @@
+from project_social.widgets.filters_for_widgets import post_agregator_with_dimensions
+from project_social.widgets.filters_for_widgets import post_agregetor_for_each_widget
 from project_social.models import SocialWidgetDescription
-from project_social.widgets.filters_for_widgets import *
 from project_social.models import ProjectSocial
+from django.forms.models import model_to_dict
 from django.db.models.functions import Trunc
 from django.http import JsonResponse
 from django.db.models import Count
 
-def post_agregator_sentiment_by_gender(posts, aggregation_period):
+def calculate(posts, aggregation_period):
   user_gender = posts.values('user_gender').annotate(user_count=Count('user_gender')).order_by('-user_count').values_list('user_gender', flat=True)
   results = {user: list(posts.filter(user_gender=user).annotate(date_trunk=Trunc('date', aggregation_period)).values('sentiment').annotate(sentiment_count=Count('sentiment')).order_by('-sentiment_count')) for user in user_gender}
   for i in range(len(results)):
@@ -23,5 +25,15 @@ def sentiment_by_gender(pk, widget_pk):
   posts = post_agregator_with_dimensions(project)
   widget = SocialWidgetDescription.objects.get(id=widget_pk)
   posts = post_agregetor_for_each_widget(widget, posts)
-  res = post_agregator_sentiment_by_gender(posts, widget.aggregation_period)
+  res = calculate(posts, widget.aggregation_period)
   return JsonResponse(res, safe = False)
+
+def sentiment_by_gender_report(pk, widget_pk):
+    project = ProjectSocial.objects.get(id=pk)
+    posts = post_agregator_with_dimensions(project)
+    widget = SocialWidgetDescription.objects.get(id=widget_pk)
+    posts = post_agregetor_for_each_widget(widget, posts)
+    return {
+        'data': calculate(posts),
+        'widget': {'sentiment_by_gender': model_to_dict(widget)}
+    }

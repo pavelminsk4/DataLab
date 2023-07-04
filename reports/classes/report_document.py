@@ -1,5 +1,5 @@
-from docx.shared import Pt, Inches
 from project_social.models import ProjectSocial
+from docx.shared import Pt, Inches
 
 
 class ReportDocument:
@@ -52,76 +52,76 @@ class ReportDocument:
         if '$EXPORT_TOC$' in p.text:
             p.text = p.text.replace('$EXPORT_TOC$', ' ')
             self.__fill_summary_section(p, cell)
-            self.__fill_potential_reach_section(p, cell)
             self.__fill_sentiment_section(p, cell)
+            self.__fill_demography_section(p, cell)
 
     def __fill_summary_section(self, p, cell):
-        if self.item.soc_summary:
-            self.__font_one(cell.add_paragraph('').add_run('Report Summary'), cell)
-            if self.item.soc_summary:
-                self.__font_two(self.__get_widget_title(cell, self.widget_list.summary, False), cell)
-            cell.add_paragraph()
-
-    def __fill_potential_reach_section(self, p, cell):
-        if (self.item.soc_content_volume or
-            self.item.soc_content_volume_top_locations or
-            self.item.soc_content_volume_top_authors or
-            self.item.soc_content_volume_top_languages):
-            self.__font_one(cell.add_paragraph('').add_run('Content Volume'), cell)
-            if self.item.soc_content_volume:
-                self.__font_two(self.__get_widget_title(cell, self.widget_list.content_volume, True), cell)
-            if self.item.soc_content_volume_top_locations:
-                self.__font_two(self.__get_widget_title(cell, self.widget_list.content_volume_top_locations, True), cell)
-            if self.item.soc_content_volume_top_authors:
-                self.__font_two(self.__get_widget_title(cell, self.widget_list.content_volume_top_authors, True), cell)
-            if self.item.soc_content_volume_top_languages:
-                self.__font_two(self.__get_widget_title(cell, self.widget_list.content_volume_top_languages, True), cell)
-            cell.add_paragraph()
+        widgets = {
+                    'soc_summary': ['summary', False],
+                    'soc_sentiment': ['sentiment', False],
+                    'soc_content_volume': ['content_volume', True],
+                    'soc_content_volume_top_locations': ['content_volume_top_locations', True],
+                    'soc_content_volume_top_authors': ['content_volume_top_authors', True],
+                    'soc_content_volume_top_languages': ['content_volume_top_languages', True]
+                  }
+        if True in [(True if hasattr(self.item, widget) else False) for widget in widgets.keys()]:
+            self.__font_one(cell.add_paragraph('').add_run('Summary'), cell)
+        for widget in widgets.keys():
+            if hasattr(self.item, widget):
+                self.__font_two(self.__get_widget_title(cell, getattr(self.widget_list, widgets[widget][0]), widgets[widget][1]), cell)
+        cell.add_paragraph()
 
     def __fill_sentiment_section(self, p, cell):
-        if (self.item.soc_sentiment_diagram or
-            self.item.soc_sentiment_authors or
-            self.item.soc_sentiment_locations or
-            self.item.soc_sentiment_languages):
+        widgets = {
+                    'soc_sentiment_diagram': ['sentiment_diagram', False],
+                    'soc_sentiment_number_of_results': ['sentiment_number_of_results', False], 
+                    'soc_sentiment_authors': ['sentiment_authors', False], 
+                    'soc_sentiment_locations': ['sentiment_locations', False], 
+                    'soc_sentiment_languages': ['sentiment_languages', False],
+                    'soc_sentiment_by_gender': ['sentiment_by_gender', False]
+                  }
+        if True in [(True if hasattr(self.item, widget) else False) for widget in widgets.keys()]:
             self.__font_one(cell.add_paragraph('').add_run('Sentiment'), cell)
-            if self.item.soc_sentiment_diagram:
-                self.__font_two(self.__get_widget_title(cell, self.widget_list.sentiment_diagram, False), cell)
-            if self.item.soc_sentiment_authors:
-                self.__font_two(self.__get_widget_title(cell, self.widget_list.sentiment_authors, False), cell)
-            if self.item.soc_sentiment_locations:
-                self.__font_two(self.__get_widget_title(cell, self.widget_list.sentiment_locations, False), cell)
-            if self.item.soc_sentiment_languages:
-                self.__font_two(self.__get_widget_title(cell, self.widget_list.sentiment_languages, False), cell)
-            cell.add_paragraph()
+        for widget in widgets.keys():
+            if hasattr(self.item, widget):
+                self.__font_two(self.__get_widget_title(cell, getattr(self.widget_list, widgets[widget][0]), widgets[widget][1]), cell)
+        cell.add_paragraph()
+        
+    def __fill_demography_section(self, p, cell):
+        widgets = {
+                    'soc_top_keywords': ['top_keywords', False]
+                  }
+        if True in [(True if hasattr(self.item, widget) else False) for widget in widgets.keys()]:
+            self.__font_one(cell.add_paragraph('').add_run('Demography'), cell)
+        for widget in widgets.keys():
+            if hasattr(self.item, widget):
+                self.__font_two(self.__get_widget_title(cell, getattr(self.widget_list, widgets[widget][0]), widgets[widget][1]), cell)
+        cell.add_paragraph()
 
     def __get_widget_title(self, cell, widget, have_period):
         return cell.add_paragraph().add_run(f"{widget.title}{f' (per {widget.aggregation_period})' if have_period else ''}")
 
     def __fill_content(self):
-        if self.item.soc_summary:
-            self.__get_widget_image(self.screenshot_list['soc_summary'], 'Summary')
-        if self.item.soc_top_locations:
-            self.__get_widget_image(self.screenshot_list['soc_top_locations'], 'Top Locations')
-        if self.item.soc_top_authors:
-            self.__get_widget_image(self.screenshot_list['soc_top_authors'], 'Top Authors')
-        if self.item.soc_top_languages:
-            self.__get_widget_image(self.screenshot_list['soc_top_languages'], 'Top Languages')
-        if self.item.soc_content_volume:
-            self.__get_widget_image(self.screenshot_list['soc_content_volume'], 'Content Volume')
-        if self.item.soc_content_volume_top_locations:
-            self.__get_widget_image(self.screenshot_list['soc_content_volume_top_locations'], 'Content Volume Top Locations')
-        if self.item.soc_content_volume_top_authors:
-            self.__get_widget_image(self.screenshot_list['soc_content_volume_top_authors'], 'Content Volume Top Authors')     
-        if self.item.soc_content_volume_top_languages:
-            self.__get_widget_image(self.screenshot_list['soc_content_volume_top_languages'], 'Content Volume Top Languages') 
-        if self.item.soc_sentiment_diagram:
-            self.__get_widget_image(self.screenshot_list['soc_sentiment_diagram'], 'Sentiment diagram')
-        if self.item.soc_sentiment_authors:
-            self.__get_widget_image(self.screenshot_list['soc_sentiment_authors'], 'Sentiment authors')
-        if self.item.soc_sentiment_locations:
-            self.__get_widget_image(self.screenshot_list['soc_sentiment_locations'], 'Sentiment locations')
-        if self.item.soc_sentiment_languages:
-            self.__get_widget_image(self.screenshot_list['soc_sentiment_languages'], 'Sentiment languages')
+        widgets = {
+                    'soc_summary': 'Summary',
+                    'soc_top_locations': 'Top Locations',
+                    'soc_top_authors': 'Top Authors',
+                    'soc_top_languages': 'Top Languages',
+                    'soc_content_volume': 'Content Volume',
+                    'soc_content_volume_top_locations': 'Content Volume Top Locations',
+                    'soc_content_volume_top_authors': 'Content Volume Top Authors',
+                    'soc_content_volume_top_languages': 'Content Volume Top Languages',
+                    'soc_sentiment_diagram': 'Sentiment diagram',
+                    'soc_sentiment_number_of_results': 'Sentiment number of results', 
+                    'soc_sentiment_authors': 'Sentiment authors',
+                    'soc_sentiment_locations': 'Sentiment locations',
+                    'soc_sentiment_languages': 'Sentiment languages',
+                    'soc_sentiment_by_gender': 'Sentiment by gender',
+                    'soc_top_keywords': 'Top keywords'
+                  }
+        for widget in widgets.keys():
+            if getattr(self.item, widget):
+                self.__get_widget_image(self.screenshot_list[widget], widgets[widget])
 
     def __get_widget_image(self, widget_image, title_widget):
         # self.document.add_paragraph()
@@ -132,7 +132,6 @@ class ReportDocument:
         self.document.add_paragraph()
         self.document.add_paragraph()
         self.document.add_paragraph()
-        self.document.add_page_break()
 
     def __fill_introduction(self, p, cell):
         self.__fill_titular(p, cell)
