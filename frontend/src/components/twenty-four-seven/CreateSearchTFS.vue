@@ -70,6 +70,9 @@ export default {
     defaultDateRange() {
       return [this.getLastWeeksDate(), new Date()]
     },
+    searchFilters() {
+      return this.newProject.searchFilters
+    },
   },
   created() {
     if (this.defaultDateRange.length) {
@@ -101,7 +104,7 @@ export default {
         [name]: val,
       })
     },
-    showResults() {
+    showResults(pageNumber, numberOfPosts) {
       try {
         this[action.POST_SEARCH]({
           keywords: this.keywords?.keywords,
@@ -113,8 +116,8 @@ export default {
           date_range: this.additionalFilters?.date_range,
           source: this.additionalFilters?.source || [],
           author: this.additionalFilters?.author || [],
-          posts_per_page: 20,
-          page_number: 1,
+          posts_per_page: numberOfPosts || 20,
+          page_number: pageNumber || 1,
           sort_posts: [],
           country_dimensions: [],
           language_dimensions: [],
@@ -167,6 +170,17 @@ export default {
           workspaceId: this.newWorkspaceId || this.workspaceId,
         },
       })
+    },
+  },
+  watch: {
+    'newProject.searchFilters.page_number'() {
+      this.showResults(this.searchFilters.page_number)
+    },
+    'newProject.searchFilters.posts_per_page'() {
+      this.showResults(
+        this.searchFilters.page_number,
+        this.searchFilters.posts_per_page
+      )
     },
   },
 }
