@@ -53,8 +53,7 @@ export default {
     },
   },
   created() {
-    if (!this.summary.widgets.length)
-      this[action.GET_SUMMARY_WIDGETS](this.currentProject.id)
+    this[action.GET_SUMMARY_WIDGETS](this.currentProject.id)
   },
   methods: {
     ...mapActions([action.GET_SUMMARY_WIDGETS]),
