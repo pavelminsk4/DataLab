@@ -9,12 +9,12 @@
       v-model="selectedValues"
       :options="projects"
       :is-disabled="!templateChecked"
-      :select-name="templateTitle"
+      :select-name="templateName"
       item-name="project"
     />
     <div class="card__preview">
       <img
-        :src="require(`@/assets/reports/templates/${templateTitle}.png`)"
+        :src="require(`@/assets/reports/templates/${templateName}.png`)"
         alt="Template image"
       />
     </div>
@@ -32,6 +32,7 @@ export default {
   components: {BaseCheckbox, MultiSelect},
   props: {
     templateTitle: {type: String, required: true},
+    templateName: {type: String, required: true},
     projects: {type: Array, required: true},
     templateChecked: {type: Boolean, required: true},
     selectedProjects: {type: Array, required: true},

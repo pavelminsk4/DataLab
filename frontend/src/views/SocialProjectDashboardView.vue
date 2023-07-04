@@ -42,7 +42,7 @@ export default {
   },
   created() {
     this.navUrls = [
-      'Dashboard',
+      'Analytics',
       'Search',
       'Summary',
       'Sentiment',
