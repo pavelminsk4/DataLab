@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'phonenumber_field',
     'multilanguage.apps.MultilanguageConfig',
     'expert_filters.apps.ExpertFiltersConfig',
+    'talkwalker.apps.TalkwalkerConfig',
 ]
 
 ASGI_APPLICATION = 'config.asgi.application'

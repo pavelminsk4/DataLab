@@ -1,4 +1,4 @@
-from api.views import filter_with_constructor, data_range_posts
+from api.views import filter_with_constructor, data_range_posts_for_24
 from phonenumber_field.modelfields import PhoneNumberField
 from django.contrib.postgres.fields import ArrayField
 from tweet_binder.models import TweetBinderPost
@@ -71,7 +71,7 @@ class ProjectTwentyFourSeven(models.Model):
 @shared_task
 def attach_online_posts(id):
     instance = ProjectTwentyFourSeven.objects.get(id=id)
-    posts = data_range_posts(instance.start_search_date, instance.end_search_date)
+    posts = data_range_posts_for_24(instance.start_search_date, instance.end_search_date)
     body = {
         'keywords': instance.keywords,
         'exceptions': instance.ignore_keywords,

@@ -110,6 +110,11 @@ def additional_keywords_posts(posts, additions):
 
 def data_range_posts(start_date, end_date):
   interval = [start_date, end_date]
+  posts = TalkwalkerPost.objects.filter(entry_published__range=interval)
+  return posts
+
+def data_range_posts_for_24(start_date, end_date):
+  interval = [start_date, end_date]
   posts = Post.objects.filter(entry_published__range=interval)
   return posts
 
@@ -138,10 +143,10 @@ def search(request):
   department_changing = ChangingOnlineSentiment.objects.filter(department_id=department_id).values()
   dict_changing = {x['post_id']: x['sentiment'] for x in department_changing}
   themes = MlCategory.objects.all()
-  for post in posts_list:
-    post = change_post_sentiment(post, dict_changing)
-    post = change_post_source_name(post)
-    post = add_post_category(post, themes)
+  # for post in posts_list:
+  #   post = change_post_sentiment(post, dict_changing)
+  #   post = change_post_source_name(post)
+  #   post = add_post_category(post, themes)
   res = { 'num_pages': p.num_pages, 'num_posts': p.count, 'posts': posts_list }
   return JsonResponse(res, safe = False)
 
@@ -420,6 +425,7 @@ def posts_values(posts):
     'feedlink__sourceurl',
     'feedlink__alexaglobalrank',
     'sentiment',
+    'category',
     )
 
 def project_posts(request, pk):
