@@ -25,6 +25,7 @@
 
     <div class="projects-wrapper scroll">
       <ComparisonProjectsTable
+        v-if="filteredProjects"
         :values="filteredProjects"
         :members="workspace?.members"
         @go-to-project="goToProject"

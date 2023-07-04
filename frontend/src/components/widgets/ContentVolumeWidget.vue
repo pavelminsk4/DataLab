@@ -40,7 +40,8 @@ export default {
       return (
         this.newChartType ||
         this.widgetDetails.chart_type ||
-        this.widgetDetails.defaultChartType
+        this.widgetDetails.defaultChartType ||
+        'MultiLineChart'
       )
     },
     labels() {

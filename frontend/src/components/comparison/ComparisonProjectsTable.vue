@@ -5,7 +5,7 @@
     @select-all="selectAll"
   >
     <BaseTableRow
-      v-for="(item, index) in values"
+      v-for="(item, index) in valuesProxy"
       :key="index"
       v-model="selectedProjects"
       :id="item.id"
@@ -23,12 +23,12 @@
       <td>
         <div class="creator">
           <UserAvatar
-            :avatar-url="currentMember(item.creator)?.user_profile.photo"
-            :first-name="currentMember(item.creator)?.first_name"
-            :last-name="currentMember(item.creator)?.last_name"
-            :username="currentMember(item.creator)?.username"
+            :avatar-url="item.creator?.user_profile.photo"
+            :first-name="item.creator?.first_name"
+            :last-name="item.creator?.last_name"
+            :username="item.creator?.username"
           />
-          <div>{{ currentMember(item.creator)?.username }}</div>
+          <div>{{ item.creator?.username }}</div>
         </div>
       </td>
 
@@ -80,9 +80,27 @@ export default {
       },
     }
   },
+  computed: {
+    valuesProxy() {
+      const emptyProject = {
+        id: null,
+        project_name: null,
+        module_type: null,
+        module_project_id: null,
+        project: null,
+      }
+      return this.values.map((value) => {
+        if (value.cmpr_items.length === 2) {
+          value.cmpr_items.push(emptyProject)
+        }
+        return value
+      })
+    },
+  },
   created() {
     this.tableHeader = [
       {name: 'Project name', width: ''},
+      {name: 'Competitor project', width: '15%'},
       {name: 'Competitor project', width: '15%'},
       {name: 'Competitor project', width: '15%'},
       {name: 'Creator', width: '10%'},
@@ -92,9 +110,6 @@ export default {
   methods: {
     defaultDate,
     ...mapActions([action.DELETE_WORKSPACE_PROJECT]),
-    currentMember(id) {
-      return this.members.find((el) => el.id === id)
-    },
     projectCreationDate(date) {
       return new Date(date).toLocaleDateString('ro-RO')
     },

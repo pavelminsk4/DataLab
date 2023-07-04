@@ -10,13 +10,13 @@
 <script>
 import {mapGetters, createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
-const {mapActions, mapGetters: mapGettersSocial} =
-  createNamespacedHelpers('social/widgets')
-
 import {getWidgetDetails} from '@lib/utilities'
 import {socialWidgetsList} from '@/lib/constants'
 
 import WidgetsList from '@/components/widgets/WidgetsList'
+
+const {mapActions, mapGetters: mapGettersSocial} =
+  createNamespacedHelpers('social/widgets')
 
 export default {
   name: 'SocialDemographyScreen',

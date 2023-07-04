@@ -146,6 +146,19 @@ export const accountAnalysisWidgetsList = {
   },
 }
 
+export const comparisonWidgetsList = {
+  summary: [
+    // {name: 'summary', isFullWidth: true},
+    {name: 'content_volume'},
+    // {name: 'top_authors'},
+    // {name: 'sentiment'},
+    // {name: 'top_sources'},
+    // {name: 'top_keywords', isFullWidth: true},
+    // {name: 'top_languages'},
+    // {name: 'top_countries'},
+  ],
+}
+
 export const expertModeFilters = {
   online: ['author', 'country', 'language', 'source', 'sentiment'],
   social: ['followers', 'location', 'author', 'sentiment', 'language'],

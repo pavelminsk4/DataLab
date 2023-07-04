@@ -95,7 +95,11 @@ export default {
   white-space: nowrap;
 
   .title {
+    display: flex;
+    align-items: center;
+
     margin-left: 5px;
+    height: 100%;
   }
 
   .container-workspaces {
@@ -103,7 +107,7 @@ export default {
     z-index: 2;
 
     width: 100%;
-    margin-top: 25px;
+    margin-top: 40px;
 
     background-color: var(--background-secondary-color);
     border: var(--border-primary);
