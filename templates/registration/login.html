@@ -1,64 +1,83 @@
-{% extends "base.html" %}
-{% load static %}
-
-{% block content %}
+{% extends "base.html" %} {% load static %} {% block content %}
 <!DOCTYPE html>
-  <html>
+<html>
   <head>
-      <title>{% block title %}{% endblock %}</title>
-      <link rel="stylesheet" href="{% static "css/style.css" %}" />
-      <link rel="stylesheet" href="{% static "css/registration.css" %}" />
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static "css/style.css" %}" /> <link
+    rel="stylesheet" href="{% static "css/registration.css" %}" />
   </head>
   <body>
-              <h1 class="auth">Log in</h1>
+    <h1 class="auth">Log in</h1>
 
-              <p class='hint'>Welcome back! Please log in to your account</p>
+    <p class="hint">Welcome back! Please log in to your account</p>
 
-              {% if form.errors %}
-              <p class="hint">Your username and password didn't match. Please try again.</p>
-              {% endif %}
+    {% if form.errors %}
+    <p class="hint hint-error">
+      Your username and password didn't match. Please try again.
+    </p>
+    {% endif %} {% if next %} {% if user.is_authenticated %}
+    <p class="hint hint-error">
+      Your account doesn't have access to this page. To proceed, please login
+      with an account that has access.
+    </p>
+    {% endif %} {% endif %}
 
-              {% if next %}
-              {% if user.is_authenticated %}
-              <p class="hint">Your account doesn't have access to this page. To proceed,
-                  please login with an account that has access.</p>
-              {% else %}
-              <p class="hint">Please login to see this page.</p>
-              {% endif %}
-              {% endif %}
+    <form class="form" method="post" action="{% url 'login' %}">
+      {% csrf_token %}
 
-              <form class="form" method="post" action="{% url 'login' %}">
-                  {% csrf_token %}
+      <div class="input-field">
+        <label class="input-label" for="username">Username</label>
+        <input
+          class="input-form"
+          type="text"
+          id="id_username"
+          name="username"
+          placeholder="Enter your username"
+          required
+        />
+      </div>
 
-                  <div class="input-field">
-                      <label class="input-label" for="username">Username</label>
-                      <input class="input-form" type="text" id="id_username" name="username" placeholder="Enter your username"
-                             required>
-                  </div>
+      <div class="input-field">
+        <div class="input-label">
+          <label for="password">Password</label>
+          <a class="forgot-password-link" href="{% url 'password_reset' %}"
+            >Forgot your password?</a
+          >
+        </div>
+        <input
+          class="input-form"
+          type="password"
+          id="id_password"
+          name="password"
+          placeholder="Enter password"
+          required
+        />
+        <div id="toggle_password">
+          <img
+            class="open-eye eye-password"
+            id="open_eye"
+            src="../../static/img/OpenEye.svg"
+            alt="open-eye"
+          />
+          <img
+            class="close-eye eye-password"
+            id="close_eye"
+            src="../../static/img/CloseEye.svg"
+            alt="close-eye"
+          />
+        </div>
+      </div>
 
-                  <div class="input-field">
-                      <div class="input-label">
-                          <label for="password">Password</label>
-                          <a class="forgot-password-link" href="{% url 'password_reset' %}">Forgot password?</a>
-                      </div>
-                      <input class="input-form" type="password" id="id_password" name="password" placeholder="Enter password"
-                             required>
-                      <div id="toggle_password">
-                          <img class="open-eye eye-password" id="open_eye" src="../../static/img/OpenEye.svg" alt="open-eye" />
-                          <img class="close-eye eye-password" id="close_eye" src="../../static/img/CloseEye.svg" alt="close-eye" />
-                      </div>
-                  </div>
+      <div class="submit-form">
+        <div>
+          <input class="custom-checkbox" type="checkbox" id="rememberme" />
+          <label for="rememberme">Remember me</label>
+        </div>
 
-                  <div class="submit-form">
-                      <div>
-                          <input class="custom-checkbox" type="checkbox" id="rememberme">
-                          <label for="rememberme">Remember me</label>
-                      </div>
-
-                      <input class="login-button" type="submit" value="Log in">
-                      <input type="hidden" name="next" value="{{ next }}">
-                  </div>
-              </form>
-  {% endblock %}
+        <input class="login-button" type="submit" value="Log in" />
+        <input type="hidden" name="next" value="{{ next }}" />
+      </div>
+    </form>
+    {% endblock %}
   </body>
-  </html>
+</html>

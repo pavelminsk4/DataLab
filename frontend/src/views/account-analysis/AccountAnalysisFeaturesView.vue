@@ -57,7 +57,7 @@ export default {
   created() {
     this[action.CLEAR_WIDGETS_DATA](),
       (this.navUrls = [
-        'Dashboard',
+        'Analytics',
         'Optimization',
         'Posts',
         //'Followers'

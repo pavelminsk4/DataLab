@@ -1,14 +1,13 @@
 <template>
   <div v-if="projects.length" class="wrapper">
     <ReportTemplateCard
-      v-for="templateTittle in templateTitles"
-      v-model:templateChecked="widgetsTemplates[templateTittle].checked"
-      v-model:selectedProjects="
-        widgetsTemplates[templateTittle].selectedProjects
-      "
-      :templateTitle="templateTittle"
+      v-for="templateName in templatesNames"
+      v-model:templateChecked="widgetsTemplates[templateName].checked"
+      v-model:selectedProjects="widgetsTemplates[templateName].selectedProjects"
+      :template-name="templateName"
+      :template-title="widgetsTemplates[templateName].title"
       :projects="projects"
-      :key="templateTittle"
+      :key="templateName"
     />
   </div>
 
@@ -34,22 +33,27 @@ export default {
     return {
       widgetsTemplates: {
         dashboard: {
+          title: 'analytics',
           checked: false,
           selectedProjects: [],
         },
         summary: {
+          title: 'summary',
           checked: false,
           selectedProjects: [],
         },
         sentiment: {
+          title: 'sentiment',
           checked: false,
           selectedProjects: [],
         },
         demography: {
+          title: 'demography',
           checked: false,
           selectedProjects: [],
         },
         influencers: {
+          title: 'influencers',
           checked: false,
           selectedProjects: [],
         },
@@ -61,12 +65,12 @@ export default {
     projects() {
       return this.newReport.projects
     },
-    templateTitles() {
+    templatesNames() {
       return Object.keys(this.widgetsTemplates)
     },
     selectedWidgetsTemplates() {
       const selectedTemplates = {}
-      this.templateTitles.forEach((templateName) => {
+      this.templatesNames.forEach((templateName) => {
         if (this.widgetsTemplates[templateName].checked) {
           selectedTemplates[templateName] = this.widgetsTemplates[templateName]
         }
@@ -75,7 +79,7 @@ export default {
     },
   },
   created() {
-    this.templateTitles.forEach(
+    this.templatesNames.forEach(
       (template) =>
         (this.widgetsTemplates[template].selectedProjects = this.projects)
     )

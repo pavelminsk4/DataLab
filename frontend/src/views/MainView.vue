@@ -88,7 +88,7 @@ export default {
       {
         name: 'Account Analysis',
         description: 'Monitor social media content created by influencers',
-        buttonName: 'Add Report',
+        buttonName: 'Add Workspace',
         openRouteName: 'AccountAnalysis',
         createRouteName: 'AccountAnalysisCreateWorkspace',
         color: '#E5E9FC',
