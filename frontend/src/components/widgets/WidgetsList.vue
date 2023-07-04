@@ -41,6 +41,7 @@ import AccountAnalysisWidgetSettingsModal from '@/components/widgets/account-ana
 
 import OnlineMainWidget from '@/components/widgets/online/OnlineMainWidget'
 import SocialMainWidget from '@/components/widgets/social/SocialMainWidget'
+import ComparisonMainWidget from '@/components/widgets/comparison/ComparisonMainWidget'
 import AccountAnalysisMainWidget from '@/components/widgets/account-analysis/AccountAnalysisMainWidget'
 import InteractiveWidgetModal from '@/components/modals/InteractiveWidgetModal'
 
@@ -51,6 +52,7 @@ export default {
   components: {
     OnlineMainWidget,
     SocialMainWidget,
+    ComparisonMainWidget,
     OnlineWidgetSettingsModal,
     SocialWidgetSettingsModal,
     AccountAnalysisWidgetSettingsModal,

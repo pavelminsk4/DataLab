@@ -1,20 +1,16 @@
 <template>
-  <ComparisonScreen
-    :workspaces="workspaces"
-    @create-workspace="createWorkspace"
-  />
+  <router-view :workspaces="workspaces" @create-workspace="createWorkspace">
+  </router-view>
 </template>
 
 <script>
 import {createNamespacedHelpers, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
-import ComparisonScreen from '@/components/comparison/ComparisonScreen'
 
 const {mapActions, mapState} = createNamespacedHelpers('comparison')
 
 export default {
   name: 'ComparisonModuleView',
-  components: {ComparisonScreen},
   computed: {
     ...mapGetters({
       department: get.DEPARTMENT,

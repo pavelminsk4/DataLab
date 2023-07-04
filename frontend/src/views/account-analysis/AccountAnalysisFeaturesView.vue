@@ -6,6 +6,7 @@
       <div class="features__header">
         <MainLayoutTitleBlock
           :title="currentProject.title"
+          :desription="currentProject.description"
           :back-page="{
             name: 'workspaces',
             routeName: `AccountAnalysisWorkspaces`,
@@ -55,16 +56,17 @@ export default {
     }
   },
   created() {
-    this[action.CLEAR_WIDGETS_DATA](),
-      (this.navUrls = [
-        'Analytics',
-        'Optimization',
-        'Posts',
-        //'Followers'
-      ].map((item) => ({
-        name: item,
-        routeName: `AccountAnalysis${item}`,
-      })))
+    this[action.CLEAR_WIDGETS_DATA]()
+    this.navUrls = [
+      'Dashboard',
+      'Optimization',
+      'Posts',
+      //'Followers'
+    ].map((item) => ({
+      name: item,
+      routeName: `AccountAnalysis${item}`,
+    }))
+
     this.tabs = ['Account Activity', 'Mentions']
   },
   methods: {

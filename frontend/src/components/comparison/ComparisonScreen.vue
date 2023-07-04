@@ -30,6 +30,7 @@
       @add-new-project="addNewProject"
       @create-workspace="$emit('create-workspace')"
       @delete-workspace="deleteWorkspace"
+      @open-workspace="openWorkspace"
       @save-settings="saveSettings"
     />
 
@@ -91,6 +92,9 @@ export default {
     },
     deleteWorkspace(workspaceId) {
       this[action.DELETE_WORKSPACE](workspaceId)
+    },
+    openWorkspace(workspaceId) {
+      this.$router.push({name: 'ComparisonWorkspace', params: {workspaceId}})
     },
     saveSettings(settings) {
       this[action.UPDATE_WORKSPACE](settings)

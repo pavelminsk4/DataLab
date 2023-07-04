@@ -28,9 +28,9 @@ export default {
       return this.workspaces.filter((el) => el.id === +this.workspaceId)
     },
     currentProject() {
-      return this.currentWorkspace[0]?.projects.filter(
+      return this.currentWorkspace[0]?.projects.find(
         (el) => el.id === +this.projectId
-      )[0]
+      )
     },
   },
   async created() {

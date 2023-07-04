@@ -18,32 +18,39 @@
       <section class="form__projects" v-if="currentWorkspaces.length">
         <h4>Select which projects to compare (2 or 3 projects)</h4>
         <span>Project</span>
-        <DropdownWithSelect
-          v-model="projects.project"
-          :workspaces="currentWorkspaces"
-          name="Project"
-        />
+        <DivWithError
+          :has-error="errors.project.hasError"
+          :error-message="errors.project.errorMessage"
+        >
+          <DropdownWithSelect
+            v-model="projects.project"
+            :workspaces="currentWorkspaces"
+            name="Project"
+            class="select"
+          />
+        </DivWithError>
         <span>Competitor project</span>
-        <DropdownWithSelect
-          v-model="projects.projectToCompare"
-          :workspaces="currentWorkspaces"
-          name="ProjectToCompare"
-        />
-        <span>Competitor project(optional)</span>
+        <DivWithError
+          :has-error="errors.projectToCompare.hasError"
+          :error-message="errors.projectToCompare.errorMessage"
+        >
+          <DropdownWithSelect
+            v-model="projects.projectToCompare"
+            :workspaces="currentWorkspaces"
+            name="ProjectToCompare"
+            class="select"
+          />
+        </DivWithError>
+        <span>Competitor project <span class="hint">Optional</span></span>
         <DropdownWithSelect
           v-model="projects.projectToCompareOptional"
           :workspaces="currentWorkspaces"
           name="ProjectToCompareOptional"
+          class="select"
         />
       </section>
     </form>
-    <BaseButton
-      :is-disabled="
-        isAllFieldsEmpty(projects.project) ||
-        isAllFieldsEmpty(projects.projectToCompare)
-      "
-      @click="saveWorkspace"
-    >
+    <BaseButton :is-disabled="errors.disableBtn" @click="saveWorkspace">
       <SaveIcon class="save-icon" /> Save Project
     </BaseButton>
   </div>
@@ -54,10 +61,11 @@ import {createNamespacedHelpers} from 'vuex'
 import {action} from '@store/constants'
 import {isAllFieldsEmpty} from '@/lib/utilities'
 
+import DivWithError from '@/components/DivWithError'
+import DropdownWithSelect from '@components/DropdownWithSelect'
 import BaseRadio from '@/components/BaseRadio'
 import OnlineIcon from '@components/icons/OnlineIcon'
 import SocialIcon from '@components/icons/SocialIcon'
-import DropdownWithSelect from '@components/DropdownWithSelect'
 import BaseButton from '@/components/common/BaseButton'
 import SaveIcon from '@/components/icons/SaveIcon'
 
@@ -66,9 +74,10 @@ const {mapActions, mapState} = createNamespacedHelpers('comparison')
 export default {
   name: 'CreateDefineComparison',
   components: {
+    DivWithError,
+    DropdownWithSelect,
     BaseButton,
     BaseRadio,
-    DropdownWithSelect,
     OnlineIcon,
     SaveIcon,
     SocialIcon,
@@ -106,6 +115,35 @@ export default {
         this.projects.projectToCompareOptional = {}
       },
     },
+    errors() {
+      const project = isAllFieldsEmpty(this.projects.project)
+        ? {hasError: true, errorMessage: 'You have to choose project'}
+        : {hasError: false}
+      const projectToCompare = isAllFieldsEmpty(this.projects.projectToCompare)
+        ? {
+            hasError: true,
+            errorMessage: 'You have to choose project to compare',
+          }
+        : {hasError: false}
+      const sameProjects =
+        this.projects.project.id === this.projects.projectToCompare.id &&
+        !(
+          isAllFieldsEmpty(this.projects.project) &&
+          isAllFieldsEmpty(this.projects.projectToCompare)
+        )
+
+      if (sameProjects) {
+        projectToCompare.hasError = true
+        projectToCompare.errorMessage = 'You cant compare the same project'
+      }
+      const disableBtn = project.hasError || projectToCompare.hasError
+
+      return {
+        project,
+        projectToCompare,
+        disableBtn,
+      }
+    },
   },
   created() {
     if (isAllFieldsEmpty(this.modulesProjects)) this[action.GET_PROJECTS]()
@@ -119,8 +157,9 @@ export default {
     isAllFieldsEmpty,
     ...mapActions([
       action.GET_PROJECTS,
+      action.GET_WORKSPACES,
       action.CREATE_WORKSPACE,
-      action.UPDATE_WORKSPACE,
+      action.UPDATE_WORKSPACES_PROJECTS,
       action.UPDATE_NEW_COMPARISON_WORKSPACE,
     ]),
     saveWorkspace() {
@@ -140,36 +179,36 @@ export default {
       const workspace = {
         title: this.newWorkspace.title,
         description: this.newWorkspace.description,
-        department: this.newWorkspace.departament,
+        department: this.newWorkspace.department,
         members: this.newWorkspace.members,
         cmpr_workspace_projects: [
           {
             title: this.newProject.title,
+            note: this.newProject.description,
             members: this.newProject.members,
             cmpr_items: projects,
+            creator: this.newProject.creator,
+            workspace: this.workspaceId === 'new' ? null : this.workspaceId,
           },
         ],
       }
 
-      if (this.workspaceId === 'new') this[action.CREATE_WORKSPACE](workspace)
-      else {
-        this[action.UPDATE_WORKSPACE]({
-          workspaceId: this.workspaceId,
-          workspace: {
+      if (this.workspaceId === 'new') {
+        this[action.CREATE_WORKSPACE](workspace)
+        this.$router.push({
+          name: 'Comparison',
+        })
+      } else {
+        this[action.UPDATE_WORKSPACES_PROJECTS]({
+          data: {
             ...workspace.cmpr_workspace_projects[0],
-            creator: this.newProject.creater,
-            note: '',
-            workspace: null,
-            members: [],
           },
         })
+        this.$router.push({
+          name: 'ComparisonWorkspace',
+          params: this.$route.params.workspaceId,
+        })
       }
-
-      this[action.UPDATE_NEW_COMPARISON_WORKSPACE]()
-
-      this.$router.push({
-        name: 'Comparison',
-      })
     },
   },
 }
@@ -180,8 +219,8 @@ export default {
   display: flex;
   flex-direction: column;
 
-  margin-bottom: 20px;
   gap: 40px;
+
   &__module {
     display: flex;
     flex-direction: column;
@@ -192,16 +231,42 @@ export default {
     }
   }
 
+  &__error {
+    border: 1px solid var(--negative-status);
+    border-radius: 10px;
+  }
+
   &__projects {
     display: flex;
     flex-direction: column;
 
-    span {
-      margin-top: 10px;
+    div {
+      border-radius: 8px;
     }
 
-    div {
-      margin-top: 5px;
+    .select {
+      height: 40px;
+    }
+    .no-error {
+      visibility: hidden;
+      font-size: 12px;
+      color: transparent;
+
+      transition: all 0.5s;
+    }
+
+    .error {
+      visibility: visible;
+      color: var(--primary-color);
+    }
+
+    .hint {
+      font-style: italic;
+      color: var(--primary-color);
+    }
+
+    span {
+      margin-top: 10px;
     }
   }
 }
@@ -211,5 +276,9 @@ export default {
   padding: 2px;
 
   border-radius: 2px;
+}
+
+.base-button {
+  margin-top: 5px;
 }
 </style>
