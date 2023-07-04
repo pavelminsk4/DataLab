@@ -1,12 +1,14 @@
+from project_social.widgets.filters_for_widgets import post_agregator_with_dimensions
+from project_social.widgets.filters_for_widgets import post_agregetor_for_each_widget
 from project_social.models import SocialWidgetDescription
-from project_social.widgets.filters_for_widgets import *
 from project_social.models import ProjectSocial
+from django.forms.models import model_to_dict
 from django.db.models.functions import Trunc
 from django.http import JsonResponse
 from django.db.models import Count
 import json
 
-def post_agregator_sentiment_for_period(posts, aggregation_period):
+def calculate(posts, aggregation_period):
   negative_posts = posts.annotate(date_trunc=Trunc('date', aggregation_period)).values("date_trunc").filter(sentiment_vote='negative').annotate(count_negative=Count('sentiment_vote')).order_by("date")
   neutral_posts = posts.annotate(date_trunc=Trunc('date', aggregation_period)).values("date_trunc").filter(sentiment_vote='neutral').annotate(count_neutral=Count('sentiment_vote')).order_by("date")
   positive_posts = posts.annotate(date_trunc=Trunc('date', aggregation_period)).values("date_trunc").filter(sentiment_vote='positive').annotate(count_positive=Count('sentiment_vote')).order_by("date")
@@ -29,5 +31,15 @@ def sentiment(request, pk, widget_pk):
   posts = post_agregetor_for_each_widget(widget, posts)
   body = json.loads(request.body)
   aggregation_period = body['aggregation_period']
-  results = post_agregator_sentiment_for_period(posts, aggregation_period)
+  results = calculate(posts, aggregation_period)
   return JsonResponse(results, safe = False)
+
+def sentiment_report(pk, widget_pk):
+    project = ProjectSocial.objects.get(id=pk)
+    posts = post_agregator_with_dimensions(project)
+    widget = SocialWidgetDescription.objects.get(id=widget_pk)
+    posts = post_agregetor_for_each_widget(widget, posts)
+    return {
+        'data': calculate(posts, widget.aggregation_period),
+        'widget': {'sentiment_diagram': model_to_dict(widget)}
+    }

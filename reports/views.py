@@ -1,25 +1,28 @@
 from project_social.widgets.dashboard.content_volume_top_languages import content_volume_top_languages_report
 from project_social.widgets.dashboard.content_volume_top_locations import content_volume_top_locations_report
+from project_social.widgets.sentiment.sentiment_number_of_results import sentiment_number_of_results_report
 from project_social.widgets.dashboard.content_volume_top_authors import content_volume_top_authors_report
 from project_social.widgets.dashboard.sentiment_languages import sentiment_languages_report
 from project_social.widgets.dashboard.sentiment_locations import sentiment_locations_report
-from project_social.widgets.sentiment.sentiment_number_of_results import sentiment_report
+from project_social.widgets.sentiment.sentiment_by_gender import sentiment_by_gender_report 
 from project_social.widgets.dashboard.sentiment_authors import sentiment_authors_report
 from project_social.widgets.dashboard.content_volume import content_volume_report
 from project_social.widgets.dashboard.top_languages import top_languages_report
 from project_social.widgets.dashboard.top_locations import top_locations_report
 from project_social.widgets.dashboard.top_authors import top_authors_report
+from project_social.widgets.summary.top_keywords import top_keywords_report
 from project_social.widgets.dashboard.summary_widget import summary_report
+from project_social.widgets.dashboard.sentiment import sentiment_report
 
 from reports.views_filling.filling_for_report import filling_templates_for_instant_and_regular_reports
+from .services.pdf_handler import convert_docx_to_pdf
 from .chartjs.chartjs import prepare_widget_images
 from .serializers import RegularReportSerializer
 from django.http import FileResponse
+from rest_framework import viewsets
+from django.shortcuts import render
 from .models import RegularReport
 from docx import Document
-from rest_framework import viewsets
-from .services.pdf_handler import convert_docx_to_pdf
-from django.shortcuts import render
 
 from project_social.models import ProjectSocial, SocialWidgetsList
 from project.models import Project
@@ -91,7 +94,12 @@ def social_top_languages_screenshot(request, proj_pk):
 
 def social_sentiment_diagram_screenshot(request, proj_pk):
     wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).sentiment_diagram.pk
-    context = {'context': sentiment_report(proj_pk, wd_pk)}
+    context = {'context': sentiment_number_of_results_report(proj_pk, wd_pk)}
+    return render(request, 'social_reports/base_template_screenshot.html', context)
+
+def social_sentiment_number_of_results_screenshot(request, proj_pk):
+    wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).sentiment_number_of_results.pk
+    context = {'context': sentiment_number_of_results_report(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)
 
 
@@ -135,4 +143,19 @@ def social_sentiment_locations_screenshot(request, proj_pk):
 def social_summary_screenshot(request, proj_pk):
     wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).summary.pk
     context = {'context': summary_report(proj_pk, wd_pk)}
+    return render(request, 'social_reports/base_template_screenshot.html', context)
+
+def social_sentiment_gender_screenshot(request, proj_pk):
+    wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).sentiment_by_gender.pk
+    context = {'context': sentiment_by_gender_report(proj_pk, wd_pk)}
+    return render(request, 'social_reports/base_template_screenshot.html', context)
+
+def social_sentiment_screenshot(request, proj_pk):
+    wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).sentiment.pk
+    context = {'context': sentiment_report(proj_pk, wd_pk)}
+    return render(request, 'social_reports/base_template_screenshot.html', context)
+
+def social_top_keywords_screenshot(request, proj_pk):
+    wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).top_keywords.pk
+    context = {'context': top_keywords_report(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)

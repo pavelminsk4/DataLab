@@ -23,12 +23,12 @@ def sentiment_number_of_results(pk, widget_pk):
     return JsonResponse(res, safe=False)
 
 
-def sentiment_report(pk, widget_pk):
+def sentiment_number_of_results_report(pk, widget_pk):
     project = ProjectSocial.objects.get(id=pk)
     posts = post_agregator_with_dimensions(project)
     widget = SocialWidgetDescription.objects.get(id=widget_pk)
     posts = post_agregetor_for_each_widget(widget, posts)
     return {
         'data': calculate(posts),
-        'widget': {'sentiment_diagram': model_to_dict(widget)}
+        'widget': {'sentiment_number_of_results': model_to_dict(widget)}
     }
