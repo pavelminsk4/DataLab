@@ -41,5 +41,5 @@ def sentiment_report(pk, widget_pk):
     posts = post_agregetor_for_each_widget(widget, posts)
     return {
         'data': calculate(posts, widget.aggregation_period),
-        'widget': {'sentiment_diagram': model_to_dict(widget)}
+        'widget': {'sentiment': model_to_dict(widget)}
     }

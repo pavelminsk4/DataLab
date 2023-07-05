@@ -49,7 +49,7 @@ class ScreenDriver:
         url = f'{base_url}/api/reports/{widget}_screenshot/{str(self.item.module_project_id)}/'
         driver.get(url)
         # We must to replace sleep with it in the nearest future - WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.TAG_NAME, 'canvas')))
-        sleep(0.5)
+        sleep(0.3)
         screenshot_path = f'{storage_folder}{widget}_{str(uuid4())}.png'
         driver.save_screenshot(screenshot_path)
         return screenshot_path
