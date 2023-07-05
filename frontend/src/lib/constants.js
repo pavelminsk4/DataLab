@@ -36,7 +36,7 @@ export const onlineWidgetsList = {
   summary: [
     {name: 'summary'},
     {name: 'volume'},
-    {name: 'sentiment_for_period'},
+    {name: 'sentiment_for_period', isFullWidth: true},
     {name: 'top_sources', isFullWidth: true},
     {name: 'top_authors'},
     {name: 'top_keywords'},
@@ -85,12 +85,12 @@ export const socialWidgetsList = {
     {name: 'sentiment_locations'},
     {name: 'sentiment_languages'},
     {name: 'sentiment_by_gender'},
-    {name: 'sentiment_top_keywords'},
+    {name: 'sentiment_top_keywords', isFullWidth: true},
   ],
   demography: [
     {name: 'top_keywords'},
     {name: 'keywords_by_location'},
-    {name: 'authors_by_location', isFullWidth: false},
+    {name: 'authors_by_location', isFullWidth: true},
     {name: 'languages_by_location', isFullWidth: true},
     {name: 'sentiment_locations', isFullWidth: true},
     {name: 'authors_by_gender', isFullWidth: true},
@@ -103,7 +103,7 @@ export const socialWidgetsList = {
     {name: 'top_authors_by_gender', isFullWidth: true},
     {name: 'authors_by_location', isFullWidth: false},
     {name: 'authors_by_gender', isFullWidth: false},
-    {name: 'authors_by_language', isFullWidth: false},
+    {name: 'authors_by_language', isFullWidth: true},
   ],
 }
 
