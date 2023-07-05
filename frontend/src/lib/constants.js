@@ -151,7 +151,7 @@ export const comparisonWidgetsList = {
     // {name: 'summary', isFullWidth: true},
     {name: 'content_volume'},
     {name: 'top_authors'},
-    // {name: 'sentiment'},
+    {name: 'sentiment'},
     // {name: 'top_sources'},
     // {name: 'top_keywords', isFullWidth: true},
     // {name: 'top_languages'},
@@ -177,3 +177,9 @@ export const PREDEFINED_COLORS = [
   '#00D98F',
   '#5500FF',
 ]
+
+export const SENTIMENT_COLORS = {
+  positive: '#00b884',
+  neutral: '#516bee',
+  negative: '#ed2549',
+}

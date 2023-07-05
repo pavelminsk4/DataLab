@@ -1,20 +1,20 @@
 <template>
   <TopEntitiesStackedBarWidget
     v-if="widgetDetails.widgetData"
-    v-bind="$attrs"
     :chart-values="widgetData.values"
     :labels="widgetData.labels"
     :widgetDetails="widgetDetails"
+    v-bind:bar-height="'55px'"
   />
 </template>
 
 <script>
-import {PREDEFINED_COLORS} from '@/lib/constants'
+import {SENTIMENT_COLORS} from '@/lib/constants'
 
 import TopEntitiesStackedBarWidget from '@/components/widgets/TopEntitiesStackedBarWidget'
 
 export default {
-  name: 'ComparisonTopAuthorsWidget',
+  name: 'SentimentWidget',
   components: {TopEntitiesStackedBarWidget},
   props: {
     widgetDetails: {type: Object, required: true},
@@ -26,26 +26,21 @@ export default {
     widgetData() {
       const {widgetData} = this.widgetDetails
       const [labels, values] = [[], []]
+
       widgetData.forEach((project) => {
-        const sumValues = project.data.reduce((currSum, currValue) => {
-          return currSum + currValue.user_count || currValue.author_posts_count
-        }, 0)
+        const sumValues = Object.values(project.data).reduce(
+          (currSum, currValue) => currSum + currValue
+        )
 
         labels.push(project.project)
         values.push(
-          project.data.map((author, index) => {
+          Object.entries(project.data).map((entry) => {
             return {
-              data: [
-                +(
-                  ((author.user_count || author.author_posts_count) /
-                    sumValues) *
-                  100
-                ).toFixed(),
-              ],
-              backgroundColor: PREDEFINED_COLORS[index],
+              data: [+((entry[1] / sumValues) * 100).toFixed()],
+              backgroundColor: SENTIMENT_COLORS[entry[0]],
               borderRadius: 12,
               barThickness: 'flex',
-              label: author.user_name || author.entry_author || 'No author',
+              label: entry[0],
             }
           })
         )
