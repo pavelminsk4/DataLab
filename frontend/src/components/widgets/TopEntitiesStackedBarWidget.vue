@@ -36,7 +36,9 @@ export default {
   computed: {
     chartType() {
       return (
-        this.widgetDetails.chart_type || this.widgetDetails.defaultChartType
+        this.widgetDetails.chart_type ||
+        this.widgetDetails.defaultChartType ||
+        'TopEntitiesBarChart'
       )
     },
     widgetWrapper() {
