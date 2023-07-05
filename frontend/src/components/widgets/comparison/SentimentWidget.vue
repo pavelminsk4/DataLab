@@ -4,7 +4,6 @@
     :chart-values="widgetData.values"
     :labels="widgetData.labels"
     :widgetDetails="widgetDetails"
-    v-bind:bar-height="'55px'"
   />
 </template>
 
