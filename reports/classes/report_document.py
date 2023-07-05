@@ -89,7 +89,10 @@ class ReportDocument:
         
     def __fill_demography_section(self, p, cell):
         widgets = {
-                    'soc_top_keywords': ['top_keywords', False]
+                    'soc_top_keywords': ['top_keywords', False],
+                    'soc_top_authors_by_gender': ['top_authors_by_gender', False],
+                    'soc_authors_by_language': ['authors_by_language', False],
+                    'soc_authors_by_location': ['authors_by_location', False]
                   }
         if True in [(True if hasattr(self.item, widget) else False) for widget in widgets.keys()]:
             self.__font_one(cell.add_paragraph('').add_run('Demography'), cell)
@@ -117,7 +120,10 @@ class ReportDocument:
                     'soc_sentiment_locations': 'Sentiment locations',
                     'soc_sentiment_languages': 'Sentiment languages',
                     'soc_sentiment_by_gender': 'Sentiment by gender',
-                    'soc_top_keywords': 'Top keywords'
+                    'soc_top_keywords': 'Top keywords',
+                    'soc_top_authors_by_gender': 'Top authors by gender',
+                    'soc_authors_by_language': 'Authors by language',
+                    'soc_authors_by_location': 'Authors by location'
                   }
         for widget in widgets.keys():
             if getattr(self.item, widget):

@@ -21,5 +21,5 @@ def top_keywords_report(pk, widget_pk):
     posts = post_agregetor_for_each_widget(widget, posts)
     return {
         'data': get_keywords(posts),
-        'widget': {'sentiment_diagram': model_to_dict(widget)}
+        'widget': {'top_keywords': model_to_dict(widget)}
     }
