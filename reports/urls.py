@@ -25,8 +25,10 @@ urlpatterns = [
     path('soc_content_volume_screenshot/<int:proj_pk>/', views.social_content_volume_screenshot, name='soc_content_volume_screenshot'),
     path('soc_top_keywords_screenshot/<int:proj_pk>/', views.social_top_keywords_screenshot, name='soc_top_keywords_screenshot'),
     path('soc_top_authors_by_gender_screenshot/<int:proj_pk>/', views.social_top_authors_by_gender_screenshot, name='soc_top_authors_by_gender_screenshot'),
+    path('soc_authors_by_gender_screenshot/<int:proj_pk>/', views.social_authors_by_gender_screenshot, name='soc_authors_by_gender_screenshot'),
     path('soc_authors_by_language_screenshot/<int:proj_pk>/', views.social_authors_by_language_screenshot, name='soc_authors_by_language_screenshot'),
     path('soc_authors_by_location_screenshot/<int:proj_pk>/', views.social_authors_by_location_screenshot, name='soc_authors_by_location_screenshot'),
+    path('soc_gender_by_location_screenshot/<int:proj_pk>/', views.social_gender_by_location_screenshot_screenshot, name='soc_gender_by_location_screenshot'),
 ]
 
 router.register('regular_reports', views.RegularReportViewSet, 'regular_reports')
