@@ -8,17 +8,17 @@ from django.urls import reverse
 import json
 
 
-class ComparisonSocialSummaryTests(APITestCase):
+class ComparisonSocialSentimentTests(APITestCase):
     def setUp(self):
         pr = ProjectSocialFactory(title='Girlfriend')
         prcmpr = ProjectComparisonFactory()
         ComparisonItemFactory(module_project_id=pr.id, module_type='ProjectSocial', project=prcmpr)
 
-    def test_summary_feature_social(self):
+    def test_sentiment_feature_social(self):
         TweetBinderPostFactory(text='post')
         pr = ProjectComparison.objects.first()
-        url = reverse('comparison:summary', kwargs={'pk': pr.id})
+        url = reverse('comparison:sentiment', kwargs={'pk': pr.id})
         response = self.client.get(url, format='json')
         self.assertEqual(len(json.loads(response.content)), 7)
-        self.assertEqual(json.loads(response.content)[0]['widget_name'], 'summary')
-        self.assertEqual(json.loads(response.content)[1]['widget_name'], 'content_volume')
+        self.assertEqual(json.loads(response.content)[0]['widget_name'], 'number_of_results')
+        self.assertEqual(json.loads(response.content)[1]['widget_name'], 'sentiment')
