@@ -12,7 +12,6 @@
       <div class="keyword">
         <div class="tooltip-wrapper">
           <BaseTooltip arrow-position="bottom" class="tooltip">
-            <div class="title">{{ capitalizeFirstLetter(text) }}</div>
             <span class="title">Results: {{ getCount(text, item) }} %</span>
           </BaseTooltip>
         </div>
