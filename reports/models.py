@@ -75,6 +75,7 @@ class ReportItem(models.Model):
   soc_authors_by_location = models.BooleanField(default=False)
   soc_authors_by_sentiment = models.BooleanField(default=False)
   soc_authors_by_gender = models.BooleanField(default=False)
+  soc_gender_by_location = models.BooleanField(default=False)
 
 class RegularReport(models.Model):
   title = models.CharField(max_length=50)
