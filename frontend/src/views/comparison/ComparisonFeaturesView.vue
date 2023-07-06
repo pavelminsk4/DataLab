@@ -13,7 +13,10 @@
           }"
         />
       </div>
-      <router-view :current-project="currentProject"></router-view>
+      <router-view
+        :current-project="currentProject"
+        :projects-module="projectsModule"
+      ></router-view>
     </div>
   </MainLayout>
 </template>
@@ -50,6 +53,11 @@ export default {
       return this.currentWorkspace.cmpr_workspace_projects.find(
         (el) => el.id === +this.projectId
       )
+    },
+    projectsModule() {
+      return this.currentProject.cmpr_items[0].module_type === 'Project'
+        ? 'online'
+        : 'social'
     },
   },
   created() {

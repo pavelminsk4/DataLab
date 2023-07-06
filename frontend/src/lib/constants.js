@@ -147,16 +147,30 @@ export const accountAnalysisWidgetsList = {
 }
 
 export const comparisonWidgetsList = {
-  summary: [
-    // {name: 'summary', isFullWidth: true},
-    {name: 'content_volume'},
-    {name: 'top_authors'},
-    {name: 'sentiment'},
-    // {name: 'top_sources'},
-    // {name: 'top_keywords', isFullWidth: true},
-    // {name: 'top_languages'},
-    // {name: 'top_countries'},
-  ],
+  online: {
+    summary: [
+      // {name: 'summary', isFullWidth: true},
+      {name: 'content_volume'},
+      {name: 'top_authors'},
+      {name: 'sentiment'},
+      // {name: 'top_sources'},
+      {name: 'top_keywords', isFullWidth: true},
+      // {name: 'top_languages'},
+      // {name: 'top_countries'},
+    ],
+  },
+  social: {
+    summary: [
+      // {name: 'summary', isFullWidth: true},
+      {name: 'content_volume'},
+      {name: 'top_authors'},
+      {name: 'sentiment'},
+      // {name: 'top_sources'},
+      {name: 'top_keywords', isFullWidth: true},
+      // {name: 'top_languages'},
+      // {name: 'top_countries'},
+    ],
+  },
 }
 
 export const expertModeFilters = {
@@ -166,10 +180,10 @@ export const expertModeFilters = {
 
 export const PREDEFINED_COLORS = [
   '#EE51AF',
-  '#00B884',
+  '#BA82FF',
   '#516BEE',
   '#DD8500',
-  '#BA82FF',
+  '#00B884',
   '#C9EA84',
   '#5A12B3',
   '#00B1FF',

@@ -54,7 +54,7 @@ const CHARTS = {
     name: 'Word Cloud',
   },
   sentimentWordCloud: {
-    componentName: 'SentimentWordCloudChart',
+    componentName: 'ColoredWorlCloudChart',
     name: 'Word Cloud',
   },
   topEntitiesBarChart: {
@@ -230,7 +230,7 @@ export const widgetsConfig = {
     height: '420px',
     hasAggregationPeriod: false,
     actionName: action.GET_SENTIMENT_TOP_KEYWORDS_WIDGET,
-    defaultChartType: 'SentimentWordCloudChart',
+    defaultChartType: 'ColoredWorlCloudChart',
     settingsTabs: ['General', 'Filters'],
   },
 
