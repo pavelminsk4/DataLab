@@ -24,13 +24,14 @@ export default {
   },
   props: {
     currentProject: {type: [Array, Object], required: false},
+    projectsModule: {type: String, required: true},
   },
   computed: {
     ...mapState(['summary']),
 
     selectedWidgets() {
       if (!this.summary.widgets.length) return
-      return comparisonWidgetsList.summary
+      return comparisonWidgetsList[this.projectsModule].summary
         .map((widget) => {
           const findedWidget = this.summary.widgets.find(
             (el) => el.widget_name === widget.name

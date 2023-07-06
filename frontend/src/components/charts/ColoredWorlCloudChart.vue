@@ -32,7 +32,7 @@ import {capitalizeFirstLetter} from '@/lib/utilities'
 import BaseTooltip from '@/components/BaseTooltip'
 
 export default {
-  name: 'SentimentWordCloudChart',
+  name: 'ColoredWorlCloudChart',
   components: {BaseTooltip, VueWordCloud},
   emits: ['open-interactive-data'],
   props: {
@@ -103,12 +103,12 @@ export default {
 .word-cloud-wrapper {
   transition > div {
     &:hover {
-      z-index: 200;
+      z-index: 3;
     }
   }
 
   &:hover {
-    z-index: 200;
+    z-index: 3;
   }
 }
 </style>

@@ -27,7 +27,7 @@ import HorizontalBarChart from '@/components/charts/HorizontalBarChart'
 import DoughnutChart from '@/components/charts/DoughnutChart'
 import WordCloudChart from '@/components/charts/WordCloudChart'
 import WorldMapChart from '@/components/charts/WorldMapChart'
-import SentimentWordCloudChart from '@/components/charts/SentimentWordCloudChart'
+import ColoredWorlCloudChart from '@/components/charts/ColoredWorlCloudChart'
 import StackedBarChart from '@/components/charts/StackedBarChart'
 import BarLineChart from '@/components/charts/BarLineChart'
 import HeatmapChart from '@/components/charts/HeatmapChart'
@@ -47,7 +47,7 @@ export default {
     DoughnutChart,
     WordCloudChart,
     WorldMapChart,
-    SentimentWordCloudChart,
+    ColoredWorlCloudChart,
     StackedBarChart,
     BarLineChart,
     HeatmapChart,
