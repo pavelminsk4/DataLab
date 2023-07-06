@@ -69,8 +69,11 @@ export default {
       })
     )
   },
+  unmounted() {
+    this[action.CLEAR_WIDGETS_DATA]()
+  },
   methods: {
-    ...mapActions([action.GET_WORKSPACES]),
+    ...mapActions([action.GET_WORKSPACES, action.CLEAR_WIDGETS_DATA]),
     isAllFieldsEmpty,
     openTab(pathName) {
       this.$router.push({

@@ -112,4 +112,8 @@ export default {
   async [action.UPDATE_NEW_COMPARISON_PROJECT]({commit}, data) {
     commit(mutator.SET_NEW_COMPARISON_PROJECT, data)
   },
+
+  async [action.CLEAR_WIDGETS_DATA]({commit}) {
+    commit(mutator.CLEAR_WIDGETS_DATA)
+  },
 }
