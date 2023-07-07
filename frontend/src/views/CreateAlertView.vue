@@ -51,3 +51,9 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.second-column {
+  width: 45vw;
+}
+</style>
