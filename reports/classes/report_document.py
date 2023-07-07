@@ -59,6 +59,9 @@ class ReportDocument:
         widgets = {
                     'soc_summary': ['summary', False],
                     'soc_sentiment': ['sentiment', False],
+                    'soc_top_locations': ['top_locations', False],
+                    'soc_top_authors': ['top_authors', False],
+                    'soc_top_languages': ['top_languages', False],
                     'soc_content_volume': ['content_volume', True],
                     'soc_content_volume_top_locations': ['content_volume_top_locations', True],
                     'soc_content_volume_top_authors': ['content_volume_top_authors', True],
@@ -94,7 +97,9 @@ class ReportDocument:
                     'soc_authors_by_gender': ['authors_by_gender', False],
                     'soc_authors_by_language': ['authors_by_language', False],
                     'soc_authors_by_location': ['authors_by_location', False],
-                    'soc_gender_by_location': ['gender_by_location', False]
+                    'soc_gender_by_location': ['gender_by_location', False],
+                    'soc_keywords_by_location': ['keywords_by_location', False],
+                    'soc_languages_by_location': ['languages_by_location', False]
                   }
         if True in [(True if hasattr(self.item, widget) else False) for widget in widgets.keys()]:
             self.__font_one(cell.add_paragraph('').add_run('Demography'), cell)
@@ -109,6 +114,7 @@ class ReportDocument:
     def __fill_content(self):
         widgets = {
                     'soc_summary': 'Summary',
+                    'soc_sentiment': 'Sentiment',
                     'soc_top_locations': 'Top Locations',
                     'soc_top_authors': 'Top Authors',
                     'soc_top_languages': 'Top Languages',
@@ -127,7 +133,9 @@ class ReportDocument:
                     'soc_authors_by_gender': 'Authors by gender',
                     'soc_authors_by_language': 'Authors by language',
                     'soc_authors_by_location': 'Authors by location',
-                    'soc_gender_by_location': 'Top gender by location'
+                    'soc_gender_by_location': 'Top gender by location',
+                    'soc_keywords_by_location': 'Top keywords by location',
+                    'soc_languages_by_location': 'Top languages by location'
                   }
         for widget in widgets.keys():
             if getattr(self.item, widget):

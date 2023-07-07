@@ -75,6 +75,8 @@ class Converter:
                 soc_authors_by_location = widget_list.authors_by_location.is_active,
                 soc_authors_by_sentiment = widget_list.authors_by_sentiment.is_active,
                 soc_authors_by_gender = widget_list.authors_by_gender.is_active,
-                soc_gender_by_location = widget_list.gender_by_location.is_active
+                soc_gender_by_location = widget_list.gender_by_location.is_active,
+                soc_keywords_by_location = widget_list.keywords_by_location.is_active,
+                soc_languages_by_location = widget_list.languages_by_location.is_active
             )
         return item

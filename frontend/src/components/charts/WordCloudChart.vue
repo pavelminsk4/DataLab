@@ -3,6 +3,7 @@
     :words="words"
     :font-size-ratio="3"
     :spacing="1"
+    :animation-duration="hasAnimation ? 1000 : 0"
     font-family="Poppins"
     class="word-cloud-wrapper"
   >
@@ -35,6 +36,7 @@ export default {
   props: {
     labels: {type: Array, default: () => []},
     chartValues: {type: Array, default: () => []},
+    hasAnimation: {type: Boolean, default: true},
   },
   computed: {
     words() {
