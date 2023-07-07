@@ -95,3 +95,10 @@ class ComparisonProjectsTests(APITestCase):
         self.assertEqual(pr.cmpr_widgets.get(default_title='Top keywords').title, 'Top keywords')
         self.assertEqual(pr.cmpr_widgets.get(default_title='Top languages').title, 'Top languages')
         self.assertEqual(pr.cmpr_widgets.get(default_title='Top countries').title, 'Top countries')
+
+        self.assertEqual(pr.cmpr_widgets.get(default_title='Number of results').title, 'Number of results')
+        self.assertEqual(pr.cmpr_widgets.get(default_title='Top keywords by sentiment').title, 'Top keywords by sentiment')
+        self.assertEqual(pr.cmpr_widgets.get(default_title='Sentiment by location').title, 'Sentiment by location')
+        self.assertEqual(pr.cmpr_widgets.get(default_title='Sentiment by period').title, 'Sentiment by period')
+        self.assertEqual(pr.cmpr_widgets.get(default_title='Sentiment by languages').title, 'Sentiment by languages')
+        self.assertEqual(pr.cmpr_widgets.get(default_title='Sentiment by authors').title, 'Sentiment by authors')
