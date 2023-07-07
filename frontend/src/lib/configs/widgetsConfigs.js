@@ -434,23 +434,28 @@ export const widgetsConfig = {
   profile_timeline: {
     ...WIDGET_DEFAULT_SETTINGS,
     actionName: action.GET_PROFILE_TIMELINE,
+    hasAggregationPeriod: false,
     defaultChartType: 'BarLineChart',
     availableTypes: null,
-    settingsTabs: ['General', 'Filters'],
+    settingsTabs: ['General'],
   },
 
   most_engaging_post_types: {
     ...WIDGET_DEFAULT_SETTINGS,
     actionName: action.GET_MOST_ENGAGING_POST_TYPES,
+    hasAggregationPeriod: false,
     defaultChartType: 'BarChart',
     availableTypes: SIMPLE_CHARTS,
+    settingsTabs: ['General', 'Chart Layout'],
   },
 
   most_engaging_media_types: {
     ...WIDGET_DEFAULT_SETTINGS,
     actionName: action.GET_MOST_ENGAGING_MEDIA_TYPES,
+    hasAggregationPeriod: false,
     defaultChartType: 'BarChart',
     availableTypes: SIMPLE_CHARTS,
+    settingsTabs: ['General', 'Chart Layout'],
   },
 
   account_analysis_summary: {
@@ -459,7 +464,7 @@ export const widgetsConfig = {
     actionName: action.GET_ACCOUNT_ANALYSIS_SUMMARY_WIDGET,
     hasAggregationPeriod: false,
     defaultChartType: null,
-    settingsTabs: ['General', 'Filters'],
+    settingsTabs: ['General'],
   },
 
   most_frequent_post_types: {
@@ -468,6 +473,7 @@ export const widgetsConfig = {
     hasAggregationPeriod: false,
     defaultChartType: 'DoughnutChart',
     availableTypes: SIMPLE_CHARTS,
+    settingsTabs: ['General', 'Chart Layout'],
   },
 
   most_frequent_media_types: {
@@ -476,6 +482,7 @@ export const widgetsConfig = {
     hasAggregationPeriod: false,
     defaultChartType: 'DoughnutChart',
     availableTypes: SIMPLE_CHARTS,
+    settingsTabs: ['General', 'Chart Layout'],
   },
 
   optimal_post_length: {
@@ -484,6 +491,7 @@ export const widgetsConfig = {
     hasAggregationPeriod: false,
     defaultChartType: 'BarChart',
     availableTypes: SIMPLE_CHARTS,
+    settingsTabs: ['General'],
   },
 
   follower_growth: {
@@ -492,7 +500,7 @@ export const widgetsConfig = {
     hasAggregationPeriod: false,
     defaultChartType: 'LineChart',
     availableTypes: null,
-    settingsTabs: ['General', 'Filters'],
+    settingsTabs: ['General'],
   },
 
   top_hashtags: {
@@ -501,6 +509,7 @@ export const widgetsConfig = {
     hasAggregationPeriod: false,
     defaultChartType: 'HorizontalBarChart',
     availableTypes: SIMPLE_CHARTS,
+    settingsTabs: ['General', 'Chart Layout'],
   },
 
   optimal_number_of_hashtags: {
@@ -509,6 +518,7 @@ export const widgetsConfig = {
     hasAggregationPeriod: false,
     defaultChartType: 'HorizontalBarChart',
     availableTypes: SIMPLE_CHARTS,
+    settingsTabs: ['General', 'Chart Layout'],
   },
 
   average_engagements_by_day: {
@@ -517,6 +527,7 @@ export const widgetsConfig = {
     hasAggregationPeriod: false,
     defaultChartType: 'BarChart',
     availableTypes: SIMPLE_CHARTS,
+    settingsTabs: ['General', 'Chart Layout'],
   },
 
   optimal_post_time: {
@@ -525,7 +536,7 @@ export const widgetsConfig = {
     hasAggregationPeriod: false,
     defaultChartType: 'HeatmapChart',
     availableTypes: null,
-    settingsTabs: ['General', 'Filters'],
+    settingsTabs: ['General'],
   },
 
   top_posts_by_engagements: {
@@ -534,7 +545,7 @@ export const widgetsConfig = {
     hasPreview: false,
     hasAggregationPeriod: false,
     availableTypes: null,
-    settingsTabs: ['General', 'Filters'],
+    settingsTabs: ['General'],
   },
 
   best_times_to_post: {
@@ -543,14 +554,15 @@ export const widgetsConfig = {
     hasPreview: false,
     hasAggregationPeriod: false,
     availableTypes: null,
-    settingsTabs: ['General', 'Filters'],
+    settingsTabs: ['General'],
   },
 
   mention_timeline: {
     ...WIDGET_DEFAULT_SETTINGS,
+    hasAggregationPeriod: false,
     defaultChartType: 'BarLineChart',
     availableTypes: null,
-    settingsTabs: ['General', 'Filters'],
+    settingsTabs: ['General'],
   },
 
   most_frequent_mention_media_types: {
@@ -559,6 +571,7 @@ export const widgetsConfig = {
     hasAggregationPeriod: false,
     defaultChartType: 'DoughnutChart',
     availableTypes: SIMPLE_CHARTS,
+    settingsTabs: ['General'],
   },
 
   audience_mention_time: {
@@ -567,7 +580,7 @@ export const widgetsConfig = {
     hasAggregationPeriod: false,
     defaultChartType: 'HeatmapChart',
     availableTypes: null,
-    settingsTabs: ['General', 'Filters'],
+    settingsTabs: ['General'],
   },
 
   top_mentions_by_engagements: {
@@ -576,14 +589,16 @@ export const widgetsConfig = {
     hasPreview: false,
     hasAggregationPeriod: false,
     availableTypes: null,
-    settingsTabs: ['General', 'Filters'],
+    settingsTabs: ['General'],
   },
 
   average_engagements_by_day_for_mentions: {
     ...WIDGET_DEFAULT_SETTINGS,
     actionName: action.GET_AVERAGE_ENGAGEMENTS_BY_DAY_FOR_MENTIONS,
+    hasAggregationPeriod: false,
     defaultChartType: 'BarChart',
     availableTypes: SIMPLE_CHARTS,
+    settingsTabs: ['General', 'Chart Layout'],
   },
 
   mention_sentiment: {
@@ -592,6 +607,7 @@ export const widgetsConfig = {
     actionName: action.GET_MENTION_SENTIMENT,
     defaultChartType: 'DoughnutChart',
     availableTypes: SIMPLE_CHARTS,
+    settingsTabs: ['General', 'Chart Layout'],
   },
 }
 
