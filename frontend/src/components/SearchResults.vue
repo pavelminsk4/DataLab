@@ -187,6 +187,7 @@ export default {
   gap: 32px;
 
   margin: 15px 0;
+  width: 45vw;
 }
 
 .pagination-wrapper {

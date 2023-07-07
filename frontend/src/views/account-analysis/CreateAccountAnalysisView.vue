@@ -73,6 +73,7 @@ export default {
 }
 
 .second-column {
+  width: 45vw;
   height: 100%;
   padding: 32px 32px 0 16px;
 }
