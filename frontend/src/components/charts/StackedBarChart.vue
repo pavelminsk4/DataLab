@@ -61,7 +61,7 @@ export default {
             callbacks: {
               label(context) {
                 const {dataset} = context
-                return `${dataset.label}: ${dataset.data[0].toFixed()}%`
+                return `${dataset.label}: ${Math.trunc(dataset.data[0])}`
               },
             },
           },

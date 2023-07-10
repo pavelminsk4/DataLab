@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import {PREDEFINED_COLORS} from '@/lib/constants'
+import {getUniqueColors} from '@/lib/utilities'
 
 import TopEntitiesStackedBarWidget from '@/components/widgets/TopEntitiesStackedBarWidget'
 
@@ -23,6 +23,13 @@ export default {
     barHeight: '55px',
   },
   computed: {
+    itemsColors() {
+      const locations = this.widgetDetails.widgetData
+        .map((project) => project.data)
+        .flat()
+
+      return getUniqueColors(locations, 'locationString')
+    },
     widgetData() {
       const {widgetData} = this.widgetDetails
       const labels = []
@@ -35,15 +42,15 @@ export default {
 
         labels.push(project.project)
         values.push(
-          project.data.map((language, index) => {
+          project.data.map((location) => {
             return {
               data: [
-                Math.trunc((language.locations_count / totalValues) * 100),
+                Math.trunc((location.locations_count / totalValues) * 100),
               ],
-              backgroundColor: PREDEFINED_COLORS[index],
+              backgroundColor: this.itemsColors.get(location.locationString),
               borderRadius: 12,
               barThickness: 'flex',
-              label: language.locationString || 'No location',
+              label: location.locationString || 'No location',
             }
           })
         )
