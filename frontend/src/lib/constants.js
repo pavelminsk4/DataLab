@@ -161,7 +161,7 @@ export const comparisonWidgetsList = {
   },
   social: {
     summary: [
-      // {name: 'summary', isFullWidth: true},
+      {name: 'summary', isFullWidth: true, minHeight: 100},
       {name: 'content_volume'},
       {name: 'top_authors'},
       {name: 'sentiment'},
@@ -197,3 +197,5 @@ export const SENTIMENT_COLORS = {
   neutral: '#516bee',
   negative: '#ed2549',
 }
+
+export const COMPARISON_COLORS = ['#516BEE', '#00B1FF', '#00BF7F']
