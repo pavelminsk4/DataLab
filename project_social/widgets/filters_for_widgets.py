@@ -44,7 +44,7 @@ def author_filter_posts(authors, posts):
   return posts
 
 def sentiment_filter_posts(sentiments, posts):
-  posts = posts.filter(reduce(lambda x,y: x | y, [Q(sentiment=sentiment) for sentiment in sentiments]))
+  posts = posts.filter(reduce(lambda x,y: x | y, [Q(sentiment=sentiment.lower()) for sentiment in sentiments]))
   return posts
 
 def author_dimensions_posts(authors, posts):
