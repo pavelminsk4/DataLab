@@ -127,7 +127,7 @@ export default [
         component: SocialProjectDashboardView,
         children: [
           {
-            name: 'SocialDashboard',
+            name: 'SocialAnalytics',
             path: 'dashboard',
             component: SocialProjectDashboard,
           },

@@ -33,15 +33,16 @@ export default {
       if (!this.summary.widgets.length) return
       return comparisonWidgetsList[this.projectsModule].summary
         .map((widget) => {
-          const findedWidget = this.summary.widgets.find(
+          const foundWidget = this.summary.widgets.find(
             (el) => el.widget_name === widget.name
           )
-          if (findedWidget) {
+
+          if (foundWidget) {
             return {
               widgetDetails: {
-                ...findedWidget.description,
-                widgetData: findedWidget.projects_data,
-                widgetName: stringToPascalCase(findedWidget.widget_name),
+                ...foundWidget.description,
+                widgetData: foundWidget.projects_data,
+                widgetName: stringToPascalCase(foundWidget.widget_name),
               },
               isFullWidth: widget.isFullWidth,
               isShowDeleteBtn: false,

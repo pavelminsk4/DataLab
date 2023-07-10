@@ -1,6 +1,7 @@
 <template>
   <TopEntitiesStackedBarWidget
     v-if="widgetDetails.widgetData"
+    v-bind="$attrs"
     :chart-values="widgetData.values"
     :labels="widgetData.labels"
     :widgetDetails="widgetDetails"
@@ -8,12 +9,12 @@
 </template>
 
 <script>
-import {SENTIMENT_COLORS} from '@/lib/constants'
+import {PREDEFINED_COLORS} from '@/lib/constants'
 
 import TopEntitiesStackedBarWidget from '@/components/widgets/TopEntitiesStackedBarWidget'
 
 export default {
-  name: 'SentimentWidget',
+  name: 'ComparisonTopLocationsWidget',
   components: {TopEntitiesStackedBarWidget},
   props: {
     widgetDetails: {type: Object, required: true},
@@ -24,22 +25,25 @@ export default {
   computed: {
     widgetData() {
       const {widgetData} = this.widgetDetails
-      const [labels, values] = [[], []]
+      const labels = []
+      const values = []
 
       widgetData.forEach((project) => {
-        const sumValues = Object.values(project.data).reduce(
-          (currSum, currValue) => currSum + currValue
-        )
+        const totalValues = project.data.reduce((sum, currValue) => {
+          return sum + currValue.locations_count
+        }, 0)
 
         labels.push(project.project)
         values.push(
-          Object.entries(project.data).map((entry) => {
+          project.data.map((language, index) => {
             return {
-              data: [Math.trunc((entry[1] / sumValues) * 100)],
-              backgroundColor: SENTIMENT_COLORS[entry[0]],
+              data: [
+                Math.trunc((language.locations_count / totalValues) * 100),
+              ],
+              backgroundColor: PREDEFINED_COLORS[index],
               borderRadius: 12,
               barThickness: 'flex',
-              label: entry[0],
+              label: language.locationString || 'No location',
             }
           })
         )

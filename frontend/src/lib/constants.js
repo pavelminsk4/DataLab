@@ -161,14 +161,14 @@ export const comparisonWidgetsList = {
   },
   social: {
     summary: [
-      // {name: 'summary', isFullWidth: true},
-      {name: 'content_volume'},
+      {name: 'summary', isFullWidth: true, minHeight: 100},
+      {name: 'content_volume', isFullWidth: true},
       {name: 'top_authors'},
       {name: 'sentiment'},
       // {name: 'top_sources'},
       {name: 'top_keywords', isFullWidth: true},
-      // {name: 'top_languages'},
-      // {name: 'top_countries'},
+      {name: 'top_languages'},
+      {name: 'top_locations'},
     ],
   },
 }
@@ -197,3 +197,5 @@ export const SENTIMENT_COLORS = {
   neutral: '#516bee',
   negative: '#ed2549',
 }
+
+export const COMPARISON_COLORS = ['#516BEE', '#00B1FF', '#00BF7F']
