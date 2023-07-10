@@ -1,3 +1,4 @@
+from account_analysis.models import ProjectAccountAnalysis
 from tweet_binder.models import TweetBinderPost
 from django.db.models import Q
 from functools import reduce
@@ -71,3 +72,13 @@ def posts_aggregator(project):
   if project.sentiment_dimensions:
     posts = sentiment_dimensions_posts(project.sentiment_dimensions, posts)    
   return posts
+
+def filter_for_account_posts(pk, widget_pk):
+  project = ProjectAccountAnalysis.objects.get(id=pk)
+  posts = posts_aggregator(project).filter(user_alias=project.profile_handle)
+  return posts, project
+
+def filter_for_mentions_posts(pk, widget_pk):  
+  project = ProjectAccountAnalysis.objects.get(id=pk)
+  posts = posts_aggregator(project).filter(text__icontains=f'@{project.profile_handle}')
+  return posts, project

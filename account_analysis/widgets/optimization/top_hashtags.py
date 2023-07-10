@@ -1,12 +1,11 @@
-from account_analysis.widgets.filter_for_posts import posts_aggregator
-from account_analysis.models import ProjectAccountAnalysis, AccountAnalysisWidgetDescription
+from account_analysis.widgets.filter_for_posts import filter_for_account_posts
+from account_analysis.models import AccountAnalysisWidgetDescription
 from django.db.models import Sum, F
 from django.http import JsonResponse
 
 
 def top_hashtags(pk, widget_pk):
-    project = ProjectAccountAnalysis.objects.get(id=pk)
-    posts = posts_aggregator(project)
+    posts, project = filter_for_account_posts(pk, widget_pk)
     widget = AccountAnalysisWidgetDescription.objects.get(id=widget_pk)
     posts = posts.filter(count_hashtags__gte=1).annotate(engagement=Sum(F('count_favorites') + F('count_retweets'))).values('engagement', 'hashtags').order_by('-engagement')
     hashtags = set()

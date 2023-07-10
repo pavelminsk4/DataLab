@@ -1,14 +1,10 @@
-from account_analysis.widgets.filter_for_posts import *
-from account_analysis.widgets.dimensions import *
+from account_analysis.widgets.filter_for_posts import filter_for_account_posts
 from django.db.models.functions import Trunc
-from django.db.models import Count, Sum
-from account_analysis.models import *
-from tweet_binder.models import *
 from django.http import JsonResponse
+import json
 
 def follower_growth(request, pk, widget_pk):
-    project = ProjectAccountAnalysis.objects.get(id=pk)
-    posts = posts_aggregator(project)
+    posts, project = filter_for_account_posts(pk, widget_pk)
     body = json.loads(request.body)
     aggregation_period = body['aggregation_period']
     res = post_aggregator_follower_growth(posts, aggregation_period)

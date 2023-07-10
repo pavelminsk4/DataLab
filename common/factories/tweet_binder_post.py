@@ -16,7 +16,7 @@ class TweetBinderPostFactory(factory.django.DjangoModelFactory):
     count_hashtags   = '1'
     language         = 'En'
     user_name        = 'First_name'
-    user_alias       = 'first'
+    user_alias       = 'First_name'
     locationString   = 'Nostramo'
     sentiment        = 'neutral'
     text             = 'First twitter post'
@@ -28,7 +28,6 @@ class TweetBinderPostFactory(factory.django.DjangoModelFactory):
     count_replies    = '1'
     language         = 'En'
     user_name        = 'First_name'
-    user_alias       = '@first'
     user_followers   = '100'
     locationString   = 'Nostramo'
     type             = ['origin']

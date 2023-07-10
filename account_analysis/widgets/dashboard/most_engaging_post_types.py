@@ -1,15 +1,10 @@
-from account_analysis.widgets.filter_for_posts import *
-from account_analysis.widgets.dimensions import *
-from django.db.models.functions import Trunc
-from account_analysis.models import *
-from tweet_binder.models import *
+from account_analysis.widgets.filter_for_posts import filter_for_account_posts
 from django.http import JsonResponse
 from django.db.models import Sum, F
 
 
 def most_engaging_post_types(pk, widget_pk):
-    project = ProjectAccountAnalysis.objects.get(id=pk)
-    posts = posts_aggregator(project)
+    posts, project = filter_for_account_posts(pk, widget_pk)
     res = post_aggregator_most_engaging_post_types(posts)
     return JsonResponse(res, safe=False)
 

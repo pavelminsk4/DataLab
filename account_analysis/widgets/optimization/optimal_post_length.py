@@ -1,25 +1,34 @@
-from account_analysis.widgets.filter_for_posts import posts_aggregator
-from account_analysis.models import ProjectAccountAnalysis
-from django.db.models import Sum, F, Q
+from account_analysis.widgets.filter_for_posts import filter_for_account_posts
 from django.http import JsonResponse
 
 
 def optimal_post_length(pk, widget_pk):
-    project = ProjectAccountAnalysis.objects.get(id=pk)
-    posts = posts_aggregator(project)
-    posts_from_0_to_45 = posts.filter(count_textlength__lte=45)
-    posts_from_46_to_90 = posts.filter(Q(count_textlength__gte=46) & Q(count_textlength__lte=90))
-    posts_from_91_to_140 = posts.filter(Q(count_textlength__gte=91) & Q(count_textlength__lte=140))
-    posts_from_140 = posts.filter(count_textlength__gte=141)
-    engagement = Sum(F('count_favorites') + F('count_retweets'))
-    res = {
-            'from 0 to 45': posts_from_0_to_45.aggregate(engagement=engagement)['engagement']/posts_from_0_to_45.count() if posts_from_0_to_45.count() else 0,
-            'from 46 to 90': posts_from_46_to_90.aggregate(engagement=engagement)['engagement']/posts_from_46_to_90.count() if posts_from_46_to_90.count() else 0,
-            'from 91 to 140': posts_from_91_to_140.aggregate(engagement=engagement)['engagement']/posts_from_91_to_140.count() if posts_from_91_to_140.count() else 0,
-            'from 140': posts_from_140.aggregate(engagement=engagement)['engagement']/posts_from_140.count() if posts_from_140.count() else 0,
-            'posts from 0 to 45': posts_from_0_to_45.count(),
-            'posts from 46 to 90': posts_from_46_to_90.count(),
-            'post from 91 to 140': posts_from_91_to_140.count(),
-            'post from 140': posts_from_140.count(),
-          }
-    return JsonResponse(res, safe=False)
+    posts, project = filter_for_account_posts(pk, widget_pk)
+    posts_from_0_to_45_engagement, posts_from_0_to_45_count = 0, 0
+    posts_from_46_to_90_engagement, posts_from_46_to_90_count = 0, 0
+    posts_from_91_to_140_engagement, posts_from_91_to_140_count = 0, 0
+    posts_from_140_engagement, posts_from_140_count = 0, 0
+    for post in posts:
+        if post.count_textlength <= 45:
+            posts_from_0_to_45_engagement += post.count_favorites + post.count_retweets
+            posts_from_0_to_45_count += 1
+        if post.count_textlength >= 46 and post.count_textlength <= 90:
+            posts_from_46_to_90_engagement += post.count_favorites + post.count_retweets
+            posts_from_46_to_90_count += 1
+        if post.count_textlength >= 91 and post.count_textlength <= 140:
+            posts_from_91_to_140_engagement += post.count_favorites + post.count_retweets
+            posts_from_91_to_140_count += 1
+        if post.count_textlength >= 141:
+            posts_from_140_engagement += post.count_favorites + post.count_retweets
+            posts_from_140_count += 1
+    results = {
+                'from 0 to 45': posts_from_0_to_45_engagement/posts_from_0_to_45_count if posts_from_0_to_45_count else 0,
+                'from 46 to 90': posts_from_0_to_45_engagement/posts_from_0_to_45_count if posts_from_0_to_45_count else 0,
+                'from 91 to 140': posts_from_0_to_45_engagement/posts_from_0_to_45_count if posts_from_0_to_45_count else 0,
+                'from 140': posts_from_0_to_45_engagement/posts_from_0_to_45_count if posts_from_0_to_45_count else 0,
+                'posts from 0 to 45': posts_from_0_to_45_count,
+                'posts from 46 to 90': posts_from_46_to_90_count,
+                'post from 91 to 140': posts_from_91_to_140_count,
+                'post from 140': posts_from_140_count,
+              }
+    return JsonResponse(results, safe=False)

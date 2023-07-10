@@ -24,7 +24,7 @@ class MentionSummaryWidgetTests(APITestCase):
         res = {
                 'location': None,
                 'stats': {
-                            'authors': 4,
+                            'authors': 3,
                             'countries': 1,
                             'language': 1,
                             'mention': 4,
