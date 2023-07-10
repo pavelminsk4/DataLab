@@ -3,6 +3,7 @@
     <KeywordsWidget
       v-if="topKeywordsByCountry.length"
       v-bind="$attrs"
+      :active-tab="activeTab"
       :widget-details="widgetDetails"
       :keywords-values="currentWidgetData"
     />

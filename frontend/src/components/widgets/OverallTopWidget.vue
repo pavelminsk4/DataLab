@@ -42,6 +42,7 @@
           <ChartsView
             :chart-values="datasets(item)"
             :chart-type="chartType"
+            :iteractiveLabel="item.alias"
             :widget-details="widgetDetails"
           />
         </td>
@@ -105,6 +106,8 @@ export default {
           data: [item.sentiments[key] * barPercent],
           backgroundColor: colors[key],
           borderRadius: 12,
+          label: key,
+          value: item.name,
         }
       })
     },
@@ -133,6 +136,8 @@ export default {
 
 <style lang="scss">
 .overall-top-authors {
+  cursor: default;
+
   thead {
     background-color: var(--background-primary-color);
     height: 40px;

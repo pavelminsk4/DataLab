@@ -30,6 +30,7 @@ export default {
     newChartType: {type: String, default: ''},
     isSettings: {type: Boolean, default: false},
     keywordsValues: {type: Array, required: true},
+    activeTab: {type: String, required: false},
   },
   computed: {
     ...mapState(['loading']),
@@ -50,7 +51,7 @@ export default {
       return this.keywordsValues.map((item) => item.value * 100)
     },
     chartValues() {
-      return [{data: this.values}]
+      return [{data: this.values, tab: this.activeTab}]
     },
   },
 }

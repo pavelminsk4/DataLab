@@ -34,6 +34,7 @@
           <ChartsView
             :widget-details="widgetDetails"
             :chart-values="datasets(item)"
+            :iteractiveLabel="item.alias"
             chart-type="StackedBarChart"
           />
         </template>
@@ -105,6 +106,7 @@ export default {
 
       return Object.keys(item.sentiments).map((key) => {
         return {
+          label: key,
           data: [item.sentiments[key] * barPercent],
           backgroundColor: colors[key],
           borderRadius: 12,

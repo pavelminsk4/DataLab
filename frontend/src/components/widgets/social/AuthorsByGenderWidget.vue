@@ -62,6 +62,7 @@ export default {
       return [
         {
           color: '#516BEE',
+          label: this.activeTab,
           data: this.currentWidgetData.map((el) => el[1]),
         },
       ]

@@ -65,6 +65,7 @@ export default {
       if (!this.currentWidgetData) return []
       return [
         {
+          label: this.activeTab,
           data: this.currentWidgetData[this.activeTab].map((el) => el[1]),
         },
       ]

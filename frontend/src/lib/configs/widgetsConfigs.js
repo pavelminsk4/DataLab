@@ -183,6 +183,7 @@ export const widgetsConfig = {
 
   top_keywords: {
     ...WIDGET_DEFAULT_SETTINGS,
+    hasPreview: false,
     hasAggregationPeriod: false,
     actionName: action.GET_TOP_KEYWORDS_WIDGET,
     defaultChartType: 'WordCloudChart',
@@ -228,6 +229,7 @@ export const widgetsConfig = {
   sentiment_top_keywords: {
     ...WIDGET_DEFAULT_SETTINGS,
     height: '420px',
+    hasPreview: false,
     hasAggregationPeriod: false,
     actionName: action.GET_SENTIMENT_TOP_KEYWORDS_WIDGET,
     defaultChartType: 'ColoredWorlCloudChart',

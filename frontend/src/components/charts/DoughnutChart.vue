@@ -57,7 +57,8 @@ export default {
           this.$emit(
             'open-interactive-data',
             this.labels[dataOptions[0].index],
-            dataOptions[0].element.$datalabels[0].$context.dataset.label?.toLowerCase()
+            dataOptions[0].element.$datalabels[0].$context.dataset.label?.toLowerCase() ||
+              this.chartValues[0].label
           )
         },
         onHover: (event, chartElement) => {
