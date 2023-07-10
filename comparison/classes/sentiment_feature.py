@@ -30,7 +30,7 @@ class SentimentSocial:
         return {
             'project_name': self.project.title,
             'widgets': [
-                {'name': 'number_of_results', 'data': soc_sentiment(self.posts)},
+                {'name': 'sentiment_number_of_results', 'data': soc_sentiment(self.posts)},
                 {'name': 'sentiment', 'data': soc_sentiment(self.posts)},
                 {'name': 'top_keywords_by_sentiment', 'data': soc_top_keywords_by_sentiment(self.posts)},
                 {'name': 'sentiment_by_locations', 'data': soc_sentiment_by_locations(self.posts, 'day', 5)},

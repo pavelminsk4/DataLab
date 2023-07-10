@@ -45,6 +45,7 @@ export default {
           project.data.map((language) => {
             return {
               data: [Math.trunc((language.language_count / totalValues) * 100)],
+              tooltipValue: language.language_count,
               backgroundColor: this.itemsColors.get(language.language),
               borderRadius: 12,
               barThickness: 'flex',

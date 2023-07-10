@@ -41,4 +41,8 @@ export default {
   async getSummaryWidgets(projectId) {
     return fetch('get', `${moduleName}/projects/${projectId}/summary`)
   },
+
+  async getSentimentWidgets(projectId) {
+    return fetch('get', `${moduleName}/projects/${projectId}/sentiment`)
+  },
 }

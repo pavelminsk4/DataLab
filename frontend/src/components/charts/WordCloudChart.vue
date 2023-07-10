@@ -40,12 +40,17 @@ export default {
   },
   computed: {
     words() {
+      const MAX_WEIGHT = 60
+      const MIN_WIGHT = 14
+      const dELTA_WEIGHT = MAX_WEIGHT - MIN_WIGHT
+
       const length = this.chartValues[0].data.length
 
       return this.chartValues[0].data.map((data, index) => {
+        const currentWeight = (data / 100) * dELTA_WEIGHT + MIN_WIGHT
         return {
           text: this.labels[index],
-          weight: ((length - index) * 60) / length,
+          weight: currentWeight,
           fontWeight: 500,
           color: `rgba(42, 0, 255, ${(length - index) / length})`,
         }

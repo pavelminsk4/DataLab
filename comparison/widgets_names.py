@@ -9,7 +9,7 @@ WIDGETS_NAMES = {
     'top_locations': 'Top locations',
     'top_countries': 'Top countries',
 
-    'number_of_results': 'Number of results',
+    'sentiment_number_of_results': 'Sentiment number of results',
     'top_keywords_by_sentiment': 'Top keywords by sentiment',
     'sentiment_by_locations': 'Sentiment by location',
     'sentiment_by_period': 'Sentiment by period',

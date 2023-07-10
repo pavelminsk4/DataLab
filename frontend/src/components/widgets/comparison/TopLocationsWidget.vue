@@ -47,6 +47,7 @@ export default {
               data: [
                 Math.trunc((location.locations_count / totalValues) * 100),
               ],
+              tooltipValue: location.locations_count,
               backgroundColor: this.itemsColors.get(location.locationString),
               borderRadius: 12,
               barThickness: 'flex',

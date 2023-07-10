@@ -9,12 +9,18 @@
 </template>
 
 <script>
-import {socialSummaryWidgetConfig} from '@/lib/configs/widgetsConfigs'
+import {summarySentimentConfig} from '@/lib/configs/widgetsConfigs'
 
 import SummaryTableWidget from '@components/widgets/SummaryTableWidget'
 
+const valuesNames = {
+  neut: 'neutral',
+  neg: 'negative',
+  pos: 'positive',
+}
+
 export default {
-  name: 'ComparisonSummaryWidget',
+  name: 'ComparisonSentimentNumberOfResultsWidget',
   components: {SummaryTableWidget},
   props: {
     widgetDetails: {type: Object, required: true},
@@ -25,7 +31,10 @@ export default {
     },
   },
   created() {
-    this.widgetMetrics = socialSummaryWidgetConfig
+    this.widgetMetrics = summarySentimentConfig.map((sentiment) => ({
+      ...sentiment,
+      valueName: valuesNames[sentiment.valueName],
+    }))
   },
 }
 </script>

@@ -54,7 +54,7 @@ const CHARTS = {
     name: 'Word Cloud',
   },
   sentimentWordCloud: {
-    componentName: 'ColoredWorlCloudChart',
+    componentName: 'ColoredWordCloudChart',
     name: 'Word Cloud',
   },
   topEntitiesBarChart: {
@@ -232,7 +232,7 @@ export const widgetsConfig = {
     hasPreview: false,
     hasAggregationPeriod: false,
     actionName: action.GET_SENTIMENT_TOP_KEYWORDS_WIDGET,
-    defaultChartType: 'ColoredWorlCloudChart',
+    defaultChartType: 'ColoredWordCloudChart',
     settingsTabs: ['General', 'Filters'],
   },
 
@@ -613,13 +613,7 @@ export const widgetsConfig = {
   },
 }
 
-export const summaryWidgetConfig = [
-  {
-    name: 'New posts',
-    valueName: 'posts',
-    iconName: 'NewPostIcon',
-    backgroundColor: '#2EA8DD',
-  },
+export const summarySentimentConfig = [
   {
     name: 'Neutral posts',
     valueName: 'neut',
@@ -638,6 +632,16 @@ export const summaryWidgetConfig = [
     iconName: 'PositiveIcon',
     backgroundColor: '#57C7B3',
   },
+]
+
+export const summaryWidgetConfig = [
+  {
+    name: 'New posts',
+    valueName: 'posts',
+    iconName: 'NewPostIcon',
+    backgroundColor: '#2EA8DD',
+  },
+  ...summarySentimentConfig,
   {
     name: 'Sources',
     valueName: 'sources',

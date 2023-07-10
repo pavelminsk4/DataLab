@@ -70,7 +70,7 @@ def create_comparison_widget_description(sender, instance, created, **kwargs):
         instance.cmpr_widgets.create(title='Top countries', default_title='Top countries')
         instance.cmpr_widgets.create(title='Top locations', default_title='Top locations')
 
-        instance.cmpr_widgets.create(title='Number of results', default_title='Number of results')
+        instance.cmpr_widgets.create(title='Sentiment number of results', default_title='Sentiment number of results')
         instance.cmpr_widgets.create(title='Top keywords by sentiment', default_title='Top keywords by sentiment')
         instance.cmpr_widgets.create(title='Sentiment by location', default_title='Sentiment by location')
         instance.cmpr_widgets.create(title='Sentiment by period', default_title='Sentiment by period')

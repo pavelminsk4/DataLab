@@ -170,6 +170,15 @@ export const comparisonWidgetsList = {
       {name: 'top_languages'},
       {name: 'top_locations'},
     ],
+    sentiment: [
+      {name: 'sentiment_number_of_results'},
+      {name: 'sentiment'},
+      // {name: 'top_keywords_by_sentiment', isFullWidth: true,},
+      // {name: 'sentiment_by_locations'},
+      // {name: 'sentiment_by_period'},
+      // {name: 'sentiment_top_languages', isFullWidth: true},
+      // {name: 'sentiment_top_authors'},
+    ],
   },
 }
 
