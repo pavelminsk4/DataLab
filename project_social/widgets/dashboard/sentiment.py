@@ -9,9 +9,9 @@ from django.db.models import Count
 import json
 
 def calculate(posts, aggregation_period):
-  negative_posts = posts.annotate(date_trunc=Trunc('date', aggregation_period)).values("date_trunc").filter(sentiment_vote='negative').annotate(count_negative=Count('sentiment_vote')).order_by("date")
-  neutral_posts = posts.annotate(date_trunc=Trunc('date', aggregation_period)).values("date_trunc").filter(sentiment_vote='neutral').annotate(count_neutral=Count('sentiment_vote')).order_by("date")
-  positive_posts = posts.annotate(date_trunc=Trunc('date', aggregation_period)).values("date_trunc").filter(sentiment_vote='positive').annotate(count_positive=Count('sentiment_vote')).order_by("date")
+  negative_posts = posts.annotate(date_trunc=Trunc('date', aggregation_period)).values("date_trunc").filter(sentiment='negative').annotate(count_negative=Count('sentiment')).order_by("date")
+  neutral_posts = posts.annotate(date_trunc=Trunc('date', aggregation_period)).values("date_trunc").filter(sentiment='neutral').annotate(count_neutral=Count('sentiment')).order_by("date")
+  positive_posts = posts.annotate(date_trunc=Trunc('date', aggregation_period)).values("date_trunc").filter(sentiment='positive').annotate(count_positive=Count('sentiment')).order_by("date")
   post_by_sentiment = list(negative_posts) + list(neutral_posts) + list(positive_posts)
   results = []
   for date_trunc in sorted(list(set(d['date_trunc'] for d in post_by_sentiment))):
