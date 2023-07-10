@@ -36,11 +36,11 @@ export default {
           project.data.map((author, index) => {
             return {
               data: [
-                +(
+                Math.trunc(
                   ((author.user_count || author.author_posts_count) /
                     sumValues) *
-                  100
-                ).toFixed(),
+                    100
+                ),
               ],
               backgroundColor: PREDEFINED_COLORS[index],
               borderRadius: 12,
