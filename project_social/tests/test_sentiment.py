@@ -8,9 +8,9 @@ import json
 
 class SentimentWidgetTests(APITestCase):
     def test_response_list(self):
-        TweetBinderPostFactory(sentiment_vote='neutral',  date='2020-10-10 00:00:00+00:00')
-        TweetBinderPostFactory(sentiment_vote='positive', date='2020-10-10 00:00:00+00:00')
-        TweetBinderPostFactory(sentiment_vote='negative', date='2021-10-10 00:00:00+00:00')
+        TweetBinderPostFactory(sentiment='neutral',  date='2020-10-10 00:00:00+00:00')
+        TweetBinderPostFactory(sentiment='positive', date='2020-10-10 00:00:00+00:00')
+        TweetBinderPostFactory(sentiment='negative', date='2021-10-10 00:00:00+00:00')
         pr = ProjectSocialFactory()
 
         widget_pk = pr.social_widgets_list.sentiment_id

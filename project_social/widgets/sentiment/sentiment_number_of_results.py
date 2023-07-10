@@ -8,9 +8,9 @@ from django.http import JsonResponse
 
 def calculate(posts):
     return {
-        'positive': posts.filter(sentiment_vote='positive').count(),
-        'negative': posts.filter(sentiment_vote='negative').count(),
-        'neutral':  posts.filter(sentiment_vote='neutral').count(),
+        'positive': posts.filter(sentiment='positive').count(),
+        'negative': posts.filter(sentiment='negative').count(),
+        'neutral':  posts.filter(sentiment='neutral').count(),
     }
 
 

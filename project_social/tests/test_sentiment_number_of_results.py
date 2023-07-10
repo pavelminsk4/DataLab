@@ -9,9 +9,9 @@ import json
 
 class SentimentNumberOfResultsTests(APITestCase):
     def setUp(self):
-        TweetBinderPostFactory(sentiment_vote='neutral')
-        TweetBinderPostFactory(sentiment_vote='positive')
-        TweetBinderPostFactory(sentiment_vote='negative')
+        TweetBinderPostFactory(sentiment='neutral')
+        TweetBinderPostFactory(sentiment='positive')
+        TweetBinderPostFactory(sentiment='negative')
         ProjectSocialFactory()
 
     def test_sentiment_number_of_results(self):
