@@ -168,7 +168,7 @@ export const comparisonWidgetsList = {
       // {name: 'top_sources'},
       {name: 'top_keywords', isFullWidth: true},
       {name: 'top_languages'},
-      // {name: 'top_countries'},
+      {name: 'top_locations'},
     ],
   },
 }

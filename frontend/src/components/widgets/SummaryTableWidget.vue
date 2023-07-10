@@ -110,7 +110,6 @@ export default {
   created() {
     this.projectsColors = COMPARISON_COLORS
   },
-  methods: {},
 }
 </script>
 
