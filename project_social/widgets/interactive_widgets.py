@@ -24,7 +24,7 @@ def interactive_widgets(request, project_pk, widget_pk):
   elif widget.default_title == 'Sentiment locations':
     posts = sentiment_filter_posts(second_value, posts)
     posts = country_filter_posts(first_value, posts)
-  elif widget.default_title == 'Ssentiment authors':
+  elif widget.default_title == 'Sentiment authors':
     posts = sentiment_filter_posts(second_value, posts)
     posts = author_filter_posts(first_value, posts)
   elif widget.default_title == 'Sentiment by gender':
@@ -33,6 +33,9 @@ def interactive_widgets(request, project_pk, widget_pk):
   elif widget.default_title == 'Sentiment locations':
     posts = sentiment_filter_posts(first_value, posts)
     posts = country_filter_posts(second_value, posts)
+  elif widget.default_title == 'Sentiment languages':
+    posts = sentiment_filter_posts(second_value, posts)
+    posts = language_filter_posts(first_value, posts)
   elif widget.default_title == 'Content volume by top authors':
     posts = author_dimensions_posts(first_value, posts).filter(creation_date__range=dates)
   elif widget.default_title == "Content volume by top locations":
@@ -52,13 +55,25 @@ def interactive_widgets(request, project_pk, widget_pk):
   elif widget.default_title == 'Sentiment diagram':
     posts = posts.filter(sentiment=first_value[0].lower())
   elif widget.default_title == 'Authors by location':
-    posts = country_filter_posts(first_value, posts)
+    posts = country_filter_posts(second_value, posts).filter(user_alias=first_value[0])
   elif widget.default_title == 'Authors by language':
-    posts = language_filter_posts(first_value, posts)
+    posts = language_filter_posts(second_value, posts).filter(user_alias=first_value[0])
   elif widget.default_title == 'Authors by sentiment':
-    posts = posts.filter(sentiment=first_value[0].lower())
+    posts = posts.filter(sentiment=second_value[0].lower()).filter(user_name=first_value[0])
   elif widget.default_title == 'Authors by gender':
-    posts = posts.filter(reduce(lambda x,y: x | y, [Q(user_gender=gender) for gender in first_value]))
+    posts = posts.filter(reduce(lambda x,y: x | y, [Q(user_gender=gender) for gender in second_value])).filter(user_name=first_value[0])
+  elif widget.default_title == 'Overall top authors':
+    posts = posts.filter(sentiment=second_value[0].lower(), user_alias=first_value[0])
+  elif widget.default_title == 'Top authors by gender':
+    posts = posts.filter(sentiment=second_value[0].lower(), user_alias=first_value[0])
+  elif widget.default_title == 'Top keywords by location':
+    posts = country_filter_posts(second_value, posts).filter(text__icontains=first_value[0])
+  elif widget.default_title == 'Top languages by location':
+    posts = language_filter_posts(second_value, posts).filter(locationString=first_value[0])
+  elif widget.default_title == 'Top sharing sources':
+    posts = sentiment_filter_posts(second_value, posts).filter(user_alias=first_value[0])
+  elif widget.default_title == 'Top gender by location':
+    posts = posts.filter(reduce(lambda x,y: x | y, [Q(user_gender=gender.lower()) for gender in second_value])).filter(locationString=first_value[0])
   posts = posts.values(
     'id',
     'post_id',

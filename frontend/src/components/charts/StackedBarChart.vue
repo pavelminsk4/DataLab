@@ -25,6 +25,7 @@ export default {
     Bar,
   },
   props: {
+    iteractiveLabel: {type: String, required: false},
     chartValues: {type: Object, required: true},
     isShowTooltips: {type: Boolean, default: false},
     hasAnimation: {type: Boolean, default: true},
@@ -32,6 +33,13 @@ export default {
   computed: {
     chartOptions() {
       return {
+        onClick: (e, dataOptions) => {
+          this.$emit(
+            'open-interactive-data',
+            this.iteractiveLabel,
+            dataOptions[0].element.$datalabels[0].$context.dataset.label
+          )
+        },
         indexAxis: 'y',
         maintainAspectRatio: false,
         responsive: true,
@@ -47,13 +55,13 @@ export default {
             display: false,
           },
           tooltip: {
-            enabled: this.isShowTooltips || false,
+            enabled: this.isShowTooltips,
             position: 'nearest',
             caretSize: 0,
             callbacks: {
               label(context) {
                 const {dataset} = context
-                return `${dataset.label}: ${dataset.data[0].toFixed()}`
+                return `${dataset.label}: ${dataset.data[0].toFixed()}%`
               },
             },
           },
@@ -85,5 +93,7 @@ export default {
 .chart-container {
   display: block;
   width: 80%;
+
+  cursor: pointer;
 }
 </style>

@@ -14,6 +14,8 @@
             <StackedBarChart
               :chart-values="chartValues[index]"
               :isShowTooltips="true"
+              :iteractive-label="label"
+              @open-interactive-data="openInteractiveData"
             />
           </td>
         </tr>
@@ -35,6 +37,11 @@ export default {
   inject: {
     barHeight: {
       default: () => '35px',
+    },
+  },
+  methods: {
+    openInteractiveData(label, option) {
+      this.$emit('open-interactive-data', label, option)
     },
   },
 }

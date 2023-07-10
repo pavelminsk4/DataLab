@@ -77,6 +77,8 @@ export default {
 
   height: 60%;
 
+  cursor: default;
+
   .item {
     display: flex;
     flex-direction: column;

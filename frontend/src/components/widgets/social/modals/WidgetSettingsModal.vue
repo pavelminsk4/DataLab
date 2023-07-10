@@ -92,6 +92,7 @@ export default {
       action.GET_AUTHORS_BY_LOCATION,
       action.GET_AUTHORS_BY_SENTIMENT,
       action.GET_AUTHORS_BY_GENDER,
+      action.GET_LANGUAGES_BY_LOCATION,
       action.GET_CLIPPING_FEED_CONTENT_WIDGET,
     ]),
 
