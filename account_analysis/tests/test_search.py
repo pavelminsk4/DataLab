@@ -26,7 +26,7 @@ class SearchTests(APITestCase):
               'count_totalretweets': None,
               'count_replies': 1,
               'count_favorites': 1,
-              'user_alias': '@first',
+              'user_alias': 'First_name',
               'user_name': 'First_name',
               'engagements': 2,
               'link': f'https://twitter.com/user/status/{tw.post_id}'}

@@ -1,5 +1,5 @@
-from common.factories.tweet_binder_post import TweetBinderPostFactory
 from common.factories.account_analysis_project import AccountAnalysisProjectFactory
+from common.factories.tweet_binder_post import TweetBinderPostFactory
 from account_analysis.models import ProjectAccountAnalysis
 from rest_framework.test import APITestCase
 from rest_framework import status
