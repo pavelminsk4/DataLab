@@ -144,6 +144,7 @@ export default {
 .modules {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 32px;
 
   padding: 40px 32px;
