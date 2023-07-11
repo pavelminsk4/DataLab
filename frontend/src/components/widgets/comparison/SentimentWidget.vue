@@ -36,6 +36,7 @@ export default {
           Object.entries(project.data).map((entry) => {
             return {
               data: [Math.trunc((entry[1] / sumValues) * 100)],
+              tooltipValue: entry[1],
               backgroundColor: SENTIMENT_COLORS[entry[0]],
               borderRadius: 12,
               barThickness: 'flex',

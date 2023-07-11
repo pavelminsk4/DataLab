@@ -49,6 +49,7 @@ export default {
                     100
                 ),
               ],
+              tooltipValue: author.user_count || author.author_posts_count,
               backgroundColor: this.itemsColors.get(
                 author.user_name || author.entry_author
               ),

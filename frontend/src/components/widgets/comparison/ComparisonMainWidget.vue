@@ -14,6 +14,7 @@ import Sentiment from '@/components/widgets/comparison/SentimentWidget'
 import Summary from '@/components/widgets/comparison/SummaryWidget'
 import TopLanguages from '@/components/widgets/comparison/TopLanguagesWidget'
 import TopLocations from '@/components/widgets/comparison/TopLocationsWidget'
+import SentimentNumberOfResults from '@/components/widgets/comparison/SentimentNumberOfResultsWidget'
 
 export default {
   name: 'ComparisonMainWidget',
@@ -25,6 +26,7 @@ export default {
     Summary,
     TopLanguages,
     TopLocations,
+    SentimentNumberOfResults,
   },
   props: {
     widgetDetails: {type: Object, required: true},

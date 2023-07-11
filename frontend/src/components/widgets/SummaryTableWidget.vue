@@ -9,7 +9,7 @@
     <table class="table">
       <thead>
         <th></th>
-        <th>project</th>
+        <th class="project-header">project</th>
         <th
           v-for="item in widgetMetrics"
           :key="'header' + item.valueName"
@@ -128,6 +128,7 @@ export default {
     padding: 8px 16px;
 
     text-align: start;
+    vertical-align: top;
     font-size: 11px;
     font-weight: 400;
   }
@@ -144,17 +145,21 @@ export default {
       border-bottom: var(--border-primary);
     }
   }
-}
 
-.project-name {
-  width: 28%;
+  .project-header {
+    vertical-align: middle;
+  }
 
-  font-size: 16px;
-  font-weight: 500;
-}
+  .project-name {
+    width: 28%;
 
-.total-value {
-  font-weight: 600;
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  .total-value {
+    font-weight: 600;
+  }
 }
 
 .icon {

@@ -23,7 +23,7 @@ export default {
 
         project.data.forEach((values) => {
           labels.push(values.key)
-          data.push(+values.value.toFixed(2))
+          data.push(+(values.value * 100).toFixed(2))
         })
 
         return {

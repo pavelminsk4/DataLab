@@ -31,7 +31,7 @@ import {capitalizeFirstLetter} from '@/lib/utilities'
 import BaseTooltip from '@/components/BaseTooltip'
 
 export default {
-  name: 'ColoredWorlCloudChart',
+  name: 'ColoredWordCloudChart',
   components: {BaseTooltip, VueWordCloud},
   emits: ['open-interactive-data'],
   props: {
@@ -47,10 +47,16 @@ export default {
       return sentimentData.data[index]?.toFixed(2)
     },
     words(sentimentData) {
-      return sentimentData.labels.map((label) => {
+      const MAX_WEIGHT = 60
+      const MIN_WIGHT = 14
+      const deltaWeight = MAX_WEIGHT - MIN_WIGHT
+
+      return sentimentData.labels.map((label, index) => {
+        const currentWeight =
+          (sentimentData.data[index] / 100) * deltaWeight + MIN_WIGHT
         return {
           text: label,
-          weight: 18,
+          weight: currentWeight,
           fontWeight: 500,
           color: sentimentData.color,
         }

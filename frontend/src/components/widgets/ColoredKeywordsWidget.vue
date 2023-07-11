@@ -40,7 +40,7 @@ export default {
         this.newChartType ||
         this.widgetDetails.chart_type ||
         this.widgetDetails.defaultChartType ||
-        'ColoredWorlCloudChart'
+        'ColoredWordCloudChart'
       )
     },
   },

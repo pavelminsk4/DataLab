@@ -14,4 +14,16 @@ export default {
       commit(mutator.SET_SUMMARY_WIDGETS_LOADING, false)
     }
   },
+  async [action.GET_SENTIMENT_WIDGETS]({commit}, projectId) {
+    commit(mutator.SET_SENTIMENT_WIDGETS_LOADING, true)
+    try {
+      const sentiment = await api.comparison.getSentimentWidgets(projectId)
+      commit(mutator.SET_SENTIMENT_WIDGETS, sentiment)
+    } catch (error) {
+      console.error(error)
+      return error
+    } finally {
+      commit(mutator.SET_SENTIMENT_WIDGETS_LOADING, false)
+    }
+  },
 }
