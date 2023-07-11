@@ -4,6 +4,7 @@
     height="350"
     :options="options"
     :series="chartValues"
+    @click="test"
   />
 </template>
 
@@ -64,6 +65,11 @@ export default {
         },
       },
     }
+  },
+  methods: {
+    test(a, b, c) {
+      console.log(a, b, c)
+    },
   },
 }
 </script>

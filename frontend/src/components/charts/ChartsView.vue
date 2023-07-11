@@ -86,7 +86,16 @@ export default {
     openInteractiveData(firstValue, secondValue) {
       const startOfTheDay = new Date(firstValue)
 
-      if (startOfTheDay.toString() !== 'Invalid Date') {
+      let aaaa = null
+
+      if (firstValue.includes('from')) {
+        aaaa = firstValue.split(' ').filter((el) => +el)
+      }
+
+      if (
+        startOfTheDay.toString() !== 'Invalid Date' &&
+        !firstValue.includes('from')
+      ) {
         let endOfTheDay = new Date(firstValue)
         endOfTheDay.setHours(23, 59, 59)
         this.showIteractiveModalData({
@@ -96,7 +105,7 @@ export default {
         })
       } else {
         this.showIteractiveModalData({
-          first_value: [firstValue.replace(/ posts/gi, '')],
+          first_value: aaaa || [firstValue.replace(/ posts/gi, '')],
           second_value: [secondValue],
           dates: [],
         })

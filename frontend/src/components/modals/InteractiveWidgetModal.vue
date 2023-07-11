@@ -98,7 +98,9 @@ export default {
       interactiveWidgets: get.INTERACTIVE_DATA,
     }),
     postCard() {
-      return this.currentProject.source || this.moduleName + 'PostCard'
+      if (this.moduleName === 'AccountAnalysis')
+        return 'AccountAnalysisPostCard'
+      return this.currentProject.source + 'PostCard'
     },
     posts() {
       return this.interactiveWidgets.posts
