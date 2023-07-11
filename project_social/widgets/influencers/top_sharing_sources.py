@@ -1,8 +1,7 @@
-from project_social.models import SocialWidgetDescription
-from project_social.widgets.filters_for_widgets import *
-from project_social.models import ProjectSocial
-from django.http import JsonResponse
+from project_social.widgets.project_posts_filter import project_posts_filter
+from django.forms.models import model_to_dict
 from django.db.models import Count, F, Sum
+from django.http import JsonResponse
 
 def get_mosts(posts):
   most_active_author = posts.annotate(author_count=Count("user_alias")).order_by("-author_count").first()
@@ -44,9 +43,13 @@ def get_mosts(posts):
   ]
 
 def top_sharing_sources(pk, widget_pk):
-  project = ProjectSocial.objects.get(id=pk)
-  posts = post_agregator_with_dimensions(project)
-  widget = SocialWidgetDescription.objects.get(id=widget_pk)
-  posts = post_agregetor_for_each_widget(widget, posts)
+  posts, widget = project_posts_filter(pk, widget_pk)
   res = get_mosts(posts)
   return JsonResponse(res, safe=False)
+
+def top_sharing_sources_report(pk, widget_pk):
+    posts, widget = project_posts_filter(pk, widget_pk)
+    return {
+        'data': get_mosts(posts),
+        'widget': {'top_sharing_sources': model_to_dict(widget)}
+    }

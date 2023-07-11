@@ -31,6 +31,7 @@ urlpatterns = [
     path('soc_gender_by_location_screenshot/<int:proj_pk>/', views.social_gender_by_location_screenshot_screenshot, name='soc_gender_by_location_screenshot'),
     path('soc_keywords_by_location_screenshot/<int:proj_pk>/', views.social_keywords_by_location_screenshot, name='soc_keywords_by_location_screenshot'),
     path('soc_languages_by_location_screenshot/<int:proj_pk>/', views.social_languages_by_location_screenshot, name='soc_languages_by_location_screenshot'),
+    path('soc_top_sharing_sources_screenshot/<int:proj_pk>/', views.social_top_sharing_sources_screenshot, name='soc_top_sharing_sources_screenshot'),
 ]
 
 router.register('regular_reports', views.RegularReportViewSet, 'regular_reports')
