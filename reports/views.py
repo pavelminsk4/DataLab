@@ -5,6 +5,7 @@ from project_social.widgets.dashboard.content_volume_top_authors import content_
 from project_social.widgets.demography.top_authors_by_gender import top_authors_by_gender_report
 from project_social.widgets.demography.languages_by_location import languages_by_location_report
 from project_social.widgets.demography.keywords_by_location import keywords_by_location_report
+from project_social.widgets.influencers.top_sharing_sources import top_sharing_sources_report
 from project_social.widgets.demography.authors_by_language import authors_by_language_report
 from project_social.widgets.demography.authors_by_location import authors_by_location_report
 from project_social.widgets.dashboard.sentiment_languages import sentiment_languages_report
@@ -200,4 +201,9 @@ def social_keywords_by_location_screenshot(request, proj_pk):
 def social_languages_by_location_screenshot(request, proj_pk):
     wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).languages_by_location.pk
     context = {'context': languages_by_location_report(proj_pk, wd_pk)}
+    return render(request, 'social_reports/base_template_screenshot.html', context)
+
+def social_top_sharing_sources_screenshot(request, proj_pk):
+    wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).top_sharing_sources.pk
+    context = {'context': top_sharing_sources_report(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)
