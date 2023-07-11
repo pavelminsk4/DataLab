@@ -3,6 +3,7 @@
     v-if="inreractiveDataModal.isShow"
     :widget-id="inreractiveDataModal.widgetId"
     :current-project="currentProject"
+    :module-name="moduleName"
     class="interactive-widgets"
     @show-results="updatePageAndCountPosts"
     @close="closeInteractiveModal"

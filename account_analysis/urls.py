@@ -40,6 +40,7 @@ urlpatterns = [
     path('audience_mention_time_widget/<int:pk>/<int:widget_pk>', views.audience_mention_time_widget, name='audience_mention_time'),
     path('average_engagements_by_day_for_mentions_widget/<int:pk>/<int:widget_pk>', views.average_engagements_by_day_for_mentions_widget, name='average_engagements_by_day_for_mentions'),
     path('dimensions_for_each_widgets/<int:project_pk>/<int:widget_pk>', views.dimensions_for_each_widgets, name='dimensions_for_each_widgets'),
+    path('account_analysis_interactive_widgets/<int:project_pk>/<int:widget_pk>', views.interactive_data_for_widgets, name='account_analysis_interactive_widgets'),
     # =======Profile Handle======
     path('list_of_profile_handle', views.list_of_profile_handle, name='list_of_profile_handle'),
     # =======Search========

@@ -1,14 +1,14 @@
-from project_social.models import SocialWidgetDescription
-from project_social.models import ProjectSocial
+from account_analysis.models import AccountAnalysisWidgetDescription
+from account_analysis.models import ProjectAccountAnalysis
 from django.core.paginator import Paginator
 from django.http import JsonResponse
 from .filter_for_posts import *
 import json
 
 def interactive_widgets(request, project_pk, widget_pk):
-    project = ProjectSocial.objects.get(id=project_pk)
+    project = ProjectAccountAnalysis.objects.get(id=project_pk)
     posts = posts_aggregator(project)
-    widget = SocialWidgetDescription.objects.get(id=widget_pk)
+    widget = AccountAnalysisWidgetDescription.objects.get(id=widget_pk)
     body = json.loads(request.body)
     posts_per_page = body['posts_per_page']
     page_number = body['page_number']
@@ -16,23 +16,51 @@ def interactive_widgets(request, project_pk, widget_pk):
     second_value = body['second_value']
     dates = body['dates']
     if widget.default_title == 'Profile timeline':
-        posts = posts.filter(date__range=[first_value, second_value])
+        posts = posts.filter(date__range=dates)
     elif widget.default_title == 'Most frequent post types':
-        posts = posts.filter(type__contains=[first_value])
+        if first_value[0] == 'tweets':
+            first_value=['original']
+        elif first_value[0] == 'replies':
+            first_value=['reply']
+        elif first_value[0] == 'retweets':
+            first_value=['retweet']
+        posts = posts.filter(type__contains=first_value)
     elif widget.default_title == 'Most engaging post types':
-        posts = posts.filter(type__contains=[first_value])
+        if first_value[0] == 'tweets':
+            first_value=['original']
+        elif first_value[0] == 'replies':
+            first_value=['reply']
+        elif first_value[0] == 'retweets':
+            first_value=['retweet']
+        posts = posts.filter(type__contains=first_value)
     elif widget.default_title == 'Most frequent media types':
-        posts = posts.filter(type__contains=[first_value])
-    elif widget.default_title == 'Most engaging media types':
-        if first_value == 'text':
+        if first_value[0] == 'text':
             posts = posts.filter(count_textlength__gt=0)
-        elif first_value == 'link':
-            posts = posts.filter(count_links__gt=0)
-        elif first_value == 'video':
+        elif first_value[0] == 'video':
             posts = posts.filter(videos__isnull=False)
-        elif first_value == 'photo':
+        elif first_value[0] == 'link':
+            posts = posts.filter(count_links__gt=0)
+        elif first_value[0] == 'photo':
             posts = posts.filter(count_images__gt=0)
-        elif first_value == 'combination':
+        elif first_value[0] == 'combination':
+            posts = posts.filter(
+                                              (Q(count_links__gt=0) & Q(count_textlength__gt=0)) | 
+                                              (Q(count_links__gt=0) & Q(videos__isnull=False)) | 
+                                              (Q(count_links__gt=0) & Q(count_images__gt=0)) | 
+                                              (Q(count_textlength__gt=0) & Q(videos__isnull=False)) | 
+                                              (Q(count_textlength__gt=0) & Q(count_images__gt=0)) | 
+                                              (Q(videos__isnull=False) & Q(count_images__gt=0))
+                                            )
+    elif widget.default_title == 'Most engaging media types':
+        if first_value[0] == 'text':
+            posts = posts.filter(count_textlength__gt=0)
+        elif first_value[0] == 'link':
+            posts = posts.filter(count_links__gt=0)
+        elif first_value[0] == 'video':
+            posts = posts.filter(videos__isnull=False)
+        elif first_value[0] == 'photo':
+            posts = posts.filter(count_images__gt=0)
+        elif first_value[0] == 'combination':
             posts = posts.filter(
                                               (Q(count_links__gt=0) & Q(count_textlength__gt=0)) | 
                                               (Q(count_links__gt=0) & Q(videos__isnull=False)) | 

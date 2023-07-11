@@ -58,6 +58,7 @@ import BaseModal from '@/components/modals/BaseModal'
 import BaseSpinner from '@/components/BaseSpinner'
 import OnlinePostCard from '@/components/OnlinePostCard'
 import SocialPostCard from '@/components/SocialPostCard'
+import AccountAnalysisPostCard from '@/components/SocialPostCard'
 import BaseTabs from '@/components/project/widgets/modals/BaseTabs'
 import PaginationControlPanel from '@/components/PaginationControlPanel'
 import NormalIcon from '@/components/icons/PostsDisplayNormalIcon.vue'
@@ -72,11 +73,13 @@ export default {
     BaseModal,
     OnlinePostCard,
     SocialPostCard,
+    AccountAnalysisPostCard,
     NormalIcon,
     CompactIcon,
   },
   props: {
     widgetId: {type: Number, required: false},
+    moduleName: {type: String, required: true},
     currentProject: {type: [Array, Object], required: true},
   },
   data() {
@@ -95,7 +98,7 @@ export default {
       interactiveWidgets: get.INTERACTIVE_DATA,
     }),
     postCard() {
-      return this.currentProject.source + 'PostCard'
+      return this.currentProject.source || this.moduleName + 'PostCard'
     },
     posts() {
       return this.interactiveWidgets.posts

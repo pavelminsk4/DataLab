@@ -37,7 +37,7 @@ export default {
     labels() {
       if (!this.profileTimeline.length) return
       return this.profileTimeline.map((el) => {
-        return defaultDate(el.date).split(',')[0]
+        return defaultDate(el.date)
       })
     },
     chartValues() {

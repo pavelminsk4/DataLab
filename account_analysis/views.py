@@ -26,6 +26,8 @@ from rest_framework import viewsets
 from .widgets.dimensions import *
 from .serializers import *
 from .models import *
+from .widgets.interactive_widgets import interactive_widgets
+
 
 class ProjectsAccountAnalysisViewSet(viewsets.ModelViewSet):
     queryset = ProjectAccountAnalysis.objects.all()
@@ -141,6 +143,9 @@ def audience_mention_time_widget(request, pk, widget_pk):
 
 def average_engagements_by_day_for_mentions_widget(request, pk, widget_pk):
     return average_engagements_by_day_for_mentions(pk, widget_pk)
+
+def interactive_data_for_widgets(request, project_pk, widget_pk):
+  return interactive_widgets(request, project_pk, widget_pk)
 
 def search_posts(request, project_pk):
     body = json.loads(request.body)
