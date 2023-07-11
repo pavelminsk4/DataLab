@@ -13,11 +13,11 @@ class InteractiveWidgetsTests(APITestCase):
     def setUp(self):
         user = UserFactory(username='Pablo Escobar')
         TweetBinderPostFactory(user_name='First', text='First twitter post', language='En', date='2020-10-10T00:00:00+00:00',
-                               sentiment='neutral', locationString='USA', user_gender='male')
+                               sentiment='neutral', locationString='USA', user_gender='male', user_alias='First')
         TweetBinderPostFactory(user_name='Second', text='Second twitter post', language='Sp', date='2020-10-10T00:00:00+00:00',
-                               sentiment='positive',locationString='England', user_gender='female')
+                               sentiment='positive',locationString='England', user_gender='female', user_alias='First')
         TweetBinderPostFactory(user_name='Third', text='3 twitter post', language='En', date='2021-10-10T00:00:00+00:00',
-                               sentiment='neutral', locationString='USA', user_gender='undefined')
+                               sentiment='neutral', locationString='USA', user_gender='undefined', user_alias='First')
         ProjectSocialFactory(creator=user)
 
     def test_top_languages(self):
@@ -250,8 +250,8 @@ class InteractiveWidgetsTests(APITestCase):
         url = reverse('project_social:social_interactive_widgets', kwargs={'project_pk': pr.pk, 'widget_pk': widget_pk})
         post_id = TweetBinderPost.objects.all().get(user_name='First').pk
         data = {
-            'first_value': ['USA'],
-            'second_value': [],
+            'first_value': ['First'],
+            'second_value': ['USA'],
             'dates': [],
             'posts_per_page': 10,
             'page_number': 1,
@@ -262,12 +262,15 @@ class InteractiveWidgetsTests(APITestCase):
 
     def test_authors_by_languages(self):
         pr = ProjectSocial.objects.first()
+        print('START')
+        print(pr)
         widget_pk = pr.social_widgets_list.authors_by_language_id
         url = reverse('project_social:social_interactive_widgets', kwargs={'project_pk': pr.pk, 'widget_pk': widget_pk})
         post_id = TweetBinderPost.objects.all().get(user_name='First').pk
+        print(post_id)
         data = {
-            'first_value': ['En'],
-            'second_value': [],
+            'first_value': ['First'],
+            'second_value': ['En'],
             'dates': [],
             'posts_per_page': 10,
             'page_number': 1,
@@ -282,8 +285,8 @@ class InteractiveWidgetsTests(APITestCase):
         url = reverse('project_social:social_interactive_widgets', kwargs={'project_pk': pr.pk, 'widget_pk': widget_pk})
         post_id = TweetBinderPost.objects.all().get(user_name='First').pk
         data = {
-            'first_value': ['neutral'],
-            'second_value': [],
+            'first_value': ['First'],
+            'second_value': ['neutral'],
             'dates': [],
             'posts_per_page': 10,
             'page_number': 1,
@@ -298,8 +301,8 @@ class InteractiveWidgetsTests(APITestCase):
         url = reverse('project_social:social_interactive_widgets', kwargs={'project_pk': pr.pk, 'widget_pk': widget_pk})
         post_id = TweetBinderPost.objects.all().get(user_name='First').pk
         data = {
-            'first_value': ['male'],
-            'second_value': [],
+            'first_value': ['First'],
+            'second_value': ['male'],
             'dates': [],
             'posts_per_page': 10,
             'page_number': 1,
