@@ -64,7 +64,7 @@ def source_dimensions_posts(sources, posts):
   return posts
 
 def sentiment_dimensions_posts(sentiments, posts):
-  posts = posts.filter(reduce(lambda x,y: x | y, [Q(sentiment=sentiment) for sentiment in sentiments]))
+  posts = posts.filter(reduce(lambda x,y: x | y, [Q(sentiment=sentiment.lower()) for sentiment in sentiments]))
   return posts
 
 def posts_agregator(project):

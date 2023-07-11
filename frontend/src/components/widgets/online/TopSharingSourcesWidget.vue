@@ -23,6 +23,7 @@
           <ChartsView
             :widget-details="widgetDetails"
             :chart-values="datasets(item)"
+            :iteractiveLabel="item.name"
             chart-type="StackedBarChart"
           />
         </template>
@@ -86,6 +87,7 @@ export default {
           data: [item.sentiments[key] * barPercent],
           backgroundColor: colors[key],
           borderRadius: 12,
+          label: key,
         }
       })
     },

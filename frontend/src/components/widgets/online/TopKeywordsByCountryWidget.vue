@@ -5,6 +5,7 @@
       v-bind="$attrs"
       :widget-details="widgetDetails"
       :keywords-values="currentWidgetData"
+      :active-tab="activeTab"
     />
     <WidgetsSwitcher v-if="tabs.length" v-model="activeTab" :tabs="tabs" />
   </div>
