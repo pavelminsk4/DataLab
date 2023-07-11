@@ -63,7 +63,7 @@ export default {
                 const {dataset} = context
                 return `${dataset.label}: ${
                   dataset.tooltipValue || Math.trunc(dataset.data[0])
-                }`
+                }%`
               },
             },
           },

@@ -36,6 +36,7 @@
             :chart-values="datasets(item)"
             :chart-type="chartType"
             :widget-details="widgetDetails"
+            :iteractiveLabel="item.name"
           />
         </td>
         <td>{{ item.reach }}</td>
@@ -95,6 +96,7 @@ export default {
           data: [(item.sentiments[key] * barPercent)?.toFixed()],
           backgroundColor: colors[key],
           borderRadius: 12,
+          label: key,
         }
       })
     },

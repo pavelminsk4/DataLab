@@ -42,7 +42,7 @@
           <ChartsView
             :chart-values="datasets(item)"
             :chart-type="chartType"
-            :iteractiveLabel="item.alias"
+            :iteractiveLabel="item.alias || item.name"
             :widget-details="widgetDetails"
           />
         </td>
