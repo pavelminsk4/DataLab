@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import {PREDEFINED_COLORS} from '@/lib/constants'
+import {COMPARISON_COLORS} from '@/lib/constants'
 import ColoredKeywordsWidget from '@/components/widgets/ColoredKeywordsWidget'
 
 export default {
@@ -28,7 +28,7 @@ export default {
 
         return {
           type: project.project,
-          color: PREDEFINED_COLORS[index],
+          color: COMPARISON_COLORS[index],
           data,
           labels,
         }

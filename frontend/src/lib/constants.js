@@ -179,17 +179,21 @@ export const expertModeFilters = {
 }
 
 export const PREDEFINED_COLORS = [
-  '#EE51AF',
-  '#BA82FF',
-  '#516BEE',
-  '#DD8500',
-  '#00B884',
-  '#C9EA84',
+  '#5500FF',
   '#5A12B3',
   '#00B1FF',
+  '#BA0DE5',
+  '#FF007A',
   '#FFCC01',
-  '#00D98F',
-  '#5500FF',
+  '#00D9A5',
+  '#FF6B00',
+  '#69D101',
+  '#D6F2FF',
+  '#E1BDE2',
+  '#F8FFAB',
+  '#20812A',
+  '#D5FCD4',
+  '#FEDDD6',
 ]
 
 export const SENTIMENT_COLORS = {

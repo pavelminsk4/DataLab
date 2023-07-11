@@ -1,5 +1,6 @@
-import {widgetsConfig} from '@/lib/configs/widgetsConfigs'
 import moment from 'moment'
+import {widgetsConfig} from '@/lib/configs/widgetsConfigs'
+import {PREDEFINED_COLORS} from '@/lib/constants'
 
 export const capitalizeFirstLetter = (string) =>
   string?.charAt(0)?.toUpperCase() + string?.slice(1)
@@ -44,4 +45,17 @@ export const getWidgetDetails = (
     moduleName: moduleName,
     projectId,
   }
+}
+
+export const getUniqueColors = (data, key) => {
+  const prefColors = [...PREDEFINED_COLORS]
+  const colors = new Map()
+
+  data.forEach((element) => {
+    if (!colors.has(element[key])) {
+      colors.set(element[key], prefColors.shift())
+    }
+  })
+
+  return colors
 }
