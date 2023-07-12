@@ -40,10 +40,16 @@ export default {
       {name: 'Mentioned by', width: ''},
       {name: 'Tweet caption', width: ''},
       {name: 'Sentiment', width: '15%'},
-      {name: 'Engagements', width: ''},
-      {name: 'Likes', width: ''},
-      {name: 'Retweets', width: ''},
-      {name: 'Date', width: '10%'},
+      {
+        name: 'Engagements',
+        width: '',
+        sortProperty: 'engagements',
+        hasSort: true,
+        isDefaultSort: true,
+      },
+      {name: 'Likes', width: '', hasSort: true, sortProperty: 'likes'},
+      {name: 'Retweets', width: '', hasSort: true, sortProperty: 'retweets'},
+      {name: 'Date', width: '10%', hasSort: true, sortProperty: 'date'},
     ]
     if (!this.topMentionsByEngagements.length) {
       this[action.GET_TOP_MENTIONS_BY_ENGAGEMENTS]({

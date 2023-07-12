@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import {SORT_BY} from '@lib/constants'
+import sortByMixin from '@/lib/mixins/sort-for-table.js'
 
 import ChartsView from '@/components/charts/ChartsView'
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
@@ -60,6 +60,7 @@ export default {
     retweetIcon,
     replyIcon,
   },
+  mixins: [sortByMixin],
   props: {
     widgetData: {type: Array, required: true},
     widgetDetails: {type: Object, required: true},
@@ -67,40 +68,9 @@ export default {
     customTitle: {type: String, default: ''},
     tableHeader: {type: Array, required: true},
   },
-  data() {
-    return {
-      sortBy: {
-        property: '',
-        condition: '',
-      },
-    }
-  },
   computed: {
     widgetWrapper() {
       return this.isSettings ? 'div' : 'WidgetsLayout'
-    },
-    tableValue() {
-      if (!this.sortBy.property) return this.widgetData
-
-      const ratio = this.sortBy.condition === SORT_BY.DESCENDING ? -1 : 1
-
-      if (this.sortBy.property === 'date') {
-        return [...this.widgetData].sort(
-          (a, b) =>
-            ratio *
-            (new Date(a[this.sortBy.property]) -
-              new Date(b[this.sortBy.property]))
-        )
-      }
-
-      return [...this.widgetData].sort(
-        (a, b) => ratio * (a[this.sortBy.property] - b[this.sortBy.property])
-      )
-    },
-  },
-  methods: {
-    sorting(property, condition) {
-      this.sortBy = {property, condition}
     },
   },
 }
