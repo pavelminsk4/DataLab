@@ -9,9 +9,9 @@ import json
 
 class OverallTopAuthorsTest(APITestCase):
     def setUp(self):
-        TweetBinderPostFactory(count_retweets='1', user_gender='male', count_favorites='1', count_replies='1', user_name='First_name', user_alias='@first', sentiment='neutral')
-        TweetBinderPostFactory(count_retweets='2', user_gender='male', count_favorites='2', count_replies='2', user_name='First_name', user_alias='@first', sentiment='positive')
-        TweetBinderPostFactory(count_retweets='3', user_gender='female', count_favorites='9', count_replies='2', user_name='Second_name', user_alias='@second', sentiment='positive')
+        TweetBinderPostFactory(count_totalretweets='1', user_gender='male', count_favorites='1', count_replies='1', user_name='First_name', user_alias='@first', sentiment='neutral')
+        TweetBinderPostFactory(count_totalretweets='2', user_gender='male', count_favorites='2', count_replies='2', user_name='First_name', user_alias='@first', sentiment='positive')
+        TweetBinderPostFactory(count_totalretweets='3', user_gender='female', count_favorites='9', count_replies='2', user_name='Second_name', user_alias='@second', sentiment='positive')
         ProjectSocialFactory()
 
     def test_top_overall_authors(self):

@@ -23,7 +23,7 @@ def get_top_authors(posts):
       'posts': author_posts.count(),
       'media_type': 'Twitter',
       'reach': a.user_followers,
-      'engagements': author_posts.aggregate(engagements_sum=Sum(F('count_retweets') + F('count_favorites')))['engagements_sum'],
+      'engagements': author_posts.aggregate(engagements_sum=Sum(F('count_totalretweets') + F('count_favorites')))['engagements_sum'],
     })
   return res
 

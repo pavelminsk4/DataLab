@@ -56,7 +56,7 @@ def interactive_widgets(request, project_pk, widget_pk):
                           'locationString',
                           'language',
                           'count_favorites',
-                          'count_retweets',
+                          'count_totalretweets',
                           'count_replies',
                           'user_picture',
                           'images',

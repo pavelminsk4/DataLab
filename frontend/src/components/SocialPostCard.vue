@@ -107,7 +107,7 @@ export default {
         },
         {
           name: 'RetweetIcon',
-          value: this.postDetails.count_retweets,
+          value: this.postDetails.count_totalretweets,
           isIcon: true,
         },
       ]

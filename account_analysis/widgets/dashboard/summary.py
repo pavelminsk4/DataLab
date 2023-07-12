@@ -7,7 +7,7 @@ def account_analysis_summary(pk, widget_pk):
   posts, project = filter_for_account_posts(pk, widget_pk)
   user_post = TweetBinderPost.objects.filter(user_alias=project.profile_handle).last()
   posts_count = posts.count()
-  engagements = posts.aggregate(count=Sum(F('count_favorites') + F('count_retweets')))['count']
+  engagements = posts.aggregate(count=Sum(F('count_favorites') + F('count_totalretweets')))['count']
   res = {
     'user_name': user_post.user_name,
     'user_picture': user_post.user_picture,
@@ -23,7 +23,7 @@ def account_analysis_summary(pk, widget_pk):
       'tweets_this_period': posts_count,
       'engagements': engagements,
       'avg_likes_per_post': float(posts.aggregate(count=Sum('count_favorites'))['count']) / posts_count if posts_count else 0,
-      'avg_retweets_per_post': float(posts.aggregate(count=Sum('count_retweets'))['count']) / posts_count if posts_count else 0,
+      'avg_retweets_per_post': float(posts.aggregate(count=Sum('count_totalretweets'))['count']) / posts_count if posts_count else 0,
       'avg_engagement_rate': engagements / posts_count if posts_count else 0,
     }
   }

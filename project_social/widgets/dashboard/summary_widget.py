@@ -16,7 +16,7 @@ def calculate_summary_widget(posts):
   neut_posts = posts.filter(sentiment='neutral').count()
   likes_quantity = reduce(lambda x, y: x + y, [x['count_favorites'] for x in posts.values('count_favorites')], 0)
   replies_quantity = reduce(lambda x, y: x + y, [x['count_replies'] for x in posts.values('count_replies')], 0)
-  retweets_quantity = reduce(lambda x, y: x + y, [x['count_retweets'] for x in posts.values('count_retweets')], 0)
+  retweets_quantity = reduce(lambda x, y: x + y, [x['count_totalretweets'] for x in posts.values('count_totalretweets')], 0)
   
   return {
     'posts': posts_quantity,

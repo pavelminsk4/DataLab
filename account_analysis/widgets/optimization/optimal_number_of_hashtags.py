@@ -5,7 +5,7 @@ from django.http import JsonResponse
 
 def optimal_number_of_hashtags(pk, widget_pk):
     posts, project = filter_for_account_posts(pk, widget_pk)
-    posts = posts.annotate(engagement=Sum(F('count_favorites') + F('count_retweets'))).values('engagement', 'hashtags').order_by('-engagement')
+    posts = posts.annotate(engagement=Sum(F('count_favorites') + F('count_totalretweets'))).values('engagement', 'hashtags').order_by('-engagement')
     count_zero, count_from_1_to_2, count_from_3_to_4, count_from_5 = 0, 0, 0, 0
     engagement_zero, engagement_from_1_to_2, engagement_from_3_to_4, engagement_from_5 = 0, 0, 0, 0
     for p in posts:

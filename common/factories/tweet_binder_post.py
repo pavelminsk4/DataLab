@@ -7,6 +7,7 @@ class TweetBinderPostFactory(factory.django.DjangoModelFactory):
         model = TweetBinderPost
 
     post_id          = factory.Sequence(int)
+    count_totalretweets   = '1'
     count_retweets   = '1'
     count_favorites  = '1'
     count_replies    = '1'
@@ -23,9 +24,6 @@ class TweetBinderPostFactory(factory.django.DjangoModelFactory):
     date             = '2020-10-10T00:00:00+00:00'
     creation_date    = '2020-10-10T00:00:00+00:00'
     post_id          = factory.Sequence(int)
-    count_retweets   = '1'
-    count_favorites  = '1'
-    count_replies    = '1'
     language         = 'En'
     user_name        = 'First_name'
     user_followers   = '100'

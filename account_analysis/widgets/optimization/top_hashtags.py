@@ -7,7 +7,7 @@ from django.http import JsonResponse
 def top_hashtags(pk, widget_pk):
     posts, project = filter_for_account_posts(pk, widget_pk)
     widget = AccountAnalysisWidgetDescription.objects.get(id=widget_pk)
-    posts = posts.filter(count_hashtags__gte=1).annotate(engagement=Sum(F('count_favorites') + F('count_retweets'))).values('engagement', 'hashtags').order_by('-engagement')
+    posts = posts.filter(count_hashtags__gte=1).annotate(engagement=Sum(F('count_favorites') + F('count_totalretweets'))).values('engagement', 'hashtags').order_by('-engagement')
     hashtags = set()
     for p in posts:
         for h in p['hashtags']:

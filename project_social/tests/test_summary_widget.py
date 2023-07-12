@@ -8,8 +8,8 @@ import json
 
 class SummaryWidgetTests(APITestCase):
     def test_response_list(self):
-        TweetBinderPostFactory(count_retweets='1', count_favorites='1', count_replies='1', language='En', user_name='First_name', locationString='USA', sentiment='neutral')
-        TweetBinderPostFactory(count_retweets='2', count_favorites='2', count_replies='2', language='Sp', user_name='Second_name', locationString='England', sentiment='positive')
+        TweetBinderPostFactory(count_totalretweets='1', count_favorites='1', count_replies='1', language='En', user_name='First_name', locationString='USA', sentiment='neutral')
+        TweetBinderPostFactory(count_totalretweets='2', count_favorites='2', count_replies='2', language='Sp', user_name='Second_name', locationString='England', sentiment='positive')
 
         # test first project with None field
         pr = ProjectSocialFactory()
