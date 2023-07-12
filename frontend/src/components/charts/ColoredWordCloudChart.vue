@@ -1,27 +1,36 @@
 <template>
-  <vue-word-cloud
-    v-for="(item, index) in chartValues"
-    :key="'sentiment-keywords-' + index"
-    :words="words(item)"
-    :font-size-ratio="3"
-    :spacing="1"
-    font-family="Poppins"
-    class="word-cloud-wrapper"
-  >
-    <template v-slot="{text}">
-      <div class="keyword">
-        <div class="tooltip-wrapper">
-          <BaseTooltip arrow-position="bottom" class="tooltip">
-            <span class="title">Results: {{ getCount(text, item) }} %</span>
-          </BaseTooltip>
-        </div>
+  <div class="word-cloud-chart-wrapper">
+    <vue-word-cloud
+      v-for="(item, index) in chartValues"
+      :key="'sentiment-keywords-' + index"
+      :words="words(item)"
+      :font-size-ratio="3"
+      :spacing="1"
+      font-family="Poppins"
+      class="word-cloud-wrapper"
+    >
+      <template v-slot="{text}">
+        <div class="keyword">
+          <div class="tooltip-wrapper">
+            <BaseTooltip arrow-position="bottom" class="tooltip">
+              <span class="title">Results: {{ getCount(text, item) }} %</span>
+            </BaseTooltip>
+          </div>
 
-        <div class="word" @click="openInteractiveWidget(text, item)">
-          {{ capitalizeFirstLetter(text) }}
+          <div class="word" @click="openInteractiveWidget(text, item)">
+            {{ capitalizeFirstLetter(text) }}
+          </div>
         </div>
+      </template>
+    </vue-word-cloud>
+
+    <div v-if="chartValues[0].hasLegends" class="legends">
+      <div v-for="item in chartValues" :key="item.type" class="legends__item">
+        <div :style="`--mark-color: ${item.color};`" class="legends__mark" />
+        <span class="legends__label">{{ item.type }}</span>
       </div>
-    </template>
-  </vue-word-cloud>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -70,6 +79,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.word-cloud-chart-wrapper {
+  position: relative;
+
+  display: flex;
+  justify-content: center;
+
+  width: 100%;
+  height: 100%;
+}
+
 .keyword {
   position: relative;
 
@@ -100,6 +119,33 @@ export default {
     .tooltip-wrapper {
       display: flex;
     }
+  }
+}
+
+.legends {
+  position: absolute;
+  top: calc(100% + 10px);
+
+  display: flex;
+  justify-content: center;
+
+  gap: 12px;
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__mark {
+    width: 20px;
+    height: 10px;
+    background-color: var(--mark-color);
+  }
+
+  &__label {
+    font-size: 12px;
+    color: var(--typography-secondary-color);
   }
 }
 </style>
