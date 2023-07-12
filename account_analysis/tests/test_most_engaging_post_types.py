@@ -12,7 +12,7 @@ class MostEngagingPostTypeslineWidgetTests(APITestCase):
         TweetBinderPostFactory(type=['original', 'reply', 'retweet'])
         TweetBinderPostFactory(count_favorites='3', type=['original', 'reply'])
         TweetBinderPostFactory(count_favorites='3', )
-        TweetBinderPostFactory(count_retweets='2', count_favorites='2', type=[
+        TweetBinderPostFactory(count_totalretweets='2', count_favorites='2', type=[
                                'original', 'reply', 'retweet'])
         AccountAnalysisProjectFactory()
 

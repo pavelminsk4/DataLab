@@ -16,7 +16,7 @@ def profile_timeline(request, pk, widget_pk):
 def post_aggregator_profile_timeline(posts, aggregation_period):
     posts_total = posts.annotate(date_trunc=Trunc('date', aggregation_period)).values("date_trunc").annotate(created_count=Count('id')).order_by("date")
     posts_favorites = posts.annotate(date_trunc=Trunc('date', aggregation_period)).values("date_trunc").annotate(count_favorites=Sum("count_favorites")).order_by("date")
-    posts_retweets = posts.annotate(date_trunc=Trunc('date', aggregation_period)).values("date_trunc").annotate(count_retweets=Sum("count_retweets")).order_by("date")
+    posts_retweets = posts.annotate(date_trunc=Trunc('date', aggregation_period)).values("date_trunc").annotate(count_retweets=Sum("count_totalretweets")).order_by("date")
     dates = set()
     for elem in range(len(posts_total)):
         dates.add(str(posts_total[elem]['date_trunc']))

@@ -20,5 +20,5 @@ class ComparisonSocialSentimentTests(APITestCase):
         url = reverse('comparison:sentiment', kwargs={'pk': pr.id})
         response = self.client.get(url, format='json')
         self.assertEqual(len(json.loads(response.content)), 7)
-        self.assertEqual(json.loads(response.content)[0]['widget_name'], 'number_of_results')
+        self.assertEqual(json.loads(response.content)[0]['widget_name'], 'sentiment_number_of_results')
         self.assertEqual(json.loads(response.content)[1]['widget_name'], 'sentiment')

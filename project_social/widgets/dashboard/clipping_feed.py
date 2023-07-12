@@ -15,7 +15,7 @@ def clipping_feed(pk, widget_pk):
         'post__locationString',
         'post__language',
         'post__count_favorites',
-        'post__count_retweets',
+        'post__count_totalretweets',
         'post__count_replies',
         'post__user_picture',
         'post__images',

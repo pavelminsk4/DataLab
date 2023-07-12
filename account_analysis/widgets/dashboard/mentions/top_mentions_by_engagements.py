@@ -8,18 +8,18 @@ def top_mentions_by_engagements(pk, widget_pk):
     posts = posts_aggregator(project)
     posts = posts.filter(text__icontains=f'@{project.profile_handle}')
     widget = AccountAnalysisWidgetDescription.objects.get(id=widget_pk)
-    top_posts = posts.annotate(engagement=Sum(F('count_favorites') + F('count_retweets'))).order_by('-engagement')[:widget.top_counts]
+    top_posts = posts.annotate(engagement=Sum(F('count_favorites') + F('count_totalretweets'))).order_by('-engagement')[:widget.top_counts]
     results = []
     for elem in top_posts:
         res = {}
         res['alias'] = elem.user_alias
-        res['engagements'] = elem.count_favorites + elem.count_retweets
+        res['engagements'] = elem.count_favorites + elem.count_totalretweets
         res['date'] = elem.date.strftime('%b %d, %Y %I:%M %p')
         res['name'] = elem.user_name
         res['likes'] = elem.count_favorites
         res['text'] = elem.text
         res['picture'] = elem.user_picture
-        res['retweets'] = elem.count_retweets
+        res['retweets'] = elem.count_totalretweets
         res['sentiment'] = elem.sentiment
         results.append(res)
     return JsonResponse(results, safe=False)

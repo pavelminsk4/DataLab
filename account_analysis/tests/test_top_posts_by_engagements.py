@@ -12,7 +12,7 @@ class TopPostsByEngagementsWidgetTests(APITestCase):
         TweetBinderPostFactory(type=['original', 'reply', 'retweet'])
         TweetBinderPostFactory(type=['original', 'reply'], text = 'Second twitter post')
         TweetBinderPostFactory(text = 'Third twitter post')
-        TweetBinderPostFactory(count_retweets='2', count_favorites='2', type=['original', 'reply', 'retweet'], text = 'Fourth twitter post')
+        TweetBinderPostFactory(count_totalretweets='2', count_favorites='2', type=['original', 'reply', 'retweet'], text = 'Fourth twitter post')
         AccountAnalysisProjectFactory()
 
     def test_response_list(self):

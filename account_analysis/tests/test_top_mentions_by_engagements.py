@@ -12,7 +12,7 @@ class TopMentionsByEngagementsWidgetTests(APITestCase):
         TweetBinderPostFactory(type=['original', 'reply', 'retweet'], text='First twitter post @First_name', user_name = 'Second_name')
         TweetBinderPostFactory(type=['original', 'reply'], text='First twitter post @First_name', user_name = 'Third_name')
         TweetBinderPostFactory(text = 'First twitter post @First_name')
-        TweetBinderPostFactory(count_retweets='2', count_favorites='2', type=['original', 'reply', 'retweet'], text='First twitter post @First_name')
+        TweetBinderPostFactory(count_totalretweets='2', count_favorites='2', type=['original', 'reply', 'retweet'], text='First twitter post @First_name')
         AccountAnalysisProjectFactory()
 
     def test_response_list(self):

@@ -10,16 +10,16 @@ def optimal_post_length(pk, widget_pk):
     posts_from_140_engagement, posts_from_140_count = 0, 0
     for post in posts:
         if post.count_textlength <= 45:
-            posts_from_0_to_45_engagement += post.count_favorites + post.count_retweets
+            posts_from_0_to_45_engagement += post.count_favorites + post.count_totalretweets
             posts_from_0_to_45_count += 1
         if post.count_textlength >= 46 and post.count_textlength <= 90:
-            posts_from_46_to_90_engagement += post.count_favorites + post.count_retweets
+            posts_from_46_to_90_engagement += post.count_favorites + post.count_totalretweets
             posts_from_46_to_90_count += 1
         if post.count_textlength >= 91 and post.count_textlength <= 140:
-            posts_from_91_to_140_engagement += post.count_favorites + post.count_retweets
+            posts_from_91_to_140_engagement += post.count_favorites + post.count_totalretweets
             posts_from_91_to_140_count += 1
         if post.count_textlength >= 141:
-            posts_from_140_engagement += post.count_favorites + post.count_retweets
+            posts_from_140_engagement += post.count_favorites + post.count_totalretweets
             posts_from_140_count += 1
     results = {
                 'from 0 to 45': posts_from_0_to_45_engagement/posts_from_0_to_45_count if posts_from_0_to_45_count else 0,

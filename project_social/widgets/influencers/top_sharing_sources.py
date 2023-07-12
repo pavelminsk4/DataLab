@@ -7,7 +7,7 @@ def get_mosts(posts):
   most_active_author = posts.annotate(author_count=Count("user_alias")).order_by("-author_count").first()
   most_active_author_posts = posts.filter(user_alias=most_active_author.user_alias)
 
-  most_influental_author_posts = posts.annotate(engagements=Sum(F("count_retweets") + F("count_favorites"))).order_by("-engagements")
+  most_influental_author_posts = posts.annotate(engagements=Sum(F("count_totalretweets") + F("count_favorites"))).order_by("-engagements")
   most_influental_author_posts = most_influental_author_posts.filter(user_alias=most_influental_author_posts.first().user_alias)
   most_influental_author = most_influental_author_posts.first()
 

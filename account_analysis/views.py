@@ -160,7 +160,7 @@ def search_posts_mentions(request, project_pk):
     return calculate(posts, posts_per_page, page_number)
 
 def calculate(posts, posts_per_page, page_number):
-    posts = posts.annotate(engagements=Sum(F('count_favorites') + F('count_retweets')))
+    posts = posts.annotate(engagements=Sum(F('count_favorites') + F('count_totalretweets')))
     posts = posts.values('id',
                          'post_id',
                          'type',

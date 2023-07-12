@@ -8,8 +8,8 @@ import json
 
 class TopSharingSources(APITestCase):
     def test_sharing_sources_api(self):
-        TweetBinderPostFactory(count_retweets='1', count_favorites='1', user_alias='@first', sentiment='neutral')
-        TweetBinderPostFactory(count_retweets='2', count_favorites='2', user_alias='@first', sentiment='positive')
+        TweetBinderPostFactory(count_totalretweets='1', count_favorites='1', user_alias='@first', sentiment='neutral')
+        TweetBinderPostFactory(count_totalretweets='2', count_favorites='2', user_alias='@first', sentiment='positive')
         pr = ProjectSocialFactory()
 
         widget_pk = pr.social_widgets_list.top_sharing_sources_id

@@ -152,8 +152,8 @@ class InteractiveWidgetsTests(APITestCase):
         url = reverse('widgets:interactive_widgets', kwargs={
                       'project_pk': pr.pk, 'widget_pk': widget_pk})
         data = {
-            'first_value': ['England'],
-            'second_value': [],
+            'first_value': ['AFP'],
+            'second_value': ['England'],
             'dates': [],
             'posts_per_page': 10,
             'page_number': 1,
@@ -170,8 +170,8 @@ class InteractiveWidgetsTests(APITestCase):
         url = reverse('widgets:interactive_widgets', kwargs={
                       'project_pk': pr.pk, 'widget_pk': widget_pk})
         data = {
-            'first_value': ['neutral'],
-            'second_value': [],
+            'first_value': ['AFP'],
+            'second_value': ['neutral'],
             'dates': [],
             'posts_per_page': 10,
             'page_number': 1,
@@ -188,8 +188,8 @@ class InteractiveWidgetsTests(APITestCase):
         url = reverse('widgets:interactive_widgets', kwargs={
                       'project_pk': pr.pk, 'widget_pk': widget_pk})
         data = {
-            'first_value': ['England'],
-            'second_value': [],
+            'first_value': ['Time'],
+            'second_value': ['England'],
             'dates': [],
             'posts_per_page': 10,
             'page_number': 1,
@@ -206,8 +206,8 @@ class InteractiveWidgetsTests(APITestCase):
         url = reverse('widgets:interactive_widgets', kwargs={
                       'project_pk': pr.pk, 'widget_pk': widget_pk})
         data = {
-            'first_value': ['English'],
-            'second_value': [],
+            'first_value': ['Time'],
+            'second_value': ['English'],
             'dates': [],
             'posts_per_page': 10,
             'page_number': 1,

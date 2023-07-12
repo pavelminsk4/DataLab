@@ -22,7 +22,7 @@ class PostsMentionsTests(APITestCase):
             'text': 'First twitter post @First_name', 
             'sentiment': 'neutral', 
             'date': '2020-10-10T00:00:00Z', 
-            'count_totalretweets': None, 
+            'count_totalretweets': 1, 
             'count_replies': 1, 
             'count_favorites': 1, 
             'user_alias': 'First_name', 
