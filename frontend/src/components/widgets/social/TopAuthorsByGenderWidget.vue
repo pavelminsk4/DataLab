@@ -60,13 +60,18 @@ export default {
       })
       this.tableHeader = [
         {name: '', width: '5%'},
-        {name: 'Author', width: '15%'},
+        {name: 'Author', width: '15%', sortProperty: 'name', hasSort: true},
         {name: 'Gender', width: '15%'},
         {name: 'Media Type', width: '10%'},
-        {name: 'Posts', width: '10%'},
+        {name: 'Posts', width: '10%', sortProperty: 'posts', hasSort: true},
         {name: 'Sentiment', width: '25%'},
-        {name: 'Reach', width: '10%'},
-        {name: 'Engagement', width: '10%'},
+        {name: 'Reach', width: '10%', sortProperty: 'reach', hasSort: true},
+        {
+          name: 'Engagement',
+          width: '10%',
+          sortProperty: 'engagements',
+          hasSort: true,
+        },
       ]
     }
     this.genderTypes = ['male', 'female']

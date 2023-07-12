@@ -212,3 +212,8 @@ export const SENTIMENT_COLORS = {
 }
 
 export const COMPARISON_COLORS = ['#516BEE', '#00B1FF', '#00BF7F']
+
+export const SORT_BY = {
+  ASCENDING: 'ascending',
+  DESCENDING: 'descending',
+}

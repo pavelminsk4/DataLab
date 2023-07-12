@@ -14,10 +14,11 @@
       :table-header="tableHeader"
       :has-checkbox="false"
       class="overall-top-authors"
+      @sorting-by="sorting"
     >
       <tr
-        v-for="(item, index) in widgetData"
-        :key="item.reach + index"
+        v-for="(item, index) in tableValue"
+        :key="`${item.date}-${index}`"
         class="base-table__row"
       >
         <td>
@@ -54,6 +55,8 @@
 </template>
 
 <script>
+import sortByMixin from '@/lib/mixins/sort-for-table.js'
+
 import ChartsView from '@/components/charts/ChartsView'
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
 import BaseTable from '@/components/common/BaseTable'
@@ -71,6 +74,7 @@ export default {
     TwitterIcon,
     BaseChips,
   },
+  mixins: [sortByMixin],
   props: {
     widgetData: {type: Array, required: true},
     widgetDetails: {type: Object, required: true},

@@ -11,8 +11,13 @@
       v-if="tableHeader.length"
       :table-header="tableHeader"
       :has-checkbox="false"
+      @sorting-by="sorting"
     >
-      <tr v-for="item in widgetData" :key="item.date" class="base-table__row">
+      <tr
+        v-for="(item, index) in tableValue"
+        :key="`${item.date}-${index}`"
+        class="base-table__row"
+      >
         <td>
           <component :is="item.type + 'Icon'" />
         </td>
@@ -33,6 +38,8 @@
 </template>
 
 <script>
+import sortByMixin from '@/lib/mixins/sort-for-table.js'
+
 import ChartsView from '@/components/charts/ChartsView'
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
 import BaseTable from '@/components/common/BaseTable'
@@ -53,6 +60,7 @@ export default {
     retweetIcon,
     replyIcon,
   },
+  mixins: [sortByMixin],
   props: {
     widgetData: {type: Array, required: true},
     widgetDetails: {type: Object, required: true},

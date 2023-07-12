@@ -9,8 +9,15 @@
           v-for="item in tableHeader"
           :key="`header-${item.name}`"
           :style="item.width && `width: ${item.width};`"
+          @click="() => sortingBy(item)"
         >
-          {{ capitalizeFirstLetter(item.name) }}
+          <div class="header-container">
+            <span>{{ capitalizeFirstLetter(item.name) }}</span>
+            <SortArrowIcon
+              v-if="item.hasSort"
+              :sort-by="sortBy[item.sortProperty]"
+            />
+          </div>
         </th>
         <th v-if="hasCheckbox && hasActions" style="width: 80px">Actions</th>
       </tr>
@@ -23,12 +30,18 @@
 
 <script>
 import {capitalizeFirstLetter} from '@lib/utilities'
+import {SORT_BY} from '@lib/constants'
+
 import BaseCheckbox from '@/components/BaseCheckbox2'
+import SortArrowIcon from '@/components/icons/SortArrowIcon'
+
+const {ASCENDING, DESCENDING} = SORT_BY
 
 export default {
   name: 'BaseTable',
   components: {
     BaseCheckbox,
+    SortArrowIcon,
   },
   props: {
     tableHeader: {type: Array, required: true},
@@ -39,6 +52,7 @@ export default {
   data() {
     return {
       isCheckedAll: false,
+      sortBy: {},
     }
   },
   computed: {
@@ -52,8 +66,28 @@ export default {
       },
     },
   },
+  created() {
+    this.tableHeader.forEach((column) => {
+      this.sortBy[column.sortProperty] = column.isDefaultSort ? ASCENDING : ''
+    })
+  },
   methods: {
     capitalizeFirstLetter,
+    sortingBy({sortProperty, hasSort}) {
+      if (!hasSort) return
+
+      switch (this.sortBy[sortProperty]) {
+        case ASCENDING:
+          this.sortBy[sortProperty] = DESCENDING
+          break
+        default:
+          this.sortBy = {}
+          this.sortBy[sortProperty] = ASCENDING
+          break
+      }
+
+      this.$emit('sorting-by', sortProperty, this.sortBy[sortProperty])
+    },
   },
 }
 </script>
@@ -72,9 +106,15 @@ export default {
       th {
         padding: 8px 16px;
 
+        vertical-align: middle;
         text-align: left;
         font-weight: 500;
         font-size: 11px;
+
+        .header-container {
+          display: flex;
+          align-items: center;
+        }
       }
     }
   }
