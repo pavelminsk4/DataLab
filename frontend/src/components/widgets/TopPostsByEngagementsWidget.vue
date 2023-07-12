@@ -11,8 +11,13 @@
       v-if="tableHeader.length"
       :table-header="tableHeader"
       :has-checkbox="false"
+      @sorting-by="sorting"
     >
-      <tr v-for="item in widgetData" :key="item.date" class="base-table__row">
+      <tr
+        v-for="(item, index) in tableValue"
+        :key="`${item.date}-${index}`"
+        class="base-table__row"
+      >
         <td>
           <component :is="item.type + 'Icon'" />
         </td>
@@ -33,6 +38,8 @@
 </template>
 
 <script>
+import {SORT_BY} from '@lib/constants'
+
 import ChartsView from '@/components/charts/ChartsView'
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
 import BaseTable from '@/components/common/BaseTable'
@@ -60,9 +67,40 @@ export default {
     customTitle: {type: String, default: ''},
     tableHeader: {type: Array, required: true},
   },
+  data() {
+    return {
+      sortBy: {
+        property: '',
+        condition: '',
+      },
+    }
+  },
   computed: {
     widgetWrapper() {
       return this.isSettings ? 'div' : 'WidgetsLayout'
+    },
+    tableValue() {
+      if (!this.sortBy.property) return this.widgetData
+
+      const ratio = this.sortBy.condition === SORT_BY.DESCENDING ? -1 : 1
+
+      if (this.sortBy.property === 'date') {
+        return [...this.widgetData].sort(
+          (a, b) =>
+            ratio *
+            (new Date(a[this.sortBy.property]) -
+              new Date(b[this.sortBy.property]))
+        )
+      }
+
+      return [...this.widgetData].sort(
+        (a, b) => ratio * (a[this.sortBy.property] - b[this.sortBy.property])
+      )
+    },
+  },
+  methods: {
+    sorting(property, condition) {
+      this.sortBy = {property, condition}
     },
   },
 }

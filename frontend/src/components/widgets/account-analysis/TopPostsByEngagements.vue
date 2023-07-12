@@ -39,9 +39,20 @@ export default {
       {name: '', width: '3%'},
       {name: 'Tweet caption', width: '40%'},
       {name: 'Sentiment', width: '10%'},
-      {name: 'Engagements', width: '8%'},
-      {name: 'ENGMT Rate', width: '8%'},
-      {name: 'Date', width: '10%'},
+      {
+        name: 'Engagements',
+        width: '8%',
+        sortProperty: 'engagements',
+        hasSort: true,
+        isDefaultSort: true,
+      },
+      {
+        name: 'ENGMT Rate',
+        width: '8%',
+        sortProperty: 'engmt_rate',
+        hasSort: true,
+      },
+      {name: 'Date', width: '10%', sortProperty: 'date', hasSort: true},
     ]
     if (!this.topPostsByEngagements.length) {
       this[action.GET_TOP_POSTS_BY_ENGAGEMENTS]({
