@@ -147,7 +147,7 @@ def search_posts(request, project_pk):
     posts_per_page = body['posts_per_page']
     page_number = body['page_number']
     project = ProjectAccountAnalysis.objects.get(id=project_pk)
-    posts = posts_aggregator(project)
+    posts = posts_aggregator(project).filter(user_alias=project.profile_handle)
     return calculate(posts, posts_per_page, page_number)
 
 def search_posts_mentions(request, project_pk):
