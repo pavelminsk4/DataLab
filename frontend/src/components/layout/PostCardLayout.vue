@@ -149,6 +149,7 @@ export default {
       .description {
         display: -webkit-box;
 
+        max-width: 27vw;
         margin-bottom: 20px;
 
         cursor: pointer;
