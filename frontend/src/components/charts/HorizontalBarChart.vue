@@ -26,6 +26,7 @@ export default {
     labels: {type: Array, default: () => []},
     chartValues: {type: Object, default: () => {}},
     hasAnimation: {type: Boolean, default: true},
+    tooltipLabels: {type: [Array, String], required: false},
   },
   computed: {
     chartOptions() {
@@ -56,6 +57,13 @@ export default {
             display: false,
           },
           tooltip: {
+            callbacks: {
+              label: (tooltipItem) => {
+                return this.tooltipLabels
+                  ? `${this.tooltipLabels}: ${tooltipItem.formattedValue}`
+                  : tooltipItem.formattedValue
+              },
+            },
             yAlign: 'bottom',
             titleColor: '#151515',
             bodyColor: '#151515',

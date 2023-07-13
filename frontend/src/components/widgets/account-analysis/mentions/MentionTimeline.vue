@@ -5,6 +5,7 @@
     :widget-details="widgetDetails"
     :labels="labels"
     :chart-values="chartValues"
+    :tooltip-Labels="tooltipLabels"
   />
 </template>
 
@@ -27,6 +28,11 @@ export default {
   props: {
     widgetDetails: {type: Object, required: true},
   },
+  data() {
+    return {
+      tooltipLabels: ['Tweets', 'Engagements'],
+    }
+  },
   computed: {
     ...mapGetters({
       accountAnalysisWidgets: get.ACCOUNT_ANALYSIS_WIDGETS,
@@ -36,8 +42,8 @@ export default {
     },
     labels() {
       if (!this.mentionTimeline.length) return
-      return this.mentionTimeline.map((el) => {
-        return defaultDate(el.date).split(',')[0]
+      return this.mentionTimeline.map((dateValue) => {
+        return defaultDate(dateValue.date)
       })
     },
     chartValues() {

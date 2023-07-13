@@ -2,6 +2,7 @@
   <TimeMapWidget
     :widget-details="widgetDetails"
     :widget-data="audienceMentionTime"
+    tooltip-Labels="Engagements"
   />
 </template>
 

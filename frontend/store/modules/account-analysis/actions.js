@@ -112,6 +112,29 @@ export default {
     }
   },
 
+  async [action.POST_INTERACTIVE_WIDGETS](
+    {commit},
+    {projectId, widgetId, data}
+  ) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const response = await api.accountAnalysis.postInteractiveWidget({
+        projectId,
+        widgetId,
+        data,
+      })
+
+      commit(mutator.SET_INTERACTIVE_DATA, response, {
+        root: true,
+      })
+    } catch (error) {
+      console.error(error)
+      return error
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
   async [action.GET_AVAILABLE_WIDGETS]({commit}, projectId) {
     commit(mutator.SET_LOADING, true)
     try {

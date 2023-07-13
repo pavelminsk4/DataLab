@@ -40,7 +40,7 @@ export default {
                   widget.name,
                   this.availableWidgets[widget.name],
                   this.currentProject.id,
-                  this.currentProject.source
+                  'AccountAnalysis'
                 ),
                 isFullWidth: widget.isFullWidth,
                 isShowDeleteBtn: false,

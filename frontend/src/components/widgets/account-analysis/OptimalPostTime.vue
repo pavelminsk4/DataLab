@@ -2,6 +2,7 @@
   <TimeMapWidget
     :widget-details="widgetDetails"
     :widget-data="optimalPostTime"
+    tooltip-Labels="Engagements"
   />
 </template>
 

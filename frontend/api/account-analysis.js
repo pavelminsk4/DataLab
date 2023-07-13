@@ -43,6 +43,14 @@ export default {
     )
   },
 
+  async postInteractiveWidget({projectId, widgetId, data}) {
+    return fetch(
+      'post',
+      `${moduleName}/account_analysis_interactive_widgets/${projectId}/${widgetId}`,
+      data
+    )
+  },
+
   // Widgets
   async getAllWidgets(projectId) {
     return fetch(

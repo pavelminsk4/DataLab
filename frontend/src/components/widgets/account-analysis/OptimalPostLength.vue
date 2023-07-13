@@ -1,5 +1,6 @@
 <template>
   <OptimalPostLengthWidget
+    tooltip-Labels="Engagements"
     :widget-details="widgetDetails"
     :widget-data="optimalPostLength"
   />

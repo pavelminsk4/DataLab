@@ -4,6 +4,7 @@
       v-if="inreractiveDataModal.isShow"
       :widget-id="widgetId"
       :current-project="currentProject"
+      :module-name="currentProject.source"
       class="interactive-widgets"
       @show-results="updatePageAndCountPosts"
       @close="closeInteractiveModal"

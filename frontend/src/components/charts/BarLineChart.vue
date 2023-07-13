@@ -16,6 +16,7 @@ export default {
   props: {
     chartValues: {type: Object, required: true},
     labels: {type: Array, required: true},
+    tooltipLabels: {type: Array, required: false},
   },
 
   created() {
@@ -23,7 +24,7 @@ export default {
       labels: this.labels,
       datasets: [
         {
-          label: 'Bar',
+          label: this.tooltipLabels[0],
           data: this.chartValues[0],
           borderRadius: 12,
           backgroundColor: '#C5EAFF',
@@ -33,7 +34,7 @@ export default {
           },
         },
         {
-          label: 'Line',
+          label: this.tooltipLabels[1],
           data: this.chartValues[1],
           borderColor: '#007EC7',
           backgroundColor: 'white',
@@ -49,6 +50,18 @@ export default {
     }
 
     this.options = {
+      onClick: (e, dataOptions) => {
+        this.$emit(
+          'open-interactive-data',
+          this.labels[dataOptions[0].index],
+          dataOptions[0].element.$datalabels[0].$context.dataset.label ||
+            this.chartValues[0].label
+        )
+      },
+      onHover: (event, chartElement) => {
+        const target = event.native ? event.native.target : event.target
+        target.style.cursor = chartElement[0] ? 'pointer' : 'default'
+      },
       responsive: true,
       maintainAspectRatio: false,
       plugins: {

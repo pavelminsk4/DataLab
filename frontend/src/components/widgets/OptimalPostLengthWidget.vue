@@ -10,6 +10,7 @@
       :labels="labels"
       :chart-type="chartType"
       :chart-values="chartValues"
+      :tooltip-Labels="tooltipLabels"
       :widget-details="widgetDetails"
       :is-legend-displayed="false"
     />
@@ -29,6 +30,7 @@ export default {
     isSettings: {type: Boolean, default: false},
     newChartType: {type: String, default: ''},
     colors: {type: Array, default: () => []},
+    tooltipLabels: {type: [Array, String], required: false},
   },
   computed: {
     chartType() {

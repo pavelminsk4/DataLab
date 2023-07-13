@@ -11,7 +11,9 @@
       :chart-type="chartType"
       :chart-values="chartValues"
       :widget-details="widgetDetails"
+      tooltip-Labels="Followers"
       :is-legend-displayed="!isSettings"
+      :is-interactive-data-shown="false"
     />
   </component>
 </template>

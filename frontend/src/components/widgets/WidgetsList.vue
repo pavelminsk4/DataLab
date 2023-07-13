@@ -3,6 +3,7 @@
     v-if="inreractiveDataModal.isShow"
     :widget-id="inreractiveDataModal.widgetId"
     :current-project="currentProject"
+    :module-name="moduleName"
     class="interactive-widgets"
     @show-results="updatePageAndCountPosts"
     @close="closeInteractiveModal"
@@ -46,6 +47,8 @@ import AccountAnalysisMainWidget from '@/components/widgets/account-analysis/Acc
 import InteractiveWidgetModal from '@/components/modals/InteractiveWidgetModal'
 
 const {mapActions: mapSocialActions} = createNamespacedHelpers('social')
+const {mapActions: mapAccounAnalysisAction} =
+  createNamespacedHelpers('accountAnalysis')
 
 export default {
   name: 'WidgetsList',
@@ -88,6 +91,9 @@ export default {
     ...mapSocialActions({
       postSocialInteractiveData: action.POST_INTERACTIVE_WIDGETS,
     }),
+    ...mapAccounAnalysisAction({
+      postAccountAnalysisInteractiveData: action.POST_INTERACTIVE_WIDGETS,
+    }),
     openModal(widget) {
       this.currentWidgetIndex = this.selectedWidgets.findIndex(
         (element) => element.widgetDetails.name === widget.name
@@ -122,6 +128,10 @@ export default {
 
       if (this.moduleName === 'Social') {
         this.postSocialInteractiveData(interactiveValues)
+      }
+
+      if (this.moduleName === 'AccountAnalysis') {
+        this.postAccountAnalysisInteractiveData(interactiveValues)
       }
     },
   },

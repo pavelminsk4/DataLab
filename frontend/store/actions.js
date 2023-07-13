@@ -1053,6 +1053,11 @@ export default {
             `social/${action.POST_INTERACTIVE_WIDGETS}`,
             value
           )
+        case 'AccountAnalysis':
+          return await dispatch(
+            `accountAnalysis/${action.POST_INTERACTIVE_WIDGETS}`,
+            value
+          )
       }
     } catch (error) {
       console.error(error)
