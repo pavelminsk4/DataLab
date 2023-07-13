@@ -95,7 +95,7 @@ def interactive_widgets(request, project_pk, widget_pk):
     elif widget.default_title == 'Optimal post time':
         posts = posts_account.filter(Q(count_textlength__gte=first_value[0]) & Q(count_textlength__lte=(first_value[1] if first_value[0] != 140 else 10000)))
     elif widget.default_title == 'Top hashtags':
-        posts = posts_account.filter(reduce(lambda x,y: x | y, [Q(hashtags=hashtag) for hashtag in first_value]))
+        posts = posts_account.filter(hashtags__contains=first_value)
     elif widget.default_title == 'Optimal number of hashtags':
         if first_value[0] == '0 hashtags':
             posts = posts_account.filter(count_hashtags=0)
