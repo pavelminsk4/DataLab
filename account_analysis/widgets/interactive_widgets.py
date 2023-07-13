@@ -97,12 +97,14 @@ def interactive_widgets(request, project_pk, widget_pk):
     elif widget.default_title == 'Top hashtags':
         posts = posts_account.filter(reduce(lambda x,y: x | y, [Q(hashtags=hashtag) for hashtag in first_value]))
     elif widget.default_title == 'Optimal number of hashtags':
-        if first_value[0] == 0:
-            posts = posts_account.filter(lambda x: x.count_hashtags == 0, posts)
-        elif first_value[0] == 5:
-            posts = posts_account.filter(lambda x: x.count_hashtags >= 0, posts)
-        else:
-            posts = posts_account.filter(lambda x: x.count_hashtags >= first_value and len(count_hashtags) <= second_value, posts)     
+        if first_value[0] == '0 hashtags':
+            posts = posts_account.filter(count_hashtags=0)
+        elif first_value[0] == '1-2 hashtags':
+            posts = posts_account.filter(Q(count_hashtags=1) | Q(count_hashtags=2))
+        elif first_value[0] == '3-4 hashtags':
+            posts = posts_account.filter(Q(count_hashtags=3) | Q(count_hashtags=4))
+        elif first_value[0] == '5+ hashtags':
+            posts = posts_account.filter(count_hashtags_gte=5) 
     elif widget.default_title == 'Mention sentiment':
         posts = posts_mentions.filter(sentiment=first_value[0].lower())
     elif widget.default_title == 'Average engagements by day':
