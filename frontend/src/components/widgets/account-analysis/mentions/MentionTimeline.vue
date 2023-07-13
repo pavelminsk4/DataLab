@@ -42,8 +42,8 @@ export default {
     },
     labels() {
       if (!this.mentionTimeline.length) return
-      return this.mentionTimeline.map((el) => {
-        return defaultDate(el.date)
+      return this.mentionTimeline.map((dateValue) => {
+        return defaultDate(dateValue.date)
       })
     },
     chartValues() {

@@ -92,9 +92,9 @@ export default {
       let optimalPostWidgetData = null
 
       if (firstValue.includes('from')) {
-        optimalPostWidgetData = firstValue.split(' ').filter((el) => {
-          if (+el === 0) return el
-          return +el
+        optimalPostWidgetData = firstValue.split(' ').filter((value) => {
+          if (+value === 0) return value
+          return +value
         })
       }
 

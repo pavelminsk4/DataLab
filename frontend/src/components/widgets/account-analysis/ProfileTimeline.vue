@@ -42,8 +42,8 @@ export default {
     },
     labels() {
       if (!this.profileTimeline.length) return
-      return this.profileTimeline.map((el) => {
-        return defaultDate(el.date)
+      return this.profileTimeline.map((dateValue) => {
+        return defaultDate(dateValue.date)
       })
     },
     chartValues() {
