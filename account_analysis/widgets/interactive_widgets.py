@@ -18,8 +18,6 @@ def interactive_widgets(request, project_pk, widget_pk):
     dates = body['dates']
     if widget.default_title == 'Profile timeline':
         posts = posts_account.filter(date__range=dates)
-    if widget.default_title == 'Follower growth':
-        posts = posts_account.filter(date__range=dates)
     elif widget.default_title == 'Most frequent post types':
         if first_value[0] == 'tweets':
             first_value=['original']
