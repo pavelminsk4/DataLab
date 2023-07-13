@@ -16,6 +16,7 @@ import TopLanguages from '@/components/widgets/comparison/TopLanguagesWidget'
 import TopLocations from '@/components/widgets/comparison/TopLocationsWidget'
 import SentimentNumberOfResults from '@/components/widgets/comparison/SentimentNumberOfResultsWidget'
 import TopKeywordsBySentiment from '@/components/widgets/comparison/TopKeywordsBySentimentWidget'
+import SentimentByLocations from '@/components/widgets/comparison/SentimentByLocationsWidget'
 import SentimentByPeriod from '@/components/widgets/comparison/SentimentByPeriodWidget'
 
 export default {
@@ -30,6 +31,7 @@ export default {
     TopLocations,
     SentimentNumberOfResults,
     TopKeywordsBySentiment,
+    SentimentByLocations,
     SentimentByPeriod,
   },
   props: {

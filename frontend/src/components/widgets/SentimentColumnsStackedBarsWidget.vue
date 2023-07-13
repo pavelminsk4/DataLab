@@ -7,8 +7,8 @@
     @open-modal="$emit('open-settings-modal')"
   >
     <ChartsView
-      :chart-values="chartValues"
-      :labels="labels"
+      :chart-values="widgetData"
+      :labels="legends"
       :chart-type="chartType"
       :widget-details="widgetDetails"
     />
@@ -20,14 +20,14 @@ import ChartsView from '@/components/charts/ChartsView'
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
 
 export default {
-  name: 'TopEntitiesStackedBarWidget',
+  name: 'SentimentColumnsStackedBarsWidget',
   components: {
     ChartsView,
     WidgetsLayout,
   },
   props: {
-    labels: {type: Array, required: true},
-    chartValues: {type: Array, required: true},
+    widgetData: {type: Array, required: true},
+    legends: {type: Array, default: () => []},
     widgetDetails: {type: Object, required: true},
     isSettings: {type: Boolean, default: false},
     customTitle: {type: String, default: ''},
@@ -37,7 +37,7 @@ export default {
       return (
         this.widgetDetails.chart_type ||
         this.widgetDetails.defaultChartType ||
-        'TopEntitiesBarChart'
+        'MultiTopEntitiesBarChart'
       )
     },
     widgetWrapper() {
