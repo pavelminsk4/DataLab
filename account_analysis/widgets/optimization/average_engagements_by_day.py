@@ -15,11 +15,11 @@ def calculate(posts):
     posts_thursday = posts.filter(date__week_day=5).aggregate(engagement=Sum(F('count_favorites') + F('count_totalretweets')))
     posts_friday = posts.filter(date__week_day=6).aggregate(engagement=Sum(F('count_favorites') + F('count_totalretweets')))
     posts_saturday = posts.filter(date__week_day=7).aggregate(engagement=Sum(F('count_favorites') + F('count_totalretweets')))
-    res = {'Monday': posts_monday['engagement'], 
-           'Tuesday': posts_tuesday['engagement'],
-           'Wednesday': posts_wednesday['engagement'],
-           'Thursday': posts_thursday['engagement'],
-           'Friday': posts_friday['engagement'],
-           'Saturday': posts_saturday['engagement'],
-           'Sunday': posts_sunday['engagement']}
+    res = {'Monday': posts_monday['engagement'] / posts.filter(date__week_day=2).count(), 
+           'Tuesday': posts_tuesday['engagement'] / posts.filter(date__week_day=3).count(),
+           'Wednesday': posts_wednesday['engagement'] / posts.filter(date__week_day=4).count(),
+           'Thursday': posts_thursday['engagement'] / posts.filter(date__week_day=5).count(),
+           'Friday': posts_friday['engagement'] / posts.filter(date__week_day=6).count(),
+           'Saturday': posts_saturday['engagement'] / posts.filter(date__week_day=7).count(),
+           'Sunday': posts_sunday['engagement'] / posts.filter(date__week_day=1).count()}
     return JsonResponse(res, safe=False)

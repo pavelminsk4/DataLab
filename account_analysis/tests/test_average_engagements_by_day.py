@@ -25,11 +25,14 @@ class AverageEngagementsByDayTests(APITestCase):
         url = reverse('account_analysis:average_engagements_by_day', kwargs={'pk': pr.pk, 'widget_pk': widget_pk})
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        res = { 'Friday': 2,
-                'Monday': 2,
-                'Saturday': 4,
-                'Sunday': 2,
-                'Thursday': 2,
-                'Tuesday': 2,
-                'Wednesday': 2}
+        res =  {
+                'Friday': 2.0,
+                'Monday': 2.0,
+                'Saturday': 2.0,
+                'Sunday': 2.0,
+                'Thursday': 2.0,
+                'Tuesday': 2.0,
+                'Wednesday': 2.0
+              }
+
         self.assertEqual(json.loads(response.content), res)
