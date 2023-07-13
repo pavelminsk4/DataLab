@@ -17,17 +17,19 @@ export default {
   },
   computed: {
     widgetData() {
-      const formatedWidgetData = []
+      const formattedWidgetData = []
       this.widgetDetails.widgetData.map((project) => {
         const value = {}
-        value[project.project] = project.data.map((el) => {
+        value[project.project] = project.data.map((item) => {
           return {
-            post_count: el.created_count,
+            date: item.date,
+            post_count: item.created_count,
           }
         })
-        formatedWidgetData.push(value)
+        formattedWidgetData.push(value)
       })
-      return formatedWidgetData
+
+      return formattedWidgetData
     },
   },
 }

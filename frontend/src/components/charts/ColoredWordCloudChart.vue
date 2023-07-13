@@ -124,7 +124,7 @@ export default {
 
 .legends {
   position: absolute;
-  top: calc(100% + 10px);
+  top: calc(100% + 20px);
 
   display: flex;
   justify-content: center;
