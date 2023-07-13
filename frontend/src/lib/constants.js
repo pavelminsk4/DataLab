@@ -173,7 +173,7 @@ export const comparisonWidgetsList = {
     sentiment: [
       {name: 'sentiment_number_of_results'},
       {name: 'sentiment'},
-      // {name: 'top_keywords_by_sentiment', isFullWidth: true,},
+      {name: 'top_keywords_by_sentiment', isFullWidth: true},
       // {name: 'sentiment_by_locations'},
       // {name: 'sentiment_by_period'},
       // {name: 'sentiment_top_languages', isFullWidth: true},
@@ -216,4 +216,10 @@ export const COMPARISON_COLORS = ['#516BEE', '#00B1FF', '#00BF7F']
 export const SORT_BY = {
   ASCENDING: 'ascending',
   DESCENDING: 'descending',
+}
+
+export const SENTIMENT = {
+  NEUTRAL: 'neutral',
+  NEGATIVE: 'negative',
+  POSITIVE: 'positive',
 }

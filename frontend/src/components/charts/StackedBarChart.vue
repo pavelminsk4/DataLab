@@ -61,9 +61,9 @@ export default {
             callbacks: {
               label(context) {
                 const {dataset} = context
-                return `${dataset.label}: ${
-                  dataset.tooltipValue || Math.trunc(dataset.data[0])
-                }%`
+                const value =
+                  dataset.tooltipValue || `${Math.trunc(dataset.data[0])}%`
+                return `${dataset.label}: ${value}`
               },
             },
           },
