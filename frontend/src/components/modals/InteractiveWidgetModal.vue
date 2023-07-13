@@ -8,8 +8,6 @@
     <BaseSpinner v-if="loading" />
 
     <div v-else class="interactive-modal-wrapper">
-      <BaseTabs :main-settings="tabs" default-tab="Top Results" class="tabs" />
-
       <div class="settings-panel">
         <div class="results">{{ allAvailablePosts }} results</div>
 
@@ -23,6 +21,11 @@
           ]"
           @click="updateDisplayType(item)"
         />
+      </div>
+
+      <NoPostsIcon v-if="!loading && !posts.length" />
+      <div v-if="!loading && !posts.length" class="no-posts">
+        No posts here &#128531;
       </div>
 
       <div :class="[postsDisplayType]">
@@ -39,7 +42,7 @@
 
     <div class="pagination">
       <PaginationControlPanel
-        v-if="numberOfPages"
+        v-if="numberOfPages && posts.length"
         v-model="currentPage"
         :pages="numberOfPages"
         :posts-on-page="postsOnPage"
@@ -59,16 +62,15 @@ import BaseSpinner from '@/components/BaseSpinner'
 import OnlinePostCard from '@/components/OnlinePostCard'
 import SocialPostCard from '@/components/SocialPostCard'
 import AccountAnalysisPostCard from '@/components/SocialPostCard'
-import BaseTabs from '@/components/project/widgets/modals/BaseTabs'
 import PaginationControlPanel from '@/components/PaginationControlPanel'
-import NormalIcon from '@/components/icons/PostsDisplayNormalIcon.vue'
-import CompactIcon from '@/components/icons/PostsDisplayCompactIcon.vue'
+import NormalIcon from '@/components/icons/PostsDisplayNormalIcon'
+import CompactIcon from '@/components/icons/PostsDisplayCompactIcon'
+import NoPostsIcon from '@/components/icons/NoPostsIcon'
 
 export default {
   name: 'InteractiveWidgetModal',
   components: {
     PaginationControlPanel,
-    BaseTabs,
     BaseSpinner,
     BaseModal,
     OnlinePostCard,
@@ -76,6 +78,7 @@ export default {
     AccountAnalysisPostCard,
     NormalIcon,
     CompactIcon,
+    NoPostsIcon,
   },
   props: {
     widgetId: {type: Number, required: false},
@@ -87,7 +90,6 @@ export default {
       currentPage: 1,
       countPosts: 4,
       postsOnPage: [4, 8, 16],
-      tabs: ['Top Results'],
       displayTypes: ['Normal', 'Compact'],
       postsDisplayType: 'normal',
     }
@@ -144,10 +146,6 @@ export default {
   color: var(--typography-secondary-color);
 }
 
-.tabs {
-  width: 100%;
-}
-
 .interactive-modal-wrapper {
   display: flex;
   flex-direction: column;
@@ -156,13 +154,20 @@ export default {
 
   height: 100%;
 
+  .no-posts {
+    margin-top: 20px;
+
+    font-size: 18px;
+    font-weight: 500;
+  }
+
   .settings-panel {
     display: flex;
     justify-content: flex-end;
     align-items: center;
 
     width: 100%;
-    margin: 30px 0 25px 0;
+    margin: 0 0 25px 0;
 
     .results {
       margin-right: 40px;
@@ -201,6 +206,8 @@ export default {
   .normal {
     display: flex;
     flex-direction: column;
+
+    width: 100%;
   }
 
   .compact {
