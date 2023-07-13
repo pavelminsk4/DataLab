@@ -107,7 +107,10 @@ export default {
         this.showIteractiveModalData({
           first_value: Array.isArray(secondValue) ? secondValue : [secondValue],
           second_value: [],
-          dates: [startOfTheDay, endOfTheDay],
+          dates: [
+            startOfTheDay.toLocaleString('sv-SE'),
+            endOfTheDay.toLocaleString('sv-SE'),
+          ],
         })
       } else {
         this.showIteractiveModalData({
