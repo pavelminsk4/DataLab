@@ -5,6 +5,7 @@
     :widget-details="widgetDetails"
     :labels="labels"
     :chart-values="chartValues"
+    :tooltip-Labels="tooltipLabels"
   />
 </template>
 
@@ -26,6 +27,11 @@ export default {
   },
   props: {
     widgetDetails: {type: Object, required: true},
+  },
+  data() {
+    return {
+      tooltipLabels: ['Tweets', 'Engagements'],
+    }
   },
   computed: {
     ...mapGetters({

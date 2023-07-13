@@ -3,6 +3,7 @@
     :widget-details="widgetDetails"
     :widget-data="averageEngagementsByDayForMentions"
     :colors="colors"
+    tooltip-Labels="Engagements"
   />
 </template>
 

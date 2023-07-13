@@ -37,7 +37,9 @@ export default {
     labels: {type: Array, default: () => []},
     chartValues: {type: Object, default: () => {}},
     isLegendDisplayed: {type: Boolean, default: false},
+    tooltipLabels: {type: [Array, String], required: false},
     hasAnimation: {type: Boolean, default: true},
+    isInteractiveDataShown: {type: Boolean, default: true},
   },
   computed: {
     chartDatasets() {
@@ -68,6 +70,8 @@ export default {
     chartOptions() {
       return {
         onClick: (e, dataOptions) => {
+          if (!this.isInteractiveDataShown) return
+
           this.$emit(
             'open-interactive-data',
             this.labels[dataOptions[0].index],
@@ -83,7 +87,10 @@ export default {
         },
         onHover: (event, chartElement) => {
           const target = event.native ? event.native.target : event.target
-          target.style.cursor = chartElement[0] ? 'pointer' : 'default'
+          target.style.cursor =
+            chartElement[0] && this.isInteractiveDataShown
+              ? 'pointer'
+              : 'default'
         },
         plugins: {
           datalabels: {
@@ -93,6 +100,13 @@ export default {
             display: false,
           },
           tooltip: {
+            callbacks: {
+              label: (tooltipItem) => {
+                return this.tooltipLabels
+                  ? `${this.tooltipLabels}: ${tooltipItem.formattedValue}`
+                  : tooltipItem.formattedValue
+              },
+            },
             yAlign: 'bottom',
             titleColor: '#151515',
             bodyColor: '#151515',

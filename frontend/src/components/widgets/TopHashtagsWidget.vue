@@ -11,6 +11,7 @@
       :chart-type="chartType"
       :chart-values="chartValues.data"
       :widget-details="widgetDetails"
+      :tooltip-Labels="tooltipLabels"
       :is-legend-displayed="!isSettings"
     />
   </component>
@@ -29,6 +30,7 @@ export default {
     widgetData: {type: Object, required: true},
     newChartType: {type: String, default: ''},
     isSettings: {type: Boolean, default: false},
+    tooltipLabels: {type: [Array, String], required: false},
   },
   computed: {
     widgetWrapper() {

@@ -16,6 +16,7 @@ def interactive_widgets(request, project_pk, widget_pk):
     first_value = body['first_value']
     second_value = body['second_value']
     dates = body['dates']
+    weekDays={'Sunday': 1, 'Monday': 2, 'Tuesday': 3, 'Wednesday': 4, 'Thursday': 5, 'Friday': 6, 'Saturday': 7}
     if widget.default_title == 'Profile timeline':
         posts = posts_account.filter(date__range=dates)
     elif widget.default_title == 'Most frequent post types':
@@ -91,9 +92,9 @@ def interactive_widgets(request, project_pk, widget_pk):
                                               (Q(videos__isnull=False) & Q(count_images__gt=0))
                                             )
     elif widget.default_title == 'Optimal post length':
-        posts = posts_account.filter(Q(count_textlength__gte=first_value[0]) & Q(count_textlength__lte=(first_value[1] if first_value[0] != 140 else 10000)))
+        posts = posts_account.filter(Q(count_textlength__gte=first_value[0]) & Q(count_textlength__lte=(first_value[1] if first_value[0] != '140' else 10000)))
     elif widget.default_title == 'Optimal post time':
-        posts = posts_account.filter(date__week_day=first_value[0]).filter(date__hour=second_value[0])
+        posts = posts_account.filter(date__week_day=weekDays[first_value[0]]).filter(date__hour=second_value[0])
     elif widget.default_title == 'Top hashtags':
         posts = posts_account.filter(hashtags__contains=first_value)
     elif widget.default_title == 'Optimal number of hashtags':
@@ -108,11 +109,11 @@ def interactive_widgets(request, project_pk, widget_pk):
     elif widget.default_title == 'Mention sentiment':
         posts = posts_mentions.filter(sentiment=first_value[0].lower())
     elif widget.default_title == 'Average engagements by day':
-        posts = posts_account.filter(date__week_day=first_value)
+        posts = posts_account.filter(date__week_day=weekDays[first_value[0]])
     elif widget.default_title == 'Average engagements by day (mentions)':
-        posts = posts_mentions.filter(date__week_day=first_value)
+        posts = posts_mentions.filter(date__week_day=weekDays[first_value[0]])
     elif widget.default_title == 'Audience mention time':
-        posts = posts_mentions.filter(date__week_day=first_value[0]).filter(date__hour=second_value[0])
+        posts = posts_mentions.filter(date__week_day=weekDays[first_value[0]]).filter(date__hour=second_value[0])
     posts = posts.values(
                           'id',
                           'post_id',

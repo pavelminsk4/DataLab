@@ -6,8 +6,10 @@
     :is="chartType"
     :labels="labels"
     :chart-values="chartValues"
+    :tooltip-Labels="tooltipLabels"
     :isLegendDisplayed="isLegendDisplayed"
     :has-animation="widgets.hasAnimation"
+    :is-interactive-data-shown="isInteractiveDataShown"
     @open-interactive-data="openInteractiveData"
   />
 </template>
@@ -59,6 +61,8 @@ export default {
     widgetDetails: {type: Object, required: true},
     chartValues: {type: Array, default: () => []},
     isLegendDisplayed: {type: Boolean, default: true},
+    tooltipLabels: {type: [Array, String], required: false},
+    isInteractiveDataShown: {type: Boolean, default: true},
   },
   computed: {
     ...mapState(['loading', 'widgets']),
@@ -85,11 +89,13 @@ export default {
     },
     openInteractiveData(firstValue, secondValue) {
       const startOfTheDay = new Date(firstValue)
-
-      let aaaa = null
+      let optimalPostWidgetData = null
 
       if (firstValue.includes('from')) {
-        aaaa = firstValue.split(' ').filter((el) => +el)
+        optimalPostWidgetData = firstValue.split(' ').filter((el) => {
+          if (+el === 0) return el
+          return +el
+        })
       }
 
       if (
@@ -105,7 +111,9 @@ export default {
         })
       } else {
         this.showIteractiveModalData({
-          first_value: aaaa || [firstValue.replace(/ posts/gi, '')],
+          first_value: optimalPostWidgetData || [
+            firstValue.replace(/ posts/gi, ''),
+          ],
           second_value: [secondValue],
           dates: [],
         })

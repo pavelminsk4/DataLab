@@ -4,6 +4,7 @@
     v-bind="$attrs"
     :widget-details="widgetDetails"
     :widget-data="topHashtags"
+    tooltip-Labels="Engagements"
   />
 </template>
 

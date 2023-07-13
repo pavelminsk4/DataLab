@@ -4,7 +4,8 @@
     height="350"
     :options="options"
     :series="chartValues"
-    @click="test"
+    @click="showInteractiveData"
+    @dataPointMouseEnter="hoverMouse"
   />
 </template>
 
@@ -18,6 +19,7 @@ export default {
   },
   props: {
     chartValues: {type: Array, required: true},
+    tooltipLabels: {type: [Array, String], required: false},
   },
   created() {
     this.xAxis = this.chartValues[0].data.map((_value, index) => {
@@ -50,6 +52,15 @@ export default {
           enabled: false,
         },
       },
+      tooltip: {
+        y: {
+          formatter: undefined,
+          title: {
+            formatter: (seriesName) =>
+              this.tooltipLabels ? `${this.tooltipLabels}:` : seriesName,
+          },
+        },
+      },
       grid: {
         show: true,
         position: 'front',
@@ -67,8 +78,15 @@ export default {
     }
   },
   methods: {
-    test(a, b, c) {
-      console.log(a, b, c)
+    showInteractiveData(event, chartContext, config) {
+      this.$emit(
+        'open-interactive-data',
+        this.chartValues[config.seriesIndex].name,
+        config.dataPointIndex
+      )
+    },
+    hoverMouse(event) {
+      event.target.style.cursor = 'pointer'
     },
   },
 }

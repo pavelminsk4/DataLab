@@ -27,6 +27,7 @@ export default {
     chartValues: {type: Object, default: () => {}},
     isLegendDisplayed: {type: Boolean, default: false},
     hasAnimation: {type: Boolean, default: true},
+    tooltipLabels: {type: [Array, String], required: false},
   },
   computed: {
     chartOptions() {
@@ -57,6 +58,13 @@ export default {
             position: 'bottom',
           },
           tooltip: {
+            callbacks: {
+              label: (tooltipItem) => {
+                return this.tooltipLabels
+                  ? `${this.tooltipLabels}: ${tooltipItem.formattedValue}`
+                  : tooltipItem.formattedValue
+              },
+            },
             yAlign: 'bottom',
             titleColor: '#151515',
             bodyColor: '#151515',
