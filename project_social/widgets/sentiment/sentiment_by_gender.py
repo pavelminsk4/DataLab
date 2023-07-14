@@ -34,6 +34,6 @@ def sentiment_by_gender_report(pk, widget_pk):
     widget = SocialWidgetDescription.objects.get(id=widget_pk)
     posts = post_agregetor_for_each_widget(widget, posts)
     return {
-        'data': calculate(posts),
+        'data': calculate(posts, widget.aggregation_period),
         'widget': {'sentiment_by_gender': model_to_dict(widget)}
     }
