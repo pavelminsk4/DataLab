@@ -9,7 +9,7 @@
 import SentimentColumnsStackedBarsWidget from '@/components/widgets/SentimentColumnsStackedBarsWidget'
 
 export default {
-  name: 'ComparisonSentimentByLocationsWidget',
+  name: 'ComparisonSentimentByAuthorsWidget',
   components: {SentimentColumnsStackedBarsWidget},
   props: {
     widgetDetails: {type: Object, required: true},
