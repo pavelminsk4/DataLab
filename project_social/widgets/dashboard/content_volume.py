@@ -38,5 +38,5 @@ def content_volume_report(pk, widget_pk):
     posts = post_agregetor_for_each_widget(widget, posts)
     return {
         'data': calculate(posts, widget.aggregation_period),
-        'widget': {'content_volume_top_locations': model_to_dict(widget)}
+        'widget': {'content_volume': model_to_dict(widget)}
     }
