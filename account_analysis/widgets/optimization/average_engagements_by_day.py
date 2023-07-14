@@ -15,11 +15,11 @@ def calculate(posts):
     posts_thursday = posts.filter(date__week_day=5).aggregate(engagement=Sum(F('count_favorites') + F('count_totalretweets')))
     posts_friday = posts.filter(date__week_day=6).aggregate(engagement=Sum(F('count_favorites') + F('count_totalretweets')))
     posts_saturday = posts.filter(date__week_day=7).aggregate(engagement=Sum(F('count_favorites') + F('count_totalretweets')))
-    res = {'Monday': posts_monday['engagement'] / posts.filter(date__week_day=2).count(), 
-           'Tuesday': posts_tuesday['engagement'] / posts.filter(date__week_day=3).count(),
-           'Wednesday': posts_wednesday['engagement'] / posts.filter(date__week_day=4).count(),
-           'Thursday': posts_thursday['engagement'] / posts.filter(date__week_day=5).count(),
-           'Friday': posts_friday['engagement'] / posts.filter(date__week_day=6).count(),
-           'Saturday': posts_saturday['engagement'] / posts.filter(date__week_day=7).count(),
-           'Sunday': posts_sunday['engagement'] / posts.filter(date__week_day=1).count()}
+    res = {'Monday': (posts_monday['engagement'] / posts.filter(date__week_day=2).count()) if posts.filter(date__week_day=2).count() else 0, 
+           'Tuesday': (posts_tuesday['engagement'] / posts.filter(date__week_day=3).count()) if posts.filter(date__week_day=3).count() else 0,
+           'Wednesday': (posts_wednesday['engagement'] / posts.filter(date__week_day=4).count()) if posts.filter(date__week_day=4).count() else 0,
+           'Thursday': (posts_thursday['engagement'] / posts.filter(date__week_day=5).count())  if posts.filter(date__week_day=5).count() else 0,
+           'Friday': (posts_friday['engagement'] / posts.filter(date__week_day=6).count())  if posts.filter(date__week_day=6).count() else 0,
+           'Saturday': (posts_saturday['engagement'] / posts.filter(date__week_day=7).count())  if posts.filter(date__week_day=7).count() else 0,
+           'Sunday': (posts_sunday['engagement'] / posts.filter(date__week_day=1).count()) if posts.filter(date__week_day=1).count() else 0}
     return JsonResponse(res, safe=False)
