@@ -3,6 +3,7 @@
     :is="widgetWrapper"
     :widget-id="widgetDetails.id"
     :title="widgetDetails.title"
+    style="--widget-layout-content-padding: 0px"
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
   >
@@ -115,8 +116,7 @@ export default {
 
 <style lang="scss" scoped>
 .table {
-  width: calc(100% + 20px * 2);
-  margin: -16px -20px;
+  width: 100%;
 
   border-collapse: collapse;
 

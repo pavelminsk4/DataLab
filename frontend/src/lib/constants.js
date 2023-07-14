@@ -174,10 +174,10 @@ export const comparisonWidgetsList = {
       {name: 'sentiment_number_of_results'},
       {name: 'sentiment'},
       {name: 'top_keywords_by_sentiment', isFullWidth: true},
-      // {name: 'sentiment_by_locations'},
-      // {name: 'sentiment_by_period'},
-      // {name: 'sentiment_top_languages', isFullWidth: true},
-      // {name: 'sentiment_top_authors'},
+      {name: 'sentiment_by_locations', isFullWidth: true},
+      {name: 'sentiment_by_period', isFullWidth: true},
+      {name: 'sentiment_top_languages', isFullWidth: true},
+      {name: 'sentiment_top_authors', isFullWidth: true},
     ],
   },
 }
@@ -223,3 +223,9 @@ export const SENTIMENT = {
   NEGATIVE: 'negative',
   POSITIVE: 'positive',
 }
+
+export const SORTED_SENTIMENT = [
+  SENTIMENT.NEUTRAL,
+  SENTIMENT.POSITIVE,
+  SENTIMENT.NEGATIVE,
+]

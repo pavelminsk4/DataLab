@@ -9,7 +9,7 @@
       </thead>
       <tbody>
         <tr v-for="(label, index) in labels" :key="label">
-          <td class="label">{{ label }}</td>
+          <td class="label">{{ label || 'No name' }}</td>
           <td class="chart">
             <StackedBarChart
               :chart-values="chartValues[index]"
@@ -55,7 +55,6 @@ export default {
   align-items: center;
 
   height: 100%;
-  padding: 20px;
 
   .table {
     table-layout: fixed;
@@ -63,6 +62,9 @@ export default {
     height: 100%;
     .label {
       width: 15%;
+
+      font-size: 12px;
+      color: var(--typography-secondary-color);
     }
     tbody {
       tr {
@@ -70,7 +72,7 @@ export default {
           vertical-align: middle;
         }
         .chart {
-          width: 85%;
+          padding-left: 10px;
           .chart-container {
             width: 100%;
             height: v-bind(barHeight);

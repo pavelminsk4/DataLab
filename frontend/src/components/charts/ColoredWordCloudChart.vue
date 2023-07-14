@@ -24,12 +24,7 @@
       </template>
     </vue-word-cloud>
 
-    <div v-if="chartValues[0].hasLegends" class="legends">
-      <div v-for="item in chartValues" :key="item.type" class="legends__item">
-        <div :style="`--mark-color: ${item.color};`" class="legends__mark" />
-        <span class="legends__label">{{ item.type }}</span>
-      </div>
-    </div>
+    <BaseLegends v-if="legends.length" :legends="legends" />
   </div>
 </template>
 
@@ -38,16 +33,28 @@ import VueWordCloud from 'vuewordcloud'
 import {capitalizeFirstLetter} from '@/lib/utilities'
 
 import BaseTooltip from '@/components/BaseTooltip'
+import BaseLegends from '@/components/charts/BaseLegends'
 
 export default {
   name: 'ColoredWordCloudChart',
-  components: {BaseTooltip, VueWordCloud},
+  components: {BaseLegends, BaseTooltip, VueWordCloud},
   emits: ['open-interactive-data'],
   props: {
     labels: {type: Array, default: () => []},
     hasAnimation: {type: Boolean, default: true},
     chartValues: {type: Array, default: () => []},
     isLegendDisplayed: {type: Boolean, default: true, required: false},
+  },
+  computed: {
+    legends() {
+      return this.chartValues
+        .map(({hasLegends, type, color}) => {
+          if (hasLegends) {
+            return {name: type, color}
+          }
+        })
+        .filter((item) => item)
+    },
   },
   methods: {
     capitalizeFirstLetter,
@@ -119,33 +126,6 @@ export default {
     .tooltip-wrapper {
       display: flex;
     }
-  }
-}
-
-.legends {
-  position: absolute;
-  top: calc(100% + 10px);
-
-  display: flex;
-  justify-content: center;
-
-  gap: 12px;
-
-  &__item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  &__mark {
-    width: 20px;
-    height: 10px;
-    background-color: var(--mark-color);
-  }
-
-  &__label {
-    font-size: 12px;
-    color: var(--typography-secondary-color);
   }
 }
 </style>

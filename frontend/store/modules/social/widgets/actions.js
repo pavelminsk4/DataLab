@@ -180,7 +180,7 @@ export default {
       })
       commit(mutator.SET_LANGUAGES_BY_LOCATION, response)
     } catch (error) {
-      console.log(error)
+      console.error(error)
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }

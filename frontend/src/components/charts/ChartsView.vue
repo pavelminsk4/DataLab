@@ -34,6 +34,7 @@ import StackedBarChart from '@/components/charts/StackedBarChart'
 import BarLineChart from '@/components/charts/BarLineChart'
 import HeatmapChart from '@/components/charts/HeatmapChart'
 import TopEntitiesBarChart from '@/components/charts/TopEntitiesBarChart'
+import MultiTopEntitiesBarChart from '@/components/charts/MultiTopEntitiesBarChart'
 
 export default {
   name: 'ChartsView',
@@ -54,6 +55,7 @@ export default {
     BarLineChart,
     HeatmapChart,
     TopEntitiesBarChart,
+    MultiTopEntitiesBarChart,
   },
   props: {
     labels: {type: Array, default: () => []},

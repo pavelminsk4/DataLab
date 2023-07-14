@@ -3,7 +3,6 @@
     :is="widgetWrapper"
     :widget-id="widgetDetails.id"
     :title="customTitle || widgetDetails.title"
-    style="--widget-layout-content-padding: 0px"
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
   >

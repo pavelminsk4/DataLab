@@ -1,6 +1,6 @@
 import moment from 'moment'
 import {widgetsConfig} from '@/lib/configs/widgetsConfigs'
-import {PREDEFINED_COLORS} from '@/lib/constants'
+import {PREDEFINED_COLORS, SORTED_SENTIMENT} from '@/lib/constants'
 
 export const capitalizeFirstLetter = (string) =>
   string?.charAt(0)?.toUpperCase() + string?.slice(1)
@@ -58,4 +58,17 @@ export const getUniqueColors = (data, key) => {
   })
 
   return colors
+}
+
+export const sortSentiment = (sentiments) => {
+  const newSentiments = [...sentiments]
+
+  newSentiments.sort(({sentiment: sentimentA}, {sentiment: sentimentB}) => {
+    const indexA = SORTED_SENTIMENT.indexOf(sentimentA)
+    const indexB = SORTED_SENTIMENT.indexOf(sentimentB)
+
+    return indexA - indexB
+  })
+
+  return newSentiments
 }
