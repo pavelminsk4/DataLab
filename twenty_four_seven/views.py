@@ -34,7 +34,13 @@ class ItemViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         if self.request.GET:
             status = self.request.GET.get('status')
-            return Item.objects.filter(project__pk=self.kwargs['project_pk'], status=status)
+            order = self.request.GET.get('order')
+            order_choices = {
+                'asc_date': 'online_post__entry_published',
+                'desc_date': '-online_post__entry_published',
+            }
+            field = order_choices[order]
+            return Item.objects.filter(project__pk=self.kwargs['project_pk'], status=status).order_by(field)
         return Item.objects.all()
     
     def get_serializer_class(self):
