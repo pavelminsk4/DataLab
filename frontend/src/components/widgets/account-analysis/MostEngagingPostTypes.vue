@@ -5,6 +5,7 @@
     :widget-details="widgetDetails"
     :labels="labels"
     :chart-values="chartValues"
+    tooltip-Labels="Engagements"
   />
 </template>
 
