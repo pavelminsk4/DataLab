@@ -123,7 +123,7 @@ def posts_values(posts):
     'locationString',
     'language',
     'count_favorites',
-    'count_retweets',
+    'count_totalretweets',
     'count_replies',
     'user_picture',
     'images',
