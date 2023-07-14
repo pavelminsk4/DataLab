@@ -16,6 +16,22 @@
 
   <StatusesChips @show-status-cards="showStatusCards" />
 
+  <div class="sorting">
+    <BaseDropdown
+      title="Sort by"
+      name="sort-posts"
+      :selected-value="sortType.label"
+    >
+      <div
+        v-for="(item, index) in sortingList"
+        :key="item.label + index"
+        @click="setSortValue(item)"
+      >
+        {{ item.label }}
+      </div>
+    </BaseDropdown>
+  </div>
+
   <TFSDragAndDrop
     :card-results="items"
     :current-statuses="currentStatuses"
@@ -36,6 +52,7 @@ import {
   dragAndDropStatuses,
 } from '@/lib/configs/tfsStatusesConfig'
 
+import BaseDropdown from '@/components/BaseDropdown'
 import TFSDragAndDrop from '@/components/twenty-four-seven/drag-n-drop/TFSDragAndDrop'
 import TFSWorkingModal from '@/components/twenty-four-seven/modals/TFSWorkingModal'
 import StatusesChips from '@/components/twenty-four-seven/StatusesChips'
@@ -48,6 +65,7 @@ const IRRELEVANT_STATUS = 'Irrelevant'
 export default {
   name: 'TFSDashboardScreen',
   components: {
+    BaseDropdown,
     TFSDragAndDrop,
     TFSWorkingModal,
     StatusesChips,
@@ -60,11 +78,15 @@ export default {
     return {
       postInfo: null,
       selectedLinkedPost: [],
+      sortingList: [
+        {label: 'Latest', value: 'asc_date'},
+        {label: 'Earliest', value: 'desc_date'},
+      ],
       currentStatuses: dragAndDropStatuses,
     }
   },
   computed: {
-    ...mapState(['items']),
+    ...mapState(['items', 'sortType']),
     projectId() {
       return this.$route.params.projectId
     },
@@ -96,6 +118,7 @@ export default {
       action.CLEAR_TFS_RELATED_CONTENT,
       action.CLEAR_TFS_AI_SUMMARY,
       action.CLEAR_TFS_TRANSLATED_TEXT,
+      action.UPDATE_TFS_SORT_TYPE,
     ]),
     async updateStatus(postId, newStatus, oldStatus, page, isBack) {
       await this[action.UPDATE_TFS_ITEM_STATUS]({
@@ -118,6 +141,16 @@ export default {
         this.currentStatuses[key].isShow = status
           ? key === status
           : key !== IRRELEVANT_STATUS
+      })
+    },
+    setSortValue(sortValue) {
+      this[action.UPDATE_TFS_SORT_TYPE](sortValue)
+      defaultStatuses.forEach((status) => {
+        this[action.GET_TFS_ITEMS]({
+          projectId: this.projectId,
+          status: status,
+          page: 1,
+        })
       })
     },
     openModal(postInfo) {
@@ -149,3 +182,9 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+.sorting {
+  width: 160px;
+}
+</style>

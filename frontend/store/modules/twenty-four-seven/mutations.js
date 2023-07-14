@@ -52,6 +52,10 @@ export default {
     state.aiSummary = summary
   },
 
+  [mutator.SET_TFS_SORT_TYPE](state, sortType) {
+    state.sortType = sortType
+  },
+
   [mutator.RESET_TFS_ITEMS](state) {
     state.items = {}
   },

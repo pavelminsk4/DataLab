@@ -9,6 +9,7 @@ const state = {
   textTranslation: {title: '', text: ''},
   aiSummary: null,
   translatedAISummary: null,
+  sortType: {label: 'Latest', value: 'asc_date'},
 }
 
 export default state

@@ -89,10 +89,15 @@ export default {
     }
   },
 
-  async [action.GET_TFS_ITEMS]({commit}, {projectId, status, page}) {
+  async [action.GET_TFS_ITEMS]({commit, state}, {projectId, status, page}) {
     commit(mutator.SET_LOADING, true)
     try {
-      const items = await api.twentyFourSeven.getItems(projectId, status, page)
+      const items = await api.twentyFourSeven.getItems(
+        projectId,
+        status,
+        page,
+        state.sortType.value
+      )
       commit(mutator.SET_TFS_ITEMS, {items, status})
     } catch (error) {
       console.error(error)
@@ -231,6 +236,10 @@ export default {
     } finally {
       commit(mutator.SET_LOADING, false)
     }
+  },
+
+  async [action.UPDATE_TFS_SORT_TYPE]({commit}, sortType) {
+    commit(mutator.SET_TFS_SORT_TYPE, sortType)
   },
 
   async [action.CLEAR_TFS_ITEMS]({commit}) {

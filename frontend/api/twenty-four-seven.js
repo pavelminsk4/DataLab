@@ -27,12 +27,12 @@ export default {
     return fetch('delete', `${moduleName}/projects/${projectId}/`)
   },
 
-  async getItems(projectId, status, page) {
+  async getItems(projectId, status, page, order) {
     return fetch(
       'get',
       `${moduleName}/projects/${projectId}/items/?page=${page}&page_size=20&status=${encodeURIComponent(
         status
-      )}`
+      )}&order=${order}`
     )
   },
 
