@@ -54,6 +54,7 @@ class ReportDocument:
             self.__fill_summary_section(p, cell)
             self.__fill_sentiment_section(p, cell)
             self.__fill_demography_section(p, cell)
+            self.__fill_influencers_section(p, cell)
 
     def __fill_summary_section(self, p, cell):
         widgets = {
@@ -65,12 +66,13 @@ class ReportDocument:
                     'soc_content_volume': ['content_volume', True],
                     'soc_content_volume_top_locations': ['content_volume_top_locations', True],
                     'soc_content_volume_top_authors': ['content_volume_top_authors', True],
-                    'soc_content_volume_top_languages': ['content_volume_top_languages', True]
+                    'soc_content_volume_top_languages': ['content_volume_top_languages', True],
+                    'soc_gender_volume': ['gender_volume', True],
                   }
-        if True in [(True if hasattr(self.item, widget) else False) for widget in widgets.keys()]:
+        if True in [(True if getattr(self.item, widget) else False) for widget in widgets.keys()]:
             self.__font_one(cell.add_paragraph('').add_run('Summary'), cell)
         for widget in widgets.keys():
-            if hasattr(self.item, widget):
+            if getattr(self.item, widget):
                 self.__font_two(self.__get_widget_title(cell, getattr(self.widget_list, widgets[widget][0]), widgets[widget][1]), cell)
         cell.add_paragraph()
 
@@ -81,19 +83,19 @@ class ReportDocument:
                     'soc_sentiment_authors': ['sentiment_authors', False], 
                     'soc_sentiment_locations': ['sentiment_locations', False], 
                     'soc_sentiment_languages': ['sentiment_languages', False],
-                    'soc_sentiment_by_gender': ['sentiment_by_gender', False]
+                    'soc_sentiment_by_gender': ['sentiment_by_gender', False],
+                    'soc_sentiment_top_keywords': ['sentiment_top_keywords', False],
                   }
-        if True in [(True if hasattr(self.item, widget) else False) for widget in widgets.keys()]:
+        if True in [(True if getattr(self.item, widget) else False) for widget in widgets.keys()]:
             self.__font_one(cell.add_paragraph('').add_run('Sentiment'), cell)
         for widget in widgets.keys():
-            if hasattr(self.item, widget):
+            if getattr(self.item, widget):
                 self.__font_two(self.__get_widget_title(cell, getattr(self.widget_list, widgets[widget][0]), widgets[widget][1]), cell)
         cell.add_paragraph()
         
     def __fill_demography_section(self, p, cell):
         widgets = {
                     'soc_top_keywords': ['top_keywords', False],
-                    'soc_top_authors_by_gender': ['top_authors_by_gender', False],
                     'soc_authors_by_gender': ['authors_by_gender', False],
                     'soc_authors_by_language': ['authors_by_language', False],
                     'soc_authors_by_location': ['authors_by_location', False],
@@ -101,10 +103,22 @@ class ReportDocument:
                     'soc_keywords_by_location': ['keywords_by_location', False],
                     'soc_languages_by_location': ['languages_by_location', False]
                   }
-        if True in [(True if hasattr(self.item, widget) else False) for widget in widgets.keys()]:
+        if True in [(True if getattr(self.item, widget) else False) for widget in widgets.keys()]:
             self.__font_one(cell.add_paragraph('').add_run('Demography'), cell)
         for widget in widgets.keys():
-            if hasattr(self.item, widget):
+            if getattr(self.item, widget):
+                self.__font_two(self.__get_widget_title(cell, getattr(self.widget_list, widgets[widget][0]), widgets[widget][1]), cell)
+        cell.add_paragraph()
+
+    def __fill_influencers_section(self, p, cell):
+        widgets = {
+                    'soc_top_sharing_sources': ['top_sharing_sources', False],
+                    'soc_authors_by_sentiment': ['authors_by_sentiment', False],
+                  }
+        if True in [(True if getattr(self.item, widget) else False) for widget in widgets.keys()]:
+            self.__font_one(cell.add_paragraph('').add_run('Influencers'), cell)
+        for widget in widgets.keys():
+            if getattr(self.item, widget):
                 self.__font_two(self.__get_widget_title(cell, getattr(self.widget_list, widgets[widget][0]), widgets[widget][1]), cell)
         cell.add_paragraph()
 
@@ -122,6 +136,7 @@ class ReportDocument:
                     'soc_content_volume_top_locations': 'Content Volume Top Locations',
                     'soc_content_volume_top_authors': 'Content Volume Top Authors',
                     'soc_content_volume_top_languages': 'Content Volume Top Languages',
+                    'soc_gender_volume': 'Gender volume',
                     'soc_sentiment_diagram': 'Sentiment diagram',
                     'soc_sentiment_number_of_results': 'Sentiment number of results', 
                     'soc_sentiment_authors': 'Sentiment authors',
@@ -129,13 +144,15 @@ class ReportDocument:
                     'soc_sentiment_languages': 'Sentiment languages',
                     'soc_sentiment_by_gender': 'Sentiment by gender',
                     'soc_top_keywords': 'Top keywords',
-                    'soc_top_authors_by_gender': 'Top authors by gender',
+                    'soc_sentiment_top_keywords': 'Sentiment top keywords',
                     'soc_authors_by_gender': 'Authors by gender',
                     'soc_authors_by_language': 'Authors by language',
                     'soc_authors_by_location': 'Authors by location',
                     'soc_gender_by_location': 'Top gender by location',
                     'soc_keywords_by_location': 'Top keywords by location',
-                    'soc_languages_by_location': 'Top languages by location'
+                    'soc_languages_by_location': 'Top languages by location',
+                    'soc_authors_by_sentiment': 'Authors by sentiment',
+                    'soc_top_sharing_sources': 'Top sharing sources',
                   }
         for widget in widgets.keys():
             if getattr(self.item, widget):

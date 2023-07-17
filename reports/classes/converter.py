@@ -70,7 +70,6 @@ class Converter:
                 soc_sentiment_diagram = widget_list.sentiment_diagram.is_active,
                 soc_top_sharing_sources = widget_list.top_sharing_sources.is_active,
                 soc_overall_top_authors = widget_list.overall_top_authors.is_active,
-                soc_top_authors_by_gender = widget_list.top_authors_by_gender.is_active,
                 soc_authors_by_language = widget_list.authors_by_language.is_active,
                 soc_authors_by_location = widget_list.authors_by_location.is_active,
                 soc_authors_by_sentiment = widget_list.authors_by_sentiment.is_active,
