@@ -33,6 +33,7 @@ export default {
   props: {
     labels: {type: Array, default: () => []},
     chartValues: {type: Object, default: () => {}},
+    hasAnimation: {type: Boolean, default: true},
   },
   computed: {
     colors() {
@@ -93,6 +94,9 @@ export default {
           )
         },
         hoverOffset: 10,
+        animation: {
+          duration: this.hasAnimation ? 1000 : 0,
+        },
         plugins: {
           legend: {
             position: 'bottom',

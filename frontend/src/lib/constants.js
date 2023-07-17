@@ -165,7 +165,6 @@ export const comparisonWidgetsList = {
       {name: 'content_volume', isFullWidth: true},
       {name: 'top_authors'},
       {name: 'sentiment'},
-      // {name: 'top_sources'},
       {name: 'top_keywords', isFullWidth: true},
       {name: 'top_languages'},
       {name: 'top_locations'},

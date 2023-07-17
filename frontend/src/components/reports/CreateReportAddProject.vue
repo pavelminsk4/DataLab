@@ -1,9 +1,11 @@
 <template>
-  <ProjectsTableWithModules
+  <WorkspaceTableWithProjects
     v-model="selectedProjects"
     :projects="projects"
+    :workspaces="workspaces"
     :has-select-all="false"
   />
+
   <footer class="create-reports__footer">
     <ButtonWithArrow :is-disabled="isDisableNextBtn" @click="nextStep">
       <span>Next</span>
@@ -16,7 +18,7 @@ import {mapActions, mapGetters, createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
 import createReportMixin from '@/lib/mixins/create-report.js'
 
-import ProjectsTableWithModules from '@/components/ProjectsTableWithModules'
+import WorkspaceTableWithProjects from '@/components/WorkspaceTableWithProjects'
 
 const {mapActions: mapSocialActions} = createNamespacedHelpers('social')
 
@@ -24,7 +26,7 @@ export default {
   name: 'CreateReportAddProject',
   mixins: [createReportMixin],
   components: {
-    ProjectsTableWithModules,
+    WorkspaceTableWithProjects,
   },
   data() {
     return {
@@ -32,7 +34,10 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({projects: get.ALL_PROJECTS}),
+    ...mapGetters({projects: get.ALL_PROJECTS, workspaces: get.ALL_WORKSPACES}),
+    projects() {
+      return this.workspaces.map(({projects}) => projects).flat()
+    },
     isDisableNextBtn() {
       return !this.selectedProjects.length
     },
@@ -47,24 +52,13 @@ export default {
       {name: 'date', width: '11%'},
     ]
 
-    this.getOnlineProjects()
-    this.getSocialProjects()
+    this.getSocialWorkspaces()
+    this.getOnlineWorkspaces()
   },
   methods: {
-    ...mapActions({getOnlineProjects: action.GET_PROJECTS}),
-    ...mapSocialActions({getSocialProjects: action.GET_PROJECTS}),
-    projectMembers(projectMembersIds) {
-      return projectMembersIds.length
-    },
-    projectCreationDate(date) {
-      return new Date(date).toLocaleDateString('ro-RO')
-    },
+    ...mapActions({getOnlineWorkspaces: action.GET_WORKSPACES}),
+    ...mapSocialActions({getSocialWorkspaces: action.GET_WORKSPACES}),
 
-    selectAll(isSelectAll) {
-      this.selectedProjects = isSelectAll
-        ? this.projects.map((value) => value.id)
-        : []
-    },
     nextStep() {
       const nextStep = 4
       const nextStepName = this.getNextStepName(nextStep)
