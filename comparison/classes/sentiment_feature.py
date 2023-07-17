@@ -1,4 +1,4 @@
-from project_social.widgets.sentiment.sentiment_top_keywords import calculate as soc_top_keywords_by_sentiment
+from project_social.widgets.sentiment.sentiment_top_keywords import calculate_for_sentiment_top_keywords as soc_top_keywords_by_sentiment
 from project_social.widgets.dashboard.sentiment_languages import calculate as soc_sentiment_top_languages
 from project_social.widgets.dashboard.sentiment_locations import calculate as soc_sentiment_by_locations
 from project_social.widgets.dashboard.sentiment_authors import calculate as soc_sentiment_top_authors

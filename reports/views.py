@@ -2,8 +2,10 @@ from project_social.widgets.dashboard.content_volume_top_languages import conten
 from project_social.widgets.dashboard.content_volume_top_locations import content_volume_top_locations_report
 from project_social.widgets.sentiment.sentiment_number_of_results import sentiment_number_of_results_report
 from project_social.widgets.dashboard.content_volume_top_authors import content_volume_top_authors_report
+from project_social.widgets.sentiment.sentiment_top_keywords import sentiment_top_keywords_report
 from project_social.widgets.demography.top_authors_by_gender import top_authors_by_gender_report
 from project_social.widgets.demography.languages_by_location import languages_by_location_report
+from project_social.widgets.influencers.authors_by_sentiment import authors_by_sentiment_report
 from project_social.widgets.demography.keywords_by_location import keywords_by_location_report
 from project_social.widgets.influencers.top_sharing_sources import top_sharing_sources_report
 from project_social.widgets.demography.authors_by_language import authors_by_language_report
@@ -17,6 +19,7 @@ from project_social.widgets.dashboard.sentiment_authors import sentiment_authors
 from project_social.widgets.dashboard.content_volume import content_volume_report
 from project_social.widgets.dashboard.top_languages import top_languages_report
 from project_social.widgets.dashboard.top_locations import top_locations_report
+from project_social.widgets.summary.gender_volume import gender_volume_report
 from project_social.widgets.dashboard.top_authors import top_authors_report
 from project_social.widgets.summary.top_keywords import top_keywords_report
 from project_social.widgets.dashboard.summary_widget import summary_report
@@ -84,20 +87,19 @@ class RegularReportViewSet(viewsets.ModelViewSet):
 
 def social_top_locations_screenshot(request, proj_pk):
     wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).top_locations.pk
-    context = top_locations_report(proj_pk, wd_pk)
-    return render(request, 'social_reports/top_locations_screenshot.html', context)
+    context = {'context': top_locations_report(proj_pk, wd_pk, 'top_locations')}
+    return render(request, 'social_reports/base_template_screenshot.html', context)
 
 
 def social_top_authors_screenshot(request, proj_pk):
     wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).top_authors.pk
-    context = top_authors_report(proj_pk, wd_pk)
-    return render(request, 'social_reports/top_authors_screenshot.html', context)
-
+    context = {'context': top_authors_report(proj_pk, wd_pk, 'top_authors')}
+    return render(request, 'social_reports/base_template_screenshot.html', context)
 
 def social_top_languages_screenshot(request, proj_pk):
     wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).top_languages.pk
-    context = top_languages_report(proj_pk, wd_pk)
-    return render(request, 'social_reports/top_languages_screenshot.html', context)
+    context = {'context': top_languages_report(proj_pk, wd_pk, 'top_languages')}
+    return render(request, 'social_reports/base_template_screenshot.html', context)
 
 
 def social_sentiment_diagram_screenshot(request, proj_pk):
@@ -206,4 +208,19 @@ def social_languages_by_location_screenshot(request, proj_pk):
 def social_top_sharing_sources_screenshot(request, proj_pk):
     wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).top_sharing_sources.pk
     context = {'context': top_sharing_sources_report(proj_pk, wd_pk)}
+    return render(request, 'social_reports/base_template_screenshot.html', context)
+
+def social_gender_volume_screenshot(request, proj_pk):
+    wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).gender_volume.pk
+    context = {'context': gender_volume_report(proj_pk, wd_pk)}
+    return render(request, 'social_reports/base_template_screenshot.html', context)
+
+def social_sentiment_top_keywords_screenshot(request, proj_pk):
+    wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).sentiment_top_keywords.pk
+    context = {'context': sentiment_top_keywords_report(proj_pk, wd_pk)}
+    return render(request, 'social_reports/base_template_screenshot.html', context)
+
+def social_authors_by_sentiment_screenshot(request, proj_pk):
+    wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).authors_by_sentiment.pk
+    context = {'context': authors_by_sentiment_report(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)

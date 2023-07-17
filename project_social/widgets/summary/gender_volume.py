@@ -1,12 +1,11 @@
-from project_social.models import SocialWidgetDescription
-from project_social.widgets.filters_for_widgets import *
-from project_social.models import ProjectSocial
+from project_social.widgets.project_posts_filter import project_posts_filter
+from django.forms.models import model_to_dict
 from django.db.models.functions import Trunc
 from django.http import JsonResponse
 from django.db.models import Count
 import json
 
-def post_agregator_gender_volume(posts, aggregation_period, top_counts):
+def calculate_for_gender_volume(posts, aggregation_period, top_counts):
   top_authors = list(map(lambda x: x['user_gender'], list(posts.values('user_gender').annotate(count=Count('user_gender')).order_by('-count')[:top_counts])))
   results = [{name: list(posts.filter(user_gender=name).annotate(date_trunk=Trunc('date', aggregation_period)).values("date_trunk").annotate(created_count=Count('id')).order_by("date"))} for name in top_authors]
   dates = set()
@@ -29,11 +28,15 @@ def post_agregator_gender_volume(posts, aggregation_period, top_counts):
   return res
 
 def gender_volume(request, pk, widget_pk):
-  project = ProjectSocial.objects.get(id=pk)
-  posts = post_agregator_with_dimensions(project)
-  widget = SocialWidgetDescription.objects.get(id=widget_pk)
-  posts = post_agregetor_for_each_widget(widget, posts)
+  posts, widget = project_posts_filter(pk, widget_pk)
   body = json.loads(request.body)
   aggregation_period = body['aggregation_period']
-  res = post_agregator_gender_volume(posts, aggregation_period, widget.top_counts)
+  res = calculate_for_gender_volume(posts, aggregation_period, widget.top_counts)
   return JsonResponse(res, safe = False)
+
+def gender_volume_report(pk, widget_pk):
+    posts, widget = project_posts_filter(pk, widget_pk)
+    return {
+        'data': calculate_for_gender_volume(posts, widget.aggregation_period, widget.top_counts),
+        'widget': {'gender_volume': model_to_dict(widget)}
+    }

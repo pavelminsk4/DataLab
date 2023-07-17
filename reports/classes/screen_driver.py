@@ -38,7 +38,7 @@ class ScreenDriver:
         )
         username = 'admin2'
         password = 'anadeakey'
-        driver.set_window_size(700, 500, driver.current_window_handle)
+        driver.set_window_size(700, 520, driver.current_window_handle)
         driver.get(base_url)
         driver.find_element('id', 'id_username').send_keys(username)
         driver.find_element('id', 'id_password').send_keys(password)
@@ -49,7 +49,7 @@ class ScreenDriver:
         url = f'{base_url}/api/reports/{widget}_screenshot/{str(self.item.module_project_id)}/'
         driver.get(url)
         # We must to replace sleep with it in the nearest future - WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.TAG_NAME, 'canvas')))
-        sleep(0.3)
+        sleep(0.5)
         screenshot_path = f'{storage_folder}{widget}_{str(uuid4())}.png'
         driver.save_screenshot(screenshot_path)
         return screenshot_path

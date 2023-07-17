@@ -17,7 +17,7 @@ urlpatterns = [
     path('soc_sentiment_number_of_results_screenshot/<int:proj_pk>/', views.social_sentiment_number_of_results_screenshot, name='soc_sentiment_number_of_results_screenshot'),
     path('soc_sentiment_authors_screenshot/<int:proj_pk>/', views.social_sentiment_authors_screenshot, name='soc_sentiment_authors_screenshot'),
     path('soc_sentiment_languages_screenshot/<int:proj_pk>/', views.social_sentiment_languages_screenshot, name='soc_sentiment_languages_screenshot'),
-    path('soc_sentiment_gender_screenshot/<int:proj_pk>/', views.social_sentiment_gender_screenshot, name='soc_sentiment_gender_screenshot'),
+    path('soc_sentiment_by_gender_screenshot/<int:proj_pk>/', views.social_sentiment_gender_screenshot, name='soc_sentiment_by_gender_screenshot'),
     path('soc_sentiment_locations_screenshot/<int:proj_pk>/', views.social_sentiment_locations_screenshot, name='soc_sentiment_locations_screenshot'),
     path('soc_content_volume_top_authors_screenshot/<int:proj_pk>/', views.social_content_volume_top_authors_screenshot, name='soc_content_volume_top_authors_screenshot'),
     path('soc_content_volume_top_languages_screenshot/<int:proj_pk>/', views.social_content_volume_top_languages_screenshot, name='soc_content_volume_top_languages_screenshot'),
@@ -32,6 +32,9 @@ urlpatterns = [
     path('soc_keywords_by_location_screenshot/<int:proj_pk>/', views.social_keywords_by_location_screenshot, name='soc_keywords_by_location_screenshot'),
     path('soc_languages_by_location_screenshot/<int:proj_pk>/', views.social_languages_by_location_screenshot, name='soc_languages_by_location_screenshot'),
     path('soc_top_sharing_sources_screenshot/<int:proj_pk>/', views.social_top_sharing_sources_screenshot, name='soc_top_sharing_sources_screenshot'),
+    path('soc_gender_volume_screenshot/<int:proj_pk>/', views.social_gender_volume_screenshot, name='soc_gender_volume_screenshot'),
+    path('soc_sentiment_top_keywords_screenshot/<int:proj_pk>/', views.social_sentiment_top_keywords_screenshot, name='soc_sentiment_top_keywords_screenshot'),
+    path('soc_authors_by_sentiment_screenshot/<int:proj_pk>/', views.social_authors_by_sentiment_screenshot, name='soc_authors_by_sentiment_screenshot'),
 ]
 
 router.register('regular_reports', views.RegularReportViewSet, 'regular_reports')

@@ -1,7 +1,4 @@
-from project_social.widgets.filters_for_widgets import post_agregator_with_dimensions
-from project_social.widgets.filters_for_widgets import post_agregetor_for_each_widget
-from project_social.models import SocialWidgetDescription
-from project_social.models import ProjectSocial
+from project_social.widgets.project_posts_filter import project_posts_filter
 from django.forms.models import model_to_dict
 from django.db.models.functions import Trunc
 from django.http import JsonResponse
@@ -25,20 +22,14 @@ def calculate(posts, aggregation_period):
   return results
 
 def sentiment(request, pk, widget_pk):
-  project = ProjectSocial.objects.get(id=pk)
-  posts = post_agregator_with_dimensions(project)
-  widget = SocialWidgetDescription.objects.get(id=widget_pk)
-  posts = post_agregetor_for_each_widget(widget, posts)
+  posts, widget = project_posts_filter(pk, widget_pk)
   body = json.loads(request.body)
   aggregation_period = body['aggregation_period']
   results = calculate(posts, aggregation_period)
   return JsonResponse(results, safe = False)
 
 def sentiment_report(pk, widget_pk):
-    project = ProjectSocial.objects.get(id=pk)
-    posts = post_agregator_with_dimensions(project)
-    widget = SocialWidgetDescription.objects.get(id=widget_pk)
-    posts = post_agregetor_for_each_widget(widget, posts)
+    posts, widget = project_posts_filter(pk, widget_pk)
     return {
         'data': calculate(posts, widget.aggregation_period),
         'widget': {'sentiment': model_to_dict(widget)}
