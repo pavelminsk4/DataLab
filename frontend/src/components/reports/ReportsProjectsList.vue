@@ -9,9 +9,8 @@
         :class="['projects__item', currProjectId === project.id && 'active']"
         @click.stop="handleClick"
       >
-        <div class="chips-height">
-          <BaseChips :chips-type="project.moduleType" />
-        </div>
+        <BaseChips :chips-type="project.moduleType" />
+
         <div class="projects__title">{{ project.title }}</div>
       </a>
     </div>
@@ -70,7 +69,7 @@ export default {
 
     &__item {
       display: grid;
-      grid-template-columns: 45% 65%;
+      grid-template-columns: minmax(135px, 45%) 65%;
       align-items: center;
 
       padding-left: 5px;
