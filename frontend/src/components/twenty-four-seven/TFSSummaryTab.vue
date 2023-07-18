@@ -173,7 +173,7 @@ export default {
   },
   watch: {
     aiSummary() {
-      this.newText = this.aiSummary      
+      this.newText = this.aiSummary
     },
   },
 }
