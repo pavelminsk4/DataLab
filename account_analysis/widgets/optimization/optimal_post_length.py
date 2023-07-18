@@ -26,9 +26,5 @@ def optimal_post_length(pk, widget_pk):
                 'from 46 to 90': posts_from_0_to_45_engagement/posts_from_0_to_45_count if posts_from_0_to_45_count else 0,
                 'from 91 to 140': posts_from_0_to_45_engagement/posts_from_0_to_45_count if posts_from_0_to_45_count else 0,
                 'from 140': posts_from_0_to_45_engagement/posts_from_0_to_45_count if posts_from_0_to_45_count else 0,
-                'posts from 0 to 45': posts_from_0_to_45_count,
-                'posts from 46 to 90': posts_from_46_to_90_count,
-                'post from 91 to 140': posts_from_91_to_140_count,
-                'post from 140': posts_from_140_count,
               }
     return JsonResponse(results, safe=False)
