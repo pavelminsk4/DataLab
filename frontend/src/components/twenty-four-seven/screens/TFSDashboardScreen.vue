@@ -109,6 +109,8 @@ export default {
         name: 'TFSDashboard',
       })
     }
+
+    this.showStatusCards(null)
   },
   methods: {
     ...mapActions([
