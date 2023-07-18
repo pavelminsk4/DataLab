@@ -4,7 +4,7 @@
     modal-frame-style="max-width:90vw;"
     class="working-modal"
   >
-    <div class="cards">
+    <div v-if="publishingPosts?.length" class="cards">
       <TFSPostCard
         v-for="postInfo in publishingPosts"
         :key="postInfo.id"
@@ -18,6 +18,8 @@
         @add-related-content="addLinkedContent"
       />
     </div>
+
+    <div v-else>There are no posts with the publishing status! &#128531;</div>
 
     <PaginationControlPanel
       v-if="numberOfPages"

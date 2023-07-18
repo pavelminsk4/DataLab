@@ -27,7 +27,7 @@
         </td>
         <td>{{ item.engagements }}</td>
         <td>
-          {{ item.engmt_rate.toFixed() }}
+          {{ item.engmt_rate.toFixed(2) }}
         </td>
         <td>
           {{ item.date }}

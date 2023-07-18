@@ -4,8 +4,9 @@
     <div class="results">{{ numberOfResults }}</div>
 
     <div class="pagination-wrapper">
-      <ArrowDownIcon
+      <ArrowheadIcon
         class="left-arrow arrow"
+        direction="left"
         @click="$emit('decrease-arrow')"
       />
       <BaseSelect
@@ -16,8 +17,9 @@
         class="select"
         @update:modelValue="updatePage"
       />
-      <ArrowDownIcon
+      <ArrowheadIcon
         class="right-arrow arrow"
+        direction="right"
         @click="$emit('increase-arrow')"
       />
     </div>
@@ -26,11 +28,11 @@
 
 <script>
 import BaseSelect from '@/components/BaseSelect2'
-import ArrowDownIcon from '@/components/icons/ArrowDownIcon'
+import ArrowheadIcon from '@/components/icons/ArrowheadIcon'
 
 export default {
   name: 'TFSColumnHeader',
-  components: {BaseSelect, ArrowDownIcon},
+  components: {BaseSelect, ArrowheadIcon},
   props: {
     value: {type: [Number, String], required: true},
     status: {type: String, required: true},

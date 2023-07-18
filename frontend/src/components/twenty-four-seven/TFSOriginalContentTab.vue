@@ -56,7 +56,11 @@ export default {
       return this.textTranslation?.title || this.post.online_post.entry_title
     },
     description() {
-      return this.textTranslation?.text || this.post.online_post.full_text
+      return (
+        this.textTranslation?.text ||
+        this.post.online_post.full_text ||
+        'Original content is available via link in post!'
+      )
     },
     isArabicLanguage() {
       if (
