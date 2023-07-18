@@ -1,6 +1,6 @@
 <template>
   <div :class="['chips-wrapper', chipsType.toLowerCase()]">
-    <component :is="`${chipsType}Icon`" :class="chipsType" />
+    <component :is="`${chipsType}Icon`" :class="['icon', chipsType]" />
     <slot>
       <span>{{ title }}</span>
     </slot>
@@ -64,11 +64,12 @@ export default {
   justify-content: center;
 
   width: fit-content;
-  height: 100%;
+  height: fit-content;
   gap: 5px;
   padding: 6px 8px;
 
   border-radius: 2px 12px 12px 2px;
+  background: var(--chips-background-secondary-color);
 
   overflow: hidden;
 }
@@ -86,13 +87,11 @@ export default {
   background: var(--background-additional-color);
 }
 
-.online {
-  height: 20px;
-  width: fit-content;
+.icon {
+  width: 16px;
+  height: 16px;
 }
-.social {
-  @extend .online;
-}
+
 .tvradio {
   background: var(--background-additional-color);
 }

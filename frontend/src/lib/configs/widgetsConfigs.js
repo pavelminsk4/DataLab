@@ -183,7 +183,6 @@ export const widgetsConfig = {
 
   top_keywords: {
     ...WIDGET_DEFAULT_SETTINGS,
-    hasPreview: false,
     hasAggregationPeriod: false,
     actionName: action.GET_TOP_KEYWORDS_WIDGET,
     defaultChartType: 'WordCloudChart',
@@ -193,7 +192,6 @@ export const widgetsConfig = {
   top_keywords_by_country: {
     ...WIDGET_DEFAULT_SETTINGS,
     height: '450px',
-    hasPreview: false,
     hasAggregationPeriod: false,
     actionName: action.GET_TOP_KEYWORDS_WIDGET,
     defaultChartType: 'WordCloudChart',
@@ -203,7 +201,6 @@ export const widgetsConfig = {
   keywords_by_location: {
     ...WIDGET_DEFAULT_SETTINGS,
     height: '450px',
-    hasPreview: false,
     hasAggregationPeriod: false,
     actionName: action.GET_TOP_KEYWORDS_WIDGET,
     defaultChartType: 'WordCloudChart',
@@ -229,7 +226,6 @@ export const widgetsConfig = {
   sentiment_top_keywords: {
     ...WIDGET_DEFAULT_SETTINGS,
     height: '420px',
-    hasPreview: false,
     hasAggregationPeriod: false,
     actionName: action.GET_SENTIMENT_TOP_KEYWORDS_WIDGET,
     defaultChartType: 'ColoredWordCloudChart',
@@ -283,7 +279,6 @@ export const widgetsConfig = {
 
   languages_by_country: {
     ...WIDGET_DEFAULT_SETTINGS,
-    hasPreview: false,
     hasAggregationPeriod: false,
     actionName: action.GET_LANGUAGES_BY_COUNTRY,
     defaultChartType: 'TopEntitiesBarChart',
@@ -309,7 +304,6 @@ export const widgetsConfig = {
   top_sharing_sources: {
     ...WIDGET_DEFAULT_SETTINGS,
     actionName: action.GET_TOP_SHARING_SOURCES,
-    hasPreview: false,
     hasAggregationPeriod: false,
     defaultChartType: null,
     availableTypes: null,
@@ -377,7 +371,6 @@ export const widgetsConfig = {
   },
   languages_by_location: {
     ...WIDGET_DEFAULT_SETTINGS,
-    hasPreview: false,
     hasAggregationPeriod: false,
     actionName: action.GET_LANGUAGES_BY_LOCATION,
     defaultChartType: 'TopEntitiesBarChart',

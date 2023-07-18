@@ -47,13 +47,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.checkbox-containter {
-  vertical-align: middle;
-}
 tr {
   position: relative;
   td {
-    vertical-align: initial;
+    vertical-align: top;
   }
 
   &:last-child {

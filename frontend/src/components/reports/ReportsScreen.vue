@@ -260,7 +260,11 @@ export default {
 
 <style lang="scss" scoped>
 .report-type {
-  padding: 10px 0;
+  min-height: 20px;
+
+  &:not(:last-child) {
+    margin-bottom: 20px;
+  }
 }
 .content-header {
   display: flex;
@@ -295,7 +299,7 @@ export default {
 }
 
 .report-table td {
-  vertical-align: initial;
+  vertical-align: top;
 }
 
 .no-reports-wrapper {
@@ -312,9 +316,6 @@ export default {
 }
 
 .regularity {
-  display: flex;
-  flex-direction: column;
-
   font-weight: 600;
 }
 </style>

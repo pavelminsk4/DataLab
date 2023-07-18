@@ -17,6 +17,7 @@
         :widgetDetails="widgetDetails"
         :is-settings="true"
         :new-chart-type="newChartType"
+        :style="`height: ${widgetDetails.height};`"
         class="widget-view"
       />
     </WidgetSettingsScreen>
@@ -88,6 +89,7 @@ export default {
       action.GET_AUTHORS_BY_SENTIMENT,
       action.GET_SENTIMENT_TOP_KEYWORDS_WIDGET,
       action.POST_FILTERS_FOR_WIDGET,
+      action.GET_LANGUAGES_BY_COUNTRY,
     ]),
 
     updateCurrentWidget(newSettings) {
@@ -181,7 +183,7 @@ export default {
 
 <style>
 .widget-view {
-  flex: 1;
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
 
