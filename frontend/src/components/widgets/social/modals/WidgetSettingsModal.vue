@@ -17,6 +17,7 @@
         :widgetDetails="widgetDetails"
         :is-settings="true"
         :new-chart-type="newChartType"
+        :style="`height: ${widgetDetails.height};`"
         class="widget-view"
       />
     </WidgetSettingsScreen>
@@ -184,3 +185,16 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.widget-view {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+
+  height: 100%;
+  width: 450px;
+
+  background-color: var(--background-secondary-color);
+}
+</style>
