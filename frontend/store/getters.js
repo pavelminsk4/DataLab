@@ -287,6 +287,18 @@ export default {
     return state.inreractiveDataModal
   },
 
+  [get.ALL_WORKSPACES](state) {
+    const onlineWorkspaces = state.workspaces
+    const socialWorkspaces = state.social.workspaces
+    return [...onlineWorkspaces, ...socialWorkspaces]
+      .filter((workspaces) => workspaces.projects.length)
+      .sort(
+        (a, b) =>
+          a.title.toLowerCase().charCodeAt() -
+          b.title.toLowerCase().charCodeAt()
+      )
+  },
+
   [get.ALL_PROJECTS](state) {
     const onlineProjects = state.projects
     const socialProjects = state.social.projects

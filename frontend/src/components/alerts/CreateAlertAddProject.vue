@@ -7,10 +7,11 @@
       label=" "
     />
   </div>
-  <div v-if="findedProjects.length" class="wrapper scroll">
-    <ProjectsTableWithModules
+  <div v-if="foundProjects.length" class="wrapper scroll">
+    <WorkspaceTableWithProjects
       v-model="selectedProjects"
-      :projects="findedProjects"
+      :projects="foundProjects"
+      :workspaces="workspaces"
     />
   </div>
   <div v-else>No search results</div>
@@ -27,7 +28,7 @@ import {action, get} from '@store/constants'
 
 import createAlertMixin from '@/lib/mixins/create-alerts.js'
 
-import ProjectsTableWithModules from '@/components/ProjectsTableWithModules'
+import WorkspaceTableWithProjects from '@/components/WorkspaceTableWithProjects'
 import BaseInput from '@components/common/BaseInput'
 
 const {mapActions: mapSocialActions} = createNamespacedHelpers('social')
@@ -35,7 +36,7 @@ const {mapActions: mapActionsAlerts} = createNamespacedHelpers('alerts')
 
 export default {
   name: 'CreateAlertAddProject',
-  components: {ProjectsTableWithModules, BaseInput},
+  components: {WorkspaceTableWithProjects, BaseInput},
   mixins: [createAlertMixin],
   data() {
     return {
@@ -44,31 +45,39 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({projects: get.ALL_PROJECTS, department: get.DEPARTMENT}),
+    ...mapGetters({
+      department: get.DEPARTMENT,
+      workspaces: get.ALL_WORKSPACES,
+    }),
     ...mapState({
       newAlert: (state) => state.alerts.newAlert,
     }),
+    projects() {
+      return this.workspaces.map(({projects}) => projects).flat()
+    },
     isDisableNextBtn() {
       return !this.selectedProjects.length
     },
-    findedProjects() {
+    foundProjects() {
       return this.projects.filter((project) =>
         project.title.includes(this.searchText)
       )
     },
   },
   created() {
-    this.getOnlineProjects()
-    this.getSocialProjects()
+    this.getSocialWorkspaces()
+    this.getOnlineWorkspaces()
   },
   methods: {
     ...mapActions({
-      getOnlineProjects: action.GET_PROJECTS,
+      getOnlineWorkspaces: action.GET_WORKSPACES,
+    }),
+    ...mapSocialActions({
+      getSocialWorkspaces: action.GET_WORKSPACES,
     }),
     ...mapActionsAlerts({
       createNewAlert: action.CREATE_NEW_ALERT,
     }),
-    ...mapSocialActions({getSocialProjects: action.GET_PROJECTS}),
     nextStep() {
       const projects = this.selectedProjects.map((project) => {
         const newModule =
