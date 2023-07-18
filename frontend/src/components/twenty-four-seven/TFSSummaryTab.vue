@@ -151,8 +151,8 @@ export default {
       try {
         await this[action.UPDATE_AI_SUMMARY_LANGUAGE]({
           newLanguage: newLanguage.toLowerCase(),
-          header: this.header,
-          text: this.text,
+          header: this.header || '',
+          text: this.text || '',
         })
 
         this.newHeader = this.translatedText.header
