@@ -55,7 +55,7 @@ export default {
     })
   },
 
-  async updateOriginalContentLanguage(newLanguage, value) {
+  async translateLanguage(newLanguage, value) {
     return fetch('post', `${moduleName}/translator/`, {
       target_lang: newLanguage,
       text: value,

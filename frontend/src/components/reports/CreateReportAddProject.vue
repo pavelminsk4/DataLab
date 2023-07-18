@@ -18,7 +18,7 @@ import {mapActions, mapGetters, createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
 import createReportMixin from '@/lib/mixins/create-report.js'
 
-import WorkspaceTableWithProjects from '@/components/WorkspaceTableWithProjects'
+import WorkspaceTableWithProjects from '@components/WorkspaceTableWithProjects'
 
 const {mapActions: mapSocialActions} = createNamespacedHelpers('social')
 

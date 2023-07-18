@@ -23,7 +23,7 @@
 
         <div class="content-wrapper">
           <TFSSummaryTab
-            v-if="currentTab"
+            v-show="currentTab"
             :post="post"
             :current-tab="activeTab"
             :buttonSaveLoading="saveLoading"
@@ -33,7 +33,7 @@
           />
 
           <component
-            v-else
+            v-if="!currentTab"
             :is="`TFS${stringToPascalCase(activeTab)}Tab`"
             :post="post"
             :phone-numbers="phoneNumbers"
@@ -169,8 +169,8 @@ export default {
       try {
         await this[action.UPDATE_TFS_ORIGINAL_CONTENT_LANGUAGE]({
           newLanguage: newLanguage.toLowerCase(),
-          title,
-          text,
+          title: title || '',
+          text: text || '',
         })
       } catch (error) {
         console.error(error)

@@ -7,6 +7,7 @@
         v-bind="$attrs"
         :type="inputType"
         :id="label"
+        :dir="dir"
         :value="modelValue"
         :class="['input', isSearch && 'input-search']"
         :placeholder="placeholder"
@@ -40,6 +41,7 @@ export default {
     errorMessage: {type: String, default: 'Error'},
     autocomplete: {type: String, default: ''},
     label: {type: String, default: ''},
+    dir: {type: String, default: 'ltr'},
   },
   components: {
     ErrorIcon,

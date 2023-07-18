@@ -59,6 +59,12 @@ export default {
       return this.textTranslation?.text || this.post.online_post.full_text
     },
     isArabicLanguage() {
+      if (
+        this.post.online_post.feed_language__language ===
+          LANGUAGES_NAMES.ARABIC &&
+        this.selectedLanguage !== LANGUAGES_NAMES.ENGLISH
+      )
+        return true
       return this.selectedLanguage === LANGUAGES_NAMES.ARABIC
     },
   },
