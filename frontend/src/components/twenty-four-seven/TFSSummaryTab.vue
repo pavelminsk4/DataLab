@@ -1,12 +1,11 @@
 <template>
   <div class="summary-wrapper">
     <TFSLanguagesTabs
-      v-if="isSummaryTab"
       :languages-tabs="languagesTabs"
       :selected-language="selectedLanguage"
       @change-language="changeLanguage"
     />
-    <BaseSpinner v-if="loadingTranslation" />
+    <BaseSpinner v-if="loadingTranslation" class="spinner" />
 
     <div v-else>
       <BaseInput
@@ -164,7 +163,7 @@ export default {
       }
     },
     createAISummary() {
-      if (this.newText) return (this.isFieldClear = false)
+      if (this.text) return (this.isFieldClear = false)
 
       this.isFieldClear = true
       this[action.CLEAR_TFS_AI_SUMMARY]()
@@ -183,6 +182,11 @@ export default {
 .summary-wrapper {
   display: flex;
   flex-direction: column;
+
+  .spinner {
+    display: flex;
+    align-self: center;
+  }
   .header {
     margin-bottom: 32px;
   }

@@ -2,13 +2,9 @@
   <div class="story-report-wrapper scroll">
     <div class="item">
       <div class="title"><PostStoryReportIcon /> Post</div>
-      <a
-        class="summary link"
-        :href="post.online_post.entry_links_href"
-        target="_blank"
-      >
+      <div class="post-title">
         {{ post.online_post.entry_title }}
-      </a>
+      </div>
     </div>
 
     <div class="item">
@@ -18,6 +14,14 @@
         <div class="summary-text">{{ post.text }}</div>
       </div>
     </div>
+
+    <a
+      class="summary link"
+      :href="post.online_post.entry_links_href"
+      target="_blank"
+    >
+      {{ post.online_post.feedlink__sourceurl }}
+    </a>
 
     <div class="item">
       <div class="title"><RelatedIcon />Related content</div>
@@ -105,7 +109,7 @@ export default {
       return linkedItems.map((element) => {
         return {
           link: element.online_post.entry_links_href,
-          linkName: element.online_post.entry_title,
+          linkName: element.online_post.feedlink__sourceurl,
         }
       })
     },
@@ -161,20 +165,24 @@ export default {
       font-weight: 600;
     }
 
-    .summary {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-
+    .post-title {
       margin-left: 33px;
-      .summary-text {
-        font-size: 12px;
-      }
     }
 
     .link {
       color: var(--link-color);
     }
+  }
+}
+
+.summary {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  margin-left: 33px;
+  .summary-text {
+    font-size: 12px;
   }
 }
 .buttons {

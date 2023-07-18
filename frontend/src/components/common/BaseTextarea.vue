@@ -28,7 +28,7 @@ export default {
     placeholder: {type: String, default: ''},
     dir: {type: String, default: 'ltr'},
     label: {type: String, default: ''},
-    hasError: {type: Boolean, default: true},
+    hasError: {type: Boolean, default: false},
     errorMessage: {type: String, default: ''},
   },
   computed: {
