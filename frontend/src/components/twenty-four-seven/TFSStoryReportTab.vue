@@ -7,7 +7,7 @@
         :href="post.online_post.entry_links_href"
         target="_blank"
       >
-        {{ post.online_post.feedlink__sourceurl }}
+        {{ post.online_post.entry_title }}
       </a>
     </div>
 
@@ -105,7 +105,7 @@ export default {
       return linkedItems.map((element) => {
         return {
           link: element.online_post.entry_links_href,
-          linkName: element.online_post.feedlink__sourceurl,
+          linkName: element.online_post.entry_title,
         }
       })
     },

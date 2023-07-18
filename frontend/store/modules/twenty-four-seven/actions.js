@@ -187,16 +187,14 @@ export default {
   ) {
     commit(mutator.SET_LOADING, true)
     try {
-      const translatedTitle =
-        await api.twentyFourSeven.updateOriginalContentLanguage(
-          newLanguage,
-          title
-        )
-      const translatedText =
-        await api.twentyFourSeven.updateOriginalContentLanguage(
-          newLanguage,
-          text
-        )
+      const translatedTitle = await api.twentyFourSeven.translateLanguage(
+        newLanguage,
+        title
+      )
+      const translatedText = await api.twentyFourSeven.translateLanguage(
+        newLanguage,
+        text
+      )
       commit(mutator.SET_TFS_TRANSLATED_ORIGINAL_CONTENT, {
         title: translatedTitle.translated_text,
         text: translatedText.translated_text,
@@ -209,15 +207,24 @@ export default {
     }
   },
 
-  async [action.UPDATE_AI_SUMMARY_LANGUAGE]({commit}, {newLanguage, text}) {
+  async [action.UPDATE_AI_SUMMARY_LANGUAGE](
+    {commit},
+    {newLanguage, text, header}
+  ) {
     commit(mutator.SET_LOADING, true)
     try {
-      const translatedText =
-        await api.twentyFourSeven.updateOriginalContentLanguage(
-          newLanguage,
-          text
-        )
-      commit(mutator.SET_TRANSLATED_AI_SUMMARY, translatedText.translated_text)
+      const translatedHeader = await api.twentyFourSeven.translateLanguage(
+        newLanguage,
+        header
+      )
+      const translatedText = await api.twentyFourSeven.translateLanguage(
+        newLanguage,
+        text
+      )
+      commit(mutator.SET_TRANSLATED_AI_SUMMARY, {
+        header: translatedHeader.translated_text,
+        text: translatedText.translated_text,
+      })
       return
     } catch (error) {
       console.error(error)
@@ -262,7 +269,10 @@ export default {
   },
 
   async [action.CLEAR_TFS_AI_SUMMARY]({commit}) {
-    commit(mutator.SET_TFS_AI_SUMMARY, null)
-    commit(mutator.SET_TRANSLATED_AI_SUMMARY, null)
+    commit(mutator.SET_TFS_AI_SUMMARY, '')
+    commit(mutator.SET_TRANSLATED_AI_SUMMARY, {
+      header: '',
+      text: '',
+    })
   },
 }

@@ -23,7 +23,7 @@
 
         <div class="content-wrapper">
           <TFSSummaryTab
-            v-if="currentTab"
+            v-show="currentTab"
             :post="post"
             :current-tab="activeTab"
             :buttonSaveLoading="saveLoading"
@@ -33,7 +33,7 @@
           />
 
           <component
-            v-else
+            v-if="!currentTab"
             :is="`TFS${stringToPascalCase(activeTab)}Tab`"
             :post="post"
             :phone-numbers="phoneNumbers"
@@ -93,6 +93,7 @@ export default {
       return modalTabs[this.post.status]
     },
     currentTab() {
+      console.log(this.activeTab)
       return this.activeTab === 'Summary' || this.activeTab === 'Q&A Check'
     },
     phoneNumbers() {
