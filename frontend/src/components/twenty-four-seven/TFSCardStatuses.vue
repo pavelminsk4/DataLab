@@ -13,7 +13,7 @@
         :style="`background-color: ${statuses[status].color}`"
         class="icon-wrapper"
       >
-        <ArrowDownIcon class="arrow-icon" />
+        <ArrowheadIcon direction="right" class="arrow-icon" />
       </div>
     </div>
 
@@ -36,12 +36,12 @@
 
 <script>
 import {cardStatuses} from '@/lib/configs/tfsStatusesConfig'
-import ArrowDownIcon from '@/components/icons/ArrowDownIcon'
+import ArrowheadIcon from '@/components/icons/ArrowheadIcon'
 
 export default {
   name: 'TFSCardStatuses',
   components: {
-    ArrowDownIcon,
+    ArrowheadIcon,
   },
   props: {
     isBack: {type: Boolean, default: true},
