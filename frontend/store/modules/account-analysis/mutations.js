@@ -35,10 +35,12 @@ export default {
   },
 
   [mutator.SET_ACCOUNT_ACTIVITY_POSTS](state, data) {
-    state.accountActivityPosts = data
+    state.accountActivityPosts = data.posts || []
+    state.accountActivityNumOfPosts = data.num_posts
   },
 
   [mutator.SET_MENTIONS_POSTS](state, data) {
-    state.mentionsPosts = data
+    state.mentionsPosts = data.posts || []
+    state.mentionsNumOfPosts = data.num_posts
   },
 }

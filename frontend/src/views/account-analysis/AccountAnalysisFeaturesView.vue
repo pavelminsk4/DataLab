@@ -11,7 +11,11 @@
             name: 'workspaces',
             routeName: `AccountAnalysisWorkspaces`,
           }"
-        />
+        >
+          <div v-if="isPostsPage" class="search-results-count">
+            {{ postsResult }} results
+          </div>
+        </MainLayoutTitleBlock>
         <BaseTabs
           :main-settings="tabs"
           default-tab="Account Activity"
@@ -37,7 +41,7 @@ import SideBar from '@/components/navigation/SideBar'
 import BaseTabs from '@/components/project/widgets/modals/BaseTabs'
 import {stringToPascalCase} from '@/lib/utilities'
 
-const {mapActions} = createNamespacedHelpers('accountAnalysis/widgets')
+const {mapState, mapActions} = createNamespacedHelpers('accountAnalysis')
 
 export default {
   name: 'AccountAnalysisFeaturesView',
@@ -55,8 +59,21 @@ export default {
       currentTab: 'AccountActivity',
     }
   },
+  computed: {
+    ...mapState(['accountActivityNumOfPosts', 'mentionsNumOfPosts']),
+    isPostsPage() {
+      return this.$route.name === 'AccountAnalysisPosts'
+    },
+    postsResult() {
+      const result =
+        this.currentTab === 'AccountActivity'
+          ? this.accountActivityNumOfPosts
+          : this.mentionsNumOfPosts
+      return result || 0
+    },
+  },
   created() {
-    this[action.CLEAR_WIDGETS_DATA]()
+    this.clearWidgetsData()
     this.navUrls = [
       'Dashboard',
       'Optimization',
@@ -70,7 +87,7 @@ export default {
     this.tabs = ['Account Activity', 'Mentions']
   },
   methods: {
-    ...mapActions([action.CLEAR_WIDGETS_DATA]),
+    ...mapActions({clearWidgetsData: `widgets/${action.CLEAR_WIDGETS_DATA}`}),
     stringToPascalCase,
     openTab(pathName) {
       this.$router.push({
@@ -96,5 +113,12 @@ export default {
     flex-direction: column;
     justify-content: space-between;
   }
+}
+
+.search-results-count {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--typography-secondary-color);
 }
 </style>
