@@ -53,28 +53,29 @@ export default {
     },
   },
   created() {
+    this.tableHeader = [
+      {name: '', width: '5%'},
+      {name: 'Author', width: '15%', sortProperty: 'name', hasSort: true},
+      {name: 'Gender', width: '15%'},
+      {name: 'Media Type', width: '10%'},
+      {name: 'Posts', width: '10%', sortProperty: 'posts', hasSort: true},
+      {name: 'Sentiment', width: '25%'},
+      {name: 'Reach', width: '10%', sortProperty: 'reach', hasSort: true},
+      {
+        name: 'Engagement',
+        width: '10%',
+        sortProperty: 'engagements',
+        hasSort: true,
+      },
+    ]
+    this.genderTypes = ['male', 'female']
+
     if (!this.widgetDetails.widgetData && !this.widgetData.length) {
       this[action.GET_TOP_AUTHORS_BY_GENDER]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,
       })
-      this.tableHeader = [
-        {name: '', width: '5%'},
-        {name: 'Author', width: '15%', sortProperty: 'name', hasSort: true},
-        {name: 'Gender', width: '15%'},
-        {name: 'Media Type', width: '10%'},
-        {name: 'Posts', width: '10%', sortProperty: 'posts', hasSort: true},
-        {name: 'Sentiment', width: '25%'},
-        {name: 'Reach', width: '10%', sortProperty: 'reach', hasSort: true},
-        {
-          name: 'Engagement',
-          width: '10%',
-          sortProperty: 'engagements',
-          hasSort: true,
-        },
-      ]
     }
-    this.genderTypes = ['male', 'female']
   },
   methods: {
     ...mapActions([action.GET_TOP_AUTHORS_BY_GENDER]),
