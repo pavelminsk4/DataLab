@@ -99,7 +99,7 @@ export default {
     ...mapState(['aiSummary', 'translatedText']),
     selectedLanguage: {
       get() {
-        if (this.newSelectedLanguage !== 'Arabic')
+        if (this.newSelectedLanguage !== LANGUAGES_NAMES.ARABIC)
           return LANGUAGES_NAMES.ENGLISH
         return this.newSelectedLanguage
       },
@@ -133,7 +133,7 @@ export default {
       return this.currentTab === TABS.SUMMARY
     },
     summaryLanguage() {
-      return this.selectedLanguage === 'Arabic' ? 'rtl' : 'ltr'
+      return this.selectedLanguage === LANGUAGES_NAMES.ARABIC ? 'rtl' : 'ltr'
     },
   },
   created() {
@@ -173,8 +173,7 @@ export default {
   },
   watch: {
     aiSummary() {
-      this.newText = this.aiSummary
-      console.log(this.aiSummary)
+      this.newText = this.aiSummary      
     },
   },
 }

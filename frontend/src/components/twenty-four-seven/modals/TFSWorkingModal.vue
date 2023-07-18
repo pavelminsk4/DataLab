@@ -93,7 +93,6 @@ export default {
       return modalTabs[this.post.status]
     },
     currentTab() {
-      console.log(this.activeTab)
       return this.activeTab === 'Summary' || this.activeTab === 'Q&A Check'
     },
     phoneNumbers() {
