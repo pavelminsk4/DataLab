@@ -1,6 +1,5 @@
 <template>
   <TopHashtagsWidget
-    v-if="topHashtags.length"
     v-bind="$attrs"
     :widget-details="widgetDetails"
     :widget-data="topHashtags"

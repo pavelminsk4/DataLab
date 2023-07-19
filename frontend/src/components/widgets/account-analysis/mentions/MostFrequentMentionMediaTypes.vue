@@ -1,6 +1,5 @@
 <template>
   <VolumeWidget
-    v-if="!isAllFieldsEmpty(mostFrequentMentionMediaTypes)"
     v-bind="$attrs"
     :widget-details="widgetDetails"
     :labels="labels"

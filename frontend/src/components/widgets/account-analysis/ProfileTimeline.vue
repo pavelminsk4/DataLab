@@ -1,6 +1,5 @@
 <template>
   <EngagementsTimelineWidget
-    v-if="profileTimeline.length"
     v-bind="$attrs"
     :widget-details="widgetDetails"
     :labels="labels"
@@ -41,13 +40,13 @@ export default {
       return this.accountAnalysisWidgets.profileTimeline
     },
     labels() {
-      if (!this.profileTimeline.length) return
+      if (!this.profileTimeline.length) return []
       return this.profileTimeline.map((dateValue) => {
         return defaultDate(dateValue.date)
       })
     },
     chartValues() {
-      if (!this.profileTimeline.length) return
+      if (!this.profileTimeline.length) return []
       const tweets = []
       const engagement = []
       this.profileTimeline.map((el) => {

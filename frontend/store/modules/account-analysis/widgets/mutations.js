@@ -82,10 +82,4 @@ export default {
   [mutator.SET_MENTION_SENTIMENT](state, data) {
     state.mentionSentiment = data
   },
-
-  [mutator.CLEAR_WIDGETS_DATA](state) {
-    for (const widget in state) {
-      state[widget] = {}
-    }
-  },
 }

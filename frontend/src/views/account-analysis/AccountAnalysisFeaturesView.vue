@@ -87,7 +87,7 @@ export default {
     this.tabs = ['Account Activity', 'Mentions']
   },
   methods: {
-    ...mapActions({clearWidgetsData: `widgets/${action.CLEAR_WIDGETS_DATA}`}),
+    ...mapActions({clearWidgetsData: `${action.CLEAR_WIDGETS_DATA}`}),
     stringToPascalCase,
     openTab(pathName) {
       this.$router.push({

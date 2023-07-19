@@ -1,6 +1,5 @@
 <template>
   <FollowerGrowthWidget
-    v-if="!isAllFieldsEmpty(followerGrowth)"
     :widget-data="followerGrowth"
     :widget-details="widgetDetails"
   />

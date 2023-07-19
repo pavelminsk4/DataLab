@@ -1,6 +1,5 @@
 <template>
   <EngagementsTimelineWidget
-    v-if="mentionTimeline.length"
     v-bind="$attrs"
     :widget-details="widgetDetails"
     :labels="labels"
@@ -41,13 +40,13 @@ export default {
       return this.accountAnalysisWidgets.mentionTimeline
     },
     labels() {
-      if (!this.mentionTimeline.length) return
+      if (!this.mentionTimeline.length) return []
       return this.mentionTimeline.map((dateValue) => {
         return defaultDate(dateValue.date)
       })
     },
     chartValues() {
-      if (!this.mentionTimeline.length) return
+      if (!this.mentionTimeline.length) return []
       const tweets = []
       const engagement = []
       this.mentionTimeline.map((el) => {

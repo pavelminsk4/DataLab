@@ -1,6 +1,5 @@
 <template>
   <MostEngagingTypesWidget
-    v-if="!isAllFieldsEmpty(mostEngagingPostTypes)"
     v-bind="$attrs"
     :widget-details="widgetDetails"
     :labels="labels"

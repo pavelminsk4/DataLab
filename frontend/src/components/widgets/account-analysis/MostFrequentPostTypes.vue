@@ -1,6 +1,5 @@
 <template>
   <VolumeWidget
-    v-if="!isAllFieldsEmpty(mostFrequentPostTypes)"
     v-bind="$attrs"
     :widget-details="widgetDetails"
     :labels="labels"

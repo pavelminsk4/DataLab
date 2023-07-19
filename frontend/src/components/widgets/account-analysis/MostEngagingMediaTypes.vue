@@ -1,6 +1,5 @@
 <template>
   <MostEngagingTypesWidget
-    v-if="!isAllFieldsEmpty(mostEngagingMediaTypes)"
     v-bind="$attrs"
     :widget-details="widgetDetails"
     :labels="labels"

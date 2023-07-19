@@ -1,6 +1,5 @@
 <template>
   <OptimalPostLengthWidget
-    v-if="!isAllFieldsEmpty(optimalNumberOfHashtags)"
     :widget-details="widgetDetails"
     :widget-data="optimalNumberOfHashtags"
     :colors="colors"
@@ -32,7 +31,9 @@ export default {
       accountAnalysisWidgets: get.ACCOUNT_ANALYSIS_WIDGETS,
     }),
     optimalNumberOfHashtags() {
-      return this.accountAnalysisWidgets.optimalNumberOfHashtags.engagement
+      return (
+        this.accountAnalysisWidgets.optimalNumberOfHashtags.engagement || []
+      )
     },
   },
   created() {
