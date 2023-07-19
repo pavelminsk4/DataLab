@@ -8,7 +8,7 @@
         routeName: `${moduleName}Workspace`,
       }"
     >
-      <div class="search-results-count">{{ numberOfPosts }} results</div>
+      <TotalResults :total-results="numberOfPosts" />
     </MainLayoutTitleBlock>
 
     <div class="search-settings-wrapper">
@@ -55,13 +55,14 @@
 <script>
 import {mapGetters} from 'vuex'
 import {get} from '@store/constants'
+import {expertModeFilters} from '@/lib/constants'
 
 import MainLayoutTitleBlock from '@/components/layout/MainLayoutTitleBlock'
 import SimpleModeTab from '@/components/workspace/SimpleModeTab'
 import SearchResults from '@/components/SearchResults'
 import BaseSwitcher from '@/components/BaseSwitcher'
 import ExpertModeTab from '@/components/workspace/ExpertModeTab'
-import {expertModeFilters} from '@/lib/constants'
+import TotalResults from '@/components/TotalResults'
 
 export default {
   name: 'SearchScreen',
@@ -71,6 +72,7 @@ export default {
     MainLayoutTitleBlock,
     BaseSwitcher,
     ExpertModeTab,
+    TotalResults,
   },
   props: {
     moduleName: {type: String, default: 'Online'},

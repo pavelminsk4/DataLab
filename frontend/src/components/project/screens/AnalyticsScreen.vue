@@ -40,7 +40,7 @@
         routeName: 'OnlineWorkspace',
       }"
     >
-      <div class="search-results">{{ numberOfPosts }} results</div>
+      <TotalResults :total-results="numberOfPosts" />
     </MainLayoutTitleBlock>
 
     <div class="analytics-menu">
@@ -107,6 +107,7 @@ import DownloadReportModal from '@/components/project/modals/online/DownloadRepo
 import BaseDropdown from '@/components/BaseDropdown'
 import MainLayoutTitleBlock from '@/components/layout/MainLayoutTitleBlock'
 import InteractiveWidgetModal from '@/components/modals/InteractiveWidgetModal'
+import TotalResults from '@/components/TotalResults'
 
 export default {
   name: 'AnalyticsScreen',
@@ -122,6 +123,7 @@ export default {
     PlusIcon,
     BaseButton,
     WidgetsView,
+    TotalResults,
   },
   props: {
     currentProject: {type: [Array, Object], required: false},
@@ -270,14 +272,6 @@ export default {
 
 .interactive-widgets {
   z-index: 1010;
-}
-
-.search-results {
-  font-style: normal;
-  font-weight: 600;
-  font-size: 14px;
-  line-height: 20px;
-  color: var(--typography-secondary-color);
 }
 
 .analytics-menu {

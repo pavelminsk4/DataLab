@@ -12,9 +12,7 @@
             routeName: `AccountAnalysisWorkspaces`,
           }"
         >
-          <div v-if="isPostsPage" class="search-results-count">
-            {{ postsResult }} results
-          </div>
+          <TotalResults v-if="isPostsPage" :total-results="postsResult" />
         </MainLayoutTitleBlock>
         <BaseTabs
           :main-settings="tabs"
@@ -34,12 +32,13 @@
 <script>
 import {action} from '@store/constants'
 import {createNamespacedHelpers} from 'vuex'
+import {stringToPascalCase} from '@/lib/utilities'
 
 import MainLayout from '@components/layout/MainLayout'
 import MainLayoutTitleBlock from '@/components/layout/MainLayoutTitleBlock'
 import SideBar from '@/components/navigation/SideBar'
 import BaseTabs from '@/components/project/widgets/modals/BaseTabs'
-import {stringToPascalCase} from '@/lib/utilities'
+import TotalResults from '@/components/TotalResults'
 
 const {mapState, mapActions} = createNamespacedHelpers('accountAnalysis')
 
@@ -50,6 +49,7 @@ export default {
     MainLayoutTitleBlock,
     SideBar,
     BaseTabs,
+    TotalResults,
   },
   props: {
     currentProject: {type: [Array, Object], required: false},
@@ -113,12 +113,5 @@ export default {
     flex-direction: column;
     justify-content: space-between;
   }
-}
-
-.search-results-count {
-  font-weight: 600;
-  font-size: 14px;
-  line-height: 20px;
-  color: var(--typography-secondary-color);
 }
 </style>
