@@ -37,7 +37,7 @@
             :class="[item.iconName.toLowerCase(), 'icon']"
           />
           <span>{{ item.name }}</span>
-          <span class="stats__value">{{ item.value.toFixed() }}</span>
+          <span class="stats__value">{{ item.value?.toFixed() }}</span>
         </div>
       </section>
     </template>

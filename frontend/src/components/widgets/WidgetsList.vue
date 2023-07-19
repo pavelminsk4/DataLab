@@ -17,7 +17,7 @@
   />
   <ul class="widgets">
     <li
-      v-for="(item, index) in selectedWidgets"
+      v-for="(item, index) in displayedWidgets"
       :key="index"
       :class="['widgets__item', item.isFullWidth && 'grow']"
       :style="{minHeight: item.minHeight, width: listWidth}"
@@ -29,6 +29,10 @@
         :isShowSettingsBtn="item.isShowSettingsBtn"
         @open-settings-modal="openModal(item.widgetDetails)"
         @delete-widget="$emit('delete-widget', item.widgetDetails.name)"
+      />
+      <BaseObserver
+        v-if="index + 1 === displayedWidgets.length"
+        @intersect="getItems"
       />
     </li>
   </ul>
@@ -45,6 +49,7 @@ import SocialMainWidget from '@/components/widgets/social/SocialMainWidget'
 import ComparisonMainWidget from '@/components/widgets/comparison/ComparisonMainWidget'
 import AccountAnalysisMainWidget from '@/components/widgets/account-analysis/AccountAnalysisMainWidget'
 import InteractiveWidgetModal from '@/components/modals/InteractiveWidgetModal'
+import BaseObserver from '@/components/BaseObserver'
 
 const {mapActions: mapSocialActions} = createNamespacedHelpers('social')
 const {mapActions: mapAccounAnalysisAction} =
@@ -61,6 +66,7 @@ export default {
     AccountAnalysisWidgetSettingsModal,
     AccountAnalysisMainWidget,
     InteractiveWidgetModal,
+    BaseObserver,
   },
   emits: ['delete-widget'],
   props: {
@@ -74,6 +80,7 @@ export default {
       isOpenWidgetSettingsModal: false,
       currentWidget: null,
       currentWidgetIndex: 0,
+      countDisplayedWidgets: 1,
     }
   },
   computed: {
@@ -81,6 +88,11 @@ export default {
       availableWidgets: get.AVAILABLE_WIDGETS,
       inreractiveDataModal: get.INTERACTIVE_DATA_MODAL,
     }),
+    displayedWidgets() {
+      if (this.moduleName === 'AccountAnalysis')
+        return this.selectedWidgets.slice(0, this.countDisplayedWidgets)
+      return this.selectedWidgets
+    },
   },
   methods: {
     ...mapActions([
@@ -133,6 +145,9 @@ export default {
       if (this.moduleName === 'AccountAnalysis') {
         this.postAccountAnalysisInteractiveData(interactiveValues)
       }
+    },
+    getItems() {
+      this.countDisplayedWidgets += 2
     },
   },
 }

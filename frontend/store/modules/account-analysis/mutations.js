@@ -1,4 +1,5 @@
 import {mutator} from '@store/constants'
+import {initialState} from '@store/modules/account-analysis/widgets/state'
 
 export default {
   [mutator.SET_LOADING](state, loading) {
@@ -35,10 +36,16 @@ export default {
   },
 
   [mutator.SET_ACCOUNT_ACTIVITY_POSTS](state, data) {
-    state.accountActivityPosts = data
+    state.accountActivityPosts = data.posts || []
+    state.accountActivityNumOfPosts = data.num_posts
   },
 
   [mutator.SET_MENTIONS_POSTS](state, data) {
-    state.mentionsPosts = data
+    state.mentionsPosts = data.posts || []
+    state.mentionsNumOfPosts = data.num_posts
+  },
+
+  [mutator.CLEAR_WIDGETS_DATA](state) {
+    state.widgets = {...initialState}
   },
 }

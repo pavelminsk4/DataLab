@@ -50,7 +50,7 @@ import BaseChips from '@/components/BaseChips'
 import UserAvatar from '@/components/UserAvatar'
 
 export default {
-  name: 'TopPostsByEngagementsWidget',
+  name: 'TopMentionsByEngagementsWidget',
   components: {
     ChartsView,
     BaseTable,

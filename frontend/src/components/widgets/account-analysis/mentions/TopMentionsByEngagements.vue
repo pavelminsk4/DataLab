@@ -1,6 +1,5 @@
 <template>
   <TopMentionsByEngagementsWidget
-    v-if="topMentionsByEngagements.length"
     v-bind="$attrs"
     :widget-details="widgetDetails"
     :widget-data="topMentionsByEngagements"

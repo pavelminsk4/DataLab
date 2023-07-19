@@ -3,7 +3,7 @@ import {action, mutator} from '@store/constants'
 
 export default {
   async [action.GET_PROFILE_TIMELINE]({commit}, {projectId, widgetId, value}) {
-    commit(mutator.SET_LOADING, true, {root: true})
+    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
       const profileTimeline = await api.accountAnalysis.getProfileTimeline(
         projectId,
@@ -15,12 +15,12 @@ export default {
       console.error(error)
       return error
     } finally {
-      commit(mutator.SET_LOADING, false, {root: true})
+      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
   },
 
   async [action.GET_SUMMARY]({commit}, {projectId, widgetId, value}) {
-    commit(mutator.SET_LOADING, true, {root: true})
+    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
       const summary = await api.accountAnalysis.getSummary(
         projectId,
@@ -32,12 +32,12 @@ export default {
       console.error(error)
       return error
     } finally {
-      commit(mutator.SET_LOADING, false, {root: true})
+      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
   },
 
   async [action.GET_MOST_FREQUENT_POST_TYPES]({commit}, {projectId, widgetId}) {
-    commit(mutator.SET_LOADING, true, {root: true})
+    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
       const postTypes = await api.accountAnalysis.getMostFrequentPostTypes(
         projectId,
@@ -48,7 +48,7 @@ export default {
       console.error(error)
       return error
     } finally {
-      commit(mutator.SET_LOADING, false, {root: true})
+      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
   },
 
@@ -56,7 +56,7 @@ export default {
     {commit},
     {projectId, widgetId}
   ) {
-    commit(mutator.SET_LOADING, true, {root: true})
+    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
       const mostFrequentMediaTypes =
         await api.accountAnalysis.getMostFrequentMediaTypes(projectId, widgetId)
@@ -65,7 +65,7 @@ export default {
       console.error(error)
       return error
     } finally {
-      commit(mutator.SET_LOADING, false, {root: true})
+      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
   },
 
@@ -73,7 +73,7 @@ export default {
     {commit},
     {projectId, widgetId, value}
   ) {
-    commit(mutator.SET_LOADING, true, {root: true})
+    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
       const postTypes = await api.accountAnalysis.getMostEngagingPostTypes(
         projectId,
@@ -85,7 +85,7 @@ export default {
       console.error(error)
       return error
     } finally {
-      commit(mutator.SET_LOADING, false, {root: true})
+      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
   },
 
@@ -93,7 +93,7 @@ export default {
     {commit},
     {projectId, widgetId, value}
   ) {
-    commit(mutator.SET_LOADING, true, {root: true})
+    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
       const mediaTypes = await api.accountAnalysis.getMostEngagingMediaTypes(
         projectId,
@@ -105,12 +105,12 @@ export default {
       console.error(error)
       return error
     } finally {
-      commit(mutator.SET_LOADING, false, {root: true})
+      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
   },
 
   async [action.GET_FOLLOWER_GROWTH]({commit}, {projectId, widgetId, value}) {
-    commit(mutator.SET_LOADING, true, {root: true})
+    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
       const followerGrowth = await api.accountAnalysis.getFollowerGrowth(
         projectId,
@@ -122,7 +122,7 @@ export default {
       console.error(error)
       return error
     } finally {
-      commit(mutator.SET_LOADING, false, {root: true})
+      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
   },
 
@@ -130,7 +130,7 @@ export default {
     {commit},
     {projectId, widgetId, value}
   ) {
-    commit(mutator.SET_LOADING, true, {root: true})
+    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
       const optimalPostLength = await api.accountAnalysis.getOptimalPostLength(
         projectId,
@@ -142,12 +142,12 @@ export default {
       console.error(error)
       return error
     } finally {
-      commit(mutator.SET_LOADING, false, {root: true})
+      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
   },
 
   async [action.GET_TOP_HASHTAGS]({commit}, {projectId, widgetId, value}) {
-    commit(mutator.SET_LOADING, true, {root: true})
+    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
       const topHashtags = await api.accountAnalysis.getTopHashtags(
         projectId,
@@ -159,7 +159,7 @@ export default {
       console.error(error)
       return error
     } finally {
-      commit(mutator.SET_LOADING, false, {root: true})
+      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
   },
 
@@ -171,7 +171,7 @@ export default {
     {commit},
     {projectId, widgetId, value}
   ) {
-    commit(mutator.SET_LOADING, true, {root: true})
+    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
       const optimalNumberOfHashtags =
         await api.accountAnalysis.getOptimalNumberOfHashtags(
@@ -184,7 +184,7 @@ export default {
       console.error(error)
       return error
     } finally {
-      commit(mutator.SET_LOADING, false, {root: true})
+      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
   },
 
@@ -192,7 +192,7 @@ export default {
     {commit},
     {projectId, widgetId, value}
   ) {
-    commit(mutator.SET_LOADING, true, {root: true})
+    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
       const averageEngagements =
         await api.accountAnalysis.getAverageEngagemensByDay(
@@ -205,12 +205,12 @@ export default {
       console.error(error)
       return error
     } finally {
-      commit(mutator.SET_LOADING, false, {root: true})
+      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
   },
 
   async [action.GET_OPTIMAL_POST_TIME]({commit}, {projectId, widgetId, value}) {
-    commit(mutator.SET_LOADING, true, {root: true})
+    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
       const optimalPostTime = await api.accountAnalysis.getOptimalPostTime(
         projectId,
@@ -222,7 +222,7 @@ export default {
       console.error(error)
       return error
     } finally {
-      commit(mutator.SET_LOADING, false, {root: true})
+      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
   },
 
@@ -230,7 +230,7 @@ export default {
     {commit},
     {projectId, widgetId, value}
   ) {
-    commit(mutator.SET_LOADING, true, {root: true})
+    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
       const topPostsByEngagements =
         await api.accountAnalysis.getTopPostsByEngagements(
@@ -243,7 +243,7 @@ export default {
       console.error(error)
       return error
     } finally {
-      commit(mutator.SET_LOADING, false, {root: true})
+      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
   },
 
@@ -251,7 +251,7 @@ export default {
     {commit},
     {projectId, widgetId, value}
   ) {
-    commit(mutator.SET_LOADING, true, {root: true})
+    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
       const bestTimesToPost = await api.accountAnalysis.getBestTimesToPost(
         projectId,
@@ -263,12 +263,12 @@ export default {
       console.error(error)
       return error
     } finally {
-      commit(mutator.SET_LOADING, false, {root: true})
+      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
   },
 
   async [action.GET_MENTION_TIMELINE]({commit}, {projectId, widgetId, value}) {
-    commit(mutator.SET_LOADING, true, {root: true})
+    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
       const mentionTimeline = await api.accountAnalysis.getMentionTimeline(
         projectId,
@@ -280,7 +280,7 @@ export default {
       console.error(error)
       return error
     } finally {
-      commit(mutator.SET_LOADING, false, {root: true})
+      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
   },
 
@@ -288,7 +288,7 @@ export default {
     {commit},
     {projectId, widgetId}
   ) {
-    commit(mutator.SET_LOADING, true, {root: true})
+    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
       const mostFrequentMentionMediaTypes =
         await api.accountAnalysis.getMostFrequentMentionMediaTypes(
@@ -303,12 +303,12 @@ export default {
       console.error(error)
       return error
     } finally {
-      commit(mutator.SET_LOADING, false, {root: true})
+      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
   },
 
   async [action.GET_AUDIENCE_MENTION_TIME]({commit}, {projectId, widgetId}) {
-    commit(mutator.SET_LOADING, true, {root: true})
+    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
       const audienceMentionTime =
         await api.accountAnalysis.getAudienceMentionTime(projectId, widgetId)
@@ -317,7 +317,7 @@ export default {
       console.error(error)
       return error
     } finally {
-      commit(mutator.SET_LOADING, false, {root: true})
+      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
   },
 
@@ -325,7 +325,7 @@ export default {
     {commit},
     {projectId, widgetId}
   ) {
-    commit(mutator.SET_LOADING, true, {root: true})
+    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
       const topMentionsByEngagements =
         await api.accountAnalysis.getTopMentionsByEngagements(
@@ -337,7 +337,7 @@ export default {
       console.error(error)
       return error
     } finally {
-      commit(mutator.SET_LOADING, false, {root: true})
+      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
   },
 
@@ -345,7 +345,7 @@ export default {
     {commit},
     {projectId, widgetId}
   ) {
-    commit(mutator.SET_LOADING, true, {root: true})
+    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
       const averageEngagementsForMentions =
         await api.accountAnalysis.getAverageEngagemensByDayForMentions(
@@ -360,12 +360,12 @@ export default {
       console.error(error)
       return error
     } finally {
-      commit(mutator.SET_LOADING, false, {root: true})
+      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
   },
 
   async [action.GET_MENTION_SUMMARY]({commit}, {projectId, widgetId}) {
-    commit(mutator.SET_LOADING, true, {root: true})
+    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
       const mentionSummary = await api.accountAnalysis.getMentionSummary(
         projectId,
@@ -376,12 +376,12 @@ export default {
       console.error(error)
       return error
     } finally {
-      commit(mutator.SET_LOADING, false, {root: true})
+      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
   },
 
   async [action.GET_MENTION_SENTIMENT]({commit}, {projectId, widgetId}) {
-    commit(mutator.SET_LOADING, true, {root: true})
+    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
       const mentionSentiment = await api.accountAnalysis.getMentionSentiment(
         projectId,
@@ -392,11 +392,7 @@ export default {
       console.error(error)
       return error
     } finally {
-      commit(mutator.SET_LOADING, false, {root: true})
+      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
-  },
-
-  [action.CLEAR_WIDGETS_DATA]({commit}) {
-    commit(mutator.CLEAR_WIDGETS_DATA)
   },
 }

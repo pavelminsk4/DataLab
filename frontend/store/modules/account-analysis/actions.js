@@ -186,10 +186,7 @@ export default {
         projectId,
         value
       )
-      commit(mutator.SET_NUMBER_OF_POSTS, response.num_posts, {
-        root: true,
-      })
-      commit(mutator.SET_ACCOUNT_ACTIVITY_POSTS, response.posts)
+      commit(mutator.SET_ACCOUNT_ACTIVITY_POSTS, response)
       return response
     } catch (error) {
       console.error(error)
@@ -206,10 +203,7 @@ export default {
         projectId,
         value
       )
-      commit(mutator.SET_NUMBER_OF_POSTS, response.num_posts, {
-        root: true,
-      })
-      commit(mutator.SET_MENTIONS_POSTS, response.posts || [])
+      commit(mutator.SET_MENTIONS_POSTS, response)
       return response
     } catch (error) {
       console.error(error)
@@ -217,5 +211,9 @@ export default {
     } finally {
       commit(mutator.SET_LOADING, false)
     }
+  },
+
+  [action.CLEAR_WIDGETS_DATA]({commit}) {
+    commit(mutator.CLEAR_WIDGETS_DATA)
   },
 }

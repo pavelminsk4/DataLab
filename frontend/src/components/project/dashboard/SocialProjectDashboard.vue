@@ -39,7 +39,7 @@
         routeName: 'SocialWorkspace',
       }"
     >
-      <div class="search-results-count">{{ numberOfPosts }} results</div>
+      <TotalResults :total-results="numberOfPosts" />
     </MainLayoutTitleBlock>
 
     <div class="analytics-menu">
@@ -116,6 +116,7 @@ import DownloadReportModal from '@/components/project/modals/social/DownloadRepo
 import BaseDropdown from '@/components/BaseDropdown'
 import MainLayoutTitleBlock from '@/components/layout/MainLayoutTitleBlock'
 import InteractiveWidgetModal from '@/components/modals/InteractiveWidgetModal'
+import TotalResults from '@/components/TotalResults'
 
 const {mapActions: mapSocialActions} = createNamespacedHelpers('social')
 
@@ -134,6 +135,7 @@ export default {
     BaseButton,
     SocialProjectDashboardWidgets,
     SearchResults,
+    TotalResults,
   },
   props: {
     currentProject: {type: [Array, Object], required: false},
@@ -304,14 +306,6 @@ export default {
 
 .interactive-widgets {
   z-index: 1010;
-}
-
-.search-results-count {
-  font-style: normal;
-  font-weight: 600;
-  font-size: 14px;
-  line-height: 20px;
-  color: var(--typography-secondary-color);
 }
 
 .analytics-menu {

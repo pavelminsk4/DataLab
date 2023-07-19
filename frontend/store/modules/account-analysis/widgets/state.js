@@ -1,6 +1,6 @@
-const state = {
+export const initialState = {
   audienceMentionTime: [],
-  averageEngagementsByDay: {},
+  averageEngagementsByDay: [],
   averageEngagementsByDayForMentions: {},
   bestTimesToPost: [],
   followerGrowth: {},
@@ -19,7 +19,9 @@ const state = {
   summary: {},
   topHashtags: {},
   topMentionsByEngagements: [],
-  topPostsByEngagements: {},
+  topPostsByEngagements: [],
 }
+
+const state = {...initialState}
 
 export default state

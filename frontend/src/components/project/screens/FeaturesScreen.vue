@@ -9,7 +9,7 @@
           routeName: `${currentProject.source}Workspace`,
         }"
       >
-        <div class="search-results">{{ numberOfPosts }} results</div>
+        <TotalResults :total-results="numberOfPosts" />
       </MainLayoutTitleBlock>
       <BaseButton :is-not-background="true" class="btn-report">
         <ReportsUploadIcon /> Download Report
@@ -23,6 +23,7 @@
 import MainLayoutTitleBlock from '@/components/layout/MainLayoutTitleBlock'
 import BaseButton from '@/components/common/BaseButton'
 import ReportsUploadIcon from '@/components/icons/ReportsUploadIcon'
+import TotalResults from '@/components/TotalResults'
 
 export default {
   name: 'FeaturesScreen',
@@ -30,6 +31,7 @@ export default {
     MainLayoutTitleBlock,
     BaseButton,
     ReportsUploadIcon,
+    TotalResults,
   },
   props: {
     currentProject: {type: [Array, Object], required: false},

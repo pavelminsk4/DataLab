@@ -11,7 +11,9 @@
             name: 'workspaces',
             routeName: `AccountAnalysisWorkspaces`,
           }"
-        />
+        >
+          <TotalResults v-if="isPostsPage" :total-results="postsResult" />
+        </MainLayoutTitleBlock>
         <BaseTabs
           :main-settings="tabs"
           default-tab="Account Activity"
@@ -30,14 +32,15 @@
 <script>
 import {action} from '@store/constants'
 import {createNamespacedHelpers} from 'vuex'
+import {stringToPascalCase} from '@/lib/utilities'
 
 import MainLayout from '@components/layout/MainLayout'
 import MainLayoutTitleBlock from '@/components/layout/MainLayoutTitleBlock'
 import SideBar from '@/components/navigation/SideBar'
 import BaseTabs from '@/components/project/widgets/modals/BaseTabs'
-import {stringToPascalCase} from '@/lib/utilities'
+import TotalResults from '@/components/TotalResults'
 
-const {mapActions} = createNamespacedHelpers('accountAnalysis/widgets')
+const {mapState, mapActions} = createNamespacedHelpers('accountAnalysis')
 
 export default {
   name: 'AccountAnalysisFeaturesView',
@@ -46,6 +49,7 @@ export default {
     MainLayoutTitleBlock,
     SideBar,
     BaseTabs,
+    TotalResults,
   },
   props: {
     currentProject: {type: [Array, Object], required: false},
@@ -55,8 +59,21 @@ export default {
       currentTab: 'AccountActivity',
     }
   },
+  computed: {
+    ...mapState(['accountActivityNumOfPosts', 'mentionsNumOfPosts']),
+    isPostsPage() {
+      return this.$route.name === 'AccountAnalysisPosts'
+    },
+    postsResult() {
+      const result =
+        this.currentTab === 'AccountActivity'
+          ? this.accountActivityNumOfPosts
+          : this.mentionsNumOfPosts
+      return result || 0
+    },
+  },
   created() {
-    this[action.CLEAR_WIDGETS_DATA]()
+    this.clearWidgetsData()
     this.navUrls = [
       'Dashboard',
       'Optimization',
@@ -70,7 +87,7 @@ export default {
     this.tabs = ['Account Activity', 'Mentions']
   },
   methods: {
-    ...mapActions([action.CLEAR_WIDGETS_DATA]),
+    ...mapActions({clearWidgetsData: `${action.CLEAR_WIDGETS_DATA}`}),
     stringToPascalCase,
     openTab(pathName) {
       this.$router.push({

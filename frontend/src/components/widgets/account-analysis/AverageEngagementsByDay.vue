@@ -1,6 +1,5 @@
 <template>
   <OptimalPostLengthWidget
-    v-if="!isAllFieldsEmpty(averageEngagementsByDay)"
     :widget-details="widgetDetails"
     :widget-data="averageEngagementsByDay"
     :colors="colors"

@@ -1,6 +1,5 @@
 <template>
   <TopPostsByEngagementsWidget
-    v-if="topPostsByEngagements.length"
     v-bind="$attrs"
     :widget-details="widgetDetails"
     :widget-data="topPostsByEngagements"

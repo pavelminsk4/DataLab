@@ -1,6 +1,5 @@
 <template>
   <AccountAnalysisSummaryWidget
-    v-if="statistiscs.length"
     :widget-data="mentionSummary"
     :stats="statistiscs"
   />
