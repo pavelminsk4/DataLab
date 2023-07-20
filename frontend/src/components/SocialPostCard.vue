@@ -49,6 +49,7 @@
           </div>
         </template>
       </div>
+      <a :href="postDetails.link" target="_blank" class="post-link">&#8599;</a>
     </template>
   </post-card-layout>
 </template>
@@ -91,6 +92,7 @@ export default {
       return this.$router.params.projectId
     },
     commonCardItems() {
+      console.log(this.postDetails)
       return [
         {name: 'DATE', value: this.defaultDate(this.postDetails.date)},
         {name: 'LOCATION', value: this.postDetails.locationString},
@@ -177,5 +179,14 @@ export default {
 
 .icon-size {
   height: 16px;
+}
+
+.post-link {
+  cursor: pointer;
+
+  text-decoration: none;
+
+  font-size: 25px;
+  color: var(--primary-color);
 }
 </style>

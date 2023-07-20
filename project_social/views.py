@@ -190,6 +190,7 @@ def twitter_posts_search(request):
   department_changing = ChangingTweetbinderSentiment.objects.filter(department_id=department_id).values()
   dict_changing = {x['tweet_post_id']: x['sentiment'] for x in department_changing}
   for post in posts_list:
+    post['link'] = f'https://twitter.com/user/status/{post["post_id"]}'
     post = change_tweet_post_sentiment(post, dict_changing)
   res = { 'num_pages': p.num_pages, 'num_posts': p.count, 'posts': posts_list }
   return JsonResponse(res, safe = False)

@@ -90,6 +90,9 @@ def interactive_widgets(request, project_pk, widget_pk):
     'user_picture',
     'images',
     )
+  posts = list(posts)
+  for p in posts:
+      p['link'] = f'https://twitter.com/user/status/{p["post_id"]}'
   p = Paginator(posts, posts_per_page)
   posts_list=list(p.page(page_number))
   res = { 'num_pages': p.num_pages, 'num_posts': p.count, 'posts': posts_list }
