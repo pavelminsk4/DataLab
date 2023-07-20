@@ -19,9 +19,9 @@ def calculate_summary_widget(posts):
     'authors':authors_quantity,
     'countries':countries_quantity,
     'languages':languages_quantity,
-    'pos':pos_posts,
-    'neg':neg_posts,
-    'neut':neut_posts,
+    'positive':pos_posts,
+    'negative':neg_posts,
+    'neutral':neut_posts,
     'reach':potential_reach
     }
 
