@@ -18,6 +18,7 @@ class TweetBinderPostFactory(factory.django.DjangoModelFactory):
     language         = 'En'
     user_name        = 'First_name'
     user_alias       = 'First_name'
+    user_gender      = 'male'
     locationString   = 'Nostramo'
     sentiment        = 'neutral'
     text             = 'First twitter post'

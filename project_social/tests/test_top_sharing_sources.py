@@ -24,7 +24,7 @@ class TopSharingSources(APITestCase):
                 'value': '2 post',
                 'sentiments': {'positive': 1, 'negative': 0, 'neutral': 1},
                 'picture': None,
-                'gender': None,
+                'gender': 'male',
                 'source': 'Twitter',
             },
             {
@@ -34,7 +34,7 @@ class TopSharingSources(APITestCase):
                 'value': '6 engagement',
                 'sentiments': {'positive': 1, 'negative': 0, 'neutral': 1},
                 'picture': None,
-                'gender': None,
+                'gender': 'male',
                 'source': 'Twitter',
             },
         ]

@@ -76,3 +76,9 @@ def create_comparison_widget_description(sender, instance, created, **kwargs):
         instance.cmpr_widgets.create(title='Sentiment by period', default_title='Sentiment by period')
         instance.cmpr_widgets.create(title='Sentiment by languages', default_title='Sentiment by languages')
         instance.cmpr_widgets.create(title='Sentiment by authors', default_title='Sentiment by authors')
+
+        instance.cmpr_widgets.create(title='Top keywords by location', default_title='Top keywords by location')
+        instance.cmpr_widgets.create(title='Authors by location', default_title='Authors by location')
+        instance.cmpr_widgets.create(title='Top languages by location', default_title='Top languages by location')
+        instance.cmpr_widgets.create(title='Authors by gender', default_title='Authors by gender')
+        instance.cmpr_widgets.create(title='Top gender by location', default_title='Top gender by location')
