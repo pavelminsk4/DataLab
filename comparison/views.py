@@ -1,6 +1,7 @@
 from comparison.classes.sentiment_feature import SentimentFactory
 from comparison.serializers import WorkspaceComparisonCreateSerializer
 from comparison.serializers import ProjectComparisonCreateSerializer
+from comparison.classes.demography_feature import DemographyFactory
 from comparison.serializers import WorkspaceComparisonSerializer
 from comparison.serializers import ProjectComparisonSerializer
 from comparison.classes.summary_feature import SummaryFactory
@@ -67,5 +68,12 @@ def get_sentiment_feature(request, pk):
     pr = ProjectComparison.objects.get(id=pk)
     descriptions = {wd['default_title']: wd for wd in pr.cmpr_widgets.values()}
     projects_widgets = [SentimentFactory(item).define().get_widgets() for item in pr.cmpr_items.all()]
+    res = restructure_feature(projects_widgets, descriptions)
+    return JsonResponse(res, safe=False)
+
+def get_demography_feature(request, pk):
+    pr = ProjectComparison.objects.get(id=pk)
+    descriptions = {wd['default_title']: wd for wd in pr.cmpr_widgets.values()}
+    projects_widgets = [DemographyFactory(item).define().get_widgets() for item in pr.cmpr_items.all()]
     res = restructure_feature(projects_widgets, descriptions)
     return JsonResponse(res, safe=False)

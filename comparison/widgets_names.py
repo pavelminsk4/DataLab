@@ -15,4 +15,10 @@ WIDGETS_NAMES = {
     'sentiment_by_period': 'Sentiment by period',
     'sentiment_top_languages': 'Sentiment by languages',
     'sentiment_top_authors': 'Sentiment by authors',
+
+    'top_keywords_by_location': 'Top keywords by location',
+    'authors_by_location': 'Authors by location',
+    'top_languages_by_location': 'Top languages by location',
+    'authors_by_gender': 'Authors by gender',
+    'top_gender_by_location': 'Top gender by location',
 }

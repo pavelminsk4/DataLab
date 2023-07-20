@@ -5,6 +5,7 @@ from django.urls import path
 from comparison.views import WorkspaceComparisonViewSet
 from comparison.views import ProjectComparisonViewSet
 from comparison.views import ItemComparisonViewSet
+from comparison.views import get_demography_feature
 from comparison.views import get_sentiment_feature
 from comparison.views import get_summary_feature
 from comparison.views import get_projects
@@ -15,6 +16,7 @@ urlpatterns = [
     path('projects_list', get_projects, name='projects_list'),
     path('projects/<int:pk>/summary', get_summary_feature, name='summary'),
     path('projects/<int:pk>/sentiment', get_sentiment_feature, name='sentiment'),
+    path('projects/<int:pk>/demography', get_demography_feature, name='demography'),
 ]
 
 router = SimpleRouter()
