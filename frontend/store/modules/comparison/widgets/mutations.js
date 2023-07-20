@@ -14,4 +14,11 @@ export default {
   [mutator.SET_SENTIMENT_WIDGETS_LOADING](state, loading) {
     state.sentiment.isLoading = loading
   },
+
+  [mutator.SET_DEMOGRAPHY_WIDGETS](state, data) {
+    state.demography.widgets = data
+  },
+  [mutator.SET_DEMOGRAPHY_WIDGETS_LOADING](state, loading) {
+    state.demography.isLoading = loading
+  },
 }

@@ -91,6 +91,7 @@ export default {
   },
 }
 </script>
+
 <style lang="scss">
 .chart-container {
   display: block;

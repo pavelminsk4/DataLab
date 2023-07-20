@@ -178,6 +178,12 @@ export const comparisonWidgetsList = {
       {name: 'sentiment_top_languages', isFullWidth: true},
       {name: 'sentiment_top_authors', isFullWidth: true},
     ],
+    demography: [
+      // {name: 'authors_by_location', isFullWidth: true},
+      {name: 'top_languages_by_location', isFullWidth: true},
+      {name: 'sentiment_by_locations', isFullWidth: true},
+      // {name: 'top_keywords_by_location', isFullWidth: true},
+    ],
   },
 }
 
