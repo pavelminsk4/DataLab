@@ -81,6 +81,8 @@ export default {
       sortingList: [
         {label: 'Latest', value: 'asc_date'},
         {label: 'Earliest', value: 'desc_date'},
+        {label: 'PR ASC', value: 'asc_reach'},
+        {label: 'PR DESC', value: 'desc_reach'},
       ],
       currentStatuses: dragAndDropStatuses,
     }
