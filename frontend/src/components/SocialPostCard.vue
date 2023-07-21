@@ -92,7 +92,6 @@ export default {
       return this.$router.params.projectId
     },
     commonCardItems() {
-      console.log(this.postDetails)
       return [
         {name: 'DATE', value: this.defaultDate(this.postDetails.date)},
         {name: 'LOCATION', value: this.postDetails.locationString},

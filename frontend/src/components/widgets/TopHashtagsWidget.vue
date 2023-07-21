@@ -44,12 +44,16 @@ export default {
       )
     },
     chartValues() {
-      const labels = []
-      const values = []
+      const widgetValues = []
+
       this.widgetData.forEach((el) => {
-        labels.push(el[0])
-        values.push(el[1])
+        widgetValues.push({label: el[0], value: el[1]})
       })
+
+      widgetValues.sort((a, b) => a.value - b.value)
+
+      const labels = widgetValues.map((widgetVal) => widgetVal.label)
+      const values = widgetValues.map((widgetVal) => widgetVal.value)
 
       return {
         labels,
