@@ -38,6 +38,8 @@ class ItemViewSet(viewsets.ModelViewSet):
             order_choices = {
                 'asc_date': 'online_post__entry_published',
                 'desc_date': '-online_post__entry_published',
+                'asc_reach': 'online_post__feedlink__alexaglobalrank',
+                'desc_reach': '-online_post__feedlink__alexaglobalrank',
             }
             field = order_choices[order]
             return Item.objects.filter(project__pk=self.kwargs['project_pk'], status=status).order_by(field)

@@ -52,7 +52,7 @@ export default {
       Object.entries(this.widgetData).map((value) => {
         series.push({
           name: value[0],
-          data: value[1].map((el) => el.engagements),
+          data: value[1].map((el) => el.engagements.toFixed(2)),
         })
       })
       return series

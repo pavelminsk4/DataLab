@@ -6,7 +6,7 @@
     <div class="post-card__footer">
       <div class="option">
         <h4>Date</h4>
-        <span class="option__text"> {{ formateDate(postDetails.date) }}</span>
+        <span class="option__text"> {{ defaultDate(postDetails.date) }}</span>
       </div>
       <div class="option">
         <h4>Engagements</h4>
@@ -32,8 +32,9 @@
 </template>
 
 <script>
-import RepliesIcon from '@/components/icons/RepliesIcon'
+import {defaultDate} from '@/lib/utilities'
 
+import RepliesIcon from '@/components/icons/RepliesIcon'
 import LikeIcon from '@/components/icons/LikeIcon'
 import RetweetIcon from '@/components/icons/RetweetIcon'
 
@@ -48,14 +49,7 @@ export default {
     postDetails: {type: Object, required: true},
   },
   methods: {
-    formateDate(date) {
-      return new Date(date)
-        .toLocaleString()
-        .split(', ')
-        .reverse()
-        .join(', ')
-        .replaceAll('/', '.')
-    },
+    defaultDate,
   },
 }
 </script>
