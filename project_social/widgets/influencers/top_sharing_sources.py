@@ -3,6 +3,19 @@ from django.forms.models import model_to_dict
 from django.db.models import Count, F, Sum
 from django.http import JsonResponse
 
+
+def top_sharing_sources(pk, widget_pk):
+  posts, widget = project_posts_filter(pk, widget_pk)
+  res = get_mosts(posts)
+  return JsonResponse(res, safe=False)
+
+def top_sharing_sources_report(pk, widget_pk):
+    posts, widget = project_posts_filter(pk, widget_pk)
+    return {
+        'data': get_mosts(posts),
+        'widget': {'top_sharing_sources': model_to_dict(widget)}
+    }
+
 def get_mosts(posts):
   most_active_author = posts.annotate(author_count=Count("user_alias")).order_by("-author_count").first()
   most_active_author_posts = posts.filter(user_alias=most_active_author.user_alias)
@@ -41,15 +54,3 @@ def get_mosts(posts):
       "source": "Twitter",
     },
   ]
-
-def top_sharing_sources(pk, widget_pk):
-  posts, widget = project_posts_filter(pk, widget_pk)
-  res = get_mosts(posts)
-  return JsonResponse(res, safe=False)
-
-def top_sharing_sources_report(pk, widget_pk):
-    posts, widget = project_posts_filter(pk, widget_pk)
-    return {
-        'data': get_mosts(posts),
-        'widget': {'top_sharing_sources': model_to_dict(widget)}
-    }

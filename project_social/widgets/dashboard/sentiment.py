@@ -5,7 +5,22 @@ from django.http import JsonResponse
 from django.db.models import Count
 import json
 
-def calculate(posts, aggregation_period):
+
+def sentiment(request, pk, widget_pk):
+  posts, widget = project_posts_filter(pk, widget_pk)
+  body = json.loads(request.body)
+  aggregation_period = body['aggregation_period']
+  results = calculate_for_sentiment(posts, aggregation_period)
+  return JsonResponse(results, safe = False)
+
+def sentiment_report(pk, widget_pk):
+    posts, widget = project_posts_filter(pk, widget_pk)
+    return {
+        'data': calculate_for_sentiment(posts, widget.aggregation_period),
+        'widget': {'sentiment': model_to_dict(widget)}
+    }
+
+def calculate_for_sentiment(posts, aggregation_period):
   negative_posts = posts.annotate(date_trunc=Trunc('date', aggregation_period)).values("date_trunc").filter(sentiment='negative').annotate(count_negative=Count('sentiment')).order_by("date")
   neutral_posts = posts.annotate(date_trunc=Trunc('date', aggregation_period)).values("date_trunc").filter(sentiment='neutral').annotate(count_neutral=Count('sentiment')).order_by("date")
   positive_posts = posts.annotate(date_trunc=Trunc('date', aggregation_period)).values("date_trunc").filter(sentiment='positive').annotate(count_positive=Count('sentiment')).order_by("date")
@@ -20,17 +35,3 @@ def calculate(posts, aggregation_period):
         positive += (count_post.get("count_positive") if count_post.get("count_positive") else 0)
     results.append({str(date_trunc): {"negative": negative, "neutral": neutral, "positive": positive}})
   return results
-
-def sentiment(request, pk, widget_pk):
-  posts, widget = project_posts_filter(pk, widget_pk)
-  body = json.loads(request.body)
-  aggregation_period = body['aggregation_period']
-  results = calculate(posts, aggregation_period)
-  return JsonResponse(results, safe = False)
-
-def sentiment_report(pk, widget_pk):
-    posts, widget = project_posts_filter(pk, widget_pk)
-    return {
-        'data': calculate(posts, widget.aggregation_period),
-        'widget': {'sentiment': model_to_dict(widget)}
-    }

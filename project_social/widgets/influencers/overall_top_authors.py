@@ -4,6 +4,15 @@ from project_social.models import ProjectSocial
 from django.http import JsonResponse
 from django.db.models import Count, Sum, F
 
+
+def overall_top_authors(pk, widget_pk):
+  project = ProjectSocial.objects.get(id=pk)
+  posts = post_agregator_with_dimensions(project)
+  widget = SocialWidgetDescription.objects.get(id=widget_pk)
+  posts = post_agregetor_for_each_widget(widget, posts)
+  res = get_top_authors(posts)
+  return JsonResponse(res, safe=False)
+
 def get_top_authors(posts):
   top_authors = posts.values('user_alias').annotate(user_count=Count('user_alias')).order_by('-user_count')[:5]
   res = []
@@ -26,11 +35,3 @@ def get_top_authors(posts):
       'engagements': author_posts.aggregate(engagements_sum=Sum(F('count_totalretweets') + F('count_favorites')))['engagements_sum'],
     })
   return res
-
-def overall_top_authors(pk, widget_pk):
-  project = ProjectSocial.objects.get(id=pk)
-  posts = post_agregator_with_dimensions(project)
-  widget = SocialWidgetDescription.objects.get(id=widget_pk)
-  posts = post_agregetor_for_each_widget(widget, posts)
-  res = get_top_authors(posts)
-  return JsonResponse(res, safe=False)

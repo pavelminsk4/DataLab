@@ -5,22 +5,22 @@ from django.http import JsonResponse
 from django.db.models import Count
 
 
-def calculate(posts, widget):
-    top_languages = [i['language'] for i in posts.values('language').annotate(author_count=Count('user_alias', distinct=True)).order_by('-author_count')[:5]]
-    results = []
-    for language in top_languages:
-        top_authors = posts.filter(language=language).values('user_alias').annotate(posts_count=Count('id')).order_by('-posts_count')[:5]
-        authors_posts = {author['user_alias']: author['posts_count'] for author in top_authors}
-        results.append({language: descending_sort(authors_posts)})
-    return results
-    
 def authors_by_language(pk, widget_pk):
     posts, widget = project_posts_filter(pk, widget_pk)
-    return JsonResponse(calculate(posts, widget), safe = False)
+    return JsonResponse(calculate_for_authors_by_language(posts, widget.top_counts), safe = False)
 
 def authors_by_language_report(pk, widget_pk):
     posts, widget = project_posts_filter(pk, widget_pk)
     return {
-        'data': calculate(posts, widget),
+        'data': calculate_for_authors_by_language(posts, widget.top_counts),
         'widget': {'authors_by_language': model_to_dict(widget)}
     }
+
+def calculate_for_authors_by_language(posts, top_counts):
+    top_languages = [i['language'] for i in posts.values('language').annotate(author_count=Count('user_alias', distinct=True)).order_by('-author_count')[:top_counts]]
+    results = []
+    for language in top_languages:
+        top_authors = posts.filter(language=language).values('user_alias').annotate(posts_count=Count('id')).order_by('-posts_count')[:top_counts]
+        authors_posts = {author['user_alias']: author['posts_count'] for author in top_authors}
+        results.append({language: descending_sort(authors_posts)})
+    return results
