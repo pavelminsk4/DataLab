@@ -26,4 +26,16 @@ export default {
       commit(mutator.SET_SENTIMENT_WIDGETS_LOADING, false)
     }
   },
+  async [action.GET_DEMOGRAPHY_WIDGETS]({commit}, projectId) {
+    commit(mutator.SET_DEMOGRAPHY_WIDGETS_LOADING, true)
+    try {
+      const data = await api.comparison.getDemographyWidgets(projectId)
+      commit(mutator.SET_DEMOGRAPHY_WIDGETS, data)
+    } catch (error) {
+      console.error(error)
+      return error
+    } finally {
+      commit(mutator.SET_DEMOGRAPHY_WIDGETS_LOADING, false)
+    }
+  },
 }

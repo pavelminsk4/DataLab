@@ -20,6 +20,7 @@ import SentimentByLocations from '@/components/widgets/comparison/SentimentByLoc
 import SentimentByPeriod from '@/components/widgets/comparison/SentimentByPeriodWidget'
 import SentimentTopLanguages from '@/components/widgets/comparison/SentimentByLanguagesWidget'
 import SentimentTopAuthors from '@/components/widgets/comparison/SentimentByAuthorsWidget'
+import TopLanguagesByLocation from '@/components/widgets/comparison/TopLanguagesByLocationWidget'
 
 export default {
   name: 'ComparisonMainWidget',
@@ -37,6 +38,7 @@ export default {
     SentimentByPeriod,
     SentimentTopLanguages,
     SentimentTopAuthors,
+    TopLanguagesByLocation,
   },
   props: {
     widgetDetails: {type: Object, required: true},
