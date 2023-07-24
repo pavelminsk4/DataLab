@@ -1,5 +1,7 @@
 import {mutator} from '@store/constants'
-import {newReportInitialState} from '@store/constants/initialState'
+import initialState, {
+  newReportInitialState,
+} from '@store/constants/initialState'
 
 export default {
   [mutator.SET_LOADING](state, loading) {
@@ -230,37 +232,29 @@ export default {
   },
 
   [mutator.RESET_STATE](state) {
-    state.currentStep = 'Step1'
-    state.keywords = {}
-    state.searchData = []
-    state.isSearchPerformed = false
-    state.numberOfPages = 0
-    state.numberOfPosts = 0
-    state.newWorkspace = {
-      title: '',
-      description: '',
-      members: [],
-      projects: [],
-      department: null,
-    }
-    state.newProject = {
-      title: '',
-      note: '',
-      keywords: [],
-      ignore_keywords: '',
-      max_items: '',
-      image: null,
-      arabic_name: '',
-      english_name: '',
-      social: false,
-      online: false,
-      premium: false,
-      creator: null,
-      source: '',
-      workspace: null,
-    }
-    state.alerts = []
-    state.regularReports = []
+    const {
+      currentStep,
+      keywords,
+      searchData,
+      isSearchPerformed,
+      numberOfPages,
+      numberOfPosts,
+      newWorkspace,
+      newProject,
+      alerts,
+      regularReports,
+    } = initialState
+
+    state.currentStep = currentStep
+    state.keywords = keywords
+    state.searchData = searchData
+    state.isSearchPerformed = isSearchPerformed
+    state.numberOfPages = numberOfPages
+    state.numberOfPosts = numberOfPosts
+    state.newWorkspace = newWorkspace
+    state.newProject = newProject
+    state.alerts = alerts
+    state.regularReports = regularReports
   },
 
   [mutator.RESET_SEARCH_LIST](state) {
