@@ -1,0 +1,15 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Facebook">
+<g clip-path="url(#clip0_94_23168)">
+<rect width="64" height="64" rx="32" fill="white"/>
+<path id="Subtract" d="M0 0H100V100H0V0Z" fill="white"/>
+<path id="Vector" d="M39.1893 33.9989L40.1012 28.2103H34.484V24.4477C34.484 22.8649 35.2683 21.3183 37.7759 21.3183H40.3656V16.3889C38.8575 16.1486 37.3336 16.0187 35.8063 16C31.1831 16 28.1648 18.7767 28.1648 23.7965V28.2103H23.04V33.9989H28.1648V48H34.484V33.9989H39.1893Z" fill="#337FFF"/>
+</g>
+<rect x="0.5" y="0.5" width="63" height="63" rx="31.5" stroke="#F2F1F0"/>
+</g>
+<defs>
+<clipPath id="clip0_94_23168">
+<rect width="64" height="64" rx="32" fill="white"/>
+</clipPath>
+</defs>
+</svg>
