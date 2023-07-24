@@ -1,9 +1,11 @@
-from widgets.common_widget.filters_for_widgets import post_agregator_with_dimensions
-from widgets.common_widget.filters_for_widgets import post_agregetor_for_each_widget
-from widgets.models import WidgetDescription
+from widgets.common_widget.project_posts_filter import project_posts_filter
 from django.http import JsonResponse
-from project.models import Project
 
+
+def number_of_results(pk, widget_pk):
+    posts, widget = project_posts_filter(pk, widget_pk)
+    res = get_sentiment_number_of_results(posts)
+    return JsonResponse(res, safe=False)
 
 def get_sentiment_number_of_results(posts):
     return {
@@ -11,12 +13,3 @@ def get_sentiment_number_of_results(posts):
         'negative': posts.filter(sentiment='negative').count(),
         'neutral':  posts.filter(sentiment='neutral').count(),
     }
-
-
-def number_of_results(pk, widget_pk):
-    project = Project.objects.get(id=pk)
-    posts = post_agregator_with_dimensions(project)
-    widget = WidgetDescription.objects.get(id=widget_pk)
-    posts = post_agregetor_for_each_widget(widget, posts)
-    res = get_sentiment_number_of_results(posts)
-    return JsonResponse(res, safe=False)

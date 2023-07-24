@@ -1,8 +1,12 @@
-from widgets.models import WidgetDescription
-from project.models import Project
+from widgets.common_widget.project_posts_filter import project_posts_filter
 from django.http import JsonResponse
 from django.db.models import Count
-from .filters_for_widgets import *
+
+
+def sentiment_top_languages(pk, widget_pk):
+  posts, widget = project_posts_filter(pk, widget_pk)
+  res = post_agregator_sentiment_top_languages(posts, widget.top_counts)
+  return JsonResponse(res, safe = False)
 
 def post_agregator_sentiment_top_languages(posts, top_counts):
   top_languages = posts.values('feed_language__language').annotate(brand_count=Count('feed_language__language')).order_by('-brand_count').values_list('feed_language__language', flat=True)[:top_counts]
@@ -16,11 +20,3 @@ def post_agregator_sentiment_top_languages(posts, top_counts):
    for sen in sentiments:
      results[top_languages[i]].append({'sentiment': sen, 'sentiment_count': 0})
   return results      
-
-def sentiment_top_languages(pk, widget_pk):
-  project = Project.objects.get(id=pk)
-  posts = post_agregator_with_dimensions(project)
-  widget = WidgetDescription.objects.get(id=widget_pk)
-  posts = post_agregetor_for_each_widget(widget, posts)
-  res = post_agregator_sentiment_top_languages(posts, widget.top_counts)
-  return JsonResponse(res, safe = False)
