@@ -9,7 +9,10 @@
 </template>
 
 <script>
-import {socialSummaryWidgetConfig} from '@/lib/configs/widgetsConfigs'
+import {
+  socialSummaryWidgetConfig,
+  summaryWidgetConfig,
+} from '@/lib/configs/widgetsConfigs'
 
 import SummaryTableWidget from '@components/widgets/SummaryTableWidget'
 
@@ -25,7 +28,10 @@ export default {
     },
   },
   created() {
-    this.widgetMetrics = socialSummaryWidgetConfig
+    this.widgetMetrics =
+      this.widgetData[0].data.likes !== undefined
+        ? socialSummaryWidgetConfig
+        : summaryWidgetConfig
   },
 }
 </script>

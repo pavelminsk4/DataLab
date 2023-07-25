@@ -44,7 +44,7 @@ class SummaryOnline:
             'widgets': [
                 {'name': 'summary', 'data': onl_summary(self.posts)},
                 {'name': 'content_volume', 'data': onl_volume(self.posts, 'day')},
-                {'name': 'top_authors', 'data': onl_top_authors(self.posts, 5)},
+                {'name': 'top_authors', 'data': [{'user_name': elem['entry_author'], 'user_count': elem['author_posts_count']} for elem in onl_top_authors(self.posts, 5)]},
                 {'name': 'sentiment', 'data': onl_sentiment(self.posts)},
                 {'name': 'top_sources', 'data': onl_top_sources(self.posts, 5)},
                 {'name': 'top_keywords', 'data':  onl_top_keywords(self.posts)},

@@ -13,9 +13,9 @@ export default {
   },
   created() {
     this.fields = {
-      label: 'feed_language__language',
-      value: 'language_count',
-      undefinedLabel: 'No language',
+      label: 'feedlink__country',
+      value: 'country_count',
+      udnefinedLabel: 'No country',
     }
   },
 }
