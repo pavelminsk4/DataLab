@@ -15,7 +15,7 @@ export default {
     this.fields = {
       label: 'feedlink__country',
       value: 'country_count',
-      udnefinedLabel: 'No country',
+      undefinedLabel: 'No country',
     }
   },
 }
