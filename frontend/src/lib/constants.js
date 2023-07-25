@@ -149,14 +149,23 @@ export const accountAnalysisWidgetsList = {
 export const comparisonWidgetsList = {
   online: {
     summary: [
-      // {name: 'summary', isFullWidth: true},
+      {name: 'summary', isFullWidth: true},
       {name: 'content_volume'},
       {name: 'top_authors'},
       {name: 'sentiment'},
-      // {name: 'top_sources'},
+      {name: 'top_sources'},
       {name: 'top_keywords', isFullWidth: true},
-      // {name: 'top_languages'},
-      // {name: 'top_countries'},
+      {name: 'top_languages'},
+      {name: 'top_countries'},
+    ],
+    sentiment: [
+      {name: 'sentiment_number_of_results'},
+      {name: 'sentiment'},
+      {name: 'top_keywords_by_sentiment', isFullWidth: true},
+      {name: 'sentiment_by_locations', isFullWidth: true},
+      {name: 'sentiment_by_period', isFullWidth: true},
+      {name: 'sentiment_top_languages', isFullWidth: true},
+      {name: 'sentiment_top_authors', isFullWidth: true},
     ],
   },
   social: {

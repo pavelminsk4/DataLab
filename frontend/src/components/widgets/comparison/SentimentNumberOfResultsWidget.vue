@@ -13,12 +13,6 @@ import {summarySentimentConfig} from '@/lib/configs/widgetsConfigs'
 
 import SummaryTableWidget from '@components/widgets/SummaryTableWidget'
 
-const valuesNames = {
-  neut: 'neutral',
-  neg: 'negative',
-  pos: 'positive',
-}
-
 export default {
   name: 'ComparisonSentimentNumberOfResultsWidget',
   components: {SummaryTableWidget},
@@ -33,7 +27,7 @@ export default {
   created() {
     this.widgetMetrics = summarySentimentConfig.map((sentiment) => ({
       ...sentiment,
-      valueName: valuesNames[sentiment.valueName],
+      valueName: sentiment.valueName,
     }))
   },
 }
