@@ -15,7 +15,7 @@ export default {
     this.fields = {
       label: 'feedlink__source1',
       value: 'brand_count',
-      udnefinedLabel: 'No source',
+      undefinedLabel: 'No source',
     }
   },
 }
