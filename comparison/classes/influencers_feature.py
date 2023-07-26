@@ -30,6 +30,7 @@ class InfluencersSocial:
     def get_widgets(self):
         return {
             'project_name': self.project.title,
+            'module': 'social',
             'widgets': [
                 {'name': 'top_sharing_sources', 'data': soc_top_sharing_sources(self.posts)},
                 {'name': 'authors_by_sentiment', 'data': soc_authors_by_sentiment(self.posts, 5)},

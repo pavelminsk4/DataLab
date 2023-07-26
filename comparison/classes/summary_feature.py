@@ -41,6 +41,7 @@ class SummaryOnline:
     def get_widgets(self):
         return {
             'project_name': self.project.title,
+            'module': 'online',
             'widgets': [
                 {'name': 'summary', 'data': onl_summary(self.posts)},
                 {'name': 'content_volume', 'data': onl_volume(self.posts, 'day')},
@@ -62,6 +63,7 @@ class SummarySocial:
     def get_widgets(self):
         return {
             'project_name': self.project.title,
+            'module': 'social',
             'widgets': [
                 {'name': 'summary', 'data': soc_summary(self.posts)},
                 {'name': 'content_volume', 'data': soc_volume(self.posts, 'day')},
