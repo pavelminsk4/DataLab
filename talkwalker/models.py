@@ -156,12 +156,23 @@ def fetch_posts(start_date, end_date, limit, keywords, target):
     delete_collector()
 
 
+def get_tw_query(instance):
+    query = ''
+    if instance.expert_mode:
+        query = instance.query_filter
+    else:
+        keywords = [f'\"{kw}\"' for kw in instance.keywords]
+        query = ' OR '.join(keywords)
+    print(query)
+    return query
+
+
 @receiver(post_save, sender=Project)
 def fetch_talkwalker_posts(sender, instance, created, **kwargs):
     fetch_posts(
         instance.start_search_date,
         instance.end_search_date,
         1000,
-        instance.keywords,
+        get_tw_query(instance),
         'datalab'
     )

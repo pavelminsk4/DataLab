@@ -12,7 +12,7 @@ def new_task(start_date, stop_date, limit, query, target):
         'start': start_date.date().isoformat(),
         'stop': stop_date.date().isoformat(),
         'limit': limit,
-        "query": query[0],
+        "query": query,
         'target': target,
     })
     headers = {
