@@ -27,6 +27,7 @@ class SentimentOnline:
     def get_widgets(self):
         return {
             'project_name': self.project.title,
+            'module': 'online',
             'widgets': [
                 {'name': 'sentiment_number_of_results', 'data': onl_sentiment(self.posts)},
                 {'name': 'sentiment', 'data': onl_sentiment(self.posts)},
@@ -47,6 +48,7 @@ class SentimentSocial:
     def get_widgets(self):
         return {
             'project_name': self.project.title,
+            'module': 'social',
             'widgets': [
                 {'name': 'sentiment_number_of_results', 'data': soc_sentiment(self.posts)},
                 {'name': 'sentiment', 'data': soc_sentiment(self.posts)},

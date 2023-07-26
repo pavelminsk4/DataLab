@@ -30,6 +30,7 @@ class DemographySocial:
     def get_widgets(self):
         return {
             'project_name': self.project.title,
+            'module': 'social',
             'widgets': [
                 {'name': 'top_keywords', 'data': soc_top_keywords(self.posts)},
                 {'name': 'top_keywords_by_location', 'data': soc_top_keywords_by_location(self.posts, 5)},

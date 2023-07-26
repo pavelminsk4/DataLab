@@ -19,6 +19,6 @@ def restructure_feature(feature_widgets, decriptions):
                 result_list.append({
                     'widget_name': wg['name'],
                     'projects_data': [{'project': project, 'data': wg['data']}],
-                    'description': decriptions[WIDGETS_NAMES[wg['name']]],
+                    'description': decriptions[WIDGETS_NAMES[wg['name']]] | { 'module': project_dict['module']},
                 })
     return result_list
