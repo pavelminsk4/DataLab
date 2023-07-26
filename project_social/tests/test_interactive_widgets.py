@@ -262,12 +262,9 @@ class InteractiveWidgetsTests(APITestCase):
 
     def test_authors_by_languages(self):
         pr = ProjectSocial.objects.first()
-        print('START')
-        print(pr)
         widget_pk = pr.social_widgets_list.authors_by_language_id
         url = reverse('project_social:social_interactive_widgets', kwargs={'project_pk': pr.pk, 'widget_pk': widget_pk})
         post_id = TweetBinderPost.objects.all().get(user_name='First').pk
-        print(post_id)
         data = {
             'first_value': ['First'],
             'second_value': ['En'],
