@@ -1,9 +1,7 @@
 from project_social.widgets.demography.languages_by_location import calculate_for_languages_by_location as soc_top_languages_by_location
-from project_social.widgets.demography.keywords_by_location import calculate_for_keywords_by_location as soc_top_keywords_by_location
 from project_social.widgets.dashboard.sentiment_locations import calculate_for_sentiment_locations as soc_sentiment_by_locations
 from project_social.widgets.demography.authors_by_location import calculate_for_authors_by_location as soc_authors_by_location
 from project_social.widgets.demography.gender_by_location import calculate_for_gender_by_location as soc_gender_by_location
-from project_social.widgets.demography.authors_by_gender import calculate_for_authors_by_gender as soc_authors_by_gender
 from common.social_keywords import get_keywords as soc_top_keywords
 
 from project_social.widgets.filters_for_widgets import posts_agregator as get_soc_posts
@@ -33,11 +31,9 @@ class DemographySocial:
             'module': 'social',
             'widgets': [
                 {'name': 'top_keywords', 'data': soc_top_keywords(self.posts)},
-                {'name': 'top_keywords_by_location', 'data': soc_top_keywords_by_location(self.posts, 5)},
                 {'name': 'authors_by_location', 'data': soc_authors_by_location(self.posts, 5)},
                 {'name': 'top_languages_by_location', 'data': soc_top_languages_by_location(self.posts, 5)},
                 {'name': 'sentiment_by_locations', 'data': soc_sentiment_by_locations(self.posts, 'day', 5)},
-                {'name': 'authors_by_gender', 'data': soc_authors_by_gender(self.posts, 5)},
                 {'name': 'top_gender_by_location', 'data': soc_gender_by_location(self.posts, 5)},
             ]
         }
