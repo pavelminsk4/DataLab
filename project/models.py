@@ -57,7 +57,7 @@ class Project(models.Model):
   country_dimensions = ArrayField(models.CharField(max_length=50), blank=True, null=True)
   source_dimensions = ArrayField(models.CharField(max_length=50), blank=True, null=True)
   sentiment_dimensions = ArrayField(models.CharField(max_length=10), blank=True, null=True)
-  query_filter = models.CharField(max_length=1500, blank=True, null=True)
+  query_filter = models.CharField(max_length=5000, blank=True, null=True)
   expert_mode = models.BooleanField(default=False)
 
   def save(self, *args, **kwargs):
