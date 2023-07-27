@@ -6,18 +6,17 @@
     <div>
       <span>Topic query</span>
       <div class="expert-area">
-        <div class="line-numbers" id="line-numbers" />
         <div class="custom-textarea">
-          <div
+          <!-- <div
             v-html="highlightedSyntax"
             ref="highlighted"
             :class="['highlighted', bracketsError.isError && 'textarea-error']"
-          />
+          /> -->
           <textarea
             v-model="textAreaValue"
             ref="textarea"
             id="textarea"
-            class="textarea"
+            class="textarea scroll"
             @input="handleInput"
           />
         </div>
@@ -90,7 +89,7 @@ export default {
         message: '',
       },
       textAreaValue: '',
-      highlightedSyntax: '',
+      // highlightedSyntax: '',
     }
   },
   created() {
@@ -107,17 +106,8 @@ export default {
     if (this.defaultQuery) {
       this.validateBrackets(this.defaultQuery)
       this.textAreaValue = this.defaultQuery
-      this.highlightedSyntax = this.replaceLogicalOperators(this.defaultQuery)
+      // this.highlightedSyntax = this.replaceLogicalOperators(this.defaultQuery)
     }
-
-    const lineNumbers = document.getElementById('line-numbers')
-    const {textarea} = this.$refs
-
-    const lines = []
-    for (let i = 1; i < textarea.offsetHeight / 20 - 1; i++) {
-      lines.push(`<span id=line-${i}>${i}</span>`)
-    }
-    lineNumbers.innerHTML = lines.join('')
   },
 
   methods: {
@@ -144,36 +134,36 @@ export default {
       }
     },
 
-    replaceLogicalOperators(value) {
-      let highlightedStr = value
-      this.filters.map((filter) => {
-        const regex = new RegExp('\\b' + filter + '[:]', 'g')
-        highlightedStr = highlightedStr.replace(
-          regex,
-          `<span class="expert-mode_defaultColor">${filter}:</span>`
-        )
-      })
-      return highlightedStr
-        .replace(/\n/g, '<br>')
-        .replace(/\(/g, '<span class="expert-mode_defaultColor">(</span>')
-        .replace(/\)/g, '<span class="expert-mode_defaultColor">)</span>')
-        .replace(
-          /\bOR\b/g,
-          '<span class="defaultColor expert-mode_or">OR</span>'
-        )
-        .replace(
-          /\bAND\b/g,
-          '<span class="defaultColor expert-mode_and">AND</span>'
-        )
-        .replace(
-          /\bNOT\b/g,
-          '<span class="defaultColor expert-mode_not">NOT</span>'
-        )
-    },
+    // replaceLogicalOperators(value) {
+    //   let highlightedStr = value
+    //   this.filters.map((filter) => {
+    //     const regex = new RegExp('\\b' + filter + '[:]', 'g')
+    //     highlightedStr = highlightedStr.replace(
+    //       regex,
+    //       `<span class="expert-mode_defaultColor">${filter}:</span>`
+    //     )
+    //   })
+    //   return highlightedStr
+    //     .replace(/\n/g, '<br>')
+    //     .replace(/\(/g, '<span class="expert-mode_defaultColor">(</span>')
+    //     .replace(/\)/g, '<span class="expert-mode_defaultColor">)</span>')
+    //     .replace(
+    //       /\bOR\b/g,
+    //       '<span class="defaultColor expert-mode_or">OR</span>'
+    //     )
+    //     .replace(
+    //       /\bAND\b/g,
+    //       '<span class="defaultColor expert-mode_and">AND</span>'
+    //     )
+    //     .replace(
+    //       /\bNOT\b/g,
+    //       '<span class="defaultColor expert-mode_not">NOT</span>'
+    //     )
+    // },
 
-    handleInput({target: {value}}) {
+    handleInput() {
       this.validateBrackets(this.textAreaValue)
-      this.highlightedSyntax = this.replaceLogicalOperators(value)
+      // this.highlightedSyntax = this.replaceLogicalOperators(value)
     },
 
     showResults() {
@@ -225,36 +215,20 @@ export default {
       position: relative;
 
       width: 60%;
-      max-height: 400px;
+      height: 430px;
 
-      .highlighted {
-        position: absolute;
-        overflow: hidden;
+      overflow-y: hidden;
 
-        width: 100%;
-        height: 400px;
-        padding: 10px;
-
-        background: transparent;
-        border: var(--border-primary);
-        border-radius: var(--border-radius);
-        pointer-events: none;
-
-        word-break: break-word;
-      }
       .textarea {
-        overflow-y: hidden;
+        overflow-y: auto;
 
         width: 100%;
-        height: 400px;
+        height: 100%;
         padding: 10px;
 
         background-color: var(--background-secondary-color);
         border-radius: var(--border-radius);
         border: var(--border-primary);
-
-        caret-color: black;
-        color: transparent;
         font-size: 14px;
 
         resize: none;
@@ -363,3 +337,19 @@ export default {
   color: var(--negative-primary-color);
 }
 </style>
+
+<!-- .highlighted {
+  position: absolute;
+  overflow: hidden;
+
+  width: 100%;
+  height: 400px;
+  padding: 10px;
+
+  background: transparent;
+  border: var(--border-primary);
+  border-radius: var(--border-radius);
+  pointer-events: none;
+
+  word-break: break-word;
+} -->
