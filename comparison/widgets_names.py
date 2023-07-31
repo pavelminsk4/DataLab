@@ -21,10 +21,12 @@ WIDGETS_NAMES = {
     'top_languages_by_location': 'Top languages by location',
     'authors_by_gender': 'Authors by gender',
     'top_gender_by_location': 'Top gender by location',
+    'top_sources_by_country': 'Top sources by location',
 
     'top_sharing_sources': 'Top sharing sources',
     'authors_by_sentiment': 'Authors by sentiment',
     'overall_top_authors': 'Overall top authors',
     'top_authors_by_gender': 'Top authors by gender',
     'authors_by_language': 'Authors by language',
+    
 }
