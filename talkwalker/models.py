@@ -9,7 +9,6 @@ from project.models import Project
 from project.models import Speech
 from langcodes import Language
 from django.db import models
-from pprint import pprint
 import json
 from datetime import datetime
 
@@ -172,7 +171,7 @@ def fetch_talkwalker_posts(sender, instance, created, **kwargs):
     fetch_posts(
         instance.start_search_date,
         instance.end_search_date,
-        1000,
+        10000,
         get_tw_query(instance),
         'datalab'
     )
