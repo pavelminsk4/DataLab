@@ -1,3 +1,11 @@
+from widgets.influencers.authors_by_sentiment import calculate_authors_by_sentiment as onl_authors_by_sentiment
+from widgets.influencers.authors_by_language import calculate_authors_by_language as onl_authors_by_language
+from widgets.demography.sources_by_language import calculate_sources_by_language as onl_sources_by_language
+from widgets.influencers.authors_by_country import calculate_authors_by_country as onl_authors_by_location
+from widgets.influencers.overall_top_authors import get_top_authors as onl_overall_top_authors
+from widgets.demography.overall_top_sources import get_top_sources as onl_overall_top_sources
+from widgets.demography.top_sharing_sources import get_mosts as onl_top_sharing_sources
+
 from project_social.widgets.demography.top_authors_by_gender import calculate_for_top_authors_by_gender as soc_top_authors_by_gender
 from project_social.widgets.influencers.authors_by_sentiment import calculate_for_authors_by_sentiment as soc_authors_by_sentiment
 from project_social.widgets.demography.authors_by_language import calculate_for_authors_by_language as soc_authors_by_language
@@ -19,7 +27,19 @@ class InfluencersOnline:
         self.project = project
 
     def get_widgets(self):
-        return {}
+        return {
+            'project_name': self.project.title,
+            'module': 'online',
+            'widgets': [
+                {'name': 'top_sharing_sources', 'data': onl_top_sharing_sources(self.posts)},
+                {'name': 'authors_by_language', 'data': onl_authors_by_language(self.posts, 5)},
+                {'name': 'overall_top_sources', 'data': onl_overall_top_sources(self.posts)},
+                {'name': 'overall_top_authors', 'data': onl_overall_top_authors(self.posts)},
+                {'name': 'authors_by_location', 'data': onl_authors_by_location(self.posts, 5)},
+                {'name': 'authors_by_sentiment', 'data': onl_authors_by_sentiment(self.posts, 5)},
+                {'name': 'sources_by_language', 'data': onl_sources_by_language(self.posts, 5)},
+            ]
+        }
 
 
 class InfluencersSocial:
