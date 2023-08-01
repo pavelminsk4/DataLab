@@ -2,86 +2,88 @@
   <component
     :is="widgetWrapper"
     :widget-id="widgetDetails.id"
-    :title="customTitle || widgetDetails.title"
+    :title="widgetDetails.title"
     :is-show-delete-btn="false"
-    :is-show-settings-btn="isShowSettingsBtn"
+    :is-show-settings-btn="false"
     style="--widget-layout-content-padding: 0px"
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
   >
     <BaseTable
-      v-if="tableHeader.length"
+      v-for="(tableHeader, index) in widgetHeaders"
+      :key="'table' + index"
       :table-header="tableHeader"
       :has-checkbox="false"
       class="overall-top-authors"
-      @sorting-by="sorting"
     >
       <tr
-        v-for="(item, index) in tableValue"
-        :key="`${item.date}-${index}`"
-        class="base-table__row"
+        v-for="(project, index) in widgetDetails.widgetData"
+        :key="project.project"
       >
-        <td class="avatar">
-          <UserAvatar :avatarUrl="item.picture" />
-        </td>
         <td>
+          <div
+            :style="`--circle-color: ${projectsColors[index]}`"
+            class="circle"
+          />
+        </td>
+        <td>{{ project.project }}</td>
+        <td class="most-cell">
+          <UserAvatar :avatarUrl="project.data[0].picture" />
           <div class="author-cell">
-            <span>{{ item.name }}</span>
+            <span>{{ project.data[0].name }}</span>
             <span class="author-cell__alias">
-              <span v-if="item.alias">@</span>{{ item.alias || item.url }}
+              <span v-if="project.data[0].alias">@</span
+              >{{ project.data[0].alias || project.data[0].url }}
             </span>
           </div>
         </td>
-        <td v-if="item.gender">
-          <BaseChips :chips-type="item.gender" />
+        <td v-if="project.data[0].gender">
+          <BaseChips :chips-type="project.data[0].gender" />
         </td>
-        <td v-if="item.media_type">
-          <component :is="`${item.media_type}Icon`" class="icon-wrapper" />
+        <td>
+          <component
+            :is="`${project.data[0].source}Icon`"
+            class="twitter-icon icon"
+          />
         </td>
-        <td>{{ item.posts }}</td>
+        <td>{{ project.data[0].value }}</td>
         <td>
           <ChartsView
-            :chart-values="datasets(item)"
+            :chart-values="datasets(project.data[0])"
             :chart-type="chartType || 'StackedBarChart'"
-            :iteractiveLabel="item.alias || item.name"
+            :iteractiveLabel="project.data[0].alias || project.data[0].name"
             :widget-details="widgetDetails"
           />
         </td>
-        <td>{{ item.reach }}</td>
-        <td>{{ item.engagements }}</td>
       </tr>
     </BaseTable>
   </component>
 </template>
 
 <script>
-import sortByMixin from '@/lib/mixins/sort-for-table.js'
+import {COMPARISON_COLORS} from '@lib/constants'
 
+import BaseChips from '@/components/BaseChips'
+import BaseTable from '@/components/common/BaseTable'
 import ChartsView from '@/components/charts/ChartsView'
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
-import BaseTable from '@/components/common/BaseTable'
 import UserAvatar from '@/components/UserAvatar'
 import TwitterIcon from '@/components/icons/TwitterIcon'
-import BaseChips from '@/components/BaseChips'
 
 export default {
-  name: 'OverallTopWidget',
+  name: 'OverviewTopSharingSources',
   components: {
+    BaseChips,
     ChartsView,
     BaseTable,
-    WidgetsLayout,
     UserAvatar,
+    WidgetsLayout,
     TwitterIcon,
-    BaseChips,
   },
-  mixins: [sortByMixin],
   props: {
-    widgetData: {type: Array, required: true},
     widgetDetails: {type: Object, required: true},
-    isSettings: {type: Boolean, default: false},
-    customTitle: {type: String, default: ''},
-    tableHeader: {type: Array, required: true},
-    isShowSettingsBtn: {type: Boolean, default: true},
+    widgetHeaders: {type: Array, required: true},
+    isSettings: {type: String, default: ''},
   },
   computed: {
     chartType() {
@@ -92,6 +94,9 @@ export default {
     widgetWrapper() {
       return this.isSettings ? 'div' : 'WidgetsLayout'
     },
+  },
+  created() {
+    this.projectsColors = COMPARISON_COLORS
   },
   methods: {
     datasets(item) {
@@ -118,20 +123,21 @@ export default {
   },
 }
 </script>
+
 <style lang="scss" scoped>
-.base-table {
-  &__row:nth-child(n + 2) {
-    box-shadow: 0 1px 0 var(--border-color) inset;
-  }
-  .avatar {
-    vertical-align: middle;
-  }
+.circle {
+  width: 12px;
+  height: 12px;
+
+  border-radius: 50%;
+  background-color: var(--circle-color);
 }
-.icon-wrapper {
-  vertical-align: middle;
-  width: 24px;
-  height: 24px;
+
+.most-cell {
+  display: flex;
+  align-items: center;
 }
+
 .author-cell {
   display: flex;
   flex-direction: column;
@@ -140,15 +146,13 @@ export default {
     font-size: 11px;
   }
 }
-</style>
 
-<style lang="scss">
-.overall-top-authors {
-  cursor: default;
+.icon {
+  width: 24px;
+  height: 24px;
+}
 
-  thead {
-    background-color: var(--background-primary-color);
-    height: 40px;
-  }
+td {
+  vertical-align: middle;
 }
 </style>

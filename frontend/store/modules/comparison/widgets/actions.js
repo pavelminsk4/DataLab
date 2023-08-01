@@ -38,4 +38,16 @@ export default {
       commit(mutator.SET_DEMOGRAPHY_WIDGETS_LOADING, false)
     }
   },
+  async [action.GET_INFLUENCERS_WIDGETS]({commit}, projectId) {
+    commit(mutator.SET_INFLUENCERS_WIDGETS_LOADING, true)
+    try {
+      const data = await api.comparison.getInfluencersWidgets(projectId)
+      commit(mutator.SET_INFLUENCERS_WIDGETS, data)
+    } catch (error) {
+      console.error(error)
+      return error
+    } finally {
+      commit(mutator.SET_INFLUENCERS_WIDGETS_LOADING, false)
+    }
+  },
 }
