@@ -47,4 +47,7 @@ export default {
   async getDemographyWidgets(projectId) {
     return fetch('get', `${moduleName}/projects/${projectId}/demography`)
   },
+  async getInfluencersWidgets(projectId) {
+    return fetch('get', `${moduleName}/projects/${projectId}/influencers`)
+  },
 }

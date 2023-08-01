@@ -43,7 +43,7 @@ export default {
         return chartValue.map((element, index) => {
           const elValues = Object.values(element)
           return {
-            data: [(elValues[1] / sumValues) * 100],
+            data: [Number(((elValues[1] / sumValues) * 100).toFixed(2))],
             backgroundColor: PREDEFINED_COLORS[index],
             borderRadius: 12,
             barThickness: 'flex',

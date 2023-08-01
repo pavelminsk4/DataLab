@@ -19,6 +19,7 @@ export default {
   components: {WidgetsSwitcher},
   props: {
     tabs: {type: Array, required: true},
+    widgetMaxHeight: {type: String, default: '450px'},
   },
   data() {
     return {
@@ -45,7 +46,7 @@ export default {
   align-items: center;
 
   width: 100%;
-  max-height: 450px;
+  max-height: v-bind(widgetMaxHeight);
   height: 100%;
 }
 </style>

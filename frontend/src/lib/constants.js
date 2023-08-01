@@ -189,9 +189,14 @@ export const comparisonWidgetsList = {
     ],
     demography: [
       // {name: 'authors_by_location', isFullWidth: true},
+      {name: 'top_keywords', isFullWidth: true},
       {name: 'top_languages_by_location', isFullWidth: true},
       {name: 'sentiment_by_locations', isFullWidth: true},
-      // {name: 'top_keywords_by_location', isFullWidth: true},
+    ],
+    influencers: [
+      {name: 'top_sharing_sources', isFullWidth: true},
+      {name: 'overall_top_authors', isFullWidth: true},
+      {name: 'top_authors_by_gender', isFullWidth: true},
     ],
   },
 }

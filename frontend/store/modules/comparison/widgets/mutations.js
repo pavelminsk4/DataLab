@@ -21,4 +21,11 @@ export default {
   [mutator.SET_DEMOGRAPHY_WIDGETS_LOADING](state, loading) {
     state.demography.isLoading = loading
   },
+
+  [mutator.SET_INFLUENCERS_WIDGETS](state, data) {
+    state.influencers.widgets = data
+  },
+  [mutator.SET_INFLUENCERS_WIDGETS_LOADING](state, loading) {
+    state.influencers.isLoading = loading
+  },
 }

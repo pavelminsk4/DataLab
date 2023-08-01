@@ -12,6 +12,7 @@
           @click="() => sortingBy(item)"
         >
           <div class="header-container">
+            <component v-if="item.hasIcon" :is="`${item.iconName}Icon`" />
             <span>{{ capitalizeFirstLetter(item.name) }}</span>
             <SortArrowIcon
               v-if="item.hasSort"
@@ -34,6 +35,8 @@ import {SORT_BY} from '@lib/constants'
 
 import BaseCheckbox from '@/components/BaseCheckbox2'
 import SortArrowIcon from '@/components/icons/SortArrowIcon'
+import MostActiveAuthorIcon from '../icons/MostActiveAuthorIcon'
+import MostInfluentialAuthorIcon from '../icons/MostInfluentialAuthorIcon'
 
 const {ASCENDING, DESCENDING} = SORT_BY
 
@@ -42,6 +45,8 @@ export default {
   components: {
     BaseCheckbox,
     SortArrowIcon,
+    MostActiveAuthorIcon,
+    MostInfluentialAuthorIcon,
   },
   props: {
     tableHeader: {type: Array, required: true},

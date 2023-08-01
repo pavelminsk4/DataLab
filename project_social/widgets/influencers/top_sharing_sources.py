@@ -29,7 +29,7 @@ def get_mosts(posts):
       "type": "Most active author",
       "name": most_active_author['user_name'],
       "alias": most_active_author['user_alias'],
-      "value": f"{most_active_author_posts.count()} post",
+      "value": most_active_author_posts.count(),
       "sentiments": {
         "positive": most_active_author_posts.filter(sentiment="positive").count(),
         "negative": most_active_author_posts.filter(sentiment="negative").count(),
@@ -43,7 +43,7 @@ def get_mosts(posts):
       "type": "Most influential author",
       "name": most_influental_author.user_name,
       "alias": most_influental_author.user_alias,
-      "value": f"{most_influental_author_posts.aggregate(Sum('engagements'))['engagements__sum']} engagement",
+      "value": most_influental_author_posts.aggregate(Sum('engagements'))['engagements__sum'],
       "sentiments": {
         "positive": most_influental_author_posts.filter(sentiment="positive").count(),
         "negative": most_influental_author_posts.filter(sentiment="negative").count(),
