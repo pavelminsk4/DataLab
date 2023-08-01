@@ -3,6 +3,7 @@ from common.descending_sort import descending_sort
 from django.http import JsonResponse
 from django.db.models import Count
 
+
 def get_authors_by_country(pk, widget_pk):
     posts, widget = project_posts_filter(pk, widget_pk)
     results = calculate_authors_by_country(posts, widget.top_counts)

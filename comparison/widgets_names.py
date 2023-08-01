@@ -28,5 +28,6 @@ WIDGETS_NAMES = {
     'overall_top_authors': 'Overall top authors',
     'top_authors_by_gender': 'Top authors by gender',
     'authors_by_language': 'Authors by language',
-    
+    'overall_top_sources': 'Overall top sources',
+    'sources_by_language': 'Sources by language',
 }
