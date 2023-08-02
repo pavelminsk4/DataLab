@@ -30,3 +30,8 @@ class TweetBinderUserTrackerAdmin(admin.ModelAdmin):
 class TweetBinderUserTrackerAnalysisAdmin(admin.ModelAdmin):
     list_display = ('user_alias', 'followers_start', 'followers_end', 'following_start', 'following_end', 'user_value_start', 'user_value_end')
     search_fields = ('user_alias',)
+
+@admin.register(LiveReport)
+class LiveReportAdmin(admin.ModelAdmin):
+    list_display = ('report_id', 'start_date', 'end_date', 'created_at')
+    search_fields = ('report_id', 'start_date', 'end_date')

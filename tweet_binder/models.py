@@ -1,26 +1,30 @@
+
 from account_analysis.models import ProjectAccountAnalysis
 from django.contrib.postgres.fields import ArrayField
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from .services.get_user_tracker_stats import *
-from .services.greate_user_tracker import *
-from .services.stop_user_trackers import *
-from .services.historical_search import *
-from .services.get_report_state import *
-from .services.get_publications import *
-from .services.delete_report import *
-from .services.basic_search import *
-from .services.live_search import *
 from project.models import Speech
+from transformers import pipeline
 from langcodes import Language
 from celery import shared_task
-from .services.login import *
 from django.db import models
-from transformers import pipeline
 
+from .services.get_report_new_tweets import get_report_new_tweets, get_report_new_tweets_next_page
+from .services.get_publications import get_publications, get_publications_next_page
+from .services.get_user_tracker_stats import get_user_tracker_stats
+from .services.greate_user_tracker import greate_user_tracker
+from .services.stop_user_trackers import stop_user_trackers
+from .services.historical_search import historical_search
+from .services.get_report_state import get_report_state
+from .services.delete_report import delete_report
+from .services.basic_search import basic_search
+from .services.live_search import live_search
+from .services.login import login
+
+from datetime import datetime
 import time
-import os
 import json
+import os
 
 class TweetBinderPost(models.Model):
   post_id = models.CharField(max_length=20, unique=True)
@@ -132,6 +136,8 @@ def create_basic_search_project(sender, instance, created, **kwargs):
     basic_search_type(keyword, keyword_and, keyword_or, keyword_nor, limit)          
 
 class LiveSearchProject(TypesOfSearch):
+  start_date = models.DateTimeField(blank=True, null=True)
+  end_date = models.DateTimeField(blank=True, null=True)
 
   def __str__(self):
       return self.title
@@ -144,34 +150,68 @@ def create_live_search_project(sender, instance, created, **kwargs):
     keyword_or = instance.keyword_or
     keyword_nor = instance.keyword_nor
     limit = instance.limit
-    live_search_type(keyword, keyword_and, keyword_or, keyword_nor, limit)    
+    start_date = instance.start_date
+    end_date = instance.end_date
+    live_search_type(keyword, keyword_and, keyword_or, keyword_nor, limit, start_date, end_date)
 
-email = os.environ.get("EMAIL_TWEET")
-password = os.environ.get("PASSWORD_TWEET")
-api_route = os.environ.get("API_ROUTE")
+
+class LiveReport(models.Model):
+  report_id = models.CharField(max_length=40)
+  start_date = models.DateTimeField(blank=True, null=True)
+  end_date = models.DateTimeField(blank=True, null=True)
+  created_at = models.DateTimeField(auto_now_add=True)
+  updated_at = models.DateTimeField(auto_now=True)
+
+@shared_task
+def get_new_tweets_from_live_reports():
+   auth_token = json.loads(login(email, password))['authToken'] 
+   live_reports_for_check = LiveReport.objects.filter(end_date__gte=datetime.now())
+   for report in live_reports_for_check:
+      data_tweets = json.loads(get_report_new_tweets(report.report_id, auth_token, str(int(datetime.timestamp(report.start_date)))))
+      if data_tweets.get('data'):
+        add_post_to_database(data_tweets['data']) 
+        pagination = data_tweets['pagination']['nextResults']
+        while pagination != None:
+            data_tweets = json.loads(get_report_new_tweets_next_page(report.report_id, auth_token, pagination, str(int(datetime.timestamp(report.start_date)))))
+            add_post_to_database(data_tweets['data'])
+            pagination = data_tweets['pagination']['nextResults']
+      else:
+         print('No new tweets found')
+   
+
+email = os.environ.get('EMAIL_TWEET')
+password = os.environ.get('PASSWORD_TWEET')
+api_route = os.environ.get('API_ROUTE')
 
 def basic_search_type(keyword,  keyword_and, keyword_or, keyword_nor, limit):
     basic_search_url = api_route + '/search/twitter/7-day'
     auth_token = json.loads(login(email, password))['authToken'] 
-    report_id = json.loads(basic_search(keyword, keyword_and, keyword_or, keyword_nor, limit, auth_token, basic_search_url))["resourceId"]
+    report_id = json.loads(basic_search(keyword, keyword_and, keyword_or, keyword_nor, limit, auth_token, basic_search_url))['resourceId']
     time.sleep(10)
     search.delay(report_id, auth_token)
 
 def historical_search_type(keyword, keyword_and, keyword_or, keyword_nor, limit, start_date, end_date):
     historical_search_url = api_route + '/search/twitter/historical'
     auth_token = json.loads(login(email, password))['authToken'] 
-    report_id = json.loads(historical_search(keyword, keyword_and, keyword_or, keyword_nor, limit, start_date, end_date, auth_token, historical_search_url))["resourceId"]
+    report_id = json.loads(historical_search(keyword, keyword_and, keyword_or, keyword_nor, limit, start_date, end_date, auth_token, historical_search_url))['resourceId']
     time.sleep(10)
     search.delay(report_id, auth_token)   
 
-def live_search_type(keyword, keyword_and, keyword_or, keyword_nor, limit):
-    live_search_url = api_route + '/search/twitter/live'
+def live_search_type(keyword, keyword_and, keyword_or, keyword_nor, limit, start_date, end_date):
+    live_search_url = api_route + '/search/twitter/live/'
     auth_token = json.loads(login(email, password))['authToken'] 
-    live_search(keyword, keyword_and, keyword_or, keyword_nor, limit, auth_token, live_search_url)
+    report_id = json.loads(live_search(keyword, keyword_and, keyword_or, keyword_nor, limit, auth_token, live_search_url, start_date, end_date))['resourceId']
+    time.sleep(5)
+    try:
+        LiveReport.objects.create(report_id=report_id, start_date=start_date, end_date=end_date)
+    except:
+        print('Live report not created')
+        pass
+    
 
 def calculate_sentiment(text):
-   model_path = "cardiffnlp/twitter-xlm-roberta-base-sentiment"
-   sentiment_task = pipeline("sentiment-analysis", model=model_path, tokenizer=model_path, max_length=512, truncation=True)
+   model_path = 'cardiffnlp/twitter-xlm-roberta-base-sentiment'
+   sentiment_task = pipeline('sentiment-analysis', model=model_path, tokenizer=model_path, max_length=512, truncation=True)
    return sentiment_task(text)[0]['label']
 
 def add_language(language_code):
@@ -182,60 +222,60 @@ def add_post_to_database(data_tweets):
   tweets = []
   for tweet in data_tweets:
     new_tweet = {
-                'post_id': tweet['_id'],
-                'async_ops': tweet['asyncOps'],
-                'binders': tweet['binders'],
-                'count_textlength': int(tweet['counts']['textLength']),
-                'count_sentiment': tweet['counts']['sentiment'],
-                'count_retweets': tweet['counts']['retweets'],
-                'count_totalretweets': tweet['counts']['totalRetweets'],
-                'count_favorites': tweet['counts']['favorites'],
-                'count_hashtags': tweet['counts']['hashtags'],
-                'count_images': tweet['counts']['images'],
-                'count_links': tweet['counts']['links'],
-                'count_linksandimages': tweet['counts']['linksAndImages'], 
-                'count_mentions': tweet['counts']['mentions'], 
-                'count_originals': tweet['counts']['originals'], 
-                'count_clears': tweet['counts']['clears'],
-                'count_replies': tweet['counts']['replies'],
-                'count_publicationscore': tweet['counts']['publicationScore'], 
-                'count_uservalue': tweet['counts']['userValue'], 
-                'count_tweetvalue': tweet['counts']['tweetValue'], 
-                'createdat': tweet['createdAt'],
-                'creation_date': datetime.fromtimestamp(tweet['createdAt']), 
-                'date': datetime.fromtimestamp(tweet['createdAt']), 
-                'favorites': tweet['favorites'], 
-                'hashtags': tweet['hashtags'], 
-                'images': tweet['images'], 
-                'inreplyto': tweet['inReplyTo'],  
-                'inreplytoid': tweet['inReplyToId'],  
-                'language': add_language(tweet['lang']),  
-                'links': tweet['links'],  
-                'mentions': tweet['mentions'],  
-                'locationString': tweet['rawLocation']['locationString'],  
-                'retweets': tweet['retweets'],  
-                'sentiment_vote': tweet['sentiment']['vote'] if tweet['sentiment']['vote'] != 'undefined' else 'neutral', 
-                'sentiment': tweet['sentiment']['vote'] if tweet['sentiment']['vote'] != 'undefined' else 'neutral', 
-                'source': tweet['source'],
-                'text': tweet['text'],
-                'type': tweet['type'],  
-                'updatedat': tweet['updatedAt'],
-                'user_id': tweet['user']['id'], 
-                'user_name': tweet['user']['name'],
-                'user_alias': tweet['user']['alias'],
-                'user_picture': tweet['user']['picture'],
-                'user_followers': tweet['user']['followers'],
-                'user_following': tweet['user']['following'], 
-                'user_verified': tweet['user']['verified'], 
-                'user_bio': tweet['user']['bio'], 
-                'user_age': tweet['user']['age'], 
-                'user_counts_lists':tweet['user']['counts']['lists'], 
-                'user_statuses': tweet['user']['counts']['statuses'], 
-                'user_location': tweet['user']['location'],
-                'user_gender': tweet['user']['gender'], 
-                'user_value': tweet['user']['value'],
-                'videos': tweet['videos'],
-                'imp_sentiment': calculate_sentiment(tweet['text'])
+                'post_id': tweet.get('_id'),
+                'async_ops': tweet.get('asyncOps'),
+                'binders': tweet.get('binders'),
+                'count_textlength': int(tweet['counts'].get('textLength')),
+                'count_sentiment': tweet['counts'].get('sentiment'),
+                'count_retweets': tweet['counts'].get('retweets'),
+                'count_totalretweets': tweet['counts'].get('totalRetweets'),
+                'count_favorites': tweet['counts'].get('favorites'),
+                'count_hashtags': tweet['counts'].get('hashtags'),
+                'count_images': tweet['counts'].get('images'),
+                'count_links': tweet['counts'].get('links'),
+                'count_linksandimages': tweet['counts'].get('linksAndImages'), 
+                'count_mentions': tweet['counts'].get('mentions'), 
+                'count_originals': tweet['counts'].get('originals'), 
+                'count_clears': tweet['counts'].get('clears'),
+                'count_replies': tweet['counts'].get('replies'),
+                'count_publicationscore': tweet['counts'].get('publicationScore'), 
+                'count_uservalue': tweet['counts'].get('userValue'), 
+                'count_tweetvalue': tweet['counts'].get('tweetValue'), 
+                'createdat': tweet.get('createdAt'),
+                'creation_date': datetime.fromtimestamp(tweet.get('createdAt')), 
+                'date': datetime.fromtimestamp(tweet.get('createdAt')), 
+                'favorites': tweet.get('favorites'), 
+                'hashtags': tweet.get('hashtags'), 
+                'images': tweet.get('images'), 
+                'inreplyto': tweet.get('inReplyTo'),  
+                'inreplytoid': tweet.get('inReplyToId'),  
+                'language': add_language(tweet.get('lang')),  
+                'links': tweet.get('links'),  
+                'mentions': tweet.get('mentions'),  
+                'locationString': tweet['rawLocation'].get('locationString'),  
+                'retweets': tweet.get('retweets'),  
+                'sentiment_vote': tweet['sentiment'].get('vote') if tweet['sentiment'].get('vote') != 'undefined' else 'neutral', 
+                'sentiment': tweet['sentiment'].get('vote') if tweet['sentiment'].get('vote') != 'undefined' else 'neutral', 
+                'source': tweet.get('source'),
+                'text': tweet.get('text'),
+                'type': tweet.get('type'),  
+                'updatedat': tweet.get('updatedAt'),
+                'user_id': tweet['user'].get('id'), 
+                'user_name': tweet['user'].get('name'),
+                'user_alias': tweet['user'].get('alias'),
+                'user_picture': tweet['user'].get('picture'),
+                'user_followers': tweet['user'].get('followers'),
+                'user_following': tweet['user'].get('following'), 
+                'user_verified': tweet['user'].get('verified'), 
+                'user_bio': tweet['user'].get('bio'), 
+                'user_age': tweet['user'].get('age'), 
+                'user_counts_lists':tweet['user']['counts'].get('lists'), 
+                'user_statuses': tweet['user']['counts'].get('statuses'), 
+                'user_location': tweet['user'].get('location'),
+                'user_gender': tweet['user'].get('gender'), 
+                'user_value': tweet['user'].get('value'),
+                'videos': tweet.get('videos'),
+                'imp_sentiment': calculate_sentiment(tweet.get('text'))
             }
     tweets.append(new_tweet)
     try:
@@ -247,9 +287,9 @@ def add_post_to_database(data_tweets):
 
 @shared_task
 def search(report_id, auth_token):
-    while json.loads(get_report_state(report_id, auth_token))['status'] == "waiting":
+    while json.loads(get_report_state(report_id, auth_token))['status'] == 'waiting':
         print(json.loads(get_report_state(report_id, auth_token))['status'])
-    if json.loads(get_report_state(report_id, auth_token))['status'] == "generated":
+    if json.loads(get_report_state(report_id, auth_token))['status'] == 'generated':
         data_tweets = json.loads(get_publications(report_id, auth_token))
         add_post_to_database(data_tweets['data'])
         pagination = data_tweets['pagination']['nextResults']
@@ -333,39 +373,39 @@ def add_data_account_to_database(data_account, instance):
   n = 1 if len(data_account) > 1 else 0
   new_data = {  
                 'user_alias': instance,
-                'tracker_id_start': data_account[0]["_id"],
-                'tracker_id_end': data_account[n]["_id"],
-                'mentions_start': data_account[0]["mentions"],
-                'mentions_end': data_account[n]["mentions"],
-                'tweets_start': data_account[0]["tweets"],
-                'tweets_end': data_account[n]["tweets"],
-                'deleted_start': data_account[0]["deleted"],
-                'deleted_end': data_account[n]["deleted"],
-                'originals_start': data_account[0]["originals"],
-                'originals_end': data_account[n]["originals"],
-                'retweet_statuses_start': data_account[0]["retweetStatuses"],
-                'retweet_statuses_end': data_account[n]["retweetStatuses"],
-                'retweets_start': data_account[0]["retweets"],
-                'retweets_end': data_account[n]["retweets"],
-                'favorites_start': data_account[0]["favorites"],
-                'favorites_end': data_account[n]["favorites"], 
-                'followers_start': data_account[0]["followers"],
-                'followers_end': data_account[n]["followers"],
-                'following_start': data_account[0]["following"],
-                'following_end': data_account[n]["following"],
-                'lists_start': data_account[0]["lists"],
-                'lists_end': data_account[n]["lists"],
-                'followers_following_start': data_account[0]["followersFollowing"],
-                'followers_following_end': data_account[n]["followersFollowing"],
-                'user_value_start': data_account[0]["userValue"],
-                'user_value_end': data_account[n]["userValue"],
-                'engagement_value_start': data_account[0]["engagementValue"],
-                'engagement_value_end': data_account[n]["engagementValue"],
-                'global_score_start': data_account[0]["globalScore"],
-                'global_score_end': data_account[n]["globalScore"],
-                'created_at_start': data_account[0]["createdAt"],
-                'created_at_end': data_account[n]["createdAt"],
-                'updated_at_start': data_account[0]["updatedAt"],
-                'updated_at_start': data_account[n]["updatedAt"],
+                'tracker_id_start': data_account[0]['_id'],
+                'tracker_id_end': data_account[n]['_id'],
+                'mentions_start': data_account[0]['mentions'],
+                'mentions_end': data_account[n]['mentions'],
+                'tweets_start': data_account[0]['tweets'],
+                'tweets_end': data_account[n]['tweets'],
+                'deleted_start': data_account[0]['deleted'],
+                'deleted_end': data_account[n]['deleted'],
+                'originals_start': data_account[0]['originals'],
+                'originals_end': data_account[n]['originals'],
+                'retweet_statuses_start': data_account[0]['retweetStatuses'],
+                'retweet_statuses_end': data_account[n]['retweetStatuses'],
+                'retweets_start': data_account[0]['retweets'],
+                'retweets_end': data_account[n]['retweets'],
+                'favorites_start': data_account[0]['favorites'],
+                'favorites_end': data_account[n]['favorites'], 
+                'followers_start': data_account[0]['followers'],
+                'followers_end': data_account[n]['followers'],
+                'following_start': data_account[0]['following'],
+                'following_end': data_account[n]['following'],
+                'lists_start': data_account[0]['lists'],
+                'lists_end': data_account[n]['lists'],
+                'followers_following_start': data_account[0]['followersFollowing'],
+                'followers_following_end': data_account[n]['followersFollowing'],
+                'user_value_start': data_account[0]['userValue'],
+                'user_value_end': data_account[n]['userValue'],
+                'engagement_value_start': data_account[0]['engagementValue'],
+                'engagement_value_end': data_account[n]['engagementValue'],
+                'global_score_start': data_account[0]['globalScore'],
+                'global_score_end': data_account[n]['globalScore'],
+                'created_at_start': data_account[0]['createdAt'],
+                'created_at_end': data_account[n]['createdAt'],
+                'updated_at_start': data_account[0]['updatedAt'],
+                'updated_at_start': data_account[n]['updatedAt'],
             }
   TweetBinderUserTrackerAnalysis.objects.create(**new_data)
