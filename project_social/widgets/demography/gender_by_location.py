@@ -23,3 +23,7 @@ def calculate_for_gender_by_location(posts, top_counts):
         if results.get(post.locationString):
             results[post.locationString][post.user_gender] += 1
     return results
+
+def calculate_for_gender_by_location_comparison(posts, top_counts):
+    results = calculate_for_gender_by_location(posts, top_counts)
+    return {key:[{'gender': elem,  'count': results[key][elem]} for elem in results.get(key)] for key in results.keys()}
