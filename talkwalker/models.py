@@ -1,16 +1,17 @@
 from talkwalker.services.retrieve_status_of_the_task import retrieve_status_of_the_task
 from talkwalker.services.create_target_collector import create_target_collector
 from talkwalker.services.delete_a_collector import delete_collector
-from talkwalker.services.new_task_on_a_query import new_task
 from talkwalker.services.read_a_collector import read_collector
-from django.db.models.signals import post_save
+from talkwalker.services.new_task_on_a_query import new_task
+from talkwalker.services.get_tw_query import get_tw_query
+from talkwalker.services.create_post import create_post
+from talkwalker.classes.livestream import Livestream
+from django.db.models.signals import post_save, pre_delete
 from django.dispatch import receiver
 from project.models import Project
 from project.models import Speech
-from langcodes import Language
 from django.db import models
 import json
-from datetime import datetime
 
 
 class TalkwalkerFeedlink(models.Model):
@@ -38,107 +39,15 @@ class TalkwalkerPost(models.Model):
     def __str__(self):
         return self.entry_title
 
-
-def add_language(language_code):
-    title = Language.get(language_code).display_name()
-    return Speech.objects.get_or_create(language=title)[0]
-
-
-def define_sentiment(value):
-    sent = 'neutral'
-    if value<0:
-        sent = 'negative'
-    if value>0:
-        sent = 'positive'
-    return sent
-
-
-
-def create_post(line):
-    print('-------->create_post')
-    try:
-        data = json.loads(line)['chunk_result']['data']['data']
-    except:
-        pass
-    try:
-        acountry=data['extra_source_attributes']['world_data']['country']
-    except:
-        acountry=''
-    try:
-        asourceurl=data['host_url']
-    except:
-        asourceurl=''
-    try:
-        aalexaglobalrank=data['reach']
-    except:
-        aalexaglobalrank=0
-    try:
-        asource1=data['extra_source_attributes']['name']
-    except:
-        asource1=''
-    try:
-        aentry_title=data['title']
-    except:
-        aentry_title=''
-    try:
-        aentry_summary=data['content']
-    except:
-        aentry_summary=''
-    try:
-        afeed_language=add_language(data['lang'])
-    except:
-        afeed_language=''
-    try:
-        aentry_media_content_url=data['images'][0]['url']
-    except:
-        aentry_media_content_url=''
-    try:
-        aentry_links_href=data['url']
-    except:
-        aentry_links_href=''
-    try:
-        aentry_author=data['extra_source_attributes']['name']
-    except:
-        aentry_author=''
-    try:
-        aentry_published=datetime.fromtimestamp(data['published']/1000)
-    except:
-        aentry_published=datetime.now()
-    try:
-        asentiment=define_sentiment(data['sentiment'])
-    except:
-        asentiment='neutral'
-    try:
-        acategory=data['tokens_content'][0]
-    except:
-        acategory=''
-    try:
-        fl = TalkwalkerFeedlink.objects.create(
-            country=acountry,
-            sourceurl=asourceurl,
-            alexaglobalrank=aalexaglobalrank,
-            source1=asource1,
-        )
-        post = TalkwalkerPost.objects.create(
-            entry_title=aentry_title,
-            entry_summary=aentry_summary,
-            feed_language=afeed_language,
-            entry_media_content_url=aentry_media_content_url,            
-            entry_links_href=aentry_links_href,
-            entry_author=aentry_author,
-            entry_published=aentry_published,
-            sentiment=asentiment,
-            category=acategory,
-            feedlink=fl,
-        )
-    except:
-       print('------->except')
-       pass
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['entry_title', 'feedlink_id'], name='talkwalker post uniqueness constraint')
+        ]
 
 
 def check_status(task_id):
-     i =0
-     while i<200:
+     i = 0
+     while i < 200:
         i = i + 1
         status = retrieve_status_of_the_task(task_id)
         if status == 'result_limit_reached':
@@ -155,15 +64,26 @@ def fetch_posts(start_date, end_date, limit, keywords, target):
     delete_collector()
 
 
-def get_tw_query(instance):
-    query = ''
-    if instance.expert_mode:
-        query = instance.query_filter
-    else:
-        keywords = [f'\"{kw}\"' for kw in instance.keywords]
-        query = ' OR '.join(keywords)
-    print(query)
-    return query
+from django_celery_beat.models import PeriodicTask, CrontabSchedule
+
+@receiver(post_save, sender=Project)
+def create_periodic_task(sender, instance, created, **kwargs):
+  if created:
+      Livestream(instance.id).create()
+      crontab_schedule = CrontabSchedule.objects.create(
+        minute = '*/5',
+        hour = '*',
+        day_of_week = '*',
+        day_of_month = '*',
+      )
+      instance.hourly_crontab_schedule = crontab_schedule
+      periodic_task = PeriodicTask.objects.create(
+        crontab = crontab_schedule,
+        name = f'LiveSearch_project_{instance.id}',
+        task = 'talkwalker.tasks.livesearch_sender',
+        args = json.dumps([instance.id]),
+      )
+      instance.hourly_periodic_task = periodic_task
 
 
 @receiver(post_save, sender=Project)
@@ -171,7 +91,11 @@ def fetch_talkwalker_posts(sender, instance, created, **kwargs):
     fetch_posts(
         instance.start_search_date,
         instance.end_search_date,
-        10000,
+        5000,
         get_tw_query(instance),
         'datalab'
     )
+
+@receiver(pre_delete, sender=Project)
+def delete_livestream(sender, instance, **kwargs):
+    Livestream(instance.id).delete()
