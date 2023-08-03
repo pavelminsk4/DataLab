@@ -26,6 +26,8 @@ import SentimentTopLanguages from '@/components/widgets/comparison/SentimentByLa
 import SentimentTopAuthors from '@/components/widgets/comparison/SentimentByAuthorsWidget'
 import TopLanguagesByLocation from '@/components/widgets/comparison/TopLanguagesByLocationWidget'
 import OverallTopAuthors from '@/components/widgets/comparison/OverallTopAuthorsWidget.vue'
+import OverallTopSources from '@/components/widgets/comparison/OverallTopSourcesWidget.vue'
+import TopGenderByLocation from '@/components/widgets/comparison/TopGenderByLocationWidget.vue'
 
 export default {
   name: 'ComparisonMainWidget',
@@ -49,6 +51,8 @@ export default {
     TopSources,
     OverallTopAuthors,
     TopAuthorsByGender,
+    TopGenderByLocation,
+    OverallTopSources,
   },
   props: {
     widgetDetails: {type: Object, required: true},

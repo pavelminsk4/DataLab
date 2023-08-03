@@ -17,7 +17,7 @@ def get_mosts(posts):
           'type': 'Most active site',
           'name': most_active_source.feedlink.source1,
           'url': most_active_source.feedlink.sourceurl,
-          'value': f'{most_active_source_posts.count()} post',
+          'value': most_active_source_posts.count(),
           'sentiments': {
             'positive': most_active_source_posts.filter(sentiment='positive').count(),
             'negative': most_active_source_posts.filter(sentiment='negative').count(),

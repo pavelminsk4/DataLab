@@ -7,7 +7,7 @@ from widgets.summary.top_keywords import post_agg_top_keywords as onl_top_keywor
 from project_social.widgets.demography.languages_by_location import calculate_for_languages_by_location as soc_top_languages_by_location
 from project_social.widgets.dashboard.sentiment_locations import calculate_for_sentiment_locations as soc_sentiment_by_locations
 from project_social.widgets.demography.authors_by_location import calculate_for_authors_by_location as soc_authors_by_location
-from project_social.widgets.demography.gender_by_location import calculate_for_gender_by_location as soc_gender_by_location
+from project_social.widgets.demography.gender_by_location import calculate_for_gender_by_location_comparison as soc_gender_by_location
 from common.social_keywords import get_keywords as soc_top_keywords
 
 from project_social.widgets.filters_for_widgets import posts_agregator as get_soc_posts
@@ -64,7 +64,7 @@ class DemographyFactory:
         'Project':       {'model': Project, 'class': DemographyOnline},
         'ProjectSocial': {'model': ProjectSocial, 'class': DemographySocial}
     }
-    
+
     def define(self):
         module = self.modules[self.module_type]
         return module['class'](module['model'].objects.get(id=self.project_id))

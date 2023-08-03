@@ -167,6 +167,18 @@ export const comparisonWidgetsList = {
       {name: 'sentiment_top_languages', isFullWidth: true},
       {name: 'sentiment_top_authors', isFullWidth: true},
     ],
+
+    demography: [
+      {name: 'top_keywords', isFullWidth: true},
+      {name: 'top_languages_by_location', isFullWidth: true},
+      {name: 'sentiment_by_locations', isFullWidth: true},
+    ],
+
+    influencers: [
+      {name: 'top_sharing_sources', isFullWidth: true},
+      {name: 'overall_top_sources', isFullWidth: true},
+      {name: 'overall_top_authors', isFullWidth: true},
+    ],
   },
   social: {
     summary: [
@@ -188,10 +200,10 @@ export const comparisonWidgetsList = {
       {name: 'sentiment_top_authors', isFullWidth: true},
     ],
     demography: [
-      // {name: 'authors_by_location', isFullWidth: true},
       {name: 'top_keywords', isFullWidth: true},
       {name: 'top_languages_by_location', isFullWidth: true},
       {name: 'sentiment_by_locations', isFullWidth: true},
+      {name: 'top_gender_by_location', isFullWidth: true},
     ],
     influencers: [
       {name: 'top_sharing_sources', isFullWidth: true},
@@ -228,6 +240,11 @@ export const SENTIMENT_COLORS = {
   positive: '#00b884',
   neutral: '#516bee',
   negative: '#ed2549',
+}
+
+export const GENDER_COLORS = {
+  male: '#516BEE',
+  female: '#FD7271',
 }
 
 export const COMPARISON_COLORS = ['#516BEE', '#00B1FF', '#00BF7F']

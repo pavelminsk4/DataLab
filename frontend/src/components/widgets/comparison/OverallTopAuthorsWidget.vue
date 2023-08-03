@@ -7,7 +7,7 @@
     <OverallTopWidget
       :widget-details="widgetDetails"
       :widget-data="widgetData"
-      :table-header="tableHeader"
+      :table-header="widgetHeader"
       :is-show-settings-btn="false"
     />
   </WidgetContainerWithSwitcher>
@@ -39,21 +39,37 @@ export default {
     },
   },
   created() {
-    this.tableHeader = [
-      {name: '', width: '5%'},
-      {name: 'Author', width: '15%', sortProperty: 'name', hasSort: true},
-      {name: 'Gender', width: '15%'},
-      {name: 'Media Type', width: '7%'},
-      {name: 'Posts', width: '10%', sortProperty: 'posts', hasSort: true},
-      {name: 'Sentiment', width: '25%'},
-      {name: 'Reach', width: '10%', sortProperty: 'reach', hasSort: true},
-      {
-        name: 'Engagement',
-        width: '10%',
-        sortProperty: 'engagements',
-        hasSort: true,
-      },
-    ]
+    const tableHeaders = {
+      online: [
+        {name: '', width: '5%'},
+        {name: 'Author', width: '15%', sortProperty: 'name', hasSort: true},
+        {name: 'Posts', width: '10%', sortProperty: 'posts', hasSort: true},
+        {name: 'Sentiment', width: '25%'},
+        {name: 'Reach', width: '10%', sortProperty: 'reach', hasSort: true},
+        {
+          name: 'Engagement',
+          width: '10%',
+          sortProperty: 'engagements',
+          hasSort: true,
+        },
+      ],
+      social: [
+        {name: '', width: '5%'},
+        {name: 'Author', width: '15%', sortProperty: 'name', hasSort: true},
+        {name: 'Gender', width: '15%'},
+        {name: 'Media Type', width: '7%'},
+        {name: 'Posts', width: '10%', sortProperty: 'posts', hasSort: true},
+        {name: 'Sentiment', width: '25%'},
+        {name: 'Reach', width: '10%', sortProperty: 'reach', hasSort: true},
+        {
+          name: 'Engagement',
+          width: '10%',
+          sortProperty: 'engagements',
+          hasSort: true,
+        },
+      ],
+    }
+    this.widgetHeader = tableHeaders[`${this.widgetDetails.module}`]
   },
   methods: {
     switchTab(tab) {
