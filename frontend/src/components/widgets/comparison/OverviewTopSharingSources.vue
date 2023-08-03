@@ -40,7 +40,7 @@
         <td v-if="project.data[0].gender">
           <BaseChips :chips-type="project.data[0].gender" />
         </td>
-        <td>
+        <td v-if="project.data[0].source">
           <component
             :is="`${project.data[0].source}Icon`"
             class="twitter-icon icon"

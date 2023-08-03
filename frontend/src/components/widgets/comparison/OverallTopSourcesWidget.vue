@@ -7,7 +7,7 @@
     <OverallTopWidget
       :widget-details="widgetDetails"
       :widget-data="widgetData"
-      :table-header="widgetHeader"
+      :table-header="tableHeader"
       :is-show-settings-btn="false"
     />
   </WidgetContainerWithSwitcher>
@@ -52,6 +52,11 @@ export default {
         hasSort: true,
       },
     ]
+  },
+  methods: {
+    switchTab(tab) {
+      this.activeTab = tab
+    },
   },
 }
 </script>
