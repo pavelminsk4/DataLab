@@ -26,7 +26,7 @@ class WorkspaceTwentyFourSeven(models.Model):
 
 class WARecipient(models.Model):
     name = models.CharField(max_length=100)
-    mobile_number = PhoneNumberField(null=False, blank=False, unique=True)
+    mobile_number = models.CharField(max_length=50)
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
