@@ -1,19 +1,23 @@
 <template>
   <WidgetsList
-    v-if="selectedWidgets"
+    v-if="!influencers.isLoading"
     :current-project="currentProject"
     :selected-widgets="selectedWidgets"
     module-name="Comparison"
   />
+  <div v-else class="spinner">
+    <BaseSpinner />
+  </div>
 </template>
 
 <script>
 import {createNamespacedHelpers} from 'vuex'
 import {action} from '@store/constants'
 import {comparisonWidgetsList} from '@/lib/constants'
+import {stringToPascalCase} from '@/lib/utilities'
 
 import WidgetsList from '@/components/widgets/WidgetsList'
-import {stringToPascalCase} from '@/lib/utilities'
+import BaseSpinner from '@/components/BaseSpinner'
 
 const {mapActions, mapState} = createNamespacedHelpers('comparison/widgets')
 
@@ -21,6 +25,7 @@ export default {
   name: 'ComparisonInfluencersScreen',
   components: {
     WidgetsList,
+    BaseSpinner,
   },
   props: {
     currentProject: {type: [Array, Object], required: false},
@@ -62,3 +67,14 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 50vh;
+}
+</style>
