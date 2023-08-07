@@ -13,7 +13,7 @@ export default {
   },
   created() {
     this.fields = {
-      label: 'feed_language__language',
+      label: 'language',
       value: 'language_count',
       undefinedLabel: 'No language',
     }

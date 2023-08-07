@@ -1,7 +1,7 @@
 <template>
   <div :class="[`dropdown-wrapper-${name}`, 'dropdown-wrapper', 'scroll']">
     <div class="title" @click="openMainDropdown">
-      {{ modelValue.title || 'Select project' }}
+      {{ modelValue.title || 'Select project from workspaces' }}
     </div>
     <section v-if="isOpenMainDropdown" class="container-workspaces">
       <div v-for="workspace in workspaces" :key="workspace" class="workspace">

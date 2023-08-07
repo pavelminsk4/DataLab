@@ -3,11 +3,13 @@
     v-bind="$attrs"
     :widget-details="widgetDetails"
     :content-volume-widget-data="widgetData"
+    :colors="colors"
   />
 </template>
 
 <script>
 import ContentVolumeWidget from '@/components/widgets/ContentVolumeWidget'
+import {COMPARISON_COLORS} from '@lib/constants'
 
 export default {
   name: 'ComparisonContentVolumeWidget',
@@ -31,6 +33,9 @@ export default {
 
       return formattedWidgetData
     },
+  },
+  created() {
+    this.colors = COMPARISON_COLORS
   },
 }
 </script>

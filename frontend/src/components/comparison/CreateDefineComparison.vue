@@ -46,7 +46,11 @@
           v-model="projects.projectToCompareOptional"
           :workspaces="currentWorkspaces"
           name="ProjectToCompareOptional"
-          class="select"
+          :class="[
+            'select',
+            (!projects.project.id || !projects.projectToCompare.id) &&
+              'disabled',
+          ]"
         />
       </section>
     </form>
@@ -125,6 +129,7 @@ export default {
             errorMessage: 'You have to choose project to compare',
           }
         : {hasError: false}
+
       const sameProjects =
         this.projects.project.id === this.projects.projectToCompare.id &&
         !(
@@ -136,6 +141,7 @@ export default {
         projectToCompare.hasError = true
         projectToCompare.errorMessage = 'You cant compare the same project'
       }
+
       const disableBtn = project.hasError || projectToCompare.hasError
 
       return {
@@ -280,5 +286,10 @@ export default {
 
 .base-button {
   margin-top: 5px;
+}
+
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
 }
 </style>
