@@ -12,8 +12,10 @@ env.read_env(os.path.join(BASE_DIR, '.env'))
 def whatsappp_sender(phone_number, message_content):
     token = env('WHATSAPP_ACCESS_TOKEN')
     id = env('WHATSAPP_PHONE_NUMBER_ID')
-    chat_id = f'{phone_number}@c.us'
-
+    if len(phone_number) == 18:
+        chat_id = f'{phone_number}@g.us'
+    else:
+        chat_id = f'{phone_number}@c.us'
     greenAPI = API.GreenApi(id, token)
     response = greenAPI.sending.sendMessage(chat_id, message_content)
     if response.data is None:
