@@ -1,0 +1,82 @@
+from talkwalker.services.create_posts import create_posts
+from talkwalker.services.get_tw_query import get_tw_query
+from talkwalker.services.token import get_token
+from project.models import Project
+from rest_framework import status
+import requests
+import json
+
+
+class Asker:
+    def __init__(self, project_id, module):
+        self.project = Project.objects.get(id=project_id)
+        self.collector_id = f'search-{project_id}-{module}-col'
+
+    token = get_token()
+    task_id = ''
+
+    def __01_create_target_collector(self):
+        url = f'https://api.talkwalker.com/api/v3/stream/c/{self.collector_id}?access_token={self.token}'
+        headers = { 'Content-Type': 'application/json' }
+        response = requests.request('PUT', url, headers=headers, data={})
+        print('create target collector --->', response.text)
+        return response.status_code == status.HTTP_200_OK
+
+    def __02_new_task_on_query(self):
+        url = f'https://api.talkwalker.com/api/v3/stream/export?access_token={self.token}'
+        payload = json.dumps({
+            'target': self.collector_id,
+            'start':  self.project.start_search_date.date().isoformat(),
+            'stop':   self.project.end_search_date.date().isoformat(),
+            'limit':  2000,
+            'query':  get_tw_query(self.project),
+        })
+        headers = { 'Content-Type': 'application/json' }
+        response = requests.request('POST', url, headers=headers, data=payload)
+        lines = response.iter_lines()
+        for line in lines:
+            self.task_id = json.loads(line)['result_tasks']['tasks'][0]['id']
+        print('create export task --->', response.text)
+        return response.status_code == status.HTTP_200_OK
+
+    def __03_retrieve_status_of_task(self):
+        url = f'https://api.talkwalker.com/api/v3/tasks/export/{self.task_id}?access_token={self.token}'
+        response = requests.request('GET', url, headers={}, data={})
+        lines = response.iter_lines()
+        for line in lines:
+            try:
+                status = json.loads(line)['result_tasks']['tasks'][0]['status']
+                print(status)
+            except:
+                status = ''
+                pass
+        return status
+
+    def __wait_until_limit_reached(self):
+        i = 0
+        while i < 200:
+            i = i + 1
+            status = self.__03_retrieve_status_of_task()
+            if status == 'result_limit_reached':
+                break
+
+    def __04_read_collector(self):
+        url = f'https://api.talkwalker.com/api/v3/stream/c/{self.collector_id}/results?access_token={self.token}&resume_offset=earliest&end_behaviour=stop'
+        response = requests.request('GET', url, headers={}, data={})
+        lines = response.iter_lines()
+        create_posts(lines)
+        print(f'04_read_collector ---> status: {response.status_code}')
+        return response.status_code == status.HTTP_200_OK
+
+    def __05_delete_collector(self):
+        url = f'https://api.talkwalker.com/api/v3/stream/c/{self.collector_id}?access_token={self.token}'
+        response = requests.request('DELETE', url, headers={}, data={})
+        print(f'05_delete_collector ---> status: {response.status_code}')
+        return response.status_code == status.HTTP_200_OK
+
+    def run(self):
+        self.__01_create_target_collector()
+        self.__02_new_task_on_query()
+        self.__wait_until_limit_reached()
+        self.__04_read_collector()
+        return self.__05_delete_collector()
