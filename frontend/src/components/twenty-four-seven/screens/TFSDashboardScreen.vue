@@ -14,23 +14,13 @@
     @close="close"
   />
 
-  <StatusesChips @show-status-cards="showStatusCards" />
-
-  <div class="sorting">
-    <BaseDropdown
-      title="Sort by"
-      name="sort-posts"
-      :selected-value="sortType.label"
-    >
-      <div
-        v-for="(item, index) in sortingList"
-        :key="item.label + index"
-        @click="setSortValue(item)"
-      >
-        {{ item.label }}
-      </div>
-    </BaseDropdown>
-  </div>
+  <TFSDashboardFilters
+    :selected-sort-value="sortType.label"
+    :selected-interval-value="intervalValue.label"
+    @sort-selection="setSortValue"
+    @show-status-cards="showStatusCards"
+    @refresh-results="setRefreshInterval"
+  />
 
   <TFSDragAndDrop
     :card-results="items"
@@ -52,10 +42,9 @@ import {
   dragAndDropStatuses,
 } from '@/lib/configs/tfsStatusesConfig'
 
-import BaseDropdown from '@/components/BaseDropdown'
 import TFSDragAndDrop from '@/components/twenty-four-seven/drag-n-drop/TFSDragAndDrop'
 import TFSWorkingModal from '@/components/twenty-four-seven/modals/TFSWorkingModal'
-import StatusesChips from '@/components/twenty-four-seven/StatusesChips'
+import TFSDashboardFilters from '@/components/twenty-four-seven/TFSDashboardFilters'
 import TFSLinkedPostsModal from '@/components/twenty-four-seven/modals/TFSLinkedPostsModal'
 
 const {mapActions, mapState} = createNamespacedHelpers('twentyFourSeven')
@@ -65,10 +54,9 @@ const IRRELEVANT_STATUS = 'Irrelevant'
 export default {
   name: 'TFSDashboardScreen',
   components: {
-    BaseDropdown,
     TFSDragAndDrop,
     TFSWorkingModal,
-    StatusesChips,
+    TFSDashboardFilters,
     TFSLinkedPostsModal,
   },
   props: {
@@ -77,13 +65,9 @@ export default {
   data() {
     return {
       postInfo: null,
+      timer: null,
+      intervalValue: {label: 'No automatic refresh', value: 0},
       selectedLinkedPost: [],
-      sortingList: [
-        {label: 'Latest', value: 'asc_date'},
-        {label: 'Earliest', value: 'desc_date'},
-        {label: 'PR ASC', value: 'asc_reach'},
-        {label: 'PR DESC', value: 'desc_reach'},
-      ],
       currentStatuses: dragAndDropStatuses,
     }
   },
@@ -98,13 +82,7 @@ export default {
   },
   created() {
     if (isAllFieldsEmpty(this.items)) {
-      defaultStatuses.forEach((status) => {
-        this[action.GET_TFS_ITEMS]({
-          projectId: this.projectId,
-          status: status,
-          page: 1,
-        })
-      })
+      this.getAllStatuses()
     }
     if (isAllFieldsEmpty(this.items)) {
       this.$router.push({
@@ -149,6 +127,9 @@ export default {
     },
     setSortValue(sortValue) {
       this[action.UPDATE_TFS_SORT_TYPE](sortValue)
+      this.getAllStatuses()
+    },
+    getAllStatuses() {
       defaultStatuses.forEach((status) => {
         this[action.GET_TFS_ITEMS]({
           projectId: this.projectId,
@@ -156,6 +137,14 @@ export default {
           page: 1,
         })
       })
+    },
+    setRefreshInterval(newInterval) {
+      this.intervalValue = newInterval
+      if (!newInterval.value) return clearInterval(this.timer)
+
+      this.timer = setInterval(() => {
+        this.getAllStatuses()
+      }, newInterval.value)
     },
     openModal(postInfo) {
       this[action.CLEAR_TFS_RELATED_CONTENT]()
@@ -186,9 +175,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss">
-.sorting {
-  width: 160px;
-}
-</style>
