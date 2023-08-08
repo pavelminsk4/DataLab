@@ -143,8 +143,8 @@ def search(request):
   department_changing = ChangingOnlineSentiment.objects.filter(department_id=department_id).values()
   dict_changing = {x['post_id']: x['sentiment'] for x in department_changing}
   themes = MlCategory.objects.all()
-  # for post in posts_list:
-  #   post = change_post_sentiment(post, dict_changing)
+  for post in posts_list:
+    post = change_post_sentiment(post, dict_changing)
   #   post = change_post_source_name(post)
   #   post = add_post_category(post, themes)
   res = { 'num_pages': p.num_pages, 'num_posts': p.count, 'posts': posts_list }

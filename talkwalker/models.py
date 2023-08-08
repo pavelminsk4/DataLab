@@ -44,7 +44,7 @@ class TalkwalkerPost(models.Model):
 @receiver(post_save, sender=Project)
 def create_periodic_task(sender, instance, created, **kwargs):
     if created:
-        Livestream(instance.id).create()
+        Livestream(instance.id, 'onl').create()
         crontab_schedule = CrontabSchedule.objects.create(
             minute='*/5',
             hour='*',
@@ -66,4 +66,4 @@ def fetch_talkwalker_posts(sender, instance, created, **kwargs):
 
 @receiver(pre_delete, sender=Project)
 def delete_livestream(sender, instance, **kwargs):
-    Livestream(instance.id).delete()
+    Livestream(instance.id, 'onl').delete()

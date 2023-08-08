@@ -291,10 +291,11 @@ class Status(models.Model):
     return self.progress
 
 
+from talkwalker.models import *
 class ChangingOnlineSentiment(models.Model):
   sentiment = models.CharField('sentiment', max_length=10)
   department = models.ForeignKey('accounts.department', on_delete=models.CASCADE)
-  post =  models.ForeignKey(Post,on_delete=models.CASCADE)
+  post =  models.ForeignKey(TalkwalkerPost,on_delete=models.CASCADE)
 
   def ___str__(self):
     return self.sentiment
