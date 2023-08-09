@@ -139,10 +139,11 @@ export default {
       })
     },
     setRefreshInterval(newInterval) {
-      this.intervalValue = newInterval
-      if (!newInterval.value) return clearInterval(this.timer)
-
       clearInterval(this.timer)
+
+      this.intervalValue = newInterval
+      if (!newInterval.value) return 
+
       this.timer = setInterval(() => {
         this.getAllStatuses()
       }, newInterval.value)
