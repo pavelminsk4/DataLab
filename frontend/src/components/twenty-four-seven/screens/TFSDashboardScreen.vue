@@ -142,7 +142,7 @@ export default {
       clearInterval(this.timer)
 
       this.intervalValue = newInterval
-      if (!newInterval.value) return 
+      if (!newInterval.value) return
 
       this.timer = setInterval(() => {
         this.getAllStatuses()
