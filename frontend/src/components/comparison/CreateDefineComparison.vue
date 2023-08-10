@@ -19,8 +19,8 @@
         <h4>Select which projects to compare (2 or 3 projects)</h4>
         <span>Project</span>
         <DivWithError
-          :has-error="errors.project.hasError"
-          :error-message="errors.project.errorMessage"
+          :has-error="!!errors.project"
+          :error-message="errors.project"
         >
           <DropdownWithSelect
             v-model="projects.project"
@@ -31,8 +31,8 @@
         </DivWithError>
         <span>Competitor project</span>
         <DivWithError
-          :has-error="errors.projectToCompare.hasError"
-          :error-message="errors.projectToCompare.errorMessage"
+          :has-error="!!errors.projectToCompare"
+          :error-message="errors.projectToCompare"
         >
           <DropdownWithSelect
             v-model="projects.projectToCompare"
@@ -97,6 +97,11 @@ export default {
         projectToCompare: {},
         projectToCompareOptional: {},
       },
+      errors: {
+        project: null,
+        projectToCompare: null,
+        disableBtn: false,
+      },
     }
   },
   computed: {
@@ -127,37 +132,6 @@ export default {
         this.projects.projectToCompareOptional = {}
       },
     },
-    errors() {
-      const project = isAllFieldsEmpty(this.projects.project)
-        ? {hasError: true, errorMessage: 'You have to choose project'}
-        : {hasError: false}
-      const projectToCompare = isAllFieldsEmpty(this.projects.projectToCompare)
-        ? {
-            hasError: true,
-            errorMessage: 'You have to choose project to compare',
-          }
-        : {hasError: false}
-
-      const sameProjects =
-        this.projects.project.id === this.projects.projectToCompare.id &&
-        !(
-          isAllFieldsEmpty(this.projects.project) &&
-          isAllFieldsEmpty(this.projects.projectToCompare)
-        )
-
-      if (sameProjects) {
-        projectToCompare.hasError = true
-        projectToCompare.errorMessage = 'You cant compare the same project'
-      }
-
-      const disableBtn = project.hasError || projectToCompare.hasError
-
-      return {
-        project,
-        projectToCompare,
-        disableBtn,
-      }
-    },
   },
   created() {
     if (isAllFieldsEmpty(this.modulesProjects)) this[action.GET_PROJECTS]()
@@ -166,6 +140,18 @@ export default {
       {label: 'Online', value: 'Online'},
       {label: 'Social', value: 'Social'},
     ]
+  },
+  watch: {
+    'projects.project'(newValue) {
+      if (newValue && this.errors.project) {
+        this.errors.project = null
+      }
+    },
+    'projects.projectToCompare'(newValue) {
+      if (newValue && this.errors.projectToCompare) {
+        this.errors.projectToCompare = null
+      }
+    },
   },
   methods: {
     isAllFieldsEmpty,
@@ -176,7 +162,26 @@ export default {
       action.UPDATE_WORKSPACES_PROJECTS,
       action.UPDATE_NEW_COMPARISON_WORKSPACE,
     ]),
+    validation() {
+      this.errors.project = isAllFieldsEmpty(this.projects.project)
+        ? 'You have to choose project'
+        : null
+      this.errors.projectToCompare = isAllFieldsEmpty(
+        this.projects.projectToCompare
+      )
+        ? 'You have to choose project to compare'
+        : null
+
+      this.errors.disableBtn = !!(
+        this.errors.project || this.errors.projectToCompare
+      )
+
+      return !this.errors.project && !this.errors.projectToCompare
+    },
     saveWorkspace() {
+      const isValid = this.validation()
+      if (!isValid) return
+
       const projects = []
       const module =
         this.currentModule === 'Online' ? 'Project' : 'ProjectSocial'
