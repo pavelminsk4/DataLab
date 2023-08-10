@@ -104,9 +104,17 @@ export default {
     currentWorkspaces() {
       if (isAllFieldsEmpty(this.modulesProjects)) return []
 
-      return this.modulesProjects[this.currentModule].filter(
-        (workspace) => !isAllFieldsEmpty(workspace)
-      )
+      return this.modulesProjects[this.currentModule]
+        .filter((workspace) => !isAllFieldsEmpty(workspace))
+        .map((workspace) => {
+          const workspaceName = Object.keys(workspace)[0]
+          const projects = workspace[workspaceName].filter((currentProject) => {
+            return !Object.values(this.projects).find(
+              (selectedProject) => selectedProject?.id === currentProject.id
+            )
+          })
+          return {[workspaceName]: projects}
+        })
     },
     currentModuleProxy: {
       get() {
