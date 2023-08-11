@@ -12,5 +12,6 @@ def top_keywords_report(pk, widget_pk):
     posts, widget = project_posts_filter(pk, widget_pk)
     return {
         'data': get_keywords(posts),
-        'widget': {'top_keywords': model_to_dict(widget)}
+        'widget': {'top_keywords': model_to_dict(widget)},
+        'module_name': 'Social'
     }

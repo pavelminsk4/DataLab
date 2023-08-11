@@ -35,6 +35,8 @@ urlpatterns = [
     path('soc_gender_volume_screenshot/<int:proj_pk>/', views.social_gender_volume_screenshot, name='soc_gender_volume_screenshot'),
     path('soc_sentiment_top_keywords_screenshot/<int:proj_pk>/', views.social_sentiment_top_keywords_screenshot, name='soc_sentiment_top_keywords_screenshot'),
     path('soc_authors_by_sentiment_screenshot/<int:proj_pk>/', views.social_authors_by_sentiment_screenshot, name='soc_authors_by_sentiment_screenshot'),
+    
+    path('onl_summary_screenshot/<int:proj_pk>/', views.online_summary_screenshot, name='onl_summary_screenshot'),   
 ]
 
 router.register('regular_reports', views.RegularReportViewSet, 'regular_reports')

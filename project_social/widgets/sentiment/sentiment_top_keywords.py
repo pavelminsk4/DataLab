@@ -13,7 +13,8 @@ def sentiment_top_keywords_report(pk, widget_pk):
     posts, widget = project_posts_filter(pk, widget_pk)
     return {
         'data': calculate_for_sentiment_top_keywords(posts),
-        'widget': {'sentiment_top_keywords': model_to_dict(widget)}
+        'widget': {'sentiment_top_keywords': model_to_dict(widget)},
+        'module_name': 'Social'
     }
 
 def calculate_for_sentiment_top_keywords(posts):

@@ -3,12 +3,12 @@ from docx.shared import Pt, Inches
 
 
 class ReportDocument:
-    def __init__(self, document, item, screenshot_list):
+    def __init__(self, document, item, screenshot_list, module, widget_list):
         self.document = document
         self.item = item
         self.screenshot_list = screenshot_list
-        self.project = ProjectSocial.objects.get(id=item.module_project_id)
-        self.widget_list = self.project.social_widgets_list
+        self.project = module.objects.get(id=item.module_project_id)
+        self.widget_list = getattr(self.project, widget_list)
 
     def fill(self):
         self.__foreach_paragraph(self.__fill_introduction)
@@ -68,6 +68,8 @@ class ReportDocument:
                     'soc_content_volume_top_authors': ['content_volume_top_authors', True],
                     'soc_content_volume_top_languages': ['content_volume_top_languages', True],
                     'soc_gender_volume': ['gender_volume', True],
+                    
+                    'onl_summary': ['summary', False],
                   }
         if True in [(True if getattr(self.item, widget) else False) for widget in widgets.keys()]:
             self.__font_one(cell.add_paragraph('').add_run('Summary'), cell)
@@ -153,6 +155,8 @@ class ReportDocument:
                     'soc_languages_by_location': 'Top languages by location',
                     'soc_authors_by_sentiment': 'Authors by sentiment',
                     'soc_top_sharing_sources': 'Top sharing sources',
+                    
+                    'onl_summary': 'Summary',
                   }
         for widget in widgets.keys():
             if getattr(self.item, widget):

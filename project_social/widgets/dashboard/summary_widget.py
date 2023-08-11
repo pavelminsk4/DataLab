@@ -14,7 +14,8 @@ def summary_report(pk, widget_pk):
     posts, widget = project_posts_filter(pk, widget_pk)
     return {
         'data': calculate_summary_widget(posts),
-        'widget': {'summary': model_to_dict(widget)}
+        'widget': {'summary': model_to_dict(widget)},
+        'module_name': 'Social'
     }
 
 def calculate_summary_widget(posts):

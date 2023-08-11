@@ -13,7 +13,8 @@ def top_sharing_sources_report(pk, widget_pk):
     posts, widget = project_posts_filter(pk, widget_pk)
     return {
         'data': get_mosts(posts),
-        'widget': {'top_sharing_sources': model_to_dict(widget)}
+        'widget': {'top_sharing_sources': model_to_dict(widget)},
+        'module_name': 'Social'
     }
 
 def get_mosts(posts):
