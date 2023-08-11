@@ -56,9 +56,9 @@ export default {
           actionName: 'refresh-results',
           selectedValue: this.selectedIntervalValue,
           sortingList: [
-            {label: 'Refresh every 1 min', value: 60000},
-            {label: 'Refresh every 3 min', value: 180000},
-            {label: 'Refresh every 5 min', value: 300000},
+            {label: 'Refresh every 5 sec', value: 5000},
+            {label: 'Refresh every 15 sec', value: 15000},
+            {label: 'Refresh every 30 sec', value: 30000},
             {label: 'No automatic refresh', value: 0},
           ],
         },
