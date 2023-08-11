@@ -13,7 +13,8 @@ def top_languages_report(pk, widget_pk, name_widget):
     posts, widget = project_posts_filter(pk, widget_pk)
     return {
         'data': calculate_for_top_languages(posts, widget.aggregation_period, widget.top_counts),
-        'widget': {'top_languages': model_to_dict(widget)}
+        'widget': {'top_languages': model_to_dict(widget)},
+        'module_name': 'Social'
     }
 
 def precalculate_result(pk, widget_pk):

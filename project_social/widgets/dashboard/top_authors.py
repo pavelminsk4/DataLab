@@ -13,16 +13,17 @@ def top_authors_report(pk, widget_pk, name_widget):
     posts, widget = project_posts_filter(pk, widget_pk)
     return {
         'data': calculate_for_top_authors(posts, widget.aggregation_period, widget.top_counts),
-        'widget': {'top_authors': model_to_dict(widget)}
+        'widget': {'top_authors': model_to_dict(widget)},
+        'module_name': 'Social'
     }
 
 def precalculate_result(pk, widget_pk):
-  posts, widget = project_posts_filter(pk, widget_pk)
-  return calculate_for_top_authors(posts, widget.aggregation_period, widget.top_counts)
+    posts, widget = project_posts_filter(pk, widget_pk)
+    return calculate_for_top_authors(posts, widget.aggregation_period, widget.top_counts)
 
 def calculate_for_top_authors(posts, aggregation_period, top_counts):
-  results = list(posts.annotate(date_trunc=Trunc('date', aggregation_period)).values('user_name').annotate(user_count=Count('user_name')).order_by('-user_count')[:top_counts])
-  for res in results:
-    if not res['user_name']:
-      results.remove(res)
-  return results
+    results = list(posts.annotate(date_trunc=Trunc('date', aggregation_period)).values('user_name').annotate(user_count=Count('user_name')).order_by('-user_count')[:top_counts])
+    for res in results:
+        if not res['user_name']:
+            results.remove(res)
+    return results

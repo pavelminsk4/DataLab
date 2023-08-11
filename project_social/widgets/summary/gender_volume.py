@@ -17,7 +17,8 @@ def gender_volume_report(pk, widget_pk):
     posts, widget = project_posts_filter(pk, widget_pk)
     return {
         'data': calculate_for_gender_volume(posts, widget.aggregation_period, widget.top_counts),
-        'widget': {'gender_volume': model_to_dict(widget)}
+        'widget': {'gender_volume': model_to_dict(widget)},
+        'module_name': 'Social'
     }
 
 def calculate_for_gender_volume(posts, aggregation_period, top_counts):

@@ -12,7 +12,8 @@ def top_authors_by_gender_report(pk, widget_pk):
     posts, widget = project_posts_filter(pk, widget_pk)
     return {
         'data': calculate_for_top_authors_by_gender(posts),
-        'widget': {'top_authors_by_gender': model_to_dict(widget)}
+        'widget': {'top_authors_by_gender': model_to_dict(widget)},
+        'module_name': 'Social'
     }
 
 def calculate_for_top_authors_by_gender(posts):

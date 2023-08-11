@@ -17,7 +17,8 @@ def content_volume_top_languages_report(pk, widget_pk):
     posts, widget = project_posts_filter(pk, widget_pk)
     return {
         'data': calculate_for_content_volume_top_languages(posts, widget.aggregation_period, widget.top_counts),
-        'widget': {'content_volume_top_languages': model_to_dict(widget)}
+        'widget': {'content_volume_top_languages': model_to_dict(widget)},
+        'module_name': 'Social'
     }
 
 def calculate_for_content_volume_top_languages(posts, aggregation_period, top_counts):

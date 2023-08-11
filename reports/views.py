@@ -25,6 +25,8 @@ from project_social.widgets.summary.top_keywords import top_keywords_report
 from project_social.widgets.dashboard.summary_widget import summary_report
 from project_social.widgets.dashboard.sentiment import sentiment_report
 
+from widgets.common_widget.summary import summary_report as onl_summary_report
+
 from reports.views_filling.filling_for_report import filling_templates_for_instant_and_regular_reports
 from .services.pdf_handler import convert_docx_to_pdf
 from .chartjs.chartjs import prepare_widget_images
@@ -36,9 +38,12 @@ from .models import RegularReport
 from docx import Document
 
 from project_social.models import ProjectSocial, SocialWidgetsList
+from widgets.models import WidgetsList2
 from project.models import Project
+from celery import shared_task
 
 from reports.classes.social_pdf import SocialPDF
+from reports.classes.online_pdf import OnlinePDF
 from reports.classes.converter import Converter
 
 
@@ -48,16 +53,15 @@ def filling_template(template_path, project_id):
         document, project_id)
     document.save('tmp/temp.docx')
 
-
+@shared_task
 def report_generator(proj_pk, model):
     template_path = 'static/report_templates/RSDC_Export_Template_EN.docx'
     docx_path = 'tmp/temp.docx'
     report_path = 'tmp/temp.pdf'
     proj = model.objects.get(id=proj_pk)
     if model == Project:
-        prepare_widget_images(proj_pk)
-        filling_template(template_path, proj_pk)
-        convert_docx_to_pdf(docx_path, report_path)
+        item = Converter(proj).convert_to_item()
+        report_path = OnlinePDF(item, 'pdf', template_path).generate()
     if model == ProjectSocial:
         item = Converter(proj).convert_to_item()
         report_path = SocialPDF(item, 'pdf', template_path).generate()
@@ -75,7 +79,7 @@ def online_instantly_report(request, proj_pk):
 
 
 def social_instantly_report(request, proj_pk):
-    return report_generator(proj_pk, ProjectSocial)
+    return report_generator.delay(proj_pk, ProjectSocial)
 
 
 class RegularReportViewSet(viewsets.ModelViewSet):
@@ -223,4 +227,9 @@ def social_sentiment_top_keywords_screenshot(request, proj_pk):
 def social_authors_by_sentiment_screenshot(request, proj_pk):
     wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).authors_by_sentiment.pk
     context = {'context': authors_by_sentiment_report(proj_pk, wd_pk)}
+    return render(request, 'social_reports/base_template_screenshot.html', context)
+
+def online_summary_screenshot(request, proj_pk):
+    wd_pk = WidgetsList2.objects.get(project_id=proj_pk).summary.pk
+    context = {'context': onl_summary_report(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)

@@ -12,7 +12,8 @@ def sentiment_number_of_results_report(pk, widget_pk, name_widget):
     posts, widget = project_posts_filter(pk, widget_pk)
     return {
         'data': calculate_for_sentiment_number_of_results(posts),
-        'widget': {name_widget: model_to_dict(widget)}
+        'widget': {name_widget: model_to_dict(widget)},
+        'module_name': 'Social'
     }
 
 def calculate_for_sentiment_number_of_results(posts):

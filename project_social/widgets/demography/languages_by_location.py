@@ -12,7 +12,8 @@ def languages_by_location_report(pk, widget_pk):
     posts, widget = project_posts_filter(pk, widget_pk)
     return {
         'data': calculate_for_languages_by_location(posts, widget.top_counts),
-        'widget': {'languages_by_location': model_to_dict(widget)}
+        'widget': {'languages_by_location': model_to_dict(widget)},
+        'module_name': 'Social'
     }
 
 def calculate_for_languages_by_location(posts, top_counts):

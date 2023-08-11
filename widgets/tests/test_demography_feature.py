@@ -35,7 +35,7 @@ class DemographyFeatureTests(APITestCase):
                 'type': 'Most active site',
                 'name': 'third_source',
                 'url': 'twitter',
-                'value': '3 post',
+                'value': 3,
                 'sentiments': {'positive': 1, 'negative': 0, 'neutral': 2},
                 'picture': None,
             },

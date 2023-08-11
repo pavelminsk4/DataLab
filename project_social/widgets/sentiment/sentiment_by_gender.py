@@ -14,7 +14,8 @@ def sentiment_by_gender_report(pk, widget_pk):
     posts, widget = project_posts_filter(pk, widget_pk)
     return {
         'data': calculate_for_sentiment_by_gender(posts, widget.aggregation_period),
-        'widget': {'sentiment_by_gender': model_to_dict(widget)}
+        'widget': {'sentiment_by_gender': model_to_dict(widget)},
+        'module_name': 'Social'
     }
     
 def calculate_for_sentiment_by_gender(posts, aggregation_period):
