@@ -16,6 +16,10 @@ app.mixin({
         document.body.classList.remove('overflow-hidden')
       }
     },
+
+    t(text) {
+      store.dispatch('t', text)
+    },
   },
 })
 

@@ -6,7 +6,7 @@
     </div>
 
     <div class="title-wrapper">
-      <h1 class="main-layout__title">{{ title }}</h1>
+      <h1 class="main-layout__title">{{ t(title) }}</h1>
       <slot></slot>
     </div>
 
@@ -25,18 +25,9 @@ export default {
     ArrowLeftIcon,
   },
   props: {
-    title: {
-      type: String,
-      default: '',
-    },
-    description: {
-      type: String,
-      default: '',
-    },
-    backPage: {
-      type: Object,
-      default: null,
-    },
+    title: {type: String, default: ''},
+    description: {type: String, default: ''},
+    backPage: {type: Object, default: null},
   },
   methods: {
     backToPage() {

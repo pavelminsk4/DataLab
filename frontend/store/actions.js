@@ -3,6 +3,21 @@ import {action, mutator} from '@store/constants'
 import {capitalizeFirstLetter} from '@lib/utilities'
 
 export default {
+  async t({commit, state}, text) {
+    console.log(text)
+    if (state.platformLanguage === 'en') return text
+    if (state.translation[text]) return state.translation[text]
+
+    try {
+      // const translation = await api.translate(text)
+      commit(mutator.SET_TRANSLATION, {text})
+      // return translation
+    } catch (error) {
+      console.error(error)
+      return text
+    }
+  },
+
   async [action.LOGOUT]({commit}) {
     commit(mutator.SET_LOADING, true)
     try {

@@ -4,6 +4,10 @@ import initialState, {
 } from '@store/constants/initialState'
 
 export default {
+  [mutator.SET_TRANSLATION](state, {text, translation}) {
+    state.translation[text] = translation
+  },
+
   [mutator.SET_LOADING](state, loading) {
     state.loading = loading
   },
