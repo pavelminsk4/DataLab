@@ -92,6 +92,9 @@ export default {
 
     this.showStatusCards(null)
   },
+  unmounted() {
+    clearInterval(this.timer)
+  },
   methods: {
     ...mapActions([
       action.GET_TFS_ITEMS,
