@@ -2,7 +2,7 @@ import WidgetsView from '@/views/WidgetsView'
 
 export default [
   {
-    name: 'WidgetTest',
+    name: 'ReportWidgetView',
     path: '/api/reports/:widgetScreenshot/:projectId/',
     component: WidgetsView,
   },

@@ -1,26 +1,10 @@
 <template>
-  <router-view v-if="userInfo"></router-view>
+  <router-view></router-view>
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
-import {action, get} from '@store/constants'
-
 export default {
   name: 'App',
-  computed: {
-    ...mapGetters({
-      userInfo: get.USER_INFO,
-    }),
-  },
-  created() {
-    if (!this.userInfo) {
-      this[action.GET_USER_INFORMATION]()
-    }
-  },
-  methods: {
-    ...mapActions([action.GET_USER_INFORMATION]),
-  },
 }
 </script>
 
