@@ -47,6 +47,8 @@ export default {
     try {
       const userInfo = await api.getLoggedUser()
       commit(mutator.SET_USER_INFORMATION, userInfo)
+
+      return userInfo
     } catch (error) {
       console.error(error)
       return error
