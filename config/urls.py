@@ -40,5 +40,6 @@ urlpatterns = [
     path('workspace/', include('workspace.urls', namespace='workspace')),
     path('api/reports/', include('reports.urls')),
     path('', include('tweet_binder.urls')),
+    path('', include('multilanguage.urls')),
     re_path('^.*$', TemplateView.as_view(template_name="index.html")),
 ]
