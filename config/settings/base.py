@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'comparison.apps.ComparisonConfig',
     'query_counter',
     'phonenumber_field',
+    'multilanguage.apps.MultilanguageConfig',
 ]
 
 ASGI_APPLICATION = 'config.asgi.application'
