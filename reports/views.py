@@ -25,6 +25,19 @@ from project_social.widgets.summary.top_keywords import top_keywords_report
 from project_social.widgets.dashboard.summary_widget import summary_report
 from project_social.widgets.dashboard.sentiment import sentiment_report
 
+from widgets.common_widget.sentiment_top_countries import sentiment_top_countries_report as onl_sentiment_top_countries
+from widgets.common_widget.sentiment_top_languages import sentiment_top_languages_report as onl_sentiment_top_languages
+from widgets.common_widget.sentiment_top_sources import sentiment_top_sources_report as onl_sentiment_top_sources
+from widgets.common_widget.sentiment_top_authors import sentiment_top_authors_report as onl_sentiment_top_authors
+from widgets.sentiment.sentiment_top_keywords import sentiment_top_keywords_report as onl_sentiment_top_keywords
+from widgets.sentiment.sentiment_number_of_results import number_of_results_report as onl_number_of_results
+from widgets.sentiment.sentiment_number_of_results import sentiment_diagram_report as onl_sentiment_diagram
+from widgets.common_widget.sentiment_for_period import sentiment_for_period_report as onl_sentiment_report
+from widgets.common_widget.top_sources import top_sources_report as onl_top_sources_report
+from widgets.common_widget.top_authors import top_authors_report as onl_top_authors_report
+
+from widgets.summary.top_keywords import top_keywords_report as onl_top_keywords_report
+from widgets.common_widget.volume_widget import volume_report as onl_volume_report
 from widgets.common_widget.summary import summary_report as onl_summary_report
 
 from reports.views_filling.filling_for_report import filling_templates_for_instant_and_regular_reports
@@ -53,7 +66,6 @@ def filling_template(template_path, project_id):
         document, project_id)
     document.save('tmp/temp.docx')
 
-@shared_task
 def report_generator(proj_pk, model):
     template_path = 'static/report_templates/RSDC_Export_Template_EN.docx'
     docx_path = 'tmp/temp.docx'
@@ -79,7 +91,7 @@ def online_instantly_report(request, proj_pk):
 
 
 def social_instantly_report(request, proj_pk):
-    return report_generator.delay(proj_pk, ProjectSocial)
+    return report_generator(proj_pk, ProjectSocial)
 
 
 class RegularReportViewSet(viewsets.ModelViewSet):
@@ -232,4 +244,64 @@ def social_authors_by_sentiment_screenshot(request, proj_pk):
 def online_summary_screenshot(request, proj_pk):
     wd_pk = WidgetsList2.objects.get(project_id=proj_pk).summary.pk
     context = {'context': onl_summary_report(proj_pk, wd_pk)}
+    return render(request, 'social_reports/base_template_screenshot.html', context)
+
+def online_volume_screenshot(request, proj_pk):
+    wd_pk = WidgetsList2.objects.get(project_id=proj_pk).volume.pk
+    context = {'context': onl_volume_report(proj_pk, wd_pk)}
+    return render(request, 'social_reports/base_template_screenshot.html', context)
+
+def online_sentiment_screenshot(request, proj_pk):
+    wd_pk = WidgetsList2.objects.get(project_id=proj_pk).sentiment_for_period.pk
+    context = {'context': onl_sentiment_report(proj_pk, wd_pk)}
+    return render(request, 'social_reports/base_template_screenshot.html', context)
+
+def online_top_sources_screenshot(request, proj_pk):
+    wd_pk = WidgetsList2.objects.get(project_id=proj_pk).top_sources.pk
+    context = {'context': onl_top_sources_report(proj_pk, wd_pk)}
+    return render(request, 'social_reports/base_template_screenshot.html', context)
+
+def online_top_authors_screenshot(request, proj_pk):
+    wd_pk = WidgetsList2.objects.get(project_id=proj_pk).top_authors.pk
+    context = {'context': onl_top_authors_report(proj_pk, wd_pk)}
+    return render(request, 'social_reports/base_template_screenshot.html', context)
+
+def online_top_keywords_screenshot(request, proj_pk):
+    wd_pk = WidgetsList2.objects.get(project_id=proj_pk).top_keywords.pk
+    context = {'context': onl_top_keywords_report(proj_pk, wd_pk)}
+    return render(request, 'social_reports/base_template_screenshot.html', context)
+
+def online_sentiment_number_of_results_screenshot(request, proj_pk):
+    wd_pk = WidgetsList2.objects.get(project_id=proj_pk).sentiment_number_of_results.pk
+    context = {'context': onl_number_of_results(proj_pk, wd_pk)}
+    return render(request, 'social_reports/base_template_screenshot.html', context)
+
+def online_sentiment_diagram_screenshot(request, proj_pk):
+    wd_pk = WidgetsList2.objects.get(project_id=proj_pk).sentiment_diagram.pk
+    context = {'context': onl_sentiment_diagram(proj_pk, wd_pk)}
+    return render(request, 'social_reports/base_template_screenshot.html', context)
+
+def online_sentiment_top_sources_screenshot(request, proj_pk):
+    wd_pk = WidgetsList2.objects.get(project_id=proj_pk).sentiment_top_sources.pk
+    context = {'context': onl_sentiment_top_sources(proj_pk, wd_pk)}
+    return render(request, 'social_reports/base_template_screenshot.html', context)
+
+def online_sentiment_top_authors_screenshot(request, proj_pk):
+    wd_pk = WidgetsList2.objects.get(project_id=proj_pk).sentiment_top_authors.pk
+    context = {'context': onl_sentiment_top_authors(proj_pk, wd_pk)}
+    return render(request, 'social_reports/base_template_screenshot.html', context)
+
+def online_sentiment_top_countries_screenshot(request, proj_pk):
+    wd_pk = WidgetsList2.objects.get(project_id=proj_pk).sentiment_top_countries.pk
+    context = {'context': onl_sentiment_top_countries(proj_pk, wd_pk)}
+    return render(request, 'social_reports/base_template_screenshot.html', context)
+
+def online_sentiment_top_languages_screenshot(request, proj_pk):
+    wd_pk = WidgetsList2.objects.get(project_id=proj_pk).sentiment_top_languages.pk
+    context = {'context': onl_sentiment_top_languages(proj_pk, wd_pk)}
+    return render(request, 'social_reports/base_template_screenshot.html', context)
+
+def online_sentiment_top_keywords_screenshot(request, proj_pk):
+    wd_pk = WidgetsList2.objects.get(project_id=proj_pk).sentiment_top_keywords.pk
+    context = {'context': onl_sentiment_top_keywords(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)
