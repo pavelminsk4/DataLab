@@ -49,6 +49,10 @@ urlpatterns = [
     path('onl_sentiment_top_countries_screenshot/<int:proj_pk>/', views.online_sentiment_top_countries_screenshot, name='onl_sentiment_top_countries_screenshot'),
     path('onl_sentiment_top_languages_screenshot/<int:proj_pk>/', views.online_sentiment_top_languages_screenshot, name='onl_sentiment_top_languages_screenshot'),
     path('onl_sentiment_top_keywords_screenshot/<int:proj_pk>/', views.online_sentiment_top_keywords_screenshot, name='onl_sentiment_top_keywords_screenshot'),
+    path('onl_sources_by_country_screenshot/<int:proj_pk>/', views.online_sources_by_country_screenshot, name='onl_sources_by_country_screenshot'),
+    path('onl_authors_by_country_screenshot/<int:proj_pk>/', views.online_authors_by_country_screenshot, name='onl_authors_by_country_screenshot'),
+    path('onl_languages_by_country_screenshot/<int:proj_pk>/', views.online_languages_by_country_screenshot, name='onl_languages_by_country_screenshot'),
+    path('onl_top_keywords_by_country_screenshot/<int:proj_pk>/', views.online_top_keywords_by_country_screenshot, name='onl_top_keywords_by_country_screenshot'),
 ]
 
 router.register('regular_reports', views.RegularReportViewSet, 'regular_reports')

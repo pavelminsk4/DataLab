@@ -48,6 +48,8 @@ class ReportItem(models.Model):
   onl_authors_by_language = models.BooleanField(default=False)
   onl_authors_by_sentiment = models.BooleanField(default=False)
   onl_overall_top_authors = models.BooleanField(default=False)
+  onl_languages_by_country = models.BooleanField(default=False)
+  onl_keywords_by_country = models.BooleanField(default=False)
 
   soc_summary = models.BooleanField(default=False)
   soc_clipping_feed_content = models.BooleanField(default=False)
