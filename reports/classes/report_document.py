@@ -74,14 +74,6 @@ class ReportDocument:
                     'onl_top_sources': ['top_sources', False],
                     'onl_top_authors': ['top_authors', False],
                     'onl_top_keywords': ['top_keywords', False],
-                    'onl_sentiment_number_of_results': ['top_keywords', False],
-                    'onl_sentiment_diagram': ['sentiment_diagram', False],
-                    'onl_sentiment_top_sources': ['sentiment_top_sources', False],
-                    'onl_sentiment_top_countries': ['sentiment_top_countries', False],
-                    'onl_sentiment_top_authors': ['sentiment_top_authors', False],
-                    'onl_sentiment_top_authors': ['sentiment_top_authors', False],
-                    'onl_sentiment_top_languages': ['sentiment_top_languages', False],
-                    'onl_sentiment_top_keywords': ['sentiment_top_keywords', False],
                   }
         if True in [(True if getattr(self.item, widget) else False) for widget in widgets.keys()]:
             self.__font_one(cell.add_paragraph('').add_run('Summary'), cell)
@@ -99,6 +91,15 @@ class ReportDocument:
                     'soc_sentiment_languages': ['sentiment_languages', False],
                     'soc_sentiment_by_gender': ['sentiment_by_gender', False],
                     'soc_sentiment_top_keywords': ['sentiment_top_keywords', False],
+                    
+                    'onl_sentiment_number_of_results': ['top_keywords', False],
+                    'onl_sentiment_diagram': ['sentiment_diagram', False],
+                    'onl_sentiment_top_sources': ['sentiment_top_sources', False],
+                    'onl_sentiment_top_countries': ['sentiment_top_countries', False],
+                    'onl_sentiment_top_authors': ['sentiment_top_authors', False],
+                    'onl_sentiment_top_authors': ['sentiment_top_authors', False],
+                    'onl_sentiment_top_languages': ['sentiment_top_languages', False],
+                    'onl_sentiment_top_keywords': ['sentiment_top_keywords', False],
                   }
         if True in [(True if getattr(self.item, widget) else False) for widget in widgets.keys()]:
             self.__font_one(cell.add_paragraph('').add_run('Sentiment'), cell)
@@ -115,7 +116,12 @@ class ReportDocument:
                     'soc_authors_by_location': ['authors_by_location', False],
                     'soc_gender_by_location': ['gender_by_location', False],
                     'soc_keywords_by_location': ['keywords_by_location', False],
-                    'soc_languages_by_location': ['languages_by_location', False]
+                    'soc_languages_by_location': ['languages_by_location', False],
+                    
+                    'onl_sources_by_country': ['sources_by_country', False],
+                    'onl_authors_by_country': ['authors_by_country', False],
+                    'onl_languages_by_country': ['languages_by_country', False],
+                    'onl_keywords_by_country': ['top_keywords_by_country', False],
                   }
         if True in [(True if getattr(self.item, widget) else False) for widget in widgets.keys()]:
             self.__font_one(cell.add_paragraph('').add_run('Demography'), cell)
@@ -180,6 +186,10 @@ class ReportDocument:
                     'onl_sentiment_top_authors': 'Sentiment top authors',
                     'onl_sentiment_top_languages': 'Sentiment top languages',
                     'onl_sentiment_top_keywords': 'Sentiment top keywords',
+                    'onl_sources_by_country': 'Sources by country',
+                    'onl_authors_by_country': 'Authors by country',
+                    'onl_languages_by_country': 'Top languages by country',
+                    'onl_keywords_by_country': 'Top keywords by country',
                   }
         for widget in widgets.keys():
             if getattr(self.item, widget):
