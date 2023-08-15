@@ -36,7 +36,19 @@ urlpatterns = [
     path('soc_sentiment_top_keywords_screenshot/<int:proj_pk>/', views.social_sentiment_top_keywords_screenshot, name='soc_sentiment_top_keywords_screenshot'),
     path('soc_authors_by_sentiment_screenshot/<int:proj_pk>/', views.social_authors_by_sentiment_screenshot, name='soc_authors_by_sentiment_screenshot'),
     
-    path('onl_summary_screenshot/<int:proj_pk>/', views.online_summary_screenshot, name='onl_summary_screenshot'),   
+    path('onl_summary_screenshot/<int:proj_pk>/', views.online_summary_screenshot, name='onl_summary_screenshot'),
+    path('onl_volume_screenshot/<int:proj_pk>/', views.online_volume_screenshot, name='onl_volume_screenshot'),
+    path('onl_sentiment_screenshot/<int:proj_pk>/', views.online_sentiment_screenshot, name='onl_sentiment_screenshot'),
+    path('onl_top_sources_screenshot/<int:proj_pk>/', views.online_top_sources_screenshot, name='onl_top_sources_screenshot'),
+    path('onl_top_authors_screenshot/<int:proj_pk>/', views.online_top_authors_screenshot, name='onl_top_authors_screenshot'),
+    path('onl_top_keywords_screenshot/<int:proj_pk>/', views.online_top_keywords_screenshot, name='onl_top_keywords_screenshot'),
+    path('onl_sentiment_number_of_results_screenshot/<int:proj_pk>/', views.online_sentiment_number_of_results_screenshot, name='onl_sentiment_number_of_results_screenshot'),
+    path('onl_sentiment_diagram_screenshot/<int:proj_pk>/', views.online_sentiment_diagram_screenshot, name='onl_sentiment_diagram_screenshot'),
+    path('onl_sentiment_top_sources_screenshot/<int:proj_pk>/', views.online_sentiment_top_sources_screenshot, name='onl_sentiment_top_sources_screenshot'),
+    path('onl_sentiment_top_authors_screenshot/<int:proj_pk>/', views.online_sentiment_top_authors_screenshot, name='onl_sentiment_top_authors_screenshot'),
+    path('onl_sentiment_top_countries_screenshot/<int:proj_pk>/', views.online_sentiment_top_countries_screenshot, name='onl_sentiment_top_countries_screenshot'),
+    path('onl_sentiment_top_languages_screenshot/<int:proj_pk>/', views.online_sentiment_top_languages_screenshot, name='onl_sentiment_top_languages_screenshot'),
+    path('onl_sentiment_top_keywords_screenshot/<int:proj_pk>/', views.online_sentiment_top_keywords_screenshot, name='onl_sentiment_top_keywords_screenshot'),
 ]
 
 router.register('regular_reports', views.RegularReportViewSet, 'regular_reports')

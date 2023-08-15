@@ -3,7 +3,7 @@
     v-if="selectedWidgets"
     :selected-widgets="selectedWidgets"
     listWidth="100vw"
-    module-name="Social"
+    :module-name="widgetData.module_name"
     class="widget-screen"
   />
 </template>
@@ -33,7 +33,7 @@ export default {
           widgetName,
           this.widgetData.widget[widgetName],
           this.projectId,
-          'Social'
+          this.widgetData.module_name
         )
 
         return [
