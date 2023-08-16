@@ -1,6 +1,8 @@
 <template>
   <MainLayout>
-    <MainLayoutTitleBlock :title="`Hello, ${fullName} &#x1F44B;`" />
+    <MainLayoutTitleBlock title="Hello,">
+      {{ ` ${fullName} &#x1F44B;` }}
+    </MainLayoutTitleBlock>
 
     <div class="modules scroll">
       <div
@@ -14,8 +16,12 @@
         @click="$router.push({name: item.openRouteName})"
       >
         <div>
-          <h3 class="module-name">{{ item.name }}</h3>
-          <p class="module-description">{{ item.description }}</p>
+          <CustomText tag="h3" :text="item.name" class="module-name" />
+          <CustomText
+            tag="p"
+            :text="item.description"
+            class="module-description"
+          />
         </div>
 
         <BaseButton
@@ -28,7 +34,7 @@
           "
         >
           <PlusIcon />
-          <span>{{ item.buttonName }}</span>
+          <CustomText tag="span" :text="item.buttonName" />
         </BaseButton>
       </div>
     </div>
@@ -39,13 +45,20 @@
 import {mapGetters} from 'vuex'
 import {get} from '@store/constants'
 
+import CustomText from '@/components/CustomText'
 import MainLayout from '@components/layout/MainLayout'
 import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
 import BaseButton from '@components/common/BaseButton'
 import PlusIcon from '@/components/icons/PlusIcon'
 
 export default {
-  components: {BaseButton, MainLayout, MainLayoutTitleBlock, PlusIcon},
+  components: {
+    BaseButton,
+    MainLayout,
+    MainLayoutTitleBlock,
+    PlusIcon,
+    CustomText,
+  },
   computed: {
     ...mapGetters({userInfo: get.USER_INFO}),
     fullName() {
