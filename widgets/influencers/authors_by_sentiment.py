@@ -1,5 +1,6 @@
 from widgets.common_widget.project_posts_filter import project_posts_filter
-from common.descending_sort import descending_sort 
+from common.descending_sort import descending_sort
+from django.forms.models import model_to_dict
 from django.http import JsonResponse
 from django.db.models import Count
 
@@ -8,6 +9,14 @@ def get_authors_by_sentiment(pk, widget_pk):
     posts, widget = project_posts_filter(pk, widget_pk)
     results = calculate_authors_by_sentiment(posts, widget.top_counts)
     return JsonResponse(results, safe = False)
+
+def get_authors_by_sentiment_report(pk, widget_pk):
+    posts, widget = project_posts_filter(pk, widget_pk)
+    return {
+        'data': calculate_authors_by_sentiment(posts, widget.top_counts),
+        'widget': {'authors_by_sentiment': model_to_dict(widget)},
+        'module_name': 'Online'
+    } 
 
 def calculate_authors_by_sentiment(posts, top_counts):
     sentiments = ['positive', 'neutral', 'negative']

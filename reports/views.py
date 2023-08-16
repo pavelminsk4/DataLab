@@ -25,13 +25,22 @@ from project_social.widgets.summary.top_keywords import top_keywords_report
 from project_social.widgets.dashboard.summary_widget import summary_report
 from project_social.widgets.dashboard.sentiment import sentiment_report
 
+from widgets.common_widget.content_volume_top_countries import content_volume_top_countries_report as onl_content_volume_top_countries
+from widgets.common_widget.content_volume_top_sources import content_volume_top_sources_report as onl_content_volume_top_sources
+from widgets.common_widget.content_volume_top_authors import content_volume_top_authors_report as onl_content_volume_top_authors
 from widgets.common_widget.sentiment_top_countries import sentiment_top_countries_report as onl_sentiment_top_countries
 from widgets.common_widget.sentiment_top_languages import sentiment_top_languages_report as onl_sentiment_top_languages
 from widgets.demography.top_keywords_by_country import get_keywords_by_country_report as onl_top_keywords_by_country
 from widgets.common_widget.sentiment_top_sources import sentiment_top_sources_report as onl_sentiment_top_sources
 from widgets.common_widget.sentiment_top_authors import sentiment_top_authors_report as onl_sentiment_top_authors
 from widgets.sentiment.sentiment_top_keywords import sentiment_top_keywords_report as onl_sentiment_top_keywords
+from widgets.influencers.authors_by_sentiment import get_authors_by_sentiment_report as onl_authors_by_sentiment
 from widgets.demography.languages_by_country import get_languages_by_country_report as onl_languages_by_country
+from widgets.demography.sources_by_language import get_sources_by_language_report as onl_sources_by_language
+from widgets.influencers.authors_by_language import get_authors_by_language_report as onl_authors_by_language
+from widgets.influencers.overall_top_authors import get_overall_top_authors_report as onl_overall_top_authors
+from widgets.demography.top_sharing_sources import get_top_sharing_sources_report as onl_top_sharing_sources
+from widgets.demography.overall_top_sources import get_overall_top_sources_report as onl_overall_top_sources
 from widgets.sentiment.sentiment_number_of_results import number_of_results_report as onl_number_of_results
 from widgets.sentiment.sentiment_number_of_results import sentiment_diagram_report as onl_sentiment_diagram
 from widgets.common_widget.sentiment_for_period import sentiment_for_period_report as onl_sentiment_report
@@ -39,6 +48,8 @@ from widgets.influencers.authors_by_country import get_authors_by_country_report
 from widgets.demography.sources_by_country import get_sources_by_country_report as onl_sources_by_country
 from widgets.common_widget.top_sources import top_sources_report as onl_top_sources_report
 from widgets.common_widget.top_authors import top_authors_report as onl_top_authors_report
+from widgets.common_widget.top_languages import top_languages_report as onl_top_languages
+from widgets.common_widget.top_countries import top_countries_report as onl_top_countries
 
 from widgets.summary.top_keywords import top_keywords_report as onl_top_keywords_report
 from widgets.common_widget.volume_widget import volume_report as onl_volume_report
@@ -328,4 +339,59 @@ def online_languages_by_country_screenshot(request, proj_pk):
 def online_top_keywords_by_country_screenshot(request, proj_pk):
     wd_pk = WidgetsList2.objects.get(project_id=proj_pk).top_keywords_by_country.pk
     context = {'context': onl_top_keywords_by_country(proj_pk, wd_pk)}
+    return render(request, 'social_reports/base_template_screenshot.html', context)
+
+def online_top_sharing_sources_screenshot(request, proj_pk):
+    wd_pk = WidgetsList2.objects.get(project_id=proj_pk).top_sharing_sources.pk
+    context = {'context': onl_top_sharing_sources(proj_pk, wd_pk)}
+    return render(request, 'social_reports/base_template_screenshot.html', context)
+
+def online_authors_by_language_screenshot(request, proj_pk):
+    wd_pk = WidgetsList2.objects.get(project_id=proj_pk).authors_by_language.pk
+    context = {'context': onl_authors_by_language(proj_pk, wd_pk)}
+    return render(request, 'social_reports/base_template_screenshot.html', context)
+
+def online_overall_top_sources_screenshot(request, proj_pk):
+    wd_pk = WidgetsList2.objects.get(project_id=proj_pk).overall_top_sources.pk
+    context = {'context': onl_overall_top_sources(proj_pk, wd_pk)}
+    return render(request, 'social_reports/base_template_screenshot.html', context)
+
+def online_overall_top_authors_screenshot(request, proj_pk):
+    wd_pk = WidgetsList2.objects.get(project_id=proj_pk).overall_top_authors.pk
+    context = {'context': onl_overall_top_authors(proj_pk, wd_pk)}
+    return render(request, 'social_reports/base_template_screenshot.html', context)
+
+def online_authors_by_sentiment_screenshot(request, proj_pk):
+    wd_pk = WidgetsList2.objects.get(project_id=proj_pk).authors_by_sentiment.pk
+    context = {'context': onl_authors_by_sentiment(proj_pk, wd_pk)}
+    return render(request, 'social_reports/base_template_screenshot.html', context)
+
+def online_sources_by_language_screenshot(request, proj_pk):
+    wd_pk = WidgetsList2.objects.get(project_id=proj_pk).sources_by_language.pk
+    context = {'context': onl_sources_by_language(proj_pk, wd_pk)}
+    return render(request, 'social_reports/base_template_screenshot.html', context)
+
+def online_top_countries_screenshot(request, proj_pk):
+    wd_pk = WidgetsList2.objects.get(project_id=proj_pk).top_countries.pk
+    context = {'context': onl_top_countries(proj_pk, wd_pk)}
+    return render(request, 'social_reports/base_template_screenshot.html', context)
+
+def online_top_languages_screenshot(request, proj_pk):
+    wd_pk = WidgetsList2.objects.get(project_id=proj_pk).top_languages.pk
+    context = {'context': onl_top_languages(proj_pk, wd_pk)}
+    return render(request, 'social_reports/base_template_screenshot.html', context)
+
+def online_content_volume_top_sources_screenshot(request, proj_pk):
+    wd_pk = WidgetsList2.objects.get(project_id=proj_pk).content_volume_top_sources.pk
+    context = {'context': onl_content_volume_top_sources(proj_pk, wd_pk)}
+    return render(request, 'social_reports/base_template_screenshot.html', context)
+
+def online_content_volume_top_authors_screenshot(request, proj_pk):
+    wd_pk = WidgetsList2.objects.get(project_id=proj_pk).content_volume_top_authors.pk
+    context = {'context': onl_content_volume_top_authors(proj_pk, wd_pk)}
+    return render(request, 'social_reports/base_template_screenshot.html', context)
+
+def online_content_volume_top_countries_screenshot(request, proj_pk):
+    wd_pk = WidgetsList2.objects.get(project_id=proj_pk).content_volume_top_countries.pk
+    context = {'context': onl_content_volume_top_countries(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)

@@ -71,9 +71,15 @@ class ReportDocument:
                     
                     'onl_summary': ['summary', False],
                     'onl_volume': ['volume', True],
+                    'onl_sentiment_for_period': ['sentiment_for_period', True],
                     'onl_top_sources': ['top_sources', False],
                     'onl_top_authors': ['top_authors', False],
                     'onl_top_keywords': ['top_keywords', False],
+                    'onl_top_countries': ['top_countries', False],
+                    'onl_top_languages': ['top_languages', False],
+                    'onl_content_volume_top_sources': ['content_volume_top_sources', False],
+                    'onl_content_volume_top_authors': ['content_volume_top_authors', False],
+                    'onl_content_volume_top_countries': ['content_volume_top_countries', False],
                   }
         if True in [(True if getattr(self.item, widget) else False) for widget in widgets.keys()]:
             self.__font_one(cell.add_paragraph('').add_run('Summary'), cell)
@@ -96,7 +102,6 @@ class ReportDocument:
                     'onl_sentiment_diagram': ['sentiment_diagram', False],
                     'onl_sentiment_top_sources': ['sentiment_top_sources', False],
                     'onl_sentiment_top_countries': ['sentiment_top_countries', False],
-                    'onl_sentiment_top_authors': ['sentiment_top_authors', False],
                     'onl_sentiment_top_authors': ['sentiment_top_authors', False],
                     'onl_sentiment_top_languages': ['sentiment_top_languages', False],
                     'onl_sentiment_top_keywords': ['sentiment_top_keywords', False],
@@ -134,6 +139,13 @@ class ReportDocument:
         widgets = {
                     'soc_top_sharing_sources': ['top_sharing_sources', False],
                     'soc_authors_by_sentiment': ['authors_by_sentiment', False],
+                    
+                    'onl_top_sharing_sources': ['top_sharing_sources', False],
+                    'onl_authors_by_language': ['authors_by_language', False],
+                    'onl_overall_top_sources': ['overall_top_sources', False],
+                    'onl_overall_top_authors': ['overall_top_authors', False],
+                    'onl_authors_by_sentiment': ['authors_by_sentiment', False],
+                    'onl_sources_by_language': ['sources_by_language', False],
                   }
         if True in [(True if getattr(self.item, widget) else False) for widget in widgets.keys()]:
             self.__font_one(cell.add_paragraph('').add_run('Influencers'), cell)
@@ -176,9 +188,15 @@ class ReportDocument:
                     
                     'onl_summary': 'Summary',
                     'onl_volume': 'Content volume',
+                    'onl_sentiment_for_period': 'Sentiment for period',
                     'onl_top_sources': 'Top sources',
                     'onl_top_authors': 'Top authors',
                     'onl_top_keywords': 'Top keywords',
+                    'onl_top_countries': 'Top countries',
+                    'onl_top_languages': 'Top languages',
+                    'onl_content_volume_top_sources': 'Content Volume by top sources',
+                    'onl_content_volume_top_authors': 'Content volume by top authors',
+                    'onl_content_volume_top_countries': 'Content volume by top countries',
                     'onl_sentiment_number_of_results': 'Sentiment number of results',
                     'onl_sentiment_diagram': 'Sentiment diagram',
                     'onl_sentiment_top_sources': 'Sentiment top sources',
@@ -190,6 +208,12 @@ class ReportDocument:
                     'onl_authors_by_country': 'Authors by country',
                     'onl_languages_by_country': 'Top languages by country',
                     'onl_keywords_by_country': 'Top keywords by country',
+                    'onl_top_sharing_sources': 'Top sharing sources',
+                    'onl_authors_by_language': 'Authors by language',
+                    'onl_overall_top_sources': 'Overall top sources',
+                    'onl_overall_top_authors': 'Overall top authors',
+                    'onl_authors_by_sentiment': 'Authors by sentiment',
+                    'onl_sources_by_language': 'Sources by language',
                   }
         for widget in widgets.keys():
             if getattr(self.item, widget):

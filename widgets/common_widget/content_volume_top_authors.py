@@ -1,10 +1,26 @@
-from widgets.models import WidgetDescription
-from project.models import Project
+from .filters_for_widgets import missing_authors_filter
+from .project_posts_filter import project_posts_filter
+from django.forms.models import model_to_dict
+from django.db.models.functions import Trunc
 from django.http import JsonResponse
 from django.db.models import Count
-from django.db.models.functions import Trunc
-from .filters_for_widgets import *
 import json
+
+
+def content_volume_top_authors(request, pk, widget_pk):
+    posts, widget = project_posts_filter(pk, widget_pk)
+    body = json.loads(request.body)
+    aggregation_period = body['aggregation_period']
+    res = aggregator_results_content_volume_top_authors(posts, aggregation_period, widget.top_counts)
+    return JsonResponse(res, safe = False)
+
+def content_volume_top_authors_report(pk, widget_pk):
+    posts, widget = project_posts_filter(pk, widget_pk)
+    return {
+        'data': aggregator_results_content_volume_top_authors(posts, widget.aggregation_period, widget.top_counts),
+        'widget': {'content_volume_top_authors': model_to_dict(widget)},
+        'module_name': 'Online'
+    }
 
 def aggregator_results_content_volume_top_authors(posts, aggregation_period, top_counts):
   filtred_posts = missing_authors_filter(posts)
@@ -27,12 +43,3 @@ def aggregator_results_content_volume_top_authors(posts, aggregation_period, top
     res.append({top_authors[elem]: list_dates})
   return res
 
-def content_volume_top_authors(request, pk, widget_pk):
-  project = Project.objects.get(id=pk)
-  posts = post_agregator_with_dimensions(project)
-  widget = WidgetDescription.objects.get(id=widget_pk)
-  posts = post_agregetor_for_each_widget(widget, posts)
-  body = json.loads(request.body)
-  aggregation_period = body['aggregation_period']
-  res = aggregator_results_content_volume_top_authors(posts, aggregation_period, widget.top_counts)
-  return JsonResponse(res, safe = False)
