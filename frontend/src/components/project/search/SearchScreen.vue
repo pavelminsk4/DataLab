@@ -7,6 +7,7 @@
         name: 'workspace',
         routeName: `${moduleName}Workspace`,
       }"
+      :should-translate="false"
     >
       <TotalResults :total-results="numberOfPosts" />
     </MainLayoutTitleBlock>

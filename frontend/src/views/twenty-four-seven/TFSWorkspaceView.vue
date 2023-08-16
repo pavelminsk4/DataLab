@@ -9,6 +9,7 @@
           name: 'main page',
           routeName: 'TwentyFourSevenWorkspaces',
         }"
+        :should-translate="false"
       >
       </MainLayoutTitleBlock>
 

@@ -9,6 +9,7 @@
           name: 'workspaces',
           routeName: 'ComparisonWorkspaces',
         }"
+        :should-translate="false"
       >
       </MainLayoutTitleBlock>
 

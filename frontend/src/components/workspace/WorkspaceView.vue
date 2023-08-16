@@ -6,6 +6,7 @@
         :title="workspace.title"
         :description="workspace.description"
         :back-page="backPage"
+        :should-translate="false"
       >
         <component :is="`${moduleName}Icon`" class="online-icon" />
       </MainLayoutTitleBlock>

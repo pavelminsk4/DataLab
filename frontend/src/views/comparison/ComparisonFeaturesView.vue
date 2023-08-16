@@ -11,6 +11,7 @@
             name: 'workspaces',
             routeName: `ComparisonWorkspaces`,
           }"
+          :should-translate="false"
         />
       </div>
       <router-view

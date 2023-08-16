@@ -9,6 +9,7 @@
           name: 'main page',
           routeName: 'AccountAnalysisWorkspaces',
         }"
+        :should-translate="false"
       >
       </MainLayoutTitleBlock>
 

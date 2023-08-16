@@ -38,6 +38,7 @@
         name: 'workspace',
         routeName: 'SocialWorkspace',
       }"
+      :should-translate="false"
     >
       <TotalResults :total-results="numberOfPosts" />
     </MainLayoutTitleBlock>

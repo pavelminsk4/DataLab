@@ -39,6 +39,7 @@
         name: 'workspace',
         routeName: 'OnlineWorkspace',
       }"
+      :should-translate="false"
     >
       <TotalResults :total-results="numberOfPosts" />
     </MainLayoutTitleBlock>
