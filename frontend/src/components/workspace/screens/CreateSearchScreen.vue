@@ -14,7 +14,7 @@
     :class="['switcher', isExpertMode && 'switcher__active']"
     @click="switchTrigger"
   >
-    <span>Expert mode</span>
+    <CustomText tag="span" text="Expert mode" />
     <BaseSwitcher label="Expert mode" :value="isExpertMode" />
   </div>
 
@@ -39,13 +39,14 @@
 <script>
 import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
+import {expertModeFilters} from '@/lib/constants'
 
 import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
 import ProgressBar from '@/components/workspace/WorkspaceProgressBar'
 import SimpleModeTab from '@/components/workspace/SimpleModeTab'
 import BaseSwitcher from '@/components/BaseSwitcher'
 import ExpertModeTab from '@/components/workspace/ExpertModeTab'
-import {expertModeFilters} from '@/lib/constants'
+import CustomText from '@/components/CustomText'
 
 export default {
   name: 'CreateSearchScreen',
@@ -55,6 +56,7 @@ export default {
     SimpleModeTab,
     BaseSwitcher,
     ExpertModeTab,
+    CustomText,
   },
   emits: ['create-project', 'create-workspace', 'show-results'],
   props: {

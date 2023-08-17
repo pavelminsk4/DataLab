@@ -22,7 +22,10 @@
 
     <template #description>{{ postDetails.entry_summary }}</template>
 
-    <template #post-type><OnlineIcon class="icon" />Online</template>
+    <template #post-type>
+      <OnlineIcon class="icon" />
+      <CustomText text="Online" />
+    </template>
 
     <template #information>
       <div
@@ -30,7 +33,10 @@
         :key="item.name + index"
         class="post-card__information_block"
       >
-        <div class="post-card__information_block_name">{{ item.name }}</div>
+        <CustomText
+          :text="item.name"
+          class="post-card__information_block_name"
+        />
         <a
           v-if="item.name === 'SOURCE'"
           :href="getUrl(item.value)"
@@ -52,12 +58,14 @@ import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 import {defaultDate} from '@lib/utilities'
 
+import CustomText from '@/components/CustomText'
 import OnlineIcon from '@/components/icons/OnlineIcon'
 import PostCardLayout from '@/components/layout/PostCardLayout'
 
 export default {
   name: 'OnlinePostCard',
   components: {
+    CustomText,
     OnlineIcon,
     PostCardLayout,
   },

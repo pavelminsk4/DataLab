@@ -13,7 +13,7 @@
         >
           <div class="header-container">
             <component v-if="item.hasIcon" :is="`${item.iconName}Icon`" />
-            <span>{{ capitalizeFirstLetter(item.name) }}</span>
+            <CustomText tag="span" :text="capitalizeFirstLetter(item.name)" />
             <SortArrowIcon
               v-if="item.hasSort"
               :sort-by="sortBy[item.sortProperty]"
@@ -33,6 +33,7 @@
 import {capitalizeFirstLetter} from '@lib/utilities'
 import {SORT_BY} from '@lib/constants'
 
+import CustomText from '@/components/CustomText'
 import BaseCheckbox from '@/components/BaseCheckbox2'
 import SortArrowIcon from '@/components/icons/SortArrowIcon'
 import MostActiveAuthorIcon from '../icons/MostActiveAuthorIcon'
@@ -43,6 +44,7 @@ const {ASCENDING, DESCENDING} = SORT_BY
 export default {
   name: 'BaseTable',
   components: {
+    CustomText,
     BaseCheckbox,
     SortArrowIcon,
     MostActiveAuthorIcon,

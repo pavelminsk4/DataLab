@@ -13,7 +13,7 @@
           </button>
 
           <div class="title">
-            <div v-if="title">{{ title }}</div>
+            <CustomText v-if="title" :text="title" />
             <slot v-else name="title"></slot>
           </div>
 
@@ -28,11 +28,12 @@
 </template>
 
 <script>
+import CustomText from '@/components/CustomText'
 import CrossIcon from '@components/icons/CrossIcon'
 
 export default {
   name: 'BaseModal',
-  components: {CrossIcon},
+  components: {CrossIcon, CustomText},
   props: {
     closeIconClass: {type: String, default: ''},
     modalFrameStyle: {type: String, default: ''},

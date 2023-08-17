@@ -140,7 +140,7 @@ export default {
       },
       {
         name: 'Comparison module',
-        description: 'Monitor social media content created by influencers ',
+        description: 'Monitor social media content created by influencers',
         buttonName: 'Add Workspace',
         openRouteName: 'Comparison',
         createRouteName: 'ComparisonCreateWorkspace',

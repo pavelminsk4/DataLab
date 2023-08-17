@@ -1,7 +1,7 @@
 <template>
   <section class="key-words-settings">
     <div class="settings-wrapper">
-      <div class="second-title">Define the main keywords (OR)</div>
+      <CustomText text="Define the main keywords (OR)" class="second-title" />
       <BaseTag
         name="keywords"
         :model-value="mainKeywords"
@@ -12,7 +12,7 @@
         @update:modelValue="updateCollection"
       />
 
-      <div class="second-title">Add Additional keywords (And)</div>
+      <CustomText text="Add Additional keywords (And)" class="second-title" />
       <BaseTag
         :model-value="additionalKeywords"
         :textarea="true"
@@ -22,7 +22,10 @@
         @update:modelValue="updateCollection"
       />
 
-      <div class="second-title">Exclude Irrelevant keywords (And Not)</div>
+      <CustomText
+        text="Exclude Irrelevant keywords (And Not)"
+        class="second-title"
+      />
       <BaseTag
         :model-value="excludeKeywords"
         :is-irrelevant-keywords="true"
@@ -33,9 +36,10 @@
 
       <slot name="module-type"> </slot>
 
-      <div class="filters-title">
-        Refine youre search with additional filters
-      </div>
+      <CustomText
+        text="Refine youre search with additional filters"
+        class="filters-title"
+      />
 
       <component
         :is="`${moduleName}SearchForm`"
@@ -49,11 +53,12 @@
         class="apply-settings"
         @click="showResults"
       >
-        Preview
+        <CustomText text="Preview" />
       </BaseButton>
 
       <BaseButton :is-disabled="isDisabledButton" @click="saveProject">
-        <SaveIcon class="save-icon" /> Save Project
+        <SaveIcon class="save-icon" />
+        <CustomText text="Save Project" />
       </BaseButton>
     </div>
   </section>
@@ -63,6 +68,7 @@
 import {mapGetters} from 'vuex'
 import {get} from '@store/constants'
 
+import CustomText from '@/components/CustomText'
 import BaseTag from '@/components/BaseTag'
 import OnlineSearchForm from '@/components/project/OnlineSearchForm'
 import SocialSearchForm from '@/components/project/SocialSearchForm'
@@ -81,6 +87,7 @@ export default {
     TFSSearchForm,
     BaseTag,
     BaseTextarea,
+    CustomText,
   },
   props: {
     mainKeywords: {type: Array, default: () => []},

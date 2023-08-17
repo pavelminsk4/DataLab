@@ -7,7 +7,7 @@
       @clear-all="clearAll"
       @remove-item="removeChipsItem"
     />
-    <div class="title">Author</div>
+    <CustomText text="Author" class="title" />
 
     <SelectWithCheckboxes
       v-model="author"
@@ -20,7 +20,7 @@
       @get-selected-items="getValuesList"
     />
 
-    <div class="title">Country</div>
+    <CustomText text="Country" class="title" />
 
     <SelectWithCheckboxes
       v-model="country"
@@ -33,7 +33,7 @@
       @get-selected-items="getValuesList"
     />
 
-    <div class="title">Language</div>
+    <CustomText text="Language" class="title" />
 
     <SelectWithCheckboxes
       v-model="language"
@@ -46,7 +46,7 @@
       @get-selected-items="getValuesList"
     />
 
-    <div v-if="moduleName === 'Online'" class="title">Source</div>
+    <CustomText v-if="moduleName === 'Online'" text="Source" class="title" />
 
     <SelectWithCheckboxes
       v-if="moduleName === 'Online'"
@@ -60,7 +60,7 @@
       @get-selected-items="getValuesList"
     />
 
-    <div class="title">Sentiment</div>
+    <CustomText text="Sentiment" class="title" />
 
     <div class="sentiments">
       <BaseCheckbox
@@ -71,7 +71,7 @@
         :has-icon="false"
         :class="['item', isCheckedElement(item) && `${item}-item`]"
       >
-        {{ capitalizeFirstLetter(item) }}
+        <CustomText :text="capitalizeFirstLetter(item)" />
       </BaseCheckbox>
     </div>
   </div>
@@ -83,6 +83,7 @@ import {action as actionSocial} from '@store/constants'
 import {mapActions, mapGetters, createNamespacedHelpers} from 'vuex'
 import {capitalizeFirstLetter} from '@/lib/utilities'
 
+import CustomText from '@/components/CustomText'
 import BaseCheckbox from '@/components/BaseCheckbox2'
 import SelectWithCheckboxes from '@/components/SelectWithCheckboxes'
 import FilterChips from '@/components/FilterChips'
@@ -95,6 +96,7 @@ export default {
     BaseCheckbox,
     SelectWithCheckboxes,
     FilterChips,
+    CustomText,
   },
   props: {
     moduleName: {type: String, required: true},

@@ -4,7 +4,7 @@
       <CommonCalendar width="100%" position="bottom" />
     </div>
     <div>
-      <span>Topic query</span>
+      <CustomText tag="span" text="Topic query" />
       <div class="expert-area">
         <div class="custom-textarea">
           <!-- <div
@@ -21,32 +21,32 @@
           />
         </div>
         <div class="hints">
-          <h4>Syntax</h4>
+          <CustomText tag="h4" text="Syntax" />
           <div class="hints__section">
-            <span
+            <CustomText
               v-for="item in hints.syntax"
-              class="hint"
-              :style="{color: item.color}"
               :key="item.value"
-            >
-              {{ item.value }}
-            </span>
+              :style="{color: item.color}"
+              tag="span"
+              :text="item.value"
+              class="hint"
+            />
           </div>
-          <h4>Filters</h4>
+          <CustomText tag="h4" text="Filters" />
           <div class="hints__section">
-            <span
+            <CustomText
               v-for="item in filters"
-              class="hint expert-mode_defaultColor"
               :key="item"
-            >
-              {{ item }}
-            </span>
+              tag="span"
+              :text="item"
+              class="hint expert-mode_defaultColor"
+            />
           </div>
         </div>
       </div>
       <div :class="['no-error', bracketsError.isError && 'error']">
         <ErrorIcon />
-        <span>{{ bracketsError.message }}</span>
+        <CustomText tag="span" :text="bracketsError.message" />
       </div>
     </div>
 
@@ -57,27 +57,30 @@
         class="apply-settings"
         @click="showResults"
       >
-        Preview
+        <CustomText text="Preview" />
       </BaseButton>
 
       <BaseButton
         :is-disabled="bracketsError.isError || !textAreaValue"
         @click="saveProject"
       >
-        <SaveIcon class="save-icon" /> Save Project
+        <SaveIcon class="save-icon" />
+        <CustomText text="Save Project" />
       </BaseButton>
     </div>
   </div>
 </template>
 
 <script>
+import CustomText from '@/components/CustomText'
 import BaseButton from '@/components/common/BaseButton'
 import CommonCalendar from '@/components/datepicker/CommonCalendar'
 import ErrorIcon from '@/components/icons/ErrorIcon'
 import SaveIcon from '@/components/icons/SaveIcon'
+
 export default {
   name: 'ExpertModeTab',
-  components: {BaseButton, CommonCalendar, ErrorIcon, SaveIcon},
+  components: {BaseButton, CommonCalendar, ErrorIcon, SaveIcon, CustomText},
   props: {
     defaultQuery: {type: String, default: ''},
     filters: {type: Array, required: true},

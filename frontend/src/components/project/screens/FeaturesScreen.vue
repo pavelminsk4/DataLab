@@ -13,7 +13,8 @@
         <TotalResults :total-results="numberOfPosts" />
       </MainLayoutTitleBlock>
       <BaseButton :is-not-background="true" class="btn-report">
-        <ReportsUploadIcon /> Download Report
+        <ReportsUploadIcon />
+        <CustomText text=" Download Report" />
       </BaseButton>
     </div>
     <router-view :current-project="currentProject"></router-view>
@@ -25,6 +26,7 @@ import MainLayoutTitleBlock from '@/components/layout/MainLayoutTitleBlock'
 import BaseButton from '@/components/common/BaseButton'
 import ReportsUploadIcon from '@/components/icons/ReportsUploadIcon'
 import TotalResults from '@/components/TotalResults'
+import CustomText from '@/components/CustomText'
 
 export default {
   name: 'FeaturesScreen',
@@ -33,6 +35,7 @@ export default {
     BaseButton,
     ReportsUploadIcon,
     TotalResults,
+    CustomText,
   },
   props: {
     currentProject: {type: [Array, Object], required: false},

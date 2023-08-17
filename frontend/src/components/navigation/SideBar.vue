@@ -12,7 +12,7 @@
           :class="[item.routeName === routeName && 'active-icon', 'icon']"
         />
 
-        <div class="sidebar-item-name">{{ item.name }}</div>
+        <CustomText :text="item.name" class="sidebar-item-name" />
       </li>
     </ul>
   </nav>
@@ -31,6 +31,7 @@ import InfluencersIcon from '@/components/icons/InfluencersIcon'
 import OptimizationIcon from '@/components/icons/OptimizationIcon'
 import FollowersIcon from '@/components/icons/FollowersIcon'
 import PostsIcon from '@/components/icons/PostsIcon'
+import CustomText from '@/components/CustomText'
 
 export default {
   name: 'SideBar',
@@ -47,6 +48,7 @@ export default {
     OptimizationIcon,
     PostsIcon,
     FollowersIcon,
+    CustomText,
   },
   props: {
     navUrls: {type: Array, required: true},

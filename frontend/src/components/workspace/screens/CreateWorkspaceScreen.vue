@@ -13,9 +13,9 @@
   <div class="form-wrapper">
     <BaseInput v-model="workspaceName" label="Name" />
 
-    <h4 class="label">Description</h4>
     <BaseTextarea
       v-model="workspaceDescription"
+      label="Description"
       placeholder="Some words about Workspace"
     />
 
@@ -24,7 +24,7 @@
       class="next-button"
       @click="nextStep"
     >
-      <span>Next</span>
+      <CustomText tag="span" text="Next" />
       <ArrowLeftIcon class="button-arrow-icon" />
     </BaseButton>
   </div>
@@ -40,6 +40,7 @@ import BaseInput from '@/components/common/BaseInput'
 import BaseTextarea from '@/components/common/BaseTextarea'
 import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
 import ProgressBar from '@/components/workspace/WorkspaceProgressBar'
+import CustomText from '@/components/CustomText'
 
 export default {
   name: 'CreateWorkspaceScreen',
@@ -50,6 +51,7 @@ export default {
     BaseTextarea,
     MainLayoutTitleBlock,
     ProgressBar,
+    CustomText,
   },
   props: {
     moduleName: {
