@@ -1,19 +1,20 @@
 <template>
   <div class="chips-container">
     <div v-for="(item, index) in items" :key="item + index" class="chip">
-      {{ item }}
+      <CustomText :text="item" />
       <CrossIcon class="icon" @click="removeItem(item)" />
     </div>
-    <div class="active-button" @click="clearAll">Clear All</div>
+    <CustomText text="Clear All" class="active-button" @click="clearAll" />
   </div>
 </template>
 
 <script>
+import CustomText from '@/components/CustomText'
 import CrossIcon from '@/components/icons/CrossIcon'
 
 export default {
   name: 'FilterChips',
-  components: {CrossIcon},
+  components: {CrossIcon, CustomText},
   props: {
     items: {
       type: Array,
