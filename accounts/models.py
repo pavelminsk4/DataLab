@@ -30,12 +30,20 @@ class Profile(models.Model):
     WRITER = 'writer'
     PUBLISHER = 'publisher'
 
+    AR = 'ar'
+    EN = 'en'
+
     ROLE_CHOICES = (
         (COMPANY, 'Company'),
         (REGULAR_USER, 'Regular User'),
         (PICKER, 'Picker'),
         (WRITER, 'Writer'),
         (PUBLISHER, 'Publisher'),
+    )
+
+    PLATFORM_LANGUAGE_CHOICES = (
+        (AR, 'Arabic'),
+        (EN, 'English'),
     )
     
     user = models.OneToOneField(User,on_delete=models.CASCADE,related_name='user_profile')
@@ -44,6 +52,7 @@ class Profile(models.Model):
     department = models.ForeignKey(department,blank=True,null=True,on_delete=models.CASCADE,related_name='department_users',verbose_name ='Department')
     photo = models.ImageField(upload_to='static/user_image', blank=True)
     role = models.CharField(max_length=30, choices=ROLE_CHOICES, blank=True, null=True, default=ROLE_CHOICES[1][1])
+    platform_language = models.CharField(max_length=10, choices=PLATFORM_LANGUAGE_CHOICES, default=PLATFORM_LANGUAGE_CHOICES[1][1])
 
     def save(self, *args, **kwargs):
         if self.department:
