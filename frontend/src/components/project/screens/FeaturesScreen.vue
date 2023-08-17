@@ -14,7 +14,7 @@
       </MainLayoutTitleBlock>
       <BaseButton :is-not-background="true" class="btn-report">
         <ReportsUploadIcon />
-        <CustomText text=" Download Report" />
+        <CustomText text="Download Report" />
       </BaseButton>
     </div>
     <router-view :current-project="currentProject"></router-view>

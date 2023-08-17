@@ -74,7 +74,7 @@
             @click="toggleWidgetsModal('isOpenWidgetsModal')"
           >
             <PlusIcon class="icon" />
-            <CustomText text=" Add Widgets" />
+            <CustomText text="Add Widgets" />
           </BaseButton>
 
           <FiltersIcon

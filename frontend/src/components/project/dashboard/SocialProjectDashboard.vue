@@ -64,7 +64,7 @@
           class="button-upload"
           @click="toggleWidgetsModal('DownloadReportModal')"
         >
-          <ReportsUploadIcon /> Download Report
+          <ReportsUploadIcon />Download Report
         </BaseButton>
 
         <div class="navigation-bar">

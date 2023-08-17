@@ -9,14 +9,19 @@
       ]"
       @click="toggleSettingsPanel"
     >
-      {{ button }}
+      <CustomText :text="button" />
     </div>
   </div>
 </template>
 
 <script>
+import CustomText from '@/components/CustomText'
+
 export default {
   name: 'BaseTabs',
+  components: {
+    CustomText,
+  },
   props: {
     mainSettings: {
       type: Array,

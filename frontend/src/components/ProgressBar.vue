@@ -25,13 +25,15 @@
         :key="`label_${index}`"
         class="label"
       >
-        {{ step }}
+        <CustomText :text="step" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import CustomText from '@/components/CustomText'
+
 import RectangleIcon from '@/components/icons/RectangleIcon'
 import TickIcon from '@/components/icons/TickIcon'
 
@@ -40,6 +42,7 @@ export default {
   components: {
     RectangleIcon,
     TickIcon,
+    CustomText,
   },
   props: {
     step: {type: String, default: ''},
