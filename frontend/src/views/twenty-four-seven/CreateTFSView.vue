@@ -9,7 +9,6 @@
             name: 'main page',
             routeName: 'MainView',
           }"
-          :should-translate="false"
         />
 
         <ProgressBar :step="currentStep" />

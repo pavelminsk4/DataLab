@@ -9,7 +9,6 @@
             name: 'main page',
             routeName: 'MainView',
           }"
-          :should-translate="false"
         />
 
         <ProgressBar :step="currentStep" />
@@ -53,7 +52,7 @@ export default {
         step2: {
           title: 'Account Analysis',
           description:
-            'Monitor social media content created by your brand and influencers ',
+            'Monitor social media content created by your brand and influencers',
         },
       }
       return data[this.currentStep]
