@@ -3,6 +3,7 @@ from twenty_four_seven.serializers import ProjectTwentyFourSevenPostSerializer
 from twenty_four_seven.serializers import ProjectTwentyFourSevenSerializer
 from twenty_four_seven.serializers import WorkspaceTwentyFourSevenPostSerializer
 from twenty_four_seven.serializers import WorkspaceTwentyFourSevenSerializer
+from common.translator.translate_long_text import translate_long_text
 from rest_framework.pagination import PageNumberPagination
 from twenty_four_seven.serializers import ItemPatchSerializer
 from twenty_four_seven.serializers import ItemSerializer
@@ -160,11 +161,12 @@ def top_similar(item_id,threshold=0.5):
         return Item.objects.none()
     
 
+
 def translator(request):
     data = json.loads(request.body)
     text = data['text']
     target_lang = data['target_lang']
-    translated_text = GoogleTranslator(source='auto', target=target_lang).translate(text=text)
+    translated_text = translate_long_text(text, target_lang)
     return JsonResponse({'translated_text': translated_text}, safe=False)
 
 
