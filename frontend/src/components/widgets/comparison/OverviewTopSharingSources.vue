@@ -10,8 +10,8 @@
     @open-modal="$emit('open-settings-modal')"
   >
     <BaseTable
-      v-for="(tableHeader, index) in widgetHeaders"
-      :key="'table' + index"
+      v-for="(tableHeader, tableIndex) in widgetHeaders"
+      :key="'table' + tableIndex"
       :table-header="tableHeader"
       :has-checkbox="false"
       class="overall-top-authors"
@@ -28,30 +28,34 @@
         </td>
         <td>{{ project.project }}</td>
         <td class="most-cell">
-          <UserAvatar :avatarUrl="project.data[0].picture" />
+          <UserAvatar :avatarUrl="project.data[tableIndex].picture" />
           <div class="author-cell">
-            <span>{{ project.data[0].name }}</span>
+            <span>{{ project.data[tableIndex].name }}</span>
             <span class="author-cell__alias">
-              <span v-if="project.data[0].alias">@</span
-              >{{ project.data[0].alias || project.data[0].url }}
+              <span v-if="project.data[tableIndex].alias">@</span
+              >{{
+                project.data[tableIndex].alias || project.data[tableIndex].url
+              }}
             </span>
           </div>
         </td>
-        <td v-if="project.data[0].gender">
-          <BaseChips :chips-type="project.data[0].gender" />
+        <td v-if="project.data[tableIndex].gender">
+          <BaseChips :chips-type="project.data[tableIndex].gender" />
         </td>
-        <td v-if="project.data[0].source">
+        <td v-if="project.data[tableIndex].source">
           <component
-            :is="`${project.data[0].source}Icon`"
+            :is="`${project.data[tableIndex].source}Icon`"
             class="twitter-icon icon"
           />
         </td>
-        <td>{{ project.data[0].value }}</td>
+        <td>{{ project.data[tableIndex].value }}</td>
         <td>
           <ChartsView
-            :chart-values="datasets(project.data[0])"
+            :chart-values="datasets(project.data[tableIndex])"
             :chart-type="chartType || 'StackedBarChart'"
-            :iteractiveLabel="project.data[0].alias || project.data[0].name"
+            :iteractiveLabel="
+              project.data[tableIndex].alias || project.data[tableIndex].name
+            "
             :widget-details="widgetDetails"
           />
         </td>

@@ -9,7 +9,7 @@
 import OverviewTopSharingSources from '@/components/widgets/comparison/OverviewTopSharingSources'
 
 export default {
-  name: 'TopSharingSourcecWidget',
+  name: 'TopSharingSourcesWidget',
   components: {OverviewTopSharingSources},
   props: {
     widgetDetails: {type: Object, required: true},
