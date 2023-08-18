@@ -16,7 +16,7 @@ redis==4.3.4
 django-celery-beat
 django-celery-results
 
-nltk
+nltk==3.8.1
 drf_writable_nested
 
 django-countries-plus==2.1.0
