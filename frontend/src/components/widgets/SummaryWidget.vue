@@ -17,7 +17,8 @@
           :style="`background-color: ${item.backgroundColor}`"
           class="icon"
         />
-        <div class="title">{{ item.name }}</div>
+        {{ cons(item.name) }}
+        <CustomText :text="item.name" class="title" />
         <div class="value">{{ summaryWidgetData[item.valueName] }}</div>
       </div>
     </div>
@@ -25,6 +26,7 @@
 </template>
 
 <script>
+import CustomText from '@/components/CustomText'
 import NewPostIcon from '@/components/icons/NewPostIcon'
 import NeutralIcon from '@/components/icons/NeutralIcon'
 import NegativeIcon from '@/components/icons/NegativeIcon'
@@ -53,6 +55,7 @@ export default {
     CountryIcon,
     AuthorIcon,
     WidgetsLayout,
+    CustomText,
   },
   props: {
     widgetDetails: {type: Object, required: true},
@@ -63,6 +66,11 @@ export default {
   computed: {
     widgetWrapper() {
       return this.isSettings ? 'div' : 'WidgetsLayout'
+    },
+  },
+  methods: {
+    cons(val) {
+      console.log(val)
     },
   },
 }

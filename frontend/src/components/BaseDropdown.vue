@@ -4,8 +4,13 @@
     :class="[`dropdown-wrapper-${name}`, 'dropdown-wrapper']"
   >
     <div class="container-placeholder">
-      <div :style="titleStyle" class="title">{{ title }}</div>
-      <div v-if="selectedValue" class="selected-value">{{ selectedValue }}</div>
+      <CustomText :text="title" :style="titleStyle" class="title" />
+      <CustomText
+        v-if="selectedValue"
+        :text="selectedValue"
+        class="selected-value"
+      />
+      <slot name="selectedValue"></slot>
       <ArrowDownIcon
         :class="[isOpenDropdown && 'arrow-open-dropdown', 'arrow-down']"
       />
@@ -22,11 +27,12 @@
 </template>
 
 <script>
+import CustomText from '@/components/CustomText'
 import ArrowDownIcon from '@/components/icons/ArrowDownIcon'
 
 export default {
   name: 'BaseDropdown',
-  components: {ArrowDownIcon},
+  components: {ArrowDownIcon, CustomText},
   props: {
     title: {type: String, default: ''},
     selectedValue: {type: [Number, String, Object], default: null},
@@ -97,8 +103,6 @@ export default {
 
     min-width: 100%;
 
-    background: var(--progress-line);
-    border: 1px solid transparent;
     border-radius: 8px;
     box-shadow: 1px 2px 6px rgba(135, 135, 135, 0.25);
 

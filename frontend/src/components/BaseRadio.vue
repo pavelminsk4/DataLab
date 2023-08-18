@@ -12,15 +12,21 @@
     />
     <div class="content">
       <slot></slot>
-      {{ label }}
+
+      <CustomText :text="label" />
     </div>
     <span class="checkmark"></span>
   </label>
 </template>
 
 <script>
+import CustomText from '@/components/CustomText'
+
 export default {
   name: 'BaseRadio',
+  components: {
+    CustomText,
+  },
   props: ['modelValue', 'label', 'value', 'id'],
 }
 </script>

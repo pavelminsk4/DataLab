@@ -10,13 +10,13 @@
 
     <div class="general-wrapper-settings scroll">
       <BaseTabs
-        :main-settings="widgetDetails.settingsTabs"
-        default-tab="General"
+        :main-settings="mainSettings"
+        :default-tab="defaultTab"
         @update-setting-panel="updateSettingPanel"
       />
 
       <BasicSettingsScreen
-        v-if="panelName === 'General'"
+        v-if="hasBaseSettings"
         :period="widgetDetails.aggregation_period"
         :widget-title="widgetDetails.title"
         :widget-description="widgetDetails.description"
@@ -26,7 +26,7 @@
       />
 
       <FiltersScreen
-        v-if="panelName === 'Filters'"
+        v-if="hasFilters"
         :module-name="widgetDetails.moduleName"
         :project-id="widgetDetails.projectId"
         :authors-filters="
@@ -47,7 +47,7 @@
       />
 
       <ChartTypesRadio
-        v-if="panelName === 'Chart Layout'"
+        v-if="hasChartLayout"
         :selected="widgetDetails.chart_type || widgetDetails.defaultChartType"
         :widget-name="widgetDetails.name"
         :project-id="widgetDetails.projectId"
@@ -63,6 +63,9 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
+import {get} from '@store/constants'
+
 import BaseTabs from '@/components/project/widgets/modals/BaseTabs'
 import FiltersScreen from '@/components/project/screens/FiltersScreen'
 import BasicSettingsScreen from '@/components/project/widgets/modals/screens/BasicSettingsScreen'
@@ -86,10 +89,35 @@ export default {
   data() {
     return {
       panelName: 'General',
+      panelNames: ['General', 'لمحة عامة'],
       newWidgetTitle: '',
       newWidgetDescription: '',
       newAggregationPeriod: '',
     }
+  },
+  computed: {
+    ...mapGetters({
+      platformLanguage: get.PLATFORM_LANGUAGE,
+    }),
+    mainSettings() {
+      console.log(this.widgetDetails.settingsTabs[this.platformLanguage])
+      return this.widgetDetails.settingsTabs[this.platformLanguage]
+    },
+    defaultTab() {
+      return this.widgetDetails.settingsTabs[this.platformLanguage][0]
+    },
+    hasBaseSettings() {
+      return this.panelName === 'General' || this.panelName === 'لمحة عامة'
+    },
+    hasFilters() {
+      return this.panelName === 'Filters' || this.panelName === 'الفلاتر'
+    },
+    hasChartLayout() {
+      return (
+        this.panelName === 'Chart Layout' ||
+        this.panelName === 'تخطيط الرسم البياني'
+      )
+    },
   },
   methods: {
     updateSettingPanel(val) {

@@ -1,7 +1,7 @@
 <template>
   <section class="widget-layout-wrapper">
     <div class="widget-layout-wrapper__header">
-      <div class="title">{{ title }}</div>
+      <CustomText :text="title" class="title" />
 
       <div class="setting-buttons">
         <div v-if="isShowSettingsBtn" class="button" @click="openSettingsModal">
@@ -23,13 +23,14 @@
 import {mapGetters} from 'vuex'
 import {get} from '@store/constants'
 
+import CustomText from '@/components/CustomText'
 import BaseSpinner from '@/components/BaseSpinner'
 import SettingsIcon from '@/components/icons/SettingsIcon'
 import CrossIcon from '@/components/icons/CrossIcon'
 
 export default {
   name: 'WidgetsLayout',
-  components: {CrossIcon, BaseSpinner, SettingsIcon},
+  components: {CrossIcon, BaseSpinner, SettingsIcon, CustomText},
   props: {
     title: {type: String, default: ''},
     widgetId: {type: Number, default: 0},

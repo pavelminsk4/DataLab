@@ -22,13 +22,14 @@
       type="text"
       :list="id"
       :name="name"
+      :dir="currentDir"
+      :placeholder="currentPlaceholder"
       autocomplete="off"
+      class="input"
       @keydown.enter="addTag(newTag)"
       @keydown.prevent.tab="addTag(newTag)"
       @keydown.delete="newTag.length || removeTag(tags.length - 1)"
       @input="addTagIfDelem(newTag)"
-      :placeholder="placeholder"
-      class="input"
     />
 
     <div v-if="hasError" class="error-container">
@@ -40,6 +41,8 @@
 
 <script>
 import {ref, watch, nextTick, onMounted} from 'vue'
+import {mapGetters, mapActions} from 'vuex'
+import {get, action} from '@store/constants'
 import DeleteTagButton from '@/components/icons/DeleteTagButton'
 import ErrorIcon from '@/components/icons/ErrorIcon'
 
@@ -47,46 +50,17 @@ export default {
   name: 'BaseTag',
   components: {ErrorIcon, DeleteTagButton},
   props: {
-    modelValue: {
-      type: Array,
-      default: () => [],
-    },
-    allowCustom: {
-      type: Boolean,
-      default: true,
-    },
-    tagClass: {
-      type: String,
-      default: '',
-    },
-    name: {
-      type: String,
-      default: '',
-    },
-    isAdditionalKeywords: {
-      type: Boolean,
-      default: false,
-    },
-    placeholder: {
-      type: String,
-      default: 'Enter text',
-    },
-    isIrrelevantKeywords: {
-      type: Boolean,
-      default: false,
-    },
-    textarea: {
-      type: Boolean,
-      default: false,
-    },
-    hasError: {
-      type: Boolean,
-      default: false,
-    },
-    errorMessage: {
-      type: String,
-      default: 'Error',
-    },
+    modelValue: {type: Array, default: () => []},
+    allowCustom: {type: Boolean, default: true},
+    tagClass: {type: String, default: ''},
+    name: {type: String, default: ''},
+    isAdditionalKeywords: {type: Boolean, default: false},
+    placeholder: {type: String, default: 'Enter text'},
+    isIrrelevantKeywords: {type: Boolean, default: false},
+    textarea: {type: Boolean, default: false},
+    hasError: {type: Boolean, default: false},
+    errorMessage: {type: String, default: 'Error'},
+    dir: {type: String, default: 'ltr'},
     customDelimiter: {
       type: [String, Array],
       default: () => [],
@@ -98,6 +72,24 @@ export default {
         return true
       },
     },
+  },
+  computed: {
+    ...mapGetters({
+      platformLanguages: get.PLATFORM_LANGUAGE,
+      translated: get.TRANSLATION,
+    }),
+    currentDir() {
+      return this.platformLanguages === 'ar' ? 'rtl' : this.dir
+    },
+    currentPlaceholder() {
+      if (this.platformLanguage === 'en') return this.placeholder
+
+      this[action.GET_TRANSLATED_TEXT](this.placeholder)
+      return this.translated[this.placeholder]
+    },
+  },
+  methods: {
+    ...mapActions([action.GET_TRANSLATED_TEXT]),
   },
   setup(props, {emit}) {
     const tags = ref(props.modelValue)

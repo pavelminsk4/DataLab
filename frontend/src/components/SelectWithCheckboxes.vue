@@ -13,8 +13,9 @@
         v-if="isSearch"
         v-bind="$attrs"
         type="text"
+        :dir="currentDir"
         :value="modelValue"
-        :placeholder="placeholder"
+        :placeholder="currentPlaceholder"
         :class="['input', isSearch && 'input-search', 'select-search']"
         @focus="visible = true"
         @input="handleInput"
@@ -44,22 +45,26 @@
     </div>
 
     <div v-if="hasError" class="error-container">
-      {{ errorMessage }}
+      <CustomText :text="errorMessage" />
       <ErrorIcon class="error-icon" />
     </div>
   </div>
 </template>
 
 <script>
+import {mapGetters, mapActions} from 'vuex'
+import {get, action} from '@store/constants'
+import CustomText from '@/components/CustomText'
 import ArrowDownIcon from '@/components/icons/ArrowDownIcon'
 import ErrorIcon from '@/components/icons/ErrorIcon'
 import BaseCheckbox from '@/components/BaseCheckbox'
 
 export default {
   name: 'SelectWithCheckboxes',
-  components: {BaseCheckbox, ErrorIcon, ArrowDownIcon},
+  components: {BaseCheckbox, ErrorIcon, ArrowDownIcon, CustomText},
   emits: ['update:modelValue', 'select-option', 'get-selected-items'],
   props: {
+    dir: {type: String, default: 'ltr'},
     list: {type: Array, default: null},
     placeholder: {type: String, default: 'Select option'},
     name: {type: String, required: true},
@@ -79,6 +84,19 @@ export default {
     }
   },
   computed: {
+    ...mapGetters({
+      platformLanguages: get.PLATFORM_LANGUAGE,
+      translated: get.TRANSLATION,
+    }),
+    currentDir() {
+      return this.platformLanguages === 'ar' ? 'rtl' : this.dir
+    },
+    currentPlaceholder() {
+      if (this.platformLanguage === 'en') return this.placeholder
+
+      this[action.GET_TRANSLATED_TEXT](this.placeholder)
+      return this.translated[this.placeholder]
+    },
     selectList() {
       if (this.isSearch && !!this.modelValue) {
         return this.list.filter((item) => {
@@ -116,6 +134,7 @@ export default {
     },
   },
   methods: {
+    ...mapActions([action.GET_TRANSLATED_TEXT]),
     toggle() {
       if (this.visible) {
         this.close()

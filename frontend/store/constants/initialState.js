@@ -115,7 +115,7 @@ export default {
     clippingWidget: false,
   },
   translation: {},
-  platformLanguage: 'en',
+  platformLanguage: 'ar',
   currentStep: '',
   projects: [],
   workspaces: [],

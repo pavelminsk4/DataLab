@@ -14,26 +14,29 @@
         v-bind="$attrs"
         :value="modelValue"
         :class="['input', isSearch && 'input-search']"
-        :placeholder="placeholder"
+        :placeholder="currentPlaceholder"
+        :dir="currentDir"
         type="text"
         class="select-search"
         @input="handleInput"
         @focus="focusInput"
       />
-      <div v-else-if="!value && !isSearch" class="placeholder">
-        {{ placeholder }}
-      </div>
+      <CustomText
+        v-else-if="!value && !isSearch"
+        :text="placeholder"
+        class="placeholder"
+      />
       <div v-else-if="!isSearch">{{ value }}</div>
     </div>
     <div :class="{hidden: !visible, visible}">
       <ul v-if="visible && list.length" class="select-list scroll">
-        <li
+        <CustomText
           v-if="isRejectSelection"
-          @click="select('Reject selection')"
+          tag="li"
+          text="Reject selection"
           class="select-item"
-        >
-          Reject selection
-        </li>
+          @click="select('Reject selection')"
+        />
         <li
           v-for="item in selectList"
           :key="item"
@@ -48,13 +51,16 @@
 </template>
 
 <script>
+import {mapGetters, mapActions} from 'vuex'
+import {get, action} from '@store/constants'
 import debounce from 'lodash/debounce'
-
+import CustomText from '@/components/CustomText'
 import BaseButtonSpinner from '@/components/BaseButtonSpinner'
 
 export default {
   emits: ['update:modelValue', 'select-option', 'focus-input'],
   components: {
+    CustomText,
     BaseButtonSpinner,
   },
   props: {
@@ -67,6 +73,7 @@ export default {
     currentValue: {type: [String, Array], required: false},
     isClearSelectedValue: {type: Boolean, default: false},
     isLoading: {type: Boolean, default: false},
+    dir: {type: String, default: 'ltr'},
   },
   data() {
     return {
@@ -84,6 +91,19 @@ export default {
     document.addEventListener('click', this.close)
   },
   computed: {
+    ...mapGetters({
+      platformLanguages: get.PLATFORM_LANGUAGE,
+      translated: get.TRANSLATION,
+    }),
+    currentDir() {
+      return this.platformLanguages === 'ar' ? 'rtl' : this.dir
+    },
+    currentPlaceholder() {
+      if (this.platformLanguage === 'en') return this.placeholder
+
+      this[action.GET_TRANSLATED_TEXT](this.placeholder)
+      return this.translated[this.placeholder]
+    },
     selectList() {
       if (this.isSearch && !!this.modelValue) {
         return this.list.filter((item) => {
@@ -101,6 +121,7 @@ export default {
     },
   },
   methods: {
+    ...mapActions([action.GET_TRANSLATED_TEXT]),
     handleInput: debounce(function (e) {
       this.$emit('update:modelValue', e.target.value, this.name)
     }, 500),

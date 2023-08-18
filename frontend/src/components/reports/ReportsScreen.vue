@@ -170,8 +170,8 @@ export default {
       {name: `time`, width: ''},
       {name: `language`, width: ''},
       {name: `format`, width: ''},
-      {name: `recipient's `, width: ''},
-      {name: `creator `, width: ''},
+      {name: `recipient's`, width: ''},
+      {name: `creator`, width: ''},
     ]
   },
   methods: {

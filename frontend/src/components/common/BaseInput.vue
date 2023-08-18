@@ -1,22 +1,22 @@
 <template>
   <label v-if="label" :for="label">
-    <div class="label">{{ label }}</div>
+    <CustomText :text="label" class="label" />
     <div :class="['input-wrapper', hasError && 'error']">
       <SearchIcon v-if="isSearch" class="search-icon" />
       <input
         v-bind="$attrs"
         :type="inputType"
         :id="label"
-        :dir="dir"
+        :dir="currentDir"
         :value="modelValue"
         :class="['input', isSearch && 'input-search']"
-        :placeholder="placeholder"
+        :placeholder="currentPlaceholder"
         :autocomplete="autocomplete"
         @input="debounceInput"
       />
 
       <div v-if="hasError" class="error-container">
-        {{ errorMessage }}
+        <CustomText :text="errorMessage" />
         <ErrorIcon class="error-icon" />
       </div>
 
@@ -26,7 +26,10 @@
 </template>
 
 <script>
+import {mapGetters, mapActions} from 'vuex'
+import {get, action} from '@store/constants'
 import debounce from 'lodash/debounce'
+import CustomText from '@/components/CustomText'
 import SearchIcon from '@/components/icons/SearchIcon'
 import ErrorIcon from '@/components/icons/ErrorIcon'
 
@@ -46,8 +49,25 @@ export default {
   components: {
     ErrorIcon,
     SearchIcon,
+    CustomText,
+  },
+  computed: {
+    ...mapGetters({
+      platformLanguages: get.PLATFORM_LANGUAGE,
+      translated: get.TRANSLATION,
+    }),
+    currentDir() {
+      return this.platformLanguages === 'ar' ? 'rtl' : this.dir
+    },
+    currentPlaceholder() {
+      if (this.platformLanguage === 'en') return this.placeholder
+
+      this[action.GET_TRANSLATED_TEXT](this.placeholder)
+      return this.translated[this.placeholder]
+    },
   },
   methods: {
+    ...mapActions([action.GET_TRANSLATED_TEXT]),
     debounceInput: debounce(function (e) {
       this.$emit('update:modelValue', e.target.value)
     }, 100),

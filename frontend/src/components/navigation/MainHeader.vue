@@ -1,10 +1,24 @@
 <template>
   <header class="header">
-    <LogoIcon
-      class="logo"
-      @click="goToMainPage"
-      @click.middle="goToMainPageNewTab"
-    />
+    <div class="header-logo">
+      <LogoIcon
+        class="logo"
+        @click="goToMainPage"
+        @click.middle="goToMainPageNewTab"
+      />
+      <BaseDropdown name="platform-language">
+        <template #selectedValue> </template>
+        <div
+          v-for="(item, index) in availableLanguages"
+          :key="item.lang + index"
+          class="lang-item"
+          @click="updateLanguage(item.lang)"
+        >
+          <component :is="getIcon(item.value)" /> {{ item.lang }}
+          <ArrowheadIcon direction="bottom" class="arrow-icon" />
+        </div>
+      </BaseDropdown>
+    </div>
 
     <div class="header-navigation">
       <div
@@ -43,30 +57,46 @@
 <script>
 import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
+import {capitalizeFirstLetter} from '@/lib/utilities'
 
+import UserAvatar from '@components/UserAvatar'
+import BaseDropdown from '@components/BaseDropdown'
 import LogoIcon from '@components/icons/LogoIcon'
 import ArrowDownIcon from '@components/icons/ArrowDownIcon'
-import UserIcon from '@/components/icons/UserIcon'
-import UserAvatar from '@components/UserAvatar'
+import UserIcon from '@components/icons/UserIcon'
+import ArrowheadIcon from '@/components/icons/ArrowheadIcon'
+import EnIcon from '@components/icons/languages/EnIcon'
+import ArIcon from '@components/icons/languages/ArIcon'
 
 export default {
   name: 'MainHeader',
   components: {
     UserIcon,
     LogoIcon,
+    ArIcon,
+    EnIcon,
     ArrowDownIcon,
     UserAvatar,
+    BaseDropdown,
+    ArrowheadIcon,
   },
   data() {
     return {
       isOpenDropdown: false,
+      availableLanguages: [
+        {lang: 'English', value: 'en'},
+        {lang: 'عربي', value: 'ar'},
+      ],
     }
   },
   created() {
     document.addEventListener('click', this.closeDropdown)
   },
   computed: {
-    ...mapGetters({userInfo: get.USER_INFO}),
+    ...mapGetters({
+      userInfo: get.USER_INFO,
+      platformLanguage: get.PLATFORM_LANGUAGE,
+    }),
     companyName() {
       return this.userInfo?.username
     },
@@ -78,9 +108,18 @@ export default {
     },
   },
   methods: {
+    capitalizeFirstLetter,
     ...mapActions([action.LOGOUT]),
     logout() {
       this[action.LOGOUT]()
+    },
+
+    getIcon(value) {
+      return capitalizeFirstLetter(value) + 'Icon'
+    },
+
+    updateLanguage(newLang) {
+      return newLang
     },
 
     goToMainPage() {
@@ -127,6 +166,25 @@ export default {
 
   background-color: var(--background-secondary-color);
   border: var(--border-primary);
+}
+
+.header-logo {
+  display: flex;
+  gap: 50px;
+}
+
+.lang-item {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+
+  padding: 8px 12px 12px;
+}
+
+.arrow-icon {
+  margin-left: auto;
+
+  color: var(--primary-color);
 }
 
 .header-navigation {

@@ -1,28 +1,38 @@
 <template>
   <div class="textarea-wrapper">
     <div class="label-wrapper">
-      <label v-if="label" :for="label" class="label">{{ label }}</label>
+      <CustomText
+        v-if="label"
+        tag="label"
+        :text="label"
+        :for="label"
+        class="label"
+      />
       <div v-if="hasError" class="error-message">
-        {{ errorMessage }} <ErrorIcon class="icon" />
+        <CustomText :text="errorMessage" />
+        <ErrorIcon class="icon" />
       </div>
     </div>
 
     <textarea
       v-model="value"
-      :placeholder="placeholder"
+      :placeholder="currentPlaceholder"
       :id="label"
-      :dir="dir"
+      :dir="currentDir"
       :class="['scroll', hasError && 'error']"
     />
   </div>
 </template>
 
 <script>
+import {mapGetters, mapActions} from 'vuex'
+import {get, action} from '@store/constants'
+import CustomText from '@/components/CustomText'
 import ErrorIcon from '@components/icons/ErrorIcon'
 
 export default {
   name: 'BaseTextarea',
-  components: {ErrorIcon},
+  components: {ErrorIcon, CustomText},
   props: {
     modelValue: {type: String, default: ''},
     placeholder: {type: String, default: ''},
@@ -32,6 +42,10 @@ export default {
     errorMessage: {type: String, default: ''},
   },
   computed: {
+    ...mapGetters({
+      platformLanguages: get.PLATFORM_LANGUAGE,
+      translated: get.TRANSLATION,
+    }),
     value: {
       get() {
         return this.modelValue
@@ -40,6 +54,18 @@ export default {
         this.$emit('update:modelValue', val)
       },
     },
+    currentDir() {
+      return this.platformLanguages === 'ar' ? 'rtl' : this.dir
+    },
+    currentPlaceholder() {
+      if (this.platformLanguage === 'en') return this.placeholder
+
+      this[action.GET_TRANSLATED_TEXT](this.placeholder)
+      return this.translated[this.placeholder]
+    },
+  },
+  methods: {
+    ...mapActions([action.GET_TRANSLATED_TEXT]),
   },
 }
 </script>
