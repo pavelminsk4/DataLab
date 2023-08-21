@@ -59,6 +59,9 @@ import ArrowDownIcon from '@/components/icons/ArrowDownIcon'
 import ErrorIcon from '@/components/icons/ErrorIcon'
 import BaseCheckbox from '@/components/BaseCheckbox'
 
+const ARABIC = 'ar'
+const ENGLISH = 'en'
+
 export default {
   name: 'SelectWithCheckboxes',
   components: {BaseCheckbox, ErrorIcon, ArrowDownIcon, CustomText},
@@ -89,10 +92,10 @@ export default {
       translated: get.TRANSLATION,
     }),
     currentDir() {
-      return this.platformLanguage === 'ar' ? 'rtl' : this.dir
+      return this.platformLanguage === ARABIC ? 'rtl' : this.dir
     },
     currentPlaceholder() {
-      if (this.platformLanguage === 'en') return this.placeholder
+      if (this.platformLanguage === ENGLISH) return this.placeholder
 
       this[action.GET_TRANSLATED_TEXT](this.placeholder)
       return this.translated[this.placeholder]

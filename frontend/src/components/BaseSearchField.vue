@@ -57,6 +57,9 @@ import debounce from 'lodash/debounce'
 import CustomText from '@/components/CustomText'
 import BaseButtonSpinner from '@/components/BaseButtonSpinner'
 
+const ARABIC = 'ar'
+const ENGLISH = 'en'
+
 export default {
   emits: ['update:modelValue', 'select-option', 'focus-input'],
   components: {
@@ -96,10 +99,10 @@ export default {
       translated: get.TRANSLATION,
     }),
     currentDir() {
-      return this.platformLanguage === 'ar' ? 'rtl' : this.dir
+      return this.platformLanguage === ARABIC ? 'rtl' : this.dir
     },
     currentPlaceholder() {
-      if (this.platformLanguage === 'en') return this.placeholder
+      if (this.platformLanguage === ENGLISH) return this.placeholder
 
       this[action.GET_TRANSLATED_TEXT](this.placeholder)
       return this.translated[this.placeholder]

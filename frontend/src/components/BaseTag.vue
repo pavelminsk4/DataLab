@@ -43,8 +43,12 @@
 import {ref, watch, nextTick, onMounted} from 'vue'
 import {mapGetters, mapActions} from 'vuex'
 import {get, action} from '@store/constants'
+
 import DeleteTagButton from '@/components/icons/DeleteTagButton'
 import ErrorIcon from '@/components/icons/ErrorIcon'
+
+const ARABIC = 'ar'
+const ENGLISH = 'en'
 
 export default {
   name: 'BaseTag',
@@ -79,10 +83,10 @@ export default {
       translated: get.TRANSLATION,
     }),
     currentDir() {
-      return this.platformLanguage === 'ar' ? 'rtl' : this.dir
+      return this.platformLanguage === ARABIC ? 'rtl' : this.dir
     },
     currentPlaceholder() {
-      if (this.platformLanguage === 'en') return this.placeholder
+      if (this.platformLanguage === ENGLISH) return this.placeholder
 
       this[action.GET_TRANSLATED_TEXT](this.placeholder)
       return this.translated[this.placeholder]

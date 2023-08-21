@@ -33,6 +33,9 @@ import CustomText from '@/components/CustomText'
 import SearchIcon from '@/components/icons/SearchIcon'
 import ErrorIcon from '@/components/icons/ErrorIcon'
 
+const ARABIC = 'ar'
+const ENGLISH = 'en'
+
 export default {
   name: 'BaseInput',
   props: {
@@ -57,10 +60,10 @@ export default {
       translated: get.TRANSLATION,
     }),
     currentDir() {
-      return this.platformLanguage === 'ar' ? 'rtl' : this.dir
+      return this.platformLanguage === ARABIC ? 'rtl' : this.dir
     },
     currentPlaceholder() {
-      if (this.platformLanguage === 'en') return this.placeholder
+      if (this.platformLanguage === ENGLISH) return this.placeholder
 
       this[action.GET_TRANSLATED_TEXT](this.placeholder)
       return this.translated[this.placeholder]
