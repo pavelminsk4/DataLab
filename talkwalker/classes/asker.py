@@ -1,16 +1,25 @@
 from talkwalker.services.create_posts import create_posts
 from talkwalker.services.get_tw_query import get_tw_query
 from talkwalker.services.token import get_token
-from project.models import Project
 from rest_framework import status
+from django.apps import apps
+
 import requests
 import json
+
+import threading
 
 
 class Asker:
     def __init__(self, project_id, module):
-        self.project = Project.objects.get(id=project_id)
-        self.collector_id = f'search-{project_id}-{module}-col'
+        model = ''
+        if module=='Project':
+            model = apps.get_model('project', 'Project')
+            self.collector_id = f'search-{project_id}-onl-col'
+        if module=='ProjectTwentyFourSeven':
+            model = apps.get_model('twenty_four_seven', 'ProjectTwentyFourSeven')
+            self.collector_id = f'search-{project_id}-tfs-col'
+        self.project = model.objects.get(id=project_id)
 
     token = get_token()
     task_id = ''
@@ -74,9 +83,13 @@ class Asker:
         print(f'05_delete_collector ---> status: {response.status_code}')
         return response.status_code == status.HTTP_200_OK
 
-    def run(self):
+    def run_gen(self):
         self.__01_create_target_collector()
         self.__02_new_task_on_query()
         self.__wait_until_limit_reached()
         self.__04_read_collector()
         return self.__05_delete_collector()
+
+    def run(self):
+        thread = threading.Thread(target=self.run_gen, name='run')
+        thread.start()

@@ -2,12 +2,15 @@ from talkwalker.classes.livestream import Livestream
 from talkwalker.classes.asker import Asker
 
 from django_celery_beat.models import PeriodicTask, CrontabSchedule
-from django.db.models.signals import post_save, pre_delete
+from django.db.models.signals import post_save, pre_delete, post_init
 from django.dispatch import receiver
 from project.models import Project
 from project.models import Speech
 from django.db import models
 import json
+
+from django.contrib.postgres.indexes import GinIndex, OpClass
+from django.db.models.functions import Upper
 
 
 class TalkwalkerFeedlink(models.Model):
@@ -31,6 +34,7 @@ class TalkwalkerPost(models.Model):
     feedlink = models.ForeignKey(TalkwalkerFeedlink,on_delete=models.CASCADE,related_name='feedlink_feedsin',null=True,blank=True)
     sentiment = models.CharField('sentiment', max_length=8, default='neutral',null=True,blank=True)
     category = models.TextField('Category',null=True,blank=True)
+    full_text = models.TextField('full_text', null=True, blank=True)
 
     def __str__(self):
         return self.entry_title
@@ -39,14 +43,30 @@ class TalkwalkerPost(models.Model):
         constraints = [
             models.UniqueConstraint(fields=['entry_title', 'feedlink_id'], name='talkwalker post uniqueness constraint')
         ]
+        indexes = [
+            models.Index(fields=['entry_published',]),
+            models.Index(fields=['feedlink',]),
+            models.Index(fields=['entry_author',]),
+            models.Index(fields=['feed_language',]),
+            models.Index(fields=['sentiment',]),
+            GinIndex(
+                OpClass(Upper("entry_title"), name="gin_trgm_ops"),
+                name="tlw_entry_title_gin_index",
+            ),
+            GinIndex(
+                OpClass(Upper("entry_summary"), name="gin_trgm_ops"),
+                name="tlw_entry_summary_gin_index",
+            ),
+        ]
 
 
+@receiver(post_save, sender='twenty_four_seven.ProjectTwentyFourSeven')
 @receiver(post_save, sender=Project)
 def create_periodic_task(sender, instance, created, **kwargs):
     if created:
-        Livestream(instance.id, 'onl').create()
+        Livestream(instance.id, sender.__name__).create()
         crontab_schedule = CrontabSchedule.objects.create(
-            minute='*/5',
+            minute='*/20',
             hour='*',
             day_of_week='*',
             day_of_month='*',
@@ -55,15 +75,48 @@ def create_periodic_task(sender, instance, created, **kwargs):
             crontab=crontab_schedule,
             name=f'LiveSearch_project_{instance.id}',
             task='talkwalker.tasks.livesearch_sender',
+            args=json.dumps([instance.id, sender.__name__]),
+        )
+
+
+@receiver(post_save, sender='twenty_four_seven.ProjectTwentyFourSeven')
+def tfs_items(sender, instance, created, **kwargs):
+    if created:
+        crontab_schedule = CrontabSchedule.objects.create(
+            minute='*/10',
+            hour='*',
+            day_of_week='*',
+            day_of_month='*',
+        )
+        PeriodicTask.objects.create(
+            crontab=crontab_schedule,
+            name=f'Attach_items_tfs_{instance.id}',
+            task='twenty_four_seven.models.attach_online_posts',
             args=json.dumps([instance.id]),
         )
 
 
+@receiver(post_save, sender='twenty_four_seven.ProjectTwentyFourSeven')
 @receiver(post_save, sender=Project)
 def fetch_talkwalker_posts(sender, instance, created, **kwargs):
-    Asker(instance.id, 'onl').run()
+    if created:
+        Asker(instance.id, sender.__name__).run()
 
 
 @receiver(pre_delete, sender=Project)
+@receiver(pre_delete, sender='twenty_four_seven.ProjectTwentyFourSeven')
 def delete_livestream(sender, instance, **kwargs):
-    Livestream(instance.id, 'onl').delete()
+    Livestream(instance.id, sender.__name__).delete()
+
+
+@receiver(pre_delete, sender='twenty_four_seven.ProjectTwentyFourSeven')
+def delete_periodic_tasks(sender, instance, **kwargs):
+    tasks = PeriodicTask.objects.filter(name=f'Attach_items_tfs_{instance.id}')
+    tasks.delete()
+
+
+@receiver(pre_delete, sender=Project)
+@receiver(pre_delete, sender='twenty_four_seven.ProjectTwentyFourSeven')
+def delete_live_search_periodic_tasks(sender, instance, **kwargs):
+    tasks = PeriodicTask.objects.filter(name=f'LiveSearch_project_{instance.id}')
+    tasks.delete()

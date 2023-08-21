@@ -5,6 +5,7 @@ import json
 from project.models import Speech
 from django.apps import apps
 
+from django.utils import timezone
 
 def add_language(language_code):
     title = Language.get(language_code).display_name()
@@ -69,7 +70,7 @@ def create_posts(lines):
         try:
             aentry_published = datetime.fromtimestamp(data['published']/1000)
         except:
-            aentry_published = datetime.now()
+            aentry_published = timezone.now()
         try:
             asentiment = define_sentiment(data['sentiment'])
         except:
@@ -97,7 +98,5 @@ def create_posts(lines):
                 category=acategory,
                 feedlink=fl,
             )
-            print('-------->create_post')
         except Exception as e:
-            print('------->except ', e)
             pass

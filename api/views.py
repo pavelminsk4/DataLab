@@ -115,7 +115,7 @@ def data_range_posts(start_date, end_date):
 
 def data_range_posts_for_24(start_date, end_date):
   interval = [start_date, end_date]
-  posts = Post.objects.filter(entry_published__range=interval)
+  posts = TalkwalkerPost.objects.filter(entry_published__range=interval)
   return posts
 
 def search(request):

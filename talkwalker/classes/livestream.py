@@ -1,18 +1,23 @@
 from talkwalker.services.get_tw_query import get_tw_query
 from talkwalker.services.create_posts import create_posts
 from talkwalker.services.token import get_token
-
-from project.models import Project
 from rest_framework import status
+from django.apps import apps
 import requests
 import json
 
 
 class Livestream:
     def __init__(self, project_id, module):
-        self.project = Project.objects.get(id=project_id)
-        self.collector_id = f'livestream-{project_id}-{module}-col'
-        self.stream_id = f'livestream-{project_id}-{module}'
+        model=''
+        if module=='Project':
+            model = apps.get_model('project', 'Project')
+            self.collector_id = f'livestream-{project_id}-onl-col'
+        if module=='ProjectTwentyFourSeven':
+            model = apps.get_model('twenty_four_seven', 'ProjectTwentyFourSeven')
+            self.collector_id = f'livestream-{project_id}-tfs-col'
+        self.project = model.objects.get(id=project_id)
+        self.stream_id = f'livestream-{project_id}-'
 
     token = get_token()
 

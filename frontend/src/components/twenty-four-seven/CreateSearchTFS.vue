@@ -150,6 +150,7 @@ export default {
         sentiment_filter: this.additionalFilters?.sentiment || null,
         country_filter: this.additionalFilters?.country || null,
         project_type: this.selectedModuleType.toLowerCase(),
+        expert_mode: false,
       })
 
       if (+this.workspaceId) {
