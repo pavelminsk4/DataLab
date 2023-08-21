@@ -14,7 +14,7 @@ export default {
   name: 'CustomText',
   props: {
     tag: {type: String, default: 'div'},
-    text: {type: String, default: ''},
+    text: {type: [String, Number], default: ''},
   },
   computed: {
     ...mapGetters({

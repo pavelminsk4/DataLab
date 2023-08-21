@@ -1,10 +1,7 @@
 <template>
   <div class="settings-wrapper">
     <div v-if="widgetDetails.hasPreview" class="preview-section">
-      <div class="chart-title">
-        {{ widgetDetails.title }}
-      </div>
-
+      <CustomText :text="widgetDetails.title" class="chart-title" />
       <slot></slot>
     </div>
 
@@ -56,7 +53,7 @@
       />
 
       <BaseButton class="button" @click="saveChanges">
-        <SaveIcon />Save
+        <SaveIcon /><CustomText text="Save" />
       </BaseButton>
     </div>
   </div>
@@ -66,6 +63,7 @@
 import {mapGetters} from 'vuex'
 import {get} from '@store/constants'
 
+import CustomText from '@/components/CustomText'
 import BaseTabs from '@/components/project/widgets/modals/BaseTabs'
 import FiltersScreen from '@/components/project/screens/FiltersScreen'
 import BasicSettingsScreen from '@/components/project/widgets/modals/screens/BasicSettingsScreen'
@@ -76,6 +74,7 @@ import SaveIcon from '@/components/icons/SaveIcon'
 export default {
   name: 'WidgetSettingsScreen',
   components: {
+    CustomText,
     SaveIcon,
     BaseButton,
     ChartTypesRadio,
@@ -88,8 +87,7 @@ export default {
   },
   data() {
     return {
-      panelName: 'General',
-      panelNames: ['General', 'لمحة عامة'],
+      panelName: '',
       newWidgetTitle: '',
       newWidgetDescription: '',
       newAggregationPeriod: '',
@@ -100,22 +98,28 @@ export default {
       platformLanguage: get.PLATFORM_LANGUAGE,
     }),
     mainSettings() {
-      console.log(this.widgetDetails.settingsTabs[this.platformLanguage])
       return this.widgetDetails.settingsTabs[this.platformLanguage]
     },
     defaultTab() {
       return this.widgetDetails.settingsTabs[this.platformLanguage][0]
     },
     hasBaseSettings() {
-      return this.panelName === 'General' || this.panelName === 'لمحة عامة'
+      return (
+        this.panelName ===
+          this.widgetDetails.settingsTabs[this.platformLanguage][0] ||
+        this.panelName === ''
+      )
     },
     hasFilters() {
-      return this.panelName === 'Filters' || this.panelName === 'الفلاتر'
+      return (
+        this.panelName ===
+        this.widgetDetails.settingsTabs[this.platformLanguage][1]
+      )
     },
     hasChartLayout() {
       return (
-        this.panelName === 'Chart Layout' ||
-        this.panelName === 'تخطيط الرسم البياني'
+        this.panelName ===
+        this.widgetDetails.settingsTabs[this.platformLanguage][2]
       )
     },
   },
@@ -129,17 +133,17 @@ export default {
     },
 
     saveChanges() {
-      if (this.panelName === 'General') {
+      if (this.hasBaseSettings) {
         this.$emit('save-general-settings', {
           newWidgetTitle: this.newWidgetTitle,
           newWidgetDescription: this.newWidgetDescription,
           newAggregationPeriod: this.newAggregationPeriod,
         })
       }
-      if (this.panelName === 'Filters') {
+      if (this.hasFilters) {
         this.$emit('save-filters-settings', '')
       }
-      if (this.panelName === 'Chart Layout') {
+      if (this.hasChartLayout) {
         this.$emit('save-chart-settings')
       }
     },

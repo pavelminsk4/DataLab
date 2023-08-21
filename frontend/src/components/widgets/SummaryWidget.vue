@@ -17,7 +17,6 @@
           :style="`background-color: ${item.backgroundColor}`"
           class="icon"
         />
-        {{ cons(item.name) }}
         <CustomText :text="item.name" class="title" />
         <div class="value">{{ summaryWidgetData[item.valueName] }}</div>
       </div>
@@ -66,11 +65,6 @@ export default {
   computed: {
     widgetWrapper() {
       return this.isSettings ? 'div' : 'WidgetsLayout'
-    },
-  },
-  methods: {
-    cons(val) {
-      console.log(val)
     },
   },
 }

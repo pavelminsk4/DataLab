@@ -104,7 +104,10 @@ export const widgetsConfig = {
     actionName: action.GET_CLIPPING_FEED_CONTENT_WIDGET,
     hasAggregationPeriod: false,
     defaultChartType: null,
-    settingsTabs: ['General'],
+    settingsTabs: {
+      en: ['General'],
+      ar: ['لمحة عامة'],
+    },
   },
   top_authors: {
     ...WIDGET_DEFAULT_SETTINGS,
@@ -474,7 +477,10 @@ export const widgetsConfig = {
     hasAggregationPeriod: false,
     defaultChartType: 'BarLineChart',
     availableTypes: null,
-    settingsTabs: ['General'],
+    settingsTabs: {
+      en: ['General'],
+      ar: ['لمحة عامة'],
+    },
   },
 
   most_engaging_post_types: {
@@ -501,7 +507,10 @@ export const widgetsConfig = {
     actionName: action.GET_ACCOUNT_ANALYSIS_SUMMARY_WIDGET,
     hasAggregationPeriod: false,
     defaultChartType: null,
-    settingsTabs: ['General'],
+    settingsTabs: {
+      en: ['General'],
+      ar: ['لمحة عامة'],
+    },
   },
 
   most_frequent_post_types: {
@@ -528,7 +537,10 @@ export const widgetsConfig = {
     hasAggregationPeriod: false,
     defaultChartType: 'BarChart',
     availableTypes: SIMPLE_CHARTS,
-    settingsTabs: ['General'],
+    settingsTabs: {
+      en: ['General'],
+      ar: ['لمحة عامة'],
+    },
   },
 
   follower_growth: {
@@ -537,7 +549,10 @@ export const widgetsConfig = {
     hasAggregationPeriod: false,
     defaultChartType: 'LineChart',
     availableTypes: null,
-    settingsTabs: ['General'],
+    settingsTabs: {
+      en: ['General'],
+      ar: ['لمحة عامة'],
+    },
   },
 
   top_hashtags: {
@@ -573,7 +588,10 @@ export const widgetsConfig = {
     hasAggregationPeriod: false,
     defaultChartType: 'HeatmapChart',
     availableTypes: null,
-    settingsTabs: ['General'],
+    settingsTabs: {
+      en: ['General'],
+      ar: ['لمحة عامة'],
+    },
   },
 
   top_posts_by_engagements: {
@@ -582,7 +600,10 @@ export const widgetsConfig = {
     hasPreview: false,
     hasAggregationPeriod: false,
     availableTypes: null,
-    settingsTabs: ['General'],
+    settingsTabs: {
+      en: ['General'],
+      ar: ['لمحة عامة'],
+    },
   },
 
   best_times_to_post: {
@@ -591,7 +612,10 @@ export const widgetsConfig = {
     hasPreview: false,
     hasAggregationPeriod: false,
     availableTypes: null,
-    settingsTabs: ['General'],
+    settingsTabs: {
+      en: ['General'],
+      ar: ['لمحة عامة'],
+    },
   },
 
   mention_timeline: {
@@ -599,7 +623,10 @@ export const widgetsConfig = {
     hasAggregationPeriod: false,
     defaultChartType: 'BarLineChart',
     availableTypes: null,
-    settingsTabs: ['General'],
+    settingsTabs: {
+      en: ['General'],
+      ar: ['لمحة عامة'],
+    },
   },
 
   most_frequent_mention_media_types: {
@@ -608,7 +635,10 @@ export const widgetsConfig = {
     hasAggregationPeriod: false,
     defaultChartType: 'DoughnutChart',
     availableTypes: SIMPLE_CHARTS,
-    settingsTabs: ['General'],
+    settingsTabs: {
+      en: ['General'],
+      ar: ['لمحة عامة'],
+    },
   },
 
   audience_mention_time: {
@@ -617,7 +647,10 @@ export const widgetsConfig = {
     hasAggregationPeriod: false,
     defaultChartType: 'HeatmapChart',
     availableTypes: null,
-    settingsTabs: ['General'],
+    settingsTabs: {
+      en: ['General'],
+      ar: ['لمحة عامة'],
+    },
   },
 
   top_mentions_by_engagements: {
@@ -626,7 +659,10 @@ export const widgetsConfig = {
     hasPreview: false,
     hasAggregationPeriod: false,
     availableTypes: null,
-    settingsTabs: ['General'],
+    settingsTabs: {
+      en: ['General'],
+      ar: ['لمحة عامة'],
+    },
   },
 
   average_engagements_by_day_for_mentions: {

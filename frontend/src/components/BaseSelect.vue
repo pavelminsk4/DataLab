@@ -1,6 +1,6 @@
 <template>
   <div class="select-wrapper">
-    <div class="select-title">{{ selectTitle }}</div>
+    <CustomText :text="selectTitle" class="select-title" />
     <div
       :class="[
         'selector',
@@ -24,9 +24,11 @@
           type="text"
           class="select-search"
         />
-        <div v-else-if="!value && !isSearch" class="placeholder">
-          {{ placeholder }}
-        </div>
+        <CustomText
+          v-else-if="!value && !isSearch"
+          :text="placeholder"
+          class="placeholder"
+        />
         <div v-else-if="!isSearch">{{ value }}</div>
       </div>
       <ArrowDownIcon
@@ -55,18 +57,19 @@
       </div>
 
       <div v-if="hasError" class="error-container">
-        {{ errorMessage }}
+        <CustomText :text="errorMessage" />
         <ErrorIcon class="error-icon" />
       </div>
     </div>
   </div>
 </template>
 <script>
+import CustomText from '@/components/CustomText'
 import ArrowDownIcon from '@/components/icons/ArrowDownIcon'
 import ErrorIcon from '@/components/icons/ErrorIcon'
 
 export default {
-  components: {ArrowDownIcon, ErrorIcon},
+  components: {ArrowDownIcon, ErrorIcon, CustomText},
   emits: ['update:modelValue', 'select-option'],
   props: {
     list: {type: Array, default: null},

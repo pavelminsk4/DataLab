@@ -43,7 +43,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      platformLanguages: get.PLATFORM_LANGUAGE,
+      platformLanguage: get.PLATFORM_LANGUAGE,
       translated: get.TRANSLATION,
     }),
     value: {
@@ -55,7 +55,7 @@ export default {
       },
     },
     currentDir() {
-      return this.platformLanguages === 'ar' ? 'rtl' : this.dir
+      return this.platformLanguage === 'ar' ? 'rtl' : this.dir
     },
     currentPlaceholder() {
       if (this.platformLanguage === 'en') return this.placeholder

@@ -23,24 +23,26 @@
         <div class="hints">
           <CustomText tag="h4" text="Syntax" />
           <div class="hints__section">
-            <CustomText
+            <span
               v-for="item in hints.syntax"
               :key="item.value"
               :style="{color: item.color}"
               tag="span"
-              :text="item.value"
               class="hint"
-            />
+            >
+              {{ item.value }}
+            </span>
           </div>
           <CustomText tag="h4" text="Filters" />
           <div class="hints__section">
-            <CustomText
+            <span
               v-for="item in filters"
               :key="item"
               tag="span"
-              :text="item"
               class="hint expert-mode_defaultColor"
-            />
+            >
+              {{ item }}
+            </span>
           </div>
         </div>
       </div>

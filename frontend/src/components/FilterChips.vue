@@ -1,7 +1,7 @@
 <template>
   <div class="chips-container">
     <div v-for="(item, index) in items" :key="item + index" class="chip">
-      <CustomText :text="item" />
+      {{ item }}
       <CrossIcon class="icon" @click="removeItem(item)" />
     </div>
     <CustomText text="Clear All" class="active-button" @click="clearAll" />

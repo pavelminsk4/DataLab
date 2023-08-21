@@ -1,21 +1,31 @@
 <template>
   <header class="header">
     <div class="header-logo">
-      <LogoIcon
+      <component
+        :is="`LogoIcon${capitalizeFirstLetter(platformLanguage)}`"
         class="logo"
         @click="goToMainPage"
         @click.middle="goToMainPageNewTab"
       />
       <BaseDropdown name="platform-language">
-        <template #selectedValue> </template>
+        <template #selectedValue>
+          <div class="languages">
+            <component :is="getIcon(currentLanguage.value)" />
+            {{ currentLanguage.lang }}
+          </div>
+        </template>
         <div
           v-for="(item, index) in availableLanguages"
           :key="item.lang + index"
           class="lang-item"
-          @click="updateLanguage(item.lang)"
+          @click="updateLanguage(item.value)"
         >
           <component :is="getIcon(item.value)" /> {{ item.lang }}
-          <ArrowheadIcon direction="bottom" class="arrow-icon" />
+          <ArrowheadIcon
+            v-if="item.value === platformLanguage"
+            direction="bottom"
+            class="arrow-icon"
+          />
         </div>
       </BaseDropdown>
     </div>
@@ -61,7 +71,8 @@ import {capitalizeFirstLetter} from '@/lib/utilities'
 
 import UserAvatar from '@components/UserAvatar'
 import BaseDropdown from '@components/BaseDropdown'
-import LogoIcon from '@components/icons/LogoIcon'
+import LogoIconEn from '@components/icons/LogoIconEn'
+import LogoIconAr from '@components/icons/LogoIconAr'
 import ArrowDownIcon from '@components/icons/ArrowDownIcon'
 import UserIcon from '@components/icons/UserIcon'
 import ArrowheadIcon from '@/components/icons/ArrowheadIcon'
@@ -72,7 +83,8 @@ export default {
   name: 'MainHeader',
   components: {
     UserIcon,
-    LogoIcon,
+    LogoIconEn,
+    LogoIconAr,
     ArIcon,
     EnIcon,
     ArrowDownIcon,
@@ -97,6 +109,11 @@ export default {
       userInfo: get.USER_INFO,
       platformLanguage: get.PLATFORM_LANGUAGE,
     }),
+    currentLanguage() {
+      return this.availableLanguages.find(
+        (lang) => lang.value === this.platformLanguage
+      )
+    },
     companyName() {
       return this.userInfo?.username
     },
@@ -109,7 +126,7 @@ export default {
   },
   methods: {
     capitalizeFirstLetter,
-    ...mapActions([action.LOGOUT]),
+    ...mapActions([action.LOGOUT, action.POST_PLATFORM_LANGUAGE]),
     logout() {
       this[action.LOGOUT]()
     },
@@ -119,6 +136,7 @@ export default {
     },
 
     updateLanguage(newLang) {
+      this[action.POST_PLATFORM_LANGUAGE](newLang)
       return newLang
     },
 
@@ -170,7 +188,7 @@ export default {
 
 .header-logo {
   display: flex;
-  gap: 50px;
+  gap: 25px;
 }
 
 .lang-item {
@@ -224,6 +242,14 @@ export default {
 
 .section-company {
   display: flex;
+}
+
+.languages {
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+
+  margin-right: 5px;
 }
 
 .name {

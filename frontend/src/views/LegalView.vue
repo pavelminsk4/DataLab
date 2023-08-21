@@ -3,7 +3,7 @@
     <section class="header">
       <h1 class="title">{{ title }}</h1>
       <div class="logo">
-        <LogoIcon />
+        <LogoIconEn />
       </div>
     </section>
     <router-view></router-view>
@@ -12,11 +12,11 @@
 
 <script>
 import MainLayout from '@components/layout/MainLayout'
-import LogoIcon from '@/components/icons/LogoIcon'
+import LogoIconEn from '@/components/icons/LogoIconEn'
 
 export default {
   name: 'LegalView',
-  components: {MainLayout, LogoIcon},
+  components: {MainLayout, LogoIconEn},
   data() {
     return {
       title: '',

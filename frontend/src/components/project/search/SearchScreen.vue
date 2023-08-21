@@ -17,7 +17,7 @@
         :class="['switcher', isExpertMode && 'switcher__active']"
         @click="switchTrigger"
       >
-        <span>Expert mode</span>
+        <CustomText tag="span" text="Expert mode" />
         <BaseSwitcher label="Expert mode" :value="isExpertMode" />
       </div>
       <div class="search">
@@ -58,6 +58,7 @@ import {mapGetters} from 'vuex'
 import {get} from '@store/constants'
 import {expertModeFilters} from '@/lib/constants'
 
+import CustomText from '@/components/CustomText'
 import MainLayoutTitleBlock from '@/components/layout/MainLayoutTitleBlock'
 import SimpleModeTab from '@/components/workspace/SimpleModeTab'
 import SearchResults from '@/components/SearchResults'
@@ -74,6 +75,7 @@ export default {
     BaseSwitcher,
     ExpertModeTab,
     TotalResults,
+    CustomText,
   },
   props: {
     moduleName: {type: String, default: 'Online'},
