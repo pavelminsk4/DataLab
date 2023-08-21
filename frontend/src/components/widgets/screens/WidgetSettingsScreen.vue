@@ -1,19 +1,22 @@
 <template>
   <div class="settings-wrapper">
     <div v-if="widgetDetails.hasPreview" class="preview-section">
-      <CustomText :text="widgetDetails.title" class="chart-title" />
+      <div class="chart-title">
+        {{ widgetDetails.title }}
+      </div>
+
       <slot></slot>
     </div>
 
     <div class="general-wrapper-settings scroll">
       <BaseTabs
-        :main-settings="mainSettings"
-        :default-tab="defaultTab"
+        :main-settings="widgetDetails.settingsTabs"
+        default-tab="General"
         @update-setting-panel="updateSettingPanel"
       />
 
       <BasicSettingsScreen
-        v-if="hasBaseSettings"
+        v-if="panelName === 'General'"
         :period="widgetDetails.aggregation_period"
         :widget-title="widgetDetails.title"
         :widget-description="widgetDetails.description"
@@ -23,7 +26,7 @@
       />
 
       <FiltersScreen
-        v-if="hasFilters"
+        v-if="panelName === 'Filters'"
         :module-name="widgetDetails.moduleName"
         :project-id="widgetDetails.projectId"
         :authors-filters="
@@ -44,7 +47,7 @@
       />
 
       <ChartTypesRadio
-        v-if="hasChartLayout"
+        v-if="panelName === 'Chart Layout'"
         :selected="widgetDetails.chart_type || widgetDetails.defaultChartType"
         :widget-name="widgetDetails.name"
         :project-id="widgetDetails.projectId"
@@ -53,17 +56,13 @@
       />
 
       <BaseButton class="button" @click="saveChanges">
-        <SaveIcon /><CustomText text="Save" />
+        <SaveIcon />Save
       </BaseButton>
     </div>
   </div>
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
-import {get} from '@store/constants'
-
-import CustomText from '@/components/CustomText'
 import BaseTabs from '@/components/project/widgets/modals/BaseTabs'
 import FiltersScreen from '@/components/project/screens/FiltersScreen'
 import BasicSettingsScreen from '@/components/project/widgets/modals/screens/BasicSettingsScreen'
@@ -74,7 +73,6 @@ import SaveIcon from '@/components/icons/SaveIcon'
 export default {
   name: 'WidgetSettingsScreen',
   components: {
-    CustomText,
     SaveIcon,
     BaseButton,
     ChartTypesRadio,
@@ -87,41 +85,11 @@ export default {
   },
   data() {
     return {
-      panelName: '',
+      panelName: 'General',
       newWidgetTitle: '',
       newWidgetDescription: '',
       newAggregationPeriod: '',
     }
-  },
-  computed: {
-    ...mapGetters({
-      platformLanguage: get.PLATFORM_LANGUAGE,
-    }),
-    mainSettings() {
-      return this.widgetDetails.settingsTabs[this.platformLanguage]
-    },
-    defaultTab() {
-      return this.widgetDetails.settingsTabs[this.platformLanguage][0]
-    },
-    hasBaseSettings() {
-      return (
-        this.panelName ===
-          this.widgetDetails.settingsTabs[this.platformLanguage][0] ||
-        this.panelName === ''
-      )
-    },
-    hasFilters() {
-      return (
-        this.panelName ===
-        this.widgetDetails.settingsTabs[this.platformLanguage][1]
-      )
-    },
-    hasChartLayout() {
-      return (
-        this.panelName ===
-        this.widgetDetails.settingsTabs[this.platformLanguage][2]
-      )
-    },
   },
   methods: {
     updateSettingPanel(val) {
@@ -133,17 +101,17 @@ export default {
     },
 
     saveChanges() {
-      if (this.hasBaseSettings) {
+      if (this.panelName === 'General') {
         this.$emit('save-general-settings', {
           newWidgetTitle: this.newWidgetTitle,
           newWidgetDescription: this.newWidgetDescription,
           newAggregationPeriod: this.newAggregationPeriod,
         })
       }
-      if (this.hasFilters) {
+      if (this.panelName === 'Filters') {
         this.$emit('save-filters-settings', '')
       }
-      if (this.hasChartLayout) {
+      if (this.panelName === 'Chart Layout') {
         this.$emit('save-chart-settings')
       }
     },

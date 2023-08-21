@@ -10,6 +10,8 @@
 import {action, get} from '@store/constants'
 import {mapGetters, mapActions} from 'vuex'
 
+const ENGLISH = 'en'
+
 export default {
   name: 'CustomText',
   props: {
@@ -22,7 +24,7 @@ export default {
       platformLanguage: get.PLATFORM_LANGUAGE,
     }),
     translatedText() {
-      if (this.platformLanguage === 'en') return this.text
+      if (this.platformLanguage === ENGLISH) return this.text
 
       this[action.GET_TRANSLATED_TEXT](this.text)
       return this.translated[this.text]

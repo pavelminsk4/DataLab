@@ -3,9 +3,9 @@
     <div class="label-wrapper">
       <CustomText
         v-if="label"
-        tag="label"
         :text="label"
         :for="label"
+        tag="label"
         class="label"
       />
       <div v-if="hasError" class="error-message">
@@ -16,9 +16,9 @@
 
     <textarea
       v-model="value"
-      :placeholder="currentPlaceholder"
       :id="label"
       :dir="currentDir"
+      :placeholder="currentPlaceholder"
       :class="['scroll', hasError && 'error']"
     />
   </div>

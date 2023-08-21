@@ -5,10 +5,7 @@ const WIDGET_DEFAULT_SETTINGS = {
   isChartShow: false,
   hasPreview: true,
   hasAggregationPeriod: true,
-  settingsTabs: {
-    en: ['General', 'Filters', 'Chart Layout'],
-    ar: ['لمحة عامة', 'الفلاتر', 'تخطيط الرسم البياني'],
-  },
+  settingsTabs: ['General', 'Filters', 'Chart Layout'],
 }
 
 const CHARTS = {
@@ -85,10 +82,7 @@ export const widgetsConfig = {
     actionName: action.GET_SUMMARY_WIDGET,
     hasAggregationPeriod: false,
     defaultChartType: null,
-    settingsTabs: {
-      en: ['General', 'Filters'],
-      ar: ['لمحة عامة', 'الفلاتر'],
-    },
+    settingsTabs: ['General', 'Filters'],
   },
 
   volume: {
@@ -195,10 +189,7 @@ export const widgetsConfig = {
     hasAggregationPeriod: false,
     actionName: action.GET_TOP_KEYWORDS_WIDGET,
     defaultChartType: 'WordCloudChart',
-    settingsTabs: {
-      en: ['General', 'Filters'],
-      ar: ['لمحة عامة', 'الفلاتر'],
-    },
+    settingsTabs: ['General', 'Filters'],
   },
 
   top_keywords_by_country: {
@@ -207,10 +198,7 @@ export const widgetsConfig = {
     hasAggregationPeriod: false,
     actionName: action.GET_TOP_KEYWORDS_WIDGET,
     defaultChartType: 'WordCloudChart',
-    settingsTabs: {
-      en: ['General', 'Filters'],
-      ar: ['لمحة عامة', 'الفلاتر'],
-    },
+    settingsTabs: ['General', 'Filters'],
   },
 
   keywords_by_location: {
@@ -219,10 +207,7 @@ export const widgetsConfig = {
     hasAggregationPeriod: false,
     actionName: action.GET_TOP_KEYWORDS_WIDGET,
     defaultChartType: 'WordCloudChart',
-    settingsTabs: {
-      en: ['General', 'Filters'],
-      ar: ['لمحة عامة', 'الفلاتر'],
-    },
+    settingsTabs: ['General', 'Filters'],
   },
 
   sentiment_diagram: {
@@ -238,10 +223,7 @@ export const widgetsConfig = {
     actionName: action.GET_SENTIMENT_NUMBER_OF_RESULT,
     hasAggregationPeriod: false,
     defaultChartType: null,
-    settingsTabs: {
-      en: ['General', 'Filters'],
-      ar: ['لمحة عامة', 'الفلاتر'],
-    },
+    settingsTabs: ['General', 'Filters'],
   },
 
   sentiment_top_keywords: {
@@ -250,10 +232,7 @@ export const widgetsConfig = {
     hasAggregationPeriod: false,
     actionName: action.GET_SENTIMENT_TOP_KEYWORDS_WIDGET,
     defaultChartType: 'ColoredWordCloudChart',
-    settingsTabs: {
-      en: ['General', 'Filters'],
-      ar: ['لمحة عامة', 'الفلاتر'],
-    },
+    settingsTabs: ['General', 'Filters'],
   },
 
   authors_by_country: {
@@ -270,10 +249,7 @@ export const widgetsConfig = {
     hasAggregationPeriod: false,
     actionName: action.GET_VOLUME_BY_COUNTRY,
     defaultChartType: 'WorldMapChart',
-    settingsTabs: {
-      en: ['General', 'Filters'],
-      ar: ['لمحة عامة', 'الفلاتر'],
-    },
+    settingsTabs: ['General', 'Filters'],
   },
 
   sources_by_language: {
@@ -301,10 +277,7 @@ export const widgetsConfig = {
     actionName: action.GET_OVERALL_TOP_SOURCES,
     defaultChartType: 'StackedBarChart',
     availableTypes: null,
-    settingsTabs: {
-      en: ['General', 'Filters'],
-      ar: ['لمحة عامة', 'الفلاتر'],
-    },
+    settingsTabs: ['General', 'Filters'],
   },
 
   languages_by_country: {
@@ -313,10 +286,7 @@ export const widgetsConfig = {
     actionName: action.GET_LANGUAGES_BY_COUNTRY,
     defaultChartType: 'TopEntitiesBarChart',
     availableTypes: null,
-    settingsTabs: {
-      en: ['General', 'Filters'],
-      ar: ['لمحة عامة', 'الفلاتر'],
-    },
+    settingsTabs: ['General', 'Filters'],
   },
 
   //social widgets
@@ -340,10 +310,7 @@ export const widgetsConfig = {
     hasAggregationPeriod: false,
     defaultChartType: null,
     availableTypes: null,
-    settingsTabs: {
-      en: ['General', 'Filters'],
-      ar: ['لمحة عامة', 'الفلاتر'],
-    },
+    settingsTabs: ['General', 'Filters'],
   },
   content_volume_top_locations: {
     ...WIDGET_DEFAULT_SETTINGS,
@@ -365,10 +332,7 @@ export const widgetsConfig = {
     actionName: action.GET_OVERALL_TOP_AUTHORS,
     defaultChartType: 'StackedBarChart',
     availableTypes: null,
-    settingsTabs: {
-      en: ['General', 'Filters'],
-      ar: ['لمحة عامة', 'الفلاتر'],
-    },
+    settingsTabs: ['General', 'Filters'],
   },
   top_authors_by_gender: {
     ...WIDGET_DEFAULT_SETTINGS,
@@ -376,10 +340,7 @@ export const widgetsConfig = {
     actionName: action.GET_TOP_AUTHORS_BY_GENDER,
     defaultChartType: 'StackedBarChart',
     availableTypes: null,
-    settingsTabs: {
-      en: ['General', 'Filters'],
-      ar: ['لمحة عامة', 'الفلاتر'],
-    },
+    settingsTabs: ['General', 'Filters'],
   },
   authors_by_language: {
     ...WIDGET_DEFAULT_SETTINGS,
@@ -417,10 +378,7 @@ export const widgetsConfig = {
     actionName: action.GET_LANGUAGES_BY_LOCATION,
     defaultChartType: 'TopEntitiesBarChart',
     availableTypes: null,
-    settingsTabs: {
-      en: ['General', 'Filters'],
-      ar: ['لمحة عامة', 'الفلاتر'],
-    },
+    settingsTabs: ['General', 'Filters'],
   },
 
   // Sentiment
@@ -477,10 +435,7 @@ export const widgetsConfig = {
     hasAggregationPeriod: false,
     defaultChartType: 'BarLineChart',
     availableTypes: null,
-    settingsTabs: {
-      en: ['General'],
-      ar: ['لمحة عامة'],
-    },
+    settingsTabs: ['General'],
   },
 
   most_engaging_post_types: {
@@ -507,10 +462,7 @@ export const widgetsConfig = {
     actionName: action.GET_ACCOUNT_ANALYSIS_SUMMARY_WIDGET,
     hasAggregationPeriod: false,
     defaultChartType: null,
-    settingsTabs: {
-      en: ['General'],
-      ar: ['لمحة عامة'],
-    },
+    settingsTabs: ['General'],
   },
 
   most_frequent_post_types: {
@@ -537,10 +489,7 @@ export const widgetsConfig = {
     hasAggregationPeriod: false,
     defaultChartType: 'BarChart',
     availableTypes: SIMPLE_CHARTS,
-    settingsTabs: {
-      en: ['General'],
-      ar: ['لمحة عامة'],
-    },
+    settingsTabs: ['General'],
   },
 
   follower_growth: {
@@ -549,10 +498,7 @@ export const widgetsConfig = {
     hasAggregationPeriod: false,
     defaultChartType: 'LineChart',
     availableTypes: null,
-    settingsTabs: {
-      en: ['General'],
-      ar: ['لمحة عامة'],
-    },
+    settingsTabs: ['General'],
   },
 
   top_hashtags: {
@@ -588,10 +534,7 @@ export const widgetsConfig = {
     hasAggregationPeriod: false,
     defaultChartType: 'HeatmapChart',
     availableTypes: null,
-    settingsTabs: {
-      en: ['General'],
-      ar: ['لمحة عامة'],
-    },
+    settingsTabs: ['General'],
   },
 
   top_posts_by_engagements: {
@@ -600,10 +543,7 @@ export const widgetsConfig = {
     hasPreview: false,
     hasAggregationPeriod: false,
     availableTypes: null,
-    settingsTabs: {
-      en: ['General'],
-      ar: ['لمحة عامة'],
-    },
+    settingsTabs: ['General'],
   },
 
   best_times_to_post: {
@@ -612,10 +552,7 @@ export const widgetsConfig = {
     hasPreview: false,
     hasAggregationPeriod: false,
     availableTypes: null,
-    settingsTabs: {
-      en: ['General'],
-      ar: ['لمحة عامة'],
-    },
+    settingsTabs: ['General'],
   },
 
   mention_timeline: {
@@ -623,10 +560,7 @@ export const widgetsConfig = {
     hasAggregationPeriod: false,
     defaultChartType: 'BarLineChart',
     availableTypes: null,
-    settingsTabs: {
-      en: ['General'],
-      ar: ['لمحة عامة'],
-    },
+    settingsTabs: ['General'],
   },
 
   most_frequent_mention_media_types: {
@@ -635,10 +569,7 @@ export const widgetsConfig = {
     hasAggregationPeriod: false,
     defaultChartType: 'DoughnutChart',
     availableTypes: SIMPLE_CHARTS,
-    settingsTabs: {
-      en: ['General'],
-      ar: ['لمحة عامة'],
-    },
+    settingsTabs: ['General'],
   },
 
   audience_mention_time: {
@@ -647,10 +578,7 @@ export const widgetsConfig = {
     hasAggregationPeriod: false,
     defaultChartType: 'HeatmapChart',
     availableTypes: null,
-    settingsTabs: {
-      en: ['General'],
-      ar: ['لمحة عامة'],
-    },
+    settingsTabs: ['General'],
   },
 
   top_mentions_by_engagements: {
@@ -659,10 +587,7 @@ export const widgetsConfig = {
     hasPreview: false,
     hasAggregationPeriod: false,
     availableTypes: null,
-    settingsTabs: {
-      en: ['General'],
-      ar: ['لمحة عامة'],
-    },
+    settingsTabs: ['General'],
   },
 
   average_engagements_by_day_for_mentions: {
