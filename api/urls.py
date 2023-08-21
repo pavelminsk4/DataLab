@@ -62,5 +62,6 @@ router.register('templates', TemplatesViewSet)
 router.register('projects', ProjectsViewSet)
 router.register('alerts', AlertsViewSet)
 router.register('regularreports', RegularReportCreateViewSet)
+router.register('profiles', ProfilesViewSet)
 
 urlpatterns += router.urls
