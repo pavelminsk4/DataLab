@@ -1,28 +1,39 @@
 <template>
   <div class="textarea-wrapper">
     <div class="label-wrapper">
-      <label v-if="label" :for="label" class="label">{{ label }}</label>
+      <CustomText
+        v-if="label"
+        :text="label"
+        :for="label"
+        tag="label"
+        class="label"
+      />
       <div v-if="hasError" class="error-message">
-        {{ errorMessage }} <ErrorIcon class="icon" />
+        <CustomText :text="errorMessage" />
+        <ErrorIcon class="icon" />
       </div>
     </div>
 
     <textarea
       v-model="value"
-      :placeholder="placeholder"
       :id="label"
-      :dir="dir"
+      :dir="currentDir"
+      :placeholder="currentPlaceholder"
       :class="['scroll', hasError && 'error']"
     />
   </div>
 </template>
 
 <script>
+import translate from '@/lib/mixins/translate.js'
+
+import CustomText from '@/components/CustomText'
 import ErrorIcon from '@components/icons/ErrorIcon'
 
 export default {
   name: 'BaseTextarea',
-  components: {ErrorIcon},
+  mixins: [translate],
+  components: {ErrorIcon, CustomText},
   props: {
     modelValue: {type: String, default: ''},
     placeholder: {type: String, default: ''},

@@ -11,12 +11,12 @@
           @change="onChange"
           class="checkbox"
         >
-          <span class="name">{{ item.default_title }}</span>
+          <CustomText tag="span" :text="item.default_title" class="name" />
         </BaseCheckbox>
 
         <BaseButton class="button" @click="saveCollectionWidgets">
           <SaveIcon />
-          Save
+          <CustomText text="Save" />
         </BaseButton>
       </section>
       <section class="icon-wrapper">
@@ -30,6 +30,7 @@
 import {mapGetters} from 'vuex'
 import {get} from '@store/constants'
 
+import CustomText from '@/components/CustomText'
 import BaseModal from '@/components/modals/BaseModal'
 import BaseCheckbox from '@/components/BaseCheckbox'
 import BaseButton from '@/components/common/BaseButton'
@@ -44,6 +45,7 @@ export default {
     BaseButton,
     BaseCheckbox,
     BaseModal,
+    CustomText,
   },
   props: {
     projectId: {type: Number, required: true},

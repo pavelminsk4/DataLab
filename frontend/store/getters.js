@@ -44,6 +44,14 @@ export default {
     return state.searchData
   },
 
+  [get.TRANSLATION](state) {
+    return state.translation
+  },
+
+  [get.PLATFORM_LANGUAGE](state) {
+    return state.userInfo?.user_profile.platform_language
+  },
+
   [get.COUNTRIES](state) {
     return state.countries
       .map((country) => country.name)

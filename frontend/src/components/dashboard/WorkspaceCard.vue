@@ -6,7 +6,11 @@
     @mouseleave="hideMenu"
   >
     <div class="cart-button-wrapper">
-      <div class="number-projects">{{ numberProjects }} projects</div>
+      <CustomText text="projects" class="number-projects">
+        <template #before>
+          {{ numberProjects }}
+        </template>
+      </CustomText>
       <UsersIconsBar :users="members" />
     </div>
 
@@ -23,17 +27,17 @@
         @click="addNewProject"
       >
         <PlusIcon class="plus-icon" />
-        <span class="button-text">Add Project</span>
+        <CustomText tag="span" text="Add Project" class="button-text" />
       </BaseButton>
 
       <BaseTooltipSettings v-if="isShowMenu" :id="id">
         <div class="tooltip-item" @click.stop="openSettingsModal">
           <EditIcon />
-          <span>Edit</span>
+          <CustomText tag="span" text="Edit" />
         </div>
         <div class="tooltip-item" @click.stop="toggleDeleteModal">
           <DeleteIcon />
-          <span>Delete</span>
+          <CustomText tag="span" text="Delete" />
         </div>
       </BaseTooltipSettings>
     </div>
@@ -55,6 +59,7 @@ import EditIcon from '@/components/icons/EditIcon'
 import DeleteIcon from '@/components/icons/DeleteIcon'
 import AreYouSureModal from '@/components/modals/AreYouSureModal'
 import BaseButton from '@/components/common/BaseButton'
+import CustomText from '@/components/CustomText'
 
 export default {
   name: 'WorkspaceCard',
@@ -66,6 +71,7 @@ export default {
     BaseTooltipSettings,
     UsersIconsBar,
     PlusIcon,
+    CustomText,
   },
   emits: [
     'add-new-project',

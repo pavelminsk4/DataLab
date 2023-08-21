@@ -1,0 +1,37 @@
+<template>
+  <component :is="tag">
+    <slot name="before"></slot>
+    {{ translatedText }}
+    <slot></slot>
+  </component>
+</template>
+
+<script>
+import {action, get} from '@store/constants'
+import {mapGetters, mapActions} from 'vuex'
+
+const ENGLISH = 'en'
+
+export default {
+  name: 'CustomText',
+  props: {
+    tag: {type: String, default: 'div'},
+    text: {type: [String, Number], default: ''},
+  },
+  computed: {
+    ...mapGetters({
+      translated: get.TRANSLATION,
+      platformLanguage: get.PLATFORM_LANGUAGE,
+    }),
+    translatedText() {
+      if (this.platformLanguage === ENGLISH) return this.text
+
+      this[action.GET_TRANSLATED_TEXT](this.text)
+      return this.translated[this.text]
+    },
+  },
+  methods: {
+    ...mapActions([action.GET_TRANSLATED_TEXT]),
+  },
+}
+</script>

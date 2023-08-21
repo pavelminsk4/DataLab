@@ -6,7 +6,7 @@
     <div class="reports-wrapper">
       <section class="form-section">
         <div class="title-section">
-          <h3>Instant Report</h3>
+          <CustomText tag="h3" text="Instant Report" />
         </div>
 
         <div class="form">
@@ -15,7 +15,7 @@
             :errorMessage="errors.layoutElementsError"
             class="layout-elements"
           >
-            <div class="settings-name">Layout Elements</div>
+            <CustomText text="Layout Elements" class="settings-name" />
             <BaseCheckbox
               v-for="(item, index) in layoutElements"
               :key="'layoutEl' + index"
@@ -26,7 +26,7 @@
                 isSelectedItem(item.value) && 'active-element',
               ]"
             >
-              {{ item.value }}
+              <CustomText :text="item.value" />
             </BaseCheckbox>
           </DivWithError>
 
@@ -35,7 +35,7 @@
             :errorMessage="errors.languageError"
             class="layout-elements"
           >
-            <div class="settings-name">Language</div>
+            <CustomText text="Language" class="settings-name" />
 
             <BaseRadio
               v-for="(item, index) in language"
@@ -54,7 +54,7 @@
             :errorMessage="errors.formatError"
             class="layout-elements"
           >
-            <div class="settings-name">Format</div>
+            <CustomText text="Format" class="settings-name" />
             <BaseRadio
               v-for="(item, index) in format"
               :key="item + index"
@@ -86,7 +86,7 @@
             @click="downloadReport"
           >
             <ReportsUploadIcon />
-            Download Report
+            <CustomText text="Download Report" />
           </BaseButton>
         </div>
       </section>
@@ -101,6 +101,7 @@
 import {mapActions, mapGetters, mapState, createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
 
+import CustomText from '@/components/CustomText'
 import BaseRadio from '@/components/BaseRadio'
 import BaseButton from '@/components/common/BaseButton'
 import BaseSelect from '@/components/BaseSelect'
@@ -123,6 +124,7 @@ export default {
     BaseCheckbox,
     DivWithError,
     BaseModal,
+    CustomText,
   },
   props: {
     projectId: {type: [Number, String], required: true},

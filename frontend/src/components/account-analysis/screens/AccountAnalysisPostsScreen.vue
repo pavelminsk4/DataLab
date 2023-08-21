@@ -25,7 +25,7 @@
 
     <section v-else class="no-posts">
       <img src="@/assets/account-analysis/no-posts.svg" alt="No posts image" />
-      <span> No posts here&#128532;</span>
+      <CustomText tag="span" text="No posts here"> &#128532; </CustomText>
     </section>
   </section>
 </template>
@@ -35,7 +35,7 @@ import {action} from '@store/constants'
 import {createNamespacedHelpers} from 'vuex'
 // import BaseInput from '@/components/common/BaseInput'
 import PaginationControlPanel from '@/components/PaginationControlPanel'
-
+import CustomText from '@/components/CustomText'
 import AccountActivityPostsLayout from '@/components/account-analysis/AccountActivityPostsLayout'
 import MentionsPostsLayout from '@/components/account-analysis/MentionsPostsLayout'
 
@@ -49,6 +49,7 @@ export default {
     PaginationControlPanel,
     AccountActivityPostsLayout,
     MentionsPostsLayout,
+    CustomText,
   },
   props: {
     currentProject: {type: Object, required: true},

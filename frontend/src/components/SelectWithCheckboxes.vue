@@ -13,8 +13,9 @@
         v-if="isSearch"
         v-bind="$attrs"
         type="text"
+        :dir="currentDir"
         :value="modelValue"
-        :placeholder="placeholder"
+        :placeholder="currentPlaceholder"
         :class="['input', isSearch && 'input-search', 'select-search']"
         @focus="visible = true"
         @input="handleInput"
@@ -44,22 +45,27 @@
     </div>
 
     <div v-if="hasError" class="error-container">
-      {{ errorMessage }}
+      <CustomText :text="errorMessage" />
       <ErrorIcon class="error-icon" />
     </div>
   </div>
 </template>
 
 <script>
+import translate from '@/lib/mixins/translate.js'
+
+import CustomText from '@/components/CustomText'
 import ArrowDownIcon from '@/components/icons/ArrowDownIcon'
 import ErrorIcon from '@/components/icons/ErrorIcon'
 import BaseCheckbox from '@/components/BaseCheckbox'
 
 export default {
   name: 'SelectWithCheckboxes',
-  components: {BaseCheckbox, ErrorIcon, ArrowDownIcon},
+  mixins: [translate],
+  components: {BaseCheckbox, ErrorIcon, ArrowDownIcon, CustomText},
   emits: ['update:modelValue', 'select-option', 'get-selected-items'],
   props: {
+    dir: {type: String, default: 'ltr'},
     list: {type: Array, default: null},
     placeholder: {type: String, default: 'Select option'},
     name: {type: String, required: true},

@@ -43,7 +43,10 @@
           </div>
         </div>
         <template v-else>
-          <div class="post-card__information_block_name">{{ item.name }}</div>
+          <CustomText
+            :text="item.name"
+            class="post-card__information_block_name"
+          />
           <div class="post-card__information_block_value">
             {{ item.value }}
           </div>
@@ -63,7 +66,7 @@ import LikeIcon from '@/components/icons/LikeIcon'
 import RepliesIcon from '@/components/icons/RepliesIcon'
 import RetweetIcon from '@/components/icons/RetweetIcon'
 import TwitterIcon from '@/components/icons/TwitterIcon'
-
+import CustomText from '@/components/CustomText'
 import PostCardLayout from '@/components/layout/PostCardLayout'
 
 const {mapActions, mapGetters} = createNamespacedHelpers('social')
@@ -76,6 +79,7 @@ export default {
     RepliesIcon,
     RetweetIcon,
     TwitterIcon,
+    CustomText,
   },
   props: {
     isClippingPost: {type: Boolean, default: false},

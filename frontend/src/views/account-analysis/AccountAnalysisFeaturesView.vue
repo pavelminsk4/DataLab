@@ -11,6 +11,7 @@
             name: 'workspaces',
             routeName: `AccountAnalysisWorkspaces`,
           }"
+          :should-translate="false"
         >
           <TotalResults v-if="isPostsPage" :total-results="postsResult" />
         </MainLayoutTitleBlock>

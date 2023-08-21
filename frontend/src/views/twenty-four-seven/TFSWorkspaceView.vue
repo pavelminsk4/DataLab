@@ -9,6 +9,7 @@
           name: 'main page',
           routeName: 'TwentyFourSevenWorkspaces',
         }"
+        :should-translate="false"
       >
       </MainLayoutTitleBlock>
 
@@ -18,7 +19,8 @@
         tooltip-title="Created the maximum possible number of projects!"
         @click="createProject"
       >
-        <PlusIcon /> Create new project
+        <PlusIcon />
+        <CustomText text="Create new project" />
       </BaseButtonWithTooltip>
     </div>
 
@@ -36,6 +38,7 @@
 import {mapActions, mapGetters, createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
 
+import CustomText from '@/components/CustomText'
 import BaseButtonWithTooltip from '@/components/BaseButtonWithTooltip'
 import MainLayout from '@components/layout/MainLayout'
 import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
@@ -52,6 +55,7 @@ export default {
     MainLayoutTitleBlock,
     PlusIcon,
     TFSProjectsTable,
+    CustomText,
   },
   data() {
     return {

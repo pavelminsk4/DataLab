@@ -11,8 +11,10 @@
 
   <div v-else>
     <div class="sort-wrapper">
-      <span class="hint">Sort by</span>
-      <div class="sort-option">Latest <SortIcon class="sort-icon" /></div>
+      <CustomText tag="span" text="Sort by" class="hint" />
+      <CustomText text="Latest" class="sort-option">
+        <SortIcon class="sort-icon" />
+      </CustomText>
       <BaseButtonWithTooltip
         :is-disabled="isProjectCreationAvailable"
         :has-tooltip="isProjectCreationAvailable"
@@ -21,7 +23,7 @@
         @click="$emit('create-workspace')"
       >
         <PlusIcon />
-        <span>Create new workspace</span>
+        <CustomText text="Create new workspace" class="sort-option" />
       </BaseButtonWithTooltip>
     </div>
 
@@ -54,6 +56,7 @@ import {get} from '@store/constants'
 import SortIcon from '@components/icons/SortIcon'
 import PlusIcon from '@/components/icons/PlusIcon'
 
+import CustomText from '@/components/CustomText'
 import BaseButtonWithTooltip from '@/components/BaseButtonWithTooltip'
 import BaseSpinner from '@/components/BaseSpinner'
 import WorkspaceCard from '@components/dashboard/WorkspaceCard'
@@ -66,6 +69,7 @@ export default {
     BaseSpinner,
     SortIcon,
     PlusIcon,
+    CustomText,
     WorkspaceCard,
     SettingsWorkspaceModal,
   },

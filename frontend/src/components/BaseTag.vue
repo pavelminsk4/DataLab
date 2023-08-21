@@ -22,13 +22,14 @@
       type="text"
       :list="id"
       :name="name"
+      :dir="currentDir"
+      :placeholder="currentPlaceholder"
       autocomplete="off"
+      class="input"
       @keydown.enter="addTag(newTag)"
       @keydown.prevent.tab="addTag(newTag)"
       @keydown.delete="newTag.length || removeTag(tags.length - 1)"
       @input="addTagIfDelem(newTag)"
-      :placeholder="placeholder"
-      class="input"
     />
 
     <div v-if="hasError" class="error-container">
@@ -40,53 +41,27 @@
 
 <script>
 import {ref, watch, nextTick, onMounted} from 'vue'
+import translate from '@/lib/mixins/translate.js'
+
 import DeleteTagButton from '@/components/icons/DeleteTagButton'
 import ErrorIcon from '@/components/icons/ErrorIcon'
 
 export default {
   name: 'BaseTag',
+  mixins: [translate],
   components: {ErrorIcon, DeleteTagButton},
   props: {
-    modelValue: {
-      type: Array,
-      default: () => [],
-    },
-    allowCustom: {
-      type: Boolean,
-      default: true,
-    },
-    tagClass: {
-      type: String,
-      default: '',
-    },
-    name: {
-      type: String,
-      default: '',
-    },
-    isAdditionalKeywords: {
-      type: Boolean,
-      default: false,
-    },
-    placeholder: {
-      type: String,
-      default: 'Enter text',
-    },
-    isIrrelevantKeywords: {
-      type: Boolean,
-      default: false,
-    },
-    textarea: {
-      type: Boolean,
-      default: false,
-    },
-    hasError: {
-      type: Boolean,
-      default: false,
-    },
-    errorMessage: {
-      type: String,
-      default: 'Error',
-    },
+    modelValue: {type: Array, default: () => []},
+    allowCustom: {type: Boolean, default: true},
+    tagClass: {type: String, default: ''},
+    name: {type: String, default: ''},
+    isAdditionalKeywords: {type: Boolean, default: false},
+    placeholder: {type: String, default: 'Enter text'},
+    isIrrelevantKeywords: {type: Boolean, default: false},
+    textarea: {type: Boolean, default: false},
+    hasError: {type: Boolean, default: false},
+    errorMessage: {type: String, default: 'Error'},
+    dir: {type: String, default: 'ltr'},
     customDelimiter: {
       type: [String, Array],
       default: () => [],

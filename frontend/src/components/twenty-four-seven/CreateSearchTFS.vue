@@ -7,7 +7,7 @@
   >
     <template #module-type>
       <div class="module-wrapper">
-        <div>Module</div>
+        <CustomText text="Module" />
         <BaseRadio
           v-for="(item, index) in modulesTypes"
           :key="item + index"
@@ -31,6 +31,7 @@ import {createNamespacedHelpers, mapState, mapActions, mapGetters} from 'vuex'
 import {action as actionTFS, action, get} from '@store/constants'
 import {stringToPascalCase} from '@/lib/utilities'
 
+import CustomText from '@/components/CustomText'
 import BaseRadio from '@/components/BaseRadio'
 import SimpleModeTab from '@/components/workspace/SimpleModeTab'
 import OnlineIcon from '@/components/icons/OnlineIcon'
@@ -44,6 +45,7 @@ export default {
     BaseRadio,
     SimpleModeTab,
     OnlineIcon,
+    CustomText,
   },
   props: {
     workspaceId: {type: String, default: null},

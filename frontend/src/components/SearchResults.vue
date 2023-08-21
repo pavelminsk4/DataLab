@@ -33,9 +33,14 @@
 
     <div v-if="step && !searchData.length" class="no-results">
       <CreateWorkspaceRightSide :step="currentStep" />
-      <h3 v-if="isSearchPerformed" class="no-results__text">
-        No news for your request &#128546;
-      </h3>
+      <CustomText
+        v-if="isSearchPerformed"
+        tag="h3"
+        text="No news for your request"
+        class="no-results__text"
+      >
+        &#128546;
+      </CustomText>
     </div>
   </div>
 </template>
@@ -45,6 +50,7 @@ import {mapActions, mapGetters, mapState} from 'vuex'
 import {action, get} from '@store/constants'
 import {lowerFirstLetter} from '@/lib/utilities'
 
+import CustomText from '@/components/CustomText'
 import BaseSpinner from '@/components/BaseSpinner'
 import OnlinePostCard from '@/components/OnlinePostCard'
 import SocialPostCard from '@/components/SocialPostCard'
@@ -61,6 +67,7 @@ export default {
     PaginationControlPanel,
     CreateWorkspaceRightSide,
     BaseSpinner,
+    CustomText,
   },
   emits: ['show-results'],
   props: {

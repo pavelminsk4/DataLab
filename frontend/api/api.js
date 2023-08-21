@@ -55,6 +55,14 @@ export default {
     return fetch('get', `/company_users/${companyId}/`)
   },
 
+  async postTranslationText(value) {
+    return fetch('post', '/multilanguage/', value)
+  },
+
+  async postPlatformLanguage(userId, lang) {
+    return fetch('patch', `/profiles/${userId}/`, {platform_language: lang})
+  },
+
   async getListOfDisplayedWidgets(projectId) {
     return fetch('get', `/projects/${projectId}/widgets_list`)
   },

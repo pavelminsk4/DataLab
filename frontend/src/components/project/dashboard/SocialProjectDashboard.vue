@@ -38,6 +38,7 @@
         name: 'workspace',
         routeName: 'SocialWorkspace',
       }"
+      :should-translate="false"
     >
       <TotalResults :total-results="numberOfPosts" />
     </MainLayoutTitleBlock>
@@ -48,13 +49,12 @@
         name="sort-posts"
         :selected-value="sortValue"
       >
-        <div
+        <CustomText
           v-for="(item, index) in sortingList"
           :key="item + index"
+          :text="item"
           @click="setSortingValue(item)"
-        >
-          {{ item }}
-        </div>
+        />
       </BaseDropdown>
 
       <div class="menu-buttons">
@@ -63,7 +63,8 @@
           class="button-upload"
           @click="toggleWidgetsModal('DownloadReportModal')"
         >
-          <ReportsUploadIcon /> Download Report
+          <ReportsUploadIcon />
+          <CustomText text="Download Report" />
         </BaseButton>
 
         <div class="navigation-bar">
@@ -72,7 +73,7 @@
             @click="toggleWidgetsModal('WidgetsListModal')"
           >
             <PlusIcon class="icon" />
-            Add Widgets
+            <CustomText text="Add Widgets" />
           </BaseButton>
 
           <FiltersIcon
@@ -104,6 +105,7 @@
 import {mapActions, mapGetters, createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
 
+import CustomText from '@/components/CustomText'
 import SearchResults from '@/components/SearchResults'
 import SocialProjectDashboardWidgets from '@/components/project/dashboard/SocialProjectDashboardWidgets'
 import BaseButton from '@/components/common/BaseButton'
@@ -136,6 +138,7 @@ export default {
     SocialProjectDashboardWidgets,
     SearchResults,
     TotalResults,
+    CustomText,
   },
   props: {
     currentProject: {type: [Array, Object], required: false},

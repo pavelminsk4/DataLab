@@ -13,9 +13,9 @@
   <div class="form-wrapper">
     <BaseInput v-model="projectName" label="Name" placeholder="Project Name" />
 
-    <h4 class="label">Description</h4>
     <BaseTextarea
       v-model="description"
+      label="Description"
       placeholder="Some words about your project"
     />
 
@@ -24,7 +24,7 @@
       class="next-button"
       @click="nextStep"
     >
-      <span>Next</span>
+      <CustomText tag="span" text="Next" />
       <ArrowLeftIcon class="button-arrow-icon" />
     </BaseButton>
   </div>
@@ -40,6 +40,7 @@ import BaseInput from '@/components/common/BaseInput'
 import BaseTextarea from '@/components/common/BaseTextarea'
 import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
 import ProgressBar from '@/components/workspace/WorkspaceProgressBar'
+import CustomText from '@/components/CustomText'
 
 export default {
   name: 'CreateProjectScreen',
@@ -50,6 +51,7 @@ export default {
     BaseTextarea,
     MainLayoutTitleBlock,
     ProgressBar,
+    CustomText,
   },
   props: {
     workspaceId: {
@@ -113,6 +115,7 @@ export default {
 .form-wrapper {
   display: flex;
   flex-direction: column;
+  gap: 20px;
 
   width: 56%;
   margin-top: 40px;
@@ -130,7 +133,7 @@ export default {
 .next-button {
   align-self: flex-end;
 
-  margin-top: 32px;
+  margin-top: 15px;
 
   .button-arrow-icon {
     margin-left: 10px;

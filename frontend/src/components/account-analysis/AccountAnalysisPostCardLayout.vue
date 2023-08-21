@@ -5,11 +5,11 @@
     </div>
     <div class="post-card__footer">
       <div class="option">
-        <h4>Date</h4>
+        <CustomText tag="h4" text="Date" />
         <span class="option__text"> {{ defaultDate(postDetails.date) }}</span>
       </div>
       <div class="option">
-        <h4>Engagements</h4>
+        <CustomText tag="h4" text="Engagements" />
         <span class="option__text"> {{ postDetails.engagements }}</span>
       </div>
       <div class="option stat">
@@ -34,6 +34,7 @@
 <script>
 import {defaultDate} from '@/lib/utilities'
 
+import CustomText from '@/components/CustomText'
 import RepliesIcon from '@/components/icons/RepliesIcon'
 import LikeIcon from '@/components/icons/LikeIcon'
 import RetweetIcon from '@/components/icons/RetweetIcon'
@@ -44,6 +45,7 @@ export default {
     RepliesIcon,
     LikeIcon,
     RetweetIcon,
+    CustomText,
   },
   props: {
     postDetails: {type: Object, required: true},

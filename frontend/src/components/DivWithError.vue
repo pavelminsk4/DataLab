@@ -1,7 +1,7 @@
 <template>
   <div :class="['div', hasError && 'div-with-error']">
     <div v-if="hasError" class="error-container">
-      {{ errorMessage }}
+      <CustomText :text="errorMessage" />
       <ErrorIcon class="error-icon" />
     </div>
     <slot></slot>
@@ -9,11 +9,12 @@
 </template>
 
 <script>
+import CustomText from '@/components/CustomText'
 import ErrorIcon from '@/components/icons/ErrorIcon'
 
 export default {
   name: 'DivWithError',
-  components: {ErrorIcon},
+  components: {ErrorIcon, CustomText},
   props: {
     hasError: {
       type: Boolean,

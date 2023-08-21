@@ -9,15 +9,14 @@
       @update="errors.titleError = null"
     />
 
-    <div class="title">Widget Description</div>
-
     <BaseTextarea
       v-model="description"
+      label="Widget Description"
       placeholder="Some words about Widgets"
     />
 
     <div v-if="hasAggregationPeriod">
-      <div class="title">Date Aggregation Period</div>
+      <CustomText text="Date Aggregation Period" class="title" />
       <BaseSelect
         v-model="aggregationPeriod"
         :list="aggregationPeriods"
@@ -33,13 +32,14 @@
 <script>
 import {isAllFieldsEmpty} from '@lib/utilities'
 
+import CustomText from '@/components/CustomText'
 import BaseInput from '@/components/common/BaseInput'
 import BaseSelect from '@/components/BaseSelect'
 import BaseTextarea from '@/components/common/BaseTextarea'
 
 export default {
   name: 'BasicSettingsScreen',
-  components: {BaseTextarea, BaseSelect, BaseInput},
+  components: {BaseTextarea, BaseSelect, BaseInput, CustomText},
   props: {
     widgetTitle: {type: String, required: false},
     widgetDescription: {type: String, required: false},
@@ -110,6 +110,7 @@ export default {
 
   .input-title {
     width: 100%;
+    margin-bottom: 20px;
   }
 
   .title-general {

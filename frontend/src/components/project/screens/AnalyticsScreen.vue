@@ -39,6 +39,7 @@
         name: 'workspace',
         routeName: 'OnlineWorkspace',
       }"
+      :should-translate="false"
     >
       <TotalResults :total-results="numberOfPosts" />
     </MainLayoutTitleBlock>
@@ -49,13 +50,12 @@
         name="sort-posts"
         :selected-value="sortValue"
       >
-        <div
+        <CustomText
           v-for="(item, index) in sortingList"
           :key="item + index"
+          :text="item"
           @click="setSortingValue(item)"
-        >
-          {{ item }}
-        </div>
+        />
       </BaseDropdown>
 
       <div class="menu-buttons">
@@ -64,7 +64,8 @@
           class="button-upload"
           @click="toggleWidgetsModal('isOpenDownloadReportModal')"
         >
-          <ReportsUploadIcon /> Download Report
+          <ReportsUploadIcon />
+          <CustomText text="Download Report" />
         </BaseButton>
 
         <div class="navigation-bar">
@@ -73,7 +74,7 @@
             @click="toggleWidgetsModal('isOpenWidgetsModal')"
           >
             <PlusIcon class="icon" />
-            Add Widgets
+            <CustomText text="Add Widgets" />
           </BaseButton>
 
           <FiltersIcon
@@ -108,6 +109,7 @@ import BaseDropdown from '@/components/BaseDropdown'
 import MainLayoutTitleBlock from '@/components/layout/MainLayoutTitleBlock'
 import InteractiveWidgetModal from '@/components/modals/InteractiveWidgetModal'
 import TotalResults from '@/components/TotalResults'
+import CustomText from '@/components/CustomText'
 
 export default {
   name: 'AnalyticsScreen',
@@ -124,6 +126,7 @@ export default {
     BaseButton,
     WidgetsView,
     TotalResults,
+    CustomText,
   },
   props: {
     currentProject: {type: [Array, Object], required: false},

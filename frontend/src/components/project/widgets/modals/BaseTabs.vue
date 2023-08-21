@@ -7,25 +7,22 @@
         'general-button',
         panelNameProxy === button && 'general-button-active',
       ]"
-      @click="toggleSettingsPanel"
+      @click="toggleSettingsPanel(button)"
     >
-      {{ button }}
+      <CustomText :text="button" />
     </div>
   </div>
 </template>
 
 <script>
+import CustomText from '@/components/CustomText'
+
 export default {
   name: 'BaseTabs',
+  components: {CustomText},
   props: {
-    mainSettings: {
-      type: Array,
-      required: true,
-    },
-    defaultTab: {
-      type: String,
-      required: true,
-    },
+    mainSettings: {type: Array, required: true},
+    defaultTab: {type: String, required: true},
   },
   data() {
     return {
@@ -43,8 +40,8 @@ export default {
     },
   },
   methods: {
-    toggleSettingsPanel(e) {
-      this.panelName = e.target.innerText
+    toggleSettingsPanel(val) {
+      this.panelName = val
       this.$emit('update-setting-panel', this.panelNameProxy)
     },
   },

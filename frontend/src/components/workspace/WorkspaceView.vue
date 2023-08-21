@@ -6,6 +6,7 @@
         :title="workspace.title"
         :description="workspace.description"
         :back-page="backPage"
+        :should-translate="false"
       >
         <component :is="`${moduleName}Icon`" class="online-icon" />
       </MainLayoutTitleBlock>
@@ -16,13 +17,15 @@
         tooltip-title="Created the maximum possible number of projects!"
         @click="$emit('create-project')"
       >
-        Create new project
+        <CustomText text="Create new project" />
       </BaseButtonWithTooltip>
     </div>
 
     <div class="sort-wrapper">
-      <span class="hint">Sort by</span>
-      <div class="sort-option">Latest <SortIcon class="sort-icon" /></div>
+      <CustomText tag="span" text="Sort by" class="hint" />
+      <CustomText text="Latest" class="sort-option">
+        <SortIcon class="sort-icon" />
+      </CustomText>
 
       <BaseInput
         v-model="search"
@@ -56,6 +59,7 @@ import BaseInput from '@/components/common/BaseInput'
 import MainLayout from '@components/layout/MainLayout'
 import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
 import ProjectsTable from '@/components/ProjectsTable'
+import CustomText from '@/components/CustomText'
 
 export default {
   name: 'WorkspaceView',
@@ -68,6 +72,7 @@ export default {
     ProjectsTable,
     SortIcon,
     SocialIcon,
+    CustomText,
   },
   props: {
     moduleName: {type: String, default: 'Online'},

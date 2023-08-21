@@ -1,15 +1,17 @@
 <template>
   <BaseModal modal-frame-style="width:90vw;">
     <template #title>
-      Top Results
-      <div class="hint">{{ allAvailablePosts }} results</div>
+      <CustomText text="Top Results" />
+      <CustomText :text="allAvailablePosts" class="hint"> results </CustomText>
     </template>
 
     <BaseSpinner v-if="loading" />
 
     <div v-else class="interactive-modal-wrapper">
       <div class="settings-panel">
-        <div class="results">{{ allAvailablePosts }} results</div>
+        <CustomText :text="allAvailablePosts" class="results">
+          results
+        </CustomText>
 
         <component
           v-for="(item, index) in displayTypes"
@@ -24,9 +26,13 @@
       </div>
 
       <NoPostsIcon v-if="!loading && !posts.length" />
-      <div v-if="!loading && !posts.length" class="no-posts">
-        No posts here &#128531;
-      </div>
+      <CustomText
+        v-if="!loading && !posts.length"
+        text="No posts here"
+        class="no-posts"
+      >
+        &#128531;
+      </CustomText>
 
       <div :class="[postsDisplayType]">
         <component
@@ -57,6 +63,7 @@
 import {mapGetters, mapState} from 'vuex'
 import {get} from '@store/constants'
 
+import CustomText from '@/components/CustomText'
 import BaseModal from '@/components/modals/BaseModal'
 import BaseSpinner from '@/components/BaseSpinner'
 import OnlinePostCard from '@/components/OnlinePostCard'
@@ -79,6 +86,7 @@ export default {
     NormalIcon,
     CompactIcon,
     NoPostsIcon,
+    CustomText,
   },
   props: {
     widgetId: {type: Number, required: false},

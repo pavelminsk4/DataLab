@@ -1,22 +1,22 @@
 <template>
   <label v-if="label" :for="label">
-    <div class="label">{{ label }}</div>
+    <CustomText :text="label" class="label" />
     <div :class="['input-wrapper', hasError && 'error']">
       <SearchIcon v-if="isSearch" class="search-icon" />
       <input
         v-bind="$attrs"
         :type="inputType"
         :id="label"
-        :dir="dir"
+        :dir="currentDir"
         :value="modelValue"
         :class="['input', isSearch && 'input-search']"
-        :placeholder="placeholder"
+        :placeholder="currentPlaceholder"
         :autocomplete="autocomplete"
         @input="debounceInput"
       />
 
       <div v-if="hasError" class="error-container">
-        {{ errorMessage }}
+        <CustomText :text="errorMessage" />
         <ErrorIcon class="error-icon" />
       </div>
 
@@ -27,11 +27,15 @@
 
 <script>
 import debounce from 'lodash/debounce'
+import translate from '@/lib/mixins/translate.js'
+
+import CustomText from '@/components/CustomText'
 import SearchIcon from '@/components/icons/SearchIcon'
 import ErrorIcon from '@/components/icons/ErrorIcon'
 
 export default {
   name: 'BaseInput',
+  mixins: [translate],
   props: {
     modelValue: {type: [String, Number], required: true},
     inputType: {type: String, default: 'text'},
@@ -46,6 +50,7 @@ export default {
   components: {
     ErrorIcon,
     SearchIcon,
+    CustomText,
   },
   methods: {
     debounceInput: debounce(function (e) {

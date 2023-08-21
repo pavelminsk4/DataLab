@@ -5,5 +5,5 @@ from django.urls import path
 app_name = 'multilanguage'
 
 urlpatterns = [
-    path('multilanguage/', multilanguage, name='multilanguage'),
+    path('api/multilanguage/', multilanguage, name='multilanguage'),
 ]

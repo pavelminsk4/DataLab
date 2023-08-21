@@ -2,41 +2,38 @@
   <div class="main-layout__title-block">
     <div v-if="backPage" class="main-layout__back-button" @click="backToPage">
       <ArrowLeftIcon class="main-layout__back-button_arrow-back" />
-      <span>Back to {{ backPage.name }}</span>
+      <CustomText tag="span" :text="`Back to ${backPage.name}`" />
     </div>
 
     <div class="title-wrapper">
-      <h1 class="main-layout__title">{{ title }}</h1>
+      <CustomText v-if="shouldTranslate" tag="h1" :text="title" />
+
+      <h1 v-else class="main-layout__title">{{ title }}</h1>
       <slot></slot>
     </div>
 
-    <div v-if="description" class="main-layout__description">
+    <CustomText v-if="shouldTranslate && description" :text="description" />
+    <div v-else class="main-layout__description">
       {{ description }}
     </div>
   </div>
 </template>
 
 <script>
+import CustomText from '@/components/CustomText'
 import ArrowLeftIcon from '@/components/icons/ArrowLeftIcon'
 
 export default {
   name: 'MainLayoutTitleBlock',
   components: {
     ArrowLeftIcon,
+    CustomText,
   },
   props: {
-    title: {
-      type: String,
-      default: '',
-    },
-    description: {
-      type: String,
-      default: '',
-    },
-    backPage: {
-      type: Object,
-      default: null,
-    },
+    title: {type: String, default: ''},
+    description: {type: String, default: ''},
+    backPage: {type: Object, default: null},
+    shouldTranslate: {type: Boolean, default: true},
   },
   methods: {
     backToPage() {

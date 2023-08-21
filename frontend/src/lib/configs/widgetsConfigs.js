@@ -98,7 +98,10 @@ export const widgetsConfig = {
     actionName: action.GET_CLIPPING_FEED_CONTENT_WIDGET,
     hasAggregationPeriod: false,
     defaultChartType: null,
-    settingsTabs: ['General'],
+    settingsTabs: {
+      en: ['General'],
+      ar: ['لمحة عامة'],
+    },
   },
   top_authors: {
     ...WIDGET_DEFAULT_SETTINGS,

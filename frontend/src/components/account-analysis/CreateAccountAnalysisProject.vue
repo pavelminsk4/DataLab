@@ -9,7 +9,7 @@
       class="input-name-field"
     />
 
-    <div class="title">Profile</div>
+    <CustomText text="Profile" class="title" />
     <BaseSearchField
       v-model="accountProfile"
       name="profile-handle-search"
@@ -34,7 +34,7 @@
         class="button"
         @click="saveChanges"
       >
-        <span>Save Project</span>
+        <CustomText tag="span" text="Save Project" />
       </ButtonWithArrow>
     </footer>
   </div>
@@ -44,6 +44,7 @@
 import {mapState, mapActions, createNamespacedHelpers} from 'vuex'
 import {action} from '@store/constants'
 
+import CustomText from '@/components/CustomText'
 import BaseInput from '@/components/common/BaseInput'
 import BaseSearchField from '@/components/BaseSearchField'
 import AccountAnalysisSourcesTabs from '@/components/account-analysis/AccountAnalysisSourcesTabs'
@@ -63,6 +64,7 @@ export default {
     CommonCalendar,
     ButtonWithArrow,
     BaseSearchField,
+    CustomText,
   },
   data() {
     return {

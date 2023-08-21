@@ -8,6 +8,7 @@
             name: 'main page',
             routeName: `TwentyFourSevenWorkspaces`,
           }"
+          :should-translate="false"
         />
       </div>
       <router-view :current-project="currentProject"></router-view>

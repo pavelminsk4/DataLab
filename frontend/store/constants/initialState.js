@@ -114,6 +114,8 @@ export default {
     loading: false,
     clippingWidget: false,
   },
+  translation: {},
+  platformLanguage: 'ar',
   currentStep: '',
   projects: [],
   workspaces: [],
