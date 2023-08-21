@@ -316,6 +316,12 @@ class RegularReportCreateViewSet(viewsets.ModelViewSet):
   serializer_class = RegularReportCreateSerializer
   queryset = RegularReport.objects.all()
 
+
+class ProfilesViewSet(viewsets.ModelViewSet):
+    serializer_class = ProfileUserSerializer
+    queryset = Profile.objects.all()
+
+
 def filter_with_constructor(body, posts):
     keys = body['keywords']
     exceptions = body['exceptions']
