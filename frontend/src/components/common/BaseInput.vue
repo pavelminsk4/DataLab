@@ -26,18 +26,16 @@
 </template>
 
 <script>
-import {mapGetters, mapActions} from 'vuex'
-import {get, action} from '@store/constants'
 import debounce from 'lodash/debounce'
+import translate from '@/lib/mixins/translate.js'
+
 import CustomText from '@/components/CustomText'
 import SearchIcon from '@/components/icons/SearchIcon'
 import ErrorIcon from '@/components/icons/ErrorIcon'
 
-const ARABIC = 'ar'
-const ENGLISH = 'en'
-
 export default {
   name: 'BaseInput',
+  mixins: [translate],
   props: {
     modelValue: {type: [String, Number], required: true},
     inputType: {type: String, default: 'text'},
@@ -54,23 +52,7 @@ export default {
     SearchIcon,
     CustomText,
   },
-  computed: {
-    ...mapGetters({
-      platformLanguage: get.PLATFORM_LANGUAGE,
-      translated: get.TRANSLATION,
-    }),
-    currentDir() {
-      return this.platformLanguage === ARABIC ? 'rtl' : this.dir
-    },
-    currentPlaceholder() {
-      if (this.platformLanguage === ENGLISH) return this.placeholder
-
-      this[action.GET_TRANSLATED_TEXT](this.placeholder)
-      return this.translated[this.placeholder]
-    },
-  },
   methods: {
-    ...mapActions([action.GET_TRANSLATED_TEXT]),
     debounceInput: debounce(function (e) {
       this.$emit('update:modelValue', e.target.value)
     }, 100),

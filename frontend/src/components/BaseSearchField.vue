@@ -51,17 +51,15 @@
 </template>
 
 <script>
-import {mapGetters, mapActions} from 'vuex'
-import {get, action} from '@store/constants'
 import debounce from 'lodash/debounce'
+import translate from '@/lib/mixins/translate.js'
+
 import CustomText from '@/components/CustomText'
 import BaseButtonSpinner from '@/components/BaseButtonSpinner'
 
-const ARABIC = 'ar'
-const ENGLISH = 'en'
-
 export default {
   emits: ['update:modelValue', 'select-option', 'focus-input'],
+  mixins: [translate],
   components: {
     CustomText,
     BaseButtonSpinner,
@@ -94,19 +92,6 @@ export default {
     document.addEventListener('click', this.close)
   },
   computed: {
-    ...mapGetters({
-      platformLanguage: get.PLATFORM_LANGUAGE,
-      translated: get.TRANSLATION,
-    }),
-    currentDir() {
-      return this.platformLanguage === ARABIC ? 'rtl' : this.dir
-    },
-    currentPlaceholder() {
-      if (this.platformLanguage === ENGLISH) return this.placeholder
-
-      this[action.GET_TRANSLATED_TEXT](this.placeholder)
-      return this.translated[this.placeholder]
-    },
     selectList() {
       if (this.isSearch && !!this.modelValue) {
         return this.list.filter((item) => {
@@ -124,7 +109,6 @@ export default {
     },
   },
   methods: {
-    ...mapActions([action.GET_TRANSLATED_TEXT]),
     handleInput: debounce(function (e) {
       this.$emit('update:modelValue', e.target.value, this.name)
     }, 500),

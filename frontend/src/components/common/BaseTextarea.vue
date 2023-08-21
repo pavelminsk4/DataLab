@@ -25,16 +25,14 @@
 </template>
 
 <script>
-import {mapGetters, mapActions} from 'vuex'
-import {get, action} from '@store/constants'
+import translate from '@/lib/mixins/translate.js'
+
 import CustomText from '@/components/CustomText'
 import ErrorIcon from '@components/icons/ErrorIcon'
 
-const ARABIC = 'ar'
-const ENGLISH = 'en'
-
 export default {
   name: 'BaseTextarea',
+  mixins: [translate],
   components: {ErrorIcon, CustomText},
   props: {
     modelValue: {type: String, default: ''},
@@ -45,10 +43,6 @@ export default {
     errorMessage: {type: String, default: ''},
   },
   computed: {
-    ...mapGetters({
-      platformLanguage: get.PLATFORM_LANGUAGE,
-      translated: get.TRANSLATION,
-    }),
     value: {
       get() {
         return this.modelValue
@@ -57,18 +51,6 @@ export default {
         this.$emit('update:modelValue', val)
       },
     },
-    currentDir() {
-      return this.platformLanguage === ARABIC ? 'rtl' : this.dir
-    },
-    currentPlaceholder() {
-      if (this.platformLanguage === ENGLISH) return this.placeholder
-
-      this[action.GET_TRANSLATED_TEXT](this.placeholder)
-      return this.translated[this.placeholder]
-    },
-  },
-  methods: {
-    ...mapActions([action.GET_TRANSLATED_TEXT]),
   },
 }
 </script>

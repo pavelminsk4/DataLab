@@ -265,3 +265,8 @@ export const SORTED_SENTIMENT = [
   SENTIMENT.POSITIVE,
   SENTIMENT.NEGATIVE,
 ]
+
+export const LANGUAGES = {
+  ENGLISH: 'en',
+  ARABIC: 'ar',
+}

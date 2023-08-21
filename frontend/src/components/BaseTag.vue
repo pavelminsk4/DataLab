@@ -41,17 +41,14 @@
 
 <script>
 import {ref, watch, nextTick, onMounted} from 'vue'
-import {mapGetters, mapActions} from 'vuex'
-import {get, action} from '@store/constants'
+import translate from '@/lib/mixins/translate.js'
 
 import DeleteTagButton from '@/components/icons/DeleteTagButton'
 import ErrorIcon from '@/components/icons/ErrorIcon'
 
-const ARABIC = 'ar'
-const ENGLISH = 'en'
-
 export default {
   name: 'BaseTag',
+  mixins: [translate],
   components: {ErrorIcon, DeleteTagButton},
   props: {
     modelValue: {type: Array, default: () => []},
@@ -76,24 +73,6 @@ export default {
         return true
       },
     },
-  },
-  computed: {
-    ...mapGetters({
-      platformLanguage: get.PLATFORM_LANGUAGE,
-      translated: get.TRANSLATION,
-    }),
-    currentDir() {
-      return this.platformLanguage === ARABIC ? 'rtl' : this.dir
-    },
-    currentPlaceholder() {
-      if (this.platformLanguage === ENGLISH) return this.placeholder
-
-      this[action.GET_TRANSLATED_TEXT](this.placeholder)
-      return this.translated[this.placeholder]
-    },
-  },
-  methods: {
-    ...mapActions([action.GET_TRANSLATED_TEXT]),
   },
   setup(props, {emit}) {
     const tags = ref(props.modelValue)

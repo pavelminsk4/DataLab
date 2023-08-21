@@ -52,18 +52,16 @@
 </template>
 
 <script>
-import {mapGetters, mapActions} from 'vuex'
-import {get, action} from '@store/constants'
+import translate from '@/lib/mixins/translate.js'
+
 import CustomText from '@/components/CustomText'
 import ArrowDownIcon from '@/components/icons/ArrowDownIcon'
 import ErrorIcon from '@/components/icons/ErrorIcon'
 import BaseCheckbox from '@/components/BaseCheckbox'
 
-const ARABIC = 'ar'
-const ENGLISH = 'en'
-
 export default {
   name: 'SelectWithCheckboxes',
+  mixins: [translate],
   components: {BaseCheckbox, ErrorIcon, ArrowDownIcon, CustomText},
   emits: ['update:modelValue', 'select-option', 'get-selected-items'],
   props: {
@@ -87,19 +85,6 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({
-      platformLanguage: get.PLATFORM_LANGUAGE,
-      translated: get.TRANSLATION,
-    }),
-    currentDir() {
-      return this.platformLanguage === ARABIC ? 'rtl' : this.dir
-    },
-    currentPlaceholder() {
-      if (this.platformLanguage === ENGLISH) return this.placeholder
-
-      this[action.GET_TRANSLATED_TEXT](this.placeholder)
-      return this.translated[this.placeholder]
-    },
     selectList() {
       if (this.isSearch && !!this.modelValue) {
         return this.list.filter((item) => {
@@ -137,7 +122,6 @@ export default {
     },
   },
   methods: {
-    ...mapActions([action.GET_TRANSLATED_TEXT]),
     toggle() {
       if (this.visible) {
         this.close()
