@@ -13,7 +13,7 @@
 
   <footer class="create-reports__footer">
     <ButtonWithArrow @click="nextStep">
-      <span>Next</span>
+      <CustomText tag="span" text="Next" />
     </ButtonWithArrow>
   </footer>
 </template>
@@ -23,12 +23,13 @@ import {action} from '@store/constants'
 import {mapState} from 'vuex'
 import createReportMixin from '@/lib/mixins/create-report.js'
 
+import CustomText from '@/components/CustomText'
 import ReportTemplateCard from '@/components/reports/ReportTemplateCard'
 
 export default {
   name: 'CreateReportChooseTemplate',
   mixins: [createReportMixin],
-  components: {ReportTemplateCard},
+  components: {ReportTemplateCard, CustomText},
   data() {
     return {
       widgetsTemplates: {

@@ -1,9 +1,11 @@
 <template>
   <div class="card">
     <BaseCheckbox v-model="isChecked" class="card__header">
-      <span class="card__title">{{
-        capitalizeFirstLetter(templateTitle)
-      }}</span>
+      <CustomText
+        tag="span"
+        :text="capitalizeFirstLetter(templateTitle)"
+        class="card__title"
+      />
     </BaseCheckbox>
     <MultiSelect
       v-model="selectedValues"
@@ -24,12 +26,13 @@
 <script>
 import {capitalizeFirstLetter} from '@/lib/utilities'
 
+import CustomText from '@/components/CustomText'
 import BaseCheckbox from '@/components/BaseCheckbox2'
 import MultiSelect from '@/components/MultiSelect'
 
 export default {
   name: 'ReportTemplateCard',
-  components: {BaseCheckbox, MultiSelect},
+  components: {BaseCheckbox, MultiSelect, CustomText},
   props: {
     templateTitle: {type: String, required: true},
     templateName: {type: String, required: true},

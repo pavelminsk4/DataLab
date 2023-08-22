@@ -18,7 +18,8 @@
           v-bind="$attrs"
           :value="modelValue"
           :class="['input', isSearch && 'input-search']"
-          :placeholder="placeholder"
+          :placeholder="currentPlaceholder"
+          :dir="currentDir"
           @focus="visible = true"
           @input="handleInput"
           type="text"
@@ -26,10 +27,10 @@
         />
         <CustomText
           v-else-if="!value && !isSearch"
-          :text="placeholder"
+          :text="currentPlaceholder"
           class="placeholder"
         />
-        <div v-else-if="!isSearch">{{ value }}</div>
+        <CustomText v-else-if="!isSearch" :text="value" />
       </div>
       <ArrowDownIcon
         class="arrow"
@@ -51,7 +52,7 @@
             :key="item"
             @click="select(item)"
           >
-            {{ item }}
+            <CustomText tag="span" :text="item" />
           </li>
         </ul>
       </div>
@@ -64,12 +65,15 @@
   </div>
 </template>
 <script>
+import translate from '@/lib/mixins/translate.js'
+
 import CustomText from '@/components/CustomText'
 import ArrowDownIcon from '@/components/icons/ArrowDownIcon'
 import ErrorIcon from '@/components/icons/ErrorIcon'
 
 export default {
   components: {ArrowDownIcon, ErrorIcon, CustomText},
+  mixins: [translate],
   emits: ['update:modelValue', 'select-option'],
   props: {
     list: {type: Array, default: null},

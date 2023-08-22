@@ -8,7 +8,7 @@
 
   <footer class="create-reports__footer">
     <ButtonWithArrow :is-disabled="isDisableNextBtn" @click="nextStep">
-      <span>Next</span>
+      <CustomText tag="span" text="Next" />
     </ButtonWithArrow>
   </footer>
 </template>
@@ -18,6 +18,7 @@ import {mapActions, mapGetters, createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
 import createReportMixin from '@/lib/mixins/create-report.js'
 
+import CustomText from '@/components/CustomText'
 import WorkspaceTableWithProjects from '@components/WorkspaceTableWithProjects'
 
 const {mapActions: mapSocialActions} = createNamespacedHelpers('social')
@@ -26,6 +27,7 @@ export default {
   name: 'CreateReportAddProject',
   mixins: [createReportMixin],
   components: {
+    CustomText,
     WorkspaceTableWithProjects,
   },
   data() {

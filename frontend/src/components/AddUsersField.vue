@@ -15,7 +15,8 @@
           <DeleteTagButton @click="$emit('remove-user', index)" />
         </div>
         <div @click="addUsers" class="add-users-button">
-          Add Users <AddButtonIcon />
+          <CustomText text="Add Users" />
+          <AddButtonIcon />
         </div>
       </div>
     </DivWithError>
@@ -34,6 +35,7 @@
 </template>
 
 <script>
+import CustomText from '@/components/CustomText'
 import AddButtonIcon from '@/components/icons/AddButtonIcon'
 import DivWithError from '@/components/DivWithError'
 import DeleteTagButton from '@/components/icons/DeleteTagButton'
@@ -41,6 +43,7 @@ import DeleteTagButton from '@/components/icons/DeleteTagButton'
 export default {
   name: 'AddUsersField',
   components: {
+    CustomText,
     AddButtonIcon,
     DivWithError,
     DeleteTagButton,

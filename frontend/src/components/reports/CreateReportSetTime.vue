@@ -1,13 +1,14 @@
 <template>
   <section class="set-time-wrapper">
-    <h4 class="label">Sending Time</h4>
+    <CustomText tag="h4" text="Sending Time" class="label" />
     <div>
       <SetTimeCheckbox
         v-model="hour.hourly_enabled"
         title="By Hour"
         class="set-time-box"
       >
-        <span>Every</span>
+        <CustomText tag="span" text="Every" />
+
         <BaseSelect
           v-model="selectHour"
           :currentValue="selectHour"
@@ -22,7 +23,7 @@
         title="By Day"
         class="set-time-box"
       >
-        <span>Time</span>
+        <CustomText tag="span" text="Time" />
         <TimePicker v-model="timePickerDay" />
       </SetTimeCheckbox>
 
@@ -31,7 +32,7 @@
         title="By Week"
         class="set-time-box"
       >
-        <span>Weekday</span>
+        <CustomText tag="span" text="Weekday" />
         <BaseSelect
           v-model="selectWeekday"
           :currentValue="selectWeekday"
@@ -41,7 +42,7 @@
           class="set-time__select"
         />
 
-        <span>Time</span>
+        <CustomText tag="span" text="Time" />
         <TimePicker v-model="timePickerWeek" />
       </SetTimeCheckbox>
 
@@ -50,7 +51,7 @@
         title="By Month"
         class="set-time-box"
       >
-        <span>Day of month</span>
+        <CustomText tag="span" text="Day of month" />
         <BaseSelect
           v-model="month.m_day_of_month"
           :currentValue="month.m_day_of_month"
@@ -60,13 +61,13 @@
           class="set-time__select"
         />
 
-        <span>Time</span>
+        <CustomText tag="span" text="Time" />
         <TimePicker v-model="timePickerMonth" />
       </SetTimeCheckbox>
     </div>
 
-    <h4 class="label">The Ending</h4>
-    <p>Stop sending reports</p>
+    <CustomText tag="h4" text="The Ending" class="label" />
+    <CustomText tag="p" text="Stop sending reports" />
 
     <BaseRadio
       v-model="stopSendingReports"
@@ -86,7 +87,7 @@
     />
 
     <div :class="['stop-sending', isDisableStopSendingDate && 'disable']">
-      <p class="stop-sending_label">Date</p>
+      <CustomText tag="p" text="Date" class="stop-sending_label" />
       <DatePicker v-model="stopSendingReportDate" />
     </div>
 
@@ -96,7 +97,7 @@
         class="create-reports_next-step-button"
         @click="nextStep"
       >
-        <span>Next</span>
+        <CustomText tag="span" text="Next" />
       </ButtonWithArrow>
     </footer>
   </section>
@@ -107,6 +108,7 @@ import {action} from '@store/constants'
 import createReportMixin from '@/lib/mixins/create-report.js'
 import {weekDays} from '@/lib/constants'
 
+import CustomText from '@/components/CustomText'
 import SetTimeCheckbox from '@/components/common/SetTimeCheckbox'
 import BaseSelect from '@/components/BaseSelect'
 import BaseRadio from '@/components/BaseRadio'
@@ -127,6 +129,7 @@ export default {
     BaseRadio,
     TimePicker,
     DatePicker,
+    CustomText,
   },
   data() {
     return {

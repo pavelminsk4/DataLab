@@ -1,20 +1,20 @@
 <template>
   <aside class="wrapper">
-    <h4 class="wrapper__title">Settings Template</h4>
+    <CustomText tag="h4" text="Settings Template" class="wrapper__title" />
 
     <section class="setting">
-      <span class="setting__title">Language</span>
+      <CustomText tag="span" text="Language" class="setting__title" />
       <BaseRadio v-model="language" value="English" label="English" />
     </section>
 
     <section class="setting">
-      <span class="setting__title">Format</span>
+      <CustomText tag="span" text="Format" class="setting__title" />
       <BaseRadio v-model="format" value="PDF" label="PDF" />
       <BaseRadio v-model="format" value="DOC" label="DOC" />
     </section>
 
     <section class="setting">
-      <span class="setting__title">Template</span>
+      <CustomText tag="span" text="Template" class="setting__title" />
       <BaseSelect
         v-model="template"
         :options="templatesOptions"
@@ -29,12 +29,13 @@ import {action} from '@store/constants'
 import {mapActions} from 'vuex'
 import createReportMixin from '@/lib/mixins/create-report.js'
 
+import CustomText from '@/components/CustomText'
 import BaseRadio from '@/components/BaseRadio'
 import BaseSelect from '@/components/BaseSelect2'
 export default {
   name: 'ReportsSettingsTemplate',
   mixins: [createReportMixin],
-  components: {BaseRadio, BaseSelect},
+  components: {BaseRadio, BaseSelect, CustomText},
   data() {
     return {
       newLanguage: '',

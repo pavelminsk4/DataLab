@@ -1,6 +1,6 @@
 <template>
   <aside class="wrapper">
-    <h4 class="wrapper__title">Projects list</h4>
+    <CustomText tag="h4" text="Projects list" class="wrapper__title" />
     <div class="projects">
       <a
         v-for="project in projects"
@@ -19,11 +19,13 @@
 
 <script>
 import {mapState} from 'vuex'
+
+import CustomText from '@/components/CustomText'
 import BaseChips from '@/components/BaseChips'
 
 export default {
   name: 'ReportsProjectsList',
-  components: {BaseChips},
+  components: {BaseChips, CustomText},
   data() {
     return {
       currProjectId: null,
