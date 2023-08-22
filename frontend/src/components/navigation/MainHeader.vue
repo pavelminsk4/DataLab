@@ -7,27 +7,6 @@
         @click="goToMainPage"
         @click.middle="goToMainPageNewTab"
       />
-      <BaseDropdown name="platform-language">
-        <template #selectedValue>
-          <div class="languages">
-            <component :is="getIcon(currentLanguage.value)" />
-            {{ currentLanguage.lang }}
-          </div>
-        </template>
-        <div
-          v-for="(item, index) in availableLanguages"
-          :key="item.lang + index"
-          class="lang-item"
-          @click="updateLanguage(item.value)"
-        >
-          <component :is="getIcon(item.value)" /> {{ item.lang }}
-          <ArrowheadIcon
-            v-if="item.value === platformLanguage"
-            direction="bottom"
-            class="arrow-icon"
-          />
-        </div>
-      </BaseDropdown>
     </div>
 
     <div class="header-navigation">
@@ -56,8 +35,8 @@
             :class="[isOpenDropdown && 'arrow-open-dropdown', 'arrow-down']"
           />
 
-          <div v-if="isOpenDropdown" class="dropdown">
-            <CustomText text="Logout" class="item" @click="logout" />
+          <div v-if="isOpenDropdown" class="dropdown-menu">
+            <ProfileMenu :user-info="userInfo" @logout="logout" />
           </div>
         </section>
       </div>
@@ -78,8 +57,7 @@ import LogoIconAr from '@components/icons/LogoIconAr'
 import ArrowDownIcon from '@components/icons/ArrowDownIcon'
 import UserIcon from '@components/icons/UserIcon'
 import ArrowheadIcon from '@/components/icons/ArrowheadIcon'
-import EnIcon from '@components/icons/languages/EnIcon'
-import ArIcon from '@components/icons/languages/ArIcon'
+import ProfileMenu from '@components/navigation/ProfileMenu'
 
 export default {
   name: 'MainHeader',
@@ -87,21 +65,16 @@ export default {
     UserIcon,
     LogoIconEn,
     LogoIconAr,
-    ArIcon,
-    EnIcon,
     ArrowDownIcon,
     UserAvatar,
     BaseDropdown,
     ArrowheadIcon,
     CustomText,
+    ProfileMenu,
   },
   data() {
     return {
       isOpenDropdown: false,
-      availableLanguages: [
-        {lang: 'English', value: 'en'},
-        {lang: 'عربي', value: 'ar'},
-      ],
     }
   },
   created() {
@@ -112,11 +85,6 @@ export default {
       userInfo: get.USER_INFO,
       platformLanguage: get.PLATFORM_LANGUAGE,
     }),
-    currentLanguage() {
-      return this.availableLanguages.find(
-        (lang) => lang.value === this.platformLanguage
-      )
-    },
     companyName() {
       return this.userInfo?.username
     },
@@ -129,18 +97,9 @@ export default {
   },
   methods: {
     capitalizeFirstLetter,
-    ...mapActions([action.LOGOUT, action.POST_PLATFORM_LANGUAGE]),
+    ...mapActions([action.LOGOUT]),
     logout() {
       this[action.LOGOUT]()
-    },
-
-    getIcon(value) {
-      return capitalizeFirstLetter(value) + 'Icon'
-    },
-
-    updateLanguage(newLang) {
-      this[action.POST_PLATFORM_LANGUAGE](newLang)
-      return newLang
     },
 
     goToMainPage() {
@@ -194,20 +153,6 @@ export default {
   gap: 25px;
 }
 
-.lang-item {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-
-  padding: 8px 12px 12px;
-}
-
-.arrow-icon {
-  margin-left: auto;
-
-  color: var(--primary-color);
-}
-
 .header-navigation {
   display: flex;
   align-items: center;
@@ -247,14 +192,6 @@ export default {
   display: flex;
 }
 
-.languages {
-  display: flex;
-  gap: 5px;
-  justify-content: center;
-
-  margin-right: 5px;
-}
-
 .name {
   display: flex;
   align-items: center;
@@ -279,7 +216,7 @@ export default {
 
   font-size: 12px;
 
-  .dropdown {
+  .dropdown-menu {
     z-index: 1000;
 
     position: absolute;
@@ -289,26 +226,13 @@ export default {
     display: flex;
     flex-direction: column;
 
-    cursor: pointer;
-
-    background: var(--progress-line);
-    border: 1px solid var(--modal-border-color);
+    background: var(--background-secondary-color);
     border-radius: 10px;
 
     font-style: normal;
     font-weight: 400;
     font-size: 12px;
     line-height: 20px;
-
-    .item {
-      cursor: pointer;
-
-      padding: 9px 24px 8px;
-    }
-
-    &:hover {
-      background-color: var(--button-primary-color);
-    }
   }
 }
 
