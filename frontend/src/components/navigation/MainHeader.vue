@@ -36,7 +36,8 @@
         @click="goToUserRolesPage"
         :class="['header-tab', isActiveTab && 'active-tab']"
       >
-        <UserIcon :class="['icon', isActiveTab && 'active-icon']" /> Users
+        <UserIcon :class="['icon', isActiveTab && 'active-icon']" />
+        <CustomText tag="span" text="Users" />
       </div>
 
       <div class="section-company">
@@ -56,7 +57,7 @@
           />
 
           <div v-if="isOpenDropdown" class="dropdown">
-            <div @click="logout" class="item">Logout</div>
+            <CustomText text="Logout" class="item" @click="logout" />
           </div>
         </section>
       </div>
@@ -69,6 +70,7 @@ import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 import {capitalizeFirstLetter} from '@/lib/utilities'
 
+import CustomText from '@/components/CustomText'
 import UserAvatar from '@components/UserAvatar'
 import BaseDropdown from '@components/BaseDropdown'
 import LogoIconEn from '@components/icons/LogoIconEn'
@@ -91,6 +93,7 @@ export default {
     UserAvatar,
     BaseDropdown,
     ArrowheadIcon,
+    CustomText,
   },
   data() {
     return {

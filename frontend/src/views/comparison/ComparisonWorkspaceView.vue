@@ -20,7 +20,8 @@
         @click="createProject"
         class="create-btn"
       >
-        <PlusIcon /> Add new project
+        <PlusIcon />
+        <CustomText tag="span" text="Add new project" />
       </BaseButtonWithTooltip>
     </div>
 
@@ -38,13 +39,14 @@
 <script>
 import {createNamespacedHelpers} from 'vuex'
 import {action} from '@store/constants'
+import {isAllFieldsEmpty} from '@/lib/utilities'
 
+import CustomText from '@/components/CustomText'
 import BaseButtonWithTooltip from '@/components/BaseButtonWithTooltip'
 import MainLayout from '@components/layout/MainLayout'
 import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
 import ComparisonProjectsTable from '@/components/comparison/ComparisonProjectsTable'
 import PlusIcon from '@/components/icons/PlusIcon'
-import {isAllFieldsEmpty} from '@/lib/utilities'
 
 const {mapActions, mapState} = createNamespacedHelpers('comparison')
 
@@ -56,6 +58,7 @@ export default {
     MainLayoutTitleBlock,
     ComparisonProjectsTable,
     PlusIcon,
+    CustomText,
   },
   props: {
     workspaces: {type: Array, required: true},

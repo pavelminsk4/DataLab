@@ -10,7 +10,7 @@
 
     <footer class="create-workspace__footer">
       <ButtonWithArrow :is-disabled="!workspaceName" @click="nextStep">
-        <span>Next</span>
+        <CustomText tag="span" text="Next" />
       </ButtonWithArrow>
     </footer>
   </div>
@@ -21,8 +21,11 @@ import {mapActions, mapGetters, mapState} from 'vuex'
 import {action, get} from '@store/constants'
 import ComparisonMixin from '@/lib/mixins/comparison.js'
 
+import CustomText from '@/components/CustomText'
+
 export default {
   name: 'CreateComparisonWorkspace',
+  components: {CustomText},
   mixins: [ComparisonMixin],
   data() {
     return {

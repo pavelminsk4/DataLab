@@ -9,7 +9,9 @@
           routeName: 'OnlineHome',
         }"
       >
-        <div class="number-users">{{ companyUsers.length }} users</div>
+        <div class="number-users">
+          {{ companyUsers.length }} <CustomText tag="span" text="users" />
+        </div>
       </MainLayoutTitleBlock>
 
       <div class="search-wrapper">
@@ -27,7 +29,7 @@
           tooltip-title="Created the maximum possible number of users!"
           @click="addNewUser"
         >
-          Add User
+          <CustomText tag="span" text="Add User" />
         </BaseButtonWithTooltip>
       </div>
 
@@ -71,7 +73,7 @@
                 @click="updateUserRole(role.value, item.email)"
                 class="user-role"
               >
-                {{ role.name }}
+                <CustomText tag="span" :text="role.name" />
               </div>
             </BaseDropdown>
           </div>
@@ -88,11 +90,11 @@
           @delete="deleteUserFromCompany"
         />
 
-        <div class="success-message">{{ successMessage }}</div>
+        <CustomText :text="successMessage" class="success-message" />
 
         <section v-if="isExistingUser || isNewUser" class="user-data">
           <section v-if="isNewUser">
-            <h4 class="group-label">Personal info</h4>
+            <CustomText tag="h4" text="Personal info" class="group-label" />
             <BaseInput
               v-model="email"
               label="Email"
@@ -111,7 +113,7 @@
               class="input-field"
             />
 
-            <h4 class="group-label">Profile settings</h4>
+            <CustomText tag="h4" text="Profile settings" class="group-label" />
             <BaseInput
               v-model="username"
               label="Username"
@@ -141,7 +143,7 @@
             <div class="action-button">
               <BaseButton @click="createNewUser">
                 <AddUserIcon />
-                <span>Add User</span>
+                <CustomText tag="span" text="Add User" />
               </BaseButton>
             </div>
           </section>
@@ -162,7 +164,7 @@
                     `${existingUserData.first_name} ${existingUserData.last_name}`
                   }}
                 </div>
-                <div>{{ existingUserData.user_profile.jobtitle }}</div>
+                <CustomText :text="existingUserData.user_profile.jobtitle" />
               </div>
 
               <BaseButton
@@ -171,7 +173,7 @@
                 @click="toggleDeleteModal"
               >
                 <DeleteIcon />
-                <span>Delete User</span>
+                <CustomText tag="span" text="Delete User" />
               </BaseButton>
             </div>
 
@@ -194,7 +196,7 @@
             <div class="action-button">
               <BaseButton @click="updateUserData">
                 <UpdateIcon />
-                <span>Update User</span>
+                <CustomText tag="span" text="Update User" />
               </BaseButton>
             </div>
           </section>
@@ -211,6 +213,7 @@ import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 import {isAllFieldsEmpty} from '@lib/utilities'
 
+import CustomText from '@/components/CustomText'
 import AddUserIcon from '@/components/icons/AddUserIcon'
 import AreYouSureModal from '@/components/modals/AreYouSureModal'
 import BaseButton from '@/components/common/BaseButton'
@@ -239,6 +242,7 @@ export default {
     SettingsIcon,
     UpdateIcon,
     UserAvatar,
+    CustomText,
   },
   data() {
     return {
@@ -609,6 +613,7 @@ export default {
   justify-content: flex-end;
 
   width: 100%;
+  margin-top: 30px;
 }
 
 .user-card-name {

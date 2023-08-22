@@ -13,7 +13,7 @@
       label="Description"
     />
     <label>
-      <span>Recipients' email addresses*</span>
+      <CustomText tag="span" text="Recipients' email addresses*" />
       <AddUsersField
         :hasError="!!errors.usersEmailError"
         :errorMessage="errors.usersEmailError"
@@ -31,7 +31,7 @@
         :is-disabled="!alertName"
         class="next-button"
       >
-        <span>Next</span>
+        <CustomText tag="span" text="Next" />
       </ButtonWithArrow>
     </footer>
   </form>
@@ -42,6 +42,7 @@ import {mapActions, mapState, mapGetters, createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
 import createAlertMixin from '@/lib/mixins/create-alerts.js'
 
+import CustomText from '@/components/CustomText'
 import BaseInput from '@/components/common/BaseInput'
 import BaseTextarea from '@/components/common/BaseTextarea'
 import AddUsersField from '@/components/AddUsersField'
@@ -50,7 +51,7 @@ const {mapActions: mapActionsAlerts} = createNamespacedHelpers('alerts')
 
 export default {
   name: 'CreateAlertName',
-  components: {BaseInput, BaseTextarea, AddUsersField},
+  components: {BaseInput, BaseTextarea, AddUsersField, CustomText},
   mixins: [createAlertMixin],
   data() {
     return {
