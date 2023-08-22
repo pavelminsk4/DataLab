@@ -20,7 +20,9 @@
             />
           </div>
         </th>
-        <th v-if="hasCheckbox && hasActions" style="width: 80px">Actions</th>
+        <th v-if="hasCheckbox && hasActions" style="width: 80px">
+          <CustomText text="Actions" />
+        </th>
       </tr>
     </thead>
     <tbody>

@@ -1,6 +1,6 @@
 <template>
   <div class="filters-wrapper">
-    <span class="second-title">Country</span>
+    <CustomText tag="span" text="Country" class="second-title" />
 
     <BaseSearchField
       v-model="country"
@@ -15,7 +15,7 @@
       class="select"
     />
 
-    <span class="second-title">Author</span>
+    <CustomText tag="span" text="Author" class="second-title" />
 
     <BaseSearchField
       v-model="author"
@@ -31,7 +31,7 @@
       class="select"
     />
 
-    <span class="second-title">Language</span>
+    <CustomText tag="span" text="Language" class="second-title" />
 
     <BaseSearchField
       v-model="language"
@@ -47,7 +47,7 @@
       class="select"
     />
 
-    <span class="second-title">Source</span>
+    <CustomText tag="span" text="Source" class="second-title" />
 
     <BaseSearchField
       v-model="source"
@@ -66,7 +66,7 @@
 
   <CommonCalendar class="date-picker" />
 
-  <span class="second-title">Sentiment</span>
+  <CustomText tag="span" text="Sentiment" class="second-title" />
 
   <div class="radio-wrapper">
     <BaseRadio
@@ -101,6 +101,7 @@ import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 import {capitalizeFirstLetter} from '@lib/utilities'
 
+import CustomText from '@/components/CustomText'
 import BaseRadio from '@/components/BaseRadio'
 import BaseSearchField from '@/components/BaseSearchField'
 import PositiveIcon from '@/components/icons/PositiveIcon'
@@ -117,6 +118,7 @@ export default {
     NegativeIcon,
     NeutralIcon,
     CommonCalendar,
+    CustomText,
   },
   props: {
     currentProject: {

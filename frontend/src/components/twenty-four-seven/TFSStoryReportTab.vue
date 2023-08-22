@@ -1,14 +1,14 @@
 <template>
   <div class="story-report-wrapper scroll">
     <div class="item">
-      <div class="title"><PostStoryReportIcon /> Post</div>
+      <div class="title"><PostStoryReportIcon /><CustomText text="Post" /></div>
       <div class="post-title">
         {{ post.online_post.entry_title }}
       </div>
     </div>
 
     <div class="item">
-      <div class="title"><PencilIcon /> Summary</div>
+      <div class="title"><PencilIcon /><CustomText text="Summary" /></div>
       <div class="summary">
         <div>{{ post.header }}</div>
         <div class="summary-text">{{ post.text }}</div>
@@ -24,7 +24,9 @@
     </a>
 
     <div class="item">
-      <div class="title"><RelatedIcon />Related content</div>
+      <div class="title">
+        <RelatedIcon /> <CustomText text="Related content" />
+      </div>
       <a
         v-for="(item, index) in relatedLinks"
         :key="'link' + index"
@@ -51,10 +53,11 @@
         :button-loading="buttonWhatsappLoading"
         @click="$emit('send-to-whatsapp', whatsappNumbers, messageContent)"
       >
-        Send to Whatsapp
+        <CustomText text="Send to Whatsapp" />
       </BaseButton>
       <div v-if="statusMessage" class="error-message">
-        <ErrorIcon class="error-icon" /> {{ statusMessage }}
+        <ErrorIcon class="error-icon" />
+        <CustomText :text="statusMessage" />
       </div>
     </div>
   </div>
@@ -62,6 +65,8 @@
 
 <script>
 import {createNamespacedHelpers} from 'vuex'
+
+import CustomText from '@/components/CustomText'
 import BaseButton from '@/components/common/BaseButton'
 import PostStoryReportIcon from '@/components/icons/PostStoryReportIcon'
 import PencilIcon from '@/components/icons/PencilIcon'
@@ -82,6 +87,7 @@ export default {
     RelatedIcon,
     MultiSelect,
     ErrorIcon,
+    CustomText,
   },
   emits: [
     'send-to-whatsapp',

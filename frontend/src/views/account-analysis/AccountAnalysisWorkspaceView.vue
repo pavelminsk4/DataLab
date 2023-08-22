@@ -19,7 +19,8 @@
         tooltip-title="Created the maximum possible number of projects!"
         @click="createProject"
       >
-        <PlusIcon /> Add new profile
+        <PlusIcon />
+        <CustomText text="Add new profile" />
       </BaseButtonWithTooltip>
     </div>
 
@@ -37,6 +38,7 @@
 import {mapActions, mapGetters, createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
 
+import CustomText from '@/components/CustomText'
 import BaseButtonWithTooltip from '@/components/BaseButtonWithTooltip'
 import MainLayout from '@components/layout/MainLayout'
 import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
@@ -49,6 +51,7 @@ const {mapState: mapAccountAnalyticsState} =
 export default {
   name: 'AccountAnalysisWorkspaceView',
   components: {
+    CustomText,
     BaseButtonWithTooltip,
     MainLayout,
     MainLayoutTitleBlock,

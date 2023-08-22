@@ -5,9 +5,11 @@
     @click="openDropdown"
   >
     <div class="statuses-wrapper">
-      <div :style="`background-color: ${statuses[status].color}`" class="title">
-        {{ getTitle(status) }}
-      </div>
+      <CustomText
+        :text="getTitle(status)"
+        :style="`background-color: ${statuses[status].color}`"
+        class="title"
+      />
       <div
         v-if="showArrow"
         :style="`background-color: ${statuses[status].color}`"
@@ -28,7 +30,7 @@
           :style="`background-color: ${option.color}`"
           class="status-color"
         />
-        {{ option.title }}
+        <CustomText :text="option.title" class="status-title" />
       </li>
     </ul>
   </div>
@@ -36,11 +38,13 @@
 
 <script>
 import {cardStatuses} from '@/lib/configs/tfsStatusesConfig'
+import CustomText from '@/components/CustomText'
 import ArrowheadIcon from '@/components/icons/ArrowheadIcon'
 
 export default {
   name: 'TFSCardStatuses',
   components: {
+    CustomText,
     ArrowheadIcon,
   },
   props: {
@@ -170,6 +174,10 @@ export default {
       &:hover {
         border-radius: 4px;
         background-color: var(--primary-active-color);
+
+        .status-title {
+          background-color: var(--primary-active-color);
+        }
       }
       .status-color {
         width: 16px;

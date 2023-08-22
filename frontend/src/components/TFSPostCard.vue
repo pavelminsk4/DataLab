@@ -29,7 +29,7 @@
           />
         </div>
 
-        <div v-if="isRelatedContent" class="related">Related</div>
+        <CustomText v-if="isRelatedContent" text="Related" class="related" />
       </div>
     </template>
 
@@ -46,7 +46,7 @@
 
     <template #description>{{ postDetails.entry_summary }}</template>
 
-    <template #post-type><OnlineIcon /> Online</template>
+    <template #post-type><OnlineIcon /> <CustomText text="Online" /></template>
 
     <template #information>
       <div
@@ -54,7 +54,10 @@
         :key="item.name + index"
         class="post-card__information_block"
       >
-        <div class="post-card__information_block_name">{{ item.name }}</div>
+        <CustomText
+          :text="item.name"
+          class="post-card__information_block_name"
+        />
         <a
           v-if="item.name === 'SOURCE'"
           :href="getUrl(item.value)"
@@ -76,16 +79,15 @@
         @click="$emit('open-linked-modal')"
       >
         <PlusIcon />
-        <span>Add link to report</span>
+        <CustomText tag="span" text="Add link to report" />
       </div>
 
-      <div
+      <CustomText
         v-if="isWorkButtonShow"
+        text="Take to work"
         class="work-button"
         @click="$emit('open-modal')"
-      >
-        Take to work
-      </div>
+      />
     </template>
   </TFSPostCardLayout>
 </template>
@@ -95,6 +97,7 @@ import {mapGetters} from 'vuex'
 import {get} from '@store/constants'
 import {defaultDate} from '@lib/utilities'
 
+import CustomText from '@/components/CustomText'
 import PlusIcon from '@/components/icons/PlusIcon'
 import OnlineIcon from '@/components/icons/OnlineIcon'
 import BaseCheckbox from '@/components/BaseCheckbox2'
@@ -109,6 +112,7 @@ export default {
     TFSCardStatuses,
     BaseCheckbox,
     PlusIcon,
+    CustomText,
   },
   props: {
     img: {type: String, required: false},

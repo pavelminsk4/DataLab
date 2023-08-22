@@ -33,13 +33,14 @@
         :button-loading="buttonAISummaryLoading"
         @click="createAISummary"
       >
-        AI Summary
+        <CustomText text="AI Summary" />
       </BaseButton>
       <BaseButton
         :button-loading="buttonSaveLoading"
         @click="$emit('save-summary', header, text)"
       >
-        <SaveIcon /> Save
+        <SaveIcon />
+        <CustomText text="Save" />
       </BaseButton>
     </div>
   </div>
@@ -49,6 +50,7 @@
 import {createNamespacedHelpers} from 'vuex'
 import {action} from '@store/constants'
 
+import CustomText from '@/components/CustomText'
 import BaseButton from '@/components/common/BaseButton'
 import BaseInput from '@/components/common/BaseInput'
 import BaseTextarea from '@/components/common/BaseTextarea'
@@ -77,6 +79,7 @@ export default {
     SaveIcon,
     TFSLanguagesTabs,
     BaseSpinner,
+    CustomText,
   },
   emits: ['save-summary', 'create-ai-summary'],
   props: {

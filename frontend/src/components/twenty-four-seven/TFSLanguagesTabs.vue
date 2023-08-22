@@ -6,14 +6,17 @@
       :class="[selectedLanguage === language && 'active-language', 'language']"
       @click="$emit('change-language', language)"
     >
-      {{ language }}
+      <CustomText tag="span" :text="language" />
     </div>
   </div>
 </template>
 
 <script>
+import CustomText from '@/components/CustomText'
+
 export default {
   name: 'TFSLanguagesTabs',
+  components: {CustomText},
   props: {
     selectedLanguage: {type: String, required: true},
     languagesTabs: {type: Array, default: () => []},
