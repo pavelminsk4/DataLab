@@ -21,31 +21,9 @@ class AverageEngagementsByDayTests(APITestCase):
                       kwargs={'pk': pr.pk, 'widget_pk': widget_pk})
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        data = [{'engagements': 0, 'likes': 0, 'retweets': 0, 'tweets': 0}, 
-                {'engagements': 0, 'likes': 0, 'retweets': 0, 'tweets': 0}, 
-                {'engagements': 0, 'likes': 0, 'retweets': 0, 'tweets': 0}, 
-                {'engagements': 0, 'likes': 0, 'retweets': 0, 'tweets': 0}, 
-                {'engagements': 0, 'likes': 0, 'retweets': 0, 'tweets': 0}, 
-                {'engagements': 0, 'likes': 0, 'retweets': 0, 'tweets': 0}, 
-                {'engagements': 0, 'likes': 0, 'retweets': 0, 'tweets': 0}, 
-                {'engagements': 0, 'likes': 0, 'retweets': 0, 'tweets': 0}, 
-                {'engagements': 0, 'likes': 0, 'retweets': 0, 'tweets': 0}, 
-                {'engagements': 0, 'likes': 0, 'retweets': 0, 'tweets': 0}, 
-                {'engagements': 2.0, 'likes': 3, 'retweets': 3, 'tweets': 3}, 
-                {'engagements': 2.0, 'likes': 3, 'retweets': 3, 'tweets': 3}, 
-                {'engagements': 2.0, 'likes': 3, 'retweets': 3, 'tweets': 3}, 
-                {'engagements': 2.0, 'likes': 3, 'retweets': 3, 'tweets': 3}, 
-                {'engagements': 2.0, 'likes': 3, 'retweets': 3, 'tweets': 3}, 
-                {'engagements': 2.0, 'likes': 3, 'retweets': 3, 'tweets': 3}, 
-                {'engagements': 2.0, 'likes': 3, 'retweets': 3, 'tweets': 3}, 
-                {'engagements': 2.0, 'likes': 3, 'retweets': 3, 'tweets': 3}, 
-                {'engagements': 2.0, 'likes': 3, 'retweets': 3, 'tweets': 3}, 
-                {'engagements': 2.0, 'likes': 3, 'retweets': 3, 'tweets': 3}, 
-                {'engagements': 2.0, 'likes': 3, 'retweets': 3, 'tweets': 3}, 
-                {'engagements': 2.0, 'likes': 3, 'retweets': 3, 'tweets': 3}, 
-                {'engagements': 2.0, 'likes': 3, 'retweets': 3, 'tweets': 3}, 
-                {'engagements': 2.0, 'likes': 3, 'retweets': 3, 'tweets': 3}
-                ]
+        data_first = {'engagements': 0, 'likes': 0, 'retweets': 0, 'tweets': 0}
+        data_second = {'engagements': 2.0, 'likes': 3, 'retweets': 3, 'tweets': 3}
+        data = [data_first if i < 10 else data_second for i in range(24)]
         res = {'Saturday': data, 
                'Friday': data, 
                'Thursday': data, 
