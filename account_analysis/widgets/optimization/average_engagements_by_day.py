@@ -8,18 +8,38 @@ def average_engagements_by_day(pk, widget_pk):
     return calculate(posts)
 
 def calculate(posts):
-    posts_sunday = posts.filter(date__week_day=1).aggregate(engagement=Sum(F('count_favorites') + F('count_totalretweets')))
-    posts_monday = posts.filter(date__week_day=2).aggregate(engagement=Sum(F('count_favorites') + F('count_totalretweets')))
-    posts_tuesday = posts.filter(date__week_day=3).aggregate(engagement=Sum(F('count_favorites') + F('count_totalretweets')))
-    posts_wednesday = posts.filter(date__week_day=4).aggregate(engagement=Sum(F('count_favorites') + F('count_totalretweets')))
-    posts_thursday = posts.filter(date__week_day=5).aggregate(engagement=Sum(F('count_favorites') + F('count_totalretweets')))
-    posts_friday = posts.filter(date__week_day=6).aggregate(engagement=Sum(F('count_favorites') + F('count_totalretweets')))
-    posts_saturday = posts.filter(date__week_day=7).aggregate(engagement=Sum(F('count_favorites') + F('count_totalretweets')))
-    res = {'Monday': (posts_monday['engagement'] / posts.filter(date__week_day=2).count()) if posts.filter(date__week_day=2).count() else 0, 
-           'Tuesday': (posts_tuesday['engagement'] / posts.filter(date__week_day=3).count()) if posts.filter(date__week_day=3).count() else 0,
-           'Wednesday': (posts_wednesday['engagement'] / posts.filter(date__week_day=4).count()) if posts.filter(date__week_day=4).count() else 0,
-           'Thursday': (posts_thursday['engagement'] / posts.filter(date__week_day=5).count())  if posts.filter(date__week_day=5).count() else 0,
-           'Friday': (posts_friday['engagement'] / posts.filter(date__week_day=6).count())  if posts.filter(date__week_day=6).count() else 0,
-           'Saturday': (posts_saturday['engagement'] / posts.filter(date__week_day=7).count())  if posts.filter(date__week_day=7).count() else 0,
-           'Sunday': (posts_sunday['engagement'] / posts.filter(date__week_day=1).count()) if posts.filter(date__week_day=1).count() else 0}
+    engagements_sunday, engagements_monday, engagements_tuesday, engagements_wednesday, engagements_thursday, engagements_friday, engagements_saturday = 0,0,0,0,0,0,0
+    posts_sunday, posts_monday, posts_tuesday, posts_wednesday, posts_thursday, posts_friday, posts_saturday = 0,0,0,0,0,0,0
+    for post in posts:
+        date = post.date
+        if date.weekday() == 1:
+            posts_sunday += 1
+            engagements_sunday += (post.count_favorites + post.count_totalretweets)
+        elif date.weekday() == 2:
+            posts_monday += 1
+            engagements_monday += (post.count_favorites + post.count_totalretweets)
+        elif date.weekday() == 3:
+            posts_tuesday += 1
+            engagements_tuesday += (post.count_favorites + post.count_totalretweets)
+        elif date.weekday() == 4:
+            posts_wednesday += 1
+            engagements_wednesday += (post.count_favorites + post.count_totalretweets)
+        elif date.weekday() == 5:
+            posts_thursday += 1
+            engagements_thursday += (post.count_favorites + post.count_totalretweets)
+        elif date.weekday() == 6:
+            posts_friday += 1
+            engagements_friday += (post.count_favorites + post.count_totalretweets)
+        elif date.weekday() == 0:
+            print(posts_saturday)
+            print(engagements_saturday)
+            posts_saturday += 1
+            engagements_saturday += (post.count_favorites + post.count_totalretweets)
+    res = {'Monday': engagements_monday/posts_monday if posts_monday else 0,
+           'Tuesday': engagements_tuesday/posts_tuesday if posts_tuesday else 0,
+           'Wednesday': engagements_wednesday/posts_wednesday if posts_wednesday else 0,
+           'Thursday': engagements_thursday/posts_thursday if posts_thursday else 0,
+           'Friday': engagements_friday/posts_friday if posts_friday else 0,
+           'Saturday': engagements_saturday/posts_saturday if posts_saturday else 0,
+           'Sunday': engagements_sunday/posts_sunday if posts_sunday else 0}
     return JsonResponse(res, safe=False)
