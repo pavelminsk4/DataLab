@@ -23,17 +23,26 @@ def get_top_sources(posts):
     res = []
     for source in top_sources:
         source_posts = posts.filter(feedlink__source1=source['feedlink__source1'])
+        count_positive, count_negative, count_neutral, count_posts = 0, 0, 0, 0
         s = source_posts.first()
+        for post in source_posts:
+            if post.sentiment == 'positive':
+                count_positive += 1
+            elif post.sentiment == 'negative':
+                count_negative += 1
+            elif post.sentiment == 'neutral':
+                count_neutral += 1
+            count_posts += 1
         res.append({
             'name': s.feedlink.source1,
             'url': s.feedlink.sourceurl,
             'picture': s.feed_image_href,
             'sentiments': {
-                'positive': source_posts.filter(sentiment='positive').count(),
-                'negative': source_posts.filter(sentiment='negative').count(),
-                'neutral': source_posts.filter(sentiment='neutral').count(),
-            },
-            'posts': source_posts.count(),
+                            'positive': count_positive,
+                            'negative': count_negative,
+                            'neutral':  count_neutral,
+                          },
+            'posts': count_posts,
             'reach': 0,
             'engagements': 0,
           })
