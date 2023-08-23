@@ -63,7 +63,7 @@ export default {
   methods: {
     onDivInput({target}) {
       console.log(target.innerHTML)
-      const selection = window.getSelection().getRangeAt(0)
+      // const selection = window.getSelection().getRangeAt(0)
       // const range = document.createRange()
 
       console.log('on div', window.getSelection().getRangeAt(0))
@@ -78,9 +78,7 @@ export default {
     saveSelection() {
       this.currentSelection = window.getSelection().getRangeAt(0) || 0
     },
-    restoreSelection() {
-      
-    },
+    restoreSelection() {},
   },
 }
 </script>
