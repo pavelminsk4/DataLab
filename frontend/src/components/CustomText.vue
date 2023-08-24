@@ -1,5 +1,5 @@
 <template>
-  <component :is="tag">
+  <component :is="tag" :class="[`custom-text-${this.platformLanguage}`]">
     <slot name="before"></slot>
     {{ translatedText }}
     <slot></slot>
@@ -36,3 +36,9 @@ export default {
   },
 }
 </script>
+
+<style>
+.custom-text-ar {
+  text-align: end;
+}
+</style>
