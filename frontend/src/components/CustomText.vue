@@ -20,6 +20,7 @@ export default {
   },
   computed: {
     ...mapGetters({
+      loading: get.LOADING,
       translated: get.TRANSLATION,
       platformLanguage: get.PLATFORM_LANGUAGE,
     }),

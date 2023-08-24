@@ -9,7 +9,7 @@
       @click="toggle"
     >
       <div class="select__placeholder">
-        <CustomText tag="span" :text="currentPlaceholder || selectedValues" />
+        {{ currentPlaceholder || selectedValues }}
         <ArrowDownIcon />
       </div>
     </button>
@@ -32,12 +32,11 @@
 <script>
 import translate from '@/lib/mixins/translate.js'
 
-import CustomText from '@/components/CustomText'
 import ArrowDownIcon from '@/components/icons/ArrowDownIcon'
 
 export default {
   name: 'BaseSelect',
-  components: {ArrowDownIcon, CustomText},
+  components: {ArrowDownIcon},
   mixins: [translate],
   props: {
     options: {type: Array, default: () => []},
