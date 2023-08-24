@@ -79,6 +79,9 @@ export default {
         (lang) => lang.value === this.platformLanguage
       )
     },
+    logoImg() {
+      return this.userInfo?.user_profile?.photo
+    },
   },
   methods: {
     capitalizeFirstLetter,

@@ -10,7 +10,7 @@
     <table class="table">
       <thead>
         <th></th>
-        <th class="project-header">project</th>
+        <CustomText tag="th" text="project" class="project-header" />
         <th
           v-for="item in widgetMetrics"
           :key="'header' + item.valueName"
@@ -21,7 +21,7 @@
             :style="`background-color: ${item.backgroundColor}`"
             class="icon"
           />
-          <div class="title">{{ item.name }}</div>
+          <CustomText :text="item.name" class="title" />
         </th>
       </thead>
       <tbody>
@@ -51,6 +51,7 @@ import {COMPARISON_COLORS} from '@lib/constants'
 
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
 
+import CustomText from '@/components/CustomText'
 import NewPostIcon from '@/components/icons/NewPostIcon'
 import NeutralIcon from '@/components/icons/NeutralIcon'
 import NegativeIcon from '@/components/icons/NegativeIcon'
@@ -78,6 +79,7 @@ export default {
     CountryIcon,
     AuthorIcon,
     WidgetsLayout,
+    CustomText,
   },
   props: {
     widgetDetails: {type: Object, required: true},

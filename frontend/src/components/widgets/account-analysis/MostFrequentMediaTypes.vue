@@ -10,9 +10,10 @@
 <script>
 import {createNamespacedHelpers} from 'vuex'
 import {get, action} from '@store/constants'
-
-import VolumeWidget from '@/components/widgets/VolumeWidget.vue'
 import {isAllFieldsEmpty} from '@/lib/utilities'
+import translate from '@/lib/mixins/translate.js'
+
+import VolumeWidget from '@/components/widgets/VolumeWidget'
 
 const {mapGetters, mapActions} = createNamespacedHelpers(
   'accountAnalysis/widgets'
@@ -20,6 +21,7 @@ const {mapGetters, mapActions} = createNamespacedHelpers(
 
 export default {
   name: 'MostFrequentMediaTypes',
+  mixins: [translate],
   components: {VolumeWidget},
   props: {
     widgetDetails: {type: Object, required: true},
@@ -32,8 +34,8 @@ export default {
       return this.widgets.mostFrequentMediaTypes
     },
     labels() {
-      return Object.keys(this.mostFrequentMediaTypes).map(
-        (label) => label.split('_')[1]
+      return Object.keys(this.mostFrequentMediaTypes).map((label) =>
+        this.translatedText(label.split('_')[1])
       )
     },
     chartValues() {

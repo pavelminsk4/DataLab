@@ -22,7 +22,7 @@
 
   <CommonCalendar class="date-picker" />
 
-  <span class="second-title">Sentiment</span>
+  <CustomText tag="span" text="Sentiment" class="second-title" />
 
   <div class="sentiments-wrapper">
     <BaseCheckbox

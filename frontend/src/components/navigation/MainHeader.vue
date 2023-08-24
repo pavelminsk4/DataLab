@@ -1,8 +1,7 @@
 <template>
   <header class="header">
     <div class="header-logo">
-      <component
-        :is="`LogoIcon${capitalizeFirstLetter(platformLanguage)}`"
+      <LogoIcon
         class="logo"
         @click="goToMainPage"
         @click.middle="goToMainPageNewTab"
@@ -51,24 +50,18 @@ import {capitalizeFirstLetter} from '@/lib/utilities'
 
 import CustomText from '@/components/CustomText'
 import UserAvatar from '@components/UserAvatar'
-import BaseDropdown from '@components/BaseDropdown'
-import LogoIconEn from '@components/icons/LogoIconEn'
-import LogoIconAr from '@components/icons/LogoIconAr'
+import LogoIcon from '@components/icons/LogoIcon'
 import ArrowDownIcon from '@components/icons/ArrowDownIcon'
 import UserIcon from '@components/icons/UserIcon'
-import ArrowheadIcon from '@/components/icons/ArrowheadIcon'
 import ProfileMenu from '@components/navigation/ProfileMenu'
 
 export default {
   name: 'MainHeader',
   components: {
     UserIcon,
-    LogoIconEn,
-    LogoIconAr,
+    LogoIcon,
     ArrowDownIcon,
     UserAvatar,
-    BaseDropdown,
-    ArrowheadIcon,
     CustomText,
     ProfileMenu,
   },

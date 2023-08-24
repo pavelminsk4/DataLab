@@ -10,11 +10,12 @@
   >
     <ul v-if="widgetData.length" class="container">
       <li v-for="item in widgetData" :key="item.date" class="row">
-        <span class="stats__item">{{ item.weekday }}</span>
+        <CustomText tag="span" :text="item.weekday" class="stats__item" />
         <span class="stats__item" style="font-size: 16px">{{ item.time }}</span>
-        <span class="stats__item" style="font-size: 11px"
-          >AVG Engagements {{ item.engagements.toFixed() }}</span
-        >
+        <span class="stats__item" style="font-size: 11px">
+          <CustomText tag="span" text="AVG Engagements" class="stats__item" />
+          {{ item.engagements.toFixed() }}
+        </span>
         <div class="stats__item">
           <LikeIcon />
           <span>{{ item.likes }}</span>
@@ -33,6 +34,7 @@
 </template>
 
 <script>
+import CustomText from '@/components/CustomText'
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
 import LikeIcon from '@/components/icons/LikeIcon'
 import RetweetIcon from '@/components/icons/RetweetIcon'
@@ -40,7 +42,7 @@ import RepliesIcon from '@/components/icons/RepliesIcon'
 
 export default {
   name: 'BestTimesToPostWidget',
-  components: {WidgetsLayout, LikeIcon, RetweetIcon, RepliesIcon},
+  components: {WidgetsLayout, LikeIcon, RetweetIcon, RepliesIcon, CustomText},
   props: {
     widgetDetails: {type: Object, required: true},
     widgetData: {type: Object, required: true},

@@ -12,6 +12,7 @@ import {createNamespacedHelpers} from 'vuex'
 import {get, action} from '@store/constants'
 
 import {isAllFieldsEmpty} from '@/lib/utilities'
+import translate from '@/lib/mixins/translate.js'
 
 const {mapGetters, mapActions} = createNamespacedHelpers(
   'accountAnalysis/widgets'
@@ -20,6 +21,7 @@ const {mapGetters, mapActions} = createNamespacedHelpers(
 import VolumeWidget from '@/components/widgets/VolumeWidget'
 export default {
   name: 'MostFrequentPostTypes',
+  mixins: [translate],
   components: {VolumeWidget},
   props: {
     widgetDetails: {type: Object, required: true},
@@ -32,8 +34,8 @@ export default {
       return this.widgets.mostFrequentPostTypes
     },
     labels() {
-      return Object.keys(this.mostFrequentPostTypes).map(
-        (label) => label.split('_')[1]
+      return Object.keys(this.mostFrequentPostTypes).map((label) =>
+        this.translatedText(label.split('_')[1])
       )
     },
     chartValues() {

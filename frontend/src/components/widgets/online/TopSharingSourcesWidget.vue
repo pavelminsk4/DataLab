@@ -19,7 +19,7 @@
         :widget-details="widgetDetails"
       >
         <template #sentimentBar v-if="checkSentimentData(item.sentiments)">
-          <span class="chart-title">Sentiment</span>
+          <CustomText tag="span" text="Sentiment" class="chart-title" />
           <ChartsView
             :widget-details="widgetDetails"
             :chart-values="datasets(item)"
@@ -37,6 +37,7 @@ import {mapActions, mapGetters} from 'vuex'
 import {get, action} from '@store/constants'
 import {capitalizeFirstLetter} from '@/lib/utilities'
 
+import CustomText from '@/components/CustomText'
 import ChartsView from '@/components/charts/ChartsView'
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
 import SharingSourcesCard from '@/components/widgets/SharingSourcesCard'
@@ -47,6 +48,7 @@ export default {
     WidgetsLayout,
     SharingSourcesCard,
     ChartsView,
+    CustomText,
   },
   props: {
     widgetDetails: {type: Object, required: true},

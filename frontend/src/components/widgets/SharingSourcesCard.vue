@@ -2,7 +2,7 @@
   <div class="wrapper">
     <component :is="stringToPascalCase(type) + 'Icon'" class="achived" />
 
-    <div class="title">{{ type }}</div>
+    <CustomText :text="type" class="title" />
 
     <section class="information-section">
       <img :src="img" class="img" />
@@ -22,12 +22,14 @@
 
 <script>
 import {stringToPascalCase} from '@/lib/utilities'
+
+import CustomText from '@/components/CustomText'
 import MostActiveAuthorIcon from '@/components/icons/MostActiveAuthorIcon'
 import MostInfluentialAuthorIcon from '@/components/icons/MostInfluentialAuthorIcon'
 
 export default {
   name: 'SharingSourcesCard',
-  components: {MostActiveAuthorIcon, MostInfluentialAuthorIcon},
+  components: {CustomText, MostActiveAuthorIcon, MostInfluentialAuthorIcon},
   props: {
     type: {type: String, required: true},
     img: {type: String, required: true},

@@ -1,9 +1,7 @@
 <template>
   <div class="settings-wrapper">
     <div v-if="widgetDetails.hasPreview" class="preview-section">
-      <div class="chart-title">
-        {{ widgetDetails.title }}
-      </div>
+      <CustomText :text="widgetDetails.title" class="chart-title" />
 
       <slot></slot>
     </div>
@@ -63,6 +61,7 @@
 </template>
 
 <script>
+import CustomText from '@/components/CustomText'
 import BaseTabs from '@/components/project/widgets/modals/BaseTabs'
 import FiltersScreen from '@/components/project/screens/FiltersScreen'
 import BasicSettingsScreen from '@/components/project/widgets/modals/screens/BasicSettingsScreen'
@@ -77,6 +76,7 @@ export default {
     BaseButton,
     ChartTypesRadio,
     BaseTabs,
+    CustomText,
     FiltersScreen,
     BasicSettingsScreen,
   },

@@ -27,7 +27,10 @@
             <SentimentChips :chips-type="sentiment" :post-id="postId" />
           </div>
 
-          <div class="type category"><HashtagIcon /> {{ category }}</div>
+          <div class="type category">
+            <HashtagIcon />
+            <CustomText tag="span" :text="category" />
+          </div>
 
           <div v-if="!isClippingWidget" class="clipping-wrapper">
             <ClippingIcon
@@ -58,6 +61,7 @@ import {mapGetters} from 'vuex'
 import {get} from '@store/constants'
 import {capitalizeFirstLetter} from '@lib/utilities'
 
+import CustomText from '@/components/CustomText'
 import ClippingIcon from '@/components/icons/ClippingIcon'
 import BaseTooltip from '@/components/BaseTooltip'
 import NoImageIcon from '@/components/icons/NoImageIcon'
@@ -74,6 +78,7 @@ export default {
     BaseTooltip,
     ClippingIcon,
     HashtagIcon,
+    CustomText,
   },
   props: {
     isClippingWidget: {type: Boolean, default: false},

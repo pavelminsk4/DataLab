@@ -3,13 +3,14 @@
     v-bind="$attrs"
     :widget-details="widgetDetails"
     :widget-data="topHashtags"
-    tooltip-Labels="Engagements"
+    :tooltip-Labels="translatedText('Engagements')"
   />
 </template>
 
 <script>
 import {createNamespacedHelpers} from 'vuex'
 import {get, action} from '@store/constants'
+import translate from '@/lib/mixins/translate.js'
 
 import TopHashtagsWidget from '@/components/widgets/TopHashtagsWidget'
 
@@ -19,6 +20,7 @@ const {mapActions, mapGetters} = createNamespacedHelpers(
 
 export default {
   name: 'TopHashtags',
+  mixins: [translate],
   props: {
     widgetDetails: {type: Object, required: true},
   },

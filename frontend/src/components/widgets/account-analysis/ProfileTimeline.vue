@@ -4,13 +4,14 @@
     :widget-details="widgetDetails"
     :labels="labels"
     :chart-values="chartValues"
-    :tooltip-Labels="tooltipLabels"
+    :tooltip-Labels="currentTooltipLabels"
   />
 </template>
 
 <script>
 import {createNamespacedHelpers} from 'vuex'
 import {get, action} from '@store/constants'
+import translate from '@/lib/mixins/translate.js'
 
 import EngagementsTimelineWidget from '@/components/widgets/EngagementsTimelineWidget'
 import {defaultDate} from '@/lib/utilities'
@@ -21,6 +22,7 @@ const {mapActions, mapGetters} = createNamespacedHelpers(
 
 export default {
   name: 'ProfileTimeline',
+  mixins: [translate],
   components: {
     EngagementsTimelineWidget,
   },
@@ -36,6 +38,9 @@ export default {
     ...mapGetters({
       accountAnalysisWidgets: get.ACCOUNT_ANALYSIS_WIDGETS,
     }),
+    currentTooltipLabels() {
+      return this.tooltipLabels.map((tooltip) => this.translatedText(tooltip))
+    },
     profileTimeline() {
       return this.accountAnalysisWidgets.profileTimeline
     },

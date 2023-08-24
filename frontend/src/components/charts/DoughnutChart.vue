@@ -13,6 +13,7 @@ import {
   CategoryScale,
   LinearScale,
 } from 'chart.js'
+import translate from '@/lib/mixins/translate.js'
 
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 ChartJS.defaults.font = {
@@ -23,11 +24,13 @@ ChartJS.defaults.font = {
 
 export default {
   name: 'DoughnutChart',
+  mixins: [translate],
   components: {Doughnut},
   props: {
     labels: {type: Array, default: () => []},
     chartValues: {type: Object, default: () => {}},
     hasAnimation: {type: Boolean, default: true},
+    isSentimentChart: {type: Boolean, default: false},
   },
   computed: {
     colors() {
@@ -97,7 +100,9 @@ export default {
     },
     chartData() {
       return {
-        labels: this.labels,
+        labels: this.isSentimentChart
+          ? this.labels.map((el) => this.translatedText(el))
+          : this.labels,
         datasets: [
           {
             backgroundColor: this.colors,

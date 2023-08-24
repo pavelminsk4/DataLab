@@ -19,13 +19,17 @@
         <div class="account__info">
           <div class="info">
             <div class="info__item">
-              <VerifiedIcon /> Twitter {{ isVerified(widgetData.verified) }}
+              <VerifiedIcon />
+              <CustomText
+                :text="`Twitter ${isVerified(widgetData.verified)}`"
+              />
             </div>
             <div class="info__item">
               <LocationIcon /> {{ widgetData.location }}
             </div>
             <div class="info__item">
-              <StarIcon /> User value: {{ widgetData.user_value }}
+              <StarIcon /> <CustomText tag="span" text="User value:" />
+              {{ widgetData.user_value }}
             </div>
           </div>
         </div>
@@ -36,7 +40,7 @@
             :is="`${item.iconName}Icon`"
             :class="[item.iconName.toLowerCase(), 'icon']"
           />
-          <span>{{ item.name }}</span>
+          <CustomText tag="span" :text="item.name" />
           <span class="stats__value">{{ item.value?.toFixed() }}</span>
         </div>
       </section>
@@ -67,6 +71,7 @@ import CalendarIcon from '@/components/icons/CalendarIcon'
 import EngagementIcon from '@/components/icons/EngagementIcon'
 import HeartIcon from '@/components/icons/HeartIcon'
 import RetweetIcon from '@/components/icons/RetweetIcon'
+import CustomText from '@/components/CustomText'
 
 export default {
   name: 'AccountAnalysisSummaryWidget',
@@ -75,6 +80,7 @@ export default {
     stats: {type: Array, required: true},
   },
   components: {
+    CustomText,
     BaseSpinner,
     VerifiedIcon,
     LocationIcon,

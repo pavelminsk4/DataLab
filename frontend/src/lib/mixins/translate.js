@@ -21,5 +21,11 @@ export default {
   },
   methods: {
     ...mapActions([action.GET_TRANSLATED_TEXT]),
+    translatedText(text) {
+      if (this.platformLanguage === ENGLISH) return text
+
+      this[action.GET_TRANSLATED_TEXT](text)
+      return this.translated[text]
+    },
   },
 }

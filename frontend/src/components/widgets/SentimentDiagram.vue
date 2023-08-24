@@ -12,14 +12,16 @@
       :chart-type="chartType"
       :widget-details="widgetDetails"
       :is-legend-displayed="!isSettings"
+      :is-sentiment-chart="true"
     />
   </component>
 </template>
 
 <script>
+import {capitalizeFirstLetter} from '@lib/utilities'
+
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
 import ChartsView from '@/components/charts/ChartsView'
-import {capitalizeFirstLetter} from '@lib/utilities'
 
 export default {
   name: 'SentimentDiagram',

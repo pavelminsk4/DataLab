@@ -18,13 +18,13 @@
             :style="`background-color: ${item.backgroundColor}`"
             class="icon"
           />
-          <div class="title">{{ item.name }}</div>
+          <CustomText :text="item.name" class="title" />
         </div>
         <div>
           <div :class="['value', item.className]">
             {{ widgetData[item.valueName] }}
           </div>
-          <span>result</span>
+          <CustomText tag="span" text="result" />
         </div>
       </div>
     </div>
@@ -34,6 +34,7 @@
 <script>
 import {sentimentOverallWidgetConfig} from '@/lib/configs/widgetsConfigs'
 
+import CustomText from '@/components/CustomText'
 import NeutralIcon from '@/components/icons/NeutralIcon'
 import NegativeIcon from '@/components/icons/NegativeIcon'
 import PositiveIcon from '@/components/icons/PositiveIcon'
@@ -46,6 +47,7 @@ export default {
     NegativeIcon,
     PositiveIcon,
     WidgetsLayout,
+    CustomText,
   },
   props: {
     widgetDetails: {type: Object, required: true},

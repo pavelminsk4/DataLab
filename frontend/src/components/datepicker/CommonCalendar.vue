@@ -1,6 +1,6 @@
 <template>
   <div class="common-calendar">
-    <span class="title">Date</span>
+    <CustomText tag="span" text="Date" class="title" />
 
     <div class="date-wrapper">
       <div
@@ -24,6 +24,7 @@ import {mapActions, mapState, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 import {defaultDate} from '@/lib/utilities'
 
+import CustomText from '@/components/CustomText'
 import CalendarIcon from '@/components/icons/CalendarIcon'
 import DateRange from '@/components/datepicker/DateRange'
 import ArrowDownIcon from '@/components/icons/ArrowDownIcon'
@@ -32,6 +33,7 @@ export default {
   name: 'CommonCalendar',
   components: {
     DateRange,
+    CustomText,
     CalendarIcon,
     ArrowDownIcon,
   },
