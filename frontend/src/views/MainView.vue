@@ -186,10 +186,12 @@ export default {
 }
 
 .module-name {
+  width: 55%;
+
   font-size: 20px;
 }
 
 .module-description {
-  width: 60%;
+  width: 55%;
 }
 </style>
