@@ -2,7 +2,7 @@
   <div class="wrapper">
     <form class="form">
       <section class="form__module">
-        <span>Module</span>
+        <CustomText tag="span" text="Module" />
         <base-radio
           v-for="item in radioBtns"
           v-model="currentModuleProxy"
@@ -16,8 +16,11 @@
         </base-radio>
       </section>
       <section class="form__projects" v-if="currentWorkspaces.length">
-        <h4>Select which projects to compare (2 or 3 projects)</h4>
-        <span>Project</span>
+        <CustomText
+          tag="h4"
+          text="Select which projects to compare (2 or 3 projects)"
+        />
+        <CustomText tag="span" text="Projects" />
         <DivWithError
           :has-error="!!errors.project"
           :error-message="errors.project"
@@ -29,7 +32,7 @@
             class="select"
           />
         </DivWithError>
-        <span>Competitor project</span>
+        <CustomText tag="span" text="Competitor project" />
         <DivWithError
           :has-error="!!errors.projectToCompare"
           :error-message="errors.projectToCompare"
@@ -41,7 +44,9 @@
             class="select"
           />
         </DivWithError>
-        <span>Competitor project <span class="hint">Optional</span></span>
+        <CustomText tag="span" text="Competitor project">
+          <CustomText tag="span" text="Optional" class="hint" />
+        </CustomText>
         <DropdownWithSelect
           v-model="projects.projectToCompareOptional"
           :workspaces="currentWorkspaces"
@@ -55,7 +60,8 @@
       </section>
     </form>
     <BaseButton :is-disabled="errors.disableBtn" @click="saveWorkspace">
-      <SaveIcon class="save-icon" /> Save Project
+      <SaveIcon class="save-icon" />
+      <CustomText tag="span" text="Save Project" />
     </BaseButton>
   </div>
 </template>
@@ -65,6 +71,7 @@ import {createNamespacedHelpers} from 'vuex'
 import {action} from '@store/constants'
 import {isAllFieldsEmpty} from '@/lib/utilities'
 
+import CustomText from '@/components/CustomText'
 import DivWithError from '@/components/DivWithError'
 import DropdownWithSelect from '@components/DropdownWithSelect'
 import BaseRadio from '@/components/BaseRadio'
@@ -85,6 +92,7 @@ export default {
     OnlineIcon,
     SaveIcon,
     SocialIcon,
+    CustomText,
   },
   props: {
     workspaceId: {type: String, default: ''},
@@ -239,6 +247,7 @@ export default {
   flex-direction: column;
 
   gap: 40px;
+  margin-bottom: 30px;
 
   &__module {
     display: flex;

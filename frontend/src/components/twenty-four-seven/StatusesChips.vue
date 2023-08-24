@@ -6,7 +6,7 @@
       :class="['status-chips', currentStatus === status && 'active-chips']"
       @click="showStatusCards(status)"
     >
-      {{ status }}
+      <CustomText :text="status" />
     </div>
   </div>
 </template>
@@ -14,8 +14,11 @@
 <script>
 import {defaultStatuses} from '@/lib/configs/tfsStatusesConfig'
 
+import CustomText from '@/components/CustomText'
+
 export default {
   name: 'StatusesChips',
+  components: {CustomText},
   data() {
     return {
       currentStatus: null,

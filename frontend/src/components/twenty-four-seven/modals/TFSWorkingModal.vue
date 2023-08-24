@@ -17,7 +17,7 @@
             :class="['tab', item === activeTab && 'active-tab']"
             @click="changeTab(item)"
           >
-            {{ item }}
+            <CustomText tag="span" :text="item" />
           </span>
         </div>
 
@@ -54,6 +54,7 @@ import {action} from '@store/constants'
 import {stringToPascalCase} from '@/lib/utilities'
 import {modalTabs} from '@/lib/configs/tfsStatusesConfig'
 
+import CustomText from '@/components/CustomText'
 import BaseModal from '@/components/modals/BaseModal'
 import TFSOriginalContentTab from '@/components/twenty-four-seven/TFSOriginalContentTab'
 import TFSStoryReportTab from '@/components/twenty-four-seven/TFSStoryReportTab'
@@ -65,6 +66,7 @@ const {mapState, mapActions} = createNamespacedHelpers('twentyFourSeven')
 export default {
   name: 'TFSWorkingModal',
   components: {
+    CustomText,
     BaseModal,
     TFSSummaryTab,
     TFSOriginalContentTab,

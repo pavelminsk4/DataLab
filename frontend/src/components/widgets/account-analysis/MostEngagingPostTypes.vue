@@ -4,13 +4,14 @@
     :widget-details="widgetDetails"
     :labels="labels"
     :chart-values="chartValues"
-    tooltip-Labels="Engagements"
+    :tooltip-Labels="translatedText('Engagements')"
   />
 </template>
 
 <script>
 import {createNamespacedHelpers} from 'vuex'
 import {get, action} from '@store/constants'
+import translate from '@/lib/mixins/translate.js'
 
 import MostEngagingTypesWidget from '@/components/widgets/MostEngagingTypesWidget'
 import {isAllFieldsEmpty} from '@/lib/utilities'
@@ -21,6 +22,7 @@ const {mapActions, mapGetters} = createNamespacedHelpers(
 
 export default {
   name: 'MostEngagingPostTypesWidget',
+  mixins: [translate],
   components: {
     MostEngagingTypesWidget,
   },
@@ -35,8 +37,8 @@ export default {
       return this.accountAnalysisWidgets.mostEngagingPostTypes
     },
     labels() {
-      return Object.keys(this.mostEngagingPostTypes).map(
-        (type) => type.split('_')[0]
+      return Object.keys(this.mostEngagingPostTypes).map((type) =>
+        this.translatedText(type.split('_')[0])
       )
     },
     chartValues() {

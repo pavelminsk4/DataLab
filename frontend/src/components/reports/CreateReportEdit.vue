@@ -20,7 +20,7 @@
         </h3>
         <BaseButton @click="addWidget(projectId)">
           <AddWidgetsIcon />
-          <span>Add widgets</span>
+          <CustomText tag="span" text="Add widgets" />
         </BaseButton>
       </div>
 
@@ -37,7 +37,7 @@
   <footer class="create-reports__footer">
     <BaseButton @click="saveReport">
       <SaveIcon />
-      <span>Save Report</span>
+      <CustomText tag="span" text="Save Report" />
     </BaseButton>
   </footer>
 </template>
@@ -53,6 +53,7 @@ import AddWidgetsIcon from '@/components/icons/AddWidgetsIcon'
 import SaveIcon from '@/components/icons/SaveIcon'
 import ReportsProjectIcon from '@/components/icons/ReportsProjectIcon'
 
+import CustomText from '@/components/CustomText'
 import BaseButton from '@/components/common/BaseButton'
 import WidgetsList from '@/components/widgets/WidgetsList'
 import WidgetsListModal from '@/components/widgets/modals/WidgetsListModal'
@@ -66,6 +67,7 @@ export default {
     ReportsProjectIcon,
     WidgetsList,
     WidgetsListModal,
+    CustomText,
   },
   data() {
     return {

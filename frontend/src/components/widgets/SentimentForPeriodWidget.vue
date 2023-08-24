@@ -18,12 +18,14 @@
 
 <script>
 import {defaultDate} from '@/lib/utilities'
+import translate from '@/lib/mixins/translate.js'
 
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
 import ChartsView from '@/components/charts/ChartsView'
 
 export default {
   name: 'SentimentForPeriodWidget',
+  mixins: [translate],
   components: {ChartsView, WidgetsLayout},
   props: {
     widgetDetails: {type: Object, required: true},
@@ -67,9 +69,21 @@ export default {
       })
 
       return [
-        {label: 'Neutral', color: '#516BEE', data: neutral},
-        {label: 'Positive', color: '#00B884', data: positive},
-        {label: 'Negative', color: '#ED2549', data: negative},
+        {
+          label: this.translatedText('Neutral'),
+          color: '#516BEE',
+          data: neutral,
+        },
+        {
+          label: this.translatedText('Positive'),
+          color: '#00B884',
+          data: positive,
+        },
+        {
+          label: this.translatedText('Negative'),
+          color: '#ED2549',
+          data: negative,
+        },
       ]
     },
   },

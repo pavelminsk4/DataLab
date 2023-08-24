@@ -13,6 +13,7 @@
         type="text"
         class="select-search"
       />
+      <CustomText v-else-if="shouldBeTranslated" :text="value" />
       <div v-else>{{ value }}</div>
       <CalendarArrowDownIcon :class="['icon', open && 'open-select']" />
     </div>
@@ -23,48 +24,28 @@
         @click="addOption(option)"
         class="item"
       >
-        {{ option }}
+        <CustomText v-if="shouldBeTranslated" tag="span" :text="option" />
+        <span v-else>{{ option }}</span>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import CustomText from '@/components/CustomText'
 import CalendarArrowDownIcon from '@/components/icons/CalendarArrowDownIcon'
 
 export default {
-  components: {CalendarArrowDownIcon},
+  components: {CalendarArrowDownIcon, CustomText},
   props: {
-    options: {
-      type: Array,
-      default: null,
-    },
-    default: {
-      type: [String, Number],
-      required: false,
-      default: null,
-    },
-    tabindex: {
-      type: Number,
-      required: false,
-      default: 0,
-    },
-    name: {
-      type: String,
-      required: true,
-    },
-    value: {
-      type: [String, Number],
-      required: true,
-    },
-    selectWidth: {
-      type: Number,
-      default: 62,
-    },
-    isSearch: {
-      type: Boolean,
-      default: false,
-    },
+    options: {type: Array, default: null},
+    default: {type: [String, Number], required: false, default: null},
+    tabindex: {type: Number, required: false, default: 0},
+    name: {type: String, required: true},
+    value: {type: [String, Number], required: true},
+    selectWidth: {type: Number, default: 62},
+    isSearch: {type: Boolean, default: false},
+    shouldBeTranslated: {type: Boolean, default: false},
   },
   data() {
     return {

@@ -1,6 +1,6 @@
 <template>
   <OptimalPostLengthWidget
-    tooltip-Labels="Engagements"
+    :tooltip-Labels="translatedText('Engagements')"
     :widget-details="widgetDetails"
     :widget-data="optimalPostLength"
   />
@@ -9,6 +9,7 @@
 <script>
 import {createNamespacedHelpers} from 'vuex'
 import {get, action} from '@store/constants'
+import translate from '@/lib/mixins/translate.js'
 
 import OptimalPostLengthWidget from '@/components/widgets/OptimalPostLengthWidget'
 
@@ -18,6 +19,7 @@ const {mapActions, mapGetters} = createNamespacedHelpers(
 
 export default {
   name: 'FollowerGrowth',
+  mixins: [translate],
   props: {
     widgetDetails: {type: Object, required: true},
   },

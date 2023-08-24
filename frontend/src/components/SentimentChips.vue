@@ -6,7 +6,7 @@
         v-for="option in options"
         :key="option"
         class="dropdown__item"
-        @click="changePostSentiment"
+        @click="changePostSentiment(option)"
       >
         <BaseChips
           :chips-type="option.toLowerCase()"
@@ -66,8 +66,8 @@ export default {
       }
     },
 
-    async changePostSentiment({currentTarget}) {
-      const newSentiment = currentTarget.innerText.toLowerCase()
+    async changePostSentiment(sentiment) {
+      const newSentiment = sentiment.toLowerCase()
 
       const {name} = this.$route
       let moduleName = 'SOCIAL'

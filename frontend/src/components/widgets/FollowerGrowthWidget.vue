@@ -11,7 +11,7 @@
       :chart-type="chartType"
       :chart-values="chartValues"
       :widget-details="widgetDetails"
-      tooltip-Labels="Followers"
+      :tooltip-Labels="translatedText('Followers')"
       :is-legend-displayed="!isSettings"
       :is-interactive-data-shown="false"
     />
@@ -23,9 +23,11 @@ import ChartsView from '@/components/charts/ChartsView'
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
 
 import {defaultDate} from '@/lib/utilities'
+import translate from '@/lib/mixins/translate.js'
 
 export default {
   name: 'FollowerGrowthWidget',
+  mixins: [translate],
   components: {ChartsView, WidgetsLayout},
   props: {
     widgetDetails: {type: Object, required: true},

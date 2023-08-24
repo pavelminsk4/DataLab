@@ -71,7 +71,7 @@
         :has-icon="false"
         :class="['item', isCheckedElement(item) && `${item}-item`]"
       >
-        {{ capitalizeFirstLetter(item) }}
+        <CustomText tag="span" :text="capitalizeFirstLetter(item)" />
       </BaseCheckbox>
     </div>
   </div>

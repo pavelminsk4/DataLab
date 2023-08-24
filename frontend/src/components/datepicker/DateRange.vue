@@ -24,13 +24,13 @@
                 'active-range',
             ]"
           >
-            {{ item.label }}
+            <CustomText tag="span" :text="item.label" />
           </div>
         </div>
       </template>
     </Datepicker>
     <div class="custom-date">
-      <div class="hint">FORMAT: dd/mm/yyyy hh:mm am OR pm</div>
+      <CustomText text="FORMAT: dd/mm/yyyy hh:mm am OR pm" class="hint" />
 
       <BaseInput
         v-model="firstDate"
@@ -54,6 +54,7 @@
 import {mapActions, mapState} from 'vuex'
 import {action} from '@store/constants'
 
+import CustomText from '@/components/CustomText'
 import ActionRowCustom from '@/components/datepicker/ActionRowCustom'
 import MonthYearCustom from '@/components/datepicker/MonthYearCustom'
 
@@ -74,6 +75,7 @@ const ENDING_DATE = {type: 'endingDate', index: 1}
 export default {
   name: 'DateRange',
   components: {
+    CustomText,
     Datepicker,
     BaseInput,
   },

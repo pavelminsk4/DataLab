@@ -24,13 +24,13 @@
               :is="capitalizeFirstLetter(item.source) + 'Icon'"
               :class="item.source"
             />
-            {{ item.source }}
+            <CustomText tag="span" :text="item.source" />
           </div>
           <BaseChips :chips-type="item.gender" />
         </template>
 
         <template #sentimentBar v-if="checkSentimentData(item.sentiments)">
-          <span class="chart-title">Sentiment</span>
+          <CustomText tag="span" text="Sentiment" class="chart-title" />
           <ChartsView
             :widget-details="widgetDetails"
             :chart-values="datasets(item)"
@@ -48,6 +48,7 @@ import {createNamespacedHelpers} from 'vuex'
 import {get, action} from '@store/constants'
 import {capitalizeFirstLetter} from '@/lib/utilities'
 
+import CustomText from '@/components/CustomText'
 import BaseChips from '@/components/BaseChips'
 import TwitterIcon from '@/components/icons/TwitterIcon'
 import ChartsView from '@/components/charts/ChartsView'
@@ -64,6 +65,7 @@ export default {
     TwitterIcon,
     ChartsView,
     BaseChips,
+    CustomText,
   },
   props: {
     widgetDetails: {type: Object, required: true},

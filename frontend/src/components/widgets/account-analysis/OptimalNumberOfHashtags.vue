@@ -3,13 +3,14 @@
     :widget-details="widgetDetails"
     :widget-data="optimalNumberOfHashtags"
     :colors="colors"
-    tooltip-Labels="Engagements"
+    :tooltip-Labels="translatedText('Engagements')"
   />
 </template>
 
 <script>
 import {createNamespacedHelpers} from 'vuex'
 import {get, action} from '@store/constants'
+import translate from '@/lib/mixins/translate.js'
 
 import OptimalPostLengthWidget from '@/components/widgets/OptimalPostLengthWidget'
 import {isAllFieldsEmpty} from '@lib/utilities'
@@ -20,6 +21,7 @@ const {mapActions, mapGetters} = createNamespacedHelpers(
 
 export default {
   name: 'OptimalNumberOfHashtags',
+  mixins: [translate],
   props: {
     widgetDetails: {type: Object, required: true},
   },

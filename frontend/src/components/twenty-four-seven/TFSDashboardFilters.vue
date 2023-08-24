@@ -14,19 +14,21 @@
         :key="listOption.label + index"
         @click="$emit(item.actionName, listOption)"
       >
-        {{ listOption.label }}
+        <CustomText :text="listOption.label" />
       </div>
     </BaseDropdown>
   </div>
 </template>
 
 <script>
+import CustomText from '@/components/CustomText'
 import BaseDropdown from '@/components/BaseDropdown'
 import StatusesChips from '@/components/twenty-four-seven/StatusesChips'
 
 export default {
   name: 'TFSDashboardFilters',
   components: {
+    CustomText,
     BaseDropdown,
     StatusesChips,
   },

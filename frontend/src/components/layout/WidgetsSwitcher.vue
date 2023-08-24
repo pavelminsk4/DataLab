@@ -6,14 +6,17 @@
       :class="['tab', isActiveTab(tab) && 'active']"
       @click="switchTab(tab)"
     >
-      <span :class="[isSentiment && tab]">{{ tab }}</span>
+      <CustomText tag="span" :text="tab" :class="[isSentiment && tab]" />
     </div>
   </div>
 </template>
 
 <script>
+import CustomText from '@/components/CustomText'
+
 export default {
   name: 'WidgetsSwitcher',
+  components: {CustomText},
   props: {
     tabs: {type: Array, required: true},
     modelValue: {type: String, required: true},

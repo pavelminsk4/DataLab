@@ -18,11 +18,14 @@
 </template>
 
 <script>
+import translate from '@/lib/mixins/translate.js'
+
 import ChartsView from '@/components/charts/ChartsView'
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
 
 export default {
   name: 'OptimalPostLengthWidget',
+  mixins: [translate],
   components: {ChartsView, WidgetsLayout},
   props: {
     widgetDetails: {type: Object, required: true},
@@ -44,7 +47,9 @@ export default {
       return this.isSettings ? 'div' : 'WidgetsLayout'
     },
     labels() {
-      return Object.keys(this.widgetData)
+      return Object.keys(this.widgetData).map((dayOfWeek) =>
+        this.translatedText(dayOfWeek)
+      )
     },
     chartValues() {
       return [

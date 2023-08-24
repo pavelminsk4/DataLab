@@ -20,7 +20,7 @@
         class="button"
         @click="nextStep"
       >
-        <span>Next</span>
+        <CustomText tag="span" text="Next" />
       </ButtonWithArrow>
     </footer>
   </div>
@@ -31,8 +31,11 @@ import {mapActions, mapState} from 'vuex'
 import {action} from '@store/constants'
 import ComparisonMixin from '@/lib/mixins/comparison.js'
 
+import CustomText from '@/components/CustomText'
+
 export default {
   name: 'CreateComparisonProject',
+  components: {CustomText},
   mixins: [ComparisonMixin],
   props: {
     workspaceId: {type: String, default: null},

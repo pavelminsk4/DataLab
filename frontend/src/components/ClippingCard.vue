@@ -26,7 +26,9 @@
               :isLoading="isLoadingClippingWidget"
               @click="addPost"
             />
-            <BaseTooltip class="tooltip">{{ clippingTooltip }}</BaseTooltip>
+            <BaseTooltip class="tooltip">
+              <CustomText tag="span" :text="clippingTooltip" />
+            </BaseTooltip>
           </div>
         </div>
       </div>
@@ -63,6 +65,7 @@ import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 import {capitalizeFirstLetter, defaultDate} from '@lib/utilities'
 
+import CustomText from '@/components/CustomText'
 import OnlineIcon from '@/components/icons/OnlineIcon'
 import NeutralIcon from '@/components/icons/NeutralIcon'
 import PositiveIcon from '@/components/icons/PositiveIcon'
@@ -83,6 +86,7 @@ export default {
     NegativeIcon,
     PositiveIcon,
     OnlineIcon,
+    CustomText,
   },
   props: {
     isCheckboxClippingWidget: {type: Boolean, default: false},

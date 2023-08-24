@@ -18,12 +18,14 @@
 <script>
 import {SENTIMENT_COLORS, SENTIMENT} from '@/lib/constants'
 import {sortSentiment} from '@/lib/utilities'
+import translate from '@/lib/mixins/translate.js'
 
 import ChartsView from '@/components/charts/ChartsView'
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
 
 export default {
   name: 'SentimentColumnsStackedBarsWidget',
+  mixins: [translate],
   components: {
     ChartsView,
     WidgetsLayout,
@@ -47,9 +49,15 @@ export default {
     legends() {
       const {NEUTRAL, POSITIVE, NEGATIVE} = SENTIMENT
       return [
-        {name: NEUTRAL, color: SENTIMENT_COLORS[NEUTRAL]},
-        {name: POSITIVE, color: SENTIMENT_COLORS[POSITIVE]},
-        {name: NEGATIVE, color: SENTIMENT_COLORS[NEGATIVE]},
+        {name: this.translatedText(NEUTRAL), color: SENTIMENT_COLORS[NEUTRAL]},
+        {
+          name: this.translatedText(POSITIVE),
+          color: SENTIMENT_COLORS[POSITIVE],
+        },
+        {
+          name: this.translatedText(NEGATIVE),
+          color: SENTIMENT_COLORS[NEGATIVE],
+        },
       ]
     },
     widgetData() {

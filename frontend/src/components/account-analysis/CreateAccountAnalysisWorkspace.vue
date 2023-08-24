@@ -10,7 +10,7 @@
 
     <footer class="create-reports__footer">
       <ButtonWithArrow :is-disabled="!workspaceName" @click="nextStep">
-        <span>Next</span>
+        <CustomText tag="span" text="Next" />
       </ButtonWithArrow>
     </footer>
   </div>
@@ -21,6 +21,7 @@ import {mapActions, mapGetters, mapState} from 'vuex'
 import {action, get} from '@store/constants'
 import createAccountAnalysisMixin from '@/lib/mixins/create-account-analysis.js'
 
+import CustomText from '@/components/CustomText'
 import BaseInput from '@/components/common/BaseInput'
 import BaseTextarea from '@/components/common/BaseTextarea'
 import ButtonWithArrow from '@/components/common/ButtonWithArrow'
@@ -30,6 +31,7 @@ export default {
   mixins: [createAccountAnalysisMixin],
   components: {
     BaseInput,
+    CustomText,
     BaseTextarea,
     ButtonWithArrow,
   },

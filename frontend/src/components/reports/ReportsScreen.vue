@@ -8,7 +8,7 @@
       />
 
       <BaseButton @click="$emit('create-report')">
-        Create new report
+        <CustomText text="Create new report" />
       </BaseButton>
     </div>
 
@@ -21,8 +21,11 @@
 
     <template v-if="reports.length">
       <div class="sort-wrapper">
-        <span class="hint">Sort by</span>
-        <div class="sort-option">Latest <SortIcon class="sort-icon" /></div>
+        <CustomText tag="span" text="Sort by" class="hint" />
+        <div class="sort-option">
+          <CustomText tag="span" text="Latest" />
+          <SortIcon class="sort-icon" />
+        </div>
 
         <BaseInput
           v-model="search"
@@ -49,7 +52,7 @@
                 :key="`report-type-${index}`"
                 class="report-type"
               >
-                {{ reportType.type }}
+                <CustomText :text="reportType.type" />
               </div>
             </td>
             <td>
@@ -58,7 +61,7 @@
                 :key="`report-type-${index}`"
                 class="report-type"
               >
-                {{ reportType.date }}
+                <CustomText :text="reportType.date" />
               </div>
             </td>
             <td>
@@ -67,13 +70,13 @@
                 :key="`report-type-${index}`"
                 class="report-type"
               >
-                {{ reportType.time }}
+                <CustomText :text="reportType.time" />
               </div>
             </td>
-            <td>{{ item.report_language }}</td>
+            <CustomText tag="td" :text="item.report_language" />
             <td>
               <BaseChips :chipsType="item.report_format">
-                {{ item.report_format.toUpperCase() }}
+                <CustomText :text="item.report_format.toUpperCase()" />
               </BaseChips>
             </td>
             <td>
@@ -109,6 +112,7 @@ import {weekDays} from '@/lib/constants'
 
 import SortIcon from '@components/icons/SortIcon'
 
+import CustomText from '@/components/CustomText'
 import BaseButton from '@/components/common/BaseButton'
 import BaseInput from '@/components/common/BaseInput'
 import MainLayout from '@components/layout/MainLayout'
@@ -134,6 +138,7 @@ export default {
     UserAvatar,
     SortIcon,
     BaseChips,
+    CustomText,
   },
   props: {
     reports: {type: Array, default: () => []},

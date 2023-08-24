@@ -6,9 +6,11 @@
     @open-modal="$emit('open-settings-modal')"
   >
     <div :class="['clipping-wrapper', 'scroll', isSettings && 'widget-view']">
-      <div v-if="!clippingFeedContentData.length" class="no-selected">
-        Clipping feed content is not selected.
-      </div>
+      <CustomText
+        v-if="!clippingFeedContentData.length"
+        text="Clipping feed content is not selected."
+        class="no-selected"
+      />
 
       <ClippingCard
         v-for="(item, index) in clippingFeedContentData"
@@ -34,12 +36,13 @@
 </template>
 
 <script>
+import CustomText from '@/components/CustomText'
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
 import ClippingCard from '@/components/ClippingCard'
 
 export default {
   name: 'ClippingFeedContentWidget',
-  components: {ClippingCard, WidgetsLayout},
+  components: {ClippingCard, WidgetsLayout, CustomText},
   props: {
     clippingFeedContentData: {type: Array, required: true},
     widgetDetails: {type: Object, required: true},

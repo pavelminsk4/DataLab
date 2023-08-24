@@ -17,7 +17,7 @@
   <div v-else>No search results</div>
   <footer class="create-reports__footer">
     <ButtonWithArrow :is-disabled="isDisableNextBtn" @click="nextStep">
-      <span>Next</span>
+      <CustomText tag="span" text="Next" />
     </ButtonWithArrow>
   </footer>
 </template>
@@ -28,6 +28,7 @@ import {action, get} from '@store/constants'
 
 import createAlertMixin from '@/lib/mixins/create-alerts.js'
 
+import CustomText from '@/components/CustomText'
 import WorkspaceTableWithProjects from '@components/WorkspaceTableWithProjects'
 import BaseInput from '@components/common/BaseInput'
 
@@ -36,7 +37,7 @@ const {mapActions: mapActionsAlerts} = createNamespacedHelpers('alerts')
 
 export default {
   name: 'CreateAlertAddProject',
-  components: {WorkspaceTableWithProjects, BaseInput},
+  components: {WorkspaceTableWithProjects, BaseInput, CustomText},
   mixins: [createAlertMixin],
   data() {
     return {

@@ -14,7 +14,10 @@
       class="input-name"
     />
     <div class="form__trigger">
-      <span>Send notification if trigger condition is not met in a week</span>
+      <CustomText
+        tag="span"
+        text="Send notification if trigger condition is not met in a week"
+      />
       <BaseSwitcher :value="triggerInWeek" @input="switchTrigger" />
     </div>
 
@@ -24,7 +27,7 @@
         type="submit"
         class="next-button"
       >
-        <span>Next</span>
+        <CustomText tag="span" text="Next" />
       </ButtonWithArrow>
     </footer>
   </form>
@@ -33,6 +36,7 @@
 <script>
 import {action} from '@store/constants'
 
+import CustomText from '@/components/CustomText'
 import BaseSwitcher from '@/components/BaseSwitcher.vue'
 import BaseInput from '@/components/common/BaseInput'
 
@@ -40,7 +44,7 @@ import createAlertMixin from '@/lib/mixins/create-alerts.js'
 
 export default {
   name: 'SetAlertTrigger',
-  components: {BaseSwitcher, BaseInput},
+  components: {BaseSwitcher, BaseInput, CustomText},
   mixins: [createAlertMixin],
   data() {
     return {

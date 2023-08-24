@@ -1,6 +1,6 @@
 <template>
   <div :style="`border-top: 3px solid ${statusColor};`" class="column-header">
-    <span>{{ status }}</span>
+    <CustomText tag="span" :text="status" />
     <div class="results">{{ numberOfResults }}</div>
 
     <div class="pagination-wrapper">
@@ -27,12 +27,13 @@
 </template>
 
 <script>
+import CustomText from '@/components/CustomText'
 import BaseSelect from '@/components/BaseSelect2'
 import ArrowheadIcon from '@/components/icons/ArrowheadIcon'
 
 export default {
   name: 'TFSColumnHeader',
-  components: {BaseSelect, ArrowheadIcon},
+  components: {BaseSelect, ArrowheadIcon, CustomText},
   props: {
     value: {type: [Number, String], required: true},
     status: {type: String, required: true},

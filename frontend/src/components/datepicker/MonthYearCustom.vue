@@ -14,6 +14,7 @@
         :name="'month-year'"
         @select-option="updateMonth"
         :selectWidth="95"
+        :should-be-translated="true"
       />
     </div>
     <div class="icons">

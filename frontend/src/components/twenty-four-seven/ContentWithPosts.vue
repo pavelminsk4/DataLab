@@ -11,8 +11,11 @@
 
     <div class="related-content">
       <div class="title-wrapper">
-        <span class="title">Related content</span>
-        <span class="results">{{ relatedContent.length }} results</span>
+        <CustomText tag="span" text="Related content" class="title" />
+        <span class="results">
+          {{ relatedContent.length }}
+          <CustomText tag="span" text="results" class="results" />
+        </span>
       </div>
 
       <BaseSpinner v-if="relatedContentLoading" />
@@ -39,6 +42,7 @@
 </template>
 
 <script>
+import CustomText from '@/components/CustomText'
 import TFSPostCard from '@/components/TFSPostCard'
 import BaseSpinner from '@/components/BaseSpinner'
 
@@ -49,6 +53,7 @@ export default {
   components: {
     TFSPostCard,
     BaseSpinner,
+    CustomText,
   },
   props: {
     post: {type: Object, requied: true},

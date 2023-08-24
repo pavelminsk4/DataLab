@@ -7,7 +7,9 @@
         :back-page="{name: 'main page', routeName: 'MainView'}"
       />
 
-      <BaseButton @click="$emit('create-alert')"> Create new alert </BaseButton>
+      <BaseButton @click="$emit('create-alert')">
+        <CustomText tag="span" text="Create new alert" />
+      </BaseButton>
     </div>
 
     <AreYouSureModal
@@ -67,6 +69,7 @@
 import {action, get} from '@store/constants'
 import {mapGetters, createNamespacedHelpers} from 'vuex'
 
+import CustomText from '@/components/CustomText'
 import MainLayout from '@/components/layout/MainLayout'
 import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
 import BaseTable from '@/components/common/BaseTable'
@@ -89,6 +92,7 @@ export default {
     UsersIconsBar,
     UserAvatar,
     AreYouSureModal,
+    CustomText,
   },
   props: {
     alerts: {type: Array, default: () => []},
@@ -114,7 +118,7 @@ export default {
       {name: 'Alert name', width: '38%'},
       {name: 'Trigger', width: '14%'},
       {name: `Assigned Users`, width: '10%'},
-      {name: `Creator `, width: '14%'},
+      {name: `Creator`, width: '14%'},
       {name: `Date`, width: '10%'},
     ]
   },

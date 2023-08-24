@@ -2,7 +2,7 @@
   <div :class="['set-time-checkbox', isChecked && 'active']">
     <div class="set-time">
       <BaseCheckbox2 v-model="isChecked" class="checkbox" />
-      <h5 class="title">{{ title }}</h5>
+      <CustomText tag="h5" :text="title" class="title" />
     </div>
     <div class="set-time">
       <slot></slot>
@@ -11,11 +11,12 @@
 </template>
 
 <script>
+import CustomText from '@/components/CustomText'
 import BaseCheckbox2 from '@/components/BaseCheckbox2'
 
 export default {
   name: 'SetTimeCheckbox',
-  components: {BaseCheckbox2},
+  components: {BaseCheckbox2, CustomText},
   props: {
     modelValue: {type: [Boolean, Array], default: false},
     title: {type: String, required: true},

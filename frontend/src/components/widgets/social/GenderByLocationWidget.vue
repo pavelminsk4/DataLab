@@ -12,6 +12,7 @@
 <script>
 import {createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
+import translate from '@/lib/mixins/translate.js'
 
 import VolumeWidget from '@/components/widgets/VolumeWidget'
 
@@ -20,6 +21,7 @@ const {mapActions, mapGetters} = createNamespacedHelpers('social/widgets')
 export default {
   name: 'GenderByLocation',
   components: {VolumeWidget},
+  mixins: [translate],
   props: {
     widgetDetails: {type: Object, required: true},
   },
@@ -54,17 +56,17 @@ export default {
 
       return [
         {
-          label: 'Male',
+          label: this.translatedText('Male'),
           color: '#516BEE',
           data: malesData,
         },
         {
-          label: 'Female',
+          label: this.translatedText('Female'),
           color: '#FD7271',
           data: femalesData,
         },
         {
-          label: 'Undefined',
+          label: this.translatedText('Undefined'),
           color: '#B0B5B8',
           data: noGenderTypeData,
         },

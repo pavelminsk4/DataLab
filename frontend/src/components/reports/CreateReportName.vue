@@ -29,7 +29,7 @@
         class="next-button"
         @click="nextStep"
       >
-        <span>Next</span>
+        <CustomText tag="span" text="Next" />
       </ButtonWithArrow>
     </footer>
   </div>
@@ -41,6 +41,7 @@ import {action, get} from '@store/constants'
 import createReportMixin from '@/lib/mixins/create-report.js'
 import {isAllFieldsEmpty} from '@lib/utilities'
 
+import CustomText from '@/components/CustomText'
 import BaseInput from '@/components/common/BaseInput'
 import BaseTextarea from '@/components/common/BaseTextarea'
 import AddUsersField from '@/components/AddUsersField'
@@ -50,6 +51,7 @@ export default {
   mixins: [createReportMixin],
   components: {
     BaseInput,
+    CustomText,
     BaseTextarea,
     AddUsersField,
   },

@@ -2,7 +2,7 @@
   <div :class="['chips-wrapper', chipsType.toLowerCase()]">
     <component :is="`${chipsType}Icon`" :class="['icon', chipsType]" />
     <slot>
-      <span>{{ title }}</span>
+      <CustomText tag="span" :text="title" />
     </slot>
   </div>
 </template>
@@ -19,6 +19,7 @@ import NegativeIcon from '@/components/icons/NegativeIcon'
 import PositiveIcon from '@/components/icons/PositiveIcon'
 import NeutralIcon from '@/components/icons/NeutralIcon'
 import TopicIcon from '@/components/icons/HashtagIcon'
+import CustomText from '@/components/CustomText'
 
 export default {
   name: 'BaseChips',
@@ -32,6 +33,7 @@ export default {
     PositiveIcon,
     NeutralIcon,
     TopicIcon,
+    CustomText,
   },
   props: {
     chipsType: {type: String, required: true},

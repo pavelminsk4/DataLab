@@ -18,7 +18,7 @@
         >
           <div class="radio-content">
             <component :is="stringToPascalCase(item) + 'Icon'" class="icon" />
-            {{ item }}
+            <CustomText :text="item" />
           </div>
         </BaseRadio>
       </div>

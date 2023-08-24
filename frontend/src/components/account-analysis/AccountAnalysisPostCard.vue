@@ -20,7 +20,9 @@
           />
         </div>
         <div class="chips__card-body">
-          <BaseChips chips-type="topic"> Topic</BaseChips>
+          <BaseChips chips-type="topic">
+            <CustomText tag="span" text="Topic" />
+          </BaseChips>
         </div>
       </div>
     </div>
@@ -28,6 +30,7 @@
 </template>
 
 <script>
+import CustomText from '@/components/CustomText'
 import AccountAnalysisPostCardLayout from '@/components/account-analysis/AccountAnalysisPostCardLayout'
 import SentimentChips from '@/components/SentimentChips'
 import BaseChips from '@/components/BaseChips'
@@ -42,6 +45,7 @@ export default {
     SentimentChips,
     BaseChips,
     RepliesIcon,
+    CustomText,
   },
   props: {
     postDetails: {type: Object, required: true},

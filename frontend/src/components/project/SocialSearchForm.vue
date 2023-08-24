@@ -1,7 +1,7 @@
 <template>
   <div class="filters-wrapper">
     <template v-for="{name, listName} in searchFields" :key="name">
-      <span class="second-title">{{ name }}</span>
+      <CustomText tag="span" :text="name" class="second-title" />
 
       <BaseSearchField
         v-model="search[name]"
@@ -22,7 +22,7 @@
 
   <CommonCalendar class="date-picker" />
 
-  <span class="second-title">Sentiment</span>
+  <CustomText tag="span" text="Sentiment" class="second-title" />
 
   <div class="sentiments-wrapper">
     <BaseCheckbox
@@ -38,7 +38,7 @@
         :is="item + 'Icon'"
         :class="['sentiment-icon', isSelectedItem(item) && item + '-item']"
       />
-      {{ item }}
+      <CustomText :text="item" />
     </BaseCheckbox>
   </div>
 </template>
@@ -47,6 +47,7 @@
 import {mapActions, mapGetters, createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
 
+import CustomText from '@/components/CustomText'
 import BaseCheckbox from '@/components/BaseCheckbox2'
 import BaseRadio from '@/components/BaseRadio'
 import BaseSearchField from '@/components/BaseSearchField'
@@ -83,6 +84,7 @@ export default {
     NeutralIcon,
     BaseCheckbox,
     CommonCalendar,
+    CustomText,
   },
   props: {
     currentProject: {type: Object, required: true},

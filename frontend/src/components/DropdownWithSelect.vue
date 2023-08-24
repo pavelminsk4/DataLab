@@ -1,8 +1,14 @@
 <template>
   <div :class="[`dropdown-wrapper-${name}`, 'dropdown-wrapper', 'scroll']">
-    <div class="title" @click="openMainDropdown">
-      {{ modelValue.title || 'Select project from workspaces' }}
+    <div v-if="modelValue.title" class="title" @click="openMainDropdown">
+      {{ modelValue.title }}
     </div>
+    <CustomText
+      v-else
+      text="Select project from workspaces"
+      class="title"
+      @click="openMainDropdown"
+    />
     <section v-if="isOpenMainDropdown" class="container-workspaces">
       <div v-for="workspace in workspaces" :key="workspace" class="workspace">
         <BaseDropdown
@@ -29,12 +35,13 @@
 </template>
 
 <script>
+import CustomText from '@/components/CustomText'
 import BaseDropdown from '@/components/BaseDropdown'
 import {stringToPascalCase} from '@/lib/utilities'
 
 export default {
   name: 'DropdownWithSelect',
-  components: {BaseDropdown},
+  components: {BaseDropdown, CustomText},
   props: {
     name: {type: String, required: true},
     workspaces: {type: Array, required: true},

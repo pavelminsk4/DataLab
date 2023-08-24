@@ -10,6 +10,7 @@
     :isLegendDisplayed="isLegendDisplayed"
     :has-animation="widgets.hasAnimation"
     :is-interactive-data-shown="isInteractiveDataShown"
+    :is-sentiment-chart="isSentimentChart"
     @open-interactive-data="openInteractiveData"
   />
 </template>
@@ -65,6 +66,7 @@ export default {
     isLegendDisplayed: {type: Boolean, default: true},
     tooltipLabels: {type: [Array, String], required: false},
     isInteractiveDataShown: {type: Boolean, default: true},
+    isSentimentChart: {type: Boolean, default: false},
   },
   computed: {
     ...mapState(['loading', 'widgets']),
