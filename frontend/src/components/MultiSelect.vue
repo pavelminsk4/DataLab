@@ -8,11 +8,11 @@
   >
     <li>
       <BaseCheckbox v-model="isSelectAllProxy" class="option">
-        <!-- <CustomText
+        <CustomText
           tag="span"
           :text="`All ${itemName}s`"
           class="option__title"
-        /> -->
+        />
       </BaseCheckbox>
     </li>
     <li v-for="option in options" :key="option">
@@ -29,13 +29,13 @@
 </template>
 
 <script>
-// import CustomText from '@/components/CustomText'
+import CustomText from '@/components/CustomText'
 import BaseCheckbox from '@/components/BaseCheckbox2'
 import BaseSelect from '@/components/BaseSelect2'
 
 export default {
   name: 'MultiSelect',
-  components: {BaseCheckbox, BaseSelect},
+  components: {BaseCheckbox, BaseSelect, CustomText},
   props: {
     options: {type: Array, required: true},
     modelValue: {type: Array, required: true},

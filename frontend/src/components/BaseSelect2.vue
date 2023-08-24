@@ -56,7 +56,6 @@ export default {
   computed: {
     selectedValues: {
       get() {
-        console.log(this.currentPlaceholder, this.modelValue)
         return this.modelValue
       },
       set(val) {
