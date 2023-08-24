@@ -101,7 +101,7 @@ export default {
     chartData() {
       return {
         labels: this.isSentimentChart
-          ? this.labels.map((el) => this.translatedText(el))
+          ? this.labels.map((label) => this.translatedText(label))
           : this.labels,
         datasets: [
           {
