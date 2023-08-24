@@ -43,6 +43,8 @@ export default {
 
   display: flex;
 
+  height: fit-content;
+
   font-size: 22px;
 
   cursor: pointer;

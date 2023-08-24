@@ -20,7 +20,7 @@
 
     <footer class="footer">
       <BaseButton :is-disabled="isDisabledSaveButton">
-        <SaveIcon />
+        <SaveIcon color="#ffffff" />
         <span>Save preset</span>
       </BaseButton>
     </footer>

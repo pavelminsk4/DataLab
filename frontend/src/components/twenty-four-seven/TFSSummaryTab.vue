@@ -39,7 +39,7 @@
         :button-loading="buttonSaveLoading"
         @click="$emit('save-summary', header, text)"
       >
-        <SaveIcon />
+        <SaveIcon color="#ffffff" />
         <CustomText text="Save" />
       </BaseButton>
     </div>

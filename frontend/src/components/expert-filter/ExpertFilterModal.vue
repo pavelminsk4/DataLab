@@ -17,9 +17,35 @@
       </section>
       <section class="presets-section">
         <div class="preset-label">Presets</div>
-        <div v-if="false">
-          <BaseSearchField />
-          <SelectWithCheckboxes />
+        <div>
+          <BaseInput v-model="searchPreset" />
+
+          <ul class="preset-groups">
+            <template
+              v-for="{id: groupId, name, presets} in groups"
+              :key="groupId"
+            >
+              <li class="group" @click="isOpenGroup[name] = !isOpenGroup[name]">
+                <BaseCheckbox />
+                <span>{{ name }}</span>
+
+                <ArrowheadIcon
+                  :direction="isOpenGroup[name] ? 'top' : 'down'"
+                />
+              </li>
+              <template v-if="isOpenGroup[name]">
+                <li
+                  v-for="(preset, index) in presets"
+                  :key="preset.id"
+                  :class="['preset', index + 1 === presets.length && 'mb']"
+                >
+                  <BaseCheckbox />
+                  <span>{{ preset.name }}</span>
+                  <EditIcon />
+                </li>
+              </template>
+            </template>
+          </ul>
         </div>
       </section>
     </div>
@@ -36,22 +62,83 @@
 import BaseButton from '@/components/common/BaseButton'
 import BaseModal from '@/components/modals/BaseModal'
 import ExpertField from '@components/expert-filter/ExpertField'
-import SelectWithCheckboxes from '@components/SelectWithCheckboxes'
-import BaseSearchField from '@components/BaseSearchField'
+import BaseInput from '@components/common/BaseInput'
+import BaseCheckbox from '@/components/BaseCheckbox2'
+import ArrowheadIcon from '@components/icons/ArrowheadIcon'
+import EditIcon from '@/components/icons/EditIcon'
 
 export default {
   name: 'ExpertFilterModal',
   components: {
     BaseButton,
     BaseModal,
-    BaseSearchField,
+    BaseInput,
     ExpertField,
-    SelectWithCheckboxes,
+    BaseCheckbox,
+    ArrowheadIcon,
+    EditIcon,
   },
   data() {
     return {
       expValue: '',
+      searchPreset: '',
+      isOpenGroup: {},
     }
+  },
+  created() {
+    this.groups = [
+      {
+        id: 1,
+        name: 'Gr1',
+        presets: [
+          {
+            name: 'preset 1',
+            id: 423,
+            query_filter: 'Elon AND CAT',
+          },
+
+          {
+            name: 'preset 2',
+            id: 413,
+            query_filter: '(Elon AND Cat) OR Dog',
+          },
+        ],
+      },
+      {
+        id: 12,
+        name: 'Gr12',
+        presets: [
+          {
+            name: 'preset 1',
+            id: 423,
+            query_filter: 'Elon AND CAT',
+          },
+
+          {
+            name: 'preset 2',
+            id: 413,
+            query_filter: '(Elon AND Cat) OR Dog',
+          },
+        ],
+      },
+      {
+        id: 13,
+        name: 'Gr13',
+        presets: [
+          {
+            name: 'preset 1',
+            id: 423,
+            query_filter: 'Elon AND CAT',
+          },
+
+          {
+            name: 'preset 2',
+            id: 413,
+            query_filter: '(Elon AND Cat) OR Dog',
+          },
+        ],
+      },
+    ]
   },
 }
 </script>
@@ -90,6 +177,44 @@ export default {
   margin-bottom: 8px;
 
   color: var(--typography-title-color);
+}
+
+.preset-groups {
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+
+  background-color: var(--background-secondary-color);
+  border-radius: var(--border-radius);
+
+  li {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+    padding: 8px 12px;
+
+    list-style-type: none;
+  }
+
+  .group {
+    font-size: 16px;
+    font-weight: 500;
+
+    span {
+      flex-grow: 1;
+    }
+  }
+
+  .preset {
+    span {
+      flex-grow: 1;
+    }
+  }
+}
+
+.mb {
+  margin-bottom: 10px;
 }
 
 .footer {

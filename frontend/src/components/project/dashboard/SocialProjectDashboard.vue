@@ -57,6 +57,8 @@
         />
       </BaseDropdown>
 
+      <ExpertFilterButton />
+
       <div class="menu-buttons">
         <BaseButton
           :is-not-background="true"
@@ -88,6 +90,8 @@
     </div>
 
     <div class="dashboard-wrapper">
+      <PresetsBar :presets="presets" />
+
       <SearchResults
         module-name="Social"
         :search-loading="isLoadingResults"
@@ -125,6 +129,8 @@ import InteractiveWidgetModal from '@/components/modals/InteractiveWidgetModal'
 import TotalResults from '@/components/TotalResults'
 import DownloadInformationModal from '@/components/project/modals/DownloadInformationModal'
 import BaseButtonSpinner from '@/components/BaseButtonSpinner'
+import ExpertFilterButton from '@components/expert-filter/ExpertFilterButton'
+import PresetsBar from '@components/expert-filter/PresetsBar'
 
 const {mapActions: mapSocialActions, mapState} =
   createNamespacedHelpers('social')
@@ -147,6 +153,8 @@ export default {
     CustomText,
     DownloadInformationModal,
     BaseButtonSpinner,
+    ExpertFilterButton,
+    PresetsBar,
   },
   props: {
     currentProject: {type: [Array, Object], required: true},
@@ -206,6 +214,20 @@ export default {
         new Date(this.currentProject.end_search_date),
       ],
     })
+
+    this.presets = [
+      {
+        name: 'preset 1',
+        id: 423,
+        query_filter: 'Elon AND CAT',
+      },
+
+      {
+        name: 'preset 2',
+        id: 413,
+        query_filter: '(Elon AND Cat) OR Dog',
+      },
+    ]
 
     this.showResults()
   },

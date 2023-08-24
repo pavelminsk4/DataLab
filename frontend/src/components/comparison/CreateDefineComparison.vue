@@ -60,7 +60,7 @@
       </section>
     </form>
     <BaseButton :is-disabled="errors.disableBtn" @click="saveWorkspace">
-      <SaveIcon class="save-icon" />
+      <SaveIcon color="#ffffff" class="save-icon" />
       <CustomText tag="span" text="Save Project" />
     </BaseButton>
   </div>

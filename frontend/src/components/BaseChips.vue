@@ -36,7 +36,7 @@ export default {
     CustomText,
   },
   props: {
-    chipsType: {type: String, required: true},
+    chipsType: {type: String, default: ''},
   },
   computed: {
     title() {

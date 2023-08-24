@@ -54,7 +54,7 @@
       />
 
       <BaseButton class="button" @click="saveChanges">
-        <SaveIcon />Save
+        <SaveIcon color="#ffffff" />Save
       </BaseButton>
     </div>
   </div>
