@@ -5,10 +5,21 @@ from twenty_four_seven.models import Item
 from django.contrib import admin
 
 
-admin.site.register(ProjectTwentyFourSeven)
-admin.site.register(WorkspaceTwentyFourSeven)
-admin.site.register(Item)
+@admin.register(WorkspaceTwentyFourSeven)
+class WorkspaceTwentyFourSeven(admin.ModelAdmin):
+    list_display = ('title', 'department', 'updated_at', 'created_at')
+
+
+@admin.register(ProjectTwentyFourSeven)
+class ProjectTwentyFourSevenAdmin(admin.ModelAdmin):
+    list_display = ('title', 'keywords', 'creator', 'updated_at', 'created_at')
+
+
+@admin.register(Item)
+class ItemAdmin(admin.ModelAdmin):
+    list_display = ('online_post', 'social_post', 'status', 'project')
+
 
 @admin.register(WARecipient)
 class WARecipientdAdmin(admin.ModelAdmin):
-    list_display = ('name', 'mobile_number', 'created_at', 'updated_at')
+    list_display = ('name', 'mobile_number', 'updated_at', 'created_at')
