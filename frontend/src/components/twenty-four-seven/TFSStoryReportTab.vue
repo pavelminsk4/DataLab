@@ -123,7 +123,7 @@ export default {
       return `${this.post.online_post.feedlink__sourceurl} ${
         this.post?.header
       } ${this.post?.text} ${this.relatedLinks
-        .map((link) => link.linkName)
+        .map((link) => link.link)
         .join(' ')}`
     },
     isWhatsappFieldsShow() {
