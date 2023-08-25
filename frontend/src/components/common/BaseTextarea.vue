@@ -17,7 +17,7 @@
     <textarea
       v-model="value"
       :id="label"
-      :dir="currentDir"
+      :dir="customDir || currentDir"
       :placeholder="currentPlaceholder"
       :class="['scroll', hasError && 'error']"
     />
@@ -38,6 +38,7 @@ export default {
     modelValue: {type: String, default: ''},
     placeholder: {type: String, default: ''},
     dir: {type: String, default: 'ltr'},
+    customDir: {type: String, default: ''},
     label: {type: String, default: ''},
     hasError: {type: Boolean, default: false},
     errorMessage: {type: String, default: ''},
