@@ -120,9 +120,11 @@ export default {
       })
     },
     messageContent() {
-      return `${this.post.online_post.feed_image_link} ${this.post?.header} ${
-        this.post?.text
-      } ${this.relatedLinks.map((link) => link.linkName).join(' ')}`
+      return `${this.post.online_post.feedlink__sourceurl} ${
+        this.post?.header
+      } ${this.post?.text} ${this.relatedLinks
+        .map((link) => link.linkName)
+        .join(' ')}`
     },
     isWhatsappFieldsShow() {
       return this.post.status === PUBLISHING

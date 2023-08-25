@@ -10,7 +10,7 @@
     <div v-else>
       <BaseInput
         v-model="header"
-        :dir="summaryLanguage"
+        :custom-dir="summaryLanguage"
         label="Header"
         placeholder="Enter the header"
         class="header"
@@ -20,7 +20,7 @@
         label="Text"
         placeholder="Enter the text"
         error-message="Clear the field to create AI summary!"
-        :dir="summaryLanguage"
+        :custom-dir="summaryLanguage"
         :has-error="!isFieldClear"
         :class="[!isFieldClear && 'summary-error']"
       />
