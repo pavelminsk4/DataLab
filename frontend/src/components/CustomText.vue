@@ -27,6 +27,8 @@ export default {
     translatedText() {
       if (this.platformLanguage === ENGLISH) return this.text
 
+      if (this.translated[this.text]) return this.translated[this.text]
+
       this[action.GET_TRANSLATED_TEXT](this.text)
       return this.translated[this.text]
     },
