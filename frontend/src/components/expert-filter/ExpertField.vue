@@ -10,12 +10,12 @@
         :class="['expert-input', isFocus && 'is-focus']"
         @focus="isFocus = true"
         @blur="isFocus = false"
-        @input="onDivInput($event)"
+        @keydown="customKeyPress"
+        @input="keyUpHandler($event)"
       >
         <p></p>
       </div>
     </div>
-    {{ value }}
   </div>
 </template>
 
@@ -32,8 +32,13 @@ export default {
   data() {
     return {
       isFocus: false,
-      newValue: '',
+      newValue: {
+        rows: [],
+        values: [],
+      },
       currentSelection: 0,
+      isNeedUpdateElementId: true,
+      customRange: null,
     }
   },
   computed: {
@@ -42,43 +47,234 @@ export default {
         return this.newValue
       },
       set(val) {
-        this.newValue = val
-        console.log(val)
-        this.$refs.content.innerHTML = val
+        let matchValue = val.match(/<p\s(.*?)<\/p>/g)
+        this.newValue.rows = matchValue
+        this.newValue.values = matchValue.map((row) =>
+          this.getValueFromRow(row)
+        )
+
+        console.log('val>>', this.newValue)
+        if (this.isNeedUpdateElementId) {
+          matchValue = this.newValue.values.map((row, index) => {
+            return `<p id="row-${index + 1}">${this.replaceLogicalOperators(
+              row
+            )}</p>`
+          })
+
+          // this.isNeedUpdateElementId = false
+        }
+
+        this.$refs.content.innerHTML = matchValue.join('')
       },
     },
   },
   mounted() {
-    console.log(this.$refs.content)
-    this.value = '<p>??????</p>'
+    this.value = '<p id="row-1"></p>'
   },
-  // watch: {
-  //   '$refs.content'() {
-  //     if (this.isClearSelectedValue) {
-  //       this.value = ''
-  //       this.search = ''
-  //     }
-  //   },
-  // },
   methods: {
-    onDivInput({target}) {
-      console.log(target.innerHTML)
-      // const selection = window.getSelection().getRangeAt(0)
-      // const range = document.createRange()
+    getCurrentRowElement(element) {
+      if (element.localName === 'p') return element
+      return this.getCurrentRowElement(element.parentElement)
+    },
+    getCurrentRowId() {
+      const currentElement = this.getCurrentRowElement(
+        window.getSelection().focusNode
+      )
+      console.log(currentElement)
+      const currentRowId = currentElement.id
+      const currentRowNumber = +currentRowId.match(/\d+/)[0]
+      // const childElementCount = element.childElementCount
 
-      console.log('on div', window.getSelection().getRangeAt(0))
-      // selection.removeAllRanges()
-      // range.selectNodeContents(target)
-      // range.collapse(false)
-      // selection.addRange(range)
-      // target.focus()
-      // this.value = target.innerHTML
+      // this.isNeedUpdateElementId = currentRowNumber < childElementCount
+
+      return currentRowNumber
+    },
+    spliceRows(startIndex, deleteCount, addElement) {
+      const rows = [...this.value.rows]
+      rows.splice(startIndex, deleteCount, addElement)
+      this.value = rows.join('')
+    },
+
+    customKeyPress(event) {
+      const rowNumber = this.getCurrentRowId(event.target)
+
+      if (event.keyCode === 13) {
+        if (rowNumber === this.value.rows.length) {
+          event.preventDefault()
+          this.spliceRows(rowNumber, 0, `<p id="row-${rowNumber + 1}"></p>`)
+          this.restoreSelection(event.target, `row-${rowNumber + 1}`, 0)
+          return
+        }
+
+        this.customRange = {range: 0, currentRowId: `row-${rowNumber + 1}`}
+      }
+
+      const rowLength = event.target.querySelector(`#row-${rowNumber}`)
+        .innerText.length
+
+      if (event.keyCode === 8 && rowLength <= 1 && rowNumber > 1) {
+        event.preventDefault()
+
+        this.spliceRows(rowNumber - 1, 1)
+
+        const prevRowLength = event.target.querySelector(
+          `#row-${rowNumber - 1}`
+        ).innerText.length
+
+        this.restoreSelection(
+          event.target,
+          `row-${rowNumber - 1}`,
+          prevRowLength
+        )
+        return
+      }
+
+      if (event.keyCode === 46) {
+        const endOffset = window.getSelection().getRangeAt(0).endOffset
+        const nextRowLength = event.target.querySelector(
+          `#row-${rowNumber + 1}`
+        )?.innerText.length
+
+        if (nextRowLength == null && endOffset === rowLength) {
+          event.preventDefault()
+          return
+        }
+
+        if (endOffset === rowLength && !nextRowLength) {
+          event.preventDefault()
+
+          const {range, currentRowId} = this.saveSelection()
+          this.spliceRows(rowNumber, 1)
+          this.restoreSelection(event.target, currentRowId, range)
+
+          return
+        }
+      }
+    },
+
+    walk(node, func) {
+      var stop = func(node)
+      var children = node.childNodes
+      for (var i = 0; !stop && i < children.length; i++)
+        if (this.walk(children[i], func)) return true
+      return stop
     },
 
     saveSelection() {
-      this.currentSelection = window.getSelection().getRangeAt(0) || 0
+      const selection = window.getSelection()
+      const currentRowElement = this.getCurrentRowElement(selection.focusNode)
+      console.log('SAVE', selection)
+      console.log('SAVE', currentRowElement)
+      const currentRowId = currentRowElement.id
+      const currentRange = selection.getRangeAt(0)
+
+      if (!currentRange) return 0
+
+      let range = 0
+      this.walk(
+        currentRowElement,
+        (elm) => {
+          if (elm.nodeType === Node.TEXT_NODE) {
+            if (elm !== currentRange.endContainer) {
+              range += elm.textContent.length
+            } else {
+              range += currentRange.endOffset
+              return true
+            }
+          }
+          return false
+        },
+        0
+      )
+      return {range, currentRowId}
     },
-    restoreSelection() {},
+
+    findChildWithCharIndex(target, savedRowId, charIndex) {
+      const currentRow = target.querySelector(`#${savedRowId}`)
+
+      let child = currentRow.firstChild || currentRow
+      let charCount = 0
+      this.walk(currentRow, (elm) => {
+        if (elm.nodeType === Node.TEXT_NODE) {
+          const currentIndex = charCount + elm.textContent.length
+          if (currentIndex < charIndex) {
+            charCount += elm.textContent.length
+          } else {
+            child = elm
+            return true
+          }
+        }
+        return false
+      })
+
+      return {
+        child,
+        offsetInChild: charIndex - charCount,
+      }
+    },
+
+    restoreSelection(target, savedRowId, savedRange) {
+      if (savedRange == null) return
+
+      target.focus()
+      const selection = window.getSelection()
+      if (selection.rangeCount > 0) selection.removeAllRanges()
+
+      const {child, offsetInChild} = this.findChildWithCharIndex(
+        target,
+        savedRowId,
+        savedRange
+      )
+
+      if (child) {
+        const range = document.createRange()
+        range.setStart(child, offsetInChild)
+        range.setEnd(child, offsetInChild)
+        selection.addRange(range)
+      }
+    },
+
+    getValueFromRow(row) {
+      return row.replace(/(<([^>]+)>)/gi, '')
+    },
+    replaceLogicalOperators(value) {
+      let highlightedStr = value
+      console.log(highlightedStr)
+
+      // this.filters.map((filter) => {
+      //   const regex = new RegExp('\\b' + filter + '[:]', 'g')
+      //   highlightedStr = highlightedStr.replace(
+      //     regex,
+      //     `<span class="expert-mode_defaultColor">${filter}:</span>`
+      //   )
+      // })
+
+      return highlightedStr
+        .replace(/<br>/, '')
+        .replace(/\(/g, '<span class="expert-mode_defaultColor">(</span>')
+        .replace(/\)/g, '<span class="expert-mode_defaultColor">)</span>')
+        .replace(
+          /\bOR\b/g,
+          '<span class="defaultColor expert-mode_or">OR</span>'
+        )
+        .replace(
+          /\bAND\b/g,
+          '<span class="defaultColor expert-mode_and">AND</span>'
+        )
+        .replace(
+          /\bNOT\b/g,
+          '<span class="defaultColor expert-mode_not">NOT</span>'
+        )
+    },
+
+    keyUpHandler(event) {
+      const savedRange = this.customRange || this.saveSelection()
+      const {range, currentRowId} = savedRange
+
+      this.value = event.target.innerHTML
+      this.restoreSelection(event.target, currentRowId, range)
+      this.customRange = null
+    },
   },
 }
 </script>
@@ -121,7 +317,23 @@ export default {
     width: var(--expert-input-width);
     min-height: 20px;
 
-    background-color: red;
+    // background-color: rgb(155, 155, 155);
   }
+}
+
+.expert-mode_defaultColor {
+  color: #8e00d1;
+}
+
+.expert-mode_or {
+  color: var(--neutral-primary-color);
+}
+
+.expert-mode_and {
+  color: var(--positive-primary-color);
+}
+
+.expert-mode_not {
+  color: var(--negative-primary-color);
 }
 </style>

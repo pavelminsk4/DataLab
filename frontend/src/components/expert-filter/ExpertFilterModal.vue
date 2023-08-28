@@ -20,7 +20,7 @@
         <div>
           <BaseInput v-model="searchPreset" />
 
-          <ul class="preset-groups">
+          <ul class="preset-groups scroll">
             <template
               v-for="{id: groupId, name, presets} in groups"
               :key="groupId"
@@ -182,7 +182,9 @@ export default {
 .preset-groups {
   display: flex;
   flex-direction: column;
+
   padding: 8px;
+  height: 265px;
 
   background-color: var(--background-secondary-color);
   border-radius: var(--border-radius);

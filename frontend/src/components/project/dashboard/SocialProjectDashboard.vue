@@ -31,6 +31,11 @@
       @close="toggleWidgetsModal(null)"
     />
 
+    <ExpertFilterModal
+      v-if="openModal === 'ExpertFilterModal'"
+      @close="toggleWidgetsModal(null)"
+    />
+
     <MainLayoutTitleBlock
       :title="currentProject.title"
       :description="currentProject.note"
@@ -57,7 +62,7 @@
         />
       </BaseDropdown>
 
-      <ExpertFilterButton />
+      <ExpertFilterButton @click="toggleWidgetsModal('ExpertFilterModal')" />
 
       <div class="menu-buttons">
         <BaseButton
@@ -131,6 +136,7 @@ import DownloadInformationModal from '@/components/project/modals/DownloadInform
 import BaseButtonSpinner from '@/components/BaseButtonSpinner'
 import ExpertFilterButton from '@components/expert-filter/ExpertFilterButton'
 import PresetsBar from '@components/expert-filter/PresetsBar'
+import ExpertFilterModal from '@/components/expert-filter/ExpertFilterModal'
 
 const {mapActions: mapSocialActions, mapState} =
   createNamespacedHelpers('social')
@@ -155,6 +161,7 @@ export default {
     BaseButtonSpinner,
     ExpertFilterButton,
     PresetsBar,
+    ExpertFilterModal,
   },
   props: {
     currentProject: {type: [Array, Object], required: true},
