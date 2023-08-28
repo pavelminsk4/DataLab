@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'query_counter',
     'phonenumber_field',
     'multilanguage.apps.MultilanguageConfig',
+    'expert_filters.apps.ExpertFiltersConfig',
 ]
 
 ASGI_APPLICATION = 'config.asgi.application'
