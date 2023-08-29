@@ -40,16 +40,16 @@ class SummaryOnline:
         self.project = project
 
     def get_widgets(self):
-        widget_list = WidgetsList2.objects.filter(project_id=self.project.pk)
+        widget_list = WidgetsList2.objects.get(project_id=self.project.pk)
         return {
             'project_name': self.project.title,
             'project_id': self.project.pk,
             'module': 'online',
             'widgets': [
                 {'name': 'summary', 'widget_id':widget_list.summary_id, 'data': onl_summary(self.posts)},
-                {'name': 'content_volume', 'widget_id':widget_list.content_volume_id, 'data': onl_volume(self.posts, 'day')},
+                {'name': 'content_volume', 'widget_id':widget_list.volume_id, 'data': onl_volume(self.posts, 'day')},
                 {'name': 'top_authors', 'widget_id':widget_list.top_authors_id, 'data': [{'user_name': elem['entry_author'], 'user_count': elem['author_posts_count']} for elem in onl_top_authors(self.posts, 5)]},
-                {'name': 'sentiment', 'widget_id':widget_list.sentiment_id, 'data': onl_sentiment(self.posts)},
+                {'name': 'sentiment', 'widget_id':widget_list.sentiment_for_period_id, 'data': onl_sentiment(self.posts)},
                 {'name': 'top_sources', 'widget_id':widget_list.top_sources_id, 'data': onl_top_sources(self.posts, 5)},
                 {'name': 'top_keywords', 'widget_id':widget_list.top_keywords_id, 'data':  onl_top_keywords(self.posts)},
                 {'name': 'top_languages', 'widget_id':widget_list.top_languages_id, 'data': onl_top_languages(self.posts, 5)},
