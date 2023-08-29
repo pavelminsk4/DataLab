@@ -10,12 +10,16 @@ def most_engaging_post_types(pk, widget_pk):
 
 
 def post_aggregator_most_engaging_post_types(posts):
-    count_tweets = posts.filter(type__contains=['original'])
-    count_replies = posts.filter(type__contains=['reply'])
-    count_retweets = posts.filter(type__contains=['retweet'])
-    engagement = Sum(F('count_favorites') + F('count_totalretweets'))
-
-    return {'tweets_engagement': count_tweets.aggregate(count=engagement)['count'],
-            'replies_engagement': count_replies.aggregate(count=engagement)['count'],
-            'retweets_engagement': count_retweets.aggregate(count=engagement)['count']
+    tweets_engagements, replies_engagements, retweets_engagements = 0, 0, 0
+    for post in posts:
+        if 'original' in post.type:
+            tweets_engagements += (post.count_favorites + post.count_totalretweets)
+        if 'reply' in post.type:
+            replies_engagements += (post.count_favorites + post.count_totalretweets)
+        if 'retweet' in post.type:
+            retweets_engagements += (post.count_favorites + post.count_totalretweets)
+    return {
+            'tweets_engagement': tweets_engagements,
+            'replies_engagement': replies_engagements,
+            'retweets_engagement': retweets_engagements
             }

@@ -6,6 +6,14 @@ from django.http import JsonResponse
 def mention_summary(pk, widget_pk):
     posts, project = filter_for_mentions_posts(pk, widget_pk)
     user_post = TweetBinderPost.objects.filter(user_alias=project.profile_handle).last()
+    positive, negative, neutral = 0, 0, 0
+    for post in posts:
+        if post.sentiment == 'positive':
+            positive += 1
+        elif post.sentiment == 'negative':
+            negative += 1
+        elif post.sentiment == 'neutral':
+            neutral += 1 
     res = {
         'user_name': user_post.user_name,
         'user_picture': user_post.user_picture,
@@ -19,9 +27,9 @@ def mention_summary(pk, widget_pk):
             'language': posts.values('language').distinct().count(),
             'countries': posts.values('locationString').distinct().count(),
             'authors': posts.values('user_alias').distinct().count(),
-            'neutral': posts.filter(sentiment='neutral').count(),
-            'negative': posts.filter(sentiment='negative').count(),
-            'positive': posts.filter(sentiment='positive').count(),
+            'neutral': neutral,
+            'negative': negative,
+            'positive': positive,
             'potential_rates': posts.aggregate(value=Sum('user_value'))['value'],
         }
     }
