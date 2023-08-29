@@ -54,11 +54,16 @@ class ScreenDriver:
         if not os.path.exists(storage_folder):
             os.makedirs(storage_folder)
 
+    def __close_chrome_driver(self, driver):
+        driver.quit()
+
     def get_screenshots(self):
         driver = self.__run_chrome_driver()
         self.__check_and_create_tmp_dir()
         item_widgets = model_to_dict(
             self.item, exclude=['module_type', 'module_project_id', 'id'])
-        return reduce(
+        res = reduce(
             lambda acc, widget: {**acc, **{widget: self.__make_screenshot(widget, driver)}} if item_widgets[widget] else acc,
             item_widgets, {})
+        self.__close_chrome_driver(driver)
+        return res
