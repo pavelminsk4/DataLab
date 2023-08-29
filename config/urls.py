@@ -32,6 +32,7 @@ urlpatterns = [
     path('accounts/', include('accounts.urls',namespace='accounts')),
     path('projects/', include('project.urls')),
     path('api/', include('api.urls')),
+    path('api/', include('expert_filters.urls')),
     path('api/widgets/', include('widgets.urls', namespace='widgets')),
     path('api/social/', include('project_social.urls')),
     path('api/account_analysis/', include('account_analysis.urls')),
