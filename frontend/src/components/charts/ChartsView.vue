@@ -18,6 +18,7 @@
 <script>
 import {mapState, mapActions} from 'vuex'
 import {action} from '@store/constants'
+import {capitalizeFirstLetter} from '@lib/utilities'
 
 import BaseSpinner from '@/components/BaseSpinner'
 import BarChart from '@/components/charts/BarChart'
@@ -72,12 +73,39 @@ export default {
     ...mapState(['loading', 'widgets']),
   },
   methods: {
+    capitalizeFirstLetter,
     ...mapActions([
       action.SHOW_INTERACTIVE_DATA_MODAL,
       action.POST_INTERACTIVE_WIDGETS,
     ]),
     showIteractiveModalData(data) {
-      this[action.SHOW_INTERACTIVE_DATA_MODAL]({
+      console.log(this.widgetDetails.currentModule)
+      if (this.widgetDetails.currentModule) {
+        const comparisonProjectIndex = this.widgetDetails.widgetData.findIndex(
+          (project) => project.project === data.first_value[0]
+        )
+
+        return this[action.SHOW_INTERACTIVE_DATA_MODAL]({
+          value: {
+            isShow: true,
+            projectId:
+              this.widgetDetails?.widgetData[comparisonProjectIndex].project_id,
+            widgetId:
+              this.widgetDetails?.widgetData[comparisonProjectIndex].widget_id,
+            data: {
+              ...data,
+              first_value: [null],
+              page_number: 1,
+              posts_per_page: 4,
+            },
+          },
+          moduleType:
+            this.widgetDetails.moduleName ||
+            capitalizeFirstLetter(this.widgetDetails.module),
+        })
+      }
+
+      return this[action.SHOW_INTERACTIVE_DATA_MODAL]({
         value: {
           isShow: true,
           projectId: this.widgetDetails.projectId,

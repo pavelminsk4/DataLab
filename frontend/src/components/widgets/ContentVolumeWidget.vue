@@ -53,7 +53,9 @@ export default {
         labelsCollection.push(el[keys[0]])
       })
 
-      return labelsCollection[0]?.map((el) => this.defaultDate(el.date))
+      return labelsCollection[0]?.map((el) =>
+        this.defaultDate(el.date, this.platformLanguage)
+      )
     },
     chartValues() {
       let datasetsValue = []

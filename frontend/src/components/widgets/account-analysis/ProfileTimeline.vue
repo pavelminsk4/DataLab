@@ -47,7 +47,7 @@ export default {
     labels() {
       if (!this.profileTimeline.length) return []
       return this.profileTimeline.map((dateValue) => {
-        return defaultDate(dateValue.date)
+        return defaultDate(dateValue.date, this.platformLanguage)
       })
     },
     chartValues() {

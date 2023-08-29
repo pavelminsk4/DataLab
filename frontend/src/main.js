@@ -1,4 +1,6 @@
 import {createApp} from 'vue'
+import {mapGetters} from 'vuex'
+import {get} from '@store/constants'
 import router from '@router'
 import store from '@store'
 import App from './App.vue'
@@ -8,6 +10,9 @@ app.use(router)
 app.use(store)
 
 app.mixin({
+  computed: {
+    ...mapGetters({platformLanguage: get.PLATFORM_LANGUAGE}),
+  },
   methods: {
     togglePageScroll(isOpen) {
       if (isOpen) {

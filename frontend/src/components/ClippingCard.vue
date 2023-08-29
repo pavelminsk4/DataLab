@@ -109,7 +109,9 @@ export default {
     clippingElement: {type: Boolean, default: false},
   },
   computed: {
-    ...mapGetters({isLoading: get.LOADING_WIDGETS}),
+    ...mapGetters({
+      isLoading: get.LOADING_WIDGETS,
+    }),
     isLoadingClippingWidget() {
       return this.isLoading.clippingWidget
     },
@@ -120,7 +122,10 @@ export default {
     },
     commonCardItems() {
       return [
-        {name: 'DATE', value: this.defaultDate(this.published)},
+        {
+          name: 'DATE',
+          value: this.defaultDate(this.published, this.platformLanguage),
+        },
         {name: 'SOURCE', value: this.sourceLink},
         {name: 'LOCATION', value: this.country},
         {name: 'LANGUAGE', value: this.language},

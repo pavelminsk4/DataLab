@@ -26,8 +26,9 @@ export const isAllFieldsEmpty = (obj) => {
   return true
 }
 
-export const defaultDate = (date) => {
-  return moment(date).format('ll')
+export const defaultDate = (date, platformLang) => {
+  if (platformLang) return moment(date).locale(platformLang).format('L')
+  return moment(date).format('L')
 }
 
 export const getWidgetDetails = (

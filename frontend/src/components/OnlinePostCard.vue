@@ -83,7 +83,10 @@ export default {
       return [
         {
           name: 'DATE',
-          value: this.defaultDate(this.postDetails.entry_published),
+          value: this.defaultDate(
+            this.postDetails.entry_published,
+            this.platformLanguage
+          ),
         },
         {name: 'SOURCE', value: this.postDetails.feedlink__sourceurl},
         {name: 'LOCATION', value: this.postDetails.feedlink__country},

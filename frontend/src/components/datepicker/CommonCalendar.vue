@@ -49,14 +49,15 @@ export default {
     calendarDate() {
       if (this.additionalFilters?.date_range?.length) {
         const currentDate = this.additionalFilters?.date_range.map((el) =>
-          this.defaultDate(el)
+          this.defaultDate(el, this.platformLanguage)
         )
 
         return `${currentDate[0]} - ${currentDate[1]}`
       } else {
         return `${this.defaultDate(
-          this.getLastWeeksDate()
-        )} - ${this.defaultDate(new Date())}`
+          this.getLastWeeksDate(),
+          this.platformLanguage
+        )} - ${this.defaultDate(new Date(), this.platformLanguage)}`
       }
     },
   },
