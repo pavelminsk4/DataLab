@@ -7,7 +7,7 @@
       <div
         contenteditable="true"
         ref="content"
-        :class="['expert-input', isFocus && 'is-focus']"
+        :class="['expert-input', 'scroll', isFocus && 'is-focus']"
         @focus="isFocus = true"
         @blur="isFocus = false"
         @keydown="customKeyPress"
@@ -23,7 +23,7 @@
 export default {
   name: 'ExpertField',
   props: {
-    modelValue: {type: String, default: ''},
+    modelValue: {type: Array, default: () => ['']},
     label: {type: String, default: ''},
     width: {type: Number, default: 320},
     hasLineNumbering: {type: Boolean, default: false},
@@ -44,34 +44,43 @@ export default {
   computed: {
     value: {
       get() {
-        return this.newValue
+        const queryData = {
+          rows: this.getRowsFromValues(this.modelValue) || [],
+          values: this.modelValue || [],
+        }
+
+        return queryData
       },
       set(val) {
-        let matchValue = val.match(/<p\s(.*?)<\/p>/g)
-        this.newValue.rows = matchValue
-        this.newValue.values = matchValue.map((row) =>
-          this.getValueFromRow(row)
-        )
+        const rows = val.match(/<p\s(.*?)<\/p>/g)
+        const values = rows.map((row) => this.getValueFromRow(row))
 
-        console.log('val>>', this.newValue)
+        let matchValue = [...rows]
+
         if (this.isNeedUpdateElementId) {
-          matchValue = this.newValue.values.map((row, index) => {
-            return `<p id="row-${index + 1}">${this.replaceLogicalOperators(
-              row
-            )}</p>`
-          })
-
+          matchValue = this.getRowsFromValues(values)
           // this.isNeedUpdateElementId = false
         }
 
         this.$refs.content.innerHTML = matchValue.join('')
+        this.$emit('update:modelValue', values)
       },
     },
   },
   mounted() {
-    this.value = '<p id="row-1"></p>'
+    this.$refs.content.innerHTML = this.value.rows.join('')
   },
   methods: {
+    getValueFromRow(row) {
+      return row.replace(/(<([^>]+)>)/gi, '')
+    },
+    getRowsFromValues(values) {
+      return values.map(
+        (value, index) =>
+          `<p id="row-${index + 1}">${this.replaceLogicalOperators(value)}</p>`
+      )
+    },
+
     getCurrentRowElement(element) {
       if (element.localName === 'p') return element
       return this.getCurrentRowElement(element.parentElement)
@@ -80,11 +89,10 @@ export default {
       const currentElement = this.getCurrentRowElement(
         window.getSelection().focusNode
       )
-      console.log(currentElement)
+
       const currentRowId = currentElement.id
       const currentRowNumber = +currentRowId.match(/\d+/)[0]
       // const childElementCount = element.childElementCount
-
       // this.isNeedUpdateElementId = currentRowNumber < childElementCount
 
       return currentRowNumber
@@ -163,8 +171,6 @@ export default {
     saveSelection() {
       const selection = window.getSelection()
       const currentRowElement = this.getCurrentRowElement(selection.focusNode)
-      console.log('SAVE', selection)
-      console.log('SAVE', currentRowElement)
       const currentRowId = currentRowElement.id
       const currentRange = selection.getRangeAt(0)
 
@@ -234,12 +240,8 @@ export default {
       }
     },
 
-    getValueFromRow(row) {
-      return row.replace(/(<([^>]+)>)/gi, '')
-    },
     replaceLogicalOperators(value) {
       let highlightedStr = value
-      console.log(highlightedStr)
 
       // this.filters.map((filter) => {
       //   const regex = new RegExp('\\b' + filter + '[:]', 'g')
@@ -305,6 +307,7 @@ export default {
   display: flex;
   flex-direction: column;
 
+  height: 250px;
   padding: 10px;
   gap: 4px;
 

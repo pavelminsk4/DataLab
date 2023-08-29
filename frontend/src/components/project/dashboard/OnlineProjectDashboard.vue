@@ -33,6 +33,8 @@
       @close="toggleWidgetsModal('isOpenDownloadReportModal')"
     />
 
+    <ExpertFilterModal />
+
     <MainLayoutTitleBlock
       :title="currentProject.title"
       :description="currentProject.note"
@@ -135,6 +137,7 @@ const {mapActions: mapOnlineActions, mapState} =
 
 const {mapGetters: mapOnlineWidgetsGetters} =
   createNamespacedHelpers('online/widgets')
+import ExpertFilterModal from '@/components/expert-filter/ExpertFilterModal'
 
 export default {
   name: 'OnlineProjectDashboard',
@@ -154,6 +157,7 @@ export default {
     SearchResults,
     DownloadInformationModal,
     BaseButtonSpinner,
+    ExpertFilterModal,
   },
   props: {
     currentProject: {type: [Array, Object], required: false},

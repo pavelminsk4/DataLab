@@ -40,9 +40,7 @@ export default {
   },
   methods: {
     closeDropdown({target}) {
-      const dropdown = document.querySelector(
-        `.dropdown-options-container`
-      ).parentElement
+      const dropdown = this.$refs.dropdown.parentElement
 
       if (!dropdown?.contains(target)) {
         this.$emit('close-dropdown')

@@ -1,7 +1,7 @@
 <template>
   <BaseModal style="--base-modal-content-padding: 0">
     <template #title>
-      <span>Save as</span>
+      <span>Create new group</span>
     </template>
 
     <section class="form">
@@ -19,7 +19,7 @@
     </section>
 
     <footer class="footer">
-      <BaseButton :is-disabled="isDisabledSaveButton">
+      <BaseButton :is-disabled="isDisabledSaveButton" @click="createGroup">
         <SaveIcon color="#ffffff" />
         <span>Save preset</span>
       </BaseButton>
@@ -28,11 +28,16 @@
 </template>
 
 <script>
+import {createNamespacedHelpers, mapGetters} from 'vuex'
+import {action, get} from '@store/constants'
+
 import BaseButton from '@/components/common/BaseButton'
 import BaseModal from '@/components/modals/BaseModal'
 import BaseInput from '@components/common/BaseInput'
 import BaseTextarea from '@/components/common/BaseTextarea'
 import SaveIcon from '@components/icons/SaveIcon'
+
+const {mapActions} = createNamespacedHelpers('expertFilter')
 
 export default {
   name: 'CreateNewGroupModal',
@@ -50,6 +55,7 @@ export default {
     }
   },
   computed: {
+    ...mapGetters({user: get.USER_INFO}),
     name: {
       get() {
         return this.newName
@@ -68,6 +74,23 @@ export default {
     },
     isDisabledSaveButton() {
       return !this.name
+    },
+  },
+  methods: {
+    ...mapActions([
+      action.CREATE_PRESETS_GROUP,
+      action.DELETE_PRESETS_GROUP,
+      action.UPDATE_PRESETS_GROUP,
+    ]),
+    async createGroup() {
+      await this[action.CREATE_PRESETS_GROUP]({
+        data: {
+          creator: this.user.id,
+          title: this.name,
+          description: this.description,
+        },
+      })
+      this.$emit('close', this.name)
     },
   },
 }

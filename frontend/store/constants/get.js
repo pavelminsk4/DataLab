@@ -81,4 +81,7 @@ export const get = {
 
   // Account Analysis
   LIST_OF_PROFILE_HANDLE: 'LIST_OF_PROFILE_HANDLE',
+
+  //Expert filter
+  PRESET_GROUPS: 'PRESET_GROUPS',
 }

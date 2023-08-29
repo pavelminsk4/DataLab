@@ -6,6 +6,7 @@
 
     <DropdownOptionsContainer
       v-if="isOpenPresetOptions"
+      :key="presetId"
       :options="dropDownOptions"
       @close-dropdown="toggleDropdown"
       @edit-preset="editPreset"

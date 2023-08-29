@@ -136,6 +136,7 @@ import DownloadInformationModal from '@/components/project/modals/DownloadInform
 import BaseButtonSpinner from '@/components/BaseButtonSpinner'
 import ExpertFilterButton from '@components/expert-filter/ExpertFilterButton'
 import PresetsBar from '@components/expert-filter/PresetsBar'
+
 import ExpertFilterModal from '@/components/expert-filter/ExpertFilterModal'
 
 const {mapActions: mapSocialActions, mapState} =

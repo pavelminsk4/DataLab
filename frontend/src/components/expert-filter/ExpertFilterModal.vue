@@ -4,17 +4,30 @@
       <span>Expert filter</span>
     </template>
 
+    <SaveAsModal
+      v-if="isOpenSaveAsModal"
+      :expert-query="'Elon AND CAT'"
+      @close="isOpenSaveAsModal = false"
+    />
+
     <div class="wrapper">
       <section class="expert-filter-section">
-        <ExpertField v-model="expValue" label="Filter query" />
+        <ExpertField
+          v-if="isShowExpertInput"
+          v-model="expertQuery"
+          label="Filter query"
+        />
 
         <div class="expert-filter-buttons">
-          <BaseButton :is-not-background="true">
+          <BaseButton v-if="false" :is-not-background="true">
             Detailed search syntax
           </BaseButton>
-          <BaseButton :is-not-background="true">Reset</BaseButton>
+          <BaseButton :is-not-background="true" @click="resetQuery">
+            Reset
+          </BaseButton>
         </div>
       </section>
+
       <section class="presets-section">
         <div class="preset-label">Presets</div>
         <div>
@@ -22,26 +35,35 @@
 
           <ul class="preset-groups scroll">
             <template
-              v-for="{id: groupId, name, presets} in groups"
+              v-for="{id: groupId, title, presets} in groups1"
               :key="groupId"
             >
-              <li class="group" @click="isOpenGroup[name] = !isOpenGroup[name]">
+              <li
+                class="group"
+                @click="isClosedGroup[title] = !isClosedGroup[title]"
+              >
                 <BaseCheckbox />
-                <span>{{ name }}</span>
+                <span>{{ title }}</span>
 
                 <ArrowheadIcon
-                  :direction="isOpenGroup[name] ? 'top' : 'down'"
+                  :direction="isClosedGroup[title] ? 'top' : 'down'"
                 />
               </li>
-              <template v-if="isOpenGroup[name]">
+              <template v-if="!isClosedGroup[title]">
                 <li
                   v-for="(preset, index) in presets"
                   :key="preset.id"
-                  :class="['preset', index + 1 === presets.length && 'mb']"
+                  :class="[
+                    'preset',
+                    index + 1 === presets.length && 'mb',
+                    activePreset === preset.id && 'active-preset',
+                  ]"
                 >
                   <BaseCheckbox />
-                  <span>{{ preset.name }}</span>
-                  <EditIcon />
+                  <span>{{ preset.title }}</span>
+                  <button class="edit-preset-btn" @click="editPreset(preset)">
+                    <EditIcon />
+                  </button>
                 </li>
               </template>
             </template>
@@ -51,14 +73,22 @@
     </div>
 
     <footer class="footer">
-      <BaseButton :is-not-background="true">Save as</BaseButton>
-      <BaseButton :is-not-background="true">Save</BaseButton>
+      <BaseButton :is-not-background="true" @click="openSaveAsModal">
+        Save as
+      </BaseButton>
+      <BaseButton :is-not-background="true" @click="updatePreset">
+        Save
+      </BaseButton>
       <BaseButton :is-not-background="true">Add Filter</BaseButton>
     </footer>
   </BaseModal>
 </template>
 
 <script>
+import {nextTick} from 'vue'
+import {createNamespacedHelpers} from 'vuex'
+import {action, get} from '@store/constants'
+
 import BaseButton from '@/components/common/BaseButton'
 import BaseModal from '@/components/modals/BaseModal'
 import ExpertField from '@components/expert-filter/ExpertField'
@@ -66,6 +96,10 @@ import BaseInput from '@components/common/BaseInput'
 import BaseCheckbox from '@/components/BaseCheckbox2'
 import ArrowheadIcon from '@components/icons/ArrowheadIcon'
 import EditIcon from '@/components/icons/EditIcon'
+
+import SaveAsModal from '@/components/expert-filter/SaveAsModal'
+
+const {mapActions, mapGetters} = createNamespacedHelpers('expertFilter')
 
 export default {
   name: 'ExpertFilterModal',
@@ -77,68 +111,83 @@ export default {
     BaseCheckbox,
     ArrowheadIcon,
     EditIcon,
+    SaveAsModal,
   },
   data() {
     return {
-      expValue: '',
+      expertQuery: ['asdfads AND sdf OR fsd'],
+      isShowExpertInput: true,
       searchPreset: '',
-      isOpenGroup: {},
+      isClosedGroup: {},
+      isOpenSaveAsModal: false,
+      isOpenCreateGroupModal: false,
+      editablePreset: null,
+      activePreset: 0,
+      groups1: [],
     }
   },
-  created() {
-    this.groups = [
+  computed: {
+    ...mapGetters({groups: get.PRESET_GROUPS}),
+  },
+  async created() {
+    await this[action.GET_PRESETS_GROUPS]()
+    this.groups1 = [
       {
         id: 1,
-        name: 'Gr1',
+        title: 'g1',
+        description: '',
+        updated_at: '2023-09-06T10:13:42.245691Z',
+        created_at: '2023-09-06T10:13:42.245705Z',
+        creator: 2,
         presets: [
           {
-            name: 'preset 1',
-            id: 423,
-            query_filter: 'Elon AND CAT',
+            title: 'pr1',
+            id: 1,
+            query: ['New  OR fsd (dfsf AND fdsf)'],
           },
-
           {
-            name: 'preset 2',
-            id: 413,
-            query_filter: '(Elon AND Cat) OR Dog',
+            title: 'pr2',
+            id: 2,
+            query: ['dfsf AND fdsf'],
           },
         ],
       },
       {
-        id: 12,
-        name: 'Gr12',
-        presets: [
-          {
-            name: 'preset 1',
-            id: 423,
-            query_filter: 'Elon AND CAT',
-          },
-
-          {
-            name: 'preset 2',
-            id: 413,
-            query_filter: '(Elon AND Cat) OR Dog',
-          },
-        ],
-      },
-      {
-        id: 13,
-        name: 'Gr13',
-        presets: [
-          {
-            name: 'preset 1',
-            id: 423,
-            query_filter: 'Elon AND CAT',
-          },
-
-          {
-            name: 'preset 2',
-            id: 413,
-            query_filter: '(Elon AND Cat) OR Dog',
-          },
-        ],
+        id: 2,
+        title: 'g2',
+        description: '',
+        updated_at: '2023-09-06T10:15:25.766939Z',
+        created_at: '2023-09-06T10:15:25.766957Z',
+        creator: 2,
       },
     ]
+  },
+  methods: {
+    ...mapActions([action.GET_PRESETS_GROUPS, action.UPDATE_PRESET]),
+    openSaveAsModal() {
+      this.isOpenSaveAsModal = true
+    },
+    async updatePreset() {
+      if (this.editablePreset) {
+        await this[action.UPDATE_PRESET]({query: 'Elon OR CAT'})
+      } else {
+        this.openSaveAsModal()
+      }
+    },
+    async changeExpertQuery(query) {
+      this.isShowExpertInput = false
+      this.expertQuery = query
+      await nextTick()
+      this.isShowExpertInput = true
+    },
+    editPreset(preset) {
+      this.activePreset = preset.id
+      this.changeExpertQuery(preset.query)
+    },
+    resetQuery() {
+      this.activePreset = false
+      this.changeExpertQuery([''])
+    },
   },
 }
 </script>
@@ -177,6 +226,16 @@ export default {
   margin-bottom: 8px;
 
   color: var(--typography-title-color);
+}
+
+.edit-preset-btn {
+  border: none;
+  background-color: transparent;
+}
+
+.active-preset {
+  border-radius: var(--border-radius);
+  background-color: var(--primary-active-color);
 }
 
 .preset-groups {

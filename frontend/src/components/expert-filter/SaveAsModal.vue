@@ -7,6 +7,12 @@
       <span>Save as</span>
     </template>
 
+    <CreateNewGroupModal
+      v-if="isOpenCreateGroupModal"
+      @close="closeGroupModal"
+    />
+    <PresetCreatedModal v-if="isOpenAlertModal" @close="$emit('close')" />
+
     <section class="save-form">
       <BaseInput v-model="name" label="Name" placeholder="Enter preset name" />
 
@@ -18,11 +24,11 @@
         placeholder="Select group"
         style="--options-container-height: 180px"
       >
-        <li v-for="{id, name} in groups" :key="id" @click="slotProps.select">
-          {{ name }}
+        <li v-for="{id, title} in groups" :key="id" @click="slotProps.select">
+          {{ title }}
         </li>
 
-        <button class="create-group-btn" @click="createGroup">
+        <button class="create-group-btn" @click="isOpenCreateGroupModal = true">
           <PlusIcon />
           <span>Create new group</span>
         </button>
@@ -30,7 +36,7 @@
     </section>
 
     <footer class="footer">
-      <BaseButton :is-disabled="isDisabledSaveButton">
+      <BaseButton :is-disabled="isDisabledSaveButton" @click="createPreset">
         <SaveIcon color="#ffffff" />
         <span>Save preset</span>
       </BaseButton>
@@ -39,12 +45,21 @@
 </template>
 
 <script>
+import {createNamespacedHelpers, mapGetters} from 'vuex'
+import {action, get} from '@store/constants'
+
 import BaseButton from '@/components/common/BaseButton'
 import BaseModal from '@/components/modals/BaseModal'
 import BaseInput from '@components/common/BaseInput'
 import BaseSelect from '@components/BaseSelect2'
+import CreateNewGroupModal from '@/components/expert-filter/CreateNewGroupModal'
+import PresetCreatedModal from '@/components/expert-filter/PresetCreatedModal'
+
 import SaveIcon from '@components/icons/SaveIcon'
 import PlusIcon from '@components/icons/PlusIcon.vue'
+
+const {mapActions, mapGetters: mapExpertFilterGetters} =
+  createNamespacedHelpers('expertFilter')
 
 export default {
   name: 'SaveAsModal',
@@ -53,41 +68,28 @@ export default {
     BaseModal,
     BaseInput,
     BaseSelect,
+    CreateNewGroupModal,
+    PresetCreatedModal,
     SaveIcon,
     PlusIcon,
   },
   props: {
-    currentName: {type: String, default: ''},
-    currentSelectedGroup: {type: String, default: ''},
-    groups: {
-      type: Array,
-      default: () => [
-        {id: 2, name: 'Name name1'},
-        {id: 24, name: 'Name name2'},
-        {id: 4, name: 'Name name3'},
-        {id: 43, name: 'Name name4'},
-        {id: 44, name: 'Name name5'},
-        {id: 45, name: 'Name name'},
-        {id: 454, name: 'Name name'},
-        {id: 452, name: 'Name name'},
-        {id: 451, name: 'Name name'},
-        {id: 455, name: 'Name name'},
-        {id: 456, name: 'Name name'},
-      ],
-    },
+    expertQuery: {type: String, required: true},
   },
   data() {
     return {
       newName: null,
       newSelectedGroup: null,
+      isOpenCreateGroupModal: false,
+      isOpenAlertModal: false,
     }
   },
   computed: {
+    ...mapGetters({user: get.USER_INFO}),
+    ...mapExpertFilterGetters({groups: get.PRESET_GROUPS}),
     name: {
       get() {
-        return typeof this.newName === 'string'
-          ? this.newName
-          : this.currentName
+        return typeof this.newName === 'string' ? this.newName : ''
       },
       set(val) {
         this.newName = val
@@ -95,19 +97,38 @@ export default {
     },
     selectedGroup: {
       get() {
-        return this.newSelectedGroup || this.currentSelectedGroup || ''
+        return this.newSelectedGroup || ''
       },
       set(val) {
         this.newSelectedGroup = val
       },
     },
+    selectedGroupData() {
+      return this.groups.find(({title}) => this.selectedGroup === title)
+    },
     isDisabledSaveButton() {
-      return !this.name || !this.isDisableSaveButton
+      return !this.name || !this.selectedGroupData?.id
     },
   },
   methods: {
-    createGroup() {
-      console.log('CREATE GROUP')
+    ...mapActions([action.CREATE_PRESET]),
+    async createPreset() {
+      console.log('CREATE PR', this.selectedGroupData)
+      await this[action.CREATE_PRESET]({
+        data: {
+          title: this.name,
+          group: this.selectedGroupData.id,
+          query: this.expertQuery,
+          creator: this.user.id,
+        },
+      })
+
+      this.isOpenAlertModal = true
+    },
+    closeGroupModal(groupName) {
+      this.isOpenCreateGroupModal = false
+      if (!groupName) return
+      this.selectedGroup = groupName
     },
   },
 }

@@ -1,5 +1,10 @@
 <template>
   <div class="preset-bar">
+    <CreateNewGroupModal
+      v-if="isOpenCreateGroupModal"
+      @close="closeGroupModal"
+    />
+
     <PresetChips
       v-for="{id, name} in presets"
       :key="id"
@@ -12,6 +17,7 @@
 
       <DropdownOptionsContainer
         v-if="isOpenPresetsOptions"
+        key="points-button"
         :options="presetsOptions"
         @close-dropdown="toggleDropdown"
         @save-group="saveGroup"
@@ -25,16 +31,23 @@
 import PointsIcon from '@/components/icons/PointsIcon'
 import PresetChips from '@components/expert-filter/PresetChips'
 import DropdownOptionsContainer from '@components/DropdownOptionsContainer'
+import CreateNewGroupModal from '@/components/expert-filter/CreateNewGroupModal'
 
 export default {
   name: 'PresetsBar',
-  components: {DropdownOptionsContainer, PointsIcon, PresetChips},
+  components: {
+    DropdownOptionsContainer,
+    PointsIcon,
+    PresetChips,
+    CreateNewGroupModal,
+  },
   props: {
     presets: {type: Array, default: () => []},
   },
   data() {
     return {
       isOpenPresetsOptions: false,
+      isOpenCreateGroupModal: false,
     }
   },
   created() {
@@ -48,10 +61,13 @@ export default {
       this.isOpenPresetsOptions = !this.isOpenPresetsOptions
     },
     saveGroup() {
-      console.log('SAVE GROUP')
+      this.isOpenCreateGroupModal = true
     },
     clearPresets() {
       console.log('CLEAR PRESETS')
+    },
+    closeGroupModal() {
+      this.isOpenCreateGroupModal = false
     },
   },
 }
