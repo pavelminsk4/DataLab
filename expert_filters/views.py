@@ -1,4 +1,4 @@
-from expert_filters.serializers import GroupSerializer, GroupPostSerializer, PresetSerializer, PresetPostSerializer
+from expert_filters.serializers import GroupSerializer, PresetSerializer
 from expert_filters.models import Group, Preset
 from rest_framework import viewsets
 
