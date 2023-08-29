@@ -20,8 +20,7 @@ def restructure_feature(feature_widgets, decriptions):
             if not exist:
                 result_list.append({
                     'widget_name': wg['name'],
-                    'widget_id': wg['widget_id'],
-                    'projects_data': [{'project': project, 'project_id': project_dict['project_id'], 'data': wg['data']}],
+                    'projects_data': [{'project': project, 'project_id': project_dict['project_id'], 'widget_id': wg['widget_id'], 'data': wg['data']}],
                     'description': decriptions[WIDGETS_NAMES[wg['name']]] | { 'module': project_dict['module']},
                 })
     return result_list

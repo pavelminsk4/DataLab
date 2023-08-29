@@ -17,7 +17,8 @@ from project_social.widgets.influencers.top_sharing_sources import get_mosts as 
 from project_social.widgets.filters_for_widgets import posts_agregator as get_soc_posts
 from widgets.common_widget.filters_for_widgets import posts_agregator as get_onl_posts
 
-from project_social.models import ProjectSocial
+from project_social.models import ProjectSocial, SocialWidgetsList
+from widgets.models import WidgetsList2
 from project.models import Project
 
 
@@ -27,17 +28,19 @@ class InfluencersOnline:
         self.project = project
 
     def get_widgets(self):
+        widget_list = WidgetsList2.objects.get(project_id=self.project.pk)
         return {
             'project_name': self.project.title,
+            'project_id': self.project.pk,
             'module': 'online',
             'widgets': [
-                {'name': 'top_sharing_sources', 'data': onl_top_sharing_sources(self.posts)},
-                {'name': 'authors_by_language', 'data': onl_authors_by_language(self.posts, 5)},
-                {'name': 'overall_top_sources', 'data': onl_overall_top_sources(self.posts)},
-                {'name': 'overall_top_authors', 'data': onl_overall_top_authors(self.posts)},
-                {'name': 'authors_by_location', 'data': onl_authors_by_location(self.posts, 5)},
-                {'name': 'authors_by_sentiment', 'data': onl_authors_by_sentiment(self.posts, 5)},
-                {'name': 'sources_by_language', 'data': onl_sources_by_language(self.posts, 5)},
+                {'name': 'top_sharing_sources', 'widget_id':widget_list.top_sharing_sources_id, 'data': onl_top_sharing_sources(self.posts)},
+                {'name': 'authors_by_language', 'widget_id':widget_list.authors_by_language_id, 'data': onl_authors_by_language(self.posts, 5)},
+                {'name': 'overall_top_sources', 'widget_id':widget_list.overall_top_sources_id, 'data': onl_overall_top_sources(self.posts)},
+                {'name': 'overall_top_authors', 'widget_id':widget_list.overall_top_authors_id, 'data': onl_overall_top_authors(self.posts)},
+                {'name': 'authors_by_location', 'widget_id':widget_list.authors_by_country_id, 'data': onl_authors_by_location(self.posts, 5)},
+                {'name': 'authors_by_sentiment', 'widget_id':widget_list.authors_by_sentiment_id, 'data': onl_authors_by_sentiment(self.posts, 5)},
+                {'name': 'sources_by_language', 'widget_id':widget_list.sources_by_language_id, 'data': onl_sources_by_language(self.posts, 5)},
             ]
         }
 
@@ -48,17 +51,19 @@ class InfluencersSocial:
         self.project = project
 
     def get_widgets(self):
+        widget_list = SocialWidgetsList.objects.get(project_id=self.project.pk)
         return {
             'project_name': self.project.title,
+            'project_id': self.project.pk,
             'module': 'social',
             'widgets': [
-                {'name': 'top_sharing_sources', 'data': soc_top_sharing_sources(self.posts)},
-                {'name': 'authors_by_sentiment', 'data': soc_authors_by_sentiment(self.posts, 5)},
-                {'name': 'overall_top_authors', 'data': soc_overall_top_authors(self.posts)},
-                {'name': 'top_authors_by_gender', 'data': soc_top_authors_by_gender(self.posts)},
-                {'name': 'authors_by_location', 'data': soc_authors_by_location(self.posts, 5)},
-                {'name': 'authors_by_gender', 'data': soc_authors_by_gender(self.posts, 5)},
-                {'name': 'authors_by_language', 'data': soc_authors_by_language(self.posts, 5)},
+                {'name': 'top_sharing_sources', 'widget_id':widget_list.top_sharing_sources_id, 'data': soc_top_sharing_sources(self.posts)},
+                {'name': 'authors_by_sentiment', 'widget_id':widget_list.authors_by_sentiment_id, 'data': soc_authors_by_sentiment(self.posts, 5)},
+                {'name': 'overall_top_authors', 'widget_id':widget_list.overall_top_authors_id, 'data': soc_overall_top_authors(self.posts)},
+                {'name': 'top_authors_by_gender', 'widget_id':widget_list.top_authors_by_gender_id, 'data': soc_top_authors_by_gender(self.posts)},
+                {'name': 'authors_by_location', 'widget_id':widget_list.authors_by_location_id, 'data': soc_authors_by_location(self.posts, 5)},
+                {'name': 'authors_by_gender', 'widget_id':widget_list.authors_by_gender_id, 'data': soc_authors_by_gender(self.posts, 5)},
+                {'name': 'authors_by_language', 'widget_id':widget_list.authors_by_language_id, 'data': soc_authors_by_language(self.posts, 5)},
             ]
         }
 
