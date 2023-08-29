@@ -4,9 +4,17 @@ from django.http import JsonResponse
 
 def mention_sentiment(pk, widget_pk):
     posts, project = filter_for_mentions_posts(pk, widget_pk)
+    positive, negative, neutral = 0, 0, 0
+    for post in posts:
+        if post.sentiment == 'positive':
+            positive += 1
+        elif post.sentiment == 'negative':
+            negative += 1
+        elif post.sentiment == 'neutral':
+            neutral += 1 
     res = {
-            'positive': posts.filter(sentiment='positive').count(),
-            'negative': posts.filter(sentiment='negative').count(),
-            'neutral': posts.filter(sentiment='neutral').count()
+            'positive': positive,
+            'negative': negative,
+            'neutral': neutral
           }
     return JsonResponse(res, safe=False)
