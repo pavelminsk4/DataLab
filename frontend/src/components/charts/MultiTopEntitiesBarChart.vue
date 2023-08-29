@@ -1,14 +1,16 @@
 <template>
   <div class="multi-container">
     <div
-      v-for="{columnsLabels, labels, values} in chartValues"
+      v-for="({columnsLabels, labels, values}, index) in chartValues"
       :key="columnsLabels"
       class="column-container"
+      @click="getCurrentIndex(index)"
     >
       <TopEntitiesBarChart
         v-bind="$attrs"
         :labels="labels"
         :chart-values="values"
+        @open-interactive-data-multi="openInteractiveData"
       />
 
       <div class="column-name">{{ columnsLabels }}</div>
@@ -29,9 +31,17 @@ export default {
     labels: {type: Array, default: () => []},
     chartValues: {type: Array, required: true},
   },
+  data() {
+    return {
+      currentDataIndex: null,
+    }
+  },
   methods: {
+    getCurrentIndex(index) {
+      this.currentDataIndex = index
+    },
     openInteractiveData(label, option) {
-      this.$emit('open-interactive-data', label, option)
+      this.$emit('open-interactive-data', label, option, this.currentDataIndex)
     },
   },
 }

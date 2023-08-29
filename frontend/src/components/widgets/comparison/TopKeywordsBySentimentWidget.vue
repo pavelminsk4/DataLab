@@ -3,6 +3,8 @@
     <ColoredKeywordsWidget
       :widget-details="widgetDetails"
       :chart-values="chartValues"
+      :has-swithcer="true"
+      :switcher-value="activeTab"
     />
   </WidgetContainerWithSwitcher>
 </template>

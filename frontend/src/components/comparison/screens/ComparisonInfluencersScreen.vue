@@ -46,6 +46,8 @@ export default {
             return {
               widgetDetails: {
                 ...foundWidget.description,
+                currentModule: 'Comparison',
+                widgetId: foundWidget.widget_id,
                 widgetData: foundWidget.projects_data,
                 widgetName: stringToPascalCase(foundWidget.widget_name),
               },

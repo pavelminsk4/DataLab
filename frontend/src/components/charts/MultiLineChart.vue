@@ -73,7 +73,8 @@ export default {
             this.labels[dataOptions[0].index],
             dataOptions.map(
               (el) => el.element.$datalabels[0].$context.dataset.label
-            )
+            ),
+            dataOptions[0].datasetIndex
           )
         },
         onHover: (event, chartElement) => {

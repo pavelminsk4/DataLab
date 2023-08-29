@@ -68,6 +68,8 @@ export default {
     tooltipLabels: {type: [Array, String], required: false},
     isInteractiveDataShown: {type: Boolean, default: true},
     isSentimentChart: {type: Boolean, default: false},
+    hasSwithcer: {type: Boolean, default: false},
+    switcherValue: {type: String, default: ''},
   },
   computed: {
     ...mapState(['loading', 'widgets']),
@@ -78,30 +80,38 @@ export default {
       action.SHOW_INTERACTIVE_DATA_MODAL,
       action.POST_INTERACTIVE_WIDGETS,
     ]),
-    showIteractiveModalData(data) {
-      console.log(this.widgetDetails.currentModule)
-      if (this.widgetDetails.currentModule) {
-        const comparisonProjectIndex = this.widgetDetails.widgetData.findIndex(
-          (project) => project.project === data.first_value[0]
-        )
-
+    showIteractiveModalData(data, dataIndex) {
+      console.log(this.hasSwithcer)
+      if (this.hasSwithcer) {
         return this[action.SHOW_INTERACTIVE_DATA_MODAL]({
           value: {
             isShow: true,
-            projectId:
-              this.widgetDetails?.widgetData[comparisonProjectIndex].project_id,
-            widgetId:
-              this.widgetDetails?.widgetData[comparisonProjectIndex].widget_id,
+            projectId: this.widgetDetails?.widgetData[dataIndex].project_id,
+            widgetId: this.widgetDetails?.widgetData[dataIndex].widget_id,
             data: {
               ...data,
-              first_value: [null],
+              second_value: [this.switcherValue],
               page_number: 1,
               posts_per_page: 4,
             },
           },
-          moduleType:
-            this.widgetDetails.moduleName ||
-            capitalizeFirstLetter(this.widgetDetails.module),
+          moduleType: capitalizeFirstLetter(this.widgetDetails.module),
+        })
+      }
+
+      if (this.widgetDetails.currentModule === 'Comparison') {
+        return this[action.SHOW_INTERACTIVE_DATA_MODAL]({
+          value: {
+            isShow: true,
+            projectId: this.widgetDetails?.widgetData[dataIndex].project_id,
+            widgetId: this.widgetDetails?.widgetData[dataIndex].widget_id,
+            data: {
+              ...data,
+              page_number: 1,
+              posts_per_page: 4,
+            },
+          },
+          moduleType: capitalizeFirstLetter(this.widgetDetails.module),
         })
       }
 
@@ -119,7 +129,7 @@ export default {
         moduleType: this.widgetDetails.moduleName,
       })
     },
-    openInteractiveData(firstValue, secondValue) {
+    openInteractiveData(firstValue, secondValue, dataIndex) {
       const startOfTheDay = new Date(firstValue)
       let optimalPostWidgetData = null
 
@@ -136,22 +146,30 @@ export default {
       ) {
         let endOfTheDay = new Date(firstValue)
         endOfTheDay.setHours(23, 59, 59)
-        this.showIteractiveModalData({
-          first_value: Array.isArray(secondValue) ? secondValue : [secondValue],
-          second_value: [],
-          dates: [
-            startOfTheDay.toLocaleString('sv-SE'),
-            endOfTheDay.toLocaleString('sv-SE'),
-          ],
-        })
+        this.showIteractiveModalData(
+          {
+            first_value: Array.isArray(secondValue)
+              ? secondValue
+              : [secondValue],
+            second_value: [],
+            dates: [
+              startOfTheDay.toLocaleString('sv-SE'),
+              endOfTheDay.toLocaleString('sv-SE'),
+            ],
+          },
+          dataIndex
+        )
       } else {
-        this.showIteractiveModalData({
-          first_value: optimalPostWidgetData || [
-            firstValue.replace(/ posts/gi, ''),
-          ],
-          second_value: [secondValue],
-          dates: [],
-        })
+        this.showIteractiveModalData(
+          {
+            first_value: optimalPostWidgetData || [
+              firstValue.replace(/ posts/gi, ''),
+            ],
+            second_value: [secondValue],
+            dates: [],
+          },
+          dataIndex
+        )
       }
     },
   },

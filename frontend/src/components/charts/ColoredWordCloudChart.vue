@@ -17,7 +17,7 @@
             </BaseTooltip>
           </div>
 
-          <div class="word" @click="openInteractiveWidget(text, item)">
+          <div class="word" @click="openInteractiveWidget(text, item, index)">
             {{ capitalizeFirstLetter(text) }}
           </div>
         </div>
@@ -78,8 +78,8 @@ export default {
         }
       })
     },
-    openInteractiveWidget(word, item) {
-      this.$emit('open-interactive-data', word, item.type)
+    async openInteractiveWidget(word, item, index) {
+      return this.$emit('open-interactive-data', word, item.type, index)
     },
   },
 }
