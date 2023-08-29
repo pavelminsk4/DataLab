@@ -10,19 +10,25 @@ def most_engaging_media_types(pk, widget_pk):
 
 
 def post_aggregator_most_engaging_media_types(posts):
-    link_posts = posts.filter(count_links__gt=0)
-    text_posts = posts.filter(count_textlength__gt=0)
-    video_posts = posts.filter(videos__isnull=False)
-    photo_posts = posts.filter(count_images__gt=0)
     combination_posts = posts.filter((Q(count_links__gt=0) & Q(count_textlength__gt=0)) | 
                                      (Q(count_links__gt=0) & Q(videos__isnull=False)) | 
                                      (Q(count_links__gt=0) & Q(count_images__gt=0)) | 
                                      (Q(count_textlength__gt=0) & Q(videos__isnull=False)) | 
                                      (Q(count_textlength__gt=0) & Q(count_images__gt=0)) | 
                                      (Q(videos__isnull=False) & Q(count_images__gt=0)))
+    link_engagements, text_engagements, video_engagements, photo_engagements = 0, 0, 0, 0
+    for post in posts:
+        if post.count_links > 0:
+            link_engagements += (post.count_favorites + post.count_totalretweets)
+        if post.count_textlength > 0:
+            text_engagements += (post.count_favorites + post.count_totalretweets)
+        if post.videos:
+            video_engagements += (post.count_favorites + post.count_totalretweets)
+        if post.count_images > 0:
+            photo_engagements += (post.count_favorites + post.count_totalretweets)
     engagement = Sum(F('count_favorites') + F('count_totalretweets'))
-    return {'link_engaging': link_posts.aggregate(count=engagement)['count'],
-            'text_engaging': text_posts.aggregate(count=engagement)['count'],
-            'video_engaging': video_posts.aggregate(count=engagement)['count'],
-            'photo_engaging': photo_posts.aggregate(count=engagement)['count'],
+    return {'link_engaging': link_engagements,
+            'text_engaging': text_engagements,
+            'video_engaging': video_engagements,
+            'photo_engaging': photo_engagements,
             'combination_engaging': combination_posts.aggregate(count=engagement)['count']}

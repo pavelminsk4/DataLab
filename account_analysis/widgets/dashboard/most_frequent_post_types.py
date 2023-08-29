@@ -9,9 +9,14 @@ def most_frequent_post_types(pk, widget_pk):
 
 
 def post_aggregator_most_frequent_post_types(posts):
-    count_tweets = posts.filter(type__contains=['original']).count()
-    count_replies = posts.filter(type__contains=['reply']).count()
-    count_retweets = posts.filter(type__contains=['retweet']).count()
+    count_tweets, count_replies, count_retweets = 0, 0, 0
+    for post in posts:
+        if 'original' in post.type:
+            count_tweets += 1
+        if 'reply' in post.type:
+            count_replies += 1
+        if 'retweet' in post.type:
+            count_retweets += 1
     return {'count_tweets': count_tweets,
             'count_replies': count_replies,
             'count_retweets': count_retweets}

@@ -9,18 +9,23 @@ def most_frequent_media_types(pk, widget_pk):
     return JsonResponse(res, safe=False)
 
 def post_aggregator_most_frequent_media_types(posts):
-    count_link = posts.filter(count_links__gt=0).count()
-    count_text = posts.filter(count_textlength__gt=0).count()
-    count_video = posts.filter(videos__isnull=False).count()
-    count_photo = posts.filter(count_images__gt=0).count()
-    count_combination = posts.filter((Q(count_links__gt=0) & Q(count_textlength__gt=0)) | 
-                                     (Q(count_links__gt=0) & Q(videos__isnull=False)) | 
-                                     (Q(count_links__gt=0) & Q(count_images__gt=0)) | 
-                                     (Q(count_textlength__gt=0) & Q(videos__isnull=False)) | 
-                                     (Q(count_textlength__gt=0) & Q(count_images__gt=0)) | 
-                                     (Q(videos__isnull=False) & Q(count_images__gt=0))).count()
+    count_link, count_text, count_video, count_photo = 0, 0, 0, 0
+    for post in posts:
+        if post.count_links > 0:
+            count_link += 1
+        if post.count_textlength > 0:
+            count_text += 1
+        if post.videos:
+            count_video += 1
+        if post.count_images > 0:
+            count_photo += 1
     return {'count_link': count_link,
             'count_text': count_text,
             'count_video': count_video,
             'count_photo': count_photo,
-            'count_combination': count_combination}
+            'count_combination': posts.filter((Q(count_links__gt=0) & Q(count_textlength__gt=0)) | 
+                                     (Q(count_links__gt=0) & Q(videos__isnull=False)) | 
+                                     (Q(count_links__gt=0) & Q(count_images__gt=0)) | 
+                                     (Q(count_textlength__gt=0) & Q(videos__isnull=False)) | 
+                                     (Q(count_textlength__gt=0) & Q(count_images__gt=0)) | 
+                                     (Q(videos__isnull=False) & Q(count_images__gt=0))).count()}
