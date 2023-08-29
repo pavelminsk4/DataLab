@@ -13,7 +13,8 @@ from common.social_keywords import get_keywords as soc_top_keywords
 from project_social.widgets.filters_for_widgets import posts_agregator as get_soc_posts
 from widgets.common_widget.filters_for_widgets import posts_agregator as get_onl_posts
 
-from project_social.models import ProjectSocial
+from project_social.models import ProjectSocial, SocialWidgetsList
+from widgets.models import WidgetsList2
 from project.models import Project
 
 
@@ -23,15 +24,17 @@ class DemographyOnline:
         self.project = project
 
     def get_widgets(self):
+        widget_list = WidgetsList2.objects.get(project_id=self.project.pk)
         return {
             'project_name': self.project.title,
+            'project_id': self.project.pk,
             'module': 'online',
             'widgets': [
-                {'name': 'top_sources_by_country', 'data': onl_top_sources_by_country(self.posts, 5)},
-                {'name': 'authors_by_location', 'data': onl_top_authors_by_country(self.posts, 5)},
-                {'name': 'top_languages_by_location', 'data': onl_top_languages_by_country(self.posts, 5)},
-                {'name': 'sentiment_by_locations', 'data': onl_sentiment_by_countries(self.posts, 5)},
-                {'name': 'top_keywords', 'data':  onl_top_keywords(self.posts)},
+                {'name': 'top_sources_by_country', 'widget_id':widget_list.sources_by_country_id, 'data': onl_top_sources_by_country(self.posts, 5)},
+                {'name': 'authors_by_location', 'widget_id':widget_list.authors_by_country_id, 'data': onl_top_authors_by_country(self.posts, 5)},
+                {'name': 'top_languages_by_location', 'widget_id':widget_list.languages_by_country_id, 'data': onl_top_languages_by_country(self.posts, 5)},
+                {'name': 'sentiment_by_locations', 'widget_id':widget_list.sentiment_top_countries_id, 'data': onl_sentiment_by_countries(self.posts, 5)},
+                {'name': 'top_keywords', 'widget_id':widget_list.top_keywords_id, 'data':  onl_top_keywords(self.posts)},
             ]
         }
 
@@ -42,15 +45,17 @@ class DemographySocial:
         self.project = project
 
     def get_widgets(self):
+        widget_list = SocialWidgetsList.objects.get(project_id=self.project.pk)
         return {
             'project_name': self.project.title,
+            'project_id': self.project.pk,
             'module': 'social',
             'widgets': [
-                {'name': 'top_keywords', 'data': soc_top_keywords(self.posts)},
-                {'name': 'authors_by_location', 'data': soc_authors_by_location(self.posts, 5)},
-                {'name': 'top_languages_by_location', 'data': soc_top_languages_by_location(self.posts, 5)},
-                {'name': 'sentiment_by_locations', 'data': soc_sentiment_by_locations(self.posts, 'day', 5)},
-                {'name': 'top_gender_by_location', 'data': soc_gender_by_location(self.posts, 5)},
+                {'name': 'top_keywords', 'widget_id':widget_list.top_keywords_id, 'data': soc_top_keywords(self.posts)},
+                {'name': 'authors_by_location', 'widget_id':widget_list.authors_by_location_id, 'data': soc_authors_by_location(self.posts, 5)},
+                {'name': 'top_languages_by_location', 'widget_id':widget_list.languages_by_location_id, 'data': soc_top_languages_by_location(self.posts, 5)},
+                {'name': 'sentiment_by_locations', 'widget_id':widget_list.sentiment_locations_id, 'data': soc_sentiment_by_locations(self.posts, 'day', 5)},
+                {'name': 'top_gender_by_location', 'widget_id':widget_list.gender_by_location_id, 'data': soc_gender_by_location(self.posts, 5)},
             ]
         }
 
