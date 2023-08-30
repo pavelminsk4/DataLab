@@ -82,12 +82,16 @@ export default {
     ]),
     showIteractiveModalData(data, dataIndex) {
       if (this.widgetDetails.currentModule === 'Comparison') {
+        const interactiveData = {
+          isShow: true,
+          projectId: this.widgetDetails?.widgetData[dataIndex].project_id,
+          widgetId: this.widgetDetails?.widgetData[dataIndex].widget_id,
+        }
+
         if (this.hasSwithcer) {
           return this[action.SHOW_INTERACTIVE_DATA_MODAL]({
             value: {
-              isShow: true,
-              projectId: this.widgetDetails?.widgetData[dataIndex].project_id,
-              widgetId: this.widgetDetails?.widgetData[dataIndex].widget_id,
+              ...interactiveData,
               data: {
                 ...data,
                 second_value: [this.switcherValue],
@@ -101,9 +105,7 @@ export default {
 
         return this[action.SHOW_INTERACTIVE_DATA_MODAL]({
           value: {
-            isShow: true,
-            projectId: this.widgetDetails?.widgetData[dataIndex].project_id,
-            widgetId: this.widgetDetails?.widgetData[dataIndex].widget_id,
+            ...interactiveData,
             data: {
               ...data,
               page_number: 1,
