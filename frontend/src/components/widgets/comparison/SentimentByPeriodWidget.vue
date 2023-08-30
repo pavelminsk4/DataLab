@@ -5,6 +5,8 @@
       :widget-details="widgetDetails"
       :content-volume-widget-data="widgetData"
       :colors="colors"
+      :has-swithcer="true"
+      :switcher-value="activeTab"
     />
   </WidgetContainerWithSwitcher>
 </template>
