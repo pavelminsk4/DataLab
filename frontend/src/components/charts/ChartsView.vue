@@ -81,8 +81,15 @@ export default {
       action.POST_INTERACTIVE_WIDGETS,
     ]),
     showIteractiveModalData(data, dataIndex) {
+      const pages = {page_number: 1, posts_per_page: 4}
+      const interactiveData = {
+        isShow: true,
+        projectId: this.widgetDetails.projectId,
+        widgetId: this.widgetDetails.id,
+      }
+
       if (this.widgetDetails.currentModule === 'Comparison') {
-        const interactiveData = {
+        const comparisonInteractiveData = {
           isShow: true,
           projectId: this.widgetDetails?.widgetData[dataIndex].project_id,
           widgetId: this.widgetDetails?.widgetData[dataIndex].widget_id,
@@ -91,12 +98,11 @@ export default {
         if (this.hasSwithcer) {
           return this[action.SHOW_INTERACTIVE_DATA_MODAL]({
             value: {
-              ...interactiveData,
+              ...comparisonInteractiveData,
               data: {
                 ...data,
                 second_value: [this.switcherValue],
-                page_number: 1,
-                posts_per_page: 4,
+                ...pages,
               },
             },
             moduleType: capitalizeFirstLetter(this.widgetDetails.module),
@@ -105,11 +111,10 @@ export default {
 
         return this[action.SHOW_INTERACTIVE_DATA_MODAL]({
           value: {
-            ...interactiveData,
+            ...comparisonInteractiveData,
             data: {
               ...data,
-              page_number: 1,
-              posts_per_page: 4,
+              ...pages,
             },
           },
           moduleType: capitalizeFirstLetter(this.widgetDetails.module),
@@ -118,13 +123,10 @@ export default {
 
       return this[action.SHOW_INTERACTIVE_DATA_MODAL]({
         value: {
-          isShow: true,
-          projectId: this.widgetDetails.projectId,
-          widgetId: this.widgetDetails.id,
+          ...interactiveData,
           data: {
             ...data,
-            page_number: 1,
-            posts_per_page: 4,
+            ...pages,
           },
         },
         moduleType: this.widgetDetails.moduleName,
