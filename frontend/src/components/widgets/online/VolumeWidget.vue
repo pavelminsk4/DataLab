@@ -51,7 +51,9 @@ export default {
       return Object.values(this.volumeWidget)
     },
     labels() {
-      return this.volumeData.map((el) => this.defaultDate(el.date))
+      return this.volumeData.map((el) =>
+        this.defaultDate(el.date, this.platformLanguage)
+      )
     },
     chartValues() {
       return [

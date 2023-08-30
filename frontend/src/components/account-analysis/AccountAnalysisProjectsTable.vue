@@ -25,7 +25,9 @@
         </div>
       </td>
 
-      <td class="td_name">{{ defaultDate(item.created_at) }}</td>
+      <td class="td_name">
+        {{ defaultDate(item.created_at, platformLanguage) }}
+      </td>
     </BaseTableRow>
   </BaseTable>
 

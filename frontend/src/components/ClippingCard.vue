@@ -120,7 +120,10 @@ export default {
     },
     commonCardItems() {
       return [
-        {name: 'DATE', value: this.defaultDate(this.published)},
+        {
+          name: 'DATE',
+          value: this.defaultDate(this.published, this.platformLanguage),
+        },
         {name: 'SOURCE', value: this.sourceLink},
         {name: 'LOCATION', value: this.country},
         {name: 'LANGUAGE', value: this.language},

@@ -8,6 +8,10 @@ export default {
     state.translation[text] = translation
   },
 
+  [mutator.SET_PLATFORM_LANG](state, newLang) {
+    state.platformLanguage = newLang
+  },
+
   [mutator.SET_LOADING](state, loading) {
     state.loading = loading
   },

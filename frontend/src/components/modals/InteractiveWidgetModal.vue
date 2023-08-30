@@ -62,6 +62,7 @@
 <script>
 import {mapGetters, mapState} from 'vuex'
 import {get} from '@store/constants'
+import {capitalizeFirstLetter} from '@/lib/utilities'
 
 import CustomText from '@/components/CustomText'
 import BaseModal from '@/components/modals/BaseModal'
@@ -91,6 +92,7 @@ export default {
   props: {
     widgetId: {type: Number, required: false},
     moduleName: {type: String, required: true},
+    widgetDetails: {type: Object, required: true},
     currentProject: {type: [Array, Object], required: true},
   },
   data() {
@@ -108,6 +110,8 @@ export default {
       interactiveWidgets: get.INTERACTIVE_DATA,
     }),
     postCard() {
+      if (this.moduleName === 'Comparison')
+        return capitalizeFirstLetter(this.widgetDetails.module) + 'PostCard'
       if (this.moduleName === 'AccountAnalysis')
         return 'AccountAnalysisPostCard'
       return this.currentProject.source + 'PostCard'

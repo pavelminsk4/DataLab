@@ -13,6 +13,8 @@
         :chart-type="chartType"
         :chart-values="chartValues"
         :widget-details="widgetDetails"
+        :hasSwithcer="hasSwithcer"
+        :switcher-value="switcherValue"
       />
     </div>
   </component>
@@ -30,6 +32,8 @@ export default {
     chartValues: {type: Array, required: true},
     newChartType: {type: String, default: ''},
     isSettings: {type: Boolean, default: false},
+    hasSwithcer: {type: Boolean, default: false},
+    switcherValue: {type: String, default: ''},
   },
   computed: {
     widgetWrapper() {

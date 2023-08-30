@@ -37,7 +37,8 @@ export default {
           this.$emit(
             'open-interactive-data',
             this.iteractiveLabel,
-            dataOptions[0].element.$datalabels[0].$context.dataset.label
+            dataOptions[0].element.$datalabels[0].$context.dataset.label,
+            dataOptions[0].index
           )
         },
         indexAxis: 'y',

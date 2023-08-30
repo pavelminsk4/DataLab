@@ -53,7 +53,9 @@ export default {
         })
       })
 
-      return labelsCollection.map((el) => this.defaultDate(el))
+      return labelsCollection.map((el) =>
+        this.defaultDate(el, this.platformLanguage)
+      )
     },
     chartValues() {
       let neutral = []

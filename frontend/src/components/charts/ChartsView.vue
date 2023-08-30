@@ -18,6 +18,7 @@
 <script>
 import {mapState, mapActions} from 'vuex'
 import {action} from '@store/constants'
+import {capitalizeFirstLetter} from '@lib/utilities'
 
 import BaseSpinner from '@/components/BaseSpinner'
 import BarChart from '@/components/charts/BarChart'
@@ -67,31 +68,71 @@ export default {
     tooltipLabels: {type: [Array, String], required: false},
     isInteractiveDataShown: {type: Boolean, default: true},
     isSentimentChart: {type: Boolean, default: false},
+    hasSwithcer: {type: Boolean, default: false},
+    switcherValue: {type: String, default: ''},
   },
   computed: {
     ...mapState(['loading', 'widgets']),
   },
   methods: {
+    capitalizeFirstLetter,
     ...mapActions([
       action.SHOW_INTERACTIVE_DATA_MODAL,
       action.POST_INTERACTIVE_WIDGETS,
     ]),
-    showIteractiveModalData(data) {
-      this[action.SHOW_INTERACTIVE_DATA_MODAL]({
-        value: {
+    showIteractiveModalData(data, dataIndex) {
+      const pages = {page_number: 1, posts_per_page: 4}
+      const interactiveData = {
+        isShow: true,
+        projectId: this.widgetDetails.projectId,
+        widgetId: this.widgetDetails.id,
+      }
+
+      if (this.widgetDetails.currentModule === 'Comparison') {
+        const comparisonInteractiveData = {
           isShow: true,
-          projectId: this.widgetDetails.projectId,
-          widgetId: this.widgetDetails.id,
+          projectId: this.widgetDetails?.widgetData[dataIndex].project_id,
+          widgetId: this.widgetDetails?.widgetData[dataIndex].widget_id,
+        }
+
+        if (this.hasSwithcer) {
+          return this[action.SHOW_INTERACTIVE_DATA_MODAL]({
+            value: {
+              ...comparisonInteractiveData,
+              data: {
+                ...data,
+                second_value: [this.switcherValue],
+                ...pages,
+              },
+            },
+            moduleType: capitalizeFirstLetter(this.widgetDetails.module),
+          })
+        }
+
+        return this[action.SHOW_INTERACTIVE_DATA_MODAL]({
+          value: {
+            ...comparisonInteractiveData,
+            data: {
+              ...data,
+              ...pages,
+            },
+          },
+          moduleType: capitalizeFirstLetter(this.widgetDetails.module),
+        })
+      }
+
+      return this[action.SHOW_INTERACTIVE_DATA_MODAL]({
+        value: {
+          ...interactiveData,
           data: {
             ...data,
-            page_number: 1,
-            posts_per_page: 4,
+            ...pages,
           },
         },
         moduleType: this.widgetDetails.moduleName,
       })
     },
-    openInteractiveData(firstValue, secondValue) {
+    openInteractiveData(firstValue, secondValue, dataIndex) {
       const startOfTheDay = new Date(firstValue)
       let optimalPostWidgetData = null
 
@@ -108,22 +149,30 @@ export default {
       ) {
         let endOfTheDay = new Date(firstValue)
         endOfTheDay.setHours(23, 59, 59)
-        this.showIteractiveModalData({
-          first_value: Array.isArray(secondValue) ? secondValue : [secondValue],
-          second_value: [],
-          dates: [
-            startOfTheDay.toLocaleString('sv-SE'),
-            endOfTheDay.toLocaleString('sv-SE'),
-          ],
-        })
+        this.showIteractiveModalData(
+          {
+            first_value: Array.isArray(secondValue)
+              ? secondValue
+              : [secondValue],
+            second_value: [],
+            dates: [
+              startOfTheDay.toLocaleString('sv-SE'),
+              endOfTheDay.toLocaleString('sv-SE'),
+            ],
+          },
+          dataIndex
+        )
       } else {
-        this.showIteractiveModalData({
-          first_value: optimalPostWidgetData || [
-            firstValue.replace(/ posts/gi, ''),
-          ],
-          second_value: [secondValue],
-          dates: [],
-        })
+        this.showIteractiveModalData(
+          {
+            first_value: optimalPostWidgetData || [
+              firstValue.replace(/ posts/gi, ''),
+            ],
+            second_value: [secondValue],
+            dates: [],
+          },
+          dataIndex
+        )
       }
     },
   },

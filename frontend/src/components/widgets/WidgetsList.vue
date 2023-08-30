@@ -4,6 +4,7 @@
     :widget-id="inreractiveDataModal.widgetId"
     :current-project="currentProject"
     :module-name="moduleName"
+    :widget-details="selectedWidgets[currentWidgetIndex].widgetDetails"
     class="interactive-widgets"
     @show-results="updatePageAndCountPosts"
     @close="closeInteractiveModal"

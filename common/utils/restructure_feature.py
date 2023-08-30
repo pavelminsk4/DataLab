@@ -14,6 +14,7 @@ def restructure_feature(feature_widgets, decriptions):
                     dct['projects_data'].append({
                         'project': project,
                         'project_id': project_id,
+                        'widget_id': wg['widget_id'],
                         'data': wg['data'],
                     })
                     exist = True

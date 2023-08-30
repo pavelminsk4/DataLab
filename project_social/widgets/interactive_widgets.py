@@ -45,15 +45,22 @@ def interactive_widgets(request, project_pk, widget_pk):
   elif widget.default_title == "Content volume":
     posts = posts.filter(creation_date__range=dates)
   elif widget.default_title == 'Sentiment':
-    posts = sentiment_filter_posts(first_value, posts).filter(creation_date__range=dates)
+    if dates:
+      posts = sentiment_filter_posts(first_value, posts).filter(creation_date__range=dates)
+    else:
+      posts = sentiment_filter_posts(second_value, posts)
   elif widget.default_title == 'Gender volume':
     posts = posts.filter(reduce(lambda x,y: x | y, [Q(user_gender=gender) for gender in first_value])).filter(creation_date__range=dates)
   elif widget.default_title == 'Top keywords':
     posts = posts.filter(text__icontains=first_value[0])
   elif widget.default_title == 'Sentiment top keywords':
     posts = sentiment_filter_posts(second_value, posts).filter(text__icontains=first_value[0])
+  elif widget.default_title == 'Top keywords by sentiment':
+    posts = sentiment_filter_posts(second_value, posts).filter(text__icontains=first_value[0])  
   elif widget.default_title == 'Sentiment diagram':
     posts = posts.filter(sentiment=first_value[0].lower())
+  elif widget.default_title == 'Sentiment by period':
+    posts = sentiment_filter_posts(second_value, posts).filter(creation_date__range=dates)
   elif widget.default_title == 'Authors by location':
     posts = country_filter_posts(second_value, posts).filter(user_alias=first_value[0])
   elif widget.default_title == 'Authors by language':

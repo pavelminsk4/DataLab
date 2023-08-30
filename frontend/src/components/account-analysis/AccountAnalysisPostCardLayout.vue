@@ -6,7 +6,9 @@
     <div class="post-card__footer">
       <div class="option">
         <CustomText tag="h4" text="Date" />
-        <span class="option__text"> {{ defaultDate(postDetails.date) }}</span>
+        <span class="option__text">
+          {{ defaultDate(postDetails.date, platformLanguage) }}</span
+        >
       </div>
       <div class="option">
         <CustomText tag="h4" text="Engagements" />

@@ -2,7 +2,7 @@
   <TFSPostCardLayout
     :sentiment="postDetails.sentiment || ''"
     :category="postDetails.category"
-    :date="this.defaultDate(this.postDetails.entry_published)"
+    :date="this.defaultDate(postDetails.entry_published, platformLanguage)"
     :source="this.postDetails.feedlink__sourceurl"
     :post-image="img"
     :post-id="postDetails.id"

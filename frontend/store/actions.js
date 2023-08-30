@@ -28,6 +28,7 @@ export default {
     commit(mutator.SET_LOADING, true)
     try {
       await api.postPlatformLanguage(state.userInfo.user_profile.id, newLang)
+      await commit(mutator.SET_PLATFORM_LANG, newLang)
       await dispatch(action.GET_USER_INFORMATION)
     } catch (error) {
       console.error(error)
@@ -1080,6 +1081,7 @@ export default {
   ) {
     commit(mutator.SET_LOADING, true)
     try {
+      console.log(moduleType, 'lololo')
       commit(mutator.SET_INTERACTIVE_DATA_MODAL, value)
       switch (moduleType) {
         case 'Online':

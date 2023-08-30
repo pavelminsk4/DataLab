@@ -10,6 +10,8 @@
       :labels="labels"
       :chart-type="chartType"
       :chart-values="chartValues"
+      :hasSwithcer="hasSwithcer"
+      :switcher-value="switcherValue"
       :widget-details="widgetDetails"
       :is-legend-displayed="!isSettings"
     />
@@ -31,6 +33,8 @@ export default {
     isSettings: {type: Boolean, default: false},
     colors: {type: Array, default: () => []},
     contentVolumeWidgetData: {type: Array, required: true, default: () => {}},
+    hasSwithcer: {type: Boolean, default: false},
+    switcherValue: {type: String, default: ''},
   },
   computed: {
     widgetWrapper() {
@@ -53,7 +57,9 @@ export default {
         labelsCollection.push(el[keys[0]])
       })
 
-      return labelsCollection[0]?.map((el) => this.defaultDate(el.date))
+      return labelsCollection[0]?.map((el) =>
+        this.defaultDate(el.date, this.platformLanguage)
+      )
     },
     chartValues() {
       let datasetsValue = []

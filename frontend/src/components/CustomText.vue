@@ -1,5 +1,5 @@
 <template>
-  <component :is="tag" :class="[`custom-text-${this.platformLanguage}`]">
+  <component :is="tag" :class="[`custom-text-${platformLanguage}`]">
     <slot name="before"></slot>
     {{ translatedText }}
     <slot></slot>
@@ -22,7 +22,6 @@ export default {
     ...mapGetters({
       loading: get.LOADING,
       translated: get.TRANSLATION,
-      platformLanguage: get.PLATFORM_LANGUAGE,
     }),
     translatedText() {
       if (this.platformLanguage === ENGLISH) return this.text

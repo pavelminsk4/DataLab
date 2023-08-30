@@ -15,6 +15,7 @@
               :chart-values="chartValues[index]"
               :isShowTooltips="true"
               :iteractive-label="label"
+              @click="getCurrentIndex(index)"
               @open-interactive-data="openInteractiveData"
             />
           </td>
@@ -34,14 +35,28 @@ export default {
     labels: {type: Array, required: true},
     chartValues: {type: Array, required: true},
   },
+  data() {
+    return {
+      currentDataIndex: null,
+    }
+  },
   inject: {
     barHeight: {
       default: () => '35px',
     },
   },
   methods: {
+    getCurrentIndex(index) {
+      this.currentDataIndex = index
+    },
     openInteractiveData(label, option) {
-      this.$emit('open-interactive-data', label, option)
+      this.$emit(
+        'open-interactive-data-multi',
+        label,
+        option,
+        this.currentDataIndex
+      )
+      this.$emit('open-interactive-data', label, option, this.currentDataIndex)
     },
   },
 }

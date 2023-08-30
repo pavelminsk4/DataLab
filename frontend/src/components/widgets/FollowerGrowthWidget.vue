@@ -48,7 +48,7 @@ export default {
     },
     labels() {
       return Object.keys(this.widgetData).map((key) =>
-        defaultDate(key.split(',')[0])
+        defaultDate(key.split(',')[0], this.platformLanguage)
       )
     },
     chartValues() {
