@@ -21,16 +21,25 @@ def get_mosts(posts):
     most_active_source = posts.values('feedlink__source1').annotate(brand_count=Count('feedlink__source1')).order_by('-brand_count').first()
     most_active_source_posts = posts.filter(feedlink__source1=most_active_source['feedlink__source1'])
     most_active_source = most_active_source_posts.first()
+    positive, negative, neutral, count_posts = 0, 0, 0, 0
+    for post in most_active_source_posts:
+        if post.sentiment == 'positive':
+            positive += 1
+        if post.sentiment == 'negative':
+            negative += 1
+        if post.sentiment == 'neutral':
+            neutral += 1
+        count_posts += 1
     return [
         {
           'type': 'Most active site',
           'name': most_active_source.feedlink.source1,
           'url': most_active_source.feedlink.sourceurl,
-          'value': most_active_source_posts.count(),
+          'value': count_posts,
           'sentiments': {
-            'positive': most_active_source_posts.filter(sentiment='positive').count(),
-            'negative': most_active_source_posts.filter(sentiment='negative').count(),
-            'neutral': most_active_source_posts.filter(sentiment='neutral').count(),
+            'positive': positive,
+            'negative': negative,
+            'neutral': neutral,
           },
           'picture': most_active_source.feed_image_href,
         },
@@ -40,9 +49,9 @@ def get_mosts(posts):
           'url': most_active_source.feedlink.sourceurl,
           'value': '90210 engagement',
           'sentiments': {
-            'positive': most_active_source_posts.filter(sentiment='positive').count(),
-            'negative': most_active_source_posts.filter(sentiment='negative').count(),
-            'neutral': most_active_source_posts.filter(sentiment='neutral').count(),
+            'positive': positive,
+            'negative': negative,
+            'neutral': neutral,
           },
           'picture': most_active_source.feed_image_href,
         },
