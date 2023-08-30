@@ -81,25 +81,24 @@ export default {
       action.POST_INTERACTIVE_WIDGETS,
     ]),
     showIteractiveModalData(data, dataIndex) {
-      console.log(this.hasSwithcer)
-      if (this.hasSwithcer) {
-        return this[action.SHOW_INTERACTIVE_DATA_MODAL]({
-          value: {
-            isShow: true,
-            projectId: this.widgetDetails?.widgetData[dataIndex].project_id,
-            widgetId: this.widgetDetails?.widgetData[dataIndex].widget_id,
-            data: {
-              ...data,
-              second_value: [this.switcherValue],
-              page_number: 1,
-              posts_per_page: 4,
-            },
-          },
-          moduleType: capitalizeFirstLetter(this.widgetDetails.module),
-        })
-      }
-
       if (this.widgetDetails.currentModule === 'Comparison') {
+        if (this.hasSwithcer) {
+          return this[action.SHOW_INTERACTIVE_DATA_MODAL]({
+            value: {
+              isShow: true,
+              projectId: this.widgetDetails?.widgetData[dataIndex].project_id,
+              widgetId: this.widgetDetails?.widgetData[dataIndex].widget_id,
+              data: {
+                ...data,
+                second_value: [this.switcherValue],
+                page_number: 1,
+                posts_per_page: 4,
+              },
+            },
+            moduleType: capitalizeFirstLetter(this.widgetDetails.module),
+          })
+        }
+
         return this[action.SHOW_INTERACTIVE_DATA_MODAL]({
           value: {
             isShow: true,

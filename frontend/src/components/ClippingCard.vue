@@ -109,9 +109,7 @@ export default {
     clippingElement: {type: Boolean, default: false},
   },
   computed: {
-    ...mapGetters({
-      isLoading: get.LOADING_WIDGETS,
-    }),
+    ...mapGetters({isLoading: get.LOADING_WIDGETS}),
     isLoadingClippingWidget() {
       return this.isLoading.clippingWidget
     },

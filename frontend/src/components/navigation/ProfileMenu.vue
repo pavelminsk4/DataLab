@@ -45,8 +45,8 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
-import {action, get} from '@store/constants'
+import {mapActions} from 'vuex'
+import {action} from '@store/constants'
 import {capitalizeFirstLetter} from '@/lib/utilities'
 
 import UserAvatar from '@components/UserAvatar'
@@ -71,9 +71,6 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({
-      platformLanguage: get.PLATFORM_LANGUAGE,
-    }),
     currentLanguage() {
       return this.availableLanguages.find(
         (lang) => lang.value === this.platformLanguage

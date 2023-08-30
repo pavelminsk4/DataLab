@@ -74,10 +74,7 @@ export default {
     document.addEventListener('click', this.closeDropdown)
   },
   computed: {
-    ...mapGetters({
-      userInfo: get.USER_INFO,
-      platformLanguage: get.PLATFORM_LANGUAGE,
-    }),
+    ...mapGetters({userInfo: get.USER_INFO}),
     companyName() {
       return this.userInfo?.username
     },
