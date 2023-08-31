@@ -27,10 +27,7 @@
     />
 
     <div v-else class="no-tfs-wrapper">
-      <img
-        src="@/assets/twenty-four-seven/no-tfs-workspaces.svg"
-        alt="No 24/7 image"
-      />
+      <img src="@/assets/empty-state.svg" alt="No 24/7 image" />
       <div>There's nothing here &#128064;</div>
     </div>
   </MainLayout>

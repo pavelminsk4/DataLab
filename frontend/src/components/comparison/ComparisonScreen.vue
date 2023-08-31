@@ -36,7 +36,7 @@
 
     <div v-else class="no-comparison-workspaces">
       <img
-        src="@/assets/account-analysis/no-account-analysis-workspaces.svg"
+        src="@/assets/comparison/no-comparison-workspaces.svg"
         alt="No comparison workspaces image"
       />
       <div class="no-comparison-workspaces__text">

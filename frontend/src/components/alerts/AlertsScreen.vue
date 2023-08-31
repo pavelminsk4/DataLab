@@ -59,7 +59,7 @@
       </div>
     </template>
     <div v-else class="no-alerts">
-      <img src="@/assets/alerts/no-alerts.svg" alt="No alerts image" />
+      <img src="@/assets/empty-state.svg" alt="No alerts image" />
       <div class="no-alerts__text">No alerts created &#x1F4EC;</div>
     </div>
   </MainLayout>
