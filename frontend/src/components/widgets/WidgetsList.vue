@@ -169,6 +169,8 @@ export default {
 
   list-style: none;
   .widgets__item {
+    display: -webkit-inline-box;
+
     width: calc(50% - 15px);
     .summary-widget__container {
       display: block;
