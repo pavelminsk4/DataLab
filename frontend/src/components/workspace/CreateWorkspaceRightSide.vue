@@ -16,19 +16,19 @@ export default {
   created() {
     this.stepsImages = {
       step1: {
-        src: require('@/assets/workspace-name.png'),
+        src: require('@/assets/workspace-name.svg'),
         alt: 'Create the workspace',
       },
       step2: {
-        src: require('@/assets/project-name.png'),
+        src: require('@/assets/project-name.svg'),
         alt: 'Create the project',
       },
       step3: {
-        src: require('@/assets/search.png'),
+        src: require('@/assets/search.svg'),
         alt: 'Define the search',
       },
       step3preview: {
-        src: require('@/assets/search-no-results.png'),
+        src: require('@/assets/empty-state.svg'),
         alt: 'No news for your request',
       },
     }

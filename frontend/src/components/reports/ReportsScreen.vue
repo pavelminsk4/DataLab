@@ -99,7 +99,7 @@
     </template>
 
     <div v-else class="no-reports-wrapper">
-      <img src="@/assets/reports/no-reports.svg" alt="No reports image" />
+      <img src="@/assets/empty-state.svg" alt="No reports image" />
       <div>No reports created &#x1F4E8;</div>
     </div>
   </MainLayout>
