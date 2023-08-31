@@ -91,8 +91,8 @@ export default {
   },
   props: {
     widgetId: {type: Number, required: false},
-    moduleName: {type: String, required: true},
-    widgetDetails: {type: Object, required: true},
+    moduleName: {type: String, required: false},
+    widgetDetails: {type: Object, required: false},
     currentProject: {type: [Array, Object], required: true},
   },
   data() {

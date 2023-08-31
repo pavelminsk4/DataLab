@@ -35,6 +35,8 @@ export default {
     contentVolumeWidgetData: {type: Array, required: true, default: () => {}},
     hasSwithcer: {type: Boolean, default: false},
     switcherValue: {type: String, default: ''},
+    customLabels: {type: Array, default: () => []},
+    customValues: {type: Array, default: () => []},
   },
   computed: {
     widgetWrapper() {
@@ -49,6 +51,8 @@ export default {
       )
     },
     labels() {
+      if (this.customLabels.length) return this.customLabels
+
       let labelsCollection = []
       let keys = []
 
@@ -62,6 +66,8 @@ export default {
       )
     },
     chartValues() {
+      if (this.customValues.length) return this.customValues
+
       let datasetsValue = []
       const defaultLineColors = [
         '#7C59ED',
