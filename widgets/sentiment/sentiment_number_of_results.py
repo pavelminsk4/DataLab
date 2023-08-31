@@ -25,8 +25,16 @@ def sentiment_diagram_report(pk, widget_pk):
     }
 
 def get_sentiment_number_of_results(posts):
+    positive, negative, neutral = 0, 0, 0
+    for post in posts:
+        if post.sentiment == 'positive':
+            positive += 1
+        if post.sentiment == 'negative':
+            negative += 1
+        if post.sentiment == 'neutral':
+            neutral += 1
     return {
-        'positive': posts.filter(sentiment='positive').count(),
-        'negative': posts.filter(sentiment='negative').count(),
-        'neutral':  posts.filter(sentiment='neutral').count(),
+        'positive': positive,
+        'negative': negative,
+        'neutral':  neutral,
     }
