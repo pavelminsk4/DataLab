@@ -9,21 +9,13 @@ def optimal_post_time(pk, widget_pk):
 
 def calculation(posts):    
     res = [[{'engagements': 0, 'likes': 0, 'retweets': 0, 'tweets': 0} for i in range(24)] for d in range(1, 8)]
-    for hour in range(0, 24):
-        posts_of_hour = posts.filter(date__hour=hour)
-        for day_of_week in range(1, 8):
-            engagements, likes, retweets, count_posts = 0, 0, 0, 0
-            posts_of_day = posts_of_hour.filter(date__week_day=day_of_week)
-            if len(posts_of_day) > 0:
-                for post in list(posts_of_day):
-                    count_posts += 1
-                    engagements += (post.count_favorites + post.count_totalretweets)
-                    likes += post.count_favorites
-                    retweets += post.count_totalretweets
-                res[day_of_week-1][hour]['engagements'] = engagements/count_posts if count_posts else 0
-                res[day_of_week-1][hour]['likes'] = likes
-                res[day_of_week-1][hour]['retweets'] = retweets
-                res[day_of_week-1][hour]['tweets'] = count_posts
+    for post in posts:
+        day = post.date.weekday()
+        hour = post.date.hour
+        res[day][hour]['engagements'] += (post.count_favorites + post.count_totalretweets)
+        res[day][hour]['likes'] += post.count_favorites
+        res[day][hour]['retweets'] += post.count_totalretweets
+        res[day][hour]['tweets'] += 1
     results = {
            'Saturday': res[6],
            'Friday': res[5],
