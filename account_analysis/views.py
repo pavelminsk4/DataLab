@@ -193,4 +193,7 @@ def calculate(posts, posts_per_page, page_number):
 def list_of_profile_handle(request):
     profile_handles = TweetBinderPost.objects.order_by(
         "user_alias").values("user_alias", "user_picture").distinct()
-    return JsonResponse(list(profile_handles), safe=False)
+    p = Paginator(profile_handles, profile_per_page)
+    profile_list=list(p.page(page_number))
+    res = {'num_pages': p.num_pages, 'num_profiles': p.count, 'profiles': profile_list}
+    return JsonResponse(res, safe=False)
