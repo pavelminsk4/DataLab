@@ -198,13 +198,13 @@ export default {
   z-index: -1;
 
   width: 100vw;
-  height: 75vh;
+  height: 100vh;
 
-  background: center / cover no-repeat url(@/assets/Background.svg);
+  background: center no-repeat url(@/assets/Background.svg);
   pointer-events: none;
 
-  @media (max-height: 800px) {
-    height: 66vh;
-  }
+  // @media (max-height: 800px) {
+  //   height: 66vh;
+  // }
 }
 </style>

@@ -91,6 +91,8 @@ export default {
 <style lang="scss" scoped>
 .container {
   flex-direction: column;
+
+  width: 100%;
   max-height: 450px;
   height: 100%;
 }

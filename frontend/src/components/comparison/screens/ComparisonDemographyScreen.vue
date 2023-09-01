@@ -3,6 +3,7 @@
     v-if="!demography.isLoading"
     :current-project="currentProject"
     :selected-widgets="selectedWidgets"
+    :comparisonModule="projectsModule"
     module-name="Comparison"
   />
   <div v-else class="spinner">
@@ -35,6 +36,7 @@ export default {
     ...mapState(['demography']),
 
     selectedWidgets() {
+      console.log(this.projectsModule)
       if (!this.demography.widgets.length) return
       return comparisonWidgetsList[this.projectsModule].demography
         .map((widget) => {

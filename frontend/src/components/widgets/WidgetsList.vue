@@ -75,6 +75,7 @@ export default {
     selectedWidgets: {type: Array, required: true},
     moduleName: {type: String, required: true},
     listWidth: {type: String, default: ''},
+    comparisonModule: {type: String, default: ''},
   },
   data() {
     return {
@@ -145,6 +146,16 @@ export default {
 
       if (this.moduleName === 'AccountAnalysis') {
         this.postAccountAnalysisInteractiveData(interactiveValues)
+      }
+
+      if (this.moduleName === 'Comparison') {
+        if (this.comparisonModule === 'online') {
+          this[action.POST_INTERACTIVE_WIDGETS](interactiveValues)
+        }
+
+        if (this.comparisonModule === 'social') {
+          this.postSocialInteractiveData(interactiveValues)
+        }
       }
     },
     getItems() {
