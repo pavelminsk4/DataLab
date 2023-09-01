@@ -28,7 +28,17 @@ export default {
   },
 
   [mutator.SET_LIST_OF_PROFILE_HANDLE](state, data) {
-    state.listOfProfilesHandle = data
+    let newList = []
+
+    if (state.listOfProfilesHandle.query === data.profiles_query) {
+      newList = [...state.listOfProfilesHandle.list, ...data.profiles]
+    } else {
+      newList = data.profiles
+    }
+
+    state.listOfProfilesHandle.list = newList
+    state.listOfProfilesHandle.profilesCount = data.num_profiles
+    state.listOfProfilesHandle.query = data.profiles_query
   },
 
   [mutator.SET_AVAILABLE_WIDGETS](state, data) {

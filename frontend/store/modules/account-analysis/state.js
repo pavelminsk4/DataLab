@@ -2,7 +2,11 @@ const state = {
   accountActivityNumOfPosts: 0,
   accountActivityPosts: [],
   availableWidgets: [],
-  listOfProfilesHandle: [],
+  listOfProfilesHandle: {
+    query: '',
+    list: [],
+    profilesCount: 0,
+  },
   loading: false,
   newProjectId: null,
   newWorkspaceId: null,

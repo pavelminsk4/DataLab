@@ -20,6 +20,7 @@
       :is-reject-selection="false"
       class="select-profile-handle"
       @select-option="selectProfile"
+      @update-list="updateList"
     >
       <template #select-item="item">
         <img :src="getImg(item)" alt="User picture" class="user-picture" />
@@ -69,7 +70,8 @@ export default {
   data() {
     return {
       projectName: '',
-      accountProfile: '',
+      newAccountProfile: '',
+      pageNumber: 1,
     }
   },
   computed: {
@@ -80,10 +82,23 @@ export default {
       newProject: (state) => state.newAccountAnalysisProject,
     }),
     ...mapAccountAnalysisState({
-      listOfProfiles: (state) => state.listOfProfilesHandle,
+      listOfProfilesHandle: (state) => state.listOfProfilesHandle,
       newProjectId: (state) => state.newProjectId,
       newWorkspaceId: (state) => state.newWorkspaceId,
     }),
+    listOfProfiles() {
+      return this.listOfProfilesHandle.list
+    },
+    accountProfile: {
+      get() {
+        return this.newAccountProfile
+      },
+      set(val) {
+        this.newAccountProfile = val
+        this.pageNumber = 1
+        this.getProfiles(this.pageNumber)
+      },
+    },
     workspaceId() {
       return this.$route.params.workspaceId
     },
@@ -94,8 +109,8 @@ export default {
       return [this.getLastWeeksDate(), new Date()]
     },
   },
-  created() {
-    this[action.GET_LIST_OF_PROFILE_HANDLE]()
+  async created() {
+    await this.getProfiles(this.pageNumber)
 
     if (this.defaultDateRange.length) {
       this[action.UPDATE_ADDITIONAL_FILTERS]({
@@ -113,6 +128,18 @@ export default {
       action.CREATE_NEW_ACCOUNT_ANALYSIS_WORKSPACE,
       action.CREATE_NEW_ACCOUNT_ANALYSIS_PROJECT,
     ]),
+    async getProfiles(pageNumber) {
+      await this[action.GET_LIST_OF_PROFILE_HANDLE]({
+        page_number: pageNumber,
+        profile_per_page: 20,
+        profiles_query: this.accountProfile,
+      })
+    },
+    async updateList() {
+      if (this.listOfProfilesHandle.profilesCount <= 20) return
+      this.pageNumber = this.pageNumber + 1
+      await this.getProfiles(this.pageNumber)
+    },
     getLastWeeksDate() {
       const now = new Date()
 

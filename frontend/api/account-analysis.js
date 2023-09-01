@@ -7,8 +7,8 @@ export default {
     return fetch('get', `${moduleName}/workspaces/`)
   },
 
-  async getListOfProfilesHandle() {
-    return fetch('get', `${moduleName}/list_of_profile_handle`)
+  async getListOfProfilesHandle(data) {
+    return fetch('post', `${moduleName}/list_of_profile_handle`, data)
   },
 
   async createWorkspace(workspace) {

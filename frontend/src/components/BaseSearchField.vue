@@ -38,12 +38,17 @@
           @click="select('Reject selection')"
         />
         <li
-          v-for="item in selectList"
+          v-for="(item, index) in selectList"
           :key="item"
           :class="[{current: item === value}, 'select-item']"
           @click="select(item)"
         >
           <slot :item="item" name="select-item"></slot>{{ item }}
+
+          <BaseObserver
+            v-if="index + 1 === selectList.length"
+            @intersect="$emit('update-list')"
+          />
         </li>
       </ul>
     </div>
@@ -56,13 +61,15 @@ import translate from '@/lib/mixins/translate.js'
 
 import CustomText from '@/components/CustomText'
 import BaseButtonSpinner from '@/components/BaseButtonSpinner'
+import BaseObserver from '@/components/BaseObserver'
 
 export default {
-  emits: ['update:modelValue', 'select-option', 'focus-input'],
+  emits: ['update:modelValue', 'select-option', 'focus-input', 'update-list'],
   mixins: [translate],
   components: {
     CustomText,
     BaseButtonSpinner,
+    BaseObserver,
   },
   props: {
     list: {type: Array, default: null},
@@ -111,6 +118,7 @@ export default {
   methods: {
     handleInput: debounce(function (e) {
       this.$emit('update:modelValue', e.target.value, this.name)
+      this.value = ''
     }, 500),
     focusInput({target}) {
       this.visible = true
