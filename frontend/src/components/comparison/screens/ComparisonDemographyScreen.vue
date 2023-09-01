@@ -36,7 +36,6 @@ export default {
     ...mapState(['demography']),
 
     selectedWidgets() {
-      console.log(this.projectsModule)
       if (!this.demography.widgets.length) return
       return comparisonWidgetsList[this.projectsModule].demography
         .map((widget) => {

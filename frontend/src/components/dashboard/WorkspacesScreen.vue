@@ -203,8 +203,8 @@ export default {
   background: center no-repeat url(@/assets/Background.svg);
   pointer-events: none;
 
-  // @media (max-height: 800px) {
-  //   height: 66vh;
-  // }
+  @media (max-height: 800px) {
+    height: 66vh;
+  }
 }
 </style>
