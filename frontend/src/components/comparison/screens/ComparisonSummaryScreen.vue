@@ -3,6 +3,7 @@
     v-if="!summary.isLoading"
     :current-project="currentProject"
     :selected-widgets="selectedWidgets"
+    :comparisonModule="projectsModule"
     module-name="Comparison"
   />
   <div v-else class="spinner">
