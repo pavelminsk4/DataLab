@@ -28,15 +28,18 @@ export default {
     sentimentTopLocations() {
       return (
         this.widgetDetails.widgetData ||
-        this.socialWidgets.sentimentTopLocations
+        this.socialWidgets.sentimentTopLocations.data
       )
+    },
+    widgetId() {
+      return this.socialWidgets.sentimentTopLocations?.id
     },
   },
   created() {
-    if (
-      !this.widgetDetails.widgetData &&
-      isAllFieldsEmpty(this.sentimentTopLocations)
-    ) {
+    const hasCurrentData =
+      !isAllFieldsEmpty(this.sentimentTopLocations) &&
+      this.widgetId === this.widgetDetails.id
+    if (!this.widgetDetails.widgetData && !hasCurrentData) {
       this[action.GET_SENTIMENT_TOP_LOCATIONS]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,

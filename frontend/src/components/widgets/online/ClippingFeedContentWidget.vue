@@ -25,12 +25,12 @@ export default {
     }),
   },
   created() {
-    if (!this.clippingFeedContent.length) {
-      this[action.GET_CLIPPING_FEED_CONTENT_WIDGET]({
-        projectId: this.widgetDetails.projectId,
-        widgetId: this.widgetDetails.id,
-      })
-    }
+    // if (!this.clippingFeedContent.length) {
+    this[action.GET_CLIPPING_FEED_CONTENT_WIDGET]({
+      projectId: this.widgetDetails.projectId,
+      widgetId: this.widgetDetails.id,
+    })
+    // }
   },
   methods: {
     ...mapActions([action.GET_CLIPPING_FEED_CONTENT_WIDGET]),

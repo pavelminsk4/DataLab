@@ -154,6 +154,8 @@ export default {
 
   async [action.GET_AVAILABLE_WIDGETS]({commit}, projectId) {
     commit(mutator.SET_LOADING, true)
+    commit(mutator.SET_AVAILABLE_WIDGETS, {}, {root: true})
+    commit(mutator.SET_AVAILABLE_WIDGETS, {})
     try {
       const availableWidgets = await api.social.getAllWidgets(projectId)
 

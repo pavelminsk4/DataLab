@@ -27,15 +27,20 @@ export default {
     }),
     sentimentByGender() {
       return (
-        this.widgetDetails.widgetData || this.socialWidgets.sentimentByGender
+        this.widgetDetails.widgetData ||
+        this.socialWidgets.sentimentByGender.data
       )
+    },
+    widgetId() {
+      return this.socialWidgets.sentimentByGender?.id
     },
   },
   created() {
-    if (
-      !this.widgetDetails.widgetData &&
-      isAllFieldsEmpty(this.sentimentByGender)
-    ) {
+    const hasCurrentData =
+      !isAllFieldsEmpty(this.sentimentByGender) &&
+      this.widgetId === this.widgetDetails.id
+
+    if (!this.widgetDetails.widgetData && !hasCurrentData) {
       this[action.GET_SENTIMENT_BY_GENDER]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,

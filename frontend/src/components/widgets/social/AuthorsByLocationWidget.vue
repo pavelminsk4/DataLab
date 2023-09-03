@@ -37,7 +37,8 @@ export default {
     }),
     authorsByLocation() {
       return (
-        this.widgetDetails.widgetData || this.socialWidgets.authorsByLocation
+        this.widgetDetails.widgetData ||
+        this.socialWidgets.authorsByLocation.data
       )
     },
     activeTab: {
@@ -70,9 +71,15 @@ export default {
         },
       ]
     },
+    widgetId() {
+      return this.socialWidgets.authorsByLocation?.id
+    },
   },
   created() {
-    if (!this.widgetDetails.widgetData && !this.authorsByLocation.length) {
+    const hasCurrentData =
+      this.authorsByLocation.length && this.widgetId === this.widgetDetails.id
+
+    if (!this.widgetDetails.widgetData && !hasCurrentData) {
       this[action.GET_AUTHORS_BY_LOCATION]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,

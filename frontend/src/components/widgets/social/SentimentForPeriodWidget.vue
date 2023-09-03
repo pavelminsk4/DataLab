@@ -26,12 +26,19 @@ export default {
     }),
     sentimentForPeriod() {
       return (
-        this.widgetDetails.widgetData || this.socialWidgets.sentimentForPeriod
+        this.widgetDetails.widgetData ||
+        this.socialWidgets.sentimentForPeriod.data
       )
+    },
+    widgetId() {
+      return this.socialWidgets.sentimentForPeriod?.id
     },
   },
   created() {
-    if (!this.widgetDetails.widgetData && !this.sentimentForPeriod.length) {
+    const hasCurrentData =
+      this.sentimentForPeriod.length && this.widgetId === this.widgetDetails.id
+
+    if (!this.widgetDetails.widgetData && !hasCurrentData) {
       this[action.GET_SENTIMENT_FOR_PERIOD]({
         projectId: this.widgetDetails.projectId,
         value: {

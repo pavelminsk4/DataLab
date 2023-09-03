@@ -26,7 +26,9 @@ export default {
       socialWidgets: get.SOCIAL_WIDGETS,
     }),
     topLocations() {
-      return this.widgetDetails.widgetData || this.socialWidgets?.topLocations
+      return (
+        this.widgetDetails.widgetData || this.socialWidgets?.topLocations.data
+      )
     },
     labels() {
       return this.topLocations.map((el) => el.locationString)
@@ -38,9 +40,15 @@ export default {
         },
       ]
     },
+    widgetId() {
+      return this.socialWidgets?.topLocations?.id
+    },
   },
   created() {
-    if (!this.widgetDetails.widgetData && !this.topLocations.length) {
+    const hasCurrentData =
+      this.topLocations.length && this.widgetId === this.widgetDetails.id
+
+    if (!this.widgetDetails.widgetData && !hasCurrentData) {
       this[action.GET_TOP_LOCATIONS_WIDGET]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,

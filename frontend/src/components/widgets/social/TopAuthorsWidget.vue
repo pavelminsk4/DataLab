@@ -26,7 +26,7 @@ export default {
       socialWidgets: get.SOCIAL_WIDGETS,
     }),
     topAuthors() {
-      return this.widgetDetails.widgetData || this.socialWidgets.topAuthors
+      return this.widgetDetails.widgetData || this.socialWidgets.topAuthors.data
     },
     labels() {
       return this.topAuthors.map((el) => el.user_name)
@@ -38,9 +38,15 @@ export default {
         },
       ]
     },
+    widgetId() {
+      return this.socialWidgets.topAuthors?.id
+    },
   },
   created() {
-    if (!this.widgetDetails.widgetData && !this.topAuthors.length) {
+    const hasCurrentData =
+      this.topAuthors.length && this.widgetId === this.widgetDetails.id
+
+    if (!this.widgetDetails.widgetData && !hasCurrentData) {
       this[action.GET_TOP_AUTHORS_WIDGET]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,

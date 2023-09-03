@@ -6,7 +6,7 @@ export default {
     commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
       const summary = await api.social.getSummaryWidget(projectId, widgetId)
-      commit(mutator.SET_SUMMARY_WIDGET, summary)
+      commit(mutator.SET_SUMMARY_WIDGET, {widgetId, data: summary})
     } catch (error) {
       console.error(error)
       return error
@@ -25,7 +25,10 @@ export default {
         projectId,
         widgetId
       )
-      commit(mutator.SET_CLIPPING_FEED_CONTENT_WIDGET, clippingFeedContent)
+      commit(mutator.SET_CLIPPING_FEED_CONTENT_WIDGET, {
+        widgetId,
+        data: clippingFeedContent,
+      })
     } catch (error) {
       console.error(error)
       return error
@@ -45,7 +48,7 @@ export default {
         value,
         widgetId,
       })
-      commit(mutator.SET_CONTENT_VOLUME_WIDGET, volume)
+      commit(mutator.SET_CONTENT_VOLUME_WIDGET, {widgetId, data: volume})
     } catch (error) {
       console.error(error)
       return error
@@ -65,7 +68,7 @@ export default {
         widgetId,
         value
       )
-      commit(mutator.SET_GENDER_VOLUME_WIDGET, data)
+      commit(mutator.SET_GENDER_VOLUME_WIDGET, {widgetId, data})
     } catch (error) {
       console.error(error)
       return error
@@ -85,7 +88,7 @@ export default {
         widgetId,
         value
       )
-      commit(mutator.SET_GENDER_BY_LOCATION, data)
+      commit(mutator.SET_GENDER_BY_LOCATION, {widgetId, data})
     } catch (error) {
       console.error(error)
       return error
@@ -98,11 +101,8 @@ export default {
   async [action.GET_TOP_LOCATIONS_WIDGET]({commit}, {projectId, widgetId}) {
     commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
-      const topLocation = await api.social.getTopLocationsWidget(
-        projectId,
-        widgetId
-      )
-      commit(mutator.SET_TOP_LOCATIONS_WIDGET, topLocation)
+      const data = await api.social.getTopLocationsWidget(projectId, widgetId)
+      commit(mutator.SET_TOP_LOCATIONS_WIDGET, {widgetId, data})
     } catch (error) {
       console.error(error)
       return error
@@ -113,11 +113,8 @@ export default {
   async [action.GET_TOP_LANGUAGES_WIDGET]({commit}, {projectId, widgetId}) {
     commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
-      const topLanguages = await api.social.getTopLanguagesWidget(
-        projectId,
-        widgetId
-      )
-      commit(mutator.SET_TOP_LANGUAGES_WIDGET, topLanguages)
+      const data = await api.social.getTopLanguagesWidget(projectId, widgetId)
+      commit(mutator.SET_TOP_LANGUAGES_WIDGET, {widgetId, data})
     } catch (error) {
       console.error(error)
       return error
@@ -128,11 +125,8 @@ export default {
   async [action.GET_TOP_AUTHORS_WIDGET]({commit}, {projectId, widgetId}) {
     commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
-      const topAuthors = await api.social.getTopAuthorsWidget(
-        projectId,
-        widgetId
-      )
-      commit(mutator.SET_TOP_AUTHORS_WIDGET, topAuthors)
+      const data = await api.social.getTopAuthorsWidget(projectId, widgetId)
+      commit(mutator.SET_TOP_AUTHORS_WIDGET, {widgetId, data})
     } catch (error) {
       console.error(error)
       return error
@@ -143,8 +137,8 @@ export default {
   async [action.GET_TOP_KEYWORDS_WIDGET]({commit}, {projectId, widgetId}) {
     commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
-      const topKeywords = await api.social.getTopKeywords({projectId, widgetId})
-      commit(mutator.SET_TOP_KEYWORDS_WIDGET, topKeywords)
+      const data = await api.social.getTopKeywords({projectId, widgetId})
+      commit(mutator.SET_TOP_KEYWORDS_WIDGET, {widgetId, data})
     } catch (error) {
       console.error(error)
       return error
@@ -159,11 +153,11 @@ export default {
   ) {
     commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
-      const topKeywords = await api.social.getTopKeywordsByCountry({
+      const data = await api.social.getTopKeywordsByCountry({
         projectId,
         widgetId,
       })
-      commit(mutator.SET_TOP_KEYWORDS_BY_COUNTRY_WIDGET, topKeywords)
+      commit(mutator.SET_TOP_KEYWORDS_BY_COUNTRY_WIDGET, {widgetId, data})
     } catch (error) {
       return error
     } finally {
@@ -174,11 +168,11 @@ export default {
   async [action.GET_LANGUAGES_BY_LOCATION]({commit}, {projectId, widgetId}) {
     commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
-      const response = await api.social.getLanguagesByLocation({
+      const data = await api.social.getLanguagesByLocation({
         projectId,
         widgetId,
       })
-      commit(mutator.SET_LANGUAGES_BY_LOCATION, response)
+      commit(mutator.SET_LANGUAGES_BY_LOCATION, {widgetId, data})
     } catch (error) {
       console.error(error)
     } finally {
@@ -189,11 +183,11 @@ export default {
   async [action.GET_TOP_SHARING_SOURCES]({commit}, {projectId, widgetId}) {
     commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
-      const topSharingSources = await api.social.getTopSharingSources({
+      const data = await api.social.getTopSharingSources({
         projectId,
         widgetId,
       })
-      commit(mutator.SET_TOP_SHARING_SOURCES, topSharingSources)
+      commit(mutator.SET_TOP_SHARING_SOURCES, {widgetId, data})
     } catch (error) {
       console.error(error)
       return error
@@ -208,7 +202,7 @@ export default {
         projectId,
         widgetId,
       })
-      commit(mutator.SET_OVERALL_TOP_AUTHORS, data)
+      commit(mutator.SET_OVERALL_TOP_AUTHORS, {widgetId, data})
     } catch (error) {
       console.error(error)
       return error
@@ -223,7 +217,7 @@ export default {
         projectId,
         widgetId,
       })
-      commit(mutator.SET_TOP_AUTHORS_BY_GENDER, data)
+      commit(mutator.SET_TOP_AUTHORS_BY_GENDER, {widgetId, data})
     } catch (error) {
       console.error(error)
       return error
@@ -239,16 +233,12 @@ export default {
   ) {
     commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
-      const contentVolumeTopCountries =
-        await api.social.getContentVolumeTopLocations({
-          projectId,
-          value,
-          widgetId,
-        })
-      commit(
-        mutator.SET_CONTENT_VOLUME_TOP_LOCATIONS,
-        contentVolumeTopCountries
-      )
+      const data = await api.social.getContentVolumeTopLocations({
+        projectId,
+        value,
+        widgetId,
+      })
+      commit(mutator.SET_CONTENT_VOLUME_TOP_LOCATIONS, {widgetId, data})
     } catch (error) {
       console.error(error)
       return error
@@ -262,13 +252,12 @@ export default {
   ) {
     commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
-      const contentVolumeTopAuthors =
-        await api.social.getContentVolumeTopAuthors({
-          projectId,
-          value,
-          widgetId,
-        })
-      commit(mutator.SET_CONTENT_VOLUME_TOP_AUTHORS, contentVolumeTopAuthors)
+      const data = await api.social.getContentVolumeTopAuthors({
+        projectId,
+        value,
+        widgetId,
+      })
+      commit(mutator.SET_CONTENT_VOLUME_TOP_AUTHORS, {widgetId, data})
     } catch (error) {
       console.error(error)
       return error
@@ -283,16 +272,12 @@ export default {
   ) {
     commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
-      const contentVolumeTopLanguages =
-        await api.social.getContentVolumeTopLanguages({
-          projectId,
-          value,
-          widgetId,
-        })
-      commit(
-        mutator.SET_CONTENT_VOLUME_TOP_LANGUAGES,
-        contentVolumeTopLanguages
-      )
+      const data = await api.social.getContentVolumeTopLanguages({
+        projectId,
+        value,
+        widgetId,
+      })
+      commit(mutator.SET_CONTENT_VOLUME_TOP_LANGUAGES, {widgetId, data})
     } catch (error) {
       console.error(error)
       return error
@@ -307,7 +292,7 @@ export default {
         projectId,
         widgetId,
       })
-      commit(mutator.SET_AUTHORS_BY_LANGUAGE, data)
+      commit(mutator.SET_AUTHORS_BY_LANGUAGE, {widgetId, data})
     } catch (error) {
       console.error(error)
       return error
@@ -323,7 +308,7 @@ export default {
         projectId,
         widgetId,
       })
-      commit(mutator.SET_AUTHORS_BY_LOCATION, data)
+      commit(mutator.SET_AUTHORS_BY_LOCATION, {widgetId, data})
     } catch (error) {
       console.error(error)
       return error
@@ -339,7 +324,7 @@ export default {
         projectId,
         widgetId,
       })
-      commit(mutator.SET_AUTHORS_BY_SENTIMENT, data)
+      commit(mutator.SET_AUTHORS_BY_SENTIMENT, {widgetId, data})
     } catch (error) {
       console.error(error)
       return error
@@ -355,7 +340,7 @@ export default {
         projectId,
         widgetId,
       })
-      commit(mutator.SET_AUTHORS_BY_GENDER, data)
+      commit(mutator.SET_AUTHORS_BY_GENDER, {widgetId, data})
     } catch (error) {
       console.error(error)
       return error
@@ -368,11 +353,11 @@ export default {
   async [action.GET_SENTIMENT_TOP_LOCATIONS]({commit}, {projectId, widgetId}) {
     commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
-      const sentimentTopCountries = await api.social.getSentimentTopLocations(
+      const data = await api.social.getSentimentTopLocations(
         projectId,
         widgetId
       )
-      commit(mutator.SET_SENTIMENT_TOP_LOCATIONS, sentimentTopCountries)
+      commit(mutator.SET_SENTIMENT_TOP_LOCATIONS, {widgetId, data})
     } catch (error) {
       console.error(error)
       return error
@@ -383,11 +368,11 @@ export default {
   async [action.GET_SENTIMENT_TOP_LANGUAGES]({commit}, {projectId, widgetId}) {
     commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
-      const sentimentTopLanguages = await api.social.getSentimentTopLanguages(
+      const data = await api.social.getSentimentTopLanguages(
         projectId,
         widgetId
       )
-      commit(mutator.SET_SENTIMENT_TOP_LANGUAGES, sentimentTopLanguages)
+      commit(mutator.SET_SENTIMENT_TOP_LANGUAGES, {widgetId, data})
     } catch (error) {
       console.error(error)
       return error
@@ -398,11 +383,8 @@ export default {
   async [action.GET_SENTIMENT_TOP_AUTHORS]({commit}, {projectId, widgetId}) {
     commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
-      const sentimentTopAuthors = await api.social.getSentimentTopAuthors(
-        projectId,
-        widgetId
-      )
-      commit(mutator.SET_SENTIMENT_TOP_AUTHORS, sentimentTopAuthors)
+      const data = await api.social.getSentimentTopAuthors(projectId, widgetId)
+      commit(mutator.SET_SENTIMENT_TOP_AUTHORS, {widgetId, data})
     } catch (error) {
       console.error(error)
       return error
@@ -416,12 +398,12 @@ export default {
   ) {
     commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
-      const sentimentForPeriod = await api.social.getSentimentForPeriod({
+      const data = await api.social.getSentimentForPeriod({
         projectId,
         value,
         widgetId,
       })
-      commit(mutator.SET_SENTIMENT_FOR_PERIOD, sentimentForPeriod)
+      commit(mutator.SET_SENTIMENT_FOR_PERIOD, {widgetId, data})
     } catch (error) {
       console.error(error)
       return error
@@ -436,7 +418,7 @@ export default {
         projectId,
         widgetId,
       })
-      commit(mutator.SET_SENTIMENT_DIAGRAM, data)
+      commit(mutator.SET_SENTIMENT_DIAGRAM, {widgetId, data})
     } catch (error) {
       console.error(error)
       return error
@@ -454,7 +436,7 @@ export default {
         projectId,
         widgetId,
       })
-      commit(mutator.SET_SENTIMENT_NUMBER_OF_RESULT, data)
+      commit(mutator.SET_SENTIMENT_NUMBER_OF_RESULT, {widgetId, data})
     } catch (error) {
       console.error(error)
       return error
@@ -469,7 +451,7 @@ export default {
         projectId,
         widgetId,
       })
-      commit(mutator.SET_SENTIMENT_TOP_KEYWORDS, data)
+      commit(mutator.SET_SENTIMENT_TOP_KEYWORDS, {widgetId, data})
     } catch (error) {
       console.error(error)
       return error
@@ -484,7 +466,7 @@ export default {
         projectId,
         widgetId,
       })
-      commit(mutator.SET_SENTIMENT_BY_GENDER, data)
+      commit(mutator.SET_SENTIMENT_BY_GENDER, {widgetId, data})
     } catch (error) {
       console.error(error)
       return error

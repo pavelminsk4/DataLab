@@ -50,7 +50,9 @@ export default {
       )
     },
     contentVolumeWidgetData() {
-      return this.widgetDetails.widgetData || this.socialWidgets.contentVolume
+      return (
+        this.widgetDetails.widgetData || this.socialWidgets.contentVolume.data
+      )
     },
     labels() {
       return this.contentVolumeWidgetData.map((el) =>
@@ -64,12 +66,16 @@ export default {
         },
       ]
     },
+    widgetId() {
+      return this.socialWidgets.contentVolume?.id
+    },
   },
   created() {
-    if (
-      !this.widgetDetails.widgetData &&
-      !this.contentVolumeWidgetData.length
-    ) {
+    const hasCurrentData =
+      this.contentVolumeWidgetData.length &&
+      this.widgetId === this.widgetDetails.id
+
+    if (!this.widgetDetails.widgetData && !hasCurrentData) {
       this[action.GET_CONTENT_VOLUME_WIDGET]({
         projectId: this.widgetDetails.projectId,
         value: {

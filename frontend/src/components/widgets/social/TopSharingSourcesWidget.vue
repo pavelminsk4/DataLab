@@ -77,15 +77,22 @@ export default {
     }),
     topSharingSources() {
       return (
-        this.widgetDetails.widgetData || this.socialWidgets.topSharingSources
+        this.widgetDetails.widgetData ||
+        this.socialWidgets.topSharingSources.data
       )
     },
     widgetWrapper() {
       return this.isSettings ? 'div' : 'WidgetsLayout'
     },
+    widgetId() {
+      return this.socialWidgets.topSharingSources?.id
+    },
   },
   created() {
-    if (!this.widgetDetails.widgetData && !this.topSharingSources.length) {
+    const hasCurrentData =
+      this.topSharingSources.length && this.widgetId === this.widgetDetails.id
+
+    if (!this.widgetDetails.widgetData && !hasCurrentData) {
       this[action.GET_TOP_SHARING_SOURCES]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,

@@ -119,8 +119,8 @@ export default {
     state.additionalFilters = {...state.additionalFilters, ...data}
   },
 
-  [mutator.SET_SUMMARY_WIDGET](state, data) {
-    state.summary = {...data}
+  [mutator.SET_SUMMARY_WIDGET](state, {widgetId, data}) {
+    state.summary = {id: widgetId, data}
   },
 
   [mutator.SET_VOLUME_WIDGET](state, data) {

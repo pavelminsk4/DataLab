@@ -27,15 +27,19 @@ export default {
     contentVolumeTopLanguages() {
       return (
         this.widgetDetails.widgetData ||
-        this.socialWidgets.contentVolumeTopLanguages
+        this.socialWidgets.contentVolumeTopLanguages.data
       )
+    },
+    widgetId() {
+      return this.socialWidgets.contentVolumeTopLanguages?.id
     },
   },
   created() {
-    if (
-      !this.widgetDetails.widgetData &&
-      !this.contentVolumeTopLanguages.length
-    ) {
+    const hasCurrentData =
+      this.contentVolumeTopLanguages.length &&
+      this.widgetId === this.widgetDetails.id
+
+    if (!this.widgetDetails.widgetData && !hasCurrentData) {
       this[action.GET_CONTENT_VOLUME_TOP_LANGUAGES]({
         projectId: this.widgetDetails.projectId,
         value: {

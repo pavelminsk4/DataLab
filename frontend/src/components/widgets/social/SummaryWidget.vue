@@ -33,14 +33,24 @@ export default {
       availableWidgets: get.AVAILABLE_WIDGETS,
     }),
     summary() {
-      return this.widgetDetails.widgetData || this.socialWidgets.summary
+      return this.widgetDetails.widgetData || this.socialWidgets.summary.data
+    },
+    widgetId() {
+      return this.socialWidgets.summary?.id
     },
   },
   async created() {
     this.widgetMetrics = socialSummaryWidgetConfig
 
-    if (!this.widgetDetails.widgetData && isAllFieldsEmpty(this.summary)) {
-      this[action.GET_SUMMARY_WIDGET]({
+    const hasCurrentData =
+      !isAllFieldsEmpty(this.summary) && this.widgetId === this.widgetDetails.id
+
+    console.log(hasCurrentData)
+
+    console.log(this.socialWidgets.summary)
+    console.log('widgetDetails = ', this.widgetDetails)
+    if (!this.widgetDetails.widgetData && !hasCurrentData) {
+      await this[action.GET_SUMMARY_WIDGET]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,
       })

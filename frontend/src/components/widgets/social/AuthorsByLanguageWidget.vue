@@ -38,7 +38,8 @@ export default {
     }),
     authorsByLanguage() {
       return (
-        this.widgetDetails.widgetData || this.socialWidgets.authorsByLanguage
+        this.widgetDetails.widgetData ||
+        this.socialWidgets.authorsByLanguage.data
       )
     },
     activeTab: {
@@ -71,9 +72,15 @@ export default {
         },
       ]
     },
+    widgetId() {
+      return this.socialWidgets.authorsByLanguage?.id
+    },
   },
   created() {
-    if (!this.widgetDetails.widgetData && !this.authorsByLanguage.length) {
+    const hasCurrentData =
+      this.authorsByLanguage.length && this.widgetId === this.widgetDetails.id
+
+    if (!this.widgetDetails.widgetData && !hasCurrentData) {
       this[action.GET_AUTHORS_BY_LANGUAGE]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,

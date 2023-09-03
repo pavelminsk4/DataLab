@@ -40,7 +40,7 @@ export default {
       )
     },
   },
-  created() {
+  async created() {
     this.navUrls = [
       'Analytics',
       'Search',
@@ -52,10 +52,12 @@ export default {
       name: item,
       routeName: `Social${item}`,
     }))
+
+    await this[action.GET_AVAILABLE_WIDGETS](this.projectId)
+
     if (!this.workspaces.length) {
-      this[action.GET_WORKSPACES]()
+      await this[action.GET_WORKSPACES]()
     }
-    this[action.GET_AVAILABLE_WIDGETS](this.projectId)
   },
   methods: {
     ...mapActions([action.GET_WORKSPACES, action.GET_AVAILABLE_WIDGETS]),

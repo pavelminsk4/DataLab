@@ -27,15 +27,20 @@ export default {
     }),
     sentimentTopAuthors() {
       return (
-        this.widgetDetails.widgetData || this.socialWidgets.sentimentTopAuthors
+        this.widgetDetails.widgetData ||
+        this.socialWidgets.sentimentTopAuthors.data
       )
+    },
+    widgetId() {
+      return this.socialWidgets.sentimentTopAuthors?.id
     },
   },
   created() {
-    if (
-      !this.widgetDetails.widgetData &&
-      isAllFieldsEmpty(this.sentimentTopAuthors)
-    ) {
+    const hasCurrentData =
+      !isAllFieldsEmpty(this.sentimentTopAuthors) &&
+      this.widgetId === this.widgetDetails.id
+
+    if (!this.widgetDetails.widgetData && !hasCurrentData) {
       this[action.GET_SENTIMENT_TOP_AUTHORS]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,

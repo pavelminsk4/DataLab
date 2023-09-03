@@ -25,12 +25,12 @@ export default {
     }),
   },
   created() {
-    if (!this.topKeywords.length) {
-      this[action.GET_TOP_KEYWORDS_WIDGET]({
-        projectId: this.widgetDetails.projectId,
-        widgetId: this.widgetDetails.id,
-      })
-    }
+    // if (!this.topKeywords.length) {
+    this[action.GET_TOP_KEYWORDS_WIDGET]({
+      projectId: this.widgetDetails.projectId,
+      widgetId: this.widgetDetails.id,
+    })
+    // }
   },
   methods: {
     ...mapActions([action.GET_TOP_KEYWORDS_WIDGET]),
