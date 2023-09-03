@@ -50,12 +50,12 @@ export default {
     },
   },
   created() {
-    if (isAllFieldsEmpty(this.languagesByCountry)) {
-      this[action.GET_LANGUAGES_BY_COUNTRY]({
-        projectId: this.widgetDetails.projectId,
-        widgetId: this.widgetDetails.id,
-      })
-    }
+    // if (isAllFieldsEmpty(this.languagesByCountry)) {
+    this[action.GET_LANGUAGES_BY_COUNTRY]({
+      projectId: this.widgetDetails.projectId,
+      widgetId: this.widgetDetails.id,
+    })
+    // }
   },
   methods: {
     ...mapActions([action.GET_LANGUAGES_BY_COUNTRY]),

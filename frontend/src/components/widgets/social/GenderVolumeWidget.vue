@@ -26,7 +26,9 @@ export default {
       socialWidgets: get.SOCIAL_WIDGETS,
     }),
     genderVolume() {
-      return this.widgetDetails.widgetData || this.socialWidgets.genderVolume
+      return (
+        this.widgetDetails.widgetData || this.socialWidgets.genderVolume.data
+      )
     },
     colors() {
       const genderColors = ['#FD7271', '#516BEE']
@@ -40,9 +42,15 @@ export default {
 
       return genderColors
     },
+    widgetId() {
+      return this.socialWidgets.genderVolume?.id
+    },
   },
   created() {
-    if (!this.widgetDetails.widgetData && !this.genderVolume.length) {
+    const hasCurrentData =
+      this.genderVolume.length && this.widgetId === this.widgetDetails.id
+
+    if (!this.widgetDetails.widgetData && !hasCurrentData) {
       this[action.GET_GENDER_VOLUME_WIDGET]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,

@@ -42,7 +42,8 @@ export default {
     }),
     authorsBySentiment() {
       return (
-        this.widgetDetails.widgetData || this.socialWidgets.authorsBySentiment
+        this.widgetDetails.widgetData ||
+        this.socialWidgets.authorsBySentiment.data
       )
     },
     activeTab: {
@@ -73,9 +74,15 @@ export default {
         },
       ]
     },
+    widgetId() {
+      return this.socialWidgets.authorsBySentiment?.id
+    },
   },
   created() {
-    if (!this.widgetDetails.widgetData && !this.authorsBySentiment.length) {
+    const hasCurrentData =
+      this.authorsBySentiment.length && this.widgetId === this.widgetDetails.id
+
+    if (!this.widgetDetails.widgetData && !hasCurrentData) {
       this[action.GET_AUTHORS_BY_SENTIMENT]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,

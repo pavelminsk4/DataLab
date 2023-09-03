@@ -27,15 +27,19 @@ export default {
     contentVolumeTopAuthors() {
       return (
         this.widgetDetails.widgetData ||
-        this.socialWidgets.contentVolumeTopAuthors
+        this.socialWidgets.contentVolumeTopAuthors.data
       )
+    },
+    widgetId() {
+      return this.socialWidgets.contentVolumeTopAuthors?.id
     },
   },
   created() {
-    if (
-      !this.widgetDetails.widgetData &&
-      !this.contentVolumeTopAuthors.length
-    ) {
+    const hasCurrentData =
+      this.contentVolumeTopAuthors.length &&
+      this.widgetId === this.widgetDetails.id
+
+    if (!this.widgetDetails.widgetData && !hasCurrentData) {
       this[action.GET_CONTENT_VOLUME_TOP_AUTHORS]({
         projectId: this.widgetDetails.projectId,
         value: {

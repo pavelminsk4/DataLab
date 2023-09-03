@@ -45,11 +45,15 @@ export default {
     }),
     widgetData() {
       return (
-        this.widgetDetails.widgetData || this.socialWidgets.topAuthorsByGender
+        this.widgetDetails.widgetData ||
+        this.socialWidgets.topAuthorsByGender.data
       )
     },
     widgetWrapper() {
       return this.isSettings ? 'div' : 'WidgetsLayout'
+    },
+    widgetId() {
+      return this.socialWidgets.topAuthorsByGender?.id
     },
   },
   created() {
@@ -70,7 +74,10 @@ export default {
     ]
     this.genderTypes = ['male', 'female']
 
-    if (!this.widgetDetails.widgetData && !this.widgetData.length) {
+    const hasCurrentData =
+      this.widgetData.length && this.widgetId === this.widgetDetails.id
+
+    if (!this.widgetDetails.widgetData && !hasCurrentData) {
       this[action.GET_TOP_AUTHORS_BY_GENDER]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,

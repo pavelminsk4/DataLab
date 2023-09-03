@@ -52,12 +52,12 @@ export default {
     },
   },
   created() {
-    if (!this.topKeywordsByCountryWidget.length) {
-      this[action.GET_TOP_KEYWORDS_BY_COUNTRY_WIDGET]({
-        projectId: this.widgetDetails.projectId,
-        widgetId: this.widgetDetails.id,
-      })
-    }
+    // if (!this.topKeywordsByCountryWidget.length) {
+    this[action.GET_TOP_KEYWORDS_BY_COUNTRY_WIDGET]({
+      projectId: this.widgetDetails.projectId,
+      widgetId: this.widgetDetails.id,
+    })
+    // }
   },
   methods: {
     ...mapActions([action.GET_TOP_KEYWORDS_BY_COUNTRY_WIDGET]),

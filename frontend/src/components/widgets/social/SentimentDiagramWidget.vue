@@ -9,6 +9,7 @@
 <script>
 import {action, get} from '@store/constants'
 import {createNamespacedHelpers} from 'vuex'
+import {isAllFieldsEmpty} from '@lib/utilities'
 
 import SentimentDiagram from '@/components/widgets/SentimentDiagram'
 
@@ -25,12 +26,20 @@ export default {
     }),
     sentimentDiagram() {
       return (
-        this.widgetDetails.widgetData || this.socialWidgets.sentimentDiagram
+        this.widgetDetails.widgetData ||
+        this.socialWidgets.sentimentDiagram.data
       )
+    },
+    widgetId() {
+      return this.socialWidgets.sentimentDiagram?.id
     },
   },
   created() {
-    if (!this.widgetDetails.widgetData) {
+    const hasCurrentData =
+      !isAllFieldsEmpty(this.sentimentDiagram) &&
+      this.widgetId === this.widgetDetails.id
+
+    if (!this.widgetDetails.widgetData && !hasCurrentData) {
       this[action.GET_SENTIMENT_DIAGRAM]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,

@@ -24,8 +24,12 @@ export default {
     }),
     widgetData() {
       return (
-        this.widgetDetails.widgetData || this.socialWidgets.overallTopAuthors
+        this.widgetDetails.widgetData ||
+        this.socialWidgets.overallTopAuthors.data
       )
+    },
+    widgetId() {
+      return this.socialWidgets.overallTopAuthors?.id
     },
   },
   created() {
@@ -44,7 +48,11 @@ export default {
         hasSort: true,
       },
     ]
-    if (!this.widgetDetails.widgetData && !this.widgetData.length) {
+
+    const hasCurrentData =
+      this.widgetData.length && this.widgetId === this.widgetDetails.id
+
+    if (!this.widgetDetails.widgetData && !hasCurrentData) {
       this[action.GET_OVERALL_TOP_AUTHORS]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,

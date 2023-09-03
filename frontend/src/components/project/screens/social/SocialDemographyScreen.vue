@@ -16,7 +16,7 @@ import {socialWidgetsList} from '@/lib/constants'
 import WidgetsList from '@/components/widgets/WidgetsList'
 
 const {mapActions, mapGetters: mapGettersSocial} =
-  createNamespacedHelpers('social/widgets')
+  createNamespacedHelpers('social')
 
 export default {
   name: 'SocialDemographyScreen',

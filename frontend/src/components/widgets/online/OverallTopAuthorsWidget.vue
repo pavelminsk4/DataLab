@@ -37,12 +37,12 @@ export default {
         hasSort: true,
       },
     ]
-    if (!this.overallTopAuthors.length) {
-      this[action.GET_OVERALL_TOP_AUTHORS]({
-        projectId: this.widgetDetails.projectId,
-        widgetId: this.widgetDetails.id,
-      })
-    }
+    // if (!this.overallTopAuthors.length) {
+    this[action.GET_OVERALL_TOP_AUTHORS]({
+      projectId: this.widgetDetails.projectId,
+      widgetId: this.widgetDetails.id,
+    })
+    // }
   },
   methods: {
     ...mapActions([action.GET_OVERALL_TOP_AUTHORS]),

@@ -111,8 +111,11 @@ export default {
     },
   },
   async created() {
+    const hasCurrentClippingData =
+      this.clippingData?.length &&
+      this.clippingData.id === this.availableWidgets.clipping_feed_content.id
     if (
-      !this.clippingData?.length &&
+      !hasCurrentClippingData &&
       this.availableWidgets?.clipping_feed_content
     ) {
       await this[action.GET_CLIPPING_FEED_CONTENT_WIDGET]({

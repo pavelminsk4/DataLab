@@ -63,12 +63,12 @@ export default {
     },
   },
   created() {
-    if (!this.topSharingSources.length) {
-      this[action.GET_TOP_SHARING_SOURCES]({
-        projectId: this.widgetDetails.projectId,
-        widgetId: this.widgetDetails.id,
-      })
-    }
+    // if (!this.topSharingSources.length) {
+    this[action.GET_TOP_SHARING_SOURCES]({
+      projectId: this.widgetDetails.projectId,
+      widgetId: this.widgetDetails.id,
+    })
+    // }
   },
   methods: {
     ...mapActions([action.GET_TOP_SHARING_SOURCES]),

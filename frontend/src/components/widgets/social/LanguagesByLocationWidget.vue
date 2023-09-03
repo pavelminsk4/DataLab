@@ -29,7 +29,8 @@ export default {
     }),
     languagesByLocation() {
       return (
-        this.widgetDetails.widgetData || this.socialWidgets.languagesByLocation
+        this.widgetDetails.widgetData ||
+        this.socialWidgets.languagesByLocation.data
       )
     },
     widgetData() {
@@ -57,12 +58,16 @@ export default {
         chartValues,
       }
     },
+    widgetId() {
+      return this.socialWidgets.languagesByLocation?.id
+    },
   },
   created() {
-    if (
-      !this.widgetDetails.widgetData &&
-      isAllFieldsEmpty(this.languagesByLocation)
-    ) {
+    const hasCurrentData =
+      !isAllFieldsEmpty(this.languagesByLocation) &&
+      this.widgetId === this.widgetDetails.id
+
+    if (!this.widgetDetails.widgetData && !hasCurrentData) {
       this[action.GET_LANGUAGES_BY_LOCATION]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,

@@ -140,7 +140,10 @@ export default {
   sources: [],
   authors: [],
   additionalFilters: {},
-  summary: {},
+  summary: {
+    id: 0,
+    data: {},
+  },
   volume: {},
   clippingFeedContent: [],
   topAuthors: [],

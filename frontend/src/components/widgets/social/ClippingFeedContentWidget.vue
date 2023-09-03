@@ -31,12 +31,19 @@ export default {
     }),
     clippingFeedContent() {
       return (
-        this.widgetDetails.widgetData || this.socialWidgets.clippingFeedContent
+        this.widgetDetails.widgetData ||
+        this.socialWidgets.clippingFeedContent.data
       )
+    },
+    widgetId() {
+      return this.socialWidgets.clippingFeedContent?.id
     },
   },
   created() {
-    if (!this.widgetDetails.widgetData && !this.clippingFeedContent.length) {
+    const hasCurrentData =
+      this.clippingFeedContent.length && this.widgetId === this.widgetDetails.id
+
+    if (!this.widgetDetails.widgetData && !hasCurrentData) {
       this[action.GET_CLIPPING_FEED_CONTENT_WIDGET]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,

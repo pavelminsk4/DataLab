@@ -174,7 +174,7 @@ export default {
     commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true})
     try {
       const summary = await api.getSummaryWidget(projectId, widgetId)
-      commit(mutator.SET_SUMMARY_WIDGET, summary)
+      commit(mutator.SET_SUMMARY_WIDGET, {widgetId, data: summary})
     } catch (error) {
       console.error(error)
       return error
@@ -198,6 +198,7 @@ export default {
 
   async [action.GET_AVAILABLE_WIDGETS]({commit}, projectId) {
     commit(mutator.SET_LOADING, true)
+    commit(mutator.SET_AVAILABLE_WIDGETS, {})
     try {
       const availableWidgets = await api.getListOfDisplayedWidgets(projectId)
       commit(mutator.SET_AVAILABLE_WIDGETS, availableWidgets)

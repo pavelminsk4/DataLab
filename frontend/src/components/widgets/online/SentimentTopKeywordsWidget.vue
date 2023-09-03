@@ -23,12 +23,12 @@ export default {
     }),
   },
   created() {
-    if (!this.sentimentTopKeywords.length) {
-      this[action.GET_SENTIMENT_TOP_KEYWORDS_WIDGET]({
-        projectId: this.widgetDetails.projectId,
-        widgetId: this.widgetDetails.id,
-      })
-    }
+    // if (!this.sentimentTopKeywords.length) {
+    this[action.GET_SENTIMENT_TOP_KEYWORDS_WIDGET]({
+      projectId: this.widgetDetails.projectId,
+      widgetId: this.widgetDetails.id,
+    })
+    // }
   },
   methods: {
     ...mapActions([action.GET_SENTIMENT_TOP_KEYWORDS_WIDGET]),

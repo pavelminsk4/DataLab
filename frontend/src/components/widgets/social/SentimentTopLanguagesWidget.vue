@@ -28,15 +28,19 @@ export default {
     sentimentTopLanguages() {
       return (
         this.widgetDetails.widgetData ||
-        this.socialWidgets.sentimentTopLanguages
+        this.socialWidgets.sentimentTopLanguages.data
       )
+    },
+    widgetId() {
+      return this.socialWidgets.sentimentTopLanguages?.id
     },
   },
   created() {
-    if (
-      !this.widgetDetails.widgetData &&
-      isAllFieldsEmpty(this.sentimentTopLanguages)
-    ) {
+    const hasCurrentData =
+      !isAllFieldsEmpty(this.sentimentTopLanguages) &&
+      this.widgetId === this.widgetDetails.id
+
+    if (!this.widgetDetails.widgetData && !hasCurrentData) {
       this[action.GET_SENTIMENT_TOP_LANGUAGES]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,

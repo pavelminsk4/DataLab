@@ -53,7 +53,11 @@ export default {
     },
   },
   created() {
-    if (!this.availableWidgets.length && this.currentProject) {
+    const hasCurrentAvailableWidgets =
+      this.availableWidgets.length &&
+      this.availableWidgets === this.currentProject?.id
+
+    if (!hasCurrentAvailableWidgets && this.currentProject) {
       this[action.GET_AVAILABLE_WIDGETS](this.currentProject.id)
     }
   },

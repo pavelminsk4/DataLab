@@ -26,7 +26,9 @@ export default {
       socialWidgets: get.SOCIAL_WIDGETS,
     }),
     topLanguages() {
-      return this.widgetDetails.widgetData || this.socialWidgets.topLanguages
+      return (
+        this.widgetDetails.widgetData || this.socialWidgets.topLanguages.data
+      )
     },
     labels() {
       return this.topLanguages.map((el) => el.language)
@@ -38,9 +40,15 @@ export default {
         },
       ]
     },
+    widgetId() {
+      return this.socialWidgets.topLanguages?.id
+    },
   },
   created() {
-    if (!this.widgetDetails.widgetData && !this.topLanguages.length) {
+    const hasCurrentData =
+      this.topLanguages.length && this.widgetId === this.widgetDetails.id
+
+    if (!this.widgetDetails.widgetData && !hasCurrentData) {
       this[action.GET_TOP_LANGUAGES_WIDGET]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,

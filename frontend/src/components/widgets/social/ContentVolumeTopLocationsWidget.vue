@@ -27,15 +27,19 @@ export default {
     contentVolumeTopLocations() {
       return (
         this.widgetDetails.widgetData ||
-        this.socialWidgets.contentVolumeTopLocations
+        this.socialWidgets.contentVolumeTopLocations.data
       )
+    },
+    widgetId() {
+      return this.socialWidgets.contentVolumeTopLocations?.id
     },
   },
   created() {
-    if (
-      !this.widgetDetails.widgetData &&
-      !this.contentVolumeTopLocations.length
-    ) {
+    const hasCurrentData =
+      this.contentVolumeTopLocations.length &&
+      this.widgetId === this.widgetDetails.id
+
+    if (!this.widgetDetails.widgetData && !hasCurrentData) {
       this[action.GET_CONTENT_VOLUME_TOP_LOCATIONS]({
         projectId: this.widgetDetails.projectId,
         value: {

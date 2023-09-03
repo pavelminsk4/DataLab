@@ -31,7 +31,8 @@ export default {
     }),
     genderByLocation() {
       return (
-        this.widgetDetails.widgetData || this.socialWidgets.genderByLocation
+        this.widgetDetails.widgetData ||
+        this.socialWidgets.genderByLocation.data
       )
     },
     labels() {
@@ -72,9 +73,15 @@ export default {
         },
       ]
     },
+    widgetId() {
+      return this.socialWidgets.genderByLocation?.id
+    },
   },
   created() {
-    if (!this.widgetDetails.widgetData && !this.genderByLocation.length) {
+    const hasCurrentData =
+      this.genderByLocation.length && this.widgetId === this.widgetDetails.id
+
+    if (!this.widgetDetails.widgetData && !hasCurrentData) {
       this[action.GET_GENDER_BY_LOCATION]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,

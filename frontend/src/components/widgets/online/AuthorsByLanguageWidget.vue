@@ -65,12 +65,12 @@ export default {
     },
   },
   created() {
-    if (!this.authorsByLanguage.length) {
-      this[action.GET_AUTHORS_BY_LANGUAGE]({
-        projectId: this.widgetDetails.projectId,
-        widgetId: this.widgetDetails.id,
-      })
-    }
+    // if (!this.authorsByLanguage.length) {
+    this[action.GET_AUTHORS_BY_LANGUAGE]({
+      projectId: this.widgetDetails.projectId,
+      widgetId: this.widgetDetails.id,
+    })
+    // }
   },
   methods: {
     ...mapActions([action.GET_AUTHORS_BY_LANGUAGE]),

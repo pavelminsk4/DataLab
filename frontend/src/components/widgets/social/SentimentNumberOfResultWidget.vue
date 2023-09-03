@@ -28,12 +28,19 @@ export default {
     numOfResults() {
       return (
         this.widgetDetails.widgetData ||
-        this.socialWidgets.sentimentNumberOfResult
+        this.socialWidgets.sentimentNumberOfResult.data
       )
+    },
+    widgetId() {
+      return this.socialWidgets.sentimentNumberOfResult?.id
     },
   },
   created() {
-    if (!this.widgetDetails.widgetData && isAllFieldsEmpty(this.numOfResults)) {
+    const hasCurrentData =
+      !isAllFieldsEmpty(this.numOfResults) &&
+      this.widgetId === this.widgetDetails.id
+
+    if (!this.widgetDetails.widgetData && !hasCurrentData) {
       this[action.GET_SENTIMENT_NUMBER_OF_RESULT]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,

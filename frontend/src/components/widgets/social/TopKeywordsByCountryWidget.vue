@@ -37,7 +37,8 @@ export default {
     }),
     topKeywordsByCountry() {
       return (
-        this.widgetDetails.widgetData || this.socialWidgets.topKeywordsByCountry
+        this.widgetDetails.widgetData ||
+        this.socialWidgets.topKeywordsByCountry.data
       )
     },
     activeTab: {
@@ -57,9 +58,16 @@ export default {
     tabs() {
       return this.topKeywordsByCountry.map((values) => Object.keys(values)[0])
     },
+    widgetId() {
+      return this.socialWidgets.topKeywordsByCountry?.id
+    },
   },
   created() {
-    if (!this.widgetDetails.widgetData) {
+    const hasCurrentData =
+      this.topKeywordsByCountry.length &&
+      this.widgetId === this.widgetDetails.id
+
+    if (!this.widgetDetails.widgetData && !hasCurrentData) {
       this[action.GET_TOP_KEYWORDS_BY_COUNTRY_WIDGET]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,

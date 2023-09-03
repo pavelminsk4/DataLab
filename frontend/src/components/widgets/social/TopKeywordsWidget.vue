@@ -26,11 +26,19 @@ export default {
       socialWidgets: get.SOCIAL_WIDGETS,
     }),
     topKeywords() {
-      return this.widgetDetails.widgetData || this.socialWidgets.topKeywords
+      return (
+        this.widgetDetails.widgetData || this.socialWidgets.topKeywords.data
+      )
+    },
+    widgetId() {
+      return this.socialWidgets.topKeywords?.id
     },
   },
   created() {
-    if (!this.widgetDetails.widgetData && !this.topKeywords.length) {
+    const hasCurrentData =
+      this.topKeywords.length && this.widgetId === this.widgetDetails.id
+
+    if (!this.widgetDetails.widgetData && !hasCurrentData) {
       this[action.GET_TOP_KEYWORDS_WIDGET]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,

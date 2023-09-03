@@ -35,7 +35,7 @@ export default {
     img: {type: String, required: true},
     name: {type: String, required: true},
     sourceName: {type: String, required: true},
-    value: {type: String, required: true},
+    value: {type: [String, Number], required: true},
   },
   methods: {
     stringToPascalCase,
