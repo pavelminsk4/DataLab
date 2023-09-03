@@ -124,7 +124,7 @@ export default {
 
       const interactiveData = {
         isShow: true,
-        projectId: this.widgsetDetails.projectId,
+        projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,
       }
 
