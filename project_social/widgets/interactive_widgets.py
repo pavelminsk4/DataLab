@@ -46,7 +46,10 @@ def interactive_widgets(request, project_pk, widget_pk):
     posts = posts.filter(creation_date__range=dates)
   elif widget.default_title == 'Sentiment':
     if dates:
-      posts = sentiment_filter_posts(first_value, posts).filter(creation_date__range=dates)
+      if second_value:
+          posts = sentiment_filter_posts(second_value, posts).filter(creation_date__range=dates)
+      else:
+          posts = sentiment_filter_posts(first_value, posts).filter(creation_date__range=dates)
     else:
       posts = sentiment_filter_posts(second_value, posts)
   elif widget.default_title == 'Gender volume':

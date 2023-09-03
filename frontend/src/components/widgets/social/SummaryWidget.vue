@@ -45,10 +45,6 @@ export default {
     const hasCurrentData =
       !isAllFieldsEmpty(this.summary) && this.widgetId === this.widgetDetails.id
 
-    console.log(hasCurrentData)
-
-    console.log(this.socialWidgets.summary)
-    console.log('widgetDetails = ', this.widgetDetails)
     if (!this.widgetDetails.widgetData && !hasCurrentData) {
       await this[action.GET_SUMMARY_WIDGET]({
         projectId: this.widgetDetails.projectId,
