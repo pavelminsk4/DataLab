@@ -51,6 +51,8 @@
         <td>{{ project.data[tableIndex].value }}</td>
         <td>
           <ChartsView
+            :projectId="project.project_id"
+            :widgetId="project.widget_id"
             :chart-values="datasets(project.data[tableIndex])"
             :chart-type="chartType || 'StackedBarChart'"
             :iteractiveLabel="

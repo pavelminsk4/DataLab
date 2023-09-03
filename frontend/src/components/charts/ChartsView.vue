@@ -70,6 +70,8 @@ export default {
     isSentimentChart: {type: Boolean, default: false},
     hasSwithcer: {type: Boolean, default: false},
     switcherValue: {type: String, default: ''},
+    projectId: {type: [Number, String], required: false},
+    widgetId: {type: [Number, String], required: false},
   },
   computed: {
     ...mapState(['loading', 'widgets']),
@@ -82,17 +84,16 @@ export default {
     ]),
     showIteractiveModalData(data, dataIndex) {
       const pages = {page_number: 1, posts_per_page: 4}
-      const interactiveData = {
-        isShow: true,
-        projectId: this.widgetDetails.projectId,
-        widgetId: this.widgetDetails.id,
-      }
 
       if (this.widgetDetails.currentModule === 'Comparison') {
         const comparisonInteractiveData = {
           isShow: true,
-          projectId: this.widgetDetails?.widgetData[dataIndex].project_id,
-          widgetId: this.widgetDetails?.widgetData[dataIndex].widget_id,
+          projectId:
+            this.projectId ||
+            this.widgetDetails?.widgetData[dataIndex].project_id,
+          widgetId:
+            this.widgetId ||
+            this.widgetDetails?.widgetData[dataIndex].widget_id,
         }
 
         if (this.hasSwithcer) {
@@ -119,6 +120,12 @@ export default {
           },
           moduleType: capitalizeFirstLetter(this.widgetDetails.module),
         })
+      }
+
+      const interactiveData = {
+        isShow: true,
+        projectId: this.widgsetDetails.projectId,
+        widgetId: this.widgetDetails.id,
       }
 
       return this[action.SHOW_INTERACTIVE_DATA_MODAL]({
