@@ -35,9 +35,16 @@ export default {
     selectedWidgets: {
       get() {
         if (!this.availableWidgets) return
+        const isTabletWidth = window.innerWidth < 1220
+
         return socialWidgetsList.influencers
           .map((widget) => {
             if (this.availableWidgets[widget.name]) {
+              const adjustableWidth = [
+                'top_sharing_sources',
+                'authors_by_sentiment',
+              ].includes(widget.name)
+
               return {
                 widgetDetails: getWidgetDetails(
                   widget.name,
@@ -45,7 +52,8 @@ export default {
                   this.currentProject.id,
                   this.currentProject.source
                 ),
-                isFullWidth: widget.isFullWidth,
+                isFullWidth:
+                  isTabletWidth && adjustableWidth ? true : widget.isFullWidth,
                 isShowDeleteBtn: false,
                 minHeight: widget.minHeight || 400,
               }
