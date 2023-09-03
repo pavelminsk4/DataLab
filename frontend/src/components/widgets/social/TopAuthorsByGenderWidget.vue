@@ -5,7 +5,7 @@
     :title="widgetDetails.title"
     :is-show-delete-btn="false"
     style="--widget-layout-content-padding: 0px"
-    class="height-reset top-authors-by-gender-widget"
+    class="height-reset top-authors-by-gender-widget widget-table scroll"
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
   >
@@ -91,6 +91,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.widget-table {
+  width: 100%;
+}
+
 .height-reset {
   height: fit-content;
 }

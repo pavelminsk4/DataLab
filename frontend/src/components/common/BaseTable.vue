@@ -1,5 +1,5 @@
 <template>
-  <table class="base-table">
+  <table :class="['base-table', hasMinWidth && 'min-width']">
     <thead>
       <tr>
         <th v-if="hasCheckbox" style="width: 60px">
@@ -57,6 +57,7 @@ export default {
     hasCheckbox: {type: Boolean, default: true},
     hasActions: {type: Boolean, default: true},
     hasSelectAll: {type: Boolean, default: true},
+    hasMinWidth: {type: Boolean, default: false},
   },
   data() {
     return {
@@ -72,6 +73,9 @@ export default {
       set(val) {
         this.isCheckedAll = val
         this.$emit('select-all', this.isCheckedAll)
+      },
+      windowWidth() {
+        return window.innerWidth
       },
     },
   },
@@ -154,6 +158,12 @@ export default {
 
   .td_name {
     font-weight: 600;
+  }
+}
+
+.min-width {
+  @media (max-width: 1170px) {
+    width: 1200px;
   }
 }
 </style>
