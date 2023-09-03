@@ -6,6 +6,7 @@
     :is-show-delete-btn="false"
     :is-show-settings-btn="isShowSettingsBtn"
     style="--widget-layout-content-padding: 0px"
+    class="widget-table scroll"
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
   >
@@ -13,6 +14,7 @@
       v-if="tableHeader.length"
       :table-header="tableHeader"
       :has-checkbox="false"
+      :has-min-width="true"
       class="overall-top-authors"
       @sorting-by="sorting"
     >
@@ -118,7 +120,12 @@ export default {
   },
 }
 </script>
+
 <style lang="scss" scoped>
+.widget-table {
+  width: 100%;
+}
+
 .base-table {
   &__row:nth-child(n + 2) {
     box-shadow: 0 1px 0 var(--border-color) inset;
