@@ -13,10 +13,12 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
+import {createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
 
 import WorkspaceView from '@/components/workspace/WorkspaceView'
+
+const {mapActions, mapGetters} = createNamespacedHelpers('online')
 
 export default {
   name: 'OnlineWorkspaceView',
@@ -36,11 +38,9 @@ export default {
     if (!this.workspaces.length) {
       await this[action.GET_WORKSPACES]()
     }
-
-    this[action.CLEAR_STATE]()
   },
   methods: {
-    ...mapActions([action.GET_WORKSPACES, action.CLEAR_STATE]),
+    ...mapActions([action.GET_WORKSPACES]),
     createProject() {
       this.$router.push({
         name: 'OnlineWorkspaceStep2',

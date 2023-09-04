@@ -23,10 +23,6 @@ export default {
     state.projects = projects
   },
 
-  [mutator.SET_WORKSPACES](state, workspaces) {
-    state.workspaces = workspaces
-  },
-
   [mutator.SET_USER_INFORMATION](state, userInfo) {
     state.userInfo = userInfo
   },
@@ -278,14 +274,6 @@ export default {
 
   [mutator.SET_DISPLAY_CALENDAR](state, value) {
     state.isShowCalendarContents = value
-  },
-
-  [mutator.SET_NEW_PROJECT_ID](state, id) {
-    state.newProjectId = id
-  },
-
-  [mutator.SET_NEW_WORKSPACE_ID](state, id) {
-    state.newWorkspaceId = id
   },
 
   [mutator.SET_COMPANY_USERS](state, users) {

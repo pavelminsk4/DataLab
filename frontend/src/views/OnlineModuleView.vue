@@ -3,8 +3,10 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
+import {createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
+
+const {mapActions, mapGetters} = createNamespacedHelpers('online')
 
 export default {
   name: 'OnlineModuleView',

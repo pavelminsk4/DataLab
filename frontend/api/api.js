@@ -1,5 +1,6 @@
 import $api from '../http'
 
+import online from './online-api'
 import social from './social-api'
 import accountAnalysis from './account-analysis'
 import twentyFourSeven from './twenty-four-seven'
@@ -13,6 +14,7 @@ export const fetch = async (action, resource, payload = null) => {
 }
 
 export default {
+  online,
   social,
   accountAnalysis,
   twentyFourSeven,
@@ -25,10 +27,6 @@ export default {
 
   async getProjects() {
     return fetch('get', '/projects/')
-  },
-
-  async getWorkspaces() {
-    return fetch('get', '/workspaces/')
   },
 
   async getLoggedUser() {
@@ -292,14 +290,6 @@ export default {
     )
   },
 
-  async createWorkspace(workspace) {
-    return fetch('post', '/workspace/create/', workspace)
-  },
-
-  async createNewProject(newProject) {
-    return fetch('post', '/projects/', newProject)
-  },
-
   async createClippingFeedContent(data) {
     return fetch('post', '/clipping_feed_content_widget/create', data)
   },
@@ -326,10 +316,6 @@ export default {
 
   async deleteProject(projectId) {
     return fetch('delete', `/projects/${projectId}/`)
-  },
-
-  async postSearch(request) {
-    return fetch('post', '/search', request)
   },
 
   async postFiltersForWidget({projectId, widgetId, data}) {

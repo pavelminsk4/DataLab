@@ -64,19 +64,6 @@ export default {
     }
   },
 
-  async [action.GET_WORKSPACES]({commit}) {
-    commit(mutator.SET_LOADING, true)
-    try {
-      const workspaces = await api.getWorkspaces()
-      commit(mutator.SET_WORKSPACES, workspaces)
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING, false)
-    }
-  },
-
   async [action.GET_USER_INFORMATION]({commit}) {
     commit(mutator.SET_LOADING, true)
     try {
@@ -796,37 +783,6 @@ export default {
     }
   },
 
-  async [action.CREATE_WORKSPACE]({commit}, workspace) {
-    commit(mutator.SET_LOADING, true)
-    try {
-      const response = await api.createWorkspace(workspace)
-      commit(mutator.SET_NEW_WORKSPACE_ID, response.id)
-      commit(mutator.SET_NEW_PROJECT_ID, response.projects[0].id)
-      return response
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING, false)
-    }
-  },
-
-  async [action.CREATE_PROJECT]({commit, dispatch}, projectData) {
-    commit(mutator.SET_LOADING, true)
-    try {
-      const response = await api.createNewProject(projectData)
-      commit(mutator.SET_NEW_PROJECT_ID, response.id)
-      await dispatch(action.GET_USER_INFORMATION)
-
-      return response
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING, false)
-    }
-  },
-
   async [action.CREATE_CLIPPING_FEED_CONTENT_WIDGET]({commit, dispatch}, data) {
     commit(mutator.SET_LOADING_WIDGETS, {clippingWidget: true})
     try {
@@ -928,21 +884,6 @@ export default {
       })
       commit(mutator.SET_AVAILABLE_WIDGETS, availableWidgets)
       dispatch(action.GET_AVAILABLE_WIDGETS, projectId)
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING, false)
-    }
-  },
-
-  async [action.POST_SEARCH]({commit}, data) {
-    commit(mutator.SET_LOADING, true)
-    try {
-      const response = await api.postSearch(data)
-      commit(mutator.SET_SEARCH_DATA, response.posts)
-      commit(mutator.SET_NUMBER_OF_POSTS, response.num_posts)
-      commit(mutator.SET_NUMBER_OF_PAGES, response.num_pages)
     } catch (error) {
       console.error(error)
       return error

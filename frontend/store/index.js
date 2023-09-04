@@ -4,6 +4,7 @@ import actions from '@store/actions'
 import mutations from '@store/mutations'
 import getters from '@store/getters'
 
+import online from '@store/modules/online'
 import social from '@store/modules/social'
 import alerts from '@store/modules/alerts'
 import accountAnalysis from '@store/modules/account-analysis'
@@ -26,6 +27,7 @@ const store = createStore({
     ...getters,
   },
   modules: {
+    online,
     social,
     alerts,
     accountAnalysis,

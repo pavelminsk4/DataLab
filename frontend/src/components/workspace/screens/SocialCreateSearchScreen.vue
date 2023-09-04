@@ -22,14 +22,8 @@ export default {
     CreateSearchScreen,
   },
   props: {
-    workspaceId: {
-      type: String,
-      default: null,
-    },
-    moduleName: {
-      type: String,
-      default: '',
-    },
+    workspaceId: {type: String, default: null},
+    moduleName: {type: String, default: ''},
   },
   computed: {
     ...mapState(['newProject']),

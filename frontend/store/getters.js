@@ -12,10 +12,6 @@ export default {
     return state.projects
   },
 
-  [get.WORKSPACES](state) {
-    return state.workspaces
-  },
-
   [get.USER_INFO](state) {
     return state.userInfo
   },

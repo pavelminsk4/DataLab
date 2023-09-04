@@ -34,8 +34,9 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
+import {mapActions, mapGetters, createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
+import {action as actionOnline, get as getOnline} from '@store/constants'
 
 import BaseButtonWithTooltip from '@/components/BaseButtonWithTooltip'
 import BlankPage from '@/components/BlankPage'
@@ -45,6 +46,9 @@ import WorkspacesScreen from '@/components/dashboard/WorkspacesScreen'
 
 import OnlineIcon from '@components/icons/OnlineIcon'
 import PlusIcon from '@/components/icons/PlusIcon'
+
+const {mapActions: mapOnlineActions, mapGetters: mapOnlineGetters} =
+  createNamespacedHelpers('online')
 
 export default {
   name: 'OnlineWorkspacesView',
@@ -60,8 +64,8 @@ export default {
   computed: {
     ...mapGetters({
       department: get.DEPARTMENT,
-      workspaces: get.WORKSPACES,
     }),
+    ...mapOnlineGetters({workspaces: getOnline.WORKSPACES}),
     isProjectCreationAvailable() {
       return (
         this.department?.current_number_of_projects >=
@@ -70,10 +74,10 @@ export default {
     },
   },
   methods: {
-    ...mapActions([
-      action.UPDATE_CURRENT_STEP,
-      action.UPDATE_WORKSPACE,
-      action.DELETE_WORKSPACE,
+    ...mapActions([action.UPDATE_CURRENT_STEP]),
+    ...mapOnlineActions([
+      actionOnline.UPDATE_WORKSPACE,
+      actionOnline.DELETE_WORKSPACE,
     ]),
     createWorkspace() {
       this.$router.push({
@@ -89,7 +93,7 @@ export default {
       })
     },
     saveSettings(settings) {
-      this[action.UPDATE_WORKSPACE](settings)
+      this[actionOnline.UPDATE_WORKSPACE](settings)
     },
 
     openWorkspace(workspaceId) {
@@ -97,7 +101,7 @@ export default {
     },
 
     deleteWorkspace(workspaceId) {
-      this[action.DELETE_WORKSPACE](workspaceId)
+      this[actionOnline.DELETE_WORKSPACE](workspaceId)
     },
   },
 }
