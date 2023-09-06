@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+   <head>
+		<meta charset="UTF-8">
+        <title>Contact</title>
+        <meta name="description" content="Free Web tutorials">
+        <meta name="keywords" content="HTML, CSS, JavaScript">
+        <meta name="author" content="John Doe">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- favicon -->
+        <link rel="icon" type="image/x-icon" href="/static/images/">
+		<link rel="stylesheet" href="/static/css/bootstrap.min.css">
+		<link rel="stylesheet" href="/static/css/font-awesome/css/font-awesome.css"/>
+		<link rel="stylesheet" href="/static/css/landing-style.css">
+	</head>
+<body>
+<!--header start-->
+         <header id="header">
+            <nav class="navbar navbar-expand-lg p-0">
+               <div class="container">
+                  <div class="main-nav d-flex w-100 align-items-center">
+                     <a class="navbar-brand p-0" href="/">
+                     <img src="/static/images/logo.png" alt="logo">
+                     </a>
+                     <div class="collapse navbar-collapse w-100 justify-content-end" id="navbarNav">
+                        <a href="#" class="main-btn top">البدء</a>
+                     </div>
+                  </div>
+               </div>
+            </nav>
+         </header>
+         <!--header end-->
+	<div class="form-section">
+		<div class="container">
+			<form action="#" method="post" enctype="multipart/form-data" id="contact-form" class="form">
+				<div class="form-input">
+					<label>الاسم الكامل<span>*</span></label>
+					<input type="text" name="name"  class="name" placeholder="الاسم الكامل" required>
+					
+				</div>
+				<div class="form-input">
+					<label>البريد الإلكتروني العمل<span>*</span></label>
+					<input type="email" name="email"  class="email" placeholder="البريد الإلكتروني العمل" required>
+				</div>
+				<div class="form-input">
+					<label>رقم التليفون<span>*</span></label>
+					<input type="number" name="number"  class="phone-number" placeholder="رقم التليفون" required >
+				</div>
+				<div class="form-input">
+					<label>Company Name<span>*</span></label>
+					<input type="text" name="company"  class="company" placeholder="Company Name" required>
+					
+				</div>
+				<div class="form-input">
+					<label>اسم الشركة<span>*</span></label>
+					<input type="text" name="job"  class="job-title" placeholder="اسم الشركة" required>
+					
+				</div>
+				<div class="form-input arselect">
+					<label>الخدمات المطلوبة:<span>*</span></label>
+					<div class="select-required-services position-relative">
+						<select class="select" name="services" required>
+							<option value="Media monitoring">رصد وسائل الإعلام</option>
+							<option value="Digital listening">الاستماع الرقمي</option>
+							<option value="Statistical services">الخدمات الإحصائية</option>
+							<option value="Building a partnership">بناء الشراكة</option>
+							<option value="More than one service">أكثر من خدمة</option>
+						</select>
+					</div>
+				</div>
+					<div class="form-btn">
+						<button type="submit" class="w-100 border-0">يرسل</button>
+					</div>
+					<p class="responce">في محطة للحافلات....</p>
+			</form>
+		</div>
+		<p class="text-center">© 2023-2024 داتا لاب. كل الحقوق محفوظة</p>
+	</div>
+	
+	<script src="/static/js/jquery_3.6.4_jquery.min.js"></script>
+	<script>
+	    $("#contact-form").submit(function(){
+	        
+	        $.ajax({
+		
+        		type:"POST",
+        		url: "mail.php",
+        		data: $("#contact-form").serialize(),
+        		success:function(data){
+        			$("#contact-form")[0].reset();
+        			$(".responce").fadeIn();
+        			setTimeout(function(){
+        				$(".responce").fadeOut();
+        			},4000);
+        		}
+        	});
+	        return false;
+	    })
+	</script>
+</body>
+</html>
