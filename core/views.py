@@ -8,5 +8,11 @@ def index(request):
 def home(request):
     return render(request, 'landing/home.html')
 
+def home_ar(request):
+    return render(request, 'landing/home_ar.html')
+
 def contact(request):
     return render(request, 'landing/contact.html')
+
+def contact_ar(request):
+    return render(request, 'landing/contact_ar.html')
