@@ -15,8 +15,7 @@ import {socialWidgetsList} from '@/lib/constants'
 
 import WidgetsList from '@/components/widgets/WidgetsList'
 
-const {mapActions, mapGetters: mapGettersSocial} =
-  createNamespacedHelpers('social')
+const {mapActions} = createNamespacedHelpers('social')
 
 export default {
   name: 'SocialDemographyScreen',
@@ -29,9 +28,6 @@ export default {
   computed: {
     ...mapGetters({
       availableWidgets: get.AVAILABLE_WIDGETS,
-    }),
-    ...mapGettersSocial({
-      socialWidgets: get.SOCIAL_WIDGETS,
     }),
     selectedWidgets: {
       get() {

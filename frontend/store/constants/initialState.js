@@ -135,10 +135,6 @@ export default {
   dimensionCountries: null,
   dimensionSources: null,
   selectedFilters: {},
-  countries: [],
-  languages: [],
-  sources: [],
-  authors: [],
   additionalFilters: {},
   summary: {
     id: 0,

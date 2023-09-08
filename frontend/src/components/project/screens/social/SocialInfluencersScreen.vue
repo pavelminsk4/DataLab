@@ -10,8 +10,7 @@
 <script>
 import {mapGetters, createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
-const {mapActions, mapGetters: mapGettersSocial} =
-  createNamespacedHelpers('social')
+const {mapActions} = createNamespacedHelpers('social')
 
 import {getWidgetDetails} from '@lib/utilities'
 import {socialWidgetsList} from '@/lib/constants'
@@ -28,9 +27,6 @@ export default {
   computed: {
     ...mapGetters({
       availableWidgets: get.AVAILABLE_WIDGETS,
-    }),
-    ...mapGettersSocial({
-      socialWidgets: get.SOCIAL_WIDGETS,
     }),
     selectedWidgets: {
       get() {

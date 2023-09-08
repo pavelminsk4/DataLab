@@ -32,7 +32,7 @@ export default {
   },
   computed: {
     ...mapState({
-      clippingContent: (state) => state.widgets.clippingFeedContent,
+      clippingContent: (state) => state.widgets.clippingFeedContent.data,
     }),
     ...mapGetters({
       additionalFilters: get.ADDITIONAL_FILTERS,

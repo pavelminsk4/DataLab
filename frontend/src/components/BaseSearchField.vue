@@ -1,6 +1,6 @@
 <template>
   <div
-    :class="['selector', {open: list.length && visible}, `selector-${name}`]"
+    :class="['selector', {open: list?.length && visible}, `selector-${name}`]"
     :data-value="value"
     :data-list="list"
   >

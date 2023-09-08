@@ -63,21 +63,21 @@ export default {
     state.currentStep = step
   },
 
-  [mutator.SET_COUNTRIES](state, countries) {
-    state.countries = countries
-  },
+  // [mutator.SET_COUNTRIES](state, countries) {
+  //   state.countries = countries
+  // },
 
-  [mutator.SET_LANGUAGES](state, languages) {
-    state.languages = languages
-  },
+  // [mutator.SET_LANGUAGES](state, languages) {
+  //   state.languages = languages
+  // },
 
-  [mutator.SET_SOURCES](state, sources) {
-    state.sources = sources
-  },
+  // [mutator.SET_SOURCES](state, sources) {
+  //   state.sources = sources
+  // },
 
-  [mutator.SET_AUTHORS](state, authors) {
-    state.authors = authors
-  },
+  // [mutator.SET_AUTHORS](state, authors) {
+  //   state.authors = authors
+  // },
 
   [mutator.DELETE_KEYWORDS_LIST](state, index) {
     state.keywords.splice(index, 1)

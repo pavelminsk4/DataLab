@@ -53,7 +53,7 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
+import {mapActions, mapGetters, createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
 import {capitalizeFirstLetter} from '@lib/utilities'
 
@@ -64,6 +64,9 @@ import PositiveIcon from '@/components/icons/PositiveIcon'
 import NegativeIcon from '@/components/icons/NegativeIcon'
 import NeutralIcon from '@/components/icons/NeutralIcon'
 import CommonCalendar from '@/components/datepicker/CommonCalendar'
+
+const {mapActions: mapOnlineActions, mapGetters: mapOnlineGetters} =
+  createNamespacedHelpers('online')
 
 const SEARCH_FIELDS = [
   {
@@ -121,8 +124,10 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({
+    ...mapOnlineGetters({
       searchLists: get.SEARCH_LISTS,
+    }),
+    ...mapGetters({
       keywords: get.KEYWORDS,
     }),
     selectedValueProxy: {
@@ -145,6 +150,7 @@ export default {
     },
   },
   created() {
+    console.log(this.searchLists)
     this.searchFields = SEARCH_FIELDS
     this.search.country = this.currentProject?.country_filter || ''
     this.search.language = this.currentProject?.language_filter || ''
@@ -178,6 +184,12 @@ export default {
       action.GET_COUNTRIES,
       action.GET_LANGUAGES,
       action.UPDATE_ADDITIONAL_FILTERS,
+    ]),
+    ...mapOnlineActions([
+      action.GET_SOURCES,
+      action.GET_AUTHORS,
+      action.GET_COUNTRIES,
+      action.GET_LANGUAGES,
     ]),
     selectItem(name, val) {
       try {

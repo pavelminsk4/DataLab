@@ -20,4 +20,20 @@ export default {
   [mutator.SET_AVAILABLE_WIDGETS](state, data) {
     state.availableWidgets = data
   },
+
+  [mutator.SET_COUNTRIES](state, countries) {
+    state.countries = countries
+  },
+
+  [mutator.SET_LANGUAGES](state, languages) {
+    state.languages = languages
+  },
+
+  [mutator.SET_SOURCES](state, sources) {
+    state.sources = sources
+  },
+
+  [mutator.SET_AUTHORS](state, authors) {
+    state.authors = authors
+  },
 }

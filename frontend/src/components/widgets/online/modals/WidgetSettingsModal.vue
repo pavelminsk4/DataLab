@@ -25,12 +25,17 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
+import {createNamespacedHelpers, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
 import WidgetSettingsScreen from '@/components/widgets/screens/WidgetSettingsScreen'
 import OnlineMainWidget from '@/components/widgets/online/OnlineMainWidget'
 import BaseModal from '@/components/modals/BaseModal'
+
+const {mapActions} = createNamespacedHelpers('online')
+
+const {mapActions: mapOnlineWidgetsActions} =
+  createNamespacedHelpers('online/widgets')
 
 export default {
   name: 'OnlineWidgetSettingsModal',
@@ -58,6 +63,10 @@ export default {
   },
   methods: {
     ...mapActions([
+      action.UPDATE_AVAILABLE_WIDGETS,
+      action.POST_FILTERS_FOR_WIDGET,
+    ]),
+    ...mapOnlineWidgetsActions([
       action.GET_VOLUME_WIDGET,
       action.GET_SUMMARY_WIDGET,
       action.GET_CLIPPING_FEED_CONTENT_WIDGET,
@@ -69,7 +78,6 @@ export default {
       action.GET_SENTIMENT_TOP_COUNTRIES,
       action.GET_SENTIMENT_TOP_AUTHORS,
       action.GET_SENTIMENT_TOP_LANGUAGES,
-      action.UPDATE_AVAILABLE_WIDGETS,
       action.GET_SENTIMENT_FOR_PERIOD,
       action.GET_CONTENT_VOLUME_TOP_AUTHORS,
       action.GET_CONTENT_VOLUME_TOP_COUNTRIES,
@@ -88,7 +96,6 @@ export default {
       action.GET_AUTHORS_BY_LANGUAGE,
       action.GET_AUTHORS_BY_SENTIMENT,
       action.GET_SENTIMENT_TOP_KEYWORDS_WIDGET,
-      action.POST_FILTERS_FOR_WIDGET,
       action.GET_LANGUAGES_BY_COUNTRY,
     ]),
 

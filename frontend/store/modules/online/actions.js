@@ -1,5 +1,6 @@
 import api from '@api/api'
 import {action, mutator} from '@store/constants'
+import {capitalizeFirstLetter} from '@lib/utilities'
 
 export default {
   async [action.GET_WORKSPACES]({commit}) {
@@ -129,7 +130,7 @@ export default {
   async [action.UPDATE_PROJECT]({dispatch, commit}, {projectId, data}) {
     commit(mutator.SET_LOADING, true)
     try {
-      await api.updateProject({projectId, data})
+      await api.online.updateProject({projectId, data})
       await dispatch(action.GET_WORKSPACES)
     } catch (error) {
       console.error(error)
@@ -183,6 +184,69 @@ export default {
       return error
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {clippingWidget: false}, {root: true})
+    }
+  },
+
+  async [action.GET_FILTERS_OPTIONS]({commit, dispatch}, projectId) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      await dispatch(action.GET_FILTER_AUTHORS, projectId)
+      await dispatch(action.GET_FILTER_COUNTRIES, projectId)
+      await dispatch(action.GET_FILTER_LANGUAGES, projectId)
+      await dispatch(action.GET_FILTER_SOURCES, projectId)
+    } catch (error) {
+      console.error(error)
+      return error
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
+  async [action.GET_AUTHORS]({commit}, word) {
+    try {
+      const authors = await api.online.getAuthors(word)
+      commit(mutator.SET_AUTHORS, authors)
+      return authors
+    } catch (error) {
+      console.error(error)
+      return error
+    }
+  },
+
+  async [action.GET_SOURCES]({commit}, word) {
+    try {
+      const sources = await api.online.getSources(word)
+      commit(mutator.SET_SOURCES, sources)
+      return sources
+    } catch (error) {
+      console.error(error)
+      return error
+    }
+  },
+
+  async [action.GET_LANGUAGES]({commit}, word) {
+    try {
+      const languages = await api.online.getLanguages(
+        capitalizeFirstLetter(word)
+      )
+      commit(mutator.SET_LANGUAGES, languages)
+      return languages
+    } catch (error) {
+      console.error(error)
+      return error
+    }
+  },
+
+  async [action.GET_COUNTRIES]({commit}, word) {
+    try {
+      const countries = await api.online.getCountries(
+        capitalizeFirstLetter(word)
+      )
+      commit(mutator.SET_COUNTRIES, countries)
+      return countries
+    } catch (error) {
+      console.error(error)
+      return error
     }
   },
 }

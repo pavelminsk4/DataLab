@@ -13,10 +13,16 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
+import {mapActions, mapGetters, createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
 
 import SearchScreen from '@/components/project/search/SearchScreen'
+
+const {mapActions: mapOnlineActions, mapState} =
+  createNamespacedHelpers('online')
+
+const {mapActions: mapOnlineWidgetsActions} =
+  createNamespacedHelpers('online/widgets')
 
 export default {
   name: 'OnlineSearch',
@@ -25,11 +31,12 @@ export default {
     currentProject: {type: [Array, Object], required: true},
   },
   computed: {
+    ...mapState({
+      clippingContent: (state) => state.widgets.clippingFeedContent.data,
+    }),
     ...mapGetters({
       additionalFilters: get.ADDITIONAL_FILTERS,
       keywords: get.KEYWORDS,
-      clippingContent: get.CLIPPING_FEED_CONTENT_WIDGET,
-      searchData: get.SEARCH_DATA,
       numberOfPosts: get.POSTS_NUMBER,
       availableWidgets: get.AVAILABLE_WIDGETS,
     }),
@@ -42,23 +49,30 @@ export default {
       ],
     })
 
+    if (!this.availableWidgets) {
+      await this[action.GET_AVAILABLE_WIDGETS](this.currentProject.id)
+    }
+
     if (!this.clippingContent.length) {
       await this[action.GET_CLIPPING_FEED_CONTENT_WIDGET]({
         projectId: this.currentProject.id,
-        widgetId: this.availableWidgets?.clipping_feed_content.id,
+        widgetId: this.availableWidgets.clipping_feed_content.id,
       })
     }
   },
   methods: {
     ...mapActions([
       action.CLEAR_STATE,
+      action.UPDATE_KEYWORDS_LIST,
+      action.UPDATE_ADDITIONAL_FILTERS,
+    ]),
+    ...mapOnlineActions([
       action.POST_SEARCH,
       action.GET_WORKSPACES,
       action.UPDATE_PROJECT,
-      action.UPDATE_KEYWORDS_LIST,
-      action.UPDATE_ADDITIONAL_FILTERS,
-      action.GET_CLIPPING_FEED_CONTENT_WIDGET,
+      action.GET_AVAILABLE_WIDGETS,
     ]),
+    ...mapOnlineWidgetsActions([action.GET_CLIPPING_FEED_CONTENT_WIDGET]),
     showResults(filters) {
       try {
         this[action.POST_SEARCH](filters)

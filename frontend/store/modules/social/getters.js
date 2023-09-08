@@ -24,6 +24,11 @@ export default {
   [get.CLIPPING_WIDGETS_DETAILS](state) {
     return state.availableWidgets?.clipping_feed_content
   },
+
+  [get.AVAILABLE_WIDGETS](state) {
+    return state.availableWidgets
+  },
+
   [get.COUNTRIES](state) {
     return state.countries
       .map((country) => country.locationString)

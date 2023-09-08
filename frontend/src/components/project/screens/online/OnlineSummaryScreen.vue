@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
+import {mapGetters, createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
 
 import {getWidgetDetails} from '@lib/utilities'
@@ -16,8 +16,10 @@ import {onlineWidgetsList} from '@/lib/constants'
 
 import WidgetsList from '@/components/widgets/WidgetsList'
 
+const {mapActions} = createNamespacedHelpers('online')
+
 export default {
-  name: 'OnlineSentimentScreen',
+  name: 'OnlineSummaryScreen',
   components: {
     WidgetsList,
   },
@@ -31,7 +33,7 @@ export default {
     selectedWidgets: {
       get() {
         if (!this.availableWidgets) return
-        return onlineWidgetsList.sentiment
+        return onlineWidgetsList.summary
           .map((widget) => {
             if (this.availableWidgets[widget.name]) {
               return {
@@ -51,8 +53,13 @@ export default {
       },
     },
   },
+  async created() {
+    if (!this.availableWidgets) {
+      await this[action.GET_AVAILABLE_WIDGETS](this.currentProject.id)
+    }
+  },
   methods: {
-    ...mapActions([action.UPDATE_AVAILABLE_WIDGETS]),
+    ...mapActions([action.GET_AVAILABLE_WIDGETS]),
   },
 }
 </script>

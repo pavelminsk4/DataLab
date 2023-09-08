@@ -20,6 +20,10 @@ export default {
     return fetch('post', '/projects/', newProject)
   },
 
+  async updateProject({projectId, data}) {
+    return fetch('patch', `/projects/${projectId}/`, data)
+  },
+
   async getListOfDisplayedWidgets(projectId) {
     return fetch('get', `/projects/${projectId}/widgets_list`)
   },
@@ -64,6 +68,22 @@ export default {
     )
   },
 
+  async getCountries(word) {
+    return fetch('get', `/countries/countries?search=${word}`)
+  },
+
+  async getLanguages(word) {
+    return fetch('get', `/speeches/speeches?search=${word}`)
+  },
+
+  async getSources(word) {
+    return fetch('get', `/sources/sources?search=${word}`)
+  },
+
+  async getAuthors(word) {
+    return fetch('get', `/authors/authors?search=${word}`)
+  },
+
   // Widgets
   async getSummaryWidget(projectId, widgetId) {
     return fetch('get', `/widgets/onl_summary/${projectId}/${widgetId}`)
@@ -71,5 +91,177 @@ export default {
 
   async getVolumeWidget({projectId, value, widgetId}) {
     return fetch('put', `/widgets/onl_volume/${projectId}/${widgetId}`, value)
+  },
+
+  async getTopAuthors(projectId, widgetId) {
+    return fetch('get', `/widgets/onl_top_authors/${projectId}/${widgetId}`)
+  },
+
+  async getTopBrands(projectId, widgetId) {
+    return fetch('get', `/widgets/onl_top_sources/${projectId}/${widgetId}`)
+  },
+
+  async getTopCountries(projectId, widgetId) {
+    return fetch('get', `/widgets/onl_top_countries/${projectId}/${widgetId}`)
+  },
+
+  async getTopLanguages(projectId, widgetId) {
+    return fetch('get', `/widgets/onl_top_languages/${projectId}/${widgetId}`)
+  },
+
+  async getContentVolumeTopSources({projectId, value, widgetId}) {
+    return fetch(
+      'post',
+      `/widgets/onl_content_volume_top_sources/${projectId}/${widgetId}`,
+      value
+    )
+  },
+
+  async getContentVolumeTopAuthors({projectId, value, widgetId}) {
+    return fetch(
+      'post',
+      `/widgets/onl_content_volume_top_authors/${projectId}/${widgetId}`,
+      value
+    )
+  },
+
+  async getContentVolumeTopCountries({projectId, value, widgetId}) {
+    return fetch(
+      'post',
+      `/widgets/onl_content_volume_top_countries/${projectId}/${widgetId}`,
+      value
+    )
+  },
+
+  async getSentimentTopSources(projectId, widgetId) {
+    return fetch(
+      'get',
+      `/widgets/onl_sentiment_top_sources/${projectId}/${widgetId}`
+    )
+  },
+
+  async getSentimentTopCountries(projectId, widgetId) {
+    return fetch(
+      'get',
+      `/widgets/onl_sentiment_top_countries/${projectId}/${widgetId}`
+    )
+  },
+
+  async getSentimentTopAuthors(projectId, widgetId) {
+    return fetch(
+      'get',
+      `/widgets/onl_sentiment_top_authors/${projectId}/${widgetId}`
+    )
+  },
+
+  async getSentimentTopLanguages(projectId, widgetId) {
+    return fetch(
+      'get',
+      `/widgets/onl_sentiment_top_languages/${projectId}/${widgetId}`
+    )
+  },
+
+  async getSentimentForPeriod({projectId, value, widgetId}) {
+    return fetch(
+      'post',
+      `/widgets/onl_sentiment_for_period/${projectId}/${widgetId}`,
+      value
+    )
+  },
+
+  async getTopKeywordsWidget({projectId, widgetId}) {
+    return fetch('post', `/widgets/onl_top_keywords/${projectId}/${widgetId}`)
+  },
+
+  async getSentimentTopKeywordsWidget({projectId, widgetId}) {
+    return fetch(
+      'post',
+      `/widgets/onl_sentiment_top_keywords/${projectId}/${widgetId}`
+    )
+  },
+
+  async getSentimentNumberOfResult({projectId, widgetId}) {
+    return fetch(
+      'post',
+      `/widgets/onl_sentiment_number_of_results/${projectId}/${widgetId}`
+    )
+  },
+
+  async getSentimentDiagram({projectId, widgetId}) {
+    return fetch(
+      'post',
+      `/widgets/onl_sentiment_diagram/${projectId}/${widgetId}`
+    )
+  },
+
+  async getAuthorsByCountry({projectId, widgetId}) {
+    return fetch(
+      'post',
+      `/widgets/onl_authors_by_country/${projectId}/${widgetId}`
+    )
+  },
+
+  async getAuthorsByLanguage({projectId, widgetId}) {
+    return fetch(
+      'post',
+      `/widgets/onl_authors_by_language/${projectId}/${widgetId}`
+    )
+  },
+
+  async getAuthorsBySentiment({projectId, widgetId}) {
+    return fetch(
+      'post',
+      `/widgets/onl_authors_by_sentiment/${projectId}/${widgetId}`
+    )
+  },
+
+  async getOverallTopAuthors({projectId, widgetId}) {
+    return fetch(
+      'post',
+      `/widgets/onl_overall_top_authors/${projectId}/${widgetId}`
+    )
+  },
+
+  async getOverallTopSources({projectId, widgetId}) {
+    return fetch(
+      'post',
+      `/widgets/onl_overall_top_sources/${projectId}/${widgetId}`
+    )
+  },
+
+  async getSourcesByCountry({projectId, widgetId}) {
+    return fetch(
+      'post',
+      `/widgets/onl_sources_by_country/${projectId}/${widgetId}`
+    )
+  },
+
+  async getSourcesByLanguage({projectId, widgetId}) {
+    return fetch(
+      'post',
+      `/widgets/onl_sources_by_language/${projectId}/${widgetId}`
+    )
+  },
+
+  async getTopSharingSourcesWidget(projectId, widgetId) {
+    return fetch(
+      'get',
+      `/widgets/onl_top_sharing_sources/${projectId}/${widgetId}`
+    )
+  },
+
+  async getTopKeywordsByCountryWidget({projectId, widgetId}) {
+    return fetch(
+      'post',
+      `/widgets/onl_top_keywords_by_country/${projectId}/${widgetId}`
+    )
+  },
+
+  async getLanguagesByCountry({projectId, value, widgetId}) {
+    return fetch(
+      'post',
+      `/widgets/onl_languages_by_country/${projectId}/${widgetId}`,
+      value
+    )
   },
 }

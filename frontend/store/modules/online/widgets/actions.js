@@ -57,7 +57,7 @@ export default {
   async [action.GET_TOP_AUTHORS_WIDGET]({commit}, {projectId, widgetId}) {
     commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
-      const topAuthors = await api.getTopAuthors(projectId, widgetId)
+      const topAuthors = await api.online.getTopAuthors(projectId, widgetId)
       commit(mutator.SET_TOP_AUTHORS_WIDGET, {widgetId, data: topAuthors})
     } catch (error) {
       console.error(error)
@@ -70,7 +70,7 @@ export default {
   async [action.GET_TOP_BRANDS_WIDGET]({commit}, {projectId, widgetId}) {
     commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
-      const topBrands = await api.getTopBrands(projectId, widgetId)
+      const topBrands = await api.online.getTopBrands(projectId, widgetId)
       commit(mutator.SET_TOP_BRANDS_WIDGET, {widgetId, data: topBrands})
     } catch (error) {
       console.error(error)
@@ -83,7 +83,7 @@ export default {
   async [action.GET_TOP_COUNTRIES_WIDGET]({commit}, {projectId, widgetId}) {
     commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
-      const topCountries = await api.getTopCountries(projectId, widgetId)
+      const topCountries = await api.online.getTopCountries(projectId, widgetId)
       commit(mutator.SET_TOP_COUNTRIES_WIDGET, {widgetId, data: topCountries})
     } catch (error) {
       console.error(error)
@@ -96,7 +96,7 @@ export default {
   async [action.GET_TOP_LANGUAGES_WIDGET]({commit}, {projectId, widgetId}) {
     commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
-      const topLanguages = await api.getTopLanguages(projectId, widgetId)
+      const topLanguages = await api.online.getTopLanguages(projectId, widgetId)
       commit(mutator.SET_TOP_LANGUAGES_WIDGET, {widgetId, data: topLanguages})
     } catch (error) {
       console.error(error)
@@ -112,11 +112,12 @@ export default {
   ) {
     commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
-      const contentVolumeTopSources = await api.getContentVolumeTop10Sources({
-        projectId,
-        value,
-        widgetId,
-      })
+      const contentVolumeTopSources =
+        await api.online.getContentVolumeTopSources({
+          projectId,
+          value,
+          widgetId,
+        })
       commit(mutator.SET_CONTENT_VOLUME_TOP_SOURCES, {
         widgetId,
         data: contentVolumeTopSources,
@@ -135,11 +136,12 @@ export default {
   ) {
     commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
-      const contentVolumeTopAuthors = await api.getContentVolumeTop10Authors({
-        projectId,
-        value,
-        widgetId,
-      })
+      const contentVolumeTopAuthors =
+        await api.online.getContentVolumeTopAuthors({
+          projectId,
+          value,
+          widgetId,
+        })
       commit(mutator.SET_CONTENT_VOLUME_TOP_AUTHORS, {
         widgetId,
         data: contentVolumeTopAuthors,
@@ -159,7 +161,7 @@ export default {
     commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
       const contentVolumeTopCountries =
-        await api.getContentVolumeTop10Countries({
+        await api.online.getContentVolumeTopCountries({
           projectId,
           value,
           widgetId,
@@ -179,7 +181,7 @@ export default {
   async [action.GET_SENTIMENT_TOP_SOURCES]({commit}, {projectId, widgetId}) {
     commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
-      const sentimentTopSources = await api.getSentimentTopSources(
+      const sentimentTopSources = await api.online.getSentimentTopSources(
         projectId,
         widgetId
       )
@@ -198,7 +200,7 @@ export default {
   async [action.GET_SENTIMENT_TOP_COUNTRIES]({commit}, {projectId, widgetId}) {
     commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
-      const sentimentTopCountries = await api.getSentimentTopCountries(
+      const sentimentTopCountries = await api.online.getSentimentTopCountries(
         projectId,
         widgetId
       )
@@ -217,7 +219,7 @@ export default {
   async [action.GET_SENTIMENT_TOP_AUTHORS]({commit}, {projectId, widgetId}) {
     commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
-      const sentimentTopAuthors = await api.getSentimentTopAuthors(
+      const sentimentTopAuthors = await api.online.getSentimentTopAuthors(
         projectId,
         widgetId
       )
@@ -236,7 +238,7 @@ export default {
   async [action.GET_SENTIMENT_TOP_LANGUAGES]({commit}, {projectId, widgetId}) {
     commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
-      const sentimentTopLanguages = await api.getSentimentTopLanguages(
+      const sentimentTopLanguages = await api.online.getSentimentTopLanguages(
         projectId,
         widgetId
       )
@@ -258,7 +260,7 @@ export default {
   ) {
     commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
-      const data = await api.getSentimentForPeriod({
+      const data = await api.online.getSentimentForPeriod({
         projectId,
         value,
         widgetId,
@@ -275,7 +277,7 @@ export default {
   async [action.GET_TOP_KEYWORDS_WIDGET]({commit}, {projectId, widgetId}) {
     commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
-      const data = await api.getTopKeywordsWidget({projectId, widgetId})
+      const data = await api.online.getTopKeywordsWidget({projectId, widgetId})
       commit(mutator.SET_TOP_KEYWORDS_WIDGET, {widgetId, data})
     } catch (error) {
       console.error(error)
@@ -291,7 +293,7 @@ export default {
   ) {
     commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
-      const data = await api.getSentimentTopKeywordsWidget({
+      const data = await api.online.getSentimentTopKeywordsWidget({
         projectId,
         widgetId,
       })
@@ -310,7 +312,7 @@ export default {
   ) {
     commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
-      const data = await api.getSentimentNumberOfResult({
+      const data = await api.online.getSentimentNumberOfResult({
         projectId,
         widgetId,
       })
@@ -326,7 +328,7 @@ export default {
   async [action.GET_SENTIMENT_DIAGRAM]({commit}, {projectId, widgetId}) {
     commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
-      const data = await api.getSentimentDiagram({
+      const data = await api.online.getSentimentDiagram({
         projectId,
         widgetId,
       })
@@ -342,7 +344,7 @@ export default {
   async [action.GET_AUTHORS_BY_COUNTRY]({commit}, {projectId, widgetId}) {
     commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
-      const data = await api.getAuthorsByCountry({
+      const data = await api.online.getAuthorsByCountry({
         projectId,
         widgetId,
       })
@@ -358,7 +360,7 @@ export default {
   async [action.GET_AUTHORS_BY_LANGUAGE]({commit}, {projectId, widgetId}) {
     commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
-      const data = await api.getAuthorsByLanguage({
+      const data = await api.online.getAuthorsByLanguage({
         projectId,
         widgetId,
       })
@@ -374,7 +376,7 @@ export default {
   async [action.GET_AUTHORS_BY_SENTIMENT]({commit}, {projectId, widgetId}) {
     commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
-      const data = await api.getAuthorsBySentiment({
+      const data = await api.online.getAuthorsBySentiment({
         projectId,
         widgetId,
       })
@@ -390,7 +392,7 @@ export default {
   async [action.GET_OVERALL_TOP_AUTHORS]({commit}, {projectId, widgetId}) {
     commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
-      const data = await api.getOverallTopAuthors({
+      const data = await api.online.getOverallTopAuthors({
         projectId,
         widgetId,
       })
@@ -406,7 +408,7 @@ export default {
   async [action.GET_OVERALL_TOP_SOURCES]({commit}, {projectId, widgetId}) {
     commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
-      const data = await api.getOverallTopSources({
+      const data = await api.online.getOverallTopSources({
         projectId,
         widgetId,
       })
@@ -422,7 +424,7 @@ export default {
   async [action.GET_SOURCES_BY_COUNTRY]({commit}, {projectId, widgetId}) {
     commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
-      const data = await api.getSourcesByCountry({
+      const data = await api.online.getSourcesByCountry({
         projectId,
         widgetId,
       })
@@ -438,7 +440,7 @@ export default {
   async [action.GET_SOURCES_BY_LANGUAGE]({commit}, {projectId, widgetId}) {
     commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
-      const data = await api.getSourcesByLanguage({
+      const data = await api.online.getSourcesByLanguage({
         projectId,
         widgetId,
       })
@@ -454,7 +456,10 @@ export default {
   async [action.GET_TOP_SHARING_SOURCES]({commit}, {projectId, widgetId}) {
     commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
-      const data = await api.getTopSharingSourcesWidget(projectId, widgetId)
+      const data = await api.online.getTopSharingSourcesWidget(
+        projectId,
+        widgetId
+      )
       commit(mutator.SET_TOP_SHARING_SOURCES, {widgetId, data})
     } catch (error) {
       console.error(error)
@@ -470,7 +475,7 @@ export default {
   ) {
     commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
-      const data = await api.getTopKeywordsByCountryWidget({
+      const data = await api.online.getTopKeywordsByCountryWidget({
         projectId,
         widgetId,
       })
@@ -489,7 +494,7 @@ export default {
   ) {
     commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true}, {root: true})
     try {
-      const data = await api.getLanguagesByCountry({
+      const data = await api.online.getLanguagesByCountry({
         projectId,
         value,
         widgetId,

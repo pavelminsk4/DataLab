@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import {mapActions, mapGetters, createNamespacedHelpers} from 'vuex'
+import {mapGetters, createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
 import createReportMixin from '@/lib/mixins/create-report.js'
 
@@ -22,6 +22,7 @@ import CustomText from '@/components/CustomText'
 import WorkspaceTableWithProjects from '@components/WorkspaceTableWithProjects'
 
 const {mapActions: mapSocialActions} = createNamespacedHelpers('social')
+const {mapActions: mapOnlineActions} = createNamespacedHelpers('online')
 
 export default {
   name: 'CreateReportAddProject',
@@ -58,7 +59,7 @@ export default {
     this.getOnlineWorkspaces()
   },
   methods: {
-    ...mapActions({getOnlineWorkspaces: action.GET_WORKSPACES}),
+    ...mapOnlineActions({getOnlineWorkspaces: action.GET_WORKSPACES}),
     ...mapSocialActions({getSocialWorkspaces: action.GET_WORKSPACES}),
 
     nextStep() {
