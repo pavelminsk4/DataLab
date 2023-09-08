@@ -18,8 +18,7 @@
 
 <script>
 import {createNamespacedHelpers} from 'vuex'
-import {get} from '@store/constants'
-import {action} from '@store/constants'
+import {get, action} from '@store/constants'
 import {defaultDate} from '@/lib/utilities'
 
 import WidgetsLayout from '@/components/layout/WidgetsLayout'

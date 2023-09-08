@@ -16,4 +16,8 @@ export default {
   [mutator.SET_NEW_PROJECT_ID](state, id) {
     state.newProjectId = id
   },
+
+  [mutator.SET_AVAILABLE_WIDGETS](state, data) {
+    state.availableWidgets = data
+  },
 }

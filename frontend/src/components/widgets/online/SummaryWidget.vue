@@ -8,12 +8,15 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
-import {action, get} from '@store/constants'
+import {mapGetters, createNamespacedHelpers} from 'vuex'
+import {get, action} from '@store/constants'
 import {isAllFieldsEmpty} from '@lib/utilities'
 import {summaryWidgetConfig} from '@/lib/configs/widgetsConfigs'
 
 import SummaryWidget from '@/components/widgets/SummaryWidget'
+
+const {mapActions, mapGetters: mapGettersOnline} =
+  createNamespacedHelpers('online/widgets')
 
 export default {
   name: 'OnlineSummaryWidget',
@@ -22,15 +25,17 @@ export default {
     widgetDetails: {type: Object, required: true},
   },
   computed: {
+    ...mapGettersOnline({
+      onlineWidgets: get.ONLINE_WIDGETS,
+    }),
     ...mapGetters({
       availableWidgets: get.AVAILABLE_WIDGETS,
-      summary: get.SUMMARY_WIDGET,
     }),
     summaryData() {
-      return this.widgetDetails.widgetData || this.summary.data
+      return this.widgetDetails.widgetData || this.onlineWidgets.summary.data
     },
     widgetId() {
-      return this.summary?.id
+      return this.onlineWidgets.summary?.id
     },
   },
   created() {

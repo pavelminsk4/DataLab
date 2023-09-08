@@ -8,10 +8,12 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
-import {action, get} from '@store/constants'
+import {createNamespacedHelpers} from 'vuex'
+import {get, action} from '@store/constants'
 
 import VolumeWidget from '@/components/widgets/VolumeWidget'
+
+const {mapActions, mapGetters} = createNamespacedHelpers('online/widgets')
 
 export default {
   name: 'Top10AuthorsByVolumeWidget',
@@ -21,8 +23,11 @@ export default {
   },
   computed: {
     ...mapGetters({
-      topAuthors: get.TOP_AUTHORS,
+      onlineWidgets: get.ONLINE_WIDGETS,
     }),
+    topAuthors() {
+      return this.widgetDetails.widgetData || this.onlineWidgets.topAuthors.data
+    },
     labels() {
       return this.topAuthors.map((el) => el.entry_author)
     },
@@ -35,10 +40,15 @@ export default {
     },
   },
   created() {
-    this[action.GET_TOP_AUTHORS_WIDGET]({
-      projectId: this.widgetDetails.projectId,
-      widgetId: this.widgetDetails.id,
-    })
+    const hasCurrentData =
+      this.topAuthors.length && this.widgetId === this.widgetDetails.id
+
+    if (!this.widgetDetails.widgetData && !hasCurrentData) {
+      this[action.GET_TOP_AUTHORS_WIDGET]({
+        projectId: this.widgetDetails.projectId,
+        widgetId: this.widgetDetails.id,
+      })
+    }
   },
   methods: {
     ...mapActions([action.GET_TOP_AUTHORS_WIDGET]),

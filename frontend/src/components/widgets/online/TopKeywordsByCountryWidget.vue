@@ -12,11 +12,13 @@
 </template>
 
 <script>
-import {mapActions, mapState} from 'vuex'
-import {action} from '@store/constants'
+import {createNamespacedHelpers} from 'vuex'
+import {action, get} from '@store/constants'
 
 import KeywordsWidget from '@/components/widgets/KeywordsWidget'
 import WidgetsSwitcher from '@/components/layout/WidgetsSwitcher'
+
+const {mapActions, mapGetters} = createNamespacedHelpers('online/widgets')
 
 export default {
   name: 'OnlineTopKeywordsByCountryWidget',
@@ -30,7 +32,18 @@ export default {
     }
   },
   computed: {
-    ...mapState(['topKeywordsByCountryWidget']),
+    ...mapGetters({
+      onlineWidgets: get.ONLINE_WIDGETS,
+    }),
+    topKeywordsByCountryWidget() {
+      return (
+        this.widgetDetails.widgetData ||
+        this.onlineWidgets.topKeywordsByCountryWidget.data
+      )
+    },
+    widgetId() {
+      return this.onlineWidgets.topKeywordsByCountryWidget?.id
+    },
     activeTab: {
       get() {
         return this.newActiveTab || this.tabs[0]
@@ -52,12 +65,16 @@ export default {
     },
   },
   created() {
-    // if (!this.topKeywordsByCountryWidget.length) {
-    this[action.GET_TOP_KEYWORDS_BY_COUNTRY_WIDGET]({
-      projectId: this.widgetDetails.projectId,
-      widgetId: this.widgetDetails.id,
-    })
-    // }
+    const hasCurrentData =
+      this.topKeywordsByCountryWidget.length &&
+      this.widgetId === this.widgetDetails.id
+
+    if (!this.widgetDetails.widgetData && !hasCurrentData) {
+      this[action.GET_TOP_KEYWORDS_BY_COUNTRY_WIDGET]({
+        projectId: this.widgetDetails.projectId,
+        widgetId: this.widgetDetails.id,
+      })
+    }
   },
   methods: {
     ...mapActions([action.GET_TOP_KEYWORDS_BY_COUNTRY_WIDGET]),

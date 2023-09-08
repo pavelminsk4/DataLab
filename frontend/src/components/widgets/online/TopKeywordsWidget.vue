@@ -8,10 +8,12 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
+import {createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
 
 import KeywordsWidget from '@/components/widgets/KeywordsWidget'
+
+const {mapActions, mapGetters} = createNamespacedHelpers('online/widgets')
 
 export default {
   name: 'OnlineTopKeywordsWidget',
@@ -22,15 +24,28 @@ export default {
   computed: {
     ...mapGetters({
       topKeywords: get.TOP_KEYWORDS_WIDGET,
+      onlineWidgets: get.ONLINE_WIDGETS,
     }),
+    topKeywords() {
+      return (
+        this.widgetDetails.widgetData ||
+        this.onlineWidgets.topKeywordsWidget.data
+      )
+    },
+    widgetId() {
+      return this.onlineWidgets.topKeywordsWidget?.id
+    },
   },
   created() {
-    // if (!this.topKeywords.length) {
-    this[action.GET_TOP_KEYWORDS_WIDGET]({
-      projectId: this.widgetDetails.projectId,
-      widgetId: this.widgetDetails.id,
-    })
-    // }
+    const hasCurrentData =
+      this.topKeywords.length && this.widgetId === this.widgetDetails.id
+
+    if (!this.widgetDetails.widgetData && !hasCurrentData) {
+      this[action.GET_TOP_KEYWORDS_WIDGET]({
+        projectId: this.widgetDetails.projectId,
+        widgetId: this.widgetDetails.id,
+      })
+    }
   },
   methods: {
     ...mapActions([action.GET_TOP_KEYWORDS_WIDGET]),

@@ -79,34 +79,6 @@ export default {
     state.authors = authors
   },
 
-  [mutator.SET_TOP_COUNTRIES_WIDGET](state, countries) {
-    state.topCountries = countries
-  },
-
-  [mutator.SET_TOP_BRANDS_WIDGET](state, brands) {
-    state.topBrands = brands
-  },
-
-  [mutator.SET_LANGUAGES_BY_COUNTRY](state, languages) {
-    state.languagesByCountry = languages
-  },
-
-  [mutator.SET_TOP_LANGUAGES_WIDGET](state, languages) {
-    state.topLanguages = languages
-  },
-
-  [mutator.SET_CONTENT_VOLUME_TOP_SOURCES](state, contentVolumeSources) {
-    state.contentVolumeTopSources = contentVolumeSources
-  },
-
-  [mutator.SET_CONTENT_VOLUME_TOP_AUTHORS](state, contentVolumeAuthors) {
-    state.contentVolumeTopAuthors = contentVolumeAuthors
-  },
-
-  [mutator.SET_CONTENT_VOLUME_TOP_COUNTRIES](state, contentVolumeCountries) {
-    state.contentVolumeTopCountries = contentVolumeCountries
-  },
-
   [mutator.DELETE_KEYWORDS_LIST](state, index) {
     state.keywords.splice(index, 1)
   },
@@ -119,92 +91,8 @@ export default {
     state.summary = {id: widgetId, data}
   },
 
-  [mutator.SET_VOLUME_WIDGET](state, data) {
-    state.volume = {...data}
-  },
-
-  [mutator.SET_CLIPPING_FEED_CONTENT_WIDGET](state, data) {
-    state.clippingFeedContent = [...data]
-  },
-
-  [mutator.SET_TOP_AUTHORS_WIDGET](state, data) {
-    state.topAuthors = [...data]
-  },
-
-  [mutator.SET_SENTIMENT_TOP_SOURCES](state, data) {
-    state.sentimentTopSources = {...data}
-  },
-
-  [mutator.SET_SENTIMENT_TOP_COUNTRIES](state, data) {
-    state.sentimentTopCountries = {...data}
-  },
-
-  [mutator.SET_SENTIMENT_TOP_LANGUAGES](state, data) {
-    state.sentimentTopLanguages = {...data}
-  },
-
-  [mutator.SET_SENTIMENT_TOP_AUTHORS](state, data) {
-    state.sentimentTopAuthors = {...data}
-  },
-
-  [mutator.SET_SENTIMENT_FOR_PERIOD](state, data) {
-    state.sentimentForPeriod = [...data]
-  },
-
-  [mutator.SET_SENTIMENT_TOP_KEYWORDS_WIDGET](state, data) {
-    state.sentimentTopKeywordsWidget = data
-  },
-
-  [mutator.SET_TOP_KEYWORDS_WIDGET](state, data) {
-    state.topKeywordsWidget = data
-  },
-
-  [mutator.SET_TOP_KEYWORDS_BY_COUNTRY_WIDGET](state, data) {
-    state.topKeywordsByCountryWidget = data
-  },
-
-  [mutator.SET_TOP_SHARING_SOURCES](state, data) {
-    state.topSharingSources = data
-  },
-
-  [mutator.SET_SENTIMENT_DIAGRAM](state, data) {
-    state.sentimentDiagram = data
-  },
-
-  [mutator.SET_SENTIMENT_NUMBER_OF_RESULT](state, data) {
-    state.sentimentNumberOfResult = data
-  },
-
-  [mutator.SET_AUTHORS_BY_COUNTRY](state, data) {
-    state.authorsByCountry = data
-  },
-
-  [mutator.SET_SOURCES_BY_LANGUAGE](state, data) {
-    state.sourcesByLanguage = data
-  },
-
-  [mutator.SET_SOURCES_BY_COUNTRY](state, data) {
-    state.sourcesByCountry = data
-  },
-
-  [mutator.SET_OVERALL_TOP_SOURCES](state, data) {
-    state.overallTopSources = data
-  },
-
-  [mutator.SET_OVERALL_TOP_AUTHORS](state, data) {
-    state.overallTopAuthors = data
-  },
-
-  [mutator.SET_AUTHORS_BY_LANGUAGE](state, data) {
-    state.authorsByLanguage = data
-  },
-
-  [mutator.SET_AUTHORS_BY_SENTIMENT](state, data) {
-    state.authorsBySentiment = data
-  },
-
   [mutator.SET_AVAILABLE_WIDGETS](state, data) {
-    state.availableWidgets = {...data}
+    state.availableWidgets = data
   },
 
   [mutator.SET_FILTERS](state, data) {

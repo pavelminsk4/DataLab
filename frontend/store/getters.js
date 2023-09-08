@@ -112,10 +112,6 @@ export default {
     return state.availableWidgets
   },
 
-  [get.CLIPPING_WIDGETS_DETAILS](state) {
-    return state.availableWidgets?.clipping_feed_content
-  },
-
   [get.TOP_AUTHORS](state) {
     return state.topAuthors
   },

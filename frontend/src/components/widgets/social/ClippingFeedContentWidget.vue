@@ -8,8 +8,7 @@
 
 <script>
 import {mapGetters, createNamespacedHelpers} from 'vuex'
-import {get} from '@store/constants'
-import {action} from '@store/constants'
+import {get, action} from '@store/constants'
 
 import ClippingFeedContentWidget from '@/components/widgets/ClippingFeedContentWidget'
 

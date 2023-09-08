@@ -12,11 +12,13 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
-import {action, get} from '@store/constants'
+import {createNamespacedHelpers} from 'vuex'
+import {get, action} from '@store/constants'
 
 import VolumeWidget from '@/components/widgets/VolumeWidget'
 import WidgetsSwitcher from '@/components/layout/WidgetsSwitcher'
+
+const {mapActions, mapGetters} = createNamespacedHelpers('online/widgets')
 
 export default {
   name: 'SourcesByLanguageWidget',
@@ -31,8 +33,14 @@ export default {
   },
   computed: {
     ...mapGetters({
-      sourcesByLanguage: get.SOURCES_BY_LANGUAGE,
+      onlineWidgets: get.ONLINE_WIDGETS,
     }),
+    sourcesByLanguage() {
+      return (
+        this.widgetDetails.widgetData ||
+        this.onlineWidgets.sourcesByLanguage.data
+      )
+    },
     activeTab: {
       get() {
         return this.newActiveTab || this.tabs[0]
@@ -65,10 +73,15 @@ export default {
     },
   },
   created() {
-    this[action.GET_SOURCES_BY_LANGUAGE]({
-      projectId: this.widgetDetails.projectId,
-      widgetId: this.widgetDetails.id,
-    })
+    const hasCurrentData =
+      this.sourcesByLanguage.length && this.widgetId === this.widgetDetails.id
+
+    if (!this.widgetDetails.widgetData && !hasCurrentData) {
+      this[action.GET_SOURCES_BY_LANGUAGE]({
+        projectId: this.widgetDetails.projectId,
+        widgetId: this.widgetDetails.id,
+      })
+    }
   },
   methods: {
     ...mapActions([action.GET_SOURCES_BY_LANGUAGE]),

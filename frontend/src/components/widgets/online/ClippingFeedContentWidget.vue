@@ -7,10 +7,13 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
-import {action, get} from '@store/constants'
+import {mapGetters, createNamespacedHelpers} from 'vuex'
+import {get, action} from '@store/constants'
 
 import ClippingFeedContentWidget from '@/components/widgets/ClippingFeedContentWidget'
+
+const {mapActions, mapGetters: mapGettersOnline} =
+  createNamespacedHelpers('online/widgets')
 
 export default {
   name: 'OnlineClippingFeedContentWidget',
@@ -19,18 +22,32 @@ export default {
     widgetDetails: {type: Object, required: true},
   },
   computed: {
+    ...mapGettersOnline({
+      onlineWidgets: get.ONLINE_WIDGETS,
+    }),
     ...mapGetters({
       availableWidgets: get.AVAILABLE_WIDGETS,
-      clippingFeedContent: get.CLIPPING_FEED_CONTENT_WIDGET,
     }),
+    clippingFeedContent() {
+      return (
+        this.widgetDetails.widgetData ||
+        this.onlineWidgets.clippingFeedContent.data
+      )
+    },
+    widgetId() {
+      return this.onlineWidgets.clippingFeedContent?.id
+    },
   },
   created() {
-    // if (!this.clippingFeedContent.length) {
-    this[action.GET_CLIPPING_FEED_CONTENT_WIDGET]({
-      projectId: this.widgetDetails.projectId,
-      widgetId: this.widgetDetails.id,
-    })
-    // }
+    const hasCurrentData =
+      this.clippingFeedContent.length && this.widgetId === this.widgetDetails.id
+
+    if (!this.widgetDetails.widgetData && !hasCurrentData) {
+      this[action.GET_CLIPPING_FEED_CONTENT_WIDGET]({
+        projectId: this.widgetDetails.projectId,
+        widgetId: this.widgetDetails.id,
+      })
+    }
   },
   methods: {
     ...mapActions([action.GET_CLIPPING_FEED_CONTENT_WIDGET]),

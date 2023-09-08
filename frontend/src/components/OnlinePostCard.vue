@@ -54,13 +54,15 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
+import {createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
 import {defaultDate} from '@lib/utilities'
 
 import CustomText from '@/components/CustomText'
 import OnlineIcon from '@/components/icons/OnlineIcon'
 import PostCardLayout from '@/components/layout/PostCardLayout'
+
+const {mapActions, mapGetters} = createNamespacedHelpers('online')
 
 export default {
   name: 'OnlinePostCard',

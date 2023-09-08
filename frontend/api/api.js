@@ -61,10 +61,6 @@ export default {
     return fetch('patch', `/profiles/${userId}/`, {platform_language: lang})
   },
 
-  async getListOfDisplayedWidgets(projectId) {
-    return fetch('get', `/projects/${projectId}/widgets_list`)
-  },
-
   async changeOnlinePostSentiment(postId, departmentId, newSentiment) {
     return fetch(
       'post',
@@ -77,21 +73,6 @@ export default {
       'post',
       `/social/change_social_sentiment/${postId}/${departmentId}/${newSentiment}`
     )
-  },
-
-  async getSummaryWidget(projectId, widgetId) {
-    return fetch('get', `/widgets/onl_summary/${projectId}/${widgetId}`)
-  },
-
-  async getClippingFeedContentWidget(projectId, widgetId) {
-    return fetch(
-      'get',
-      `/widgets/onl_clipping_feed_content/${projectId}/${widgetId}`
-    )
-  },
-
-  async getVolumeWidget({projectId, value, widgetId}) {
-    return fetch('put', `/widgets/onl_volume/${projectId}/${widgetId}`, value)
   },
 
   async getTopAuthors(projectId, widgetId) {
@@ -290,10 +271,6 @@ export default {
     )
   },
 
-  async createClippingFeedContent(data) {
-    return fetch('post', '/clipping_feed_content_widget/create', data)
-  },
-
   async createUser(data) {
     return fetch('post', '/register/', data)
   },
@@ -326,31 +303,12 @@ export default {
     )
   },
 
-  async postInteractiveWidget({projectId, widgetId, data}) {
-    return fetch(
-      'post',
-      `/widgets/interactive_widgets/${projectId}/${widgetId}`,
-      data
-    )
-  },
-
   async updateWorkspace({workspaceId, data}) {
     return fetch('put', `/workspace/update/${workspaceId}/`, data)
   },
 
   async updateProject({projectId, data}) {
     return fetch('patch', `/projects/${projectId}/`, data)
-  },
-
-  async updateAvailableWidgets({projectId, data}) {
-    return fetch('patch', `/projects/${projectId}/widgets_list/update`, data)
-  },
-
-  async deleteClippingFeedContentPost(projectId, postId) {
-    return fetch(
-      'delete',
-      `/projects/${projectId}/clipping_feed_content_widget/delete/${postId}`
-    )
   },
 
   // Reports
@@ -368,16 +326,6 @@ export default {
   },
   async getReportWidgetsList() {
     return fetch('get', `/report_widgets_list`)
-  },
-
-  async downloadInstantReport(projectId) {
-    const response = await $api.get(
-      `/api/reports/instantly_report/${projectId}/`,
-      {
-        responseType: 'blob',
-      }
-    )
-    return URL.createObjectURL(response.data)
   },
 
   // Alerts

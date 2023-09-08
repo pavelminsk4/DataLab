@@ -1,5 +1,5 @@
 <template>
-  <div class="analytics-wrapper">
+  <div v-if="currentProject" class="project-dashboard-wrapper">
     <InteractiveWidgetModal
       v-if="inreractiveDataModal.isShow"
       :widget-id="widgetId"
@@ -85,19 +85,29 @@
       </div>
     </div>
 
-    <WidgetsView
-      :project-id="currentProject.id"
-      :currentProject="currentProject"
-      @update-page="showResults"
-    />
+    <div class="analytics-wrapper">
+      <SearchResults
+        module-name="Online"
+        :is-checkbox-clipping-widget="true"
+        :clipping-content="clippingData"
+        class="search-results"
+        @show-results="showResults"
+      />
+
+      <OnlineProjectDashboardWidgets
+        :project-id="currentProject.id"
+        :module-name="currentProject.source"
+        @update-available-widgets="updateAvailableWidgets"
+      />
+    </div>
   </div>
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
+import {mapActions, mapGetters, createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
 
-import WidgetsView from '@/components/project/widgets/WidgetsView'
+import OnlineProjectDashboardWidgets from '@/components/project/dashboard/OnlineProjectDashboardWidgets'
 import BaseButton from '@/components/common/BaseButton'
 import PlusIcon from '@/components/icons/PlusIcon'
 import WidgetsListModal from '@/components/widgets/modals/WidgetsListModal'
@@ -110,10 +120,14 @@ import MainLayoutTitleBlock from '@/components/layout/MainLayoutTitleBlock'
 import InteractiveWidgetModal from '@/components/modals/InteractiveWidgetModal'
 import TotalResults from '@/components/TotalResults'
 import CustomText from '@/components/CustomText'
+import SearchResults from '@/components/SearchResults'
+
+const {mapActions: mapOnlineActions} = createNamespacedHelpers('online')
 
 export default {
-  name: 'AnalyticsScreen',
+  name: 'OnlineProjectDashboard',
   components: {
+    OnlineProjectDashboardWidgets,
     InteractiveWidgetModal,
     MainLayoutTitleBlock,
     BaseDropdown,
@@ -124,9 +138,9 @@ export default {
     WidgetsListModal,
     PlusIcon,
     BaseButton,
-    WidgetsView,
     TotalResults,
     CustomText,
+    SearchResults,
   },
   props: {
     currentProject: {type: [Array, Object], required: false},
@@ -147,16 +161,6 @@ export default {
       source: null,
     }
   },
-  created() {
-    this[action.UPDATE_ADDITIONAL_FILTERS]({
-      date_range: [
-        new Date(this.currentProject.start_search_date),
-        new Date(this.currentProject.end_search_date),
-      ],
-    })
-
-    this.showResults()
-  },
   computed: {
     ...mapGetters({
       additionalFilters: get.ADDITIONAL_FILTERS,
@@ -165,6 +169,7 @@ export default {
       numberOfPosts: get.POSTS_NUMBER,
       inreractiveDataModal: get.INTERACTIVE_DATA_MODAL,
       department: get.DEPARTMENT,
+      clippingData: get.CLIPPING_FEED_CONTENT_WIDGET,
     }),
     currentKeywords() {
       return this.currentProject?.keywords
@@ -187,12 +192,24 @@ export default {
       },
     },
   },
+  created() {
+    this[action.UPDATE_ADDITIONAL_FILTERS]({
+      date_range: [
+        new Date(this.currentProject.start_search_date),
+        new Date(this.currentProject.end_search_date),
+      ],
+    })
+
+    this.showResults()
+  },
   methods: {
     ...mapActions([
-      action.POST_SEARCH,
       action.UPDATE_ADDITIONAL_FILTERS,
-      action.POST_INTERACTIVE_WIDGETS,
       action.CLEAR_INTERACTIVE_DATA,
+    ]),
+    ...mapOnlineActions([
+      action.POST_SEARCH,
+      action.POST_INTERACTIVE_WIDGETS,
       action.UPDATE_AVAILABLE_WIDGETS,
     ]),
     setSortingValue(item) {
@@ -265,12 +282,25 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.analytics-wrapper {
+.project-dashboard-wrapper {
   display: flex;
   flex-direction: column;
 
   height: 100%;
   margin-top: 20px;
+}
+
+.analytics-wrapper {
+  display: flex;
+  gap: 40px;
+
+  height: 100%;
+  margin-top: 20px;
+
+  .search-results {
+    width: 100%;
+    height: calc(100vh - 255px);
+  }
 }
 
 .interactive-widgets {

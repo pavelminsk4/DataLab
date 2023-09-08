@@ -17,12 +17,13 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
-import {action, get} from '@store/constants'
-// import {isAllFieldsEmpty} from '@lib/utilities'
+import {createNamespacedHelpers} from 'vuex'
+import {get, action} from '@store/constants'
 
 import VolumeWidget from '@/components/widgets/VolumeWidget'
 import WidgetsSwitcher from '@/components/layout/WidgetsSwitcher'
+
+const {mapActions, mapGetters} = createNamespacedHelpers('online/widgets')
 
 export default {
   name: 'AuthorsBySentimentWidget',
@@ -37,8 +38,14 @@ export default {
   },
   computed: {
     ...mapGetters({
-      authorsBySentiment: get.AUTHORS_BY_SENTIMENT,
+      onlineWidgets: get.ONLINE_WIDGETS,
     }),
+    authorsBySentiment() {
+      return (
+        this.widgetDetails.widgetData ||
+        this.onlineWidgets.authorsBySentiment.data
+      )
+    },
     activeTab: {
       get() {
         return this.newActiveTab || this.tabs[0]
@@ -69,12 +76,15 @@ export default {
     },
   },
   created() {
-    // if (isAllFieldsEmpty(this.authorsBySentiment)) {
-    this[action.GET_AUTHORS_BY_SENTIMENT]({
-      projectId: this.widgetDetails.projectId,
-      widgetId: this.widgetDetails.id,
-    })
-    // }
+    const hasCurrentData =
+      this.authorsBySentiment.length && this.widgetId === this.widgetDetails.id
+
+    if (!this.widgetDetails.widgetData && !hasCurrentData) {
+      this[action.GET_AUTHORS_BY_SENTIMENT]({
+        projectId: this.widgetDetails.projectId,
+        widgetId: this.widgetDetails.id,
+      })
+    }
   },
   methods: {
     ...mapActions([action.GET_AUTHORS_BY_SENTIMENT]),

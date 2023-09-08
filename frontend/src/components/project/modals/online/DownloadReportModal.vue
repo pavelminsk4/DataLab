@@ -98,7 +98,7 @@
 </template>
 
 <script>
-import {mapActions, mapGetters, mapState} from 'vuex'
+import {mapActions, mapGetters, mapState, createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
 
 import CustomText from '@/components/CustomText'
@@ -110,6 +110,8 @@ import DivWithError from '@/components/DivWithError'
 import BaseCheckbox from '@/components/BaseCheckbox2'
 import ReportsUploadIcon from '@/components/icons/ReportsUploadIcon'
 import ReportsIcon from '@/components/icons/ReportsIcon'
+
+const {mapActions: mapOnlineActions} = createNamespacedHelpers('online')
 
 export default {
   name: 'DownloadReportModal',
@@ -198,11 +200,8 @@ export default {
     this[action.GET_TEMPLATES]()
   },
   methods: {
-    ...mapActions([
-      action.GET_TEMPLATES,
-      action.UPDATE_PROJECT,
-      action.GET_INSTANT_REPORT,
-    ]),
+    ...mapActions([action.GET_TEMPLATES]),
+    ...mapOnlineActions([action.UPDATE_PROJECT, action.GET_INSTANT_REPORT]),
     isSelectedItem(item) {
       return this.layout.some((el) => item === el)
     },

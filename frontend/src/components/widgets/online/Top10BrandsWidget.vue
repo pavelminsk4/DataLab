@@ -8,10 +8,12 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
-import {action, get} from '@store/constants'
+import {createNamespacedHelpers} from 'vuex'
+import {get, action} from '@store/constants'
 
 import VolumeWidget from '@/components/widgets/VolumeWidget'
+
+const {mapActions, mapGetters} = createNamespacedHelpers('online/widgets')
 
 export default {
   name: 'Top10BrandsWidget',
@@ -21,8 +23,11 @@ export default {
   },
   computed: {
     ...mapGetters({
-      topBrands: get.TOP_BRANDS,
+      onlineWidgets: get.ONLINE_WIDGETS,
     }),
+    topBrands() {
+      return this.widgetDetails.widgetData || this.onlineWidgets.topBrands.data
+    },
     labels() {
       return this.topBrands.map((el) => el.feedlink__source1)
     },
@@ -35,10 +40,15 @@ export default {
     },
   },
   created() {
-    this[action.GET_TOP_BRANDS_WIDGET]({
-      projectId: this.widgetDetails.projectId,
-      widgetId: this.widgetDetails.id,
-    })
+    const hasCurrentData =
+      this.topBrands.length && this.widgetId === this.widgetDetails.id
+
+    if (!this.widgetDetails.widgetData && !hasCurrentData) {
+      this[action.GET_TOP_BRANDS_WIDGET]({
+        projectId: this.widgetDetails.projectId,
+        widgetId: this.widgetDetails.id,
+      })
+    }
   },
   methods: {
     ...mapActions([action.GET_TOP_BRANDS_WIDGET]),

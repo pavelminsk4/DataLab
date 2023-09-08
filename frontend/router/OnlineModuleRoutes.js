@@ -3,7 +3,7 @@ import OnlineModuleView from '@/views/OnlineModuleView'
 import OnlineWorkspacesView from '@/views/OnlineWorkspacesView'
 import OnlineWorkspaceView from '@/views/OnlineWorkspaceView'
 
-import OnlineProjectDashboardView from '@/views/online/OnlineProjectDashboardView'
+import OnlineProjectDashboardView from '@/views/OnlineProjectDashboardView'
 
 import CreateWorkspaceView from '@/components/workspace/CreateWorkspaceView'
 import OnlineCreateSearchScreen from '@/components/workspace/screens/OnlineCreateSearchScreen'
@@ -13,7 +13,7 @@ import CreateWorkspaceRightSide from '@/components/workspace/CreateWorkspaceRigh
 import SearchResults from '@/components/SearchResults'
 
 import OnlineSearch from '@/components/project/search/OnlineSearch'
-import AnalyticsScreen from '@/components/project/screens/AnalyticsScreen'
+import OnlineProjectDashboard from '@/components/project/dashboard/OnlineProjectDashboard'
 import OnlineFeaturesView from '@/views/online/OnlineFeaturesView'
 import OnlineSummaryScreen from '@/components/project/screens/OnlineSummaryScreen'
 import OnlineSentimentScreen from '@/components/project/screens/OnlineSentimentScreen'
@@ -128,8 +128,8 @@ export default [
         children: [
           {
             name: 'OnlineAnalytics',
-            path: 'analytics',
-            component: AnalyticsScreen,
+            path: 'dashboard',
+            component: OnlineProjectDashboard,
           },
           {
             name: 'OnlineSearch',

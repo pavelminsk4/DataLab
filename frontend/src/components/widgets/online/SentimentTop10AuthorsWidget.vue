@@ -7,11 +7,13 @@
 </template>
 
 <script>
+import {createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
-import {mapActions, mapGetters} from 'vuex'
-// import {isAllFieldsEmpty} from '@lib/utilities'
+import {isAllFieldsEmpty} from '@lib/utilities'
 
 import SentimentWidget from '@/components/widgets/SentimentWidget'
+
+const {mapActions, mapGetters} = createNamespacedHelpers('online/widgets')
 
 export default {
   name: 'SentimentTop10AuthorsWidget',
@@ -21,16 +23,29 @@ export default {
   },
   computed: {
     ...mapGetters({
-      sentimentTopAuthors: get.SENTIMENT_TOP_AUTHORS,
+      onlineWidgets: get.ONLINE_WIDGETS,
     }),
+    sentimentTopAuthors() {
+      return (
+        this.widgetDetails.widgetData ||
+        this.onlineWidgets.sentimentTopAuthors.data
+      )
+    },
+    widgetId() {
+      return this.onlineWidgets.sentimentTopAuthors?.id
+    },
   },
   created() {
-    // if (isAllFieldsEmpty(this.sentimentTopAuthors)) {
-    this[action.GET_SENTIMENT_TOP_AUTHORS]({
-      projectId: this.widgetDetails.projectId,
-      widgetId: this.widgetDetails.id,
-    })
-    // }
+    const hasCurrentData =
+      !isAllFieldsEmpty(this.sentimentTopAuthors) &&
+      this.widgetId === this.widgetDetails.id
+
+    if (!this.widgetDetails.widgetData && !hasCurrentData) {
+      this[action.GET_SENTIMENT_TOP_AUTHORS]({
+        projectId: this.widgetDetails.projectId,
+        widgetId: this.widgetDetails.id,
+      })
+    }
   },
   methods: {
     ...mapActions([action.GET_SENTIMENT_TOP_AUTHORS]),

@@ -8,4 +8,8 @@ export default {
   [get.WORKSPACES](state) {
     return state.workspaces
   },
+
+  [get.CLIPPING_WIDGETS_DETAILS](state) {
+    return state.availableWidgets?.clipping_feed_content
+  },
 }

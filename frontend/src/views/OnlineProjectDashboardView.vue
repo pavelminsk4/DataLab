@@ -1,19 +1,21 @@
 <template>
-  <MainLayout v-if="currentProject" :is-project-extra-settings="true">
+  <MainLayout v-if="currentProject">
     <SideBar :nav-urls="navUrls" @open-tab="openTab" />
 
-    <div class="project-dashboard-wrapper">
+    <div class="project-wrapper">
       <router-view :current-project="currentProject"></router-view>
     </div>
   </MainLayout>
 </template>
 
 <script>
-import {mapActions, mapState} from 'vuex'
+import {createNamespacedHelpers} from 'vuex'
 import {action} from '@store/constants'
 
 import SideBar from '@/components/navigation/SideBar'
 import MainLayout from '@/components/layout/MainLayout'
+
+const {mapActions, mapState} = createNamespacedHelpers('online')
 
 export default {
   name: 'OnlineProjectDashboardView',
@@ -22,7 +24,7 @@ export default {
     MainLayout,
   },
   computed: {
-    ...mapState(['workspaces', 'availableWidgets']),
+    ...mapState(['workspaces']),
     workspaceId() {
       return this.$route.params.workspaceId
     },
@@ -51,23 +53,14 @@ export default {
       routeName: `Online${item}`,
     }))
 
+    await this[action.GET_AVAILABLE_WIDGETS](this.projectId)
+
     if (!this.workspaces.length) {
       this[action.GET_WORKSPACES]()
     }
-
-    await this[action.GET_AVAILABLE_WIDGETS](this.projectId)
-
-    await this[action.GET_CLIPPING_FEED_CONTENT_WIDGET]({
-      projectId: this.projectId,
-      widgetId: this.availableWidgets.clipping_feed_content.id,
-    })
   },
   methods: {
-    ...mapActions([
-      action.GET_WORKSPACES,
-      action.GET_AVAILABLE_WIDGETS,
-      action.GET_CLIPPING_FEED_CONTENT_WIDGET,
-    ]),
+    ...mapActions([action.GET_WORKSPACES, action.GET_AVAILABLE_WIDGETS]),
     openTab(pathName) {
       this.$router.push({
         name: pathName,
@@ -83,7 +76,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.project-dashboard-wrapper {
+.project-wrapper {
   width: 100%;
   height: calc(100vh - 120px);
   padding-left: 70px;

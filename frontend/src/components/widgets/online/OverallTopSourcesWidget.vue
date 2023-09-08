@@ -1,16 +1,18 @@
 <template>
   <TopSourcesWidget
     :widget-details="widgetDetails"
-    :widget-data="overallTopSources"
+    :widget-data="widgetData"
     :table-header="tableHeader"
   />
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
+import {createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
 
 import TopSourcesWidget from '@/components/widgets/TopSourcesWidget'
+
+const {mapActions, mapGetters} = createNamespacedHelpers('online/widgets')
 
 export default {
   name: 'OverallTopSourcesWidget',
@@ -20,14 +22,19 @@ export default {
   },
   computed: {
     ...mapGetters({
-      overallTopSources: get.OVERALL_TOP_SOURCES,
+      onlineWidgets: get.ONLINE_WIDGETS,
     }),
+    widgetData() {
+      return (
+        this.widgetDetails.widgetData ||
+        this.onlineWidgets.overallTopSources.data
+      )
+    },
+    widgetId() {
+      return this.onlineWidgets.overallTopSources?.id
+    },
   },
   created() {
-    this[action.GET_OVERALL_TOP_SOURCES]({
-      projectId: this.widgetDetails.projectId,
-      widgetId: this.widgetDetails.id,
-    })
     this.tableHeader = [
       {name: '', width: '5%'},
       {
@@ -56,6 +63,16 @@ export default {
         hasSort: true,
       },
     ]
+
+    const hasCurrentData =
+      this.widgetData.length && this.widgetId === this.widgetDetails.id
+
+    if (!this.widgetDetails.widgetData && !hasCurrentData) {
+      this[action.GET_OVERALL_TOP_SOURCES]({
+        projectId: this.widgetDetails.projectId,
+        widgetId: this.widgetDetails.id,
+      })
+    }
   },
   methods: {
     ...mapActions([action.GET_OVERALL_TOP_SOURCES]),

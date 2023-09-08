@@ -7,11 +7,13 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
-// import {isAllFieldsEmpty} from '@lib/utilities'
+import {createNamespacedHelpers} from 'vuex'
+import {isAllFieldsEmpty} from '@lib/utilities'
 
 import SentimentOverallWidget from '@/components/widgets/SentimentOverallWidget'
+
+const {mapActions, mapGetters} = createNamespacedHelpers('online/widgets')
 
 export default {
   name: 'OnlineSentimentNumberOfResultsWidget',
@@ -21,16 +23,29 @@ export default {
   },
   computed: {
     ...mapGetters({
-      numOfResults: get.SENTIMENT_NUMBER_OF_RESULT,
+      onlineWidgets: get.ONLINE_WIDGETS,
     }),
+    numOfResults() {
+      return (
+        this.widgetDetails.widgetData ||
+        this.onlineWidgets.sentimentNumberOfResult.data
+      )
+    },
+    widgetId() {
+      return this.onlineWidgets.sentimentNumberOfResult?.id
+    },
   },
   created() {
-    // if (isAllFieldsEmpty(this.numOfResults)) {
-    this[action.GET_SENTIMENT_NUMBER_OF_RESULT]({
-      projectId: this.widgetDetails.projectId,
-      widgetId: this.widgetDetails.id,
-    })
-    // }
+    const hasCurrentData =
+      !isAllFieldsEmpty(this.numOfResults) &&
+      this.widgetId === this.widgetDetails.id
+
+    if (!this.widgetDetails.widgetData && !hasCurrentData) {
+      this[action.GET_SENTIMENT_NUMBER_OF_RESULT]({
+        projectId: this.widgetDetails.projectId,
+        widgetId: this.widgetDetails.id,
+      })
+    }
   },
   methods: {
     ...mapActions([action.GET_SENTIMENT_NUMBER_OF_RESULT]),

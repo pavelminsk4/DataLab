@@ -133,6 +133,7 @@ export default {
       commit(mutator.SET_LOADING_WIDGETS, {clippingWidget: false}, {root: true})
     }
   },
+
   async [action.DELETE_CLIPPING_FEED_CONTENT](
     {commit, dispatch},
     {projectId, postId, widgetId}

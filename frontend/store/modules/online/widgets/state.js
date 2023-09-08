@@ -1,0 +1,35 @@
+const widget = {id: 0, data: []}
+
+const state = {
+  summary: widget,
+  volume: widget,
+  clippingFeedContent: widget,
+  topAuthors: widget,
+  topBrands: widget,
+  topCountries: widget,
+  topLanguages: widget,
+  languagesByCountry: widget,
+  topSharingSources: widget,
+  sourcesByLanguage: widget,
+  sourcesByCountry: widget,
+  overallTopSources: widget,
+  sentimentTopSources: widget,
+  sentimentTopCountries: widget,
+  sentimentTopLanguages: widget,
+  sentimentTopAuthors: widget,
+  sentimentForPeriod: widget,
+  contentVolumeTopSources: widget,
+  contentVolumeTopAuthors: widget,
+  contentVolumeTopCountries: widget,
+  sentimentTopKeywordsWidget: widget,
+  topKeywordsWidget: widget,
+  topKeywordsByCountryWidget: widget,
+  sentimentDiagram: widget,
+  sentimentNumberOfResult: widget,
+  authorsByCountry: widget,
+  authorsByLanguage: widget,
+  authorsBySentiment: widget,
+  overallTopAuthors: widget,
+}
+
+export default state
