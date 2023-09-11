@@ -236,71 +236,6 @@ export default {
     }
   },
 
-  async [action.GET_FILTER_AUTHORS]({commit}, projectId) {
-    commit(mutator.SET_LOADING, true)
-    try {
-      const dimensionAuthors = await api.getFiltersAuthors(projectId)
-      commit(mutator.SET_FILTERS_AUTHORS, dimensionAuthors)
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING, false)
-    }
-  },
-
-  async [action.GET_FILTER_LANGUAGES]({commit}, projectId) {
-    commit(mutator.SET_LOADING, true)
-    try {
-      const dimensionLanguages = await api.getFiltersLanguages(projectId)
-      commit(mutator.SET_FILTERS_LANGUAGES, dimensionLanguages)
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING, false)
-    }
-  },
-
-  async [action.GET_FILTER_COUNTRIES]({commit}, projectId) {
-    commit(mutator.SET_LOADING, true)
-    try {
-      const dimensionCountries = await api.getFiltersCountries(projectId)
-      commit(mutator.SET_FILTERS_COUNTRIES, dimensionCountries)
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING, false)
-    }
-  },
-
-  async [action.GET_FILTER_COUNTRIES]({commit}, projectId) {
-    commit(mutator.SET_LOADING, true)
-    try {
-      const dimensionCountries = await api.getFiltersCountries(projectId)
-      commit(mutator.SET_FILTERS_COUNTRIES, dimensionCountries)
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING, false)
-    }
-  },
-
-  async [action.GET_FILTER_SOURCES]({commit}, projectId) {
-    commit(mutator.SET_LOADING, true)
-    try {
-      const dimensionSources = await api.getFiltersSources(projectId)
-      commit(mutator.SET_FILTERS_SOURCES, dimensionSources)
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING, false)
-    }
-  },
-
   async [action.GET_COMPANY_USERS]({commit}, companyId) {
     commit(mutator.SET_LOADING, true)
     try {
@@ -361,19 +296,6 @@ export default {
     }
   },
 
-  async [action.UPDATE_WORKSPACE]({commit}, {workspaceId, data}) {
-    commit(mutator.SET_LOADING, true)
-    try {
-      const responseData = await api.updateWorkspace({workspaceId, data})
-      commit(mutator.UPDATE_WORKSPACE, responseData)
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING, false)
-    }
-  },
-
   async [action.POST_FILTERS_FOR_WIDGET](
     {commit, dispatch},
     {projectId, widgetId, data}
@@ -419,33 +341,6 @@ export default {
     try {
       await api.deleteUserFromCompany(userId)
       await dispatch(action.GET_COMPANY_USERS, currentUserId)
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING, false)
-    }
-  },
-
-  async [action.DELETE_WORKSPACE]({commit, dispatch}, workspaceId) {
-    commit(mutator.SET_LOADING, true)
-    try {
-      await api.deleteWorkspace(workspaceId)
-      await dispatch(action.GET_WORKSPACES)
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING, false)
-    }
-  },
-
-  async [action.DELETE_PROJECT]({commit, dispatch}, projectId) {
-    commit(mutator.SET_LOADING, true)
-    try {
-      await api.deleteProject(projectId)
-      await dispatch(action.GET_WORKSPACES)
-      await dispatch(action.GET_USER_INFORMATION)
     } catch (error) {
       console.error(error)
       return error

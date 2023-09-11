@@ -150,7 +150,6 @@ export default {
     },
   },
   created() {
-    console.log(this.searchLists)
     this.searchFields = SEARCH_FIELDS
     this.search.country = this.currentProject?.country_filter || ''
     this.search.language = this.currentProject?.language_filter || ''

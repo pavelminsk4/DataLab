@@ -61,6 +61,46 @@ export default {
     }
   },
 
+  async [action.UPDATE_WORKSPACE]({commit}, {workspaceId, data}) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const responseData = await api.online.updateWorkspace({workspaceId, data})
+      commit(mutator.UPDATE_WORKSPACE, responseData)
+    } catch (error) {
+      console.error(error)
+      return error
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
+  async [action.DELETE_WORKSPACE]({commit, dispatch}, workspaceId) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      await api.online.deleteWorkspace(workspaceId)
+      await dispatch(action.GET_WORKSPACES)
+    } catch (error) {
+      console.error(error)
+      return error
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
+  async [action.DELETE_PROJECT]({commit, dispatch}, projectId) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      await api.online.deleteProject(projectId)
+      await dispatch(action.GET_WORKSPACES)
+      await dispatch(action.GET_USER_INFORMATION)
+    } catch (error) {
+      console.error(error)
+      return error
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
   async [action.GET_AVAILABLE_WIDGETS]({commit}, projectId) {
     commit(mutator.SET_LOADING, true)
     commit(mutator.SET_AVAILABLE_WIDGETS, {}, {root: true})
@@ -194,6 +234,58 @@ export default {
       await dispatch(action.GET_FILTER_COUNTRIES, projectId)
       await dispatch(action.GET_FILTER_LANGUAGES, projectId)
       await dispatch(action.GET_FILTER_SOURCES, projectId)
+    } catch (error) {
+      console.error(error)
+      return error
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
+  async [action.GET_FILTER_AUTHORS]({commit}, projectId) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const dimensionAuthors = await api.online.getFiltersAuthors(projectId)
+      commit(mutator.SET_FILTERS_AUTHORS, dimensionAuthors, {root: true})
+    } catch (error) {
+      console.error(error)
+      return error
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
+  async [action.GET_FILTER_LANGUAGES]({commit}, projectId) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const dimensionLanguages = await api.online.getFiltersLanguages(projectId)
+      commit(mutator.SET_FILTERS_LANGUAGES, dimensionLanguages, {root: true})
+    } catch (error) {
+      console.error(error)
+      return error
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
+  async [action.GET_FILTER_COUNTRIES]({commit}, projectId) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const dimensionCountries = await api.online.getFiltersCountries(projectId)
+      commit(mutator.SET_FILTERS_COUNTRIES, dimensionCountries, {root: true})
+    } catch (error) {
+      console.error(error)
+      return error
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
+  async [action.GET_FILTER_SOURCES]({commit}, projectId) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const dimensionSources = await api.online.getFiltersSources(projectId)
+      commit(mutator.SET_FILTERS_SOURCES, dimensionSources, {root: true})
     } catch (error) {
       console.error(error)
       return error

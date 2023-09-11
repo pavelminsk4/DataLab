@@ -60,7 +60,6 @@ export default {
   },
   data() {
     return {
-      loading: false,
       newTitle: null,
       titleError: null,
       newDescription: null,

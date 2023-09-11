@@ -67,22 +67,6 @@ export default {
     return fetch('get', '/templates/')
   },
 
-  async getFiltersAuthors(projectId) {
-    return fetch('get', `/projects/${projectId}/list_authors`)
-  },
-
-  async getFiltersLanguages(projectId) {
-    return fetch('get', `/projects/${projectId}/dimension_languages`)
-  },
-
-  async getFiltersCountries(projectId) {
-    return fetch('get', `/projects/${projectId}/dimension_countries`)
-  },
-
-  async getFiltersSources(projectId) {
-    return fetch('get', `/projects/${projectId}/dimension_sources`)
-  },
-
   async createUser(data) {
     return fetch('post', '/register/', data)
   },
@@ -99,24 +83,12 @@ export default {
     return fetch('delete', `/user/delete/${userId}/`)
   },
 
-  async deleteWorkspace(workspaceId) {
-    return fetch('delete', `/workspace/delete/${workspaceId}/`)
-  },
-
-  async deleteProject(projectId) {
-    return fetch('delete', `/projects/${projectId}/`)
-  },
-
   async postFiltersForWidget({projectId, widgetId, data}) {
     return fetch(
       'patch',
       `/widgets/dimensions_for_each_widgets/${projectId}/${widgetId}`,
       data
     )
-  },
-
-  async updateWorkspace({workspaceId, data}) {
-    return fetch('put', `/workspace/update/${workspaceId}/`, data)
   },
 
   // Reports

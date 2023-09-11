@@ -197,7 +197,7 @@ export default {
     this.sentiments = ['neutral', 'negative', 'positive']
 
     if (this.moduleName === 'Online') {
-      this[action.GET_FILTERS_OPTIONS](this.projectId)
+      this[actionOnline.GET_FILTERS_OPTIONS](this.projectId)
     }
 
     if (this.moduleName === 'Social') {

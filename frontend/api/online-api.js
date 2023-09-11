@@ -16,6 +16,18 @@ export default {
     return fetch('post', '/workspace/create/', workspace)
   },
 
+  async updateWorkspace({workspaceId, data}) {
+    return fetch('put', `/workspace/update/${workspaceId}/`, data)
+  },
+
+  async deleteWorkspace(workspaceId) {
+    return fetch('delete', `/workspace/delete/${workspaceId}/`)
+  },
+
+  async deleteProject(projectId) {
+    return fetch('delete', `/projects/${projectId}/`)
+  },
+
   async createNewProject(newProject) {
     return fetch('post', '/projects/', newProject)
   },
@@ -82,6 +94,22 @@ export default {
 
   async getAuthors(word) {
     return fetch('get', `/authors/authors?search=${word}`)
+  },
+
+  async getFiltersAuthors(projectId) {
+    return fetch('get', `/projects/${projectId}/list_authors`)
+  },
+
+  async getFiltersLanguages(projectId) {
+    return fetch('get', `/projects/${projectId}/dimension_languages`)
+  },
+
+  async getFiltersCountries(projectId) {
+    return fetch('get', `/projects/${projectId}/dimension_countries`)
+  },
+
+  async getFiltersSources(projectId) {
+    return fetch('get', `/projects/${projectId}/dimension_sources`)
   },
 
   // Widgets

@@ -36,4 +36,11 @@ export default {
   [mutator.SET_AUTHORS](state, authors) {
     state.authors = authors
   },
+
+  [mutator.UPDATE_WORKSPACE](state, workspace) {
+    const currentWorkspaceIndex = state.workspaces.findIndex(
+      (currentWorkspace) => currentWorkspace.id === workspace.id
+    )
+    state.workspaces[currentWorkspaceIndex] = workspace
+  },
 }
