@@ -17,6 +17,7 @@
         v-for="(item, index) in tableValue"
         :key="`${item.date}-${index}`"
         class="base-table__row"
+        @click="openLink(item.alias, item.id)"
       >
         <td>
           <component :is="item.type + 'Icon'" />
@@ -71,6 +72,11 @@ export default {
   computed: {
     widgetWrapper() {
       return this.isSettings ? 'div' : 'WidgetsLayout'
+    },
+  },
+  methods: {
+    openLink(alias, linkId) {
+      window.open(`https://twitter.com/${alias}/status/${linkId}`, '_blank')
     },
   },
 }

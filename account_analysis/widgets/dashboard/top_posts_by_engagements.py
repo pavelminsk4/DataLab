@@ -10,6 +10,8 @@ def top_posts_by_engagements(pk, widget_pk):
     results = []
     for elem in top_posts:
         res = {}
+        res['id'] = elem.post_id
+        res['alias'] = elem.user_alias
         res['type'] = ('retweet') if ('retweet') in elem.type else (('reply') if ('reply') in elem.type else 'text')
         res['text'] = elem.text
         res['sentiment'] = elem.sentiment
