@@ -70,9 +70,6 @@ export default {
       isOpenDropdown: false,
     }
   },
-  created() {
-    document.addEventListener('click', this.closeDropdown)
-  },
   computed: {
     ...mapGetters({userInfo: get.USER_INFO}),
     companyName() {
@@ -84,6 +81,12 @@ export default {
     isActiveTab() {
       return this.$route.name === 'UserRoles'
     },
+  },
+  created() {
+    document.addEventListener('click', this.closeDropdown)
+  },
+  unmounted() {
+    document.removeEventListener('click', this.closeDropdown)
   },
   methods: {
     capitalizeFirstLetter,
@@ -113,7 +116,7 @@ export default {
       const selectList = document.querySelector('.dropdown-wrapper')
 
       if (!selectList?.contains(target)) {
-        this.visible = false
+        this.isOpenDropdown = false
       }
     },
   },
