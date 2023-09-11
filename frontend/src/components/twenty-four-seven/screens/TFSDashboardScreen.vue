@@ -83,8 +83,7 @@ export default {
   created() {
     if (isAllFieldsEmpty(this.items)) {
       this.getAllStatuses()
-    }
-    if (isAllFieldsEmpty(this.items)) {
+
       this.$router.push({
         name: 'TFSDashboard',
       })
