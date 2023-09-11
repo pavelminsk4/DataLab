@@ -1,8 +1,6 @@
 import $api from '../http'
 import {fetch} from './api'
 
-// const moduleName = '/online'
-
 export default {
   async getWorkspaces() {
     return fetch('get', '/workspaces/')
