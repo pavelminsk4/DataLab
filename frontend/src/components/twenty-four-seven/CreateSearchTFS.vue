@@ -39,6 +39,8 @@ import OnlineIcon from '@/components/icons/OnlineIcon'
 const {mapActions: mapTFSActions, mapState: mapTFSState} =
   createNamespacedHelpers('twentyFourSeven')
 
+const {mapActions: mapOnlineActions} = createNamespacedHelpers('online')
+
 export default {
   name: 'CreateSearchTFS',
   components: {
@@ -90,8 +92,8 @@ export default {
       actionTFS.CREATE_TFS_PROJECT,
       actionTFS.GET_WORKSPACES,
     ]),
+    ...mapOnlineActions([action.POST_SEARCH]),
     ...mapActions([
-      action.POST_SEARCH,
       action.UPDATE_ADDITIONAL_FILTERS,
       action.UPDATE_KEYWORDS_LIST,
       action.UPDATE_NEW_TFS_PROJECT,

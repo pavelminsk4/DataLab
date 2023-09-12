@@ -99,10 +99,7 @@ export default {
     CustomText,
   },
   props: {
-    currentProject: {
-      type: Object,
-      required: true,
-    },
+    currentProject: {type: Object, required: true},
   },
   data() {
     return {
@@ -177,13 +174,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions([
-      action.GET_SOURCES,
-      action.GET_AUTHORS,
-      action.GET_COUNTRIES,
-      action.GET_LANGUAGES,
-      action.UPDATE_ADDITIONAL_FILTERS,
-    ]),
+    ...mapActions([action.UPDATE_ADDITIONAL_FILTERS]),
     ...mapOnlineActions([
       action.GET_SOURCES,
       action.GET_AUTHORS,
