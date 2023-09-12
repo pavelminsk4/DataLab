@@ -100,68 +100,24 @@ export default {
     }
   },
 
-  // async [action.GET_AVAILABLE_WIDGETS]({commit}, projectId) {
-  //   commit(mutator.SET_LOADING, true)
-  //   commit(mutator.SET_AVAILABLE_WIDGETS, {})
-  //   commit(mutator.SET_AVAILABLE_WIDGETS, {})
-  //   try {
-  //     const availableWidgets = await api.online.getListOfDisplayedWidgets(
-  //       projectId
-  //     )
-  //     commit(mutator.SET_AVAILABLE_WIDGETS, availableWidgets)
-  //     commit(mutator.SET_AVAILABLE_WIDGETS, availableWidgets)
-  //     return availableWidgets
-  //   } catch (error) {
-  //     console.error(error)
-  //     return error
-  //   } finally {
-  //     commit(mutator.SET_LOADING, false)
-  //   }
-  // },
-
-  // async [action.GET_COUNTRIES]({commit}, word) {
-  //   try {
-  //     const countries = await api.getCountries(capitalizeFirstLetter(word))
-  //     commit(mutator.SET_COUNTRIES, countries)
-  //     return countries
-  //   } catch (error) {
-  //     console.error(error)
-  //     return error
-  //   }
-  // },
-
-  // async [action.GET_LANGUAGES]({commit}, word) {
-  //   try {
-  //     const languages = await api.getLanguages(capitalizeFirstLetter(word))
-  //     commit(mutator.SET_LANGUAGES, languages)
-  //     return languages
-  //   } catch (error) {
-  //     console.error(error)
-  //     return error
-  //   }
-  // },
-
-  // async [action.GET_SOURCES]({commit}, word) {
-  //   try {
-  //     const sources = await api.getSources(word)
-  //     commit(mutator.SET_SOURCES, sources)
-  //     return sources
-  //   } catch (error) {
-  //     console.error(error)
-  //     return error
-  //   }
-  // },
-
-  // async [action.GET_AUTHORS]({commit}, word) {
-  //   try {
-  //     const authors = await api.getAuthors(word)
-  //     commit(mutator.SET_AUTHORS, authors)
-  //     return authors
-  //   } catch (error) {
-  //     console.error(error)
-  //     return error
-  //   }
-  // },
+  async [action.GET_AVAILABLE_WIDGETS]({commit}, projectId) {
+    commit(mutator.SET_LOADING, true)
+    commit(mutator.SET_AVAILABLE_WIDGETS, {})
+    commit(mutator.SET_AVAILABLE_WIDGETS, {})
+    try {
+      const availableWidgets = await api.online.getListOfDisplayedWidgets(
+        projectId
+      )
+      commit(mutator.SET_AVAILABLE_WIDGETS, availableWidgets)
+      commit(mutator.SET_AVAILABLE_WIDGETS, availableWidgets)
+      return availableWidgets
+    } catch (error) {
+      console.error(error)
+      return error
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
 
   async [action.CHANGE_ONLINE_POST_SENTIMENT](
     _context,
