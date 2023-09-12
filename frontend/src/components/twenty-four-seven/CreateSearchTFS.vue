@@ -1,6 +1,6 @@
 <template>
   <SimpleModeTab
-    :module-name="moduleName"
+    :module-name="selectedModuleType"
     @show-result="showResults"
     @update-collection="updateCollection"
     @save-project="saveChanges"
