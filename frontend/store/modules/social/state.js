@@ -1,5 +1,6 @@
 const state = {
   loading: false,
+  downloadingInstantReport: false,
   workspaces: [],
   newWorkspaceId: null,
   newProjectId: null,

@@ -4,6 +4,9 @@ export default {
   [mutator.SET_LOADING](state, loading) {
     state.loading = loading
   },
+  [mutator.SET_DOWNLOADING_INSTANT_REPORT](state, downloadingInstantReport) {
+    state.downloadingInstantReport = downloadingInstantReport
+  },
   [mutator.SET_WORKSPACES](state, workspaces) {
     state.workspaces = workspaces.map((workspace) => ({
       ...workspace,

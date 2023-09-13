@@ -181,14 +181,14 @@ export default {
   },
 
   async [action.GET_INSTANT_REPORT]({commit}, {projectId}) {
-    commit(mutator.SET_LOADING, true)
+    commit(mutator.SET_DOWNLOADING_INSTANT_REPORT, true)
     try {
       return api.online.downloadInstantReport(projectId)
     } catch (error) {
       console.error(error)
       return error
     } finally {
-      commit(mutator.SET_LOADING, false)
+      commit(mutator.SET_DOWNLOADING_INSTANT_REPORT, false)
     }
   },
 

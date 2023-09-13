@@ -82,6 +82,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 5px;
   }
 
   .hide-content {
@@ -89,8 +90,6 @@ export default {
   }
 
   svg {
-    margin-right: 4px;
-
     color: var(--button-text-color);
   }
 }

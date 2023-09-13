@@ -18,8 +18,10 @@
       </BaseButtonWithTooltip>
     </div>
 
+    <BaseSpinner v-if="isLoading" :is-full-space="true" />
+
     <WorkspacesScreen
-      v-if="workspaces.length"
+      v-else-if="workspaces.length"
       :workspaces="workspaces"
       :isProjectCreationAvailable="isProjectCreationAvailable"
       @create-workspace="createWorkspace"
@@ -43,6 +45,7 @@ import BlankPage from '@/components/BlankPage'
 import MainLayout from '@components/layout/MainLayout'
 import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
 import WorkspacesScreen from '@/components/dashboard/WorkspacesScreen'
+import BaseSpinner from '@/components/BaseSpinner'
 
 import OnlineIcon from '@components/icons/OnlineIcon'
 import PlusIcon from '@/components/icons/PlusIcon'
@@ -54,6 +57,7 @@ export default {
   name: 'OnlineWorkspacesView',
   components: {
     BaseButtonWithTooltip,
+    BaseSpinner,
     BlankPage,
     MainLayout,
     MainLayoutTitleBlock,
@@ -62,10 +66,11 @@ export default {
     WorkspacesScreen,
   },
   computed: {
-    ...mapGetters({
-      department: get.DEPARTMENT,
+    ...mapGetters({department: get.DEPARTMENT}),
+    ...mapOnlineGetters({
+      workspaces: getOnline.WORKSPACES,
+      isLoading: get.LOADING,
     }),
-    ...mapOnlineGetters({workspaces: getOnline.WORKSPACES}),
     isProjectCreationAvailable() {
       return (
         this.department?.current_number_of_projects >=
