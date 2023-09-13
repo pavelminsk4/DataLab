@@ -139,7 +139,8 @@ export default {
       }
 
       .project:hover {
-        background-color: var(--primary-active-color);
+        color: var(--button-text-color);
+        background-color: var(--primary-hover-color);
       }
 
       .dropdown-wrapper {
