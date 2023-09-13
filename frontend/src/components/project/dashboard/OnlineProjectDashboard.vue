@@ -5,6 +5,7 @@
       :widget-id="widgetId"
       :current-project="currentProject"
       :module-name="currentProject.source"
+      :clipping-content="clippingData.data"
       class="interactive-widgets"
       @show-results="updatePageAndCountPosts"
       @close="closeInteractiveModal"

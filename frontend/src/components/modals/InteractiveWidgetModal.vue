@@ -41,6 +41,7 @@
           :key="'result' + index"
           :img="cardImg(item)"
           :post-details="item"
+          :is-clipping-post="isClippingPost(item.id)"
           class="clipping-card"
         />
       </div>
@@ -94,6 +95,7 @@ export default {
     moduleName: {type: String, required: false},
     widgetDetails: {type: Object, required: false},
     currentProject: {type: [Array, Object], required: true},
+    clippingContent: {type: [Array, Object], default: () => []},
   },
   data() {
     return {
@@ -142,6 +144,9 @@ export default {
     },
     updateDisplayType(type) {
       this.postsDisplayType = type.toLowerCase()
+    },
+    isClippingPost(id) {
+      return this.clippingContent.some((el) => el.post__id === id)
     },
   },
 }

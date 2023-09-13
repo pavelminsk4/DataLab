@@ -30,12 +30,16 @@
         />
         <section class="dropdown-wrapper">
           <ArrowDownIcon
-            @click="openDropdown"
+            @click="toogleDropdown"
             :class="[isOpenDropdown && 'arrow-open-dropdown', 'arrow-down']"
           />
 
           <div v-if="isOpenDropdown" class="dropdown-menu">
-            <ProfileMenu :user-info="userInfo" @logout="logout" />
+            <ProfileMenu
+              :user-info="userInfo"
+              @logout="logout"
+              @close-pop-up="toogleDropdown"
+            />
           </div>
         </section>
       </div>
@@ -109,7 +113,7 @@ export default {
         name: 'UserRoles',
       })
     },
-    openDropdown() {
+    toogleDropdown() {
       this.isOpenDropdown = !this.isOpenDropdown
     },
     closeDropdown({target}) {

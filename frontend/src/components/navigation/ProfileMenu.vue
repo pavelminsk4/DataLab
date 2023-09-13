@@ -85,7 +85,7 @@ export default {
     ...mapActions([action.POST_PLATFORM_LANGUAGE]),
     updateLanguage(newLang) {
       this[action.POST_PLATFORM_LANGUAGE](newLang)
-      return newLang
+      this.$emit('close-pop-up')
     },
     getIcon(value) {
       return capitalizeFirstLetter(value) + 'Icon'
