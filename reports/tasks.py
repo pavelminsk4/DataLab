@@ -29,7 +29,7 @@ def send_email_with(files, reg_report, crontab_type):
         with open(file, 'rb') as ap:
             msg.add_attachment(ap.read(), maintype=mime_type,
                                subtype=mime_subtype, filename=reg_report.title + file)
-    with smtplib.SMTP_SSL('smtp.gmail.com', int(env('EMAIL_PORT'))) as smtp:
+    with smtplib.SMTP_SSL('smtp.gmail.com', int(env('EMAIL_PORT_FOR_REGULAR_REPORTS'))) as smtp:
         smtp.login(env('EMAIL_HOST_USER'), env('EMAIL_HOST_PASSWORD'))
         smtp.send_message(msg)
 
