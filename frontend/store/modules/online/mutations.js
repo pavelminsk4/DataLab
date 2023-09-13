@@ -43,4 +43,8 @@ export default {
     )
     state.workspaces[currentWorkspaceIndex] = workspace
   },
+
+  [mutator.SET_CLIPPING_FEED_CONTENT_WIDGET](state, {widgetId, data}) {
+    state.clippingFeedContent = {id: widgetId, data}
+  },
 }

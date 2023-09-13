@@ -30,6 +30,7 @@
         :project-id="widgetDetails.projectId"
         :is-clipping-widget="true"
         :widget-id="widgetDetails.id"
+        @delete-clipping-post="deleteClippingPost(item.post__id)"
       />
     </div>
   </component>
@@ -62,6 +63,9 @@ export default {
         item.post__feed_image_link,
       ]
       return images.filter((el) => el !== 'None')[0] || 'None'
+    },
+    deleteClippingPost(postId) {
+      this.$emit('delete-clipping-post', postId)
     },
   },
 }

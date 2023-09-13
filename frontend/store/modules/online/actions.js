@@ -196,7 +196,7 @@ export default {
     commit(mutator.SET_LOADING_WIDGETS, {clippingWidget: true}, {root: true})
     try {
       await api.online.createClippingFeedContent(data.posts)
-      await dispatch(action.GET_CLIPPING_FEED_CONTENT_WIDGET, {
+      await dispatch(`widgets/${action.GET_CLIPPING_FEED_CONTENT_WIDGET}`, {
         projectId: data.projectId,
         widgetId: data.widgetId,
       })
@@ -215,7 +215,7 @@ export default {
     commit(mutator.SET_LOADING_WIDGETS, {clippingWidget: true}, {root: true})
     try {
       await api.online.deleteClippingFeedContentPost(projectId, postId)
-      await dispatch(action.GET_CLIPPING_FEED_CONTENT_WIDGET, {
+      await dispatch(`widgets/${action.GET_CLIPPING_FEED_CONTENT_WIDGET}`, {
         projectId: projectId,
         widgetId: widgetId,
       })

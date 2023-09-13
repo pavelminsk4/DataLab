@@ -3,6 +3,7 @@
     v-bind="$attrs"
     :widget-details="widgetDetails"
     :clipping-feed-content-data="clippingFeedContent"
+    @delete-clipping-post="deleteClippingPost"
   />
 </template>
 
@@ -12,7 +13,8 @@ import {get, action} from '@store/constants'
 
 import ClippingFeedContentWidget from '@/components/widgets/ClippingFeedContentWidget'
 
-const {mapActions, mapGetters: mapGettersOnline} =
+const {mapActions} = createNamespacedHelpers('online')
+const {mapActions: mapOnlineWidgetsAction, mapGetters: mapGettersOnline} =
   createNamespacedHelpers('online/widgets')
 
 export default {
@@ -50,7 +52,15 @@ export default {
     }
   },
   methods: {
-    ...mapActions([action.GET_CLIPPING_FEED_CONTENT_WIDGET]),
+    ...mapActions([action.DELETE_CLIPPING_FEED_CONTENT]),
+    ...mapOnlineWidgetsAction([action.GET_CLIPPING_FEED_CONTENT_WIDGET]),
+    async deleteClippingPost(postId) {
+      await this[action.DELETE_CLIPPING_FEED_CONTENT]({
+        projectId: this.widgetDetails.projectId,
+        postId,
+        widgetId: this.widgetDetails.id,
+      })
+    },
   },
 }
 </script>
