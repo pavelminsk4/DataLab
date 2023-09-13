@@ -12,11 +12,13 @@
 </template>
 
 <script>
-import {mapActions, mapState} from 'vuex'
-import {action} from '@store/constants'
+import {createNamespacedHelpers} from 'vuex'
+import {get, action} from '@store/constants'
 
 import VolumeWidget from '@/components/widgets/VolumeWidget'
 import WidgetsSwitcher from '@/components/layout/WidgetsSwitcher'
+
+const {mapActions, mapGetters} = createNamespacedHelpers('online/widgets')
 
 export default {
   name: 'AuthorsByCountryWidget',
@@ -30,7 +32,15 @@ export default {
     }
   },
   computed: {
-    ...mapState(['authorsByCountry']),
+    ...mapGetters({
+      onlineWidgets: get.ONLINE_WIDGETS,
+    }),
+    authorsByCountry() {
+      return (
+        this.widgetDetails.widgetData ||
+        this.onlineWidgets.authorsByCountry.data
+      )
+    },
     activeTab: {
       get() {
         return this.newActiveTab || this.tabs[0]
@@ -63,12 +73,15 @@ export default {
     },
   },
   created() {
-    // if (!this.authorsByCountry.length) {
-    this[action.GET_AUTHORS_BY_COUNTRY]({
-      projectId: this.widgetDetails.projectId,
-      widgetId: this.widgetDetails.id,
-    })
-    // }
+    const hasCurrentData =
+      this.authorsByCountry.length && this.widgetId === this.widgetDetails.id
+
+    if (!this.widgetDetails.widgetData && !hasCurrentData) {
+      this[action.GET_AUTHORS_BY_COUNTRY]({
+        projectId: this.widgetDetails.projectId,
+        widgetId: this.widgetDetails.id,
+      })
+    }
   },
   methods: {
     ...mapActions([action.GET_AUTHORS_BY_COUNTRY]),

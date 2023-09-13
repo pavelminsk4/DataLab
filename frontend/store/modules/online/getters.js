@@ -4,6 +4,7 @@ export default {
   [get.LOADING](state) {
     return state.loading
   },
+
   [get.LOADING_WIDGETS](state) {
     return state.loadingWidgets
   },
@@ -31,19 +32,28 @@ export default {
 
   [get.COUNTRIES](state) {
     return state.countries
-      .map((country) => country.locationString)
+      .map((country) => country.name)
       .filter((country) => country.trim())
   },
+
   [get.LANGUAGES](state) {
     return state.languages
       .map((language) => language.language)
       .filter((language) => language.trim())
   },
+
+  [get.SOURCES](state) {
+    return state.sources
+      .map((source) => source.source1)
+      .filter((source) => source.trim())
+  },
+
   [get.AUTHORS](state) {
     return state.authors
-      .map((author) => author.user_alias)
+      .map((author) => author.entry_author)
       .filter((author) => author.trim())
   },
+
   [get.SEARCH_LISTS](state, getters) {
     return {
       authors: getters[get.AUTHORS],

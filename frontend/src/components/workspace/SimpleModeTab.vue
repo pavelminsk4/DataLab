@@ -72,7 +72,6 @@ import CustomText from '@/components/CustomText'
 import BaseTag from '@/components/BaseTag'
 import OnlineSearchForm from '@/components/project/OnlineSearchForm'
 import SocialSearchForm from '@/components/project/SocialSearchForm'
-import TFSSearchForm from '@/components/twenty-four-seven/TFSSearchForm'
 import BaseButton from '@/components/common/BaseButton'
 import SaveIcon from '@/components/icons/SaveIcon'
 import BaseTextarea from '@/components/common/BaseTextarea'
@@ -84,7 +83,6 @@ export default {
     BaseButton,
     OnlineSearchForm,
     SocialSearchForm,
-    TFSSearchForm,
     BaseTag,
     BaseTextarea,
     CustomText,

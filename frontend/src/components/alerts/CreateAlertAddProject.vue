@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import {mapActions, mapGetters, mapState, createNamespacedHelpers} from 'vuex'
+import {mapGetters, mapState, createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
 
 import createAlertMixin from '@/lib/mixins/create-alerts.js'
@@ -32,6 +32,7 @@ import CustomText from '@/components/CustomText'
 import WorkspaceTableWithProjects from '@components/WorkspaceTableWithProjects'
 import BaseInput from '@components/common/BaseInput'
 
+const {mapActions: mapOnlineActions} = createNamespacedHelpers('online')
 const {mapActions: mapSocialActions} = createNamespacedHelpers('social')
 const {mapActions: mapActionsAlerts} = createNamespacedHelpers('alerts')
 
@@ -70,7 +71,7 @@ export default {
     this.getOnlineWorkspaces()
   },
   methods: {
-    ...mapActions({
+    ...mapOnlineActions({
       getOnlineWorkspaces: action.GET_WORKSPACES,
     }),
     ...mapSocialActions({

@@ -9,10 +9,12 @@
 </template>
 
 <script>
-import {mapState, mapActions} from 'vuex'
-import {action} from '@store/constants'
+import {createNamespacedHelpers, mapState} from 'vuex'
+import {action as actionOnline} from '@store/constants'
 
 import CreateSearchScreen from '@/components/workspace/screens/CreateSearchScreen'
+
+const {mapActions: mapOnlineActions} = createNamespacedHelpers('online')
 
 export default {
   name: 'OnlineCreateSearchScreen',
@@ -20,14 +22,8 @@ export default {
     CreateSearchScreen,
   },
   props: {
-    workspaceId: {
-      type: String,
-      default: null,
-    },
-    moduleName: {
-      type: String,
-      default: '',
-    },
+    workspaceId: {type: String, default: null},
+    moduleName: {type: String, default: ''},
   },
   computed: {
     ...mapState(['newProject']),
@@ -44,21 +40,23 @@ export default {
     },
   },
   methods: {
-    ...mapActions([
-      action.POST_SEARCH,
-      action.CREATE_WORKSPACE,
-      action.CREATE_PROJECT,
-      action.GET_WORKSPACES,
+    ...mapOnlineActions([
+      actionOnline.POST_SEARCH,
+      actionOnline.CREATE_WORKSPACE,
+      actionOnline.CREATE_PROJECT,
+      actionOnline.GET_WORKSPACES,
     ]),
     showResults(data) {
       try {
-        this[action.POST_SEARCH](data)
+        this[actionOnline.POST_SEARCH](data)
       } catch (e) {
         console.error(e)
       }
     },
     async createWorkspace(workspaceData) {
-      const newWorkspace = await this[action.CREATE_WORKSPACE](workspaceData)
+      const newWorkspace = await this[actionOnline.CREATE_WORKSPACE](
+        workspaceData
+      )
 
       await this.$router.push({
         name: 'OnlineAnalytics',
@@ -67,10 +65,10 @@ export default {
           projectId: newWorkspace.projects[0].id,
         },
       })
-      await this[action.GET_WORKSPACES]()
+      await this[actionOnline.GET_WORKSPACES]()
     },
     async createProject(projectData) {
-      const newProject = await this[action.CREATE_PROJECT](projectData)
+      const newProject = await this[actionOnline.CREATE_PROJECT](projectData)
 
       await this.$router.push({
         name: 'OnlineAnalytics',
@@ -79,7 +77,7 @@ export default {
           projectId: newProject.id,
         },
       })
-      await this[action.GET_WORKSPACES]()
+      await this[actionOnline.GET_WORKSPACES]()
     },
   },
 }

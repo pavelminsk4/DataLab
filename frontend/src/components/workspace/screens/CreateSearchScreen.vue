@@ -73,15 +73,10 @@ export default {
   },
   computed: {
     ...mapGetters({
-      searchData: get.SEARCH_DATA,
       additionalFilters: get.ADDITIONAL_FILTERS,
       keywords: get.KEYWORDS,
-      workspaces: get.WORKSPACES,
-      currentStep: get.CURRENT_STEP,
       newProject: get.NEW_PROJECT,
       newWorkspace: get.NEW_WORKSPACE,
-      newProjectId: get.NEW_PROJECT_ID,
-      newWorkspaceId: get.NEW_WORKSPACE_ID,
       department: get.DEPARTMENT,
     }),
     step() {
@@ -112,7 +107,6 @@ export default {
       action.UPDATE_NEW_WORKSPACE,
       action.UPDATE_PROJECT_STATE,
       action.UPDATE_KEYWORDS_LIST,
-      action.GET_WORKSPACES,
       action.CLEAR_STATE,
       action.CLEAR_SEARCH_LIST,
     ]),

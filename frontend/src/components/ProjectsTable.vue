@@ -65,7 +65,7 @@ export default {
     BaseTableRow,
     UserAvatar,
   },
-  emits: ['go-to-project'],
+  emits: ['go-to-project', 'delete-project'],
   props: {
     values: {
       type: Array,
@@ -115,7 +115,7 @@ export default {
       }
     },
     deleteProject(id) {
-      this[action.DELETE_PROJECT](id)
+      this.$emit('delete-project', id)
       this.toggleDeleteModal()
     },
     toggleDeleteModal(title, id) {

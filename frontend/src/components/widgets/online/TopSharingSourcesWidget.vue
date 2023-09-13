@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
+import {createNamespacedHelpers} from 'vuex'
 import {get, action} from '@store/constants'
 import {capitalizeFirstLetter} from '@/lib/utilities'
 
@@ -41,6 +41,8 @@ import CustomText from '@/components/CustomText'
 import ChartsView from '@/components/charts/ChartsView'
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
 import SharingSourcesCard from '@/components/widgets/SharingSourcesCard'
+
+const {mapActions, mapGetters} = createNamespacedHelpers('online/widgets')
 
 export default {
   name: 'TopSharingSourcesWidget',
@@ -56,19 +58,31 @@ export default {
   },
   computed: {
     ...mapGetters({
-      topSharingSources: get.TOP_SHARING_SOURCES,
+      onlineWidgets: get.ONLINE_WIDGETS,
     }),
+    topSharingSources() {
+      return (
+        this.widgetDetails.widgetData ||
+        this.onlineWidgets.topSharingSources.data
+      )
+    },
     widgetWrapper() {
       return this.isSettings ? 'div' : 'WidgetsLayout'
     },
+    widgetId() {
+      return this.onlineWidgets.topSharingSources?.id
+    },
   },
   created() {
-    // if (!this.topSharingSources.length) {
-    this[action.GET_TOP_SHARING_SOURCES]({
-      projectId: this.widgetDetails.projectId,
-      widgetId: this.widgetDetails.id,
-    })
-    // }
+    const hasCurrentData =
+      this.topSharingSources.length && this.widgetId === this.widgetDetails.id
+
+    if (!this.widgetDetails.widgetData && !hasCurrentData) {
+      this[action.GET_TOP_SHARING_SOURCES]({
+        projectId: this.widgetDetails.projectId,
+        widgetId: this.widgetDetails.id,
+      })
+    }
   },
   methods: {
     ...mapActions([action.GET_TOP_SHARING_SOURCES]),

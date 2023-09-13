@@ -4,58 +4,53 @@
     :widgetDetails="selectedWidgets[currentWidgetIndex].widgetDetails"
     @close="closeModal"
   />
-  <div class="analytics-wrapper">
-    <SearchResults
-      :is-checkbox-clipping-widget="true"
-      :clipping-content="clippingData"
-      @show-results="updatePageAndPostsCounts"
-      class="search-results"
-    />
-    <div v-if="availableWidgets" class="widgets-wrapper scroll">
-      <div
-        class="widget-item"
-        v-for="(item, index) in displayedWidgets"
-        :key="item.i"
-      >
-        <OnlineMainWidget
-          :widgetDetails="item.widgetDetails"
-          :style="`height: ${item.widgetDetails.height};`"
-          @delete-widget="deleteWidget(item.widgetDetails.name)"
-          @open-settings-modal="openModal(index)"
-        />
-        <BaseObserver
-          v-if="index + 1 === displayedWidgets.length"
-          @intersect="getItems"
-        />
-      </div>
+  <div v-if="availableWidgets" class="widgets-wrapper scroll">
+    <div
+      v-for="(item, index) in displayedWidgets"
+      :key="item.i"
+      class="widget-item"
+    >
+      <OnlineMainWidget
+        :widgetDetails="item.widgetDetails"
+        :style="`height: ${item.widgetDetails.height};`"
+        @delete-widget="deleteWidget(item.widgetDetails.name)"
+        @open-settings-modal="openModal(index)"
+      />
+      <BaseObserver
+        v-if="index + 1 === displayedWidgets.length"
+        @intersect="getItems"
+      />
     </div>
   </div>
+
+  <div v-else class="widgets-wrapper"></div>
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
-import {action, get} from '@store/constants'
+import {mapGetters, createNamespacedHelpers} from 'vuex'
+import {get, action} from '@store/constants'
 import {getWidgetDetails} from '@lib/utilities'
 import {widgetsConfig} from '@/lib/configs/widgetsConfigs'
 
-import SearchResults from '@/components/SearchResults'
 import BaseObserver from '@/components/BaseObserver'
 
 import WidgetSettingsModal from '@/components/widgets/online/modals/WidgetSettingsModal'
 import OnlineMainWidget from '@/components/widgets/online/OnlineMainWidget'
 
+const {mapActions, mapGetters: mapGettersOnline} =
+  createNamespacedHelpers('online/widgets')
+
 export default {
-  name: 'WidgetsView',
+  name: 'OnlineProjectDashboardWidgets',
   components: {
     WidgetSettingsModal,
-    SearchResults,
     OnlineMainWidget,
     BaseObserver,
   },
-  emits: ['update-page'],
+  emits: ['update-available-widgets'],
   props: {
     projectId: {type: Number, required: true},
-    currentProject: {type: [Array, Object], required: false},
+    moduleName: {type: String, required: true},
   },
   data() {
     return {
@@ -68,10 +63,16 @@ export default {
   computed: {
     ...mapGetters({
       availableWidgets: get.AVAILABLE_WIDGETS,
-      clippingData: get.CLIPPING_FEED_CONTENT_WIDGET,
     }),
+    ...mapGettersOnline({
+      onlineWidgets: get.ONLINE_WIDGETS,
+    }),
+    clippingData() {
+      return this.onlineWidgets.clippingFeedContent
+    },
     selectedWidgets: {
       get() {
+        if (!this.availableWidgets) return
         return Object.keys(this.availableWidgets)
           .map((widgetName) => {
             widgetsConfig.clipping_feed_content.height = this.clippingData
@@ -88,7 +89,7 @@ export default {
                   widgetName,
                   this.availableWidgets[widgetName],
                   this.projectId,
-                  this.currentProject.source
+                  this.moduleName
                 ),
 
                 isReady: false,
@@ -105,21 +106,32 @@ export default {
       return this.selectedWidgets.slice(0, this.countDisplayedWidgets)
     },
   },
+  async created() {
+    const hasCurrentClippingData =
+      this.clippingData?.length &&
+      this.clippingData.id === this.availableWidgets.clipping_feed_content.id
+    if (
+      !hasCurrentClippingData &&
+      this.availableWidgets?.clipping_feed_content
+    ) {
+      await this[action.GET_CLIPPING_FEED_CONTENT_WIDGET]({
+        projectId: this.projectId,
+        widgetId: this.availableWidgets.clipping_feed_content.id,
+      })
+    }
+  },
   methods: {
-    ...mapActions([action.UPDATE_AVAILABLE_WIDGETS]),
+    ...mapActions([action.GET_CLIPPING_FEED_CONTENT_WIDGET]),
     getYAxisValue(val) {
       return val > 1 ? val - 1 : 0
     },
     async deleteWidget(name) {
-      await this[action.UPDATE_AVAILABLE_WIDGETS]({
+      this.$emit('update-available-widgets', {
         projectId: this.projectId,
         widgetsList: {
           [name]: {is_active: false, id: this.availableWidgets[name].id},
         },
       })
-    },
-    updatePageAndPostsCounts(page, posts) {
-      this.$emit('update-page', page, posts)
     },
     openModal(widgetIndex) {
       this.currentWidgetIndex = widgetIndex
@@ -137,18 +149,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.analytics-wrapper {
-  display: flex;
-  gap: 40px;
-
-  height: 100%;
-  margin-top: 20px;
-
-  .search-results {
-    width: 100%;
-    height: calc(100vh - 255px);
-  }
-}
 .widgets-wrapper {
   display: flex;
   flex-direction: column;

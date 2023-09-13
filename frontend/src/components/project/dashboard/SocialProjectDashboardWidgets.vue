@@ -9,7 +9,6 @@
     <div
       v-for="(item, index) in displayedWidgets"
       :key="item.i"
-      :static="item.static"
       class="widget-item"
     >
       <SocialMainWidget
@@ -125,10 +124,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions([
-      action.UPDATE_AVAILABLE_WIDGETS,
-      action.GET_CLIPPING_FEED_CONTENT_WIDGET,
-    ]),
+    ...mapActions([action.GET_CLIPPING_FEED_CONTENT_WIDGET]),
     getYAxisValue(val) {
       return val > 1 ? val - 1 : 0
     },

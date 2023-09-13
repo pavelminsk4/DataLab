@@ -1,16 +1,18 @@
 <template>
   <OverallTopWidget
     :widget-details="widgetDetails"
-    :widget-data="overallTopAuthors"
+    :widget-data="widgetData"
     :table-header="tableHeader"
   />
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
+import {createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
 
 import OverallTopWidget from '@/components/widgets/OverallTopWidget'
+
+const {mapActions, mapGetters} = createNamespacedHelpers('online/widgets')
 
 export default {
   name: 'OverallTopAuthorsWidget',
@@ -20,8 +22,17 @@ export default {
   },
   computed: {
     ...mapGetters({
-      overallTopAuthors: get.OVERALL_TOP_AUTHORS,
+      onlineWidgets: get.ONLINE_WIDGETS,
     }),
+    widgetData() {
+      return (
+        this.widgetDetails.widgetData ||
+        this.onlineWidgets.overallTopAuthors.data
+      )
+    },
+    widgetId() {
+      return this.onlineWidgets.overallTopAuthors?.id
+    },
   },
   created() {
     this.tableHeader = [
@@ -37,12 +48,16 @@ export default {
         hasSort: true,
       },
     ]
-    // if (!this.overallTopAuthors.length) {
-    this[action.GET_OVERALL_TOP_AUTHORS]({
-      projectId: this.widgetDetails.projectId,
-      widgetId: this.widgetDetails.id,
-    })
-    // }
+
+    const hasCurrentData =
+      this.widgetData.length && this.widgetId === this.widgetDetails.id
+
+    if (!this.widgetDetails.widgetData && !hasCurrentData) {
+      this[action.GET_OVERALL_TOP_AUTHORS]({
+        projectId: this.widgetDetails.projectId,
+        widgetId: this.widgetDetails.id,
+      })
+    }
   },
   methods: {
     ...mapActions([action.GET_OVERALL_TOP_AUTHORS]),

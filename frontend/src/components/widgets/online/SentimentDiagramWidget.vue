@@ -7,10 +7,14 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
+import {createNamespacedHelpers} from 'vuex'
+import {isAllFieldsEmpty} from '@lib/utilities'
 
 import SentimentDiagram from '@/components/widgets/SentimentDiagram'
+
+const {mapActions, mapGetters} = createNamespacedHelpers('online/widgets')
+
 export default {
   components: {SentimentDiagram},
   props: {
@@ -18,14 +22,29 @@ export default {
   },
   computed: {
     ...mapGetters({
-      sentimentDiagram: get.SENTIMENT_DIAGRAM,
+      onlineWidgets: get.ONLINE_WIDGETS,
     }),
+    sentimentDiagram() {
+      return (
+        this.widgetDetails.widgetData ||
+        this.onlineWidgets.sentimentDiagram.data
+      )
+    },
+    widgetId() {
+      return this.onlineWidgets.sentimentDiagram?.id
+    },
   },
   created() {
-    this[action.GET_SENTIMENT_DIAGRAM]({
-      projectId: this.widgetDetails.projectId,
-      widgetId: this.widgetDetails.id,
-    })
+    const hasCurrentData =
+      !isAllFieldsEmpty(this.sentimentDiagram) &&
+      this.widgetId === this.widgetDetails.id
+
+    if (!this.widgetDetails.widgetData && !hasCurrentData) {
+      this[action.GET_SENTIMENT_DIAGRAM]({
+        projectId: this.widgetDetails.projectId,
+        widgetId: this.widgetDetails.id,
+      })
+    }
   },
   methods: {
     ...mapActions([action.GET_SENTIMENT_DIAGRAM]),

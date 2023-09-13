@@ -40,6 +40,7 @@
       <ProjectsTable
         :values="filteredProjects"
         :members="workspace.members"
+        @delete-project="deleteProject"
         @go-to-project="goToProjectSettings"
       />
     </div>
@@ -116,6 +117,9 @@ export default {
     ...mapActions([action.CLEAR_STATE]),
     goToProjectSettings(projectId) {
       this.$emit('open-project', projectId)
+    },
+    deleteProject(id) {
+      this.$emit('delete-project', id)
     },
   },
 }

@@ -8,10 +8,12 @@
 </template>
 
 <script>
-import {mapActions, mapState} from 'vuex'
-import {action} from '@store/constants'
+import {createNamespacedHelpers} from 'vuex'
+import {action, get} from '@store/constants'
 import {PREDEFINED_COLORS} from '@/lib/constants'
 import {isAllFieldsEmpty} from '@lib/utilities'
+
+const {mapActions, mapGetters} = createNamespacedHelpers('online/widgets')
 
 import TopEntitiesStackedBarWidget from '@/components/widgets/TopEntitiesStackedBarWidget'
 
@@ -22,7 +24,15 @@ export default {
     widgetDetails: {type: Object, required: true},
   },
   computed: {
-    ...mapState(['languagesByCountry']),
+    ...mapGetters({
+      onlineWidgets: get.ONLINE_WIDGETS,
+    }),
+    languagesByCountry() {
+      return (
+        this.widgetDetails.widgetData ||
+        this.onlineWidgets.languagesByCountry?.data
+      )
+    },
     widgetData() {
       const labels = Object.keys(this.languagesByCountry)
       const values = labels.map((label) => this.languagesByCountry[label])
@@ -48,14 +58,21 @@ export default {
         chartValues,
       }
     },
+    widgetId() {
+      return this.onlineWidgets.languagesByCountry?.id
+    },
   },
   created() {
-    // if (isAllFieldsEmpty(this.languagesByCountry)) {
-    this[action.GET_LANGUAGES_BY_COUNTRY]({
-      projectId: this.widgetDetails.projectId,
-      widgetId: this.widgetDetails.id,
-    })
-    // }
+    const hasCurrentData =
+      !isAllFieldsEmpty(this.languagesByCountry) &&
+      this.widgetId === this.widgetDetails.id
+
+    if (!this.widgetDetails.widgetData && !hasCurrentData) {
+      this[action.GET_LANGUAGES_BY_COUNTRY]({
+        projectId: this.widgetDetails.projectId,
+        widgetId: this.widgetDetails.id,
+      })
+    }
   },
   methods: {
     ...mapActions([action.GET_LANGUAGES_BY_COUNTRY]),

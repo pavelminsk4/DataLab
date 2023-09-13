@@ -13,6 +13,7 @@ import {action, get} from '@store/constants'
 import OverallTopWidget from '@/components/widgets/OverallTopWidget'
 
 const {mapActions, mapGetters} = createNamespacedHelpers('social/widgets')
+
 export default {
   components: {OverallTopWidget},
   props: {

@@ -10,13 +10,13 @@
 <script>
 import {mapGetters, createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
-const {mapActions, mapGetters: mapGettersSocial} =
-  createNamespacedHelpers('social')
 
 import {getWidgetDetails} from '@lib/utilities'
 import {socialWidgetsList} from '@/lib/constants'
 
 import WidgetsList from '@/components/widgets/WidgetsList'
+
+const {mapActions} = createNamespacedHelpers('social')
 
 export default {
   name: 'SocialSentimentScreen',
@@ -29,9 +29,6 @@ export default {
   computed: {
     ...mapGetters({
       availableWidgets: get.AVAILABLE_WIDGETS,
-    }),
-    ...mapGettersSocial({
-      socialWidgets: get.SOCIAL_WIDGETS,
     }),
     selectedWidgets: {
       get() {

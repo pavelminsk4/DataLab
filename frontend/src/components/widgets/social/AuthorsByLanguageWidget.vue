@@ -22,7 +22,6 @@ const {mapActions, mapGetters} = createNamespacedHelpers('social/widgets')
 
 export default {
   name: 'AuthorsByLanguageWidget',
-
   components: {VolumeWidget, WidgetsSwitcher},
   props: {
     widgetDetails: {type: Object, required: true},

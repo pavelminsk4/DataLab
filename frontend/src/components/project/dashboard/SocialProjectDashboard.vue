@@ -88,6 +88,7 @@
       <SearchResults
         module-name="Social"
         :clipping-content="clippingData"
+        :is-checkbox-clipping-widget="true"
         class="search-results"
         @show-results="showResults"
       />

@@ -8,10 +8,12 @@
 </template>
 
 <script>
+import {mapGetters, createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
-import {mapActions, mapGetters} from 'vuex'
 
 import FiltersModal from '@/components/project/modals/FiltersModal'
+
+const {mapActions} = createNamespacedHelpers('online')
 
 export default {
   name: 'OnlineFiltersModal',

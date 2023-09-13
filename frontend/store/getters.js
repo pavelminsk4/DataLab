@@ -12,10 +12,6 @@ export default {
     return state.projects
   },
 
-  [get.WORKSPACES](state) {
-    return state.workspaces
-  },
-
   [get.USER_INFO](state) {
     return state.userInfo
   },
@@ -52,38 +48,6 @@ export default {
     return state.userInfo?.user_profile.platform_language
   },
 
-  [get.COUNTRIES](state) {
-    return state.countries
-      .map((country) => country.name)
-      .filter((country) => country.trim())
-  },
-
-  [get.LANGUAGES](state) {
-    return state.languages
-      .map((language) => language.language)
-      .filter((language) => language.trim())
-  },
-
-  [get.SOURCES](state) {
-    return state.sources
-      .map((source) => source.source1)
-      .filter((source) => source.trim())
-  },
-
-  [get.AUTHORS](state) {
-    return state.authors
-      .map((author) => author.entry_author)
-      .filter((author) => author.trim())
-  },
-  [get.SEARCH_LISTS](state, getters) {
-    return {
-      authors: getters[get.AUTHORS],
-      countries: getters[get.COUNTRIES],
-      languages: getters[get.LANGUAGES],
-      sources: getters[get.SOURCES],
-    }
-  },
-
   [get.ADDITIONAL_FILTERS](state) {
     return state.additionalFilters
   },
@@ -114,10 +78,6 @@ export default {
 
   [get.AVAILABLE_WIDGETS](state) {
     return state.availableWidgets
-  },
-
-  [get.CLIPPING_WIDGETS_DETAILS](state) {
-    return state.availableWidgets?.clipping_feed_content
   },
 
   [get.TOP_AUTHORS](state) {

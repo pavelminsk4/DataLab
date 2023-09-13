@@ -18,12 +18,14 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
+import {createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
 import {defaultDate} from '@/lib/utilities'
 
 import ChartsView from '@/components/charts/ChartsView'
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
+
+const {mapActions, mapGetters} = createNamespacedHelpers('online/widgets')
 
 export default {
   name: 'VolumeWidget',
@@ -35,7 +37,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      volumeWidget: get.VOLUME_WIDGET,
+      onlineWidgets: get.ONLINE_WIDGETS,
     }),
     widgetWrapper() {
       return this.isSettings ? 'div' : 'WidgetsLayout'
@@ -47,37 +49,44 @@ export default {
         this.widgetDetails.defaultChartType
       )
     },
-    volumeData() {
-      return Object.values(this.volumeWidget)
+    contentVolumeWidgetData() {
+      return this.widgetDetails.widgetData || this.onlineWidgets.volume.data
     },
     labels() {
-      return this.volumeData.map((el) =>
-        this.defaultDate(el.date, this.platformLanguage)
+      return this.contentVolumeWidgetData.map((el) =>
+        defaultDate(el.date, this.platformLanguage)
       )
     },
     chartValues() {
       return [
         {
-          data: this.volumeData.map((el) => el.created_count),
+          data: this.contentVolumeWidgetData.map((el) => el.created_count),
         },
       ]
     },
+    widgetId() {
+      return this.onlineWidgets.volume?.id
+    },
   },
   created() {
-    // if (!this.volumeWidget.length) {
-    this[action.GET_VOLUME_WIDGET]({
-      projectId: this.widgetDetails.projectId,
-      value: {
-        author_dim_pivot: this.widgetDetails.author_dim_pivot || null,
-        language_dim_pivot: this.widgetDetails.language_dim_pivot || null,
-        country_dim_pivot: this.widgetDetails.country_dim_pivot || null,
-        sentiment_dim_pivot: this.widgetDetails.sentiment_dim_pivot || null,
-        source_dim_pivot: this.widgetDetails.source_dim_pivot || null,
-        aggregation_period: this.widgetDetails.aggregation_period,
-      },
-      widgetId: this.widgetDetails.id,
-    })
-    // }
+    const hasCurrentData =
+      this.contentVolumeWidgetData.length &&
+      this.widgetId === this.widgetDetails.id
+
+    if (!this.widgetDetails.widgetData && !hasCurrentData) {
+      this[action.GET_VOLUME_WIDGET]({
+        projectId: this.widgetDetails.projectId,
+        value: {
+          author_dim_pivot: this.widgetDetails.author_dim_pivot || null,
+          language_dim_pivot: this.widgetDetails.language_dim_pivot || null,
+          country_dim_pivot: this.widgetDetails.country_dim_pivot || null,
+          sentiment_dim_pivot: this.widgetDetails.sentiment_dim_pivot || null,
+          source_dim_pivot: this.widgetDetails.source_dim_pivot || null,
+          aggregation_period: this.widgetDetails.aggregation_period,
+        },
+        widgetId: this.widgetDetails.id,
+      })
+    }
   },
   methods: {
     ...mapActions([action.GET_VOLUME_WIDGET]),

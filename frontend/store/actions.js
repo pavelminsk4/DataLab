@@ -1,6 +1,5 @@
 import api from '@api/api'
 import {action, mutator} from '@store/constants'
-import {capitalizeFirstLetter} from '@lib/utilities'
 
 export default {
   async [action.GET_TRANSLATED_TEXT]({commit, state}, text) {
@@ -64,19 +63,6 @@ export default {
     }
   },
 
-  async [action.GET_WORKSPACES]({commit}) {
-    commit(mutator.SET_LOADING, true)
-    try {
-      const workspaces = await api.getWorkspaces()
-      commit(mutator.SET_WORKSPACES, workspaces)
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING, false)
-    }
-  },
-
   async [action.GET_USER_INFORMATION]({commit}) {
     commit(mutator.SET_LOADING, true)
     try {
@@ -92,47 +78,44 @@ export default {
     }
   },
 
-  async [action.GET_COUNTRIES]({commit}, word) {
+  async [action.GET_CLIPPING_FEED_CONTENT_WIDGET](
+    {commit},
+    {projectId, widgetId}
+  ) {
+    commit(mutator.SET_LOADING_WIDGETS, {clippingWidget: true}, {root: true})
     try {
-      const countries = await api.getCountries(capitalizeFirstLetter(word))
-      commit(mutator.SET_COUNTRIES, countries)
-      return countries
+      const clippingFeedContent = await api.online.getClippingFeedContentWidget(
+        projectId,
+        widgetId
+      )
+      commit(mutator.SET_CLIPPING_FEED_CONTENT_WIDGET, {
+        widgetId,
+        data: clippingFeedContent,
+      })
     } catch (error) {
       console.error(error)
       return error
+    } finally {
+      commit(mutator.SET_LOADING_WIDGETS, {clippingWidget: false}, {root: true})
     }
   },
 
-  async [action.GET_LANGUAGES]({commit}, word) {
+  async [action.GET_AVAILABLE_WIDGETS]({commit}, projectId) {
+    commit(mutator.SET_LOADING, true)
+    commit(mutator.SET_AVAILABLE_WIDGETS, {})
+    commit(mutator.SET_AVAILABLE_WIDGETS, {})
     try {
-      const languages = await api.getLanguages(capitalizeFirstLetter(word))
-      commit(mutator.SET_LANGUAGES, languages)
-      return languages
+      const availableWidgets = await api.online.getListOfDisplayedWidgets(
+        projectId
+      )
+      commit(mutator.SET_AVAILABLE_WIDGETS, availableWidgets)
+      commit(mutator.SET_AVAILABLE_WIDGETS, availableWidgets)
+      return availableWidgets
     } catch (error) {
       console.error(error)
       return error
-    }
-  },
-
-  async [action.GET_SOURCES]({commit}, word) {
-    try {
-      const sources = await api.getSources(word)
-      commit(mutator.SET_SOURCES, sources)
-      return sources
-    } catch (error) {
-      console.error(error)
-      return error
-    }
-  },
-
-  async [action.GET_AUTHORS]({commit}, word) {
-    try {
-      const authors = await api.getAuthors(word)
-      commit(mutator.SET_AUTHORS, authors)
-      return authors
-    } catch (error) {
-      console.error(error)
-      return error
+    } finally {
+      commit(mutator.SET_LOADING, false)
     }
   },
 
@@ -170,302 +153,6 @@ export default {
     }
   },
 
-  async [action.GET_SUMMARY_WIDGET]({commit}, {projectId, widgetId}) {
-    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true})
-    try {
-      const summary = await api.getSummaryWidget(projectId, widgetId)
-      commit(mutator.SET_SUMMARY_WIDGET, {widgetId, data: summary})
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false})
-    }
-  },
-
-  async [action.GET_VOLUME_WIDGET]({commit}, {projectId, value, widgetId}) {
-    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true})
-    try {
-      const volume = await api.getVolumeWidget({projectId, value, widgetId})
-      commit(mutator.SET_VOLUME_WIDGET, volume)
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false})
-    }
-  },
-
-  async [action.GET_AVAILABLE_WIDGETS]({commit}, projectId) {
-    commit(mutator.SET_LOADING, true)
-    commit(mutator.SET_AVAILABLE_WIDGETS, {})
-    try {
-      const availableWidgets = await api.getListOfDisplayedWidgets(projectId)
-      commit(mutator.SET_AVAILABLE_WIDGETS, availableWidgets)
-      return availableWidgets
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING, false)
-    }
-  },
-
-  async [action.GET_CLIPPING_FEED_CONTENT_WIDGET](
-    {commit},
-    {projectId, widgetId}
-  ) {
-    commit(mutator.SET_LOADING_WIDGETS, {clippingWidget: true})
-    try {
-      const clippingFeedContent = await api.getClippingFeedContentWidget(
-        projectId,
-        widgetId
-      )
-      commit(mutator.SET_CLIPPING_FEED_CONTENT_WIDGET, clippingFeedContent)
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING_WIDGETS, {clippingWidget: false})
-    }
-  },
-
-  async [action.GET_TOP_AUTHORS_WIDGET]({commit}, {projectId, widgetId}) {
-    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true})
-    try {
-      const topAuthors = await api.getTopAuthors(projectId, widgetId)
-      commit(mutator.SET_TOP_AUTHORS_WIDGET, topAuthors)
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false})
-    }
-  },
-
-  async [action.GET_TOP_SHARING_SOURCES]({commit}, {projectId, widgetId}) {
-    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true})
-    try {
-      const topSharingSources = await api.getTopSharingSourcesWidget(
-        projectId,
-        widgetId
-      )
-      commit(mutator.SET_TOP_SHARING_SOURCES, topSharingSources)
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false})
-    }
-  },
-
-  async [action.GET_TOP_BRANDS_WIDGET]({commit}, {projectId, widgetId}) {
-    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true})
-    try {
-      const topBrands = await api.getTopBrands(projectId, widgetId)
-      commit(mutator.SET_TOP_BRANDS_WIDGET, topBrands)
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false})
-    }
-  },
-
-  async [action.GET_TOP_COUNTRIES_WIDGET]({commit}, {projectId, widgetId}) {
-    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true})
-    try {
-      const topCountries = await api.getTopCountries(projectId, widgetId)
-      commit(mutator.SET_TOP_COUNTRIES_WIDGET, topCountries)
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false})
-    }
-  },
-
-  async [action.GET_TOP_LANGUAGES_WIDGET]({commit}, {projectId, widgetId}) {
-    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true})
-    try {
-      const topLanguages = await api.getTopLanguages(projectId, widgetId)
-      commit(mutator.SET_TOP_LANGUAGES_WIDGET, topLanguages)
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false})
-    }
-  },
-
-  async [action.GET_SENTIMENT_TOP_SOURCES]({commit}, {projectId, widgetId}) {
-    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true})
-    try {
-      const sentimentTopSources = await api.getSentimentTopSources(
-        projectId,
-        widgetId
-      )
-      commit(mutator.SET_SENTIMENT_TOP_SOURCES, sentimentTopSources)
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false})
-    }
-  },
-
-  async [action.GET_SENTIMENT_TOP_COUNTRIES]({commit}, {projectId, widgetId}) {
-    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true})
-    try {
-      const sentimentTopCountries = await api.getSentimentTopCountries(
-        projectId,
-        widgetId
-      )
-      commit(mutator.SET_SENTIMENT_TOP_COUNTRIES, sentimentTopCountries)
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false})
-    }
-  },
-
-  async [action.GET_SENTIMENT_TOP_LANGUAGES]({commit}, {projectId, widgetId}) {
-    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true})
-    try {
-      const sentimentTopLanguages = await api.getSentimentTopLanguages(
-        projectId,
-        widgetId
-      )
-      commit(mutator.SET_SENTIMENT_TOP_LANGUAGES, sentimentTopLanguages)
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false})
-    }
-  },
-
-  async [action.GET_SENTIMENT_TOP_AUTHORS]({commit}, {projectId, widgetId}) {
-    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true})
-    try {
-      const sentimentTopAuthors = await api.getSentimentTopAuthors(
-        projectId,
-        widgetId
-      )
-      commit(mutator.SET_SENTIMENT_TOP_AUTHORS, sentimentTopAuthors)
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false})
-    }
-  },
-
-  async [action.GET_SENTIMENT_FOR_PERIOD](
-    {commit},
-    {projectId, value, widgetId}
-  ) {
-    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true})
-    try {
-      const sentimentForPeriod = await api.getSentimentForPeriod({
-        projectId,
-        value,
-        widgetId,
-      })
-      commit(mutator.SET_SENTIMENT_FOR_PERIOD, sentimentForPeriod)
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false})
-    }
-  },
-
-  async [action.GET_LANGUAGES_BY_COUNTRY](
-    {commit},
-    {projectId, value, widgetId}
-  ) {
-    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true})
-    try {
-      const languagesByCountry = await api.getLanguagesByCountry({
-        projectId,
-        value,
-        widgetId,
-      })
-      commit(mutator.SET_LANGUAGES_BY_COUNTRY, languagesByCountry)
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false})
-    }
-  },
-
-  async [action.GET_CONTENT_VOLUME_TOP_SOURCES](
-    {commit},
-    {projectId, value, widgetId}
-  ) {
-    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true})
-    try {
-      const contentVolumeTopSources = await api.getContentVolumeTop10Sources({
-        projectId,
-        value,
-        widgetId,
-      })
-      commit(mutator.SET_CONTENT_VOLUME_TOP_SOURCES, contentVolumeTopSources)
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false})
-    }
-  },
-
-  async [action.GET_CONTENT_VOLUME_TOP_AUTHORS](
-    {commit},
-    {projectId, value, widgetId}
-  ) {
-    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true})
-    try {
-      const contentVolumeTopAuthors = await api.getContentVolumeTop10Authors({
-        projectId,
-        value,
-        widgetId,
-      })
-      commit(mutator.SET_CONTENT_VOLUME_TOP_AUTHORS, contentVolumeTopAuthors)
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false})
-    }
-  },
-
-  async [action.GET_CONTENT_VOLUME_TOP_COUNTRIES](
-    {commit},
-    {projectId, value, widgetId}
-  ) {
-    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true})
-    try {
-      const contentVolumeTopCountries =
-        await api.getContentVolumeTop10Countries({
-          projectId,
-          value,
-          widgetId,
-        })
-      commit(
-        mutator.SET_CONTENT_VOLUME_TOP_COUNTRIES,
-        contentVolumeTopCountries
-      )
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false})
-    }
-  },
-
   async [action.GET_FILTERS]({commit}) {
     commit(mutator.SET_LOADING, true)
     try {
@@ -476,204 +163,6 @@ export default {
       return error
     } finally {
       commit(mutator.SET_LOADING, false)
-    }
-  },
-
-  async [action.GET_SENTIMENT_TOP_KEYWORDS_WIDGET](
-    {commit},
-    {projectId, widgetId}
-  ) {
-    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true})
-    try {
-      const sentimentTopKeywords = await api.getSentimentTopKeywordsWidget({
-        projectId,
-        widgetId,
-      })
-      commit(mutator.SET_SENTIMENT_TOP_KEYWORDS_WIDGET, sentimentTopKeywords)
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false})
-    }
-  },
-
-  async [action.GET_TOP_KEYWORDS_WIDGET]({commit}, {projectId, widgetId}) {
-    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true})
-    try {
-      const topKeywords = await api.getTopKeywordsWidget({projectId, widgetId})
-      commit(mutator.SET_TOP_KEYWORDS_WIDGET, topKeywords)
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false})
-    }
-  },
-
-  async [action.GET_TOP_KEYWORDS_BY_COUNTRY_WIDGET](
-    {commit},
-    {projectId, widgetId}
-  ) {
-    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true})
-    try {
-      const topKeywords = await api.getTopKeywordsByCountryWidget({
-        projectId,
-        widgetId,
-      })
-      commit(mutator.SET_TOP_KEYWORDS_BY_COUNTRY_WIDGET, topKeywords)
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false})
-    }
-  },
-
-  async [action.GET_AUTHORS_BY_COUNTRY]({commit}, {projectId, widgetId}) {
-    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true})
-    try {
-      const authorsByCountry = await api.getAuthorsByCountry({
-        projectId,
-        widgetId,
-      })
-      commit(mutator.SET_AUTHORS_BY_COUNTRY, authorsByCountry)
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false})
-    }
-  },
-
-  async [action.GET_SENTIMENT_DIAGRAM]({commit}, {projectId, widgetId}) {
-    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true})
-    try {
-      const sentimentDiagram = await api.getSentimentDiagram({
-        projectId,
-        widgetId,
-      })
-      commit(mutator.SET_SENTIMENT_DIAGRAM, sentimentDiagram)
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false})
-    }
-  },
-
-  async [action.GET_SENTIMENT_NUMBER_OF_RESULT](
-    {commit},
-    {projectId, widgetId}
-  ) {
-    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true})
-    try {
-      const sentimentNumberOfResult = await api.getSentimentNumberOfResult({
-        projectId,
-        widgetId,
-      })
-      commit(mutator.SET_SENTIMENT_NUMBER_OF_RESULT, sentimentNumberOfResult)
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false})
-    }
-  },
-
-  async [action.GET_SOURCES_BY_LANGUAGE]({commit}, {projectId, widgetId}) {
-    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true})
-    try {
-      const sourcesByLanguage = await api.getSourcesByLanguage({
-        projectId,
-        widgetId,
-      })
-      commit(mutator.SET_SOURCES_BY_LANGUAGE, sourcesByLanguage)
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false})
-    }
-  },
-
-  async [action.GET_SOURCES_BY_COUNTRY]({commit}, {projectId, widgetId}) {
-    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true})
-    try {
-      const sourcesByCountry = await api.getSourcesByCountry({
-        projectId,
-        widgetId,
-      })
-      commit(mutator.SET_SOURCES_BY_COUNTRY, sourcesByCountry)
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false})
-    }
-  },
-
-  async [action.GET_OVERALL_TOP_SOURCES]({commit}, {projectId, widgetId}) {
-    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true})
-    try {
-      const overallTopSources = await api.getOverallTopSources({
-        projectId,
-        widgetId,
-      })
-      commit(mutator.SET_OVERALL_TOP_SOURCES, overallTopSources)
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false})
-    }
-  },
-
-  async [action.GET_OVERALL_TOP_AUTHORS]({commit}, {projectId, widgetId}) {
-    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true})
-    try {
-      const overallTopAuthors = await api.getOverallTopAuthors({
-        projectId,
-        widgetId,
-      })
-      commit(mutator.SET_OVERALL_TOP_AUTHORS, overallTopAuthors)
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false})
-    }
-  },
-
-  async [action.GET_AUTHORS_BY_LANGUAGE]({commit}, {projectId, widgetId}) {
-    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true})
-    try {
-      const authorsByLanguage = await api.getAuthorsByLanguage({
-        projectId,
-        widgetId,
-      })
-      commit(mutator.SET_AUTHORS_BY_LANGUAGE, authorsByLanguage)
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false})
-    }
-  },
-
-  async [action.GET_AUTHORS_BY_SENTIMENT]({commit}, {projectId, widgetId}) {
-    commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: true})
-    try {
-      const authorsBySentiment = await api.getAuthorsBySentiment({
-        projectId,
-        widgetId,
-      })
-      commit(mutator.SET_AUTHORS_BY_SENTIMENT, authorsBySentiment)
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false})
     }
   },
 
@@ -703,86 +192,6 @@ export default {
     }
   },
 
-  async [action.GET_FILTER_AUTHORS]({commit}, projectId) {
-    commit(mutator.SET_LOADING, true)
-    try {
-      const dimensionAuthors = await api.getFiltersAuthors(projectId)
-      commit(mutator.SET_FILTERS_AUTHORS, dimensionAuthors)
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING, false)
-    }
-  },
-
-  async [action.GET_FILTER_LANGUAGES]({commit}, projectId) {
-    commit(mutator.SET_LOADING, true)
-    try {
-      const dimensionLanguages = await api.getFiltersLanguages(projectId)
-      commit(mutator.SET_FILTERS_LANGUAGES, dimensionLanguages)
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING, false)
-    }
-  },
-
-  async [action.GET_FILTER_COUNTRIES]({commit}, projectId) {
-    commit(mutator.SET_LOADING, true)
-    try {
-      const dimensionCountries = await api.getFiltersCountries(projectId)
-      commit(mutator.SET_FILTERS_COUNTRIES, dimensionCountries)
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING, false)
-    }
-  },
-
-  async [action.GET_FILTER_COUNTRIES]({commit}, projectId) {
-    commit(mutator.SET_LOADING, true)
-    try {
-      const dimensionCountries = await api.getFiltersCountries(projectId)
-      commit(mutator.SET_FILTERS_COUNTRIES, dimensionCountries)
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING, false)
-    }
-  },
-
-  async [action.GET_FILTER_SOURCES]({commit}, projectId) {
-    commit(mutator.SET_LOADING, true)
-    try {
-      const dimensionSources = await api.getFiltersSources(projectId)
-      commit(mutator.SET_FILTERS_SOURCES, dimensionSources)
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING, false)
-    }
-  },
-
-  async [action.GET_FILTERS_OPTIONS]({commit, dispatch}, projectId) {
-    commit(mutator.SET_LOADING, true)
-    try {
-      await dispatch(action.GET_FILTER_AUTHORS, projectId)
-      await dispatch(action.GET_FILTER_COUNTRIES, projectId)
-      await dispatch(action.GET_FILTER_LANGUAGES, projectId)
-      await dispatch(action.GET_FILTER_SOURCES, projectId)
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING, false)
-    }
-  },
-
   async [action.GET_COMPANY_USERS]({commit}, companyId) {
     commit(mutator.SET_LOADING, true)
     try {
@@ -793,53 +202,6 @@ export default {
       return error
     } finally {
       commit(mutator.SET_LOADING, false)
-    }
-  },
-
-  async [action.CREATE_WORKSPACE]({commit}, workspace) {
-    commit(mutator.SET_LOADING, true)
-    try {
-      const response = await api.createWorkspace(workspace)
-      commit(mutator.SET_NEW_WORKSPACE_ID, response.id)
-      commit(mutator.SET_NEW_PROJECT_ID, response.projects[0].id)
-      return response
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING, false)
-    }
-  },
-
-  async [action.CREATE_PROJECT]({commit, dispatch}, projectData) {
-    commit(mutator.SET_LOADING, true)
-    try {
-      const response = await api.createNewProject(projectData)
-      commit(mutator.SET_NEW_PROJECT_ID, response.id)
-      await dispatch(action.GET_USER_INFORMATION)
-
-      return response
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING, false)
-    }
-  },
-
-  async [action.CREATE_CLIPPING_FEED_CONTENT_WIDGET]({commit, dispatch}, data) {
-    commit(mutator.SET_LOADING_WIDGETS, {clippingWidget: true})
-    try {
-      await api.createClippingFeedContent(data.posts)
-      await dispatch(action.GET_CLIPPING_FEED_CONTENT_WIDGET, {
-        projectId: data.projectId,
-        widgetId: data.widgetId,
-      })
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING_WIDGETS, {clippingWidget: false})
     }
   },
 
@@ -890,67 +252,6 @@ export default {
     }
   },
 
-  async [action.UPDATE_WORKSPACE]({commit}, {workspaceId, data}) {
-    commit(mutator.SET_LOADING, true)
-    try {
-      const responseData = await api.updateWorkspace({workspaceId, data})
-      commit(mutator.UPDATE_WORKSPACE, responseData)
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING, false)
-    }
-  },
-
-  async [action.UPDATE_PROJECT]({dispatch, commit}, {projectId, data}) {
-    commit(mutator.SET_LOADING, true)
-    try {
-      await api.updateProject({projectId, data})
-      await dispatch(action.GET_WORKSPACES)
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING, false)
-    }
-  },
-
-  async [action.UPDATE_AVAILABLE_WIDGETS](
-    {commit, dispatch},
-    {projectId, widgetsList}
-  ) {
-    commit(mutator.SET_LOADING, true)
-    try {
-      const availableWidgets = await api.updateAvailableWidgets({
-        projectId,
-        data: widgetsList,
-      })
-      commit(mutator.SET_AVAILABLE_WIDGETS, availableWidgets)
-      dispatch(action.GET_AVAILABLE_WIDGETS, projectId)
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING, false)
-    }
-  },
-
-  async [action.POST_SEARCH]({commit}, data) {
-    commit(mutator.SET_LOADING, true)
-    try {
-      const response = await api.postSearch(data)
-      commit(mutator.SET_SEARCH_DATA, response.posts)
-      commit(mutator.SET_NUMBER_OF_POSTS, response.num_posts)
-      commit(mutator.SET_NUMBER_OF_PAGES, response.num_pages)
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING, false)
-    }
-  },
-
   async [action.POST_FILTERS_FOR_WIDGET](
     {commit, dispatch},
     {projectId, widgetId, data}
@@ -988,25 +289,6 @@ export default {
     }
   },
 
-  async [action.DELETE_CLIPPING_FEED_CONTENT](
-    {commit, dispatch},
-    {projectId, postId, widgetId}
-  ) {
-    commit(mutator.SET_LOADING_WIDGETS, {clippingWidget: true})
-    try {
-      await api.deleteClippingFeedContentPost(projectId, postId)
-      await dispatch(action.GET_CLIPPING_FEED_CONTENT_WIDGET, {
-        projectId: projectId,
-        widgetId: widgetId,
-      })
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING_WIDGETS, {clippingWidget: false})
-    }
-  },
-
   async [action.DELETE_USER_FROM_COMPANY](
     {commit, dispatch},
     {userId, currentUserId}
@@ -1023,44 +305,6 @@ export default {
     }
   },
 
-  async [action.DELETE_WORKSPACE]({commit, dispatch}, workspaceId) {
-    commit(mutator.SET_LOADING, true)
-    try {
-      await api.deleteWorkspace(workspaceId)
-      await dispatch(action.GET_WORKSPACES)
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING, false)
-    }
-  },
-
-  async [action.DELETE_PROJECT]({commit, dispatch}, projectId) {
-    commit(mutator.SET_LOADING, true)
-    try {
-      await api.deleteProject(projectId)
-      await dispatch(action.GET_WORKSPACES)
-      await dispatch(action.GET_USER_INFORMATION)
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING, false)
-    }
-  },
-
-  async [action.GET_INSTANT_REPORT]({commit}, {projectId}) {
-    commit(mutator.SET_LOADING, true)
-    try {
-      return api.downloadInstantReport(projectId)
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING, false)
-    }
-  },
   async [action.GET_SOCIAL_INSTANTLY_REPORT](
     {commit},
     {departmentId, projectId}

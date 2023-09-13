@@ -8,10 +8,13 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
+import {createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
+import {isAllFieldsEmpty} from '@lib/utilities'
 
 import CountriesWidget from '@/components/widgets/CountriesWidget'
+
+const {mapActions, mapGetters} = createNamespacedHelpers('online/widgets')
 
 export default {
   name: 'AuthorsByCountryWidget',
@@ -22,7 +25,15 @@ export default {
     isSettings: {type: Boolean, default: false},
   },
   computed: {
-    ...mapGetters({authorsByCountry: get.AUTHORS_BY_COUNTRY}),
+    ...mapGetters({
+      onlineWidgets: get.ONLINE_WIDGETS,
+    }),
+    authorsByCountry() {
+      return (
+        this.widgetDetails.widgetData ||
+        this.onlineWidgets.authorsByCountry.data
+      )
+    },
     chartValues() {
       let newChartValues = []
 
@@ -35,15 +46,25 @@ export default {
 
       return newChartValues
     },
+    widgetId() {
+      return this.onlineWidgets.authorsByCountry?.id
+    },
   },
   created() {
-    this[action.GET_AUTHORS_BY_COUNTRY]({
-      projectId: this.widgetDetails.projectId,
-      widgetId: this.widgetDetails.id,
-    })
+    const hasCurrentData =
+      !isAllFieldsEmpty(this.authorsByCountry) &&
+      this.widgetId === this.widgetDetails.id
+
+    if (!this.widgetDetails.widgetData && !hasCurrentData) {
+      this[action.GET_AUTHORS_BY_COUNTRY]({
+        projectId: this.widgetDetails.projectId,
+        widgetId: this.widgetDetails.id,
+      })
+    }
   },
   methods: {
     ...mapActions([action.GET_AUTHORS_BY_COUNTRY]),
+    isAllFieldsEmpty,
   },
 }
 </script>

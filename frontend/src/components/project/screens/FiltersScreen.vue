@@ -79,7 +79,7 @@
 
 <script>
 import {action, get} from '@store/constants'
-import {action as actionSocial} from '@store/constants'
+import {action as actionSocial, action as actionOnline} from '@store/constants'
 import {mapActions, mapGetters, createNamespacedHelpers} from 'vuex'
 import {capitalizeFirstLetter} from '@/lib/utilities'
 
@@ -88,6 +88,7 @@ import BaseCheckbox from '@/components/BaseCheckbox2'
 import SelectWithCheckboxes from '@/components/SelectWithCheckboxes'
 import FilterChips from '@/components/FilterChips'
 
+const {mapActions: mapOnlineActions} = createNamespacedHelpers('online')
 const {mapActions: mapSocialActions} = createNamespacedHelpers('social')
 
 export default {
@@ -196,7 +197,7 @@ export default {
     this.sentiments = ['neutral', 'negative', 'positive']
 
     if (this.moduleName === 'Online') {
-      this[action.GET_FILTERS_OPTIONS](this.projectId)
+      this[actionOnline.GET_FILTERS_OPTIONS](this.projectId)
     }
 
     if (this.moduleName === 'Social') {
@@ -205,10 +206,10 @@ export default {
   },
   methods: {
     ...mapSocialActions([actionSocial.GET_SOCIAL_FILTERS_OPTIONS]),
+    ...mapOnlineActions([actionOnline.GET_FILTERS_OPTIONS]),
     ...mapActions([
       action.UPDATE_PROJECT,
       action.GET_WORKSPACES,
-      action.GET_FILTERS_OPTIONS,
       action.GET_SELECTED_FILTERS,
     ]),
     capitalizeFirstLetter,
