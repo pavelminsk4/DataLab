@@ -23,8 +23,10 @@
       @delete="deleteWorkspace(workspaceId)"
     />
 
+    <BaseSpinner v-if="isLoading" :is-full-space="true" />
+
     <WorkspacesScreen
-      v-if="workspaces.length"
+      v-else-if="workspaces.length"
       :workspaces="workspaces"
       :is-project-creation-available="false"
       @add-new-project="addNewProject"
@@ -48,7 +50,7 @@
 
 <script>
 import {createNamespacedHelpers} from 'vuex'
-import {action} from '@store/constants'
+import {action, get} from '@store/constants'
 import ComparisonMixin from '@/lib/mixins/comparison.js'
 
 import AreYouSureModal from '@/components/modals/AreYouSureModal'
@@ -57,8 +59,9 @@ import MainLayout from '@/components/layout/MainLayout'
 import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
 import PlusIcon from '@/components/icons/PlusIcon'
 import WorkspacesScreen from '@/components/dashboard/WorkspacesScreen'
+import BaseSpinner from '@/components/BaseSpinner'
 
-const {mapActions} = createNamespacedHelpers('comparison')
+const {mapActions, mapGetters} = createNamespacedHelpers('comparison')
 
 export default {
   name: 'ComparisonScreen',
@@ -66,6 +69,7 @@ export default {
   components: {
     AreYouSureModal,
     BaseButtonWithTooltip,
+    BaseSpinner,
     MainLayout,
     MainLayoutTitleBlock,
     PlusIcon,
@@ -79,6 +83,9 @@ export default {
     return {
       isOpenDeleteModal: false,
     }
+  },
+  computed: {
+    ...mapGetters({isLoading: get.LOADING}),
   },
   methods: {
     ...mapActions([action.DELETE_WORKSPACE, action.UPDATE_WORKSPACE]),

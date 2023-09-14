@@ -15,8 +15,10 @@
       </BaseButtonWithTooltip>
     </div>
 
+    <BaseSpinner v-if="isLoading" :is-full-space="true" />
+
     <WorkspacesScreen
-      v-if="workspaces?.length"
+      v-else-if="workspaces?.length"
       :workspaces="workspaces"
       :isProjectCreationAvailable="isProjectCreationAvailable"
       @create-workspace="$emit('create-workspace')"
@@ -38,19 +40,21 @@
 
 <script>
 import {createNamespacedHelpers} from 'vuex'
-import {action} from '@store/constants'
+import {action, get} from '@store/constants'
 
 import BaseButtonWithTooltip from '@/components/BaseButtonWithTooltip'
 import WorkspacesScreen from '@/components/dashboard/WorkspacesScreen'
 import MainLayoutTitleBlock from '@/components/layout/MainLayoutTitleBlock'
 import MainLayout from '@components/layout/MainLayout'
 import PlusIcon from '@/components/icons/PlusIcon'
+import BaseSpinner from '@/components/BaseSpinner'
 
-const {mapActions} = createNamespacedHelpers('accountAnalysis')
+const {mapActions, mapGetters} = createNamespacedHelpers('accountAnalysis')
 
 export default {
   name: 'AccountAnalysisModuleScreen',
   components: {
+    BaseSpinner,
     MainLayout,
     MainLayoutTitleBlock,
     BaseButtonWithTooltip,
@@ -66,6 +70,9 @@ export default {
       type: Boolean,
       default: true,
     },
+  },
+  computed: {
+    ...mapGetters({isLoading: get.LOADING}),
   },
   methods: {
     ...mapActions([action.UPDATE_WORKSPACE, action.DELETE_WORKSPACE]),

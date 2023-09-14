@@ -1,7 +1,7 @@
 <template>
   <div v-if="currentProject" class="project-dashboard-wrapper">
     <InteractiveWidgetModal
-      v-if="inreractiveDataModal.isShow"
+      v-if="interactiveDataModal.isShow"
       :widget-id="widgetId"
       :current-project="currentProject"
       :module-name="currentProject.source"
@@ -27,7 +27,13 @@
       @close-modal="toggleWidgetsModal('isOpenFilterModal')"
     />
 
-    <DownloadReportModal
+    <!-- <DownloadReportModal
+      v-if="isOpenDownloadReportModal"
+      :project-id="currentProject.id"
+      @close="toggleWidgetsModal('isOpenDownloadReportModal')"
+    /> -->
+
+    <DownloadInformationModal
       v-if="isOpenDownloadReportModal"
       :project-id="currentProject.id"
       @close="toggleWidgetsModal('isOpenDownloadReportModal')"
@@ -63,9 +69,12 @@
         <BaseButton
           :is-not-background="true"
           class="button-upload"
-          @click="toggleWidgetsModal('isOpenDownloadReportModal')"
+          @click="downloadReport"
         >
-          <ReportsUploadIcon />
+          <component
+            :is="downloadReportButtonIcon"
+            style="--spinner-width: 16px"
+          ></component>
           <CustomText text="Download Report" />
         </BaseButton>
 
@@ -115,15 +124,18 @@ import WidgetsListModal from '@/components/widgets/modals/WidgetsListModal'
 import FiltersIcon from '@/components/icons/FiltersIcon'
 import OnlineFiltersModal from '@/components/project/modals/online/OnlineFiltersModal'
 import ReportsUploadIcon from '@/components/icons/ReportsUploadIcon'
-import DownloadReportModal from '@/components/project/modals/online/DownloadReportModal'
+// import DownloadReportModal from '@/components/project/modals/online/DownloadReportModal'
 import BaseDropdown from '@/components/BaseDropdown'
 import MainLayoutTitleBlock from '@/components/layout/MainLayoutTitleBlock'
 import InteractiveWidgetModal from '@/components/modals/InteractiveWidgetModal'
 import TotalResults from '@/components/TotalResults'
 import CustomText from '@/components/CustomText'
 import SearchResults from '@/components/SearchResults'
+import DownloadInformationModal from '@/components/project/modals/DownloadInformationModal'
+import BaseButtonSpinner from '@/components/BaseButtonSpinner'
 
-const {mapActions: mapOnlineActions} = createNamespacedHelpers('online')
+const {mapActions: mapOnlineActions, mapState} =
+  createNamespacedHelpers('online')
 
 const {mapGetters: mapOnlineWidgetsGetters} =
   createNamespacedHelpers('online/widgets')
@@ -135,7 +147,7 @@ export default {
     InteractiveWidgetModal,
     MainLayoutTitleBlock,
     BaseDropdown,
-    DownloadReportModal,
+    // DownloadReportModal,
     ReportsUploadIcon,
     OnlineFiltersModal,
     FiltersIcon,
@@ -145,6 +157,8 @@ export default {
     TotalResults,
     CustomText,
     SearchResults,
+    DownloadInformationModal,
+    BaseButtonSpinner,
   },
   props: {
     currentProject: {type: [Array, Object], required: false},
@@ -166,6 +180,9 @@ export default {
     }
   },
   computed: {
+    ...mapState({
+      downloadingInstantReport: (state) => state.downloadingInstantReport,
+    }),
     ...mapOnlineWidgetsGetters({
       clippingData: get.CLIPPING_FEED_CONTENT_WIDGET,
     }),
@@ -174,7 +191,7 @@ export default {
       keywords: get.KEYWORDS,
       searchData: get.SEARCH_DATA,
       numberOfPosts: get.POSTS_NUMBER,
-      inreractiveDataModal: get.INTERACTIVE_DATA_MODAL,
+      interactiveDataModal: get.INTERACTIVE_DATA_MODAL,
       department: get.DEPARTMENT,
     }),
     currentKeywords() {
@@ -197,6 +214,12 @@ export default {
         this.sortingValue = value
       },
     },
+
+    downloadReportButtonIcon() {
+      return this.downloadingInstantReport
+        ? 'BaseButtonSpinner'
+        : 'ReportsUploadIcon'
+    },
   },
   created() {
     this[action.UPDATE_ADDITIONAL_FILTERS]({
@@ -217,6 +240,7 @@ export default {
       action.POST_SEARCH,
       action.POST_INTERACTIVE_WIDGETS,
       action.UPDATE_AVAILABLE_WIDGETS,
+      action.GET_INSTANT_REPORT,
     ]),
     setSortingValue(item) {
       this.sortValue = item
@@ -269,10 +293,10 @@ export default {
 
     updatePageAndCountPosts(page, countPosts) {
       this[action.POST_INTERACTIVE_WIDGETS]({
-        projectId: this.inreractiveDataModal.projectId,
-        widgetId: this.inreractiveDataModal.widgetId,
+        projectId: this.interactiveDataModal.projectId,
+        widgetId: this.interactiveDataModal.widgetId,
         data: {
-          ...this.inreractiveDataModal.data,
+          ...this.interactiveDataModal.data,
           page_number: page,
           posts_per_page: countPosts,
         },
@@ -282,6 +306,29 @@ export default {
     async updateAvailableWidgets(data) {
       await this[action.UPDATE_AVAILABLE_WIDGETS](data)
       this.toggleWidgetsModal('isOpenWidgetsModal')
+    },
+
+    async downloadReport() {
+      if (!this.downloadingInstantReport) {
+        try {
+          this.toggleWidgetsModal('isOpenDownloadReportModal')
+          const res = await this[action.GET_INSTANT_REPORT]({
+            projectId: this.projectId,
+          })
+
+          const anchor = document.createElement('a')
+          anchor.href = res
+          anchor.download = 'instant_report.pdf'
+
+          document.body.appendChild(anchor)
+          anchor.click()
+          document.body.removeChild(anchor)
+        } catch (error) {
+          console.error(error)
+        } finally {
+          this.toggleWidgetsModal('isOpenDownloadReportModal')
+        }
+      }
     },
   },
 }

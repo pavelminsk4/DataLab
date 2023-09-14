@@ -1,5 +1,5 @@
 <template>
-  <div class="wifi-loader">
+  <div :class="['wifi-loader', isFullSpace && 'full-space']">
     <svg class="circle-outer" viewBox="0 0 86 86">
       <circle class="back" cx="43" cy="43" r="40"></circle>
       <circle class="front" cx="43" cy="43" r="40"></circle>
@@ -21,10 +21,8 @@
 export default {
   name: 'BaseSpinner',
   props: {
-    isHaveLabel: {
-      type: Boolean,
-      default: false,
-    },
+    isHaveLabel: {type: Boolean, default: false},
+    isFullSpace: {type: Boolean, default: false},
   },
 }
 </script>
@@ -126,6 +124,15 @@ export default {
       left: 0;
     }
   }
+}
+
+.full-space {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 80%;
+  width: 100%;
 }
 
 @keyframes circle-outer {
