@@ -62,7 +62,8 @@ import CustomText from '@/components/CustomText'
 import OnlineIcon from '@/components/icons/OnlineIcon'
 import PostCardLayout from '@/components/layout/PostCardLayout'
 
-const {mapActions, mapGetters} = createNamespacedHelpers('online')
+const {mapActions} = createNamespacedHelpers('online')
+const {mapGetters} = createNamespacedHelpers('online/widgets')
 
 export default {
   name: 'OnlinePostCard',
@@ -79,7 +80,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      clippingWidgets: get.CLIPPING_WIDGETS_DETAILS,
+      clippingWidgets: get.CLIPPING_FEED_CONTENT_WIDGET,
     }),
     commonCardItems() {
       return [

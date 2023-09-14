@@ -61,8 +61,8 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
-import {action, get} from '@store/constants'
+import {mapGetters} from 'vuex'
+import {get} from '@store/constants'
 import {capitalizeFirstLetter, defaultDate} from '@lib/utilities'
 
 import CustomText from '@/components/CustomText'
@@ -134,13 +134,8 @@ export default {
   methods: {
     capitalizeFirstLetter,
     defaultDate,
-    ...mapActions([action.DELETE_CLIPPING_FEED_CONTENT]),
-    async deleteClippingFeedPost() {
-      await this[action.DELETE_CLIPPING_FEED_CONTENT]({
-        projectId: this.projectId,
-        postId: this.postId,
-        widgetId: this.widgetId,
-      })
+    deleteClippingFeedPost() {
+      this.$emit('delete-clipping-post')
     },
     addPost() {
       if (this.isLoadingClippingWidget) return

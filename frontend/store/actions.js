@@ -268,27 +268,6 @@ export default {
     }
   },
 
-  async [action.POST_INTERACTIVE_WIDGETS](
-    {commit},
-    {projectId, widgetId, data}
-  ) {
-    commit(mutator.SET_LOADING, true)
-    try {
-      const response = await api.postInteractiveWidget({
-        projectId,
-        widgetId,
-        data,
-      })
-
-      commit(mutator.SET_INTERACTIVE_DATA, response)
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING, false)
-    }
-  },
-
   async [action.DELETE_USER_FROM_COMPANY](
     {commit, dispatch},
     {userId, currentUserId}
@@ -329,7 +308,10 @@ export default {
       commit(mutator.SET_INTERACTIVE_DATA_MODAL, value)
       switch (moduleType) {
         case 'Online':
-          return await dispatch(action.POST_INTERACTIVE_WIDGETS, value)
+          return await dispatch(
+            `online/${action.POST_INTERACTIVE_WIDGETS}`,
+            value
+          )
         case 'Social':
           return await dispatch(
             `social/${action.POST_INTERACTIVE_WIDGETS}`,

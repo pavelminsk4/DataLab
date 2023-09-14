@@ -5,6 +5,7 @@
       :widget-id="widgetId"
       :current-project="currentProject"
       :module-name="currentProject.source"
+      :clipping-content="clippingData.data"
       class="interactive-widgets"
       @show-results="updatePageAndCountPosts"
       @close="closeInteractiveModal"
@@ -89,7 +90,7 @@
       <SearchResults
         module-name="Online"
         :is-checkbox-clipping-widget="true"
-        :clipping-content="clippingData"
+        :clipping-content="clippingData.data"
         class="search-results"
         @show-results="showResults"
       />
@@ -123,6 +124,9 @@ import CustomText from '@/components/CustomText'
 import SearchResults from '@/components/SearchResults'
 
 const {mapActions: mapOnlineActions} = createNamespacedHelpers('online')
+
+const {mapGetters: mapOnlineWidgetsGetters} =
+  createNamespacedHelpers('online/widgets')
 
 export default {
   name: 'OnlineProjectDashboard',
@@ -162,6 +166,9 @@ export default {
     }
   },
   computed: {
+    ...mapOnlineWidgetsGetters({
+      clippingData: get.CLIPPING_FEED_CONTENT_WIDGET,
+    }),
     ...mapGetters({
       additionalFilters: get.ADDITIONAL_FILTERS,
       keywords: get.KEYWORDS,
@@ -169,7 +176,6 @@ export default {
       numberOfPosts: get.POSTS_NUMBER,
       inreractiveDataModal: get.INTERACTIVE_DATA_MODAL,
       department: get.DEPARTMENT,
-      clippingData: get.CLIPPING_FEED_CONTENT_WIDGET,
     }),
     currentKeywords() {
       return this.currentProject?.keywords

@@ -94,7 +94,7 @@ export default {
       clippingWidgets: get.CLIPPING_WIDGETS_DETAILS,
     }),
     projectId() {
-      return this.$router.params.projectId
+      return this.$route.params.projectId
     },
     commonCardItems() {
       return [
