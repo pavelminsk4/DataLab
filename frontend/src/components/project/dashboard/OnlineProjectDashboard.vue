@@ -313,7 +313,7 @@ export default {
         try {
           this.toggleWidgetsModal('isOpenDownloadReportModal')
           const res = await this[action.GET_INSTANT_REPORT]({
-            projectId: this.projectId,
+            projectId: this.currentProject.id,
           })
 
           const anchor = document.createElement('a')
