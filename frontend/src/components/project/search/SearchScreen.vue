@@ -46,6 +46,7 @@
         <SearchResults
           :module-name="moduleName"
           :clipping-content="clippingContent"
+          class="search-section"
           @show-results="showResults"
         />
       </div>
@@ -229,5 +230,17 @@ export default {
     border: 1px solid var(--primary-color);
     border-radius: 8px;
   }
+}
+
+.search-section {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  width: 50%;
+  padding: 80px 32px 0 16px;
+
+  border: 1px solid var(--border-color);
+  background-color: var(--background-secondary-color);
 }
 </style>

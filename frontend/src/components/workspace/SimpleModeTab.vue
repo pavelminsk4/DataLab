@@ -150,7 +150,7 @@ export default {
   display: flex;
   flex-direction: column;
 
-  width: 100%;
+  width: 50%;
   margin: 20px 0 0 -24px;
 
   .settings-wrapper {
