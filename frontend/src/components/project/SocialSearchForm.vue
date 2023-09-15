@@ -220,10 +220,13 @@ export default {
   flex-direction: column;
   justify-content: space-between;
 
+  width: 408px;
+
   margin-bottom: 20px;
 }
 
 .date-picker {
+  width: 408px;
   margin-bottom: 60px;
 }
 
@@ -239,7 +242,7 @@ export default {
   display: flex;
   align-items: center;
 
-  margin: 0 25px 8px 0;
+  margin: 0 0 8px 0;
 
   cursor: pointer;
 
@@ -256,6 +259,7 @@ export default {
   justify-content: space-between;
   gap: 12px;
 
+  width: 408px;
   margin: 10px 0 25px;
 
   .checkbox {

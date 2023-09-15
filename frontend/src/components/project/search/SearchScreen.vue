@@ -28,6 +28,7 @@
           @save-project="updateProjectData"
           @show-result="showResults"
           @update-query-filter="updateQueryFilter"
+          class="expert-mode"
         />
         <SimpleModeTab
           v-else
@@ -215,7 +216,7 @@ export default {
   display: flex;
   flex-wrap: nowrap;
 
-  max-width: 45%;
+  max-width: 408px;
   gap: 10px;
   padding: 14px 12px;
 
@@ -242,5 +243,20 @@ export default {
 
   border: 1px solid var(--border-color);
   background-color: var(--background-secondary-color);
+}
+
+.expert-mode {
+  width: 50%;
+}
+</style>
+
+<style lang="scss">
+.expert-mode {
+  width: 50%;
+
+  .buttons {
+    padding: 0;
+    margin: 0 -40px 0 -34px;
+  }
 }
 </style>

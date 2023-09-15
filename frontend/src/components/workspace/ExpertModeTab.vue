@@ -193,13 +193,13 @@ export default {
 
   width: 95%;
   gap: 30px;
-  margin: 20px 0 0 -24px;
-  padding: 0 40px 0 24px;
+  margin: 20px 0 0 -32px;
+  padding: 0 40px 0 34px;
 
   cursor: default;
 
   .calendar {
-    width: 65%;
+    width: 408px;
   }
   .expert-area {
     display: flex;
@@ -308,7 +308,6 @@ export default {
     justify-content: flex-end;
     gap: 16px;
 
-    width: 100%;
     padding: 16px;
 
     border-top: var(--border-primary);
