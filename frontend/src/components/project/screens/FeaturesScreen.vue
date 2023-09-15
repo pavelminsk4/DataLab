@@ -10,7 +10,7 @@
         }"
         :should-translate="false"
       >
-        <TotalResults :total-results="numberOfPosts" />
+        <TotalResults v-if="numberOfPosts" :total-results="numberOfPosts" />
       </MainLayoutTitleBlock>
       <BaseButton :is-not-background="true" class="btn-report">
         <ReportsUploadIcon />

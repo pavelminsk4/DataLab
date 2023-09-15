@@ -48,7 +48,7 @@
       }"
       :should-translate="false"
     >
-      <TotalResults :total-results="numberOfPosts" />
+      <TotalResults v-if="searchData.length" :total-results="numberOfPosts" />
     </MainLayoutTitleBlock>
 
     <div class="analytics-menu">
@@ -95,9 +95,10 @@
       </div>
     </div>
 
-    <div class="analytics-wrapper">
+    <div class="dashboard-wrapper">
       <SearchResults
         module-name="Online"
+        :search-loading="isLoadingResults"
         :is-checkbox-clipping-widget="true"
         :clipping-content="clippingData.data"
         class="search-results"
@@ -177,6 +178,7 @@ export default {
       value: null,
       sentiment: null,
       source: null,
+      isLoadingResults: false,
     }
   },
   computed: {
@@ -250,9 +252,10 @@ export default {
       this.togglePageScroll(false)
       this[val] = !this[val]
     },
-    showResults(pageNumber, numberOfPosts) {
+    async showResults(pageNumber, numberOfPosts) {
+      this.isLoadingResults = true
       try {
-        this[action.POST_SEARCH]({
+        await this[action.POST_SEARCH]({
           keywords: this.currentKeywords || this.keywords?.keywords,
           additions:
             this.currentAdditionalKeywords ||
@@ -283,6 +286,8 @@ export default {
         })
       } catch (e) {
         console.error(e)
+      } finally {
+        this.isLoadingResults = false
       }
     },
 
@@ -343,7 +348,7 @@ export default {
   margin-top: 20px;
 }
 
-.analytics-wrapper {
+.dashboard-wrapper {
   display: flex;
   gap: 40px;
 

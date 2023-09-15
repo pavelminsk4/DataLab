@@ -46,7 +46,7 @@
       }"
       :should-translate="false"
     >
-      <TotalResults :total-results="numberOfPosts" />
+      <TotalResults v-if="searchData.length" :total-results="numberOfPosts" />
     </MainLayoutTitleBlock>
 
     <div class="analytics-menu">
@@ -93,9 +93,10 @@
       </div>
     </div>
 
-    <div class="analytics-wrapper">
+    <div class="dashboard-wrapper">
       <SearchResults
         module-name="Social"
+        :search-loading="isLoadingResults"
         :clipping-content="clippingData"
         :is-checkbox-clipping-widget="true"
         class="search-results"
@@ -164,6 +165,7 @@ export default {
       sortValue: '',
       sortingValue: '',
       widgetId: null,
+      isLoadingResults: false,
     }
   },
   computed: {
@@ -234,9 +236,10 @@ export default {
       this.openModal = val
       this.togglePageScroll(this.openModal)
     },
-    showResults(pageNumber, numberOfPosts) {
+    async showResults(pageNumber, numberOfPosts) {
+      this.isLoadingResults = true
       try {
-        this[action.POST_SEARCH]({
+        await this[action.POST_SEARCH]({
           keywords: this.currentKeywords || this.keywords?.keywords,
           additions:
             this.currentAdditionalKeywords ||
@@ -267,6 +270,8 @@ export default {
         })
       } catch (e) {
         console.error(e)
+      } finally {
+        this.isLoadingResults = false
       }
     },
     openInteractiveWidgetModal(val, widgetId, fieldName) {
@@ -341,7 +346,7 @@ export default {
   margin-top: 20px;
 }
 
-.analytics-wrapper {
+.dashboard-wrapper {
   display: flex;
   gap: 40px;
 
