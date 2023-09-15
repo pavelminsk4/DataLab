@@ -1,6 +1,6 @@
 <template>
   <div class="settings-wrapper">
-    <div v-if="widgetDetails.hasPreview" class="preview-section">
+    <div v-if="widgetDetails.hasPreview" class="preview-section scroll">
       <CustomText :text="widgetDetails.title" class="chart-title" />
 
       <slot></slot>

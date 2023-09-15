@@ -91,9 +91,9 @@ export default {
       inreractiveDataModal: get.INTERACTIVE_DATA_MODAL,
     }),
     displayedWidgets() {
-      if (this.moduleName === 'AccountAnalysis')
-        return this.selectedWidgets.slice(0, this.countDisplayedWidgets)
-      return this.selectedWidgets
+      if (this.moduleName === 'Comparison') return this.selectedWidgets
+
+      return this.selectedWidgets.slice(0, this.countDisplayedWidgets)
     },
   },
   methods: {
