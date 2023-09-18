@@ -536,4 +536,12 @@ export default {
   async [action.UPDATE_NEW_TFS_PROJECT]({commit}, data) {
     commit(mutator.SET_NEW_TFS_PROJECT, data)
   },
+
+  // Flash message
+  [action.OPEN_FLASH_MESSAGE]({commit}, {message, title, type}) {
+    commit(mutator.SET_FLASH_MESSAGE, {title, message, type})
+  },
+  [action.CLOSE_FLASH_MESSAGE]({commit}, flashMessageId) {
+    commit(mutator.REMOVE_FLASH_MESSAGE, flashMessageId)
+  },
 }

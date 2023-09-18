@@ -116,6 +116,9 @@ export default {
   },
   translation: {},
   platformLanguage: 'ar',
+  flashMessages: [],
+  flashMessagesCount: 0,
+
   currentStep: '',
   projects: [],
   workspaces: [],
