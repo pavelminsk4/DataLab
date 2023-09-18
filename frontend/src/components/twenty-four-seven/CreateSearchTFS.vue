@@ -1,6 +1,7 @@
 <template>
   <SimpleModeTab
     :module-name="selectedModuleType"
+    class="mode-section"
     @show-result="showResults"
     @update-collection="updateCollection"
     @save-project="saveChanges"
@@ -210,6 +211,19 @@ export default {
         height: 16px;
       }
     }
+  }
+}
+
+.mode-section {
+  width: 100%;
+}
+</style>
+
+<style lang="scss">
+.mode-section {
+  .buttons {
+    width: auto;
+    margin-right: -64px;
   }
 }
 </style>

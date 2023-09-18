@@ -21,6 +21,7 @@
   <ExpertModeTab
     v-if="isExpertMode"
     :filters="filters"
+    class="mode-section exprt-mode-section"
     @save-project="createWorkspaceAndProject"
     @show-result="showResults"
     @update-query-filter="updateQueryFilter"
@@ -29,6 +30,7 @@
   <SimpleModeTab
     v-else
     :module-name="moduleName"
+    class="mode-section"
     @show-result="showResults"
     @update-collection="updateCollection"
     @save-project="createWorkspaceAndProject"
@@ -223,7 +225,7 @@ export default {
   display: flex;
   flex-wrap: nowrap;
 
-  max-width: 45%;
+  max-width: 408px;
 
   margin-top: 20px;
   gap: 10px;
@@ -239,6 +241,25 @@ export default {
     background-color: var(--primary-active-color);
     border: 1px solid var(--primary-color);
     border-radius: 8px;
+  }
+}
+
+.mode-section {
+  width: 100%;
+}
+</style>
+
+<style lang="scss">
+.mode-section {
+  .buttons {
+    width: auto;
+    margin-right: -64px;
+  }
+}
+
+.exprt-mode-section {
+  .buttons {
+    margin: 0 -104px 0 -36px;
   }
 }
 </style>

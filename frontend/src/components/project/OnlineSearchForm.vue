@@ -89,6 +89,7 @@ const SEARCH_FIELDS = [
 
 export default {
   name: 'OnlineSearchForm',
+  inheritAttrs: false,
   components: {
     BaseRadio,
     BaseSearchField,
