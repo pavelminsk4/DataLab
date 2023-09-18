@@ -1,10 +1,15 @@
 <template>
+  <FlashMessagesContainer />
+
   <router-view></router-view>
 </template>
 
 <script>
+import FlashMessagesContainer from '@components/flash-messages/FlashMessagesContainer'
+
 export default {
   name: 'App',
+  components: {FlashMessagesContainer},
 }
 </script>
 
@@ -42,9 +47,10 @@ export default {
   --positive-primary-color: #00b884;
   --positive-secondary-color: #d5f5ec;
   --negative-primary-color: #ed2549;
-  --negative-secondary-color: #e5e9fc;
+  --negative-secondary-color: #ffe3e8;
 
   --error-primary-color: var(--negative-primary-color);
+  --error-secondary-color: var(--negative-secondary-color);
 
   --male-bg-color: #e5e9fc;
   --female-bg-color: #ffe3e8;

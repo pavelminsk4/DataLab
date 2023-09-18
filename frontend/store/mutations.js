@@ -229,4 +229,17 @@ export default {
       }
     }
   },
+
+  [mutator.SET_FLASH_MESSAGE](state, flashMessageDetails) {
+    state.flashMessagesCount = state.flashMessagesCount + 1
+    state.flashMessages.push({
+      ...flashMessageDetails,
+      id: state.flashMessagesCount,
+    })
+  },
+  [mutator.REMOVE_FLASH_MESSAGE](state, flashMessageId) {
+    state.flashMessages = state.flashMessages.filter(
+      ({id}) => id !== flashMessageId
+    )
+  },
 }
