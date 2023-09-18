@@ -28,6 +28,7 @@
           @save-project="updateProjectData"
           @show-result="showResults"
           @update-query-filter="updateQueryFilter"
+          class="expert-mode"
         />
         <SimpleModeTab
           v-else
@@ -46,6 +47,7 @@
         <SearchResults
           :module-name="moduleName"
           :clipping-content="clippingContent"
+          class="search-section"
           @show-results="showResults"
         />
       </div>
@@ -214,7 +216,7 @@ export default {
   display: flex;
   flex-wrap: nowrap;
 
-  max-width: 45%;
+  max-width: 408px;
   gap: 10px;
   padding: 14px 12px;
 
@@ -228,6 +230,33 @@ export default {
     background-color: var(--primary-active-color);
     border: 1px solid var(--primary-color);
     border-radius: 8px;
+  }
+}
+
+.search-section {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  width: 50%;
+  padding: 80px 32px 0 16px;
+
+  border: 1px solid var(--border-color);
+  background-color: var(--background-secondary-color);
+}
+
+.expert-mode {
+  width: 50%;
+}
+</style>
+
+<style lang="scss">
+.expert-mode {
+  width: 50%;
+
+  .buttons {
+    padding: 0;
+    margin: 0 -40px 0 -34px;
   }
 }
 </style>

@@ -9,6 +9,7 @@
         :error-message="mainKeywordsError"
         :is-main-field="true"
         placeholder='Enter a main keyword and press "Enter"'
+        class="search-option"
         @update:modelValue="updateCollection"
       />
 
@@ -19,6 +20,7 @@
         :is-additional-keywords="true"
         name="additional_keywords"
         placeholder="Enter additional keywords"
+        class="search-option"
         @update:modelValue="updateCollection"
       />
 
@@ -31,6 +33,7 @@
         :is-irrelevant-keywords="true"
         name="ignore_keywords"
         placeholder="Enter irrelevant keywords"
+        class="search-option"
         @update:modelValue="updateCollection"
       />
 
@@ -44,6 +47,7 @@
       <component
         :is="`${moduleName}SearchForm`"
         :current-project="currentProject"
+        class="search-option"
       />
     </div>
 
@@ -150,11 +154,11 @@ export default {
   display: flex;
   flex-direction: column;
 
-  width: 100%;
-  margin: 20px 0 0 -24px;
+  width: 50%;
+  margin: 20px 0 0 -32px;
 
   .settings-wrapper {
-    padding: 0 40px 0 24px;
+    padding: 0 40px 0 32px;
   }
 
   .second-title {
@@ -195,5 +199,9 @@ export default {
   .save-icon {
     margin-right: 5px;
   }
+}
+
+.search-option {
+  width: 408px;
 }
 </style>
