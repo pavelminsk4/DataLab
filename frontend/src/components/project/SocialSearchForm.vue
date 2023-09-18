@@ -76,6 +76,7 @@ const SEARCH_FIELDS = [
 
 export default {
   name: 'SocialSearchForm',
+  inheritAttrs: false,
   components: {
     BaseRadio,
     BaseSearchField,
