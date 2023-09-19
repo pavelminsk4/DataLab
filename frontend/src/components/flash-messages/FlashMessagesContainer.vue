@@ -17,10 +17,11 @@ import {mapActions, mapState} from 'vuex'
 import {action} from '@store/constants'
 
 import ErrorFlashMessage from '@components/flash-messages/ErrorFlashMessage'
+import SuccessFlashMessage from '@components/flash-messages/SuccessFlashMessage'
 
 export default {
   name: 'FlashMessagesContainer',
-  components: {ErrorFlashMessage},
+  components: {ErrorFlashMessage, SuccessFlashMessage},
   computed: {
     ...mapState(['flashMessages']),
   },
