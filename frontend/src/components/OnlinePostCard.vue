@@ -23,7 +23,7 @@
     <template #description>{{ postDetails.entry_summary }}</template>
 
     <template #post-type>
-      <OnlineIcon class="icon" />
+      <OnlineIcon />
       <CustomText text="Online" />
     </template>
 
@@ -154,10 +154,5 @@ export default {
   &:hover {
     color: var(--primary-hover-color);
   }
-}
-
-.icon {
-  width: 16px;
-  height: 16px;
 }
 </style>
