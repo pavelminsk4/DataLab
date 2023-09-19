@@ -145,7 +145,7 @@ export default {
       this.isOpenWidgetSettingsModal = false
     },
     getItems() {
-      this.countDisplayedWidgets += 2
+      this.countDisplayedWidgets += 1
     },
   },
 }
