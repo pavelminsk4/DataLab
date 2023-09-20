@@ -41,6 +41,9 @@ export default {
         this.onlineWidgets.sourcesByLanguage.data
       )
     },
+    widgetId() {
+      return this.onlineWidgets.sourcesByLanguage.id
+    },
     activeTab: {
       get() {
         return this.newActiveTab || this.tabs[0]

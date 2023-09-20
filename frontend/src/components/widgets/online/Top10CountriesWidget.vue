@@ -40,12 +40,16 @@ export default {
         },
       ]
     },
+    widgetId() {
+      return this.onlineWidgets.topCountries.id
+    },
   },
   created() {
     const hasCurrentData =
       this.topCountries.length && this.widgetId === this.widgetDetails.id
 
     if (!this.widgetDetails.widgetData && !hasCurrentData) {
+      console.log('????')
       this[action.GET_TOP_COUNTRIES_WIDGET]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,

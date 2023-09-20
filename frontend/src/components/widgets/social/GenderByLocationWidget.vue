@@ -12,6 +12,7 @@
 <script>
 import {createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
+import {isAllFieldsEmpty} from '@lib/utilities'
 import translate from '@/lib/mixins/translate.js'
 
 import VolumeWidget from '@/components/widgets/VolumeWidget'
@@ -79,7 +80,8 @@ export default {
   },
   created() {
     const hasCurrentData =
-      this.genderByLocation.length && this.widgetId === this.widgetDetails.id
+      !isAllFieldsEmpty(this.genderByLocation) &&
+      this.widgetId === this.widgetDetails.id
 
     if (!this.widgetDetails.widgetData && !hasCurrentData) {
       this[action.GET_GENDER_BY_LOCATION]({

@@ -30,6 +30,9 @@ export default {
         this.widgetDetails.widgetData || this.onlineWidgets.topLanguages.data
       )
     },
+    widgetId() {
+      return this.onlineWidgets.topLanguages.id
+    },
     labels() {
       return this.topLanguages.map((el) => el.feed_language__language)
     },

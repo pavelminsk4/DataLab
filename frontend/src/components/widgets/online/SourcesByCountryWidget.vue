@@ -40,6 +40,9 @@ export default {
         this.onlineWidgets.sourcesByCountry.data
       )
     },
+    widgetId() {
+      return this.onlineWidgets.sourcesByCountry.id
+    },
     activeTab: {
       get() {
         return this.newActiveTab || this.tabs[0]

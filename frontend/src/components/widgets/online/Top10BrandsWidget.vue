@@ -28,6 +28,9 @@ export default {
     topBrands() {
       return this.widgetDetails.widgetData || this.onlineWidgets.topBrands.data
     },
+    widgetId() {
+      return this.onlineWidgets.topBrands.id
+    },
     labels() {
       return this.topBrands.map((el) => el.feedlink__source1)
     },

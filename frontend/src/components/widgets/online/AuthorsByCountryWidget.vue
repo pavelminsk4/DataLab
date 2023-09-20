@@ -71,6 +71,9 @@ export default {
         },
       ]
     },
+    widgetId() {
+      return this.onlineWidgets.authorsByCountry.id
+    },
   },
   created() {
     const hasCurrentData =
