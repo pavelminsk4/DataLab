@@ -270,3 +270,7 @@ export const LANGUAGES = {
   ENGLISH: 'en',
   ARABIC: 'ar',
 }
+
+export const MODES = {
+  CREATE_REPORT: 'CREATE_REPORT',
+}

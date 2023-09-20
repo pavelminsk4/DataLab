@@ -4,13 +4,14 @@
     :selected-widgets="selectedWidgets"
     listWidth="100vw"
     :module-name="widgetData.module_name"
-    class="widget-screen"
   />
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import {mapState, mapActions} from 'vuex'
+import {action} from '@store/constants'
 import {getWidgetDetails} from '@lib/utilities'
+import {MODES} from '@lib/constants'
 
 import WidgetsList from '@/components/widgets/WidgetsList'
 
@@ -53,6 +54,10 @@ export default {
   created() {
     this.widgetData = JSON.parse(document.getElementById('context').textContent)
     this.widgets.hasAnimation = false
+    this[action.UPDATE_MODE](MODES.CREATE_REPORT)
+  },
+  methods: {
+    ...mapActions([action.UPDATE_MODE]),
   },
 }
 </script>
