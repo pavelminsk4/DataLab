@@ -28,6 +28,9 @@ export default {
     topAuthors() {
       return this.widgetDetails.widgetData || this.onlineWidgets.topAuthors.data
     },
+    widgetId() {
+      return this.onlineWidgets.topAuthors.id
+    },
     labels() {
       return this.topAuthors.map((el) => el.entry_author)
     },

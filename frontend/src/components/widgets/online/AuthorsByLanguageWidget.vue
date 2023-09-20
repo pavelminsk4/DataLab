@@ -2,7 +2,6 @@
   <div class="container">
     <VolumeWidget
       v-bind="$attrs"
-      v-if="chartValues.length"
       :widget-details="widgetDetails"
       :labels="labels"
       :chart-values="chartValues"
@@ -40,6 +39,9 @@ export default {
         this.widgetDetails.widgetData ||
         this.onlineWidgets.authorsByLanguage.data
       )
+    },
+    widgetId() {
+      return this.onlineWidgets.authorsByLanguage.id
     },
     activeTab: {
       get() {

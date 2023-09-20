@@ -19,6 +19,7 @@
 <script>
 import {createNamespacedHelpers} from 'vuex'
 import {get, action} from '@store/constants'
+import {isAllFieldsEmpty} from '@lib/utilities'
 
 import VolumeWidget from '@/components/widgets/VolumeWidget'
 import WidgetsSwitcher from '@/components/layout/WidgetsSwitcher'
@@ -80,7 +81,8 @@ export default {
   },
   created() {
     const hasCurrentData =
-      this.authorsBySentiment.length && this.widgetId === this.widgetDetails.id
+      !isAllFieldsEmpty(this.authorsBySentiment) &&
+      this.widgetId === this.widgetDetails.id
 
     if (!this.widgetDetails.widgetData && !hasCurrentData) {
       this[action.GET_AUTHORS_BY_SENTIMENT]({
