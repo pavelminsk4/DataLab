@@ -114,8 +114,11 @@ export default {
     loading: false,
     clippingWidget: false,
   },
+  mode: '',
+  isCreateReportMode: false,
   translation: {},
   platformLanguage: 'ar',
+
   flashMessages: [],
   flashMessagesCount: 0,
 

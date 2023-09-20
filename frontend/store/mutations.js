@@ -3,7 +3,13 @@ import initialState, {
   newReportInitialState,
 } from '@store/constants/initialState'
 
+import {MODES} from '@lib/constants'
+
 export default {
+  [mutator.SET_MODE](state, mode) {
+    state.mode = mode
+    state.isCreateReportMode = mode === MODES.CREATE_REPORT
+  },
   [mutator.SET_TRANSLATION](state, {text, translation}) {
     state.translation[text] = translation
   },

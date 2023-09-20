@@ -2,13 +2,18 @@ import api from '@api/api'
 import {action, mutator} from '@store/constants'
 
 export default {
-  async [action.GET_TRANSLATED_TEXT]({commit, state}, text) {
-    try {
-      const translation = await api.postTranslationText({
-        en: text,
-      })
+  [action.UPDATE_MODE]({commit}, mode) {
+    commit(mutator.SET_MODE, mode)
+  },
 
+  async [action.GET_TRANSLATED_TEXT]({commit, state}, text) {
+    if (state.isCreateReportMode) return
+    try {
+      let translation = ''
       if (state.platformLanguage === 'ar') {
+        translation = await api.postTranslationText({
+          en: text,
+        })
         await commit(mutator.SET_TRANSLATION, {
           text,
           translation: translation.ar,
