@@ -36,7 +36,7 @@
       <CustomText
         v-if="isSearchPerformed"
         tag="h3"
-        text="No news for your request"
+        text="Your search did not find any matching posts. Refine your keywords or search criteria"
         class="no-results__text"
       >
         &#128546;
@@ -241,10 +241,10 @@ export default {
 
   width: 100%;
   height: 100%;
+  padding-bottom: 20px;
 
   &__text {
-    margin-top: 32px;
-
+    text-align: center;
     font-weight: 500;
     font-size: 18px;
   }

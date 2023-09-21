@@ -47,6 +47,7 @@
         <SearchResults
           :module-name="moduleName"
           :clipping-content="clippingContent"
+          step="step3"
           class="search-section"
           @show-results="showResults"
         />
@@ -56,8 +57,8 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
-import {get} from '@store/constants'
+import {mapGetters, mapActions} from 'vuex'
+import {get, action} from '@store/constants'
 import {expertModeFilters} from '@/lib/constants'
 
 import CustomText from '@/components/CustomText'
@@ -113,6 +114,7 @@ export default {
     this.filters = expertModeFilters[this.moduleName.toLowerCase()]
   },
   methods: {
+    ...mapActions([action.OPEN_FLASH_MESSAGE]),
     showResults(pageNumber, numberOfPosts) {
       const project = {
         keywords: this.keywords?.keywords || this.currentKeywords,
@@ -183,6 +185,11 @@ export default {
       this.$emit('update-project', project)
 
       this.showResults()
+
+      this[action.OPEN_FLASH_MESSAGE]({
+        type: 'Success',
+        message: 'Project settings have been saved.',
+      })
     },
 
     updateKeywordsCollection(name, value) {

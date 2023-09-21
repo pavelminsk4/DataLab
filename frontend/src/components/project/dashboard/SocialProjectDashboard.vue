@@ -221,7 +221,6 @@ export default {
     ...mapActions([
       action.UPDATE_ADDITIONAL_FILTERS,
       action.CLEAR_INTERACTIVE_DATA,
-      action.OPEN_FLASH_MESSAGE,
     ]),
     ...mapSocialActions([
       action.POST_SEARCH,
@@ -318,12 +317,6 @@ export default {
           this.toggleWidgetsModal('DownloadReportModal')
           const res = await this[action.GET_INSTANT_REPORT]({
             projectId: this.currentProject.id,
-          })
-
-          this[action.OPEN_FLASH_MESSAGE]({
-            message: 'Your report is generated. Starting the download.',
-            title: 'Instant Report',
-            type: 'Success',
           })
 
           const anchor = document.createElement('a')

@@ -327,10 +327,22 @@ export default {
     }
   },
 
-  async [action.GET_INSTANT_REPORT]({commit}, {projectId}) {
+  async [action.GET_INSTANT_REPORT]({commit, dispatch}, {projectId}) {
     commit(mutator.SET_DOWNLOADING_INSTANT_REPORT, true)
     try {
-      return await api.social.downloadInstantReport(projectId)
+      const response = await api.social.downloadInstantReport(projectId)
+
+      dispatch(
+        action.OPEN_FLASH_MESSAGE,
+        {
+          message: 'Your report is generated. Starting the download.',
+          title: 'Instant Report',
+          type: 'Success',
+        },
+        {root: true}
+      )
+
+      return response
     } catch (error) {
       console.error(error)
       return error

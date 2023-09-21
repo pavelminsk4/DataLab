@@ -53,7 +53,7 @@ export default {
 
   min-width: 200px;
   max-width: 350px;
-  padding: 16px;
+  padding: 16px 26px 16px 16px;
 
   border-radius: var(--border-radius);
   border: 2px solid #b1b1b1;
