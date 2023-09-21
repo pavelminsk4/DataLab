@@ -31,8 +31,6 @@ def calculate(posts):
             posts_friday += 1
             engagements_friday += (post.count_favorites + post.count_totalretweets)
         elif date.weekday() == 0:
-            print(posts_saturday)
-            print(engagements_saturday)
             posts_saturday += 1
             engagements_saturday += (post.count_favorites + post.count_totalretweets)
     res = {'Monday': engagements_monday/posts_monday if posts_monday else 0,

@@ -31,7 +31,6 @@ storage_folder = 'reports/tmp/'
 class ScreenDriver:
     def __init__(self, item):
         self.item = item
-        self.res = {}
 
     def __run_chrome_driver(self):
         chrome_options = FirefoxOptions()
@@ -43,28 +42,29 @@ class ScreenDriver:
         driver.set_window_size(700, 520, driver.current_window_handle)
         return driver
 
-    def __make_screenshot(self, widget):
-        driver = self.__run_chrome_driver()
+    def __make_screenshot(self, widget, driver):
         url = f'{base_url}/api/reports/{widget}_screenshot/{str(self.item.module_project_id)}/'
         driver.get(url)
         # We must to replace sleep with it in the nearest future - WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.TAG_NAME, 'canvas')))
         sleep(float(time_for_screenshot))
         screenshot_path = f'{storage_folder}{widget}_{str(uuid4())}.png'
         driver.save_screenshot(screenshot_path)
-        self.res[widget] = screenshot_path
-        driver.quit()
         return screenshot_path
 
     def __check_and_create_tmp_dir(self):
         if not os.path.exists(storage_folder):
             os.makedirs(storage_folder)
 
+    def __close_chrome_driver(self, driver):
+        driver.quit()
+
     def get_screenshots(self):
+        driver = self.__run_chrome_driver()
         self.__check_and_create_tmp_dir()
         item_widgets = model_to_dict(
             self.item, exclude=['module_type', 'module_project_id', 'id'])
-        for widget in item_widgets:
-            if item_widgets[widget]:
-                threading.Thread(target = self.__make_screenshot, args = [widget]).start()
-        sleep(float(time_for_response))
-        return self.res
+        res = reduce(
+            lambda acc, widget: {**acc, **{widget: self.__make_screenshot(widget, driver)}} if item_widgets[widget] else acc,
+            item_widgets, {})
+        self.__close_chrome_driver(driver)
+        return res

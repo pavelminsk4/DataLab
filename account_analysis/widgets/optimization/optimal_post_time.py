@@ -11,7 +11,6 @@ def calculation(posts):
     res = [[{'engagements': 0, 'likes': 0, 'retweets': 0, 'tweets': 0} for i in range(24)] for d in range(1, 8)]
     for post in posts:
         day = post.date.weekday()
-        print(day)
         hour = post.date.hour
         res[day][hour]['engagements'] += (post.count_favorites + post.count_totalretweets)
         res[day][hour]['likes'] += post.count_favorites
