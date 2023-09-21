@@ -7,10 +7,9 @@ export default {
   },
 
   async [action.GET_TRANSLATED_TEXT]({commit, state}, text) {
-    if (state.isCreateReportMode) return
     try {
       let translation = ''
-      if (state.platformLanguage === 'ar') {
+      if (state.platformLanguage === 'ar' && !state.isCreateReportMode) {
         translation = await api.postTranslationText({
           en: text,
         })
