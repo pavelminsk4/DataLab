@@ -53,7 +53,7 @@ protobuf==3.19.0 # ML part
 boolean-parser==0.1.4 # Expert Mode
 
 deep-translator # translation
-webdriver-manager==3.8.6
+webdriver-manager==4.0.0
 
 drf-multitokenauth
 

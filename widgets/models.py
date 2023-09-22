@@ -1,7 +1,8 @@
 from django.contrib.postgres.fields import ArrayField
 from django.db.models.signals import post_save
-from project.models import Project, Post
+from talkwalker.models import TalkwalkerPost
 from django.dispatch import receiver
+from project.models import Project
 from django.db import models
 
 class Dimensions(models.Model):
@@ -170,7 +171,7 @@ def create_widget_description(sender, instance, created, **kwargs):
 
 class ClippingFeedContentWidget(models.Model):
   project = models.ForeignKey(Project,on_delete=models.CASCADE,verbose_name='Project')
-  post = models.ForeignKey(Post,on_delete=models.CASCADE,verbose_name ='Post', related_name='posts')
+  post = models.ForeignKey(TalkwalkerPost,on_delete=models.CASCADE,verbose_name ='Post', related_name='posts')
 
   class Meta:
     constraints = [

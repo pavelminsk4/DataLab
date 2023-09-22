@@ -1,23 +1,23 @@
 <?xml version="1.0"?>
 <License>
   <Data>
-    <LicensedTo>Anadea</LicensedTo>
-    <EmailTo>dpk@krononsoft.com</EmailTo>
+    <LicensedTo>Krononsoft</LicensedTo>
+    <EmailTo>dp@krononsoft.com</EmailTo>
     <LicenseType>Developer Small Business</LicenseType>
     <LicenseNote>1 Developer And 1 Deployment Location</LicenseNote>
-    <OrderID>230828125851</OrderID>
-    <UserID>967338</UserID>
+    <OrderID>230928075955</OrderID>
+    <UserID>969616</UserID>
     <OEM>This is not a redistributable license</OEM>
     <Products>
       <Product>Aspose.Total Product Family</Product>
     </Products>
     <EditionType>Professional</EditionType>
-    <SerialNumber>a0084115-bdc2-4a98-af01-2881cc49f3da</SerialNumber>
-    <SubscriptionExpiry>20240828</SubscriptionExpiry>
-    <LicenseExpiry>20230928</LicenseExpiry>
-    <ExpiryNote>This is a temporary license for non-commercial use only and it will expire on 2023-09-28</ExpiryNote>
+    <SerialNumber>21875216-6fdd-4597-910c-b6b486eb69e4</SerialNumber>
+    <SubscriptionExpiry>20240928</SubscriptionExpiry>
+    <LicenseExpiry>20231028</LicenseExpiry>
+    <ExpiryNote>This is a temporary license for non-commercial use only and it will expire on 2023-10-28</ExpiryNote>
     <LicenseVersion>3.0</LicenseVersion>
     <LicenseInstructions>https://purchase.aspose.com/policies/use-license</LicenseInstructions>
   </Data>
-  <Signature>Y77eNZ0fnDjOMUDPrN1t+znWGxqnMCK9HkkMH5KW63IjAnkmqUgr+0y3LjZRQ0OuJLrMZ9es2DaiMlpuI+S2+v7mokb8u6fLjqMy8gyPTejrCpld0siNT/7gkLhsGqDXFQGRPXLn0ow2QhFvOjfKl8GFixTK2KlyZfVGQ7sY4FE=</Signature>
+  <Signature>LLj3Bj45DIOAfHLXt5p1/qYuHcHApw4Pot37sI1gW7fyR4m3P+AgO7w0octy6NAczh7KHB9OjfjlA368LDsCv/eEhn4D8fzsRV5292EOpddp3hegyZqN0IiLP425lnoXNIVsvW4Ff0ktTTVY1bYQzpf1325RZxTtZCXRJXmoEM8=</Signature>
 </License>
