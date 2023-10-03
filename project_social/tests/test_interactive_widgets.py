@@ -170,8 +170,8 @@ class InteractiveWidgetsTests(APITestCase):
         url = reverse('project_social:social_interactive_widgets', kwargs={'project_pk': pr.pk, 'widget_pk': widget_pk})
         post_id = TweetBinderPost.objects.all().get(user_name='First').pk
         data = {
-            'first_value': ['neutral'],
-            'second_value': [''],
+            'first_value': [''],
+            'second_value': ['neutral'],
             'dates': ['2020-10-10T00:00:00+00:00', '2020-10-10T00:00:00+00:00'],
             'posts_per_page': 10,
             'page_number': 1,

@@ -9,6 +9,9 @@ from django.db.models.signals import post_save, pre_delete
 from ndarraydjango.fields import NDArrayField
 import numpy as np
 
+from django.contrib.postgres.indexes import GinIndex, OpClass
+from django.db.models.functions import Upper
+
 
 class Workspace(models.Model):
   title = models.CharField(max_length=100)
@@ -166,10 +169,18 @@ class TempFeedLinks(models.Model):
   alexaglobalrank = models.BigIntegerField()
 
 class Speech(models.Model):
-  language = models.CharField('language', max_length=50)
+    language = models.CharField('language', max_length=50)
 
-  def __str__(self):
-    return self.language
+    def __str__(self):
+        return self.language
+  
+    class Meta:
+        indexes = [
+            GinIndex(
+                OpClass(Upper("language"), name="gin_trgm_ops"),
+                name="tlw_language_gin_index",
+            )
+        ]  
 
 class Post(models.Model):
   feedlink =  models.ForeignKey(Feedlinks,on_delete=models.CASCADE,related_name='feedlink_feedsin',verbose_name ='Feed Link')
@@ -260,6 +271,7 @@ class Post(models.Model):
   is_sentiment = models.BooleanField(default=False)
   summary_vector = ArrayField(NDArrayField(shape=(384), dtype=np.float32), blank=True)
   full_text = models.TextField('full_text', null=True, blank=True)
+  category = models.TextField('Category',null=True,blank=True,default=None)
 
   class Meta:
     indexes = [
@@ -294,7 +306,7 @@ class Status(models.Model):
 class ChangingOnlineSentiment(models.Model):
   sentiment = models.CharField('sentiment', max_length=10)
   department = models.ForeignKey('accounts.department', on_delete=models.CASCADE)
-  post =  models.ForeignKey(Post,on_delete=models.CASCADE)
+  post =  models.ForeignKey('talkwalker.TalkwalkerPost', on_delete=models.CASCADE)
 
   def ___str__(self):
     return self.sentiment

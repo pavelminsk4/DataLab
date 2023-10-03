@@ -8,7 +8,7 @@ class ProjectSocialFactory(factory.django.DjangoModelFactory):
         model = ProjectSocial
 
     title =                 factory.Faker('name')
-    keywords =              ['post']
+    keywords =              ['post', 'привет']
     additional_keywords =   []
     ignore_keywords =       []
     start_search_date =     '2019-10-10T00:00:00+00:00'

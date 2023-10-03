@@ -56,8 +56,6 @@ from widgets.common_widget.volume_widget import volume_report as onl_volume_repo
 from widgets.common_widget.summary import summary_report as onl_summary_report
 
 from reports.views_filling.filling_for_report import filling_templates_for_instant_and_regular_reports
-from .services.pdf_handler import convert_docx_to_pdf
-from .chartjs.chartjs import prepare_widget_images
 from .serializers import RegularReportSerializer
 from django.http import FileResponse
 from rest_framework import viewsets

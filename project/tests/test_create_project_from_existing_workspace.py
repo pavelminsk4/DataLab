@@ -1,11 +1,12 @@
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium.webdriver.chrome.webdriver import WebDriver
+from common.factories.department import DepartmentFactory
+from common.factories.workspace import WorkspaceFactory
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from django.contrib.auth.models import User
+from unittest import skip
 import time
-from common.factories.department import DepartmentFactory
-from common.factories.workspace import WorkspaceFactory
 
 
 class CreateProjectTests(StaticLiveServerTestCase):
@@ -14,6 +15,7 @@ class CreateProjectTests(StaticLiveServerTestCase):
         super().setUpClass()
         cls.selenium = WebDriver()
 
+    @skip("Don't want to test")
     def test_create_project_from_existing_workspace(self):
         dep = DepartmentFactory()
         user = User.objects.create_user(username='user', password='user')

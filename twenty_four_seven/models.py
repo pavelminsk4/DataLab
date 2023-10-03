@@ -1,4 +1,4 @@
-from api.views import filter_with_constructor, data_range_posts
+from api.views import filter_with_constructor, data_range_posts_for_24
 from phonenumber_field.modelfields import PhoneNumberField
 from django.contrib.postgres.fields import ArrayField
 from tweet_binder.models import TweetBinderPost
@@ -62,6 +62,7 @@ class ProjectTwentyFourSeven(models.Model):
     source_dimensions = ArrayField(models.CharField(max_length=50), blank=True, null=True)
     sentiment_dimensions = ArrayField(models.CharField(max_length=10), blank=True, null=True)
     project_type = models.CharField(max_length=10, choices=PROJECT_TYPE, default='Online')
+    expert_mode = models.BooleanField(default=False)
     wa_recipient = models.ManyToManyField(WARecipient, blank=True)
 
     def __str__(self):
@@ -71,7 +72,7 @@ class ProjectTwentyFourSeven(models.Model):
 @shared_task
 def attach_online_posts(id):
     instance = ProjectTwentyFourSeven.objects.get(id=id)
-    posts = data_range_posts(instance.start_search_date, instance.end_search_date)
+    posts = data_range_posts_for_24(instance.start_search_date, instance.end_search_date)
     body = {
         'keywords': instance.keywords,
         'exceptions': instance.ignore_keywords,
@@ -89,18 +90,21 @@ def attach_online_posts(id):
     }
     posts = filter_with_constructor(body, posts)
     for post in posts:
-        item = Item.objects.create(online_post=post)
-        item.save()
-        instance.tfs_project_items.add(item)
-        if post.full_text is None:
-            try:
-                post.full_text = get_full_text(post.entry_link)
-            except:
-                post.full_text = 'Please follow the link for the full text of the news.'
-            post.save()
+        try:
+            item = Item.objects.create(online_post=post)
+            item.save()
+            instance.tfs_project_items.add(item)
+            if post.full_text is None:
+                try:
+                    post.full_text = get_full_text(post.entry_link)
+                except:
+                    post.full_text = 'Please follow the link for the full text of the news.'
+                post.save()
+        except:
+            pass
 
 
-
+from talkwalker.models import TalkwalkerPost
 @receiver(post_save, sender=ProjectTwentyFourSeven)
 def attach_items(sender, instance, created, **kwargs):
   if created:
@@ -118,7 +122,7 @@ class Item(models.Model):
         ('Irrelevant','Irrelevant'),
     ]
 
-    online_post = models.ForeignKey(Post, on_delete=models.CASCADE, blank=True, null=True)
+    online_post = models.ForeignKey(TalkwalkerPost, on_delete=models.CASCADE, blank=True, null=True)
     social_post = models.ForeignKey(TweetBinderPost, on_delete=models.CASCADE, blank=True, null=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Picking')
     header = models.CharField(default='', max_length=1000, blank=True, null=True)

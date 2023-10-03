@@ -6,7 +6,6 @@ class TweetBinderPostFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = TweetBinderPost
 
-    post_id          = factory.Sequence(int)
     count_totalretweets   = '1'
     count_retweets   = '1'
     count_favorites  = '1'
