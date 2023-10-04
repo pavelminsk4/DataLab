@@ -5,5 +5,4 @@ def get_tw_query(instance):
     else:
         keywords = [f'\"{kw}\"' for kw in instance.keywords]
         query = ' OR '.join(keywords)
-    print(query)
     return query
