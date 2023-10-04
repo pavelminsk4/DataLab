@@ -9,11 +9,11 @@ import json
 
 class Livestream:
     def __init__(self, project_id, module):
-        model=''
-        if module=='Project':
+        model = ''
+        if module == 'Project':
             model = apps.get_model('project', 'Project')
             self.collector_id = f'livestream-{project_id}-onl-col'
-        if module=='ProjectTwentyFourSeven':
+        if module == 'ProjectTwentyFourSeven':
             model = apps.get_model('twenty_four_seven', 'ProjectTwentyFourSeven')
             self.collector_id = f'livestream-{project_id}-tfs-col'
         self.project = model.objects.get(id=project_id)
@@ -31,9 +31,8 @@ class Livestream:
                 }
             ]
         })
-        headers = { 'Content-Type': 'application/json' }
+        headers = {'Content-Type': 'application/json'}
         response = requests.request('PUT', url, headers=headers, data=payload)
-        print('01_create_or_update_stream --->', response.text)
         return response.status_code == status.HTTP_200_OK
 
     def __02_create_collector(self):
@@ -45,17 +44,15 @@ class Livestream:
                 ]
             }
         })
-        headers = { 'Content-Type': 'application/json' }
+        headers = {'Content-Type': 'application/json'}
         response = requests.request('PUT', url, headers=headers, data=payload)
-        print('02_create_collector --->', response.text)
         return response.status_code == status.HTTP_200_OK
 
     def __03_read_collector(self):
         url = f'https://api.talkwalker.com/api/v3/stream/c/{self.collector_id}/results?access_token={self.token}&end_behaviour=stop'
         response = requests.request('GET', url, headers={}, data={})
         lines = response.iter_lines()
-        create_posts(lines)
-        print(f'03_read_collector ---> status: {response.status_code}')
+        create_posts(self.project, lines)
         return response.status_code == status.HTTP_200_OK
 
     def __04_delete_collector(self):

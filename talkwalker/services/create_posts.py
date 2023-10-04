@@ -1,11 +1,11 @@
 from langcodes import Language
 from datetime import datetime
-import json
-
 from project.models import Speech
 from django.apps import apps
-
 from django.utils import timezone
+from django.db import transaction
+import json
+
 
 def add_language(language_code):
     title = Language.get(language_code).display_name()
@@ -21,12 +21,12 @@ def define_sentiment(value):
     return sent
 
 
-def create_posts(lines):
+def create_posts(project, lines):
     for line in lines:
         try:
             data = json.loads(line)['chunk_result']['data']['data']
         except:
-            pass
+            continue
         try:
             acountry = data['extra_source_attributes']['world_data']['country']
         except:
@@ -68,7 +68,7 @@ def create_posts(lines):
         except:
             aentry_author = ''
         try:
-            aentry_published = datetime.fromtimestamp(data['published']/1000)
+            aentry_published = datetime.fromtimestamp(data['published'] / 1000)
         except:
             aentry_published = timezone.now()
         try:
@@ -80,23 +80,25 @@ def create_posts(lines):
         except:
             acategory = ''
         try:
-            fl = apps.get_model('talkwalker', 'TalkwalkerFeedlink').objects.get_or_create(
-                country=acountry,
-                sourceurl=asourceurl,
-                alexaglobalrank=aalexaglobalrank,
-                source1=asource1,
-            )[0]
-            apps.get_model('talkwalker', 'TalkwalkerPost').objects.create(
-                entry_title=aentry_title,
-                entry_summary=aentry_summary,
-                feed_language=afeed_language,
-                entry_media_content_url=aentry_media_content_url,
-                entry_links_href=aentry_links_href,
-                entry_author=aentry_author,
-                entry_published=aentry_published,
-                sentiment=asentiment,
-                category=acategory,
-                feedlink=fl,
-            )
-        except Exception as e:
+            with transaction.atomic():
+                fl = apps.get_model('talkwalker', 'TalkwalkerFeedlink').objects.get_or_create(
+                    country=acountry,
+                    sourceurl=asourceurl,
+                    alexaglobalrank=aalexaglobalrank,
+                    source1=asource1,
+                )[0]
+                post = apps.get_model('talkwalker', 'TalkwalkerPost').objects.create(
+                    entry_title=aentry_title,
+                    entry_summary=aentry_summary,
+                    feed_language=afeed_language,
+                    entry_media_content_url=aentry_media_content_url,
+                    entry_links_href=aentry_links_href,
+                    entry_author=aentry_author,
+                    entry_published=aentry_published,
+                    sentiment=asentiment,
+                    category=acategory,
+                    feedlink=fl,
+                )
+                project.tw_posts.add(post)
+        except:
             pass

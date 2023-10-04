@@ -28,7 +28,6 @@ class Asker:
         url = f'https://api.talkwalker.com/api/v3/stream/c/{self.collector_id}?access_token={self.token}'
         headers = { 'Content-Type': 'application/json' }
         response = requests.request('PUT', url, headers=headers, data={})
-        print('create target collector --->', response.text)
         return response.status_code == status.HTTP_200_OK
 
     def __02_new_task_on_query(self):
@@ -45,7 +44,6 @@ class Asker:
         lines = response.iter_lines()
         for line in lines:
             self.task_id = json.loads(line)['result_tasks']['tasks'][0]['id']
-        print('create export task --->', response.text)
         return response.status_code == status.HTTP_200_OK
 
     def __03_retrieve_status_of_task(self):
@@ -74,13 +72,11 @@ class Asker:
         response = requests.request('GET', url, headers={}, data={})
         lines = response.iter_lines()
         create_posts(lines)
-        print(f'04_read_collector ---> status: {response.status_code}')
         return response.status_code == status.HTTP_200_OK
 
     def __05_delete_collector(self):
         url = f'https://api.talkwalker.com/api/v3/stream/c/{self.collector_id}?access_token={self.token}'
         response = requests.request('DELETE', url, headers={}, data={})
-        print(f'05_delete_collector ---> status: {response.status_code}')
         return response.status_code == status.HTTP_200_OK
 
     def run_gen(self):
