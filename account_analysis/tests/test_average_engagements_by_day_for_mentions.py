@@ -10,7 +10,7 @@ import json
 class AverageEngagementsByDayForMentionsTests(APITestCase):
     def setUp(self):
         for i in range(10, 18):
-            TweetBinderPostFactory(date=f'2020-10-{i}T00:00:00+00:00', text='First twitter post @First_name')
+            TweetBinderPostFactory(date=f'2020-10-{i}T00:00:00Z', text='First twitter post @First_name')
         AccountAnalysisProjectFactory()
 
     def test_response_list(self):

@@ -2,6 +2,7 @@ from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium.webdriver.chrome.webdriver import WebDriver
 from common.factories.department import DepartmentFactory
 from common.factories.workspace import WorkspaceFactory
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from django.contrib.auth.models import User
@@ -13,7 +14,9 @@ class CreateProjectTests(StaticLiveServerTestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.selenium = WebDriver()
+        chrome_options = Options()
+        chrome_options.add_argument("--headless")
+        cls.selenium = WebDriver(chrome_options=chrome_options)
 
     @skip("Don't want to test")
     def test_create_project_from_existing_workspace(self):

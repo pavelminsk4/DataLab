@@ -5,7 +5,6 @@ from accounts.models import department
 from reports.models import Templates
 from rest_framework import status
 from django.urls import reverse
-from datetime import datetime
 from widgets.models import *
 from unittest import skip
 
@@ -19,17 +18,17 @@ class InstantReportTests(APITestCase):
     user.user_profile.department = dep
     flink = Feedlinks.objects.create(country='England')
     sp = Speech.objects.create(language='English (United States)')
-    post1 = Post.objects.create(id=1, feedlink=flink, entry_title='First post title Keyword', feed_language=sp, entry_published=datetime(2022, 10, 11, 6, 37), summary_vector=[])
-    post2 = Post.objects.create(id=2, feedlink=flink, entry_title='Second post title Keyword', feed_language=sp, entry_published=datetime(2022, 10, 12, 6, 37), summary_vector=[])
-    post3 = Post.objects.create(id=3, feedlink=flink, entry_title='Third post title Keyword', feed_language=sp, entry_published=datetime(2023, 10, 13, 6, 37), summary_vector=[])
+    post1 = Post.objects.create(id=1, feedlink=flink, entry_title='First post title Keyword', feed_language=sp, entry_published="2022-10-11T00:00:00Z", summary_vector=[])
+    post2 = Post.objects.create(id=2, feedlink=flink, entry_title='Second post title Keyword', feed_language=sp, entry_published="2022-10-12T00:00:00Z", summary_vector=[])
+    post3 = Post.objects.create(id=3, feedlink=flink, entry_title='Third post title Keyword', feed_language=sp, entry_published="2022-10-13T00:00:00Z", summary_vector=[])
     template = Templates.objects.create(title='Temp', layout_file='static/report_templates/RSDC_Export_Template_AR.docx')
     pr = Project.objects.create(
         title='Project1',
         keywords=['Keyword'],
         additional_keywords=[], 
         ignore_keywords=[],
-        start_search_date=datetime(2022, 10, 10),
-        end_search_date=datetime(2022, 10, 16),
+        start_search_date="2022-10-10T00:00:00Z",
+        end_search_date="2022-10-16T00:00:00Z",
         creator=user,
         report_template=template,
         )
