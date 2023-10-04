@@ -1,7 +1,6 @@
 from .talkwalker_feedlink import TalkwalkerFeedlinksFactory
 from talkwalker.models import TalkwalkerPost
 from .speech import SpeechFactory
-from datetime import datetime
 import factory
 
 

@@ -85,10 +85,9 @@ class WorkspaceDelete(DestroyAPIView):
 # === Search API =====
 def keywords_posts(keys, posts):
     keys = [f'%%{key.upper()}%%' for key in keys]
-    # posts = posts.filter(reduce(lambda x,y: x | y, [Q(entry_title__icontains=key) | Q(entry_summary__icontains=key) for key in keys]))
     posts =  posts.extra(where=[ "UPPER(entry_title) LIKE ANY(%s) OR \
-                                    UPPER(entry_summary) LIKE ANY(%s)"], 
-                                    params=[keys, keys])
+                                  UPPER(entry_summary) LIKE ANY(%s)"], 
+                                  params=[keys, keys])
     return posts
 
 def exclude_keywords_posts(posts, exceptions):
@@ -108,7 +107,7 @@ def additional_keywords_posts(posts, additions):
 
 def data_range_posts(start_date, end_date):
     interval = [start_date, end_date]
-    posts = PostLocator().post.objects.filter(entry_published__range=interval)
+    posts = PostLocator().post.objects.filter(entry_published__range=interval).order_by('entry_published')
     return posts
 
 def data_range_posts_for_24(start_date, end_date):

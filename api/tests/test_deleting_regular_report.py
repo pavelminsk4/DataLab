@@ -4,7 +4,6 @@ from rest_framework.test import APITestCase
 from project.models import Project
 from rest_framework import status
 from django.urls import reverse
-from datetime import datetime
 from unittest import skip
 
 
@@ -15,15 +14,15 @@ class DeleteRegularReportTests(APITestCase):
     pr1 = Project.objects.create(
         title='Project1',
         keywords=['Keyword'],
-        start_search_date=datetime(2022, 10, 10),
-        end_search_date=datetime(2022, 10, 16),
+        start_search_date="2022-10-10T00:00:00Z",
+        end_search_date="2022-10-16T00:00:00Z",
         creator=user
         )
     pr2 = Project.objects.create(
         title='Project2',
         keywords=['Keyword'],
-        start_search_date=datetime(2022, 10, 10),
-        end_search_date=datetime(2022, 10, 16),
+        start_search_date="2022-10-10T00:00:00Z",
+        end_search_date="2022-10-16T00:00:00Z",
         creator=user
         )
     rr1 = RegularReport.objects.create(title='First Report', project=pr1)

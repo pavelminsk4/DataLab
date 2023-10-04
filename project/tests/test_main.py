@@ -1,16 +1,19 @@
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.webdriver import WebDriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
 from django.contrib.auth.models import User
-from project.models import Workspace
 from accounts.models import department
+from project.models import Workspace
 import time
 
 class LoginTests(StaticLiveServerTestCase):
   @classmethod
   def setUpClass(cls):
     super().setUpClass()
-    cls.selenium = WebDriver()
+    chrome_options = Options()
+    chrome_options.add_argument("--headless")
+    cls.selenium = WebDriver(chrome_options=chrome_options)
 
   def test_log_in(self):
     user1 = User.objects.create_user(username='admin', password='admin')
@@ -29,7 +32,9 @@ class WorkspaceTests(StaticLiveServerTestCase):
   @classmethod
   def setUpClass(cls):
     super().setUpClass()
-    cls.selenium = WebDriver()
+    chrome_options = Options()
+    chrome_options.add_argument("--headless")
+    cls.selenium = WebDriver(chrome_options=chrome_options)
 
   def test_dashboard(self):
     dep = department.objects.create(

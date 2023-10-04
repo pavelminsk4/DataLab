@@ -10,13 +10,14 @@ from common.factories.user import UserFactory
 
 
 class InteractiveWidgetsTests(APITestCase):
+    
     def setUp(self):
         user = UserFactory(username='Pablo Escobar')
-        TweetBinderPostFactory(user_name='First', text='First twitter post', language='En', date='2020-10-10T00:00:00+00:00',
+        TweetBinderPostFactory(user_name='First', text='First twitter post', language='En', date='2020-10-10T00:00:00Z',
                                sentiment='neutral', locationString='USA', user_gender='male', user_alias='First')
-        TweetBinderPostFactory(user_name='Second', text='Second twitter post', language='Sp', date='2020-10-10T00:00:00+00:00',
+        TweetBinderPostFactory(user_name='Second', text='Second twitter post', language='Sp', date='2020-10-10T00:00:00Z',
                                sentiment='positive',locationString='England', user_gender='female', user_alias='First')
-        TweetBinderPostFactory(user_name='Third', text='3 twitter post', language='En', date='2021-10-10T00:00:00+00:00',
+        TweetBinderPostFactory(user_name='Third', text='3 twitter post', language='En', date='2021-10-10T00:00:00Z',
                                sentiment='neutral', locationString='USA', user_gender='undefined', user_alias='First')
         ProjectSocialFactory(creator=user)
 
@@ -124,7 +125,7 @@ class InteractiveWidgetsTests(APITestCase):
         data = {
             'first_value': ['First'],
             'second_value': [''],
-            'dates': ['2020-10-10T00:00:00+00:00', '2022-10-10T00:00:00+00:00'],
+            'dates': ['2020-10-10T00:00:00Z', '2022-10-10T00:00:00Z'],
             'posts_per_page': 10,
             'page_number': 1,
         }
@@ -156,7 +157,7 @@ class InteractiveWidgetsTests(APITestCase):
         data = {
             'first_value': [''],
             'second_value': [''],
-            'dates': ['2020-10-10T00:00:00+00:00', '2020-10-10T00:00:00+00:00'],
+            'dates': ['2020-10-10T00:00:00Z', '2020-10-10T00:00:00Z'],
             'posts_per_page': 10,
             'page_number': 1,
         }
@@ -172,7 +173,7 @@ class InteractiveWidgetsTests(APITestCase):
         data = {
             'first_value': [''],
             'second_value': ['neutral'],
-            'dates': ['2020-10-10T00:00:00+00:00', '2020-10-10T00:00:00+00:00'],
+            'dates': ['2020-10-10T00:00:00Z', '2020-10-10T00:00:00Z'],
             'posts_per_page': 10,
             'page_number': 1,
         }

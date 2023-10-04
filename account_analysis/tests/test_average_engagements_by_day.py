@@ -10,13 +10,13 @@ import json
 class AverageEngagementsByDayTests(APITestCase):
     def setUp(self):
         TweetBinderPostFactory()
-        TweetBinderPostFactory(date='2020-10-11T00:00:00+00:00')
-        TweetBinderPostFactory(date='2020-10-12T00:00:00+00:00')
-        TweetBinderPostFactory(date='2020-10-13T00:00:00+00:00')
-        TweetBinderPostFactory(date='2020-10-14T00:00:00+00:00')
-        TweetBinderPostFactory(date='2020-10-15T00:00:00+00:00')
-        TweetBinderPostFactory(date='2020-10-16T00:00:00+00:00')
-        TweetBinderPostFactory(date='2020-10-17T00:00:00+00:00')
+        TweetBinderPostFactory(date='2020-10-11T00:00:00Z')
+        TweetBinderPostFactory(date='2020-10-12T00:00:00Z')
+        TweetBinderPostFactory(date='2020-10-13T00:00:00Z')
+        TweetBinderPostFactory(date='2020-10-14T00:00:00Z')
+        TweetBinderPostFactory(date='2020-10-15T00:00:00Z')
+        TweetBinderPostFactory(date='2020-10-16T00:00:00Z')
+        TweetBinderPostFactory(date='2020-10-17T00:00:00Z')
         AccountAnalysisProjectFactory()
 
     def test_response_list(self):

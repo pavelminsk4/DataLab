@@ -28,7 +28,7 @@ def additional_keywords_posts(posts, additions):
 
 def data_range_posts(start_date, end_date):
     interval = [start_date, end_date]
-    posts = PostLocator().post.objects.filter(entry_published__range=interval)
+    posts = PostLocator().post.objects.filter(entry_published__range=interval).order_by('entry_published')
     return posts
 
 def source_filter_posts(source, posts):

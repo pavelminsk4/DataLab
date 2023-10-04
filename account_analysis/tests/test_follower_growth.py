@@ -12,8 +12,8 @@ class FollowerGrowthWidgetTests(APITestCase):
         TweetBinderPostFactory()
         TweetBinderPostFactory()
         TweetBinderPostFactory()
-        TweetBinderPostFactory(date='2022-10-10T00:00:00+00:00', user_followers='200')
-        TweetBinderPostFactory(date='2021-10-10T00:00:00+00:00', user_followers='150')
+        TweetBinderPostFactory(date='2022-10-10T00:00:00Z', user_followers='200')
+        TweetBinderPostFactory(date='2021-10-10T00:00:00Z', user_followers='150')
         AccountAnalysisProjectFactory()
 
     def test_response_list(self):

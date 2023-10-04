@@ -5,11 +5,11 @@ from accounts.models import department
 from project.models import Project
 from project_social.models import ProjectSocial
 from django.contrib.auth.models import User
-from datetime import datetime
 from django.urls import reverse
 import json
 
 class DepartmentAlertsTests(APITestCase):
+  
   def test_department_alerts_endpoint(self):
     dep1 = department.objects.create(departmentname='First Dep')
     dep2 = department.objects.create(departmentname='Second Dep')
@@ -18,15 +18,15 @@ class DepartmentAlertsTests(APITestCase):
         title='ProjectFirst',
         keywords=['Keyword'],
         additional_keywords=[],
-        start_search_date=datetime(2022, 10, 10),
-        end_search_date=datetime(2022, 10, 16),
+        start_search_date="2022-10-10T00:00:00Z",
+        end_search_date="2022-10-16T00:00:00Z",
         creator=user,
       )
     pr_soc = ProjectSocial.objects.create(
         title='ProjectSecond',
         keywords=['Keyword'],
-        start_search_date=datetime(2022, 10, 10),
-        end_search_date=datetime(2022, 10, 16),
+        start_search_date="2022-10-10T00:00:00Z",
+        end_search_date="2022-10-16T00:00:00Z",
         creator=user,
       )
     item1 = AlertItem.objects.create(

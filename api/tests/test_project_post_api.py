@@ -10,7 +10,6 @@ from project.models import Speech
 from project.models import Speech
 from rest_framework import status
 from django.urls import reverse
-from datetime import datetime
 import json
 import os
 
@@ -27,13 +26,13 @@ class ProjectPostTestsTLW(APITestCase):
         pr = ProjectFactory(
           title='Project1',
           keywords=['Keyword'],
-          start_search_date=datetime(2022, 10, 10),
-          end_search_date=datetime(2022, 10, 16),
+          start_search_date="2022-10-10T00:00:00Z",
+          end_search_date="2022-10-16T00:00:00Z",
           creator=user
           )
-        post1 = TalkwalkerPostFactory(feedlink=flink, entry_title='First post title', feed_language=sp, entry_published=datetime(2021, 9, 3, 6, 37))
-        post3 = TalkwalkerPostFactory(feedlink=flink, entry_title='Second post title', feed_language=sp, entry_published=datetime(2022, 9, 3, 6, 37))
-        post2 = TalkwalkerPostFactory(feedlink=flink, entry_title='Third post title', feed_language=sp, entry_published=datetime(2023, 9, 3, 6, 37))
+        post1 = TalkwalkerPostFactory(feedlink=flink, entry_title='First post title', feed_language=sp, entry_published="2021-09-03T00:00:00Z")
+        post3 = TalkwalkerPostFactory(feedlink=flink, entry_title='Second post title', feed_language=sp, entry_published="2022-09-03T00:00:00Z")
+        post2 = TalkwalkerPostFactory(feedlink=flink, entry_title='Third post title', feed_language=sp, entry_published="2023-09-03T00:00:00Z")
         url = reverse('cl_fd_cont_widg_create')
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -56,13 +55,13 @@ class ProjectPostTests(APITestCase):
         pr = ProjectFactory(
           title='Project1',
           keywords=['Keyword'],
-          start_search_date=datetime(2022, 10, 10),
-          end_search_date=datetime(2022, 10, 16),
+          start_search_date="2022-10-10T00:00:00Z",
+          end_search_date="2022-10-16T00:00:00Z",
           creator=user
           )
-        post1 = PostFactory(feedlink=flink, entry_title='First post title', feed_language=sp, entry_published=datetime(2021, 9, 3, 6, 37))
-        post3 = PostFactory(feedlink=flink, entry_title='Second post title', feed_language=sp, entry_published=datetime(2022, 9, 3, 6, 37))
-        post2 = PostFactory(feedlink=flink, entry_title='Third post title', feed_language=sp, entry_published=datetime(2023, 9, 3, 6, 37))
+        post1 = PostFactory(feedlink=flink, entry_title='First post title', feed_language=sp, entry_published="2021-09-03T00:00:00Z")
+        post3 = PostFactory(feedlink=flink, entry_title='Second post title', feed_language=sp, entry_published="2022-09-03T00:00:00Z")
+        post2 = PostFactory(feedlink=flink, entry_title='Third post title', feed_language=sp, entry_published="2023-09-03T00:00:00Z")
         url = reverse('cl_fd_cont_widg_create')
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)

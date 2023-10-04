@@ -1,14 +1,11 @@
 from rest_framework.test import APITestCase
-from rest_framework import status
-from reports.models import RegularReport
-from project.models import Project
-from django.urls import reverse
-import json
-from pprint import pprint
-from datetime import datetime
 from django.contrib.auth.models import User
+from reports.models import RegularReport
+from rest_framework import status
+from django.urls import reverse
 from accounts.models import *
 from unittest import skip
+import json
 
 
 class RegularReportsTests(APITestCase):

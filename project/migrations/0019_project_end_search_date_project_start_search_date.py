@@ -14,13 +14,13 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='project',
             name='end_search_date',
-            field=models.DateTimeField(default=datetime.datetime(2022, 10, 16, 0, 0)),
+            field=models.DateTimeField(default="2021-10-16T00:00:00Z"),
             preserve_default=False,
         ),
         migrations.AddField(
             model_name='project',
             name='start_search_date',
-            field=models.DateTimeField(default=datetime.datetime(2022, 10, 10, 0, 0)),
+            field=models.DateTimeField(default="2021-10-10T00:00:00Z"),
             preserve_default=False,
         ),
     ]
