@@ -17,10 +17,7 @@ def summary_report(pk, widget_pk):
     }
 
 def calculate_summary_widget(posts):
-    sources_quantity = posts.values('feedlink__source1').distinct().count()
-    authors_quantity = posts.values('entry_author').distinct().count()
-    countries_quantity = posts.values('feedlink__country').distinct().count()
-    languages_quantity = posts.values('feed_language').distinct().count()
+    sources_quantity, authors_quantity, countries_quantity, languages_quantity = set(), set(), set(), set()
     positive, negative, neutral, count_posts = 0, 0, 0, 0
     for post in posts:
         if post.sentiment == 'positive':
@@ -29,16 +26,20 @@ def calculate_summary_widget(posts):
             negative += 1
         if post.sentiment == 'neutral':
             neutral += 1
+        sources_quantity.add('feedlink__source1')
+        authors_quantity.add('entry_author')
+        countries_quantity.add('feedlink__country')
+        languages_quantity.add('feed_language') 
         count_posts += 1
-    potential_reach = posts.order_by('-feedlink__alexaglobalrank')[0].feedlink.alexaglobalrank if posts else 0 
+    potential_reach = posts.order_by('-feedlink__alexaglobalrank')[0].feedlink.alexaglobalrank if posts else 0
     return {
-      'posts':count_posts,
-      'sources':sources_quantity,
-      'authors':authors_quantity,
-      'countries':countries_quantity,
-      'languages':languages_quantity,
-      'positive':positive,
-      'negative':negative,
-      'neutral':neutral,
-      'reach':potential_reach
+      'posts': count_posts,
+      'sources': len(sources_quantity),
+      'authors': len(authors_quantity),
+      'countries': len(countries_quantity),
+      'languages': len(languages_quantity),
+      'positive': positive,
+      'negative': negative,
+      'neutral': neutral,
+      'reach': potential_reach
       }
