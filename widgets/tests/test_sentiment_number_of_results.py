@@ -9,12 +9,13 @@ import json, os
 
 
 class SentimentNumberOfResultsTests(APITestCase):
-
     def setUp(self):
         os.environ['POST_LOCATOR'] = 'rss'
-        PostFactory(sentiment='neutral')
-        PostFactory(sentiment='positive')
-        ProjectFactory()
+        p1 = PostFactory(sentiment='neutral')
+        p2 = PostFactory(sentiment='positive')
+        pr = ProjectFactory()
+        for post in (p1, p2):
+            pr.posts.add(post)
 
     def test_sentiment_number_of_results(self):
         pr = Project.objects.first()
@@ -37,12 +38,13 @@ class SentimentNumberOfResultsTests(APITestCase):
 
 
 class SentimentNumberOfResultsTestsTLW(APITestCase):
-
     def setUp(self):
         os.environ['POST_LOCATOR'] = 'talkwalker'
-        TalkwalkerPostFactory(sentiment='neutral')
-        TalkwalkerPostFactory(sentiment='positive')
-        ProjectFactory()
+        p1 =TalkwalkerPostFactory(sentiment='neutral')
+        p2 = TalkwalkerPostFactory(sentiment='positive')
+        pr = ProjectFactory()
+        for post in (p1, p2):
+            pr.tw_posts.add(post)
 
     def test_sentiment_number_of_results_tlw(self):
         pr = Project.objects.first()

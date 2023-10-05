@@ -14,17 +14,18 @@ import json, os
 
 
 class InteractiveWidgetsTests(APITestCase):
-
     def setUp(self):
         os.environ['POST_LOCATOR'] = 'rss'
         flink = FeedlinksFactory(country='England', source1='Time')
         sp1 = SpeechFactory(language='English')
         sp2 = SpeechFactory(language='Georgian')
-        PostFactory(feedlink=flink, entry_title='First post title', entry_summary='First', feed_language=sp1,
+        p1 = PostFactory(feedlink=flink, entry_title='First post title', entry_summary='First', feed_language=sp1,
                     entry_published='2021-09-03T00:00:00+00:00', entry_author='AFP', sentiment='neutral')
-        PostFactory(feedlink=flink, entry_title='Second post title', entry_summary='Second post post title', feed_language=sp2,
+        p2 = PostFactory(feedlink=flink, entry_title='Second post title', entry_summary='Second post post title', feed_language=sp2,
                     entry_published='2022-09-03T00:00:00+00:00', entry_author='AFP', sentiment='negative')
-        ProjectFactory()
+        pr = ProjectFactory()
+        for post in (p1, p2):
+            pr.posts.add(post)
 
     def test_top_10_interactive_widgets(self):
         pr = Project.objects.first()
@@ -225,17 +226,18 @@ class InteractiveWidgetsTests(APITestCase):
 
 
 class InteractiveWidgetsTestsTLW(APITestCase):
-
     def setUp(self):
         os.environ['POST_LOCATOR'] = 'talkwalker'
         flink = TalkwalkerFeedlinksFactory(country='England', source1='Time')
         sp1 = SpeechFactory(language='English')
         sp2 = SpeechFactory(language='Georgian')
-        TalkwalkerPostFactory(feedlink=flink, entry_title='First post title', entry_summary='First', feed_language=sp1,
+        p1 = TalkwalkerPostFactory(feedlink=flink, entry_title='First post title', entry_summary='First', feed_language=sp1,
                     entry_published='2021-09-03T00:00:00+00:00', entry_author='AFP', sentiment='neutral')
-        TalkwalkerPostFactory(feedlink=flink, entry_title='Second post title', entry_summary='Second post post title', feed_language=sp2,
+        p2 = TalkwalkerPostFactory(feedlink=flink, entry_title='Second post title', entry_summary='Second post post title', feed_language=sp2,
                     entry_published='2022-09-03T00:00:00+00:00', entry_author='AFP', sentiment='negative')
-        ProjectFactory()
+        pr = ProjectFactory()
+        for post in (p1, p2):
+            pr.tw_posts.add(post)
 
     def test_top_10_interactive_widgets(self):
         pr = Project.objects.first()

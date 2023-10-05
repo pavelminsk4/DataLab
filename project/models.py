@@ -23,84 +23,7 @@ class Workspace(models.Model):
 
     def __str__(self):
         return self.title
-
-
-class Project(models.Model):
-    title                = models.CharField(max_length=100)
-    note                 = models.CharField(max_length=200, null=True, blank=True)
-    keywords             = ArrayField(models.CharField(max_length=200), blank=True, null=True)
-    ignore_keywords      = ArrayField(models.CharField(max_length=200), blank=True, null=True)
-    additional_keywords  = ArrayField(models.CharField(max_length=200), blank=True, null=True)
-    max_items            = models.CharField(max_length=200, null=True, blank=True)
-    image                = models.ImageField(null=True, blank=True, upload_to='images')
-    arabic_name          = models.CharField(max_length=100, null=True, blank=True)
-    english_name         = models.CharField(max_length=100, null=True, blank=True)
-    social               = models.BooleanField(default=False)
-    online               = models.BooleanField(default=False)
-    premium              = models.BooleanField(default=False)
-    source               = models.CharField(max_length=100, null=True, blank=True, default='Online')
-    start_search_date    = models.DateTimeField(blank=True, null=True)
-    end_search_date      = models.DateTimeField(blank=True, null=True)
-    report_format        = models.CharField(max_length=3, default='pdf')
-    report_table_content = models.BooleanField(default=True)
-    report_widgets       = models.BooleanField(default=True)
-    report_content       = models.BooleanField(default=True)
-    report_language      = models.CharField(max_length=10, default='English')
-    author_filter        = models.CharField(max_length=50, blank=True, null=True)
-    language_filter      = models.CharField(max_length=50, blank=True, null=True)
-    country_filter       = models.CharField(max_length=50, blank=True, null=True)
-    source_filter        = models.CharField(max_length=50, blank=True, null=True)
-    sentiment_filter     = models.CharField(max_length=10, blank=True, null=True)
-    author_dimensions    = ArrayField(models.CharField(max_length=50), blank=True, null=True)
-    language_dimensions  = ArrayField(models.CharField(max_length=50), blank=True, null=True)
-    country_dimensions   = ArrayField(models.CharField(max_length=50), blank=True, null=True)
-    source_dimensions    = ArrayField(models.CharField(max_length=50), blank=True, null=True)
-    sentiment_dimensions = ArrayField(models.CharField(max_length=10), blank=True, null=True)
-    query_filter         = models.CharField(max_length=5000, blank=True, null=True)
-    expert_mode          = models.BooleanField(default=False)
-    created_at           = models.DateTimeField(auto_now_add=True)
-
-    creator         = models.ForeignKey(User, related_name='creator', on_delete=models.SET_NULL, null=True)
-    report_template = models.ForeignKey(Templates, related_name='template', on_delete=models.SET_NULL, null=True)
-    workspace       = models.ForeignKey(Workspace, related_name='projects', blank=True, null=True, on_delete=models.CASCADE)
-    members         = models.ManyToManyField(User, related_name='members', blank=True)
-    tw_posts        = models.ManyToManyField('talkwalker.TalkwalkerPost')
-
-    def save(self, *args, **kwargs):
-        total_projects_count = 0
-        if self.workspace:
-            for workspace in self.workspace.department.workspaces.all():
-                total_projects_count += workspace.projects.all().count()
-            if total_projects_count < self.workspace.department.max_projects:
-                return super(Project, self).save(*args, **kwargs)
-            raise ValidationError('Projects creation limit reached')
-
-        super(Project, self).save(*args, **kwargs)
-
-        def __str__(self):
-            return self.title
-
-
-@receiver(post_save, sender=Project)
-def increase_cur_number_of_projects(sender, instance, created, **kwargs):
-    if created:
-        if instance.workspace:
-            instance.workspace.department.current_number_of_projects += 1
-            instance.workspace.department.save()
-
-
-@receiver(post_save, sender=Workspace)
-def increase_cur_number_of_projects_2(sender, instance, created, **kwargs):
-    if created:
-        instance.department.current_number_of_projects += 1
-        instance.department.save()
-
-
-@receiver(pre_delete, sender=Project)
-def decrease_cur_number_of_projects(sender, instance, using, **kwargs):
-    instance.workspace.department.current_number_of_projects -= 1
-    instance.workspace.department.save()
-
+    
 
 class Feedlinks(models.Model):
     url             = models.URLField(max_length=400, null=True, blank=True, unique=True)
@@ -128,57 +51,6 @@ class Feedlinks(models.Model):
 
     def __str__(self):
         return self.url
-
-
-class NewFeedlinks(models.Model):
-    url         = models.URLField(max_length=400, null=True, blank=True, unique=True)
-    source1     = models.CharField('Source1', max_length=200, null=True, blank=True)
-    sourceurl   = models.URLField(max_length=200, null=True, blank=True)
-    country     = models.CharField('Country', max_length=200, null=True, blank=True)
-    is_approved = models.BooleanField(default=False)
-    created_at  = models.DateTimeField(auto_now_add=True)
-    updated_at  = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return f'{self.url}, {self.is_approved}'
-
-
-class CrawlerKeyword(models.Model):
-    word = models.CharField('Word', max_length=100)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return self.word
-
-
-class CrawlerOption(models.Model):
-    TBM_CHOICES = (
-        ('None', 'Regular search'),
-        ('isch', 'Google Images API'),
-        ('lcl', 'Google Local API'),
-        ('vid', 'Google Videos API'),
-        ('nws', 'Google News API'),
-        ('shop', 'Google Shopping API'),
-    )
-
-    SAFE_CHOICES = (
-        ('active', 'Filtering for adult content - Active'),
-        ('off', 'Filtering for adult content - Off'),
-    )
-
-    location   = models.CharField(max_length=50, default='Saudi Arabia')
-    tbm        = models.CharField(max_length=5, default='nws', choices=TBM_CHOICES)
-    gl         = models.CharField(max_length=3, default='sa')
-    safe       = models.CharField(max_length=10, default='active', choices=SAFE_CHOICES)
-    is_active  = models.BooleanField(default=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-
-class TempFeedLinks(models.Model):
-    url = models.URLField(max_length=200, null=True, blank=True, unique=True)
-    alexaglobalrank = models.BigIntegerField()
 
 
 class Speech(models.Model):
@@ -309,6 +181,136 @@ class Post(models.Model):
                 opclasses=['gin_trgm_ops'],
             ),
         ]
+
+
+class Project(models.Model):
+    title                = models.CharField(max_length=100)
+    note                 = models.CharField(max_length=200, null=True, blank=True)
+    keywords             = ArrayField(models.CharField(max_length=200), blank=True, null=True)
+    ignore_keywords      = ArrayField(models.CharField(max_length=200), blank=True, null=True)
+    additional_keywords  = ArrayField(models.CharField(max_length=200), blank=True, null=True)
+    max_items            = models.CharField(max_length=200, null=True, blank=True)
+    image                = models.ImageField(null=True, blank=True, upload_to='images')
+    arabic_name          = models.CharField(max_length=100, null=True, blank=True)
+    english_name         = models.CharField(max_length=100, null=True, blank=True)
+    social               = models.BooleanField(default=False)
+    online               = models.BooleanField(default=False)
+    premium              = models.BooleanField(default=False)
+    source               = models.CharField(max_length=100, null=True, blank=True, default='Online')
+    start_search_date    = models.DateTimeField(blank=True, null=True)
+    end_search_date      = models.DateTimeField(blank=True, null=True)
+    report_format        = models.CharField(max_length=3, default='pdf')
+    report_table_content = models.BooleanField(default=True)
+    report_widgets       = models.BooleanField(default=True)
+    report_content       = models.BooleanField(default=True)
+    report_language      = models.CharField(max_length=10, default='English')
+    author_filter        = models.CharField(max_length=50, blank=True, null=True)
+    language_filter      = models.CharField(max_length=50, blank=True, null=True)
+    country_filter       = models.CharField(max_length=50, blank=True, null=True)
+    source_filter        = models.CharField(max_length=50, blank=True, null=True)
+    sentiment_filter     = models.CharField(max_length=10, blank=True, null=True)
+    author_dimensions    = ArrayField(models.CharField(max_length=50), blank=True, null=True)
+    language_dimensions  = ArrayField(models.CharField(max_length=50), blank=True, null=True)
+    country_dimensions   = ArrayField(models.CharField(max_length=50), blank=True, null=True)
+    source_dimensions    = ArrayField(models.CharField(max_length=50), blank=True, null=True)
+    sentiment_dimensions = ArrayField(models.CharField(max_length=10), blank=True, null=True)
+    query_filter         = models.CharField(max_length=5000, blank=True, null=True)
+    expert_mode          = models.BooleanField(default=False)
+    created_at           = models.DateTimeField(auto_now_add=True)
+
+    creator         = models.ForeignKey(User, related_name='creator', on_delete=models.SET_NULL, null=True)
+    report_template = models.ForeignKey(Templates, related_name='template', on_delete=models.SET_NULL, null=True)
+    workspace       = models.ForeignKey(Workspace, related_name='projects', blank=True, null=True, on_delete=models.CASCADE)
+    members         = models.ManyToManyField(User, related_name='members', blank=True)
+    tw_posts        = models.ManyToManyField('talkwalker.TalkwalkerPost')
+    posts           = models.ManyToManyField(Post)
+
+    def save(self, *args, **kwargs):
+        total_projects_count = 0
+        if self.workspace:
+            for workspace in self.workspace.department.workspaces.all():
+                total_projects_count += workspace.projects.all().count()
+            if total_projects_count < self.workspace.department.max_projects:
+                return super(Project, self).save(*args, **kwargs)
+            raise ValidationError('Projects creation limit reached')
+
+        super(Project, self).save(*args, **kwargs)
+
+        def __str__(self):
+            return self.title
+
+
+@receiver(post_save, sender=Project)
+def increase_cur_number_of_projects(sender, instance, created, **kwargs):
+    if created:
+        if instance.workspace:
+            instance.workspace.department.current_number_of_projects += 1
+            instance.workspace.department.save()
+
+
+@receiver(post_save, sender=Workspace)
+def increase_cur_number_of_projects_2(sender, instance, created, **kwargs):
+    if created:
+        instance.department.current_number_of_projects += 1
+        instance.department.save()
+
+
+@receiver(pre_delete, sender=Project)
+def decrease_cur_number_of_projects(sender, instance, using, **kwargs):
+    instance.workspace.department.current_number_of_projects -= 1
+    instance.workspace.department.save()
+
+
+class NewFeedlinks(models.Model):
+    url         = models.URLField(max_length=400, null=True, blank=True, unique=True)
+    source1     = models.CharField('Source1', max_length=200, null=True, blank=True)
+    sourceurl   = models.URLField(max_length=200, null=True, blank=True)
+    country     = models.CharField('Country', max_length=200, null=True, blank=True)
+    is_approved = models.BooleanField(default=False)
+    created_at  = models.DateTimeField(auto_now_add=True)
+    updated_at  = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f'{self.url}, {self.is_approved}'
+
+
+class CrawlerKeyword(models.Model):
+    word = models.CharField('Word', max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.word
+
+
+class CrawlerOption(models.Model):
+    TBM_CHOICES = (
+        ('None', 'Regular search'),
+        ('isch', 'Google Images API'),
+        ('lcl', 'Google Local API'),
+        ('vid', 'Google Videos API'),
+        ('nws', 'Google News API'),
+        ('shop', 'Google Shopping API'),
+    )
+
+    SAFE_CHOICES = (
+        ('active', 'Filtering for adult content - Active'),
+        ('off', 'Filtering for adult content - Off'),
+    )
+
+    location   = models.CharField(max_length=50, default='Saudi Arabia')
+    tbm        = models.CharField(max_length=5, default='nws', choices=TBM_CHOICES)
+    gl         = models.CharField(max_length=3, default='sa')
+    safe       = models.CharField(max_length=10, default='active', choices=SAFE_CHOICES)
+    is_active  = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+
+class TempFeedLinks(models.Model):
+    url = models.URLField(max_length=200, null=True, blank=True, unique=True)
+    alexaglobalrank = models.BigIntegerField()
+
 
 
 class Status(models.Model):

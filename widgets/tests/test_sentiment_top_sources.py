@@ -17,12 +17,13 @@ class SentimentTopSourcesTests(APITestCase):
     def test_response_list(self):
         flink1 = FeedlinksFactory(source1='Time')
         flink2 = FeedlinksFactory(source1='BBC')
-        PostFactory(feedlink=flink1, sentiment='positive', entry_title='1')
-        PostFactory(feedlink=flink1, sentiment='neutral', entry_title='2')
-        PostFactory(feedlink=flink2, sentiment='neutral', entry_title='1')
-        PostFactory(feedlink=flink2, sentiment='neutral', entry_title='2')
+        p1 = PostFactory(feedlink=flink1, sentiment='positive', entry_title='1')
+        p2 = PostFactory(feedlink=flink1, sentiment='neutral', entry_title='2')
+        p3 = PostFactory(feedlink=flink2, sentiment='neutral', entry_title='1')
+        p4 = PostFactory(feedlink=flink2, sentiment='neutral', entry_title='2')
         pr = ProjectFactory()
-
+        for post in (p1, p2, p3, p4):
+            pr.posts.add(post)
         widget_pk = pr.widgets_list_2.sentiment_top_sources_id
         url = reverse('widgets:onl_sentiment_top_sources', kwargs={'pk': pr.pk, 'widget_pk': widget_pk})
         response = self.client.get(url)
@@ -50,12 +51,13 @@ class SentimentTopSourcesTestsTLW(APITestCase):
     def test_response_list_tlw(self):
         flink1 = TalkwalkerFeedlinksFactory(source1='Time')
         flink2 = TalkwalkerFeedlinksFactory(source1='BBC')
-        TalkwalkerPostFactory(feedlink=flink1, sentiment='positive', entry_title='1')
-        TalkwalkerPostFactory(feedlink=flink1, sentiment='neutral', entry_title='2')
-        TalkwalkerPostFactory(feedlink=flink2, sentiment='neutral', entry_title='1')
-        TalkwalkerPostFactory(feedlink=flink2, sentiment='neutral', entry_title='2')
+        p1 = TalkwalkerPostFactory(feedlink=flink1, sentiment='positive', entry_title='1')
+        p2 = TalkwalkerPostFactory(feedlink=flink1, sentiment='neutral', entry_title='2')
+        p3 = TalkwalkerPostFactory(feedlink=flink2, sentiment='neutral', entry_title='1')
+        p4 = TalkwalkerPostFactory(feedlink=flink2, sentiment='neutral', entry_title='2')
         pr = ProjectFactory()
-
+        for post in (p1, p2, p3, p4):
+            pr.tw_posts.add(post)
         widget_pk = pr.widgets_list_2.sentiment_top_sources_id
         url = reverse('widgets:onl_sentiment_top_sources', kwargs={'pk': pr.pk, 'widget_pk': widget_pk})
         response = self.client.get(url)

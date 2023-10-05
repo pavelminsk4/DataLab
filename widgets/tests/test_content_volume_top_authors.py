@@ -8,18 +8,19 @@ import json, os
 
 
 class ContentVolumeTop5AuthorsWidgetTests(APITestCase):
-
     def setUp(self):
         os.environ['POST_LOCATOR'] = 'rss'
 
     def test_response_list(self):
-        PostFactory(entry_published='2021-09-03 00:00:00+00:00', entry_author='AFP')
-        PostFactory(entry_published='2022-09-03 00:00:00+00:00', entry_author='AFP')
-        PostFactory(entry_published='2023-09-03 00:00:00+00:00', entry_author='EFE')
-        PostFactory(entry_published='2023-09-03 00:00:00+00:00', entry_author='AFP')
-        pr1 = ProjectFactory()
-        widget_pk = pr1.widgets_list_2.content_volume_top_authors_id
-        url = reverse('widgets:onl_content_volume_top_authors', kwargs={'pk': pr1.pk, 'widget_pk': widget_pk})
+        p1 = PostFactory(entry_published='2021-09-03 00:00:00+00:00', entry_author='AFP')
+        p2 = PostFactory(entry_published='2022-09-03 00:00:00+00:00', entry_author='AFP')
+        p3 = PostFactory(entry_published='2023-09-03 00:00:00+00:00', entry_author='EFE')
+        p4 = PostFactory(entry_published='2023-09-03 00:00:00+00:00', entry_author='AFP')
+        pr = ProjectFactory()
+        for post in (p1, p2, p3, p4):
+            pr.posts.add(post)
+        widget_pk = pr.widgets_list_2.content_volume_top_authors_id
+        url = reverse('widgets:onl_content_volume_top_authors', kwargs={'pk': pr.pk, 'widget_pk': widget_pk})
         data = {'aggregation_period': 'day'}
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -39,18 +40,19 @@ class ContentVolumeTop5AuthorsWidgetTests(APITestCase):
 
 
 class ContentVolumeTop5AuthorsWidgetTestsTLW(APITestCase):
-
     def setUp(self):
         os.environ['POST_LOCATOR'] = 'talkwalker'
 
     def test_response_list_tlw(self):
-        TalkwalkerPostFactory(entry_published='2021-09-03 00:00:00+00:00', entry_author='AFP')
-        TalkwalkerPostFactory(entry_published='2022-09-03 00:00:00+00:00', entry_author='AFP')
-        TalkwalkerPostFactory(entry_published='2023-09-03 00:00:00+00:00', entry_author='EFE')
-        TalkwalkerPostFactory(entry_published='2023-09-03 00:00:00+00:00', entry_author='AFP')
-        pr1 = ProjectFactory()
-        widget_pk = pr1.widgets_list_2.content_volume_top_authors_id
-        url = reverse('widgets:onl_content_volume_top_authors', kwargs={'pk': pr1.pk, 'widget_pk': widget_pk})
+        p1 = TalkwalkerPostFactory(entry_published='2021-09-03 00:00:00+00:00', entry_author='AFP')
+        p2 = TalkwalkerPostFactory(entry_published='2022-09-03 00:00:00+00:00', entry_author='AFP')
+        p3 = TalkwalkerPostFactory(entry_published='2023-09-03 00:00:00+00:00', entry_author='EFE')
+        p4 = TalkwalkerPostFactory(entry_published='2023-09-03 00:00:00+00:00', entry_author='AFP')
+        pr = ProjectFactory()
+        for post in (p1, p2, p3, p4):
+            pr.tw_posts.add(post)
+        widget_pk = pr.widgets_list_2.content_volume_top_authors_id
+        url = reverse('widgets:onl_content_volume_top_authors', kwargs={'pk': pr.pk, 'widget_pk': widget_pk})
         data = {'aggregation_period': 'day'}
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)

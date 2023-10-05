@@ -66,3 +66,6 @@ django-query-counter==0.2.2
 django-phonenumber-field[phonenumberslite]
 pandas==2.0.2
 whatsapp-api-client-python==0.0.40
+
+httpretty
+vcrpy
