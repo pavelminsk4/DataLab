@@ -110,6 +110,29 @@ def post_agregator_with_dimensions(project):
         posts = sentiment_dimensions_posts(project.sentiment_dimensions, posts)
     return posts
 
+def posts_with_filters(project, posts):
+    if project.source_filter:
+        posts = source_filter_posts(project.source_filter, posts)
+    if project.language_filter:
+        posts = language_filter_posts(project.language_filter, posts)
+    if project.country_filter:
+        posts = country_filter_posts(project.country_filter, posts)
+    if project.author_filter:
+        posts = author_filter_posts(project.author_filter, posts)
+    if project.sentiment_filter:
+        posts = sentiment_filter_posts(project.sentiment_filter, posts)
+    if project.author_dimensions:
+        posts = author_dimensions_posts(project.author_dimensions, posts)
+    if project.language_dimensions:
+        posts = language_dimensions_posts(project.language_dimensions, posts)
+    if project.country_dimensions:
+        posts = country_dimensions_posts(project.country_dimensions, posts)
+    if project.source_dimensions:
+        posts = source_dimensions_posts(project.source_dimensions, posts)
+    if project.sentiment_dimensions:
+        posts = sentiment_dimensions_posts(project.sentiment_dimensions, posts)
+    return posts
+
 def post_agregetor_for_each_widget(widget, posts):
     if widget.author_dim_pivot:
         posts = author_dim_pivot(widget.author_dim_pivot, posts)

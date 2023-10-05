@@ -11,13 +11,14 @@ import json, os
 
 
 class TopKeywordsTests(APITestCase):
-
     def setUp(self):
         os.environ['POST_LOCATOR'] = 'rss'
         flink = FeedlinksFactory(country='Brasil')
-        PostFactory(entry_summary='the keyword uno dos', feedlink=flink, entry_title='1')
-        PostFactory(entry_summary='the keyword text', feedlink=flink, entry_title='2')
-        ProjectFactory()
+        p1 = PostFactory(entry_summary='the keyword uno dos', feedlink=flink, entry_title='1')
+        p2 = PostFactory(entry_summary='the keyword text', feedlink=flink, entry_title='2')
+        pr = ProjectFactory()
+        for post in (p1, p2):
+            pr.posts.add(post)
 
     def test_top_keywords_api(self):
         pr = Project.objects.first()
@@ -57,13 +58,14 @@ class TopKeywordsTests(APITestCase):
         self.assertEqual(json.loads(response.content), res)
 
 class TopKeywordsTestsTLW(APITestCase):
-    
     def setUp(self):
         os.environ['POST_LOCATOR'] = 'talkwalker'
         flink = TalkwalkerFeedlinksFactory(country='Brasil')
-        TalkwalkerPostFactory(entry_summary='the keyword uno dos', feedlink=flink, entry_title='1')
-        TalkwalkerPostFactory(entry_summary='the keyword text', feedlink=flink, entry_title='2')
-        ProjectFactory()
+        p1 = TalkwalkerPostFactory(entry_summary='the keyword uno dos', feedlink=flink, entry_title='1')
+        p2 = TalkwalkerPostFactory(entry_summary='the keyword text', feedlink=flink, entry_title='2')
+        pr = ProjectFactory()
+        for post in (p1, p2):
+            pr.tw_posts.add(post)
 
     def test_top_keywords_api_tlw(self):
         pr = Project.objects.first()

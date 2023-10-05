@@ -8,15 +8,17 @@ import json, os
 
 
 class TopAuthorsTests(APITestCase):
-
     def setUp(self):
         os.environ['POST_LOCATOR'] = 'rss'
 
     def test_response_list(self):
-        PostFactory.create_batch(4, entry_author='AFP')
-        PostFactory.create_batch(2, entry_author='EFE')
+        p1 = PostFactory.create_batch(4, entry_author='AFP')
+        p2 = PostFactory.create_batch(2, entry_author='EFE')
         pr = ProjectFactory()
-
+        for p in p1:
+            pr.posts.add(p)
+        for p in p2:
+            pr.posts.add(p)
         widget_pk = pr.widgets_list_2.top_authors_id
         url = reverse('widgets:onl_top_authors', kwargs={'pk': pr.pk, 'widget_pk': widget_pk})
         response = self.client.get(url)
@@ -28,16 +30,18 @@ class TopAuthorsTests(APITestCase):
         self.assertEqual(json.loads(response.content), res)
 
 
-class TopAuthorsTests(APITestCase):
-
+class TopAuthorsTestsTLW(APITestCase):
     def setUp(self):
         os.environ['POST_LOCATOR'] = 'talkwalker'
 
-    def test_response_list(self):
-        TalkwalkerPostFactory.create_batch(4, entry_author='AFP')
-        TalkwalkerPostFactory.create_batch(2, entry_author='EFE')
+    def test_response_list_tlw(self):
+        p1 = TalkwalkerPostFactory.create_batch(4, entry_author='AFP')
+        p2 = TalkwalkerPostFactory.create_batch(2, entry_author='EFE')
         pr = ProjectFactory()
-
+        for p in p1:
+            pr.tw_posts.add(p)
+        for p in p2:
+            pr.tw_posts.add(p)
         widget_pk = pr.widgets_list_2.top_authors_id
         url = reverse('widgets:onl_top_authors', kwargs={'pk': pr.pk, 'widget_pk': widget_pk})
         response = self.client.get(url)

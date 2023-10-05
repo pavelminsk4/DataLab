@@ -12,7 +12,6 @@ import json, os
 
 
 class DemographyFeatureTests(APITestCase):
-    
     def setUp(self):
         os.environ['POST_LOCATOR'] = 'rss'
         flink1 = FeedlinksFactory(source1='one_source', country='England', sourceurl='google')
@@ -20,13 +19,15 @@ class DemographyFeatureTests(APITestCase):
         flink3 = FeedlinksFactory(source1='third_source', country='England', sourceurl='twitter')
         sp1 = SpeechFactory(language='English')
         sp2 = SpeechFactory(language='Spanish')
-        PostFactory(feedlink=flink1, feed_language=sp1, sentiment='negative')
-        PostFactory(feedlink=flink2, feed_language=sp1, sentiment='positive', entry_title='1')
-        PostFactory(feedlink=flink2, feed_language=sp2, sentiment='negative', entry_title='2')
-        PostFactory(feedlink=flink3, feed_language=sp1, sentiment='neutral', entry_title='1')
-        PostFactory(feedlink=flink3, feed_language=sp2, sentiment='neutral', entry_title='2')
-        PostFactory(feedlink=flink3, feed_language=sp2, sentiment='positive', entry_title='3')
-        ProjectFactory()
+        p1 = PostFactory(feedlink=flink1, feed_language=sp1, sentiment='negative')
+        p2 = PostFactory(feedlink=flink2, feed_language=sp1, sentiment='positive', entry_title='1')
+        p3 = PostFactory(feedlink=flink2, feed_language=sp2, sentiment='negative', entry_title='2')
+        p4 = PostFactory(feedlink=flink3, feed_language=sp1, sentiment='neutral', entry_title='1')
+        p5 = PostFactory(feedlink=flink3, feed_language=sp2, sentiment='neutral', entry_title='2')
+        p6 = PostFactory(feedlink=flink3, feed_language=sp2, sentiment='positive', entry_title='3')
+        pr = ProjectFactory()
+        for post in (p1, p2, p3, p4, p5, p6):
+            pr.posts.add(post)
 
     def test_top_sharing_sources(self):
         pr = Project.objects.first()
@@ -141,7 +142,6 @@ class DemographyFeatureTests(APITestCase):
 
 
 class DemographyFeatureTestsTLW(APITestCase):
-    
     def setUp(self):
         os.environ['POST_LOCATOR'] = 'talkwalker'
         flink1 = TalkwalkerFeedlinksFactory(source1='one_source', country='England', sourceurl='google')
@@ -149,13 +149,15 @@ class DemographyFeatureTestsTLW(APITestCase):
         flink3 = TalkwalkerFeedlinksFactory(source1='third_source', country='England', sourceurl='twitter')
         sp1 = SpeechFactory(language='English')
         sp2 = SpeechFactory(language='Spanish')
-        TalkwalkerPostFactory(feedlink=flink1, feed_language=sp1, sentiment='negative')
-        TalkwalkerPostFactory(feedlink=flink2, feed_language=sp1, sentiment='positive', entry_title='1')
-        TalkwalkerPostFactory(feedlink=flink2, feed_language=sp2, sentiment='negative', entry_title='2')
-        TalkwalkerPostFactory(feedlink=flink3, feed_language=sp1, sentiment='neutral', entry_title='1')
-        TalkwalkerPostFactory(feedlink=flink3, feed_language=sp2, sentiment='neutral', entry_title='2')
-        TalkwalkerPostFactory(feedlink=flink3, feed_language=sp2, sentiment='positive', entry_title='3')
-        ProjectFactory()
+        p1 = TalkwalkerPostFactory(feedlink=flink1, feed_language=sp1, sentiment='negative')
+        p2 = TalkwalkerPostFactory(feedlink=flink2, feed_language=sp1, sentiment='positive', entry_title='1')
+        p3 = TalkwalkerPostFactory(feedlink=flink2, feed_language=sp2, sentiment='negative', entry_title='2')
+        p4 = TalkwalkerPostFactory(feedlink=flink3, feed_language=sp1, sentiment='neutral', entry_title='1')
+        p5 = TalkwalkerPostFactory(feedlink=flink3, feed_language=sp2, sentiment='neutral', entry_title='2')
+        p6 = TalkwalkerPostFactory(feedlink=flink3, feed_language=sp2, sentiment='positive', entry_title='3')
+        pr = ProjectFactory()
+        for post in (p1, p2, p3, p4, p5, p6):
+            pr.tw_posts.add(post)
 
     def test_top_sharing_sources_tlw(self):
         pr = Project.objects.first()

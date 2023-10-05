@@ -11,7 +11,6 @@ import json, os
 
 
 class TopLanguagesTests(APITestCase):
-
     def setUp(self):
         os.environ['POST_LOCATOR'] = 'rss'
 
@@ -21,16 +20,17 @@ class TopLanguagesTests(APITestCase):
         flink3 = FeedlinksFactory(country='Canada')
         sp1 = SpeechFactory(language='English')
         sp2 = SpeechFactory(language='Spain')
-        PostFactory(feedlink=flink1, feed_language=sp1, entry_title='1')
-        PostFactory(feedlink=flink1, feed_language=sp1, entry_title='2')
-        PostFactory(feedlink=flink2, feed_language=sp1, entry_title='1')
-        PostFactory(feedlink=flink2, feed_language=sp2, entry_title='2')
-        PostFactory(feedlink=flink2, feed_language=sp2, entry_title='3')
-        PostFactory(feedlink=flink2, feed_language=sp2, entry_title='4')
-        PostFactory(feedlink=flink3, feed_language=sp2, entry_title='1')
-        PostFactory(feedlink=flink3, feed_language=sp2, entry_title='2')
+        p1 = PostFactory(feedlink=flink1, feed_language=sp1, entry_title='1')
+        p2 = PostFactory(feedlink=flink1, feed_language=sp1, entry_title='2')
+        p3 = PostFactory(feedlink=flink2, feed_language=sp1, entry_title='1')
+        p4 = PostFactory(feedlink=flink2, feed_language=sp2, entry_title='2')
+        p5 = PostFactory(feedlink=flink2, feed_language=sp2, entry_title='3')
+        p6 = PostFactory(feedlink=flink2, feed_language=sp2, entry_title='4')
+        p7 = PostFactory(feedlink=flink3, feed_language=sp2, entry_title='1')
+        p8 = PostFactory(feedlink=flink3, feed_language=sp2, entry_title='2')
         pr = ProjectFactory()
-
+        for post in (p1, p2, p3, p4, p5, p6, p7, p8):
+            pr.posts.add(post)
         widget_pk = pr.widgets_list_2.top_languages_id
         url = reverse('widgets:onl_top_languages', kwargs={
                       'pk': pr.pk, 'widget_pk': widget_pk})
@@ -54,16 +54,17 @@ class TopLanguagesTestsTLW(APITestCase):
         flink3 = TalkwalkerFeedlinksFactory(country='Canada')
         sp1 = SpeechFactory(language='English')
         sp2 = SpeechFactory(language='Spain')
-        TalkwalkerPostFactory(feedlink=flink1, feed_language=sp1, entry_title='1')
-        TalkwalkerPostFactory(feedlink=flink1, feed_language=sp1, entry_title='2')
-        TalkwalkerPostFactory(feedlink=flink2, feed_language=sp1, entry_title='1')
-        TalkwalkerPostFactory(feedlink=flink2, feed_language=sp2, entry_title='2')
-        TalkwalkerPostFactory(feedlink=flink2, feed_language=sp2, entry_title='3')
-        TalkwalkerPostFactory(feedlink=flink2, feed_language=sp2, entry_title='4')
-        TalkwalkerPostFactory(feedlink=flink3, feed_language=sp2, entry_title='1')
-        TalkwalkerPostFactory(feedlink=flink3, feed_language=sp2, entry_title='2')
+        p1 = TalkwalkerPostFactory(feedlink=flink1, feed_language=sp1, entry_title='1')
+        p2 = TalkwalkerPostFactory(feedlink=flink1, feed_language=sp1, entry_title='2')
+        p3 = TalkwalkerPostFactory(feedlink=flink2, feed_language=sp1, entry_title='1')
+        p4 = TalkwalkerPostFactory(feedlink=flink2, feed_language=sp2, entry_title='2')
+        p5 = TalkwalkerPostFactory(feedlink=flink2, feed_language=sp2, entry_title='3')
+        p6 = TalkwalkerPostFactory(feedlink=flink2, feed_language=sp2, entry_title='4')
+        p7 = TalkwalkerPostFactory(feedlink=flink3, feed_language=sp2, entry_title='1')
+        p8 = TalkwalkerPostFactory(feedlink=flink3, feed_language=sp2, entry_title='2')
         pr = ProjectFactory()
-
+        for post in (p1, p2, p3, p4, p5, p6, p7, p8):
+            pr.tw_posts.add(post)
         widget_pk = pr.widgets_list_2.top_languages_id
         url = reverse('widgets:onl_top_languages', kwargs={
                       'pk': pr.pk, 'widget_pk': widget_pk})

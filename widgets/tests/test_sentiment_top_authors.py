@@ -8,21 +8,21 @@ import json, os
 
 
 class SentimentTopAuthorsWidgetTests(APITestCase):
-
     def setUp(self):
         os.environ['POST_LOCATOR'] = 'rss'
 
     def test_response_list(self):
-        PostFactory(entry_author='AFP', sentiment='neutral')
-        PostFactory(entry_author='AFP', sentiment='neutral')
-        PostFactory(entry_author='AFP', sentiment='negative')
-        PostFactory(entry_author='AFP', sentiment='negative')
-        PostFactory(entry_author='AFP', sentiment='positive')
-        PostFactory(entry_author='EFE', sentiment='neutral')
-        PostFactory(entry_author='AFP', sentiment='neutral')
-        PostFactory(entry_author='', sentiment='neutral')
+        p1 = PostFactory(entry_author='AFP', sentiment='neutral')
+        p2 = PostFactory(entry_author='AFP', sentiment='neutral')
+        p3 = PostFactory(entry_author='AFP', sentiment='negative')
+        p4 = PostFactory(entry_author='AFP', sentiment='negative')
+        p5 = PostFactory(entry_author='AFP', sentiment='positive')
+        p6 = PostFactory(entry_author='EFE', sentiment='neutral')
+        p7 = PostFactory(entry_author='AFP', sentiment='neutral')
+        p8 = PostFactory(entry_author='', sentiment='neutral')
         pr = ProjectFactory()
-
+        for post in (p1, p2, p3, p4, p5,p6, p7, p8):
+            pr.posts.add(post)
         widget_pk = pr.widgets_list_2.sentiment_top_authors_id
         url = reverse('widgets:onl_sentiment_top_authors', kwargs={
                       'pk': pr.pk, 'widget_pk': widget_pk})
@@ -43,21 +43,21 @@ class SentimentTopAuthorsWidgetTests(APITestCase):
 
 
 class SentimentTopAuthorsWidgetTestsTLW(APITestCase):
-
     def setUp(self):
         os.environ['POST_LOCATOR'] = 'talkwalker'
 
     def test_response_list_tlw(self):
-        TalkwalkerPostFactory(entry_author='AFP', sentiment='neutral')
-        TalkwalkerPostFactory(entry_author='AFP', sentiment='neutral')
-        TalkwalkerPostFactory(entry_author='AFP', sentiment='negative')
-        TalkwalkerPostFactory(entry_author='AFP', sentiment='negative')
-        TalkwalkerPostFactory(entry_author='AFP', sentiment='positive')
-        TalkwalkerPostFactory(entry_author='EFE', sentiment='neutral')
-        TalkwalkerPostFactory(entry_author='AFP', sentiment='neutral')
-        TalkwalkerPostFactory(entry_author='', sentiment='neutral')
+        p1 = TalkwalkerPostFactory(entry_author='AFP', sentiment='neutral')
+        p2 = TalkwalkerPostFactory(entry_author='AFP', sentiment='neutral')
+        p3 = TalkwalkerPostFactory(entry_author='AFP', sentiment='negative')
+        p4 = TalkwalkerPostFactory(entry_author='AFP', sentiment='negative')
+        p5 = TalkwalkerPostFactory(entry_author='AFP', sentiment='positive')
+        p6 = TalkwalkerPostFactory(entry_author='EFE', sentiment='neutral')
+        p7 = TalkwalkerPostFactory(entry_author='AFP', sentiment='neutral')
+        p8 = TalkwalkerPostFactory(entry_author='', sentiment='neutral')
         pr = ProjectFactory()
-
+        for post in (p1, p2, p3, p4, p5,p6, p7, p8):
+            pr.tw_posts.add(post)
         widget_pk = pr.widgets_list_2.sentiment_top_authors_id
         url = reverse('widgets:onl_sentiment_top_authors', kwargs={
                       'pk': pr.pk, 'widget_pk': widget_pk})

@@ -10,7 +10,6 @@ import json, os
 
 
 class SentimentTopCountriesTests(APITestCase):
-
     def setUp(self):
         os.environ['POST_LOCATOR'] = 'rss'
 
@@ -18,14 +17,15 @@ class SentimentTopCountriesTests(APITestCase):
         flink1 = FeedlinksFactory(country='England')
         flink2 = FeedlinksFactory(country='USA')
         flink3 = FeedlinksFactory(country='Canada')
-        PostFactory(feedlink=flink1, sentiment='neutral', entry_title='1')
-        PostFactory(feedlink=flink1, sentiment='neutral', entry_title='2')
-        PostFactory(feedlink=flink2, sentiment='negative', entry_title='1')
-        PostFactory(feedlink=flink2, sentiment='negative', entry_title='2')
-        PostFactory(feedlink=flink3, sentiment='positive', entry_title='1')
-        PostFactory(feedlink=flink3, sentiment='neutral', entry_title='2')
+        p1 = PostFactory(feedlink=flink1, sentiment='neutral', entry_title='1')
+        p2 = PostFactory(feedlink=flink1, sentiment='neutral', entry_title='2')
+        p3 = PostFactory(feedlink=flink2, sentiment='negative', entry_title='1')
+        p4 = PostFactory(feedlink=flink2, sentiment='negative', entry_title='2')
+        p5 = PostFactory(feedlink=flink3, sentiment='positive', entry_title='1')
+        p6 = PostFactory(feedlink=flink3, sentiment='neutral', entry_title='2')
         pr = ProjectFactory()
-
+        for post in (p1, p2, p3, p4, p5,p6):
+            pr.posts.add(post)
         widget_pk = pr.widgets_list_2.sentiment_top_countries_id
         url = reverse('widgets:onl_sentiment_top_countries', kwargs={'pk': pr.pk, 'widget_pk': widget_pk})
         response = self.client.get(url)
@@ -51,7 +51,6 @@ class SentimentTopCountriesTests(APITestCase):
 
 
 class SentimentTopCountriesTestsTLW(APITestCase):
-
     def setUp(self):
         os.environ['POST_LOCATOR'] = 'talkwalker'
 
@@ -59,14 +58,15 @@ class SentimentTopCountriesTestsTLW(APITestCase):
         flink1 = TalkwalkerFeedlinksFactory(country='England')
         flink2 = TalkwalkerFeedlinksFactory(country='USA')
         flink3 = TalkwalkerFeedlinksFactory(country='Canada')
-        TalkwalkerPostFactory(feedlink=flink1, sentiment='neutral', entry_title='1')
-        TalkwalkerPostFactory(feedlink=flink1, sentiment='neutral', entry_title='2')
-        TalkwalkerPostFactory(feedlink=flink2, sentiment='negative', entry_title='1')
-        TalkwalkerPostFactory(feedlink=flink2, sentiment='negative', entry_title='2')
-        TalkwalkerPostFactory(feedlink=flink3, sentiment='positive', entry_title='1')
-        TalkwalkerPostFactory(feedlink=flink3, sentiment='neutral', entry_title='2')
+        p1 = TalkwalkerPostFactory(feedlink=flink1, sentiment='neutral', entry_title='1')
+        p2 = TalkwalkerPostFactory(feedlink=flink1, sentiment='neutral', entry_title='2')
+        p3 = TalkwalkerPostFactory(feedlink=flink2, sentiment='negative', entry_title='1')
+        p4 = TalkwalkerPostFactory(feedlink=flink2, sentiment='negative', entry_title='2')
+        p5 = TalkwalkerPostFactory(feedlink=flink3, sentiment='positive', entry_title='1')
+        p6 = TalkwalkerPostFactory(feedlink=flink3, sentiment='neutral', entry_title='2')
         pr = ProjectFactory()
-
+        for post in (p1, p2, p3, p4, p5,p6):
+            pr.tw_posts.add(post)
         widget_pk = pr.widgets_list_2.sentiment_top_countries_id
         url = reverse('widgets:onl_sentiment_top_countries', kwargs={'pk': pr.pk, 'widget_pk': widget_pk})
         response = self.client.get(url)
