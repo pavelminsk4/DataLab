@@ -2,7 +2,6 @@ import os
 import environ
 from celery import Celery
 from celery.schedules import crontab
-from django.conf import settings
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -15,33 +14,32 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
 app = Celery('config')
 app.config_from_object('django.conf:settings', namespace='CELERY')
 
-# Load task modules from all registered Django app configs.
 app.autodiscover_tasks()
 
 app.conf.beat_schedule = {
-  'postcreator-task-crontab': {
-    'task': 'project.tasks.post_creator',
-    'schedule': crontab(hour=15, minute=20, day_of_week='*'),
-    'args': (),
-  },
-  'alert-sender-task-crontab': {
-    'task': 'alerts.tasks.alert_sender',
-    'schedule': crontab(hour='*', minute='*', day_of_week='*'),
-    'args': (),
-  },
-  'calculate-summary-vector': {
-    'task': 'ml_components.tasks.calculate_summary_vector',
-    'schedule': crontab(hour='*/3', minute='0', day_of_week='*'),
-    'args': (),
-  },
-  'calculate-imp-sentiment': {
-    'task': 'project.tasks.imp_sentiment',
-    'schedule': crontab(hour='*/3', minute='0', day_of_week='*'),
-    'args': (),
-  },
-  'update-live-reports': {
-    'task': 'tweet_binder.models.get_new_tweets_from_live_reports',
-    'schedule': crontab(hour='*/1', minute='0', day_of_week='*'),
-    'args': (),
-  },
+    'postcreator-task-crontab': {
+        'task': 'project.tasks.post_creator',
+        'schedule': crontab(hour=15, minute=20, day_of_week='*'),
+        'args': (),
+    },
+    'alert-sender-task-crontab': {
+        'task': 'alerts.tasks.alert_sender',
+        'schedule': crontab(hour='*', minute='*', day_of_week='*'),
+        'args': (),
+    },
+    'calculate-summary-vector': {
+        'task': 'ml_components.tasks.calculate_summary_vector',
+        'schedule': crontab(hour='*/3', minute='0', day_of_week='*'),
+        'args': (),
+    },
+    'calculate-imp-sentiment': {
+        'task': 'project.tasks.imp_sentiment',
+        'schedule': crontab(hour='*/3', minute='0', day_of_week='*'),
+        'args': (),
+    },
+    'update-live-reports': {
+        'task': 'tweet_binder.models.get_new_tweets_from_live_reports',
+        'schedule': crontab(hour='*/1', minute='0', day_of_week='*'),
+        'args': (),
+    }
 }

@@ -1,7 +1,6 @@
 from common.factories.talkwalker_feedlink import TalkwalkerFeedlinksFactory
 from common.factories.talkwalker_post import TalkwalkerPostFactory
 from common.factories.feedlinks import FeedlinksFactory
-from common.factories.project import ProjectFactory
 from common.factories.post import PostFactory
 from common.factories.speech import SpeechFactory
 from project.online_parser import OnlineParser
@@ -12,12 +11,11 @@ import os
 
 
 class TestParser(APITestCase):
-  
     def setUp(self):
         os.environ['POST_LOCATOR'] = 'rss'
-        flink1 = FeedlinksFactory(source1='one_source', country = 'England')
-        flink2 = FeedlinksFactory(source1='two_source', country = 'USA')
-        flink3 = FeedlinksFactory(source1='third_source', country = 'Greece')
+        flink1 = FeedlinksFactory(source1='one_source', country='England')
+        flink2 = FeedlinksFactory(source1='two_source', country='USA')
+        flink3 = FeedlinksFactory(source1='third_source', country='Greece')
         sp = SpeechFactory(language='English')
         PostFactory(entry_title='cat dog', feed_language=sp, feedlink=flink1)
         PostFactory(entry_title='cat cow bird', feed_language=sp, feedlink=flink2)
@@ -55,12 +53,11 @@ class TestParser(APITestCase):
 
 
 class TestParserTLW(APITestCase):
-    
     def setUp(self):
         os.environ['POST_LOCATOR'] = 'talkwalker'
-        flink1 = TalkwalkerFeedlinksFactory(source1='one_source', country = 'England')
-        flink2 = TalkwalkerFeedlinksFactory(source1='two_source', country = 'USA')
-        flink3 = TalkwalkerFeedlinksFactory(source1='third_source', country = 'Greece')
+        flink1 = TalkwalkerFeedlinksFactory(source1='one_source', country='England')
+        flink2 = TalkwalkerFeedlinksFactory(source1='two_source', country='USA')
+        flink3 = TalkwalkerFeedlinksFactory(source1='third_source', country='Greece')
         sp = SpeechFactory(language='English')
         TalkwalkerPostFactory(entry_title='cat dog', feed_language=sp, feedlink=flink1)
         TalkwalkerPostFactory(entry_title='cat cow bird', feed_language=sp, feedlink=flink2)
