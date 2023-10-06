@@ -267,7 +267,6 @@ export default {
           sentiment: this.currentProject?.sentiment_filter || [],
           date_range: [
             this.currentProject?.start_search_date,
-
             this.currentProject?.end_search_date,
           ],
           source: this.currentProject?.source_filter || [],
@@ -283,6 +282,7 @@ export default {
           query_filter: this.currentProject.query_filter,
           department_id: this.department.id,
           expert_mode: this.currentProject.expert_mode,
+          project_pk: this.currentProject.id,
         })
       } catch (e) {
         console.error(e)

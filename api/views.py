@@ -123,11 +123,16 @@ def search(request):
     page_number = body['page_number']
     sort_posts = body['sort_posts']
     query_filter = body['query_filter']
-    posts = data_range_posts(date_range[0], date_range[1])
-    parser = OnlineParser(query_filter)
-    expert_mode = parser.can_parse() & body['expert_mode']
-    posts = posts.filter(parser.get_filter_query()) if expert_mode else filter_with_constructor(body, posts)
-    posts = filter_with_dimensions(posts, body)
+    if 'project_pk' in body:
+        project = Project.objects.get(id=body['project_pk'])
+        posts = project.tw_posts.all() if project.tw_posts.all() else project.posts.all()
+        posts = posts_with_filters(project, posts)
+    else:
+        posts = data_range_posts(date_range[0], date_range[1])
+        parser = OnlineParser(query_filter)
+        expert_mode = parser.can_parse() & body['expert_mode']
+        posts = posts.filter(parser.get_filter_query()) if expert_mode else filter_with_constructor(body, posts)
+        posts = filter_with_dimensions(posts, body)
     if sort_posts == 'source':
         posts = posts.order_by('feedlink__source1')
     elif sort_posts == 'country':
@@ -142,8 +147,6 @@ def search(request):
     themes = MlCategory.objects.all()
     for post in posts_list:
         post = change_post_sentiment(post, dict_changing)
-    #   post = change_post_source_name(post)
-    #   post = add_post_category(post, themes)
     res = { 'num_pages': p.num_pages, 'num_posts': p.count, 'posts': posts_list }
     return JsonResponse(res, safe = False)
 

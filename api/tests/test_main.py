@@ -1,6 +1,7 @@
 from common.factories.talkwalker_feedlink import TalkwalkerFeedlinksFactory
 from common.factories.talkwalker_post import TalkwalkerPostFactory
 from common.factories.feedlinks import FeedlinksFactory
+from common.factories.project import ProjectFactory
 from common.factories.speech import SpeechFactory
 from talkwalker.models import TalkwalkerPost
 from common.factories.post import PostFactory
@@ -10,6 +11,7 @@ from rest_framework.test import APITestCase
 from django.contrib.auth.models import User
 from countries_plus.models import Country
 from accounts.models import department
+from project.models import Project
 from rest_framework import status
 from django.urls import reverse
 from project.models import Post
@@ -19,108 +21,153 @@ import os
 
 
 DATA = {
-      'keywords':[],
-      'exceptions':[],
-      'additions':[],
-      'country':[],
-      'language':[],
-      'sentiment':[],
-      'date_range':[],
-      'source':[],
-      'author':[],
-      'posts_per_page': 20,
-      'page_number': 1,
-      'sort_posts':[],
-      'author_dimensions':[],
-      'language_dimensions':[],
-      'country_dimensions':[],
-      'source_dimensions':[],
-      'sentiment_dimensions':[],
-      'query_filter': '',
-      'department_id':1,
-      'expert_mode': False,
-      }
+    'keywords': [],
+    'exceptions': [],
+    'additions': [],
+    'country': [],
+    'language': [],
+    'sentiment': [],
+    'date_range': [],
+    'source': [],
+    'author': [],
+    'posts_per_page': 20,
+    'page_number': 1,
+    'sort_posts': [],
+    'author_dimensions': [],
+    'language_dimensions': [],
+    'country_dimensions': [],
+    'source_dimensions': [],
+    'sentiment_dimensions': [],
+    'query_filter': '',
+    'department_id': 1,
+    'expert_mode': False,
+}
 
 global url, ex1, ex2, ex3, ex4
 url = reverse('search')
 ex1 = {
-    'id':1,
-    'entry_title':'First post title nikita',
-    'entry_published':'2022-09-03T06:37:00Z',
+    'id': 1,
+    'entry_title': 'First post title nikita',
+    'entry_published': '2022-09-03T06:37:00Z',
     'entry_summary': 'First post body',
     'entry_media_thumbnail_url': None,
-    'entry_media_content_url':None,
-    'entry_links_href':None,
-    'feed_image_link':None,
-    'feed_image_href':None,
+    'entry_media_content_url': None,
+    'entry_links_href': None,
+    'feed_image_link': None,
+    'feed_image_href': None,
     'feed_language__language': 'English (United States)',
     'sentiment': 'neutral',
-    'entry_author':'Elon Musk',
-    'feedlink__country':'USA',
+    'entry_author': 'Elon Musk',
+    'feedlink__country': 'USA',
     'feedlink__source1': 'BBC',
-    'feedlink__sourceurl':None,
+    'feedlink__sourceurl': None,
     'feedlink__alexaglobalrank': 0,
     'category': None
-    }
+}
   
 ex2 = {
-    'id':2,
-    'entry_title':'Second post title',
-    'entry_published':'2022-10-03T06:37:00Z',
-    'entry_summary':'Second post body',
-    'entry_media_thumbnail_url':None,
-    'entry_media_content_url':None,
-    'feed_image_href':None,
-    'feed_image_link':None,
-    'feed_language__language':'Lithuanian (Lithuania)',
-    'sentiment':'neutral',
-    'entry_author':'Tim Cook',
-    'entry_links_href':None,
-    'feedlink__country':'China',
+    'id': 2,
+    'entry_title': 'Second post title',
+    'entry_published': '2022-10-03T06:37:00Z',
+    'entry_summary': 'Second post body',
+    'entry_media_thumbnail_url': None,
+    'entry_media_content_url': None,
+    'feed_image_href': None,
+    'feed_image_link': None,
+    'feed_language__language': 'Lithuanian (Lithuania)',
+    'sentiment': 'neutral',
+    'entry_author': 'Tim Cook',
+    'entry_links_href': None,
+    'feedlink__country': 'China',
     'feedlink__source1': 'CNN',
-    'feedlink__sourceurl':None,
+    'feedlink__sourceurl': None,
     'feedlink__alexaglobalrank': 0,
     'category': None
     }
 ex3 = {
-    'id':3,
-    'entry_title':'Third post',
-    'entry_published':'2022-10-03T06:37:00Z',
-    'entry_summary':'Third post body',
-    'entry_media_thumbnail_url':None,
-    'entry_media_content_url':None,
-    'entry_links_href':None,
-    'feed_image_href':None,
-    'feed_image_link':None,
-    'feed_language__language':'Italian (Italy)',
-    'sentiment':'neutral',
-    'entry_author':'Bill Gates',
-    'feedlink__country':'China',
+    'id': 3,
+    'entry_title': 'Third post',
+    'entry_published': '2022-10-03T06:37:00Z',
+    'entry_summary': 'Third post body',
+    'entry_media_thumbnail_url': None,
+    'entry_media_content_url': None,
+    'entry_links_href': None,
+    'feed_image_href': None,
+    'feed_image_link': None,
+    'feed_language__language': 'Italian (Italy)',
+    'sentiment': 'neutral',
+    'entry_author': 'Bill Gates',
+    'feedlink__country': 'China',
     'feedlink__source1': 'CNN',
-    'feedlink__sourceurl':None,
+    'feedlink__sourceurl': None,
     'feedlink__alexaglobalrank': 0,
     'category': None
-    }
+}
 ex4 = {
-    'id':4,
-    'entry_title':'Fourth post',
-    'entry_published':'2022-10-03T06:37:00Z',
-    'entry_summary':'Fourth post body',
-    'entry_media_thumbnail_url':None,
-    'entry_media_content_url':None,
-    'feed_image_href':None,
-    'feed_image_link':None,
-    'feed_language__language':'Arabic',
-    'entry_author':'Steve Jobs',
-    'entry_links_href':None,
-    'feedlink__country':'China',
+    'id': 4,
+    'entry_title': 'Fourth post',
+    'entry_published': '2022-10-03T06:37:00Z',
+    'entry_summary': 'Fourth post body',
+    'entry_media_thumbnail_url': None,
+    'entry_media_content_url': None,
+    'feed_image_href' :None,
+    'feed_image_link': None,
+    'feed_language__language': 'Arabic',
+    'entry_author': 'Steve Jobs',
+    'entry_links_href': None,
+    'feedlink__country': 'China',
     'feedlink__source1': 'CNN',
-    'feedlink__sourceurl':None,
+    'feedlink__sourceurl': None,
     'feedlink__alexaglobalrank': 0,
     'sentiment':'positive',
     'category': None
-    }
+}
 
+
+class SearchTestsPKTLW(APITestCase):
+    def setUp(self):
+        os.environ['POST_LOCATOR'] = 'talkwalker'
+        self.client.force_login(UserFactory())
+        flink1 = TalkwalkerFeedlinksFactory(country='USA', source1='BBC')
+        flink2 = TalkwalkerFeedlinksFactory(country='China', source1='CNN')
+        sp1 = SpeechFactory(language='English (United States)')
+        sp2 = SpeechFactory(language='Lithuanian (Lithuania)')
+        sp3 = SpeechFactory(language='Italian (Italy)')
+        sp4 = SpeechFactory(language='Arabic')
+        p1 = TalkwalkerPostFactory(id=1, feedlink=flink1, entry_title='First post title nikita', entry_summary='First post body', feed_language=sp1, entry_author='Elon Musk', entry_published='2022-09-03T06:37:00Z', sentiment='neutral')
+        p2 = TalkwalkerPostFactory(id=2, feedlink=flink2, entry_title='Second post title', entry_summary='Second post body', feed_language=sp2, entry_author='Tim Cook', entry_published='2022-10-03T06:37:00Z', sentiment='neutral')
+        p3 = TalkwalkerPostFactory(id=3, feedlink=flink2, entry_title='Third post', entry_summary='Third post body', feed_language=sp3, entry_author='Bill Gates', entry_published='2022-10-03T06:37:00Z', sentiment='neutral')
+        p4 = TalkwalkerPostFactory(id=4, feedlink=flink2, entry_title='Fourth post', entry_summary='Fourth post body', feed_language=sp4, entry_author='Steve Jobs', entry_published='2022-10-03T06:37:00Z', sentiment='positive')
+        pr =  ProjectFactory()
+        for post in (p1, p2, p3, p4):
+            pr.tw_posts.add(post)
+
+    def test_search_with_keywords_tlw(self):
+        pr = Project.objects.first()
+        data = {
+            'country': [],
+            'language': [],
+            'sentiment': [],
+            'date_range': [],
+            'source': [],
+            'author': [],
+            'posts_per_page': 20,
+            'page_number': 1,
+            'sort_posts': [],
+            'author_dimensions': [],
+            'language_dimensions': [],
+            'country_dimensions': [],
+            'source_dimensions': [],
+            'sentiment_dimensions': [],
+            'query_filter': '',
+            'department_id': 1,
+            'expert_mode': False,
+            'project_pk': pr.id,
+        }
+        data['date_range'] = ['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z']
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':4, 'posts':[ex1, ex2, ex3, ex4]}) 
 
 class SearchTestsTLW(APITestCase):
     def setUp(self):
@@ -337,7 +384,6 @@ class SearchTests(APITestCase):
 
 
 class CurrentUserTests(APITestCase):
-    
     def test_logged_in_user(self):
         user = User.objects.create(username='John')
         user2 = User.objects.create(username='Pablo')
@@ -354,7 +400,6 @@ class CurrentUserTests(APITestCase):
 
 
 class SourcesTests(APITestCase):
-    
     def test_sources_list(self):
         self.client.force_authenticate(user=UserFactory())
         Feedlinks.objects.bulk_create([Feedlinks(source1='BBC'), Feedlinks(source1='TNT')])
@@ -365,7 +410,6 @@ class SourcesTests(APITestCase):
 
 
 class SpeechesTests(APITestCase):
-    
     def test_speeches_list(self):
         self.client.force_authenticate(user=UserFactory())
         Speech.objects.bulk_create([Speech(language='Italy'), Speech(language='Albanian')])
@@ -375,8 +419,7 @@ class SpeechesTests(APITestCase):
         self.assertEqual(json.loads(response.content), [{'language': 'Albanian'}])
 
 
-class CountriesTests(APITestCase):
-    
+class CountriesTests(APITestCase):    
     def create_country(self):
         Country.objects.create(iso='AF', iso3='AFG', name='Afghanistan', iso_numeric=4, fips='AF', capital='Kabul', area=1, population=1, continent='AS', tld='.af', currency_code='AFN', currency_name='Afghani', phone=93, languages='fa-AF,ps,uz-AF,tk', geonameid=1149361, neighbours='TM,CN,IR,TJ,PK,UZ')
 
@@ -390,7 +433,6 @@ class CountriesTests(APITestCase):
 
 
 class AuthorsTestsTLW(APITestCase):
-    
     def setUp(self):
         os.environ['POST_LOCATOR'] = 'talkwalker'
   
