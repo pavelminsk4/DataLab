@@ -145,6 +145,7 @@ export default {
         query_filter: this.query || this.currentProject?.query_filter,
         department_id: this.department.id,
         expert_mode: this.isExpertMode,
+        project_pk: this.currentProject.id,
       }
 
       this.$emit('show-results', project)
