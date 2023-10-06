@@ -111,6 +111,8 @@ def post_agregator_with_dimensions(project):
     return posts
 
 def posts_with_filters(project, posts):
+    interval = [project.start_search_date, project.end_search_date]
+    posts = posts.filter(entry_published__range=interval).order_by('entry_published')
     if project.source_filter:
         posts = source_filter_posts(project.source_filter, posts)
     if project.language_filter:
