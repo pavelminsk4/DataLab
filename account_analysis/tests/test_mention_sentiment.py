@@ -6,19 +6,20 @@ from rest_framework import status
 from django.urls import reverse
 import json
 
+
 class MentionSentimentWidgetTests(APITestCase):
     def setUp(self):
-        TweetBinderPostFactory(text = 'First twitter post @First_name', sentiment = 'positive')
-        TweetBinderPostFactory(text = 'First twitter post @First_name', sentiment = 'positive')
-        TweetBinderPostFactory(text = 'First twitter post @First_name')
-        TweetBinderPostFactory(date='2021-10-10T00:00:00+00:00', text = 'First twitter post @First_name')
-        TweetBinderPostFactory(date='2021-10-10T00:00:00+00:00')
+        TweetBinderPostFactory(text='First twitter post @First_name', sentiment='positive')
+        TweetBinderPostFactory(text='First twitter post @First_name', sentiment='positive')
+        TweetBinderPostFactory(text='First twitter post @First_name')
+        TweetBinderPostFactory(date='2021-10-10T00:00:00Z', text='First twitter post @First_name')
+        TweetBinderPostFactory(date='2021-10-10T00:00:00Z')
         AccountAnalysisProjectFactory()
 
     def test_response_list(self):
         pr = ProjectAccountAnalysis.objects.first()
         widget_pk = pr.account_analysis_widgets_list.mention_sentiment_id
-        url = reverse('account_analysis:mention_sentiment', kwargs={'pk':pr.pk, 'widget_pk':widget_pk})
+        url = reverse('account_analysis:mention_sentiment', kwargs={'pk': pr.pk, 'widget_pk': widget_pk})
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         res = {'positive': 2, 'negative': 0, 'neutral': 2}

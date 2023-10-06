@@ -11,7 +11,7 @@ class AverageEngagementsByDayTests(APITestCase):
     def setUp(self):
         for day in range(10, 31):
             for hour in range(10, 24):
-                TweetBinderPostFactory(date=f'2020-01-{day}T{hour}:00:00+00:00')
+                TweetBinderPostFactory(date=f'2020-01-{day}T{hour}:00:00Z')
         AccountAnalysisProjectFactory()
 
     def test_response_list(self):
@@ -24,11 +24,13 @@ class AverageEngagementsByDayTests(APITestCase):
         data_first = {'engagements': 0, 'likes': 0, 'retweets': 0, 'tweets': 0}
         data_second = {'engagements': 6, 'likes': 3, 'retweets': 3, 'tweets': 3}
         data = [data_first if i < 10 else data_second for i in range(24)]
-        res = {'Saturday': data, 
-               'Friday': data, 
-               'Thursday': data, 
-               'Wednesday': data, 
-               'Tuesday': data, 
-               'Monday': data, 
-               'Sunday': data}
+        res = {
+            'Saturday': data,
+            'Friday': data,
+            'Thursday': data,
+            'Wednesday': data,
+            'Tuesday': data,
+            'Monday': data,
+            'Sunday': data
+        }
         self.assertEqual(json.loads(response.content), res)

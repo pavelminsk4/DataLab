@@ -8,11 +8,11 @@ class PostFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Post
 
-    entry_title =     f"{factory.Faker('name')} post"
-    feed_language =   factory.SubFactory(SpeechFactory)
-    feedlink =        factory.SubFactory(FeedlinksFactory)
-    entry_published = '2020-10-10T00:00:00+00:00'
-    entry_author =    'Socrat'
-    sentiment =       'neutral'
-    entry_summary =   'post text'
-    summary_vector =  []
+    entry_title     = f"{factory.Faker('name')} post"
+    feed_language   = factory.SubFactory(SpeechFactory)
+    feedlink        = factory.SubFactory(FeedlinksFactory)
+    entry_published = '2020-10-10T00:00:00Z'
+    entry_author    = 'Socrat'
+    sentiment       = 'neutral'
+    entry_summary   = 'post text'
+    summary_vector  = []

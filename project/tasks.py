@@ -1,16 +1,16 @@
 from celery import shared_task
 from datetime import datetime
-import feedparser
 from project.models import Feedlinks, Post, Speech, Status
 from django.core.paginator import Paginator
-import ssl
 from langcodes import Language
 from dateutil import parser
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from bs4 import BeautifulSoup
-import socket
 from ftlangdetect import detect
 from transformers import pipeline
+import ssl
+import socket
+import feedparser
 
 socket.setdefaulttimeout(3)
 
@@ -44,13 +44,9 @@ def add_sentiment_score(title):
 def post_creator():
     ssl._create_default_https_context = ssl._create_unverified_context
     datas = []
-    i = 0
     for sample in split_links(10):
         for feed in sample:
-            i += 1
-            status = Status.objects.first()
-            status.progress = i
-            status.save()
+            Status.objects.filter(id=Status.objects.first().id).update(progress=1)
             try:
                 f = feedparser.parse(feed.url)
                 fe = f.entries
@@ -266,7 +262,7 @@ def post_creator():
                         try:
                             my_feed_language = add_language(detect(ent.title)['lang'])
                         except:
-                            my_feed_language = 'None'
+                            my_feed_language = Speech.objects.filter(language='English (United States)').first()
                         try:
                             my_feed_rights = ff['rights']
                         except:

@@ -11,7 +11,7 @@ class AudienceMentionTimeWidgetTests(APITestCase):
     def setUp(self):
         for day in range(10, 31):
             for hour in range(10, 24):
-                TweetBinderPostFactory(date=f'2020-01-{day}T{hour}:00:00+00:00', text = 'First twitter post @First_name')
+                TweetBinderPostFactory(date=f'2020-01-{day}T{hour}:00:00Z', text='First twitter post @First_name')
         AccountAnalysisProjectFactory()
 
     def test_response_list(self):
@@ -24,12 +24,12 @@ class AudienceMentionTimeWidgetTests(APITestCase):
         data_second = {'engagements': 6, 'likes': 3, 'retweets': 3, 'tweets': 3}
         data = [data_first if i < 10 else data_second for i in range(24)]
         res = {
-                'Saturday': data, 
-                'Friday': data, 
-                'Thursday': data, 
-                'Wednesday': data, 
-                'Tuesday': data, 
-                'Monday': data, 
-                'Sunday': data
-              }
+            'Saturday': data,
+            'Friday': data,
+            'Thursday': data,
+            'Wednesday': data,
+            'Tuesday': data,
+            'Monday': data,
+            'Sunday': data
+        }
         self.assertEqual(json.loads(response.content), res)
