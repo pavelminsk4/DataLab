@@ -13,7 +13,7 @@ DATA = {
     'country': [],
     'language': [],
     'sentiment': [],
-    'date_range': ['2018-09-02T06:44:00+00:00', '2024-09-30T06:44:00+00:00'],
+    'date_range': ['2018-09-02T06:44:00Z', '2024-09-30T06:44:00Z'],
     'source': [],
     'author': [],
     'posts_per_page': 20,
@@ -128,7 +128,7 @@ class SearchTwitterPostsTests(APITestCase):
         data['country'] = ['USA']
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(json.loads(response.content), {'num_pages': 1, 'num_posts': 1,  'posts': [ex1]})
+        self.assertEqual(json.loads(response.content), {'num_pages': 1, 'num_posts': 1, 'posts': [ex1]})
 
     def test_search_by_language(self):
         self.db_seeder()
@@ -137,7 +137,7 @@ class SearchTwitterPostsTests(APITestCase):
         data['language'] = ['Arabic']
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(json.loads(response.content), {'num_pages': 1, 'num_posts': 1,  'posts': [ex4]})
+        self.assertEqual(json.loads(response.content), {'num_pages': 1, 'num_posts': 1, 'posts': [ex4]})
 
     def test_search_filtering_by_sentiment(self):
         self.db_seeder()
@@ -146,7 +146,7 @@ class SearchTwitterPostsTests(APITestCase):
         data['sentiment'] = ['negative']
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(json.loads(response.content), {'num_pages': 1, 'num_posts': 1,  'posts': [ex4]})
+        self.assertEqual(json.loads(response.content), {'num_pages': 1, 'num_posts': 1, 'posts': [ex4]})
 
     def test_serarch_filtering_by_date(self):
         self.db_seeder()

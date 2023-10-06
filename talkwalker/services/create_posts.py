@@ -68,7 +68,7 @@ def create_posts(project, lines):
         except:
             aentry_author = ''
         try:
-            aentry_published = datetime.fromtimestamp(data['published'] / 1000)
+            aentry_published = timezone.make_aware(datetime.fromtimestamp(data['published'] / 1000))
         except:
             aentry_published = timezone.now()
         try:

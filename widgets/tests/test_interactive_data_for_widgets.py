@@ -10,7 +10,8 @@ from project.models import Post
 from project.models import Project
 from rest_framework import status
 from django.urls import reverse
-import json, os
+import json
+import os
 
 
 class InteractiveWidgetsTests(APITestCase):
@@ -19,10 +20,14 @@ class InteractiveWidgetsTests(APITestCase):
         flink = FeedlinksFactory(country='England', source1='Time')
         sp1 = SpeechFactory(language='English')
         sp2 = SpeechFactory(language='Georgian')
-        p1 = PostFactory(feedlink=flink, entry_title='First post title', entry_summary='First', feed_language=sp1,
-                    entry_published='2021-09-03T00:00:00+00:00', entry_author='AFP', sentiment='neutral')
-        p2 = PostFactory(feedlink=flink, entry_title='Second post title', entry_summary='Second post post title', feed_language=sp2,
-                    entry_published='2022-09-03T00:00:00+00:00', entry_author='AFP', sentiment='negative')
+        p1 = PostFactory(
+            feedlink=flink, entry_title='First post title', entry_summary='First', feed_language=sp1,
+            entry_published='2021-09-03T00:00:00Z', entry_author='AFP', sentiment='neutral'
+        )
+        p2 = PostFactory(
+            feedlink=flink, entry_title='Second post title', entry_summary='Second post post title', feed_language=sp2,
+            entry_published='2022-09-03T00:00:00Z', entry_author='AFP', sentiment='negative'
+        )
         pr = ProjectFactory()
         for post in (p1, p2):
             pr.posts.add(post)
@@ -71,7 +76,7 @@ class InteractiveWidgetsTests(APITestCase):
         data = {
             'first_value': ['negative'],
             'second_value': [],
-            'dates': ['2022-01-03T00:00:00+00:00', '2022-10-03T00:00:00+00:00'],
+            'dates': ['2022-01-03T00:00:00Z', '2022-10-03T00:00:00Z'],
             'posts_per_page': 10,
             'page_number': 1,
         }
@@ -89,7 +94,7 @@ class InteractiveWidgetsTests(APITestCase):
         data = {
             'first_value': [],
             'second_value': [],
-            'dates': ['2022-01-03T00:00:00+00:00', '2022-10-03T00:00:00+00:00'],
+            'dates': ['2022-01-03T00:00:00Z', '2022-10-03T00:00:00Z'],
             'posts_per_page': 10,
             'page_number': 1,
         }
@@ -231,10 +236,14 @@ class InteractiveWidgetsTestsTLW(APITestCase):
         flink = TalkwalkerFeedlinksFactory(country='England', source1='Time')
         sp1 = SpeechFactory(language='English')
         sp2 = SpeechFactory(language='Georgian')
-        p1 = TalkwalkerPostFactory(feedlink=flink, entry_title='First post title', entry_summary='First', feed_language=sp1,
-                    entry_published='2021-09-03T00:00:00+00:00', entry_author='AFP', sentiment='neutral')
-        p2 = TalkwalkerPostFactory(feedlink=flink, entry_title='Second post title', entry_summary='Second post post title', feed_language=sp2,
-                    entry_published='2022-09-03T00:00:00+00:00', entry_author='AFP', sentiment='negative')
+        p1 = TalkwalkerPostFactory(
+            feedlink=flink, entry_title='First post title', entry_summary='First', feed_language=sp1,
+            entry_published='2021-09-03T00:00:00Z', entry_author='AFP', sentiment='neutral'
+        )
+        p2 = TalkwalkerPostFactory(
+            feedlink=flink, entry_title='Second post title', entry_summary='Second post post title', feed_language=sp2,
+            entry_published='2022-09-03T00:00:00Z', entry_author='AFP', sentiment='negative'
+        )
         pr = ProjectFactory()
         for post in (p1, p2):
             pr.tw_posts.add(post)
@@ -283,7 +292,7 @@ class InteractiveWidgetsTestsTLW(APITestCase):
         data = {
             'first_value': ['negative'],
             'second_value': [],
-            'dates': ['2022-01-03T00:00:00+00:00', '2022-10-03T00:00:00+00:00'],
+            'dates': ['2022-01-03T00:00:00Z', '2022-10-03T00:00:00Z'],
             'posts_per_page': 10,
             'page_number': 1,
         }
@@ -301,7 +310,7 @@ class InteractiveWidgetsTestsTLW(APITestCase):
         data = {
             'first_value': [],
             'second_value': [],
-            'dates': ['2022-01-03T00:00:00+00:00', '2022-10-03T00:00:00+00:00'],
+            'dates': ['2022-01-03T00:00:00Z', '2022-10-03T00:00:00Z'],
             'posts_per_page': 10,
             'page_number': 1,
         }

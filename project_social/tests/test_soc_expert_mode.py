@@ -45,7 +45,7 @@ class TestSocialParser(APITestCase):
             'country': [],
             'language': [],
             'sentiment': [],
-            'date_range': ['2018-09-02T06:44:00+00:00', '2024-09-30T06:44:00+00:00'],
+            'date_range': ['2018-09-02T06:44:00Z', '2024-09-30T06:44:00Z'],
             'source': [],
             'author': [],
             'posts_per_page': 20,
@@ -66,7 +66,7 @@ class TestSocialParser(APITestCase):
     def test_widget_posts_with_expert_filter(self):
         pr = ProjectSocialFactory(query_filter='wolf and not (bird or cat)', expert_mode=True)
         widget_pk = pr.social_widgets_list.top_keywords_id
-        url = reverse('project_social:social_top_keywords',kwargs={'pk': pr.pk, 'widget_pk': widget_pk})
+        url = reverse('project_social:social_top_keywords', kwargs={'pk': pr.pk, 'widget_pk': widget_pk})
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         res = [

@@ -6,7 +6,8 @@ from common.factories.post import PostFactory
 from rest_framework.test import APITestCase
 from rest_framework import status
 from django.urls import reverse
-import json, os
+import json
+import os
 
 
 class ContentVolumeTopSourcesWidgetTests(APITestCase):
@@ -16,10 +17,10 @@ class ContentVolumeTopSourcesWidgetTests(APITestCase):
     def test_response_list(self):
         flink1 = FeedlinksFactory(source1='BBC')
         flink2 = FeedlinksFactory(source1='Time')
-        p1 = PostFactory(feedlink=flink1, entry_published='2021-09-03 00:00:00+00:00', entry_title='1')
-        p2 = PostFactory(feedlink=flink1, entry_published='2022-09-03 00:00:00+00:00', entry_title='2')
-        p3 = PostFactory(feedlink=flink2, entry_published='2023-09-03 00:00:00+00:00', entry_title='1')
-        p4 = PostFactory(feedlink=flink2, entry_published='2023-09-03 00:00:00+00:00', entry_title='2')
+        p1 = PostFactory(feedlink=flink1, entry_published='2021-09-03 00:00:00Z', entry_title='1')
+        p2 = PostFactory(feedlink=flink1, entry_published='2022-09-03 00:00:00Z', entry_title='2')
+        p3 = PostFactory(feedlink=flink2, entry_published='2023-09-03 00:00:00Z', entry_title='1')
+        p4 = PostFactory(feedlink=flink2, entry_published='2023-09-03 00:00:00Z', entry_title='2')
         pr = ProjectFactory()
         for post in (p1, p2, p3, p4):
             pr.posts.add(post)
@@ -28,15 +29,22 @@ class ContentVolumeTopSourcesWidgetTests(APITestCase):
         data = {'aggregation_period': 'day'}
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
         res1 = [
-            {'BBC': [{'date': '2021-09-03 00:00:00+00:00', 'post_count': 1},
-                     {'date': '2022-09-03 00:00:00+00:00', 'post_count': 1},
-                     {'date': '2023-09-03 00:00:00+00:00', 'post_count': 0}
-                     ]},
-            {'Time': [{'date': '2021-09-03 00:00:00+00:00', 'post_count': 0},
-                      {'date': '2022-09-03 00:00:00+00:00', 'post_count': 0},
-                      {'date': '2023-09-03 00:00:00+00:00', 'post_count': 2}
-                      ]},
+            {
+                'BBC': [
+                    {'date': '2021-09-03 00:00:00+00:00', 'post_count': 1},
+                    {'date': '2022-09-03 00:00:00+00:00', 'post_count': 1},
+                    {'date': '2023-09-03 00:00:00+00:00', 'post_count': 0}
+                ]
+            },
+            {
+                'Time': [
+                    {'date': '2021-09-03 00:00:00+00:00', 'post_count': 0},
+                    {'date': '2022-09-03 00:00:00+00:00', 'post_count': 0},
+                    {'date': '2023-09-03 00:00:00+00:00', 'post_count': 2}
+                ]
+            },
         ]
         self.assertEqual(json.loads(response.content), res1)
 
@@ -48,10 +56,10 @@ class ContentVolumeTopSourcesWidgetTestsTLW(APITestCase):
     def test_response_list_tlw(self):
         flink1 = TalkwalkerFeedlinksFactory(source1='BBC')
         flink2 = TalkwalkerFeedlinksFactory(source1='Time')
-        p1 = TalkwalkerPostFactory(feedlink=flink1, entry_published='2021-09-03 00:00:00+00:00', entry_title='1')
-        p2 = TalkwalkerPostFactory(feedlink=flink1, entry_published='2022-09-03 00:00:00+00:00', entry_title='2')
-        p3 = TalkwalkerPostFactory(feedlink=flink2, entry_published='2023-09-03 00:00:00+00:00', entry_title='1')
-        p4 = TalkwalkerPostFactory(feedlink=flink2, entry_published='2023-09-03 00:00:00+00:00', entry_title='2')
+        p1 = TalkwalkerPostFactory(feedlink=flink1, entry_published='2021-09-03 00:00:00Z', entry_title='1')
+        p2 = TalkwalkerPostFactory(feedlink=flink1, entry_published='2022-09-03 00:00:00Z', entry_title='2')
+        p3 = TalkwalkerPostFactory(feedlink=flink2, entry_published='2023-09-03 00:00:00Z', entry_title='1')
+        p4 = TalkwalkerPostFactory(feedlink=flink2, entry_published='2023-09-03 00:00:00Z', entry_title='2')
         pr = ProjectFactory()
         for post in (p1, p2, p3, p4):
             pr.tw_posts.add(post)
@@ -61,13 +69,19 @@ class ContentVolumeTopSourcesWidgetTestsTLW(APITestCase):
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         res1 = [
-            {'BBC': [{'date': '2021-09-03 00:00:00+00:00', 'post_count': 1},
-                     {'date': '2022-09-03 00:00:00+00:00', 'post_count': 1},
-                     {'date': '2023-09-03 00:00:00+00:00', 'post_count': 0}
-                     ]},
-            {'Time': [{'date': '2021-09-03 00:00:00+00:00', 'post_count': 0},
-                      {'date': '2022-09-03 00:00:00+00:00', 'post_count': 0},
-                      {'date': '2023-09-03 00:00:00+00:00', 'post_count': 2}
-                      ]},
+            {
+                'BBC': [
+                    {'date': '2021-09-03 00:00:00+00:00', 'post_count': 1},
+                    {'date': '2022-09-03 00:00:00+00:00', 'post_count': 1},
+                    {'date': '2023-09-03 00:00:00+00:00', 'post_count': 0}
+                ]
+            },
+            {
+                'Time': [
+                    {'date': '2021-09-03 00:00:00+00:00', 'post_count': 0},
+                    {'date': '2022-09-03 00:00:00+00:00', 'post_count': 0},
+                    {'date': '2023-09-03 00:00:00+00:00', 'post_count': 2}
+                ]
+            },
         ]
         self.assertEqual(json.loads(response.content), res1)
