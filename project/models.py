@@ -222,8 +222,8 @@ class Project(models.Model):
     report_template = models.ForeignKey(Templates, related_name='template', on_delete=models.SET_NULL, null=True)
     workspace       = models.ForeignKey(Workspace, related_name='projects', blank=True, null=True, on_delete=models.CASCADE)
     members         = models.ManyToManyField(User, related_name='members', blank=True)
-    tw_posts        = models.ManyToManyField('talkwalker.TalkwalkerPost')
-    posts           = models.ManyToManyField(Post)
+    tw_posts        = models.ManyToManyField('talkwalker.TalkwalkerPost', null=True, blank=True)
+    posts           = models.ManyToManyField(Post, null=True, blank=True)
 
     def save(self, *args, **kwargs):
         total_projects_count = 0
