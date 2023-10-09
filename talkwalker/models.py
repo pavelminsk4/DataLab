@@ -84,47 +84,44 @@ class TalkwalkerPost(models.Model):
 @receiver(post_save, sender='twenty_four_seven.ProjectTwentyFourSeven')
 @receiver(post_save, sender=Project)
 def create_periodic_task(sender, instance, created, **kwargs):
-    if ALLOWED_HOSTS[0] != 'localhost':
-        if created:
-            Livestream(instance.id, sender.__name__).create()
-            crontab_schedule = CrontabSchedule.objects.create(
-                minute='*/20',
-                hour='*',
-                day_of_week='*',
-                day_of_month='*',
-            )
-            PeriodicTask.objects.create(
-                crontab=crontab_schedule,
-                name=f'LiveSearch_project_{instance.id}',
-                task='talkwalker.tasks.livesearch_sender',
-                args=json.dumps([instance.id, sender.__name__]),
-            )
+    if ALLOWED_HOSTS[0] != 'localhost' and created:
+        Livestream(instance.id, sender.__name__).create()
+        crontab_schedule = CrontabSchedule.objects.create(
+            minute='*/20',
+            hour='*',
+            day_of_week='*',
+            day_of_month='*',
+        )
+        PeriodicTask.objects.create(
+            crontab=crontab_schedule,
+            name=f'LiveSearch_project_{instance.id}',
+            task='talkwalker.tasks.livesearch_sender',
+            args=json.dumps([instance.id, sender.__name__]),
+        )
 
 
 @receiver(post_save, sender='twenty_four_seven.ProjectTwentyFourSeven')
 def tfs_items(sender, instance, created, **kwargs):
-    if ALLOWED_HOSTS[0] != 'localhost':
-        if created:
-            crontab_schedule = CrontabSchedule.objects.create(
-                minute='*/10',
-                hour='*',
-                day_of_week='*',
-                day_of_month='*',
-            )
-            PeriodicTask.objects.create(
-                crontab=crontab_schedule,
-                name=f'Attach_items_tfs_{instance.id}',
-                task='twenty_four_seven.models.attach_online_posts',
-                args=json.dumps([instance.id]),
-            )
+    if ALLOWED_HOSTS[0] != 'localhost' and created:
+        crontab_schedule = CrontabSchedule.objects.create(
+            minute='*/10',
+            hour='*',
+            day_of_week='*',
+            day_of_month='*',
+        )
+        PeriodicTask.objects.create(
+            crontab=crontab_schedule,
+            name=f'Attach_items_tfs_{instance.id}',
+            task='twenty_four_seven.models.attach_online_posts',
+            args=json.dumps([instance.id]),
+        )
 
 
 @receiver(post_save, sender='twenty_four_seven.ProjectTwentyFourSeven')
 @receiver(post_save, sender=Project)
 def fetch_talkwalker_posts(sender, instance, created, **kwargs):
-    if ALLOWED_HOSTS[0] != 'localhost':
-        if created:
-            Asker(instance.id, sender.__name__).run()
+    if ALLOWED_HOSTS[0] != 'localhost' and created:
+        Asker(instance.id, sender.__name__).run()
 
 
 @receiver(pre_delete, sender=Project)

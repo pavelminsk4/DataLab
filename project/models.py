@@ -23,7 +23,7 @@ class Workspace(models.Model):
 
     def __str__(self):
         return self.title
-    
+
 
 class Feedlinks(models.Model):
     url             = models.URLField(max_length=400, null=True, blank=True, unique=True)
@@ -310,7 +310,6 @@ class CrawlerOption(models.Model):
 class TempFeedLinks(models.Model):
     url = models.URLField(max_length=200, null=True, blank=True, unique=True)
     alexaglobalrank = models.BigIntegerField()
-
 
 
 class Status(models.Model):

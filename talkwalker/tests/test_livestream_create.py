@@ -242,6 +242,6 @@ class LivestreamTestCase(TestCase):
             ])
         )
 
-        result  = Livestream(project.id, "Project").read()
+        result = Livestream(project.id, 'Project').read()
         self.assertTrue(result)
         self.assertEqual(project.tw_posts.all().count(), 2)
