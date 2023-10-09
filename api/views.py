@@ -25,7 +25,9 @@ from . import variables
 import numpy as np
 import json
 import re
+import environ
 
+env = environ.Env()
 
 # ==== User API =======================
 class UserList(ListAPIView):
@@ -85,9 +87,10 @@ class WorkspaceDelete(DestroyAPIView):
 # === Search API =====
 def keywords_posts(keys, posts):
     keys = [f'%%{key.upper()}%%' for key in keys]
-    posts =  posts.extra(where=[ "UPPER(entry_title) LIKE ANY(%s) OR \
-                                  UPPER(entry_summary) LIKE ANY(%s)"], 
-                                  params=[keys, keys])
+    posts = posts.extra(
+        where=['UPPER(entry_title) LIKE ANY(%s) OR UPPER(entry_summary) LIKE ANY(%s)'],
+        params=[keys, keys]
+    )
     return posts
 
 def exclude_keywords_posts(posts, exceptions):
@@ -125,7 +128,7 @@ def search(request):
     query_filter = body['query_filter']
     if 'project_pk' in body:
         project = Project.objects.get(id=body['project_pk'])
-        posts = project.tw_posts.all() if project.tw_posts.all() else project.posts.all()
+        posts = project.tw_posts if env('POST_LOCATOR') == 'talkwalker' else project.posts
         posts = posts_with_filters(project, posts)
     else:
         posts = data_range_posts(date_range[0], date_range[1])
@@ -182,7 +185,7 @@ class AuthorList(ListAPIView):
     
 class SourceList(ListAPIView):
     serializer_class = FeedlinksSerializer
-    queryset = Feedlinks.objects.values("source1").distinct()
+    queryset = Feedlinks.objects.values('source1').distinct()
     filter_backends = [filters.SearchFilter]
     search_fields = ['^source1']
 
@@ -410,23 +413,23 @@ def add_post_category(post, themes):
 
 def posts_values(posts):
     return posts.values(
-      'id',
-      'entry_title',
-      'entry_published',
-      'entry_summary',
-      'entry_media_thumbnail_url',
-      'entry_media_content_url',
-      'feed_image_href',
-      'feed_image_link',
-      'feed_language__language',
-      'entry_author', 'entry_links_href',
-      'feedlink__country',
-      'feedlink__source1',
-      'feedlink__sourceurl',
-      'feedlink__alexaglobalrank',
-      'sentiment',
-      'category',
-      )
+        'id',
+        'entry_title',
+        'entry_published',
+        'entry_summary',
+        'entry_media_thumbnail_url',
+        'entry_media_content_url',
+        'feed_image_href',
+        'feed_image_link',
+        'feed_language__language',
+        'entry_author', 'entry_links_href',
+        'feedlink__country',
+        'feedlink__source1',
+        'feedlink__sourceurl',
+        'feedlink__alexaglobalrank',
+        'sentiment',
+        'category',
+    )
 
 def project_posts(request, pk):
     body = json.loads(request.body)
