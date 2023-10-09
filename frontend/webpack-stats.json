@@ -1,0 +1,222 @@
+{
+  "status": "done",
+  "assets": {
+    "img/Background.79393248.svg": {
+      "name": "img/Background.79393248.svg",
+      "path": "/Users/aya/anova/frontend/dist/img/Background.79393248.svg",
+      "publicPath": "/static/dist/img/Background.79393248.svg"
+    },
+    "css/app.d67ead2c.css": {
+      "name": "css/app.d67ead2c.css",
+      "path": "/Users/aya/anova/frontend/dist/css/app.d67ead2c.css",
+      "publicPath": "/static/dist/css/app.d67ead2c.css"
+    },
+    "js/app.cf245f5d.js": {
+      "name": "js/app.cf245f5d.js",
+      "path": "/Users/aya/anova/frontend/dist/js/app.cf245f5d.js",
+      "publicPath": "/static/dist/js/app.cf245f5d.js"
+    },
+    "img/no-account-analysis-workspaces.6df13605.svg": {
+      "name": "img/no-account-analysis-workspaces.6df13605.svg",
+      "path": "/Users/aya/anova/frontend/dist/img/no-account-analysis-workspaces.6df13605.svg",
+      "publicPath": "/static/dist/img/no-account-analysis-workspaces.6df13605.svg"
+    },
+    "img/no-posts.db37c2f6.svg": {
+      "name": "img/no-posts.db37c2f6.svg",
+      "path": "/Users/aya/anova/frontend/dist/img/no-posts.db37c2f6.svg",
+      "publicPath": "/static/dist/img/no-posts.db37c2f6.svg"
+    },
+    "img/project-name.a4b0e8dd.svg": {
+      "name": "img/project-name.a4b0e8dd.svg",
+      "path": "/Users/aya/anova/frontend/dist/img/project-name.a4b0e8dd.svg",
+      "publicPath": "/static/dist/img/project-name.a4b0e8dd.svg"
+    },
+    "img/workspace-name.0e1f11cf.svg": {
+      "name": "img/workspace-name.0e1f11cf.svg",
+      "path": "/Users/aya/anova/frontend/dist/img/workspace-name.0e1f11cf.svg",
+      "publicPath": "/static/dist/img/workspace-name.0e1f11cf.svg"
+    },
+    "img/alert-name.285d6b2c.svg": {
+      "name": "img/alert-name.285d6b2c.svg",
+      "path": "/Users/aya/anova/frontend/dist/img/alert-name.285d6b2c.svg",
+      "publicPath": "/static/dist/img/alert-name.285d6b2c.svg"
+    },
+    "img/alert-set-triggering.73361880.svg": {
+      "name": "img/alert-set-triggering.73361880.svg",
+      "path": "/Users/aya/anova/frontend/dist/img/alert-set-triggering.73361880.svg",
+      "publicPath": "/static/dist/img/alert-set-triggering.73361880.svg"
+    },
+    "img/no-comparison-workspaces.749d4d73.svg": {
+      "name": "img/no-comparison-workspaces.749d4d73.svg",
+      "path": "/Users/aya/anova/frontend/dist/img/no-comparison-workspaces.749d4d73.svg",
+      "publicPath": "/static/dist/img/no-comparison-workspaces.749d4d73.svg"
+    },
+    "img/project-name.4e114cf7.svg": {
+      "name": "img/project-name.4e114cf7.svg",
+      "path": "/Users/aya/anova/frontend/dist/img/project-name.4e114cf7.svg",
+      "publicPath": "/static/dist/img/project-name.4e114cf7.svg"
+    },
+    "img/search-name.c0b4176b.svg": {
+      "name": "img/search-name.c0b4176b.svg",
+      "path": "/Users/aya/anova/frontend/dist/img/search-name.c0b4176b.svg",
+      "publicPath": "/static/dist/img/search-name.c0b4176b.svg"
+    },
+    "img/workspace-name.c7094561.svg": {
+      "name": "img/workspace-name.c7094561.svg",
+      "path": "/Users/aya/anova/frontend/dist/img/workspace-name.c7094561.svg",
+      "publicPath": "/static/dist/img/workspace-name.c7094561.svg"
+    },
+    "img/empty-state.dd8f1542.svg": {
+      "name": "img/empty-state.dd8f1542.svg",
+      "path": "/Users/aya/anova/frontend/dist/img/empty-state.dd8f1542.svg",
+      "publicPath": "/static/dist/img/empty-state.dd8f1542.svg"
+    },
+    "img/module-empty-state.a00ebc1f.svg": {
+      "name": "img/module-empty-state.a00ebc1f.svg",
+      "path": "/Users/aya/anova/frontend/dist/img/module-empty-state.a00ebc1f.svg",
+      "publicPath": "/static/dist/img/module-empty-state.a00ebc1f.svg"
+    },
+    "img/account-analysis.0ef7bc6a.svg": {
+      "name": "img/account-analysis.0ef7bc6a.svg",
+      "path": "/Users/aya/anova/frontend/dist/img/account-analysis.0ef7bc6a.svg",
+      "publicPath": "/static/dist/img/account-analysis.0ef7bc6a.svg"
+    },
+    "img/alerts.70d56c7f.svg": {
+      "name": "img/alerts.70d56c7f.svg",
+      "path": "/Users/aya/anova/frontend/dist/img/alerts.70d56c7f.svg",
+      "publicPath": "/static/dist/img/alerts.70d56c7f.svg"
+    },
+    "img/comparison.e90dc13c.svg": {
+      "name": "img/comparison.e90dc13c.svg",
+      "path": "/Users/aya/anova/frontend/dist/img/comparison.e90dc13c.svg",
+      "publicPath": "/static/dist/img/comparison.e90dc13c.svg"
+    },
+    "img/online.4f1d0154.svg": {
+      "name": "img/online.4f1d0154.svg",
+      "path": "/Users/aya/anova/frontend/dist/img/online.4f1d0154.svg",
+      "publicPath": "/static/dist/img/online.4f1d0154.svg"
+    },
+    "img/reports.8339f265.svg": {
+      "name": "img/reports.8339f265.svg",
+      "path": "/Users/aya/anova/frontend/dist/img/reports.8339f265.svg",
+      "publicPath": "/static/dist/img/reports.8339f265.svg"
+    },
+    "img/social-media.a4327550.svg": {
+      "name": "img/social-media.a4327550.svg",
+      "path": "/Users/aya/anova/frontend/dist/img/social-media.a4327550.svg",
+      "publicPath": "/static/dist/img/social-media.a4327550.svg"
+    },
+    "img/tfs.7db04449.svg": {
+      "name": "img/tfs.7db04449.svg",
+      "path": "/Users/aya/anova/frontend/dist/img/tfs.7db04449.svg",
+      "publicPath": "/static/dist/img/tfs.7db04449.svg"
+    },
+    "img/project-name.a97e9599.svg": {
+      "name": "img/project-name.a97e9599.svg",
+      "path": "/Users/aya/anova/frontend/dist/img/project-name.a97e9599.svg",
+      "publicPath": "/static/dist/img/project-name.a97e9599.svg"
+    },
+    "img/report-name.9e2cd889.svg": {
+      "name": "img/report-name.9e2cd889.svg",
+      "path": "/Users/aya/anova/frontend/dist/img/report-name.9e2cd889.svg",
+      "publicPath": "/static/dist/img/report-name.9e2cd889.svg"
+    },
+    "img/report-set-time.1bedc473.svg": {
+      "name": "img/report-set-time.1bedc473.svg",
+      "path": "/Users/aya/anova/frontend/dist/img/report-set-time.1bedc473.svg",
+      "publicPath": "/static/dist/img/report-set-time.1bedc473.svg"
+    },
+    "img/search.b3ecd7d8.svg": {
+      "name": "img/search.b3ecd7d8.svg",
+      "path": "/Users/aya/anova/frontend/dist/img/search.b3ecd7d8.svg",
+      "publicPath": "/static/dist/img/search.b3ecd7d8.svg"
+    },
+    "img/define-search.50ef591a.svg": {
+      "name": "img/define-search.50ef591a.svg",
+      "path": "/Users/aya/anova/frontend/dist/img/define-search.50ef591a.svg",
+      "publicPath": "/static/dist/img/define-search.50ef591a.svg"
+    },
+    "img/project-name.81e681ef.svg": {
+      "name": "img/project-name.81e681ef.svg",
+      "path": "/Users/aya/anova/frontend/dist/img/project-name.81e681ef.svg",
+      "publicPath": "/static/dist/img/project-name.81e681ef.svg"
+    },
+    "img/workspace-name.5ce52068.svg": {
+      "name": "img/workspace-name.5ce52068.svg",
+      "path": "/Users/aya/anova/frontend/dist/img/workspace-name.5ce52068.svg",
+      "publicPath": "/static/dist/img/workspace-name.5ce52068.svg"
+    },
+    "img/workspace-name.f6fee556.svg": {
+      "name": "img/workspace-name.f6fee556.svg",
+      "path": "/Users/aya/anova/frontend/dist/img/workspace-name.f6fee556.svg",
+      "publicPath": "/static/dist/img/workspace-name.f6fee556.svg"
+    },
+    "img/dashboard.813ac320.png": {
+      "name": "img/dashboard.813ac320.png",
+      "path": "/Users/aya/anova/frontend/dist/img/dashboard.813ac320.png",
+      "publicPath": "/static/dist/img/dashboard.813ac320.png"
+    },
+    "img/demography.48a6fbf1.png": {
+      "name": "img/demography.48a6fbf1.png",
+      "path": "/Users/aya/anova/frontend/dist/img/demography.48a6fbf1.png",
+      "publicPath": "/static/dist/img/demography.48a6fbf1.png"
+    },
+    "img/influencers.13cb241b.png": {
+      "name": "img/influencers.13cb241b.png",
+      "path": "/Users/aya/anova/frontend/dist/img/influencers.13cb241b.png",
+      "publicPath": "/static/dist/img/influencers.13cb241b.png"
+    },
+    "img/photoAndVideo.781b9b3e.png": {
+      "name": "img/photoAndVideo.781b9b3e.png",
+      "path": "/Users/aya/anova/frontend/dist/img/photoAndVideo.781b9b3e.png",
+      "publicPath": "/static/dist/img/photoAndVideo.781b9b3e.png"
+    },
+    "img/sentiment.f9b046c2.png": {
+      "name": "img/sentiment.f9b046c2.png",
+      "path": "/Users/aya/anova/frontend/dist/img/sentiment.f9b046c2.png",
+      "publicPath": "/static/dist/img/sentiment.f9b046c2.png"
+    },
+    "img/summary.7db448b1.png": {
+      "name": "img/summary.7db448b1.png",
+      "path": "/Users/aya/anova/frontend/dist/img/summary.7db448b1.png",
+      "publicPath": "/static/dist/img/summary.7db448b1.png"
+    },
+    "img/topics.65dd5d91.png": {
+      "name": "img/topics.65dd5d91.png",
+      "path": "/Users/aya/anova/frontend/dist/img/topics.65dd5d91.png",
+      "publicPath": "/static/dist/img/topics.65dd5d91.png"
+    },
+    "img/users.b7f095da.png": {
+      "name": "img/users.b7f095da.png",
+      "path": "/Users/aya/anova/frontend/dist/img/users.b7f095da.png",
+      "publicPath": "/static/dist/img/users.b7f095da.png"
+    },
+    "favicon.ico": {
+      "name": "favicon.ico",
+      "path": "/Users/aya/anova/frontend/dist/favicon.ico",
+      "publicPath": "/static/dist/favicon.ico"
+    },
+    "favicon.png": {
+      "name": "favicon.png",
+      "path": "/Users/aya/anova/frontend/dist/favicon.png",
+      "publicPath": "/static/dist/favicon.png"
+    },
+    "js/app.cf245f5d.js.map": {
+      "name": "js/app.cf245f5d.js.map",
+      "path": "/Users/aya/anova/frontend/dist/js/app.cf245f5d.js.map",
+      "publicPath": "/static/dist/js/app.cf245f5d.js.map"
+    },
+    "index.html": {
+      "name": "index.html",
+      "path": "/Users/aya/anova/frontend/dist/index.html",
+      "publicPath": "/static/dist/index.html"
+    }
+  },
+  "chunks": {
+    "app": [
+      "css/app.d67ead2c.css",
+      "js/app.cf245f5d.js"
+    ]
+  },
+  "publicPath": "/static/dist/"
+}
