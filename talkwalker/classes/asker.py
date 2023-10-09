@@ -71,7 +71,7 @@ class Asker:
         url = f'https://api.talkwalker.com/api/v3/stream/c/{self.collector_id}/results?access_token={self.token}&resume_offset=earliest&end_behaviour=stop'
         response = requests.request('GET', url, headers={}, data={})
         lines = response.iter_lines()
-        create_posts(lines)
+        create_posts(self.project, lines)
         return response.status_code == status.HTTP_200_OK
 
     def __05_delete_collector(self):
