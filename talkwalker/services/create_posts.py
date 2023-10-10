@@ -4,6 +4,7 @@ from project.models import Speech
 from django.apps import apps
 from django.utils import timezone
 from django.db import transaction
+from ftlangdetect import detect
 import json
 
 
@@ -54,7 +55,10 @@ def create_posts(project, lines):
         try:
             afeed_language = add_language(data['lang'])
         except:
-            afeed_language = ''
+            try:
+                afeed_language = add_language(detect(data['title']))
+            except:
+                afeed_language = Speech.objects.filter(language='English (United States)').first()
         try:
             aentry_media_content_url = data['images'][0]['url']
         except:
