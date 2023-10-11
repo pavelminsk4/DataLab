@@ -1,4 +1,4 @@
-from common.factories.talkwalker_feedlink import TalkwalkerFeedlinksFactory
+from common.factories.feedlinks import FeedlinksFactory
 from widgets.models import ClippingFeedContentWidget
 from common.factories.project import ProjectFactory
 from common.factories.speech import SpeechFactory
@@ -7,17 +7,14 @@ from rest_framework.test import APITestCase
 from rest_framework import status
 from django.urls import reverse
 from unittest import skip
-import json, os
+import json
 
 
 class WidgetTests(APITestCase):
-    
-    def setUp(self):
-        os.environ['POST_LOCATOR'] = 'rss'
 
     @skip("Don't want to test")
     def test_widgett(self):
-        flink = TalkwalkerFeedlinksFactory(country='Terra', source1='True')
+        flink = FeedlinksFactory(country='Terra', source1='True')
         sp = SpeechFactory(language='English')
         pr1 = ProjectFactory()
         post1 = PostFactory(feedlink=flink, entry_title='First post title', feed_language=sp, entry_published='2021-09-03T06:37:00Z')

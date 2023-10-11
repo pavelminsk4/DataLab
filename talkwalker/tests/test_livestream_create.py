@@ -1,7 +1,6 @@
-from django.test import TestCase
 from common.factories.project import ProjectFactory
-from talkwalker.models import TalkwalkerPost
 from talkwalker.classes.livestream import Livestream
+from django.test import TestCase
 import httpretty
 import re
 
@@ -244,4 +243,4 @@ class LivestreamTestCase(TestCase):
 
         result = Livestream(project.id, 'Project').read()
         self.assertTrue(result)
-        self.assertEqual(project.tw_posts.all().count(), 2)
+        self.assertEqual(project.posts.all().count(), 2)

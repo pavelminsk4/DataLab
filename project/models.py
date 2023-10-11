@@ -91,6 +91,7 @@ class Post(models.Model):
     summary_vector                   = ArrayField(NDArrayField(shape=(384), dtype=np.float32), blank=True)
     full_text                        = models.TextField('full_text', null=True, blank=True)
     category                         = models.TextField('Category', null=True, blank=True, default=None)
+    source_type                      = models.TextField('source_type', null=True, blank=True, default=None)
 
     feedlink      = models.ForeignKey(Feedlinks, on_delete=models.CASCADE, related_name='feedlink_feedsin', verbose_name='Feed Link')
     feed_language = models.ForeignKey(Speech, related_name='speech', on_delete=models.CASCADE)
@@ -260,7 +261,7 @@ class ChangingOnlineSentiment(models.Model):
     sentiment   = models.CharField('sentiment', max_length=10)
     department  = models.ForeignKey('accounts.department', on_delete=models.CASCADE)
 
-    post = models.ForeignKey('talkwalker.TalkwalkerPost', on_delete=models.CASCADE)
+    post = models.ForeignKey('project.Post', on_delete=models.CASCADE)
 
     def ___str__(self):
         return self.sentiment

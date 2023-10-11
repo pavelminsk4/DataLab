@@ -1,6 +1,5 @@
 from django.shortcuts import get_object_or_404
-from common.post_locator import PostLocator
-from project.models import Project
+from project.models import Project, Post
 from django.db.models import Q
 from functools import reduce
 
@@ -25,7 +24,7 @@ def additional_keywords_posts(posts, additions):
 
 def posts_agregator(project_id):
   project = get_object_or_404(Project, pk = project_id)
-  posts = PostLocator().post.objects.all()
+  posts = Post.objects.all()
   posts = keywords_posts(project.keywords, posts)
   if project.additional_keywords!=[]:
     posts = additional_keywords_posts(posts, project.additional_keywords)

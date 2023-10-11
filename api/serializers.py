@@ -1,9 +1,8 @@
 from widgets.models import WidgetsList2, ClippingFeedContentWidget, WidgetDescription, Dimensions, ProjectDimensions
 from drf_writable_nested.serializers import WritableNestedModelSerializer
+from project.models import Project, Workspace, Speech, Feedlinks, Post
 from reports.models import Templates, RegularReport, ReportItem
-from project.models import Project, Workspace, Speech, Feedlinks
 from accounts.models import Profile, department
-from common.post_locator import PostLocator
 from django.contrib.auth.models import User
 from alerts.models import Alert, AlertItem
 from countries_plus.models import Country
@@ -188,7 +187,7 @@ class AlertsSerializer(WritableNestedModelSerializer):
 
 class PostsSerializer(WritableNestedModelSerializer):
     class Meta:
-        model = PostLocator().post
+        model = Post
         fields = ['entry_author']
 
 

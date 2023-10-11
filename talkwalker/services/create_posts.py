@@ -1,6 +1,6 @@
 from langcodes import Language
 from datetime import datetime
-from project.models import Speech
+from project.models import Speech, Post, Feedlinks
 from django.apps import apps
 from django.utils import timezone
 from django.db import transaction
@@ -85,24 +85,26 @@ def create_posts(project, lines):
             acategory = ''
         try:
             with transaction.atomic():
-                fl = apps.get_model('talkwalker', 'TalkwalkerFeedlink').objects.get_or_create(
-                    country=acountry,
-                    sourceurl=asourceurl,
-                    alexaglobalrank=aalexaglobalrank,
-                    source1=asource1,
-                )[0]
-                post = apps.get_model('talkwalker', 'TalkwalkerPost').objects.create(
-                    entry_title=aentry_title,
-                    entry_summary=aentry_summary,
-                    feed_language=afeed_language,
-                    entry_media_content_url=aentry_media_content_url,
-                    entry_links_href=aentry_links_href,
-                    entry_author=aentry_author,
-                    entry_published=aentry_published,
-                    sentiment=asentiment,
-                    category=acategory,
-                    feedlink=fl,
-                )
-                project.tw_posts.add(post)
+                fl = Feedlinks.objects.get_or_create(
+                            country=acountry,
+                            sourceurl=asourceurl,
+                            alexaglobalrank=aalexaglobalrank,
+                            source1=asource1,
+                        )[0]
+                post = Post.objects.create(
+                            entry_title=aentry_title,
+                            entry_summary=aentry_summary,
+                            feed_language=afeed_language,
+                            entry_media_content_url=aentry_media_content_url,
+                            entry_links_href=aentry_links_href,
+                            entry_author=aentry_author,
+                            entry_published=aentry_published,
+                            sentiment=asentiment,
+                            category=acategory,
+                            feedlink=fl,
+                            summary_vector=[]
+                        )
+                project.posts.add(post)
+
         except:
             pass
