@@ -1,5 +1,5 @@
 from project.online_parser import OnlineParser
-from common.post_locator import PostLocator
+from project.models import Post
 from django.db.models import Q
 from functools import reduce
 
@@ -32,7 +32,7 @@ def additional_keywords_posts(posts, additions):
 
 def data_range_posts(start_date, end_date):
     interval = [start_date, end_date]
-    posts = PostLocator().post.objects.filter(entry_published__range=interval).order_by('entry_published')
+    posts = Post.objects.filter(entry_published__range=interval).order_by('entry_published')
     return posts
 
 

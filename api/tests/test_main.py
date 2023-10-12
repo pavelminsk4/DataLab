@@ -1,9 +1,5 @@
-from common.factories.talkwalker_feedlink import TalkwalkerFeedlinksFactory
-from common.factories.talkwalker_post import TalkwalkerPostFactory
 from common.factories.feedlinks import FeedlinksFactory
-from common.factories.project import ProjectFactory
 from common.factories.speech import SpeechFactory
-from talkwalker.models import TalkwalkerPost
 from common.factories.post import PostFactory
 from common.factories.user import UserFactory
 from project.models import Speech, Feedlinks
@@ -11,13 +7,11 @@ from rest_framework.test import APITestCase
 from django.contrib.auth.models import User
 from countries_plus.models import Country
 from accounts.models import department
-from project.models import Project
 from rest_framework import status
 from django.urls import reverse
 from project.models import Post
 import json
 import copy
-import os
 
 
 DATA = {
@@ -124,161 +118,8 @@ ex4 = {
 }
 
 
-class SearchTestsPKTLW(APITestCase):
-    def setUp(self):
-        os.environ['POST_LOCATOR'] = 'talkwalker'
-        self.client.force_login(UserFactory())
-        flink1 = TalkwalkerFeedlinksFactory(country='USA', source1='BBC')
-        flink2 = TalkwalkerFeedlinksFactory(country='China', source1='CNN')
-        sp1 = SpeechFactory(language='English (United States)')
-        sp2 = SpeechFactory(language='Lithuanian (Lithuania)')
-        sp3 = SpeechFactory(language='Italian (Italy)')
-        sp4 = SpeechFactory(language='Arabic')
-        p1 = TalkwalkerPostFactory(id=1, feedlink=flink1, entry_title='First post title nikita', entry_summary='First post body', feed_language=sp1, entry_author='Elon Musk', entry_published='2022-09-03T06:37:00Z', sentiment='neutral')
-        p2 = TalkwalkerPostFactory(id=2, feedlink=flink2, entry_title='Second post title', entry_summary='Second post body', feed_language=sp2, entry_author='Tim Cook', entry_published='2022-10-03T06:37:00Z', sentiment='neutral')
-        p3 = TalkwalkerPostFactory(id=3, feedlink=flink2, entry_title='Third post', entry_summary='Third post body', feed_language=sp3, entry_author='Bill Gates', entry_published='2022-10-03T06:37:00Z', sentiment='neutral')
-        p4 = TalkwalkerPostFactory(id=4, feedlink=flink2, entry_title='Fourth post', entry_summary='Fourth post body', feed_language=sp4, entry_author='Steve Jobs', entry_published='2022-10-03T06:37:00Z', sentiment='positive')
-        pr =  ProjectFactory()
-        for post in (p1, p2, p3, p4):
-            pr.tw_posts.add(post)
-
-    def test_search_with_keywords_tlw(self):
-        pr = Project.objects.first()
-        data = {
-            'country': [],
-            'language': [],
-            'sentiment': [],
-            'date_range': [],
-            'source': [],
-            'author': [],
-            'posts_per_page': 20,
-            'page_number': 1,
-            'sort_posts': [],
-            'author_dimensions': [],
-            'language_dimensions': [],
-            'country_dimensions': [],
-            'source_dimensions': [],
-            'sentiment_dimensions': [],
-            'query_filter': '',
-            'department_id': 1,
-            'expert_mode': False,
-            'project_pk': pr.id,
-        }
-        data['date_range'] = ['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z']
-        response = self.client.post(url, data, format='json')
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':4, 'posts':[ex1, ex2, ex3, ex4]}) 
-
-class SearchTestsTLW(APITestCase):
-    def setUp(self):
-        os.environ['POST_LOCATOR'] = 'talkwalker'
-        self.client.force_login(UserFactory())
-        flink1 = TalkwalkerFeedlinksFactory(country='USA', source1='BBC')
-        flink2 = TalkwalkerFeedlinksFactory(country='China', source1='CNN')
-        sp1 = SpeechFactory(language='English (United States)')
-        sp2 = SpeechFactory(language='Lithuanian (Lithuania)')
-        sp3 = SpeechFactory(language='Italian (Italy)')
-        sp4 = SpeechFactory(language='Arabic')
-        TalkwalkerPostFactory(id=1, feedlink=flink1, entry_title='First post title nikita', entry_summary='First post body', feed_language=sp1, entry_author='Elon Musk', entry_published='2022-09-03T06:37:00Z', sentiment='neutral')
-        TalkwalkerPostFactory(id=2, feedlink=flink2, entry_title='Second post title', entry_summary='Second post body', feed_language=sp2, entry_author='Tim Cook', entry_published='2022-10-03T06:37:00Z', sentiment='neutral')
-        TalkwalkerPostFactory(id=3, feedlink=flink2, entry_title='Third post', entry_summary='Third post body', feed_language=sp3, entry_author='Bill Gates', entry_published='2022-10-03T06:37:00Z', sentiment='neutral')
-        TalkwalkerPostFactory(id=4, feedlink=flink2, entry_title='Fourth post', entry_summary='Fourth post body', feed_language=sp4, entry_author='Steve Jobs', entry_published='2022-10-03T06:37:00Z', sentiment='positive')
-
-
-    def test_search_with_keywords_tlw(self):
-        data = copy.deepcopy(DATA)
-        data['keywords'] = ['nikita']
-        data['date_range'] = ['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z']
-        response = self.client.post(url, data, format='json')
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':1, 'posts':[ex1]}) 
-    
-    def test_search_with_exclusion_words_tlw(self):
-        data = copy.deepcopy(DATA)
-        data['keywords'] = ['post']
-        data['exceptions'] = ['First']
-        data['date_range'] = ['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z']
-        response = self.client.post(url, data, format='json')
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':3, 'posts':[ex2,ex3,ex4]})
-        self.assertEqual(len(TalkwalkerPost.objects.all()), 4)
-
-    def test_search_with_additional_words_tlw(self):
-        data = copy.deepcopy(DATA)
-        data['keywords'] = ['post']
-        data['additions'] = ['Third']
-        data['date_range'] = ['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z']
-        response = self.client.post(url, data, format='json')
-        self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':1, 'posts':[ex3]})
-        self.assertEqual(len(TalkwalkerPost.objects.all()), 4)
-
-    def test_serch_with_exclusion_and_additional_words_tlw(self):
-        data = copy.deepcopy(DATA)
-        data['keywords'] = ['post']
-        data['exceptions'] = ['First']
-        data['additions'] = ['title']
-        data['date_range'] = ['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z']
-        response = self.client.post(url, data, format='json')
-        self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':1, 'posts':[ex2]})
-        self.assertEqual(len(TalkwalkerPost.objects.all()), 4)
-
-    def test_search_by_country_tlw(self):
-        data = copy.deepcopy(DATA)
-        data['keywords'] = ['post']
-        data['country'] = 'USA'
-        data['date_range'] = ['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z']
-        response = self.client.post(url, data, format='json')
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':1, 'posts':[ex1]})
-
-    def test_search_by_language_tlw(self):
-        data = copy.deepcopy(DATA)
-        data['keywords'] = ['post']
-        data['language'] = 'Arabic'
-        data['date_range'] = ['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z']
-        response = self.client.post(url, data, format='json')
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':1, 'posts':[ex4]})
-
-    def test_search_filtering_by_sentiment_tlw(self):
-        data = copy.deepcopy(DATA)
-        data['keywords'] = ['post']
-        data['sentiment'] = 'positive'
-        data['date_range'] = ['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z']
-        response = self.client.post(url, data, format='json')
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':1, 'posts':[ex4]})
-
-    def test_serarch_filtering_by_date_tlw(self):
-        data = copy.deepcopy(DATA)
-        data['keywords'] = ['post']
-        data['date_range'] = ['2022-09-02T06:44:00.000Z', '2022-09-30T06:44:00.000Z']
-        response = self.client.post(url, data, format='json')
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':1, 'posts':[ex1]})
-
-    def test_search_by_source_tlw(self):
-        data = copy.deepcopy(DATA)
-        data['keywords'] = ['post']
-        data['date_range'] = ['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z']
-        data['source'] = 'CNN'
-        response = self.client.post(url, data, format='json')
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':3, 'posts':[ex2, ex3, ex4]})
-
-    def test_search_by_author_tlw(self):
-        data = copy.deepcopy(DATA)
-        data['keywords'] = ['post']
-        data['date_range'] = ['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z']
-        data['author'] = 'Elon Musk'
-        response = self.client.post(url, data, format='json')
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':1, 'posts':[ex1]})
-
-
 class SearchTests(APITestCase):
     def setUp(self):
-        os.environ['POST_LOCATOR'] = 'rss'
         self.client.force_login(UserFactory())
         flink1 = FeedlinksFactory(country='USA', source1='BBC')
         flink2 = FeedlinksFactory(country='China', source1='CNN')
@@ -430,18 +271,3 @@ class CountriesTests(APITestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(json.loads(response.content), [{'name': 'Afghanistan'}])
-
-
-class AuthorsTestsTLW(APITestCase):
-    def setUp(self):
-        os.environ['POST_LOCATOR'] = 'talkwalker'
-  
-    def test_authors_list_tlw(self):
-        self.client.force_login(UserFactory())
-        flink1 = TalkwalkerFeedlinksFactory(country='USA', source1='BBC')
-        sp1 = SpeechFactory(language='English (United States)')
-        TalkwalkerPostFactory(id=1, feedlink=flink1, entry_title='First post title nikita', entry_summary='First post body', feed_language=sp1, entry_author='Elon Musk', entry_published='2022-09-03T06:37:00Z', sentiment='neutral')
-        url = '/api/authors/authors?search=E'
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(json.loads(response.content), [{'entry_author': 'Elon Musk'}])

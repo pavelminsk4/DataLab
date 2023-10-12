@@ -1,17 +1,13 @@
-from common.factories.talkwalker_post import TalkwalkerPostFactory
 from common.factories.project import ProjectFactory
 from common.factories.speech import SpeechFactory
 from common.factories.post import PostFactory
 from rest_framework.test import APITestCase
 from rest_framework import status
 from django.urls import reverse
-import json, os
+import json
 
 
 class SentimentTopLanguagessWidgetTests(APITestCase):
-    def setUp(self):
-        os.environ['POST_LOCATOR'] = 'rss'
-
     def test_response_list(self):
         sp1 = SpeechFactory(language='English')
         sp2 = SpeechFactory(language='Spain')
@@ -26,46 +22,6 @@ class SentimentTopLanguagessWidgetTests(APITestCase):
         pr = ProjectFactory()
         for post in (p1, p2, p3, p4, p5,p6, p7, p8):
             pr.posts.add(post)
-        widget_pk = pr.widgets_list_2.sentiment_top_languages_id
-        url = reverse('widgets:onl_sentiment_top_languages', kwargs={'pk': pr.pk, 'widget_pk': widget_pk})
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        res = {
-            'English':
-            [
-                {'sentiment': 'neutral', 'sentiment_count': 2},
-                {'sentiment': 'negative', 'sentiment_count': 1},
-                {'sentiment': 'positive', 'sentiment_count': 0}
-            ],
-            'Spain':
-            [
-                {'sentiment': 'neutral', 'sentiment_count': 3},
-                {'sentiment': 'negative', 'sentiment_count': 1},
-                {'sentiment': 'positive', 'sentiment_count': 1}
-            ],
-        }
-        self.assertEqual(json.loads(response.content), res)
-
-
-class SentimentTopLanguagessWidgetTestsTLW(APITestCase):
-
-    def setUp(self):
-        os.environ['POST_LOCATOR'] = 'talkwalker'
-
-    def test_response_list_tlw(self):
-        sp1 = SpeechFactory(language='English')
-        sp2 = SpeechFactory(language='Spain')
-        p1 = TalkwalkerPostFactory(feed_language=sp1, sentiment='neutral')
-        p2 = TalkwalkerPostFactory(feed_language=sp1, sentiment='neutral')
-        p3 = TalkwalkerPostFactory(feed_language=sp1, sentiment='negative')
-        p4 = TalkwalkerPostFactory(feed_language=sp2, sentiment='negative')
-        p5 = TalkwalkerPostFactory(feed_language=sp2, sentiment='positive')
-        p6 = TalkwalkerPostFactory(feed_language=sp2, sentiment='neutral')
-        p7 = TalkwalkerPostFactory(feed_language=sp2, sentiment='neutral')
-        p8 = TalkwalkerPostFactory(feed_language=sp2, sentiment='neutral')
-        pr = ProjectFactory()
-        for post in (p1, p2, p3, p4, p5,p6, p7, p8):
-            pr.tw_posts.add(post)
         widget_pk = pr.widgets_list_2.sentiment_top_languages_id
         url = reverse('widgets:onl_sentiment_top_languages', kwargs={'pk': pr.pk, 'widget_pk': widget_pk})
         response = self.client.get(url)

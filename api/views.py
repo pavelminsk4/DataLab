@@ -110,12 +110,12 @@ def additional_keywords_posts(posts, additions):
 
 def data_range_posts(start_date, end_date):
     interval = [start_date, end_date]
-    posts = PostLocator().post.objects.filter(entry_published__range=interval).order_by('entry_published')
+    posts = Post.objects.filter(entry_published__range=interval).order_by('entry_published')
     return posts
 
 def data_range_posts_for_24(start_date, end_date):
     interval = [start_date, end_date]
-    posts = PostLocator().post.objects.filter(entry_published__range=interval)
+    posts = Post.objects.filter(entry_published__range=interval)
     return posts
 
 def search(request):
@@ -128,7 +128,7 @@ def search(request):
     query_filter = body['query_filter']
     if 'project_pk' in body:
         project = Project.objects.get(id=body['project_pk'])
-        posts = project.tw_posts if env('POST_LOCATOR') == 'talkwalker' else project.posts
+        posts = project.posts
         posts = posts_with_filters(project, posts)
     else:
         posts = data_range_posts(date_range[0], date_range[1])
@@ -179,7 +179,7 @@ class SpeechesList(ListAPIView):
 
 class AuthorList(ListAPIView):
     serializer_class = PostsSerializer
-    queryset = PostLocator().post.objects.values('entry_author').distinct()
+    queryset = Post.objects.values('entry_author').distinct()
     filter_backends = [filters.SearchFilter]
     search_fields = ['^entry_author']
     

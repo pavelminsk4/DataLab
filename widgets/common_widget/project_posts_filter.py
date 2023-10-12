@@ -9,7 +9,7 @@ env = environ.Env()
 
 def project_posts_filter(pk, widget_pk):
     project = Project.objects.get(id=pk)
-    posts = project.tw_posts if env('POST_LOCATOR') == 'talkwalker' else project.posts
+    posts = project.posts
     posts = posts_with_filters(project, posts)
     widget = WidgetDescription.objects.get(id=widget_pk)
     posts = post_agregetor_for_each_widget(widget, posts)

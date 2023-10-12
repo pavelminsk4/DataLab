@@ -104,7 +104,7 @@ def attach_online_posts(id):
             pass
 
 
-from talkwalker.models import TalkwalkerPost
+from project.models import Post
 @receiver(post_save, sender=ProjectTwentyFourSeven)
 def attach_items(sender, instance, created, **kwargs):
   if created:
@@ -122,7 +122,7 @@ class Item(models.Model):
         ('Irrelevant','Irrelevant'),
     ]
 
-    online_post = models.ForeignKey(TalkwalkerPost, on_delete=models.CASCADE, blank=True, null=True)
+    online_post = models.ForeignKey(Post, on_delete=models.CASCADE, blank=True, null=True)
     social_post = models.ForeignKey(TweetBinderPost, on_delete=models.CASCADE, blank=True, null=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Picking')
     header = models.CharField(default='', max_length=1000, blank=True, null=True)
