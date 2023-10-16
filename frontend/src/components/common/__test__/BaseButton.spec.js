@@ -7,10 +7,10 @@ import BaseButtonSpinner from '@/components/BaseButtonSpinner'
 
 const createWrapper = (store) =>
   mount(BaseButton, {
-    props: {isDisabled: false, buttonLoading: false},
     global: {
       plugins: [store],
     },
+    props: {isDisabled: false, buttonLoading: false},
     slots: {
       default: h('h1', {}, 'Named Slot'),
     },
