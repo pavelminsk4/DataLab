@@ -1,10 +1,10 @@
 import {createStore} from 'vuex'
 import getters from '@store/getters'
-import state from '@store/state'
+import mockState from '@store/__mocks__/state'
 
-export const createNewStore = () => {
+export const createNewStore = (newState) => {
   return createStore({
-    state,
+    state: {...mockState, ...newState},
     getters,
     dispatch: jest.fn(),
   })
