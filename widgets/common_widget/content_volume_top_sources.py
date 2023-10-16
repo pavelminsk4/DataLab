@@ -1,16 +1,16 @@
 from .project_posts_filter import project_posts_filter
 from django.forms.models import model_to_dict
-from django.db.models.functions import Trunc
+from project.models import Project, Feedlinks
 from django.http import JsonResponse
-from django.db.models import Count
 import json
+import re
 
 
 def content_volume_top_sources(request, pk, widget_pk):
     posts, widget = project_posts_filter(pk, widget_pk)
     body = json.loads(request.body)
     aggregation_period = body['aggregation_period']
-    res = aggregator_results_content_volume_top_sources(posts, aggregation_period, widget.top_counts)
+    res = aggregator_results_content_volume_top_sources(posts, aggregation_period, widget.top_counts, pk)
     return JsonResponse(res, safe=False)
 
 
@@ -18,52 +18,57 @@ def content_volume_top_sources_report(pk, widget_pk):
     posts, widget = project_posts_filter(pk, widget_pk)
 
     return {
-        'data': aggregator_results_content_volume_top_sources(posts, widget.aggregation_period, widget.top_counts),
+        'data': aggregator_results_content_volume_top_sources(posts, widget.aggregation_period, widget.top_counts, pk),
         'widget': {'content_volume_top_sources': model_to_dict(widget)},
         'module_name': 'Online'
     }
 
 
-def aggregator_results_content_volume_top_sources(posts, aggregation_period, top_counts):
-    top_sources = list(
-        map(
-            lambda x: x['feedlink__source1'],
-            list(
-                posts.values('feedlink__source1')
-                .annotate(brand_count=Count('feedlink__source1'))
-                .order_by('-brand_count')[:top_counts]
-            )
+def aggregator_results_content_volume_top_sources(posts, aggregation_period, top_counts, pk):
+    project = Project.objects.get(id=pk)
+    top_sources = posts.raw(
+        re.sub(
+            r'\s+', ' ', f"""
+            SELECT p.feedlink_id id, COUNT(p.feedlink_id) post_count
+            FROM project_post p
+            JOIN project_project_posts pp ON p.id = pp.post_id
+            GROUP BY p.feedlink_id
+            ORDER BY COUNT(p.feedlink_id) DESC
+            LIMIT {top_counts}
+            """
         )
     )
 
-    results = [
-        {
-            source: list(
-                posts.filter(feedlink__source1=source)
-                .annotate(date=Trunc('entry_published', aggregation_period))
-                .values('date')
-                .annotate(created_count=Count('id'))
-                .order_by('date')
-            )
-        } for source in top_sources
-    ]
+    top_sources = tuple(source.id for source in top_sources)
+    content_volume = posts.raw(
+        re.sub(
+            r'\s+', ' ', f"""
+                SELECT feedlink_id id, date, SUM(post_count) FROM (
+                SELECT p.feedlink_id, date_trunc('{aggregation_period}', p.entry_published) date, COUNT(p.feedlink_id) post_count
+                FROM project_post p
+                JOIN project_project_posts pp ON p.id = pp.post_id
+                WHERE feedlink_id IN {top_sources}
+                GROUP BY p.feedlink_id, date_trunc('{aggregation_period}', p.entry_published)
 
-    dates = set()
-    for e in range(len(results)):
-        for i in range(len(results[e][top_sources[e]])):
-            dates.add(str(results[e][top_sources[e]][i]['date']))
+                UNION
 
-    res = []
-    for e in range(len(results)):
-        list_dates = []
-        for date in sorted(list(dates)):
-            if date in sorted(list({str(results[e][top_sources[e]][i]['date']) for i in range(len(results[e][top_sources[e]]))})):
-                for i in range(len(results[e][top_sources[e]])):
-                    if date == str(results[e][top_sources[e]][i]['date']):
-                        list_dates.append({'date': date, 'post_count': results[e][top_sources[e]][i]['created_count']})
-            else:
-                list_dates.append({'date': date, 'post_count': 0})
-        else:
-            res.append({top_sources[e]: list_dates})
+                SELECT id feedlink_id, dates.value date, 0 post_count
+                FROM project_feedlinks
+                FULL JOIN (SELECT * FROM generate_series('{str(project.start_search_date)}', '{str(project.end_search_date)}', interval '1 {aggregation_period}') s(value)) dates
+                ON 1 = 1
+                WHERE id IN {top_sources}
+                ) stats
+                GROUP BY feedlink_id, date
+                ORDER BY feedlink_id, date
+                """
+        )
+    )
 
-    return res
+    result = [{Feedlinks.objects.get(id=source).source1: []} for source in top_sources]
+    for line in content_volume:
+        for source in top_sources:
+            if line.id == source:
+                index = top_sources.index(source)
+                result[index][Feedlinks.objects.get(id=source).source1].append({'date': str(line.date), 'post_count': int(line.sum)})
+    
+    return result

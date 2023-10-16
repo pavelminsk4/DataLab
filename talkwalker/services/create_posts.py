@@ -102,7 +102,8 @@ def create_posts(project, lines):
                             sentiment=asentiment,
                             category=acategory,
                             feedlink=fl,
-                            summary_vector=[]
+                            summary_vector=[],
+                            source_type='talkwalker'
                         )
                 project.posts.add(post)
 
