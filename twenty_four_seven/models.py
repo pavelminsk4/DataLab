@@ -3,6 +3,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 from django.contrib.postgres.fields import ArrayField
 from tweet_binder.models import TweetBinderPost
 from django.db.models.signals import post_save
+from talkwalker.models import TalkwalkerPost
 from django.contrib.auth.models import User
 from django.dispatch import receiver
 from project.models import Post
@@ -122,7 +123,8 @@ class Item(models.Model):
         ('Irrelevant','Irrelevant'),
     ]
 
-    online_post = models.ForeignKey(Post, on_delete=models.CASCADE, blank=True, null=True)
+    online_post = models.ForeignKey(TalkwalkerPost, on_delete=models.CASCADE, blank=True, null=True)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, blank=True, null=True)
     social_post = models.ForeignKey(TweetBinderPost, on_delete=models.CASCADE, blank=True, null=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Picking')
     header = models.CharField(default='', max_length=1000, blank=True, null=True)
