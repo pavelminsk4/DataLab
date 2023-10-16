@@ -12,7 +12,7 @@ const createWrapper = (store) =>
     global: {
       plugins: [store],
     },
-    props: {label: 'Test', isSearch: true, hasError: false},
+    props: {label: 'Test', modelValue: 'Test', isSearch: true, hasError: false},
     slots: {
       default: h('span', {}, 'Named Slot'),
     },
@@ -24,7 +24,7 @@ describe('BaseInput component', () => {
 
   describe('when the label is provided', () => {
     it('should be created component and displayed input', () => {
-      expect(wrapper.exists()).toBe(true)
+      expect(wrapper.find('label').exists()).toBe(true)
       expect(wrapper.find('input').exists()).toBe(true)
       expect(wrapper.findAllComponents(CustomText).length).toEqual(1)
     })
@@ -50,8 +50,10 @@ describe('BaseInput component', () => {
   })
 
   describe('when the label is not provided', () => {
-    it('should not be created component', () => {
-      expect(wrapper.exists()).toBe(false)
+    it('should not be created component', async () => {
+      await wrapper.setProps({label: ''})
+
+      expect(wrapper.find('label').exists()).toBe(false)
     })
   })
 })
