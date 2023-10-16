@@ -130,7 +130,8 @@ def post_creator():
                     'feed_image_link': my_feed_image_link,
                     'feed_language': my_feed_language,
                     'is_sentiment': True,
-                    'summary_vector': []
+                    'summary_vector': [],
+                    'source_type': 'rss'
                 }
                 datas.append(snippet)
             try:
