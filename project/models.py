@@ -27,27 +27,10 @@ class Workspace(models.Model):
 
 class Feedlinks(models.Model):
     url             = models.URLField(max_length=400, null=True, blank=True, unique=True)
-    source          = models.CharField('Source', max_length=200, null=True, blank=True)
-    page            = models.CharField('Page', max_length=200, null=True, blank=True)
-    creator         = models.IntegerField('Creator', default=1)
-    creationdate    = models.DateTimeField(auto_now_add=True)
-    lastupdate      = models.DateTimeField(auto_now=True)
-    errornotes      = models.CharField('Error Note', max_length=200, null=True, blank=True)
-    nooffeeds       = models.IntegerField(default=0)
-    circle          = models.IntegerField(default=0)
     country         = models.CharField('Country', max_length=200, null=True, blank=True)
     source1         = models.CharField('Source1', max_length=200, null=True, blank=True)
-    boze            = models.CharField('Boze', max_length=30, null=True, blank=True)
-    myscript        = models.CharField('Script', max_length=30, null=True, blank=True)
-    status_code     = models.IntegerField(default=0)
-    linklanguage    = models.CharField('Language', max_length=200, null=True, blank=True)
-    languagecode    = models.CharField('Language Code', max_length=2, null=True, blank=True)
     sourceurl       = models.URLField(max_length=200, null=True, blank=True)
-    issourcefeed    = models.BooleanField(default=False)
     alexaglobalrank = models.BigIntegerField(default=0)
-    tier            = models.IntegerField(default=0)
-    created_at      = models.DateTimeField(auto_now_add=True)
-    updated_at      = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.url
@@ -102,9 +85,7 @@ class Post(models.Model):
     class Meta:
         indexes = [
             models.Index(fields=['entry_published']),
-            models.Index(fields=['entry_title']),
             models.Index(fields=['feedlink']),
-            models.Index(fields=['entry_author']),
             models.Index(fields=['feed_language']),
             models.Index(fields=['sentiment']),
 
