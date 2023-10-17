@@ -97,7 +97,7 @@ def attach_online_posts(id):
             instance.tfs_project_items.add(item)
             if post.full_text is None:
                 try:
-                    post.full_text = get_full_text(post.entry_link)
+                    post.full_text = get_full_text(post.entry_links_href)
                 except:
                     post.full_text = 'Please follow the link for the full text of the news.'
                 post.save()

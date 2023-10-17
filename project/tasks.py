@@ -18,7 +18,7 @@ logger = logging.getLogger()
 
 
 def split_links(amount_posts_in_sample):
-    all_posts = Feedlinks.objects.all().order_by('-tier')
+    all_posts = Feedlinks.objects.all().order_by('-alexaglobalrank')
     return Paginator(all_posts, amount_posts_in_sample)
 
 
@@ -94,10 +94,6 @@ def post_creator():
                 except:
                     my_entry_author = 'None'
                 try:
-                    my_entry_tags_term = ent['tags'][0]['term']
-                except:
-                    my_entry_tags_term = 'None'
-                try:
                     my_feed_title = ff['title']
                 except:
                     my_feed_title = 'None'
@@ -118,13 +114,11 @@ def post_creator():
                     'entry_title': my_title,
                     'sentiment': my_sentiment,
                     'entry_links_href': my_links_href,
-                    'entry_link': my_link,
                     'entry_summary': my_summary,
                     'entry_published': my_published,
                     'entry_media_thumbnail_url': my_media_thumbnail_url,
                     'entry_media_content_url': my_entry_media_content_url,
                     'entry_author': my_entry_author,
-                    'entry_tags_term': my_entry_tags_term,
                     'feed_title': my_feed_title,
                     'feed_image_href': my_feed_image_href,
                     'feed_image_link': my_feed_image_link,
