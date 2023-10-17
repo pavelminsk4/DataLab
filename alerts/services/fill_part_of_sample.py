@@ -42,7 +42,7 @@ def fill_part_of_sample(p):
           <span>Date: {str(p.entry_published.ctime())}</span>
         </div>
       </div>
-      <a href="{p.entry_link}" class="email-post-button">
+      <a href="{p.entry_links_href}" class="email-post-button">
         View Post
       </a>
     </section>
