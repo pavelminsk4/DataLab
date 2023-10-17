@@ -53,8 +53,8 @@ class FeedlinksResource(resources.ModelResource):
 
 class FeedlinksAdmin(ImportExportModelAdmin):
   resource_class = FeedlinksResource
-  list_display = ('source1', 'url', 'sourceurl', 'country', 'tier', 'errornotes', 'nooffeeds', 'created_at', 'updated_at')
-  search_fields = ('source1__startswith', 'url__startswith', 'sourceurl__startswith')
+  list_display = ('source1', 'url', 'country')
+  search_fields = ('source1__startswith', 'url__startswith')
 
 admin.site.register(Feedlinks, FeedlinksAdmin )
 

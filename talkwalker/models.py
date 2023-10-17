@@ -24,18 +24,6 @@ class TalkwalkerFeedlink(models.Model):
     sourceurl = models.URLField(max_length=200, null=True, blank=True)
     alexaglobalrank = models.BigIntegerField(default=0)
 
-    class Meta:
-        indexes = [
-            GinIndex(
-                OpClass(Upper('country'), name='gin_trgm_ops'),
-                name='tlw_country_gin_index',
-            ),
-            GinIndex(
-                OpClass(Upper('source1'), name='gin_trgm_ops'),
-                name='tlw_source1_gin_index',
-            )
-        ]
-
 
 class TalkwalkerPost(models.Model):
     entry_title               = models.TextField('entry_title')
