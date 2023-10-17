@@ -1,4 +1,10 @@
 <template>
+  <WarningModal
+    v-if="isWarningModalDisplayed"
+    @close="toggleWarningModal"
+    @approve="createWorkspaceAndProject"
+  />
+
   <MainLayoutTitleBlock
     title="Define the search"
     description="Search by keywords and phrases"
@@ -22,7 +28,7 @@
     v-if="isExpertMode"
     :filters="filters"
     class="mode-section exprt-mode-section"
-    @save-project="createWorkspaceAndProject"
+    @save-project="toggleWarningModal"
     @show-result="showResults"
     @update-query-filter="updateQueryFilter"
   />
@@ -33,7 +39,7 @@
     class="mode-section"
     @show-result="showResults"
     @update-collection="updateCollection"
-    @save-project="createWorkspaceAndProject"
+    @save-project="toggleWarningModal"
   />
 </template>
 
@@ -48,6 +54,7 @@ import SimpleModeTab from '@/components/workspace/SimpleModeTab'
 import BaseSwitcher from '@/components/BaseSwitcher'
 import ExpertModeTab from '@/components/workspace/ExpertModeTab'
 import CustomText from '@/components/CustomText'
+import WarningModal from '@/components/modals/WarningModal'
 
 export default {
   name: 'CreateSearchScreen',
@@ -58,6 +65,7 @@ export default {
     BaseSwitcher,
     ExpertModeTab,
     CustomText,
+    WarningModal,
   },
   emits: ['create-project', 'create-workspace', 'show-results'],
   props: {
@@ -66,6 +74,7 @@ export default {
   },
   data() {
     return {
+      isWarningModalDisplayed: false,
       searchLoading: false,
       buttonLoading: false,
       isExpertMode: false,
@@ -156,6 +165,10 @@ export default {
       } finally {
         this.searchLoading = false
       }
+    },
+
+    toggleWarningModal() {
+      this.isWarningModalDisplayed = !this.isWarningModalDisplayed
     },
 
     async createWorkspaceAndProject() {

@@ -1,10 +1,16 @@
 <template>
+  <WarningModal
+    v-if="isWarningModalDisplayed"
+    @close="toggleWarningModal"
+    @approve="saveChanges"
+  />
+
   <SimpleModeTab
     :module-name="selectedModuleType"
     class="mode-section"
     @show-result="showResults"
     @update-collection="updateCollection"
-    @save-project="saveChanges"
+    @save-project="toggleWarningModal"
   >
     <template #module-type>
       <div class="module-wrapper">
@@ -36,6 +42,7 @@ import CustomText from '@/components/CustomText'
 import BaseRadio from '@/components/BaseRadio'
 import SimpleModeTab from '@/components/workspace/SimpleModeTab'
 import OnlineIcon from '@/components/icons/OnlineIcon'
+import WarningModal from '@/components/modals/WarningModal'
 
 const {mapActions: mapTFSActions, mapState: mapTFSState} =
   createNamespacedHelpers('twentyFourSeven')
@@ -49,6 +56,7 @@ export default {
     SimpleModeTab,
     OnlineIcon,
     CustomText,
+    WarningModal,
   },
   props: {
     workspaceId: {type: String, default: null},
@@ -58,6 +66,7 @@ export default {
     return {
       selectedModuleType: 'Online',
       modulesTypes: ['Online'],
+      isWarningModalDisplayed: false,
     }
   },
   computed: {
@@ -109,6 +118,11 @@ export default {
         [name]: val,
       })
     },
+
+    toggleWarningModal() {
+      this.isWarningModalDisplayed = !this.isWarningModalDisplayed
+    },
+
     showResults(pageNumber, numberOfPosts) {
       try {
         this[action.POST_SEARCH]({
