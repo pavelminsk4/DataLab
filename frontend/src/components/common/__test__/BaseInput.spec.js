@@ -23,6 +23,7 @@ describe('BaseInput component', () => {
   const wrapper = createWrapper(store)
 
   describe('when the label is provided', () => {
+
     it('should be created component and displayed input', () => {
       expect(wrapper.find('label').exists()).toBe(true)
       expect(wrapper.find('input').exists()).toBe(true)
@@ -31,6 +32,15 @@ describe('BaseInput component', () => {
 
     it('should displayed the html tag which was passed in slot', () => {
       expect(wrapper.html()).toMatch('<span>Named Slot</span>')
+    })
+
+    describe('when the "modelValue" is changed', () => {
+      it('should be changed input value ', async () => {
+        expect(wrapper.find('input').element.value).toBe('Test')
+
+        await wrapper.setProps({modelValue: 'New Value'})
+        expect(wrapper.find('input').element.value).toBe('New Value')
+      })
     })
 
     describe('and "isSearch" is true', () => {
