@@ -13,11 +13,17 @@
 
 # Running tests
 
+**Backend**
 1. `cd frontend`
 2. `nvm install 18` (make sure you have nvm installed)
 3. `yarn` (to install JS libraries)
 4. `yarn serve`
 5. `python3 manage.py test`
+
+**Frontend**
+1. `cd frontend`
+2. `yarn` (to install JS libraries)
+3. `yarn test`
 
 # Running the developer's environment
 
