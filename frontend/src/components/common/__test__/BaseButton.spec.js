@@ -21,11 +21,11 @@ describe('BaseButton component', () => {
     const store = createNewStore({loading: true})
     const wrapper = createWrapper(store)
 
-    it('should displayed the spinner', () => {
+    it('should display the spinner', () => {
       expect(wrapper.findAllComponents(BaseButtonSpinner).length).toEqual(1)
     })
 
-    it('should be added "hide-content" class', () => {
+    it('should be hide', () => {
       expect(wrapper.html()).toContain('hide-content')
     })
   })
@@ -34,11 +34,11 @@ describe('BaseButton component', () => {
     const store = createNewStore({loading: false})
     const wrapper = createWrapper(store)
 
-    it('should not displayed the spinner', () => {
+    it('should not display the spinner', () => {
       expect(wrapper.findAllComponents(BaseButtonSpinner).length).toEqual(0)
     })
 
-    it('should displayed the html tag which was passed in slot and "hide-content" class does not apear', () => {
+    it('should display the html tag which was passed in slot and "hide-content" class does not apear', () => {
       expect(wrapper.html()).toMatch('<h1>Named Slot</h1>')
       expect(wrapper.html()).not.toContain('hide-content')
     })
