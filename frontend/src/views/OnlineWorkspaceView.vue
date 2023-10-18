@@ -35,13 +35,8 @@ export default {
       return this.workspaces.find((el) => el.id === +this.workspaceId)
     },
   },
-  async created() {
-    if (!this.workspaces.length) {
-      await this[action.GET_WORKSPACES]()
-    }
-  },
   methods: {
-    ...mapActions([action.GET_WORKSPACES, action.DELETE_PROJECT]),
+    ...mapActions([action.DELETE_PROJECT]),
     createProject() {
       this.$router.push({
         name: 'OnlineWorkspaceStep2',
