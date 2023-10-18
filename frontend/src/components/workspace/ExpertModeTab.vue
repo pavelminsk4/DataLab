@@ -3,7 +3,7 @@
     <div class="calendar">
       <CommonCalendar width="100%" position="bottom" />
     </div>
-    <div>
+    <div :class="[isKeywordsFieldsDisable && 'disable']">
       <CustomText tag="span" text="Topic query" />
       <div class="expert-area">
         <div class="custom-textarea">
@@ -86,6 +86,7 @@ export default {
   props: {
     defaultQuery: {type: String, default: ''},
     filters: {type: Array, required: true},
+    isKeywordsFieldsDisable: {type: Boolean, default: false},
   },
   data() {
     return {

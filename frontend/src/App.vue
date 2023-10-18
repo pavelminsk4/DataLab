@@ -157,7 +157,7 @@ h4 {
 
 .disable {
   pointer-events: none;
-  cursor: auto;
+  cursor: not-allowed;
 
   opacity: 50%;
 }
