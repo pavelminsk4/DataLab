@@ -104,6 +104,7 @@ export default {
     ]),
     ...mapOnlineActions([action.POST_SEARCH]),
     ...mapActions([
+      action.OPEN_FLASH_MESSAGE,
       action.UPDATE_ADDITIONAL_FILTERS,
       action.UPDATE_KEYWORDS_LIST,
       action.UPDATE_NEW_TFS_PROJECT,
@@ -189,6 +190,12 @@ export default {
           projectId: this.newProjectId,
           workspaceId: this.newWorkspaceId || this.workspaceId,
         },
+      })
+
+      await this[action.OPEN_FLASH_MESSAGE]({
+        type: 'Success',
+        message:
+          'The data is being collected. Your project will be ready in an hour.',
       })
     },
   },

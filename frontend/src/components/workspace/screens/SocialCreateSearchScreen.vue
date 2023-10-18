@@ -9,8 +9,8 @@
 </template>
 
 <script>
-import {createNamespacedHelpers, mapState} from 'vuex'
-import {action as actionSocial} from '@store/constants'
+import {createNamespacedHelpers, mapState, mapActions} from 'vuex'
+import {action, action as actionSocial} from '@store/constants'
 
 import CreateSearchScreen from '@/components/workspace/screens/CreateSearchScreen'
 
@@ -40,6 +40,7 @@ export default {
     },
   },
   methods: {
+    ...mapActions([action.OPEN_FLASH_MESSAGE]),
     ...mapSocialActions([
       actionSocial.CREATE_WORKSPACE,
       actionSocial.CREATE_PROJECT,
@@ -66,6 +67,12 @@ export default {
         },
       })
       await this[actionSocial.GET_WORKSPACES]()
+
+      await this[action.OPEN_FLASH_MESSAGE]({
+        type: 'Success',
+        message:
+          'The data is being collected. Your project will be ready in an hour.',
+      })
     },
     async createProject(projectData) {
       const newProject = await this[actionSocial.CREATE_PROJECT](projectData)
@@ -78,6 +85,12 @@ export default {
         },
       })
       await this[actionSocial.GET_WORKSPACES]()
+
+      await this[action.OPEN_FLASH_MESSAGE]({
+        type: 'Success',
+        message:
+          'The data is being collected. Your project will be ready in an hour.',
+      })
     },
   },
 }
