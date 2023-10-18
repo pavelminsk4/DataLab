@@ -28,11 +28,12 @@ def aggregator_results_content_volume_top_countries(posts, aggregation_period, t
     top_countries = posts.raw(
         re.sub(
             r'\s+', ' ', f"""
-            SELECT p.feedlink_id id, COUNT(p.feedlink_id) post_count
+            SELECT f.id id, f.url url, COUNT(p.feedlink_id) post_count
             FROM project_post p
             JOIN project_project_posts pp ON p.id = pp.post_id
-            GROUP BY p.feedlink_id
-            ORDER BY COUNT(p.feedlink_id) DESC
+            JOIN project_feedlinks f ON p.feedlink_id = f.id
+            GROUP BY f.id
+            ORDER BY COUNT(f.id) DESC
             LIMIT {top_counts}
             """
         )
