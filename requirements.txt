@@ -26,7 +26,7 @@ language_data
 
 bs4
 
-aspose-words==21.11.0 # convert docx to pdf (only Linux and Win)
+aspose-words==23.10.0
 python-docx # Reads, creates and writes docx
 quickchart-io==1.0.1 #A Python client for the quickchart.io image charts web service.
 
