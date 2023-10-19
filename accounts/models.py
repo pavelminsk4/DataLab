@@ -29,11 +29,13 @@ class Profile(models.Model):
     PICKER = 'picker'
     WRITER = 'writer'
     PUBLISHER = 'publisher'
+    ADMIN = 'admin'
 
     AR = 'ar'
     EN = 'en'
 
     ROLE_CHOICES = (
+        (ADMIN, 'Admin'),
         (COMPANY, 'Company'),
         (REGULAR_USER, 'Regular User'),
         (PICKER, 'Picker'),
