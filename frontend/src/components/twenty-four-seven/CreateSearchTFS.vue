@@ -12,24 +12,22 @@
     @update-collection="updateCollection"
     @save-project="toggleWarningModal"
   >
-    <template #module-type>
-      <div class="module-wrapper">
-        <CustomText text="Module" />
-        <BaseRadio
-          v-for="(item, index) in modulesTypes"
-          :key="item + index"
-          v-model="selectedModuleType"
-          :id="'module' + index"
-          :value="item"
-          class="radio-wrapper"
-        >
-          <div class="radio-content">
-            <component :is="stringToPascalCase(item) + 'Icon'" class="icon" />
-            <CustomText :text="item" />
-          </div>
-        </BaseRadio>
-      </div>
-    </template>
+    <div class="module-wrapper">
+      <CustomText text="Module" />
+      <BaseRadio
+        v-for="(item, index) in modulesTypes"
+        :key="item + index"
+        v-model="selectedModuleType"
+        :id="'module' + index"
+        :value="item"
+        class="radio-wrapper"
+      >
+        <div class="radio-content">
+          <component :is="stringToPascalCase(item) + 'Icon'" class="icon" />
+          <CustomText :text="item" />
+        </div>
+      </BaseRadio>
+    </div>
   </SimpleModeTab>
 </template>
 

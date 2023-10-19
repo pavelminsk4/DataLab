@@ -39,7 +39,7 @@
         />
       </div>
 
-      <slot name="module-type"> </slot>
+      <slot></slot>
 
       <CustomText
         text="Refine youre search with additional filters"
