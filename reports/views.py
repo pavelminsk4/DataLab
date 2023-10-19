@@ -80,7 +80,7 @@ def filling_template(template_path, project_id):
     document.save('tmp/temp.docx')
 
 def report_generator(proj_pk, model):
-    template_path = 'static/report_templates/RSDC_Export_Template_EN.docx'
+    template_path = 'fixtures/report_templates/RSDC_Export_Template_EN.docx'
     docx_path = 'tmp/temp.docx'
     report_path = 'tmp/temp.pdf'
     proj = model.objects.get(id=proj_pk)
