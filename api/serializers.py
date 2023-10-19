@@ -43,7 +43,7 @@ class ProjectSerializer(serializers.ModelSerializer):
     note = serializers.CharField(max_length=1000, allow_blank=True)
     class Meta:
         model = Project
-        fields = '__all__'
+        exclude = ['posts']
 
 
 class WorkspaceSerializer(WritableNestedModelSerializer):
