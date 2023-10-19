@@ -9,7 +9,6 @@ from widgets.models import *
 from unittest import skip
 
 class InstantReportTests(APITestCase):
-  @skip("Don't want to test")
   def test_instant_reposrts(self):
     user = User.objects.create(username='Fox')
     dep = department.objects.create(

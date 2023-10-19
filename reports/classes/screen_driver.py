@@ -33,13 +33,14 @@ class ScreenDriver:
         self.item = item
 
     def __run_chrome_driver(self):
-        chrome_options = FirefoxOptions()
-        chrome_options.add_argument('--headless')
+        firefox_options = FirefoxOptions()
+        firefox_options.add_argument("--width=700")
+        firefox_options.add_argument("--height=520")
+        firefox_options.add_argument('--headless')
         driver = webdriver.Firefox(
-            options=chrome_options,
+            options=firefox_options,
             service=FirefoxService(GeckoDriverManager().install())
         )
-        driver.set_window_size(700, 520, driver.current_window_handle)
         return driver
 
     def __make_screenshot(self, widget, driver):
