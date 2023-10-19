@@ -19,9 +19,6 @@
       />
     </template>
   </div>
-
-  <!-- <CommonCalendar v-if="isCurrentProjectCreated" class="date-picker" /> -->
-
   <CommonCalendar2 :is-range="isCurrentProjectCreated" class="date-picker" />
 
   <CustomText tag="span" text="Sentiment" class="second-title" />
@@ -65,7 +62,6 @@ import BaseSearchField from '@/components/BaseSearchField'
 import PositiveIcon from '@/components/icons/PositiveIcon'
 import NegativeIcon from '@/components/icons/NegativeIcon'
 import NeutralIcon from '@/components/icons/NeutralIcon'
-// import CommonCalendar from '@/components/datepicker/CommonCalendar'
 import CommonCalendar2 from '@/components/datepicker/CommonCalendar2'
 
 const {mapActions: mapOnlineActions, mapGetters: mapOnlineGetters} =
@@ -99,7 +95,6 @@ export default {
     PositiveIcon,
     NegativeIcon,
     NeutralIcon,
-    // CommonCalendar,
     CustomText,
     CommonCalendar2,
   },

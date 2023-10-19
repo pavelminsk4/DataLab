@@ -1,7 +1,7 @@
 <template>
   <Datepicker
     v-model="selectedDateProxy"
-    placeholder="Start Typing ..."
+    placeholder="Select date"
     text-input
     :range="isRange"
     :disabled-dates="disabledAfterToday"
@@ -9,8 +9,8 @@
 </template>
 
 <script>
-import {mapActions, mapState} from 'vuex'
-import {action} from '@store/constants'
+import {mapActions, mapGetters} from 'vuex'
+import {action, get} from '@store/constants'
 
 import Datepicker from '@vuepic/vue-datepicker'
 
@@ -28,28 +28,25 @@ export default {
     }
   },
   computed: {
-    ...mapState(['additionalFilters']),
+    ...mapGetters({additionalFilters: get.ADDITIONAL_FILTERS}),
     selectedDateProxy: {
       get() {
         return this.date
       },
-      set(val) {
-        this.date = val
-        this[action.UPDATE_ADDITIONAL_FILTERS]({date_range: [val, val]})
+      set(newValue) {
+        this.date = newValue
+        this[action.UPDATE_ADDITIONAL_FILTERS]({
+          date_range: [newValue, new Date()],
+        })
       },
     },
   },
   methods: {
     ...mapActions([action.UPDATE_ADDITIONAL_FILTERS]),
     disabledAfterToday(date) {
-      const today = new Date()
-      today.setHours(0, 0, 0, 0)
-
-      if (this.isRange) {
-        return date < this.additionalFilters.date_range[0]
-      } else {
-        return date > today
-      }
+      return this.isRange
+        ? date < this.additionalFilters.date_range[0]
+        : date > new Date()
     },
   },
 }
