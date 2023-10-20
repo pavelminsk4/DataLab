@@ -20,7 +20,6 @@ class InstantReportTests(APITestCase):
     post1 = Post.objects.create(id=1, feedlink=flink, entry_title='First post title Keyword', feed_language=sp, entry_published="2022-10-11T00:00:00Z", summary_vector=[])
     post2 = Post.objects.create(id=2, feedlink=flink, entry_title='Second post title Keyword', feed_language=sp, entry_published="2022-10-12T00:00:00Z", summary_vector=[])
     post3 = Post.objects.create(id=3, feedlink=flink, entry_title='Third post title Keyword', feed_language=sp, entry_published="2022-10-13T00:00:00Z", summary_vector=[])
-    template = Templates.objects.create(title='Temp', layout_file='static/report_templates/RSDC_Export_Template_AR.docx')
     pr = Project.objects.create(
         title='Project1',
         keywords=['Keyword'],
@@ -29,7 +28,6 @@ class InstantReportTests(APITestCase):
         start_search_date="2022-10-10T00:00:00Z",
         end_search_date="2022-10-16T00:00:00Z",
         creator=user,
-        report_template=template,
         )
     pr.widgets_list_2.summary.is_active = True
     pr.widgets_list_2.volume.is_active = True
