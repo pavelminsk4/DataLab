@@ -110,7 +110,8 @@ class WorkspaceTests(APITestCase):
                         'created_at': datetime.strftime(pr1.created_at, '%Y-%m-%dT%H:%M:%S.%fZ'), 
                         'creator': user.id, 
                         'report_template': None, 
-                        'workspace': workspace1.id
+                        'workspace': workspace1.id,
+                        'status': 'collecting_data',
                 }
             ], 
             'created_at': datetime.strftime(workspace1.created_at, '%Y-%m-%dT%H:%M:%S.%fZ')
