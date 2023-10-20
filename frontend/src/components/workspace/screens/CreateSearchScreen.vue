@@ -1,4 +1,10 @@
 <template>
+  <WarningModal
+    v-if="isWarningModalDisplayed"
+    @close="toggleWarningModal"
+    @approve="createWorkspaceAndProject"
+  />
+
   <MainLayoutTitleBlock
     title="Define the search"
     description="Search by keywords and phrases"
@@ -22,7 +28,7 @@
     v-if="isExpertMode"
     :filters="filters"
     class="mode-section exprt-mode-section"
-    @save-project="createWorkspaceAndProject"
+    @save-project="toggleWarningModal"
     @show-result="showResults"
     @update-query-filter="updateQueryFilter"
   />
@@ -33,8 +39,22 @@
     class="mode-section"
     @show-result="showResults"
     @update-collection="updateCollection"
-    @save-project="createWorkspaceAndProject"
-  />
+    @save-project="toggleWarningModal"
+  >
+    <div v-if="isAdmin" class="souces-wrapper">
+      Main sourses
+      <div class="sources">
+        <BaseCheckbox
+          v-for="(source, index) in mainSources"
+          :key="source + index"
+          :value="source"
+          class="checkbox"
+        >
+          <CustomText :text="source" />
+        </BaseCheckbox>
+      </div>
+    </div>
+  </SimpleModeTab>
 </template>
 
 <script>
@@ -48,6 +68,8 @@ import SimpleModeTab from '@/components/workspace/SimpleModeTab'
 import BaseSwitcher from '@/components/BaseSwitcher'
 import ExpertModeTab from '@/components/workspace/ExpertModeTab'
 import CustomText from '@/components/CustomText'
+import WarningModal from '@/components/modals/WarningModal'
+import BaseCheckbox from '@/components/BaseCheckbox2'
 
 export default {
   name: 'CreateSearchScreen',
@@ -58,6 +80,8 @@ export default {
     BaseSwitcher,
     ExpertModeTab,
     CustomText,
+    WarningModal,
+    BaseCheckbox,
   },
   emits: ['create-project', 'create-workspace', 'show-results'],
   props: {
@@ -66,10 +90,12 @@ export default {
   },
   data() {
     return {
+      isWarningModalDisplayed: false,
       searchLoading: false,
       buttonLoading: false,
       isExpertMode: false,
       expertModeQuery: '',
+      mainSources: ['RSS', 'Talkwalker'],
     }
   },
   computed: {
@@ -79,12 +105,16 @@ export default {
       newProject: get.NEW_PROJECT,
       newWorkspace: get.NEW_WORKSPACE,
       department: get.DEPARTMENT,
+      userInfo: get.USER_INFO,
     }),
     step() {
       return this.$route.name
     },
     defaultDateRange() {
       return [this.getLastWeeksDate(), new Date()]
+    },
+    isAdmin() {
+      return this.userInfo.user_profile.role === 'admin'
     },
   },
   created() {
@@ -158,6 +188,10 @@ export default {
       }
     },
 
+    toggleWarningModal() {
+      this.isWarningModalDisplayed = !this.isWarningModalDisplayed
+    },
+
     async createWorkspaceAndProject() {
       try {
         this.buttonLoading = true
@@ -214,6 +248,33 @@ export default {
   gap: 108px;
 
   max-width: 500px;
+}
+
+.souces-wrapper {
+  margin-top: 20px;
+}
+
+.sources {
+  display: flex;
+
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+
+  padding: 12px;
+  gap: 10px;
+
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
 }
 
 @media screen and (max-width: 1000px) {

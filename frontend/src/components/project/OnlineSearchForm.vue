@@ -19,8 +19,7 @@
       />
     </template>
   </div>
-
-  <CommonCalendar class="date-picker" />
+  <ProjectCalendar :is-range="isCurrentProjectCreated" class="date-picker" />
 
   <CustomText tag="span" text="Sentiment" class="second-title" />
 
@@ -55,7 +54,7 @@
 <script>
 import {mapActions, mapGetters, createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
-import {capitalizeFirstLetter} from '@lib/utilities'
+import {capitalizeFirstLetter, isAllFieldsEmpty} from '@lib/utilities'
 
 import CustomText from '@/components/CustomText'
 import BaseRadio from '@/components/BaseRadio'
@@ -63,7 +62,7 @@ import BaseSearchField from '@/components/BaseSearchField'
 import PositiveIcon from '@/components/icons/PositiveIcon'
 import NegativeIcon from '@/components/icons/NegativeIcon'
 import NeutralIcon from '@/components/icons/NeutralIcon'
-import CommonCalendar from '@/components/datepicker/CommonCalendar'
+import ProjectCalendar from '@/components/datepicker/ProjectCalendar'
 
 const {mapActions: mapOnlineActions, mapGetters: mapOnlineGetters} =
   createNamespacedHelpers('online')
@@ -96,8 +95,8 @@ export default {
     PositiveIcon,
     NegativeIcon,
     NeutralIcon,
-    CommonCalendar,
     CustomText,
+    ProjectCalendar,
   },
   props: {
     currentProject: {type: Object, required: true},
@@ -128,6 +127,9 @@ export default {
     ...mapGetters({
       keywords: get.KEYWORDS,
     }),
+    isCurrentProjectCreated() {
+      return !isAllFieldsEmpty(this.currentProject)
+    },
     selectedValueProxy: {
       get() {
         return (

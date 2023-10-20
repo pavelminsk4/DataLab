@@ -1,43 +1,45 @@
 <template>
   <section class="key-words-settings">
-    <div class="settings-wrapper">
-      <CustomText text="Define the main keywords (OR)" class="second-title" />
-      <BaseTag
-        name="keywords"
-        :model-value="mainKeywords"
-        :has-error="!!mainKeywordsError"
-        :error-message="mainKeywordsError"
-        :is-main-field="true"
-        placeholder='Enter a main keyword and press "Enter"'
-        class="search-option"
-        @update:modelValue="updateCollection"
-      />
+    <div :class="['settings-wrapper', isExpertModeSet && 'disable']">
+      <div :class="[isKeywordsFieldsDisable && 'disable']">
+        <CustomText text="Define the main keywords (OR)" class="second-title" />
+        <BaseTag
+          name="keywords"
+          :model-value="mainKeywords"
+          :has-error="!!mainKeywordsError"
+          :error-message="mainKeywordsError"
+          :is-main-field="true"
+          placeholder='Enter a main keyword and press "Enter"'
+          class="search-option"
+          @update:modelValue="updateCollection"
+        />
 
-      <CustomText text="Add Additional keywords (And)" class="second-title" />
-      <BaseTag
-        :model-value="additionalKeywords"
-        :textarea="true"
-        :is-additional-keywords="true"
-        name="additional_keywords"
-        placeholder="Enter additional keywords"
-        class="search-option"
-        @update:modelValue="updateCollection"
-      />
+        <CustomText text="Add Additional keywords (And)" class="second-title" />
+        <BaseTag
+          :model-value="additionalKeywords"
+          :textarea="true"
+          :is-additional-keywords="true"
+          name="additional_keywords"
+          placeholder="Enter additional keywords"
+          class="search-option"
+          @update:modelValue="updateCollection"
+        />
 
-      <CustomText
-        text="Exclude Irrelevant keywords (And Not)"
-        class="second-title"
-      />
-      <BaseTag
-        :model-value="excludeKeywords"
-        :is-irrelevant-keywords="true"
-        name="ignore_keywords"
-        placeholder="Enter irrelevant keywords"
-        class="search-option"
-        @update:modelValue="updateCollection"
-      />
+        <CustomText
+          text="Exclude Irrelevant keywords (And Not)"
+          class="second-title"
+        />
+        <BaseTag
+          :model-value="excludeKeywords"
+          :is-irrelevant-keywords="true"
+          name="ignore_keywords"
+          placeholder="Enter irrelevant keywords"
+          class="search-option"
+          @update:modelValue="updateCollection"
+        />
+      </div>
 
-      <slot name="module-type"> </slot>
+      <slot></slot>
 
       <CustomText
         text="Refine youre search with additional filters"
@@ -99,6 +101,8 @@ export default {
     currentProject: {type: [Array, Object], default: () => []},
     isDisabledButton: {type: Boolean, default: false},
     moduleName: {type: String, default: 'Online'},
+    isKeywordsFieldsDisable: {type: Boolean, default: false},
+    isExpertModeSet: {type: Boolean, default: false},
   },
   data() {
     return {

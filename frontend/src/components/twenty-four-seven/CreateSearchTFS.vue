@@ -1,29 +1,33 @@
 <template>
+  <WarningModal
+    v-if="isWarningModalDisplayed"
+    @close="toggleWarningModal"
+    @approve="saveChanges"
+  />
+
   <SimpleModeTab
     :module-name="selectedModuleType"
     class="mode-section"
     @show-result="showResults"
     @update-collection="updateCollection"
-    @save-project="saveChanges"
+    @save-project="toggleWarningModal"
   >
-    <template #module-type>
-      <div class="module-wrapper">
-        <CustomText text="Module" />
-        <BaseRadio
-          v-for="(item, index) in modulesTypes"
-          :key="item + index"
-          v-model="selectedModuleType"
-          :id="'module' + index"
-          :value="item"
-          class="radio-wrapper"
-        >
-          <div class="radio-content">
-            <component :is="stringToPascalCase(item) + 'Icon'" class="icon" />
-            <CustomText :text="item" />
-          </div>
-        </BaseRadio>
-      </div>
-    </template>
+    <div class="module-wrapper">
+      <CustomText text="Module" />
+      <BaseRadio
+        v-for="(item, index) in modulesTypes"
+        :key="item + index"
+        v-model="selectedModuleType"
+        :id="'module' + index"
+        :value="item"
+        class="radio-wrapper"
+      >
+        <div class="radio-content">
+          <component :is="stringToPascalCase(item) + 'Icon'" class="icon" />
+          <CustomText :text="item" />
+        </div>
+      </BaseRadio>
+    </div>
   </SimpleModeTab>
 </template>
 
@@ -36,6 +40,7 @@ import CustomText from '@/components/CustomText'
 import BaseRadio from '@/components/BaseRadio'
 import SimpleModeTab from '@/components/workspace/SimpleModeTab'
 import OnlineIcon from '@/components/icons/OnlineIcon'
+import WarningModal from '@/components/modals/WarningModal'
 
 const {mapActions: mapTFSActions, mapState: mapTFSState} =
   createNamespacedHelpers('twentyFourSeven')
@@ -49,6 +54,7 @@ export default {
     SimpleModeTab,
     OnlineIcon,
     CustomText,
+    WarningModal,
   },
   props: {
     workspaceId: {type: String, default: null},
@@ -58,6 +64,7 @@ export default {
     return {
       selectedModuleType: 'Online',
       modulesTypes: ['Online'],
+      isWarningModalDisplayed: false,
     }
   },
   computed: {
@@ -95,6 +102,7 @@ export default {
     ]),
     ...mapOnlineActions([action.POST_SEARCH]),
     ...mapActions([
+      action.OPEN_FLASH_MESSAGE,
       action.UPDATE_ADDITIONAL_FILTERS,
       action.UPDATE_KEYWORDS_LIST,
       action.UPDATE_NEW_TFS_PROJECT,
@@ -109,6 +117,11 @@ export default {
         [name]: val,
       })
     },
+
+    toggleWarningModal() {
+      this.isWarningModalDisplayed = !this.isWarningModalDisplayed
+    },
+
     showResults(pageNumber, numberOfPosts) {
       try {
         this[action.POST_SEARCH]({
@@ -175,6 +188,12 @@ export default {
           projectId: this.newProjectId,
           workspaceId: this.newWorkspaceId || this.workspaceId,
         },
+      })
+
+      await this[action.OPEN_FLASH_MESSAGE]({
+        type: 'Success',
+        message:
+          'The data is being collected. Your project will be ready in an hour.',
       })
     },
   },

@@ -23,7 +23,6 @@ describe('BaseInput component', () => {
   const wrapper = createWrapper(store)
 
   describe('when the label is provided', () => {
-
     it('should be created component and displayed input', () => {
       expect(wrapper.find('label').exists()).toBe(true)
       expect(wrapper.find('input').exists()).toBe(true)

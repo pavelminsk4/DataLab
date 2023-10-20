@@ -25,6 +25,7 @@
           v-if="isExpertMode"
           :default-query="currentProject.query_filter"
           :filters="filters"
+          :is-keywords-fields-disable="true"
           @save-project="updateProjectData"
           @show-result="showResults"
           @update-query-filter="updateQueryFilter"
@@ -39,6 +40,8 @@
           :current-project="currentProject"
           :is-disabled-button="!currentKeywords?.length"
           :expert-mode-test-test="currentProject?.query_filter"
+          :is-expert-mode-set="currentProject.expert_mode"
+          :is-keywords-fields-disable="true"
           @update-query-filter="updateQueryFilter"
           @save-project="updateProjectData"
           @show-result="showResults"
@@ -143,7 +146,7 @@ export default {
         author_dimensions: [],
         sentiment_dimensions: [],
         query_filter: this.query || this.currentProject?.query_filter,
-        department_id: this.department.id,
+        department_id: this.department?.id,
         expert_mode: this.isExpertMode,
         project_pk: this.currentProject.id,
       }
@@ -179,7 +182,7 @@ export default {
         country_filter: this.additionalFilters?.country || null,
         sort_posts: [],
         query_filter: this.query || this.currentProject?.query_filter,
-        department_id: this.department.id,
+        department_id: this.department?.id,
         expert_mode: this.isExpertMode,
       }
 
