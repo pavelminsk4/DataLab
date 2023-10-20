@@ -4,10 +4,10 @@ from talkwalker.services.token import get_token
 from rest_framework import status
 from django.apps import apps
 
-import requests
-import json
-
 import threading
+import requests
+import environ
+import json
 
 
 class Asker:
@@ -36,7 +36,7 @@ class Asker:
             'target': self.collector_id,
             'start':  self.project.start_search_date.date().isoformat(),
             'stop':   self.project.end_search_date.date().isoformat(),
-            'limit':  2000,
+            'limit':  environ.Env()('TALKWALKER_LIMIT'),
             'query':  get_tw_query(self.project),
         })
         headers = { 'Content-Type': 'application/json' }
