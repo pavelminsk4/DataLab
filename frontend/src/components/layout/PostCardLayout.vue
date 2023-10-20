@@ -3,9 +3,10 @@
     <div class="body-card">
       <div class="result-img">
         <img
-          v-if="postImage !== 'None'"
+          v-if="postImage !== 'None' && isImgLoaded"
           :src="postImage"
           :class="['post-image']"
+          @error="checkImg()"
           alt="post image"
         />
         <NoImageIcon v-else />
@@ -88,6 +89,11 @@ export default {
     category: {type: String},
     isClippingPost: {type: Boolean, default: false},
   },
+  data() {
+    return {
+      isImgLoaded: true,
+    }
+  },
   computed: {
     ...mapGetters({isLoading: get.LOADING_WIDGETS}),
     isLoadingClippingWidget() {
@@ -100,6 +106,9 @@ export default {
     },
   },
   methods: {
+    checkImg() {
+      this.isImgLoaded = false
+    },
     capitalizeFirstLetter,
     addPost() {
       if (this.isLoadingClippingWidget) return
