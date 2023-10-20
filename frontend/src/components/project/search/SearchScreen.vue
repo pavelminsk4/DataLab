@@ -146,7 +146,7 @@ export default {
         author_dimensions: [],
         sentiment_dimensions: [],
         query_filter: this.query || this.currentProject?.query_filter,
-        department_id: this.department.id,
+        department_id: this.department?.id,
         expert_mode: this.isExpertMode,
         project_pk: this.currentProject.id,
       }
@@ -182,7 +182,7 @@ export default {
         country_filter: this.additionalFilters?.country || null,
         sort_posts: [],
         query_filter: this.query || this.currentProject?.query_filter,
-        department_id: this.department.id,
+        department_id: this.department?.id,
         expert_mode: this.isExpertMode,
       }
 

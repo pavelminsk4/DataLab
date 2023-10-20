@@ -5,7 +5,7 @@
     </div>
 
     <div
-      v-if="!loading && searchData.length"
+      v-if="!loading && searchData?.length"
       :class="['search-result-cards scroll', `${routerName}-cards`]"
     >
       <component
@@ -21,7 +21,7 @@
       />
     </div>
 
-    <div v-if="!loading && searchData.length" class="pagination-wrapper">
+    <div v-if="!loading && searchData?.length" class="pagination-wrapper">
       <PaginationControlPanel
         v-model="currentPage"
         :pages="numberOfPages"
@@ -31,7 +31,7 @@
       />
     </div>
 
-    <div v-if="step && !searchData.length" class="no-results">
+    <div v-if="step && !searchData?.length" class="no-results">
       <CreateWorkspaceRightSide :step="currentStep" />
       <CustomText
         v-if="isSearchPerformed"
@@ -99,7 +99,7 @@ export default {
       return this.moduleName + 'PostCard'
     },
     routerName() {
-      return this.$route.name.toLowerCase()
+      return this.$route?.name.toLowerCase()
     },
 
     currentStep() {
