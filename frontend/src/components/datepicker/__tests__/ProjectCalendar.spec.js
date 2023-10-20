@@ -2,16 +2,16 @@ import {mount} from '@vue/test-utils'
 import {createNewStore} from '@lib/test-helpers'
 
 import Datepicker from '@vuepic/vue-datepicker'
-import CommonCalendar2 from '@/components/datepicker/CommonCalendar2'
+import ProjectCalendar from '@/components/datepicker/ProjectCalendar'
 
 const createWrapper = (store) =>
-  mount(CommonCalendar2, {
+  mount(ProjectCalendar, {
     global: {
       plugins: [store],
     },
   })
 
-describe('CommonCalendar2 component', () => {
+describe('ProjectCalendar component', () => {
   const store = createNewStore()
   const wrapper = createWrapper(store)
 

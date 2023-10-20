@@ -19,7 +19,7 @@
       />
     </template>
   </div>
-  <CommonCalendar2 :is-range="isCurrentProjectCreated" class="date-picker" />
+  <ProjectCalendar :is-range="isCurrentProjectCreated" class="date-picker" />
 
   <CustomText tag="span" text="Sentiment" class="second-title" />
 
@@ -62,7 +62,7 @@ import BaseSearchField from '@/components/BaseSearchField'
 import PositiveIcon from '@/components/icons/PositiveIcon'
 import NegativeIcon from '@/components/icons/NegativeIcon'
 import NeutralIcon from '@/components/icons/NeutralIcon'
-import CommonCalendar2 from '@/components/datepicker/CommonCalendar2'
+import ProjectCalendar from '@/components/datepicker/ProjectCalendar'
 
 const {mapActions: mapOnlineActions, mapGetters: mapOnlineGetters} =
   createNamespacedHelpers('online')
@@ -96,7 +96,7 @@ export default {
     NegativeIcon,
     NeutralIcon,
     CustomText,
-    CommonCalendar2,
+    ProjectCalendar,
   },
   props: {
     currentProject: {type: Object, required: true},

@@ -15,7 +15,7 @@ import {action, get} from '@store/constants'
 import Datepicker from '@vuepic/vue-datepicker'
 
 export default {
-  name: 'DateRange',
+  name: 'ProjectCalendar',
   components: {
     Datepicker,
   },
