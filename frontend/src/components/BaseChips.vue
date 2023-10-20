@@ -1,5 +1,5 @@
 <template>
-  <div :class="['chips-wrapper', chipsType.toLowerCase()]">
+  <div :class="['chips-wrapper', chipsType?.toLowerCase()]">
     <component :is="`${chipsType}Icon`" :class="['icon', chipsType]" />
     <slot>
       <CustomText tag="span" :text="title" />

@@ -6,8 +6,8 @@
           v-if="postImage !== 'None' && isImgLoaded"
           :src="postImage"
           :class="['post-image']"
-          @error="checkImg()"
           alt="post image"
+          @error="checkImg"
         />
         <NoImageIcon v-else />
       </div>
@@ -97,7 +97,7 @@ export default {
   computed: {
     ...mapGetters({isLoading: get.LOADING_WIDGETS}),
     isLoadingClippingWidget() {
-      return this.isLoading.clippingWidget
+      return this.isLoading?.clippingWidget
     },
     clippingTooltip() {
       return this.isClippingPost
