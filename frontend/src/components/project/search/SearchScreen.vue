@@ -26,6 +26,7 @@
           :default-query="currentProject.query_filter"
           :filters="filters"
           :is-keywords-fields-disable="true"
+          :module-name="moduleName"
           @save-project="updateProjectData"
           @show-result="showResults"
           @update-query-filter="updateQueryFilter"

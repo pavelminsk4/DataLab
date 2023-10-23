@@ -27,6 +27,7 @@
   <ExpertModeTab
     v-if="isExpertMode"
     :filters="filters"
+    :module-name="moduleName"
     class="mode-section exprt-mode-section"
     @save-project="toggleWarningModal"
     @show-result="showResults"

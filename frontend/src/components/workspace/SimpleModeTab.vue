@@ -55,6 +55,7 @@
 
     <div class="buttons">
       <BaseButton
+        v-if="previewButton[moduleName]"
         :is-not-background="true"
         class="apply-settings"
         @click="showResults"
@@ -108,6 +109,11 @@ export default {
     return {
       mainKeywordsError: null,
       newExprtModeTest: null,
+      previewButton: {
+        Online: false,
+        Social: true,
+        TFS: false,
+      },
     }
   },
   computed: {
@@ -134,6 +140,7 @@ export default {
       }
     },
     showResults() {
+      console.log(this.moduleName)
       if (!this.validation()) return
 
       this.$emit('show-result')
