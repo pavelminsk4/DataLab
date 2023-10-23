@@ -54,7 +54,7 @@
 
     <div class="buttons">
       <BaseButton
-        v-if="previewButton[moduleName]"
+        v-if="moduleName === 'Social'"
         :is-disabled="bracketsError.isError || !textAreaValue"
         :is-not-background="true"
         class="apply-settings"
@@ -95,11 +95,6 @@ export default {
       bracketsError: {
         isError: false,
         message: '',
-      },
-      previewButton: {
-        Online: false,
-        Social: true,
-        TFS: false,
       },
       textAreaValue: '',
       // highlightedSyntax: '',
