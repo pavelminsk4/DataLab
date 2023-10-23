@@ -54,6 +54,7 @@
 
     <div class="buttons">
       <BaseButton
+        v-if="moduleName === 'Social'"
         :is-disabled="bracketsError.isError || !textAreaValue"
         :is-not-background="true"
         class="apply-settings"
@@ -84,6 +85,7 @@ export default {
   name: 'ExpertModeTab',
   components: {BaseButton, CommonCalendar, ErrorIcon, SaveIcon, CustomText},
   props: {
+    moduleName: {type: String, required: true},
     defaultQuery: {type: String, default: ''},
     filters: {type: Array, required: true},
     isKeywordsFieldsDisable: {type: Boolean, default: false},

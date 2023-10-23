@@ -55,6 +55,7 @@
 
     <div class="buttons">
       <BaseButton
+        v-if="moduleName === 'Social'"
         :is-not-background="true"
         class="apply-settings"
         @click="showResults"
