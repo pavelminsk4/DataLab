@@ -1,5 +1,6 @@
 from common.factories.account_analysis_project import AccountAnalysisProjectFactory
 from common.factories.tweet_binder_post import TweetBinderPostFactory
+from common.factories.user import UserFactory
 from rest_framework.test import APITestCase
 from rest_framework import status
 from django.urls import reverse
@@ -7,6 +8,7 @@ import json
 
 class PostsMentionsTests(APITestCase):
   def test_posts_mentions(self):
+    self.client.force_login(UserFactory())
     tw = TweetBinderPostFactory(text = 'First twitter post @First_name')
     pr = AccountAnalysisProjectFactory()
     url = reverse('account_analysis:search_posts_mentions', kwargs={'project_pk':pr.id})

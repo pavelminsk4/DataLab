@@ -1,5 +1,6 @@
 from common.factories.account_analysis_project import AccountAnalysisProjectFactory
 from common.factories.tweet_binder_post import TweetBinderPostFactory
+from common.factories.user import UserFactory
 from rest_framework.test import APITestCase
 from rest_framework import status
 from django.urls import reverse
@@ -8,6 +9,7 @@ import json
 class SearchTests(APITestCase):
 
   def test_search(self):
+    self.client.force_login(UserFactory())
     tw = TweetBinderPostFactory()
     pr = AccountAnalysisProjectFactory()
     url = reverse('account_analysis:search_posts', kwargs={'project_pk':pr.id})
