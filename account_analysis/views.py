@@ -147,24 +147,33 @@ def average_engagements_by_day_for_mentions_widget(request, pk, widget_pk):
 def interactive_data_for_widgets(request, project_pk, widget_pk):
   return interactive_widgets(request, project_pk, widget_pk)
 
+from project_social.models import ChangingTweetbinderSentiment
+from project_social.views import change_tweet_post_sentiment
+
 def search_posts(request, project_pk):
     body = json.loads(request.body)
     posts_per_page = body['posts_per_page']
     page_number = body['page_number']
     project = ProjectAccountAnalysis.objects.get(id=project_pk)
+    department_id = request.user.user_profile.department
+    department_changing = ChangingTweetbinderSentiment.objects.filter(department_id=department_id).values()
+    dict_changing = {x['tweet_post_id']: x['sentiment'] for x in department_changing}
     posts = posts_aggregator(project).filter(user_alias=project.profile_handle)
-    return calculate(posts, posts_per_page, page_number)
+    return calculate(posts, posts_per_page, page_number, dict_changing)
 
 def search_posts_mentions(request, project_pk):
     body = json.loads(request.body)
     posts_per_page = body['posts_per_page']
     page_number = body['page_number']
     project = ProjectAccountAnalysis.objects.get(id=project_pk)
+    department_id = request.user.user_profile.department
+    department_changing = ChangingTweetbinderSentiment.objects.filter(department_id=department_id).values()
+    dict_changing = {x['tweet_post_id']: x['sentiment'] for x in department_changing}
     posts = posts_aggregator(project)
     posts = posts.filter(text__icontains=f'@{project.profile_handle}')
-    return calculate(posts, posts_per_page, page_number)
+    return calculate(posts, posts_per_page, page_number, dict_changing)
 
-def calculate(posts, posts_per_page, page_number):
+def calculate(posts, posts_per_page, page_number, dict_changing):
     posts = posts.annotate(engagements=Sum(F('count_favorites') + F('count_totalretweets')))
     posts = posts.values('id',
                          'post_id',
@@ -185,6 +194,7 @@ def calculate(posts, posts_per_page, page_number):
     posts = list(posts)
     for p in posts:
         p['link'] = f'https://twitter.com/user/status/{p["post_id"]}'
+        p = change_tweet_post_sentiment(p, dict_changing)
     p = Paginator(posts, posts_per_page)
     posts_list=list(p.page(page_number))
     res = { 'num_pages': p.num_pages, 'num_posts': p.count, 'posts': posts_list }
