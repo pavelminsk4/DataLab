@@ -28,6 +28,7 @@
     v-if="isExpertMode"
     :filters="filters"
     :module-name="moduleName"
+    :is-current-project-created="isCurrentProjectCreated"
     class="mode-section exprt-mode-section"
     @save-project="toggleWarningModal"
     @show-result="showResults"

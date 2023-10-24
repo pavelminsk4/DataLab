@@ -27,7 +27,7 @@
       </template>
     </BaseSearchField>
 
-    <CommonCalendar width="408" position="top" class="date-picker" />
+    <ProjectCalendar :is-range="true" class="date-picker" />
 
     <footer class="create-project__footer">
       <ButtonWithArrow
@@ -49,8 +49,8 @@ import CustomText from '@/components/CustomText'
 import BaseInput from '@/components/common/BaseInput'
 import BaseSearchField from '@/components/BaseSearchField'
 import AccountAnalysisSourcesTabs from '@/components/account-analysis/AccountAnalysisSourcesTabs'
-import CommonCalendar from '@/components/datepicker/CommonCalendar'
 import ButtonWithArrow from '@/components/common/ButtonWithArrow'
+import ProjectCalendar from '@/components/datepicker/ProjectCalendar'
 
 const {
   mapActions: mapAccountAnalysisActions,
@@ -62,10 +62,10 @@ export default {
   components: {
     BaseInput,
     AccountAnalysisSourcesTabs,
-    CommonCalendar,
     ButtonWithArrow,
     BaseSearchField,
     CustomText,
+    ProjectCalendar,
   },
   data() {
     return {

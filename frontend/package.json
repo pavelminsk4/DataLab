@@ -11,7 +11,7 @@
   "dependencies": {
     "@hennge/vue3-pagination": "^1.0.17",
     "@vue/vue3-jest": "^29.2.3",
-    "@vuepic/vue-datepicker": "^3.5.2",
+    "@vuepic/vue-datepicker": "^7.2.0",
     "apexcharts": "^3.40.0",
     "axios": "^0.27.2",
     "babel-jest": "^29.5.0",

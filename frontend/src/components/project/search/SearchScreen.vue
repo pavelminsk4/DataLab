@@ -27,6 +27,7 @@
           :filters="filters"
           :is-keywords-fields-disable="true"
           :module-name="moduleName"
+          :is-current-project-created="isCurrentProjectCreated"
           @save-project="updateProjectData"
           @show-result="showResults"
           @update-query-filter="updateQueryFilter"
@@ -64,6 +65,7 @@
 import {mapGetters, mapActions} from 'vuex'
 import {get, action} from '@store/constants'
 import {expertModeFilters} from '@/lib/constants'
+import {isAllFieldsEmpty} from '@lib/utilities'
 
 import CustomText from '@/components/CustomText'
 import MainLayoutTitleBlock from '@/components/layout/MainLayoutTitleBlock'
@@ -110,6 +112,9 @@ export default {
     },
     currentExcludeKeywords() {
       return this.currentProject?.ignore_keywords
+    },
+    isCurrentProjectCreated() {
+      return !isAllFieldsEmpty(this.currentProject)
     },
   },
   mounted() {
