@@ -5,4 +5,5 @@ export default {
   translatedText: {header: '', text: ''},
   flashMessages: [],
   flashMessagesCount: 0,
+  userInfo: {user_profile: {}},
 }

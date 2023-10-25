@@ -50,7 +50,7 @@ export default {
   },
   computed: {
     currentStep() {
-      return this.$route.name.match(/Step(.*)/)[0].toLowerCase()
+      return this.$route?.name.match(/Step(.*)/)[0].toLowerCase()
     },
     activeStep() {
       return this.step || this.currentStep

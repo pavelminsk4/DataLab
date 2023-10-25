@@ -122,7 +122,7 @@ export default {
     },
     selectedValueProxy: {
       get() {
-        return this.selectedValue || this.currentProject.sentiment_filter || []
+        return this.selectedValue || this.currentProject?.sentiment_filter || []
       },
       set(value) {
         this.selectedValue = value
@@ -140,11 +140,11 @@ export default {
     this.search.author = this.currentProject?.author_filter || ''
 
     this[action.UPDATE_ADDITIONAL_FILTERS]({
-      country: this.currentProject.country_filter,
-      language: this.currentProject.language_filter,
-      source: this.currentProject.source_filter,
-      author: this.currentProject.author_filter,
-      sentiment: this.currentProject.sentiment_filter,
+      country: this.currentProject?.country_filter,
+      language: this.currentProject?.language_filter,
+      source: this.currentProject?.source_filter,
+      author: this.currentProject?.author_filter,
+      sentiment: this.currentProject?.sentiment_filter,
     })
   },
   watch: {

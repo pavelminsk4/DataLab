@@ -1,9 +1,14 @@
-import {createStore} from 'vuex'
+import {get} from '@store/constants'
+import {createStore, mapGetters} from 'vuex'
 import getters from '@store/getters'
-import onlineGetters from '@store/modules/online/getters'
-import onlineState from '@store/modules/online/state'
 import mockState from '@store/__mocks__/state'
 import actions from '@store/__mocks__/actions'
+
+import onlineState from '@store/modules/online/state'
+import onlineGetters from '@store/modules/online/getters'
+
+import socialState from '@store/modules/social/state'
+import socialGetters from '@store/modules/social/getters'
 
 export const createNewStore = (newState) => {
   return createStore({
@@ -12,6 +17,11 @@ export const createNewStore = (newState) => {
         namespaced: true,
         getters: onlineGetters,
         state: onlineState,
+      },
+      social: {
+        namespaced: true,
+        getters: socialGetters,
+        state: socialState,
       },
     },
     state: {...mockState, ...newState},
@@ -22,6 +32,9 @@ export const createNewStore = (newState) => {
 }
 
 export const mockmixin = {
+  computed: {
+    ...mapGetters({platformLanguage: get.PLATFORM_LANGUAGE}),
+  },
   methods: {
     togglePageScroll(isOpen) {
       if (isOpen) {
