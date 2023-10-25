@@ -87,12 +87,11 @@ def sentiment_dimensions_posts(sentiments, posts):
 
 
 def posts_agregator(project):
-    posts = data_range_posts(project.start_search_date, project.end_search_date)
+    posts = project.posts
     parser = OnlineParser(project.query_filter)
     if parser.can_parse() and project.expert_mode:
         return posts.filter(parser.get_filter_query())
 
-    posts = keywords_posts(project.keywords, posts)
     if project.additional_keywords != []:
         posts = additional_keywords_posts(posts, project.additional_keywords)
     else:
