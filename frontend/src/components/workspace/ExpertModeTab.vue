@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="calendar">
-      <CommonCalendar width="100%" position="bottom" />
+      <ProjectCalendar :is-range="isCurrentProjectCreated" />
     </div>
     <div :class="[isKeywordsFieldsDisable && 'disable']">
       <CustomText tag="span" text="Topic query" />
@@ -77,18 +77,25 @@
 <script>
 import CustomText from '@/components/CustomText'
 import BaseButton from '@/components/common/BaseButton'
-import CommonCalendar from '@/components/datepicker/CommonCalendar'
 import ErrorIcon from '@/components/icons/ErrorIcon'
 import SaveIcon from '@/components/icons/SaveIcon'
+import ProjectCalendar from '@/components/datepicker/ProjectCalendar'
 
 export default {
   name: 'ExpertModeTab',
-  components: {BaseButton, CommonCalendar, ErrorIcon, SaveIcon, CustomText},
+  components: {
+    BaseButton,
+    ErrorIcon,
+    SaveIcon,
+    CustomText,
+    ProjectCalendar,
+  },
   props: {
     moduleName: {type: String, required: true},
     defaultQuery: {type: String, default: ''},
     filters: {type: Array, required: true},
     isKeywordsFieldsDisable: {type: Boolean, default: false},
+    isCurrentProjectCreated: {type: Boolean, default: false},
   },
   data() {
     return {

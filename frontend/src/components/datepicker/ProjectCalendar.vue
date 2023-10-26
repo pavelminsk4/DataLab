@@ -1,30 +1,33 @@
 <template>
-  <Datepicker
-    v-model="selectedDateProxy"
-    placeholder="Select date"
-    text-input
-    :range="isRange"
-    :disabled-dates="disabledAfterToday"
-  />
+  <div class="project-calendar">
+    <div>Date</div>
+    <VueDatePicker
+      v-model="selectedDateProxy"
+      placeholder="Select date"
+      text-input
+      :range="isRange"
+      :disabled-dates="disabledAfterToday"
+    />
+  </div>
 </template>
 
 <script>
 import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
-import Datepicker from '@vuepic/vue-datepicker'
+import VueDatePicker from '@vuepic/vue-datepicker'
 
 export default {
   name: 'ProjectCalendar',
   components: {
-    Datepicker,
+    VueDatePicker,
   },
   props: {
     isRange: {type: Boolean, default: false},
   },
   data() {
     return {
-      date: new Date(),
+      date: null,
     }
   },
   computed: {
@@ -36,7 +39,7 @@ export default {
       set(newValue) {
         this.date = newValue
         this[action.UPDATE_ADDITIONAL_FILTERS]({
-          date_range: [newValue, new Date()],
+          date_range: this.isRange ? newValue : [newValue, new Date()],
         })
       },
     },
@@ -51,3 +54,12 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.project-calendar {
+  display: flex;
+  flex-direction: column;
+
+  gap: 4px;
+}
+</style>

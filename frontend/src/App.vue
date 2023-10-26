@@ -210,4 +210,16 @@ svg {
   @extend .base-icon;
   background-color: #a0b8be;
 }
+
+.dp__theme_light {
+  --dp-border-radius: 10px;
+  --dp-menu-min-width: 100%;
+  --dp-menu-padding: 10px 34px;
+  --dp-input-padding: 8px 30px 6px 12px;
+  --dp-action-buttons-padding: 14px 14px;
+
+  --dp-icon-color: var(--primary-color);
+  --icon-primary-color: var(--primary-color);
+  --dp-primary-color: var(--primary-color);
+}
 </style>

@@ -1,5 +1,5 @@
 import {mount} from '@vue/test-utils'
-import {createNewStore} from '@lib/test-helpers'
+import {createNewStore, mockmixin} from '@lib/test-helpers'
 
 import SimpleModeTab from '@/components/workspace/SimpleModeTab'
 import ExpertModeTab from '@/components/workspace/ExpertModeTab'
@@ -9,6 +9,7 @@ const createWrapper = (store) => {
   return mount(SearchScreen, {
     global: {
       plugins: [store],
+      mixins: [mockmixin],
     },
     props: {currentProject: {id: 1}},
     data() {

@@ -20,7 +20,7 @@
     </template>
   </div>
 
-  <CommonCalendar class="date-picker" />
+  <ProjectCalendar :is-range="isCurrentProjectCreated" class="date-picker" />
 
   <CustomText tag="span" text="Sentiment" class="second-title" />
 
@@ -46,6 +46,7 @@
 <script>
 import {mapActions, mapGetters, createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
+import {isAllFieldsEmpty} from '@lib/utilities'
 
 import CustomText from '@/components/CustomText'
 import BaseCheckbox from '@/components/BaseCheckbox2'
@@ -54,7 +55,7 @@ import BaseSearchField from '@/components/BaseSearchField'
 import PositiveIcon from '@/components/icons/PositiveIcon'
 import NegativeIcon from '@/components/icons/NegativeIcon'
 import NeutralIcon from '@/components/icons/NeutralIcon'
-import CommonCalendar from '@/components/datepicker/CommonCalendar'
+import ProjectCalendar from '@/components/datepicker/ProjectCalendar'
 
 const {mapActions: mapSocialActions, mapGetters: mapSocialGetters} =
   createNamespacedHelpers('social')
@@ -84,8 +85,8 @@ export default {
     NegativeIcon,
     NeutralIcon,
     BaseCheckbox,
-    CommonCalendar,
     CustomText,
+    ProjectCalendar,
   },
   props: {
     currentProject: {type: Object, required: true},
@@ -116,9 +117,12 @@ export default {
     ...mapGetters({
       keywords: get.KEYWORDS,
     }),
+    isCurrentProjectCreated() {
+      return !isAllFieldsEmpty(this.currentProject)
+    },
     selectedValueProxy: {
       get() {
-        return this.selectedValue || this.currentProject.sentiment_filter || []
+        return this.selectedValue || this.currentProject?.sentiment_filter || []
       },
       set(value) {
         this.selectedValue = value
@@ -136,11 +140,11 @@ export default {
     this.search.author = this.currentProject?.author_filter || ''
 
     this[action.UPDATE_ADDITIONAL_FILTERS]({
-      country: this.currentProject.country_filter,
-      language: this.currentProject.language_filter,
-      source: this.currentProject.source_filter,
-      author: this.currentProject.author_filter,
-      sentiment: this.currentProject.sentiment_filter,
+      country: this.currentProject?.country_filter,
+      language: this.currentProject?.language_filter,
+      source: this.currentProject?.source_filter,
+      author: this.currentProject?.author_filter,
+      sentiment: this.currentProject?.sentiment_filter,
     })
   },
   watch: {
