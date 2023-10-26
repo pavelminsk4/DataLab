@@ -23,7 +23,15 @@ class InteractiveWidgetsTests(APITestCase):
             feedlink=flink, entry_title='Second post title', entry_summary='Second post post title', feed_language=sp2,
             entry_published='2022-09-03T00:00:00Z', entry_author='AFP', sentiment='negative'
         )
-        pr = ProjectFactory()
+        p3 = PostFactory(
+            feedlink=flink, entry_title='Third post title', entry_summary='Third summary', feed_language=sp1,
+            entry_published='2021-09-03T00:00:00Z', entry_author='AFP', sentiment='neutral'
+        )
+        p4 = PostFactory(
+            feedlink=flink, entry_title='Fourth post title', entry_summary='Fourth summary', feed_language=sp1,
+            entry_published='2021-09-03T00:00:00Z', entry_author='AFP', sentiment='negative'
+        )
+        pr = ProjectFactory(keywords=['post'])
         for post in (p1, p2):
             pr.posts.add(post)
 
@@ -42,6 +50,7 @@ class InteractiveWidgetsTests(APITestCase):
         }
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(json.loads(response.content)['posts']), 1)
         self.assertEqual(json.loads(response.content)['posts'][0]['id'], post1)
 
     def test_sentiment_top_10_interactive_widgets(self):
@@ -58,6 +67,7 @@ class InteractiveWidgetsTests(APITestCase):
             'page_number': 1,
         }
         response = self.client.post(url, data, format='json')
+        self.assertEqual(len(json.loads(response.content)['posts']), 1)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(json.loads(response.content)
                          ['posts'][0]['id'], post_id)
@@ -76,6 +86,7 @@ class InteractiveWidgetsTests(APITestCase):
             'page_number': 1,
         }
         response = self.client.post(url, data, format='json')
+        self.assertEqual(len(json.loads(response.content)['posts']), 1)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(json.loads(response.content)
                          ['posts'][0]['id'], post_id)
@@ -94,6 +105,7 @@ class InteractiveWidgetsTests(APITestCase):
             'page_number': 1,
         }
         response = self.client.post(url, data, format='json')
+        self.assertEqual(len(json.loads(response.content)['posts']), 1)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(json.loads(response.content)
                          ['posts'][0]['id'], post_id)
@@ -112,6 +124,7 @@ class InteractiveWidgetsTests(APITestCase):
             'page_number': 1,
         }
         response = self.client.post(url, data, format='json')
+        self.assertEqual(len(json.loads(response.content)['posts']), 1)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(json.loads(response.content)
                          ['posts'][0]['id'], post_id)
@@ -130,6 +143,7 @@ class InteractiveWidgetsTests(APITestCase):
             'page_number': 1,
         }
         response = self.client.post(url, data, format='json')
+        self.assertEqual(len(json.loads(response.content)['posts']), 1)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(json.loads(response.content)
                          ['posts'][0]['id'], post_id)
@@ -148,6 +162,7 @@ class InteractiveWidgetsTests(APITestCase):
             'page_number': 1,
         }
         response = self.client.post(url, data, format='json')
+        self.assertEqual(len(json.loads(response.content)['posts']), 1)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(json.loads(response.content)
                          ['posts'][0]['id'], post_id)
@@ -166,6 +181,7 @@ class InteractiveWidgetsTests(APITestCase):
             'page_number': 1,
         }
         response = self.client.post(url, data, format='json')
+        self.assertEqual(len(json.loads(response.content)['posts']), 2)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(json.loads(response.content)
                          ['posts'][0]['id'], post_id)
@@ -184,6 +200,7 @@ class InteractiveWidgetsTests(APITestCase):
             'page_number': 1,
         }
         response = self.client.post(url, data, format='json')
+        self.assertEqual(len(json.loads(response.content)['posts']), 1)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(json.loads(response.content)
                          ['posts'][0]['id'], post_id)
@@ -202,6 +219,7 @@ class InteractiveWidgetsTests(APITestCase):
             'page_number': 1,
         }
         response = self.client.post(url, data, format='json')
+        self.assertEqual(len(json.loads(response.content)['posts']), 2)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(json.loads(response.content)
                          ['posts'][0]['id'], post_id)
@@ -220,6 +238,7 @@ class InteractiveWidgetsTests(APITestCase):
             'page_number': 1,
         }
         response = self.client.post(url, data, format='json')
+        self.assertEqual(len(json.loads(response.content)['posts']), 1)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(json.loads(response.content)
                          ['posts'][0]['id'], post_id)

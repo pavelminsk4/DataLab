@@ -12,11 +12,12 @@ import json
 class ComparisonOnlineInfluencersTests(APITestCase):
     def setUp(self):
         pr = ProjectFactory(title='Girlfriend')
+        post = PostFactory(feedlink=FeedlinksFactory(source1='Prospero', country='Space'), entry_summary='post')
+        pr.posts.add(post)
         prcmpr = ProjectComparisonFactory()
         ComparisonItemFactory(module_project_id=pr.id, project=prcmpr)
 
     def test_influencers_feature_online(self):
-        PostFactory(feedlink=FeedlinksFactory(source1='Prospero', country='Space'), entry_summary='post')
         pr = ProjectComparison.objects.first()
         url = reverse('comparison:influencers', kwargs={'pk': pr.id})
         response = self.client.get(url, format='json')
