@@ -70,10 +70,6 @@ def post_creator():
                 except:
                     my_links_href = 'None'
                 try:
-                    my_link = ent.link
-                except:
-                    my_link = 'None'
-                try:
                     my_published = parser.parse(ent.published)
                 except:
                     my_published = datetime.now()
@@ -133,7 +129,6 @@ def post_creator():
                 Post.objects.bulk_create(django_list)
             except Exception as e:
                 logger.error(e)
-                pass
 
 
 @shared_task

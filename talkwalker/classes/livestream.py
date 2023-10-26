@@ -48,12 +48,20 @@ class Livestream:
         response = requests.request('PUT', url, headers=headers, data=payload)
         return response.status_code == status.HTTP_200_OK
 
-    def __03_read_collector(self):
-        url = f'https://api.talkwalker.com/api/v3/stream/c/{self.collector_id}/results?access_token={self.token}&end_behaviour=stop'
+    def __read_chunk(self, offset):
+        url = f'https://api.talkwalker.com/api/v3/stream/c/{self.collector_id}/results?access_token={self.token}&resume_offset={offset}&end_behaviour=stop'
+
         response = requests.request('GET', url, headers={}, data={})
-        lines = response.iter_lines()
-        create_posts(self.project, lines)
-        return response.status_code == status.HTTP_200_OK
+        lines    = response.iter_lines()
+
+        return create_posts(self.project, lines, offset)
+
+    def __03_read_collector(self):
+        resume_offset = 'earliest'
+        while resume_offset:
+            resume_offset = self.__read_chunk(resume_offset)
+
+        return True
 
     def __04_delete_collector(self):
         url = f'https://api.talkwalker.com/api/v3/stream/c/{self.collector_id}?access_token={self.token}'

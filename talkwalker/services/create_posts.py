@@ -4,7 +4,11 @@ from project.models import Speech, Post, Feedlinks
 from django.utils import timezone
 from django.db import transaction
 from ftlangdetect import detect
+
 import json
+import logging
+
+logger = logging.getLogger()
 
 
 def add_language(language_code):
@@ -21,11 +25,18 @@ def define_sentiment(value):
     return sent
 
 
-def create_posts(project, lines):
+def create_posts(project, lines, offset=None):
+    resume_offset = None
+
     for line in lines:
         try:
-            data = json.loads(line)['chunk_result']['data']['data']
+            resume_offset = json.loads(line)['chunk_control']['resume_offset']
         except:
+            pass
+        try:
+            data = json.loads(line)['chunk_result']['data']['data']
+        except Exception as e:
+            logger.error(e)
             continue
         try:
             acountry = data['extra_source_attributes']['world_data']['country']
@@ -109,6 +120,7 @@ def create_posts(project, lines):
                     }
                 )
                 project.posts.add(post)
+        except Exception as e:
+            logger.error(e)
 
-        except:
-            pass
+    return resume_offset if resume_offset != offset else None

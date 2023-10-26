@@ -1,0 +1,2557 @@
+{
+    "chunk_type": "CT_CONTROL",
+    "chunk_control": {
+        "connection_id": "#s34plgaxn6mg#",
+        "resume_offset": "EgSIlpRi",
+        "collector_id": "search-280-onl-col"
+    }
+}
+{
+    "chunk_type": "CT_RESULT",
+    "chunk_result": {
+        "data": {
+            "data": {
+                "url": "https://makkahnewspaper.com/article/1597971/%D8%A3%D8%AE%D8%A8%D8%A7%D8%B1-%D9%84%D9%84%D9%85%D9%88%D9%82%D8%B9/%D8%A3%D9%85%D9%8A%D8%B1-%D9%85%D9%86%D8%B7%D9%82%D8%A9-%D8%A7%D9%84%D8%B1%D9%8A%D8%A7%D8%B6-%D9%8A%D8%AF%D8%B4%D9%86-%D8%A7%D9%84%D8%AD%D9%85%D9%84%D8%A9-%D8%A7%D9%84%D9%88%D8%B7%D9%86%D9%8A%D8%A9-%D8%A7%D9%84%D8%AA%D9%88%D8%B9%D9%88%D9%8A%D8%A9-%D9%84%D8%B3%D8%B1%D8%B7%D8%A7%D9%86-%D8%A7%D9%84%D8%AB%D8%AF%D9%8A-2023",
+                "indexed": 1696166463860,
+                "search_indexed": 1696166467270,
+                "published": 1696166262000,
+                "title": "أمير منطقة الرياض يدشن الحملة الوطنية التوعوية لسرطان الثدي 2023",
+                "content": "دشن صاحب السمو الملكي الأمير فيصل بن بندر بن عبدالعزيز أمير منطقة الرياض في مكتبه بقصر الحكم اليوم، بحضور الأمير محمد بن عبدالرحمن بن عبدالعزيز نائب أمير المنطقة، الحملة الوطنية التوعوية بسرطان الثدي 2023م تحت شعار (#الن...",
+                "title_snippet": "أمير منطقة الرياض يدشن الحملة الوطنية التوعوية لسرطان الثدي 2023",
+                "content_snippet": "...جمعية &quot;زهرة&quot; لسرطان الثدي بالتعاون مع التحالف السعودي لجمعيات السرطان، وبرنامج <b>سند</b> <b>محمد</b> <b>بن</b> <b>سلمان</b>، ومجموعة &quot;روشن&quot;.\n\nجاء ذلك خلال استقبال سموه، لصاحبة السمو الملكي الأميرة هيفاء بنت فيصل بن عبدالعزيز رئيس مجلس إدارة جمعية زهرة لسرطان الثدي، وعدد من...",
+                "root_url": "https://makkahnewspaper.com/",
+                "domain_url": "http://makkahnewspaper.com/",
+                "host_url": "http://makkahnewspaper.com/",
+                "parent_url": "https://makkahnewspaper.com/article/1597971/%D8%A3%D8%AE%D8%A8%D8%A7%D8%B1-%D9%84%D9%84%D9%85%D9%88%D9%82%D8%B9/%D8%A3%D9%85%D9%8A%D8%B1-%D9%85%D9%86%D8%B7%D9%82%D8%A9-%D8%A7%D9%84%D8%B1%D9%8A%D8%A7%D8%B6-%D9%8A%D8%AF%D8%B4%D9%86-%D8%A7%D9%84%D8%AD%D9%85%D9%84%D8%A9-%D8%A7%D9%84%D9%88%D8%B7%D9%86%D9%8A%D8%A9-%D8%A7%D9%84%D8%AA%D9%88%D8%B9%D9%88%D9%8A%D8%A9-%D9%84%D8%B3%D8%B1%D8%B7%D8%A7%D9%86-%D8%A7%D9%84%D8%AB%D8%AF%D9%8A-2023",
+                "lang": "ar",
+                "porn_level": 0,
+                "fluency_level": 0,
+                "DEPRECATED_spam_level": 0,
+                "sentiment": 5,
+                "source_type": [
+                    "ONLINENEWS",
+                    "ONLINENEWS_OTHER"
+                ],
+                "post_type": [
+                    "TEXT"
+                ],
+                "tokens_title": [
+                    "لسرطان الثدي 2023",
+                    "الثدي 2023",
+                    "2023"
+                ],
+                "tokens_hashtag": [
+                    "#النتيجة_خير"
+                ],
+                "images": [
+                    {
+                        "url": "https://makkahnewspaper.com/uploads/images/2023/10/01/1642946.jpeg"
+                    }
+                ],
+                "cluster_id": "https://www.al-madina.com/article/856291/%D8%B5%D8%AD%D8%A9/%D8%A3%D9%85%D9%8A%D8%B1-%D9%85%D9%86%D8%B7%D9%82%D8%A9-%D8%A7%D9%84%D8%B1%D9%8A%D8%A7%D8%B6-%D9%8A%D8%AF%D8%B4%D9%86-%D8%A7%D9%84%D8%AD%D9%85%D9%84%D8%A9-%D8%A7%D9%84%D9%88%D8%B7%D9%86%D9%8A%D8%A9-%D8%A7%D9%84%D8%AA%D9%88%D8%B9%D9%88%D9%8A%D8%A9-%D9%84%D8%B3%D8%B1%D8%B7%D8%A7%D9%86-%D8%A7%D9%84%D8%AB%D8%AF%D9%8A-2023",
+                "tags_internal": [
+                    "containsImage",
+                    "hasImage"
+                ],
+                "source_extended_attributes": {
+                    "alexa_pageviews": 320000,
+                    "alexa_unique_visitors": 266666,
+                    "semrush_pageviews": 204807,
+                    "semrush_unique_visitors": 164611
+                },
+                "extra_author_attributes": {
+                    "id": "ex:makkahnewspaper.com-1660327197",
+                    "name": "الرياض-مكة",
+                    "gender": "UNKNOWN"
+                },
+                "extra_source_attributes": {
+                    "world_data": {
+                        "continent": "Asia",
+                        "country": "Saudi Arabia",
+                        "region": "Ar Riyad",
+                        "city": "Riyadh",
+                        "longitude": 46.7742919921875,
+                        "latitude": 24.63958740234375,
+                        "country_code": "sa",
+                        "resolution": "COUNTRY"
+                    },
+                    "id": "ex:makkahnewspaper.com",
+                    "name": "makkahnewspaper.com"
+                },
+                "engagement": 0,
+                "reach": 164611,
+                "matched": {
+                    "task_id": "8dc3aba7-7283-428a-8176-2da36b6d9cb4"
+                },
+                "word_count": 205
+            }
+        }
+    }
+}
+{
+    "chunk_type": "CT_RESULT",
+    "chunk_result": {
+        "data": {
+            "data": {
+                "url": "https://www.mosaiquefm.net/ar/%D8%AA%D9%88%D9%86%D8%B3-%D8%A3%D8%AE%D8%A8%D8%A7%D8%B1-%D9%88%D8%B7%D9%86%D9%8A%D8%A9/1195087/%D8%A7%D9%84%D8%AD%D8%B4-%D8%A7%D9%86%D9%8A-%D9%8A%D8%B3%D8%AA%D9%82%D8%A8%D9%84-%D8%A7%D9%84%D9%85%D8%B4%D8%A7%D8%B1%D9%83%D9%8A%D9%86-%D9%81%D9%8A-%D9%85%D9%86%D8%AA%D8%AF%D9%89-%D8%A7%D9%84%D8%B9%D9%82%D8%AF-%D8%A7%D9%84%D8%B9%D8%B1%D8%A8%D9%8A-%D9%84%D9%84%D8%A3%D8%B4%D8%AE%D8%A7%D8%B5-%D8%B0%D9%88%D9%8A-%D8%A7%D9%84%D8%A5%D8%B9%D8%A7%D9%82%D8%A9",
+                "indexed": 1696174767030,
+                "search_indexed": 1696174773622,
+                "published": 1696170780000,
+                "title": "الحشّاني يستقبل المشاركين في منتدى العقد العربي للأشخاص ذوي الإعاقة",
+                "content": "استقبل رئيس الحكومة، أحمد الحشّاني، اليوم الأحد، بقصر الحكومة بالقصبة، وزراء الشؤون الاجتماعية، وممثلين عن عدد من المنظمات الأممية والعربية والإقليمية، وخبراء في مجال الاعاقة، وكبار المسؤولين ورؤساء الوفود المشاركين في ا...",
+                "title_snippet": "الحشّاني يستقبل المشاركين في منتدى العقد العربي للأشخاص ذوي الإعاقة",
+                "content_snippet": "\n\nوللاشارة فإنّ العقد العربي الثاني يتضمن سبعة عشر (17) محورا تتعلق أساسا بالتشريعات والسياسات والخدمات الاجتماعية والصحية والتربوية وضمان <b>العيش</b> <b>باستقلالية</b> إضافة إلى المشاركة في الحياة السياسية والأنشطة الثقافية...",
+                "root_url": "https://www.mosaiquefm.net/",
+                "domain_url": "http://mosaiquefm.net/",
+                "host_url": "http://www.mosaiquefm.net/",
+                "parent_url": "https://www.mosaiquefm.net/ar/%D8%AA%D9%88%D9%86%D8%B3-%D8%A3%D8%AE%D8%A8%D8%A7%D8%B1-%D9%88%D8%B7%D9%86%D9%8A%D8%A9/1195087/%D8%A7%D9%84%D8%AD%D8%B4-%D8%A7%D9%86%D9%8A-%D9%8A%D8%B3%D8%AA%D9%82%D8%A8%D9%84-%D8%A7%D9%84%D9%85%D8%B4%D8%A7%D8%B1%D9%83%D9%8A%D9%86-%D9%81%D9%8A-%D9%85%D9%86%D8%AA%D8%AF%D9%89-%D8%A7%D9%84%D8%B9%D9%82%D8%AF-%D8%A7%D9%84%D8%B9%D8%B1%D8%A8%D9%8A-%D9%84%D9%84%D8%A3%D8%B4%D8%AE%D8%A7%D8%B5-%D8%B0%D9%88%D9%8A-%D8%A7%D9%84%D8%A5%D8%B9%D8%A7%D9%82%D8%A9",
+                "lang": "ar",
+                "porn_level": 0,
+                "fluency_level": 0,
+                "DEPRECATED_spam_level": 0,
+                "sentiment": 5,
+                "source_type": [
+                    "ONLINENEWS",
+                    "ONLINENEWS_OTHER"
+                ],
+                "post_type": [
+                    "TEXT"
+                ],
+                "images": [
+                    {
+                        "url": "https://content.mosaiquefm.net/uploads/content/thumbnails/1696174460_media.jpg"
+                    }
+                ],
+                "cluster_id": "https://www.mosaiquefm.net/ar/%D8%AA%D9%88%D9%86%D8%B3-%D8%A3%D8%AE%D8%A8%D8%A7%D8%B1-%D9%88%D8%B7%D9%86%D9%8A%D8%A9/1195087/%D8%A7%D9%84%D8%AD%D8%B4-%D8%A7%D9%86%D9%8A-%D9%8A%D8%B3%D8%AA%D9%82%D8%A8%D9%84-%D8%A7%D9%84%D9%85%D8%B4%D8%A7%D8%B1%D9%83%D9%8A%D9%86-%D9%81%D9%8A-%D9%85%D9%86%D8%AA%D8%AF%D9%89-%D8%A7%D9%84%D8%B9%D9%82%D8%AF-%D8%A7%D9%84%D8%B9%D8%B1%D8%A8%D9%8A-%D9%84%D9%84%D8%A3%D8%B4%D8%AE%D8%A7%D8%B5-%D8%B0%D9%88%D9%8A-%D8%A7%D9%84%D8%A5%D8%B9%D8%A7%D9%82%D8%A9",
+                "tags_internal": [
+                    "containsImage",
+                    "hasImage"
+                ],
+                "source_extended_attributes": {
+                    "alexa_pageviews": 3000000,
+                    "alexa_unique_visitors": 1111111,
+                    "semrush_pageviews": 2059076,
+                    "semrush_unique_visitors": 263716
+                },
+                "extra_author_attributes": {
+                    "id": "ex:www.mosaiquefm.net-0",
+                    "gender": "UNKNOWN"
+                },
+                "extra_source_attributes": {
+                    "world_data": {
+                        "continent": "Africa",
+                        "country": "Tunisia",
+                        "region": "Tunis",
+                        "city": "Tunis",
+                        "longitude": 10.1788330078125,
+                        "latitude": 36.80145263671875,
+                        "country_code": "tn",
+                        "resolution": "COUNTRY"
+                    },
+                    "id": "ex:www.mosaiquefm.net",
+                    "name": "www.mosaiquefm.net"
+                },
+                "engagement": 0,
+                "reach": 263716,
+                "matched": {
+                    "task_id": "8dc3aba7-7283-428a-8176-2da36b6d9cb4"
+                },
+                "word_count": 139
+            }
+        }
+    }
+}
+{
+    "chunk_type": "CT_RESULT",
+    "chunk_result": {
+        "data": {
+            "data": {
+                "url": "https://www.babnet.net/cadredetail-274220.asp",
+                "indexed": 1696174889383,
+                "search_indexed": 1696174915409,
+                "published": 1696170862000,
+                "title": "رئيس الحكومة يستقبل وزراء الشؤون الاجتماعية وكبار المسؤولين المشاركين في المنتدى حول العقد",
+                "content": "استقبل رئيس الحكومة، أحمد الحشّاني، اليوم الأحد، بقصر الحكومة بالقصبة، وزراء الشؤون الاجتماعية، وممثلين عن عدد من المنظمات ال...",
+                "title_snippet": "رئيس الحكومة يستقبل وزراء الشؤون الاجتماعية وكبار المسؤولين المشاركين في المنتدى حول العقد",
+                "content_snippet": "...الاجتماعية والصحية والتربوية وضمان <b>العيش</b> <b>باستقلالية</b> إضافة إلى المشاركة في الحياة السياسية والأنشطة الثقافية...",
+                "root_url": "https://www.babnet.net/",
+                "domain_url": "http://babnet.net/",
+                "host_url": "http://www.babnet.net/",
+                "parent_url": "https://www.babnet.net/cadredetail-274220.asp",
+                "lang": "ar",
+                "porn_level": 0,
+                "fluency_level": 0,
+                "DEPRECATED_spam_level": 0,
+                "sentiment": 5,
+                "source_type": [
+                    "ONLINENEWS",
+                    "ONLINENEWS_OTHER"
+                ],
+                "post_type": [
+                    "TEXT"
+                ],
+                "images": [
+                    {
+                        "url": "https://www.babnet.net/images/2b/651991f0ac3099.55375696_onjkfmlqhpegi.jpg"
+                    }
+                ],
+                "cluster_id": "https://www.mosaiquefm.net/ar/%D8%AA%D9%88%D9%86%D8%B3-%D8%A3%D8%AE%D8%A8%D8%A7%D8%B1-%D9%88%D8%B7%D9%86%D9%8A%D8%A9/1195087/%D8%A7%D9%84%D8%AD%D8%B4-%D8%A7%D9%86%D9%8A-%D9%8A%D8%B3%D8%AA%D9%82%D8%A8%D9%84-%D8%A7%D9%84%D9%85%D8%B4%D8%A7%D8%B1%D9%83%D9%8A%D9%86-%D9%81%D9%8A-%D9%85%D9%86%D8%AA%D8%AF%D9%89-%D8%A7%D9%84%D8%B9%D9%82%D8%AF-%D8%A7%D9%84%D8%B9%D8%B1%D8%A8%D9%8A-%D9%84%D9%84%D8%A3%D8%B4%D8%AE%D8%A7%D8%B5-%D8%B0%D9%88%D9%8A-%D8%A7%D9%84%D8%A5%D8%B9%D8%A7%D9%82%D8%A9",
+                "tags_internal": [
+                    "containsImage",
+                    "hasImage"
+                ],
+                "article_extended_attributes": {
+                    "twitter_shares": 1
+                },
+                "source_extended_attributes": {
+                    "alexa_pageviews": 1800000,
+                    "alexa_unique_visitors": 666666,
+                    "semrush_pageviews": 2129675,
+                    "semrush_unique_visitors": 162324
+                },
+                "extra_author_attributes": {
+                    "id": "ex:www.babnet.net-1396700486",
+                    "name": "Babnet",
+                    "gender": "UNKNOWN"
+                },
+                "extra_source_attributes": {
+                    "world_data": {
+                        "continent": "Europe",
+                        "country": "France",
+                        "region": "Paris",
+                        "city": "Paris",
+                        "longitude": 2.3345947265625,
+                        "latitude": 48.86444091796875,
+                        "country_code": "fr",
+                        "resolution": "COUNTRY"
+                    },
+                    "id": "ex:www.babnet.net",
+                    "name": "www.babnet.net"
+                },
+                "engagement": 1,
+                "reach": 162324,
+                "matched": {
+                    "task_id": "8dc3aba7-7283-428a-8176-2da36b6d9cb4"
+                },
+                "word_count": 140
+            }
+        }
+    }
+}
+{
+    "chunk_type": "CT_RESULT",
+    "chunk_result": {
+        "data": {
+            "data": {
+                "url": "https://khlaasa.net/1249654",
+                "indexed": 1696179293282,
+                "search_indexed": 1696179322152,
+                "published": 1696179170502,
+                "title": "الوزير الزعوري يترأس وفد وفد بلادنا في الملتقى العربي الثاني للاشخاص ذوي الاعاقة المنعقد بتونس.",
+                "content": "الوزير الزعوري يترأس وفد وفد بلادنا في الملتقى العربي الثاني للاشخاص ذوي الاعاقة المنعقد بتونس.\n\nمنذ 5 دقيقة - 2023-10-01 [12] قراءة\n\nشبوة اليوم /متابعات\n\nانطلق صباح اليوم بتونس اعمال \"الملتقى العربي الثاني للأشخاص ذوي ا...",
+                "title_snippet": "الوزير الزعوري يترأس وفد وفد بلادنا في الملتقى العربي الثاني للاشخاص ذوي الاعاقة المنعقد بتونس.",
+                "content_snippet": "ويناقش الملتقى العربي الثاني سبعة عشر (17) محورا تتعلق أساسا بالتشريعات والسياسات والخدمات الاجتماعية والصحية والتربوية وضمان <b>العيش</b> <b>باستقلالية</b> إضافة إلى المشاركة في الحياة السياسية والأنشطة الثقافية والرياضية. كما سيتمّ على هامش المنتدى تنظيم دورة...",
+                "root_url": "https://khlaasa.net/",
+                "domain_url": "http://khlaasa.net/",
+                "host_url": "http://khlaasa.net/",
+                "parent_url": "https://khlaasa.net/1249654",
+                "lang": "ar",
+                "porn_level": 0,
+                "fluency_level": 0,
+                "DEPRECATED_spam_level": 0,
+                "sentiment": 5,
+                "source_type": [
+                    "ONLINENEWS",
+                    "ONLINENEWS_OTHER"
+                ],
+                "post_type": [
+                    "TEXT"
+                ],
+                "images": [
+                    {
+                        "url": "https://khlaasa.net/files/image_1696178843_35280265.jpeg",
+                        "width": 1080,
+                        "height": 762
+                    }
+                ],
+                "tags_internal": [
+                    "containsImage",
+                    "hasImage"
+                ],
+                "source_extended_attributes": {
+                    "alexa_pageviews": 10000,
+                    "alexa_unique_visitors": 10000,
+                    "semrush_pageviews": 0,
+                    "semrush_unique_visitors": 0
+                },
+                "extra_author_attributes": {
+                    "id": "ex:khlaasa.net-0",
+                    "gender": "UNKNOWN"
+                },
+                "extra_source_attributes": {
+                    "world_data": {
+                        "continent": "North America",
+                        "country": "United States",
+                        "region": "Washington, D.C.",
+                        "city": "Washington, D.C.",
+                        "longitude": -77.0086669921875,
+                        "latitude": 38.89984130859375,
+                        "country_code": "us",
+                        "resolution": "COUNTRY"
+                    },
+                    "id": "ex:khlaasa.net",
+                    "name": "khlaasa.net"
+                },
+                "engagement": 0,
+                "reach": 0,
+                "matched": {
+                    "task_id": "8dc3aba7-7283-428a-8176-2da36b6d9cb4"
+                },
+                "word_count": 187
+            }
+        }
+    }
+}
+{
+    "chunk_type": "CT_RESULT",
+    "chunk_result": {
+        "data": {
+            "data": {
+                "url": "https://www.hiamag.com/%D8%A3%D8%AE%D8%A8%D8%A7%D8%B1/1699986-%D8%A3%D9%85%D9%8A%D8%B1-%D9%85%D9%86%D8%B7%D9%82%D8%A9-%D8%A7%D9%84%D8%B1%D9%8A%D8%A7%D8%B6-%D9%8A%D8%AF%D8%B4%D9%86-%D8%A7%D9%84%D8%AD%D9%85%D9%84%D8%A9-%D8%A7%D9%84%D9%88%D8%B7%D9%86%D9%8A%D8%A9-%D9%84%D9%84%D8%AA%D9%88%D8%B9%D9%8A%D8%A9-%D8%A8%D8%A3%D9%87%D9%85%D9%8A%D8%A9-%D8%A7%D9%84%D8%A7%D9%83%D8%AA%D8%B4%D8%A7%D9%81-%D8%A7%D9%84%D9%85%D8%A8%D9%83%D8%B1-%D9%84%D8%B3%D8%B1%D8%B7%D8%A7%D9%86-%D8%A7%D9%84%D8%AB%D8%AF%D9%8A",
+                "indexed": 1696174914444,
+                "search_indexed": 1696174920445,
+                "published": 1696165917964,
+                "title": "أمير منطقة الرياض يدشن الحملة الوطنية للتوعية بأهمية الاكتشاف المبكر لسرطان الثدي لجمعية زهرة",
+                "content": "دشن اليوم أمير منطقة الرياض صاحب السمو الملكي الأمير فيصل بن بندر بن عبدالعزيز، الحملة الوطنية للتوعية بالكشف المبكر عن سرطان الثدي تحت شعار #النتيجة_خير ، والتي يتم تنظيمها رسمياً بالتعاون مع التحالف السعودي لجمعيات الس...",
+                "title_snippet": "أمير منطقة الرياض يدشن الحملة الوطنية للتوعية بأهمية الاكتشاف المبكر لسرطان الثدي لجمعية زهرة",
+                "content_snippet": "...والتي يتم تنظيمها رسمياً بالتعاون مع التحالف السعودي لجمعيات السرطان وبرنامج <b>سند</b> <b>محمد</b> <b>بن</b> <b>سلمان</b> والشريك الرسمي شركة روشن.\n\nوحضر التدشين رئيس مجلس إدارة جمعية زهرة صاحبة السمو الملكي الأميرة هيفاء بنت فيصل بن عبدالعزيز وأعضاء المجلس والرئيس التنفيذي...",
+                "root_url": "https://www.hiamag.com/",
+                "domain_url": "http://hiamag.com/",
+                "host_url": "http://www.hiamag.com/",
+                "parent_url": "https://www.hiamag.com/%D8%A3%D8%AE%D8%A8%D8%A7%D8%B1/1699986-%D8%A3%D9%85%D9%8A%D8%B1-%D9%85%D9%86%D8%B7%D9%82%D8%A9-%D8%A7%D9%84%D8%B1%D9%8A%D8%A7%D8%B6-%D9%8A%D8%AF%D8%B4%D9%86-%D8%A7%D9%84%D8%AD%D9%85%D9%84%D8%A9-%D8%A7%D9%84%D9%88%D8%B7%D9%86%D9%8A%D8%A9-%D9%84%D9%84%D8%AA%D9%88%D8%B9%D9%8A%D8%A9-%D8%A8%D8%A3%D9%87%D9%85%D9%8A%D8%A9-%D8%A7%D9%84%D8%A7%D9%83%D8%AA%D8%B4%D8%A7%D9%81-%D8%A7%D9%84%D9%85%D8%A8%D9%83%D8%B1-%D9%84%D8%B3%D8%B1%D8%B7%D8%A7%D9%86-%D8%A7%D9%84%D8%AB%D8%AF%D9%8A",
+                "lang": "ar",
+                "porn_level": 0,
+                "fluency_level": 0,
+                "DEPRECATED_spam_level": 0,
+                "sentiment": 5,
+                "source_type": [
+                    "ONLINENEWS",
+                    "ONLINENEWS_OTHER"
+                ],
+                "post_type": [
+                    "TEXT"
+                ],
+                "tokens_hashtag": [
+                    "#النتيجة_خير"
+                ],
+                "images": [
+                    {
+                        "url": "https://static.hiamag.com/styles/1200x600/public/2023-10/%D9%8A%D8%B3%D9%8A%D8%B3%D9%8A%D8%B3_0.JPG"
+                    }
+                ],
+                "tags_internal": [
+                    "containsImage",
+                    "hasImage"
+                ],
+                "article_extended_attributes": {
+                    "twitter_shares": 1
+                },
+                "source_extended_attributes": {
+                    "alexa_pageviews": 860000,
+                    "alexa_unique_visitors": 537500,
+                    "semrush_pageviews": 624399,
+                    "semrush_unique_visitors": 487727
+                },
+                "extra_author_attributes": {
+                    "id": "ex:www.hiamag.com-1410382256",
+                    "name": "محمد حسين",
+                    "gender": "UNKNOWN"
+                },
+                "extra_source_attributes": {
+                    "world_data": {
+                        "continent": "Asia",
+                        "country": "United Arab Emirates",
+                        "region": "Abu Dhabi",
+                        "city": "Abu Dhabi (emirate)",
+                        "longitude": 54.3658447265625,
+                        "latitude": 24.46929931640625,
+                        "country_code": "ae",
+                        "resolution": "COUNTRY"
+                    },
+                    "id": "ex:www.hiamag.com",
+                    "name": "www.hiamag.com"
+                },
+                "engagement": 1,
+                "reach": 487727,
+                "entity_url": [
+                    {
+                        "url": "https://static.hiamag.com/inline-images/%D8%AC%D8%A7%D9%86%D8%A8%20%D9%85%D9%86%20%D8%A7%D9%84%D8%AD%D8%B6%D9%88%D8%B1.jpg"
+                    }
+                ],
+                "matched": {
+                    "task_id": "8dc3aba7-7283-428a-8176-2da36b6d9cb4"
+                },
+                "word_count": 354
+            }
+        }
+    }
+}
+{
+    "chunk_type": "CT_RESULT",
+    "chunk_result": {
+        "data": {
+            "data": {
+                "url": "https://www.jawharafm.net/ar/article/%D9%85%D9%86%D8%AA%D8%AF%D9%89-%D8%B1%D9%81%D9%8A%D8%B9-%D8%A7%D9%84%D9%85%D8%B3%D8%AA%D9%88%D9%89-%D9%81%D9%8A-%D8%AA%D9%88%D9%86%D8%B3-%D8%AD%D9%88%D9%84-%D8%A7%D9%84%D8%B9%D9%82%D8%AF-%D8%A7%D9%84%D8%B9%D8%B1%D8%A8%D9%8A-%D9%84%D9%84%D8%A3%D8%B4%D8%AE%D8%A7%D8%B5-%D8%B0%D9%88%D9%8A-%D8%A7%D9%84%D8%A5%D8%B9%D8%A7%D9%82%D8%A9/105/246032",
+                "indexed": 1696185695148,
+                "search_indexed": 1696185702787,
+                "published": 1696180320000,
+                "title": "‫منتدى رفيع المستوى في تونس حول العقد العربي للأشخاص ذوي الإعاقة",‬
+                "content": "نظمت وزارة الشؤون الاجتماعية ، اليوم بالعاصمة ،منتدى رفيـع المستـوى حول \" العقد العربي الثاني للأشخاص ذوي الإعاقة 2023-2032، بهدف ضبط مخطط عملي لتنفيذ هذا العقد العربي والمتضمن ل 17 محورا\n\nوسيتم خلال هذا المنتدى، الذي ين...",
+                "title_snippet": "‫منتدى رفيع المستوى في تونس حول العقد العربي للأشخاص ذوي الإعاقة",‬
+                "content_snippet": "وتتعلق هذه المحاور أساسا بالتشريعات والسياسات والخدمات الاجتماعية والصحية والتربوية وضمان <b>العيش</b> <b>باستقلالية</b>، إضافة إلى المشاركة في الحياة السياسية والأنشطة الثقافية والرياضية.\n\nمشاركة وزيرة شؤون الاعاقة الايطاليةوذكرت وزيرة شؤون الاعاقة الايطالية...",
+                "root_url": "https://www.jawharafm.net/",
+                "domain_url": "http://jawharafm.net/",
+                "host_url": "http://www.jawharafm.net/",
+                "parent_url": "https://www.jawharafm.net/ar/article/%D9%85%D9%86%D8%AA%D8%AF%D9%89-%D8%B1%D9%81%D9%8A%D8%B9-%D8%A7%D9%84%D9%85%D8%B3%D8%AA%D9%88%D9%89-%D9%81%D9%8A-%D8%AA%D9%88%D9%86%D8%B3-%D8%AD%D9%88%D9%84-%D8%A7%D9%84%D8%B9%D9%82%D8%AF-%D8%A7%D9%84%D8%B9%D8%B1%D8%A8%D9%8A-%D9%84%D9%84%D8%A3%D8%B4%D8%AE%D8%A7%D8%B5-%D8%B0%D9%88%D9%8A-%D8%A7%D9%84%D8%A5%D8%B9%D8%A7%D9%82%D8%A9/105/246032",
+                "lang": "ar",
+                "porn_level": 0,
+                "fluency_level": 0,
+                "DEPRECATED_spam_level": 0,
+                "sentiment": 5,
+                "source_type": [
+                    "ONLINENEWS",
+                    "ONLINENEWS_TVRADIO"
+                ],
+                "post_type": [
+                    "TEXT"
+                ],
+                "images": [
+                    {
+                        "url": "https://www.jawharafm.net/ar/imageResize/resize/francais_image2_246032_1696185228.jpg/1100"
+                    }
+                ],
+                "cluster_id": "https://www.jawharafm.net/ar/article/%D9%85%D9%86%D8%AA%D8%AF%D9%89-%D8%B1%D9%81%D9%8A%D8%B9-%D8%A7%D9%84%D9%85%D8%B3%D8%AA%D9%88%D9%89-%D9%81%D9%8A-%D8%AA%D9%88%D9%86%D8%B3-%D8%AD%D9%88%D9%84-%D8%A7%D9%84%D8%B9%D9%82%D8%AF-%D8%A7%D9%84%D8%B9%D8%B1%D8%A8%D9%8A-%D9%84%D9%84%D8%A3%D8%B4%D8%AE%D8%A7%D8%B5-%D8%B0%D9%88%D9%8A-%D8%A7%D9%84%D8%A5%D8%B9%D8%A7%D9%82%D8%A9/105/246032",
+                "tags_internal": [
+                    "containsImage",
+                    "hasImage"
+                ],
+                "source_extended_attributes": {
+                    "alexa_pageviews": 1100000,
+                    "alexa_unique_visitors": 343750,
+                    "semrush_pageviews": 951964,
+                    "semrush_unique_visitors": 128777
+                },
+                "extra_author_attributes": {
+                    "id": "ex:www.jawharafm.net-0",
+                    "gender": "UNKNOWN"
+                },
+                "extra_source_attributes": {
+                    "world_data": {
+                        "continent": "Asia",
+                        "country": "Saudi Arabia",
+                        "region": "Ar Riyad",
+                        "city": "Riyadh",
+                        "longitude": 46.7742919921875,
+                        "latitude": 24.63958740234375,
+                        "country_code": "sa",
+                        "resolution": "COUNTRY"
+                    },
+                    "id": "ex:www.jawharafm.net",
+                    "name": "www.jawharafm.net"
+                },
+                "engagement": 0,
+                "reach": 128777,
+                "entity_url": [
+                    {
+                        "url": "https://www.facebook.com/plugins/video.php?height=314&amp;href=https%3A%2F%2Fwww.facebook.com%2Finfos.social.tn%2Fvideos%2F1386368155627684%2F&amp;show_text=false&amp;width=560&amp;t=0"
+                    }
+                ],
+                "matched": {
+                    "task_id": "8dc3aba7-7283-428a-8176-2da36b6d9cb4"
+                },
+                "word_count": 613
+            }
+        }
+    }
+}
+{
+    "chunk_type": "CT_RESULT",
+    "chunk_result": {
+        "data": {
+            "data": {
+                "url": "http://www.radiotunisienne.tn/2023/10/01/%d8%b1%d8%a6%d9%8a%d8%b3-%d8%a7%d9%84%d8%ad%d9%83%d9%88%d9%85%d8%a9-%d9%8a%d8%b3%d8%aa%d9%82%d8%a8%d9%84-%d9%88%d8%b2%d8%b1%d8%a7%d8%a1-%d8%a7%d9%84%d8%b4%d8%a4%d9%88%d9%86-%d8%a7%d9%84%d8%a7%d8%ac/",
+                "indexed": 1696167476732,
+                "search_indexed": 1696167492923,
+                "published": 1696167425082,
+                "title": "رئيس الحكومة يستقبل وزراء الشؤون الاجتماعية وكبار المسؤولين المشاركين في المنتدى حول العقد العربي الثاني للأشخاص ذوي الإعاقة",
+                "content": "استقبل رئيس الحكومة، أحمد الحشّاني، اليوم الأحد، بقصر الحكومة بالقصبة، وزراء الشؤون الاجتماعية، وممثلين عن عدد من المنظمات الأممية والعربية والاقليمية ، وخبراء في مجال الاعاقة، وكبار المسؤولين ورؤساء الوفود المشاركين في المنتدى رفيع المستوى حول العقد العربي الثاني للأشخاص ذوي الإعاقة 2023 – 2032، الذي تحتضنه تونس اليوم وغدا تحت سامي إشراف رئيس الجمهرية قيس سعيد.  ويعتبر العقد العربي الثاني للأشخاص ذوي الإعاقة 2023 – 2032 تتويجا لجهود الدول العربية تحت إشراف جامعة الدول العربية (مبادرة الأمين العام) في دعم السياسات والبرامج والآليات التي تؤمّنهــا هذه الدول لفائدة هذه الفئة من المجتمع وسيمثّل إطارا مرجعيّا للدول العربية لحماية ورعاية وتأهيل الأشخاص ذوي الإعاقة وإدماجهم في الحياة الاقتصادية والاجتماعية ضمانا لمبدأ تكافؤ الفرص.  وللاشارة فإن العقد العربي الثاني يتضمن سبعة عشر (17) محورا تتعلق أساسا بالتشريعات والسياسات والخدمات الاجتماعية والصحية والتربوية وضمان العيش باستقلالية إضافة إلى المشاركة في الحياة السياسية والأنشطة الثقافية والرياضية.",
+                "title_snippet": "رئيس الحكومة يستقبل وزراء الشؤون الاجتماعية وكبار المسؤولين المشاركين في المنتدى حول العقد العربي...",
+                "content_snippet": "وللاشارة فإن العقد العربي الثاني يتضمن سبعة عشر (17) محورا تتعلق أساسا بالتشريعات والسياسات والخدمات الاجتماعية والصحية والتربوية وضمان <b>العيش</b> <b>باستقلالية</b> إضافة إلى المشاركة في الحياة السياسية والأنشطة الثقافية...",
+                "root_url": "http://www.radiotunisienne.tn/",
+                "domain_url": "http://radiotunisienne.tn/",
+                "host_url": "http://www.radiotunisienne.tn/",
+                "parent_url": "http://www.radiotunisienne.tn/2023/10/01/%d8%b1%d8%a6%d9%8a%d8%b3-%d8%a7%d9%84%d8%ad%d9%83%d9%88%d9%85%d8%a9-%d9%8a%d8%b3%d8%aa%d9%82%d8%a8%d9%84-%d9%88%d8%b2%d8%b1%d8%a7%d8%a1-%d8%a7%d9%84%d8%b4%d8%a4%d9%88%d9%86-%d8%a7%d9%84%d8%a7%d8%ac/",
+                "lang": "ar",
+                "porn_level": 0,
+                "fluency_level": 0,
+                "DEPRECATED_spam_level": 0,
+                "sentiment": 0,
+                "source_type": [
+                    "BLOG",
+                    "BLOG_OTHER"
+                ],
+                "post_type": [
+                    "TEXT"
+                ],
+                "images": [
+                    {
+                        "url": "http://medias.radiotunisienne.tn/wp-content/uploads/2023/10/1696166469032.jpg"
+                    }
+                ],
+                "tags_internal": [
+                    "containsImage",
+                    "hasImage"
+                ],
+                "source_extended_attributes": {
+                    "alexa_pageviews": 40000,
+                    "alexa_unique_visitors": 17391,
+                    "semrush_pageviews": 1391,
+                    "semrush_unique_visitors": 1138
+                },
+                "extra_author_attributes": {
+                    "id": "ex:www.radiotunisienne.tn-0",
+                    "gender": "UNKNOWN"
+                },
+                "extra_source_attributes": {
+                    "world_data": {
+                        "continent": "Africa",
+                        "country": "Tunisia",
+                        "region": "Tunis",
+                        "city": "Tunis",
+                        "longitude": 10.1788330078125,
+                        "latitude": 36.80145263671875,
+                        "country_code": "tn",
+                        "resolution": "COUNTRY"
+                    },
+                    "id": "ex:www.radiotunisienne.tn",
+                    "name": "www.radiotunisienne.tn"
+                },
+                "engagement": 0,
+                "reach": 1138,
+                "matched": {
+                    "task_id": "8dc3aba7-7283-428a-8176-2da36b6d9cb4"
+                },
+                "word_count": 140
+            }
+        }
+    }
+}
+{
+    "chunk_type": "CT_RESULT",
+    "chunk_result": {
+        "data": {
+            "data": {
+                "url": "https://almnatiq.net/%D8%A3%D9%85%D9%8A%D8%B1-%D8%A7%D9%84%D8%B1%D9%8A%D8%A7%D8%B6-%D9%8A%D8%AF%D8%B4%D9%86-%D8%A7%D9%84%D8%AD%D9%85%D9%84%D8%A9-%D8%A7%D9%84%D9%88%D8%B7%D9%86%D9%8A%D8%A9-%D8%A7%D9%84%D8%AA%D9%88%D8%B9/",
+                "indexed": 1696173829778,
+                "search_indexed": 1696173831847,
+                "published": 1696173660000,
+                "title": "أمير الرياض يدشن الحملة الوطنية التوعوية لسرطان الثدي 2023",
+                "content": "المناطق_واس دشن صاحب السمو الملكي الأمير فيصل بن بندر بن عبدالعزيز أمير منطقة الرياض في مكتبه بقصر الحكم اليوم، بحضور صاحب السمو الملكي الأمير محمد بن عبدالرحمن بن عبدالعزيز نائب أمير المنطقة، الحملة الوطنية التوعوية بسر...",
+                "title_snippet": "أمير الرياض يدشن الحملة الوطنية التوعوية لسرطان الثدي 2023",
+                "content_snippet": "...جمعية &quot;زهرة&quot; لسرطان الثدي بالتعاون مع التحالف السعودي لجمعيات السرطان، وبرنامج <b>سند</b> <b>محمد</b> <b>بن</b> <b>سلمان</b>، ومجموعة &quot;روشن&quot;. جاء ذلك خلال استقبال سموه، لصاحبة السمو الملكي الأميرة هيفاء بنت فيصل بن عبدالعزيز رئيس مجلس إدارة جمعية زهرة لسرطان الثدي، وعدد من...",
+                "root_url": "https://almnatiq.net/",
+                "domain_url": "http://almnatiq.net/",
+                "host_url": "http://almnatiq.net/",
+                "parent_url": "https://almnatiq.net/%D8%A3%D9%85%D9%8A%D8%B1-%D8%A7%D9%84%D8%B1%D9%8A%D8%A7%D8%B6-%D9%8A%D8%AF%D8%B4%D9%86-%D8%A7%D9%84%D8%AD%D9%85%D9%84%D8%A9-%D8%A7%D9%84%D9%88%D8%B7%D9%86%D9%8A%D8%A9-%D8%A7%D9%84%D8%AA%D9%88%D8%B9/",
+                "lang": "ar",
+                "porn_level": 0,
+                "fluency_level": 0,
+                "DEPRECATED_spam_level": 0,
+                "sentiment": 5,
+                "source_type": [
+                    "ONLINENEWS",
+                    "ONLINENEWS_OTHER"
+                ],
+                "post_type": [
+                    "TEXT"
+                ],
+                "tokens_title": [
+                    "لسرطان الثدي 2023",
+                    "الثدي 2023",
+                    "2023"
+                ],
+                "tokens_hashtag": [
+                    "#النتيجة_خير"
+                ],
+                "cluster_id": "https://www.al-madina.com/article/856291/%D8%B5%D8%AD%D8%A9/%D8%A3%D9%85%D9%8A%D8%B1-%D9%85%D9%86%D8%B7%D9%82%D8%A9-%D8%A7%D9%84%D8%B1%D9%8A%D8%A7%D8%B6-%D9%8A%D8%AF%D8%B4%D9%86-%D8%A7%D9%84%D8%AD%D9%85%D9%84%D8%A9-%D8%A7%D9%84%D9%88%D8%B7%D9%86%D9%8A%D8%A9-%D8%A7%D9%84%D8%AA%D9%88%D8%B9%D9%88%D9%8A%D8%A9-%D9%84%D8%B3%D8%B1%D8%B7%D8%A7%D9%86-%D8%A7%D9%84%D8%AB%D8%AF%D9%8A-2023",
+                "source_extended_attributes": {
+                    "alexa_pageviews": 630000,
+                    "alexa_unique_visitors": 185294,
+                    "semrush_pageviews": 124475,
+                    "semrush_unique_visitors": 66998
+                },
+                "extra_author_attributes": {
+                    "id": "ex:almnatiq.net-1662405933",
+                    "name": "تطوير سيكيور هوست",
+                    "gender": "UNKNOWN"
+                },
+                "extra_source_attributes": {
+                    "world_data": {
+                        "continent": "Asia",
+                        "country": "Saudi Arabia",
+                        "region": "Ar Riyad",
+                        "city": "Riyadh",
+                        "longitude": 46.7742919921875,
+                        "latitude": 24.63958740234375,
+                        "country_code": "sa",
+                        "resolution": "COUNTRY"
+                    },
+                    "id": "ex:almnatiq.net",
+                    "name": "almnatiq.net"
+                },
+                "engagement": 0,
+                "reach": 66998,
+                "matched": {
+                    "task_id": "8dc3aba7-7283-428a-8176-2da36b6d9cb4"
+                },
+                "word_count": 209
+            }
+        }
+    }
+}
+{
+    "chunk_type": "CT_RESULT",
+    "chunk_result": {
+        "data": {
+            "data": {
+                "url": "http://www.from-yemen.com/alfn/list-157072.html",
+                "indexed": 1696131112405,
+                "search_indexed": 1696131137001,
+                "published": 1696130862000,
+                "title": "خطوات التسجيل في برنامج سند للزواج 1445 ضمن برنامج سند محمد بن سلمان",
+                "content": "اخبار من اليمن سند الزواج محمد بن سلمان.. يعد سند الزواج محمد بن سلمان من أحدث البرامج الاجتماعية التي يدعمها ولي العهد السعودي من أجل تخفيف العبء على المقبلين على الزواج، لذلك الكثير يتسأل عن الشروط ورابط التسجيل في الب...",
+                "title_snippet": "خطوات التسجيل في برنامج سند للزواج 1445 ضمن برنامج <b>سند</b> <b>محمد</b> <b>بن</b> <b>سلمان</b>",
+                "content_snippet": "...للزواج 1445 ضمن برنامج <b>سند</b> <b>محمد</b> <b>بن</b> <b>سلمان</b>\n\n– الدخول إلى على موقع برنامج <b>سند</b> <b>محمد</b> <b>بن</b> <b>سلمان</b> هنا  – الضغط على سند الزواج – لا بد ... الإجراءات المتعلقة بعقد الزواج.\n\nوضع برنامج <b>سند</b> <b>محمد</b> <b>بن</b> <b>سلمان</b> شروط من أجل الحصول على سند الزواج ولعل أهمها:\n\n– أن يكون...",
+                "root_url": "http://www.from-yemen.com/",
+                "domain_url": "http://from-yemen.com/",
+                "host_url": "http://www.from-yemen.com/",
+                "parent_url": "http://www.from-yemen.com/alfn/list-157072.html",
+                "lang": "ar",
+                "porn_level": 0,
+                "fluency_level": 0,
+                "DEPRECATED_spam_level": 0,
+                "sentiment": 0,
+                "source_type": [
+                    "ONLINENEWS",
+                    "ONLINENEWS_OTHER"
+                ],
+                "post_type": [
+                    "TEXT"
+                ],
+                "tokens_title": [
+                    "للزواج 1445 برنامج",
+                    "1445 برنامج سند",
+                    "سند للزواج 1445",
+                    "للزواج 1445",
+                    "1445 برنامج",
+                    "1445"
+                ],
+                "images": [
+                    {
+                        "url": "http://www.from-yemen.com/temp/resized/medium_2023-10-01-af50175e29.jpg"
+                    }
+                ],
+                "tags_internal": [
+                    "containsImage",
+                    "hasImage"
+                ],
+                "source_extended_attributes": {
+                    "alexa_pageviews": 50000,
+                    "alexa_unique_visitors": 2500,
+                    "semrush_pageviews": 23693,
+                    "semrush_unique_visitors": 23121
+                },
+                "extra_author_attributes": {
+                    "id": "ex:www.from-yemen.com-321120013",
+                    "name": "متن نيوز",
+                    "gender": "UNKNOWN"
+                },
+                "extra_source_attributes": {
+                    "world_data": {
+                        "continent": "Asia",
+                        "country": "Yemen",
+                        "region": "Amanat Al Asimah",
+                        "city": "Sana'a",
+                        "longitude": 44.2034912109375,
+                        "latitude": 15.35614013671875,
+                        "country_code": "ye",
+                        "resolution": "COUNTRY"
+                    },
+                    "id": "ex:www.from-yemen.com",
+                    "name": "www.from-yemen.com"
+                },
+                "engagement": 0,
+                "reach": 23121,
+                "matched": {
+                    "task_id": "8dc3aba7-7283-428a-8176-2da36b6d9cb4"
+                },
+                "word_count": 294
+            }
+        }
+    }
+}
+{
+    "chunk_type": "CT_RESULT",
+    "chunk_result": {
+        "data": {
+            "data": {
+                "url": "https://adengad.net/posts/703950",
+                "indexed": 1696165655530,
+                "search_indexed": 1696165667799,
+                "published": 1696165440000,
+                "title": "الوزير الزعوري يترأس وفد بلادنا في الملتقى العربي الثاني للاشخاص ذوي الاعاقة المنعقد بتونس.",
+                "content": "انطلق صباح اليوم بتونس اعمال \"الملتقى العربي الثاني للأشخاص ذوي الإعاقة 2023-2032 خلال الفترة 01-05 أكتوبر 2023)\".\n\nوتشارك بلادنا بوفد يرأسه معالي وزير الشؤون الاجتماعية والعمل الدكتور محمد سعيد الزعوري وعضوية الدكتورة ن...",
+                "title_snippet": "الوزير الزعوري يترأس وفد بلادنا في الملتقى العربي الثاني للاشخاص ذوي الاعاقة المنعقد بتونس.",
+                "content_snippet": "\n\nويناقش الملتقى العربي الثاني سبعة عشر (17) محورا تتعلق أساسا بالتشريعات والسياسات والخدمات الاجتماعية والصحية والتربوية وضمان <b>العيش</b> <b>باستقلالية</b> إضافة إلى المشاركة في الحياة السياسية والأنشطة الثقافية والرياضية.\n\nكما سيتمّ على هامش المنتدى تنظيم...",
+                "root_url": "https://adengad.net/",
+                "domain_url": "http://adengad.net/",
+                "host_url": "http://adengad.net/",
+                "parent_url": "https://adengad.net/posts/703950",
+                "lang": "ar",
+                "porn_level": 0,
+                "fluency_level": 0,
+                "DEPRECATED_spam_level": 0,
+                "sentiment": 5,
+                "source_type": [
+                    "ONLINENEWS",
+                    "ONLINENEWS_OTHER"
+                ],
+                "post_type": [
+                    "TEXT"
+                ],
+                "images": [
+                    {
+                        "url": "https://adengad.net/photos/102023/65196e3b6276a.jpeg"
+                    }
+                ],
+                "cluster_id": "https://adengad.net/posts/703950",
+                "tags_internal": [
+                    "containsImage",
+                    "hasImage"
+                ],
+                "article_extended_attributes": {
+                    "twitter_shares": 1
+                },
+                "source_extended_attributes": {
+                    "alexa_pageviews": 6400000,
+                    "alexa_unique_visitors": 646464,
+                    "semrush_pageviews": 113655,
+                    "semrush_unique_visitors": 62866
+                },
+                "extra_author_attributes": {
+                    "id": "ex:adengad.net-939368711",
+                    "name": "powered by:",
+                    "gender": "UNKNOWN"
+                },
+                "extra_source_attributes": {
+                    "world_data": {
+                        "continent": "Europe",
+                        "country": "Netherlands",
+                        "region": "North Holland",
+                        "city": "Amsterdam",
+                        "longitude": 4.9163818359375,
+                        "latitude": 52.35260009765625,
+                        "country_code": "nl",
+                        "resolution": "COUNTRY"
+                    },
+                    "id": "ex:adengad.net",
+                    "name": "adengad.net"
+                },
+                "engagement": 1,
+                "reach": 62866,
+                "matched": {
+                    "task_id": "8dc3aba7-7283-428a-8176-2da36b6d9cb4"
+                },
+                "word_count": 161
+            }
+        }
+    }
+}
+{
+    "chunk_type": "CT_RESULT",
+    "chunk_result": {
+        "data": {
+            "data": {
+                "url": "https://albiladdaily.com/2023/10/02/%d8%a3%d8%b4%d8%a7%d8%af-%d8%a8%d8%ac%d9%87%d9%88%d8%af%d9%87%d8%a7-%d9%81%d9%8a-%d8%a7%d9%84%d8%aa%d9%88%d8%b9%d9%8a%d8%a9-%d8%a7%d9%84%d8%b9%d8%a7%d9%85%d8%a9-%d8%a3%d9%85%d9%8a%d8%b1-%d8%a7%d9%84/",
+                "indexed": 1696196230910,
+                "search_indexed": 1696196241771,
+                "published": 1696196175404,
+                "title": "أشاد بجهودها في التوعية العامة.. أمير الرياض يدشن حملة جمعية «زهرة»",
+                "content": "دشن الأمير فيصل بن بندر بن عبدالعزيز أمير منطقة الرياض في مكتبه بقصر الحكم أمس، بحضور الأمير محمد بن عبدالرحمن بن عبدالعزيز نائب أمير المنطقة، الحملة الوطنية التوعوية بسرطان الثدي 2023م تحت شعار (#النتيجة_خير) التي تنظمها جمعية “زهرة” لسرطان الثدي بالتعاون مع التحالف السعودي لجمعيات السرطان، وبرنامج سند محمد بن سلمان، ومجموعة “روشن”.\n\nجاء ذلك خلال استقبال سموه، للأميرة هيفاء بنت فيصل بن عبدالعزيز رئيس مجلس إدارة جمعية زهرة لسرطان الثدي، وعدد من أعضاء مجلس الإدارة وممثلين عن شركاء الجمعية.\n\nواستمع سموه، إلى شرح عن برنامج الحملة الإعلامي الرقمي والميداني ودورها في الحث على إجراء الكشف المبكر دوريًا، وتوعية السيدات عبر ورش عمل ومحاضرات توعوية حضورية وافتراضية وأدواتها، وعقد لقاءات خاصة للمريضات والمتعافيات من سرطان الثدي؛ بهدف الالتزام بالكشف المبكر عن سرطان الثدي وإدراجه ضمن أسلوب الحياة الصحي.\n\nونوه سمو الأمير فيصل بن بندر، بدور الجمعية في تقديم التوعية العامة، وتضافر جهود الجمعية مع الجهات ذات العلاقة في القطاعين العام والخاص وغير الربحي، مشدداً سموه على ضرورة تفعيل دور الجهات الإعلامية في تحقيق التعاون مع الجمعية وبرامجها؛ لأهمية رسالتها وأهدافها.\n\nمن جانبها، أعربت الأميرة هيفاء الفيصل عن شكرها لسمو أمير منطقة الرياض على دعمه وتدشينه للحملة.  وفي ختام الاستقبال، تسلم سموه هدايا تذكارية بهذه المناسبة، ثم التقطت الصور التذكارية.",
+                "title_snippet": "أشاد بجهودها في التوعية العامة.. أمير الرياض يدشن حملة جمعية «زهرة»",
+                "content_snippet": "...جمعية “زهرة” لسرطان الثدي بالتعاون مع التحالف السعودي لجمعيات السرطان، وبرنامج <b>سند</b> <b>محمد</b> <b>بن</b> <b>سلمان</b>، ومجموعة “روشن”.\n\nجاء ذلك خلال استقبال سموه، للأميرة هيفاء بنت فيصل بن عبدالعزيز رئيس مجلس إدارة جمعية زهرة لسرطان الثدي، وعدد من أعضاء مجلس الإدارة...",
+                "root_url": "https://albiladdaily.com/",
+                "domain_url": "http://albiladdaily.com/",
+                "host_url": "http://albiladdaily.com/",
+                "parent_url": "https://albiladdaily.com/2023/10/02/%d8%a3%d8%b4%d8%a7%d8%af-%d8%a8%d8%ac%d9%87%d9%88%d8%af%d9%87%d8%a7-%d9%81%d9%8a-%d8%a7%d9%84%d8%aa%d9%88%d8%b9%d9%8a%d8%a9-%d8%a7%d9%84%d8%b9%d8%a7%d9%85%d8%a9-%d8%a3%d9%85%d9%8a%d8%b1-%d8%a7%d9%84/",
+                "lang": "ar",
+                "porn_level": 0,
+                "fluency_level": 0,
+                "DEPRECATED_spam_level": 0,
+                "sentiment": 5,
+                "source_type": [
+                    "BLOG",
+                    "BLOG_OTHER"
+                ],
+                "post_type": [
+                    "TEXT"
+                ],
+                "tokens_hashtag": [
+                    "#النتيجة_خير"
+                ],
+                "images": [
+                    {
+                        "url": "https://albiladdaily.com/wp-content/uploads/2023/10/3-3.jpg",
+                        "width": 650,
+                        "height": 350
+                    }
+                ],
+                "tags_internal": [
+                    "containsImage",
+                    "hasImage"
+                ],
+                "source_extended_attributes": {
+                    "alexa_pageviews": 170000,
+                    "alexa_unique_visitors": 130769,
+                    "semrush_pageviews": 66289,
+                    "semrush_unique_visitors": 63162
+                },
+                "extra_author_attributes": {
+                    "id": "ex:albiladdaily.com-1100779047",
+                    "name": "صحيفة البلاد",
+                    "gender": "UNKNOWN"
+                },
+                "extra_source_attributes": {
+                    "world_data": {
+                        "continent": "Asia",
+                        "country": "Saudi Arabia",
+                        "region": "Ar Riyad",
+                        "city": "Riyadh",
+                        "longitude": 46.7742919921875,
+                        "latitude": 24.63958740234375,
+                        "country_code": "sa",
+                        "resolution": "COUNTRY"
+                    },
+                    "id": "ex:albiladdaily.com",
+                    "name": "albiladdaily.com"
+                },
+                "engagement": 0,
+                "reach": 63162,
+                "entity_url": [
+                    {
+                        "url": "https://albiladdaily.com/wp-content/uploads/2023/10/44.jpg"
+                    },
+                    {
+                        "url": "https://albiladdaily.com/wp-content/uploads/2023/10/2-6.jpg"
+                    }
+                ],
+                "matched": {
+                    "task_id": "8dc3aba7-7283-428a-8176-2da36b6d9cb4"
+                },
+                "word_count": 199
+            }
+        }
+    }
+}
+{
+    "chunk_type": "CT_RESULT",
+    "chunk_result": {
+        "data": {
+            "data": {
+                "url": "https://ar.lemaghreb.tn/%D8%B3%D9%8A%D8%A7%D8%B3%D8%A9/%D8%A7%D9%84%D9%85%D8%BA%D8%B1%D8%A8-%D8%A7%D9%84%D9%8A%D9%88%D9%85/item/98435-%D8%A7%D9%84%D8%AD%D8%B4%D8%A7%D9%86%D9%8A-%D9%8A%D8%B3%D8%AA%D9%82%D8%A8%D9%84-%D8%A7%D9%84%D9%85%D8%B4%D8%A7%D8%B1%D9%83%D9%8A%D9%86-%D9%81%D9%8A-%D9%85%D9%86%D8%AA%D8%AF%D9%89-%D8%AD%D9%88%D9%84-%D8%A7%D9%84%D8%B9%D9%82%D8%AF-%D8%A7%D9%84%D8%B9%D8%B1%D8%A8%D9%8A-%D8%A7%D9%84%D8%AB%D8%A7%D9%86%D9%8A-%D9%84%D9%84%D8%A3%D8%B4%D8%AE%D8%A7%D8%B5-%D8%B0%D9%88%D9%8A-%D8%A7%D9%84%D8%A5%D8%B9%D8%A7%D9%82%D8%A9",
+                "indexed": 1696171216137,
+                "search_indexed": 1696171224765,
+                "published": 1696170911077,
+                "title": "الحشاني يستقبل المشاركين في منتدى حول العقد العربي الثاني للأشخاص ذوي الإعاقة",
+                "content": "وممثلين عن عدد من المنظمات الأممية والعربية والإقليمية ، وخبراء في مجال الإعاقة، وكبار المسؤولين ورؤساء الوفود المشاركين في المنتدى رفيع المستوى حول العقد العربي الثاني للأشخاص ذوي الإعاقة 2023 – 2032، الذي تحتضنه تونس ا...",
+                "title_snippet": "الحشاني يستقبل المشاركين في منتدى حول العقد العربي الثاني للأشخاص ذوي الإعاقة",
+                "content_snippet": "\n\nوللإشارة فإن العقد العربي الثاني يتضمن سبعة عشر (17) محورا تتعلق أساسا بالتشريعات والسياسات والخدمات الاجتماعية والصحية والتربوية وضمان <b>العيش</b> <b>باستقلالية</b> إضافة إلى المشاركة في الحياة السياسية والأنشطة الثقافية...",
+                "root_url": "https://ar.lemaghreb.tn/",
+                "domain_url": "http://lemaghreb.tn/",
+                "host_url": "http://ar.lemaghreb.tn/",
+                "parent_url": "https://ar.lemaghreb.tn/%D8%B3%D9%8A%D8%A7%D8%B3%D8%A9/%D8%A7%D9%84%D9%85%D8%BA%D8%B1%D8%A8-%D8%A7%D9%84%D9%8A%D9%88%D9%85/item/98435-%D8%A7%D9%84%D8%AD%D8%B4%D8%A7%D9%86%D9%8A-%D9%8A%D8%B3%D8%AA%D9%82%D8%A8%D9%84-%D8%A7%D9%84%D9%85%D8%B4%D8%A7%D8%B1%D9%83%D9%8A%D9%86-%D9%81%D9%8A-%D9%85%D9%86%D8%AA%D8%AF%D9%89-%D8%AD%D9%88%D9%84-%D8%A7%D9%84%D8%B9%D9%82%D8%AF-%D8%A7%D9%84%D8%B9%D8%B1%D8%A8%D9%8A-%D8%A7%D9%84%D8%AB%D8%A7%D9%86%D9%8A-%D9%84%D9%84%D8%A3%D8%B4%D8%AE%D8%A7%D8%B5-%D8%B0%D9%88%D9%8A-%D8%A7%D9%84%D8%A5%D8%B9%D8%A7%D9%82%D8%A9",
+                "lang": "ar",
+                "porn_level": 0,
+                "fluency_level": 0,
+                "DEPRECATED_spam_level": 0,
+                "sentiment": 5,
+                "source_type": [
+                    "ONLINENEWS",
+                    "ONLINENEWS_OTHER"
+                ],
+                "post_type": [
+                    "TEXT"
+                ],
+                "images": [
+                    {
+                        "url": "https://ar.lemaghreb.tn/media/k2/items/cache/6e0086134303b7ece68dddf1714e259c_M.jpg"
+                    }
+                ],
+                "tags_internal": [
+                    "containsImage",
+                    "hasImage"
+                ],
+                "source_extended_attributes": {
+                    "alexa_pageviews": 128804,
+                    "alexa_unique_visitors": 128804,
+                    "semrush_pageviews": 27154,
+                    "semrush_unique_visitors": 19598
+                },
+                "extra_author_attributes": {
+                    "id": "ex:ar.lemaghreb.tn-623002647",
+                    "name": "المغرب",
+                    "gender": "UNKNOWN"
+                },
+                "extra_source_attributes": {
+                    "world_data": {
+                        "continent": "Africa",
+                        "country": "Tunisia",
+                        "region": "Tunis",
+                        "city": "Tunis",
+                        "longitude": 10.1788330078125,
+                        "latitude": 36.80145263671875,
+                        "country_code": "tn",
+                        "resolution": "COUNTRY"
+                    },
+                    "id": "ex:ar.lemaghreb.tn",
+                    "name": "ar.lemaghreb.tn"
+                },
+                "engagement": 0,
+                "reach": 19598,
+                "matched": {
+                    "task_id": "8dc3aba7-7283-428a-8176-2da36b6d9cb4"
+                },
+                "word_count": 127
+            }
+        }
+    }
+}
+{
+    "chunk_type": "CT_RESULT",
+    "chunk_result": {
+        "data": {
+            "data": {
+                "url": "https://w6nnews.com/%d8%a7%d8%ae%d8%a8%d8%a7%d8%b1-%d8%aa%d9%88%d9%86%d8%b3/%d8%aa%d9%88%d9%86%d8%b3-%d9%85%d9%86%d8%aa%d8%af%d9%89-%d8%b1%d9%81%d9%8a%d8%b9-%d8%a7%d9%84%d9%85%d8%b3%d8%aa%d9%88%d9%89-%d9%81%d9%8a-%d8%aa%d9%88%d9%86%d8%b3-%d8%ad%d9%88%d9%84-%d8%a7/",
+                "indexed": 1696188733586,
+                "search_indexed": 1696188763557,
+                "published": 1696188511000,
+                "title": "‫منتدى رفيع المستوى في تونس حول العقد العربي للأشخاص ذوي الإعاقة • 1 أكتوبر, 2023",‬
+                "content": "نظمت وزارة الشؤون الاجتماعية ، اليوم بالعاصمة ،منتدى رفيـع المستـوى حول ” العقد العربي الثاني للأشخاص ذوي الإعاقة 2023-2032، بهدف ضبط مخطط عملي لتنفيذ هذا العقد العربي والمتضمن ل 17 محورا\n\nوسيتم خلال هذا المنتدى، الذي ين...",
+                "title_snippet": "‫منتدى رفيع المستوى في تونس حول العقد العربي للأشخاص ذوي الإعاقة • 1 أكتوبر, 2023",‬
+                "content_snippet": "\n\nوتتعلق هذه المحاور أساسا بالتشريعات والسياسات والخدمات الاجتماعية والصحية والتربوية وضمان <b>العيش</b> <b>باستقلالية</b>، إضافة إلى المشاركة في الحياة السياسية والأنشطة الثقافية والرياضية.\n\nمشاركة وزيرة شؤون الاعاقة الايطاليةوذكرت وزيرة شؤون الاعاقة الايطالية...",
+                "root_url": "https://w6nnews.com/",
+                "domain_url": "http://w6nnews.com/",
+                "host_url": "http://w6nnews.com/",
+                "parent_url": "https://w6nnews.com/%d8%a7%d8%ae%d8%a8%d8%a7%d8%b1-%d8%aa%d9%88%d9%86%d8%b3/%d8%aa%d9%88%d9%86%d8%b3-%d9%85%d9%86%d8%aa%d8%af%d9%89-%d8%b1%d9%81%d9%8a%d8%b9-%d8%a7%d9%84%d9%85%d8%b3%d8%aa%d9%88%d9%89-%d9%81%d9%8a-%d8%aa%d9%88%d9%86%d8%b3-%d8%ad%d9%88%d9%84-%d8%a7/",
+                "lang": "ar",
+                "porn_level": 0,
+                "fluency_level": 0,
+                "DEPRECATED_spam_level": 0,
+                "sentiment": 5,
+                "source_type": [
+                    "ONLINENEWS",
+                    "ONLINENEWS_OTHER"
+                ],
+                "post_type": [
+                    "TEXT"
+                ],
+                "tokens_title": [
+                    "اكتوبر 2023",
+                    "2023"
+                ],
+                "cluster_id": "https://www.jawharafm.net/ar/article/%D9%85%D9%86%D8%AA%D8%AF%D9%89-%D8%B1%D9%81%D9%8A%D8%B9-%D8%A7%D9%84%D9%85%D8%B3%D8%AA%D9%88%D9%89-%D9%81%D9%8A-%D8%AA%D9%88%D9%86%D8%B3-%D8%AD%D9%88%D9%84-%D8%A7%D9%84%D8%B9%D9%82%D8%AF-%D8%A7%D9%84%D8%B9%D8%B1%D8%A8%D9%8A-%D9%84%D9%84%D8%A3%D8%B4%D8%AE%D8%A7%D8%B5-%D8%B0%D9%88%D9%8A-%D8%A7%D9%84%D8%A5%D8%B9%D8%A7%D9%82%D8%A9/105/246032",
+                "source_extended_attributes": {
+                    "alexa_pageviews": 0,
+                    "alexa_unique_visitors": 0,
+                    "semrush_pageviews": 13756,
+                    "semrush_unique_visitors": 13154
+                },
+                "extra_author_attributes": {
+                    "id": "ex:w6nnews.com-1427679987",
+                    "name": "akhbar twns",
+                    "gender": "UNKNOWN"
+                },
+                "extra_source_attributes": {
+                    "world_data": {
+                        "continent": "Asia",
+                        "country": "Jordan",
+                        "region": "Amman",
+                        "city": "Amman",
+                        "longitude": 35.9307861328125,
+                        "latitude": 31.95098876953125,
+                        "country_code": "jo",
+                        "resolution": "COUNTRY"
+                    },
+                    "id": "ex:w6nnews.com",
+                    "name": "w6nnews.com"
+                },
+                "engagement": 0,
+                "reach": 13154,
+                "entity_url": [
+                    {
+                        "url": "https://www.facebook.com/plugins/video.php?height=314&amp;href=https%3A%2F%2Fwww.facebook.com%2Finfos.social.tn%2Fvideos%2F1386368155627684%2F&amp;show_text=false&amp;width=560&amp;t=0"
+                    }
+                ],
+                "matched": {
+                    "task_id": "8dc3aba7-7283-428a-8176-2da36b6d9cb4"
+                },
+                "word_count": 613
+            }
+        }
+    }
+}
+{
+    "chunk_type": "CT_RESULT",
+    "chunk_result": {
+        "data": {
+            "data": {
+                "url": "https://www.fananews.com/%d8%a7%d8%ac%d8%aa%d9%85%d8%a7%d8%b9%d9%8a-%d8%b3%d9%85%d9%88-%d8%a3%d9%85%d9%8a%d8%b1-%d9%85%d9%86%d8%b7%d9%82%d8%a9-%d8%a7%d9%84%d8%b1%d9%8a%d8%a7%d8%b6-%d9%8a%d8%af%d8%b4%d9%86-%d8%a7%d9%84%d8%ad/",
+                "indexed": 1696160651343,
+                "search_indexed": 1696160681420,
+                "published": 1696160439000,
+                "title": "اجتماعي / سمو أمير منطقة الرياض يدشن الحملة الوطنية التوعوية لسرطان الثدي 2023",
+                "content": "اجتماعي / سمو أمير منطقة الرياض يدشن الحملة الوطنية التوعوية لسرطان الثدي 2023\n\nدشن صاحب السمو الملكي الأمير فيصل بن بندر بن عبدالعزيز أمير منطقة الرياض في مكتبه بقصر الحكم اليوم، بحضور صاحب السمو الملكي الأمير محمد بن ع...",
+                "title_snippet": "اجتماعي / سمو أمير منطقة الرياض يدشن الحملة الوطنية التوعوية لسرطان الثدي 2023",
+                "content_snippet": "...جمعية “زهرة” لسرطان الثدي بالتعاون مع التحالف السعودي لجمعيات السرطان، وبرنامج <b>سند</b> <b>محمد</b> <b>بن</b> <b>سلمان</b>، وشركة “روشن”.  جاء ذلك خلال استقبال سموه، لصاحبة السمو الملكي الأميرة هيفاء بنت فيصل بن عبدالعزيز رئيس مجلس إدارة جمعية زهرة لسرطان الثدي، وعدد من...",
+                "root_url": "https://www.fananews.com/",
+                "domain_url": "http://fananews.com/",
+                "host_url": "http://www.fananews.com/",
+                "parent_url": "https://www.fananews.com/%d8%a7%d8%ac%d8%aa%d9%85%d8%a7%d8%b9%d9%8a-%d8%b3%d9%85%d9%88-%d8%a3%d9%85%d9%8a%d8%b1-%d9%85%d9%86%d8%b7%d9%82%d8%a9-%d8%a7%d9%84%d8%b1%d9%8a%d8%a7%d8%b6-%d9%8a%d8%af%d8%b4%d9%86-%d8%a7%d9%84%d8%ad/",
+                "lang": "ar",
+                "porn_level": 0,
+                "fluency_level": 0,
+                "sentiment": 5,
+                "source_type": [
+                    "ONLINENEWS",
+                    "ONLINENEWS_OTHER"
+                ],
+                "post_type": [
+                    "TEXT"
+                ],
+                "tokens_title": [
+                    "لسرطان الثدي 2023",
+                    "الثدي 2023",
+                    "2023"
+                ],
+                "tokens_hashtag": [
+                    "#النتيجة_خير"
+                ],
+                "source_extended_attributes": {
+                    "alexa_pageviews": 10000,
+                    "alexa_unique_visitors": 2000,
+                    "semrush_pageviews": 4448,
+                    "semrush_unique_visitors": 3921
+                },
+                "extra_author_attributes": {
+                    "id": "ex:www.fananews.com-114084",
+                    "name": "SPA",
+                    "gender": "UNKNOWN"
+                },
+                "extra_source_attributes": {
+                    "world_data": {
+                        "continent": "Africa",
+                        "country": "Morocco",
+                        "region": "Rabat - Salé - Zemmour - Zaer",
+                        "city": "Rabat",
+                        "longitude": -6.8389892578125,
+                        "latitude": 34.02740478515625,
+                        "country_code": "ma",
+                        "resolution": "COUNTRY"
+                    },
+                    "id": "ex:www.fananews.com",
+                    "name": "www.fananews.com"
+                },
+                "engagement": 0,
+                "reach": 3921,
+                "matched": {
+                    "task_id": "8dc3aba7-7283-428a-8176-2da36b6d9cb4"
+                },
+                "word_count": 221
+            }
+        }
+    }
+}
+{
+    "chunk_type": "CT_RESULT",
+    "chunk_result": {
+        "data": {
+            "data": {
+                "url": "https://www.khlaasa.net/1249654",
+                "indexed": 1696178971306,
+                "search_indexed": 1696178997277,
+                "published": 1696178863659,
+                "title": "الوزير الزعوري يترأس وفد وفد بلادنا في الملتقى العربي الثاني للاشخاص ذوي الاعاقة المنعقد بتونس.",
+                "content": "الوزير الزعوري يترأس وفد وفد بلادنا في الملتقى العربي الثاني للاشخاص ذوي الاعاقة المنعقد بتونس.\n\nمنذ 20 ثانية - 2023-10-01 [0] قراءة\n\nشبوة اليوم /متابعات\n\nانطلق صباح اليوم بتونس اعمال \"الملتقى العربي الثاني للأشخاص ذوي ا...",
+                "title_snippet": "الوزير الزعوري يترأس وفد وفد بلادنا في الملتقى العربي الثاني للاشخاص ذوي الاعاقة المنعقد بتونس.",
+                "content_snippet": "ويناقش الملتقى العربي الثاني سبعة عشر (17) محورا تتعلق أساسا بالتشريعات والسياسات والخدمات الاجتماعية والصحية والتربوية وضمان <b>العيش</b> <b>باستقلالية</b> إضافة إلى المشاركة في الحياة السياسية والأنشطة الثقافية والرياضية. كما سيتمّ على هامش المنتدى تنظيم دورة...",
+                "root_url": "https://www.khlaasa.net/",
+                "domain_url": "http://khlaasa.net/",
+                "host_url": "http://www.khlaasa.net/",
+                "parent_url": "https://www.khlaasa.net/1249654",
+                "lang": "ar",
+                "porn_level": 0,
+                "fluency_level": 0,
+                "DEPRECATED_spam_level": 0,
+                "sentiment": 5,
+                "source_type": [
+                    "ONLINENEWS",
+                    "ONLINENEWS_OTHER"
+                ],
+                "post_type": [
+                    "TEXT"
+                ],
+                "images": [
+                    {
+                        "url": "https://khlaasa.net/files/image_1696178843_35280265.jpeg",
+                        "width": 1080,
+                        "height": 762
+                    }
+                ],
+                "tags_internal": [
+                    "containsImage",
+                    "hasImage"
+                ],
+                "source_extended_attributes": {
+                    "alexa_pageviews": 10000,
+                    "alexa_unique_visitors": 10000,
+                    "semrush_pageviews": 0,
+                    "semrush_unique_visitors": 0
+                },
+                "extra_author_attributes": {
+                    "id": "ex:www.khlaasa.net-0",
+                    "gender": "UNKNOWN"
+                },
+                "extra_source_attributes": {
+                    "world_data": {
+                        "continent": "North America",
+                        "country": "United States",
+                        "region": "Washington, D.C.",
+                        "city": "Washington, D.C.",
+                        "longitude": -77.0086669921875,
+                        "latitude": 38.89984130859375,
+                        "country_code": "us",
+                        "resolution": "COUNTRY"
+                    },
+                    "id": "ex:www.khlaasa.net",
+                    "name": "www.khlaasa.net"
+                },
+                "engagement": 0,
+                "reach": 0,
+                "matched": {
+                    "task_id": "8dc3aba7-7283-428a-8176-2da36b6d9cb4"
+                },
+                "word_count": 187
+            }
+        }
+    }
+}
+{
+    "chunk_type": "CT_RESULT",
+    "chunk_result": {
+        "data": {
+            "data": {
+                "url": "https://khlaasa.net/1249617",
+                "indexed": 1696172663324,
+                "search_indexed": 1696172681024,
+                "published": 1696172589767,
+                "title": "الوزير الزعوري يشارك في الملتقى العربي الثاني للاشخاص ذوي الاعاقة المنعقد بتونس",
+                "content": "الوزير الزعوري يشارك في الملتقى العربي الثاني للاشخاص ذوي الاعاقة المنعقد بتونس\n\nمنذ 15 دقيقة - 2023-10-01 [20] قراءة\n\nانطلق صباح اليوم بتونس اعمال “الملتقى العربي الثاني للأشخاص ذوي الإعاقة 2023-2032 خلال الفترة 01-05 أ...",
+                "title_snippet": "الوزير الزعوري يشارك في الملتقى العربي الثاني للاشخاص ذوي الاعاقة المنعقد بتونس",
+                "content_snippet": "\n\nويناقش الملتقى العربي الثاني سبعة عشر (17) محورا تتعلق أساسا بالتشريعات والسياسات والخدمات الاجتماعية والصحية والتربوية وضمان <b>العيش</b> <b>باستقلالية</b> إضافة إلى المشاركة في الحياة السياسية والأنشطة الثقافية والرياضية.\n\nكما سيتمّ على هامش المنتدى تنظيم...",
+                "root_url": "https://khlaasa.net/",
+                "domain_url": "http://khlaasa.net/",
+                "host_url": "http://khlaasa.net/",
+                "parent_url": "https://khlaasa.net/1249617",
+                "lang": "ar",
+                "porn_level": 0,
+                "fluency_level": 0,
+                "DEPRECATED_spam_level": 0,
+                "sentiment": 5,
+                "source_type": [
+                    "ONLINENEWS",
+                    "ONLINENEWS_OTHER"
+                ],
+                "post_type": [
+                    "TEXT"
+                ],
+                "images": [
+                    {
+                        "url": "https://khlaasa.net/files/image_1696171686_33111277.jpg",
+                        "width": 650,
+                        "height": 360
+                    }
+                ],
+                "cluster_id": "https://adengad.net/posts/703950",
+                "tags_internal": [
+                    "containsImage",
+                    "hasImage"
+                ],
+                "source_extended_attributes": {
+                    "alexa_pageviews": 10000,
+                    "alexa_unique_visitors": 10000,
+                    "semrush_pageviews": 0,
+                    "semrush_unique_visitors": 0
+                },
+                "extra_author_attributes": {
+                    "id": "ex:khlaasa.net-0",
+                    "gender": "UNKNOWN"
+                },
+                "extra_source_attributes": {
+                    "world_data": {
+                        "continent": "North America",
+                        "country": "United States",
+                        "region": "Washington, D.C.",
+                        "city": "Washington, D.C.",
+                        "longitude": -77.0086669921875,
+                        "latitude": 38.89984130859375,
+                        "country_code": "us",
+                        "resolution": "COUNTRY"
+                    },
+                    "id": "ex:khlaasa.net",
+                    "name": "khlaasa.net"
+                },
+                "engagement": 0,
+                "reach": 0,
+                "matched": {
+                    "task_id": "8dc3aba7-7283-428a-8176-2da36b6d9cb4"
+                },
+                "word_count": 181
+            }
+        }
+    }
+}
+{
+    "chunk_type": "CT_RESULT",
+    "chunk_result": {
+        "data": {
+            "data": {
+                "url": "https://www.khlaasa.net/1249557",
+                "indexed": 1696166488841,
+                "search_indexed": 1696166495564,
+                "published": 1696166444354,
+                "title": "الوزير الزعوري يترأس وفد وفد بلادنا في الملتقى العربي الثاني للاشخاص ذوي الاعاقة المنعقد بتونس",
+                "content": "الوزير الزعوري يترأس وفد وفد بلادنا في الملتقى العربي الثاني للاشخاص ذوي الاعاقة المنعقد بتونس\n\nمنذ 8 دقيقة - 2023-10-01 [12] قراءة\n\nانطلق صباح اليوم بتونس اعمال \"الملتقى العربي الثاني للأشخاص ذوي الإعاقة 2023-2032 خلال ...",
+                "title_snippet": "الوزير الزعوري يترأس وفد وفد بلادنا في الملتقى العربي الثاني للاشخاص ذوي الاعاقة المنعقد بتونس",
+                "content_snippet": "\n\nويناقش الملتقى العربي الثاني سبعة عشر (17) محورا تتعلق أساسا بالتشريعات والسياسات والخدمات الاجتماعية والصحية والتربوية وضمان <b>العيش</b> <b>باستقلالية</b> إضافة إلى المشاركة في الحياة السياسية والأنشطة الثقافية والرياضية.\n\nكما سيتمّ على هامش المنتدى تنظيم...",
+                "root_url": "https://www.khlaasa.net/",
+                "domain_url": "http://khlaasa.net/",
+                "host_url": "http://www.khlaasa.net/",
+                "parent_url": "https://www.khlaasa.net/1249557",
+                "lang": "ar",
+                "porn_level": 0,
+                "fluency_level": 0,
+                "DEPRECATED_spam_level": 0,
+                "sentiment": 5,
+                "source_type": [
+                    "ONLINENEWS",
+                    "ONLINENEWS_OTHER"
+                ],
+                "post_type": [
+                    "TEXT"
+                ],
+                "images": [
+                    {
+                        "url": "https://khlaasa.net/files/image_1696165937_66273975.jpeg"
+                    }
+                ],
+                "cluster_id": "https://adengad.net/posts/703950",
+                "tags_internal": [
+                    "containsImage",
+                    "hasImage"
+                ],
+                "source_extended_attributes": {
+                    "alexa_pageviews": 10000,
+                    "alexa_unique_visitors": 10000,
+                    "semrush_pageviews": 0,
+                    "semrush_unique_visitors": 0
+                },
+                "extra_author_attributes": {
+                    "id": "ex:www.khlaasa.net-0",
+                    "gender": "UNKNOWN"
+                },
+                "extra_source_attributes": {
+                    "world_data": {
+                        "continent": "North America",
+                        "country": "United States",
+                        "region": "Washington, D.C.",
+                        "city": "Washington, D.C.",
+                        "longitude": -77.0086669921875,
+                        "latitude": 38.89984130859375,
+                        "country_code": "us",
+                        "resolution": "COUNTRY"
+                    },
+                    "id": "ex:www.khlaasa.net",
+                    "name": "www.khlaasa.net"
+                },
+                "engagement": 0,
+                "reach": 0,
+                "matched": {
+                    "task_id": "8dc3aba7-7283-428a-8176-2da36b6d9cb4"
+                },
+                "word_count": 184
+            }
+        }
+    }
+}
+{
+    "chunk_type": "CT_RESULT",
+    "chunk_result": {
+        "data": {
+            "data": {
+                "url": "http://www.radiotunisienne.tn/2023/10/01/%d9%86%d8%ad%d9%88-%d8%b6%d8%a8%d8%b7-%d9%85%d8%ae%d8%b7%d8%b7-%d8%b9%d9%85%d9%84%d9%8a-%d9%85%d9%86-%d8%a3%d8%ac%d9%84-%d8%aa%d9%86%d9%81%d9%8a%d8%b0-%d8%a7%d9%84%d8%b9%d9%82%d8%af-%d8%a7%d9%84%d8%b9/",
+                "indexed": 1696178949411,
+                "search_indexed": 1696178964246,
+                "published": 1696178828000,
+                "title": "نحو ضبط مخطط عملي من أجل تنفيذ العقد العربي الثاني للأشخاص ذوي الإعاقة 2023-2032 خلال منتدى رفيع المستوى بتونس",
+                "content": "نظمت وزارة الشؤون الاجتماعية ، اليوم السبت بالعاصمة ،منتدى رفيـع المستـوى حول » العقد العربي الثاني للأشخاص ذوي الإعاقة 2023-2032? بهدف ضبط مخطط عملي لتنفيذ هذا العقد العربي والمتضمن ل 17 محورا  وسيتم خلال هذا المنتدى، الذي ينتظم من 1 إلى 5 أكتوبر 2023 تحت إشراف رئيس الجمهورية ،العمل على تبادل التجارب و الخبرات العربية من أجل ضبط الآليات الكفيلة بتنفيذ المحاور ال 17 لهذا العقد الذي انبثق عن قرار القمّة العربية في دورتها 32 (السعودية، 19 ماي 2023).  وتتعلق هذه المحاور (17) أساسا بالتشريعات والسياسات والخدمات الاجتماعية والصحية والتربوية وضمان العيش باستقلالية، إضافة إلى المشاركة في الحياة السياسية والأنشطة الثقافية والرياضية.  وذكرت وزيرة شؤون الاعاقة الايطالية أليساندرا لوكاتيلي في كلمة ألقتها خلال المنتدى، أن ما يميز هذا العقد العربي الثاني للأشخاص ذوي الإعاقة أنه لا ينظر لهذه الفئة » كحاجز أو عقبة » بل يعتبرهم فئة قادرة ، ان وجدت الاحاطة اللازمة ،على المشاركة في التنمية الاقتصادية وعلى دفع بلدانهم نحو مزيد من التقدم .  و أضافت أن ايطاليا لن تتدخر جهدا لتوفير الدعم اللازم لتونس ولكافة الدول العربية من أجل تنفيذ العقد العربي الثاني للأشخاص ذوي الإعاقة 2023-2032 ، والذي من شأنه أن يعزز حقوق هذه الفئة من الأشخاص ويلبي حاجياتها الخصوصية على جميع الأصعدة الاجتماعية و الاقتصادية والسياسية والثقافية.  من جهتها بينت الأمينة العامة المساعدة رئيسة قطاع الشؤون الاجتماعية بجامعة الدول العربية هيفاء أبو غزالة،أن مخرجات هذا المنتدى وتوصياته سيتم طرحها في القمة التنموية العربية التي ستعقد بموريطانيا بعد عرضها على مجلس وزراء الشؤون الاجتماعية من أجل العمل على تنفيذها بصفة تشاركية .",
+                "title_snippet": "نحو ضبط مخطط عملي من أجل تنفيذ العقد العربي الثاني للأشخاص ذوي الإعاقة 2023-2032 خلال منتدى رفيع...",
+                "content_snippet": "وتتعلق هذه المحاور (17) أساسا بالتشريعات والسياسات والخدمات الاجتماعية والصحية والتربوية وضمان <b>العيش</b> <b>باستقلالية</b>، إضافة إلى المشاركة في الحياة السياسية والأنشطة الثقافية والرياضية.  وذكرت وزيرة شؤون الاعاقة الايطالية أليساندرا لوكاتيلي في كلمة...",
+                "root_url": "http://www.radiotunisienne.tn/",
+                "domain_url": "http://radiotunisienne.tn/",
+                "host_url": "http://www.radiotunisienne.tn/",
+                "parent_url": "http://www.radiotunisienne.tn/2023/10/01/%d9%86%d8%ad%d9%88-%d8%b6%d8%a8%d8%b7-%d9%85%d8%ae%d8%b7%d8%b7-%d8%b9%d9%85%d9%84%d9%8a-%d9%85%d9%86-%d8%a3%d8%ac%d9%84-%d8%aa%d9%86%d9%81%d9%8a%d8%b0-%d8%a7%d9%84%d8%b9%d9%82%d8%af-%d8%a7%d9%84%d8%b9/",
+                "lang": "ar",
+                "porn_level": 0,
+                "fluency_level": 0,
+                "DEPRECATED_spam_level": 0,
+                "sentiment": 0,
+                "source_type": [
+                    "BLOG",
+                    "BLOG_OTHER"
+                ],
+                "post_type": [
+                    "TEXT"
+                ],
+                "tokens_title": [
+                    "الاعاقه 202 2032",
+                    "ذوي الاعاقه 202",
+                    "2032 منتدي رفيع",
+                    "202 2032 منتدي",
+                    "الاعاقه 202",
+                    "2032 منتدي",
+                    "202 2032",
+                    "2032"
+                ],
+                "images": [
+                    {
+                        "url": "http://medias.radiotunisienne.tn/wp-content/uploads/2023/10/cache_660x660_Analog_medium_16672832_2772286_01102023.jpeg"
+                    }
+                ],
+                "tags_internal": [
+                    "containsImage",
+                    "hasImage",
+                    "isQuestion"
+                ],
+                "source_extended_attributes": {
+                    "alexa_pageviews": 40000,
+                    "alexa_unique_visitors": 17391,
+                    "semrush_pageviews": 1391,
+                    "semrush_unique_visitors": 1138
+                },
+                "extra_author_attributes": {
+                    "id": "ex:www.radiotunisienne.tn-1656699411",
+                    "name": "samira khiari",
+                    "gender": "FEMALE"
+                },
+                "extra_source_attributes": {
+                    "world_data": {
+                        "continent": "Africa",
+                        "country": "Tunisia",
+                        "region": "Tunis",
+                        "city": "Tunis",
+                        "longitude": 10.1788330078125,
+                        "latitude": 36.80145263671875,
+                        "country_code": "tn",
+                        "resolution": "COUNTRY"
+                    },
+                    "id": "ex:www.radiotunisienne.tn",
+                    "name": "www.radiotunisienne.tn"
+                },
+                "engagement": 0,
+                "reach": 1138,
+                "matched": {
+                    "task_id": "8dc3aba7-7283-428a-8176-2da36b6d9cb4"
+                },
+                "word_count": 241
+            }
+        }
+    }
+}
+{
+    "chunk_type": "CT_RESULT",
+    "chunk_result": {
+        "data": {
+            "data": {
+                "url": "https://dora.sa/250523",
+                "indexed": 1696167590583,
+                "search_indexed": 1696167620353,
+                "published": 1696167333000,
+                "title": "أمير منطقة الرياض يدشن الحملة الوطنية التوعوية لسرطان الثدي 2023",
+                "content": "دشن صاحب السمو الملكي الأمير فيصل بن بندر بن عبدالعزيز أمير منطقة الرياض في مكتبه بقصر الحكم اليوم، بحضور صاحب السمو الملكي الأمير محمد بن عبدالرحمن بن عبدالعزيز نائب أمير المنطقة، الحملة الوطنية التوعوية بسرطان الثدي 20...",
+                "title_snippet": "أمير منطقة الرياض يدشن الحملة الوطنية التوعوية لسرطان الثدي 2023",
+                "content_snippet": "...جمعية “زهرة” لسرطان الثدي بالتعاون مع التحالف السعودي لجمعيات السرطان، وبرنامج <b>سند</b> <b>محمد</b> <b>بن</b> <b>سلمان</b>، ومجموعة “روشن”.  جاء ذلك خلال استقبال سموه، لصاحبة السمو الملكي الأميرة هيفاء بنت فيصل بن عبدالعزيز رئيس مجلس إدارة جمعية زهرة لسرطان الثدي، وعدد من...",
+                "root_url": "https://dora.sa/",
+                "domain_url": "http://dora.sa/",
+                "host_url": "http://dora.sa/",
+                "parent_url": "https://dora.sa/250523",
+                "lang": "ar",
+                "porn_level": 0,
+                "fluency_level": 0,
+                "DEPRECATED_spam_level": 0,
+                "sentiment": 5,
+                "source_type": [
+                    "ONLINENEWS",
+                    "ONLINENEWS_OTHER"
+                ],
+                "post_type": [
+                    "TEXT"
+                ],
+                "tokens_title": [
+                    "لسرطان الثدي 2023",
+                    "الثدي 2023",
+                    "2023"
+                ],
+                "tokens_hashtag": [
+                    "#النتيجة_خير"
+                ],
+                "images": [
+                    {
+                        "url": "https://dora.sa/wp-content/uploads/2023/10/F7WrlstXkAAn9OW.jpg",
+                        "width": 1600,
+                        "height": 848
+                    }
+                ],
+                "cluster_id": "https://www.al-madina.com/article/856291/%D8%B5%D8%AD%D8%A9/%D8%A3%D9%85%D9%8A%D8%B1-%D9%85%D9%86%D8%B7%D9%82%D8%A9-%D8%A7%D9%84%D8%B1%D9%8A%D8%A7%D8%B6-%D9%8A%D8%AF%D8%B4%D9%86-%D8%A7%D9%84%D8%AD%D9%85%D9%84%D8%A9-%D8%A7%D9%84%D9%88%D8%B7%D9%86%D9%8A%D8%A9-%D8%A7%D9%84%D8%AA%D9%88%D8%B9%D9%88%D9%8A%D8%A9-%D9%84%D8%B3%D8%B1%D8%B7%D8%A7%D9%86-%D8%A7%D9%84%D8%AB%D8%AF%D9%8A-2023",
+                "tags_internal": [
+                    "containsImage",
+                    "hasImage"
+                ],
+                "source_extended_attributes": {
+                    "alexa_pageviews": 20000,
+                    "alexa_unique_visitors": 20000,
+                    "semrush_pageviews": 8484,
+                    "semrush_unique_visitors": 8484
+                },
+                "extra_author_attributes": {
+                    "id": "ex:dora.sa-2133811654",
+                    "name": "الاسم *",
+                    "gender": "UNKNOWN"
+                },
+                "extra_source_attributes": {
+                    "world_data": {
+                        "continent": "Asia",
+                        "country": "Saudi Arabia",
+                        "region": "Ar Riyad",
+                        "city": "Riyadh",
+                        "longitude": 46.7742919921875,
+                        "latitude": 24.63958740234375,
+                        "country_code": "sa",
+                        "resolution": "COUNTRY"
+                    },
+                    "id": "ex:dora.sa",
+                    "name": "dora.sa"
+                },
+                "engagement": 0,
+                "reach": 8484,
+                "entity_url": [
+                    {
+                        "url": "https://dora.sa/wp-content/uploads/2023/10/F7Wrn6jW8AADBsj.jpg"
+                    },
+                    {
+                        "url": "https://dora.sa/wp-content/uploads/2023/10/F7WrdfbWYAA163O.jpg"
+                    },
+                    {
+                        "url": "https://dora.sa/wp-content/uploads/2023/10/F7Wr-2-XIAAyh0L.jpg"
+                    }
+                ],
+                "matched": {
+                    "task_id": "8dc3aba7-7283-428a-8176-2da36b6d9cb4"
+                },
+                "word_count": 208
+            }
+        }
+    }
+}
+{
+    "chunk_type": "CT_RESULT",
+    "chunk_result": {
+        "data": {
+            "data": {
+                "url": "http://www.radiotataouine.tn/%d9%86%d8%ad%d9%88-%d8%b6%d8%a8%d8%b7-%d9%85%d8%ae%d8%b7%d8%b7-%d8%b9%d9%85%d9%84%d9%8a-%d9%85%d9%86-%d8%a3%d8%ac%d9%84-%d8%aa%d9%86%d9%81%d9%8a%d8%b0-%d8%a7%d9%84%d8%b9%d9%82%d8%af-%d8%a7%d9%84%d8%b9/",
+                "indexed": 1696180683215,
+                "search_indexed": 1696180686402,
+                "published": 1696178774000,
+                "title": "نحو ضبط مخطط عملي من أجل تنفيذ العقد العربي الثاني للأشخاص ذوي الإعاقة 2023- 2032 خلال منتدى رفيع المستوى بتونس",
+                "content": "نظمت وزارة الشؤون الاجتماعية ، اليوم السبت بالعاصمة ،منتدى رفيـع المستـوى حول » العقد العربي الثاني للأشخاص ذوي الإعاقة 2023-2032? بهدف ضبط مخطط عملي لتنفيذ هذا العقد العربي والمتضمن ل 17 محورا  وسيتم خلال هذا المنتدى، الذي ينتظم من 1 إلى 5 أكتوبر 2023 تحت إشراف رئيس الجمهورية ،العمل على تبادل التجارب و الخبرات العربية من أجل ضبط الآليات الكفيلة بتنفيذ المحاور ال 17 لهذا العقد الذي انبثق عن قرار القمّة العربية في دورتها 32 (السعودية، 19 ماي 2023).  وتتعلق هذه المحاور (17) أساسا بالتشريعات والسياسات والخدمات الاجتماعية والصحية والتربوية وضمان العيش باستقلالية، إضافة إلى المشاركة في الحياة السياسية والأنشطة الثقافية والرياضية.  وذكرت وزيرة شؤون الاعاقة الايطالية أليساندرا لوكاتيلي في كلمة ألقتها خلال المنتدى، أن ما يميز هذا العقد العربي الثاني للأشخاص ذوي الإعاقة أنه لا ينظر لهذه الفئة » كحاجز أو عقبة » بل يعتبرهم فئة قادرة ، ان وجدت الاحاطة اللازمة ،على المشاركة في التنمية الاقتصادية وعلى دفع بلدانهم نحو مزيد من التقدم .  و أضافت أن ايطاليا لن تتدخر جهدا لتوفير الدعم اللازم لتونس ولكافة الدول العربية من أجل تنفيذ العقد العربي الثاني للأشخاص ذوي الإعاقة 2023-2032 ، والذي من شأنه أن يعزز حقوق هذه الفئة من الأشخاص ويلبي حاجياتها الخصوصية على جميع الأصعدة الاجتماعية و الاقتصادية والسياسية والثقافية.  من جهتها بينت الأمينة العامة المساعدة رئيسة قطاع الشؤون الاجتماعية بجامعة الدول العربية هيفاء أبو غزالة،أن مخرجات هذا المنتدى وتوصياته سيتم طرحها في القمة التنموية العربية التي ستعقد بموريطانيا بعد عرضها على مجلس وزراء الشؤون الاجتماعية من أجل العمل على تنفيذها بصفة تشاركية .  كما أكد وزير الشؤون الاجتماعية مالك الزاهي أن تونس ستعمل على التنسيق التام مع الأشقاء العرب للمضي قدما في تطبيق العقد العربي الثاني للأشخاص ذوي الاعاقة وموائمة التشريعات الوطنية بما يساعد على تنفيذ احكامه.  ولفت الى أن تونس تعمل على صياغة قوانين واستراتيجيّات وسياسات جديدة تعكس التغيّرات التي طرأت على مفهوم الإعاقة، وتساهم في تنفيذ أحكام اتّفاقيّة الأمم المتّحدة بشأن حقوق الأشخاص ذوي الإعاقة والعقد العربي للأشخاص ذوي الإعاقة الثاني 2023 – 2032.  وبين أن تونس استطاعت أن تقطع أشواطا متقدمة في طريق المساواة الكاملة والمشاركة الفعلية وتكافؤ الفرص بين مختلف فئات المجتمع مضيفا انه تم تعزيز مرجعاتها القانونية والتشريعية بسن قانون لحماية الأشخاص ذوي الإعاقة والنهوض بهم خلال سنة 2005 مستلهمة أحكامه من روح الاتفاقية الدولية.  وأشارالزاهي الى أن تونس شرعت في تنفيذ إصلاحات جريئة في كل المجالات التي لها علاقة بالإعاقة من مراجعة للسياسات والبرامج وموائمتها مع المقاربات الحديثة في المجال حيث تم الانطلاق في مراجعة قطاع التربية المختصة من خلال إصدار الامر عدد 930 لسنة 2022 مؤرخ في 7 ديسمبر 2022 المتعلق باحداث المركز الدولي للنهوض بالأشخاص ذوي الإعاقة بما ساهم في تحقيق أقصى درجات الاستفادة لفائدة الأطفال ذوي الإعاقة، حيث تم الانطلاق في إعادة هيكلة مجال التربية المختصة والذي سيمثل دفعا هاما لعملية إصلاح القطاع.  وأضاف أن تونس تعمل على ترسيخ حق الأشخاص ذوي الإعاقة في استغلال تكنولوجيات الاتصال الحديثة لدعم مسارات إدماجهم في الحياة العامة وتيسير وصولهم للخدمات وتحقيق استفادتهم مما تتيحه وسائل الثقافة الرقمية من أبعاد إدماجيه.  يذكر أنه يتم على هامش هذا المنتدى تنظيم برنامج لتبادل الزيارات للاطّلاع على التجارب الاجتماعية الرائدة في في تونس وذلك على المستــوى الوزاري ولضيوف الشرف يومي 1 و2 أكتوبر 2023 وكذلك على مستوى كبار المسؤولين من 1 إلى 5 أكتوبر 2023.  كما سيتمّ على هامش المنتدى حول العقد العربي للأشخاص ذوي الإعاقة تنظيم دورة غير عادية لمجلس وزراء الشؤون الاجتماعية العرب للنظر في المواضيع الاجتماعية المدرجة على جدول أعمال الدورة الخامسة « للقمة العربية التنموية: الاقتصادية والاجتماعية » التي ستنعقد بالجمهورية الإسلامية الموريتانية والتي من ضمنها الموضوع المقترح من قبل وزارة الشؤون الاجتماعية حول » إعداد استراتيجية عربية حديثة لتطوير الإحصائيات – نظم إحصائية متطورة في خدمة تنمية شاملة ومستدامة » .  جدير بالذكر أن البلدان العربيّة كانت قد أعلنت عن العقد العربيّ الأول للأشخاص ذوي الإعاقة (2004-2013) وذلك خلال القمّة العربيّة التي انعقدت في تونس في سنة 2004.",
+                "title_snippet": "نحو ضبط مخطط عملي من أجل تنفيذ العقد العربي الثاني للأشخاص ذوي الإعاقة 2023- 2032 خلال منتدى رفيع...",
+                "content_snippet": "وتتعلق هذه المحاور (17) أساسا بالتشريعات والسياسات والخدمات الاجتماعية والصحية والتربوية وضمان <b>العيش</b> <b>باستقلالية</b>، إضافة إلى المشاركة في الحياة السياسية والأنشطة الثقافية والرياضية.  وذكرت وزيرة شؤون الاعاقة الايطالية أليساندرا لوكاتيلي في كلمة...",
+                "root_url": "http://www.radiotataouine.tn/",
+                "domain_url": "http://radiotataouine.tn/",
+                "host_url": "http://www.radiotataouine.tn/",
+                "parent_url": "http://www.radiotataouine.tn/%d9%86%d8%ad%d9%88-%d8%b6%d8%a8%d8%b7-%d9%85%d8%ae%d8%b7%d8%b7-%d8%b9%d9%85%d9%84%d9%8a-%d9%85%d9%86-%d8%a3%d8%ac%d9%84-%d8%aa%d9%86%d9%81%d9%8a%d8%b0-%d8%a7%d9%84%d8%b9%d9%82%d8%af-%d8%a7%d9%84%d8%b9/",
+                "lang": "ar",
+                "porn_level": 0,
+                "fluency_level": 0,
+                "DEPRECATED_spam_level": 0,
+                "sentiment": 0,
+                "source_type": [
+                    "BLOG",
+                    "BLOG_OTHER"
+                ],
+                "post_type": [
+                    "TEXT"
+                ],
+                "tokens_title": [
+                    "الاعاقه 202 2032",
+                    "ذوي الاعاقه 202",
+                    "2032 منتدي رفيع",
+                    "202 2032 منتدي",
+                    "الاعاقه 202",
+                    "2032 منتدي",
+                    "202 2032",
+                    "2032"
+                ],
+                "images": [
+                    {
+                        "url": "http://medias.radiotataouine.tn/wp-content/uploads/2023/10/Capture.jpg"
+                    }
+                ],
+                "tags_internal": [
+                    "containsImage",
+                    "hasImage",
+                    "isQuestion"
+                ],
+                "source_extended_attributes": {
+                    "alexa_pageviews": 0,
+                    "alexa_unique_visitors": 0,
+                    "semrush_pageviews": 691,
+                    "semrush_unique_visitors": 478
+                },
+                "extra_author_attributes": {
+                    "id": "ex:www.radiotataouine.tn-2102856375",
+                    "name": "Anouar Ben Yahya",
+                    "gender": "MALE"
+                },
+                "extra_source_attributes": {
+                    "world_data": {
+                        "continent": "Africa",
+                        "country": "Tunisia",
+                        "region": "Tunis",
+                        "city": "Tunis",
+                        "longitude": 10.1788330078125,
+                        "latitude": 36.80145263671875,
+                        "country_code": "tn",
+                        "resolution": "COUNTRY"
+                    },
+                    "id": "ex:www.radiotataouine.tn",
+                    "name": "www.radiotataouine.tn"
+                },
+                "engagement": 0,
+                "reach": 478,
+                "matched": {
+                    "task_id": "8dc3aba7-7283-428a-8176-2da36b6d9cb4"
+                },
+                "word_count": 607
+            }
+        }
+    }
+}
+{
+    "chunk_type": "CT_RESULT",
+    "chunk_result": {
+        "data": {
+            "data": {
+                "url": "https://www.sayidaty.net/%D8%A8%D9%84%D8%B3/%D8%A3%D8%AE%D8%A8%D8%A7%D8%B1/1678326-%D8%AA%D8%AD%D8%AA-%D8%B4%D8%B9%D8%A7%D8%B1-%D8%A7%D9%84%D9%86%D8%AA%D9%8A%D8%AC%D8%A9-%D8%AE%D9%8A%D8%B1-%D8%A3%D9%85%D9%8A%D8%B1-%D8%A7%D9%84%D8%B1%D9%8A%D8%A7%D8%B6-%D9%8A%D8%AF%D8%B4%D9%86-%D8%A7%D9%84%D8%AD%D9%85%D9%84%D8%A9-%D8%A7%D9%84%D9%88%D8%B7%D9%86%D9%8A%D8%A9-%D8%A7%D9%84%D8%AA%D9%88%D8%B9%D9%88%D9%8A%D8%A9-%D9%84%D8%B3%D8%B1%D8%B7%D8%A7%D9%86-%D8%A7%D9%84%D8%AB%D8%AF%D9%8A-2023",
+                "indexed": 1696171700417,
+                "search_indexed": 1696171721577,
+                "published": 1696170864713,
+                "title": "تحت شعار \"النتيجة خير\".. أمير الرياض يدشن الحملة الوطنية التوعوية لسرطان الثدي 2023",
+                "content": "أمير الرياض يدشن الحملة الوطنية التوعوية لسرطان الثدي 2023\n\nخلال تدشين حملة هذا العام تحت شعار \"النتيجة خير\"\n\nدشن الأمير فيصل بن بندر بن عبدالعزيز أمير منطقة الرياض في مكتبه بقصر الحكم اليوم، بحضور الأمير محمد بن عبدالرح...",
+                "title_snippet": "تحت شعار &quot;النتيجة خير&quot;.. أمير الرياض يدشن الحملة الوطنية التوعوية لسرطان الثدي 2023",
+                "content_snippet": "...جمعية &quot;زهرة&quot; لسرطان الثدي بالتعاون مع التحالف السعودي لجمعيات السرطان، وبرنامج <b>سند</b> <b>محمد</b> <b>بن</b> <b>سلمان</b>، ومجموعة &quot;روشن&quot;.\n\nالتوعية بسرطان الثدي\n\nوحضر التدشين الأميرة هيفاء بنت فيصل بن عبدالعزيز رئيس مجلس إدارة جمعية زهرة لسرطان الثدي، وعدد من أعضاء مجلس...",
+                "root_url": "https://www.sayidaty.net/",
+                "domain_url": "http://sayidaty.net/",
+                "host_url": "http://www.sayidaty.net/",
+                "parent_url": "https://www.sayidaty.net/%D8%A8%D9%84%D8%B3/%D8%A3%D8%AE%D8%A8%D8%A7%D8%B1/1678326-%D8%AA%D8%AD%D8%AA-%D8%B4%D8%B9%D8%A7%D8%B1-%D8%A7%D9%84%D9%86%D8%AA%D9%8A%D8%AC%D8%A9-%D8%AE%D9%8A%D8%B1-%D8%A3%D9%85%D9%8A%D8%B1-%D8%A7%D9%84%D8%B1%D9%8A%D8%A7%D8%B6-%D9%8A%D8%AF%D8%B4%D9%86-%D8%A7%D9%84%D8%AD%D9%85%D9%84%D8%A9-%D8%A7%D9%84%D9%88%D8%B7%D9%86%D9%8A%D8%A9-%D8%A7%D9%84%D8%AA%D9%88%D8%B9%D9%88%D9%8A%D8%A9-%D9%84%D8%B3%D8%B1%D8%B7%D8%A7%D9%86-%D8%A7%D9%84%D8%AB%D8%AF%D9%8A-2023",
+                "lang": "ar",
+                "porn_level": 0,
+                "fluency_level": 0,
+                "DEPRECATED_spam_level": 0,
+                "sentiment": 5,
+                "source_type": [
+                    "ONLINENEWS",
+                    "ONLINENEWS_OTHER"
+                ],
+                "post_type": [
+                    "TEXT"
+                ],
+                "tokens_title": [
+                    "لسرطان الثدي 2023",
+                    "الثدي 2023",
+                    "2023"
+                ],
+                "tokens_hashtag": [
+                    "#أمير",
+                    "#سرطان",
+                    "#الحملة",
+                    "#جمعية",
+                    "#أخبار",
+                    "#الفحص"
+                ],
+                "images": [
+                    {
+                        "url": "https://www.sayidaty.net/s3/files/styles/1375_scale/public/2023-10/287916.jpg",
+                        "width": 1375,
+                        "height": 1154
+                    }
+                ],
+                "tags_internal": [
+                    "containsImage",
+                    "hasImage"
+                ],
+                "article_extended_attributes": {
+                    "twitter_shares": 1
+                },
+                "source_extended_attributes": {
+                    "alexa_pageviews": 3200000,
+                    "alexa_unique_visitors": 1280000,
+                    "semrush_pageviews": 3663419,
+                    "semrush_unique_visitors": 2338241
+                },
+                "extra_author_attributes": {
+                    "id": "ex:www.sayidaty.net-0",
+                    "gender": "UNKNOWN"
+                },
+                "extra_source_attributes": {
+                    "world_data": {
+                        "continent": "Asia",
+                        "country": "United Arab Emirates",
+                        "region": "Abu Dhabi",
+                        "city": "Abu Dhabi (emirate)",
+                        "longitude": 54.3658447265625,
+                        "latitude": 24.46929931640625,
+                        "country_code": "ae",
+                        "resolution": "COUNTRY"
+                    },
+                    "id": "ex:www.sayidaty.net",
+                    "name": "www.sayidaty.net"
+                },
+                "engagement": 1,
+                "reach": 2338241,
+                "entity_url": [
+                    {
+                        "url": "https://www.sayidaty.net/category/tags/%D8%B3%D8%B1%D8%B7%D8%A7%D9%86-%D8%A7%D9%84%D8%AB%D8%AF%D9%8A"
+                    },
+                    {
+                        "url": "https://www.sayidaty.net/category/tags/%D8%A7%D9%84%D9%83%D8%B4%D9%81-%D8%A7%D9%84%D9%85%D8%A8%D9%83%D8%B1"
+                    },
+                    {
+                        "url": "https://www.sayidaty.net/category/tags/%D8%B4%D9%87%D8%B1-%D8%A3%D9%83%D8%AA%D9%88%D8%A8%D8%B1"
+                    },
+                    {
+                        "url": "https://www.sayidaty.net/category/tags/%D8%A7%D9%84%D9%85%D8%A8%D8%A7%D8%AF%D8%B1%D8%A7%D8%AA"
+                    },
+                    {
+                        "url": "https://www.sayidaty.net/category/tags/%D8%AC%D9%85%D8%B9%D9%8A%D8%A9-%D8%B2%D9%87%D8%B1%D8%A9"
+                    },
+                    {
+                        "url": "https://www.sayidaty.net/category/tags/%D9%88%D8%B1%D8%B4-%D8%A7%D9%84%D8%B9%D9%85%D9%84"
+                    }
+                ],
+                "matched": {
+                    "task_id": "8dc3aba7-7283-428a-8176-2da36b6d9cb4"
+                },
+                "word_count": 408
+            }
+        }
+    }
+}
+{
+    "chunk_type": "CT_RESULT",
+    "chunk_result": {
+        "data": {
+            "data": {
+                "url": "http://www.radiomonastir.tn/%d8%b1%d8%a6%d9%8a%d8%b3-%d8%a7%d9%84%d8%ad%d9%83%d9%88%d9%85%d8%a9-%d9%8a%d8%b3%d8%aa%d9%82%d8%a8%d9%84-%d9%88%d8%b2%d8%b1%d8%a7%d8%a1-%d8%a7%d9%84%d8%b4%d8%a4%d9%88%d9%86-%d8%a7%d9%84%d8%a7%d8%ac/",
+                "indexed": 1696172024338,
+                "search_indexed": 1696172039050,
+                "published": 1696166224000,
+                "title": "رئيس الحكومة يستقبل وزراء الشؤون الاجتماعية وكبار المسؤولين المشاركين في المنتدى حول العقد العربي الثاني للأشخاص ذوي الإعاقة",
+                "content": "استقبل رئيس الحكومة، أحمد الحشّاني، اليوم الأحد، بقصر الحكومة بالقصبة، وزراء الشؤون الاجتماعية، وممثلين عن عدد من المنظمات الأممية والعربية والاقليمية ، وخبراء في مجال الاعاقة، وكبار المسؤولين ورؤساء الوفود المشاركين في المنتدى رفيع المستوى حول العقد العربي الثاني للأشخاص ذوي الإعاقة 2023 – 2032، الذي تحتضنه تونس اليوم وغدا تحت سامي إشراف رئيس الجمهرية قيس سعيد.  ويعتبر العقد العربي الثاني للأشخاص ذوي الإعاقة 2023 – 2032 تتويجا لجهود الدول العربية تحت إشراف جامعة الدول العربية (مبادرة الأمين العام) في دعم السياسات والبرامج والآليات التي تؤمّنهــا هذه الدول لفائدة هذه الفئة من المجتمع وسيمثّل إطارا مرجعيّا للدول العربية لحماية ورعاية وتأهيل الأشخاص ذوي الإعاقة وإدماجهم في الحياة الاقتصادية والاجتماعية ضمانا لمبدأ تكافؤ الفرص.  وللاشارة فإن العقد العربي الثاني يتضمن سبعة عشر (17) محورا تتعلق أساسا بالتشريعات والسياسات والخدمات الاجتماعية والصحية والتربوية وضمان العيش باستقلالية إضافة إلى المشاركة في الحياة السياسية والأنشطة الثقافية والرياضية.\n\nThe post رئيس الحكومة يستقبل وزراء الشؤون الاجتماعية وكبار المسؤولين المشاركين في المنتدى حول العقد العربي الثاني للأشخاص ذوي الإعاقة appeared first on إذاعة المنستير.",
+                "title_snippet": "رئيس الحكومة يستقبل وزراء الشؤون الاجتماعية وكبار المسؤولين المشاركين في المنتدى حول العقد العربي...",
+                "content_snippet": "وللاشارة فإن العقد العربي الثاني يتضمن سبعة عشر (17) محورا تتعلق أساسا بالتشريعات والسياسات والخدمات الاجتماعية والصحية والتربوية وضمان <b>العيش</b> <b>باستقلالية</b> إضافة إلى المشاركة في الحياة السياسية والأنشطة الثقافية والرياضية.\n\nThe post رئيس الحكومة...",
+                "root_url": "http://www.radiomonastir.tn/",
+                "domain_url": "http://radiomonastir.tn/",
+                "host_url": "http://www.radiomonastir.tn/",
+                "parent_url": "http://www.radiomonastir.tn/%d8%b1%d8%a6%d9%8a%d8%b3-%d8%a7%d9%84%d8%ad%d9%83%d9%88%d9%85%d8%a9-%d9%8a%d8%b3%d8%aa%d9%82%d8%a8%d9%84-%d9%88%d8%b2%d8%b1%d8%a7%d8%a1-%d8%a7%d9%84%d8%b4%d8%a4%d9%88%d9%86-%d8%a7%d9%84%d8%a7%d8%ac/",
+                "lang": "ar",
+                "porn_level": 0,
+                "fluency_level": 0,
+                "DEPRECATED_spam_level": 0,
+                "sentiment": 0,
+                "source_type": [
+                    "BLOG",
+                    "BLOG_OTHER"
+                ],
+                "post_type": [
+                    "TEXT"
+                ],
+                "images": [
+                    {
+                        "url": "http://medias.radiomonastir.tn/wp-content/uploads/2023/10/385860424_695606435930524_3263565003616392226_n.jpg",
+                        "width": 1600,
+                        "height": 963
+                    }
+                ],
+                "tags_internal": [
+                    "containsImage",
+                    "hasImage"
+                ],
+                "source_extended_attributes": {
+                    "alexa_pageviews": 0,
+                    "alexa_unique_visitors": 0,
+                    "semrush_pageviews": 15672,
+                    "semrush_unique_visitors": 10256
+                },
+                "extra_author_attributes": {
+                    "id": "ex:www.radiomonastir.tn-1730483930",
+                    "name": "asma elbaccouche",
+                    "gender": "FEMALE"
+                },
+                "extra_source_attributes": {
+                    "world_data": {
+                        "continent": "Africa",
+                        "country": "Tunisia",
+                        "region": "Tunis",
+                        "city": "Tunis",
+                        "longitude": 10.1788330078125,
+                        "latitude": 36.80145263671875,
+                        "country_code": "tn",
+                        "resolution": "COUNTRY"
+                    },
+                    "id": "ex:www.radiomonastir.tn",
+                    "name": "www.radiomonastir.tn"
+                },
+                "engagement": 0,
+                "reach": 10256,
+                "entity_url": [
+                    {
+                        "url": "http://www.radiomonastir.tn/%d8%b1%d8%a6%d9%8a%d8%b3-%d8%a7%d9%84%d8%ad%d9%83%d9%88%d9%85%d8%a9-%d9%8a%d8%b3%d8%aa%d9%82%d8%a8%d9%84-%d9%88%d8%b2%d8%b1%d8%a7%d8%a1-%d8%a7%d9%84%d8%b4%d8%a4%d9%88%d9%86-%d8%a7%d9%84%d8%a7%d8%ac/"
+                    },
+                    {
+                        "url": "http://www.radiomonastir.tn"
+                    }
+                ],
+                "matched": {
+                    "task_id": "8dc3aba7-7283-428a-8176-2da36b6d9cb4"
+                },
+                "word_count": 165
+            }
+        }
+    }
+}
+{
+    "chunk_type": "CT_RESULT",
+    "chunk_result": {
+        "data": {
+            "data": {
+                "url": "https://www.al-omana.net/news207753.html",
+                "indexed": 1696167100537,
+                "search_indexed": 1696167103717,
+                "published": 1696165748407,
+                "title": "الوزير الزعوري يترأس وفد وفد بلادنا في الملتقى العربي الثاني للاشخاص ذوي الاعاقة المنعقد بتونس - الأمناء نت",
+                "content": "انطلق صباح اليوم بتونس اعمال \"الملتقى العربي الثاني للأشخاص ذوي الإعاقة 2023-2032 خلال الفترة 01-05 أكتوبر 2023)\".\n\nوتشارك بلادنا بوفد يرأسه معالي وزير الشؤون الاجتماعية والعمل الدكتور محمد سعيد الزعوري وعضوية الدكتورة ن...",
+                "title_snippet": "الوزير الزعوري يترأس وفد وفد بلادنا في الملتقى العربي الثاني للاشخاص ذوي الاعاقة المنعقد بتونس...",
+                "content_snippet": "\n\nويناقش الملتقى العربي الثاني سبعة عشر (17) محورا تتعلق أساسا بالتشريعات والسياسات والخدمات الاجتماعية والصحية والتربوية وضمان <b>العيش</b> <b>باستقلالية</b> إضافة إلى المشاركة في الحياة السياسية والأنشطة الثقافية والرياضية.\n\nكما سيتمّ على هامش المنتدى تنظيم...",
+                "root_url": "https://www.al-omana.net/",
+                "domain_url": "http://al-omana.net/",
+                "host_url": "http://www.al-omana.net/",
+                "parent_url": "https://www.al-omana.net/news207753.html",
+                "lang": "ar",
+                "porn_level": 0,
+                "fluency_level": 0,
+                "DEPRECATED_spam_level": 0,
+                "sentiment": 5,
+                "source_type": [
+                    "ONLINENEWS",
+                    "ONLINENEWS_OTHER"
+                ],
+                "post_type": [
+                    "TEXT"
+                ],
+                "images": [
+                    {
+                        "url": "https://al-omana.net/media/imgs/news/01-10-2023-01-10-47.jpeg"
+                    }
+                ],
+                "cluster_id": "https://adengad.net/posts/703950",
+                "tags_internal": [
+                    "containsImage",
+                    "hasImage"
+                ],
+                "source_extended_attributes": {
+                    "alexa_pageviews": 70000,
+                    "alexa_unique_visitors": 70000,
+                    "semrush_pageviews": 61651,
+                    "semrush_unique_visitors": 19421
+                },
+                "extra_author_attributes": {
+                    "id": "ex:www.al-omana.net-1745590674",
+                    "name": "alamnaʾ nt/khas:",
+                    "gender": "UNKNOWN"
+                },
+                "extra_source_attributes": {
+                    "world_data": {
+                        "continent": "Asia",
+                        "country": "Saudi Arabia",
+                        "region": "Ar Riyad",
+                        "city": "Riyadh",
+                        "longitude": 46.7742919921875,
+                        "latitude": 24.63958740234375,
+                        "country_code": "sa",
+                        "resolution": "COUNTRY"
+                    },
+                    "id": "ex:www.al-omana.net",
+                    "name": "www.al-omana.net"
+                },
+                "engagement": 0,
+                "reach": 19421,
+                "matched": {
+                    "task_id": "8dc3aba7-7283-428a-8176-2da36b6d9cb4"
+                },
+                "word_count": 161
+            }
+        }
+    }
+}
+{
+    "chunk_type": "CT_RESULT",
+    "chunk_result": {
+        "data": {
+            "data": {
+                "url": "https://al-omana.net/news207753.html",
+                "indexed": 1696175108339,
+                "search_indexed": 1696175133505,
+                "published": 1696171747823,
+                "title": "الوزير الزعوري يترأس وفد وفد بلادنا في الملتقى العربي الثاني للاشخاص ذوي الاعاقة المنعقد بتونس - الأمناء نت",
+                "content": "انطلق صباح اليوم بتونس اعمال \"الملتقى العربي الثاني للأشخاص ذوي الإعاقة 2023-2032 خلال الفترة 01-05 أكتوبر 2023)\".\n\nوتشارك بلادنا بوفد يرأسه معالي وزير الشؤون الاجتماعية والعمل الدكتور محمد سعيد الزعوري وعضوية الدكتورة ن...",
+                "title_snippet": "الوزير الزعوري يترأس وفد وفد بلادنا في الملتقى العربي الثاني للاشخاص ذوي الاعاقة المنعقد بتونس...",
+                "content_snippet": "\n\nويناقش الملتقى العربي الثاني سبعة عشر (17) محورا تتعلق أساسا بالتشريعات والسياسات والخدمات الاجتماعية والصحية والتربوية وضمان <b>العيش</b> <b>باستقلالية</b> إضافة إلى المشاركة في الحياة السياسية والأنشطة الثقافية والرياضية.\n\nكما سيتمّ على هامش المنتدى تنظيم...",
+                "root_url": "https://al-omana.net/",
+                "domain_url": "http://al-omana.net/",
+                "host_url": "http://al-omana.net/",
+                "parent_url": "https://al-omana.net/news207753.html",
+                "lang": "ar",
+                "porn_level": 0,
+                "fluency_level": 0,
+                "DEPRECATED_spam_level": 0,
+                "sentiment": 5,
+                "source_type": [
+                    "ONLINENEWS",
+                    "ONLINENEWS_OTHER"
+                ],
+                "post_type": [
+                    "TEXT"
+                ],
+                "images": [
+                    {
+                        "url": "https://al-omana.net/media/imgs/news/01-10-2023-01-10-47.jpeg",
+                        "width": 1080,
+                        "height": 854
+                    }
+                ],
+                "cluster_id": "https://adengad.net/posts/703950",
+                "tags_internal": [
+                    "containsImage",
+                    "hasImage"
+                ],
+                "source_extended_attributes": {
+                    "alexa_pageviews": 70000,
+                    "alexa_unique_visitors": 70000,
+                    "semrush_pageviews": 61651,
+                    "semrush_unique_visitors": 19421
+                },
+                "extra_author_attributes": {
+                    "id": "ex:al-omana.net-1745590674",
+                    "name": "alamnaʾ nt/khas:",
+                    "gender": "UNKNOWN"
+                },
+                "extra_source_attributes": {
+                    "world_data": {
+                        "continent": "Asia",
+                        "country": "Saudi Arabia",
+                        "region": "Ar Riyad",
+                        "city": "Riyadh",
+                        "longitude": 46.7742919921875,
+                        "latitude": 24.63958740234375,
+                        "country_code": "sa",
+                        "resolution": "COUNTRY"
+                    },
+                    "id": "ex:al-omana.net",
+                    "name": "al-omana.net"
+                },
+                "engagement": 0,
+                "reach": 19421,
+                "matched": {
+                    "task_id": "8dc3aba7-7283-428a-8176-2da36b6d9cb4"
+                },
+                "word_count": 161
+            }
+        }
+    }
+}
+{
+    "chunk_type": "CT_RESULT",
+    "chunk_result": {
+        "data": {
+            "data": {
+                "url": "https://sadaalmawakea.com/68017.html",
+                "indexed": 1696166108801,
+                "search_indexed": 1696166129792,
+                "published": 1696166000000,
+                "title": "الوزير الزعوري يترأس وفد وفد بلادنا في الملتقى العربي الثاني للاشخاص ذوي الاعاقة المنعقد بتونس",
+                "content": "الوزير الزعوري يترأس وفد وفد بلادنا في الملتقى العربي الثاني للاشخاص ذوي الاعاقة المنعقد بتونس الاحد 01 اكتوبر 2023 - الساعة:16:08:17 (الامناء نت/خاص:) انطلق صباح اليوم بتونس اعمال \"الملتقى العربي الثاني للأشخاص ذوي الإع...",
+                "title_snippet": "الوزير الزعوري يترأس وفد وفد بلادنا في الملتقى العربي الثاني للاشخاص ذوي الاعاقة المنعقد بتونس",
+                "content_snippet": "ويناقش الملتقى العربي الثاني سبعة عشر (17) محورا تتعلق أساسا بالتشريعات والسياسات والخدمات الاجتماعية والصحية والتربوية وضمان <b>العيش</b> <b>باستقلالية</b> إضافة إلى المشاركة في الحياة السياسية والأنشطة الثقافية والرياضية. كما سيتمّ على هامش المنتدى تنظيم دورة...",
+                "root_url": "https://sadaalmawakea.com/",
+                "domain_url": "http://sadaalmawakea.com/",
+                "host_url": "http://sadaalmawakea.com/",
+                "parent_url": "https://sadaalmawakea.com/68017.html",
+                "lang": "ar",
+                "porn_level": 0,
+                "fluency_level": 0,
+                "DEPRECATED_spam_level": 0,
+                "sentiment": 0,
+                "source_type": [
+                    "ONLINENEWS",
+                    "ONLINENEWS_OTHER"
+                ],
+                "post_type": [
+                    "TEXT"
+                ],
+                "images": [
+                    {
+                        "url": "https://al-omana.net/media/imgs/news/01-10-2023-01-10-47.jpeg"
+                    }
+                ],
+                "tags_internal": [
+                    "containsImage",
+                    "hasImage"
+                ],
+                "source_extended_attributes": {
+                    "alexa_pageviews": 10000,
+                    "alexa_unique_visitors": 5000,
+                    "semrush_pageviews": 0,
+                    "semrush_unique_visitors": 0
+                },
+                "extra_author_attributes": {
+                    "id": "ex:sadaalmawakea.com-822941468",
+                    "name": "bwastt alảmnaʾ nt",
+                    "gender": "UNKNOWN"
+                },
+                "extra_source_attributes": {
+                    "world_data": {
+                        "continent": "Asia",
+                        "country": "Saudi Arabia",
+                        "region": "Ar Riyad",
+                        "city": "Riyadh",
+                        "longitude": 46.7742919921875,
+                        "latitude": 24.63958740234375,
+                        "country_code": "sa",
+                        "resolution": "COUNTRY"
+                    },
+                    "id": "ex:sadaalmawakea.com",
+                    "name": "sadaalmawakea.com"
+                },
+                "engagement": 0,
+                "reach": 0,
+                "entity_url": [
+                    {
+                        "url": "js.id",
+                        "resolved_url": "https://js.id/"
+                    }
+                ],
+                "matched": {
+                    "task_id": "8dc3aba7-7283-428a-8176-2da36b6d9cb4"
+                },
+                "word_count": 288
+            }
+        }
+    }
+}
+{
+    "chunk_type": "CT_RESULT",
+    "chunk_result": {
+        "data": {
+            "data": {
+                "url": "https://www.alriyadh.com/2035693",
+                "indexed": 1696202423303,
+                "search_indexed": 1696202426165,
+                "published": 1696115949584,
+                "title": "فيصل بن بندر يدشن الحملة التوعوية بسرطان الثدي",
+                "content": "دشن صاحب السمو الملكي الأمير فيصل بن بندر بن عبدالعزيز أمير منطقة الرياض في مكتبه بقصر الحكم أمس، بحضور صاحب السمو الملكي الأمير محمد بن عبدالرحمن بن عبدالعزيز نائب أمير المنطقة، الحملة الوطنية التوعوية بسرطان الثدي 2023...",
+                "title_snippet": "فيصل بن بندر يدشن الحملة التوعوية بسرطان الثدي",
+                "content_snippet": "...جمعية &quot;زهرة&quot; لسرطان الثدي بالتعاون مع التحالف السعودي لجمعيات السرطان، وبرنامج <b>سند</b> <b>محمد</b> <b>بن</b> <b>سلمان</b>، وشركة &quot;روشن&quot;.\n\nجاء ذلك خلال استقبال سموه، لصاحبة السمو الملكي الأميرة هيفاء بنت فيصل بن عبدالعزيز رئيس مجلس إدارة جمعية زهرة لسرطان الثدي، وعدد من...",
+                "root_url": "https://www.alriyadh.com/",
+                "domain_url": "http://alriyadh.com/",
+                "host_url": "http://www.alriyadh.com/",
+                "parent_url": "https://www.alriyadh.com/2035693",
+                "lang": "ar",
+                "porn_level": 0,
+                "fluency_level": 0,
+                "DEPRECATED_spam_level": 0,
+                "sentiment": 5,
+                "source_type": [
+                    "ONLINENEWS",
+                    "ONLINENEWS_OTHER"
+                ],
+                "post_type": [
+                    "TEXT"
+                ],
+                "tokens_hashtag": [
+                    "#النتيجة_خير"
+                ],
+                "images": [
+                    {
+                        "url": "http://www.alriyadh.com/media/thumb/17/55/750_b85d11200f.jpg",
+                        "width": 750,
+                        "height": 469
+                    }
+                ],
+                "cluster_id": "https://www.al-madina.com/article/856291/%D8%B5%D8%AD%D8%A9/%D8%A3%D9%85%D9%8A%D8%B1-%D9%85%D9%86%D8%B7%D9%82%D8%A9-%D8%A7%D9%84%D8%B1%D9%8A%D8%A7%D8%B6-%D9%8A%D8%AF%D8%B4%D9%86-%D8%A7%D9%84%D8%AD%D9%85%D9%84%D8%A9-%D8%A7%D9%84%D9%88%D8%B7%D9%86%D9%8A%D8%A9-%D8%A7%D9%84%D8%AA%D9%88%D8%B9%D9%88%D9%8A%D8%A9-%D9%84%D8%B3%D8%B1%D8%B7%D8%A7%D9%86-%D8%A7%D9%84%D8%AB%D8%AF%D9%8A-2023",
+                "tags_internal": [
+                    "containsImage",
+                    "hasImage"
+                ],
+                "source_extended_attributes": {
+                    "alexa_pageviews": 2900000,
+                    "alexa_unique_visitors": 1526315,
+                    "semrush_pageviews": 903942,
+                    "semrush_unique_visitors": 587907
+                },
+                "extra_author_attributes": {
+                    "id": "ex:www.alriyadh.com-0",
+                    "gender": "UNKNOWN"
+                },
+                "extra_source_attributes": {
+                    "world_data": {
+                        "continent": "Asia",
+                        "country": "Saudi Arabia",
+                        "region": "Ar Riyad",
+                        "city": "Riyadh",
+                        "longitude": 46.7742919921875,
+                        "latitude": 24.63958740234375,
+                        "country_code": "sa",
+                        "resolution": "COUNTRY"
+                    },
+                    "id": "ex:www.alriyadh.com",
+                    "name": "www.alriyadh.com"
+                },
+                "engagement": 0,
+                "reach": 587907,
+                "matched": {
+                    "task_id": "8dc3aba7-7283-428a-8176-2da36b6d9cb4"
+                },
+                "word_count": 218
+            }
+        }
+    }
+}
+{
+    "chunk_type": "CT_RESULT",
+    "chunk_result": {
+        "data": {
+            "data": {
+                "url": "https://www.khlaasa.net/1249617",
+                "indexed": 1696172257254,
+                "search_indexed": 1696172272129,
+                "published": 1696172212349,
+                "title": "الوزير الزعوري يشارك في الملتقى العربي الثاني للاشخاص ذوي الاعاقة المنعقد بتونس",
+                "content": "الوزير الزعوري يشارك في الملتقى العربي الثاني للاشخاص ذوي الاعاقة المنعقد بتونس\n\nمنذ 8 دقيقة - 2023-10-01 [14] قراءة\n\nانطلق صباح اليوم بتونس اعمال “الملتقى العربي الثاني للأشخاص ذوي الإعاقة 2023-2032 خلال الفترة 01-05 أك...",
+                "title_snippet": "الوزير الزعوري يشارك في الملتقى العربي الثاني للاشخاص ذوي الاعاقة المنعقد بتونس",
+                "content_snippet": "\n\nويناقش الملتقى العربي الثاني سبعة عشر (17) محورا تتعلق أساسا بالتشريعات والسياسات والخدمات الاجتماعية والصحية والتربوية وضمان <b>العيش</b> <b>باستقلالية</b> إضافة إلى المشاركة في الحياة السياسية والأنشطة الثقافية والرياضية.\n\nكما سيتمّ على هامش المنتدى تنظيم...",
+                "root_url": "https://www.khlaasa.net/",
+                "domain_url": "http://khlaasa.net/",
+                "host_url": "http://www.khlaasa.net/",
+                "parent_url": "https://www.khlaasa.net/1249617",
+                "lang": "ar",
+                "porn_level": 0,
+                "fluency_level": 0,
+                "DEPRECATED_spam_level": 0,
+                "sentiment": 5,
+                "source_type": [
+                    "ONLINENEWS",
+                    "ONLINENEWS_OTHER"
+                ],
+                "post_type": [
+                    "TEXT"
+                ],
+                "images": [
+                    {
+                        "url": "https://khlaasa.net/files/image_1696171686_33111277.jpg"
+                    }
+                ],
+                "cluster_id": "https://adengad.net/posts/703950",
+                "tags_internal": [
+                    "containsImage",
+                    "hasImage"
+                ],
+                "source_extended_attributes": {
+                    "alexa_pageviews": 10000,
+                    "alexa_unique_visitors": 10000,
+                    "semrush_pageviews": 0,
+                    "semrush_unique_visitors": 0
+                },
+                "extra_author_attributes": {
+                    "id": "ex:www.khlaasa.net-0",
+                    "gender": "UNKNOWN"
+                },
+                "extra_source_attributes": {
+                    "world_data": {
+                        "continent": "North America",
+                        "country": "United States",
+                        "region": "Washington, D.C.",
+                        "city": "Washington, D.C.",
+                        "longitude": -77.0086669921875,
+                        "latitude": 38.89984130859375,
+                        "country_code": "us",
+                        "resolution": "COUNTRY"
+                    },
+                    "id": "ex:www.khlaasa.net",
+                    "name": "www.khlaasa.net"
+                },
+                "engagement": 0,
+                "reach": 0,
+                "matched": {
+                    "task_id": "8dc3aba7-7283-428a-8176-2da36b6d9cb4"
+                },
+                "word_count": 181
+            }
+        }
+    }
+}
+{
+    "chunk_type": "CT_RESULT",
+    "chunk_result": {
+        "data": {
+            "data": {
+                "url": "https://www.masralyoum.news/ksa/10834485/%D8%AA%D8%B2%D8%A7%D8%AD%D9%85-%D8%B9%D9%84%D9%89-%D8%AC%D9%86%D8%A7%D8%AD%D9%87%D8%A7-%D8%A8%D9%80%D9%83%D8%AA%D8%A7%D8%A8-%D8%A7%D9%84%D8%B1%D9%8A%D8%A7%D8%B6-%D8%AC%D9%87%D9%88%D8%AF-%D8%B6%D8%AE%D9%85%D8%A9-%D9%84%D9%85%D8%A4%D8%B3%D8%B3%D8%A9-%D8%A7%D9%84%D8%AA%D8%B1%D8%A7%D8%AB-%D9%81%D9%8A-%D8%AA%D8%B9%D8%B2%D9%8A%D8%B2-%D8%A7%D9%84%D9%88%D8%B9%D9%8A-%D8%A8%D8%AB%D8%B1%D9%88%D8%A7%D8%AA-%D8%A7%D9%84%D9%85%D9%85%D9%84%D9%83%D8%A9-%D8%A7%D9%84%D8%AA%D8%B1%D8%A7%D8%AB%D9%8A%D8%A9",
+                "indexed": 1696181885871,
+                "search_indexed": 1696181910792,
+                "published": 1696181521000,
+                "title": "تزاحم على جناحها بـ\"كتاب الرياض\".. جهود ضخمة لمؤسسة التراث في تعزيز الوعي بثروات المملكة التراثية",
+                "content": "تم النشر في : 01 أكتوبر 2023, 5:22 مساءً يستقطب جناح مؤسسة التراث غير الربحية، في معرض الرياض الدولي للكتاب، الكثير من زوار المعرض يومياً، وفي بعض الأوقات، يشهد الجناح تزاحماً من الزوار؛ للتعرف على أدوار المؤسسة في المحا...",
+                "title_snippet": "تزاحم على جناحها بـ&quot;كتاب الرياض&quot;.. جهود ضخمة لمؤسسة التراث في تعزيز الوعي بثروات المملكة التراثية",
+                "content_snippet": "...الخاصة ببيوت الله والمحافظة على طابعها العمراني، من خلال البرنامج الوطني لإعمار <b>المساجد</b> <b>التاريخية</b>، وتوثيق تراث المملكة من خلال الأرشيف الوطني للصور التاريخية، ليصبح ذاكرة وطنية، وتشجيع الطلاب والمهنيين على الحفاظ على التراث العمراني؛ وذلك من خلال...",
+                "root_url": "https://www.masralyoum.news/",
+                "domain_url": "http://masralyoum.news/",
+                "host_url": "http://www.masralyoum.news/",
+                "parent_url": "https://www.masralyoum.news/ksa/10834485/%D8%AA%D8%B2%D8%A7%D8%AD%D9%85-%D8%B9%D9%84%D9%89-%D8%AC%D9%86%D8%A7%D8%AD%D9%87%D8%A7-%D8%A8%D9%80%D9%83%D8%AA%D8%A7%D8%A8-%D8%A7%D9%84%D8%B1%D9%8A%D8%A7%D8%B6-%D8%AC%D9%87%D9%88%D8%AF-%D8%B6%D8%AE%D9%85%D8%A9-%D9%84%D9%85%D8%A4%D8%B3%D8%B3%D8%A9-%D8%A7%D9%84%D8%AA%D8%B1%D8%A7%D8%AB-%D9%81%D9%8A-%D8%AA%D8%B9%D8%B2%D9%8A%D8%B2-%D8%A7%D9%84%D9%88%D8%B9%D9%8A-%D8%A8%D8%AB%D8%B1%D9%88%D8%A7%D8%AA-%D8%A7%D9%84%D9%85%D9%85%D9%84%D9%83%D8%A9-%D8%A7%D9%84%D8%AA%D8%B1%D8%A7%D8%AB%D9%8A%D8%A9",
+                "lang": "ar",
+                "porn_level": 0,
+                "fluency_level": 0,
+                "DEPRECATED_spam_level": 0,
+                "sentiment": 5,
+                "source_type": [
+                    "ONLINENEWS",
+                    "ONLINENEWS_OTHER"
+                ],
+                "post_type": [
+                    "TEXT"
+                ],
+                "images": [
+                    {
+                        "url": "https://www.masralyoum.news/temp/resized/medium_2023-10-01-fe47f97eeb.jpg",
+                        "width": 700,
+                        "height": 450
+                    }
+                ],
+                "tags_internal": [
+                    "containsImage",
+                    "hasImage",
+                    "isQuestion"
+                ],
+                "source_extended_attributes": {
+                    "alexa_pageviews": 0,
+                    "alexa_unique_visitors": 0,
+                    "semrush_pageviews": 543836,
+                    "semrush_unique_visitors": 449820
+                },
+                "extra_author_attributes": {
+                    "id": "ex:www.masralyoum.news-1455649055",
+                    "name": "alảhd msaʾan",
+                    "gender": "UNKNOWN"
+                },
+                "extra_source_attributes": {
+                    "world_data": {
+                        "continent": "Asia",
+                        "country": "Saudi Arabia",
+                        "region": "Ar Riyad",
+                        "city": "Riyadh",
+                        "longitude": 46.7742919921875,
+                        "latitude": 24.63958740234375,
+                        "country_code": "sa",
+                        "resolution": "COUNTRY"
+                    },
+                    "id": "ex:www.masralyoum.news",
+                    "name": "www.masralyoum.news"
+                },
+                "engagement": 0,
+                "reach": 449820,
+                "matched": {
+                    "task_id": "8dc3aba7-7283-428a-8176-2da36b6d9cb4"
+                },
+                "word_count": 547
+            }
+        }
+    }
+}
+{
+    "chunk_type": "CT_RESULT",
+    "chunk_result": {
+        "data": {
+            "data": {
+                "url": "https://headtopics.com/sa/157815861575158126191-45710893",
+                "indexed": 1696184102871,
+                "search_indexed": 1696184106428,
+                "published": 1696181220000,
+                "title": "تزاحم على جناحها بـ'كتاب الرياض'.. جهود ضخمة لمؤسسة التراث في تعزيز الوعي بثروات المملكة التراثية",
+                "content": "ار المؤسسة في المحافظة على التراث باعتباره ثروة حضارية وثقافية تشكل جزءاً من التراث الإنساني للبشرية، مما أثار لدى\"سبق\" التساؤل حول كيف تعزز مؤسسة التراث غير الربحية الوعي بالتراث لدى أفراد المجتمع السعودي؟.\n\nوأوضح الدكت...",
+                "title_snippet": "تزاحم على جناحها بـ&#39;كتاب الرياض&#39;.. جهود ضخمة لمؤسسة التراث في تعزيز الوعي بثروات المملكة التراثية",
+                "content_snippet": "...الخاصة ببيوت الله والمحافظة على طابعها العمراني، من خلال البرنامج الوطني لإعمار <b>المساجد</b> <b>التاريخية</b>، وتوثيق تراث المملكة من خلال الأرشيف الوطني للصور التاريخية، ليصبح ذاكرة وطنية، وتشجيع الطلاب والمهنيين على الحفاظ على التراث العمراني؛ وذلك من خلال...",
+                "root_url": "https://headtopics.com/",
+                "domain_url": "http://headtopics.com/",
+                "host_url": "http://headtopics.com/",
+                "parent_url": "https://headtopics.com/sa/157815861575158126191-45710893",
+                "lang": "ar",
+                "porn_level": 0,
+                "fluency_level": 0,
+                "sentiment": 5,
+                "source_type": [
+                    "ONLINENEWS",
+                    "ONLINENEWS_OTHER"
+                ],
+                "post_type": [
+                    "TEXT"
+                ],
+                "tags_internal": [
+                    "isQuestion"
+                ],
+                "source_extended_attributes": {
+                    "alexa_pageviews": 1100000,
+                    "alexa_unique_visitors": 846153,
+                    "semrush_pageviews": 1468101,
+                    "semrush_unique_visitors": 1196563
+                },
+                "extra_author_attributes": {
+                    "id": "ex:headtopics.com-1691579129",
+                    "name": "مصدر sabqorg",
+                    "gender": "UNKNOWN"
+                },
+                "extra_source_attributes": {
+                    "world_data": {
+                        "continent": "North America",
+                        "country": "United States",
+                        "region": "Washington, D.C.",
+                        "city": "Washington, D.C.",
+                        "longitude": -77.0086669921875,
+                        "latitude": 38.89984130859375,
+                        "country_code": "us",
+                        "resolution": "COUNTRY"
+                    },
+                    "id": "ex:headtopics.com",
+                    "name": "headtopics.com"
+                },
+                "engagement": 0,
+                "reach": 1196563,
+                "entity_url": [
+                    {
+                        "url": "https://headtopics.com/sa/15751604159315799205-45589070"
+                    },
+                    {
+                        "url": "https://headtopics.com/sa/15891581161016073599-45664996"
+                    },
+                    {
+                        "url": "https://headtopics.com/sa/39157516041583170584-45584333"
+                    },
+                    {
+                        "url": "https://headtopics.com/sa/15801606157515886419-45651677"
+                    },
+                    {
+                        "url": "https://headtopics.com/sa/39160115781575197440-45695109"
+                    },
+                    {
+                        "url": "https://headtopics.com/sa/45710893"
+                    },
+                    {
+                        "url": "https://headtopics.com/sa/391575160415851121505-45645767"
+                    }
+                ],
+                "matched": {
+                    "task_id": "8dc3aba7-7283-428a-8176-2da36b6d9cb4"
+                },
+                "word_count": 819
+            }
+        }
+    }
+}
+{
+    "chunk_type": "CT_RESULT",
+    "chunk_result": {
+        "data": {
+            "data": {
+                "url": "https://www.misrday.com/Egypt-Today/1342253",
+                "indexed": 1696189598470,
+                "search_indexed": 1696189602277,
+                "published": 1696189206000,
+                "title": "بحضور مئات المتصوفة، الليلة الختامية لمولد \"أبو عمار\" في الغربية (فيديو)الأحد 01/أكتوبر/2023 - 08:30 م الليلة الختامية لمولد أبو عزب في الغربية",
+                "content": "أحيا الشيخ مصطفى جمال احتفال أهالى محافظة الغربية بمولد سيدى إبراهيم أبو عمار، بمنشأة أبو عمار التابعة لمدينة السنطة وذلك وسط تفاعل كبير من الحاضرين. وتنوع برنامج الليلة ما بين تلاوة القرآن الكريم والمدائح والأناشيد والابتهالات وتخلل ذلك تقديم وجبة العشاء للضيوف وأحيا الاحتفال الشيخ مصطفي جمال أحد أشهر المداحين بصعيد مصر. ومن جانبه قال شرف عمار شيخ الصوفية: بمدينة السنطة أن الهدف من إحياء موالد الصالحين وآل البيت ليس كما يشاع في ذهن البعض هو مجرد الاحتفال لكنه التماس للأثر الطيب والقدوة والتأكيد على أن لهؤلاء العظام دورا في رفعة شأن الإسلام وتنقية الصدور من التعصب والفرقة التي اشتهر بها أهل الجاهلية ليحل بديلًا عنها الحب والصفاء والنقاء. Advertisements مسجد أحمد البدوي أو المسجد الأحمدي هو أهم وأكبر المساجد التاريخية الاثرية في طنطا وفي منطقة وسط الدلتا، وبه ضريح أحمد البدوي، أحد أقطاب الولاية الأربعة لدى الصوفية من أهل السنة والجماعة. يقع المسجد فى قلب مدينة طنطا وبالقرب من محطة سكك حديد طنطا، ويتميز بالأعمدة والزخارف الإسلامية والقباب والمآذن، ويظهر في علم المحافظة إحدى مآذن وقبة المسجد، تبلغ مساحته نحو 6300 متر مربع، وبه 3 أضرحة أكبرها ضريح \"البدوي\"وفى الجهة الغربية بالمسجد ضريح تلميذيه عبدالعال والشيخ مجاهد إمام المسجد. وضريح \"البدوي\" به مقصورة نحاسية ومجموعة من مقتنياته مثل مسبحته التي يبلغ طولها 10 أمتار بها ألف حبة وهى أطول مسبحة في تاريخ الإسلام، صنعت من خشب العود والعنبر تفوح منها دائما رائحة المسك، بالإضافة لعمامته ولثامته وعصاه الخشبية. ولد البدوي كما تؤكد الروايات في زقاق الحجر بمدينة فاس المغربية، وهاجر إلى مكة ومنها إلى مصر ونزل البدوي ببلدة بمدينة طنطا ضيفا على أحد تجارها وقضى فيها بقية عمره وتوفي ودفن فيها. أطلق عليه لقب \"شيخ العرب\" حيث كان ملازما للثام علي وجهه فزاده غموضا بشيخ العرب، كما لقب بـ\"السطوحى\" كونه كان دائما يحب الجلوس فوق سطح منزله الذي عليه المسجد الآن. ونقدم لكم من خلال موقع (فيتو)، تغطية ورصدًا مستمرًّا على مدار الـ 24 ساعة لـ أسعار الذهب، أسعار اللحوم ، أسعار الدولار ، أسعار اليورو ، أسعار العملات ، أخبار الرياضة ، أخبار مصر، أخبار اقتصاد ، أخبار المحافظات ، أخبار السياسة، أخبار الحوادث ، ويقوم فريقنا بمتابعة حصرية لجميع الدوريات العالمية مثل الدوري الإنجليزي ، الدوري الإيطالي ، الدوري المصري، دوري أبطال أوروبا ، دوري أبطال أفريقيا ، دوري أبطال آسيا ، والأحداث الهامة و السياسة الخارجية والداخلية بالإضافة للنقل الحصري لـ أخبار الفن والعديد من الأنشطة الثقافية والأدبية.",
+                "title_snippet": "بحضور مئات المتصوفة، الليلة الختامية لمولد &quot;أبو عمار&quot; في الغربية (فيديو)الأحد 01/أكتوبر/2023 - 08:30...",
+                "content_snippet": "...والصفاء والنقاء. Advertisements مسجد أحمد البدوي أو المسجد الأحمدي هو أهم وأكبر <b>المساجد</b> <b>التاريخية</b> الاثرية في طنطا وفي منطقة وسط الدلتا، وبه ضريح أحمد البدوي، أحد أقطاب الولاية الأربعة لدى الصوفية من أهل السنة والجماعة. يقع المسجد فى قلب مدينة طنطا...",
+                "root_url": "https://www.misrday.com/",
+                "domain_url": "http://misrday.com/",
+                "host_url": "http://www.misrday.com/",
+                "parent_url": "https://www.misrday.com/Egypt-Today/1342253",
+                "lang": "ar",
+                "porn_level": 0,
+                "fluency_level": 0,
+                "DEPRECATED_spam_level": 0,
+                "sentiment": 5,
+                "source_type": [
+                    "BLOG",
+                    "BLOG_OTHER"
+                ],
+                "post_type": [
+                    "TEXT"
+                ],
+                "tokens_title": [
+                    "اكتوبر 2023",
+                    "2023"
+                ],
+                "images": [
+                    {
+                        "url": "https://www.misrday.com/temp/resized/medium_2023-10-01-a91fd7ac0b.jpg"
+                    }
+                ],
+                "tags_internal": [
+                    "containsImage",
+                    "hasImage"
+                ],
+                "source_extended_attributes": {
+                    "alexa_pageviews": 20000,
+                    "alexa_unique_visitors": 20000,
+                    "semrush_pageviews": 15739,
+                    "semrush_unique_visitors": 15739
+                },
+                "extra_author_attributes": {
+                    "id": "ex:www.misrday.com-2104426527",
+                    "name": "بوابة فيتو",
+                    "gender": "UNKNOWN"
+                },
+                "extra_source_attributes": {
+                    "world_data": {
+                        "continent": "Africa",
+                        "country": "Egypt",
+                        "region": "Al Qahirah",
+                        "city": "Cairo",
+                        "longitude": 31.2506103515625,
+                        "latitude": 30.05035400390625,
+                        "country_code": "eg",
+                        "resolution": "COUNTRY"
+                    },
+                    "id": "ex:www.misrday.com",
+                    "name": "www.misrday.com"
+                },
+                "engagement": 0,
+                "reach": 15739,
+                "matched": {
+                    "task_id": "8dc3aba7-7283-428a-8176-2da36b6d9cb4"
+                },
+                "word_count": 371
+            }
+        }
+    }
+}
+{
+    "chunk_type": "CT_RESULT",
+    "chunk_result": {
+        "data": {
+            "data": {
+                "url": "https://www.alwatan.com.sa/article/1134653",
+                "indexed": 1696187233678,
+                "search_indexed": 1696187261286,
+                "published": 1696185153000,
+                "title": "أمير الرياض يدشن حملة السرطان",
+                "content": "أمير الرياض يدشن حملة السرطان\n\nدشن أمير منطقة الرياض، الأمير فيصل بن بندر، بحضور نائبه الأمير محمد بن عبدالرحمن، الحملة الوطنية التوعوية بسرطان الثدي 2023 تحت شعار «#النتيجة_خير»، التي تنظمها جمعية «زهرة» لسرطان الثدي با...",
+                "title_snippet": "أمير الرياض يدشن حملة السرطان",
+                "content_snippet": "...جمعية «زهرة» لسرطان الثدي بالتعاون مع التحالف السعودي لجمعيات السرطان، وبرنامج <b>سند</b> <b>محمد</b> <b>بن</b> <b>سلمان</b>، ومجموعة...",
+                "root_url": "https://www.alwatan.com.sa/",
+                "domain_url": "http://alwatan.com.sa/",
+                "host_url": "http://www.alwatan.com.sa/",
+                "parent_url": "https://www.alwatan.com.sa/article/1134653",
+                "lang": "ar",
+                "porn_level": 0,
+                "fluency_level": 0,
+                "DEPRECATED_spam_level": 0,
+                "sentiment": 0,
+                "source_type": [
+                    "ONLINENEWS",
+                    "ONLINENEWS_OTHER"
+                ],
+                "post_type": [
+                    "TEXT"
+                ],
+                "tokens_hashtag": [
+                    "#النتيجة_خير"
+                ],
+                "images": [
+                    {
+                        "url": "https://www.alwatan.com.sa/uploads/images/2023/10/01/972164.jpg",
+                        "width": 1000,
+                        "height": 529
+                    }
+                ],
+                "tags_internal": [
+                    "containsImage",
+                    "hasImage"
+                ],
+                "source_extended_attributes": {
+                    "alexa_pageviews": 710000,
+                    "alexa_unique_visitors": 443750,
+                    "semrush_pageviews": 208413,
+                    "semrush_unique_visitors": 130894
+                },
+                "extra_author_attributes": {
+                    "id": "ex:www.alwatan.com.sa-1796159538",
+                    "name": "watanpress@alwatan.com.sa()",
+                    "gender": "UNKNOWN"
+                },
+                "extra_source_attributes": {
+                    "world_data": {
+                        "continent": "Asia",
+                        "country": "Saudi Arabia",
+                        "region": "Ar Riyad",
+                        "city": "Riyadh",
+                        "longitude": 46.7742919921875,
+                        "latitude": 24.63958740234375,
+                        "country_code": "sa",
+                        "resolution": "COUNTRY"
+                    },
+                    "id": "ex:www.alwatan.com.sa",
+                    "name": "www.alwatan.com.sa"
+                },
+                "engagement": 0,
+                "reach": 130894,
+                "entity_url": [
+                    {
+                        "url": "https://www.alwatan.com.sa/author/10046/1/"
+                    }
+                ],
+                "matched": {
+                    "task_id": "8dc3aba7-7283-428a-8176-2da36b6d9cb4"
+                },
+                "word_count": 47
+            }
+        }
+    }
+}
+{
+    "chunk_type": "CT_RESULT",
+    "chunk_result": {
+        "data": {
+            "data": {
+                "url": "https://www.matnnews.com/131915",
+                "indexed": 1696131365361,
+                "search_indexed": 1696131385768,
+                "published": 1696131313234,
+                "title": "خطوات التسجيل في برنامج سند للزواج 1445 ضمن برنامج سند محمد بن سلمان",
+                "content": "سند الزواج محمد بن سلمان.. يعد سند الزواج محمد بن سلمان من أحدث البرامج الاجتماعية التي يدعمها ولي العهد السعودي من أجل تخفيف...",
+                "title_snippet": "خطوات التسجيل في برنامج سند للزواج 1445 ضمن برنامج <b>سند</b> <b>محمد</b> <b>بن</b> <b>سلمان</b>",
+                "content_snippet": "...للزواج 1445 ضمن برنامج <b>سند</b> <b>محمد</b> <b>بن</b> <b>سلمان</b>\n\n– الدخول إلى على موقع برنامج <b>سند</b> <b>محمد</b> <b>بن</b> <b>سلمان</b>  – الضغط على سند الزواج – لا بد من ... الإجراءات المتعلقة بعقد الزواج. وضع برنامج <b>سند</b> <b>محمد</b> <b>بن</b> <b>سلمان</b> شروط من أجل الحصول على سند الزواج ولعل أهمها:\n\n– أن يكون...",
+                "root_url": "https://www.matnnews.com/",
+                "domain_url": "http://matnnews.com/",
+                "host_url": "http://www.matnnews.com/",
+                "parent_url": "https://www.matnnews.com/131915",
+                "lang": "ar",
+                "porn_level": 0,
+                "fluency_level": 0,
+                "DEPRECATED_spam_level": 0,
+                "sentiment": 0,
+                "source_type": [
+                    "ONLINENEWS",
+                    "ONLINENEWS_OTHER"
+                ],
+                "post_type": [
+                    "TEXT"
+                ],
+                "tokens_title": [
+                    "للزواج 1445 برنامج",
+                    "1445 برنامج سند",
+                    "سند للزواج 1445",
+                    "للزواج 1445",
+                    "1445 برنامج",
+                    "1445"
+                ],
+                "images": [
+                    {
+                        "url": "https://www.matnnews.com/UploadCache/libfiles/13/8/600x338o/297.png",
+                        "width": 600,
+                        "height": 338
+                    }
+                ],
+                "tags_internal": [
+                    "containsImage",
+                    "hasImage"
+                ],
+                "source_extended_attributes": {
+                    "alexa_pageviews": 60000,
+                    "alexa_unique_visitors": 60000,
+                    "semrush_pageviews": 1015204,
+                    "semrush_unique_visitors": 884334
+                },
+                "extra_author_attributes": {
+                    "id": "ex:www.matnnews.com-321120013",
+                    "name": "متن نيوز",
+                    "gender": "UNKNOWN"
+                },
+                "extra_source_attributes": {
+                    "world_data": {
+                        "continent": "Europe",
+                        "country": "Germany",
+                        "region": "Berlin",
+                        "city": "Berlin",
+                        "longitude": 13.3978271484375,
+                        "latitude": 52.52288818359375,
+                        "country_code": "de",
+                        "resolution": "COUNTRY"
+                    },
+                    "id": "ex:www.matnnews.com",
+                    "name": "www.matnnews.com"
+                },
+                "engagement": 0,
+                "reach": 884334,
+                "matched": {
+                    "task_id": "8dc3aba7-7283-428a-8176-2da36b6d9cb4"
+                },
+                "word_count": 224
+            }
+        }
+    }
+}
+{
+    "chunk_type": "CT_CONTROL",
+    "chunk_control": {
+        "connection_id": "#s34plgaxn6mg#",
+        "resume_offset": "EgTslpRi",
+        "collector_id": "search-280-onl-col"
+    }
+}
