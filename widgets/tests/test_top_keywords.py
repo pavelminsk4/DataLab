@@ -1,4 +1,4 @@
-from common.factories.feedlinks import FeedlinksFactory
+from common.factories.feedlink import FeedlinkFactory
 from common.factories.project import ProjectFactory
 from common.factories.post import PostFactory
 from rest_framework.test import APITestCase
@@ -10,7 +10,7 @@ import json
 
 class TopKeywordsTests(APITestCase):
     def setUp(self):
-        flink = FeedlinksFactory(country='Brasil')
+        flink = FeedlinkFactory(country='Brasil')
         p1 = PostFactory(entry_summary='the keyword uno dos', feedlink=flink, entry_title='1')
         p2 = PostFactory(entry_summary='the keyword text', feedlink=flink, entry_title='2')
         pr = ProjectFactory()
@@ -33,7 +33,7 @@ class TopKeywordsTests(APITestCase):
     def test_sentiment_top_keywords_api(self):
         pr = Project.objects.first()
         widget_pk = pr.widgets_list_2.sentiment_top_keywords_id
-        url = reverse('widgets:onl_sentiment_top_keywords',kwargs={'pk': pr.pk, 'widget_pk': widget_pk})
+        url = reverse('widgets:onl_sentiment_top_keywords', kwargs={'pk': pr.pk, 'widget_pk': widget_pk})
         data = {}
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)

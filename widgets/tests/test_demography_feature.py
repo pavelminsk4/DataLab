@@ -1,4 +1,4 @@
-from common.factories.feedlinks import FeedlinksFactory
+from common.factories.feedlink import FeedlinkFactory
 from common.factories.project import ProjectFactory
 from common.factories.speech import SpeechFactory
 from common.factories.post import PostFactory
@@ -11,9 +11,9 @@ import json
 
 class DemographyFeatureTests(APITestCase):
     def setUp(self):
-        flink1 = FeedlinksFactory(source1='one_source', country='England', sourceurl='google')
-        flink2 = FeedlinksFactory(source1='two_source', country='USA', sourceurl='youtube')
-        flink3 = FeedlinksFactory(source1='third_source', country='England', sourceurl='twitter')
+        flink1 = FeedlinkFactory(source1='one_source', country='England', sourceurl='google')
+        flink2 = FeedlinkFactory(source1='two_source', country='USA', sourceurl='youtube')
+        flink3 = FeedlinkFactory(source1='third_source', country='England', sourceurl='twitter')
         sp1 = SpeechFactory(language='English')
         sp2 = SpeechFactory(language='Spanish')
         p1 = PostFactory(feedlink=flink1, feed_language=sp1, sentiment='negative')
@@ -102,7 +102,7 @@ class DemographyFeatureTests(APITestCase):
                 'sentiments': {
                     'positive': 1,
                     'negative': 0,
-                    'neutral':  2,
+                    'neutral': 2,
                 },
                 'posts': 3,
                 'reach': 0,
@@ -115,7 +115,7 @@ class DemographyFeatureTests(APITestCase):
                 'sentiments': {
                     'positive': 1,
                     'negative': 1,
-                    'neutral':  0,
+                    'neutral': 0,
                 },
                 'posts': 2,
                 'reach': 0,
@@ -128,7 +128,7 @@ class DemographyFeatureTests(APITestCase):
                 'sentiments': {
                     'positive': 0,
                     'negative': 1,
-                    'neutral':  0,
+                    'neutral': 0,
                 },
                 'posts': 1,
                 'reach': 0,

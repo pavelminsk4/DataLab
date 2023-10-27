@@ -6,4 +6,4 @@ class SpeechFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Speech
 
-    language = 'English'
+    language = 'English (United States)'

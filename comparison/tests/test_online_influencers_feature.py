@@ -1,6 +1,6 @@
 from common.factories.project_comparison import ProjectComparisonFactory
 from common.factories.comparison_item import ComparisonItemFactory
-from common.factories.feedlinks import FeedlinksFactory
+from common.factories.feedlink import FeedlinkFactory
 from common.factories.project import ProjectFactory
 from comparison.models import ProjectComparison
 from common.factories.post import PostFactory
@@ -12,7 +12,7 @@ import json
 class ComparisonOnlineInfluencersTests(APITestCase):
     def setUp(self):
         pr = ProjectFactory(title='Girlfriend')
-        post = PostFactory(feedlink=FeedlinksFactory(source1='Prospero', country='Space'), entry_summary='post')
+        post = PostFactory(feedlink=FeedlinkFactory(source1='Prospero', country='Space'), entry_summary='post')
         pr.posts.add(post)
         prcmpr = ProjectComparisonFactory()
         ComparisonItemFactory(module_project_id=pr.id, project=prcmpr)

@@ -1,6 +1,6 @@
 from common.factories.project_comparison import ProjectComparisonFactory
 from common.factories.comparison_item import ComparisonItemFactory
-from common.factories.feedlinks import FeedlinksFactory
+from common.factories.feedlink import FeedlinkFactory
 from common.factories.project import ProjectFactory
 from comparison.models import ProjectComparison
 from common.factories.post import PostFactory
@@ -16,7 +16,7 @@ class ComparisonOnlineSummaryTests(APITestCase):
         ComparisonItemFactory(module_project_id=pr.id, project=prcmpr)
 
     def test_summary_feature_online(self):
-        PostFactory(feedlink=FeedlinksFactory(source1='Prospero', country='Space'), entry_summary='post')
+        PostFactory(feedlink=FeedlinkFactory(source1='Prospero', country='Space'), entry_summary='post')
         pr = ProjectComparison.objects.first()
         url = reverse('comparison:summary', kwargs={'pk': pr.id})
         response = self.client.get(url, format='json')

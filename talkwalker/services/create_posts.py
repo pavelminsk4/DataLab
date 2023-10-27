@@ -11,7 +11,7 @@ import logging
 logger = logging.getLogger()
 
 
-def add_language(language_code):
+def language(language_code):
     title = Language.get(language_code).display_name()
     return Speech.objects.get_or_create(language=title)[0]
 
@@ -31,13 +31,13 @@ def create_posts(project, lines, offset=None):
     for line in lines:
         try:
             resume_offset = json.loads(line)['chunk_control']['resume_offset']
-        except:
-            pass
-        try:
-            data = json.loads(line)['chunk_result']['data']['data']
-        except Exception as e:
-            logger.error(e)
             continue
+        except:
+            try:
+                data = json.loads(line)['chunk_result']['data']['data']
+            except Exception as e:
+                logger.error(e)
+                continue
         try:
             acountry = data['extra_source_attributes']['world_data']['country']
         except:
@@ -63,10 +63,10 @@ def create_posts(project, lines, offset=None):
         except:
             aentry_summary = ''
         try:
-            afeed_language = add_language(data['lang'])
+            afeed_language = language(data['lang'])
         except:
             try:
-                afeed_language = add_language(detect(data['title']))
+                afeed_language = language(detect(data['title']))
             except:
                 afeed_language = Speech.objects.filter(language='English (United States)').first()
         try:
@@ -95,30 +95,32 @@ def create_posts(project, lines, offset=None):
             acategory = ''
         try:
             with transaction.atomic():
-                fl, _ = Feedlinks.objects.get_or_create(
-                    sourceurl=asourceurl,
-                    defaults={
-                        'country': acountry,
-                        'alexaglobalrank': aalexaglobalrank,
-                        'source1': asource1
-                    }
-                )
-                post, _ = Post.objects.get_or_create(
-                    entry_title=aentry_title,
-                    entry_author=aentry_author,
-                    defaults={
-                        'entry_summary': aentry_summary,
-                        'feed_language': afeed_language,
-                        'entry_media_content_url': aentry_media_content_url,
-                        'entry_links_href': aentry_links_href,
-                        'entry_published': aentry_published,
-                        'sentiment': asentiment,
-                        'category': acategory,
-                        'feedlink': fl,
-                        'summary_vector': [],
-                        'source_type': 'talkwalker'
-                    }
-                )
+                fl = Feedlinks.objects.filter(sourceurl=asourceurl).first()
+                if fl is None:
+                    fl = Feedlinks.objects.create(
+                        sourceurl=asourceurl,
+                        country=acountry,
+                        alexaglobalrank=aalexaglobalrank,
+                        source1=asource1
+                    )
+
+                post = Post.objects.filter(entry_title=aentry_title, entry_author=aentry_author).first()
+                if post is None:
+                    post = Post.objects.create(
+                        entry_title=aentry_title,
+                        entry_author=aentry_author,
+                        entry_summary=aentry_summary,
+                        feed_language=afeed_language,
+                        entry_media_content_url=aentry_media_content_url,
+                        entry_links_href=aentry_links_href,
+                        entry_published=aentry_published,
+                        sentiment=asentiment,
+                        category=acategory,
+                        feedlink=fl,
+                        summary_vector=[],
+                        source_type='talkwalker'
+                    )
+
                 project.posts.add(post)
         except Exception as e:
             logger.error(e)

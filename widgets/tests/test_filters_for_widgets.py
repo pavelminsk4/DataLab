@@ -1,4 +1,4 @@
-from common.factories.feedlinks import FeedlinksFactory
+from common.factories.feedlink import FeedlinkFactory
 from common.factories.project import ProjectFactory
 from common.factories.speech import SpeechFactory
 from common.factories.post import PostFactory
@@ -10,10 +10,10 @@ import json
 
 class FilterForWidgetsTests(APITestCase):
     def test_response_list(self):
-        flink1 = FeedlinksFactory(country='England')
-        flink2 = FeedlinksFactory(country='USA')
-        flink3 = FeedlinksFactory(country='USA', source1='Time')
-        flink4 = FeedlinksFactory(country='Canada', source1='BBC')
+        flink1 = FeedlinkFactory(country='England')
+        flink2 = FeedlinkFactory(country='USA')
+        flink3 = FeedlinkFactory(country='USA', source1='Time')
+        flink4 = FeedlinkFactory(country='Canada', source1='BBC')
         sp1 = SpeechFactory(language='English')
         sp2 = SpeechFactory(language='Spain')
         p1 = PostFactory(feedlink=flink1, entry_title='First post title', feed_language=sp1, entry_author='AFP', sentiment='neutral')
