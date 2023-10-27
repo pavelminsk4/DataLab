@@ -7,7 +7,7 @@
 
   <MainLayoutTitleBlock
     title="Define the search"
-    description="Search by keywords and phrases"
+    description="Define the search (specify keywords and additional criteria that will be used for collecting your project data set)."
     :back-page="{
       name: 'main page',
       routeName: `${moduleName}Home`,
@@ -287,6 +287,7 @@ export default {
 .switcher {
   display: flex;
   flex-wrap: nowrap;
+  justify-content: space-between;
 
   max-width: 408px;
 

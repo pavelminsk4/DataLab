@@ -1,5 +1,5 @@
 <template>
-  <div :class="['tag-input scroll', hasError && 'error']">
+  <label :for="id" :class="['tag-input scroll', hasError && 'error']">
     <div
       v-for="(tag, index) in tags"
       :key="tag"
@@ -20,6 +20,7 @@
     <input
       v-model="newTag"
       type="text"
+      :id="id"
       :list="id"
       :name="name"
       :dir="currentDir"
@@ -36,7 +37,7 @@
       {{ errorMessage }}
       <ErrorIcon class="error-icon" />
     </div>
-  </div>
+  </label>
 </template>
 
 <script>

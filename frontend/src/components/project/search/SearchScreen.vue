@@ -232,6 +232,7 @@ export default {
 .switcher {
   display: flex;
   flex-wrap: nowrap;
+  justify-content: space-between;
 
   max-width: 408px;
   gap: 10px;
