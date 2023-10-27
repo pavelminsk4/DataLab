@@ -1,23 +1,25 @@
 <template>
-  <BaseModal>
+  <BaseModal modal-frame-style="width:456px;">
     <template #title>
-      <CustomText tag="div">
-        Are you sure about the words you entered?
-      </CustomText>
+      <CustomText tag="div">Save confirmation</CustomText>
     </template>
 
-    <CustomText tag="div" class="text">
-      After clicking the 'Approve' button, you will not be able to edit the
-      project keywords. <br />
-      Please make sure that the keywords entered are correct.
-    </CustomText>
+    <div class="warning-content">
+      <img src="@/assets/warning.svg" alt="Warning" class="warning-img" />
+
+      <CustomText tag="div" class="text">
+        After clicking the 'Continue' button, you will not be able to edit the
+        project settings. <br />
+        Please make sure that the keywords entered are correct.
+      </CustomText>
+    </div>
 
     <div class="modal-buttons">
-      <BaseButton @click.stop="$emit('approve')">
-        <CustomText text="Approve" />
-      </BaseButton>
       <BaseButton :is-not-background="true" @click="$emit('close')">
         <CustomText text="Cancel" />
+      </BaseButton>
+      <BaseButton @click.stop="$emit('approve')">
+        <CustomText text="Continue" />
       </BaseButton>
     </div>
   </BaseModal>
@@ -38,12 +40,24 @@ export default {
 .modal-buttons {
   display: flex;
   gap: 20px;
+
+  justify-content: flex-end;
 }
 
 .text {
   margin-bottom: 20px;
 
-  font-size: 20px;
-  color: var(--warning-color);
+  color: var(--typography-title-color);
+}
+
+.warning-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .warning-img {
+    width: 315px;
+    margin-bottom: 28px;
+  }
 }
 </style>
