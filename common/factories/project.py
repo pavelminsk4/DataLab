@@ -11,6 +11,7 @@ class ProjectFactory(factory.django.DjangoModelFactory):
     keywords            = ['post', 'keyword']
     additional_keywords = []
     ignore_keywords     = []
+    status              = 'collecting_data'
     start_search_date   = '2019-10-10T00:00:00Z'
     end_search_date     = '2023-10-10T00:00:00Z'
     creator             = factory.SubFactory(UserFactory)

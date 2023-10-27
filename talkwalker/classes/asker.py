@@ -97,6 +97,8 @@ class Asker:
         self.__02_new_task_on_query()
         self.__wait_until_limit_reached()
         self.__04_read_collector()
+        self.project.status = 'active'
+        self.project.save()
         return self.__05_delete_collector()
 
     def run(self):
