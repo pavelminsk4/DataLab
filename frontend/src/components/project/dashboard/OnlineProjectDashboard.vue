@@ -33,7 +33,10 @@
       @close="toggleWidgetsModal('isOpenDownloadReportModal')"
     />
 
-    <ExpertFilterModal />
+    <ExpertFilterModal
+      v-if="isOpenExpertFilterModal"
+      @close="toggleWidgetsModal('isOpenExpertFilterModal')"
+    />
 
     <MainLayoutTitleBlock
       :title="currentProject.title"
@@ -47,50 +50,14 @@
       <TotalResults v-if="searchData.length" :total-results="numberOfPosts" />
     </MainLayoutTitleBlock>
 
-    <div class="analytics-menu">
-      <BaseDropdown
-        title="Sort by"
-        name="sort-posts"
-        :selected-value="snakeCaseToSentenseCase(sortValue)"
-        class="sort-dropdown"
-      >
-        <CustomText
-          v-for="(item, index) in sortingList"
-          :key="item + index"
-          :text="snakeCaseToSentenseCase(item)"
-          @click="setSortingValue(item)"
-        />
-      </BaseDropdown>
-
-      <div class="menu-buttons">
-        <BaseButton
-          :is-not-background="true"
-          class="button-upload"
-          @click="downloadReport"
-        >
-          <component
-            :is="downloadReportButtonIcon"
-            style="--spinner-width: 16px"
-          ></component>
-          <CustomText text="Download Report" />
-        </BaseButton>
-
-        <div class="navigation-bar">
-          <BaseButton
-            class="button"
-            @click="toggleWidgetsModal('isOpenWidgetsModal')"
-          >
-            <PlusIcon class="icon" />
-            <CustomText text="Add Widgets" />
-          </BaseButton>
-
-          <FiltersIcon
-            class="filters-button"
-            @click="toggleWidgetsModal('isOpenFilterModal')"
-          />
-        </div>
-      </div>
-    </div>
+    <OnlineDashboardControlPanel
+      :sort-value="sortValue"
+      :downloading-instant-report="downloadingInstantReport"
+      @open-modal="toggleWidgetsModal"
+      @download-report="downloadReport"
+      @set-sorting-value="setSortingValue"
+      @open-widgets-list-modal="toggleWidgetsModal('isOpenWidgetsModal')"
+    />
 
     <div class="dashboard-wrapper">
       <SearchResults
@@ -116,9 +83,8 @@ import {mapActions, mapGetters, createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
 import {snakeCaseToSentenseCase} from '@lib/utilities'
 
-import OnlineProjectDashboardWidgets from '@/components/project/dashboard/OnlineProjectDashboardWidgets'
-import BaseButton from '@/components/common/BaseButton'
-import PlusIcon from '@/components/icons/PlusIcon'
+import TotalResults from '@/components/TotalResults'
+import SearchResults from '@/components/SearchResults'
 import WidgetsListModal from '@/components/widgets/modals/WidgetsListModal'
 import FiltersIcon from '@/components/icons/FiltersIcon'
 import OnlineFiltersModal from '@/components/project/modals/online/OnlineFiltersModal'
@@ -126,11 +92,10 @@ import ReportsUploadIcon from '@/components/icons/ReportsUploadIcon'
 import BaseDropdown from '@/components/BaseDropdown'
 import MainLayoutTitleBlock from '@/components/layout/MainLayoutTitleBlock'
 import InteractiveWidgetModal from '@/components/modals/InteractiveWidgetModal'
-import TotalResults from '@/components/TotalResults'
-import CustomText from '@/components/CustomText'
-import SearchResults from '@/components/SearchResults'
+import OnlineFiltersModal from '@/components/project/modals/online/OnlineFiltersModal'
 import DownloadInformationModal from '@/components/project/modals/DownloadInformationModal'
-import BaseButtonSpinner from '@/components/BaseButtonSpinner'
+import OnlineDashboardControlPanel from '@/components/project/dashboard/OnlineDashboardControlPanel'
+import OnlineProjectDashboardWidgets from '@/components/project/dashboard/OnlineProjectDashboardWidgets'
 
 const {mapActions: mapOnlineActions, mapState} =
   createNamespacedHelpers('online')
@@ -142,22 +107,16 @@ import ExpertFilterModal from '@/components/expert-filter/ExpertFilterModal'
 export default {
   name: 'OnlineProjectDashboard',
   components: {
-    OnlineProjectDashboardWidgets,
-    InteractiveWidgetModal,
-    MainLayoutTitleBlock,
-    BaseDropdown,
-    ReportsUploadIcon,
-    OnlineFiltersModal,
-    FiltersIcon,
-    WidgetsListModal,
-    PlusIcon,
-    BaseButton,
     TotalResults,
-    CustomText,
     SearchResults,
-    DownloadInformationModal,
-    BaseButtonSpinner,
+    MainLayoutTitleBlock,
+    WidgetsListModal,
     ExpertFilterModal,
+    OnlineFiltersModal,
+    InteractiveWidgetModal,
+    DownloadInformationModal,
+    OnlineDashboardControlPanel,
+    OnlineProjectDashboardWidgets,
   },
   props: {
     currentProject: {type: [Array, Object], required: false},
@@ -167,8 +126,8 @@ export default {
       isOpenWidgetsModal: false,
       isOpenFilterModal: false,
       isOpenDownloadReportModal: false,
-      sortValue: '',
-      sortingValue: '',
+      isOpenExpertFilterModal: false,
+      sortValue: 'Latest',
       widgetId: null,
       page: 1,
       countPosts: 4,
@@ -202,31 +161,6 @@ export default {
     },
     currentExcludeKeywords() {
       return this.currentProject?.ignore_keywords
-    },
-    sortingList() {
-      return [
-        'country',
-        'language',
-        'source',
-        'potential_reach_desc',
-        'potential_reach',
-        'date_desc',
-        'date',
-      ]
-    },
-    sortingValueProxy: {
-      get() {
-        return this.sortingValue
-      },
-      set(value) {
-        this.sortingValue = value
-      },
-    },
-
-    downloadReportButtonIcon() {
-      return this.downloadingInstantReport
-        ? 'BaseButtonSpinner'
-        : 'ReportsUploadIcon'
     },
   },
   created() {
@@ -370,54 +304,5 @@ export default {
 
 .interactive-widgets {
   z-index: 1010;
-}
-
-.analytics-menu {
-  display: flex;
-  justify-content: space-between;
-
-  width: 100%;
-
-  .sort-dropdown {
-    --position-right: -52px;
-  }
-
-  .menu-buttons {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 40px;
-
-    .navigation-bar {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      gap: 22px;
-
-      .button {
-        width: 155px;
-
-        .icon {
-          margin-right: 10px;
-        }
-      }
-    }
-  }
-}
-
-.button-upload {
-  gap: 15px;
-  padding: 0 20px;
-
-  font-size: 14px;
-  line-height: 20px;
-}
-
-.filters-button {
-  cursor: pointer;
-
-  &:hover {
-    color: var(--primary-color);
-  }
 }
 </style>
