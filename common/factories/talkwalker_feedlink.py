@@ -2,7 +2,7 @@ import factory
 from talkwalker.models import TalkwalkerFeedlink
 
 
-class TalkwalkerFeedlinksFactory(factory.django.DjangoModelFactory):
+class TalkwalkerFeedlinkFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = TalkwalkerFeedlink
 

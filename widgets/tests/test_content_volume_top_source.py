@@ -1,4 +1,4 @@
-from common.factories.feedlinks import FeedlinksFactory
+from common.factories.feedlink import FeedlinkFactory
 from common.factories.project import ProjectFactory
 from common.factories.post import PostFactory
 from rest_framework.test import APITestCase
@@ -9,8 +9,8 @@ import json
 
 class ContentVolumeTopSourcesWidgetTests(APITestCase):
     def test_response_list(self):
-        flink1 = FeedlinksFactory(source1='BBC')
-        flink2 = FeedlinksFactory(source1='Time')
+        flink1 = FeedlinkFactory(source1='BBC')
+        flink2 = FeedlinkFactory(source1='Time')
         p1 = PostFactory(feedlink=flink1, entry_published='2023-09-03 00:00:00Z', entry_title='1')
         p2 = PostFactory(feedlink=flink1, entry_published='2023-09-04 00:00:00Z', entry_title='2')
         p3 = PostFactory(feedlink=flink1, entry_published='2023-09-05 00:00:00Z', entry_title='3')

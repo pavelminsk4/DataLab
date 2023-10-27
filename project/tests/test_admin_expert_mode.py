@@ -1,4 +1,4 @@
-from common.factories.feedlinks import FeedlinksFactory
+from common.factories.feedlink import FeedlinkFactory
 from common.factories.post import PostFactory
 from common.factories.speech import SpeechFactory
 from project.online_parser import OnlineParser
@@ -8,9 +8,9 @@ from project.models import Post
 
 class TestParser(APITestCase):
     def setUp(self):
-        flink1 = FeedlinksFactory(source1='one_source', country='England')
-        flink2 = FeedlinksFactory(source1='two_source', country='USA')
-        flink3 = FeedlinksFactory(source1='third_source', country='Greece')
+        flink1 = FeedlinkFactory(source1='one_source', country='England')
+        flink2 = FeedlinkFactory(source1='two_source', country='USA')
+        flink3 = FeedlinkFactory(source1='third_source', country='Greece')
         sp = SpeechFactory(language='English')
         PostFactory(entry_title='cat dog', feed_language=sp, feedlink=flink1)
         PostFactory(entry_title='cat cow bird', feed_language=sp, feedlink=flink2)

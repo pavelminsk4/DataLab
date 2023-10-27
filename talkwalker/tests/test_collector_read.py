@@ -1,4 +1,5 @@
 from common.factories.project import ProjectFactory
+from common.factories.speech import SpeechFactory
 from talkwalker.classes.asker import Asker
 from project.models import Post
 
@@ -18,6 +19,7 @@ class AskerTestCase(TestCase):
     @responses.activate
     def test_collector_read(self):
         """Collector reads posts through all chunks"""
+        SpeechFactory(language='English (United States)')
         project = ProjectFactory()
 
         responses.add(

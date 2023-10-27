@@ -1,6 +1,8 @@
 from common.factories.project import ProjectFactory
+from common.factories.feedlink import FeedlinkFactory
+from common.factories.speech import SpeechFactory
 from talkwalker.classes.livestream import Livestream
-from project.models import Post
+from project.models import Post, Feedlinks
 from django.test import TestCase
 import httpretty
 import re
@@ -233,6 +235,9 @@ class LivestreamTestCase(TestCase):
         }""")
     ])
 
+    def setUp(self):
+        SpeechFactory(language='English (United States)')
+
     @httpretty.activate
     def test_livestream_read(self):
         """Livestream can trigger method read"""
@@ -245,6 +250,25 @@ class LivestreamTestCase(TestCase):
 
         result = Livestream(project.id, 'Project').read()
         self.assertTrue(result)
+        self.assertEqual(project.posts.all().count(), 2)
+
+    @httpretty.activate
+    def test_livestream_uses_existing_feedlinks(self):
+        """Creating posts uses existing feedlinks instead of creating new"""
+        FeedlinkFactory(sourceurl='http://www.reddit.com/')
+        FeedlinkFactory(sourceurl='http://www.reddit.com/')
+        FeedlinkFactory(sourceurl='http://www.scribd.com/')
+
+        project = ProjectFactory()
+        httpretty.register_uri(
+            httpretty.GET,
+            f'https://api.talkwalker.com/api/v3/stream/c/livestream-{project.id}-onl-col/results?access_token=acfaad27-3948-4e13-a617-2d33fd97552a_ZStqaRbxfzpRBT7YfbIqUPJPVwa2.QUzpFqzvPtKdHdc5UNZrYlHyk03MPxVkGKfZ6n3Y4i.meiy.FNZ621ZSmhzzb.gJAlvHtslEq7PP0B3JbDC4BS1y.hwK9fPz7vMQXvSfQFXka9.gEKovum-Pu0LYzy8GSjjSLvBdA1fV5M&end_behaviour=stop',
+            body=self.body
+        )
+
+        result = Livestream(project.id, 'Project').read()
+        self.assertTrue(result)
+        self.assertEqual(Feedlinks.objects.all().count(), 3)
         self.assertEqual(project.posts.all().count(), 2)
 
     @httpretty.activate

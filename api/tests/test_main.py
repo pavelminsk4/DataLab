@@ -1,4 +1,4 @@
-from common.factories.feedlinks import FeedlinksFactory
+from common.factories.feedlink import FeedlinkFactory
 from common.factories.speech import SpeechFactory
 from common.factories.post import PostFactory
 from common.factories.user import UserFactory
@@ -58,7 +58,7 @@ ex1 = {
     'feedlink__alexaglobalrank': 0,
     'category': None
 }
-  
+
 ex2 = {
     'id': 2,
     'entry_title': 'Second post title',
@@ -77,7 +77,8 @@ ex2 = {
     'feedlink__sourceurl': None,
     'feedlink__alexaglobalrank': 0,
     'category': None
-    }
+}
+
 ex3 = {
     'id': 3,
     'entry_title': 'Third post',
@@ -97,6 +98,7 @@ ex3 = {
     'feedlink__alexaglobalrank': 0,
     'category': None
 }
+
 ex4 = {
     'id': 4,
     'entry_title': 'Fourth post',
@@ -104,7 +106,7 @@ ex4 = {
     'entry_summary': 'Fourth post body',
     'entry_media_thumbnail_url': None,
     'entry_media_content_url': None,
-    'feed_image_href' :None,
+    'feed_image_href': None,
     'feed_image_link': None,
     'feed_language__language': 'Arabic',
     'entry_author': 'Steve Jobs',
@@ -113,7 +115,7 @@ ex4 = {
     'feedlink__source1': 'CNN',
     'feedlink__sourceurl': None,
     'feedlink__alexaglobalrank': 0,
-    'sentiment':'positive',
+    'sentiment': 'positive',
     'category': None
 }
 
@@ -121,8 +123,8 @@ ex4 = {
 class SearchTests(APITestCase):
     def setUp(self):
         self.client.force_login(UserFactory())
-        flink1 = FeedlinksFactory(country='USA', source1='BBC')
-        flink2 = FeedlinksFactory(country='China', source1='CNN')
+        flink1 = FeedlinkFactory(country='USA', source1='BBC', sourceurl=None)
+        flink2 = FeedlinkFactory(country='China', source1='CNN', sourceurl=None)
         sp1 = SpeechFactory(language='English (United States)')
         sp2 = SpeechFactory(language='Lithuanian (Lithuania)')
         sp3 = SpeechFactory(language='Italian (Italy)')
@@ -132,15 +134,14 @@ class SearchTests(APITestCase):
         PostFactory(id=3, feedlink=flink2, entry_title='Third post', entry_summary='Third post body', feed_language=sp3, entry_author='Bill Gates', entry_published='2022-10-03T06:37:00Z', sentiment='neutral')
         PostFactory(id=4, feedlink=flink2, entry_title='Fourth post', entry_summary='Fourth post body', feed_language=sp4, entry_author='Steve Jobs', entry_published='2022-10-03T06:37:00Z', sentiment='positive')
 
-
     def test_search_with_keywords(self):
         data = copy.deepcopy(DATA)
         data['keywords'] = ['nikita']
         data['date_range'] = ['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z']
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':1, 'posts':[ex1]}) 
-    
+        self.assertEqual(json.loads(response.content), {'num_pages': 1, 'num_posts': 1, 'posts': [ex1]})
+
     def test_search_with_exclusion_words(self):
         data = copy.deepcopy(DATA)
         data['keywords'] = ['post']
@@ -148,7 +149,7 @@ class SearchTests(APITestCase):
         data['date_range'] = ['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z']
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':3, 'posts':[ex2,ex3,ex4]})
+        self.assertEqual(json.loads(response.content), {'num_pages': 1, 'num_posts': 3, 'posts': [ex2, ex3, ex4]})
         self.assertEqual(len(Post.objects.all()), 4)
 
     def test_search_with_additional_words(self):
@@ -157,7 +158,7 @@ class SearchTests(APITestCase):
         data['additions'] = ['Third']
         data['date_range'] = ['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z']
         response = self.client.post(url, data, format='json')
-        self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':1, 'posts':[ex3]})
+        self.assertEqual(json.loads(response.content), {'num_pages': 1, 'num_posts': 1, 'posts': [ex3]})
         self.assertEqual(len(Post.objects.all()), 4)
 
     def test_serch_with_exclusion_and_additional_words(self):
@@ -167,7 +168,7 @@ class SearchTests(APITestCase):
         data['additions'] = ['title']
         data['date_range'] = ['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z']
         response = self.client.post(url, data, format='json')
-        self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':1, 'posts':[ex2]})
+        self.assertEqual(json.loads(response.content), {'num_pages': 1, 'num_posts': 1, 'posts': [ex2]})
         self.assertEqual(len(Post.objects.all()), 4)
 
     def test_search_by_country(self):
@@ -177,7 +178,7 @@ class SearchTests(APITestCase):
         data['date_range'] = ['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z']
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':1, 'posts':[ex1]})
+        self.assertEqual(json.loads(response.content), {'num_pages': 1, 'num_posts': 1, 'posts': [ex1]})
 
     def test_search_by_language(self):
         data = copy.deepcopy(DATA)
@@ -186,7 +187,7 @@ class SearchTests(APITestCase):
         data['date_range'] = ['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z']
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':1, 'posts':[ex4]})
+        self.assertEqual(json.loads(response.content), {'num_pages': 1, 'num_posts': 1, 'posts': [ex4]})
 
     def test_search_filtering_by_sentiment(self):
         data = copy.deepcopy(DATA)
@@ -195,7 +196,7 @@ class SearchTests(APITestCase):
         data['date_range'] = ['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z']
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':1, 'posts':[ex4]})
+        self.assertEqual(json.loads(response.content), {'num_pages': 1, 'num_posts': 1, 'posts': [ex4]})
 
     def test_serarch_filtering_by_date(self):
         data = copy.deepcopy(DATA)
@@ -203,7 +204,7 @@ class SearchTests(APITestCase):
         data['date_range'] = ['2022-09-02T06:44:00.000Z', '2022-09-30T06:44:00.000Z']
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':1, 'posts':[ex1]})
+        self.assertEqual(json.loads(response.content), {'num_pages': 1, 'num_posts': 1, 'posts': [ex1]})
 
     def test_search_by_source(self):
         data = copy.deepcopy(DATA)
@@ -212,7 +213,7 @@ class SearchTests(APITestCase):
         data['source'] = 'CNN'
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':3, 'posts':[ex2, ex3, ex4]})
+        self.assertEqual(json.loads(response.content), {'num_pages': 1, 'num_posts': 3, 'posts': [ex2, ex3, ex4]})
 
     def test_search_by_author(self):
         data = copy.deepcopy(DATA)
@@ -221,13 +222,13 @@ class SearchTests(APITestCase):
         data['author'] = 'Elon Musk'
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(json.loads(response.content), {'num_pages':1, 'num_posts':1, 'posts':[ex1]})
+        self.assertEqual(json.loads(response.content), {'num_pages': 1, 'num_posts': 1, 'posts': [ex1]})
 
 
 class CurrentUserTests(APITestCase):
     def test_logged_in_user(self):
         user = User.objects.create(username='John')
-        user2 = User.objects.create(username='Pablo')
+        User.objects.create(username='Pablo')
         user.user_profile.department = department.objects.create(departmentname='Anadea')
         user.user_profile.jobtitle = 'Boss'
         user.user_profile.phone = '+966-12345678'
@@ -260,7 +261,7 @@ class SpeechesTests(APITestCase):
         self.assertEqual(json.loads(response.content), [{'language': 'Albanian'}])
 
 
-class CountriesTests(APITestCase):    
+class CountriesTests(APITestCase):
     def create_country(self):
         Country.objects.create(iso='AF', iso3='AFG', name='Afghanistan', iso_numeric=4, fips='AF', capital='Kabul', area=1, population=1, continent='AS', tld='.af', currency_code='AFN', currency_name='Afghani', phone=93, languages='fa-AF,ps,uz-AF,tk', geonameid=1149361, neighbours='TM,CN,IR,TJ,PK,UZ')
 

@@ -1,5 +1,5 @@
 from django.test import TestCase
-from common.factories.feedlinks import FeedlinksFactory
+from common.factories.feedlink import FeedlinkFactory
 from common.factories.status import StatusFactory
 from common.factories.speech import SpeechFactory
 from project.models import Post
@@ -10,7 +10,7 @@ import vcr
 class PostsUploadTestCase(TestCase):
     def test_post_creator_succeeds(self):
         """Run post_creator and get data uploaded"""
-        FeedlinksFactory(url='http://yaledailynews.com/rss/')
+        FeedlinkFactory(url='http://yaledailynews.com/rss/')
         SpeechFactory(language='English (United States)')
         StatusFactory()
 

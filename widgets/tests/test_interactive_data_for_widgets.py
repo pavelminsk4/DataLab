@@ -1,4 +1,4 @@
-from common.factories.feedlinks import FeedlinksFactory
+from common.factories.feedlink import FeedlinkFactory
 from common.factories.project import ProjectFactory
 from common.factories.speech import SpeechFactory
 from common.factories.post import PostFactory
@@ -12,7 +12,7 @@ import json
 
 class InteractiveWidgetsTests(APITestCase):
     def setUp(self):
-        flink = FeedlinksFactory(country='England', source1='Time')
+        flink = FeedlinkFactory(country='England', source1='Time')
         sp1 = SpeechFactory(language='English')
         sp2 = SpeechFactory(language='Georgian')
         p1 = PostFactory(
@@ -23,11 +23,11 @@ class InteractiveWidgetsTests(APITestCase):
             feedlink=flink, entry_title='Second post title', entry_summary='Second post post title', feed_language=sp2,
             entry_published='2022-09-03T00:00:00Z', entry_author='AFP', sentiment='negative'
         )
-        p3 = PostFactory(
+        PostFactory(
             feedlink=flink, entry_title='Third post title', entry_summary='Third summary', feed_language=sp1,
             entry_published='2021-09-03T00:00:00Z', entry_author='AFP', sentiment='neutral'
         )
-        p4 = PostFactory(
+        PostFactory(
             feedlink=flink, entry_title='Fourth post title', entry_summary='Fourth summary', feed_language=sp1,
             entry_published='2021-09-03T00:00:00Z', entry_author='AFP', sentiment='negative'
         )
