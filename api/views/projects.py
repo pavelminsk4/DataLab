@@ -8,6 +8,7 @@ from api.serializers import ProjectSerializer
 from talkwalker.classes.livestream import Livestream
 from talkwalker.classes.asker import Asker
 
+from celery import shared_task
 from django_celery_beat.models import PeriodicTask, CrontabSchedule
 
 import environ
@@ -21,7 +22,11 @@ class ProjectsViewSet(viewsets.ModelViewSet):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
 
-    def collect_data(self, id):
+    @shared_task()
+    def collect_data(id):
+        if ALLOWED_HOSTS[0] == 'localhost':
+            return
+
         Asker(id, 'Project').run()
         Livestream(id, 'Project').create()
 
@@ -41,8 +46,6 @@ class ProjectsViewSet(viewsets.ModelViewSet):
 
     def create(self, request, *args, **kwargs):
         project = Project.objects.create(**request.data)
-
-        if ALLOWED_HOSTS[0] != 'localhost':
-            self.collect_data(project.id)
+        self.collect_data(project.id)
 
         return Response(ProjectSerializer(project).data, status=status.HTTP_201_CREATED)
