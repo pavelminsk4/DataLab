@@ -1,4 +1,5 @@
 from .project_posts_filter import project_posts_filter
+from common.utils.where_clause import where_clause
 from django.forms.models import model_to_dict
 from project.models import Project, Feedlinks
 from django.http import JsonResponse
@@ -31,8 +32,9 @@ def aggregator_results_content_volume_top_sources(posts, aggregation_period, top
             r'\s+', ' ', f"""
             SELECT f.id id, f.url url, COUNT(p.feedlink_id) post_count
             FROM project_post p
-            JOIN project_project_posts pp ON p.id = pp.post_id
+            JOIN project_project_posts ON p.id = project_project_posts.post_id
             JOIN project_feedlinks f ON p.feedlink_id = f.id
+            WHERE {where_clause(posts)}
             GROUP BY f.id
             ORDER BY COUNT(f.id) DESC
             LIMIT {top_counts}
@@ -47,8 +49,8 @@ def aggregator_results_content_volume_top_sources(posts, aggregation_period, top
                 SELECT feedlink_id id, date, SUM(post_count) FROM (
                 SELECT p.feedlink_id, date_trunc('{aggregation_period}', p.entry_published) date, COUNT(p.feedlink_id) post_count
                 FROM project_post p
-                JOIN project_project_posts pp ON p.id = pp.post_id
-                WHERE feedlink_id IN {top_sources}
+                JOIN project_project_posts ON p.id = project_project_posts.post_id
+                WHERE feedlink_id IN {top_sources} AND {where_clause(posts)}
                 GROUP BY p.feedlink_id, date_trunc('{aggregation_period}', p.entry_published)
 
                 UNION

@@ -1,4 +1,5 @@
 from .project_posts_filter import project_posts_filter
+from common.utils.where_clause import where_clause
 from django.forms.models import model_to_dict
 from django.http import JsonResponse
 from project.models import Project
@@ -28,7 +29,8 @@ def aggregator_results_content_volume_top_authors(posts, aggregation_period, top
             r'\s+', ' ', f"""
             SELECT 1 as id, p.entry_author, COUNT(p.entry_author) post_count
             FROM project_post p
-            JOIN project_project_posts pp ON p.id = pp.post_id
+            JOIN project_project_posts ON p.id = project_project_posts.post_id
+            WHERE {where_clause(posts)}
             GROUP BY p.entry_author
             ORDER BY COUNT(p.entry_author) DESC
             LIMIT {top_counts}
@@ -43,8 +45,8 @@ def aggregator_results_content_volume_top_authors(posts, aggregation_period, top
                 SELECT 1 as id, entry_author, date, SUM(post_count) FROM (
                 SELECT p.entry_author, date_trunc('{aggregation_period}', p.entry_published) date, COUNT(p.entry_author) post_count
                 FROM project_post p
-                JOIN project_project_posts pp ON p.id = pp.post_id
-                WHERE entry_author IN {top_authors}
+                JOIN project_project_posts ON p.id = project_project_posts.post_id
+                WHERE entry_author IN {top_authors} AND {where_clause(posts)}
                 GROUP BY p.entry_author, date_trunc('{aggregation_period}', p.entry_published)
 
                 UNION
