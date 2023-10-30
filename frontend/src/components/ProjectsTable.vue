@@ -15,7 +15,7 @@
       <td class="td_name">{{ item.title }}</td>
       <td>
         <BaseChips :class="[`td_status-${item.status}`, 'td_status']">
-          {{ snakeToSentenseCase(item.status) }}
+          {{ snakeCaseToSentenseCase(item.status) }}
         </BaseChips>
       </td>
       <td>
@@ -52,7 +52,7 @@
 <script>
 import {mapActions} from 'vuex'
 import {action} from '@store/constants'
-import {snakeToSentenseCase} from '@/lib/utilities'
+import {snakeCaseToSentenseCase} from '@/lib/utilities'
 
 import UsersIconsBar from '@components/UsersIconsBar'
 import TagsCollapsible from '@components/TagsCollapsible'
@@ -101,7 +101,7 @@ export default {
   },
   methods: {
     ...mapActions([action.DELETE_PROJECT]),
-    snakeToSentenseCase,
+    snakeCaseToSentenseCase,
     currentMember(id) {
       return this.members.find((el) => el.id === id)
     },

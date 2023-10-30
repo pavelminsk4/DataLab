@@ -13,7 +13,7 @@ export const stringToPascalCase = (str) =>
     return chr.toUpperCase()
   })
 
-export const snakeToSentenseCase = (snakeCase) =>
+export const snakeCaseToSentenseCase = (snakeCase) =>
   snakeCase
     .replace(/^[-_]*(.)/, (_, word) => word.toUpperCase())
     .replace(/[-_]+(.)/g, (_, word) => ' ' + word.toUpperCase())
