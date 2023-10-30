@@ -50,11 +50,13 @@ class ProjectsViewSet(viewsets.ModelViewSet):
         workspace_id = data.pop('workspace', None)
 
         data.pop('searchFilters', None)
+        data.pop('description', None)
+        data.pop('department_id', None)
 
         creator   = User.objects.filter(id=creator_id).first() if creator_id else None
         workspace = Workspace.objects.filter(id=workspace_id).first() if workspace_id else None
 
         project = Project.objects.create(**data, creator=creator, workspace=workspace)
-        self.collect_data(project.id)
+        self.collect_data.delay(project.id)
 
         return Response(ProjectSerializer(project).data, status=status.HTTP_201_CREATED)
