@@ -3,6 +3,7 @@
     v-if="workspace?.title"
     :title="workspace.title"
     :workspace="workspace"
+    :table-header="tableHeader"
     :back-page="{
       name: 'main page',
       routeName: 'OnlineHome',
@@ -34,6 +35,16 @@ export default {
     workspace() {
       return this.workspaces.find((el) => el.id === +this.workspaceId)
     },
+  },
+  created() {
+    this.tableHeader = [
+      {name: 'project name', width: ''},
+      {name: 'status', width: ''},
+      {name: 'keywords', width: '20%'},
+      {name: 'creator', width: '16%'},
+      {name: 'assigned user', width: '11%'},
+      {name: 'date', width: '11%'},
+    ]
   },
   methods: {
     ...mapActions([action.DELETE_PROJECT]),

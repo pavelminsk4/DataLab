@@ -38,6 +38,7 @@
 
     <div class="projects-wrapper scroll">
       <ProjectsTable
+        :table-header="tableHeader"
         :values="filteredProjects"
         :members="workspace.members"
         @delete-project="deleteProject"
@@ -76,6 +77,7 @@ export default {
     CustomText,
   },
   props: {
+    tableHeader: {type: Array, default: () => []},
     moduleName: {type: String, default: 'Online'},
     workspace: {type: Object, default: () => ({})},
     backPage: {type: Object, default: () => ({name: 'page', routeName: ''})},
@@ -98,7 +100,7 @@ export default {
     },
     sortedProjects() {
       const projects = this.workspace?.projects
-      return projects.sort(
+      return projects?.sort(
         (projectA, projectB) =>
           new Date(projectB.created_at) - new Date(projectA.created_at)
       )

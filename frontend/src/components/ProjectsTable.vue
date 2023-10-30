@@ -13,8 +13,11 @@
       @click="goToProject($event, item.id)"
     >
       <td class="td_name">{{ item.title }}</td>
-      <td>
-        <BaseChips :class="[`td_status-${item.status}`, 'td_status']">
+      <td v-if="item.status">
+        <BaseChips
+          :chips-type="item.status"
+          :class="[`td_status-${item.status}`, 'td_status']"
+        >
           {{ snakeCaseToSentenseCase(item.status) }}
         </BaseChips>
       </td>
@@ -75,6 +78,7 @@ export default {
   },
   emits: ['go-to-project', 'delete-project'],
   props: {
+    tableHeader: {type: Array, default: () => []},
     values: {type: Array, default: () => []},
     members: {type: Array, default: () => []},
   },
@@ -88,16 +92,6 @@ export default {
         type: 'project',
       },
     }
-  },
-  created() {
-    this.tableHeader = [
-      {name: 'project name', width: ''},
-      {name: 'status', width: ''},
-      {name: 'keywords', width: '20%'},
-      {name: 'creator', width: '16%'},
-      {name: 'assigned user', width: '11%'},
-      {name: 'date', width: '11%'},
-    ]
   },
   methods: {
     ...mapActions([action.DELETE_PROJECT]),
