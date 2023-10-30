@@ -70,7 +70,6 @@ class TalkwalkerPost(models.Model):
 
 
 @receiver(post_save, sender='twenty_four_seven.ProjectTwentyFourSeven')
-@receiver(post_save, sender=Project)
 def create_periodic_task(sender, instance, created, **kwargs):
     if ALLOWED_HOSTS[0] != 'localhost' and created:
         Livestream(instance.id, sender.__name__).create()
@@ -106,7 +105,6 @@ def tfs_items(sender, instance, created, **kwargs):
 
 
 @receiver(post_save, sender='twenty_four_seven.ProjectTwentyFourSeven')
-@receiver(post_save, sender=Project)
 def fetch_talkwalker_posts(sender, instance, created, **kwargs):
     if ALLOWED_HOSTS[0] != 'localhost' and created:
         Asker(instance.id, sender.__name__).run()
