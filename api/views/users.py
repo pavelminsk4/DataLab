@@ -1,4 +1,4 @@
-from . import variables
+from .. import variables
 from django.shortcuts import get_object_or_404
 from django.core.paginator import Paginator
 from django.contrib.auth.models import User
@@ -8,7 +8,7 @@ from rest_framework import viewsets, generics, filters, status
 from rest_framework.response import Response
 from rest_framework.generics import ListAPIView, CreateAPIView, DestroyAPIView, UpdateAPIView, RetrieveAPIView, ListCreateAPIView, RetrieveUpdateAPIView
 from widgets.models import ClippingFeedContentWidget, WidgetsList2, Dimensions, ProjectDimensions
-from project.models import Project, Workspace, Post, Speech, Feedlinks, ChangingOnlineSentiment
+from project.models import Project, Post, Speech, Feedlinks, ChangingOnlineSentiment
 from reports.models import Templates, RegularReport
 from widgets.common_widget.filters_for_widgets import posts_agregator, post_agregator_with_dimensions
 from alerts.models import Alert
@@ -18,12 +18,12 @@ from countries_plus.models import Country
 from rest_framework.views import APIView
 from sentence_transformers import util
 from ml_components.models import MlCategory
-from .serializers import ProjectSerializer, WorkspaceSerializer, UserSerializer, UserUpdateSerializer
-from .serializers import WorkspaceCreateSerializer, CountrySerializer, SpeechSerializer, PostsSerializer
-from .serializers import FeedlinksSerializer, WidgetsListSerializer, ClippingFeedContentWidgetSerializer
-from .serializers import ProjectDimensionsListSerializer, DimensionsSerializer, ProjectDimensionsSerializer
-from .serializers import AlertCreateSerializer, AlertsSerializer, RegisterSerializer, ProfileUserSerializer
-from .serializers import TemplatesSerializer, RegularReportCreateSerializer
+from ..serializers import UserSerializer, UserUpdateSerializer
+from ..serializers import CountrySerializer, SpeechSerializer, PostsSerializer
+from ..serializers import FeedlinksSerializer, WidgetsListSerializer, ClippingFeedContentWidgetSerializer
+from ..serializers import ProjectDimensionsListSerializer, DimensionsSerializer, ProjectDimensionsSerializer
+from ..serializers import AlertCreateSerializer, AlertsSerializer, RegisterSerializer, ProfileUserSerializer
+from ..serializers import TemplatesSerializer, RegularReportCreateSerializer
 from api.services.search_service import SearchService
 import numpy as np
 import json
@@ -57,42 +57,6 @@ class LoggedInUserView(APIView):
     def get(self, request):
         serializer = UserSerializer(self.request.user)
         return Response(serializer.data)
-
-
-class ProjectsViewSet(viewsets.ModelViewSet):
-    queryset = Project.objects.all()
-    serializer_class = ProjectSerializer
-
-
-class WorkspaceList(ListAPIView):
-    serializer_class = WorkspaceSerializer
-
-    def get_queryset(self):
-        user = self.request.user
-        if not user.is_anonymous:
-            return Workspace.objects.filter(members=user)
-
-        return Workspace.objects.none()
-
-
-class SingleWorkspace(RetrieveAPIView):
-    queryset = Workspace.objects.all()
-    serializer_class = WorkspaceSerializer
-
-
-class WorkspaceCreate(CreateAPIView):
-    queryset = Workspace.objects.all()
-    serializer_class = WorkspaceCreateSerializer
-
-
-class WorkspaceUpdate(UpdateAPIView):
-    queryset = Workspace.objects.all()
-    serializer_class = WorkspaceSerializer
-
-
-class WorkspaceDelete(DestroyAPIView):
-    queryset = Workspace.objects.all()
-    serializer_class = WorkspaceSerializer
 
 
 def exclude_keywords_posts(posts, exceptions):

@@ -15,7 +15,7 @@ class SearchService:
         sort_posts     = body['sort_posts']
         query_filter   = body['query_filter']
 
-        from api.views import filter_with_constructor, posts_values, filter_with_dimensions, change_post_sentiment
+        from api.views.users import filter_with_constructor, posts_values, filter_with_dimensions, change_post_sentiment
 
         if 'project_pk' in body:
             project = Project.objects.get(id=body['project_pk'])

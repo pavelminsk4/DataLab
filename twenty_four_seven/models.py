@@ -1,12 +1,11 @@
-from api.views import filter_with_constructor, data_range_posts_for_24
-from phonenumber_field.modelfields import PhoneNumberField
+from api.views.users import filter_with_constructor, data_range_posts_for_24
 from django.contrib.postgres.fields import ArrayField
+from project.models import Post
 from tweet_binder.models import TweetBinderPost
 from django.db.models.signals import post_save
 from talkwalker.models import TalkwalkerPost
 from django.contrib.auth.models import User
 from django.dispatch import receiver
-from project.models import Post
 from celery import shared_task
 from bs4 import BeautifulSoup
 from django.db import models
@@ -41,7 +40,7 @@ class ProjectTwentyFourSeven(models.Model):
         ('social', 'Social'),
     ]
     title = models.CharField(max_length=100)
-    creator = models.ForeignKey(User,related_name='creator_tfs', on_delete=models.SET_NULL, null=True)
+    creator = models.ForeignKey(User, related_name='creator_tfs', on_delete=models.SET_NULL, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     note = models.CharField(max_length=200, null=True, blank=True)
@@ -105,12 +104,11 @@ def attach_online_posts(id):
             pass
 
 
-from project.models import Post
 @receiver(post_save, sender=ProjectTwentyFourSeven)
 def attach_items(sender, instance, created, **kwargs):
-  if created:
-    if instance.project_type == 'online':
-        attach_online_posts.delay(instance.pk)
+    if created:
+        if instance.project_type == 'online':
+            attach_online_posts.delay(instance.pk)
 
 
 class Item(models.Model):
@@ -120,7 +118,7 @@ class Item(models.Model):
         ('Q&A Check', 'Q&A Check'),
         ('Publishing', 'Publishing'),
         ('Published', 'Published'),
-        ('Irrelevant','Irrelevant'),
+        ('Irrelevant', 'Irrelevant'),
     ]
 
     online_post = models.ForeignKey(TalkwalkerPost, on_delete=models.CASCADE, blank=True, null=True)
@@ -134,7 +132,7 @@ class Item(models.Model):
     is_back = models.BooleanField(default=False)
     project = models.ForeignKey(ProjectTwentyFourSeven, on_delete=models.CASCADE, related_name='tfs_project_items', blank=True, null=True)
     linked_items = models.ManyToManyField(to='self', related_name='attached_items', symmetrical=False, blank=True)
-    
+
     class Meta:
         constraints = [
             models.UniqueConstraint(fields=['project_id', 'online_post'], name='twenty four seven online item uniqueness constraint'),
@@ -163,7 +161,7 @@ def get_full_text(url):
         soup = BeautifulSoup(page, 'html.parser')
         p_tags = soup.find_all('p')
         p_tags_text = find_tags(p_tags)
-        sentence_list = [sentence for sentence in p_tags_text if not '\n' in sentence]
+        sentence_list = [sentence for sentence in p_tags_text if '\n' not in sentence]
         sentence_list = [sentence for sentence in sentence_list if '.' in sentence]
         full_text = '\n'.join(sentence_list)
         return full_text

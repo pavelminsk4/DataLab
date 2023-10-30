@@ -20,6 +20,12 @@
 4. `yarn serve`
 5. `python3 manage.py test`
 
+**Celery**
+1. `brew install redis`
+2. `brew services start redis`
+3. `celery -A config worker --beat -l info`
+4. `celery -A config flower` (for monitoring)
+
 **Frontend**
 1. `cd frontend`
 2. `yarn` (to install JS libraries)
@@ -28,4 +34,5 @@
 # Running the developer's environment
 
 1. `python3 manage.py createsuperuser`
-2. `python3 manage.py runserver`
+2. `yarn serve` (to run the frontend)
+3. `python3 manage.py runserver`
