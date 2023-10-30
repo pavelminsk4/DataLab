@@ -2,6 +2,7 @@
   <WorkspaceView
     module-name="Social"
     :workspace="workspace"
+    :table-header="tableHeader"
     :back-page="{
       name: 'main page',
       routeName: 'SocialHome',
@@ -34,6 +35,14 @@ export default {
     },
   },
   async created() {
+    this.tableHeader = [
+      {name: 'project name', width: ''},
+      {name: 'keywords', width: '20%'},
+      {name: 'creator', width: '16%'},
+      {name: 'assigned user', width: '11%'},
+      {name: 'date', width: '11%'},
+    ]
+
     if (!this.workspaces.length) {
       await this[action.GET_WORKSPACES]()
     }

@@ -10,7 +10,7 @@
           :error-message="mainKeywordsError"
           :is-main-field="true"
           placeholder='Enter a main keyword and press "Enter"'
-          class="search-option"
+          class="search-option keywords-field"
           @update:modelValue="updateCollection"
         />
 
@@ -21,7 +21,7 @@
           :is-additional-keywords="true"
           name="additional_keywords"
           placeholder="Enter additional keywords"
-          class="search-option"
+          class="search-option keywords-field"
           @update:modelValue="updateCollection"
         />
 
@@ -34,7 +34,7 @@
           :is-irrelevant-keywords="true"
           name="ignore_keywords"
           placeholder="Enter irrelevant keywords"
-          class="search-option"
+          class="search-option keywords-field"
           @update:modelValue="updateCollection"
         />
       </div>
@@ -208,5 +208,11 @@ export default {
 
 .search-option {
   width: 408px;
+}
+
+.keywords-field {
+  align-items: flex-start;
+
+  height: 76px;
 }
 </style>

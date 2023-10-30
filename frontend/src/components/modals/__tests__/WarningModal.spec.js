@@ -20,6 +20,6 @@ describe('WarningModal component', () => {
   it('should display the text and components', () => {
     expect(wrapper.findAllComponents(BaseModal).length).toEqual(1)
     expect(wrapper.findAllComponents(BaseButton).length).toEqual(2)
-    expect(wrapper.text()).toMatch('Are you sure about the words you entered?')
+    expect(wrapper.text()).toMatch('Save confirmation')
   })
 })

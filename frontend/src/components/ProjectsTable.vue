@@ -13,6 +13,14 @@
       @click="goToProject($event, item.id)"
     >
       <td class="td_name">{{ item.title }}</td>
+      <td v-if="item.status">
+        <BaseChips
+          :chips-type="item.status"
+          :class="[`td_status-${item.status}`, 'td_status']"
+        >
+          {{ snakeCaseToSentenseCase(item.status) }}
+        </BaseChips>
+      </td>
       <td>
         <TagsCollapsible v-if="item.keywords?.length" :tags="item.keywords" />
       </td>
@@ -47,6 +55,7 @@
 <script>
 import {mapActions} from 'vuex'
 import {action} from '@store/constants'
+import {snakeCaseToSentenseCase} from '@/lib/utilities'
 
 import UsersIconsBar from '@components/UsersIconsBar'
 import TagsCollapsible from '@components/TagsCollapsible'
@@ -54,6 +63,7 @@ import AreYouSureModal from '@/components/modals/AreYouSureModal'
 import BaseTable from '@components/common/BaseTable'
 import BaseTableRow from '@components/common/BaseTableRow'
 import UserAvatar from '@components/UserAvatar'
+import BaseChips from '@/components/BaseChips'
 
 export default {
   name: 'ProjectsTable',
@@ -64,17 +74,13 @@ export default {
     BaseTable,
     BaseTableRow,
     UserAvatar,
+    BaseChips,
   },
   emits: ['go-to-project', 'delete-project'],
   props: {
-    values: {
-      type: Array,
-      default: () => [],
-    },
-    members: {
-      type: Array,
-      default: () => [],
-    },
+    tableHeader: {type: Array, default: () => []},
+    values: {type: Array, default: () => []},
+    members: {type: Array, default: () => []},
   },
   data() {
     return {
@@ -87,17 +93,9 @@ export default {
       },
     }
   },
-  created() {
-    this.tableHeader = [
-      {name: 'project name', width: ''},
-      {name: 'keywords', width: '20%'},
-      {name: 'creator', width: '16%'},
-      {name: 'assigned user', width: '11%'},
-      {name: 'date', width: '11%'},
-    ]
-  },
   methods: {
     ...mapActions([action.DELETE_PROJECT]),
+    snakeCaseToSentenseCase,
     currentMember(id) {
       return this.members.find((el) => el.id === id)
     },
@@ -200,5 +198,34 @@ export default {
 
 .project-creation-date {
   font-weight: 600;
+}
+
+.td_status {
+  position: relative;
+
+  background-color: var(--chips-background-secondary-color);
+
+  color: var(--typography-secondary-color);
+
+  &::before {
+    content: '';
+
+    position: absolute;
+    left: 14px;
+
+    height: 6px;
+    width: 6px;
+
+    border-radius: 100%;
+    background-color: var(--icon-primary-color);
+  }
+}
+
+.td_status-active {
+  background-color: var(--positive-secondary-color);
+
+  &::before {
+    background-color: var(--positive-primary-color);
+  }
 }
 </style>
