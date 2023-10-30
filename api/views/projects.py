@@ -2,7 +2,7 @@ from rest_framework import viewsets
 from rest_framework import status
 from rest_framework.response import Response
 
-from project.models import Project
+from project.models import Project, User, Workspace
 from api.serializers import ProjectSerializer
 
 from talkwalker.classes.livestream import Livestream
@@ -22,7 +22,7 @@ class ProjectsViewSet(viewsets.ModelViewSet):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
 
-    @shared_task()
+    @shared_task
     def collect_data(id):
         if ALLOWED_HOSTS[0] == 'localhost':
             return
@@ -48,6 +48,8 @@ class ProjectsViewSet(viewsets.ModelViewSet):
         data         = request.data
         creator_id   = data.pop('creator', None)
         workspace_id = data.pop('workspace', None)
+
+        data.pop('searchFilters', None)
 
         creator   = User.objects.filter(id=creator_id).first() if creator_id else None
         workspace = Workspace.objects.filter(id=workspace_id).first() if workspace_id else None

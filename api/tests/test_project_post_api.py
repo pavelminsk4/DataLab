@@ -2,6 +2,7 @@ from common.factories.feedlink import FeedlinkFactory
 from common.factories.project import ProjectFactory
 from common.factories.post import PostFactory
 from common.factories.user import UserFactory
+from common.factories.workspace import WorkspaceFactory
 from rest_framework.test import APITestCase
 from django.contrib.auth.models import User
 from rest_framework import status
@@ -19,7 +20,10 @@ class ProjectPostTests(APITestCase):
             'keywords': ['nothing', 'special'],
             'note': 'nope',
             'start_search_date': '2023-10-31T00:00:00Z',
-            'end_search_date': '2023-10-31T00:00:00Z'
+            'end_search_date': '2023-10-31T00:00:00Z',
+            'creator': UserFactory().id,
+            'workspace': WorkspaceFactory().id,
+            'searchFilters': {'page_number': 1, 'posts_per_page': 20}
         }
 
         response = self.client.post('/api/projects/', params, format='json')
