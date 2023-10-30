@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'multilanguage.apps.MultilanguageConfig',
     'expert_filters.apps.ExpertFiltersConfig',
     'talkwalker.apps.TalkwalkerConfig',
+    'django_extensions',
 ]
 
 ASGI_APPLICATION = 'config.asgi.application'

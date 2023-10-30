@@ -152,8 +152,8 @@ class Project(models.Model):
 
         super(Project, self).save(*args, **kwargs)
 
-        def __str__(self):
-            return self.title
+    def __str__(self):
+        return self.title
 
 
 @receiver(post_save, sender=Project)
