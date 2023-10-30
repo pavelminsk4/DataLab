@@ -45,7 +45,14 @@ class ProjectsViewSet(viewsets.ModelViewSet):
         )
 
     def create(self, request, *args, **kwargs):
-        project = Project.objects.create(**request.data)
+        data         = request.data
+        creator_id   = data.pop('creator', None)
+        workspace_id = data.pop('workspace', None)
+
+        creator   = User.objects.filter(id=creator_id).first() if creator_id else None
+        workspace = Workspace.objects.filter(id=workspace_id).first() if workspace_id else None
+
+        project = Project.objects.create(**data, creator=creator, workspace=workspace)
         self.collect_data(project.id)
 
         return Response(ProjectSerializer(project).data, status=status.HTTP_201_CREATED)
