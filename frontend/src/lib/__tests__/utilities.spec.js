@@ -91,7 +91,7 @@ describe('snakeCaseToSentenseCase', () => {
 
   describe('when there is a snake case', () => {
     it('return string is "Test Test"', () => {
-      expect(utils.stringToPascalCase(snakeCase)).toBe('Test Test')
+      expect(utils.snakeCaseToSentenseCase(snakeCase)).toBe('Test Test')
     })
   })
 })
