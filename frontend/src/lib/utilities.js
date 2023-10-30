@@ -13,6 +13,11 @@ export const stringToPascalCase = (str) =>
     return chr.toUpperCase()
   })
 
+export const snakeToSentenseCase = (snakeCase) =>
+  snakeCase
+    .replace(/^[-_]*(.)/, (_, word) => word.toUpperCase())
+    .replace(/[-_]+(.)/g, (_, word) => ' ' + word.toUpperCase())
+
 export const splitToSeparateWords = (string) =>
   string.replace(/([a-z])([A-Z])/g, '$1 $2').toLowerCase()
 
