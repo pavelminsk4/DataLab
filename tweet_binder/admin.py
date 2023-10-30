@@ -1,8 +1,8 @@
 from django.contrib import admin
 from .models import *
 
-@admin.register(HistoricalSearchProject)
-class HistoricalSearchProjectAdmin(admin.ModelAdmin):
+@admin.register(EnterpriseSearchProject)
+class EnterpriseSearchProjectAdmin(admin.ModelAdmin):
     list_display = ('title', 'keyword', 'limit', 'start_date', 'end_date', 'updated_at', 'created_at')
     search_fields = ('title__startswith', 'keyword__startswith')
 

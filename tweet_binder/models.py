@@ -14,7 +14,7 @@ from .services.get_publications import get_publications, get_publications_next_p
 from .services.get_user_tracker_stats import get_user_tracker_stats
 from .services.greate_user_tracker import greate_user_tracker
 from .services.stop_user_trackers import stop_user_trackers
-from .services.historical_search import historical_search
+from .services.enterprise_search import enterprise_search
 from .services.get_report_state import get_report_state
 from .services.delete_report import delete_report
 from .services.basic_search import basic_search
@@ -123,15 +123,15 @@ class TypesOfSearch(models.Model):
   class Meta:
     abstract = True
 
-class HistoricalSearchProject(TypesOfSearch):
+class EnterpriseSearchProject(TypesOfSearch):
   start_date = models.DateTimeField(blank=True, null=True)
   end_date = models.DateTimeField(blank=True, null=True)
   
   def __str__(self):
       return self.title
 
-@receiver(post_save, sender=HistoricalSearchProject)
-def create_historical_search_project(sender, instance, created, **kwargs):
+@receiver(post_save, sender=EnterpriseSearchProject)
+def create_enterprise_search_project(sender, instance, created, **kwargs):
   if created:
     keyword = instance.keyword
     keyword_and = instance.keyword_and
@@ -140,7 +140,7 @@ def create_historical_search_project(sender, instance, created, **kwargs):
     limit = instance.limit
     start_date = instance.start_date
     end_date = instance.end_date
-    historical_search_type(keyword, keyword_and, keyword_or, keyword_nor, limit, start_date, end_date)
+    enterprise_search_type(keyword, keyword_and, keyword_or, keyword_nor, limit, start_date, end_date)
 
 class BasicSearchProject(TypesOfSearch):
 
@@ -212,10 +212,10 @@ def basic_search_type(keyword,  keyword_and, keyword_or, keyword_nor, limit):
     time.sleep(10)
     search.delay(report_id, auth_token)
 
-def historical_search_type(keyword, keyword_and, keyword_or, keyword_nor, limit, start_date, end_date):
-    historical_search_url = api_route + '/search/twitter/historical'
+def enterprise_search_type(keyword, keyword_and, keyword_or, keyword_nor, limit, start_date, end_date):
+    enterprise_search_url = api_route + '/search/twitter/enterprise/'
     auth_token = json.loads(login(email, password))['authToken'] 
-    report_id = json.loads(historical_search(keyword, keyword_and, keyword_or, keyword_nor, limit, start_date, end_date, auth_token, historical_search_url))['resourceId']
+    report_id = json.loads(enterprise_search(keyword, keyword_and, keyword_or, keyword_nor, limit, start_date, end_date, auth_token, enterprise_search_url))['resourceId']
     time.sleep(10)
     search.delay(report_id, auth_token)   
 
@@ -309,7 +309,9 @@ def add_post_to_database(data_tweets):
 
 @shared_task
 def search(report_id, auth_token):
-    while json.loads(get_report_state(report_id, auth_token))['status'] == 'waiting':
+    i = 0
+    while json.loads(get_report_state(report_id, auth_token))['status'] != 'generated' and i < 100:
+        i += 1
         print(json.loads(get_report_state(report_id, auth_token))['status'])
     if json.loads(get_report_state(report_id, auth_token))['status'] == 'generated':
         data_tweets = json.loads(get_publications(report_id, auth_token))
