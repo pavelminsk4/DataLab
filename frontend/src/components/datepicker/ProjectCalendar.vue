@@ -23,6 +23,7 @@ export default {
     VueDatePicker,
   },
   props: {
+    isDesableAfterToday: {type: Boolean, default: true},
     isRange: {type: Boolean, default: false},
   },
   data() {
@@ -47,7 +48,7 @@ export default {
   methods: {
     ...mapActions([action.UPDATE_ADDITIONAL_FILTERS]),
     disabledAfterToday(date) {
-      return this.isRange
+      return this.isRange && this.isDesableAfterToday
         ? date < this.additionalFilters.date_range[0]
         : date > new Date()
     },
