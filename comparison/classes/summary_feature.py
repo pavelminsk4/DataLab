@@ -16,7 +16,7 @@ from widgets.summary.top_keywords import post_agg_top_keywords as onl_top_keywor
 from widgets.common_widget.summary import calculate_summary_widget as onl_summary
 
 from project_social.widgets.filters_for_widgets import posts_agregator as get_soc_posts
-from widgets.common_widget.filters_for_widgets import posts_agregator as get_onl_posts
+from widgets.common_widget.filters_for_widgets import posts_with_filters as get_onl_posts
 
 from project_social.models import ProjectSocial, SocialWidgetsList
 from widgets.models import WidgetsList2
@@ -36,7 +36,7 @@ class SummaryFactory:
 
 class SummaryOnline:
     def __init__(self, project):
-        self.posts = get_onl_posts(project)
+        self.posts = get_onl_posts(project, project.posts)
         self.project = project
 
     def get_widgets(self):
