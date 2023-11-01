@@ -15,7 +15,7 @@ from project_social.widgets.influencers.overall_top_authors import get_top_autho
 from project_social.widgets.influencers.top_sharing_sources import get_mosts as soc_top_sharing_sources
 
 from project_social.widgets.filters_for_widgets import posts_agregator as get_soc_posts
-from widgets.common_widget.filters_for_widgets import posts_agregator as get_onl_posts
+from widgets.common_widget.filters_for_widgets import posts_with_filters as get_onl_posts
 
 from project_social.models import ProjectSocial, SocialWidgetsList
 from widgets.models import WidgetsList2
@@ -24,7 +24,7 @@ from project.models import Project
 
 class InfluencersOnline:
     def __init__(self, project):
-        self.posts = get_onl_posts(project)
+        self.posts = get_onl_posts(project, project.posts)
         self.project = project
 
     def get_widgets(self):

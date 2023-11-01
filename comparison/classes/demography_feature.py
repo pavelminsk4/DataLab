@@ -11,7 +11,7 @@ from project_social.widgets.demography.gender_by_location import calculate_for_g
 from common.social_keywords import get_keywords as soc_top_keywords
 
 from project_social.widgets.filters_for_widgets import posts_agregator as get_soc_posts
-from widgets.common_widget.filters_for_widgets import posts_agregator as get_onl_posts
+from widgets.common_widget.filters_for_widgets import posts_with_filters as get_onl_posts
 
 from project_social.models import ProjectSocial, SocialWidgetsList
 from widgets.models import WidgetsList2
@@ -20,7 +20,7 @@ from project.models import Project
 
 class DemographyOnline:
     def __init__(self, project):
-        self.posts = get_onl_posts(project)
+        self.posts = get_onl_posts(project, project.posts)
         self.project = project
 
     def get_widgets(self):

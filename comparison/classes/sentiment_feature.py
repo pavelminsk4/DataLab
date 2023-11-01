@@ -13,7 +13,7 @@ from widgets.sentiment.sentiment_top_keywords import post_agg_sentiment_top_keyw
 from widgets.sentiment.sentiment_number_of_results import get_sentiment_number_of_results as onl_sentiment
 
 from project_social.widgets.filters_for_widgets import posts_agregator as get_soc_posts
-from widgets.common_widget.filters_for_widgets import posts_agregator as get_onl_posts
+from widgets.common_widget.filters_for_widgets import posts_with_filters as get_onl_posts
 
 from project_social.models import ProjectSocial, SocialWidgetsList
 from widgets.models import WidgetsList2
@@ -22,7 +22,7 @@ from project.models import Project
 
 class SentimentOnline:
     def __init__(self, project):
-        self.posts = get_onl_posts(project)
+        self.posts = get_onl_posts(project, project.posts)
         self.project = project
 
     def get_widgets(self):
