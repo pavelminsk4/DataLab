@@ -1,8 +1,7 @@
 <template>
-  <MainLayout>
+  <MainLayout v-if="workspace?.title">
     <div class="content-header">
       <MainLayoutTitleBlock
-        v-if="workspace?.title"
         :title="workspace.title"
         :description="workspace.description"
         :back-page="{
@@ -69,12 +68,17 @@ export default {
     }
   },
   computed: {
-    ...mapState(['modulesProjects']),
+    ...mapState(['modulesProjects', 'loading']),
     workspaceId() {
       return this.$route.params.workspaceId
     },
     workspace() {
-      return this.workspaces.find((el) => el.id === +this.workspaceId)
+      const existingWorkspace = this.workspaces.find(
+        (el) => el.id === +this.workspaceId
+      )
+      if (!existingWorkspace && !this.loading) return this.goToNotFoundPage()
+
+      return existingWorkspace
     },
     currentModule() {
       return this.workspace?.cmpr_workspace_projects[0].cmpr_items[0] ===

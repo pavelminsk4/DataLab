@@ -1,5 +1,6 @@
 <template>
   <WorkspaceView
+    v-if="workspace?.title"
     module-name="Social"
     :workspace="workspace"
     :table-header="tableHeader"
@@ -25,13 +26,19 @@ export default {
   components: {WorkspaceView},
   computed: {
     ...mapGetters({
+      loading: get.LOADING,
       workspaces: get.WORKSPACES,
     }),
     workspaceId() {
       return this.$route.params.workspaceId
     },
     workspace() {
-      return this.workspaces.find((el) => el.id === +this.workspaceId)
+      const existingWorkspace = this.workspaces.find(
+        (el) => el.id === +this.workspaceId
+      )
+      if (!existingWorkspace && !this.loading) return this.goToNotFoundPage()
+
+      return existingWorkspace
     },
   },
   async created() {

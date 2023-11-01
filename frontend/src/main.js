@@ -14,6 +14,11 @@ app.mixin({
     ...mapGetters({platformLanguage: get.PLATFORM_LANGUAGE}),
   },
   methods: {
+    goToNotFoundPage() {
+      this.$router.push({
+        name: 'NotFound',
+      })
+    },
     togglePageScroll(isOpen) {
       if (isOpen) {
         document.body.classList.add('overflow-hidden')

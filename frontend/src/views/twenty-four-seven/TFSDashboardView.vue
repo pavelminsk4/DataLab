@@ -32,7 +32,7 @@ export default {
     MainLayoutTitleBlock,
   },
   computed: {
-    ...mapState(['workspaces']),
+    ...mapState(['workspaces', 'loading']),
     workspaceId() {
       return this.$route.params.workspaceId
     },
@@ -40,12 +40,20 @@ export default {
       return this.$route.params.projectId
     },
     currentWorkspace() {
-      return this.workspaces.filter((el) => el.id === +this.workspaceId)
+      const existingWorkspace = this.workspaces.find(
+        (el) => el.id === +this.workspaceId
+      )
+      if (!existingWorkspace && !this.loading) return this.goToNotFoundPage()
+
+      return existingWorkspace
     },
     currentProject() {
-      return this.currentWorkspace[0]?.projects.find(
+      const existingProject = this.currentWorkspace?.projects.find(
         (el) => el.id === +this.projectId
       )
+      if (!existingProject && !this.loading) return this.goToNotFoundPage()
+
+      return existingProject
     },
   },
   async created() {
