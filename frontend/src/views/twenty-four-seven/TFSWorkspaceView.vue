@@ -1,8 +1,7 @@
 <template>
-  <MainLayout>
+  <MainLayout v-if="workspace?.title">
     <div class="content-header">
       <MainLayoutTitleBlock
-        v-if="workspace?.title"
         :title="workspace.title"
         :description="workspace.description"
         :back-page="{
@@ -63,7 +62,7 @@ export default {
     }
   },
   computed: {
-    ...mapTFSState(['workspaces']),
+    ...mapTFSState(['workspaces', 'loading']),
     ...mapGetters({
       department: get.DEPARTMENT,
       isLoading: get.LOADING,
@@ -72,7 +71,12 @@ export default {
       return this.$route.params.workspaceId
     },
     workspace() {
-      return this.workspaces.find((el) => el.id === +this.workspaceId)
+      const existingWorkspace = this.workspaces.find(
+        (el) => el.id === +this.workspaceId
+      )
+      if (!existingWorkspace && !this.loading) return this.goToNotFoundPage()
+
+      return existingWorkspace
     },
     isProjectCreationAvailable() {
       return (

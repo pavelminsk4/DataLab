@@ -31,7 +31,7 @@ import MainLayoutTitleBlock from '@/components/layout/MainLayoutTitleBlock'
 import SideBar from '@/components/navigation/SideBar'
 import {isAllFieldsEmpty} from '@/lib/utilities'
 
-const {mapActions} = createNamespacedHelpers('comparison')
+const {mapActions, mapState} = createNamespacedHelpers('comparison')
 
 export default {
   name: 'ComparisonFeatureView',
@@ -40,8 +40,14 @@ export default {
     workspaces: {type: Array, required: true},
   },
   computed: {
+    ...mapState(['loading']),
     currentWorkspace() {
-      return this.workspaces.find((el) => el.id === +this.workspaceId)
+      const existingWorkspace = this.workspaces.find(
+        (el) => el.id === +this.workspaceId
+      )
+      if (!existingWorkspace && !this.loading) return this.goToNotFoundPage()
+
+      return existingWorkspace
     },
     workspaceId() {
       return this.$route.params.workspaceId
@@ -51,9 +57,14 @@ export default {
     },
     currentProject() {
       if (isAllFieldsEmpty(this.currentWorkspace)) return
-      return this.currentWorkspace.cmpr_workspace_projects.find(
-        (el) => el.id === +this.projectId
-      )
+
+      const existingProject =
+        this.currentWorkspace?.cmpr_workspace_projects.find(
+          (el) => el.id === +this.projectId
+        )
+      if (!existingProject && !this.loading) return this.goToNotFoundPage()
+
+      return existingProject
     },
     projectsModule() {
       return this.currentProject.cmpr_items[0].module_type === 'Project'
