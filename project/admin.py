@@ -11,6 +11,7 @@ admin.site.register(Status)
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
     list_display = ('title', 'keywords', 'creator', 'created_at')
+    exclude = ('posts',)
 
 def make_approved(modeladmin, request, queryset):
     queryset.update(is_approved=True)

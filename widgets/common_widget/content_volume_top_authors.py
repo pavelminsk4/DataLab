@@ -1,5 +1,5 @@
+from common.utils.where_clause import where_clause, multi_or_single_typle
 from .project_posts_filter import project_posts_filter
-from common.utils.where_clause import where_clause
 from django.forms.models import model_to_dict
 from django.http import JsonResponse
 from project.models import Project
@@ -46,7 +46,7 @@ def aggregator_results_content_volume_top_authors(posts, aggregation_period, top
                 SELECT p.entry_author, date_trunc('{aggregation_period}', p.entry_published) date, COUNT(p.entry_author) post_count
                 FROM project_post p
                 JOIN project_project_posts ON p.id = project_project_posts.post_id
-                WHERE entry_author IN {top_authors} AND {where_clause(posts)}
+                WHERE entry_author IN {multi_or_single_typle(top_authors)} AND {where_clause(posts)}
                 GROUP BY p.entry_author, date_trunc('{aggregation_period}', p.entry_published)
 
                 UNION
@@ -55,7 +55,7 @@ def aggregator_results_content_volume_top_authors(posts, aggregation_period, top
                 FROM project_post
                 FULL JOIN (SELECT * FROM generate_series('{str(project.start_search_date)}', '{str(project.end_search_date)}', interval '1 {aggregation_period}') s(value)) dates
                 ON 1 = 1
-                WHERE entry_author IN {top_authors}
+                WHERE entry_author IN {multi_or_single_typle(top_authors)}
                 ) stats
                 GROUP BY entry_author, date
                 ORDER BY entry_author, date
