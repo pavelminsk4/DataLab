@@ -1,5 +1,5 @@
 from widgets.common_widget.project_posts_filter import project_posts_filter
-from common.utils.where_clause import where_clause
+from common.utils.where_clause import where_clause, multi_or_single_typle
 from django.forms.models import model_to_dict
 from django.http import JsonResponse
 from django.db.models import Count

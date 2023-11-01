@@ -1,5 +1,5 @@
+from common.utils.where_clause import where_clause, multi_or_single_typle
 from .project_posts_filter import project_posts_filter
-from common.utils.where_clause import where_clause
 from django.forms.models import model_to_dict
 from project.models import Project, Feedlinks
 from django.db.models.functions import Trunc
@@ -49,7 +49,7 @@ def aggregator_results_content_volume_top_countries(posts, aggregation_period, t
                 SELECT p.feedlink_id, date_trunc('{aggregation_period}', p.entry_published) date, COUNT(p.feedlink_id) post_count
                 FROM project_post p
                 JOIN project_project_posts ON p.id = project_project_posts.post_id
-                WHERE feedlink_id IN {top_countries} AND {where_clause(posts)}
+                WHERE feedlink_id IN {multi_or_single_typle(top_countries)} AND {where_clause(posts)}
                 GROUP BY p.feedlink_id, date_trunc('{aggregation_period}', p.entry_published)
 
                 UNION
@@ -58,7 +58,7 @@ def aggregator_results_content_volume_top_countries(posts, aggregation_period, t
                 FROM project_feedlinks
                 FULL JOIN (SELECT * FROM generate_series('{str(project.start_search_date)}', '{str(project.end_search_date)}', interval '1 {aggregation_period}') s(value)) dates
                 ON 1 = 1
-                WHERE id IN {top_countries}
+                WHERE id IN {multi_or_single_typle(top_countries)}
                 ) stats
                 GROUP BY feedlink_id, date
                 ORDER BY feedlink_id, date

@@ -4,3 +4,6 @@ def where_clause(q):
     date_query    = posts_query.split('BETWEEN')[1].split('AND')
 
     return f"{project_query} AND p.entry_published BETWEEN '{str(date_query[0])}' AND '{str(date_query[1])}'"
+
+def multi_or_single_typle(arr):
+    return arr if len(arr) > 1 else f'({arr[0]})'
