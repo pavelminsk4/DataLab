@@ -2,6 +2,7 @@ import store from '@store'
 
 import MainView from '@/views/MainView'
 import ReportsView from '@/views/ReportsView'
+import NotFoundPage from '@/components/NotFoundPage'
 
 import CreateReportView from '@/views/CreateReportView'
 import CreateReportRightSide from '@/components/reports/CreateReportRightSide'
@@ -118,5 +119,16 @@ export const routes = [
         },
       },
     ],
+  },
+
+  {
+    path: '/:catchAll(.*)',
+    redirect: '/not-found',
+  },
+
+  {
+    name: 'NotFound',
+    path: '/not-found',
+    component: NotFoundPage,
   },
 ]

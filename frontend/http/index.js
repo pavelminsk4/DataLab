@@ -1,4 +1,5 @@
 import axios from 'axios'
+import router from '@router'
 import CSRF_TOKEN from '../csrf_token'
 import store from '@store'
 import {action} from '@store/constants'
@@ -18,6 +19,10 @@ $api.interceptors.request.use((config) => {
 $api.interceptors.response.use(
   (response) => response,
   (error) => {
+    if (error.response.status === 500) {
+      router.push('/not-found')
+    }
+
     store.dispatch(action.OPEN_FLASH_MESSAGE, {
       message: error.message,
       title: 'Server Error',
