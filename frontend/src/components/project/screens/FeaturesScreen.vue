@@ -35,11 +35,8 @@
 </template>
 
 <script>
-import {mapState} from 'vuex'
-
 import MainLayoutTitleBlock from '@/components/layout/MainLayoutTitleBlock'
 import BaseButton from '@/components/common/BaseButton'
-import ReportsUploadIcon from '@/components/icons/ReportsUploadIcon'
 import TotalResults from '@/components/TotalResults'
 import CustomText from '@/components/CustomText'
 import DownloadInformationModal from '@/components/project/modals/DownloadInformationModal'
@@ -61,13 +58,9 @@ export default {
     currentProject: {type: [Array, Object], required: false},
     numberOfPosts: {type: Number, required: true},
     isOpenDownloadReportModal: {type: Boolean, default: false},
+    downloadingInstantReport: {type: Boolean, default: false},
   },
   computed: {
-    ...mapState({
-      downloadingInstantReport: (state) => state.downloadingInstantReport,
-    }),
-  },
-  methods: {
     downloadReportButtonIcon() {
       return this.downloadingInstantReport
         ? 'BaseButtonSpinner'

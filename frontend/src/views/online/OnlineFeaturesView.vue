@@ -3,18 +3,19 @@
     :number-of-posts="numberOfPosts"
     :current-project="currentProject"
     :is-open-download-report-modal="isOpenDownloadReportModal"
+    :downloading-instant-report="downloadingInstantReport"
     @download-report="downloadReport"
     @close-modal="toggleWidgetsModal('isOpenDownloadReportModal')"
   />
 </template>
 
 <script>
-import {mapGetters, mapState, createNamespacedHelpers} from 'vuex'
+import {mapGetters, createNamespacedHelpers} from 'vuex'
 import {get, action} from '@store/constants'
 
 import FeaturesScreen from '@/components/project/screens/FeaturesScreen'
 
-const {mapActions} = createNamespacedHelpers('online')
+const {mapActions, mapState} = createNamespacedHelpers('online')
 
 export default {
   name: 'OnlineFeaturesView',
