@@ -44,7 +44,7 @@ class ProjectSocial(models.Model):
   source = models.CharField(max_length=100, null=True, blank=True, default='Social')
   report_template = models.ForeignKey(Templates, related_name='project_social_templates', on_delete=models.SET_NULL, null=True, blank=True)
   report_format = models.CharField(max_length=3, default='pdf', blank=True)
-  query_filter = models.CharField(max_length=1500, blank=True, null=True)
+  query_filter = models.CharField(max_length=5000, blank=True, null=True)
   expert_mode = models.BooleanField(default=False)
 
   def save(self, *args, **kwargs):
