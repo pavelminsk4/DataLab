@@ -25,12 +25,6 @@
       @close-modal="toggleWidgetsModal(null)"
     />
 
-    <!-- <DownloadReportModal
-      v-if="openModal === 'DownloadReportModal'"
-      :project-id="currentProject.id"
-      @close="toggleWidgetsModal(null)"
-    /> -->
-
     <DownloadInformationModal
       v-if="openModal === 'DownloadReportModal'"
       :project-id="currentProject.id"
@@ -125,7 +119,6 @@ import WidgetsListModal from '@/components/widgets/modals/WidgetsListModal'
 import FiltersIcon from '@/components/icons/FiltersIcon'
 import SocialFiltersModal from '@/components/project/modals/social/SocialFiltersModal'
 import ReportsUploadIcon from '@/components/icons/ReportsUploadIcon'
-// import DownloadReportModal from '@/components/project/modals/social/DownloadReportModal'
 import BaseDropdown from '@/components/BaseDropdown'
 import MainLayoutTitleBlock from '@/components/layout/MainLayoutTitleBlock'
 import InteractiveWidgetModal from '@/components/modals/InteractiveWidgetModal'
@@ -142,7 +135,6 @@ export default {
     InteractiveWidgetModal,
     MainLayoutTitleBlock,
     BaseDropdown,
-    // DownloadReportModal,
     ReportsUploadIcon,
     SocialFiltersModal,
     FiltersIcon,
@@ -157,7 +149,7 @@ export default {
     BaseButtonSpinner,
   },
   props: {
-    currentProject: {type: [Array, Object], required: false},
+    currentProject: {type: [Array, Object], required: true},
   },
   data() {
     return {
