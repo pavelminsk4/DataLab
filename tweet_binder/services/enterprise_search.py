@@ -2,7 +2,7 @@ from datetime import datetime
 import requests
 import json
 
-def historical_search(keyword, keyword_and, keyword_or, keyword_nor, limit, start_date, end_date, auth_token, historical_search_url):
+def enterprise_search(keyword, keyword_and, keyword_or, keyword_nor, limit, start_date, end_date, auth_token, enterprise_search_url):
     keywords_and = [keyword]
     [keywords_and.append(key) for key in keyword_and]
     keywords_or = []
@@ -24,6 +24,6 @@ def historical_search(keyword, keyword_and, keyword_or, keyword_nor, limit, star
     'Authorization': 'Bearer ' + auth_token
     }
 
-    response = requests.request("POST", historical_search_url, headers=headers, data=payload)
+    response = requests.request("POST", enterprise_search_url, headers=headers, data=payload)
     return response.text
 
