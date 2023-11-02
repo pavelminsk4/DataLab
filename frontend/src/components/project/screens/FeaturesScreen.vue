@@ -23,7 +23,10 @@
         class="btn-report"
         @click="$emit('download-report')"
       >
-        <ReportsUploadIcon />
+        <component
+          :is="downloadReportButtonIcon"
+          style="--spinner-width: 16px"
+        ></component>
         <CustomText text="Download Report" />
       </BaseButton>
     </div>
@@ -32,12 +35,16 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
+
 import MainLayoutTitleBlock from '@/components/layout/MainLayoutTitleBlock'
 import BaseButton from '@/components/common/BaseButton'
 import ReportsUploadIcon from '@/components/icons/ReportsUploadIcon'
 import TotalResults from '@/components/TotalResults'
 import CustomText from '@/components/CustomText'
 import DownloadInformationModal from '@/components/project/modals/DownloadInformationModal'
+import BaseButtonSpinner from '@/components/BaseButtonSpinner'
+import ReportsUploadIcon from '@/components/icons/ReportsUploadIcon'
 
 export default {
   name: 'FeaturesScreen',
@@ -48,11 +55,24 @@ export default {
     TotalResults,
     CustomText,
     DownloadInformationModal,
+    BaseButtonSpinner,
   },
   props: {
     currentProject: {type: [Array, Object], required: false},
     numberOfPosts: {type: Number, required: true},
     isOpenDownloadReportModal: {type: Boolean, default: false},
+  },
+  computed: {
+    ...mapState({
+      downloadingInstantReport: (state) => state.downloadingInstantReport,
+    }),
+  },
+  methods: {
+    downloadReportButtonIcon() {
+      return this.downloadingInstantReport
+        ? 'BaseButtonSpinner'
+        : 'ReportsUploadIcon'
+    },
   },
 }
 </script>

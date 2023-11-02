@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import {mapGetters, createNamespacedHelpers} from 'vuex'
+import {mapGetters, mapState, createNamespacedHelpers} from 'vuex'
 import {get, action} from '@store/constants'
 
 import FeaturesScreen from '@/components/project/screens/FeaturesScreen'
@@ -30,6 +30,9 @@ export default {
   computed: {
     ...mapGetters({
       numberOfPosts: get.POSTS_NUMBER,
+    }),
+    ...mapState({
+      downloadingInstantReport: (state) => state.downloadingInstantReport,
     }),
   },
   methods: {
