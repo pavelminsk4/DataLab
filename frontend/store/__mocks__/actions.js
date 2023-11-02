@@ -6,4 +6,5 @@ export default {
   [action.OPEN_FLASH_MESSAGE]: jest.fn(),
   [action.POST_PLATFORM_LANGUAGE]: jest.fn(),
   [action.GET_LIST_OF_PROFILE_HANDLE]: jest.fn(),
+  [action.POST_SEARCH]: jest.fn(),
 }

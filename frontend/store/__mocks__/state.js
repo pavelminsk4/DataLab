@@ -5,5 +5,10 @@ export default {
   translatedText: {header: '', text: ''},
   flashMessages: [],
   flashMessagesCount: 0,
-  userInfo: {user_profile: {}},
+  inreractiveDataModal: {
+    isShow: false,
+    data: {},
+  },
+  searchData: {},
+  userInfo: {user_profile: {department: {id: 1}}},
 }

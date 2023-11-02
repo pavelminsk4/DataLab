@@ -27,12 +27,6 @@
       @close-modal="toggleWidgetsModal('isOpenFilterModal')"
     />
 
-    <!-- <DownloadReportModal
-      v-if="isOpenDownloadReportModal"
-      :project-id="currentProject.id"
-      @close="toggleWidgetsModal('isOpenDownloadReportModal')"
-    /> -->
-
     <DownloadInformationModal
       v-if="isOpenDownloadReportModal"
       :project-id="currentProject.id"
@@ -125,7 +119,6 @@ import WidgetsListModal from '@/components/widgets/modals/WidgetsListModal'
 import FiltersIcon from '@/components/icons/FiltersIcon'
 import OnlineFiltersModal from '@/components/project/modals/online/OnlineFiltersModal'
 import ReportsUploadIcon from '@/components/icons/ReportsUploadIcon'
-// import DownloadReportModal from '@/components/project/modals/online/DownloadReportModal'
 import BaseDropdown from '@/components/BaseDropdown'
 import MainLayoutTitleBlock from '@/components/layout/MainLayoutTitleBlock'
 import InteractiveWidgetModal from '@/components/modals/InteractiveWidgetModal'
@@ -148,7 +141,6 @@ export default {
     InteractiveWidgetModal,
     MainLayoutTitleBlock,
     BaseDropdown,
-    // DownloadReportModal,
     ReportsUploadIcon,
     OnlineFiltersModal,
     FiltersIcon,
@@ -301,7 +293,7 @@ export default {
         projectId: this.interactiveDataModal.projectId,
         widgetId: this.interactiveDataModal.widgetId,
         data: {
-          ...this.interactiveDataModal.data,
+          ...this.interactiveDataModal?.data,
           page_number: page,
           posts_per_page: countPosts,
         },
