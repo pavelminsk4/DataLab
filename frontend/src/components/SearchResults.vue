@@ -99,7 +99,7 @@ export default {
       return this.moduleName + 'PostCard'
     },
     routerName() {
-      return this.$route?.name.toLowerCase()
+      return this.$route?.name?.toLowerCase()
     },
 
     currentStep() {

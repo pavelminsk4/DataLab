@@ -293,7 +293,7 @@ export default {
         projectId: this.interactiveDataModal.projectId,
         widgetId: this.interactiveDataModal.widgetId,
         data: {
-          ...this.interactiveDataModal.data,
+          ...this.interactiveDataModal?.data,
           page_number: page,
           posts_per_page: countPosts,
         },
