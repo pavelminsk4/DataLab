@@ -100,6 +100,12 @@ class Post(models.Model):
 
 
 class Project(models.Model):
+    STATUS_CHOICES = (
+        ('collecting_data', 'Collecting'),
+        ('active', 'Active'),
+        ('inactive', 'Inactive'),
+    )
+
     title                = models.CharField(max_length=100)
     note                 = models.CharField(max_length=200, null=True, blank=True)
     keywords             = ArrayField(models.CharField(max_length=200), blank=True, null=True)
@@ -133,7 +139,7 @@ class Project(models.Model):
     sentiment_dimensions = ArrayField(models.CharField(max_length=10), blank=True, null=True)
     query_filter         = models.CharField(max_length=5000, blank=True, null=True)
     expert_mode          = models.BooleanField(default=False)
-    status               = models.CharField(max_length=20, default='collecting_data', blank=True)
+    status               = models.CharField(max_length=20, choices=STATUS_CHOICES, default='collecting_data', blank=True)
     created_at           = models.DateTimeField(auto_now_add=True)
 
     creator         = models.ForeignKey(User, related_name='creator', on_delete=models.SET_NULL, null=True)

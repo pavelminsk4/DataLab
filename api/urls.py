@@ -1,6 +1,6 @@
 from django.urls import path, include
 from rest_framework import routers
-from .views import users, projects, workspaces
+from .views import project_statuses, users, projects, workspaces
 
 router = routers.SimpleRouter()
 
@@ -53,6 +53,7 @@ urlpatterns = [
     # ReportWidgetsList
     path('report_widgets_list', users.widgets_map, name='report_widgets_list'),
     path('change_online_sentiment/<int:pk>/<int:department_pk>/<str:sentiment>', users.change_online_sentiment, name='change_sent'),
+    path('project_statuses/<int:pk>/', project_statuses.ProjectStatusesViewSet.as_view({'patch': 'partial_update'}), name='project_statuses-detail'),
 ]
 
 router.register('dimensions', users.DimensionsViewSet)
