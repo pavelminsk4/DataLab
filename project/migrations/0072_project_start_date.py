@@ -15,4 +15,5 @@ class Migration(migrations.Migration):
             name='start_date',
             field=models.DateTimeField(blank=True, null=True),
         ),
+        migrations.RunSQL('UPDATE project_project SET start_date=start_search_date')
     ]
