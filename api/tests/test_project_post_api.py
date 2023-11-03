@@ -32,6 +32,7 @@ class ProjectPostTests(APITestCase):
         content = json.loads(response.content)
         self.assertEqual(content['title'], 'Project 1')
         self.assertEqual(content['keywords'], ['nothing', 'special'])
+        self.assertEqual(content['start_date'], '2023-10-31T00:00:00Z')
 
     def test_clipping_feed_widget_created(self):
         user = User.objects.create(username='Fox')

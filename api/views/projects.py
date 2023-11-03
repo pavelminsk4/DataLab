@@ -56,7 +56,7 @@ class ProjectsViewSet(viewsets.ModelViewSet):
         creator   = User.objects.filter(id=creator_id).first() if creator_id else None
         workspace = Workspace.objects.filter(id=workspace_id).first() if workspace_id else None
 
-        project = Project.objects.create(**data, creator=creator, workspace=workspace)
+        project = Project.objects.create(**data, creator=creator, workspace=workspace, start_date=data['start_search_date'])
         self.collect_data.delay(project.id)
 
         return Response(ProjectSerializer(project).data, status=status.HTTP_201_CREATED)

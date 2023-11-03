@@ -113,6 +113,7 @@ class Project(models.Model):
     online               = models.BooleanField(default=False)
     premium              = models.BooleanField(default=False)
     source               = models.CharField(max_length=100, null=True, blank=True, default='Online')
+    start_date           = models.DateTimeField(blank=True, null=True)
     start_search_date    = models.DateTimeField(blank=True, null=True)
     end_search_date      = models.DateTimeField(blank=True, null=True)
     report_format        = models.CharField(max_length=3, default='pdf')

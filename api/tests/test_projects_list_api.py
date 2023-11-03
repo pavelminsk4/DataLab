@@ -7,10 +7,12 @@ import json
 
 
 class TestsProjectsAPI(APITestCase):
+    maxDiff = None
+
     def test_projects_list_api(self):
         user = User.objects.create_user(id=1, username='user')
-        pr1 = Project.objects.create(title='Project1', keywords=['Keyword'], start_search_date='2022-10-10T00:00:00Z', end_search_date='2022-10-16T00:00:00Z', creator=user)
-        pr2 = Project.objects.create(title='Project2', keywords=['Apple'], start_search_date='2022-10-10T00:00:00Z', end_search_date='2022-10-16T00:00:00Z', creator=user)
+        pr1 = Project.objects.create(title='Project1', keywords=['Keyword'], start_date='2022-10-10T00:00:00Z', start_search_date='2022-10-10T00:00:00Z', end_search_date='2022-10-16T00:00:00Z', creator=user)
+        pr2 = Project.objects.create(title='Project2', keywords=['Apple'], start_date='2022-10-10T00:00:00Z', start_search_date='2022-10-10T00:00:00Z', end_search_date='2022-10-16T00:00:00Z', creator=user)
         pr1.created_at = '2022-10-17T00:00:00Z'
         pr1.save()
         pr2.created_at = '2022-10-17T00:00:00Z'
@@ -34,6 +36,7 @@ class TestsProjectsAPI(APITestCase):
             'online': False,
             'premium': False,
             'source': 'Online',
+            'start_date': '2022-10-10T00:00:00Z',
             'start_search_date': '2022-10-10T00:00:00Z',
             'end_search_date': '2022-10-16T00:00:00Z',
             'creator': 1,
@@ -75,6 +78,7 @@ class TestsProjectsAPI(APITestCase):
             'online': False,
             'premium': False,
             'source': 'Online',
+            'start_date': '2022-10-10T00:00:00Z',
             'start_search_date': '2022-10-10T00:00:00Z',
             'end_search_date': '2022-10-16T00:00:00Z',
             'creator': 1,
