@@ -27,11 +27,7 @@
       </template>
     </BaseSearchField>
 
-    <ProjectCalendar
-      :is-range="true"
-      :is-desable-after-today="false"
-      class="date-picker"
-    />
+    <ProjectCalendar :is-desable-after-today="false" class="date-picker" />
 
     <footer class="create-project__footer">
       <ButtonWithArrow
