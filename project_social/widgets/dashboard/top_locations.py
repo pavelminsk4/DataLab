@@ -1,4 +1,5 @@
 from project_social.widgets.project_posts_filter import project_posts_filter
+from common.utils.trunc_function import trunc_function
 from django.forms.models import model_to_dict
 from django.db.models.functions import Trunc
 from django.http import JsonResponse
@@ -19,7 +20,7 @@ def top_locations_report(pk, widget_pk, name_widget):
     }
 
 def calculate_for_top_locations(posts, aggregation_period, top_counts):
-    results = list(posts.annotate(date_trunc=Trunc('date', aggregation_period)).values('locationString').annotate(locations_count=Count('locationString')).order_by('-locations_count')[:top_counts])
+    results = list(posts.annotate(date_trunc=trunc_function('date', aggregation_period)).values('locationString').annotate(locations_count=Count('locationString')).order_by('-locations_count')[:top_counts])
     for res in results:
         if not res['locationString']:
             results.remove(res)

@@ -1,4 +1,5 @@
 from project_social.widgets.project_posts_filter import project_posts_filter
+from common.utils.trunc_function import trunc_function
 from django.forms.models import model_to_dict
 from django.db.models.functions import Trunc
 from django.http import JsonResponse
@@ -23,7 +24,7 @@ def content_volume_top_languages_report(pk, widget_pk):
 
 def calculate_for_content_volume_top_languages(posts, aggregation_period, top_counts):
     top_languages = list(map(lambda x: x['language'], list(posts.values('language').annotate(country_count=Count('language')).order_by('-country_count')[:top_counts])))
-    results = [{language: list(posts.filter(language=language).annotate(date_trunc=Trunc('date', aggregation_period)).values("date_trunc").annotate(created_count=Count('id')).order_by("date"))} for language in top_languages]
+    results = [{language: list(posts.filter(language=language).annotate(date_trunc=trunc_function('date', aggregation_period)).values("date_trunc").annotate(created_count=Count('id')).order_by("date"))} for language in top_languages]
     dates = set()
     for elem in range(len(results)):
       for i in range(len(results[elem][top_languages[elem]])):
