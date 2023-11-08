@@ -23,6 +23,7 @@ export default {
     VueDatePicker,
   },
   props: {
+    startDate: {type: String, required: false},
     isDesableAfterToday: {type: Boolean, default: true},
     isRange: {type: Boolean, default: false},
     isCurrentProject: {type: Boolean, default: false},
@@ -35,11 +36,17 @@ export default {
   computed: {
     ...mapGetters({additionalFilters: get.ADDITIONAL_FILTERS}),
     initialDate() {
-      return this.additionalFilters?.date_range[0]
+      const date = new Date(this.startDate)
+
+      if (this.isValidDate(date)) {
+        return [date, new Date()]
+      }
+
+      return new Date()
     },
     selectedDateProxy: {
       get() {
-        return this.isRange ? [this.initialDate, new Date()] : this.date
+        return this.date || this.initialDate
       },
       set(newValue) {
         this.date = newValue
@@ -52,13 +59,16 @@ export default {
   methods: {
     ...mapActions([action.UPDATE_ADDITIONAL_FILTERS]),
     disabledDates(date) {
-      var startDate = new Date(this.initialDate).setDate(
-        this.initialDate.getDate() - 1
+      let startDate = new Date(this.initialDate[0])?.setDate(
+        this.initialDate[0]?.getDate() - 1
       )
 
       return this.isRange && this.isDesableAfterToday
         ? date < new Date(startDate)
         : date > new Date()
+    },
+    isValidDate(date) {
+      return date instanceof Date && !isNaN(date)
     },
   },
 }

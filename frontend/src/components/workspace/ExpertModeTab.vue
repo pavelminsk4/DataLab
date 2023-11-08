@@ -1,7 +1,10 @@
 <template>
   <div class="container">
     <div class="calendar">
-      <ProjectCalendar :is-range="isCurrentProjectCreated" />
+      <ProjectCalendar
+        :is-range="isCurrentProjectCreated"
+        :start-date="startDate"
+      />
     </div>
     <div :class="[isKeywordsFieldsDisable && 'disable']">
       <CustomText tag="span" text="Topic query" />
@@ -91,6 +94,7 @@ export default {
     ProjectCalendar,
   },
   props: {
+    startDate: {type: String, required: false},
     moduleName: {type: String, required: true},
     defaultQuery: {type: String, default: ''},
     filters: {type: Array, required: true},

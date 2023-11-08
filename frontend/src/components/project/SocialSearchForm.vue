@@ -20,7 +20,11 @@
     </template>
   </div>
 
-  <ProjectCalendar :is-range="isCurrentProjectCreated" class="date-picker" />
+  <ProjectCalendar
+    :is-range="isCurrentProjectCreated"
+    :start-date="currentProject.start_search_date"
+    class="date-picker"
+  />
 
   <CustomText tag="span" text="Sentiment" class="second-title" />
 
