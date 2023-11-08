@@ -59,7 +59,7 @@ export default {
   name: 'ProfileMenu',
   components: {UserAvatar, ArrowheadIcon, ArIcon, EnIcon, LogoutIcon},
   props: {
-    userInfo: {type: Object, requred: true},
+    userInfo: {type: Object, required: true},
   },
   data() {
     return {

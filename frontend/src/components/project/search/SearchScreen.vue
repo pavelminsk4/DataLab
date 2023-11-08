@@ -24,6 +24,7 @@
         <ExpertModeTab
           v-if="isExpertMode"
           :default-query="currentProject.query_filter"
+          :start-date="currentProject.start_date"
           :filters="filters"
           :is-keywords-fields-disable="true"
           :module-name="moduleName"
