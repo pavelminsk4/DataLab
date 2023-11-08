@@ -1,4 +1,5 @@
 from .project_posts_filter import project_posts_filter
+from common.utils.trunc_function import trunc_function
 from django.forms.models import model_to_dict
 from django.db.models.functions import Trunc
 from django.http import JsonResponse
@@ -22,5 +23,5 @@ def volume_report(pk, widget_pk):
     }  
 
 def post_agregator_volume(posts, aggregation_period):
-    posts_per_aggregation_period = posts.annotate(date=Trunc('entry_published', aggregation_period)).values("date").annotate(created_count=Count('id')).order_by("date")
+    posts_per_aggregation_period = posts.annotate(date=trunc_function('entry_published', aggregation_period)).values("date").annotate(created_count=Count('id')).order_by("date")
     return list(posts_per_aggregation_period)

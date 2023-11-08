@@ -1,4 +1,5 @@
 from project_social.widgets.project_posts_filter import project_posts_filter
+from common.utils.trunc_function import trunc_function
 from django.forms.models import model_to_dict
 from django.db.models.functions import Trunc
 from django.http import JsonResponse
@@ -22,9 +23,10 @@ def sentiment_report(pk, widget_pk):
     }
 
 def calculate_for_sentiment(posts, aggregation_period):
-    negative_posts = posts.annotate(date_trunc=Trunc('date', aggregation_period)).values("date_trunc").filter(sentiment='negative').annotate(count_negative=Count('sentiment')).order_by("date")
-    neutral_posts = posts.annotate(date_trunc=Trunc('date', aggregation_period)).values("date_trunc").filter(sentiment='neutral').annotate(count_neutral=Count('sentiment')).order_by("date")
-    positive_posts = posts.annotate(date_trunc=Trunc('date', aggregation_period)).values("date_trunc").filter(sentiment='positive').annotate(count_positive=Count('sentiment')).order_by("date")
+    date = trunc_function('date', aggregation_period)
+    negative_posts = posts.annotate(date_trunc=date).values("date_trunc").filter(sentiment='negative').annotate(count_negative=Count('sentiment')).order_by("date")
+    neutral_posts = posts.annotate(date_trunc=date).values("date_trunc").filter(sentiment='neutral').annotate(count_neutral=Count('sentiment')).order_by("date")
+    positive_posts = posts.annotate(date_trunc=date).values("date_trunc").filter(sentiment='positive').annotate(count_positive=Count('sentiment')).order_by("date")
     post_by_sentiment = list(negative_posts) + list(neutral_posts) + list(positive_posts)
     results = []
     for date_trunc in sorted(list(set(d['date_trunc'] for d in post_by_sentiment))):

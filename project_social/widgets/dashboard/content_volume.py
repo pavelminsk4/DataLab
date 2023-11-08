@@ -1,4 +1,5 @@
 from project_social.widgets.project_posts_filter import project_posts_filter
+from common.utils.trunc_function import trunc_function
 from django.forms.models import model_to_dict
 from django.db.models.functions import Trunc
 from django.http import JsonResponse
@@ -22,7 +23,7 @@ def content_volume_report(pk, widget_pk):
     }
 
 def calculate_for_content_volume(posts, aggregation_period):
-    posts = posts.annotate(date_trunc=Trunc('date', aggregation_period)).values("date_trunc").annotate(created_count=Count('id')).order_by("date")
+    posts = posts.annotate(date_trunc=trunc_function('date', aggregation_period)).values("date_trunc").annotate(created_count=Count('id')).order_by("date")
     dates = set()
     for elem in range(len(posts)):
         dates.add(str(posts[elem]['date_trunc']))
