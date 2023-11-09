@@ -9,7 +9,6 @@
       :key="index"
       v-model="selectedProjects"
       :id="item.id"
-      @delete-entity="toggleDeleteModal(item.title, item.id)"
       @click="goToProject($event, item.id)"
     >
       <td class="td_name">{{ item.title }}</td>
@@ -41,6 +40,11 @@
       <td class="project-creation-date">
         {{ projectCreationDate(item.created_at) }}
       </td>
+      <td>
+        <ProjectsTableActions
+          @delete-entity="toggleDeleteModal(item.title, item.id)"
+        />
+      </td>
     </BaseTableRow>
   </BaseTable>
 
@@ -64,6 +68,7 @@ import BaseTable from '@components/common/BaseTable'
 import BaseTableRow from '@components/common/BaseTableRow'
 import UserAvatar from '@components/UserAvatar'
 import BaseChips from '@/components/BaseChips'
+import ProjectsTableActions from '@/components/ProjectsTableActions'
 
 export default {
   name: 'ProjectsTable',
@@ -75,6 +80,7 @@ export default {
     BaseTableRow,
     UserAvatar,
     BaseChips,
+    ProjectsTableActions,
   },
   emits: ['go-to-project', 'delete-project'],
   props: {
