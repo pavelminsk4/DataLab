@@ -39,7 +39,7 @@ export default {
       const date = new Date(this.startDate)
 
       if (this.isValidDate(date)) {
-        return [date, new Date()]
+        return this.additionalFilters.date_range
       }
 
       return new Date()
@@ -59,12 +59,12 @@ export default {
   methods: {
     ...mapActions([action.UPDATE_ADDITIONAL_FILTERS]),
     disabledDates(date) {
-      let startDate = new Date(this.initialDate[0])?.setDate(
-        this.initialDate[0]?.getDate() - 1
+      let initialActiveDate = new Date(this.startDate)?.setDate(
+        new Date(this.startDate).getDate() - 1
       )
 
       return this.isRange && this.isDesableAfterToday
-        ? date < new Date(startDate)
+        ? date < new Date(initialActiveDate)
         : date > new Date()
     },
     isValidDate(date) {
