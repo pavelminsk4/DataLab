@@ -1,7 +1,6 @@
 from project_social.widgets.project_posts_filter import project_posts_filter
-from common.utils.trunc_function import trunc_function
 from django.forms.models import model_to_dict
-from django.db.models.functions import Trunc
+from common.utils.trunc import trunc
 from django.http import JsonResponse
 from django.db.models import Count
 
@@ -21,7 +20,7 @@ def sentiment_locations_report(pk, widget_pk):
 
 def calculate_for_sentiment_locations(posts, aggregation_period, top_counts):
     top_locations = posts.values('locationString').annotate(language_count=Count('locationString')).order_by('-language_count').values_list('locationString', flat=True)[:top_counts]
-    results = {location: list(posts.filter(locationString=location).annotate(date_trunc=trunc_function('date', aggregation_period)).values('sentiment').annotate(sentiment_count=Count('sentiment')).order_by('-sentiment_count')) for location in top_locations}
+    results = {location: list(posts.filter(locationString=location).annotate(date_trunc=trunc('date', aggregation_period)).values('sentiment').annotate(sentiment_count=Count('sentiment')).order_by('-sentiment_count')) for location in top_locations}
     for i in range(len(results)):
         sentiments = ['negative', 'neutral', 'positive']
         for j in range(len(results[top_locations[i]])):

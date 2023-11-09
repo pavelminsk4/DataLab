@@ -1,7 +1,6 @@
 from project_social.widgets.project_posts_filter import project_posts_filter
 from django.forms.models import model_to_dict
-from django.db.models.functions import Trunc
-from common.utils.trunc_function import trunc_function
+from common.utils.trunc import trunc
 from django.http import JsonResponse
 from django.db.models import Count
 import json
@@ -24,7 +23,7 @@ def gender_volume_report(pk, widget_pk):
 
 def calculate_for_gender_volume(posts, aggregation_period, top_counts):
     top_authors = list(map(lambda x: x['user_gender'], list(posts.values('user_gender').annotate(count=Count('user_gender')).order_by('-count')[:top_counts])))
-    results = [{name: list(posts.filter(user_gender=name).annotate(date_trunk=trunc_function('date', aggregation_period)).values("date_trunk").annotate(created_count=Count('id')).order_by("date"))} for name in top_authors]
+    results = [{name: list(posts.filter(user_gender=name).annotate(date_trunk=trunc('date', aggregation_period)).values("date_trunk").annotate(created_count=Count('id')).order_by("date"))} for name in top_authors]
     dates = set()
     for elem in range(len(results)):
         for i in range(len(results[elem][top_authors[elem]])):

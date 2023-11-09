@@ -1,7 +1,6 @@
 from project_social.widgets.project_posts_filter import project_posts_filter
-from common.utils.trunc_function import trunc_function
 from django.forms.models import model_to_dict
-from django.db.models.functions import Trunc
+from common.utils.trunc import trunc
 from django.http import JsonResponse
 from django.db.models import Count
 
@@ -21,7 +20,7 @@ def sentiment_by_gender_report(pk, widget_pk):
     
 def calculate_for_sentiment_by_gender(posts, aggregation_period):
   user_gender = posts.values('user_gender').annotate(user_count=Count('user_gender')).order_by('-user_count').values_list('user_gender', flat=True)
-  results = {user: list(posts.filter(user_gender=user).annotate(date_trunk=trunc_function('date', aggregation_period)).values('sentiment').annotate(sentiment_count=Count('sentiment')).order_by('-sentiment_count')) for user in user_gender}
+  results = {user: list(posts.filter(user_gender=user).annotate(date_trunk=trunc('date', aggregation_period)).values('sentiment').annotate(sentiment_count=Count('sentiment')).order_by('-sentiment_count')) for user in user_gender}
   for i in range(len(results)):
    sentiments = ['negative', 'neutral', 'positive']
    for j in range(len(results[user_gender[i]])):

@@ -1,6 +1,5 @@
 from project_social.widgets.project_posts_filter import project_posts_filter
 from django.forms.models import model_to_dict
-from django.db.models.functions import Trunc
 from django.http import JsonResponse
 from django.db.models import Count
 

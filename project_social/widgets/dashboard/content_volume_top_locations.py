@@ -1,7 +1,6 @@
 from project_social.widgets.project_posts_filter import project_posts_filter
-from common.utils.trunc_function import trunc_function
 from django.forms.models import model_to_dict
-from django.db.models.functions import Trunc
+from common.utils.trunc import trunc
 from django.http import JsonResponse
 from django.db.models import Count
 import json
@@ -24,7 +23,7 @@ def content_volume_top_locations_report(pk, widget_pk):
 
 def calculate_for_content_volume_top_locations(posts, aggregation_period, top_counts):
     top_locations = list(map(lambda x: x['locationString'], list(posts.values('locationString').annotate(country_count=Count('locationString')).order_by('-country_count')[:top_counts])))
-    results = [{location: list(posts.filter(locationString=location).annotate(date_trunc=trunc_function('date', aggregation_period)).values("date_trunc").annotate(created_count=Count('id')).order_by("date"))} for location in top_locations]
+    results = [{location: list(posts.filter(locationString=location).annotate(date_trunc=trunc('date', aggregation_period)).values("date_trunc").annotate(created_count=Count('id')).order_by("date"))} for location in top_locations]
     dates = set()
     for elem in range(len(results)):
         for i in range(len(results[elem][top_locations[elem]])):

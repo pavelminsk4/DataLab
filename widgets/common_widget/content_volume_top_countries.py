@@ -2,7 +2,6 @@ from common.utils.where_clause import where_clause, multi_or_single_typle
 from .project_posts_filter import project_posts_filter
 from django.forms.models import model_to_dict
 from project.models import Project, Feedlinks
-from django.db.models.functions import Trunc
 from django.http import JsonResponse
 from django.db.models import Count
 import json

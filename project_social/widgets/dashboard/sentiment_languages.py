@@ -1,7 +1,6 @@
 from project_social.widgets.project_posts_filter import project_posts_filter
-from common.utils.trunc_function import trunc_function
 from django.forms.models import model_to_dict
-from django.db.models.functions import Trunc
+from common.utils.trunc import trunc
 from django.http import JsonResponse
 from django.db.models import Count
 
@@ -21,7 +20,7 @@ def sentiment_languages_report(pk, widget_pk):
 
 def calculate_for_sentiment_languages(posts, aggregation_period, top_counts):
     top_languages = posts.values('language').annotate(language_count=Count('language')).order_by('-language_count').values_list('language', flat=True)[:top_counts]
-    results = {language: list(posts.filter(language=language).annotate(date_trunc=trunc_function('date', aggregation_period)).values('sentiment').annotate(sentiment_count=Count('sentiment')).order_by('-sentiment_count')) for language in top_languages}
+    results = {language: list(posts.filter(language=language).annotate(date_trunc=trunc('date', aggregation_period)).values('sentiment').annotate(sentiment_count=Count('sentiment')).order_by('-sentiment_count')) for language in top_languages}
     for i in range(len(results)):
         sentiments = ['negative', 'neutral', 'positive']
         for j in range(len(results[top_languages[i]])):
