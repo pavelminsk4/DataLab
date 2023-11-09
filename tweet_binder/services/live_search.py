@@ -2,8 +2,8 @@ from datetime import datetime
 import requests
 import json
 
-def live_search(keyword, keyword_and, keyword_or, keyword_nor, limit, auth_token, live_search_url, start_date, end_date):
-    keywords_and = [keyword]
+def live_search(keyword_and, keyword_or, keyword_nor, limit, auth_token, live_search_url, start_date, end_date):
+    keywords_and = []
     [keywords_and.append(key) for key in keyword_and]
     keywords_or = []
     [keywords_or.append(key) for key in keyword_or]

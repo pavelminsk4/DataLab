@@ -114,7 +114,6 @@ class TypesOfSearch(models.Model):
   created_at = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True)
   limit = models.IntegerField(blank=True, null=True, default=10)
-  keyword = models.CharField(max_length=100, blank=False, null=False)
   keyword_and = ArrayField(models.CharField(max_length=100), blank=True, null=True, verbose_name='Keywords AND')
   keyword_or = ArrayField(models.CharField(max_length=100), blank=True, null=True, verbose_name='Keywords OR')
   keyword_nor = ArrayField(models.CharField(max_length=100), blank=True, null=True, verbose_name='Keywords excluded')
@@ -133,14 +132,13 @@ class EnterpriseSearchProject(TypesOfSearch):
 @receiver(post_save, sender=EnterpriseSearchProject)
 def create_enterprise_search_project(sender, instance, created, **kwargs):
   if created:
-    keyword = instance.keyword
     keyword_and = instance.keyword_and
     keyword_or = instance.keyword_or
     keyword_nor = instance.keyword_nor
     limit = instance.limit
     start_date = instance.start_date
     end_date = instance.end_date
-    enterprise_search_type(keyword, keyword_and, keyword_or, keyword_nor, limit, start_date, end_date)
+    enterprise_search_type(keyword_and, keyword_or, keyword_nor, limit, start_date, end_date)
 
 class BasicSearchProject(TypesOfSearch):
 
@@ -150,12 +148,11 @@ class BasicSearchProject(TypesOfSearch):
 @receiver(post_save, sender=BasicSearchProject)
 def create_basic_search_project(sender, instance, created, **kwargs):
   if created:
-    keyword = instance.keyword
     keyword_and = instance.keyword_and
     keyword_or = instance.keyword_or
     keyword_nor = instance.keyword_nor
     limit = instance.limit
-    basic_search_type(keyword, keyword_and, keyword_or, keyword_nor, limit)          
+    basic_search_type(keyword_and, keyword_or, keyword_nor, limit)          
 
 class LiveSearchProject(TypesOfSearch):
   start_date = models.DateTimeField(blank=True, null=True)
@@ -167,14 +164,13 @@ class LiveSearchProject(TypesOfSearch):
 @receiver(post_save, sender=LiveSearchProject)
 def create_live_search_project(sender, instance, created, **kwargs):
   if created:
-    keyword = instance.keyword
     keyword_and = instance.keyword_and
     keyword_or = instance.keyword_or
     keyword_nor = instance.keyword_nor
     limit = instance.limit
     start_date = instance.start_date
     end_date = instance.end_date
-    live_search_type(keyword, keyword_and, keyword_or, keyword_nor, limit, start_date, end_date)
+    live_search_type(keyword_and, keyword_or, keyword_nor, limit, start_date, end_date)
 
 
 class LiveReport(models.Model):
@@ -205,24 +201,24 @@ email = os.environ.get('EMAIL_TWEET')
 password = os.environ.get('PASSWORD_TWEET')
 api_route = os.environ.get('API_ROUTE')
 
-def basic_search_type(keyword,  keyword_and, keyword_or, keyword_nor, limit):
+def basic_search_type(keyword_and, keyword_or, keyword_nor, limit):
     basic_search_url = api_route + '/search/twitter/7-day'
     auth_token = json.loads(login(email, password))['authToken'] 
-    report_id = json.loads(basic_search(keyword, keyword_and, keyword_or, keyword_nor, limit, auth_token, basic_search_url))['resourceId']
+    report_id = json.loads(basic_search(keyword_and, keyword_or, keyword_nor, limit, auth_token, basic_search_url))['resourceId']
     time.sleep(10)
     search.delay(report_id, auth_token)
 
-def enterprise_search_type(keyword, keyword_and, keyword_or, keyword_nor, limit, start_date, end_date):
+def enterprise_search_type(keyword_and, keyword_or, keyword_nor, limit, start_date, end_date):
     enterprise_search_url = api_route + '/search/twitter/enterprise/'
     auth_token = json.loads(login(email, password))['authToken'] 
-    report_id = json.loads(enterprise_search(keyword, keyword_and, keyword_or, keyword_nor, limit, start_date, end_date, auth_token, enterprise_search_url))['resourceId']
+    report_id = json.loads(enterprise_search(keyword_and, keyword_or, keyword_nor, limit, start_date, end_date, auth_token, enterprise_search_url))['resourceId']
     time.sleep(10)
     search.delay(report_id, auth_token)   
 
-def live_search_type(keyword, keyword_and, keyword_or, keyword_nor, limit, start_date, end_date):
+def live_search_type(keyword_and, keyword_or, keyword_nor, limit, start_date, end_date):
     live_search_url = api_route + '/search/twitter/live/'
     auth_token = json.loads(login(email, password))['authToken'] 
-    report_id = json.loads(live_search(keyword, keyword_and, keyword_or, keyword_nor, limit, auth_token, live_search_url, start_date, end_date))['resourceId']
+    report_id = json.loads(live_search(keyword_and, keyword_or, keyword_nor, limit, auth_token, live_search_url, start_date, end_date))['resourceId']
     time.sleep(5)
     try:
         LiveReport.objects.create(report_id=report_id, start_date=start_date, end_date=end_date)

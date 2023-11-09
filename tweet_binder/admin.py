@@ -3,13 +3,13 @@ from .models import *
 
 @admin.register(EnterpriseSearchProject)
 class EnterpriseSearchProjectAdmin(admin.ModelAdmin):
-    list_display = ('title', 'keyword', 'limit', 'start_date', 'end_date', 'updated_at', 'created_at')
-    search_fields = ('title__startswith', 'keyword__startswith')
+    list_display = ('title', 'limit', 'start_date', 'end_date', 'updated_at', 'created_at')
+    search_fields = ('title__startswith',)
 
 @admin.register(BasicSearchProject)
 class BasicSearchProjectAdmin(admin.ModelAdmin):
-    list_display = ('title', 'keyword', 'limit', 'created_at', 'updated_at', 'created_at')
-    search_fields = ('title__startswith', 'keyword__startswith')    
+    list_display = ('title', 'limit', 'created_at', 'updated_at', 'created_at')
+    search_fields = ('title__startswith',)    
 
 @admin.register(TweetBinderPost)
 class TweetBinderPostAdmin(admin.ModelAdmin):
@@ -18,8 +18,8 @@ class TweetBinderPostAdmin(admin.ModelAdmin):
 
 @admin.register(LiveSearchProject)
 class LiveSearchProjectAdmin(admin.ModelAdmin):
-    list_display = ('title', 'keyword', 'limit', 'updated_at', 'created_at')
-    search_fields = ('title__startswith', 'keyword__startswith')    
+    list_display = ('title', 'limit', 'updated_at', 'created_at')
+    search_fields = ('title__startswith',)    
 
 @admin.register(TweetBinderUserTracker)
 class TweetBinderUserTrackerAdmin(admin.ModelAdmin):

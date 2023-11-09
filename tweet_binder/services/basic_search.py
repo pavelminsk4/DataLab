@@ -1,8 +1,8 @@
 import requests
 import json
 
-def basic_search(keyword, keyword_and, keyword_or, keyword_nor, limit, auth_token, url):
-    keywords_and = [keyword]
+def basic_search(keyword_and, keyword_or, keyword_nor, limit, auth_token, url):
+    keywords_and = []
     [keywords_and.append(key) for key in keyword_and]
     keywords_or = []
     [keywords_or.append(key) for key in keyword_or]
