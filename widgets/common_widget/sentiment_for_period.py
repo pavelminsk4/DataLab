@@ -1,7 +1,6 @@
 from widgets.common_widget.project_posts_filter import project_posts_filter
-from common.utils.trunc_function import trunc_function
 from django.forms.models import model_to_dict
-from django.db.models.functions import Trunc
+from common.utils.trunc import trunc
 from django.http import JsonResponse
 from django.db.models import Count
 import json
@@ -23,7 +22,7 @@ def sentiment_for_period_report(pk, widget_pk):
     }
 
 def post_aggregator_sentiment_for_period(posts, aggregation_period):
-    date = trunc_function('entry_published', aggregation_period)
+    date = trunc('entry_published', aggregation_period)
     negative_posts = posts.annotate(date=date).values("date").filter(sentiment='negative').annotate(count_negative=Count('sentiment')).order_by("date")
     neutral_posts = posts.annotate(date=date).values("date").filter(sentiment='neutral').annotate(count_neutral=Count('sentiment')).order_by("date")
     positive_posts = posts.annotate(date=date).values("date").filter(sentiment='positive').annotate(count_positive=Count('sentiment')).order_by("date")

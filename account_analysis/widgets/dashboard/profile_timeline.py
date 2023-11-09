@@ -1,7 +1,6 @@
 from account_analysis.widgets.filter_for_posts import filter_for_account_posts
-from common.utils.trunc_function import trunc_function
-from django.db.models.functions import Trunc
 from django.db.models import Count, Sum
+from common.utils.trunc import trunc
 from django.http import JsonResponse
 import json
 
@@ -15,7 +14,7 @@ def profile_timeline(request, pk, widget_pk):
 
 
 def post_aggregator_profile_timeline(posts, aggregation_period):
-    date = trunc_function('date', aggregation_period)
+    date = trunc('date', aggregation_period)
     posts_total = posts.annotate(date_trunc=date).values("date_trunc").annotate(created_count=Count('id')).order_by("date")
     posts_favorites = posts.annotate(date_trunc=date).values("date_trunc").annotate(count_favorites=Sum("count_favorites")).order_by("date")
     posts_retweets = posts.annotate(date_trunc=date).values("date_trunc").annotate(count_retweets=Sum("count_totalretweets")).order_by("date")

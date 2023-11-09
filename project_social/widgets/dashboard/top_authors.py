@@ -1,7 +1,6 @@
 from project_social.widgets.project_posts_filter import project_posts_filter
-from common.utils.trunc_function import trunc_function
+from common.utils.trunc import trunc
 from django.forms.models import model_to_dict
-from django.db.models.functions import Trunc
 from django.http import JsonResponse
 from django.db.models import Count
 
@@ -23,7 +22,7 @@ def precalculate_result(pk, widget_pk):
     return calculate_for_top_authors(posts, widget.aggregation_period, widget.top_counts)
 
 def calculate_for_top_authors(posts, aggregation_period, top_counts):
-    results = list(posts.annotate(date_trunc=trunc_function('date', aggregation_period)).values('user_name').annotate(user_count=Count('user_name')).order_by('-user_count')[:top_counts])
+    results = list(posts.annotate(date_trunc=trunc('date', aggregation_period)).values('user_name').annotate(user_count=Count('user_name')).order_by('-user_count')[:top_counts])
     for res in results:
         if not res['user_name']:
             results.remove(res)
