@@ -99,6 +99,19 @@ export default {
     }
   },
 
+  async [action.DELETE_PROJECT]({commit, dispatch}, projectId) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      await api.social.deleteProject(projectId)
+      await dispatch(action.GET_WORKSPACES)
+    } catch (error) {
+      console.error(error)
+      return error
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
   async [action.POST_SEARCH]({commit}, data) {
     commit(mutator.SET_LOADING, true)
     try {

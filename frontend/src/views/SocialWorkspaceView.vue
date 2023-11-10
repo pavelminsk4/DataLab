@@ -8,6 +8,7 @@
       name: 'main page',
       routeName: 'SocialHome',
     }"
+    @delete-project="deleteProject"
     @create-project="createProject"
     @open-project="goToProjectSettings"
   />
@@ -55,12 +56,15 @@ export default {
     }
   },
   methods: {
-    ...mapActions([action.GET_WORKSPACES]),
+    ...mapActions([action.GET_WORKSPACES, action.DELETE_PROJECT]),
     createProject() {
       this.$router.push({
         name: 'SocialWorkspaceStep2',
         params: {workspaceId: this.workspaceId},
       })
+    },
+    deleteProject(id) {
+      this[action.DELETE_PROJECT](id)
     },
     goToProjectSettings(projectId) {
       this.$router.push({

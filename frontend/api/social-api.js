@@ -34,6 +34,10 @@ export default {
     return fetch('patch', `${moduleName}/projects/${projectId}/`, data)
   },
 
+  async deleteProject(projectId) {
+    return fetch('delete', `${moduleName}/projects/${projectId}/`)
+  },
+
   async postSearch(request) {
     return fetch('post', `${moduleName}/twitter_post_search/`, request)
   },

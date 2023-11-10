@@ -84,7 +84,7 @@ export default {
     BaseChips,
     ProjectsTableActions,
   },
-  emits: ['go-to-project', 'delete-project'],
+  emits: ['go-to-project', 'delete-project', 'stop-collecting-data'],
   props: {
     tableHeader: {type: Array, default: () => []},
     values: {type: Array, default: () => []},
@@ -108,7 +108,6 @@ export default {
       return this.members.find((el) => el.id === id)
     },
     projectMembers(projectMembersIds) {
-      console.log(this.values)
       return this.members.filter((member) =>
         projectMembersIds.includes(member.id)
       )
