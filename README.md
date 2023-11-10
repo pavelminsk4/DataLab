@@ -5,11 +5,7 @@
 3. Copy .env.example to .env
 4. Adjust DATABASE_URL in the .env file to match local Postgres user
 5. Create an empty database in Postgres called anova_dev (`psql -d postgres` then `CREATE DATABASE anova_dev;`)
-6. Comment the following:
-   * File reports/classes/online_pdf.py lines 1 and 14
-   * File reports/classes/social_pdf.py lines 1 and 14
-   * File reports/services/pdf_handler.py - the whole file
-7. Run migrations via `python3 manage.py migrate`
+6. Run migrations via `python3 manage.py migrate`
 
 # Running tests
 
@@ -24,7 +20,7 @@
 1. `brew install redis`
 2. `brew services start redis`
 3. `celery -A config worker --beat -l info`
-4. `celery -A config flower` (for monitoring)
+4. `celery -A config flower --url_prefix=flower` (for monitoring)
 
 **Frontend**
 1. `cd frontend`

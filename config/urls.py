@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
+from .flower.flower_view import FlowerView
 
 from django.urls import re_path
 from django.views.generic import TemplateView
@@ -9,16 +10,16 @@ from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
 schema_view = get_schema_view(
-   openapi.Info(
-      title="Snippets API",
-      default_version='v1',
-      description="List of Anova API endpoints",
-      terms_of_service="https://www.google.com/policies/terms/",
-      contact=openapi.Contact(email="contact@snippets.local"),
-      license=openapi.License(name="BSD License"),
-   ),
-   public=True,
-   permission_classes=(permissions.AllowAny,),
+    openapi.Info(
+        title='Snippets API',
+        default_version='v1',
+        description='List of Anova API endpoints',
+        terms_of_service='https://www.google.com/policies/terms/',
+        contact=openapi.Contact(email='contact@snippets.local'),
+        license=openapi.License(name='BSD License'),
+    ),
+    public=True,
+    permission_classes=(permissions.AllowAny,),
 )
 
 urlpatterns = [
@@ -28,8 +29,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('dashboard', include('core.urls')),
     path('', include('core.urls')),
+    re_path(r'^flower/(?P<path>.*)$', FlowerView.as_view()),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('accounts/', include('accounts.urls',namespace='accounts')),
+    path('accounts/', include('accounts.urls', namespace='accounts')),
     path('projects/', include('project.urls')),
     path('api/', include('api.urls')),
     path('api/', include('expert_filters.urls')),
@@ -42,5 +44,5 @@ urlpatterns = [
     path('api/reports/', include('reports.urls')),
     path('', include('tweet_binder.urls')),
     path('', include('multilanguage.urls')),
-    re_path('^.*$', TemplateView.as_view(template_name="index.html")),
+    re_path('^.*$', TemplateView.as_view(template_name='index.html')),
 ]

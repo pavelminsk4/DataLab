@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'multilanguage.apps.MultilanguageConfig',
     'expert_filters.apps.ExpertFiltersConfig',
     'talkwalker.apps.TalkwalkerConfig',
+    'revproxy',
     'django_extensions',
 ]
 
