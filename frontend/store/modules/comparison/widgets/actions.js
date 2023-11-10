@@ -7,9 +7,6 @@ export default {
     try {
       const summary = await api.comparison.getSummaryWidgets(projectId)
       commit(mutator.SET_SUMMARY_WIDGETS, summary)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_SUMMARY_WIDGETS_LOADING, false)
     }
@@ -19,9 +16,6 @@ export default {
     try {
       const sentiment = await api.comparison.getSentimentWidgets(projectId)
       commit(mutator.SET_SENTIMENT_WIDGETS, sentiment)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_SENTIMENT_WIDGETS_LOADING, false)
     }
@@ -31,9 +25,6 @@ export default {
     try {
       const data = await api.comparison.getDemographyWidgets(projectId)
       commit(mutator.SET_DEMOGRAPHY_WIDGETS, data)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_DEMOGRAPHY_WIDGETS_LOADING, false)
     }
@@ -43,9 +34,6 @@ export default {
     try {
       const data = await api.comparison.getInfluencersWidgets(projectId)
       commit(mutator.SET_INFLUENCERS_WIDGETS, data)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_INFLUENCERS_WIDGETS_LOADING, false)
     }

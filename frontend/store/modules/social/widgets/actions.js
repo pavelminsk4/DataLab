@@ -7,9 +7,6 @@ export default {
     try {
       const summary = await api.social.getSummaryWidget(projectId, widgetId)
       commit(mutator.SET_SUMMARY_WIDGET, {widgetId, data: summary})
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
@@ -29,9 +26,6 @@ export default {
         widgetId,
         data: clippingFeedContent,
       })
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {clippingWidget: false}, {root: true})
     }
@@ -49,9 +43,6 @@ export default {
         widgetId,
       })
       commit(mutator.SET_CONTENT_VOLUME_WIDGET, {widgetId, data: volume})
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
@@ -69,9 +60,6 @@ export default {
         value
       )
       commit(mutator.SET_GENDER_VOLUME_WIDGET, {widgetId, data})
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
@@ -89,9 +77,6 @@ export default {
         value
       )
       commit(mutator.SET_GENDER_BY_LOCATION, {widgetId, data})
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
@@ -103,9 +88,6 @@ export default {
     try {
       const data = await api.social.getTopLocationsWidget(projectId, widgetId)
       commit(mutator.SET_TOP_LOCATIONS_WIDGET, {widgetId, data})
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
@@ -115,9 +97,6 @@ export default {
     try {
       const data = await api.social.getTopLanguagesWidget(projectId, widgetId)
       commit(mutator.SET_TOP_LANGUAGES_WIDGET, {widgetId, data})
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
@@ -127,9 +106,6 @@ export default {
     try {
       const data = await api.social.getTopAuthorsWidget(projectId, widgetId)
       commit(mutator.SET_TOP_AUTHORS_WIDGET, {widgetId, data})
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
@@ -139,9 +115,6 @@ export default {
     try {
       const data = await api.social.getTopKeywords({projectId, widgetId})
       commit(mutator.SET_TOP_KEYWORDS_WIDGET, {widgetId, data})
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
@@ -158,8 +131,6 @@ export default {
         widgetId,
       })
       commit(mutator.SET_TOP_KEYWORDS_BY_COUNTRY_WIDGET, {widgetId, data})
-    } catch (error) {
-      return error
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
@@ -173,8 +144,6 @@ export default {
         widgetId,
       })
       commit(mutator.SET_LANGUAGES_BY_LOCATION, {widgetId, data})
-    } catch (error) {
-      console.error(error)
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
@@ -188,9 +157,6 @@ export default {
         widgetId,
       })
       commit(mutator.SET_TOP_SHARING_SOURCES, {widgetId, data})
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
@@ -203,9 +169,6 @@ export default {
         widgetId,
       })
       commit(mutator.SET_OVERALL_TOP_AUTHORS, {widgetId, data})
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
@@ -218,9 +181,6 @@ export default {
         widgetId,
       })
       commit(mutator.SET_TOP_AUTHORS_BY_GENDER, {widgetId, data})
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
@@ -239,9 +199,6 @@ export default {
         widgetId,
       })
       commit(mutator.SET_CONTENT_VOLUME_TOP_LOCATIONS, {widgetId, data})
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
@@ -258,9 +215,6 @@ export default {
         widgetId,
       })
       commit(mutator.SET_CONTENT_VOLUME_TOP_AUTHORS, {widgetId, data})
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
@@ -278,9 +232,6 @@ export default {
         widgetId,
       })
       commit(mutator.SET_CONTENT_VOLUME_TOP_LANGUAGES, {widgetId, data})
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
@@ -293,9 +244,6 @@ export default {
         widgetId,
       })
       commit(mutator.SET_AUTHORS_BY_LANGUAGE, {widgetId, data})
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
@@ -309,9 +257,6 @@ export default {
         widgetId,
       })
       commit(mutator.SET_AUTHORS_BY_LOCATION, {widgetId, data})
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
@@ -325,9 +270,6 @@ export default {
         widgetId,
       })
       commit(mutator.SET_AUTHORS_BY_SENTIMENT, {widgetId, data})
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
@@ -341,9 +283,6 @@ export default {
         widgetId,
       })
       commit(mutator.SET_AUTHORS_BY_GENDER, {widgetId, data})
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
@@ -358,9 +297,6 @@ export default {
         widgetId
       )
       commit(mutator.SET_SENTIMENT_TOP_LOCATIONS, {widgetId, data})
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
@@ -373,9 +309,6 @@ export default {
         widgetId
       )
       commit(mutator.SET_SENTIMENT_TOP_LANGUAGES, {widgetId, data})
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
@@ -385,9 +318,6 @@ export default {
     try {
       const data = await api.social.getSentimentTopAuthors(projectId, widgetId)
       commit(mutator.SET_SENTIMENT_TOP_AUTHORS, {widgetId, data})
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
@@ -404,9 +334,6 @@ export default {
         widgetId,
       })
       commit(mutator.SET_SENTIMENT_FOR_PERIOD, {widgetId, data})
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
@@ -419,9 +346,6 @@ export default {
         widgetId,
       })
       commit(mutator.SET_SENTIMENT_DIAGRAM, {widgetId, data})
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
@@ -437,9 +361,6 @@ export default {
         widgetId,
       })
       commit(mutator.SET_SENTIMENT_NUMBER_OF_RESULT, {widgetId, data})
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
@@ -452,9 +373,6 @@ export default {
         widgetId,
       })
       commit(mutator.SET_SENTIMENT_TOP_KEYWORDS, {widgetId, data})
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
@@ -467,9 +385,6 @@ export default {
         widgetId,
       })
       commit(mutator.SET_SENTIMENT_BY_GENDER, {widgetId, data})
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }

@@ -7,9 +7,6 @@ export default {
     try {
       const workspaces = await api.accountAnalysis.getWorkspaces()
       commit(mutator.SET_WORKSPACES, workspaces)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -31,9 +28,6 @@ export default {
         response.account_analysis_workspace_projects[0].id
       )
       await dispatch(action.GET_WORKSPACES)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -45,9 +39,6 @@ export default {
       const response = await api.accountAnalysis.createProject(data)
       commit(mutator.SET_ACCOUNT_ANALYSIS_PROJECT_ID, response.id)
       await dispatch(action.GET_WORKSPACES)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -61,9 +52,6 @@ export default {
         data,
       })
       commit(mutator.UPDATE_WORKSPACE, responseData)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -75,9 +63,6 @@ export default {
       const listOfProfilesHandle =
         await api.accountAnalysis.getListOfProfilesHandle(data)
       commit(mutator.SET_LIST_OF_PROFILE_HANDLE, listOfProfilesHandle)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -91,9 +76,6 @@ export default {
     try {
       await api.accountAnalysis.deleteAccountAnalysisProject(projectId)
       await dispatch(action.GET_WORKSPACES)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -104,9 +86,6 @@ export default {
     try {
       await api.accountAnalysis.deleteWorkspace(workspaceId)
       await dispatch(action.GET_WORKSPACES)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -127,9 +106,6 @@ export default {
       commit(mutator.SET_INTERACTIVE_DATA, response, {
         root: true,
       })
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -148,9 +124,6 @@ export default {
       })
       commit(mutator.SET_AVAILABLE_WIDGETS, availableWidgets)
       return availableWidgets
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -172,9 +145,6 @@ export default {
         root: true,
       })
       dispatch(action.GET_AVAILABLE_WIDGETS, projectId)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -189,9 +159,6 @@ export default {
       )
       commit(mutator.SET_ACCOUNT_ACTIVITY_POSTS, response)
       return response
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -206,9 +173,6 @@ export default {
       )
       commit(mutator.SET_MENTIONS_POSTS, response)
       return response
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }

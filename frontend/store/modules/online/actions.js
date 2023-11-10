@@ -8,9 +8,6 @@ export default {
     try {
       const workspaces = await api.online.getWorkspaces()
       commit(mutator.SET_WORKSPACES, workspaces)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -23,9 +20,6 @@ export default {
       commit(mutator.SET_SEARCH_DATA, response.posts, {root: true})
       commit(mutator.SET_NUMBER_OF_POSTS, response.num_posts, {root: true})
       commit(mutator.SET_NUMBER_OF_PAGES, response.num_pages, {root: true})
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -38,9 +32,6 @@ export default {
       commit(mutator.SET_NEW_WORKSPACE_ID, response.id)
       commit(mutator.SET_NEW_PROJECT_ID, response.projects[0].id)
       return response
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -53,9 +44,6 @@ export default {
       commit(mutator.SET_NEW_PROJECT_ID, response.id)
       await dispatch(action.GET_USER_INFORMATION, null, {root: true})
       return response
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -66,9 +54,6 @@ export default {
     try {
       const responseData = await api.online.updateWorkspace({workspaceId, data})
       commit(mutator.UPDATE_WORKSPACE, responseData)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -82,9 +67,6 @@ export default {
     try {
       await api.online.updateStatusCollectingData(projectId, data)
       await dispatch(action.GET_WORKSPACES)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -95,9 +77,6 @@ export default {
     try {
       await api.online.deleteWorkspace(workspaceId)
       await dispatch(action.GET_WORKSPACES)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -109,9 +88,6 @@ export default {
       await api.online.deleteProject(projectId)
       await dispatch(action.GET_WORKSPACES)
       await dispatch(action.GET_USER_INFORMATION)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -130,9 +106,6 @@ export default {
       })
       commit(mutator.SET_AVAILABLE_WIDGETS, availableWidgets)
       return availableWidgets
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -153,9 +126,6 @@ export default {
       commit(mutator.SET_INTERACTIVE_DATA, response, {
         root: true,
       })
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -175,9 +145,6 @@ export default {
         root: true,
       })
       dispatch(action.GET_AVAILABLE_WIDGETS, projectId)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -188,9 +155,6 @@ export default {
     try {
       await api.online.updateProject({projectId, data})
       await dispatch(action.GET_WORKSPACES)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -212,9 +176,6 @@ export default {
       )
 
       return response
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_DOWNLOADING_INSTANT_REPORT, false)
     }
@@ -228,9 +189,6 @@ export default {
         projectId: data.projectId,
         widgetId: data.widgetId,
       })
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {clippingWidget: false}, {root: true})
     }
@@ -247,9 +205,6 @@ export default {
         projectId: projectId,
         widgetId: widgetId,
       })
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {clippingWidget: false}, {root: true})
     }
@@ -262,9 +217,6 @@ export default {
       await dispatch(action.GET_FILTER_COUNTRIES, projectId)
       await dispatch(action.GET_FILTER_LANGUAGES, projectId)
       await dispatch(action.GET_FILTER_SOURCES, projectId)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -275,9 +227,6 @@ export default {
     try {
       const dimensionAuthors = await api.online.getFiltersAuthors(projectId)
       commit(mutator.SET_FILTERS_AUTHORS, dimensionAuthors, {root: true})
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -288,9 +237,6 @@ export default {
     try {
       const dimensionLanguages = await api.online.getFiltersLanguages(projectId)
       commit(mutator.SET_FILTERS_LANGUAGES, dimensionLanguages, {root: true})
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -301,9 +247,6 @@ export default {
     try {
       const dimensionCountries = await api.online.getFiltersCountries(projectId)
       commit(mutator.SET_FILTERS_COUNTRIES, dimensionCountries, {root: true})
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -314,9 +257,6 @@ export default {
     try {
       const dimensionSources = await api.online.getFiltersSources(projectId)
       commit(mutator.SET_FILTERS_SOURCES, dimensionSources, {root: true})
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -327,9 +267,8 @@ export default {
       const authors = await api.online.getAuthors(word)
       commit(mutator.SET_AUTHORS, authors)
       return authors
-    } catch (error) {
-      console.error(error)
-      return error
+    } finally {
+      commit(mutator.SET_LOADING, false)
     }
   },
 
@@ -338,9 +277,8 @@ export default {
       const sources = await api.online.getSources(word)
       commit(mutator.SET_SOURCES, sources)
       return sources
-    } catch (error) {
-      console.error(error)
-      return error
+    } finally {
+      commit(mutator.SET_LOADING, false)
     }
   },
 
@@ -351,9 +289,8 @@ export default {
       )
       commit(mutator.SET_LANGUAGES, languages)
       return languages
-    } catch (error) {
-      console.error(error)
-      return error
+    } finally {
+      commit(mutator.SET_LOADING, false)
     }
   },
 
@@ -364,9 +301,8 @@ export default {
       )
       commit(mutator.SET_COUNTRIES, countries)
       return countries
-    } catch (error) {
-      console.error(error)
-      return error
+    } finally {
+      commit(mutator.SET_LOADING, false)
     }
   },
 }

@@ -61,26 +61,25 @@ export default {
 }
 
 .options-container {
+  z-index: 3;
+
   position: absolute;
   right: -5px;
 
   display: flex;
   flex-direction: column;
 
-  white-space: nowrap;
+  padding: 8px;
 
   border-radius: 4px;
-  padding: 8px;
   box-shadow: 1px 2px 6px rgba(135, 135, 135, 0.25);
-
   background: var(--background-secondary-color);
-
-  z-index: 3;
 
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 110%;
+  white-space: nowrap;
   color: var(--typography-title-color);
 }
 
@@ -104,15 +103,15 @@ export default {
 
 .points-icon:hover {
   border-radius: 100%;
+  background-color: var(--button-primary-color);
 
   color: var(--button-text-color);
-  background-color: var(--button-primary-color);
 }
 
 .active-points {
   border-radius: 100%;
+  background-color: var(--button-primary-color);
 
   color: var(--button-text-color);
-  background-color: var(--button-primary-color);
 }
 </style>

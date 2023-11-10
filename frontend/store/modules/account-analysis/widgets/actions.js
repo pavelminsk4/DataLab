@@ -11,9 +11,6 @@ export default {
         value
       )
       commit(mutator.SET_PROFILE_TIMELINE, profileTimeline)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
@@ -28,9 +25,6 @@ export default {
         value
       )
       commit(mutator.SET_SUMMARY, summary)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
@@ -44,9 +38,6 @@ export default {
         widgetId
       )
       commit(mutator.SET_MOST_FREQUENT_POST_TYPES, postTypes)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
@@ -61,9 +52,6 @@ export default {
       const mostFrequentMediaTypes =
         await api.accountAnalysis.getMostFrequentMediaTypes(projectId, widgetId)
       commit(mutator.SET_MOST_FREQUENT_MEDIA_TYPES, mostFrequentMediaTypes)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
@@ -81,9 +69,6 @@ export default {
         value
       )
       commit(mutator.SET_MOST_ENGAGING_POST_TYPES, postTypes)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
@@ -101,9 +86,6 @@ export default {
         value
       )
       commit(mutator.SET_MOST_ENGAGING_MEDIA_TYPES, mediaTypes)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
@@ -118,9 +100,6 @@ export default {
         value
       )
       commit(mutator.SET_FOLLOWER_GROWTH, followerGrowth)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
@@ -138,9 +117,6 @@ export default {
         value
       )
       commit(mutator.SET_OPTIMAL_POST_LENGTH, optimalPostLength)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
@@ -155,9 +131,6 @@ export default {
         value
       )
       commit(mutator.SET_TOP_HASHTAGS, topHashtags)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
@@ -180,9 +153,6 @@ export default {
           value
         )
       commit(mutator.SET_OPTIMAL_NUMBER_OF_HASHTAGS, optimalNumberOfHashtags)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
@@ -201,9 +171,6 @@ export default {
           value
         )
       commit(mutator.SET_AVERAGE_ENGAGEMENTS_BY_DAY, averageEngagements)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
@@ -218,9 +185,6 @@ export default {
         value
       )
       commit(mutator.SET_OPTIMAL_POST_TIME, optimalPostTime)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
@@ -239,9 +203,6 @@ export default {
           value
         )
       commit(mutator.SET_TOP_POSTS_BY_ENGAGEMENTS, topPostsByEngagements)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
@@ -259,9 +220,6 @@ export default {
         value
       )
       commit(mutator.SET_BEST_TIMES_TO_POST, bestTimesToPost)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
@@ -276,9 +234,6 @@ export default {
         value
       )
       commit(mutator.SET_MENTION_TIMELINE, mentionTimeline)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
@@ -299,9 +254,6 @@ export default {
         mutator.SET_MOST_FREQUENT_MENTION_MEDIA_TYPES,
         mostFrequentMentionMediaTypes
       )
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
@@ -313,9 +265,6 @@ export default {
       const audienceMentionTime =
         await api.accountAnalysis.getAudienceMentionTime(projectId, widgetId)
       commit(mutator.SET_AUDIENCE_MENTION_TIME, audienceMentionTime)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
@@ -333,9 +282,6 @@ export default {
           widgetId
         )
       commit(mutator.SET_TOP_MENTIONS_BY_ENGAGEMENTS, topMentionsByEngagements)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
@@ -356,9 +302,6 @@ export default {
         mutator.SET_AVERAGE_ENGAGEMENTS_BY_DAY_FOR_MENTIONS,
         averageEngagementsForMentions
       )
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
@@ -372,9 +315,6 @@ export default {
         widgetId
       )
       commit(mutator.SET_MENTION_SUMMARY, mentionSummary)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
@@ -388,9 +328,6 @@ export default {
         widgetId
       )
       commit(mutator.SET_MENTION_SENTIMENT, mentionSentiment)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {[widgetId]: false}, {root: true})
     }
