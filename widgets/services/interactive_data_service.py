@@ -9,7 +9,7 @@ class InteractiveDataService:
     def execute(self, request, project_pk, widget_pk):
         project = Project.objects.get(id=project_pk)
         widget = WidgetDescription.objects.get(id=widget_pk)
-        posts = post_agregator_with_dimensions(project)
+        posts = project.posts.all()
         body = json.loads(request.body)
         posts_per_page = body['posts_per_page']
         page_number = body['page_number']
@@ -41,6 +41,7 @@ class InteractiveDataService:
         elif widget.default_title == 'Sentiment for period':
             posts = posts.filter(sentiment=first_value[0].lower()).filter(entry_published__range=dates)
         elif widget.default_title == 'Content volume':
+            print('---------->', dates, posts.count(), '-------++++++++++++++++++++--->')
             posts = posts.filter(entry_published__range=dates)
         elif widget.default_title == 'Top keywords':
             posts = posts.filter(entry_summary__icontains=first_value[0])
