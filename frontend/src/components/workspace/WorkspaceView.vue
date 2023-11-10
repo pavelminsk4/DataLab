@@ -43,6 +43,7 @@
         :members="workspace.members"
         @delete-project="deleteProject"
         @go-to-project="goToProjectSettings"
+        @stop-collecting-data="stopCollectingData"
       />
     </div>
   </MainLayout>
@@ -122,6 +123,9 @@ export default {
     },
     deleteProject(id) {
       this.$emit('delete-project', id)
+    },
+    stopCollectingData(projectId) {
+      this.$emit('stop-collecting-data', projectId)
     },
   },
 }

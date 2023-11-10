@@ -31,7 +31,7 @@
             :last-name="currentMember(item.creator)?.last_name"
             :username="currentMember(item.creator)?.username"
           />
-          <div>{{ currentMember(item.creator).username }}</div>
+          <div>{{ currentMember(item.creator)?.username }}</div>
         </div>
       </td>
       <td>
@@ -42,6 +42,8 @@
       </td>
       <td>
         <ProjectsTableActions
+          :status="item.status"
+          @stop-collecting-data="stopCollectingData(item.id)"
           @delete-entity="toggleDeleteModal(item.title, item.id)"
         />
       </td>
@@ -106,6 +108,7 @@ export default {
       return this.members.find((el) => el.id === id)
     },
     projectMembers(projectMembersIds) {
+      console.log(this.values)
       return this.members.filter((member) =>
         projectMembersIds.includes(member.id)
       )
@@ -127,6 +130,9 @@ export default {
       this.togglePageScroll(this.isOpenDeleteModal)
       this.projectValue.name = title
       this.projectId = id
+    },
+    stopCollectingData(projectId) {
+      this.$emit('stop-collecting-data', projectId)
     },
     selectAll(isSelectAll) {
       this.selectedProjects = isSelectAll

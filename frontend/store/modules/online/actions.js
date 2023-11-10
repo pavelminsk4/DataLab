@@ -74,6 +74,22 @@ export default {
     }
   },
 
+  async [action.UPDATE_STATUS_COLLECTING_DATA](
+    {commit, dispatch},
+    {projectId, data}
+  ) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      await api.online.updateStatusCollectingData(projectId, data)
+      await dispatch(action.GET_WORKSPACES)
+    } catch (error) {
+      console.error(error)
+      return error
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
   async [action.DELETE_WORKSPACE]({commit, dispatch}, workspaceId) {
     commit(mutator.SET_LOADING, true)
     try {
