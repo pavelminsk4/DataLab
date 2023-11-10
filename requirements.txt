@@ -72,3 +72,4 @@ vcrpy
 responses==0.23.3
 flower==2.0.1
 django-extensions==3.2.3
+django-revproxy==0.12.0
