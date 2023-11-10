@@ -21,9 +21,8 @@ export default {
         await commit(mutator.SET_TRANSLATION, {text, translation: text})
       }
       return translation
-    } catch (error) {
-      console.error(error)
-      return text
+    } finally {
+      commit(mutator.SET_LOADING, false)
     }
   },
 
@@ -33,9 +32,6 @@ export default {
       await api.postPlatformLanguage(state.userInfo.user_profile.id, newLang)
       await commit(mutator.SET_PLATFORM_LANG, newLang)
       await dispatch(action.GET_USER_INFORMATION)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -46,9 +42,6 @@ export default {
     try {
       await api.logout()
       window.location.href = '/accounts/login/'
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -59,9 +52,6 @@ export default {
     try {
       const projects = await api.getProjects()
       commit(mutator.SET_PROJECTS, projects)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -74,9 +64,6 @@ export default {
       commit(mutator.SET_USER_INFORMATION, userInfo)
 
       return userInfo
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -96,9 +83,6 @@ export default {
         widgetId,
         data: clippingFeedContent,
       })
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {clippingWidget: false}, {root: true})
     }
@@ -115,9 +99,6 @@ export default {
       commit(mutator.SET_AVAILABLE_WIDGETS, availableWidgets)
       commit(mutator.SET_AVAILABLE_WIDGETS, availableWidgets)
       return availableWidgets
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -125,6 +106,7 @@ export default {
 
   async [action.CHANGE_ONLINE_POST_SENTIMENT](
     _context,
+    {commit},
     {postId, departmentId, newSentiment}
   ) {
     try {
@@ -134,14 +116,14 @@ export default {
         newSentiment
       )
       return response
-    } catch (error) {
-      console.error(error)
-      return error
+    } finally {
+      commit(mutator.SET_LOADING, false)
     }
   },
 
   async [action.CHANGE_SOCIAL_POST_SENTIMENT](
     _context,
+    {commit},
     {postId, departmentId, newSentiment}
   ) {
     try {
@@ -151,9 +133,8 @@ export default {
         newSentiment
       )
       return response
-    } catch (error) {
-      console.error(error)
-      return error
+    } finally {
+      commit(mutator.SET_LOADING, false)
     }
   },
 
@@ -162,9 +143,6 @@ export default {
     try {
       const dimensions = await api.getFilters()
       commit(mutator.SET_FILTERS, dimensions)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -174,9 +152,6 @@ export default {
     commit(mutator.SET_LOADING, true)
     try {
       commit(mutator.SET_SELECTED_FILTERS, selectedFilters)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -188,9 +163,6 @@ export default {
       const templates = await api.getTemplates()
       commit(mutator.SET_TEMPLATES, templates)
       return templates
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -201,9 +173,6 @@ export default {
     try {
       const companyUsers = await api.getCompanyUsers(companyId)
       commit(mutator.SET_COMPANY_USERS, companyUsers)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -213,12 +182,6 @@ export default {
     commit(mutator.SET_LOADING, true)
     try {
       return await api.createUser(data)
-    } catch (error) {
-      console.error(error)
-      return {
-        ...error.response.data,
-        hasError: true,
-      }
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -232,9 +195,6 @@ export default {
     try {
       await api.setUserDepartment({email, data})
       await dispatch(action.GET_COMPANY_USERS, userId)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -248,9 +208,6 @@ export default {
     try {
       await api.updateUserData({userId, data})
       await dispatch(action.GET_COMPANY_USERS, currentUserId)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -264,9 +221,6 @@ export default {
     try {
       await api.postFiltersForWidget({projectId, widgetId, data})
       dispatch(action.GET_AVAILABLE_WIDGETS, projectId)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -280,9 +234,6 @@ export default {
     try {
       await api.deleteUserFromCompany(userId)
       await dispatch(action.GET_COMPANY_USERS, currentUserId)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -295,9 +246,6 @@ export default {
     commit(mutator.SET_LOADING, true)
     try {
       return api.downloadSocialInstantlyReport(departmentId, projectId)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -327,9 +275,6 @@ export default {
             value
           )
       }
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -381,9 +326,6 @@ export default {
     try {
       const regularReports = await api.getRegularReports()
       commit(mutator.SET_REGULAR_REPORTS, regularReports)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -393,9 +335,6 @@ export default {
     try {
       await api.createRegularReport(data)
       await dispatch(action.GET_REGULAR_REPORTS)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -408,9 +347,6 @@ export default {
     try {
       await api.updateRegularReport(regularReportId, data)
       await dispatch(action.GET_REGULAR_REPORTS)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -420,9 +356,6 @@ export default {
     try {
       await api.deleteRegularReport(regularReportId)
       await dispatch(action.GET_REGULAR_REPORTS)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -446,9 +379,6 @@ export default {
         commit(mutator.SET_WIDGETS_LISTS, {id: project.id, projectList})
         projectsWidgetsList[project.id] = projectList
       })
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -468,9 +398,6 @@ export default {
     try {
       await api.createAlert(data)
       await dispatch(action.GET_ALERTS, projectId)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -481,9 +408,6 @@ export default {
     try {
       const alerts = await api.getAlerts(projectId)
       commit(mutator.SET_ALERTS, alerts)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -494,9 +418,6 @@ export default {
     try {
       await api.updateAlert({data, alertId})
       await dispatch(action.GET_ALERTS, data.project)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -507,9 +428,6 @@ export default {
     try {
       await api.deleteAlert(alertId)
       await dispatch(action.GET_ALERTS, projectId)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }

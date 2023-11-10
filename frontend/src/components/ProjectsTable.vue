@@ -9,7 +9,6 @@
       :key="index"
       v-model="selectedProjects"
       :id="item.id"
-      @delete-entity="toggleDeleteModal(item.title, item.id)"
       @click="goToProject($event, item.id)"
     >
       <td class="td_name">{{ item.title }}</td>
@@ -32,7 +31,7 @@
             :last-name="currentMember(item.creator)?.last_name"
             :username="currentMember(item.creator)?.username"
           />
-          <div>{{ currentMember(item.creator).username }}</div>
+          <div>{{ currentMember(item.creator)?.username }}</div>
         </div>
       </td>
       <td>
@@ -40,6 +39,13 @@
       </td>
       <td class="project-creation-date">
         {{ projectCreationDate(item.created_at) }}
+      </td>
+      <td>
+        <ProjectsTableActions
+          :status="item.status"
+          @stop-collecting-data="stopCollectingData(item.id)"
+          @delete-entity="toggleDeleteModal(item.title, item.id)"
+        />
       </td>
     </BaseTableRow>
   </BaseTable>
@@ -64,6 +70,7 @@ import BaseTable from '@components/common/BaseTable'
 import BaseTableRow from '@components/common/BaseTableRow'
 import UserAvatar from '@components/UserAvatar'
 import BaseChips from '@/components/BaseChips'
+import ProjectsTableActions from '@/components/ProjectsTableActions'
 
 export default {
   name: 'ProjectsTable',
@@ -75,8 +82,9 @@ export default {
     BaseTableRow,
     UserAvatar,
     BaseChips,
+    ProjectsTableActions,
   },
-  emits: ['go-to-project', 'delete-project'],
+  emits: ['go-to-project', 'delete-project', 'stop-collecting-data'],
   props: {
     tableHeader: {type: Array, default: () => []},
     values: {type: Array, default: () => []},
@@ -121,6 +129,9 @@ export default {
       this.togglePageScroll(this.isOpenDeleteModal)
       this.projectValue.name = title
       this.projectId = id
+    },
+    stopCollectingData(projectId) {
+      this.$emit('stop-collecting-data', projectId)
     },
     selectAll(isSelectAll) {
       this.selectedProjects = isSelectAll

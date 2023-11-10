@@ -7,9 +7,6 @@ export default {
     try {
       const workspaces = await api.comparison.getWorkspaces()
       commit(mutator.SET_WORKSPACES, workspaces)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -20,9 +17,6 @@ export default {
     try {
       const projects = await api.comparison.getProjects()
       commit(mutator.SET_PROJECTS, projects)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -33,9 +27,6 @@ export default {
     try {
       await api.comparison.createWorkspace(workspace)
       await dispatch(action.GET_WORKSPACES)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -49,9 +40,6 @@ export default {
         data,
       })
       commit(mutator.UPDATE_WORKSPACE, responseData)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -68,9 +56,6 @@ export default {
         data,
       })
       await dispatch(action.GET_WORKSPACES)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -84,9 +69,6 @@ export default {
     try {
       await api.comparison.deleteWorkspaceProject(workspaceId, projectId)
       await dispatch(action.GET_WORKSPACES)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -97,9 +79,6 @@ export default {
     try {
       await api.comparison.deleteWorkspace(workspaceId)
       await dispatch(action.GET_WORKSPACES)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }

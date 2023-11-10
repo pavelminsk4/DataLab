@@ -30,7 +30,7 @@
         <CustomText tag="span" text="Add Project" class="button-text" />
       </BaseButton>
 
-      <BaseTooltipSettings v-if="isShowMenu" :id="id">
+      <BaseTooltipSettings v-if="isShowMenu" :id="id" position="bottom">
         <div class="tooltip-item" @click.stop="openSettingsModal">
           <EditIcon />
           <CustomText tag="span" text="Edit" />

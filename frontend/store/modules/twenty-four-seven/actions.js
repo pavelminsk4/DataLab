@@ -7,9 +7,6 @@ export default {
     try {
       const workspaces = await api.twentyFourSeven.getWorkspaces(id)
       commit(mutator.SET_WORKSPACES, workspaces)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -25,9 +22,6 @@ export default {
       commit(mutator.SET_TFS_WORKSPACE_ID, response.id)
       commit(mutator.SET_TFS_PROJECT_ID, response.tfs_workspace_projects[0].id)
       await dispatch(action.GET_WORKSPACES)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -39,9 +33,6 @@ export default {
       const response = await api.twentyFourSeven.createProject(data)
       commit(mutator.SET_TFS_PROJECT_ID, response.id)
       await dispatch(action.GET_WORKSPACES)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -55,9 +46,6 @@ export default {
         data,
       })
       commit(mutator.UPDATE_WORKSPACE, responseData)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -68,9 +56,6 @@ export default {
     try {
       await api.twentyFourSeven.deleteWorkspace(workspaceId)
       await dispatch(action.GET_WORKSPACES)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -81,9 +66,6 @@ export default {
     try {
       await api.twentyFourSeven.deleteProject(projectId)
       await dispatch(action.GET_WORKSPACES)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -99,9 +81,6 @@ export default {
         state.sortType.value
       )
       commit(mutator.SET_TFS_ITEMS, {items, status})
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -112,9 +91,6 @@ export default {
     try {
       const relatedContent = await api.twentyFourSeven.getRelatedContent(itemId)
       commit(mutator.SET_TFS_RELATED_CONTENT, relatedContent)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -133,9 +109,6 @@ export default {
         ...value,
       })
       await dispatch(action.GET_TFS_ITEMS, {projectId, status: oldStatus, page})
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -154,8 +127,6 @@ export default {
         page,
       })
       return
-    } catch (error) {
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -173,9 +144,6 @@ export default {
       )
       commit(mutator.SET_TFS_STATUS_MESSAGE, response.status)
       return response
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -199,9 +167,6 @@ export default {
         title: translatedTitle.translated_text,
         text: translatedText.translated_text,
       })
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -226,9 +191,8 @@ export default {
         text: translatedText.translated_text,
       })
       return
-    } catch (error) {
-      console.error(error)
-      return error
+    } finally {
+      commit(mutator.SET_LOADING, false)
     }
   },
 
@@ -237,9 +201,6 @@ export default {
     try {
       const response = await api.twentyFourSeven.createAISummary(postId)
       commit(mutator.SET_TFS_AI_SUMMARY, response.summary)
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }

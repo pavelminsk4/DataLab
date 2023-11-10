@@ -1,6 +1,10 @@
 <template>
   <div class="settings-container" ref="settings-wrapper">
-    <div v-if="isOpenSettings" class="options-container">
+    <div
+      v-if="isOpenSettings"
+      :style="`${position}: calc(100% + 8px);`"
+      class="options-container"
+    >
       <slot></slot>
     </div>
     <PointsIcon
@@ -19,6 +23,7 @@ export default {
     PointsIcon,
   },
   props: {
+    position: {type: String, default: 'top'},
     id: {
       type: [Number, String],
       default: '',
@@ -56,25 +61,25 @@ export default {
 }
 
 .options-container {
+  z-index: 3;
+
   position: absolute;
   right: -5px;
-  bottom: calc(100% + 8px);
 
   display: flex;
   flex-direction: column;
 
-  white-space: nowrap;
+  padding: 8px;
 
   border-radius: 4px;
-  padding: 8px;
   box-shadow: 1px 2px 6px rgba(135, 135, 135, 0.25);
-
   background: var(--background-secondary-color);
 
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 110%;
+  white-space: nowrap;
   color: var(--typography-title-color);
 }
 
@@ -98,15 +103,15 @@ export default {
 
 .points-icon:hover {
   border-radius: 100%;
-
-  color: var(--typography-primary-color);
   background-color: var(--button-primary-color);
+
+  color: var(--button-text-color);
 }
 
 .active-points {
   border-radius: 100%;
-
-  color: var(--typography-primary-color);
   background-color: var(--button-primary-color);
+
+  color: var(--button-text-color);
 }
 </style>

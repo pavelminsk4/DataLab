@@ -11,6 +11,7 @@
     @create-project="createProject"
     @open-project="goToProjectSettings"
     @delete-project="deleteProject"
+    @stop-collecting-data="stopCollectingData"
   />
 </template>
 
@@ -53,7 +54,10 @@ export default {
     ]
   },
   methods: {
-    ...mapActions([action.DELETE_PROJECT]),
+    ...mapActions([
+      action.DELETE_PROJECT,
+      action.UPDATE_STATUS_COLLECTING_DATA,
+    ]),
     createProject() {
       this.$router.push({
         name: 'OnlineWorkspaceStep2',
@@ -70,6 +74,12 @@ export default {
           workspaceId: this.workspaceId,
           projectId,
         },
+      })
+    },
+    stopCollectingData(projectId) {
+      this[action.UPDATE_STATUS_COLLECTING_DATA]({
+        projectId,
+        data: {status: 'inactive'},
       })
     },
   },

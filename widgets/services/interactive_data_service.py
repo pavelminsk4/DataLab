@@ -9,7 +9,7 @@ class InteractiveDataService:
     def execute(self, request, project_pk, widget_pk):
         project = Project.objects.get(id=project_pk)
         widget = WidgetDescription.objects.get(id=widget_pk)
-        posts = post_agregator_with_dimensions(project)
+        posts = project.posts.all()
         body = json.loads(request.body)
         posts_per_page = body['posts_per_page']
         page_number = body['page_number']

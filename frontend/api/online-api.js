@@ -60,6 +60,10 @@ export default {
     return URL.createObjectURL(response.data)
   },
 
+  async updateStatusCollectingData(projectId, data) {
+    return fetch('patch', `/project_statuses/${projectId}/`, data)
+  },
+
   async createClippingFeedContent(data) {
     return fetch('post', '/clipping_feed_content_widget/create', data)
   },

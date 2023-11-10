@@ -24,7 +24,7 @@
         <ExpertModeTab
           v-if="isExpertMode"
           :default-query="currentProject.query_filter"
-          :start-date="currentProject.start_date"
+          :start-date="startDate"
           :filters="filters"
           :is-keywords-fields-disable="true"
           :module-name="moduleName"
@@ -116,6 +116,11 @@ export default {
     },
     isCurrentProjectCreated() {
       return !isAllFieldsEmpty(this.currentProject)
+    },
+    startDate() {
+      return (
+        this.currentProject.start_date || this.currentProject.start_search_date
+      )
     },
   },
   mounted() {
