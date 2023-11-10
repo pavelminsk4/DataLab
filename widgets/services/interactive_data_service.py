@@ -41,7 +41,6 @@ class InteractiveDataService:
         elif widget.default_title == 'Sentiment for period':
             posts = posts.filter(sentiment=first_value[0].lower()).filter(entry_published__range=dates)
         elif widget.default_title == 'Content volume':
-            print('---------->', dates, posts.count(), '-------++++++++++++++++++++--->')
             posts = posts.filter(entry_published__range=dates)
         elif widget.default_title == 'Top keywords':
             posts = posts.filter(entry_summary__icontains=first_value[0])
