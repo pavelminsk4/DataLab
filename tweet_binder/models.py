@@ -195,6 +195,17 @@ def get_new_tweets_from_live_reports():
             pagination = data_tweets['pagination']['nextResults']
       else:
          print('No new tweets found')
+
+@shared_task
+def get_new_tweets_by_basic_search():
+    auth_token = json.loads(login(email, password))['authToken'] 
+    basic_searches = BasicSearchProject.objects.all()
+    for report in basic_searches:
+        basic_search_url = api_route + '/search/twitter/7-day'
+        auth_token = json.loads(login(email, password))['authToken'] 
+        report_id = json.loads(basic_search(report.keyword_and, report.keyword_or, report.keyword_nor, report.limit, auth_token, basic_search_url))['resourceId']
+        time.sleep(10)
+        search(report_id, auth_token)
    
 
 email = os.environ.get('EMAIL_TWEET')
