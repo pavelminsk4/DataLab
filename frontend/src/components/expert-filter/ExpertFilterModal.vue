@@ -6,7 +6,7 @@
 
     <SaveAsModal
       v-if="isOpenSaveAsModal"
-      :expert-query="'Elon AND CAT'"
+      :expert-query="expertQuery"
       @close="isOpenSaveAsModal = false"
     />
 
@@ -23,6 +23,7 @@
             Detailed search syntax
           </BaseButton>
           <BaseButton :is-not-background="true" @click="resetQuery">
+            <PlusIcon class="reset-icon" />
             Reset
           </BaseButton>
         </div>
@@ -35,14 +36,19 @@
 
           <ul class="preset-groups scroll">
             <template
-              v-for="{id: groupId, title, presets} in groups1"
+              v-for="{id: groupId, title, presets} in groups"
               :key="groupId"
             >
               <li
                 class="group"
                 @click="isClosedGroup[title] = !isClosedGroup[title]"
               >
-                <BaseCheckbox />
+                <BaseCheckbox
+                  v-model="isGroupChecked[groupId]"
+                  @update:modelValue="
+                    isAllGroupChecked($event, groupId, presets)
+                  "
+                />
                 <span>{{ title }}</span>
 
                 <ArrowheadIcon
@@ -59,9 +65,18 @@
                     activePreset === preset.id && 'active-preset',
                   ]"
                 >
-                  <BaseCheckbox />
+                  <BaseCheckbox
+                    v-model="isPresetChecked[preset.id]"
+                    @update:modelValue="
+                      isCheckedPreset($event, groupId, preset.id, presets)
+                    "
+                  />
                   <span>{{ preset.title }}</span>
-                  <button class="edit-preset-btn" @click="editPreset(preset)">
+                  <button
+                    v-if="activePreset !== preset.id"
+                    class="edit-preset-btn"
+                    @click="editPreset(preset)"
+                  >
                     <EditIcon />
                   </button>
                 </li>
@@ -89,6 +104,7 @@ import {nextTick} from 'vue'
 import {createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
 
+import PlusIcon from '@/components/icons/PlusIcon'
 import BaseButton from '@/components/common/BaseButton'
 import BaseModal from '@/components/modals/BaseModal'
 import ExpertField from '@components/expert-filter/ExpertField'
@@ -112,10 +128,11 @@ export default {
     ArrowheadIcon,
     EditIcon,
     SaveAsModal,
+    PlusIcon,
   },
   data() {
     return {
-      expertQuery: ['asdfads AND sdf OR fsd'],
+      expertQuery: [''],
       isShowExpertInput: true,
       searchPreset: '',
       isClosedGroup: {},
@@ -123,7 +140,9 @@ export default {
       isOpenCreateGroupModal: false,
       editablePreset: null,
       activePreset: 0,
-      groups1: [],
+      isPresetChecked: {},
+      isGroupChecked: {},
+      selectedPresets: [],
     }
   },
   computed: {
@@ -131,36 +150,6 @@ export default {
   },
   async created() {
     await this[action.GET_PRESETS_GROUPS]()
-    this.groups1 = [
-      {
-        id: 1,
-        title: 'g1',
-        description: '',
-        updated_at: '2023-09-06T10:13:42.245691Z',
-        created_at: '2023-09-06T10:13:42.245705Z',
-        creator: 2,
-        presets: [
-          {
-            title: 'pr1',
-            id: 1,
-            query: ['New  OR fsd (dfsf AND fdsf)'],
-          },
-          {
-            title: 'pr2',
-            id: 2,
-            query: ['dfsf AND fdsf'],
-          },
-        ],
-      },
-      {
-        id: 2,
-        title: 'g2',
-        description: '',
-        updated_at: '2023-09-06T10:15:25.766939Z',
-        created_at: '2023-09-06T10:15:25.766957Z',
-        creator: 2,
-      },
-    ]
   },
   methods: {
     ...mapActions([action.GET_PRESETS_GROUPS, action.UPDATE_PRESET]),
@@ -169,7 +158,12 @@ export default {
     },
     async updatePreset() {
       if (this.editablePreset) {
-        await this[action.UPDATE_PRESET]({query: 'Elon OR CAT'})
+        await this[action.UPDATE_PRESET]({
+          presetId: this.activePreset,
+          data: {query: this.expertQuery},
+        })
+
+        this.editablePreset = false
       } else {
         this.openSaveAsModal()
       }
@@ -180,7 +174,42 @@ export default {
       await nextTick()
       this.isShowExpertInput = true
     },
+    isCheckedPreset(isChecked, groupId, presetId, presets) {
+      if (!isChecked) {
+        this.isGroupChecked[groupId] = false
+        this.deletePreset(presetId)
+        return
+      }
+
+      this.selectedPresets.push(presetId)
+
+      const presetsIds = presets.map((preset) => preset.id)
+      const isAllPresetsInGroupChecked = presetsIds.every((element) =>
+        this.selectedPresets.includes(element)
+      )
+      this.isGroupChecked[groupId] = isAllPresetsInGroupChecked
+    },
+    isAllGroupChecked(isChecked, groupId, presets) {
+      this.isGroupChecked[groupId] = isChecked
+
+      presets.filter((preset) => {
+        this.isPresetChecked[preset.id] = isChecked
+
+        if (!isChecked) {
+          return this.deletePreset(preset.id)
+        }
+
+        this.selectedPresets.push(preset.id)
+      })
+    },
+    deletePreset(presetId) {
+      return this.selectedPresets.splice(this.presetIndex(presetId), 1)
+    },
+    presetIndex(presetId) {
+      return this.selectedPresets.findIndex((element) => element === presetId)
+    },
     editPreset(preset) {
+      this.editablePreset = true
       this.activePreset = preset.id
       this.changeExpertQuery(preset.query)
     },
@@ -212,6 +241,10 @@ export default {
 
   gap: 16px;
   margin-top: 24px;
+
+  .reset-icon {
+    transform: rotate(45deg);
+  }
 }
 
 .presets-section {
@@ -229,11 +262,14 @@ export default {
 }
 
 .edit-preset-btn {
+  cursor: pointer;
+
   border: none;
   background-color: transparent;
 }
 
 .active-preset {
+  border: 1px solid var(--border-active-color);
   border-radius: var(--border-radius);
   background-color: var(--primary-active-color);
 }

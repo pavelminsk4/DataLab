@@ -103,6 +103,12 @@ export default {
         this.newSelectedGroup = val
       },
     },
+    presetsIds() {
+      const presets = this.groups.find(
+        (group) => group.id === this.selectedGroupData.id
+      ).presets
+      return presets.map((preset) => preset.id)
+    },
     selectedGroupData() {
       return this.groups.find(({title}) => this.selectedGroup === title)
     },
@@ -111,13 +117,13 @@ export default {
     },
   },
   methods: {
-    ...mapActions([action.CREATE_PRESET]),
+    ...mapActions([action.CREATE_PRESET, action.UPDATE_PRESETS_GROUP]),
     async createPreset() {
-      console.log('CREATE PR', this.selectedGroupData)
       await this[action.CREATE_PRESET]({
+        groupId: this.selectedGroupData.id,
+        presetsIds: this.presetsIds,
         data: {
           title: this.name,
-          group: this.selectedGroupData.id,
           query: this.expertQuery,
           creator: this.user.id,
         },

@@ -55,10 +55,10 @@ export default {
     }
   },
 
-  async [action.GET_PRESETS]({commit}, {groupId}) {
+  async [action.GET_PRESETS]({commit}) {
     commit(mutator.SET_LOADING, true)
     try {
-      const response = await api.getPresets({groupId})
+      const response = await api.getPresets()
       commit(mutator.SET_PRESETS_GROUPS, response)
       return response
     } catch (error) {
@@ -68,10 +68,30 @@ export default {
       commit(mutator.SET_LOADING, false)
     }
   },
-  async [action.CREATE_PRESET]({commit, dispatch}, {groupId, data}) {
+  async [action.CREATE_PRESET](
+    {commit, dispatch},
+    {groupId, presetsIds, data}
+  ) {
     commit(mutator.SET_LOADING, true)
     try {
-      const response = await api.createPreset({groupId, data})
+      const response = await api.createPreset(data)
+      console.log(response.id)
+      await dispatch(action.UPDATE_PRESETS_GROUP, {
+        groupId,
+        data: {presets: [...presetsIds, response.id]},
+      })
+      return response
+    } catch (error) {
+      console.error(error)
+      return error
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+  async [action.DELETE_PRESET]({commit, dispatch}, presetId) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const response = await api.deletePreset(presetId)
       await dispatch(action.GET_PRESETS_GROUPS)
       return response
     } catch (error) {
@@ -81,23 +101,10 @@ export default {
       commit(mutator.SET_LOADING, false)
     }
   },
-  async [action.DELETE_PRESET]({commit, dispatch}, {groupId, presetId}) {
+  async [action.UPDATE_PRESET]({commit, dispatch}, {presetId, data}) {
     commit(mutator.SET_LOADING, true)
     try {
-      const response = await api.deletePreset({groupId, presetId})
-      await dispatch(action.GET_PRESETS_GROUPS)
-      return response
-    } catch (error) {
-      console.error(error)
-      return error
-    } finally {
-      commit(mutator.SET_LOADING, false)
-    }
-  },
-  async [action.UPDATE_PRESET]({commit, dispatch}, {groupId, presetId, data}) {
-    commit(mutator.SET_LOADING, true)
-    try {
-      const response = await api.updatePreset({groupId, presetId, data})
+      const response = await api.updatePreset({presetId, data})
       await dispatch(action.GET_PRESETS_GROUPS)
       return response
     } catch (error) {

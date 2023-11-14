@@ -14,16 +14,16 @@ export default {
     return fetch('patch', `/groups/${groupId}/`, data)
   },
 
-  async getPresets({groupId}) {
-    return fetch('get', `/groups/${groupId}/presets/`)
+  async getPresets() {
+    return fetch('get', `/presets/`)
   },
-  async createPreset({groupId, data}) {
-    return fetch('post', `/groups/${groupId}/presets/`, data)
+  async createPreset(data) {
+    return fetch('post', `/presets/`, data)
   },
-  async deletePreset({groupId, presetId}) {
-    return fetch('delete', `/groups/${groupId}/presets/${presetId}/`)
+  async deletePreset(presetId) {
+    return fetch('delete', `/presets/${presetId}/`)
   },
-  async updatePreset({groupId, presetId, data}) {
-    return fetch('patch', `/groups/${groupId}/presets/${presetId}/`, data)
+  async updatePreset({presetId, data}) {
+    return fetch('patch', `/presets/${presetId}/`, data)
   },
 }
