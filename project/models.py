@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.postgres.fields import ArrayField
 from django.contrib.postgres.indexes import GinIndex
+from expert_filters.models import Preset
 from reports.models import Templates
 from django.core.exceptions import ValidationError
 from django.dispatch import receiver
@@ -154,6 +155,7 @@ class Project(models.Model):
     workspace       = models.ForeignKey(Workspace, related_name='projects', blank=True, null=True, on_delete=models.CASCADE)
     members         = models.ManyToManyField(User, related_name='members', blank=True)
     posts           = models.ManyToManyField(Post, blank=True)
+    expert_presets  = models.ManyToManyField(Preset, blank=True)
 
     def save(self, *args, **kwargs):
         total_projects_count = 0
