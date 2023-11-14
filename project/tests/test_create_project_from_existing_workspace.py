@@ -1,12 +1,14 @@
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-from selenium.webdriver.chrome.webdriver import WebDriver
+
 from common.factories.department import DepartmentFactory
 from common.factories.workspace import WorkspaceFactory
-from selenium.webdriver.chrome.options import Options
+from django.contrib.auth.models import User
+
+from selenium import webdriver
+from selenium.webdriver.support import expected_conditions as expect
+from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-from django.contrib.auth.models import User
-from unittest import skip
 import time
 
 
@@ -14,41 +16,45 @@ class CreateProjectTests(StaticLiveServerTestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        chrome_options = Options()
-        chrome_options.add_argument("--headless")
-        cls.selenium = WebDriver(chrome_options=chrome_options)
+        options = webdriver.ChromeOptions()
+        options.add_argument("--headless")
+        cls.driver = webdriver.Chrome(options=options)
+        cls.wait   = WebDriverWait(cls.driver, 20)
 
-    @skip("Don't want to test")
+    def tearDown(self):
+        self.driver.close()
+
     def test_create_project_from_existing_workspace(self):
         dep = DepartmentFactory()
         user = User.objects.create_user(username='user', password='user')
+
         user.user_profile.department = dep
         user.user_profile.save()
+
         ws = WorkspaceFactory(title='Sensika', department=dep)
         ws.members.add(user)
-        self.client.login(username='user', password='user')
-        cookie = self.client.cookies['sessionid']
-        self.selenium.get(self.live_server_url + '')
-        self.selenium.add_cookie(
-            {'name': 'sessionid', 'value': cookie.value, 'secure': False, 'path': '/'})
-        self.selenium.refresh()
-        self.selenium.get(self.live_server_url + '/online-module/workspace/' + str(ws.id))
-        create_project_button = self.selenium.find_element(
-            By. CLASS_NAME, 'base-button')
-        create_project_button.click()
-        next_button = self.selenium.find_element(By. CLASS_NAME, 'next-button')
-        next_button.click()
-        project_name = self.selenium.find_element(By. CLASS_NAME, 'input')
-        project_name.send_keys('First Project')
-        next_button = self.selenium.find_element(By. CLASS_NAME, 'base-button')
-        next_button.click()
-        keywords_field = self.selenium.find_element(
-            By. CLASS_NAME, "input[name='keywords']")
-        keywords_field.send_keys('Apple')
-        keywords_field.send_keys(Keys.ENTER)
-        next_button = self.selenium.find_element(By. CLASS_NAME, 'next-button')
-        next_button.click()
-        time.sleep(1)
-        assert 'Download Report' in self.selenium.page_source
-        assert 'Back to workspace' in self.selenium.page_source
-        self.selenium.close()
+
+        self.driver.get(self.live_server_url + '')
+        self.driver.find_element(By.ID, 'id_username').send_keys('user')
+        self.driver.find_element(By.ID, 'id_password').send_keys('user')
+        self.driver.find_element(By.CLASS_NAME, 'login-button').click()
+
+        self.wait.until(expect.presence_of_element_located((By.XPATH, '//h3[text()=" Online "]'))).click()
+        self.wait.until(expect.presence_of_element_located((By.XPATH, '//h3[text()="Sensika"]'))).click()
+        self.wait.until(expect.presence_of_element_located((By.XPATH, '//h1[text()="Sensika"]')))
+
+        self.driver.find_element(By.CLASS_NAME, 'base-button').click()
+        time.sleep(0.5)
+
+        self.wait.until(expect.visibility_of_element_located((By.ID, 'Name'))).send_keys('First Project')
+        self.wait.until(expect.element_to_be_clickable((By.CLASS_NAME, 'next-button'))).click()
+        self.wait.until(expect.visibility_of_element_located((By.CLASS_NAME, 'input[name="keywords"]'))).send_keys('Apple')
+
+        self.driver.find_element(By.CLASS_NAME, 'input[name="keywords"]').send_keys(Keys.ENTER)
+        self.wait.until(expect.element_to_be_clickable((By.CLASS_NAME, 'base-button'))).click()
+        self.wait.until(expect.visibility_of_element_located((By.XPATH, '//*[text()="Save confirmation"]')))
+        self.wait.until(expect.element_to_be_clickable((By.XPATH, '//div[text()=" Continue "]'))).click()
+
+        self.wait.until(expect.presence_of_element_located((
+            By.XPATH, '//*[text()="The data is being collected. Your project will be ready in an hour."]')
+        ))
