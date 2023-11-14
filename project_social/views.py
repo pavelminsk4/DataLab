@@ -1,4 +1,7 @@
 from rest_framework.generics import ListAPIView, CreateAPIView, DestroyAPIView, UpdateAPIView, RetrieveAPIView
+from rest_framework.pagination import LimitOffsetPagination
+from rest_framework import viewsets, filters, generics
+
 from .widgets.dashboard.content_volume_top_locations import content_volume_top_locations
 from .widgets.dashboard.content_volume_top_languages import content_volume_top_languages
 from .widgets.filters_for_widgets import post_agregator_with_dimensions, posts_agregator
@@ -27,18 +30,20 @@ from .widgets.dashboard.clipping_feed import clipping_feed
 from .widgets.dashboard.top_languages import top_languages
 from .widgets.summary.gender_volume import gender_volume
 from .widgets.dashboard.top_authors import top_authors
-from rest_framework import viewsets, filters, generics
 from .widgets.summary.top_keywords import top_keywords
 from .widgets.dashboard.summary_widget import summary
-from project_social.social_parser import SocialParser
 from .widgets.dashboard.sentiment import sentiment
+
+from project_social.social_parser import SocialParser
 from .models import ChangingTweetbinderSentiment
 from tweet_binder.models import TweetBinderPost
+
 from django.shortcuts import get_object_or_404
 from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.http import HttpResponse
 from django.db.models import Q
+
 from functools import reduce
 from .serializers import *
 import json
@@ -311,9 +316,15 @@ class SocialAuthorList(ListAPIView):
     filter_backends = [filters.SearchFilter]
     search_fields = ['^user_alias']
 
+
+class LimitPagination(LimitOffsetPagination):
+    default_limit = 50
+    
+    
 class SocialLocationList(ListAPIView):
     serializer_class = TweetBinderPostLocationSerializer
     queryset = TweetBinderPost.objects.distinct('locationString')
+    pagination_class = LimitPagination
     filter_backends = [filters.SearchFilter]
     search_fields = ['^locationString']
 
