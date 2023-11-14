@@ -10,8 +10,7 @@ class GroupFactory(factory.django.DjangoModelFactory):
         model = Group
 
     title       = factory.Faker('name')
-    description = factory.Faker()
-    presets     = factory.SubFactory(PresetFactory)
+    description = 'Description'
     creator     = factory.SubFactory(UserFactory)
     updated_at  = factory.LazyFunction(datetime.now)
     created_at  = factory.LazyFunction(datetime.now)
