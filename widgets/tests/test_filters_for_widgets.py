@@ -23,7 +23,7 @@ class FilterForWidgetsTests(APITestCase):
         p5 = PostFactory(feedlink=flink3, entry_title='Fiveth post title', feed_language=sp2, entry_author='AFP', sentiment='positive')
         p6 = PostFactory(feedlink=flink3, entry_title='Sixth title', feed_language=sp2, entry_author='EFE', sentiment='neutral')
         p7 = PostFactory(feedlink=flink4, entry_title='Seventh title', feed_language=sp2, entry_author='AFP', sentiment='neutral')
-        pr = ProjectFactory(additional_keywords=['Third'], ignore_keywords=['First'], author_filter='AFP', language_filter='English', sentiment_filter='negative')
+        pr = ProjectFactory(additional_keywords=['Third'], ignore_keywords=['First'], author_filter=['AFP'], language_filter=['English'], sentiment_filter=['negative'])
         for post in (p1, p2, p3, p4, p5, p6, p7):
             pr.posts.add(post)
         widget_pk = pr.widgets_list_2.sentiment_top_authors_id

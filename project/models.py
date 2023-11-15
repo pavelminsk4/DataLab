@@ -127,11 +127,13 @@ class Project(models.Model):
     report_widgets       = models.BooleanField(default=True)
     report_content       = models.BooleanField(default=True)
     report_language      = models.CharField(max_length=10, default='English')
-    author_filter        = models.CharField(max_length=50, blank=True, null=True)
-    language_filter      = models.CharField(max_length=50, blank=True, null=True)
-    country_filter       = models.CharField(max_length=50, blank=True, null=True)
-    source_filter        = models.CharField(max_length=50, blank=True, null=True)
-    sentiment_filter     = models.CharField(max_length=10, blank=True, null=True)
+    
+    author_filter        = ArrayField(models.CharField(max_length=50), blank=True, null=True)
+    language_filter      = ArrayField(models.CharField(max_length=50), blank=True, null=True)
+    country_filter       = ArrayField(models.CharField(max_length=50), blank=True, null=True)
+    source_filter        = ArrayField(models.CharField(max_length=50), blank=True, null=True)
+    sentiment_filter     = ArrayField(models.CharField(max_length=50), blank=True, null=True)
+
     author_dimensions    = ArrayField(models.CharField(max_length=50), blank=True, null=True)
     language_dimensions  = ArrayField(models.CharField(max_length=50), blank=True, null=True)
     country_dimensions   = ArrayField(models.CharField(max_length=50), blank=True, null=True)
