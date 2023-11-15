@@ -1,12 +1,12 @@
 from django.test import TestCase
-from accounts.models import department
+from accounts.models import Department
 from project.models import Workspace, Project
 from django.contrib.auth.models import User
 
 
 class DepartmnetLimitsTestCase(TestCase):
     def setUp(self):
-        dep = department.objects.create(
+        dep = Department.objects.create(
             departmentname='TestDepartment',
             max_users=2,
             max_projects=2,
@@ -35,11 +35,11 @@ class DepartmnetLimitsTestCase(TestCase):
         ).save()
 
     def test_department_limints(self):
-        dep = department.objects.get(departmentname='TestDepartment')
+        dep = Department.objects.get(departmentname='TestDepartment')
         self.assertEqual(dep.current_number_of_projects, 2)
         self.assertEqual(dep.current_number_of_users, 2)
         User.objects.get(username='Jan').delete()
         Project.objects.get(title='Project1').delete()
-        dep = department.objects.get(departmentname='TestDepartment')
+        dep = Department.objects.get(departmentname='TestDepartment')
         self.assertEqual(dep.current_number_of_projects, 1)
         self.assertEqual(dep.current_number_of_users, 1)

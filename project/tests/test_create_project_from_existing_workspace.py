@@ -3,6 +3,7 @@ from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from common.factories.department import DepartmentFactory
 from common.factories.workspace import WorkspaceFactory
 from django.contrib.auth.models import User
+from project.models import Project
 
 from selenium import webdriver
 from selenium.webdriver.support import expected_conditions as expect
@@ -58,3 +59,5 @@ class CreateProjectTests(StaticLiveServerTestCase):
         self.wait.until(expect.presence_of_element_located((
             By.XPATH, '//*[text()="The data is being collected. Your project will be ready in an hour."]')
         ))
+
+        self.assertTrue(Project.objects.all().count() == 1)

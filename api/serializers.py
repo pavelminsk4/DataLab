@@ -2,7 +2,7 @@ from widgets.models import WidgetsList2, ClippingFeedContentWidget, WidgetDescri
 from drf_writable_nested.serializers import WritableNestedModelSerializer
 from project.models import Project, Workspace, Speech, Feedlinks, Post
 from reports.models import Templates, RegularReport, ReportItem
-from accounts.models import Profile, department
+from accounts.models import Profile, Department
 from django.contrib.auth.models import User
 from alerts.models import Alert, AlertItem
 from countries_plus.models import Country
@@ -14,12 +14,13 @@ from rest_framework.validators import UniqueValidator
 
 class DepartmentSerializer(WritableNestedModelSerializer):
     class Meta:
-        model = department
+        model = Department
         fields = '__all__'
 
 
 class ProfileSerializer(WritableNestedModelSerializer):
     department = DepartmentSerializer()
+
     class Meta:
         model = Profile
         fields = '__all__'
@@ -27,6 +28,7 @@ class ProfileSerializer(WritableNestedModelSerializer):
 
 class UserSerializer(WritableNestedModelSerializer):
     user_profile = ProfileSerializer()
+
     class Meta:
         model = User
         exclude = ['date_joined']
@@ -41,6 +43,7 @@ class UserUpdateSerializer(serializers.ModelSerializer):
 class ProjectSerializer(serializers.ModelSerializer):
     members = UserSerializer(many=True, required=False)
     note = serializers.CharField(max_length=1000, allow_blank=True)
+
     class Meta:
         model = Project
         exclude = ['posts']
@@ -50,6 +53,7 @@ class WorkspaceSerializer(WritableNestedModelSerializer):
     projects = ProjectSerializer(many=True, required=False)
     description = serializers.CharField(max_length=1000, allow_blank=True, required=False)
     members = UserSerializer(many=True, required=False)
+
     class Meta:
         model = Workspace
         fields = ['id', 'title', 'description', 'members', 'projects', 'created_at']
@@ -58,7 +62,7 @@ class WorkspaceSerializer(WritableNestedModelSerializer):
 class WorkspaceCreateSerializer(serializers.ModelSerializer):
     projects = ProjectSerializer(many=True, required=False)
     description = serializers.CharField(max_length=1000, allow_blank=True)
-    
+
     class Meta:
         model = Workspace
         fields = '__all__'
@@ -90,36 +94,35 @@ class WidgetDescriptionSerializer(WritableNestedModelSerializer):
 
 
 class WidgetsListSerializer(WritableNestedModelSerializer):
-    summary = WidgetDescriptionSerializer()
-    volume = WidgetDescriptionSerializer()
-    top_authors = WidgetDescriptionSerializer()
-    top_sources = WidgetDescriptionSerializer()
-    top_countries = WidgetDescriptionSerializer()
-    top_languages = WidgetDescriptionSerializer()
-    content_volume_top_sources = WidgetDescriptionSerializer()
-    sentiment_top_sources = WidgetDescriptionSerializer()
-    sentiment_top_countries = WidgetDescriptionSerializer()
-    sentiment_top_authors = WidgetDescriptionSerializer()
-    sentiment_top_languages = WidgetDescriptionSerializer()
-    sentiment_for_period = WidgetDescriptionSerializer()
-    content_volume_top_authors = WidgetDescriptionSerializer()
+    summary                      = WidgetDescriptionSerializer()
+    volume                       = WidgetDescriptionSerializer()
+    top_authors                  = WidgetDescriptionSerializer()
+    top_sources                  = WidgetDescriptionSerializer()
+    top_countries                = WidgetDescriptionSerializer()
+    top_languages                = WidgetDescriptionSerializer()
+    content_volume_top_sources   = WidgetDescriptionSerializer()
+    sentiment_top_sources        = WidgetDescriptionSerializer()
+    sentiment_top_countries      = WidgetDescriptionSerializer()
+    sentiment_top_authors        = WidgetDescriptionSerializer()
+    sentiment_top_languages      = WidgetDescriptionSerializer()
+    sentiment_for_period         = WidgetDescriptionSerializer()
+    content_volume_top_authors   = WidgetDescriptionSerializer()
     content_volume_top_countries = WidgetDescriptionSerializer()
-    clipping_feed_content = WidgetDescriptionSerializer()
-    top_keywords = WidgetDescriptionSerializer()
-    sentiment_top_keywords = WidgetDescriptionSerializer()
-    sentiment_number_of_results = WidgetDescriptionSerializer()
-    sentiment_diagram = WidgetDescriptionSerializer()
-    authors_by_country = WidgetDescriptionSerializer()
-    authors_by_language = WidgetDescriptionSerializer()
-    authors_by_sentiment = WidgetDescriptionSerializer()
-    overall_top_authors = WidgetDescriptionSerializer()
-    overall_top_sources = WidgetDescriptionSerializer()
-    sources_by_country = WidgetDescriptionSerializer()
-    sources_by_language = WidgetDescriptionSerializer()
-    top_sharing_sources = WidgetDescriptionSerializer()
-    top_keywords_by_country = WidgetDescriptionSerializer()
-    languages_by_country = WidgetDescriptionSerializer()
-
+    clipping_feed_content        = WidgetDescriptionSerializer()
+    top_keywords                 = WidgetDescriptionSerializer()
+    sentiment_top_keywords       = WidgetDescriptionSerializer()
+    sentiment_number_of_results  = WidgetDescriptionSerializer()
+    sentiment_diagram            = WidgetDescriptionSerializer()
+    authors_by_country           = WidgetDescriptionSerializer()
+    authors_by_language          = WidgetDescriptionSerializer()
+    authors_by_sentiment         = WidgetDescriptionSerializer()
+    overall_top_authors          = WidgetDescriptionSerializer()
+    overall_top_sources          = WidgetDescriptionSerializer()
+    sources_by_country           = WidgetDescriptionSerializer()
+    sources_by_language          = WidgetDescriptionSerializer()
+    top_sharing_sources          = WidgetDescriptionSerializer()
+    top_keywords_by_country      = WidgetDescriptionSerializer()
+    languages_by_country         = WidgetDescriptionSerializer()
 
     class Meta:
         model = WidgetsList2
@@ -153,6 +156,7 @@ class ProjectDimensionsSerializer(WritableNestedModelSerializer):
 
 class ProjectDimensionsListSerializer(WritableNestedModelSerializer):
     dimension = DimensionsSerializer()
+
     class Meta:
         model = ProjectDimensions
         fields = '__all__'
@@ -172,14 +176,16 @@ class AlertItemSerializer(serializers.ModelSerializer):
 
 class AlertCreateSerializer(WritableNestedModelSerializer):
     items = AlertItemSerializer(many=True)
+
     class Meta:
         model = Alert
         fields = '__all__'
-  
+
 
 class AlertsSerializer(WritableNestedModelSerializer):
     creator = UserSerializer(required=False)
     user = UserSerializer(many=True, required=False)
+
     class Meta:
         model = Alert
         fields = '__all__'
@@ -194,15 +200,16 @@ class PostsSerializer(WritableNestedModelSerializer):
 class FeedlinksSerializer(WritableNestedModelSerializer):
     class Meta:
         model = Feedlinks
-        fields = ['source1']    
+        fields = ['source1']
 
 
 class RegisterSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(
-      required=True,
-      validators=[UniqueValidator(queryset=User.objects.all())]
+        required=True,
+        validators=[UniqueValidator(queryset=User.objects.all())]
     )
-    password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
+
+    password  = serializers.CharField(write_only=True, required=True, validators=[validate_password])
     password2 = serializers.CharField(write_only=True, required=True)
 
     class Meta:
@@ -233,7 +240,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         return user
 
 
-class ProfileUserSerializer(serializers.ModelSerializer):  
+class ProfileUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = '__all__'
@@ -247,6 +254,7 @@ class ReportItemSerializer(serializers.ModelSerializer):
 
 class RegularReportCreateSerializer(WritableNestedModelSerializer):
     items = ReportItemSerializer(many=True)
+
     class Meta:
         model = RegularReport
         fields = '__all__'

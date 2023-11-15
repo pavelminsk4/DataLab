@@ -3,7 +3,7 @@ from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from django.contrib.auth.models import User
-from accounts.models import department
+from accounts.models import Department
 from unittest import skip
 
 
@@ -17,7 +17,7 @@ class MainFlowTests(StaticLiveServerTestCase):
 
     @skip('Selenium')
     def test_main_flow(self):
-        dep = department.objects.create(
+        dep = Department.objects.create(
             departmentname='TestDepartment',
             max_users=2,
             max_projects=2,
