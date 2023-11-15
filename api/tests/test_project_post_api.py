@@ -23,7 +23,6 @@ class ProjectPostTests(APITestCase):
             'end_search_date': '2023-10-31T00:00:00Z',
             'creator': UserFactory().id,
             'workspace': WorkspaceFactory().id,
-            'searchFilters': {'page_number': 1, 'posts_per_page': 20}
         }
 
         response = self.client.post('/api/projects/', params, format='json')
