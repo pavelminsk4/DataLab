@@ -1,7 +1,8 @@
+from widgets.common_widget.filters_for_widgets import filter_posts
 from django.core.paginator import Paginator
-from widgets.common_widget.filters_for_widgets import *
 from widgets.models import WidgetDescription
 from project.models import Project
+from django.db.models import Q
 import json
 
 
@@ -17,27 +18,34 @@ class InteractiveDataService:
         second_value = body['second_value']
         dates = body['dates']
         if widget.default_title == 'Top languages':
-            posts = language_dimensions_posts(first_value, posts)
+            posts = filter_posts([Q(feed_language__language=language) for language in first_value], posts)
         elif widget.default_title == 'Top sources':
-            posts = source_dimensions_posts(first_value, posts)
+            posts = filter_posts([Q(feedlink__source1=source) for source in first_value], posts)
         elif widget.default_title == 'Top countries':
-            posts = country_dimensions_posts(first_value, posts)
+            posts = filter_posts([Q(feedlink__country=country) for country in first_value], posts)
         elif widget.default_title == 'Top authors':
-            posts = author_dimensions_posts(first_value, posts)
+            posts = filter_posts([Q(entry_author=author) for author in first_value], posts)
         elif widget.default_title == 'Sentiment top sources':
-            posts = source_dimensions_posts(first_value, sentiment_dimensions_posts(second_value, posts))
+            posts = filter_posts([Q(sentiment=sentiment) for sentiment in second_value], posts)
+            posts = filter_posts([Q(feedlink__source1=source) for source in first_value], posts)
         elif widget.default_title == 'Sentiment top countries':
-            posts = country_dimensions_posts(first_value, sentiment_dimensions_posts(second_value, posts))
+            posts = filter_posts([Q(sentiment=sentiment) for sentiment in second_value], posts)
+            posts = filter_posts([Q(feedlink__country=country) for country in first_value], posts)
         elif widget.default_title == 'Sentiment top authors':
-            posts = author_dimensions_posts(first_value, sentiment_dimensions_posts(second_value, posts))
+            posts = filter_posts([Q(sentiment=sentiment) for sentiment in second_value], posts)
+            posts = filter_posts([Q(entry_author=author) for author in first_value], posts)
         elif widget.default_title == 'Sentiment top languages':
-            posts = language_dimensions_posts(first_value, sentiment_dimensions_posts(second_value, posts))
+            posts = filter_posts([Q(sentiment=sentiment) for sentiment in second_value], posts)
+            posts = filter_posts([Q(feed_language__language=language) for language in first_value], posts)
         elif widget.default_title == 'Content Volume by authors':
-            posts = author_dimensions_posts(first_value, posts).filter(entry_published__range=dates)
+            posts = filter_posts([Q(entry_author=author) for author in first_value], posts)
+            posts = posts.filter(entry_published__range=dates)
         elif widget.default_title == 'Content Volume by countries':
-            posts = country_dimensions_posts(first_value, posts).filter(entry_published__range=dates)
+            posts = filter_posts([Q(feedlink__country=country) for country in first_value], posts)
+            posts = posts.filter(entry_published__range=dates)
         elif widget.default_title == 'Content Volume by top sources':
-            posts = source_dimensions_posts(first_value, posts).filter(entry_published__range=dates)
+            posts = filter_posts([Q(feedlink__source1=source) for source in first_value], posts)
+            posts = posts.filter(entry_published__range=dates)
         elif widget.default_title == 'Sentiment for period':
             posts = posts.filter(sentiment=first_value[0].lower()).filter(entry_published__range=dates)
         elif widget.default_title == 'Content volume':
@@ -45,19 +53,25 @@ class InteractiveDataService:
         elif widget.default_title == 'Top keywords':
             posts = posts.filter(entry_summary__icontains=first_value[0])
         elif widget.default_title == 'Sentiment top keywords':
-            posts = sentiment_dimensions_posts(second_value, posts).filter(entry_summary__icontains=first_value[0])
+            posts = filter_posts([Q(sentiment=sentiment) for sentiment in second_value], posts)
+            posts = posts.filter(entry_summary__icontains=first_value[0])
         elif widget.default_title == 'Sentiment diagram':
             posts = posts.filter(sentiment=first_value[0].lower())
         elif widget.default_title == 'Authors by country':
-            posts = country_dimensions_posts(second_value, posts).filter(entry_author=first_value[0])
+            posts = filter_posts([Q(feedlink__country=country) for country in second_value], posts)
+            posts = posts.filter(entry_author=first_value[0])
         elif widget.default_title == 'Authors by language':
-            posts = language_dimensions_posts(second_value, posts).filter(entry_author=first_value[0])
+            posts = filter_posts([Q(feed_language__language=language) for language in second_value], posts)
+            posts = posts.filter(entry_author=first_value[0])
         elif widget.default_title == 'Authors by sentiment':
-            posts = posts.filter(sentiment=second_value[0].lower()).filter(entry_author=first_value[0])
+            posts = filter_posts([Q(sentiment=sentiment) for sentiment in second_value], posts)
+            posts = posts.filter(entry_author=first_value[0])
         elif widget.default_title == 'Sources by country':
-            posts = country_dimensions_posts(second_value, posts).filter(feedlink__source1=first_value[0])
+            posts = filter_posts([Q(feedlink__country=country) for country in second_value], posts)
+            posts = posts.filter(feedlink__source1=first_value[0])
         elif widget.default_title == 'Sources by language':
-            posts = language_dimensions_posts(second_value, posts).filter(feedlink__source1=first_value[0])
+            posts = filter_posts([Q(feed_language__language=language) for language in second_value], posts)
+            posts = posts.filter(feedlink__source1=first_value[0])
         elif widget.default_title == 'Overall top authors':
             posts = posts.filter(sentiment=second_value[0].lower(), entry_author=first_value[0])
         elif widget.default_title == 'Overall top sources':
