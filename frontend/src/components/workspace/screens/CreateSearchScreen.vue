@@ -48,6 +48,7 @@
         <BaseCheckbox
           v-for="(source, index) in mainSources"
           :key="source + index"
+          v-model="selectedSources"
           :value="source"
           class="checkbox"
         >
@@ -97,6 +98,7 @@ export default {
       isExpertMode: false,
       expertModeQuery: '',
       mainSources: ['RSS', 'Talkwalker'],
+      selectedSources: [],
     }
   },
   computed: {
@@ -211,6 +213,7 @@ export default {
           country_filter: this.additionalFilters?.country || null,
           query_filter: this.expertModeQuery,
           expert_mode: this.isExpertMode,
+          selected_sources: this.selectedSources,
         }
 
         this[action.UPDATE_PROJECT_STATE](project)
