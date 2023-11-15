@@ -24,10 +24,6 @@ export const newProjectInitialState = {
   workspace: null,
   start_search_date: null,
   end_search_date: null,
-  searchFilters: {
-    page_number: 1,
-    posts_per_page: 20,
-  },
 }
 
 export const newReportInitialState = {

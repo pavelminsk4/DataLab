@@ -200,7 +200,6 @@ export default {
         this.buttonLoading = true
 
         const project = {
-          department_id: this.department.id,
           keywords: this.keywords?.keywords,
           additional_keywords: this.keywords?.additional_keywords,
           ignore_keywords: this.keywords?.ignore_keywords,

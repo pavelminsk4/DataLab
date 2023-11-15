@@ -194,7 +194,6 @@ export default {
         country_filter: this.additionalFilters?.country || null,
         sort_posts: [],
         query_filter: this.query || this.currentProject?.query_filter,
-        department_id: this.department?.id,
         expert_mode: this.isExpertMode,
       }
 
