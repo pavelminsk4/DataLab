@@ -5,7 +5,7 @@ from common.factories.comparison_item import ComparisonItemFactory
 from common.factories.department import DepartmentFactory
 from common.factories.workspace import WorkspaceFactory
 from common.factories.project import ProjectFactory
-from accounts.models import Profile, department
+from accounts.models import Profile, Department
 from common.factories.user import UserFactory
 from rest_framework.test import APITestCase
 from project.models import Project
@@ -55,7 +55,7 @@ class ComparisonProjectsTests(APITestCase):
         url = reverse('comparison:workspace_projects-detail', kwargs={'workspace_pk': ws.id, 'pk': pr.id})
         response = self.client.get(url, format='json')
         self.assertEqual(len(json.loads(response.content)['cmpr_items']), 1)
-        
+
     def test_projects_destroy(self):
         ws = WorkspaceComparison.objects.first()
         pr = ProjectComparison.objects.first()
@@ -65,21 +65,21 @@ class ComparisonProjectsTests(APITestCase):
         self.assertEqual(ProjectComparison.objects.all().count(), 0)
 
     def test_workspace_create(self):
-        dep = department.objects.first()
+        dep = Department.objects.first()
         pr = Project.objects.first()
         data = {
             'title': 'Workspace',
             'description': '',
             'department': dep.pk,
             'members': [],
-            'cmpr_workspace_projects':[{
-                    'title': 'ProjTitle',
-                    'members': [],
-                    'cmpr_items': [{
-                        'module_type': 'Project',
-                        'module_project_id': pr.id,
-                    }],
+            'cmpr_workspace_projects': [{
+                'title': 'ProjTitle',
+                'members': [],
+                'cmpr_items': [{
+                    'module_type': 'Project',
+                    'module_project_id': pr.id,
                 }],
+            }],
         }
         url = reverse('comparison:cmpr_workspaces-list')
         response = self.client.post(url, data, format='json')

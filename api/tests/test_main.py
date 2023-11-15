@@ -6,7 +6,7 @@ from project.models import Speech, Feedlinks
 from rest_framework.test import APITestCase
 from django.contrib.auth.models import User
 from countries_plus.models import Country
-from accounts.models import department
+from accounts.models import Department
 from rest_framework import status
 from django.urls import reverse
 from project.models import Post
@@ -229,7 +229,7 @@ class CurrentUserTests(APITestCase):
     def test_logged_in_user(self):
         user = User.objects.create(username='John')
         User.objects.create(username='Pablo')
-        user.user_profile.department = department.objects.create(departmentname='Anadea')
+        user.user_profile.department = Department.objects.create(departmentname='Anadea')
         user.user_profile.jobtitle = 'Boss'
         user.user_profile.phone = '+966-12345678'
         self.client.force_authenticate(user=user)
