@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import {COMPARISON_COLORS} from '@/lib/constants'
-import ColoredKeywordsWidget from '@/components/widgets/ColoredKeywordsWidget'
+import {COMPARISON_COLORS} from '@lib/constants'
+import ColoredKeywordsWidget from '@components/widgets/ColoredKeywordsWidget'
 
 export default {
   name: 'TopKeywordsWidget',

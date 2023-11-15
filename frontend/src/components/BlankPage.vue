@@ -22,11 +22,11 @@ export default {
   created() {
     this.pages = {
       OnlineWorkspaces: {
-        src: require('@/assets/module-empty-state.svg'),
+        src: require('@assets/module-empty-state.svg'),
         message: 'No workspaces created',
       },
       SocialMediaWorkspaces: {
-        src: require('@/assets/module-empty-state.svg'),
+        src: require('@assets/module-empty-state.svg'),
         message: 'No workspaces created',
       },
     }

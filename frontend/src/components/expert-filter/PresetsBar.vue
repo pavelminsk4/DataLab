@@ -30,10 +30,10 @@
 </template>
 
 <script>
-import PointsIcon from '@/components/icons/PointsIcon'
+import PointsIcon from '@components/icons/PointsIcon'
 import PresetChips from '@components/expert-filter/PresetChips'
 import DropdownOptionsContainer from '@components/DropdownOptionsContainer'
-import CreateNewGroupModal from '@/components/expert-filter/CreateNewGroupModal'
+import CreateNewGroupModal from '@components/expert-filter/CreateNewGroupModal'
 
 export default {
   name: 'PresetsBar',

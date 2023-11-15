@@ -20,7 +20,7 @@
 import moment from 'moment'
 import Datepicker from '@vuepic/vue-datepicker'
 
-import CalendarIcon from '@/components/icons/CalendarIcon'
+import CalendarIcon from '@components/icons/CalendarIcon'
 
 export default {
   name: 'DatePicker',

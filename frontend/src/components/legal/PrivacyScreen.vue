@@ -296,8 +296,8 @@
 </template>
 
 <script>
-import LocationIcon from '@/components/icons/LocationIcon'
-import LetterIcon from '@/components/icons/LetterIcon'
+import LocationIcon from '@components/icons/LocationIcon'
+import LetterIcon from '@components/icons/LetterIcon'
 
 export default {
   name: 'PrivacyScreen',

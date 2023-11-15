@@ -37,9 +37,9 @@
 </template>
 
 <script>
-import {cardStatuses} from '@/lib/configs/tfsStatusesConfig'
-import CustomText from '@/components/CustomText'
-import ArrowheadIcon from '@/components/icons/ArrowheadIcon'
+import {cardStatuses} from '@lib/configs/tfsStatusesConfig'
+import CustomText from '@components/CustomText'
+import ArrowheadIcon from '@components/icons/ArrowheadIcon'
 
 export default {
   name: 'TFSCardStatuses',

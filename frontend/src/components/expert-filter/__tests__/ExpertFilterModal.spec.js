@@ -1,9 +1,9 @@
 import {mount} from '@vue/test-utils'
 import {createNewStore, mockmixin} from '@lib/test-helpers'
 
-import SaveAsModal from '@/components/expert-filter/SaveAsModal'
+import SaveAsModal from '@components/expert-filter/SaveAsModal'
 import ExpertField from '@components/expert-filter/ExpertField'
-import ExpertFilterModal from '@/components/expert-filter/ExpertFilterModal'
+import ExpertFilterModal from '@components/expert-filter/ExpertFilterModal'
 
 const createWrapper = (store) =>
   mount(ExpertFilterModal, {

@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import BaseCheckbox from '@/components/BaseCheckbox2'
+import BaseCheckbox from '@components/BaseCheckbox2'
 
 export default {
   name: 'BaseTableRow',

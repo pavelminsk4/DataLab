@@ -58,9 +58,9 @@ import {createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
 import {defaultDate} from '@lib/utilities'
 
-import CustomText from '@/components/CustomText'
-import OnlineIcon from '@/components/icons/OnlineIcon'
-import PostCardLayout from '@/components/layout/PostCardLayout'
+import CustomText from '@components/CustomText'
+import OnlineIcon from '@components/icons/OnlineIcon'
+import PostCardLayout from '@components/layout/PostCardLayout'
 
 const {mapActions} = createNamespacedHelpers('online')
 const {mapGetters} = createNamespacedHelpers('online/widgets')

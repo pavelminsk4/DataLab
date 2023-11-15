@@ -11,8 +11,8 @@
 import {createNamespacedHelpers} from 'vuex'
 import {get, action} from '@store/constants'
 import {isAllFieldsEmpty} from '@lib/utilities'
-import translate from '@/lib/mixins/translate.js'
-import OptimalPostLengthWidget from '@/components/widgets/OptimalPostLengthWidget'
+import translate from '@lib/mixins/translate.js'
+import OptimalPostLengthWidget from '@components/widgets/OptimalPostLengthWidget'
 
 const {mapActions, mapGetters} = createNamespacedHelpers(
   'accountAnalysis/widgets'

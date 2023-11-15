@@ -16,13 +16,13 @@
 </template>
 
 <script>
-import TikTokIcon from '@/components/icons/TikTokIcon'
-import TwitterIcon from '@/components/icons/TwitterIcon'
-import InstagramIcon from '@/components/icons/InstagramIcon'
-import FacebookIcon from '@/components/icons/FacebookIcon'
-import YoutubeIcon from '@/components/icons/YoutubeIcon'
-import LinkedInIcon from '@/components/icons/LinkedInIcon'
-import GoogleReviewsIcon from '@/components/icons/GoogleReviewsIcon'
+import TikTokIcon from '@components/icons/TikTokIcon'
+import TwitterIcon from '@components/icons/TwitterIcon'
+import InstagramIcon from '@components/icons/InstagramIcon'
+import FacebookIcon from '@components/icons/FacebookIcon'
+import YoutubeIcon from '@components/icons/YoutubeIcon'
+import LinkedInIcon from '@components/icons/LinkedInIcon'
+import GoogleReviewsIcon from '@components/icons/GoogleReviewsIcon'
 
 export default {
   name: 'AccountAnalysisSourcesTabs',

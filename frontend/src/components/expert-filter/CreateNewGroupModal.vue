@@ -31,10 +31,10 @@
 import {createNamespacedHelpers, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
-import BaseButton from '@/components/common/BaseButton'
-import BaseModal from '@/components/modals/BaseModal'
+import BaseButton from '@components/common/BaseButton'
+import BaseModal from '@components/modals/BaseModal'
 import BaseInput from '@components/common/BaseInput'
-import BaseTextarea from '@/components/common/BaseTextarea'
+import BaseTextarea from '@components/common/BaseTextarea'
 import SaveIcon from '@components/icons/SaveIcon'
 
 const {mapActions} = createNamespacedHelpers('expertFilter')

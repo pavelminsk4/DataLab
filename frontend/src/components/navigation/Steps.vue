@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import CheckIcon from '@/components/icons/CheckIcon'
+import CheckIcon from '@components/icons/CheckIcon'
 
 export default {
   name: 'StepHints',

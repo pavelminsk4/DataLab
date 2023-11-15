@@ -12,12 +12,14 @@ module.exports = {
     {
       moduleFileExtensions: ['js', 'vue'],
       moduleNameMapper: {
-        '^@/(.*)$': '<rootDir>/src/$1',
-        '^@store(.*)$': '<rootDir>/store/$1',
-        '^@api(.*)$': '<rootDir>/api/$1',
-        '^@lib(.*)$': '<rootDir>/src/lib/$1',
-        '^@components(.*)$': '<rootDir>/src/components/$1',
-        '^@router(.*)$': '<rootDir>/router/$1',
+        '^@/(.*)$': '<rootDir>/frontend/src/$1',
+        '^@store(.*)$': '<rootDir>/frontend/store/$1',
+        '^@api(.*)$': '<rootDir>/frontend/api/$1',
+        '^@lib(.*)$': '<rootDir>/frontend/src/lib/$1',
+        '^@components(.*)$': '<rootDir>/frontend/src/components/$1',
+        '^@router(.*)$': '<rootDir>/frontend/router/$1',
+        '^@views(.*)$': '<rootDir>/frontend/src/views/$1',
+        '^@assets(.*)$': '<rootDir>/frontend/src/assets/$1',
         '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
       },
       testEnvironmentOptions: {
@@ -34,7 +36,7 @@ module.exports = {
       passWithNoTests: true,
       transformIgnorePatterns: ['/node_modules/(?!vuewordcloud)'],
       testPathIgnorePatterns: ['/node_modules/'],
-      testMatch: ['<rootDir>/**/?(*.)+(spec).[jt]s?(x)'],
+      testMatch: ['<rootDir>/frontend/**/?(*.)+(spec).[jt]s?(x)'],
     },
   ],
   testEnvironmentOptions: {

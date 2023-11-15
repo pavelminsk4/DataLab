@@ -34,11 +34,11 @@
 </template>
 
 <script>
-import CustomText from '@/components/CustomText'
-import WidgetsLayout from '@/components/layout/WidgetsLayout'
-import LikeIcon from '@/components/icons/LikeIcon'
-import RetweetIcon from '@/components/icons/RetweetIcon'
-import RepliesIcon from '@/components/icons/RepliesIcon'
+import CustomText from '@components/CustomText'
+import WidgetsLayout from '@components/layout/WidgetsLayout'
+import LikeIcon from '@components/icons/LikeIcon'
+import RetweetIcon from '@components/icons/RetweetIcon'
+import RepliesIcon from '@components/icons/RepliesIcon'
 
 export default {
   name: 'BestTimesToPostWidget',

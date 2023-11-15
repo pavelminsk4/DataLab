@@ -1,4 +1,4 @@
-import WidgetsView from '@/views/WidgetsView'
+import WidgetsView from '@views/WidgetsView'
 
 export default [
   {

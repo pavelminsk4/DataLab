@@ -13,7 +13,7 @@
 import {mapGetters, createNamespacedHelpers} from 'vuex'
 import {get, action} from '@store/constants'
 
-import FeaturesScreen from '@/components/project/screens/FeaturesScreen'
+import FeaturesScreen from '@components/project/screens/FeaturesScreen'
 
 const {mapActions, mapState} = createNamespacedHelpers('online')
 

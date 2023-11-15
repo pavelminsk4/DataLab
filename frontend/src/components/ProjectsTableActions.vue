@@ -16,9 +16,9 @@
 </template>
 
 <script>
-import StopIcon from '@/components/icons/StopIcon'
-import DeleteIcon from '@/components/icons/DeleteIcon'
-import BaseTooltipSettings from '@/components/BaseTooltipSettings'
+import StopIcon from '@components/icons/StopIcon'
+import DeleteIcon from '@components/icons/DeleteIcon'
+import BaseTooltipSettings from '@components/BaseTooltipSettings'
 
 export default {
   name: 'ProjectsTableActions',

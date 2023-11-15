@@ -63,18 +63,18 @@
 <script>
 import {mapGetters, mapState} from 'vuex'
 import {get} from '@store/constants'
-import {capitalizeFirstLetter} from '@/lib/utilities'
+import {capitalizeFirstLetter} from '@lib/utilities'
 
-import CustomText from '@/components/CustomText'
-import BaseModal from '@/components/modals/BaseModal'
-import BaseSpinner from '@/components/BaseSpinner'
-import OnlinePostCard from '@/components/OnlinePostCard'
-import SocialPostCard from '@/components/SocialPostCard'
-import AccountAnalysisPostCard from '@/components/SocialPostCard'
-import PaginationControlPanel from '@/components/PaginationControlPanel'
-import NormalIcon from '@/components/icons/PostsDisplayNormalIcon'
-import CompactIcon from '@/components/icons/PostsDisplayCompactIcon'
-import NoPostsIcon from '@/components/icons/NoPostsIcon'
+import CustomText from '@components/CustomText'
+import BaseModal from '@components/modals/BaseModal'
+import BaseSpinner from '@components/BaseSpinner'
+import OnlinePostCard from '@components/OnlinePostCard'
+import SocialPostCard from '@components/SocialPostCard'
+import AccountAnalysisPostCard from '@components/SocialPostCard'
+import PaginationControlPanel from '@components/PaginationControlPanel'
+import NormalIcon from '@components/icons/PostsDisplayNormalIcon'
+import CompactIcon from '@components/icons/PostsDisplayCompactIcon'
+import NoPostsIcon from '@components/icons/NoPostsIcon'
 
 export default {
   name: 'InteractiveWidgetModal',

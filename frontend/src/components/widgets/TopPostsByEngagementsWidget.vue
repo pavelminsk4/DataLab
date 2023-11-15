@@ -39,16 +39,16 @@
 </template>
 
 <script>
-import sortByMixin from '@/lib/mixins/sort-for-table.js'
+import sortByMixin from '@lib/mixins/sort-for-table.js'
 
-import ChartsView from '@/components/charts/ChartsView'
-import WidgetsLayout from '@/components/layout/WidgetsLayout'
-import BaseTable from '@/components/common/BaseTable'
-import BaseChips from '@/components/BaseChips'
+import ChartsView from '@components/charts/ChartsView'
+import WidgetsLayout from '@components/layout/WidgetsLayout'
+import BaseTable from '@components/common/BaseTable'
+import BaseChips from '@components/BaseChips'
 
-import textIcon from '@/components/icons/TextIcon'
-import retweetIcon from '@/components/icons/RetweetIcon'
-import replyIcon from '@/components/icons/ReplyFilledIcon'
+import textIcon from '@components/icons/TextIcon'
+import retweetIcon from '@components/icons/RetweetIcon'
+import replyIcon from '@components/icons/ReplyFilledIcon'
 
 export default {
   name: 'TopPostsByEngagementsWidget',

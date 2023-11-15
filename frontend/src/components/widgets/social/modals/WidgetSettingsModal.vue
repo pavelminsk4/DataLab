@@ -28,9 +28,9 @@
 import {mapGetters, createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
 
-import WidgetSettingsScreen from '@/components/widgets/screens/WidgetSettingsScreen'
-import BaseModal from '@/components/modals/BaseModal'
-import SocialMainWidget from '@/components/widgets/social/SocialMainWidget'
+import WidgetSettingsScreen from '@components/widgets/screens/WidgetSettingsScreen'
+import BaseModal from '@components/modals/BaseModal'
+import SocialMainWidget from '@components/widgets/social/SocialMainWidget'
 
 const {mapActions} = createNamespacedHelpers('social')
 

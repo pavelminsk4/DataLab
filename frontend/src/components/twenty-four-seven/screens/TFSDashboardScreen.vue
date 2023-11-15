@@ -36,16 +36,16 @@
 <script>
 import {createNamespacedHelpers} from 'vuex'
 import {action} from '@store/constants'
-import {isAllFieldsEmpty} from '@/lib/utilities'
+import {isAllFieldsEmpty} from '@lib/utilities'
 import {
   defaultStatuses,
   dragAndDropStatuses,
-} from '@/lib/configs/tfsStatusesConfig'
+} from '@lib/configs/tfsStatusesConfig'
 
-import TFSDragAndDrop from '@/components/twenty-four-seven/drag-n-drop/TFSDragAndDrop'
-import TFSWorkingModal from '@/components/twenty-four-seven/modals/TFSWorkingModal'
-import TFSDashboardFilters from '@/components/twenty-four-seven/TFSDashboardFilters'
-import TFSLinkedPostsModal from '@/components/twenty-four-seven/modals/TFSLinkedPostsModal'
+import TFSDragAndDrop from '@components/twenty-four-seven/drag-n-drop/TFSDragAndDrop'
+import TFSWorkingModal from '@components/twenty-four-seven/modals/TFSWorkingModal'
+import TFSDashboardFilters from '@components/twenty-four-seven/TFSDashboardFilters'
+import TFSLinkedPostsModal from '@components/twenty-four-seven/modals/TFSLinkedPostsModal'
 
 const {mapActions, mapState} = createNamespacedHelpers('twentyFourSeven')
 

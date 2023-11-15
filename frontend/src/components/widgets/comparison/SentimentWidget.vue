@@ -8,9 +8,9 @@
 </template>
 
 <script>
-import {SENTIMENT_COLORS} from '@/lib/constants'
+import {SENTIMENT_COLORS} from '@lib/constants'
 
-import TopEntitiesStackedBarWidget from '@/components/widgets/TopEntitiesStackedBarWidget'
+import TopEntitiesStackedBarWidget from '@components/widgets/TopEntitiesStackedBarWidget'
 
 export default {
   name: 'SentimentWidget',

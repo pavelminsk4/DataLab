@@ -2,7 +2,7 @@ import {mount} from '@vue/test-utils'
 import {createNewStore} from '@lib/test-helpers'
 
 import Datepicker from '@vuepic/vue-datepicker'
-import ProjectCalendar from '@/components/datepicker/ProjectCalendar'
+import ProjectCalendar from '@components/datepicker/ProjectCalendar'
 
 const createWrapper = (store) =>
   mount(ProjectCalendar, {

@@ -11,10 +11,10 @@
 <script>
 import {createNamespacedHelpers} from 'vuex'
 import {get, action} from '@store/constants'
-import translate from '@/lib/mixins/translate.js'
+import translate from '@lib/mixins/translate.js'
 
-import EngagementsTimelineWidget from '@/components/widgets/EngagementsTimelineWidget'
-import {defaultDate} from '@/lib/utilities'
+import EngagementsTimelineWidget from '@components/widgets/EngagementsTimelineWidget'
+import {defaultDate} from '@lib/utilities'
 
 const {mapActions, mapGetters} = createNamespacedHelpers(
   'accountAnalysis/widgets'

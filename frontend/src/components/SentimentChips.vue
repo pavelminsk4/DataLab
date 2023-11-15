@@ -21,7 +21,7 @@
 import {action, get} from '@store/constants'
 import {mapActions, mapGetters} from 'vuex'
 
-import BaseChips from '@/components/BaseChips'
+import BaseChips from '@components/BaseChips'
 
 export default {
   name: 'SentimentChips',

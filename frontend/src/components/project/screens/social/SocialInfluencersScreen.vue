@@ -13,8 +13,8 @@ import {action, get} from '@store/constants'
 const {mapActions} = createNamespacedHelpers('social')
 
 import {getWidgetDetails} from '@lib/utilities'
-import {socialWidgetsList} from '@/lib/constants'
-import WidgetsList from '@/components/widgets/WidgetsList'
+import {socialWidgetsList} from '@lib/constants'
+import WidgetsList from '@components/widgets/WidgetsList'
 
 export default {
   name: 'SocialInfluencersScreen',

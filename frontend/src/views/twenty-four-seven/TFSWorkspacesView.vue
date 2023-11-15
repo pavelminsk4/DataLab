@@ -12,7 +12,7 @@
 import {createNamespacedHelpers, mapGetters} from 'vuex'
 import {get} from '@store/constants'
 
-import TFSModuleScreen from '@/components/twenty-four-seven/screens/TFSModuleScreen'
+import TFSModuleScreen from '@components/twenty-four-seven/screens/TFSModuleScreen'
 
 const {mapState: mapTFS} = createNamespacedHelpers('twentyFourSeven')
 

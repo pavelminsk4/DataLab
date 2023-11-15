@@ -21,9 +21,9 @@
 </template>
 
 <script>
-import CustomText from '@/components/CustomText'
-import BaseDropdown from '@/components/BaseDropdown'
-import StatusesChips from '@/components/twenty-four-seven/StatusesChips'
+import CustomText from '@components/CustomText'
+import BaseDropdown from '@components/BaseDropdown'
+import StatusesChips from '@components/twenty-four-seven/StatusesChips'
 
 export default {
   name: 'TFSDashboardFilters',

@@ -37,12 +37,12 @@
 import {mapActions, mapGetters, createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
 
-import CustomText from '@/components/CustomText'
-import BaseButtonWithTooltip from '@/components/BaseButtonWithTooltip'
+import CustomText from '@components/CustomText'
+import BaseButtonWithTooltip from '@components/BaseButtonWithTooltip'
 import MainLayout from '@components/layout/MainLayout'
 import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
-import PlusIcon from '@/components/icons/PlusIcon'
-import TFSProjectsTable from '@/components/twenty-four-seven/TFSProjectsTable'
+import PlusIcon from '@components/icons/PlusIcon'
+import TFSProjectsTable from '@components/twenty-four-seven/TFSProjectsTable'
 
 const {mapState: mapTFSState} = createNamespacedHelpers('twentyFourSeven')
 

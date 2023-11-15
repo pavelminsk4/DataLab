@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import GenderColumnsStackedBarsWidget from '@/components/widgets/GenderColumnsStackedBarsWidget'
+import GenderColumnsStackedBarsWidget from '@components/widgets/GenderColumnsStackedBarsWidget'
 
 export default {
   name: 'TopGenderByLocation',

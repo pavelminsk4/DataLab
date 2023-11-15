@@ -1,11 +1,11 @@
 import {mount} from '@vue/test-utils'
 import {createNewStore, mockmixin} from '@lib/test-helpers'
 
-import BaseSwitcher from '@/components/BaseSwitcher'
-import SimpleModeTab from '@/components/workspace/SimpleModeTab'
-import ExpertModeTab from '@/components/workspace/ExpertModeTab'
-import ProgressBar from '@/components/workspace/WorkspaceProgressBar'
-import CreateSearchScreen from '@/components/workspace/screens/CreateSearchScreen'
+import BaseSwitcher from '@components/BaseSwitcher'
+import SimpleModeTab from '@components/workspace/SimpleModeTab'
+import ExpertModeTab from '@components/workspace/ExpertModeTab'
+import ProgressBar from '@components/workspace/WorkspaceProgressBar'
+import CreateSearchScreen from '@components/workspace/screens/CreateSearchScreen'
 
 const createWrapper = (store) =>
   mount(CreateSearchScreen, {

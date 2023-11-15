@@ -1,6 +1,6 @@
 import moment from 'moment'
-import {widgetsConfig} from '@/lib/configs/widgetsConfigs'
-import {PREDEFINED_COLORS, SORTED_SENTIMENT} from '@/lib/constants'
+import {widgetsConfig} from '@lib/configs/widgetsConfigs'
+import {PREDEFINED_COLORS, SORTED_SENTIMENT} from '@lib/constants'
 
 export const capitalizeFirstLetter = (string) =>
   string?.charAt(0)?.toUpperCase() + string?.slice(1)

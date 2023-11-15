@@ -48,13 +48,13 @@
 </template>
 
 <script>
-import sortByMixin from '@/lib/mixins/sort-for-table.js'
+import sortByMixin from '@lib/mixins/sort-for-table.js'
 
-import ChartsView from '@/components/charts/ChartsView'
-import WidgetsLayout from '@/components/layout/WidgetsLayout'
-import BaseTable from '@/components/common/BaseTable'
-import UserAvatar from '@/components/UserAvatar'
-import TwitterIcon from '@/components/icons/TwitterIcon'
+import ChartsView from '@components/charts/ChartsView'
+import WidgetsLayout from '@components/layout/WidgetsLayout'
+import BaseTable from '@components/common/BaseTable'
+import UserAvatar from '@components/UserAvatar'
+import TwitterIcon from '@components/icons/TwitterIcon'
 
 export default {
   name: 'OverallTopWidget',

@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import AccountAnalysisPostCard from '@/components/account-analysis/AccountAnalysisPostCard'
+import AccountAnalysisPostCard from '@components/account-analysis/AccountAnalysisPostCard'
 
 export default {
   name: 'AccountActivityPostsLayout',

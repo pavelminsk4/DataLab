@@ -25,10 +25,10 @@
 </template>
 
 <script>
-import {capitalizeFirstLetter} from '@/lib/utilities'
+import {capitalizeFirstLetter} from '@lib/utilities'
 
 import VueWordCloud from 'vuewordcloud'
-import BaseTooltip from '@/components/BaseTooltip'
+import BaseTooltip from '@components/BaseTooltip'
 
 export default {
   name: 'WordCloudChart',

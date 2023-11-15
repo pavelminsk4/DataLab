@@ -12,8 +12,8 @@
 import {createNamespacedHelpers} from 'vuex'
 import {action} from '@store/constants'
 
-import SideBar from '@/components/navigation/SideBar'
-import MainLayout from '@/components/layout/MainLayout'
+import SideBar from '@components/navigation/SideBar'
+import MainLayout from '@components/layout/MainLayout'
 
 const {mapActions, mapState} = createNamespacedHelpers('online')
 

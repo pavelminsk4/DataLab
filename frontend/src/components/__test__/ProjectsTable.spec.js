@@ -2,10 +2,10 @@ import {mount} from '@vue/test-utils'
 import {createNewStore, mockmixin} from '@lib/test-helpers'
 
 import BaseTable from '@components/common/BaseTable'
-import ProjectsTable from '@/components/ProjectsTable'
+import ProjectsTable from '@components/ProjectsTable'
 import BaseTableRow from '@components/common/BaseTableRow'
-import AreYouSureModal from '@/components/modals/AreYouSureModal'
-import ProjectsTableActions from '@/components/ProjectsTableActions'
+import AreYouSureModal from '@components/modals/AreYouSureModal'
+import ProjectsTableActions from '@components/ProjectsTableActions'
 
 const createWrapper = (store) =>
   mount(ProjectsTable, {

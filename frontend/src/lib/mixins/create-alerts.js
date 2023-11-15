@@ -1,7 +1,7 @@
 import {createNamespacedHelpers} from 'vuex'
 import {action} from '@store/constants'
 
-import ButtonWithArrow from '@/components/common/ButtonWithArrow'
+import ButtonWithArrow from '@components/common/ButtonWithArrow'
 
 const {mapActions: mapActionsAlerts} = createNamespacedHelpers('alerts')
 

@@ -1,9 +1,9 @@
 import {createNamespacedHelpers} from 'vuex'
 import {action} from '@store/constants'
 
-import ButtonWithArrow from '@/components/common/ButtonWithArrow'
-import BaseInput from '@/components/common/BaseInput'
-import BaseTextarea from '@/components/common/BaseTextarea'
+import ButtonWithArrow from '@components/common/ButtonWithArrow'
+import BaseInput from '@components/common/BaseInput'
+import BaseTextarea from '@components/common/BaseTextarea'
 
 const {mapActions} = createNamespacedHelpers('comparison')
 

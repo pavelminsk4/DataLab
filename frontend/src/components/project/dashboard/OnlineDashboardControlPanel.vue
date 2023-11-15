@@ -49,17 +49,17 @@
 </template>
 
 <script>
-import {capitalizeFirstLetter, snakeCaseToSentenseCase} from '@/lib/utilities'
+import {capitalizeFirstLetter, snakeCaseToSentenseCase} from '@lib/utilities'
 
-import CustomText from '@/components/CustomText'
-import PlusIcon from '@/components/icons/PlusIcon'
-import SortIcon from '@/components/icons/SortIcon'
-import FiltersIcon from '@/components/icons/FiltersIcon'
-import ExpertFilterIcon from '@/components/icons/ExpertFilterIcon'
-import BaseDropdown from '@/components/BaseDropdown'
-import BaseButton from '@/components/common/BaseButton'
-import BaseButtonSpinner from '@/components/BaseButtonSpinner'
-import ReportsUploadIcon from '@/components/icons/ReportsUploadIcon'
+import CustomText from '@components/CustomText'
+import PlusIcon from '@components/icons/PlusIcon'
+import SortIcon from '@components/icons/SortIcon'
+import FiltersIcon from '@components/icons/FiltersIcon'
+import ExpertFilterIcon from '@components/icons/ExpertFilterIcon'
+import BaseDropdown from '@components/BaseDropdown'
+import BaseButton from '@components/common/BaseButton'
+import BaseButtonSpinner from '@components/BaseButtonSpinner'
+import ReportsUploadIcon from '@components/icons/ReportsUploadIcon'
 
 export default {
   name: 'OnlineDashboardControlPanel',

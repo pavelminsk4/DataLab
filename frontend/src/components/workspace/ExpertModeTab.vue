@@ -78,11 +78,11 @@
 </template>
 
 <script>
-import CustomText from '@/components/CustomText'
-import BaseButton from '@/components/common/BaseButton'
-import ErrorIcon from '@/components/icons/ErrorIcon'
-import SaveIcon from '@/components/icons/SaveIcon'
-import ProjectCalendar from '@/components/datepicker/ProjectCalendar'
+import CustomText from '@components/CustomText'
+import BaseButton from '@components/common/BaseButton'
+import ErrorIcon from '@components/icons/ErrorIcon'
+import SaveIcon from '@components/icons/SaveIcon'
+import ProjectCalendar from '@components/datepicker/ProjectCalendar'
 
 export default {
   name: 'ExpertModeTab',

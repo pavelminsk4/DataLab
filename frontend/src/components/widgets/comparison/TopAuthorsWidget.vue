@@ -9,9 +9,9 @@
 </template>
 
 <script>
-import {getUniqueColors} from '@/lib/utilities'
+import {getUniqueColors} from '@lib/utilities'
 
-import TopEntitiesStackedBarWidget from '@/components/widgets/TopEntitiesStackedBarWidget'
+import TopEntitiesStackedBarWidget from '@components/widgets/TopEntitiesStackedBarWidget'
 
 export default {
   name: 'ComparisonTopAuthorsWidget',

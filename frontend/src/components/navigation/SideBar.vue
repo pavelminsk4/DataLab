@@ -19,19 +19,19 @@
 </template>
 
 <script>
-import AnalyticsIcon from '@/components/icons/AnalyticsIcon'
-import SearchIcon from '@/components/icons/SearchIcon'
-import AlertsIcon from '@/components/icons/AlertsIcon'
-import ReportsIcon from '@/components/icons/ReportsIcon'
-import SummaryIcon from '@/components/icons/SummaryIcon'
-import DashboardIcon from '@/components/icons/DashboardIcon'
-import SentimentIcon from '@/components/icons/SentimentIcon'
-import DemographyIcon from '@/components/icons/DemographyIcon'
-import InfluencersIcon from '@/components/icons/InfluencersIcon'
-import OptimizationIcon from '@/components/icons/OptimizationIcon'
-import FollowersIcon from '@/components/icons/FollowersIcon'
-import PostsIcon from '@/components/icons/PostsIcon'
-import CustomText from '@/components/CustomText'
+import AnalyticsIcon from '@components/icons/AnalyticsIcon'
+import SearchIcon from '@components/icons/SearchIcon'
+import AlertsIcon from '@components/icons/AlertsIcon'
+import ReportsIcon from '@components/icons/ReportsIcon'
+import SummaryIcon from '@components/icons/SummaryIcon'
+import DashboardIcon from '@components/icons/DashboardIcon'
+import SentimentIcon from '@components/icons/SentimentIcon'
+import DemographyIcon from '@components/icons/DemographyIcon'
+import InfluencersIcon from '@components/icons/InfluencersIcon'
+import OptimizationIcon from '@components/icons/OptimizationIcon'
+import FollowersIcon from '@components/icons/FollowersIcon'
+import PostsIcon from '@components/icons/PostsIcon'
+import CustomText from '@components/CustomText'
 
 export default {
   name: 'SideBar',

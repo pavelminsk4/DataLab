@@ -27,7 +27,7 @@
 import VPagination from '@hennge/vue3-pagination'
 import '@hennge/vue3-pagination/dist/vue3-pagination.css'
 
-import BaseDropdown from '@/components/BaseDropdown'
+import BaseDropdown from '@components/BaseDropdown'
 
 export default {
   name: 'PaginationControlPanel',

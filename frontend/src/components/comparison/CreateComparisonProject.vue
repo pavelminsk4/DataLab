@@ -29,9 +29,9 @@
 <script>
 import {mapActions, mapState} from 'vuex'
 import {action} from '@store/constants'
-import ComparisonMixin from '@/lib/mixins/comparison.js'
+import ComparisonMixin from '@lib/mixins/comparison.js'
 
-import CustomText from '@/components/CustomText'
+import CustomText from '@components/CustomText'
 
 export default {
   name: 'CreateComparisonProject',

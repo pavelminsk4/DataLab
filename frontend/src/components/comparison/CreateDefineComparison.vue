@@ -69,16 +69,16 @@
 <script>
 import {createNamespacedHelpers} from 'vuex'
 import {action} from '@store/constants'
-import {isAllFieldsEmpty} from '@/lib/utilities'
+import {isAllFieldsEmpty} from '@lib/utilities'
 
-import CustomText from '@/components/CustomText'
-import DivWithError from '@/components/DivWithError'
+import CustomText from '@components/CustomText'
+import DivWithError from '@components/DivWithError'
 import DropdownWithSelect from '@components/DropdownWithSelect'
-import BaseRadio from '@/components/BaseRadio'
+import BaseRadio from '@components/BaseRadio'
 import OnlineIcon from '@components/icons/OnlineIcon'
 import SocialIcon from '@components/icons/SocialIcon'
-import BaseButton from '@/components/common/BaseButton'
-import SaveIcon from '@/components/icons/SaveIcon'
+import BaseButton from '@components/common/BaseButton'
+import SaveIcon from '@components/icons/SaveIcon'
 
 const {mapActions, mapState} = createNamespacedHelpers('comparison')
 

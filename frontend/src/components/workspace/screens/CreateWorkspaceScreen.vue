@@ -34,13 +34,13 @@
 import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
-import ArrowLeftIcon from '@/components/icons/ArrowLeftIcon'
-import BaseButton from '@/components/common/BaseButton'
-import BaseInput from '@/components/common/BaseInput'
-import BaseTextarea from '@/components/common/BaseTextarea'
+import ArrowLeftIcon from '@components/icons/ArrowLeftIcon'
+import BaseButton from '@components/common/BaseButton'
+import BaseInput from '@components/common/BaseInput'
+import BaseTextarea from '@components/common/BaseTextarea'
 import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
-import ProgressBar from '@/components/workspace/WorkspaceProgressBar'
-import CustomText from '@/components/CustomText'
+import ProgressBar from '@components/workspace/WorkspaceProgressBar'
+import CustomText from '@components/CustomText'
 
 export default {
   name: 'CreateWorkspaceScreen',

@@ -21,8 +21,8 @@
 </template>
 
 <script>
-import TopEntitiesBarChart from '@/components/charts/TopEntitiesBarChart'
-import BaseLegends from '@/components/charts/BaseLegends'
+import TopEntitiesBarChart from '@components/charts/TopEntitiesBarChart'
+import BaseLegends from '@components/charts/BaseLegends'
 
 export default {
   name: 'MultiTopEntitiesBarChart',

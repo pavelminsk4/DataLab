@@ -24,7 +24,7 @@
     </section>
 
     <section v-else class="no-posts">
-      <img src="@/assets/account-analysis/no-posts.svg" alt="No posts image" />
+      <img src="@assets/account-analysis/no-posts.svg" alt="No posts image" />
       <CustomText tag="span" text="No posts here"> &#128532; </CustomText>
     </section>
   </section>
@@ -33,11 +33,11 @@
 <script>
 import {action} from '@store/constants'
 import {createNamespacedHelpers} from 'vuex'
-// import BaseInput from '@/components/common/BaseInput'
-import PaginationControlPanel from '@/components/PaginationControlPanel'
-import CustomText from '@/components/CustomText'
-import AccountActivityPostsLayout from '@/components/account-analysis/AccountActivityPostsLayout'
-import MentionsPostsLayout from '@/components/account-analysis/MentionsPostsLayout'
+// import BaseInput from '@components/common/BaseInput'
+import PaginationControlPanel from '@components/PaginationControlPanel'
+import CustomText from '@components/CustomText'
+import AccountActivityPostsLayout from '@components/account-analysis/AccountActivityPostsLayout'
+import MentionsPostsLayout from '@components/account-analysis/MentionsPostsLayout'
 
 const {mapState: mapStateAccountAnalysis, mapActions} =
   createNamespacedHelpers('accountAnalysis')

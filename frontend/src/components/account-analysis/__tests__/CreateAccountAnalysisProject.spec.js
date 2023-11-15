@@ -1,10 +1,10 @@
 import {mount} from '@vue/test-utils'
 import {createNewStore, mockmixin} from '@lib/test-helpers'
 
-import BaseSearchField from '@/components/BaseSearchField'
-import ProjectCalendar from '@/components/datepicker/ProjectCalendar'
-import CreateAccountAnalysisProject from '@/components/account-analysis/CreateAccountAnalysisProject'
-import AccountAnalysisSourcesTabs from '@/components/account-analysis/AccountAnalysisSourcesTabs'
+import BaseSearchField from '@components/BaseSearchField'
+import ProjectCalendar from '@components/datepicker/ProjectCalendar'
+import CreateAccountAnalysisProject from '@components/account-analysis/CreateAccountAnalysisProject'
+import AccountAnalysisSourcesTabs from '@components/account-analysis/AccountAnalysisSourcesTabs'
 
 const createWrapper = (store) =>
   mount(CreateAccountAnalysisProject, {

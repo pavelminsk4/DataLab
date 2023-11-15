@@ -13,9 +13,9 @@
 import {createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
 import {isAllFieldsEmpty} from '@lib/utilities'
-import translate from '@/lib/mixins/translate.js'
+import translate from '@lib/mixins/translate.js'
 
-import VolumeWidget from '@/components/widgets/VolumeWidget'
+import VolumeWidget from '@components/widgets/VolumeWidget'
 
 const {mapActions, mapGetters} = createNamespacedHelpers('social/widgets')
 

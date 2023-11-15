@@ -1,19 +1,19 @@
 import store from '@store'
 
-import AccountAnalysisModuleView from '@/views/account-analysis/AccountAnalysisModuleView'
-import AccountAnalysisWorkspacesView from '@/views/account-analysis/AccountAnalysisWorkspacesView'
-import CreateAccountAnalysisView from '@/views/account-analysis/CreateAccountAnalysisView'
-import AccountAnalysisWorkspaceView from '@/views/account-analysis/AccountAnalysisWorkspaceView'
+import AccountAnalysisModuleView from '@views/account-analysis/AccountAnalysisModuleView'
+import AccountAnalysisWorkspacesView from '@views/account-analysis/AccountAnalysisWorkspacesView'
+import CreateAccountAnalysisView from '@views/account-analysis/CreateAccountAnalysisView'
+import AccountAnalysisWorkspaceView from '@views/account-analysis/AccountAnalysisWorkspaceView'
 
-import CreateAccountAnalysisProject from '@/components/account-analysis/CreateAccountAnalysisProject'
-import CreateAccountAnalysisWorkspace from '@/components/account-analysis/CreateAccountAnalysisWorkspace'
-import CreateAccountAnalysisRightSide from '@/components/account-analysis/CreateAccountAnalysisRightSide'
+import CreateAccountAnalysisProject from '@components/account-analysis/CreateAccountAnalysisProject'
+import CreateAccountAnalysisWorkspace from '@components/account-analysis/CreateAccountAnalysisWorkspace'
+import CreateAccountAnalysisRightSide from '@components/account-analysis/CreateAccountAnalysisRightSide'
 
-import AccountAnalysisView from '@/views/account-analysis/AccountAnalysisView'
-import AccountAnalysisDashboardScreen from '@/components/account-analysis/screens/AccountAnalysisDashboardScreen'
-import AccountAnalysisOptimizationScreen from '@/components/account-analysis/screens/AccountAnalysisOptimizationScreen'
-import AccountAnalysisPostsScreen from '@/components/account-analysis/screens/AccountAnalysisPostsScreen'
-import AccountAnalysisFollowersScreen from '@/components/account-analysis/screens/AccountAnalysisFollowersScreen'
+import AccountAnalysisView from '@views/account-analysis/AccountAnalysisView'
+import AccountAnalysisDashboardScreen from '@components/account-analysis/screens/AccountAnalysisDashboardScreen'
+import AccountAnalysisOptimizationScreen from '@components/account-analysis/screens/AccountAnalysisOptimizationScreen'
+import AccountAnalysisPostsScreen from '@components/account-analysis/screens/AccountAnalysisPostsScreen'
+import AccountAnalysisFollowersScreen from '@components/account-analysis/screens/AccountAnalysisFollowersScreen'
 
 export default [
   {

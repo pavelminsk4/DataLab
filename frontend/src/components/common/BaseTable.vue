@@ -35,9 +35,9 @@
 import {capitalizeFirstLetter} from '@lib/utilities'
 import {SORT_BY} from '@lib/constants'
 
-import CustomText from '@/components/CustomText'
-import BaseCheckbox from '@/components/BaseCheckbox2'
-import SortArrowIcon from '@/components/icons/SortArrowIcon'
+import CustomText from '@components/CustomText'
+import BaseCheckbox from '@components/BaseCheckbox2'
+import SortArrowIcon from '@components/icons/SortArrowIcon'
 import MostActiveAuthorIcon from '../icons/MostActiveAuthorIcon'
 import MostInfluentialAuthorIcon from '../icons/MostInfluentialAuthorIcon'
 

@@ -15,11 +15,11 @@
 
 <script>
 import moment from 'moment'
-import {COMPARISON_COLORS, SENTIMENT} from '@/lib/constants'
-import {defaultDate} from '@/lib/utilities'
+import {COMPARISON_COLORS, SENTIMENT} from '@lib/constants'
+import {defaultDate} from '@lib/utilities'
 
-import WidgetContainerWithSwitcher from '@/components/widgets/WidgetContainerWithSwitcher'
-import ContentVolumeWidget from '@/components/widgets/ContentVolumeWidget'
+import WidgetContainerWithSwitcher from '@components/widgets/WidgetContainerWithSwitcher'
+import ContentVolumeWidget from '@components/widgets/ContentVolumeWidget'
 
 export default {
   name: 'ComparisonSentimentByPeriodWidget',

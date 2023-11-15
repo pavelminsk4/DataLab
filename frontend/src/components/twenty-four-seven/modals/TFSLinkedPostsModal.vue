@@ -35,9 +35,9 @@
 import {createNamespacedHelpers} from 'vuex'
 import {action} from '@store/constants'
 
-import BaseModal from '@/components/modals/BaseModal'
-import TFSPostCard from '@/components/TFSPostCard'
-import PaginationControlPanel from '@/components/PaginationControlPanel'
+import BaseModal from '@components/modals/BaseModal'
+import TFSPostCard from '@components/TFSPostCard'
+import PaginationControlPanel from '@components/PaginationControlPanel'
 
 const {mapState, mapActions} = createNamespacedHelpers('twentyFourSeven')
 

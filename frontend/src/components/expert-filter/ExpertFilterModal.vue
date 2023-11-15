@@ -99,16 +99,16 @@ import {nextTick} from 'vue'
 import {createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
 
-import PlusIcon from '@/components/icons/PlusIcon'
-import BaseButton from '@/components/common/BaseButton'
-import BaseModal from '@/components/modals/BaseModal'
+import PlusIcon from '@components/icons/PlusIcon'
+import BaseButton from '@components/common/BaseButton'
+import BaseModal from '@components/modals/BaseModal'
 import ExpertField from '@components/expert-filter/ExpertField'
 import BaseInput from '@components/common/BaseInput'
-import BaseCheckbox from '@/components/BaseCheckbox2'
+import BaseCheckbox from '@components/BaseCheckbox2'
 import ArrowheadIcon from '@components/icons/ArrowheadIcon'
-import EditIcon from '@/components/icons/EditIcon'
+import EditIcon from '@components/icons/EditIcon'
 
-import SaveAsModal from '@/components/expert-filter/SaveAsModal'
+import SaveAsModal from '@components/expert-filter/SaveAsModal'
 
 const {mapActions, mapGetters} = createNamespacedHelpers('expertFilter')
 

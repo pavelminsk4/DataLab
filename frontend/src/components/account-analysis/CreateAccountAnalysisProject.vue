@@ -45,12 +45,12 @@
 import {mapState, mapActions, createNamespacedHelpers} from 'vuex'
 import {action} from '@store/constants'
 
-import CustomText from '@/components/CustomText'
-import BaseInput from '@/components/common/BaseInput'
-import BaseSearchField from '@/components/BaseSearchField'
-import AccountAnalysisSourcesTabs from '@/components/account-analysis/AccountAnalysisSourcesTabs'
-import ButtonWithArrow from '@/components/common/ButtonWithArrow'
-import ProjectCalendar from '@/components/datepicker/ProjectCalendar'
+import CustomText from '@components/CustomText'
+import BaseInput from '@components/common/BaseInput'
+import BaseSearchField from '@components/BaseSearchField'
+import AccountAnalysisSourcesTabs from '@components/account-analysis/AccountAnalysisSourcesTabs'
+import ButtonWithArrow from '@components/common/ButtonWithArrow'
+import ProjectCalendar from '@components/datepicker/ProjectCalendar'
 
 const {
   mapActions: mapAccountAnalysisActions,

@@ -15,14 +15,14 @@
 </template>
 
 <script>
-import {PREDEFINED_COLORS} from '@/lib/constants'
+import {PREDEFINED_COLORS} from '@lib/constants'
 
 export default {
   name: 'UserAvatar',
   props: {
     avatarUrl: {
       type: String,
-      default: require('@/assets/defaultAvatar.png'),
+      default: require('@assets/defaultAvatar.png'),
     },
     firstName: {
       type: String,

@@ -27,10 +27,10 @@
 <script>
 import {defineComponent, computed} from 'vue'
 
-import BaseCalendarSelect from '@/components/datepicker/BaseCalendarSelect'
-import CalendarControlIcon from '@/components/icons/CalendarControlIcon'
+import BaseCalendarSelect from '@components/datepicker/BaseCalendarSelect'
+import CalendarControlIcon from '@components/icons/CalendarControlIcon'
 
-import {months, years} from '@/lib/constants'
+import {months, years} from '@lib/constants'
 
 export default defineComponent({
   components: {CalendarControlIcon, BaseCalendarSelect},

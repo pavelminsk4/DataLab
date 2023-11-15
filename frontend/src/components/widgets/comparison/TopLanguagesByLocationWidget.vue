@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import ColumnsStackedBarsWidget from '@/components/widgets/ColumnsStackedBarsWidget'
+import ColumnsStackedBarsWidget from '@components/widgets/ColumnsStackedBarsWidget'
 
 export default {
   name: 'ComparisonTopLanguagesByLocationWidget',

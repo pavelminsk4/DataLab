@@ -21,10 +21,10 @@
 <script>
 import {action} from '@store/constants'
 import {mapState} from 'vuex'
-import createReportMixin from '@/lib/mixins/create-report.js'
+import createReportMixin from '@lib/mixins/create-report.js'
 
-import CustomText from '@/components/CustomText'
-import ReportTemplateCard from '@/components/reports/ReportTemplateCard'
+import CustomText from '@components/CustomText'
+import ReportTemplateCard from '@components/reports/ReportTemplateCard'
 
 export default {
   name: 'CreateReportChooseTemplate',

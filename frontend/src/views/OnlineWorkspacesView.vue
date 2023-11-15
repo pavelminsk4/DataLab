@@ -40,15 +40,15 @@ import {mapActions, mapGetters, createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
 import {action as actionOnline, get as getOnline} from '@store/constants'
 
-import BaseButtonWithTooltip from '@/components/BaseButtonWithTooltip'
-import BlankPage from '@/components/BlankPage'
+import BaseButtonWithTooltip from '@components/BaseButtonWithTooltip'
+import BlankPage from '@components/BlankPage'
 import MainLayout from '@components/layout/MainLayout'
 import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
-import WorkspacesScreen from '@/components/dashboard/WorkspacesScreen'
-import BaseSpinner from '@/components/BaseSpinner'
+import WorkspacesScreen from '@components/dashboard/WorkspacesScreen'
+import BaseSpinner from '@components/BaseSpinner'
 
 import OnlineIcon from '@components/icons/OnlineIcon'
-import PlusIcon from '@/components/icons/PlusIcon'
+import PlusIcon from '@components/icons/PlusIcon'
 
 const {mapActions: mapOnlineActions, mapGetters: mapOnlineGetters} =
   createNamespacedHelpers('online')

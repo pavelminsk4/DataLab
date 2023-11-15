@@ -10,7 +10,7 @@
 import {createNamespacedHelpers} from 'vuex'
 import {get, action} from '@store/constants'
 
-import BestTimesToPostWidget from '@/components/widgets/BestTimesToPostWidget'
+import BestTimesToPostWidget from '@components/widgets/BestTimesToPostWidget'
 
 const {mapActions, mapGetters} = createNamespacedHelpers(
   'accountAnalysis/widgets'

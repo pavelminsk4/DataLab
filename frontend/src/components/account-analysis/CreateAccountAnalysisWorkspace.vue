@@ -19,12 +19,12 @@
 <script>
 import {mapActions, mapGetters, mapState} from 'vuex'
 import {action, get} from '@store/constants'
-import createAccountAnalysisMixin from '@/lib/mixins/create-account-analysis.js'
+import createAccountAnalysisMixin from '@lib/mixins/create-account-analysis.js'
 
-import CustomText from '@/components/CustomText'
-import BaseInput from '@/components/common/BaseInput'
-import BaseTextarea from '@/components/common/BaseTextarea'
-import ButtonWithArrow from '@/components/common/ButtonWithArrow'
+import CustomText from '@components/CustomText'
+import BaseInput from '@components/common/BaseInput'
+import BaseTextarea from '@components/common/BaseTextarea'
+import ButtonWithArrow from '@components/common/ButtonWithArrow'
 
 export default {
   name: 'CreateAccountAnalysisWorkspace',

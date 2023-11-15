@@ -30,9 +30,9 @@
 </template>
 
 <script>
-import translate from '@/lib/mixins/translate.js'
+import translate from '@lib/mixins/translate.js'
 
-import ArrowDownIcon from '@/components/icons/ArrowDownIcon'
+import ArrowDownIcon from '@components/icons/ArrowDownIcon'
 
 export default {
   name: 'BaseSelect',

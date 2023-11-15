@@ -21,8 +21,8 @@
 </template>
 
 <script>
-import BaseChips from '@/components/BaseChips'
-import BaseTable from '@/components/common/BaseTable'
+import BaseChips from '@components/BaseChips'
+import BaseTable from '@components/common/BaseTable'
 
 export default {
   name: 'AccountAnalysisFollowersScreen',

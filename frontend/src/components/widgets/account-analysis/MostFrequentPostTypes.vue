@@ -11,14 +11,14 @@
 import {createNamespacedHelpers} from 'vuex'
 import {get, action} from '@store/constants'
 
-import {isAllFieldsEmpty} from '@/lib/utilities'
-import translate from '@/lib/mixins/translate.js'
+import {isAllFieldsEmpty} from '@lib/utilities'
+import translate from '@lib/mixins/translate.js'
 
 const {mapGetters, mapActions} = createNamespacedHelpers(
   'accountAnalysis/widgets'
 )
 
-import VolumeWidget from '@/components/widgets/VolumeWidget'
+import VolumeWidget from '@components/widgets/VolumeWidget'
 export default {
   name: 'MostFrequentPostTypes',
   mixins: [translate],

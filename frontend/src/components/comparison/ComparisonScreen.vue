@@ -38,7 +38,7 @@
 
     <div v-else class="no-comparison-workspaces">
       <img
-        src="@/assets/comparison/no-comparison-workspaces.svg"
+        src="@assets/comparison/no-comparison-workspaces.svg"
         alt="No comparison workspaces image"
       />
       <div class="no-comparison-workspaces__text">
@@ -51,15 +51,15 @@
 <script>
 import {createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
-import ComparisonMixin from '@/lib/mixins/comparison.js'
+import ComparisonMixin from '@lib/mixins/comparison.js'
 
-import AreYouSureModal from '@/components/modals/AreYouSureModal'
-import BaseButtonWithTooltip from '@/components/BaseButtonWithTooltip'
-import MainLayout from '@/components/layout/MainLayout'
+import AreYouSureModal from '@components/modals/AreYouSureModal'
+import BaseButtonWithTooltip from '@components/BaseButtonWithTooltip'
+import MainLayout from '@components/layout/MainLayout'
 import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
-import PlusIcon from '@/components/icons/PlusIcon'
-import WorkspacesScreen from '@/components/dashboard/WorkspacesScreen'
-import BaseSpinner from '@/components/BaseSpinner'
+import PlusIcon from '@components/icons/PlusIcon'
+import WorkspacesScreen from '@components/dashboard/WorkspacesScreen'
+import BaseSpinner from '@components/BaseSpinner'
 
 const {mapActions, mapGetters} = createNamespacedHelpers('comparison')
 

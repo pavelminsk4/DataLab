@@ -15,11 +15,11 @@
 </template>
 
 <script>
-import {sortSentiment} from '@/lib/utilities'
+import {sortSentiment} from '@lib/utilities'
 
-import ChartsView from '@/components/charts/ChartsView'
-import WidgetsLayout from '@/components/layout/WidgetsLayout'
-import {GENDER_COLORS} from '@/lib/constants'
+import ChartsView from '@components/charts/ChartsView'
+import WidgetsLayout from '@components/layout/WidgetsLayout'
+import {GENDER_COLORS} from '@lib/constants'
 
 export default {
   name: 'GenderColumnsStackedBarsWidget',

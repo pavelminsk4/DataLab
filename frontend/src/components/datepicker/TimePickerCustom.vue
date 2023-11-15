@@ -27,7 +27,7 @@
 
 <script>
 import {computed, defineComponent} from 'vue'
-import ClockIcon from '@/components/icons/ClockIcon'
+import ClockIcon from '@components/icons/ClockIcon'
 
 export default defineComponent({
   components: {ClockIcon},

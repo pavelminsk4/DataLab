@@ -46,17 +46,17 @@
 import {mapState, mapActions} from 'vuex'
 import {action} from '@store/constants'
 
-import {onlineWidgetsList, socialWidgetsList} from '@/lib/constants'
+import {onlineWidgetsList, socialWidgetsList} from '@lib/constants'
 import {getWidgetDetails} from '@lib/utilities'
 
-import AddWidgetsIcon from '@/components/icons/AddWidgetsIcon'
-import SaveIcon from '@/components/icons/SaveIcon'
-import ReportsProjectIcon from '@/components/icons/ReportsProjectIcon'
+import AddWidgetsIcon from '@components/icons/AddWidgetsIcon'
+import SaveIcon from '@components/icons/SaveIcon'
+import ReportsProjectIcon from '@components/icons/ReportsProjectIcon'
 
-import CustomText from '@/components/CustomText'
-import BaseButton from '@/components/common/BaseButton'
-import WidgetsList from '@/components/widgets/WidgetsList'
-import WidgetsListModal from '@/components/widgets/modals/WidgetsListModal'
+import CustomText from '@components/CustomText'
+import BaseButton from '@components/common/BaseButton'
+import WidgetsList from '@components/widgets/WidgetsList'
+import WidgetsListModal from '@components/widgets/modals/WidgetsListModal'
 
 export default {
   name: 'CreateReportEdit',

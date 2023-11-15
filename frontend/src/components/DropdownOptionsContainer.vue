@@ -20,11 +20,11 @@ import {defineAsyncComponent} from 'vue'
 export default {
   name: 'DropdownOptionsContainer',
   components: {
-    EditIcon: defineAsyncComponent(() => import('@/components/icons/EditIcon')),
+    EditIcon: defineAsyncComponent(() => import('@components/icons/EditIcon')),
     DeleteIcon: defineAsyncComponent(() =>
-      import('@/components/icons/DeleteIcon')
+      import('@components/icons/DeleteIcon')
     ),
-    SaveIcon: defineAsyncComponent(() => import('@/components/icons/SaveIcon')),
+    SaveIcon: defineAsyncComponent(() => import('@components/icons/SaveIcon')),
   },
   props: {
     options: {

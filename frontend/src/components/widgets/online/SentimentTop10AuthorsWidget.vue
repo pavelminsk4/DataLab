@@ -11,7 +11,7 @@ import {createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
 import {isAllFieldsEmpty} from '@lib/utilities'
 
-import SentimentWidget from '@/components/widgets/SentimentWidget'
+import SentimentWidget from '@components/widgets/SentimentWidget'
 
 const {mapActions, mapGetters} = createNamespacedHelpers('online/widgets')
 

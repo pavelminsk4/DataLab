@@ -45,11 +45,11 @@
 import {mapGetters} from 'vuex'
 import {get} from '@store/constants'
 
-import CustomText from '@/components/CustomText'
+import CustomText from '@components/CustomText'
 import MainLayout from '@components/layout/MainLayout'
 import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
 import BaseButton from '@components/common/BaseButton'
-import PlusIcon from '@/components/icons/PlusIcon'
+import PlusIcon from '@components/icons/PlusIcon'
 
 export default {
   components: {
@@ -75,7 +75,7 @@ export default {
         openRouteName: 'OnlineHome',
         createRouteName: 'OnlineCreateWorkspace',
         color: '#E0E5FF',
-        imageUrl: require('@/assets/modules/online.svg'),
+        imageUrl: require('@assets/modules/online.svg'),
         backgroundPosition: 'right 33px bottom',
       },
       {
@@ -85,7 +85,7 @@ export default {
         openRouteName: 'SocialHome',
         createRouteName: 'SocialCreateWorkspace',
         color: '#FCDCE3',
-        imageUrl: require('@/assets/modules/social-media.svg'),
+        imageUrl: require('@assets/modules/social-media.svg'),
         backgroundPosition: 'right 23px bottom',
       },
       // {
@@ -95,7 +95,7 @@ export default {
       //   openRouteName: '',
       //   createRouteName: '',
       //   color: '#C0DFF4',
-      //   imageUrl: require('@/assets/modules/tv&radio.svg'),
+      //   imageUrl: require('@assets/modules/tv&radio.svg'),
       //   backgroundPosition: 'right bottom',
       // },
       {
@@ -105,7 +105,7 @@ export default {
         openRouteName: 'AccountAnalysis',
         createRouteName: 'AccountAnalysisCreateWorkspace',
         color: '#E5E9FC',
-        imageUrl: require('@/assets/modules/account-analysis.svg'),
+        imageUrl: require('@assets/modules/account-analysis.svg'),
         backgroundPosition: 'right bottom',
       },
       {
@@ -115,7 +115,7 @@ export default {
         openRouteName: 'TwentyFourSeven',
         createRouteName: 'TwentyFourSevenCreateWorkspace',
         color: '#C0DFF4',
-        imageUrl: require('@/assets/modules/tfs.svg'),
+        imageUrl: require('@assets/modules/tfs.svg'),
         backgroundPosition: 'right 0 bottom 0',
       },
       {
@@ -125,7 +125,7 @@ export default {
         openRouteName: 'Reports',
         createRouteName: 'CreateReport',
         color: '#E5E9FC',
-        imageUrl: require('@/assets/modules/reports.svg'),
+        imageUrl: require('@assets/modules/reports.svg'),
         backgroundPosition: 'right 14px bottom 12px',
       },
       {
@@ -135,7 +135,7 @@ export default {
         openRouteName: 'Alerts',
         createRouteName: 'CreateAlert',
         color: '#FFEDF1',
-        imageUrl: require('@/assets/modules/alerts.svg'),
+        imageUrl: require('@assets/modules/alerts.svg'),
         backgroundPosition: 'right bottom',
       },
       {
@@ -145,7 +145,7 @@ export default {
         openRouteName: 'Comparison',
         createRouteName: 'ComparisonCreateWorkspace',
         color: '#FCDCE3',
-        imageUrl: require('@/assets/modules/comparison.svg'),
+        imageUrl: require('@assets/modules/comparison.svg'),
         backgroundPosition: 'right bottom',
       },
     ]

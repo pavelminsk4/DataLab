@@ -15,8 +15,8 @@ import {mapActions} from 'vuex'
 import {defineComponent} from 'vue'
 import {action} from '@store/constants'
 
-import CustomText from '@/components/CustomText'
-import BaseButton from '@/components/common/BaseButton'
+import CustomText from '@components/CustomText'
+import BaseButton from '@components/common/BaseButton'
 
 export default defineComponent({
   components: {BaseButton, CustomText},

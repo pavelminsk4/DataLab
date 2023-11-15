@@ -20,10 +20,10 @@
 </template>
 
 <script>
-import CustomText from '@/components/CustomText'
-import BaseModal from '@/components/modals/BaseModal'
-import BaseButton from '@/components/common/BaseButton'
-import FiltersScreen from '@/components/project/screens/FiltersScreen'
+import CustomText from '@components/CustomText'
+import BaseModal from '@components/modals/BaseModal'
+import BaseButton from '@components/common/BaseButton'
+import FiltersScreen from '@components/project/screens/FiltersScreen'
 
 export default {
   name: 'FiltersModal',

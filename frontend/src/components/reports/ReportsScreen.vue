@@ -99,7 +99,7 @@
     </template>
 
     <div v-else class="no-reports-wrapper">
-      <img src="@/assets/empty-state.svg" alt="No reports image" />
+      <img src="@assets/empty-state.svg" alt="No reports image" />
       <div>No reports created &#x1F4E8;</div>
     </div>
   </MainLayout>
@@ -108,21 +108,21 @@
 <script>
 import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
-import {weekDays} from '@/lib/constants'
+import {weekDays} from '@lib/constants'
 
 import SortIcon from '@components/icons/SortIcon'
 
-import CustomText from '@/components/CustomText'
-import BaseButton from '@/components/common/BaseButton'
-import BaseInput from '@/components/common/BaseInput'
+import CustomText from '@components/CustomText'
+import BaseButton from '@components/common/BaseButton'
+import BaseInput from '@components/common/BaseInput'
 import MainLayout from '@components/layout/MainLayout'
 import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
 import UsersIconsBar from '@components/UsersIconsBar'
-import AreYouSureModal from '@/components/modals/AreYouSureModal'
+import AreYouSureModal from '@components/modals/AreYouSureModal'
 import BaseTable from '@components/common/BaseTable'
 import BaseTableRow from '@components/common/BaseTableRow'
 import UserAvatar from '@components/UserAvatar'
-import BaseChips from '@/components/BaseChips'
+import BaseChips from '@components/BaseChips'
 
 export default {
   name: 'ReportsScreen',

@@ -10,9 +10,9 @@
 import {createNamespacedHelpers} from 'vuex'
 import {get, action} from '@store/constants'
 import {isAllFieldsEmpty} from '@lib/utilities'
-import translate from '@/lib/mixins/translate.js'
+import translate from '@lib/mixins/translate.js'
 
-import TimeMapWidget from '@/components/widgets/TimeMapWidget'
+import TimeMapWidget from '@components/widgets/TimeMapWidget'
 
 const {mapActions, mapGetters} = createNamespacedHelpers(
   'accountAnalysis/widgets'

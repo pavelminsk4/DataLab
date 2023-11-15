@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import SentimentColumnsStackedBarsWidget from '@/components/widgets/SentimentColumnsStackedBarsWidget'
+import SentimentColumnsStackedBarsWidget from '@components/widgets/SentimentColumnsStackedBarsWidget'
 
 export default {
   name: 'ComparisonSentimentByLocationsWidget',

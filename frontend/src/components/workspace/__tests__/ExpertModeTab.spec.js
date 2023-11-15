@@ -1,10 +1,10 @@
 import {mount} from '@vue/test-utils'
 import {createNewStore} from '@lib/test-helpers'
 
-import CustomText from '@/components/CustomText'
-import BaseButton from '@/components/common/BaseButton'
-import ExpertModeTab from '@/components/workspace/ExpertModeTab'
-import ProjectCalendar from '@/components/datepicker/ProjectCalendar'
+import CustomText from '@components/CustomText'
+import BaseButton from '@components/common/BaseButton'
+import ExpertModeTab from '@components/workspace/ExpertModeTab'
+import ProjectCalendar from '@components/datepicker/ProjectCalendar'
 
 const createWrapper = (store) =>
   mount(ExpertModeTab, {

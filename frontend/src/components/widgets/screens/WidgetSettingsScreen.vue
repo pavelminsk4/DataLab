@@ -70,13 +70,13 @@
 </template>
 
 <script>
-import CustomText from '@/components/CustomText'
-import BaseTabs from '@/components/project/widgets/modals/BaseTabs'
-import FiltersScreen from '@/components/project/screens/FiltersScreen'
-import BasicSettingsScreen from '@/components/project/widgets/modals/screens/BasicSettingsScreen'
-import ChartTypesRadio from '@/components/project/widgets/modals/screens/ChartTypesRadio'
-import BaseButton from '@/components/common/BaseButton'
-import SaveIcon from '@/components/icons/SaveIcon'
+import CustomText from '@components/CustomText'
+import BaseTabs from '@components/project/widgets/modals/BaseTabs'
+import FiltersScreen from '@components/project/screens/FiltersScreen'
+import BasicSettingsScreen from '@components/project/widgets/modals/screens/BasicSettingsScreen'
+import ChartTypesRadio from '@components/project/widgets/modals/screens/ChartTypesRadio'
+import BaseButton from '@components/common/BaseButton'
+import SaveIcon from '@components/icons/SaveIcon'
 
 export default {
   name: 'WidgetSettingsScreen',

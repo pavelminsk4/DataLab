@@ -30,11 +30,11 @@
 </template>
 
 <script>
-import CustomText from '@/components/CustomText'
-import AccountAnalysisPostCardLayout from '@/components/account-analysis/AccountAnalysisPostCardLayout'
-import SentimentChips from '@/components/SentimentChips'
-import BaseChips from '@/components/BaseChips'
-import RepliesIcon from '@/components/icons/RepliesIcon'
+import CustomText from '@components/CustomText'
+import AccountAnalysisPostCardLayout from '@components/account-analysis/AccountAnalysisPostCardLayout'
+import SentimentChips from '@components/SentimentChips'
+import BaseChips from '@components/BaseChips'
+import RepliesIcon from '@components/icons/RepliesIcon'
 
 import {isAllFieldsEmpty} from '@lib/utilities'
 

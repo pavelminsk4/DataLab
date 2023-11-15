@@ -45,8 +45,8 @@ import {mapGetters} from 'vuex'
 import {get} from '@store/constants'
 import {capitalizeFirstLetter} from '@lib/utilities'
 
-import HashtagIcon from '@/components/icons/HashtagIcon'
-import SentimentChips from '@/components/SentimentChips'
+import HashtagIcon from '@components/icons/HashtagIcon'
+import SentimentChips from '@components/SentimentChips'
 
 export default {
   name: 'TFSPostCardLayout',

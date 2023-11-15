@@ -30,7 +30,7 @@
 <script>
 import MainLayout from '@components/layout/MainLayout'
 import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
-import ProgressBar from '@/components/account-analysis/AccountAnalysisProgressBar'
+import ProgressBar from '@components/account-analysis/AccountAnalysisProgressBar'
 
 export default {
   name: 'CreateAccountAnalysisView',

@@ -69,12 +69,12 @@
 <script>
 import {COMPARISON_COLORS} from '@lib/constants'
 
-import BaseChips from '@/components/BaseChips'
-import BaseTable from '@/components/common/BaseTable'
-import ChartsView from '@/components/charts/ChartsView'
-import WidgetsLayout from '@/components/layout/WidgetsLayout'
-import UserAvatar from '@/components/UserAvatar'
-import TwitterIcon from '@/components/icons/TwitterIcon'
+import BaseChips from '@components/BaseChips'
+import BaseTable from '@components/common/BaseTable'
+import ChartsView from '@components/charts/ChartsView'
+import WidgetsLayout from '@components/layout/WidgetsLayout'
+import UserAvatar from '@components/UserAvatar'
+import TwitterIcon from '@components/icons/TwitterIcon'
 
 export default {
   name: 'OverviewTopSharingSources',

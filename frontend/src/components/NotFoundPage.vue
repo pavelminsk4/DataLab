@@ -10,12 +10,12 @@
       <BaseButton @click="goToHomepage">Go to Homepage</BaseButton>
     </div>
 
-    <img src="@/assets/404-error.svg" alt="404 Error" class="error-img" />
+    <img src="@assets/404-error.svg" alt="404 Error" class="error-img" />
   </div>
 </template>
 
 <script>
-import BaseButton from '@/components/common/BaseButton'
+import BaseButton from '@components/common/BaseButton'
 
 export default {
   name: 'NotFoundPage',

@@ -19,11 +19,11 @@
 </template>
 
 <script>
-import ChartsView from '@/components/charts/ChartsView'
-import WidgetsLayout from '@/components/layout/WidgetsLayout'
+import ChartsView from '@components/charts/ChartsView'
+import WidgetsLayout from '@components/layout/WidgetsLayout'
 
-import {defaultDate} from '@/lib/utilities'
-import translate from '@/lib/mixins/translate.js'
+import {defaultDate} from '@lib/utilities'
+import translate from '@lib/mixins/translate.js'
 
 export default {
   name: 'FollowerGrowthWidget',

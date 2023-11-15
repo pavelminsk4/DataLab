@@ -12,18 +12,18 @@
 </template>
 
 <script>
-import {capitalizeFirstLetter} from '@/lib/utilities'
+import {capitalizeFirstLetter} from '@lib/utilities'
 
-import maleIcon from '@/components/icons/MaleIcon'
-import femaleIcon from '@/components/icons/FemaleIcon'
-import SocialIcon from '@/components/icons/SocialIcon'
-import OnlineIcon from '@/components/icons/OnlineIcon'
-import TVRadioIcon from '@/components/icons/TVRadioIcon'
-import NegativeIcon from '@/components/icons/NegativeIcon'
-import PositiveIcon from '@/components/icons/PositiveIcon'
-import NeutralIcon from '@/components/icons/NeutralIcon'
-import TopicIcon from '@/components/icons/HashtagIcon'
-import CustomText from '@/components/CustomText'
+import maleIcon from '@components/icons/MaleIcon'
+import femaleIcon from '@components/icons/FemaleIcon'
+import SocialIcon from '@components/icons/SocialIcon'
+import OnlineIcon from '@components/icons/OnlineIcon'
+import TVRadioIcon from '@components/icons/TVRadioIcon'
+import NegativeIcon from '@components/icons/NegativeIcon'
+import PositiveIcon from '@components/icons/PositiveIcon'
+import NeutralIcon from '@components/icons/NeutralIcon'
+import TopicIcon from '@components/icons/HashtagIcon'
+import CustomText from '@components/CustomText'
 
 export default {
   name: 'BaseChips',

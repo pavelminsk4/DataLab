@@ -37,9 +37,9 @@
 </template>
 
 <script>
-import CustomText from '@/components/CustomText'
-import WidgetsLayout from '@/components/layout/WidgetsLayout'
-import ClippingCard from '@/components/ClippingCard'
+import CustomText from '@components/CustomText'
+import WidgetsLayout from '@components/layout/WidgetsLayout'
+import ClippingCard from '@components/ClippingCard'
 
 export default {
   name: 'ClippingFeedContentWidget',

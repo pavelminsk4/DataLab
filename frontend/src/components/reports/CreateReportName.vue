@@ -38,13 +38,13 @@
 <script>
 import {mapActions, mapGetters, mapState} from 'vuex'
 import {action, get} from '@store/constants'
-import createReportMixin from '@/lib/mixins/create-report.js'
+import createReportMixin from '@lib/mixins/create-report.js'
 import {isAllFieldsEmpty} from '@lib/utilities'
 
-import CustomText from '@/components/CustomText'
-import BaseInput from '@/components/common/BaseInput'
-import BaseTextarea from '@/components/common/BaseTextarea'
-import AddUsersField from '@/components/AddUsersField'
+import CustomText from '@components/CustomText'
+import BaseInput from '@components/common/BaseInput'
+import BaseTextarea from '@components/common/BaseTextarea'
+import AddUsersField from '@components/AddUsersField'
 
 export default {
   name: 'CreateReportName',

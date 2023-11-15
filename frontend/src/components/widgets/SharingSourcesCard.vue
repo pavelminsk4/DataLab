@@ -21,11 +21,11 @@
 </template>
 
 <script>
-import {stringToPascalCase} from '@/lib/utilities'
+import {stringToPascalCase} from '@lib/utilities'
 
-import CustomText from '@/components/CustomText'
-import MostActiveAuthorIcon from '@/components/icons/MostActiveAuthorIcon'
-import MostInfluentialAuthorIcon from '@/components/icons/MostInfluentialAuthorIcon'
+import CustomText from '@components/CustomText'
+import MostActiveAuthorIcon from '@components/icons/MostActiveAuthorIcon'
+import MostInfluentialAuthorIcon from '@components/icons/MostInfluentialAuthorIcon'
 
 export default {
   name: 'SharingSourcesCard',

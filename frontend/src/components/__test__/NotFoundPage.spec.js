@@ -2,8 +2,8 @@ import {mount} from '@vue/test-utils'
 import {createNewStore} from '@lib/test-helpers'
 import {router} from '@router/__mocks__/router'
 
-import NotFoundPage from '@/components/NotFoundPage'
-import BaseButton from '@/components/common/BaseButton'
+import NotFoundPage from '@components/NotFoundPage'
+import BaseButton from '@components/common/BaseButton'
 
 const mockRouter = {
   push: jest.fn(),

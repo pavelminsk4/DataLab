@@ -35,12 +35,12 @@
 <script>
 import {createNamespacedHelpers} from 'vuex'
 import {get, action} from '@store/constants'
-import {capitalizeFirstLetter} from '@/lib/utilities'
+import {capitalizeFirstLetter} from '@lib/utilities'
 
-import CustomText from '@/components/CustomText'
-import ChartsView from '@/components/charts/ChartsView'
-import WidgetsLayout from '@/components/layout/WidgetsLayout'
-import SharingSourcesCard from '@/components/widgets/SharingSourcesCard'
+import CustomText from '@components/CustomText'
+import ChartsView from '@components/charts/ChartsView'
+import WidgetsLayout from '@components/layout/WidgetsLayout'
+import SharingSourcesCard from '@components/widgets/SharingSourcesCard'
 
 const {mapActions, mapGetters} = createNamespacedHelpers('online/widgets')
 

@@ -97,12 +97,12 @@ import {mapGetters} from 'vuex'
 import {get} from '@store/constants'
 import {defaultDate} from '@lib/utilities'
 
-import CustomText from '@/components/CustomText'
-import PlusIcon from '@/components/icons/PlusIcon'
-import OnlineIcon from '@/components/icons/OnlineIcon'
-import BaseCheckbox from '@/components/BaseCheckbox2'
-import TFSPostCardLayout from '@/components/twenty-four-seven/TFSPostCardLayout'
-import TFSCardStatuses from '@/components/twenty-four-seven/TFSCardStatuses'
+import CustomText from '@components/CustomText'
+import PlusIcon from '@components/icons/PlusIcon'
+import OnlineIcon from '@components/icons/OnlineIcon'
+import BaseCheckbox from '@components/BaseCheckbox2'
+import TFSPostCardLayout from '@components/twenty-four-seven/TFSPostCardLayout'
+import TFSCardStatuses from '@components/twenty-four-seven/TFSCardStatuses'
 
 export default {
   name: 'TFSPostCard',

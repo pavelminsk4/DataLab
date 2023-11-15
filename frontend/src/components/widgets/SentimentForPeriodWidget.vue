@@ -19,8 +19,8 @@
 <script>
 import translate from '@/lib/mixins/translate.js'
 
-import WidgetsLayout from '@/components/layout/WidgetsLayout'
-import ChartsView from '@/components/charts/ChartsView'
+import WidgetsLayout from '@components/layout/WidgetsLayout'
+import ChartsView from '@components/charts/ChartsView'
 
 export default {
   name: 'SentimentForPeriodWidget',

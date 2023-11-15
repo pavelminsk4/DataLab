@@ -2,9 +2,9 @@ import {h} from 'vue'
 import {mount} from '@vue/test-utils'
 import {createNewStore} from '@lib/test-helpers'
 
-import CustomText from '@/components/CustomText'
-import BaseCheckbox from '@/components/BaseCheckbox2'
-import BaseTable from '@/components/common/BaseTable'
+import CustomText from '@components/CustomText'
+import BaseCheckbox from '@components/BaseCheckbox2'
+import BaseTable from '@components/common/BaseTable'
 
 const createWrapper = (store) =>
   mount(BaseTable, {

@@ -11,7 +11,7 @@
 import {mapGetters, createNamespacedHelpers} from 'vuex'
 import {get, action} from '@store/constants'
 
-import ClippingFeedContentWidget from '@/components/widgets/ClippingFeedContentWidget'
+import ClippingFeedContentWidget from '@components/widgets/ClippingFeedContentWidget'
 
 const {mapActions} = createNamespacedHelpers('online')
 const {mapActions: mapOnlineWidgetsAction, mapGetters: mapGettersOnline} =

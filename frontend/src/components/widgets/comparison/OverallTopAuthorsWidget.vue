@@ -14,8 +14,8 @@
 </template>
 
 <script>
-import WidgetContainerWithSwitcher from '@/components/widgets/WidgetContainerWithSwitcher'
-import OverallTopWidget from '@/components/widgets/OverallTopWidget'
+import WidgetContainerWithSwitcher from '@components/widgets/WidgetContainerWithSwitcher'
+import OverallTopWidget from '@components/widgets/OverallTopWidget'
 
 export default {
   name: 'OverallTopAuthorsWidget',

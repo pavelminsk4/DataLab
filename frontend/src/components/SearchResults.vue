@@ -48,15 +48,15 @@
 <script>
 import {mapActions, mapGetters, mapState} from 'vuex'
 import {action, get} from '@store/constants'
-import {lowerFirstLetter} from '@/lib/utilities'
+import {lowerFirstLetter} from '@lib/utilities'
 
-import CustomText from '@/components/CustomText'
-import BaseSpinner from '@/components/BaseSpinner'
-import OnlinePostCard from '@/components/OnlinePostCard'
-import SocialPostCard from '@/components/SocialPostCard'
-import TFSPostCard from '@/components/TFSPostCard'
-import CreateWorkspaceRightSide from '@/components/workspace/CreateWorkspaceRightSide'
-import PaginationControlPanel from '@/components/PaginationControlPanel'
+import CustomText from '@components/CustomText'
+import BaseSpinner from '@components/BaseSpinner'
+import OnlinePostCard from '@components/OnlinePostCard'
+import SocialPostCard from '@components/SocialPostCard'
+import TFSPostCard from '@components/TFSPostCard'
+import CreateWorkspaceRightSide from '@components/workspace/CreateWorkspaceRightSide'
+import PaginationControlPanel from '@components/PaginationControlPanel'
 
 export default {
   name: 'SearchResults',

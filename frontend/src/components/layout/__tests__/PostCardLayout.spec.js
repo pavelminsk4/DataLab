@@ -2,10 +2,10 @@ import {h} from 'vue'
 import {mount} from '@vue/test-utils'
 import {createNewStore} from '@lib/test-helpers'
 
-import BaseTooltip from '@/components/BaseTooltip'
-import SentimentChips from '@/components/SentimentChips'
-import ClippingIcon from '@/components/icons/ClippingIcon'
-import PostCardLayout from '@/components/layout/PostCardLayout'
+import BaseTooltip from '@components/BaseTooltip'
+import SentimentChips from '@components/SentimentChips'
+import ClippingIcon from '@components/icons/ClippingIcon'
+import PostCardLayout from '@components/layout/PostCardLayout'
 
 const createWrapper = (store) =>
   mount(PostCardLayout, {

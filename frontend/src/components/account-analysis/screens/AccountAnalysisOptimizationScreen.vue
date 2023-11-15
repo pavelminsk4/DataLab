@@ -11,10 +11,10 @@
 import {createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
 
-import {accountAnalysisWidgetsList} from '@/lib/constants'
+import {accountAnalysisWidgetsList} from '@lib/constants'
 import {getWidgetDetails} from '@lib/utilities'
 
-import WidgetsList from '@/components/widgets/WidgetsList'
+import WidgetsList from '@components/widgets/WidgetsList'
 
 const {mapActions, mapGetters} = createNamespacedHelpers('accountAnalysis')
 

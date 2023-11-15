@@ -13,11 +13,11 @@ export default {
   created() {
     this.stepsImages = {
       step1: {
-        src: require('@/assets/alerts/alert-name.svg'),
+        src: require('@assets/alerts/alert-name.svg'),
         alt: 'Create the alert',
       },
       step2: {
-        src: require('@/assets/alerts/alert-set-triggering.svg'),
+        src: require('@assets/alerts/alert-set-triggering.svg'),
         alt: 'Set alert triggering',
       },
     }

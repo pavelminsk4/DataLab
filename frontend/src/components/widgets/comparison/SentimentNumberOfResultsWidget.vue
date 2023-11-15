@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import {summarySentimentConfig} from '@/lib/configs/widgetsConfigs'
+import {summarySentimentConfig} from '@lib/configs/widgetsConfigs'
 
 import SummaryTableWidget from '@components/widgets/SummaryTableWidget'
 

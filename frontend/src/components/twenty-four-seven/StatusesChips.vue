@@ -12,9 +12,9 @@
 </template>
 
 <script>
-import {defaultStatuses} from '@/lib/configs/tfsStatusesConfig'
+import {defaultStatuses} from '@lib/configs/tfsStatusesConfig'
 
-import CustomText from '@/components/CustomText'
+import CustomText from '@components/CustomText'
 
 export default {
   name: 'StatusesChips',

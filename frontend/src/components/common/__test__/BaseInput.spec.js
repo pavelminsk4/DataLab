@@ -2,10 +2,10 @@ import {h} from 'vue'
 import {mount} from '@vue/test-utils'
 import {createNewStore} from '@lib/test-helpers'
 
-import BaseInput from '@/components/common/BaseInput'
-import SearchIcon from '@/components/icons/SearchIcon'
-import ErrorIcon from '@/components/icons/ErrorIcon'
-import CustomText from '@/components/CustomText'
+import BaseInput from '@components/common/BaseInput'
+import SearchIcon from '@components/icons/SearchIcon'
+import ErrorIcon from '@components/icons/ErrorIcon'
+import CustomText from '@components/CustomText'
 
 const createWrapper = (store) =>
   mount(BaseInput, {

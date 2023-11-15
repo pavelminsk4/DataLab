@@ -21,9 +21,9 @@
 </template>
 
 <script>
-import CustomText from '@/components/CustomText'
-import BaseButton from '@/components/common/BaseButton'
-import BaseModal from '@/components/modals/BaseModal'
+import CustomText from '@components/CustomText'
+import BaseButton from '@components/common/BaseButton'
+import BaseModal from '@components/modals/BaseModal'
 
 export default {
   name: 'AreYouSureModal',

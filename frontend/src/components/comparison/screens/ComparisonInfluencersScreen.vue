@@ -14,11 +14,11 @@
 <script>
 import {createNamespacedHelpers} from 'vuex'
 import {action} from '@store/constants'
-import {comparisonWidgetsList} from '@/lib/constants'
-import {stringToPascalCase} from '@/lib/utilities'
+import {comparisonWidgetsList} from '@lib/constants'
+import {stringToPascalCase} from '@lib/utilities'
 
-import WidgetsList from '@/components/widgets/WidgetsList'
-import BaseSpinner from '@/components/BaseSpinner'
+import WidgetsList from '@components/widgets/WidgetsList'
+import BaseSpinner from '@components/BaseSpinner'
 
 const {mapActions, mapState} = createNamespacedHelpers('comparison/widgets')
 

@@ -2,10 +2,10 @@ import {mount} from '@vue/test-utils'
 import {createNewStore, mockmixin} from '@lib/test-helpers'
 import {router} from '@router/__mocks__/router'
 
-import MainLayoutTitleBlock from '@/components/layout/MainLayoutTitleBlock'
-import FeaturesScreen from '@/components/project/screens/FeaturesScreen'
-import TotalResults from '@/components/TotalResults'
-import DownloadInformationModal from '@/components/project/modals/DownloadInformationModal'
+import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
+import FeaturesScreen from '@components/project/screens/FeaturesScreen'
+import TotalResults from '@components/TotalResults'
+import DownloadInformationModal from '@components/project/modals/DownloadInformationModal'
 
 const createWrapper = (store) =>
   mount(FeaturesScreen, {

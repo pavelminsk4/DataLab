@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import StackedBarChart from '@/components/charts/StackedBarChart'
+import StackedBarChart from '@components/charts/StackedBarChart'
 
 export default {
   name: 'TopEntitiesBarChart',

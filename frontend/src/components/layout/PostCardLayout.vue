@@ -62,13 +62,13 @@ import {mapGetters} from 'vuex'
 import {get} from '@store/constants'
 import {capitalizeFirstLetter} from '@lib/utilities'
 
-import CustomText from '@/components/CustomText'
-import ClippingIcon from '@/components/icons/ClippingIcon'
-import BaseTooltip from '@/components/BaseTooltip'
-import NoImageIcon from '@/components/icons/NoImageIcon'
-import CloseIcon from '@/components/icons/CloseIcon'
-import HashtagIcon from '@/components/icons/HashtagIcon'
-import SentimentChips from '@/components/SentimentChips'
+import CustomText from '@components/CustomText'
+import ClippingIcon from '@components/icons/ClippingIcon'
+import BaseTooltip from '@components/BaseTooltip'
+import NoImageIcon from '@components/icons/NoImageIcon'
+import CloseIcon from '@components/icons/CloseIcon'
+import HashtagIcon from '@components/icons/HashtagIcon'
+import SentimentChips from '@components/SentimentChips'
 
 export default {
   name: 'PostCardLayout',

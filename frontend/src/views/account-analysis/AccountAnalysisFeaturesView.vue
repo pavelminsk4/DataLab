@@ -33,13 +33,13 @@
 <script>
 import {action} from '@store/constants'
 import {createNamespacedHelpers} from 'vuex'
-import {stringToPascalCase} from '@/lib/utilities'
+import {stringToPascalCase} from '@lib/utilities'
 
 import MainLayout from '@components/layout/MainLayout'
-import MainLayoutTitleBlock from '@/components/layout/MainLayoutTitleBlock'
-import SideBar from '@/components/navigation/SideBar'
-import BaseTabs from '@/components/project/widgets/modals/BaseTabs'
-import TotalResults from '@/components/TotalResults'
+import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
+import SideBar from '@components/navigation/SideBar'
+import BaseTabs from '@components/project/widgets/modals/BaseTabs'
+import TotalResults from '@components/TotalResults'
 
 const {mapState, mapActions} = createNamespacedHelpers('accountAnalysis')
 

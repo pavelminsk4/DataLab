@@ -105,15 +105,15 @@
 
 <script>
 import {action} from '@store/constants'
-import createReportMixin from '@/lib/mixins/create-report.js'
-import {weekDays} from '@/lib/constants'
+import createReportMixin from '@lib/mixins/create-report.js'
+import {weekDays} from '@lib/constants'
 
-import CustomText from '@/components/CustomText'
-import SetTimeCheckbox from '@/components/common/SetTimeCheckbox'
-import BaseSelect from '@/components/BaseSelect'
-import BaseRadio from '@/components/BaseRadio'
-import TimePicker from '@/components/datepicker/TimePicker'
-import DatePicker from '@/components/datepicker/DatePicker'
+import CustomText from '@components/CustomText'
+import SetTimeCheckbox from '@components/common/SetTimeCheckbox'
+import BaseSelect from '@components/BaseSelect'
+import BaseRadio from '@components/BaseRadio'
+import TimePicker from '@components/datepicker/TimePicker'
+import DatePicker from '@components/datepicker/DatePicker'
 
 const ending = {
   NEVER: 'Never',

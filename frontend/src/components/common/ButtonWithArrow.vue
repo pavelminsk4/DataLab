@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import ArrowLeftIcon from '@/components/icons/ArrowLeftIcon'
-import BaseButton from '@/components/common/BaseButton'
+import ArrowLeftIcon from '@components/icons/ArrowLeftIcon'
+import BaseButton from '@components/common/BaseButton'
 
 export default {
   name: 'ButtonWithArrow',

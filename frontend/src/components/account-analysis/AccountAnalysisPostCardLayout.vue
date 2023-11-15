@@ -34,12 +34,12 @@
 </template>
 
 <script>
-import {defaultDate} from '@/lib/utilities'
+import {defaultDate} from '@lib/utilities'
 
-import CustomText from '@/components/CustomText'
-import RepliesIcon from '@/components/icons/RepliesIcon'
-import LikeIcon from '@/components/icons/LikeIcon'
-import RetweetIcon from '@/components/icons/RetweetIcon'
+import CustomText from '@components/CustomText'
+import RepliesIcon from '@components/icons/RepliesIcon'
+import LikeIcon from '@components/icons/LikeIcon'
+import RetweetIcon from '@components/icons/RetweetIcon'
 
 export default {
   name: 'PostCardLayout',

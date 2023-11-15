@@ -20,8 +20,8 @@
 import {createNamespacedHelpers} from 'vuex'
 import {action} from '@store/constants'
 
-import BaseSpinner from '@/components/BaseSpinner'
-import TFSLanguagesTabs from '@/components/twenty-four-seven/TFSLanguagesTabs'
+import BaseSpinner from '@components/BaseSpinner'
+import TFSLanguagesTabs from '@components/twenty-four-seven/TFSLanguagesTabs'
 
 const {mapState, mapActions} = createNamespacedHelpers('twentyFourSeven')
 

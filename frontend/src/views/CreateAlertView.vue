@@ -34,9 +34,9 @@
 import {createNamespacedHelpers} from 'vuex'
 import {get} from '@store/constants'
 
-import MainLayout from '@/components/layout/MainLayout'
+import MainLayout from '@components/layout/MainLayout'
 import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
-import AlertsProgressBar from '@/components/alerts/AlertsProgressBar'
+import AlertsProgressBar from '@components/alerts/AlertsProgressBar'
 
 const {mapGetters: mapGettersAlerts} = createNamespacedHelpers('alerts')
 

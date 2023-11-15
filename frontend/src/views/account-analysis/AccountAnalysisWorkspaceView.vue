@@ -37,12 +37,12 @@
 import {mapActions, mapGetters, createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
 
-import CustomText from '@/components/CustomText'
-import BaseButtonWithTooltip from '@/components/BaseButtonWithTooltip'
+import CustomText from '@components/CustomText'
+import BaseButtonWithTooltip from '@components/BaseButtonWithTooltip'
 import MainLayout from '@components/layout/MainLayout'
 import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
-import AccountAnalysisProjectsTable from '@/components/account-analysis/AccountAnalysisProjectsTable'
-import PlusIcon from '@/components/icons/PlusIcon'
+import AccountAnalysisProjectsTable from '@components/account-analysis/AccountAnalysisProjectsTable'
+import PlusIcon from '@components/icons/PlusIcon'
 
 const {mapState: mapAccountAnalyticsState} =
   createNamespacedHelpers('accountAnalysis')

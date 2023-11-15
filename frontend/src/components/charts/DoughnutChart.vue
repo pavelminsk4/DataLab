@@ -15,7 +15,7 @@ import {
   CategoryScale,
   LinearScale,
 } from 'chart.js'
-import translate from '@/lib/mixins/translate.js'
+import translate from '@lib/mixins/translate.js'
 
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 ChartJS.defaults.font = {

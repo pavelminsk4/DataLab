@@ -52,14 +52,14 @@ import {mapActions, mapGetters, createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
 import {isAllFieldsEmpty} from '@lib/utilities'
 
-import CustomText from '@/components/CustomText'
-import BaseCheckbox from '@/components/BaseCheckbox2'
-import BaseRadio from '@/components/BaseRadio'
-import BaseSearchField from '@/components/BaseSearchField'
-import PositiveIcon from '@/components/icons/PositiveIcon'
-import NegativeIcon from '@/components/icons/NegativeIcon'
-import NeutralIcon from '@/components/icons/NeutralIcon'
-import ProjectCalendar from '@/components/datepicker/ProjectCalendar'
+import CustomText from '@components/CustomText'
+import BaseCheckbox from '@components/BaseCheckbox2'
+import BaseRadio from '@components/BaseRadio'
+import BaseSearchField from '@components/BaseSearchField'
+import PositiveIcon from '@components/icons/PositiveIcon'
+import NegativeIcon from '@components/icons/NegativeIcon'
+import NeutralIcon from '@components/icons/NeutralIcon'
+import ProjectCalendar from '@components/datepicker/ProjectCalendar'
 
 const {mapActions: mapSocialActions, mapGetters: mapSocialGetters} =
   createNamespacedHelpers('social')

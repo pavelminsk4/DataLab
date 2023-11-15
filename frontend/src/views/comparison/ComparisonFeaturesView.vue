@@ -27,9 +27,9 @@ import {createNamespacedHelpers} from 'vuex'
 import {action} from '@store/constants'
 
 import MainLayout from '@components/layout/MainLayout'
-import MainLayoutTitleBlock from '@/components/layout/MainLayoutTitleBlock'
-import SideBar from '@/components/navigation/SideBar'
-import {isAllFieldsEmpty} from '@/lib/utilities'
+import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
+import SideBar from '@components/navigation/SideBar'
+import {isAllFieldsEmpty} from '@lib/utilities'
 
 const {mapActions, mapState} = createNamespacedHelpers('comparison')
 

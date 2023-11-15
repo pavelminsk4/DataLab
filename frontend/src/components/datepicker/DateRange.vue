@@ -54,9 +54,9 @@
 import {mapActions, mapState} from 'vuex'
 import {action} from '@store/constants'
 
-import CustomText from '@/components/CustomText'
-import ActionRowCustom from '@/components/datepicker/ActionRowCustom'
-import MonthYearCustom from '@/components/datepicker/MonthYearCustom'
+import CustomText from '@components/CustomText'
+import ActionRowCustom from '@components/datepicker/ActionRowCustom'
+import MonthYearCustom from '@components/datepicker/MonthYearCustom'
 
 import Datepicker from '@vuepic/vue-datepicker'
 import {
@@ -67,7 +67,7 @@ import {
 } from 'date-fns'
 
 import '@vuepic/vue-datepicker/dist/main.css'
-import BaseInput from '@/components/common/BaseInput'
+import BaseInput from '@components/common/BaseInput'
 
 const START_DATE = {type: 'startDate', index: 0}
 const ENDING_DATE = {type: 'endingDate', index: 1}
