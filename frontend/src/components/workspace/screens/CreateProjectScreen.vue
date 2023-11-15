@@ -95,7 +95,7 @@ export default {
         this[action.UPDATE_PROJECT_STATE]({
           creator: this.userInfo.id,
           title: this.projectName,
-          description: this.description,
+          note: this.description,
           source: this.moduleName,
           workspace: +this.workspaceId ? this.workspaceId : null,
         })
