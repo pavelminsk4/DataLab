@@ -23,7 +23,7 @@ class ProjectPostTests(APITestCase):
             'end_search_date': '2023-10-31T00:00:00Z',
             'creator': UserFactory().id,
             'workspace': WorkspaceFactory().id,
-            'selected_sources': ['RSS']
+            'selected_sources': ['RSS'],
         }
 
         response = self.client.post('/api/projects/', params, format='json')
