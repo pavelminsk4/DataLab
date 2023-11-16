@@ -39,47 +39,49 @@
               v-for="{id: groupId, title, presets} in groups"
               :key="groupId"
             >
-              <li
-                class="group"
-                @click="isClosedGroup[title] = !isClosedGroup[title]"
-              >
-                <BaseCheckbox
-                  v-model="isGroupChecked[groupId]"
-                  @update:modelValue="
-                    isAllGroupChecked($event, groupId, presets)
-                  "
-                />
-                <span>{{ title }}</span>
-
-                <ArrowheadIcon
-                  :direction="isClosedGroup[title] ? 'top' : 'down'"
-                />
-              </li>
-              <template v-if="!isClosedGroup[title]">
+              <template v-if="presets">
                 <li
-                  v-for="(preset, index) in presets"
-                  :key="preset.id"
-                  :class="[
-                    'preset',
-                    index + 1 === presets.length && 'mb',
-                    activePreset === preset.id && 'active-preset',
-                  ]"
+                  class="group"
+                  @click="isClosedGroup[title] = !isClosedGroup[title]"
                 >
                   <BaseCheckbox
-                    v-model="isPresetChecked[preset.id]"
+                    :checked="
+                      presets?.length === selectedPresets[groupId].length
+                    "
                     @update:modelValue="
-                      isCheckedPreset($event, groupId, preset.id, presets)
+                      isGroupChecked($event, groupId, presets)
                     "
                   />
-                  <span>{{ preset.title }}</span>
-                  <button
-                    v-if="activePreset !== preset.id"
-                    class="edit-preset-btn"
-                    @click="editPreset(preset)"
-                  >
-                    <EditIcon />
-                  </button>
+                  <span>{{ title }}</span>
+
+                  <ArrowheadIcon
+                    :direction="isClosedGroup[title] ? 'top' : 'down'"
+                  />
                 </li>
+                <template v-if="!isClosedGroup[title]">
+                  <li
+                    v-for="(preset, index) in presets"
+                    :key="preset.id"
+                    :class="[
+                      'preset',
+                      index + 1 === presets.length && 'mb',
+                      activePreset === preset.id && 'active-preset',
+                    ]"
+                  >
+                    <BaseCheckbox
+                      v-model="selectedPresets[groupId]"
+                      :id="preset.id"
+                    />
+                    <span>{{ preset.title }}</span>
+                    <button
+                      v-if="activePreset !== preset.id"
+                      class="edit-preset-btn"
+                      @click="editPreset(preset)"
+                    >
+                      <EditIcon />
+                    </button>
+                  </li>
+                </template>
               </template>
             </template>
           </ul>
@@ -94,7 +96,9 @@
       <BaseButton :is-not-background="true" @click="updatePreset">
         Save
       </BaseButton>
-      <BaseButton :is-not-background="true">Add Filter</BaseButton>
+      <BaseButton :is-not-background="true" @click="addFilterToProject">
+        Add Filter
+      </BaseButton>
     </footer>
   </BaseModal>
 </template>
@@ -140,9 +144,7 @@ export default {
       isOpenCreateGroupModal: false,
       editablePreset: null,
       activePreset: 0,
-      isPresetChecked: {},
-      isGroupChecked: {},
-      selectedPresets: [],
+      selectedPresets: {},
     }
   },
   computed: {
@@ -150,6 +152,8 @@ export default {
   },
   async created() {
     await this[action.GET_PRESETS_GROUPS]()
+
+    this.groups.forEach(({id}) => (this.selectedPresets[id] = []))
   },
   methods: {
     ...mapActions([action.GET_PRESETS_GROUPS, action.UPDATE_PRESET]),
@@ -174,39 +178,16 @@ export default {
       await nextTick()
       this.isShowExpertInput = true
     },
-    isCheckedPreset(isChecked, groupId, presetId, presets) {
+    isGroupChecked(isChecked, groupId, presets) {
       if (!isChecked) {
-        this.isGroupChecked[groupId] = false
-        this.deletePreset(presetId)
+        this.selectedPresets[groupId] = []
         return
       }
 
-      this.selectedPresets.push(presetId)
-
-      const presetsIds = presets.map((preset) => preset.id)
-      const isAllPresetsInGroupChecked = presetsIds.every((element) =>
-        this.selectedPresets.includes(element)
-      )
-      this.isGroupChecked[groupId] = isAllPresetsInGroupChecked
+      presets.forEach(({id}) => this.selectedPresets[groupId].push(id))
     },
-    isAllGroupChecked(isChecked, groupId, presets) {
-      this.isGroupChecked[groupId] = isChecked
-
-      presets.filter((preset) => {
-        this.isPresetChecked[preset.id] = isChecked
-
-        if (!isChecked) {
-          return this.deletePreset(preset.id)
-        }
-
-        this.selectedPresets.push(preset.id)
-      })
-    },
-    deletePreset(presetId) {
-      return this.selectedPresets.splice(this.presetIndex(presetId), 1)
-    },
-    presetIndex(presetId) {
-      return this.selectedPresets.findIndex((element) => element === presetId)
+    addFilterToProject() {
+      this.$emit('add-expert-filter', this.selectedPresets)
     },
     editPreset(preset) {
       this.editablePreset = true

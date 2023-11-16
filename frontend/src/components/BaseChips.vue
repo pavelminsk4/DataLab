@@ -1,6 +1,10 @@
 <template>
   <div :class="['chips-wrapper', chipsType?.toLowerCase()]">
-    <component :is="`${chipsType}Icon`" :class="['icon', chipsType]" />
+    <component
+      v-if="chipsType"
+      :is="`${chipsType}Icon`"
+      :class="['icon', chipsType]"
+    />
     <slot>
       <CustomText tag="span" :text="title" />
     </slot>

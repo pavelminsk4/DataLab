@@ -10,7 +10,7 @@
         <CustomText
           v-for="(item, index) in sortingList"
           :key="item + index"
-          :text="item"
+          :text="snakeCaseToSentenseCase(item)"
           class="sorting-item"
           @click="$emit('set-sorting-value', item)"
         />
@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import {capitalizeFirstLetter} from '@/lib/utilities'
+import {capitalizeFirstLetter, snakeCaseToSentenseCase} from '@/lib/utilities'
 
 import CustomText from '@/components/CustomText'
 import PlusIcon from '@/components/icons/PlusIcon'
@@ -115,6 +115,7 @@ export default {
   },
   methods: {
     capitalizeFirstLetter,
+    snakeCaseToSentenseCase,
   },
 }
 </script>

@@ -74,9 +74,6 @@ export default {
         this.isCheckedAll = val
         this.$emit('select-all', this.isCheckedAll)
       },
-      windowWidth() {
-        return window.innerWidth
-      },
     },
   },
   created() {

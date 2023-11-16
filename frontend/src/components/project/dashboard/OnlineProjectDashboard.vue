@@ -35,6 +35,7 @@
 
     <ExpertFilterModal
       v-if="isOpenExpertFilterModal"
+      @add-expert-filter="addExpertFilterToProject"
       @close="toggleWidgetsModal('isOpenExpertFilterModal')"
     />
 
@@ -59,6 +60,8 @@
       @open-widgets-list-modal="toggleWidgetsModal('isOpenWidgetsModal')"
     />
 
+    <PresetsBar :presets="currentPresets" class="presets-chips" />
+
     <div class="dashboard-wrapper">
       <SearchResults
         module-name="Online"
@@ -81,10 +84,10 @@
 <script>
 import {mapActions, mapGetters, createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
-import {snakeCaseToSentenseCase} from '@lib/utilities'
 
 import TotalResults from '@/components/TotalResults'
 import SearchResults from '@/components/SearchResults'
+import PresetsBar from '@components/expert-filter/PresetsBar'
 import WidgetsListModal from '@/components/widgets/modals/WidgetsListModal'
 import MainLayoutTitleBlock from '@/components/layout/MainLayoutTitleBlock'
 import InteractiveWidgetModal from '@/components/modals/InteractiveWidgetModal'
@@ -92,6 +95,9 @@ import OnlineFiltersModal from '@/components/project/modals/online/OnlineFilters
 import DownloadInformationModal from '@/components/project/modals/DownloadInformationModal'
 import OnlineDashboardControlPanel from '@/components/project/dashboard/OnlineDashboardControlPanel'
 import OnlineProjectDashboardWidgets from '@/components/project/dashboard/OnlineProjectDashboardWidgets'
+
+const {mapActions: mapExpertFilterActions, mapState: mapExpertFilterState} =
+  createNamespacedHelpers('expertFilter')
 
 const {mapActions: mapOnlineActions, mapState} =
   createNamespacedHelpers('online')
@@ -103,6 +109,7 @@ import ExpertFilterModal from '@/components/expert-filter/ExpertFilterModal'
 export default {
   name: 'OnlineProjectDashboard',
   components: {
+    PresetsBar,
     TotalResults,
     SearchResults,
     MainLayoutTitleBlock,
@@ -138,6 +145,9 @@ export default {
     ...mapState({
       downloadingInstantReport: (state) => state.downloadingInstantReport,
     }),
+    ...mapExpertFilterState({
+      presets: (state) => state.presets,
+    }),
     ...mapOnlineWidgetsGetters({
       clippingData: get.CLIPPING_FEED_CONTENT_WIDGET,
     }),
@@ -149,6 +159,18 @@ export default {
       interactiveDataModal: get.INTERACTIVE_DATA_MODAL,
       department: get.DEPARTMENT,
     }),
+
+    currentPresets() {
+      let result = []
+
+      this.presets.forEach((preset, index) => {
+        if (preset.id === this.currentProject.expert_presets[index]) {
+          result.push(preset)
+        }
+      })
+
+      return result
+    },
     currentKeywords() {
       return this.currentProject?.keywords
     },
@@ -167,6 +189,8 @@ export default {
       ],
     })
 
+    this[action.GET_PRESETS]()
+
     this.showResults()
   },
   methods: {
@@ -176,11 +200,12 @@ export default {
     ]),
     ...mapOnlineActions([
       action.POST_SEARCH,
+      action.UPDATE_PROJECT,
       action.POST_INTERACTIVE_WIDGETS,
       action.UPDATE_AVAILABLE_WIDGETS,
       action.GET_INSTANT_REPORT,
     ]),
-    snakeCaseToSentenseCase,
+    ...mapExpertFilterActions([action.GET_PRESETS]),
     setSortingValue(item) {
       this.sortValue = item
       this.showResults()
@@ -250,6 +275,13 @@ export default {
       this.toggleWidgetsModal('isOpenWidgetsModal')
     },
 
+    addExpertFilterToProject(presets) {
+      this[action.UPDATE_PROJECT]({
+        projectId: this.currentProject?.id,
+        data: {expert_presets: presets},
+      })
+    },
+
     async downloadReport() {
       if (!this.downloadingInstantReport) {
         try {
@@ -283,6 +315,10 @@ export default {
 
   height: 100%;
   margin-top: 20px;
+}
+
+.presets-chips {
+  margin-top: 24px;
 }
 
 .dashboard-wrapper {

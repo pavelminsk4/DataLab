@@ -6,9 +6,9 @@
     />
 
     <PresetChips
-      v-for="{id, name} in presets"
+      v-for="{id, title} in presets"
       :key="id"
-      :preset-name="name"
+      :preset-name="title"
       :preset-id="id"
     />
 

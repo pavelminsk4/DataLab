@@ -1,6 +1,12 @@
 <template>
-  <label class="checkbox-container" :name="id">
-    <input v-model="isChecked" type="checkbox" :id="id" :value="value || id" />
+  <label class="checkbox-container">
+    <input
+      v-model="isChecked"
+      type="checkbox"
+      :checked="checked"
+      :id="id"
+      :value="value || id"
+    />
     <span v-if="hasIcon" class="checkmark">
       <CheckIcon class="checkmark-icon" />
     </span>
@@ -15,7 +21,7 @@ export default {
   components: {CheckIcon},
   props: {
     modelValue: {type: [Boolean, Array], default: false},
-    selected: {type: Boolean, default: false},
+    checked: {type: Boolean, default: null},
     label: {type: String},
     id: {type: [Number, String], default: 'checkbox'},
     hasIcon: {type: Boolean, default: true},

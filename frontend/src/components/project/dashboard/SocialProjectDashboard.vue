@@ -95,8 +95,6 @@
     </div>
 
     <div class="dashboard-wrapper">
-      <PresetsBar :presets="presets" />
-
       <SearchResults
         module-name="Social"
         :search-loading="isLoadingResults"
@@ -135,7 +133,6 @@ import TotalResults from '@/components/TotalResults'
 import DownloadInformationModal from '@/components/project/modals/DownloadInformationModal'
 import BaseButtonSpinner from '@/components/BaseButtonSpinner'
 import ExpertFilterButton from '@components/expert-filter/ExpertFilterButton'
-import PresetsBar from '@components/expert-filter/PresetsBar'
 
 import ExpertFilterModal from '@/components/expert-filter/ExpertFilterModal'
 
@@ -161,7 +158,6 @@ export default {
     DownloadInformationModal,
     BaseButtonSpinner,
     ExpertFilterButton,
-    PresetsBar,
     ExpertFilterModal,
   },
   props: {
@@ -222,20 +218,6 @@ export default {
         new Date(this.currentProject.end_search_date),
       ],
     })
-
-    this.presets = [
-      {
-        name: 'preset 1',
-        id: 423,
-        query_filter: 'Elon AND CAT',
-      },
-
-      {
-        name: 'preset 2',
-        id: 413,
-        query_filter: '(Elon AND Cat) OR Dog',
-      },
-    ]
 
     this.showResults()
   },
