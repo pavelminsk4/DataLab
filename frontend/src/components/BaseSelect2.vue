@@ -9,7 +9,7 @@
       @click="toggle"
     >
       <div class="select__placeholder">
-        <span>{{ selectedValues ? selectedValues : placeholder }}</span>
+        <span>{{ selectedValues || placeholder }}</span>
         <ArrowDownIcon />
       </div>
     </button>

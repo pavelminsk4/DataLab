@@ -59,7 +59,6 @@ export default {
 
         if (this.isNeedUpdateElementId) {
           matchValue = this.getRowsFromValues(values)
-          // this.isNeedUpdateElementId = false
         }
 
         this.$refs.content.innerHTML = matchValue.join('')
@@ -92,8 +91,6 @@ export default {
 
       const currentRowId = currentElement.id
       const currentRowNumber = +currentRowId.match(/\d+/)[0]
-      // const childElementCount = element.childElementCount
-      // this.isNeedUpdateElementId = currentRowNumber < childElementCount
 
       return currentRowNumber
     },
@@ -243,14 +240,6 @@ export default {
     replaceLogicalOperators(value) {
       let highlightedStr = value
 
-      // this.filters.map((filter) => {
-      //   const regex = new RegExp('\\b' + filter + '[:]', 'g')
-      //   highlightedStr = highlightedStr.replace(
-      //     regex,
-      //     `<span class="expert-mode_defaultColor">${filter}:</span>`
-      //   )
-      // })
-
       return highlightedStr
         .replace(/<br>/, '')
         .replace(/\(/g, '<span class="expert-mode_defaultColor">(</span>')
@@ -319,9 +308,7 @@ export default {
 
   p {
     width: var(--expert-input-width);
-    min-height: 20px;
-
-    // background-color: rgb(155, 155, 155);
+    min-height: 20px;    
   }
 }
 

@@ -26,17 +26,9 @@ describe('PresetCreatedModal component', () => {
     expect(wrapper.findAllComponents(BaseButton).length).toEqual(1)
   })
 
-  describe('when the variable "isOpenPresetOptions" is set', () => {
-    it('should be displayed component', async () => {
-      expect(
-        wrapper.findAllComponents(DropdownOptionsContainer).length
-      ).toEqual(0)
-
-      await wrapper.setData({isOpenPresetOptions: true})
-
-      expect(
-        wrapper.findAllComponents(DropdownOptionsContainer).length
-      ).toEqual(1)
-    })
+  it('should be displayed text', () => {
+    expect(wrapper.text()).toMatch(
+      'You saved the Tigers preset to the Animals group'
+    )
   })
 })

@@ -33,7 +33,6 @@ export default {
   },
   created() {
     this.dropDownOptions = [
-      {name: 'Edit', icon: 'Edit', action: 'edit-preset'},
       {name: 'Delete', icon: 'Delete', action: 'delete-preset'},
     ]
   },
