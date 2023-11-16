@@ -97,6 +97,7 @@ class WorkspaceTests(APITestCase):
                     'language_filter': None,
                     'country_filter': None,
                     'source_filter': None,
+                    'sources': ['rss'],
                     'sentiment_filter': None,
                     'author_dimensions': None,
                     'language_dimensions': None,

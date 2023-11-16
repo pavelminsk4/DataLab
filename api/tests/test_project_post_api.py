@@ -23,7 +23,7 @@ class ProjectPostTests(APITestCase):
             'end_search_date': '2023-10-31T00:00:00Z',
             'creator': UserFactory().id,
             'workspace': WorkspaceFactory().id,
-            'selected_sources': ['RSS'],
+            'sources': ['rss'],
         }
 
         response = self.client.post('/api/projects/', params, format='json')
@@ -33,6 +33,7 @@ class ProjectPostTests(APITestCase):
         self.assertEqual(content['title'], 'Project 1')
         self.assertEqual(content['keywords'], ['nothing', 'special'])
         self.assertEqual(content['start_date'], '2023-10-31T00:00:00Z')
+        self.assertEqual(content['sources'], ['rss'])
 
     def test_clipping_feed_widget_created(self):
         user = User.objects.create(username='Fox')

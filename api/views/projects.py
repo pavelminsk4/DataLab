@@ -49,8 +49,6 @@ class ProjectsViewSet(viewsets.ModelViewSet):
         creator_id   = data.pop('creator', None)
         workspace_id = data.pop('workspace', None)
 
-        data.pop('selected_sources', None)
-
         creator   = User.objects.filter(id=creator_id).first() if creator_id else None
         workspace = Workspace.objects.filter(id=workspace_id).first() if workspace_id else None
 
