@@ -84,4 +84,5 @@ export const get = {
 
   //Expert filter
   PRESET_GROUPS: 'PRESET_GROUPS',
+  NEW_GROUP_ID: 'NEW_GROUP_ID',
 }

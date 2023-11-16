@@ -2,6 +2,7 @@
   <div class="preset-bar">
     <CreateNewGroupModal
       v-if="isOpenCreateGroupModal"
+      :presets="presets"
       @close="closeGroupModal"
     />
 
@@ -10,9 +11,10 @@
       :key="id"
       :preset-name="title"
       :preset-id="id"
+      @cancel-preset="cancelPreset"
     />
 
-    <div class="points-button" @click="toggleDropdown">
+    <div v-if="presets.length" class="points-button" @click="toggleDropdown">
       <PointsIcon />
 
       <DropdownOptionsContainer
@@ -64,10 +66,14 @@ export default {
       this.isOpenCreateGroupModal = true
     },
     clearPresets() {
-      console.log('CLEAR PRESETS')
+      this.$emit('clear-all-presets')
+      this.toggleDropdown()
     },
     closeGroupModal() {
       this.isOpenCreateGroupModal = false
+    },
+    cancelPreset(presetId) {
+      this.$emit('cancel-preset', presetId)
     },
   },
 }

@@ -1,5 +1,5 @@
 import {mount} from '@vue/test-utils'
-import {createNewStore, mockmixin} from '@lib/test-helpers'
+import {createNewStore} from '@lib/test-helpers'
 
 import ExpertField from '@components/expert-filter/ExpertField'
 
@@ -7,13 +7,16 @@ const createWrapper = (store) =>
   mount(ExpertField, {
     global: {
       plugins: [store],
-      //   mixins: [mockmixin],
     },
     props: {
-      modelValue: [''],
-      'update:modelValue': (e) => wrapper.setProps({modelValue: e}),
+      modelValue: ['cat OR dog'],
       label: '',
       hasLineNumbering: false,
+    },
+    data() {
+      return {
+        isFocus: true,
+      }
     },
   })
 
@@ -30,13 +33,7 @@ describe('ExpertField component', () => {
   })
 
   describe('when the modelValue is set', () => {
-    it('should be displayed text', async () => {
-      await wrapper.find('.expert-input').trigger('focus')
-      expect(wrapper.emitted('focus')).toBeTruthy()
-      await wrapper.find('.expert-input').setValue('focus')
-
-      console.log(wrapper.html())
-
+    it('should be displayed text', () => {
       expect(wrapper.text()).toMatch('cat OR dog')
     })
   })

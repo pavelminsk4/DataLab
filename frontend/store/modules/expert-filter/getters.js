@@ -6,4 +6,8 @@ export default {
       (a, b) => new Date(b.created_at) - new Date(a.created_at)
     )
   },
+
+  [get.NEW_GROUP_ID](state) {
+    return state.newGroup.id
+  },
 }

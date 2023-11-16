@@ -19,6 +19,7 @@ export default {
     commit(mutator.SET_LOADING, true)
     try {
       const response = await api.createPresetsGroup({data})
+      commit(mutator.SET_NEW_PRESETS_GROUP, response)
       await dispatch(action.GET_PRESETS_GROUPS)
       return response
     } catch (error) {
@@ -59,7 +60,7 @@ export default {
     commit(mutator.SET_LOADING, true)
     try {
       const response = await api.getPresets()
-      commit(mutator.SET_PRESETS_GROUPS, response)
+      commit(mutator.SET_PRESETS, response)
       return response
     } catch (error) {
       console.error(error)
@@ -75,7 +76,6 @@ export default {
     commit(mutator.SET_LOADING, true)
     try {
       const response = await api.createPreset(data)
-      console.log(response.id)
       await dispatch(action.UPDATE_PRESETS_GROUP, {
         groupId,
         data: {presets: [...presetsIds, response.id]},

@@ -9,7 +9,6 @@
       :key="presetId"
       :options="dropDownOptions"
       @close-dropdown="toggleDropdown"
-      @edit-preset="editPreset"
       @delete-preset="deletePreset"
     />
   </BaseChips>
@@ -42,11 +41,8 @@ export default {
     toggleDropdown() {
       this.isOpenPresetOptions = !this.isOpenPresetOptions
     },
-    editPreset() {
-      console.log('EDIT PRESET')
-    },
     deletePreset() {
-      console.log('DELETE PRESET')
+      this.$emit('cancel-preset', this.presetId)
     },
   },
 }

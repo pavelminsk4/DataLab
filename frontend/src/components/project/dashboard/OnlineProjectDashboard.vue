@@ -35,6 +35,7 @@
 
     <ExpertFilterModal
       v-if="isOpenExpertFilterModal"
+      :project-presets="currentProject.expert_presets"
       @add-expert-filter="addExpertFilterToProject"
       @close="toggleWidgetsModal('isOpenExpertFilterModal')"
     />
@@ -60,7 +61,12 @@
       @open-widgets-list-modal="toggleWidgetsModal('isOpenWidgetsModal')"
     />
 
-    <PresetsBar :presets="currentPresets" class="presets-chips" />
+    <PresetsBar
+      :presets="currentPresets"
+      class="presets-chips"
+      @cancel-preset="cancelPreset"
+      @clear-all-presets="clearAllPresets"
+    />
 
     <div class="dashboard-wrapper">
       <SearchResults
@@ -147,6 +153,7 @@ export default {
     }),
     ...mapExpertFilterState({
       presets: (state) => state.presets,
+      newGroupId: (state) => state.newGroup.id,
     }),
     ...mapOnlineWidgetsGetters({
       clippingData: get.CLIPPING_FEED_CONTENT_WIDGET,
@@ -161,15 +168,9 @@ export default {
     }),
 
     currentPresets() {
-      let result = []
-
-      this.presets.forEach((preset, index) => {
-        if (preset.id === this.currentProject.expert_presets[index]) {
-          result.push(preset)
-        }
-      })
-
-      return result
+      return this.presets.filter((item) =>
+        this.currentProject.expert_presets.includes(item.id)
+      )
     },
     currentKeywords() {
       return this.currentProject?.keywords
@@ -205,7 +206,7 @@ export default {
       action.UPDATE_AVAILABLE_WIDGETS,
       action.GET_INSTANT_REPORT,
     ]),
-    ...mapExpertFilterActions([action.GET_PRESETS]),
+    ...mapExpertFilterActions([action.GET_PRESETS, action.CREATE_PRESET]),
     setSortingValue(item) {
       this.sortValue = item
       this.showResults()
@@ -275,10 +276,29 @@ export default {
       this.toggleWidgetsModal('isOpenWidgetsModal')
     },
 
-    addExpertFilterToProject(presets) {
-      this[action.UPDATE_PROJECT]({
+    async addExpertFilterToProject(presets) {
+      await this[action.UPDATE_PROJECT]({
         projectId: this.currentProject?.id,
         data: {expert_presets: presets},
+      })
+
+      this.toggleWidgetsModal('isOpenExpertFilterModal')
+    },
+
+    async clearAllPresets() {
+      await this[action.UPDATE_PROJECT]({
+        projectId: this.currentProject?.id,
+        data: {expert_presets: []},
+      })
+    },
+
+    async cancelPreset(presetId) {
+      const presetsIds = this.currentPresets.map(({id}) => id)
+      const remainingPresets = presetsIds.filter((id) => id !== presetId)
+
+      await this[action.UPDATE_PROJECT]({
+        projectId: this.currentProject?.id,
+        data: {expert_presets: remainingPresets},
       })
     },
 

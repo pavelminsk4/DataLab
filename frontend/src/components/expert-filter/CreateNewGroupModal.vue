@@ -21,7 +21,7 @@
     <footer class="footer">
       <BaseButton :is-disabled="isDisabledSaveButton" @click="createGroup">
         <SaveIcon color="#ffffff" />
-        <span>Save preset</span>
+        <span>Save presets</span>
       </BaseButton>
     </footer>
   </BaseModal>
@@ -48,6 +48,9 @@ export default {
     BaseTextarea,
     SaveIcon,
   },
+  props: {
+    presets: {type: Array, default: () => []},
+  },
   data() {
     return {
       newName: '',
@@ -72,6 +75,9 @@ export default {
         this.newDescription = val
       },
     },
+    presetsIds() {
+      return this.presets.map(({id}) => id)
+    },
     isDisabledSaveButton() {
       return !this.name
     },
@@ -88,6 +94,7 @@ export default {
           creator: this.user.id,
           title: this.name,
           description: this.description,
+          presets: this.presetsIds,
         },
       })
       this.$emit('close', this.name)

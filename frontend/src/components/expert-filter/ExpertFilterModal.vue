@@ -39,49 +39,43 @@
               v-for="{id: groupId, title, presets} in groups"
               :key="groupId"
             >
-              <template v-if="presets">
+              <li
+                class="group"
+                @click="isClosedGroup[title] = !isClosedGroup[title]"
+              >
+                <BaseCheckbox
+                  :checked="presets.length === selectedPresets[groupId]?.length"
+                  @update:modelValue="isGroupChecked($event, groupId, presets)"
+                />
+                <span>{{ title }}</span>
+
+                <ArrowheadIcon
+                  :direction="isClosedGroup[title] ? 'top' : 'down'"
+                />
+              </li>
+              <template v-if="!isClosedGroup[title]">
                 <li
-                  class="group"
-                  @click="isClosedGroup[title] = !isClosedGroup[title]"
+                  v-for="(preset, index) in presets"
+                  :key="preset.id"
+                  :class="[
+                    'preset',
+                    index + 1 === presets.length && 'mb',
+                    activePreset === preset.id && 'active-preset',
+                  ]"
                 >
                   <BaseCheckbox
-                    :checked="
-                      presets?.length === selectedPresets[groupId].length
-                    "
-                    @update:modelValue="
-                      isGroupChecked($event, groupId, presets)
-                    "
+                    v-model="selectedPresets[groupId]"
+                    :id="preset.id"
                   />
-                  <span>{{ title }}</span>
-
-                  <ArrowheadIcon
-                    :direction="isClosedGroup[title] ? 'top' : 'down'"
-                  />
-                </li>
-                <template v-if="!isClosedGroup[title]">
-                  <li
-                    v-for="(preset, index) in presets"
-                    :key="preset.id"
-                    :class="[
-                      'preset',
-                      index + 1 === presets.length && 'mb',
-                      activePreset === preset.id && 'active-preset',
-                    ]"
+                  <span>{{ preset.title }}</span>
+                  <button
+                    v-if="activePreset !== preset.id"
+                    class="edit-preset-btn"
+                    @click="editPreset(preset)"
                   >
-                    <BaseCheckbox
-                      v-model="selectedPresets[groupId]"
-                      :id="preset.id"
-                    />
-                    <span>{{ preset.title }}</span>
-                    <button
-                      v-if="activePreset !== preset.id"
-                      class="edit-preset-btn"
-                      @click="editPreset(preset)"
-                    >
-                      <EditIcon />
-                    </button>
-                  </li>
-                </template>
+                    <EditIcon />
+                  </button>
+                </li>
               </template>
             </template>
           </ul>
@@ -96,9 +90,7 @@
       <BaseButton :is-not-background="true" @click="updatePreset">
         Save
       </BaseButton>
-      <BaseButton :is-not-background="true" @click="addFilterToProject">
-        Add Filter
-      </BaseButton>
+      <BaseButton @click="addFilterToProject"> Add Filter </BaseButton>
     </footer>
   </BaseModal>
 </template>
@@ -134,6 +126,10 @@ export default {
     SaveAsModal,
     PlusIcon,
   },
+  emits: ['add-expert-filter'],
+  props: {
+    projectPresets: {type: Array, default: () => []},
+  },
   data() {
     return {
       expertQuery: [''],
@@ -153,7 +149,15 @@ export default {
   async created() {
     await this[action.GET_PRESETS_GROUPS]()
 
-    this.groups.forEach(({id}) => (this.selectedPresets[id] = []))
+    this.groups.forEach((group) => {
+      this.selectedPresets[group.id] = []
+
+      const presetsIds = group.presets.map(({id}) => id)
+
+      this.selectedPresets[group.id] = this.projectPresets.filter((item) =>
+        presetsIds.includes(item)
+      )
+    })
   },
   methods: {
     ...mapActions([action.GET_PRESETS_GROUPS, action.UPDATE_PRESET]),
@@ -187,7 +191,10 @@ export default {
       presets.forEach(({id}) => this.selectedPresets[groupId].push(id))
     },
     addFilterToProject() {
-      this.$emit('add-expert-filter', this.selectedPresets)
+      this.$emit(
+        'add-expert-filter',
+        Object.values(this.selectedPresets).flat()
+      )
     },
     editPreset(preset) {
       this.editablePreset = true

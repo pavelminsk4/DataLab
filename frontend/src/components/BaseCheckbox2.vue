@@ -31,7 +31,7 @@ export default {
   computed: {
     isChecked: {
       get() {
-        return this.modelValue
+        return this.modelValue || this.checked
       },
       set(val) {
         this.$emit('update:modelValue', val)
