@@ -308,7 +308,7 @@ export default {
 
   p {
     width: var(--expert-input-width);
-    min-height: 20px;    
+    min-height: 20px;
   }
 }
 
