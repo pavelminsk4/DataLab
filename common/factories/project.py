@@ -9,6 +9,7 @@ class ProjectFactory(factory.django.DjangoModelFactory):
 
     title               = factory.Faker('name')
     keywords            = ['post', 'keyword']
+    sources             = ['rss']
     additional_keywords = []
     ignore_keywords     = []
     status              = 'collecting_data'

@@ -48,8 +48,9 @@
         <BaseCheckbox
           v-for="(source, index) in mainSources"
           :key="source + index"
+          :id="`checkbox-${source.toLowerCase()}`"
           v-model="selectedSources"
-          :value="source"
+          :value="source.toLowerCase()"
           class="checkbox"
         >
           <CustomText :text="source" />
@@ -212,7 +213,7 @@ export default {
           country_filter: this.additionalFilters?.country || null,
           query_filter: this.expertModeQuery,
           expert_mode: this.isExpertMode,
-          selected_sources: this.selectedSources,
+          sources: this.selectedSources,
         }
 
         this[action.UPDATE_PROJECT_STATE](project)

@@ -111,6 +111,7 @@ class Project(models.Model):
     keywords             = ArrayField(models.CharField(max_length=200), blank=True, null=True)
     ignore_keywords      = ArrayField(models.CharField(max_length=200), blank=True, null=True)
     additional_keywords  = ArrayField(models.CharField(max_length=200), blank=True, null=True)
+    sources              = ArrayField(models.CharField(max_length=20), blank=True, null=True)
     max_items            = models.CharField(max_length=200, null=True, blank=True)
     image                = models.ImageField(null=True, blank=True, upload_to='images')
     arabic_name          = models.CharField(max_length=100, null=True, blank=True)
@@ -127,7 +128,7 @@ class Project(models.Model):
     report_widgets       = models.BooleanField(default=True)
     report_content       = models.BooleanField(default=True)
     report_language      = models.CharField(max_length=10, default='English')
-    
+
     author_filter        = ArrayField(models.CharField(max_length=50), blank=True, null=True)
     language_filter      = ArrayField(models.CharField(max_length=50), blank=True, null=True)
     country_filter       = ArrayField(models.CharField(max_length=50), blank=True, null=True)
