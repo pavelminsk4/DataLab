@@ -12,7 +12,7 @@ from widgets.common_widget.sentiment_for_period import post_aggregator_sentiment
 from widgets.sentiment.sentiment_top_keywords import post_agg_sentiment_top_keywords as onl_top_keywords_by_sentiment
 from widgets.sentiment.sentiment_number_of_results import get_sentiment_number_of_results as onl_sentiment
 
-from project_social.widgets.filters_for_widgets import posts_agregator as get_soc_posts
+from project_social.widgets.filters_for_widgets import posts_aggregator as get_soc_posts
 from widgets.common_widget.filters_for_widgets import posts_with_filters as get_onl_posts
 
 from project_social.models import ProjectSocial, SocialWidgetsList
@@ -32,13 +32,13 @@ class SentimentOnline:
             'project_id': self.project.pk,
             'module': 'online',
             'widgets': [
-                {'name': 'sentiment_number_of_results', 'widget_id':widget_list.sentiment_number_of_results_id, 'data': onl_sentiment(self.posts)},
-                {'name': 'sentiment', 'widget_id':widget_list.sentiment_diagram_id, 'data': onl_sentiment(self.posts)},
-                {'name': 'top_keywords_by_sentiment', 'widget_id':widget_list.sentiment_top_keywords_id, 'data': onl_top_keywords_by_sentiment(self.posts)},
-                {'name': 'sentiment_by_locations', 'widget_id':widget_list.sentiment_top_countries_id, 'data': onl_sentiment_by_countries(self.posts, 5)},
-                {'name': 'sentiment_by_period', 'widget_id':widget_list.sentiment_for_period_id, 'data': onl_sentiment_by_period(self.posts, 'day')},
-                {'name': 'sentiment_top_languages', 'widget_id':widget_list.sentiment_top_languages_id, 'data': onl_sentiment_top_languages(self.posts, 5)},
-                {'name': 'sentiment_top_authors', 'widget_id':widget_list.sentiment_top_authors_id, 'data': onl_sentiment_top_authors(self.posts, 5)},
+                {'name': 'sentiment_number_of_results', 'widget_id': widget_list.sentiment_number_of_results_id, 'data': onl_sentiment(self.posts)},
+                {'name': 'sentiment', 'widget_id': widget_list.sentiment_diagram_id, 'data': onl_sentiment(self.posts)},
+                {'name': 'top_keywords_by_sentiment', 'widget_id': widget_list.sentiment_top_keywords_id, 'data': onl_top_keywords_by_sentiment(self.posts)},
+                {'name': 'sentiment_by_locations', 'widget_id': widget_list.sentiment_top_countries_id, 'data': onl_sentiment_by_countries(self.posts, 5)},
+                {'name': 'sentiment_by_period', 'widget_id': widget_list.sentiment_for_period_id, 'data': onl_sentiment_by_period(self.posts, 'day')},
+                {'name': 'sentiment_top_languages', 'widget_id': widget_list.sentiment_top_languages_id, 'data': onl_sentiment_top_languages(self.posts, 5)},
+                {'name': 'sentiment_top_authors', 'widget_id': widget_list.sentiment_top_authors_id, 'data': onl_sentiment_top_authors(self.posts, 5)},
             ]
         }
 
@@ -55,13 +55,13 @@ class SentimentSocial:
             'project_id': self.project.pk,
             'module': 'social',
             'widgets': [
-                {'name': 'sentiment_number_of_results', 'widget_id':widget_list.sentiment_number_of_results_id, 'data': soc_sentiment(self.posts)},
-                {'name': 'sentiment', 'widget_id':widget_list.sentiment_id, 'data': soc_sentiment(self.posts)},
-                {'name': 'top_keywords_by_sentiment', 'widget_id':widget_list.sentiment_top_keywords_id, 'data': soc_top_keywords_by_sentiment(self.posts)},
-                {'name': 'sentiment_by_locations', 'widget_id':widget_list.sentiment_locations_id, 'data': soc_sentiment_by_locations(self.posts, 'day', 5)},
-                {'name': 'sentiment_by_period', 'widget_id':widget_list.sentiment_id, 'data': soc_sentiment_by_period(self.posts, 'day')},
-                {'name': 'sentiment_top_languages', 'widget_id':widget_list.sentiment_languages_id, 'data': soc_sentiment_top_languages(self.posts, 'day', 5)},
-                {'name': 'sentiment_top_authors', 'widget_id':widget_list.sentiment_authors_id, 'data': soc_sentiment_top_authors(self.posts, 'day', 5)},
+                {'name': 'sentiment_number_of_results', 'widget_id': widget_list.sentiment_number_of_results_id, 'data': soc_sentiment(self.posts)},
+                {'name': 'sentiment', 'widget_id': widget_list.sentiment_id, 'data': soc_sentiment(self.posts)},
+                {'name': 'top_keywords_by_sentiment', 'widget_id': widget_list.sentiment_top_keywords_id, 'data': soc_top_keywords_by_sentiment(self.posts)},
+                {'name': 'sentiment_by_locations', 'widget_id': widget_list.sentiment_locations_id, 'data': soc_sentiment_by_locations(self.posts, 'day', 5)},
+                {'name': 'sentiment_by_period', 'widget_id': widget_list.sentiment_id, 'data': soc_sentiment_by_period(self.posts, 'day')},
+                {'name': 'sentiment_top_languages', 'widget_id': widget_list.sentiment_languages_id, 'data': soc_sentiment_top_languages(self.posts, 'day', 5)},
+                {'name': 'sentiment_top_authors', 'widget_id': widget_list.sentiment_authors_id, 'data': soc_sentiment_top_authors(self.posts, 'day', 5)},
             ]
         }
 
@@ -72,10 +72,10 @@ class SentimentFactory:
         self.project_id = item.module_project_id
 
     modules = {
-        'Project':       {'model': Project, 'class': SentimentOnline},
+        'Project': {'model': Project, 'class': SentimentOnline},
         'ProjectSocial': {'model': ProjectSocial, 'class': SentimentSocial}
     }
-    
+
     def define(self):
         module = self.modules[self.module_type]
         return module['class'](module['model'].objects.get(id=self.project_id))

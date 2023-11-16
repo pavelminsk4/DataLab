@@ -284,7 +284,7 @@ class AskerTestCase(TestCase):
             status=200,
         )
 
-        result = Asker(project.id, 'Project').run_gen()
+        result = Asker(project.id, 'Project').run()
         self.assertTrue(result)
         self.assertEqual(project.posts.all().count(), 2)
         project = Project.objects.get(pk=project.pk)

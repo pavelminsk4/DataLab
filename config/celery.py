@@ -3,6 +3,7 @@ import environ
 from celery import Celery
 from celery.schedules import crontab
 from pathlib import Path
+import sys
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -13,6 +14,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
 
 app = Celery('config')
 app.config_from_object('django.conf:settings', namespace='CELERY')
+app.conf.task_always_eager = len(sys.argv) > 1 and sys.argv[1] == 'test'
 
 app.autodiscover_tasks()
 
