@@ -95,7 +95,7 @@ def create_posts(project, lines, offset=None):
             acategory = ''
         try:
             with transaction.atomic():
-                fl = Feedlinks.objects.filter(sourceurl=asourceurl).first()
+                fl = Feedlinks.objects.filter(sourceurl=asourceurl).order_by('-alexaglobalrank').first()
                 if fl is None:
                     fl = Feedlinks.objects.create(
                         sourceurl=asourceurl,
