@@ -34,6 +34,14 @@ class SearchService:
             posts = posts.order_by('feedlink__country')
         elif sort_posts == 'language':
             posts = posts.order_by('feed_language__language')
+        elif sort_posts == 'potential_reach_desc':
+            posts = posts.order_by('-feedlink__alexaglobalrank')
+        elif sort_posts == 'potential_reach':
+            posts = posts.order_by('feedlink__alexaglobalrank')
+        elif sort_posts == 'date_desc':
+            posts = posts.order_by('-entry_published')
+        elif sort_posts == 'date':
+            posts = posts.order_by('entry_published')
 
         posts               = posts_values(posts)
         p                   = Paginator(posts, posts_per_page)
