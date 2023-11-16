@@ -1,5 +1,5 @@
 from widgets.common_widget.project_posts_filter import project_posts_filter
-from common.utils.where_clause import where_clause, multi_or_single_typle
+from common.utils.where_clause import where_clause, ids
 from django.forms.models import model_to_dict
 from django.http import JsonResponse
 from django.db.models import Count
@@ -44,7 +44,7 @@ def calculate_sentiment_top_languages(posts, top_counts):
                 SELECT p.feed_language_id id, p.sentiment, COUNT(p.sentiment) sentiment_count, COUNT(p.feedlink_id) post_count
                 FROM project_post p
                 JOIN project_project_posts ON p.id = project_project_posts.post_id
-                WHERE p.feed_language_id IN {top_languages} AND {where_clause(posts)}
+                WHERE p.feed_language_id IN {ids(top_languages)} AND {where_clause(posts)}
                 GROUP BY p.feed_language_id, p.sentiment
                 ORDER BY sentiment_count DESC
             """

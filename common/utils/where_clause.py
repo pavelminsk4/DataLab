@@ -5,5 +5,5 @@ def where_clause(q):
 
     return f"{project_query} AND p.entry_published BETWEEN '{str(date_query[0])}' AND '{str(date_query[1])}'"
 
-def multi_or_single_typle(arr):
+def ids(arr):
     return arr if len(arr) > 1 else f'({arr[0]})'
