@@ -10,7 +10,7 @@ from rest_framework.generics import ListAPIView, CreateAPIView, DestroyAPIView, 
 from widgets.models import ClippingFeedContentWidget, WidgetsList2, Dimensions, ProjectDimensions
 from project.models import Project, Post, Speech, Feedlinks, ChangingOnlineSentiment
 from reports.models import Templates, RegularReport
-from widgets.common_widget.filters_for_widgets import posts_agregator, post_agregator_with_dimensions
+from widgets.common_widget.filters_for_widgets import posts_aggregator, post_agregator_with_dimensions
 from alerts.models import Alert
 from accounts.models import Profile
 from deep_translator import GoogleTranslator
@@ -194,7 +194,7 @@ class TemplatesViewSet(viewsets.ModelViewSet):
 def dimension_authors(request, pk):
     first_letters = request.body
     project = get_object_or_404(Project, pk=pk)
-    posts = posts_agregator(project)
+    posts = posts_aggregator(project)
     authors = posts.filter(entry_author__startswith=first_letters).order_by('entry_author').values('entry_author').distinct()
     authors_list = list(authors)
     return JsonResponse(authors_list, safe=False)
@@ -202,7 +202,7 @@ def dimension_authors(request, pk):
 
 def dimension_languages(request, pk):
     project = get_object_or_404(Project, pk=pk)
-    posts = posts_agregator(project)
+    posts = posts_aggregator(project)
     languages = posts.values('feed_language__language').distinct()
     languages_list = list(languages)
     return JsonResponse(languages_list, safe=False)
@@ -210,7 +210,7 @@ def dimension_languages(request, pk):
 
 def dimension_countries(requset, pk):
     project = get_object_or_404(Project, pk=pk)
-    posts = posts_agregator(project)
+    posts = posts_aggregator(project)
     countries = posts.values('feedlink__country').distinct()
     countries_list = list(countries)
     return JsonResponse(countries_list, safe=False)
@@ -218,7 +218,7 @@ def dimension_countries(requset, pk):
 
 def dimension_sources(requset, pk):
     project = get_object_or_404(Project, pk=pk)
-    posts = posts_agregator(project)
+    posts = posts_aggregator(project)
     sources = posts.values('feedlink__source1').distinct()
     sources_list = list(sources)
     return JsonResponse(sources_list, safe=False)
@@ -230,7 +230,7 @@ class ListAuthorsInProject(generics.ListAPIView):
     def get_queryset(self):
         pk = self.kwargs.get('pk', None)
         project = get_object_or_404(Project, pk=pk)
-        posts = posts_agregator(project)
+        posts = posts_aggregator(project)
         queryset = posts.values('entry_author').order_by('entry_author').distinct()
         return queryset
 

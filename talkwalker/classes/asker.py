@@ -3,8 +3,8 @@ from talkwalker.services.get_tw_query import get_tw_query
 from talkwalker.services.token import get_token
 from rest_framework import status
 from django.apps import apps
+from project.models import Project
 
-import threading
 import requests
 import environ
 import json
@@ -92,15 +92,12 @@ class Asker:
         response = requests.request('DELETE', url, headers={}, data={})
         return response.status_code == status.HTTP_200_OK
 
-    def run_gen(self):
+    def run(self):
         self.__01_create_target_collector()
         self.__02_new_task_on_query()
         self.__wait_until_limit_reached()
         self.__04_read_collector()
-        self.project.status = 'active'
+        self.project.status = Project.STATUS_ACTIVE
         self.project.save()
-        return self.__05_delete_collector()
 
-    def run(self):
-        thread = threading.Thread(target=self.run_gen, name='run')
-        thread.start()
+        return self.__05_delete_collector()

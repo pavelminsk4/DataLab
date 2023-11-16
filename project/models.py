@@ -100,10 +100,14 @@ class Post(models.Model):
 
 
 class Project(models.Model):
+    STATUS_COLLECTING = 'collecting_data'
+    STATUS_ACTIVE     = 'active'
+    STATUS_INACTIVE   = 'inactive'
+
     STATUS_CHOICES = (
-        ('collecting_data', 'Collecting'),
-        ('active', 'Active'),
-        ('inactive', 'Inactive'),
+        (STATUS_COLLECTING, 'Collecting'),
+        (STATUS_ACTIVE, 'Active'),
+        (STATUS_INACTIVE, 'Inactive'),
     )
 
     title                = models.CharField(max_length=100)

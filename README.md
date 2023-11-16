@@ -1,11 +1,10 @@
 # Installing the project
 
-1. Comment out requirement aspose-words (on Mac)
-2. Install Django: pip3 install -r requirements.txt
-3. Copy .env.example to .env
-4. Adjust DATABASE_URL in the .env file to match local Postgres user
-5. Create an empty database in Postgres called anova_dev (`psql -d postgres` then `CREATE DATABASE anova_dev;`)
-6. Run migrations via `python3 manage.py migrate`
+1. Install Django: pip3 install -r requirements.txt
+2. Copy .env.example to .env
+3. Adjust DATABASE_URL in the .env file to match local Postgres user
+4. Create an empty database in Postgres called anova_dev (`psql -d postgres` then `CREATE DATABASE anova_dev;`)
+5. Run migrations via `python3 manage.py migrate`
 
 # Running tests
 

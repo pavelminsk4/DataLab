@@ -4,7 +4,7 @@ from rest_framework import viewsets, filters, generics
 
 from .widgets.dashboard.content_volume_top_locations import content_volume_top_locations
 from .widgets.dashboard.content_volume_top_languages import content_volume_top_languages
-from .widgets.filters_for_widgets import post_agregator_with_dimensions, posts_agregator
+from .widgets.filters_for_widgets import post_agregator_with_dimensions, posts_aggregator
 from .widgets.sentiment.sentiment_number_of_results import sentiment_number_of_results
 from .widgets.dashboard.content_volume_top_authors import content_volume_top_authors
 from .widgets.sentiment.sentiment_top_keywords import sentiment_top_keywords
@@ -48,7 +48,6 @@ from functools import reduce
 from .serializers import *
 import json
 
-# === Social Workspace API ===========
 
 class WorkspaceSocialList(ListAPIView):
     serializer_class = WorkspaceSocialSerializer
@@ -60,29 +59,37 @@ class WorkspaceSocialList(ListAPIView):
 
         return WorkspaceSocial.objects.none()
 
+
 class WorkspaceSocialCreate(CreateAPIView):
     queryset = WorkspaceSocial.objects.all()
     serializer_class = WorkspaceCreateSerializer
+
 
 class WorkspaceSocialUpdate(UpdateAPIView):
     queryset = WorkspaceSocial.objects.all()
     serializer_class = WorkspaceSocialSerializer
 
+
 class WorkspaceSocialDelete(DestroyAPIView):
     queryset = WorkspaceSocial.objects.all()
     serializer_class = WorkspaceSocialSerializer
 
+
 class ProjectsSotialViewSet(viewsets.ModelViewSet):
     queryset = ProjectSocial.objects.all()
-    serializer_class = ProjectSocialSerializer  
+    serializer_class = ProjectSocialSerializer
+
 
 def keywords_posts(keys, posts):
     keys = [f'%%{key.upper()}%%' for key in keys]
-    posts =  posts.extra(where=["UPPER(user_alias) LIKE ANY(%s) OR \
-                                UPPER(text) LIKE ANY(%s) OR \
-                                UPPER(user_name) LIKE ANY(%s)"], 
-                                params=[keys, keys, keys])
+    posts = posts.extra(where=[
+        "UPPER(user_alias) LIKE ANY(%s) OR \
+        UPPER(text) LIKE ANY(%s) OR \
+        UPPER(user_name) LIKE ANY(%s)"],
+        params=[keys, keys, keys]
+    )
     return posts
+
 
 def exclude_keywords_posts(posts, exceptions):
     to_be_removed = []
@@ -94,49 +101,53 @@ def exclude_keywords_posts(posts, exceptions):
     posts = posts.exclude(id__in=to_be_removed)
     return posts
 
+
 def additional_keywords_posts(posts, additions):
     for word in additions:
         posts = posts.filter(text__icontains=word)
     return posts
+
 
 def data_range_posts(start_date, end_date):
     interval = [start_date, end_date]
     posts = TweetBinderPost.objects.filter(date__range=interval)
     return posts
 
-def change_social_sentiment(request, pk, department_pk,sentiment):
+
+def change_social_sentiment(request, pk, department_pk, sentiment):
     try:
         updated_values = {'sentiment': sentiment}
-        ChangingTweetbinderSentiment.objects.update_or_create(tweet_post_id=pk,department_id=department_pk,defaults=updated_values)
+        ChangingTweetbinderSentiment.objects.update_or_create(tweet_post_id=pk, department_id=department_pk, defaults=updated_values)
     except:
         return HttpResponse(status=406)
     return HttpResponse(status=201)
 
 
 def change_tweet_post_sentiment(post, dict_changing):
-      if post['id'] in dict_changing:
-          new_sentiment = dict_changing[post['id']]
-          post['sentiment'] = new_sentiment
-      return post
+    if post['id'] in dict_changing:
+        new_sentiment = dict_changing[post['id']]
+        post['sentiment'] = new_sentiment
+    return post
 
 
 def posts_values(posts):
     return posts.values(
-                        'id',
-                        'post_id',
-                        'user_name',
-                        'user_alias',
-                        'text',
-                        'sentiment',
-                        'date',
-                        'locationString',
-                        'language',
-                        'count_favorites',
-                        'count_totalretweets',
-                        'count_replies',
-                        'user_picture',
-                        'images',
-                        )
+        'id',
+        'post_id',
+        'user_name',
+        'user_alias',
+        'text',
+        'sentiment',
+        'date',
+        'locationString',
+        'language',
+        'count_favorites',
+        'count_totalretweets',
+        'count_replies',
+        'user_picture',
+        'images'
+    )
+
 
 def filter_with_constructor(posts, body):
     keys = body['keywords']
@@ -153,16 +164,17 @@ def filter_with_constructor(posts, body):
     if exceptions:
         posts = exclude_keywords_posts(posts, exceptions)
     if country:
-        posts = posts.filter(reduce(lambda x,y: x | y, [Q(locationString=c) for c in country]))
+        posts = posts.filter(reduce(lambda x, y: x | y, [Q(locationString=c) for c in country]))
     if language:
-        posts = posts.filter(reduce(lambda x,y: x | y, [Q(language=lan) for lan in language])) 
+        posts = posts.filter(reduce(lambda x, y: x | y, [Q(language=lan) for lan in language]))
     if source:
-        posts = posts.filter(reduce(lambda x,y: x | y, [Q(source=s) for s in source])) 
+        posts = posts.filter(reduce(lambda x, y: x | y, [Q(source=s) for s in source]))
     if author:
-        posts = posts.filter(reduce(lambda x,y: x | y, [Q(user_name=a) for a in author]))
+        posts = posts.filter(reduce(lambda x, y: x | y, [Q(user_name=a) for a in author]))
     if sentiment:
-        posts = posts.filter(reduce(lambda x,y: x | y, [Q(sentiment=sen) for sen in sentiment]))
+        posts = posts.filter(reduce(lambda x, y: x | y, [Q(sentiment=sen) for sen in sentiment]))
     return posts
+
 
 def filter_with_dimensions(posts, body):
     country_dimensions = body['country_dimensions']
@@ -171,16 +183,17 @@ def filter_with_dimensions(posts, body):
     author_dimensions = body['author_dimensions']
     sentiment_dimensions = body['sentiment_dimensions']
     if country_dimensions:
-        posts = posts.filter(reduce(lambda x,y: x | y, [Q(locationString=country) for country in country_dimensions]))
+        posts = posts.filter(reduce(lambda x, y: x | y, [Q(locationString=country) for country in country_dimensions]))
     if language_dimensions:
-        posts = posts.filter(reduce(lambda x,y: x | y, [Q(language=language) for language in language_dimensions]))  
+        posts = posts.filter(reduce(lambda x, y: x | y, [Q(language=language) for language in language_dimensions]))
     if source_dimensions:
-        posts = posts.filter(reduce(lambda x,y: x | y, [Q(source=source) for source in source_dimensions]))  
+        posts = posts.filter(reduce(lambda x, y: x | y, [Q(source=source) for source in source_dimensions]))
     if author_dimensions:
-        posts = posts.filter(reduce(lambda x,y: x | y, [Q(user_name=author) for author in author_dimensions]))
+        posts = posts.filter(reduce(lambda x, y: x | y, [Q(user_name=author) for author in author_dimensions]))
     if sentiment_dimensions:
-        posts = posts.filter(reduce(lambda x,y: x | y, [Q(sentiment=sentiment) for sentiment in sentiment_dimensions]))
+        posts = posts.filter(reduce(lambda x, y: x | y, [Q(sentiment=sentiment) for sentiment in sentiment_dimensions]))
     return posts
+
 
 def twitter_posts_search(request):
     body = json.loads(request.body)
@@ -195,120 +208,153 @@ def twitter_posts_search(request):
     posts = filter_with_dimensions(posts, body)
     posts = posts_values(posts)
     p = Paginator(posts, posts_per_page)
-    posts_list=list(p.page(page_number))
+    posts_list = list(p.page(page_number))
     department_changing = ChangingTweetbinderSentiment.objects.filter(department_id=department_id).values()
     dict_changing = {x['tweet_post_id']: x['sentiment'] for x in department_changing}
     for post in posts_list:
         post['link'] = f'https://twitter.com/user/status/{post["post_id"]}'
         post = change_tweet_post_sentiment(post, dict_changing)
-    res = { 'num_pages': p.num_pages, 'num_posts': p.count, 'posts': posts_list }
-    return JsonResponse(res, safe = False)
+    res = {'num_pages': p.num_pages, 'num_posts': p.count, 'posts': posts_list}
+    return JsonResponse(res, safe=False)
 
-#=========Social Widgets=======
+
 def social_summary_widget(request, pk, widget_pk):
     return summary(pk, widget_pk)
+
 
 def clipping_feed_content(request, pk, widget_pk):
     return clipping_feed(pk, widget_pk)
 
+
 def social_top_locations(request, pk, widget_pk):
     return top_locations(pk, widget_pk)
+
 
 def social_top_languages(request, pk, widget_pk):
     return top_languages(pk, widget_pk)
 
+
 def social_top_authors(request, pk, widget_pk):
     return top_authors(pk, widget_pk)
+
 
 def social_content_volume(request, pk, widget_pk):
     return content_volume(request, pk, widget_pk)
 
+
 def social_content_volume_top_locations(request, pk, widget_pk):
     return content_volume_top_locations(request, pk, widget_pk)
+
 
 def social_content_volume_top_authors(request, pk, widget_pk):
     return content_volume_top_authors(request, pk, widget_pk)
 
+
 def social_content_volume_top_languages(request, pk, widget_pk):
     return content_volume_top_languages(request, pk, widget_pk)
+
 
 def social_sentiment(request, pk, widget_pk):
     return sentiment(request, pk, widget_pk)
 
+
 def social_sentiment_authors(request, pk, widget_pk):
     return sentiment_authors(pk, widget_pk)
+
 
 def social_sentiment_languages(request, pk, widget_pk):
     return sentiment_languages(pk, widget_pk)
 
+
 def social_sentiment_locations(request, pk, widget_pk):
     return sentiment_locations(pk, widget_pk)
+
 
 def social_gender_volume(request, pk, widget_pk):
     return gender_volume(request, pk, widget_pk)
 
+
 def social_sentiment_by_gender(request, pk, widget_pk):
     return sentiment_by_gender(pk, widget_pk)
+
 
 def social_top_keywords(request, pk, widget_pk):
     return top_keywords(pk, widget_pk)
 
+
 def social_top_sharing_sources(request, pk, widget_pk):
     return top_sharing_sources(pk, widget_pk)
+
 
 def social_sentiment_top_keywords(request, pk, widget_pk):
     return sentiment_top_keywords(pk, widget_pk)
 
+
 def social_sentiment_number_of_results(request, pk, widget_pk):
     return sentiment_number_of_results(pk, widget_pk)
+
 
 def social_sentiment_diagram(request, pk, widget_pk):
     return sentiment_number_of_results(pk, widget_pk)
 
+
 def social_overall_top_authors(request, pk, widget_pk):
     return overall_top_authors(pk, widget_pk)
+
 
 def social_top_authors_by_gender(request, pk, widget_pk):
     return top_authors_by_gender(pk, widget_pk)
 
+
 def social_authors_by_language(request, pk, widget_pk):
     return authors_by_language(pk, widget_pk)
+
 
 def social_authors_by_location(request, pk, widget_pk):
     return authors_by_location(pk, widget_pk)
 
+
 def social_authors_by_sentiment(request, pk, widget_pk):
     return authors_by_sentiment(pk, widget_pk)
+
 
 def dimensions_for_each_widgets(request, project_pk, widget_pk):
     return dimensions_for_each(request, widget_pk)
 
+
 def social_authors_by_gender(request, pk, widget_pk):
     return authors_by_gender(pk, widget_pk)
+
 
 def social_keywords_by_location(request, pk, widget_pk):
     return keywords_by_location(pk, widget_pk)
 
+
 def social_languages_by_location(request, pk, widget_pk):
     return languages_by_location(pk, widget_pk)
+
 
 def social_gender_by_location(request, pk, widget_pk):
     return gender_by_location(pk, widget_pk)
 
+
 def interactive_data_for_widgets(request, project_pk, widget_pk):
     return interactive_widgets(request, project_pk, widget_pk)
 
+
 class ProjectSocialWidgetsAPIView(RetrieveAPIView):
     serializer_class = WidgetsListSerializer
- 
+
     def get_object(self):
         return SocialWidgetsList.objects.get(project_id=self.kwargs['pk'])
+
 
 class UpdateSocialProjectsWidgetsAPIView(UpdateAPIView):
     serializer_class = WidgetsListSerializer
 
     def get_object(self):
         return SocialWidgetsList.objects.get(project_id=self.kwargs['pk'])
+
 
 class SocialAuthorList(ListAPIView):
     serializer_class = TweetBinderPostAuthorSerializer
@@ -319,8 +365,8 @@ class SocialAuthorList(ListAPIView):
 
 class LimitPagination(LimitOffsetPagination):
     default_limit = 50
-    
-    
+
+
 class SocialLocationList(ListAPIView):
     serializer_class = TweetBinderPostLocationSerializer
     queryset = TweetBinderPost.objects.distinct('locationString')
@@ -328,11 +374,13 @@ class SocialLocationList(ListAPIView):
     filter_backends = [filters.SearchFilter]
     search_fields = ['^locationString']
 
+
 class SocialLanguageList(ListAPIView):
     serializer_class = TweetBinderPostLanguageSerializer
     queryset = TweetBinderPost.objects.distinct('language')
     filter_backends = [filters.SearchFilter]
     search_fields = ['^language']
+
 
 class SocialClippingWidgetDelete(DestroyAPIView):
     serializes_class = SocialClippingWidgetSerializer
@@ -340,9 +388,11 @@ class SocialClippingWidgetDelete(DestroyAPIView):
     def get_object(self):
         return SocialClippingWidget.objects.filter(post_id=self.kwargs['post_pk'], project_id=self.kwargs['project_pk'])
 
+
 class SocialClippingWidget(viewsets.ModelViewSet):
     serializer_class = SocialClippingWidgetSerializer
     queryset = SocialClippingWidget.objects.all()
+
 
 class ListAuthorsInProject(generics.ListAPIView):
     serializer_class = TweetBinderPostAuthorSerializer
@@ -350,9 +400,10 @@ class ListAuthorsInProject(generics.ListAPIView):
     def get_queryset(self):
         pk = self.kwargs.get('pk', None)
         project = get_object_or_404(ProjectSocial, pk=pk)
-        posts = posts_agregator(project)
+        posts = posts_aggregator(project)
         queryset = posts.values('user_alias').order_by('user_alias').distinct()
         return queryset
+
 
 class ListLanguagesInProject(generics.ListAPIView):
     serializer_class = TweetBinderPostLanguageSerializer
@@ -360,19 +411,21 @@ class ListLanguagesInProject(generics.ListAPIView):
     def get_queryset(self):
         pk = self.kwargs.get('pk', None)
         project = get_object_or_404(ProjectSocial, pk=pk)
-        posts = posts_agregator(project)
+        posts = posts_aggregator(project)
         queryset = posts.values('language').order_by('language').distinct()
         return queryset
 
+
 class ListLocationsInProject(generics.ListAPIView):
     serializer_class = TweetBinderPostLocationSerializer
-    
+
     def get_queryset(self):
         pk = self.kwargs.get('pk', None)
         project = get_object_or_404(ProjectSocial, pk=pk)
-        posts = posts_agregator(project)
+        posts = posts_aggregator(project)
         queryset = posts.values('locationString').order_by('locationString').distinct()
         return queryset
+
 
 def project_posts(request, pk):
     body = json.loads(request.body)
@@ -387,5 +440,5 @@ def project_posts(request, pk):
     dict_changing = {x['tweet_post_id']: x['sentiment'] for x in department_changing}
     for post in posts_list:
         post = change_tweet_post_sentiment(post, dict_changing)
-    res = { 'num_pages': p.num_pages, 'num_posts': p.count, 'posts': posts_list }
-    return JsonResponse(res, safe = False)
+    res = {'num_pages': p.num_pages, 'num_posts': p.count, 'posts': posts_list}
+    return JsonResponse(res, safe=False)

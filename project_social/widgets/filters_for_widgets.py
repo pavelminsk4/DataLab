@@ -88,7 +88,7 @@ def sentiment_dimensions_posts(sentiments, posts):
     return posts
 
 
-def posts_agregator(project):
+def posts_aggregator(project):
     posts = data_range_posts(project.start_search_date, project.end_search_date)
     parser = SocialParser(project.query_filter)
     if parser.can_parse() and project.expert_mode:
@@ -115,7 +115,7 @@ def posts_agregator(project):
 
 
 def post_agregator_with_dimensions(project):
-    posts = posts_agregator(project)
+    posts = posts_aggregator(project)
     if project.author_dimensions:
         posts = author_dimensions_posts(project.author_dimensions, posts)
     if project.language_dimensions:

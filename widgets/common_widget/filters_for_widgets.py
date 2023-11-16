@@ -12,6 +12,7 @@ def keywords_posts(keys, posts):
     )
     return posts
 
+
 def exclude_keywords_posts(posts, exceptions):
     to_be_removed = []
     for post in posts:
@@ -21,17 +22,20 @@ def exclude_keywords_posts(posts, exceptions):
                 break
     return posts.exclude(id__in=to_be_removed)
 
+
 def additional_keywords_posts(posts, additions):
     for word in additions:
         posts = posts.filter(entry_title__icontains=word)
     return posts
+
 
 def data_range_posts(start_date, end_date):
     interval = [start_date, end_date]
     posts = Post.objects.filter(entry_published__range=interval).order_by('entry_published')
     return posts
 
-def posts_agregator(project):
+
+def posts_aggregator(project):
     posts = project.posts
     parser = OnlineParser(project.query_filter)
     if parser.can_parse() and project.expert_mode:
@@ -44,6 +48,7 @@ def posts_agregator(project):
     if project.ignore_keywords != []:
         posts = exclude_keywords_posts(posts, project.ignore_keywords)
     return filter_project_posts(project, posts)
+
 
 def filter_project_posts(project, posts):
     if project.source_filter:
@@ -58,13 +63,16 @@ def filter_project_posts(project, posts):
         posts = filter_posts([Q(sentiment=sentiment) for sentiment in project.sentiment_filter], posts)
     return posts
 
+
 def filter_posts(filter_list, posts):
     return posts.filter(reduce(lambda x, y: x | y, filter_list))
 
+
 def post_agregator_with_dimensions(project):
-    posts = posts_agregator(project)
+    posts = posts_aggregator(project)
     return filter_dimentions_posts(project, posts)
-    
+
+
 def filter_dimentions_posts(project, posts):
     if project.author_dimensions:
         posts = filter_posts([Q(entry_author=author) for author in project.author_dimensions], posts)
@@ -78,11 +86,13 @@ def filter_dimentions_posts(project, posts):
         posts = filter_posts([Q(sentiment=sentiment) for sentiment in project.sentiment_dimensions], posts)
     return posts
 
+
 def posts_with_filters(project, posts):
     interval = [project.start_search_date, project.end_search_date]
     posts = posts.filter(entry_published__range=interval).order_by('entry_published')
     posts = filter_project_posts(project, posts)
     return filter_dimentions_posts(project, posts)
+
 
 def post_agregetor_for_each_widget(widget, posts):
     if widget.author_dim_pivot:
@@ -96,6 +106,7 @@ def post_agregetor_for_each_widget(widget, posts):
     if widget.sentiment_dim_pivot:
         posts = filter_posts([Q(sentiment=sentiment) for sentiment in widget.sentiment_dim_pivot], posts)
     return posts.all()
+
 
 def missing_authors_filter(posts):
     missing_authors = [None, '', 'null', 'None', 'Missing in source']

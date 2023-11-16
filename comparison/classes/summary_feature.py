@@ -15,7 +15,7 @@ from widgets.common_widget.volume_widget import post_agregator_volume as onl_vol
 from widgets.summary.top_keywords import post_agg_top_keywords as onl_top_keywords
 from widgets.common_widget.summary import calculate_summary_widget as onl_summary
 
-from project_social.widgets.filters_for_widgets import posts_agregator as get_soc_posts
+from project_social.widgets.filters_for_widgets import posts_aggregator as get_soc_posts
 from widgets.common_widget.filters_for_widgets import posts_with_filters as get_onl_posts
 
 from project_social.models import ProjectSocial, SocialWidgetsList
@@ -46,14 +46,14 @@ class SummaryOnline:
             'project_id': self.project.pk,
             'module': 'online',
             'widgets': [
-                {'name': 'summary', 'widget_id':widget_list.summary_id, 'data': onl_summary(self.posts)},
-                {'name': 'content_volume', 'widget_id':widget_list.volume_id, 'data': onl_volume(self.posts, 'day')},
-                {'name': 'top_authors', 'widget_id':widget_list.top_authors_id, 'data': [{'user_name': elem['entry_author'], 'user_count': elem['author_posts_count']} for elem in onl_top_authors(self.posts, 5)]},
-                {'name': 'sentiment', 'widget_id':widget_list.sentiment_for_period_id, 'data': onl_sentiment(self.posts)},
-                {'name': 'top_sources', 'widget_id':widget_list.top_sources_id, 'data': onl_top_sources(self.posts, 5)},
-                {'name': 'top_keywords', 'widget_id':widget_list.top_keywords_id, 'data':  onl_top_keywords(self.posts)},
-                {'name': 'top_languages', 'widget_id':widget_list.top_languages_id, 'data': onl_top_languages(self.posts, 5)},
-                {'name': 'top_countries', 'widget_id':widget_list.top_countries_id, 'data': onl_top_countries(self.posts, 5)},
+                {'name': 'summary', 'widget_id': widget_list.summary_id, 'data': onl_summary(self.posts)},
+                {'name': 'content_volume', 'widget_id': widget_list.volume_id, 'data': onl_volume(self.posts, 'day')},
+                {'name': 'top_authors', 'widget_id': widget_list.top_authors_id, 'data': [{'user_name': elem['entry_author'], 'user_count': elem['author_posts_count']} for elem in onl_top_authors(self.posts, 5)]},
+                {'name': 'sentiment', 'widget_id': widget_list.sentiment_for_period_id, 'data': onl_sentiment(self.posts)},
+                {'name': 'top_sources', 'widget_id': widget_list.top_sources_id, 'data': onl_top_sources(self.posts, 5)},
+                {'name': 'top_keywords', 'widget_id': widget_list.top_keywords_id, 'data': onl_top_keywords(self.posts)},
+                {'name': 'top_languages', 'widget_id': widget_list.top_languages_id, 'data': onl_top_languages(self.posts, 5)},
+                {'name': 'top_countries', 'widget_id': widget_list.top_countries_id, 'data': onl_top_countries(self.posts, 5)},
             ]
         }
 
@@ -70,12 +70,12 @@ class SummarySocial:
             'project_id': self.project.pk,
             'module': 'social',
             'widgets': [
-                {'name': 'summary', 'widget_id':widget_list.summary_id, 'data': soc_summary(self.posts)},
-                {'name': 'content_volume', 'widget_id':widget_list.content_volume_id, 'data': soc_volume(self.posts, 'day')},
-                {'name': 'top_authors', 'widget_id':widget_list.top_authors_id, 'data': soc_top_authors(self.posts, 'day', 5)},
-                {'name': 'sentiment', 'widget_id':widget_list.sentiment_id, 'data': soc_sentiment(self.posts)},
-                {'name': 'top_keywords', 'widget_id':widget_list.top_keywords_id, 'data': soc_top_keywords(self.posts)},
-                {'name': 'top_languages', 'widget_id':widget_list.top_languages_id, 'data': soc_top_languages(self.posts, 'day', 5)},
-                {'name': 'top_locations', 'widget_id':widget_list.top_locations_id, 'data': soc_top_locations(self.posts, 'day', 5)},
+                {'name': 'summary', 'widget_id': widget_list.summary_id, 'data': soc_summary(self.posts)},
+                {'name': 'content_volume', 'widget_id': widget_list.content_volume_id, 'data': soc_volume(self.posts, 'day')},
+                {'name': 'top_authors', 'widget_id': widget_list.top_authors_id, 'data': soc_top_authors(self.posts, 'day', 5)},
+                {'name': 'sentiment', 'widget_id': widget_list.sentiment_id, 'data': soc_sentiment(self.posts)},
+                {'name': 'top_keywords', 'widget_id': widget_list.top_keywords_id, 'data': soc_top_keywords(self.posts)},
+                {'name': 'top_languages', 'widget_id': widget_list.top_languages_id, 'data': soc_top_languages(self.posts, 'day', 5)},
+                {'name': 'top_locations', 'widget_id': widget_list.top_locations_id, 'data': soc_top_locations(self.posts, 'day', 5)},
             ]
         }

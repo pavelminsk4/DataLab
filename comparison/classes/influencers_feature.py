@@ -14,7 +14,7 @@ from project_social.widgets.demography.authors_by_gender import calculate_for_au
 from project_social.widgets.influencers.overall_top_authors import get_top_authors as soc_overall_top_authors
 from project_social.widgets.influencers.top_sharing_sources import get_mosts as soc_top_sharing_sources
 
-from project_social.widgets.filters_for_widgets import posts_agregator as get_soc_posts
+from project_social.widgets.filters_for_widgets import posts_aggregator as get_soc_posts
 from widgets.common_widget.filters_for_widgets import posts_with_filters as get_onl_posts
 
 from project_social.models import ProjectSocial, SocialWidgetsList
@@ -34,13 +34,13 @@ class InfluencersOnline:
             'project_id': self.project.pk,
             'module': 'online',
             'widgets': [
-                {'name': 'top_sharing_sources', 'widget_id':widget_list.top_sharing_sources_id, 'data': onl_top_sharing_sources(self.posts)},
-                {'name': 'authors_by_language', 'widget_id':widget_list.authors_by_language_id, 'data': onl_authors_by_language(self.posts, 5)},
-                {'name': 'overall_top_sources', 'widget_id':widget_list.overall_top_sources_id, 'data': onl_overall_top_sources(self.posts)},
-                {'name': 'overall_top_authors', 'widget_id':widget_list.overall_top_authors_id, 'data': onl_overall_top_authors(self.posts)},
-                {'name': 'authors_by_location', 'widget_id':widget_list.authors_by_country_id, 'data': onl_authors_by_location(self.posts, 5)},
-                {'name': 'authors_by_sentiment', 'widget_id':widget_list.authors_by_sentiment_id, 'data': onl_authors_by_sentiment(self.posts, 5)},
-                {'name': 'sources_by_language', 'widget_id':widget_list.sources_by_language_id, 'data': onl_sources_by_language(self.posts, 5)},
+                {'name': 'top_sharing_sources', 'widget_id': widget_list.top_sharing_sources_id, 'data': onl_top_sharing_sources(self.posts)},
+                {'name': 'authors_by_language', 'widget_id': widget_list.authors_by_language_id, 'data': onl_authors_by_language(self.posts, 5)},
+                {'name': 'overall_top_sources', 'widget_id': widget_list.overall_top_sources_id, 'data': onl_overall_top_sources(self.posts)},
+                {'name': 'overall_top_authors', 'widget_id': widget_list.overall_top_authors_id, 'data': onl_overall_top_authors(self.posts)},
+                {'name': 'authors_by_location', 'widget_id': widget_list.authors_by_country_id, 'data': onl_authors_by_location(self.posts, 5)},
+                {'name': 'authors_by_sentiment', 'widget_id': widget_list.authors_by_sentiment_id, 'data': onl_authors_by_sentiment(self.posts, 5)},
+                {'name': 'sources_by_language', 'widget_id': widget_list.sources_by_language_id, 'data': onl_sources_by_language(self.posts, 5)},
             ]
         }
 
@@ -57,13 +57,13 @@ class InfluencersSocial:
             'project_id': self.project.pk,
             'module': 'social',
             'widgets': [
-                {'name': 'top_sharing_sources', 'widget_id':widget_list.top_sharing_sources_id, 'data': soc_top_sharing_sources(self.posts)},
-                {'name': 'authors_by_sentiment', 'widget_id':widget_list.authors_by_sentiment_id, 'data': soc_authors_by_sentiment(self.posts, 5)},
-                {'name': 'overall_top_authors', 'widget_id':widget_list.overall_top_authors_id, 'data': soc_overall_top_authors(self.posts)},
-                {'name': 'top_authors_by_gender', 'widget_id':widget_list.top_authors_by_gender_id, 'data': soc_top_authors_by_gender(self.posts)},
-                {'name': 'authors_by_location', 'widget_id':widget_list.authors_by_location_id, 'data': soc_authors_by_location(self.posts, 5)},
-                {'name': 'authors_by_gender', 'widget_id':widget_list.authors_by_gender_id, 'data': soc_authors_by_gender(self.posts, 5)},
-                {'name': 'authors_by_language', 'widget_id':widget_list.authors_by_language_id, 'data': soc_authors_by_language(self.posts, 5)},
+                {'name': 'top_sharing_sources', 'widget_id': widget_list.top_sharing_sources_id, 'data': soc_top_sharing_sources(self.posts)},
+                {'name': 'authors_by_sentiment', 'widget_id': widget_list.authors_by_sentiment_id, 'data': soc_authors_by_sentiment(self.posts, 5)},
+                {'name': 'overall_top_authors', 'widget_id': widget_list.overall_top_authors_id, 'data': soc_overall_top_authors(self.posts)},
+                {'name': 'top_authors_by_gender', 'widget_id': widget_list.top_authors_by_gender_id, 'data': soc_top_authors_by_gender(self.posts)},
+                {'name': 'authors_by_location', 'widget_id': widget_list.authors_by_location_id, 'data': soc_authors_by_location(self.posts, 5)},
+                {'name': 'authors_by_gender', 'widget_id': widget_list.authors_by_gender_id, 'data': soc_authors_by_gender(self.posts, 5)},
+                {'name': 'authors_by_language', 'widget_id': widget_list.authors_by_language_id, 'data': soc_authors_by_language(self.posts, 5)},
             ]
         }
 
@@ -74,10 +74,10 @@ class InfluencersFactory:
         self.project_id = item.module_project_id
 
     modules = {
-        'Project':       {'model': Project, 'class': InfluencersOnline},
+        'Project': {'model': Project, 'class': InfluencersOnline},
         'ProjectSocial': {'model': ProjectSocial, 'class': InfluencersSocial}
     }
-    
+
     def define(self):
         module = self.modules[self.module_type]
         return module['class'](module['model'].objects.get(id=self.project_id))
