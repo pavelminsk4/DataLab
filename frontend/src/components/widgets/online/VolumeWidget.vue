@@ -53,9 +53,7 @@ export default {
       return this.widgetDetails.widgetData || this.onlineWidgets.volume.data
     },
     labels() {
-      return this.contentVolumeWidgetData.map((el) =>
-        defaultDate(el.date, this.platformLanguage)
-      )
+      return this.contentVolumeWidgetData.map((el) => el.date)
     },
     chartValues() {
       return [

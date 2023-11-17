@@ -14,7 +14,7 @@
       @save-chart-settings="saveChartType"
     >
       <OnlineMainWidget
-        :widgetDetails="widgetDetails"
+        :widgetDetails="newWidgetDetails"
         :is-settings="true"
         :new-chart-type="newChartType"
         :style="`height: ${widgetDetails.height};`"
@@ -51,6 +51,7 @@ export default {
   data() {
     return {
       newChartType: '',
+      newAggregationPeriod: '',
     }
   },
   computed: {
@@ -59,6 +60,13 @@ export default {
     }),
     widgetName() {
       return this.widgetDetails.name
+    },
+    newWidgetDetails() {
+      return {
+        ...this.widgetDetails,
+        aggregation_period:
+          this.newAggregationPeriod || this.widgetDetails.aggregation_period,
+      }
     },
   },
   methods: {
@@ -164,6 +172,7 @@ export default {
     },
 
     async changeAggregationPeriod(aggregationPeriod) {
+      this.newAggregationPeriod = aggregationPeriod
       await this[this.widgetDetails.actionName]({
         projectId: this.widgetDetails.projectId,
         widgetId: this.widgetDetails.id,
