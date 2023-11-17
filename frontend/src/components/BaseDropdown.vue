@@ -70,6 +70,9 @@ export default {
 
 <style lang="scss" scoped>
 .dropdown-wrapper {
+  --position-top: 30px;
+  --position-right: 2px;
+
   position: relative;
 
   display: flex;
@@ -90,21 +93,20 @@ export default {
   }
 
   .dropdown {
-    z-index: 2;
-
     position: absolute;
-    top: 30px;
-    right: 2px;
+    top: var(--position-top);
+    right: var(--position-right);
+    z-index: 2;
 
     display: flex;
     flex-direction: column;
-
-    cursor: pointer;
 
     min-width: 100%;
 
     border-radius: 8px;
     box-shadow: 1px 2px 6px rgba(135, 135, 135, 0.25);
+
+    cursor: pointer;
 
     font-size: 12px;
     color: var(--typography-primary-color);
@@ -112,10 +114,10 @@ export default {
 }
 
 .arrow-down {
-  cursor: pointer;
-
   width: 8px;
   height: 8px;
+
+  cursor: pointer;
 
   color: var(--typography-primary-color);
 
