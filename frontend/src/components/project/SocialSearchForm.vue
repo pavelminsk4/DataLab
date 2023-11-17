@@ -203,8 +203,6 @@ export default {
           case 'author':
             return await this[action.GET_AUTHORS](searchValue)
         }
-      } catch (error) {
-        console.error(error)
       } finally {
         this.isLoadingFilters[name] = false
       }

@@ -317,8 +317,6 @@ export default {
           document.body.appendChild(anchor)
           anchor.click()
           document.body.removeChild(anchor)
-        } catch (error) {
-          console.error(error)
         } finally {
           this.toggleWidgetsModal('isOpenDownloadReportModal')
         }

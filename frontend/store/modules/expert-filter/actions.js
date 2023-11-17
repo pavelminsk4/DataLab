@@ -8,9 +8,6 @@ export default {
       const response = await api.getPresetsGroups()
       commit(mutator.SET_PRESETS_GROUPS, response)
       return response
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -22,9 +19,6 @@ export default {
       commit(mutator.SET_NEW_PRESETS_GROUP, response)
       await dispatch(action.GET_PRESETS_GROUPS)
       return response
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -35,9 +29,6 @@ export default {
       const response = await api.deletePresetsGroup({groupId})
       await dispatch(action.GET_PRESETS_GROUPS)
       return response
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -48,9 +39,6 @@ export default {
       const response = await api.updatePresetsGroup({groupId, data})
       await dispatch(action.GET_PRESETS_GROUPS)
       return response
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -62,9 +50,6 @@ export default {
       const response = await api.getPresets()
       commit(mutator.SET_PRESETS, response)
       return response
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -81,9 +66,6 @@ export default {
         data: {presets: [...presetsIds, response.id]},
       })
       return response
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -94,9 +76,6 @@ export default {
       const response = await api.deletePreset(presetId)
       await dispatch(action.GET_PRESETS_GROUPS)
       return response
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -107,9 +86,6 @@ export default {
       const response = await api.updatePreset({presetId, data})
       await dispatch(action.GET_PRESETS_GROUPS)
       return response
-    } catch (error) {
-      console.error(error)
-      return error
     } finally {
       commit(mutator.SET_LOADING, false)
     }

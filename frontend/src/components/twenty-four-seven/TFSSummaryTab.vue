@@ -159,8 +159,6 @@ export default {
 
         this.newHeader = this.translatedText.header
         this.newText = this.translatedText.text
-      } catch (error) {
-        console.error(error)
       } finally {
         this.loadingTranslation = false
       }

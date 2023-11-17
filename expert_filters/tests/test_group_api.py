@@ -8,7 +8,7 @@ import json
 
 
 class GroupTests(APITestCase):
-    def test_preset_list(self):
+    def test_group_list(self):
         user = User.objects.create(username='MiskKSA')
         user2 = User.objects.create(username='Stranger')
         self.client.force_login(user2)
