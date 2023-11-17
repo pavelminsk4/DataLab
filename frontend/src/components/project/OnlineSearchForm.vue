@@ -214,8 +214,6 @@ export default {
           case 'source':
             return await this[action.GET_SOURCES](searchValue)
         }
-      } catch (error) {
-        console.error(error)
       } finally {
         this.isLoadingFilters[name] = false
       }

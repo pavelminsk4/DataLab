@@ -6,8 +6,15 @@
     aria-modal="true"
   >
     <div :style="modalFrameStyle" class="base-modal">
-      <div class="base-modal-content">
-        <div class="base-modal-body scroll">
+      <div
+        :class="['base-modal-content', isOverflowVisible && 'overflow-visible']"
+      >
+        <div
+          :class="[
+            'base-modal-body',
+            isOverflowVisible ? 'overflow-visible' : 'scroll',
+          ]"
+        >
           <button type="button" class="close" @click="close">
             <CrossIcon :class="closeIconClass" />
           </button>
@@ -39,6 +46,7 @@ export default {
     modalFrameStyle: {type: String, default: ''},
     title: {type: String, default: ''},
     isGeneralPadding: {type: Boolean, default: true},
+    isOverflowVisible: {type: Boolean, default: false},
   },
   created() {
     document.addEventListener('keydown', this.pressedEsc)
@@ -180,6 +188,10 @@ export default {
   cursor: pointer;
 
   color: var(--typography-primary-color);
+}
+
+.overflow-visible {
+  overflow: visible;
 }
 
 @media (max-width: 767px) {

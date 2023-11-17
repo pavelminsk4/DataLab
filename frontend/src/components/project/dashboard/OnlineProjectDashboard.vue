@@ -33,6 +33,13 @@
       @close="toggleWidgetsModal('isOpenDownloadReportModal')"
     />
 
+    <ExpertFilterModal
+      v-if="isOpenExpertFilterModal"
+      :project-presets="currentProject.expert_presets"
+      @add-expert-filter="addExpertFilterToProject"
+      @close="toggleWidgetsModal('isOpenExpertFilterModal')"
+    />
+
     <MainLayoutTitleBlock
       :title="currentProject.title"
       :description="currentProject.note"
@@ -45,50 +52,21 @@
       <TotalResults v-if="searchData.length" :total-results="numberOfPosts" />
     </MainLayoutTitleBlock>
 
-    <div class="analytics-menu">
-      <BaseDropdown
-        title="Sort by"
-        name="sort-posts"
-        :selected-value="snakeCaseToSentenseCase(sortValue)"
-        class="sort-dropdown"
-      >
-        <CustomText
-          v-for="(item, index) in sortingList"
-          :key="item + index"
-          :text="snakeCaseToSentenseCase(item)"
-          @click="setSortingValue(item)"
-        />
-      </BaseDropdown>
+    <OnlineDashboardControlPanel
+      :sort-value="sortValue"
+      :downloading-instant-report="downloadingInstantReport"
+      @open-modal="toggleWidgetsModal"
+      @download-report="downloadReport"
+      @set-sorting-value="setSortingValue"
+      @open-widgets-list-modal="toggleWidgetsModal('isOpenWidgetsModal')"
+    />
 
-      <div class="menu-buttons">
-        <BaseButton
-          :is-not-background="true"
-          class="button-upload"
-          @click="downloadReport"
-        >
-          <component
-            :is="downloadReportButtonIcon"
-            style="--spinner-width: 16px"
-          ></component>
-          <CustomText text="Download Report" />
-        </BaseButton>
-
-        <div class="navigation-bar">
-          <BaseButton
-            class="button"
-            @click="toggleWidgetsModal('isOpenWidgetsModal')"
-          >
-            <PlusIcon class="icon" />
-            <CustomText text="Add Widgets" />
-          </BaseButton>
-
-          <FiltersIcon
-            class="filters-button"
-            @click="toggleWidgetsModal('isOpenFilterModal')"
-          />
-        </div>
-      </div>
-    </div>
+    <PresetsBar
+      :presets="currentPresets"
+      class="presets-chips"
+      @cancel-preset="cancelPreset"
+      @clear-all-presets="clearAllPresets"
+    />
 
     <div class="dashboard-wrapper">
       <SearchResults
@@ -112,48 +90,42 @@
 <script>
 import {mapActions, mapGetters, createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
-import {snakeCaseToSentenseCase} from '@lib/utilities'
 
-import OnlineProjectDashboardWidgets from '@/components/project/dashboard/OnlineProjectDashboardWidgets'
-import BaseButton from '@/components/common/BaseButton'
-import PlusIcon from '@/components/icons/PlusIcon'
+import TotalResults from '@/components/TotalResults'
+import SearchResults from '@/components/SearchResults'
+import PresetsBar from '@components/expert-filter/PresetsBar'
 import WidgetsListModal from '@/components/widgets/modals/WidgetsListModal'
-import FiltersIcon from '@/components/icons/FiltersIcon'
-import OnlineFiltersModal from '@/components/project/modals/online/OnlineFiltersModal'
-import ReportsUploadIcon from '@/components/icons/ReportsUploadIcon'
-import BaseDropdown from '@/components/BaseDropdown'
 import MainLayoutTitleBlock from '@/components/layout/MainLayoutTitleBlock'
 import InteractiveWidgetModal from '@/components/modals/InteractiveWidgetModal'
-import TotalResults from '@/components/TotalResults'
-import CustomText from '@/components/CustomText'
-import SearchResults from '@/components/SearchResults'
+import OnlineFiltersModal from '@/components/project/modals/online/OnlineFiltersModal'
 import DownloadInformationModal from '@/components/project/modals/DownloadInformationModal'
-import BaseButtonSpinner from '@/components/BaseButtonSpinner'
+import OnlineDashboardControlPanel from '@/components/project/dashboard/OnlineDashboardControlPanel'
+import OnlineProjectDashboardWidgets from '@/components/project/dashboard/OnlineProjectDashboardWidgets'
+
+const {mapActions: mapExpertFilterActions, mapState: mapExpertFilterState} =
+  createNamespacedHelpers('expertFilter')
 
 const {mapActions: mapOnlineActions, mapState} =
   createNamespacedHelpers('online')
 
 const {mapGetters: mapOnlineWidgetsGetters} =
   createNamespacedHelpers('online/widgets')
+import ExpertFilterModal from '@/components/expert-filter/ExpertFilterModal'
 
 export default {
   name: 'OnlineProjectDashboard',
   components: {
-    OnlineProjectDashboardWidgets,
-    InteractiveWidgetModal,
-    MainLayoutTitleBlock,
-    BaseDropdown,
-    ReportsUploadIcon,
-    OnlineFiltersModal,
-    FiltersIcon,
-    WidgetsListModal,
-    PlusIcon,
-    BaseButton,
+    PresetsBar,
     TotalResults,
-    CustomText,
     SearchResults,
+    MainLayoutTitleBlock,
+    WidgetsListModal,
+    ExpertFilterModal,
+    OnlineFiltersModal,
+    InteractiveWidgetModal,
     DownloadInformationModal,
-    BaseButtonSpinner,
+    OnlineDashboardControlPanel,
+    OnlineProjectDashboardWidgets,
   },
   props: {
     currentProject: {type: [Array, Object], required: false},
@@ -163,8 +135,8 @@ export default {
       isOpenWidgetsModal: false,
       isOpenFilterModal: false,
       isOpenDownloadReportModal: false,
-      sortValue: '',
-      sortingValue: '',
+      isOpenExpertFilterModal: false,
+      sortValue: 'Latest',
       widgetId: null,
       page: 1,
       countPosts: 4,
@@ -179,6 +151,10 @@ export default {
     ...mapState({
       downloadingInstantReport: (state) => state.downloadingInstantReport,
     }),
+    ...mapExpertFilterState({
+      presets: (state) => state.presets,
+      newGroupId: (state) => state.newGroup.id,
+    }),
     ...mapOnlineWidgetsGetters({
       clippingData: get.CLIPPING_FEED_CONTENT_WIDGET,
     }),
@@ -190,6 +166,12 @@ export default {
       interactiveDataModal: get.INTERACTIVE_DATA_MODAL,
       department: get.DEPARTMENT,
     }),
+
+    currentPresets() {
+      return this.presets.filter((item) =>
+        this.currentProject.expert_presets.includes(item.id)
+      )
+    },
     currentKeywords() {
       return this.currentProject?.keywords
     },
@@ -198,31 +180,6 @@ export default {
     },
     currentExcludeKeywords() {
       return this.currentProject?.ignore_keywords
-    },
-    sortingList() {
-      return [
-        'country',
-        'language',
-        'source',
-        'potential_reach_desc',
-        'potential_reach',
-        'date_desc',
-        'date',
-      ]
-    },
-    sortingValueProxy: {
-      get() {
-        return this.sortingValue
-      },
-      set(value) {
-        this.sortingValue = value
-      },
-    },
-
-    downloadReportButtonIcon() {
-      return this.downloadingInstantReport
-        ? 'BaseButtonSpinner'
-        : 'ReportsUploadIcon'
     },
   },
   created() {
@@ -233,6 +190,8 @@ export default {
       ],
     })
 
+    this[action.GET_PRESETS]()
+
     this.showResults()
   },
   methods: {
@@ -242,11 +201,12 @@ export default {
     ]),
     ...mapOnlineActions([
       action.POST_SEARCH,
+      action.UPDATE_PROJECT,
       action.POST_INTERACTIVE_WIDGETS,
       action.UPDATE_AVAILABLE_WIDGETS,
       action.GET_INSTANT_REPORT,
     ]),
-    snakeCaseToSentenseCase,
+    ...mapExpertFilterActions([action.GET_PRESETS, action.CREATE_PRESET]),
     setSortingValue(item) {
       this.sortValue = item
       this.showResults()
@@ -316,6 +276,32 @@ export default {
       this.toggleWidgetsModal('isOpenWidgetsModal')
     },
 
+    async addExpertFilterToProject(presets) {
+      await this[action.UPDATE_PROJECT]({
+        projectId: this.currentProject?.id,
+        data: {expert_presets: presets},
+      })
+
+      this.toggleWidgetsModal('isOpenExpertFilterModal')
+    },
+
+    async clearAllPresets() {
+      await this[action.UPDATE_PROJECT]({
+        projectId: this.currentProject?.id,
+        data: {expert_presets: []},
+      })
+    },
+
+    async cancelPreset(presetId) {
+      const presetsIds = this.currentPresets.map(({id}) => id)
+      const remainingPresets = presetsIds.filter((id) => id !== presetId)
+
+      await this[action.UPDATE_PROJECT]({
+        projectId: this.currentProject?.id,
+        data: {expert_presets: remainingPresets},
+      })
+    },
+
     async downloadReport() {
       if (!this.downloadingInstantReport) {
         try {
@@ -331,8 +317,6 @@ export default {
           document.body.appendChild(anchor)
           anchor.click()
           document.body.removeChild(anchor)
-        } catch (error) {
-          console.error(error)
         } finally {
           this.toggleWidgetsModal('isOpenDownloadReportModal')
         }
@@ -351,6 +335,10 @@ export default {
   margin-top: 20px;
 }
 
+.presets-chips {
+  margin-top: 24px;
+}
+
 .dashboard-wrapper {
   display: flex;
   gap: 40px;
@@ -366,54 +354,5 @@ export default {
 
 .interactive-widgets {
   z-index: 1010;
-}
-
-.analytics-menu {
-  display: flex;
-  justify-content: space-between;
-
-  width: 100%;
-
-  .sort-dropdown {
-    --position-right: -52px;
-  }
-
-  .menu-buttons {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 40px;
-
-    .navigation-bar {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      gap: 22px;
-
-      .button {
-        width: 155px;
-
-        .icon {
-          margin-right: 10px;
-        }
-      }
-    }
-  }
-}
-
-.button-upload {
-  gap: 15px;
-  padding: 0 20px;
-
-  font-size: 14px;
-  line-height: 20px;
-}
-
-.filters-button {
-  cursor: pointer;
-
-  &:hover {
-    color: var(--primary-color);
-  }
 }
 </style>

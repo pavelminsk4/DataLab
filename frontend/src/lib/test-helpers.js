@@ -17,6 +17,9 @@ import socialWidgetsGetters from '@store/modules/social/widgets/getters'
 import accountAnalysisState from '@store/modules/account-analysis/state'
 import accountAnalysisGetters from '@store/modules/account-analysis/getters'
 
+import expertFilterState from '@store/modules/expert-filter/state'
+import expertFilterGetters from '@store/modules/expert-filter/getters'
+
 export const createNewStore = (newState) => {
   return createStore({
     modules: {
@@ -53,6 +56,12 @@ export const createNewStore = (newState) => {
         actions,
         getters: accountAnalysisGetters,
         state: accountAnalysisState,
+      },
+      expertFilter: {
+        namespaced: true,
+        actions,
+        getters: expertFilterGetters,
+        state: expertFilterState,
       },
     },
     namespaced: true,

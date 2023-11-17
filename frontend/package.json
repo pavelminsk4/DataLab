@@ -53,6 +53,9 @@
     "jest-environment-jsdom": "^29.5.0",
     "prettier": "2.7.1"
   },
+  "engines" : { 
+    "node" : ">=16.16.0"
+  },
   "eslintConfig": {
     "root": true,
     "env": {

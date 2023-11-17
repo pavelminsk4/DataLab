@@ -25,13 +25,13 @@ describe('FeaturesScreen component', () => {
   const store = createNewStore()
   const wrapper = createWrapper(store)
 
-  it('should be displayed components', () => {
+  it('should be show components', () => {
     expect(wrapper.findAllComponents(TotalResults).length).toEqual(1)
     expect(wrapper.findAllComponents(MainLayoutTitleBlock).length).toEqual(2)
   })
 
   describe('when a isOpenDownloadReportModal variable change value', () => {
-    it('should be displayed modal window', async () => {
+    it('should be show modal window', async () => {
       expect(
         wrapper.findAllComponents(DownloadInformationModal).length
       ).toEqual(0)

@@ -64,7 +64,7 @@
       </BaseButton>
 
       <BaseButton :is-disabled="isDisabledButton" @click="saveProject">
-        <SaveIcon class="save-icon" />
+        <SaveIcon color="#ffffff" class="save-icon" />
         <CustomText text="Save Project" />
       </BaseButton>
     </div>

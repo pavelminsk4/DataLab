@@ -2,6 +2,7 @@ from django.core.paginator import Paginator
 from widgets.common_widget.filters_for_widgets import posts_with_filters, data_range_posts
 from project.online_parser import OnlineParser
 from project.models import Project, ChangingOnlineSentiment
+from expert_filters.services.expert_presets import ExpertPresets
 import json
 
 
@@ -19,8 +20,11 @@ class SearchService:
 
         if 'project_pk' in body:
             project = Project.objects.get(id=body['project_pk'])
-            posts = project.posts
-            posts = posts_with_filters(project, posts)
+            if project.expert_presets != []:
+                posts = ExpertPresets.apply_presets(project)
+            else:
+                posts = project.posts
+                posts = posts_with_filters(project, posts)
         else:
             posts = data_range_posts(date_range[0], date_range[1])
             parser = OnlineParser(query_filter)

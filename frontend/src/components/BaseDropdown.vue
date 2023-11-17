@@ -81,14 +81,10 @@ export default {
   cursor: pointer;
 
   .title {
-    margin-right: 12px;
-
     color: var(--typography-secondary-color);
   }
 
   .selected-value {
-    margin-right: 10px;
-
     color: var(--typography-title-color);
   }
 

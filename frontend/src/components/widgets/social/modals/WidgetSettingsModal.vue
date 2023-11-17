@@ -193,7 +193,6 @@ export default {
   flex-direction: column;
 
   height: 100%;
-  width: 450px;
 
   background-color: var(--background-secondary-color);
 }

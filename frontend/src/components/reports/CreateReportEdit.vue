@@ -36,7 +36,7 @@
   </ul>
   <footer class="create-reports__footer">
     <BaseButton @click="saveReport">
-      <SaveIcon />
+      <SaveIcon color="#ffffff" />
       <CustomText tag="span" text="Save Report" />
     </BaseButton>
   </footer>

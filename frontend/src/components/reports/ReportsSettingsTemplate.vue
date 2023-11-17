@@ -32,6 +32,7 @@ import createReportMixin from '@/lib/mixins/create-report.js'
 import CustomText from '@/components/CustomText'
 import BaseRadio from '@/components/BaseRadio'
 import BaseSelect from '@/components/BaseSelect2'
+
 export default {
   name: 'ReportsSettingsTemplate',
   mixins: [createReportMixin],

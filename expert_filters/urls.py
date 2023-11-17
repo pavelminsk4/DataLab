@@ -6,13 +6,8 @@ from expert_filters.views import PresetsViewSet
 
 app_name = 'expert_filters'
 
-urlpatterns = []
-
 router = routers.SimpleRouter()
-router.register(r'groups', GroupsViewSet, basename='expert_filters_groups')
+router.register('presets', PresetsViewSet, basename='presets')
+router.register('groups', GroupsViewSet, basename='groups')
 
-preset_router = routers.NestedDefaultRouter(router, r'groups', lookup='group')
-preset_router.register(r'presets', PresetsViewSet, basename='group-presets')
-
-urlpatterns += router.urls
-urlpatterns += preset_router.urls
+urlpatterns = router.urls

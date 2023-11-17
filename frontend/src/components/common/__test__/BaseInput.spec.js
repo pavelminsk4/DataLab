@@ -23,13 +23,13 @@ describe('BaseInput component', () => {
   const wrapper = createWrapper(store)
 
   describe('when the label is provided', () => {
-    it('should be created component and displayed input', () => {
+    it('should be created component and show input', () => {
       expect(wrapper.find('label').exists()).toBe(true)
       expect(wrapper.find('input').exists()).toBe(true)
       expect(wrapper.findAllComponents(CustomText).length).toEqual(1)
     })
 
-    it('should displayed the html tag which was passed in slot', () => {
+    it('should show the html tag which was passed in slot', () => {
       expect(wrapper.html()).toMatch('<span>Named Slot</span>')
     })
 
@@ -43,13 +43,13 @@ describe('BaseInput component', () => {
     })
 
     describe('and "isSearch" is true', () => {
-      it('should displayed the search icon', () => {
+      it('should show the search icon', () => {
         expect(wrapper.findAllComponents(SearchIcon).length).toEqual(1)
       })
     })
 
     describe('and "hasError" is true', () => {
-      it('should displayed the error icon', async () => {
+      it('should show the error icon', async () => {
         await wrapper.setProps({hasError: true})
 
         expect(wrapper.findAllComponents(ErrorIcon).length).toEqual(1)

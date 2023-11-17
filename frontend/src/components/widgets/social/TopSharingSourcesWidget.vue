@@ -7,7 +7,9 @@
     @delete-widget="$emit('delete-widget')"
     @open-modal="$emit('open-settings-modal')"
   >
-    <div class="sharing-sources-wrapper">
+    <div
+      :class="['sharing-sources-wrapper', isSettings && 'setting-container']"
+    >
       <SharingSourcesCard
         v-for="(item, index) in topSharingSources"
         :key="'source' + index"
@@ -129,7 +131,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .sharing-sources-wrapper {
   display: flex;
   gap: 12px;
@@ -171,5 +173,11 @@ export default {
   border-radius: 4px;
 
   color: var(--button-text-color);
+}
+
+.setting-container {
+  @media (max-width: 1300px) {
+    flex-direction: column;
+  }
 }
 </style>

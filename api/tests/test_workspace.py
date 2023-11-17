@@ -106,6 +106,7 @@ class WorkspaceTests(APITestCase):
                     'sentiment_dimensions': None,
                     'query_filter': None,
                     'expert_mode': False,
+                    'expert_presets': [],
                     'created_at': datetime.strftime(pr1.created_at, '%Y-%m-%dT%H:%M:%S.%fZ'),
                     'creator': user.id,
                     'report_template': None,

@@ -63,6 +63,9 @@ export default {
   --chips-background-female-color: var(--female-bg-color);
   --chips-background-male-color: var(--male-bg-color);
 
+  --sorting-primary-color: #547a01;
+  --sorting-background-primary-color: #f4fedf;
+
   --input-border-color: var(--border-color);
   --modal-border-color: #404046;
   --sidebar-border-color: #2c2c2c;

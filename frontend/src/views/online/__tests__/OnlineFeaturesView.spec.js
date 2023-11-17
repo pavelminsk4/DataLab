@@ -24,7 +24,7 @@ describe('OnlineFeaturesView component', () => {
   const store = createNewStore()
   const wrapper = createWrapper(store)
 
-  it('should be displayed component', () => {
+  it('should be show component', () => {
     expect(wrapper.findAllComponents(FeaturesScreen).length).toEqual(1)
   })
 })

@@ -62,6 +62,7 @@ class TestsProjectsAPI(APITestCase):
             'sentiment_dimensions': None,
             'query_filter': None,
             'expert_mode': False,
+            'expert_presets': [],
             'status': 'collecting_data',
         }
         res2 = {
@@ -105,6 +106,7 @@ class TestsProjectsAPI(APITestCase):
             'sentiment_dimensions': None,
             'query_filter': None,
             'expert_mode': False,
+            'expert_presets': [],
             'status': 'collecting_data',
         }
 

@@ -10,6 +10,7 @@ import alerts from '@store/modules/alerts'
 import accountAnalysis from '@store/modules/account-analysis'
 import twentyFourSeven from '@store/modules/twenty-four-seven'
 import comparison from '@store/modules/comparison'
+import expertFilter from '@store/modules/expert-filter'
 
 const store = createStore({
   state() {
@@ -33,6 +34,7 @@ const store = createStore({
     accountAnalysis,
     twentyFourSeven,
     comparison,
+    expertFilter,
   },
 })
 

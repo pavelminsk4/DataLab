@@ -15,7 +15,7 @@
         </BaseCheckbox>
 
         <BaseButton class="button" @click="saveCollectionWidgets">
-          <SaveIcon />
+          <SaveIcon color="#ffffff" />
           <CustomText text="Save" />
         </BaseButton>
       </section>

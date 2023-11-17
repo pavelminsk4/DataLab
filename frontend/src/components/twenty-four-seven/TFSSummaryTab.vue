@@ -39,7 +39,7 @@
         :button-loading="buttonSaveLoading"
         @click="$emit('save-summary', header, text)"
       >
-        <SaveIcon />
+        <SaveIcon color="#ffffff" />
         <CustomText text="Save" />
       </BaseButton>
     </div>
@@ -159,8 +159,6 @@ export default {
 
         this.newHeader = this.translatedText.header
         this.newText = this.translatedText.text
-      } catch (error) {
-        console.error(error)
       } finally {
         this.loadingTranslation = false
       }

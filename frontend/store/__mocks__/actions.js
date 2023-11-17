@@ -7,4 +7,5 @@ export default {
   [action.POST_PLATFORM_LANGUAGE]: jest.fn(),
   [action.GET_LIST_OF_PROFILE_HANDLE]: jest.fn(),
   [action.POST_SEARCH]: jest.fn(),
+  [action.GET_PRESETS_GROUPS]: jest.fn(),
 }

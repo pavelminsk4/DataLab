@@ -24,7 +24,7 @@ describe('NotFoundPage component', () => {
   const store = createNewStore()
   const wrapper = createWrapper(store)
 
-  it('should be displayed text', () => {
+  it('should be show text', () => {
     expect(wrapper.text()).toMatch('Looks Like You Are Lost...')
   })
 

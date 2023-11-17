@@ -9,12 +9,12 @@
       @click="toggle"
     >
       <div class="select__placeholder">
-        {{ currentPlaceholder || selectedValues }}
+        <span>{{ selectedValues || placeholder }}</span>
         <ArrowDownIcon />
       </div>
     </button>
     <ul :class="[isOpen && 'open', 'select__options', 'scroll']">
-      <slot :close="toggle">
+      <slot :close="toggle" :select="handleClick">
         <li
           v-for="option in options"
           :key="option"
@@ -40,7 +40,7 @@ export default {
   mixins: [translate],
   props: {
     options: {type: Array, default: () => []},
-    modelValue: {type: [Boolean, Array, String, Number], required: true},
+    modelValue: {type: [String, Boolean, Array, Number], required: true},
     isDisabled: {type: Boolean, default: false},
     isCloseOptions: {type: Boolean, default: false},
     hasError: {type: Boolean, default: false},
@@ -90,9 +90,13 @@ export default {
 
 <style lang="scss" scoped>
 .select {
+  --options-container-height: 300px;
+
   position: relative;
 
   width: 100%;
+
+  cursor: pointer;
 
   &__placeholder {
     display: flex;
@@ -104,14 +108,17 @@ export default {
 
   &__options {
     position: absolute;
+    z-index: 1;
+
     display: flex;
     flex-direction: column;
+    visibility: hidden;
+    overflow-y: auto;
+
     gap: 15px;
     padding: 15px;
-
     width: 100%;
-    max-height: 300px;
-    z-index: 1;
+    max-height: var(--options-container-height);
 
     list-style: none;
     background-color: var(--background-secondary-color);
@@ -119,8 +126,7 @@ export default {
     border-radius: var(--border-radius);
     box-shadow: 1px 2px 6px rgba(135, 135, 135, 0.25);
 
-    visibility: hidden;
-    overflow-y: auto;
+    cursor: pointer;
   }
 
   &__button {
