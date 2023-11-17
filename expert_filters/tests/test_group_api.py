@@ -13,32 +13,11 @@ class GroupTests(APITestCase):
         user2 = User.objects.create(username='Stranger')
         self.client.force_login(user2)
 
-        ps1 = PresetFactory(
-            title='First preset',
-            creator=user
-        )
-
-        ps2 = PresetFactory(
-            title='Second preset',
-            creator=user
-        )
-
-        ps3 = PresetFactory(
-            title='Stranger preset',
-            creator=user2
-        )
-
-        g1 = GroupFactory(
-            title='First Group',
-            description='Very userful description',
-            creator=user
-        )
-
-        g2 = GroupFactory(
-            title='Second Group',
-            description='Description than no one reads',
-            creator=user2
-        )
+        ps1 = PresetFactory(title='First preset', creator=user)
+        ps2 = PresetFactory(title='Second preset', creator=user)
+        ps3 = PresetFactory(title='Stranger preset', creator=user2)
+        g1 = GroupFactory(title='First Group', description='Very userful description', creator=user)
+        g2 = GroupFactory(title='Second Group', description='Description than no one reads', creator=user2)
 
         g2.presets.add(ps3.id)
 

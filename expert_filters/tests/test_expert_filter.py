@@ -6,9 +6,7 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 from unittest.mock import Mock
 import datetime
-from deepdiff import DeepDiff
 import json
-from pprint import pprint
 
 
 class ExpertFilterTests(TestCase):
@@ -16,18 +14,9 @@ class ExpertFilterTests(TestCase):
         user = User.objects.create(username='Government')
         self.client.force_login(user)
 
-        ps = PresetFactory(
-            title='First preset',
-            query=['lemon AND salt'],
-            creator=user
-        )
-
-        post1 = PostFactory(
-            entry_title='Fresh lemon'
-        )
-        post2 = PostFactory(
-            entry_title='A glass of lemon salt water.'
-        )
+        ps = PresetFactory(title='First preset', query=['lemon AND salt'], creator=user)
+        post1 = PostFactory(entry_title='Fresh lemon')
+        post2 = PostFactory(entry_title='A glass of lemon salt water.')
         
         fl = post2.feedlink
 
