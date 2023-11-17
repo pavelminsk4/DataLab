@@ -27,17 +27,17 @@ describe('BaseTable component', () => {
   const store = createNewStore()
   const wrapper = createWrapper(store)
 
-  it('should displayed the html tag which was passed in slot', () => {
+  it('should show the html tag which was passed in slot', () => {
     expect(wrapper.html()).toMatch('<span>Named Slot</span>')
   })
 
-  it('should displayed the CustomText and BaseCheckbox components', () => {
+  it('should show the CustomText and BaseCheckbox components', () => {
     expect(wrapper.findAllComponents(CustomText).length).toEqual(4)
     expect(wrapper.findAllComponents(BaseCheckbox).length).toEqual(1)
   })
 
   describe('when "hasCheckbox" is false', () => {
-    it('should not displayed BaseCheckbox component', async () => {
+    it('should not show BaseCheckbox component', async () => {
       await wrapper.setProps({hasCheckbox: false})
 
       expect(wrapper.findAllComponents(BaseCheckbox).length).toEqual(0)

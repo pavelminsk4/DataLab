@@ -23,17 +23,17 @@ describe('CreateNewGroupModal component', () => {
   const store = createNewStore()
   const wrapper = createWrapper(store)
 
-  it('should be displayed text', () => {
+  it('should be show text', () => {
     expect(wrapper.text()).toMatch('Create new group')
   })
 
-  it('should be displayed components', () => {
+  it('should be show components', () => {
     expect(wrapper.findAllComponents(BaseInput).length).toEqual(1)
     expect(wrapper.findAllComponents(BaseTextarea).length).toEqual(1)
   })
 
   describe('when the newName ana the newDescription are set', () => {
-    it('should be displayed name and description', async () => {
+    it('should be show name and description', async () => {
       expect(wrapper.vm.name).toBe('')
       expect(wrapper.vm.description).toBe('')
 

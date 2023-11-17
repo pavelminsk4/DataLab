@@ -21,12 +21,12 @@ describe('PresetCreatedModal component', () => {
   const store = createNewStore()
   const wrapper = createWrapper(store)
 
-  it('should be displayed components', () => {
+  it('should be show components', () => {
     expect(wrapper.findAllComponents(BaseModal).length).toEqual(1)
     expect(wrapper.findAllComponents(BaseButton).length).toEqual(1)
   })
 
-  it('should be displayed text', () => {
+  it('should be show text', () => {
     expect(wrapper.text()).toMatch(
       'You saved the Tigers preset to the Animals group'
     )

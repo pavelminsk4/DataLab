@@ -24,12 +24,12 @@ describe('ExpertFilterModal component', () => {
   const store = createNewStore()
   const wrapper = createWrapper(store)
 
-  it('should be displayed text', () => {
+  it('should be show text', () => {
     expect(wrapper.text()).toMatch('Expert filter')
   })
 
   describe('when the variable "isOpenSaveAsModal" is true', () => {
-    it('should be displayed component', async () => {
+    it('should be show component', async () => {
       await wrapper.setData({isOpenSaveAsModal: true})
 
       expect(wrapper.findAllComponents(SaveAsModal).length).toEqual(1)
@@ -37,7 +37,7 @@ describe('ExpertFilterModal component', () => {
   })
 
   describe('when variable "expertQuery" is set', () => {
-    it('should be displayed text', async () => {
+    it('should be show text', async () => {
       await wrapper.setData({expertQuery: ['cat OR dog']})
 
       expect(wrapper.vm.expertQuery).toEqual(['cat OR dog'])

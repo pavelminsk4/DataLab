@@ -16,12 +16,12 @@ describe('ExpertFilterButton component', () => {
   const store = createNewStore()
   const wrapper = createWrapper(store)
 
-  it('should displayed the components', () => {
+  it('should show the components', () => {
     expect(wrapper.findAllComponents(BaseButton).length).toEqual(1)
     expect(wrapper.findAllComponents(ExpertFilterIcon).length).toEqual(1)
   })
 
-  it('should displayed the text', () => {
+  it('should show the text', () => {
     expect(wrapper.text()).toMatch('Expert Filter')
   })
 })

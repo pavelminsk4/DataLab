@@ -25,7 +25,7 @@ describe('WorkspaceCard component', () => {
   const wrapper = createWrapper(store)
 
   describe('when the variable "isOpenDeleteModal" is true', () => {
-    it('should be displayed component', async () => {
+    it('should be show component', async () => {
       expect(wrapper.findAllComponents(AreYouSureModal).length).toEqual(0)
 
       await wrapper.setData({isOpenDeleteModal: true})

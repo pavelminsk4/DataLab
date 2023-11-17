@@ -32,14 +32,14 @@ describe('ProjectsTable component', () => {
   const store = createNewStore()
   const wrapper = createWrapper(store)
 
-  it('should be displayed components', () => {
+  it('should be show components', () => {
     expect(wrapper.findAllComponents(BaseTable).length).toEqual(1)
     expect(wrapper.findAllComponents(BaseTableRow).length).toEqual(3)
     expect(wrapper.findAllComponents(ProjectsTableActions).length).toEqual(3)
   })
 
   describe('when the variable "isOpenDeleteModal" is true', () => {
-    it('should be displayed component', async () => {
+    it('should be show component', async () => {
       expect(wrapper.findAllComponents(AreYouSureModal).length).toEqual(0)
 
       await wrapper.setData({isOpenDeleteModal: true})

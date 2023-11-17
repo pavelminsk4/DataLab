@@ -32,7 +32,7 @@ describe('CreateAccountAnalysisProject component', () => {
   })
 
   describe('when the project name are filled and profile are selected', () => {
-    it('should be displayed button', async () => {
+    it('should be show button', async () => {
       const button = wrapper.find('.button')
       expect(button.element.disabled).toBe(true)
 

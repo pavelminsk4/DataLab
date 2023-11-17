@@ -22,7 +22,7 @@ describe('PresetsBar component', () => {
   const wrapper = createWrapper(store)
 
   describe('when the variable "isOpenCreateGroupModal" is set', () => {
-    it('should be displayed component', async () => {
+    it('should be show component', async () => {
       expect(wrapper.findAllComponents(CreateNewGroupModal).length).toEqual(0)
 
       await wrapper.setData({isOpenCreateGroupModal: true})

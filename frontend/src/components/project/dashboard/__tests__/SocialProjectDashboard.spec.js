@@ -26,7 +26,7 @@ describe('SocialProjectDashboard component', () => {
   const store = createNewStore()
   const wrapper = createWrapper(store)
 
-  it('should be displayed components', () => {
+  it('should be show components', () => {
     expect(wrapper.findAllComponents(SearchResults).length).toEqual(1)
     expect(
       wrapper.findAllComponents(SocialProjectDashboardWidgets).length

@@ -25,7 +25,7 @@ describe('ExpertField component', () => {
   const wrapper = createWrapper(store)
 
   describe('when the label is set', () => {
-    it('should be displayed text', async () => {
+    it('should be show text', async () => {
       await wrapper.setProps({label: 'Expert Filter'})
 
       expect(wrapper.text()).toMatch('Expert Filter')
@@ -33,7 +33,7 @@ describe('ExpertField component', () => {
   })
 
   describe('when the modelValue is set', () => {
-    it('should be displayed text', () => {
+    it('should be show text', () => {
       expect(wrapper.text()).toMatch('cat OR dog')
     })
   })

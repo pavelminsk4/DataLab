@@ -26,13 +26,13 @@ describe('PresetChips component', () => {
   const store = createNewStore()
   const wrapper = createWrapper(store)
 
-  it('should be displayed components', () => {
+  it('should be show components', () => {
     expect(wrapper.findAllComponents(BaseChips).length).toEqual(1)
     expect(wrapper.findAllComponents(ArrowheadIcon).length).toEqual(1)
   })
 
   describe('when the variable "isOpenPresetOptions" is set', () => {
-    it('should be displayed component', async () => {
+    it('should be show component', async () => {
       expect(
         wrapper.findAllComponents(DropdownOptionsContainer).length
       ).toEqual(0)
