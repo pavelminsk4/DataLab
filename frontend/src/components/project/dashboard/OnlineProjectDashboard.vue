@@ -49,12 +49,13 @@
       <BaseDropdown
         title="Sort by"
         name="sort-posts"
-        :selected-value="sortValue"
+        :selected-value="snakeCaseToSentenseCase(sortValue)"
+        class="sort-dropdown"
       >
         <CustomText
           v-for="(item, index) in sortingList"
           :key="item + index"
-          :text="item"
+          :text="snakeCaseToSentenseCase(item)"
           @click="setSortingValue(item)"
         />
       </BaseDropdown>
@@ -111,6 +112,7 @@
 <script>
 import {mapActions, mapGetters, createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
+import {snakeCaseToSentenseCase} from '@lib/utilities'
 
 import OnlineProjectDashboardWidgets from '@/components/project/dashboard/OnlineProjectDashboardWidgets'
 import BaseButton from '@/components/common/BaseButton'
@@ -198,7 +200,15 @@ export default {
       return this.currentProject?.ignore_keywords
     },
     sortingList() {
-      return ['country', 'language', 'source']
+      return [
+        'country',
+        'language',
+        'source',
+        'potential_reach_desc',
+        'potential_reach',
+        'date_desc',
+        'date',
+      ]
     },
     sortingValueProxy: {
       get() {
@@ -236,6 +246,7 @@ export default {
       action.UPDATE_AVAILABLE_WIDGETS,
       action.GET_INSTANT_REPORT,
     ]),
+    snakeCaseToSentenseCase,
     setSortingValue(item) {
       this.sortValue = item
       this.showResults()
@@ -362,6 +373,10 @@ export default {
   justify-content: space-between;
 
   width: 100%;
+
+  .sort-dropdown {
+    --position-right: -52px;
+  }
 
   .menu-buttons {
     display: flex;
