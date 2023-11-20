@@ -17,9 +17,7 @@
     </section>
 
     <footer class="footer">
-      <BaseButton @click="$emit('close')">
-        <span>Done</span>
-      </BaseButton>
+      <BaseButton @click="$emit('close')">Done</BaseButton>
     </footer>
   </BaseModal>
 </template>

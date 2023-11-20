@@ -36,10 +36,9 @@
     </section>
 
     <footer class="footer">
-      <BaseButton :is-disabled="isDisabledSaveButton" @click="createPreset">
-        <SaveIcon color="#ffffff" />
-        <span>Save preset</span>
-      </BaseButton>
+      <BaseButton :is-disabled="isDisabledSaveButton" @click="createPreset"
+        ><SaveIcon color="#ffffff" />Save preset</BaseButton
+      >
     </footer>
   </BaseModal>
 </template>

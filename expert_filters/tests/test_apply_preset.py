@@ -54,9 +54,9 @@ class ApplyPresetTests(StaticLiveServerTestCase):
         time.sleep(0.5)
 
         self.driver.get(self.live_server_url + f'/online-module/workspace/{ws.id}/project/{pr.id}/dashboard')
-        self.wait.until(expect.element_to_be_clickable((By.XPATH, '//div[text()=" Expert Filter"]'))).click()
+        self.wait.until(expect.element_to_be_clickable((By.XPATH, '//div[text()="Expert Filter"]'))).click()
         self.wait.until(expect.element_to_be_clickable((By.CLASS_NAME, 'checkmark'))).click()
-        self.wait.until(expect.element_to_be_clickable((By.XPATH, '//div[text()=" Add Filter "]'))).click()
+        self.wait.until(expect.element_to_be_clickable((By.XPATH, '//div[text()="Add Filter"]'))).click()
         self.wait.until(expect.presence_of_element_located((By.XPATH, f'//*[text()="{ps.title}"]')))
         time.sleep(0.5)
 

@@ -19,13 +19,12 @@
         />
 
         <div class="expert-filter-buttons">
-          <BaseButton v-if="false" :is-not-background="true">
-            Detailed search syntax
-          </BaseButton>
-          <BaseButton :is-not-background="true" @click="resetQuery">
-            <PlusIcon class="reset-icon" />
-            Reset
-          </BaseButton>
+          <BaseButton v-if="false" :is-not-background="true"
+            >Detailed search syntax</BaseButton
+          >
+          <BaseButton :is-not-background="true" @click="resetQuery"
+            ><PlusIcon class="reset-icon" />Reset</BaseButton
+          >
         </div>
       </section>
 
@@ -84,13 +83,13 @@
     </div>
 
     <footer class="footer">
-      <BaseButton :is-not-background="true" @click="openSaveAsModal">
-        Save as
-      </BaseButton>
-      <BaseButton :is-not-background="true" @click="updatePreset">
-        Save
-      </BaseButton>
-      <BaseButton @click="addFilterToProject"> Add Filter </BaseButton>
+      <BaseButton :is-not-background="true" @click="openSaveAsModal"
+        >Save as</BaseButton
+      >
+      <BaseButton :is-not-background="true" @click="updatePreset"
+        >Save</BaseButton
+      >
+      <BaseButton @click="addFilterToProject">Add Filter</BaseButton>
     </footer>
   </BaseModal>
 </template>
