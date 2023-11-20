@@ -1,5 +1,5 @@
 <template>
-  <label class="checkbox-container" :name="id">
+  <label class="checkbox-container">
     <input
       v-model="isChecked"
       type="checkbox"
