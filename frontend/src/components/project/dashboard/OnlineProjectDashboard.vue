@@ -185,8 +185,8 @@ export default {
   created() {
     this[action.UPDATE_ADDITIONAL_FILTERS]({
       date_range: [
-        new Date(this.currentProject.start_search_date),
-        new Date(this.currentProject.end_search_date),
+        new Date(this.currentProject?.start_search_date),
+        new Date(this.currentProject?.end_search_date),
       ],
     })
 

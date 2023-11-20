@@ -1,6 +1,6 @@
 <template>
   <AccountAnalysisFeaturesView
-    v-if="currentProject"
+    v-if="workspaces.length"
     :current-project="currentProject"
   />
 </template>

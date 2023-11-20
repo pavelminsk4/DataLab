@@ -43,7 +43,7 @@ class CreateProjectTests(StaticLiveServerTestCase):
         self.driver.find_element(By.ID, 'id_password').send_keys('user')
         self.driver.find_element(By.CLASS_NAME, 'login-button').click()
 
-        self.wait.until(expect.presence_of_element_located((By.XPATH, '//h3[text()=" Online "]'))).click()
+        self.wait.until(expect.presence_of_element_located((By.XPATH, '//h3[text()="Online"]'))).click()
         self.wait.until(expect.presence_of_element_located((By.XPATH, '//h3[text()="Sensika"]'))).click()
         self.wait.until(expect.presence_of_element_located((By.XPATH, '//h1[text()="Sensika"]')))
 
@@ -59,7 +59,7 @@ class CreateProjectTests(StaticLiveServerTestCase):
 
         self.wait.until(expect.element_to_be_clickable((By.CLASS_NAME, 'base-button'))).click()
         self.wait.until(expect.visibility_of_element_located((By.XPATH, '//*[text()="Save confirmation"]')))
-        self.wait.until(expect.element_to_be_clickable((By.XPATH, '//div[text()=" Continue "]'))).click()
+        self.wait.until(expect.element_to_be_clickable((By.XPATH, '//div[text()="Continue"]'))).click()
 
         self.wait.until(expect.presence_of_element_located((
             By.XPATH, '//*[text()="The data is being collected. Your project will be ready in an hour."]')
