@@ -11,7 +11,6 @@ REST_FRAMEWORK = {
     ]
 }
 
-
 LOGGING = {
     'version': 1,
     'filters': {

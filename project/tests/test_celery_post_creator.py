@@ -3,7 +3,7 @@ from common.factories.feedlink import FeedlinkFactory
 from common.factories.status import StatusFactory
 from common.factories.speech import SpeechFactory
 from project.models import Post
-from project.tasks import post_creator
+from project.tasks.upload_posts import post_creator
 import vcr
 
 

@@ -22,31 +22,36 @@ app.conf.beat_schedule = {
     'postcreator-task-crontab': {
         'task': 'project.tasks.post_creator',
         'schedule': crontab(hour=15, minute=20, day_of_week='*'),
-        'args': (),
+        'args': ()
     },
     'alert-sender-task-crontab': {
         'task': 'alerts.tasks.alert_sender',
         'schedule': crontab(hour='*', minute='*', day_of_week='*'),
-        'args': (),
+        'args': ()
     },
     'calculate-summary-vector': {
         'task': 'ml_components.tasks.calculate_summary_vector',
         'schedule': crontab(hour='*/3', minute='0', day_of_week='*'),
-        'args': (),
+        'args': ()
     },
     'calculate-imp-sentiment': {
         'task': 'project.tasks.imp_sentiment',
         'schedule': crontab(hour='*/3', minute='0', day_of_week='*'),
-        'args': (),
+        'args': ()
     },
     'update-live-reports': {
         'task': 'tweet_binder.models.get_new_tweets_from_live_reports',
         'schedule': crontab(hour='*/1', minute='0', day_of_week='*'),
-        'args': (),
+        'args': ()
     },
     'get-new-tweets-by-basic-searches': {
         'task': 'tweet_binder.models.get_new_tweets_by_basic_search',
         'schedule': crontab(hour=3, minute=0, day_of_week='*'),
-        'args': (),
+        'args': ()
+    },
+    'run-livesearch': {
+        'task': 'project.tasks.run_livesearch.run_livesearch',
+        'schedule': crontab(hour='*', minute='*/20', day_of_week='*'),
+        'args': ()
     }
 }
