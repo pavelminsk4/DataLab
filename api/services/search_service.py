@@ -44,7 +44,7 @@ class SearchService:
             posts = posts.order_by('feedlink__alexaglobalrank')
         elif sort_posts == 'date_desc':
             posts = posts.order_by('-entry_published')
-        elif sort_posts == 'date':
+        else:
             posts = posts.order_by('entry_published')
 
         posts               = posts_values(posts)

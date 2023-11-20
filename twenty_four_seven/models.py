@@ -3,7 +3,6 @@ from django.contrib.postgres.fields import ArrayField
 from project.models import Post
 from tweet_binder.models import TweetBinderPost
 from django.db.models.signals import post_save
-from talkwalker.models import TalkwalkerPost
 from django.contrib.auth.models import User
 from django.dispatch import receiver
 from celery import shared_task
@@ -91,7 +90,7 @@ def attach_online_posts(id):
     posts = filter_with_constructor(body, posts)
     for post in posts:
         try:
-            item = Item.objects.create(online_post=post)
+            item = Item.objects.create(post=post)
             item.save()
             instance.tfs_project_items.add(item)
             if post.full_text is None:
@@ -121,7 +120,6 @@ class Item(models.Model):
         ('Irrelevant', 'Irrelevant'),
     ]
 
-    online_post = models.ForeignKey(TalkwalkerPost, on_delete=models.CASCADE, blank=True, null=True)
     post = models.ForeignKey(Post, on_delete=models.CASCADE, blank=True, null=True)
     social_post = models.ForeignKey(TweetBinderPost, on_delete=models.CASCADE, blank=True, null=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Picking')
@@ -135,7 +133,7 @@ class Item(models.Model):
 
     class Meta:
         constraints = [
-            models.UniqueConstraint(fields=['project_id', 'online_post'], name='twenty four seven online item uniqueness constraint'),
+            models.UniqueConstraint(fields=['project_id', 'post'], name='twenty four seven online item uniqueness constraint'),
             models.UniqueConstraint(fields=['project_id', 'social_post'], name='twenty four seven social item uniqueness constraint')
         ]
 

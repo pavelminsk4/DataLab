@@ -8,7 +8,7 @@ class ItemFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Item
 
-    online_post = factory.SubFactory(PostFactory)
+    post = factory.SubFactory(PostFactory)
     status = 'PCK'
     header = 'Header Text'
     text = 'Description Text'

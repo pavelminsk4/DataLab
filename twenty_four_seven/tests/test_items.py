@@ -18,9 +18,9 @@ class ItemTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         data = {
             'is_back': True,
-            'status': 'IRR',
+            'status': 'Irrelevant',
         }
         response = self.client.patch(url, data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(json.loads(response.content)['is_back'], True)
-        self.assertEqual(json.loads(response.content)['status'], 'IRR')
+        self.assertEqual(json.loads(response.content)['status'], 'Irrelevant')
