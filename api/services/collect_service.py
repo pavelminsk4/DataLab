@@ -1,10 +1,8 @@
 from project.models import Project
 from talkwalker.classes.livestream import Livestream
 from talkwalker.classes.asker import Asker
-from django_celery_beat.models import PeriodicTask, CrontabSchedule
 from alerts.services.online_posts_aggregator import posts_aggregator
 import environ
-import json
 
 env = environ.Env()
 ALLOWED_HOSTS = [env('ALLOWED_HOSTS')]
@@ -29,20 +27,6 @@ class CollectService:
 
         Asker(self.id, 'Project').run()
         Livestream(self.id, 'Project').create()
-
-        schedule = CrontabSchedule.objects.create(
-            minute='*/20',
-            hour='*',
-            day_of_week='*',
-            day_of_month='*',
-        )
-
-        PeriodicTask.objects.create(
-            crontab=schedule,
-            name=f'LiveSearch_project_{self.id}',
-            task='talkwalker.tasks.livesearch_sender',
-            args=json.dumps([self.id, 'Project']),
-        )
 
     def rss(self):
         for post in posts_aggregator(self.id):

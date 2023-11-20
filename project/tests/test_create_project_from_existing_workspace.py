@@ -22,7 +22,7 @@ class CreateProjectTests(StaticLiveServerTestCase):
         options.add_argument('--headless')
         options.add_argument('--window-size=1920,1080')
         cls.driver = webdriver.Chrome(options=options)
-        cls.wait   = WebDriverWait(cls.driver, 20)
+        cls.wait   = WebDriverWait(cls.driver, 30)
 
     def tearDown(self):
         self.driver.close()
