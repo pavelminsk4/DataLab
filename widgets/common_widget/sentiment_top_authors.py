@@ -5,10 +5,10 @@ from django.http import JsonResponse
 from django.db.models import Count
 
 
-def sentiment_top_authors(pk, widget_pk):
+def sentiment_top_authors(request, pk, widget_pk):
     posts, widget = project_posts_filter(pk, widget_pk)
     res = post_agregator_sentiment_top_authors(posts, widget.top_counts)
-    return JsonResponse(res, safe = False)
+    return JsonResponse(res, safe=False)
 
 def sentiment_top_authors_report(pk, widget_pk):
     posts, widget = project_posts_filter(pk, widget_pk)
@@ -30,3 +30,17 @@ def post_agregator_sentiment_top_authors(posts, top_counts):
         for sen in sentiments:
             results[top_authors[i]].append({'sentiment': sen, 'sentiment_count': 0})
     return results
+
+def to_csv(request, pk, widget_pk):
+    posts, widget = project_posts_filter(pk, widget_pk)
+    result = post_agregator_sentiment_top_authors(posts, widget.top_counts)
+    authors = result.keys()
+    fields = ['Author', 'Negative', 'Neutral', 'Positive']
+
+    def count_of_sentiment(array, source, sentiment):
+        for elem in array[source]:
+            if elem['sentiment'] == sentiment:
+                return elem['sentiment_count']
+            
+    rows = [[elem] + [count_of_sentiment(result, elem, sen) for sen in['negative', 'neutral', 'positive']] for elem in authors]
+    return fields, rows

@@ -6,10 +6,10 @@ import itertools
 from common.stopwords import STOPWORDS
 
 
-def top_keywords(pk, widget_pk):
+def top_keywords(request, pk, widget_pk):
     posts, widget = project_posts_filter(pk, widget_pk)
     res = post_agg_top_keywords(posts)
-    return JsonResponse(res, safe = False)
+    return JsonResponse(res, safe=False)
 
 def top_keywords_report(pk, widget_pk):
     posts, widget = project_posts_filter(pk, widget_pk)
@@ -31,3 +31,10 @@ def post_agg_top_keywords(posts):
             break
     keywords = dict(keywords)
     return [{'key' : kw, 'value' : keywords[kw]/len(posts)} for kw in keywords]
+
+def to_csv(request, pk, widget_pk):
+    posts, widget = project_posts_filter(pk, widget_pk)
+    result = post_agg_top_keywords(posts)
+    fields = ['Keyword', 'Value']
+    rows = [[elem['key'], elem['value']] for elem in result]
+    return fields, rows

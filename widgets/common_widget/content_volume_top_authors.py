@@ -9,10 +9,8 @@ import re
 
 def content_volume_top_authors(request, pk, widget_pk):
     posts, widget = project_posts_filter(pk, widget_pk)
-    body = json.loads(request.body)
-    aggregation_period = body['aggregation_period']
-    res = aggregator_results_content_volume_top_authors(posts, aggregation_period, widget.top_counts, pk)
-    return JsonResponse(res, safe = False)
+    res = aggregator_results_content_volume_top_authors(posts, widget.aggregation_period, widget.top_counts, pk)
+    return JsonResponse(res, safe=False)
 
 def content_volume_top_authors_report(pk, widget_pk):
     posts, widget = project_posts_filter(pk, widget_pk)
@@ -71,3 +69,11 @@ def aggregator_results_content_volume_top_authors(posts, aggregation_period, top
                 result[index][author].append({'date': str(line.date), 'post_count': int(line.sum)})
 
     return result
+
+def to_csv(request, pk, widget_pk):
+    posts, widget = project_posts_filter(pk, widget_pk)
+    result = aggregator_results_content_volume_top_authors(posts, widget.aggregation_period, widget.top_counts, pk)
+    dates = [str(elem['date']) for elem in list(*result[0].values())]
+    fields = ['Author'] + dates
+    rows = [[*elem.keys()] + [e['post_count'] for e in list(*elem.values())] for elem in result]
+    return fields, rows

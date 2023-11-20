@@ -6,7 +6,7 @@ from django.http import JsonResponse
 from django.db.models import Count
 
 
-def get_top_keywords_by_country(pk, widget_pk):
+def get_top_keywords_by_country(request, pk, widget_pk):
     posts, widget = project_posts_filter(pk, widget_pk)
     return JsonResponse(calculate_top_keywords_by_country(posts), safe=False)
 
@@ -22,3 +22,12 @@ def calculate_top_keywords_by_country(posts):
     countries = posts.values('feedlink__country').annotate(count=Count('feedlink__country')).order_by('-count')[:5]
     results = list(map(lambda x: {x['feedlink__country']: get_keywords(posts.filter(feedlink__country=x['feedlink__country']))}, countries))
     return results
+
+def to_csv(request, pk, widget_pk):
+    posts, widget = project_posts_filter(pk, widget_pk)
+    result = calculate_top_keywords_by_country(posts)
+    fields = ['Country', 'Keyword', 'Value']
+    rows = []
+    for elem in result:
+        [rows.append([*elem.keys(), el['key'], el['value']]) for el in list(*elem.values())]
+    return fields, rows

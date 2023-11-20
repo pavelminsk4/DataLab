@@ -3,7 +3,7 @@ from django.forms.models import model_to_dict
 from django.http import JsonResponse
 
 
-def number_of_results(pk, widget_pk):
+def number_of_results(request, pk, widget_pk):
     posts, widget = project_posts_filter(pk, widget_pk)
     res = get_sentiment_number_of_results(posts)
     return JsonResponse(res, safe=False)
@@ -38,3 +38,10 @@ def get_sentiment_number_of_results(posts):
         'negative': negative,
         'neutral':  neutral,
     }
+
+def to_csv(request, pk, widget_pk):
+    posts, widget = project_posts_filter(pk, widget_pk)
+    result = get_sentiment_number_of_results(posts)
+    fields = ['Negative', 'Neutral', 'Positive']
+    rows = [[result['negative'], result['neutral'], result['positive']]]
+    return fields, rows

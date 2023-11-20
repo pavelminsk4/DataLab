@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from django.db.models import Count
 
 
-def get_top_sharing_sources(pk, widget_pk):
+def get_top_sharing_sources(request, pk, widget_pk):
     posts, widget = project_posts_filter(pk, widget_pk)
     res = get_mosts(posts)
     return JsonResponse(res, safe=False)

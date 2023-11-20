@@ -4,10 +4,10 @@ from django.http import JsonResponse
 from django.db.models import Count
 
 
-def top_countries(pk, widget_pk):
-  posts, widget = project_posts_filter(pk, widget_pk)
-  res = post_agregator_top_countries(posts, widget.top_counts)
-  return JsonResponse(res, safe = False)
+def top_countries(request, pk, widget_pk):
+    posts, widget = project_posts_filter(pk, widget_pk)
+    res = post_agregator_top_countries(posts, widget.top_counts)
+    return JsonResponse(res, safe=False)
 
 def top_countries_report(pk, widget_pk):
     posts, widget = project_posts_filter(pk, widget_pk)
@@ -20,3 +20,10 @@ def top_countries_report(pk, widget_pk):
 def post_agregator_top_countries(posts, top_counts):
     results = posts.values('feedlink__country').annotate(country_count=Count('feedlink__country')).order_by('-country_count')[:top_counts]
     return list(results)
+
+def to_csv(request, pk, widget_pk):
+    posts, widget = project_posts_filter(pk, widget_pk)
+    result = post_agregator_top_countries(posts, widget.top_counts)
+    fields = ['Country', 'Count of posts']
+    rows = [[elem['feedlink__country'], elem['country_count']] for elem in result]
+    return fields, rows
