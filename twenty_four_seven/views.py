@@ -37,10 +37,10 @@ class ItemViewSet(viewsets.ModelViewSet):
             status = self.request.GET.get('status')
             order = self.request.GET.get('order')
             order_choices = {
-                'asc_date': 'online_post__entry_published',
-                'desc_date': '-online_post__entry_published',
-                'asc_reach': 'online_post__feedlink__alexaglobalrank',
-                'desc_reach': '-online_post__feedlink__alexaglobalrank',
+                'asc_date': 'post__entry_published',
+                'desc_date': '-post__entry_published',
+                'asc_reach': 'post__feedlink__alexaglobalrank',
+                'desc_reach': '-post__feedlink__alexaglobalrank',
             }
             field = order_choices[order]
             return Item.objects.filter(project__pk=self.kwargs['project_pk'], status=status).order_by(field)
@@ -110,10 +110,10 @@ def tfidf_top_similar(item_id, threshold):
         item = Item.objects.get(id=item_id)
         project = ProjectTwentyFourSeven.objects.get(id=item.project.id)
         items = project.tfs_project_items.all()
-        vectors = items.values('online_post__id', 'online_post__entry_title')
-        id_list = np.array([i['online_post__id'] for i in vectors])
-        titles = np.array([i['online_post__entry_title'] for i in vectors])
-        item_title = (item.online_post.id, item.online_post.entry_title)
+        vectors = items.values('post__id', 'post__entry_title')
+        id_list = np.array([i['post__id'] for i in vectors])
+        titles = np.array([i['post__entry_title'] for i in vectors])
+        item_title = (item.post.id, item.post.entry_title)
         titles_series = pd.Series(titles)
         index_series = pd.Series([(id_list[i],titles[i]) for i in range(len(titles))])
         tfidf = TfidfVectorizer()
@@ -130,8 +130,8 @@ def tfidf_top_similar(item_id, threshold):
             else:
                 break
         result_id = id_list[result_indices]
-        preserved = Case(*[When(online_post__pk=pk, then=pos) for pos, pk in enumerate(result_id)])
-        items = items.filter(online_post__pk__in=result_id).order_by(preserved)
+        preserved = Case(*[When(post__pk=pk, then=pos) for pos, pk in enumerate(result_id)])
+        items = items.filter(post__pk__in=result_id).order_by(preserved)
         return items
     except:
         return Item.objects.none()
@@ -141,21 +141,21 @@ def top_similar(item_id,threshold=0.5):
     try:
         item = Item.objects.get(id=item_id)
         project = item.project
-        items = project.tfs_project_items.exclude(online_post__summary_vector=[])
-        vectors = items.values('online_post__id', 'online_post__summary_vector')
-        id_list = np.array([i['online_post__id'] for i in vectors])
-        posts_vector = np.array([i['online_post__summary_vector'] for i in vectors])
-        cosine_scores = util.cos_sim(np.array([item.online_post.summary_vector[0]]), posts_vector.reshape(len(items),384))
+        items = project.tfs_project_items.exclude(post__summary_vector=[])
+        vectors = items.values('post__id', 'post__summary_vector')
+        id_list = np.array([i['post__id'] for i in vectors])
+        posts_vector = np.array([i['post__summary_vector'] for i in vectors])
+        cosine_scores = util.cos_sim(np.array([item.post.summary_vector[0]]), posts_vector.reshape(len(items),384))
         cosine_scores = cosine_scores.reshape(1,-1)[0]
         result = cosine_scores.argsort(descending=True)
-        items = items.filter(online_post__pk__in=id_list[result])
+        items = items.filter(post__pk__in=id_list[result])
         result_cosine = cosine_scores[result]
         result_id = id_list[result[:len(result_cosine[result_cosine>threshold])]]
         if result_id.shape == ():
             return Item.objects.none()
         result_id = result_id[1:]
-        preserved = Case(*[When(online_post__pk=pk, then=pos) for pos, pk in enumerate(result_id)])
-        items = items.filter(online_post__pk__in=result_id).order_by(preserved)
+        preserved = Case(*[When(post__pk=pk, then=pos) for pos, pk in enumerate(result_id)])
+        items = items.filter(post__pk__in=result_id).order_by(preserved)
         return items
     except:
         return Item.objects.none()
@@ -172,8 +172,8 @@ def translator(request):
 
 def summary(request, item_pk):
     item = Item.objects.get(id=item_pk)
-    post = item.online_post
+    post = item.post
     text = post.full_text or post.entry_summary or post.entry_title
-    lang = item.online_post.feed_language.language
+    lang = item.post.feed_language.language
     summary = ai_summary(text, lang)
     return JsonResponse({'summary': summary}, safe=False)

@@ -39,7 +39,7 @@ class PostSerializer(WritableNestedModelSerializer):
 
 
 class NestedItemSerializer(WritableNestedModelSerializer):
-    online_post = PostSerializer(required=False)
+    post = PostSerializer(required=False)
 
     class Meta:
         model = Item
@@ -53,7 +53,7 @@ class ItemPatchSerializer(WritableNestedModelSerializer):
 
 
 class ItemSerializer(WritableNestedModelSerializer):
-    online_post = PostSerializer(required=False)
+    post = PostSerializer(required=False)
     linked_items = NestedItemSerializer(many=True, required=False)
 
     class Meta:

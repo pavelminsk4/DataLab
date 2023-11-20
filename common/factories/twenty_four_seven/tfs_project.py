@@ -17,4 +17,3 @@ class ProjectTwentyFourSevenFactory(factory.django.DjangoModelFactory):
     end_search_date = '2023-10-10T00:00:00Z'
     workspace = factory.SubFactory(WorkspaceTwentyFourSevenFactory)
     creator = factory.SubFactory(UserFactory)
-    wa_recipient = factory.SubFactory(WARecipient)

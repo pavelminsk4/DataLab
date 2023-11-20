@@ -17,7 +17,7 @@ class ProjectTwentyFourSevenAdmin(admin.ModelAdmin):
 
 @admin.register(Item)
 class ItemAdmin(admin.ModelAdmin):
-    list_display = ('online_post', 'social_post', 'status', 'project')
+    list_display = ('post', 'social_post', 'status', 'project')
 
 
 @admin.register(WARecipient)
