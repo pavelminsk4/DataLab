@@ -131,6 +131,7 @@ TIME_ZONE = env('SERVER_TIME_ZONE')
 STATIC_URL = '/static/'
 STATIC_ROOT = 'collectstatic/'
 STATICFILES_DIRS = [
+    os.path.join(BASE_DIR),
     os.path.join(BASE_DIR, 'static'),
 ]
 
