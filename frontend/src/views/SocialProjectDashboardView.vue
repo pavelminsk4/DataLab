@@ -1,5 +1,5 @@
 <template>
-  <MainLayout v-if="currentProject">
+  <MainLayout v-if="workspaces.length">
     <SideBar :nav-urls="navUrls" @open-tab="openTab" />
 
     <div class="project-wrapper">

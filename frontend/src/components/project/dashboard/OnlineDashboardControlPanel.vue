@@ -23,8 +23,9 @@
         class="filter-button"
         @click="$emit('open-modal', item.modalName)"
       >
-        <component :style="`color: ${item.color}`" :is="item.icon" />
-        {{ item.name }}
+        <component :style="`color: ${item.color}`" :is="item.icon" />{{
+          item.name
+        }}
       </div>
     </div>
 

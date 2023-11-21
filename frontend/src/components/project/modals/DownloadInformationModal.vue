@@ -12,12 +12,9 @@
         />
       </div>
 
-      <BaseButton
-        class="downloading-reports__close-btn"
-        @click="$emit('close')"
+      <BaseButton class="downloading-reports__close-btn" @click="$emit('close')"
+        >Close</BaseButton
       >
-        Close
-      </BaseButton>
     </section>
   </BaseModal>
 </template>

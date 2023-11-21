@@ -38,7 +38,7 @@
           <div class="form-title">Owner</div>
         </div>
 
-        <BaseButton @click="saveSettings" class="button"> Save </BaseButton>
+        <BaseButton @click="saveSettings" class="button">Save</BaseButton>
       </section>
     </section>
   </BaseModal>
