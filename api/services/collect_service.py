@@ -2,6 +2,7 @@ from project.models import Project
 from talkwalker.classes.livestream import Livestream
 from talkwalker.classes.asker import Asker
 from alerts.services.online_posts_aggregator import posts_aggregator
+from django.utils import timezone
 import environ
 
 env = environ.Env()
@@ -21,6 +22,10 @@ class CollectService:
 
         [getattr(self, x)() for x in self.project.sources]
 
+        self.project.status = Project.STATUS_ACTIVE
+        self.project.synched_at = timezone.now()
+        self.project.save()
+
     def talkwalker(self):
         if ALLOWED_HOSTS[0] == 'localhost':
             return
@@ -31,6 +36,3 @@ class CollectService:
     def rss(self):
         for post in posts_aggregator(self.id):
             self.project.posts.add(post)
-
-        self.project.status = Project.STATUS_ACTIVE
-        self.project.save()

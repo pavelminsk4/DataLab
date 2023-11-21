@@ -8,12 +8,13 @@ import json
 
 class ProjectStatusTests(APITestCase):
 
-    @patch('api.services.stop_livestream_service.StopLivestreamService.execute', return_value=True)
-    def test_changing_project_status(self, stop_livestream):
+    @patch('talkwalker.classes.livestream.Livestream.delete', return_value=True)
+    @patch('talkwalker.classes.livestream.Livestream.__init__', return_value=None)
+    def test_changing_project_status(self, livestream, delete):
         user = User.objects.create(username='MiskKSA')
         self.client.force_login(user)
 
-        pr = ProjectFactory(
+        project = ProjectFactory(
             title='Project1',
             keywords=['Keyword'],
             start_search_date='2022-10-10T00:00:00Z',
@@ -21,7 +22,8 @@ class ProjectStatusTests(APITestCase):
             creator=user
         )
 
-        self.client.patch(f'/api/project_statuses/{pr.id}/', {'status': 'inactive'}, format='json')
-        stop_livestream.assert_called_with(pr.id)
+        self.client.patch(f'/api/project_statuses/{project.id}/', {'status': 'inactive'}, format='json')
+        livestream.assert_called_with(project.id, 'Project')
+        delete.assert_called()
 
-        self.assertEqual(Project.objects.get(pk=pr.id).status, Project.STATUS_INACTIVE)
+        self.assertEqual(Project.objects.get(id=project.id).status, Project.STATUS_INACTIVE)

@@ -30,10 +30,12 @@ def additional_keywords_posts(posts, additions):
     return posts
 
 
-def posts_aggregator(project_id):
-    project = get_object_or_404(Project, pk=project_id)
-    posts   = Post.objects.all()
-    posts   = keywords_posts(project.keywords, posts)
+def posts_aggregator(project_id, start_date=None, end_date=None):
+    project  = get_object_or_404(Project, pk=project_id)
+
+    interval = [start_date, end_date] if start_date else [project.start_search_date, project.end_search_date]
+    posts    = Post.objects.filter(entry_published__range=interval)
+    posts    = keywords_posts(project.keywords, posts)
 
     if project.additional_keywords and project.additional_keywords != []:
         posts = additional_keywords_posts(posts, project.additional_keywords)

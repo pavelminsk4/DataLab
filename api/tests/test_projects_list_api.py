@@ -64,6 +64,7 @@ class TestsProjectsAPI(APITestCase):
             'expert_mode': False,
             'expert_presets': [],
             'status': 'collecting_data',
+            'synched_at': None
         }
         res2 = {
             'id': pr2.id,
@@ -108,6 +109,7 @@ class TestsProjectsAPI(APITestCase):
             'expert_mode': False,
             'expert_presets': [],
             'status': 'collecting_data',
+            'synched_at': None
         }
 
         self.assertEqual(json.loads(response.content), [res1, res2])

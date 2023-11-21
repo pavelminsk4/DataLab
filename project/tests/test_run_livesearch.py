@@ -17,10 +17,18 @@ class RunLivesearchTestCase(TestCase):
 
     @patch('talkwalker.classes.livestream.Livestream.read', return_value=True)
     @patch('talkwalker.classes.livestream.Livestream.__init__', return_value=None)
-    def test_livesearch_for_active_projects(self, livestream, read):
-        """Livesearch checks updates for active projects"""
+    def test_livesearch_for_active_talkwalker_projects(self, livestream, read):
+        """Livesearch checks updates for active Talkwalker projects"""
         project = ProjectFactory(status=Project.STATUS_ACTIVE, sources=['talkwalker'])
 
         run_livesearch()
         livestream.assert_called_with(project.id, 'Project')
         read.assert_called()
+
+    @patch('api.services.rss_search_service.RssSearchService.execute', return_value=True)
+    def test_livesearch_for_active_rss_projects(self, execute):
+        """Livesearch checks updates for active RSS projects"""
+        project = ProjectFactory(status=Project.STATUS_ACTIVE, sources=['rss'])
+
+        run_livesearch()
+        execute.assert_called_with(project.id)
