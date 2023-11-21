@@ -6,12 +6,11 @@ module.exports = {
     process.env.NODE_ENV === 'production'
       ? '/static/dist/'
       : 'http://localhost:8080',
+
   pages: {
-    index: {
-      entry: './frontend/src/main.js',
-      template: './frontend/public/index.html',
-    },
+    app: 'frontend/src/main.js',
   },
+
   chainWebpack: (config) => {
     config.optimization.splitChunks(false)
 
