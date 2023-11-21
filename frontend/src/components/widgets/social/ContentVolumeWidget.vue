@@ -19,7 +19,6 @@
 <script>
 import {createNamespacedHelpers} from 'vuex'
 import {get, action} from '@store/constants'
-import {defaultDate} from '@/lib/utilities'
 
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
 import ChartsView from '@/components/charts/ChartsView'
@@ -54,9 +53,7 @@ export default {
       )
     },
     labels() {
-      return this.contentVolumeWidgetData.map((el) =>
-        defaultDate(el.date, this.platformLanguage)
-      )
+      return this.contentVolumeWidgetData.map((el) => el.date)
     },
     chartValues() {
       return [

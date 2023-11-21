@@ -88,7 +88,7 @@ export default {
         Month: (date) => {
           const currentMonth = date.getMonth()
           date.setMonth(currentMonth + 1, 0)
-          date
+          date.setHours(23, 59, 59)
           return date
         },
         Year: (date) => {
@@ -166,7 +166,9 @@ export default {
     openInteractiveData(firstValue, secondValue, dataIndex) {
       let startOfTheDay = new Date(firstValue)
       let optimalPostWidgetData = null
-      let aggregationPeriod = this.widgetDetails.aggregation_period
+      let aggregationPeriod = this.capitalizeFirstLetter(
+        this.widgetDetails.aggregation_period
+      )
 
       if (firstValue.includes('from')) {
         optimalPostWidgetData = firstValue.split(' ').filter((value) => {

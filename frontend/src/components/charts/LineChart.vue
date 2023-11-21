@@ -105,7 +105,7 @@ export default {
               label: (tooltipItem) => {
                 return this.tooltipLabels
                   ? `${this.tooltipLabels}: ${tooltipItem.formattedValue}`
-                  : tooltipItem.formattedValue
+                  : `posts: ${tooltipItem.formattedValue}`
               },
             },
             yAlign: 'bottom',

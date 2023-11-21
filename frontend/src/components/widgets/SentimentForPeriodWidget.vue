@@ -17,7 +17,6 @@
 </template>
 
 <script>
-import {defaultDate} from '@/lib/utilities'
 import translate from '@/lib/mixins/translate.js'
 
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
@@ -53,9 +52,7 @@ export default {
         })
       })
 
-      return labelsCollection.map((el) =>
-        this.defaultDate(el, this.platformLanguage)
-      )
+      return labelsCollection.map((el) => el)
     },
     chartValues() {
       let neutral = []
@@ -88,9 +85,6 @@ export default {
         },
       ]
     },
-  },
-  methods: {
-    defaultDate,
   },
 }
 </script>

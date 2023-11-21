@@ -19,8 +19,6 @@
 </template>
 
 <script>
-import {defaultDate} from '@/lib/utilities'
-
 import ChartsView from '@/components/charts/ChartsView'
 import WidgetsLayout from '@/components/layout/WidgetsLayout'
 
@@ -61,9 +59,7 @@ export default {
         labelsCollection.push(el[keys[0]])
       })
 
-      return labelsCollection[0]?.map((el) =>
-        this.defaultDate(el.date, this.platformLanguage)
-      )
+      return labelsCollection[0]?.map((el) => el.date)
     },
     chartValues() {
       if (this.customValues.length) return this.customValues
@@ -98,9 +94,6 @@ export default {
 
       return datasetsValue
     },
-  },
-  methods: {
-    defaultDate,
   },
 }
 </script>

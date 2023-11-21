@@ -4,6 +4,7 @@
 
 <script>
 import {Radar} from 'vue-chartjs'
+import {defaultDate} from '@/lib/utilities'
 
 import {
   Chart as ChartJS,
@@ -50,6 +51,20 @@ export default {
           datalabels: {
             display: false,
           },
+          tooltip: {
+            callbacks: {
+              label: (tooltipItem) => {
+                return this.tooltipLabels
+                  ? `${this.tooltipLabels}: ${tooltipItem.formattedValue}`
+                  : `posts: ${tooltipItem.formattedValue}`
+              },
+            },
+            yAlign: 'bottom',
+            titleColor: '#151515',
+            bodyColor: '#151515',
+            backgroundColor: 'rgba(255, 255, 255, 0.96)',
+            displayColors: false,
+          },
         },
         elements: {
           line: {
@@ -69,8 +84,15 @@ export default {
       }
     },
     chartData() {
+      const isDate = !isNaN(new Date(this.labels[0]))
+      let currentLabels = [...this.labels]
+      if (isDate) {
+        currentLabels = currentLabels.map((date) =>
+          defaultDate(date, this.platformLanguage)
+        )
+      }
       return {
-        labels: this.labels,
+        labels: currentLabels,
         datasets: [
           {
             label: '',

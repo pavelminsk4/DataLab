@@ -4,6 +4,8 @@
 
 <script>
 import {Doughnut} from 'vue-chartjs'
+import {defaultDate} from '@/lib/utilities'
+
 import {
   Chart as ChartJS,
   Title,
@@ -99,10 +101,17 @@ export default {
       }
     },
     chartData() {
+      const isDate = !isNaN(new Date(this.labels[0]))
+      let currentLabels = [...this.labels]
+      if (isDate) {
+        currentLabels = currentLabels.map((date) =>
+          defaultDate(date, this.platformLanguage)
+        )
+      }
       return {
         labels: this.isSentimentChart
-          ? this.labels.map((label) => this.translatedText(label))
-          : this.labels,
+          ? currentLabels.map((label) => this.translatedText(label))
+          : currentLabels,
         datasets: [
           {
             backgroundColor: this.colors,

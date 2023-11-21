@@ -14,7 +14,6 @@ import moment from 'moment'
 
 import ContentVolumeWidget from '@/components/widgets/ContentVolumeWidget'
 import {COMPARISON_COLORS} from '@lib/constants'
-import {defaultDate} from '@/lib/utilities'
 
 export default {
   name: 'ComparisonContentVolumeWidget',
@@ -48,9 +47,7 @@ export default {
         return moment(a).diff(b)
       })
 
-      return [...new Set(sortedDates)].map((date) =>
-        this.defaultDate(date, this.platformLanguage)
-      )
+      return [...new Set(sortedDates)].map((date) => date)
     },
     customValues() {
       const values = []
@@ -99,9 +96,6 @@ export default {
   },
   created() {
     this.colors = COMPARISON_COLORS
-  },
-  methods: {
-    defaultDate,
   },
 }
 </script>
