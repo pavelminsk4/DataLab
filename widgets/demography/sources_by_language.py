@@ -5,10 +5,10 @@ from django.http import JsonResponse
 from django.db.models import Count
 
 
-def get_sources_by_language(pk, widget_pk):
+def get_sources_by_language(request, pk, widget_pk):
     posts, widget = project_posts_filter(pk, widget_pk)
     results = calculate_sources_by_language(posts, widget.top_counts)
-    return JsonResponse(results, safe = False)
+    return JsonResponse(results, safe=False)
 
 def get_sources_by_language_report(pk, widget_pk):
     posts, widget = project_posts_filter(pk, widget_pk)
@@ -25,3 +25,12 @@ def calculate_sources_by_language(posts, top_counts):
         top_sources = posts.filter(feed_language__language=language).values('feedlink__source1').annotate(posts_count=Count('id')).order_by('-posts_count')[:top_counts]
         results.append({language: descending_sort({source['feedlink__source1']: source['posts_count'] for source in top_sources})})
     return results
+
+def to_csv(request, pk, widget_pk):
+    posts, widget = project_posts_filter(pk, widget_pk)
+    result = calculate_sources_by_language(posts, widget.top_counts)
+    fields = ['Language', 'Source', 'Count of posts']
+    rows = []
+    for elem in result:
+        [rows.append([*elem.keys(), el[0], el[1]]) for el in list(*elem.values())]
+    return fields, rows

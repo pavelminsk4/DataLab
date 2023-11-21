@@ -4,10 +4,10 @@ from django.forms.models import model_to_dict
 from django.http import JsonResponse
 
 
-def sentiment_top_keywords(pk, widget_pk):
+def sentiment_top_keywords(request, pk, widget_pk):
     posts, widget = project_posts_filter(pk, widget_pk)
     res = post_agg_sentiment_top_keywords(posts)
-    return JsonResponse(res, safe = False)
+    return JsonResponse(res, safe=False)
   
 def sentiment_top_keywords_report(pk, widget_pk):
     posts, widget = project_posts_filter(pk, widget_pk)
@@ -23,3 +23,12 @@ def post_agg_sentiment_top_keywords(posts):
             'neutral':  get_keywords(posts.filter(sentiment='neutral')),
             'positive': get_keywords(posts.filter(sentiment='positive')),
           }
+
+def to_csv(request, pk, widget_pk):
+    posts, widget = project_posts_filter(pk, widget_pk)
+    result = post_agg_sentiment_top_keywords(posts)
+    fields = ['Sentiment', 'Keyword', 'Value']
+    sentiments = result.keys()
+    rows = []
+    [[rows.append([elem, el['key'], el['value']]) for el in result[elem]] for elem in sentiments]
+    return fields, rows

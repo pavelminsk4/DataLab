@@ -5,7 +5,7 @@ from django.http import JsonResponse
 from django.db.models import Count
 
 
-def get_overall_top_sources(pk, widget_pk):
+def get_overall_top_sources(request, pk, widget_pk):
     posts, widget = project_posts_filter(pk, widget_pk)
     res = get_top_sources(posts)
     return JsonResponse(res, safe=False)

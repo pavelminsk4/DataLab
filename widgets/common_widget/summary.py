@@ -6,7 +6,7 @@ from project.models import Post
 import re
 
 
-def summary_widget(pk, widget_pk):
+def summary_widget(request, pk, widget_pk):
     posts, widget = project_posts_filter(pk, widget_pk)
     res = calculate_summary_widget(posts)
     return JsonResponse(res, safe=False)
@@ -91,3 +91,12 @@ def query_for_post_field(field, posts):
         )
     
     return query
+
+def to_csv(request, pk, widget_pk):
+    posts, widget = project_posts_filter(pk, widget_pk)
+    res = calculate_summary_widget(posts)
+    fields = ['authors', 'countries', 'languages', 'negative', 'neutral', 'positive', 'posts', 'reach', 'sources']
+    row = []
+    for elem in fields:
+        row.append(res[elem])
+    return fields, [row]

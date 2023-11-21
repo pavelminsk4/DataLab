@@ -4,10 +4,10 @@ from django.http import JsonResponse
 from django.db.models import Count
 
 
-def sentiment_top_countries(pk, widget_pk):
+def sentiment_top_countries(request, pk, widget_pk):
     posts, widget = project_posts_filter(pk, widget_pk)
     res = post_aggregator_sentiment_top_countries(posts, widget.top_counts)
-    return JsonResponse(res, safe = False)
+    return JsonResponse(res, safe=False)
 
 def sentiment_top_countries_report(pk, widget_pk):
     posts, widget = project_posts_filter(pk, widget_pk)
@@ -29,3 +29,17 @@ def post_aggregator_sentiment_top_countries(posts, top_counts):
         for sen in sentiments:
             results[top_countries[i]].append({'sentiment': sen, 'sentiment_count': 0})
     return results
+
+def to_csv(request, pk, widget_pk):
+    posts, widget = project_posts_filter(pk, widget_pk)
+    result = post_aggregator_sentiment_top_countries(posts, widget.top_counts)
+    sources = result.keys()
+    fields = ['Country', 'Negative', 'Neutral', 'Positive']
+
+    def count_of_sentiment(array, source, sentiment):
+        for elem in array[source]:
+            if elem['sentiment'] == sentiment:
+                return elem['sentiment_count']
+            
+    rows = [[elem] + [count_of_sentiment(result, elem, sen) for sen in['negative', 'neutral', 'positive']] for elem in sources]
+    return fields, rows

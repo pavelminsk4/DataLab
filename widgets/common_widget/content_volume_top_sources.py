@@ -9,9 +9,7 @@ import re
 
 def content_volume_top_sources(request, pk, widget_pk):
     posts, widget = project_posts_filter(pk, widget_pk)
-    body = json.loads(request.body)
-    aggregation_period = body['aggregation_period']
-    res = aggregator_results_content_volume_top_sources(posts, aggregation_period, widget.top_counts, pk)
+    res = aggregator_results_content_volume_top_sources(posts, widget.aggregation_period, widget.top_counts, pk)
     return JsonResponse(res, safe=False)
 
 
@@ -75,3 +73,12 @@ def aggregator_results_content_volume_top_sources(posts, aggregation_period, top
                 result[index][Feedlinks.objects.get(id=source).source1].append({'date': str(line.date), 'post_count': int(line.sum)})
     
     return result
+
+
+def to_cvs(request, pk, widget_pk):
+    posts, widget = project_posts_filter(pk, widget_pk)
+    result = aggregator_results_content_volume_top_sources(posts, widget.aggregation_period, widget.top_counts, pk)
+    dates = [str(elem['date']) for elem in list(*result[0].values())]
+    fields = ['Source'] + dates
+    rows = [[*elem.keys()] + [e['post_count'] for e in list(*elem.values())] for elem in result]
+    return fields, rows
