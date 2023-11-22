@@ -1,4 +1,4 @@
-import {mount} from '@vue/test-utils'
+import {mount, RouterLinkStub} from '@vue/test-utils'
 import {createNewStore, mockmixin} from '@lib/test-helpers'
 
 import BaseButton from '@/components/common/BaseButton'
@@ -12,6 +12,7 @@ const widgetDetails = {
   id: 1,
   title: 'Summary',
   name: 'summary',
+  projectId: 1,
   hasPreview: false,
   moduleName: 'Online',
   settingsTabs: ['General'],
@@ -33,6 +34,9 @@ const createWrapper = (store) =>
       return {
         panelName: 'General',
       }
+    },
+    stubs: {
+      RouterLink: RouterLinkStub,
     },
   })
 
@@ -65,15 +69,33 @@ describe('WidgetSettingsScreen component', () => {
 
   describe('when the variable hasDownloadCSVButton will be true', () => {
     it('should show the "Download CSV" button', async () => {
-      expect(wrapper.findAllComponents(BaseButton).length).toEqual(1)
-
       await wrapper.setProps({
         widgetDetails: {
           ...widgetDetails,
           hasDownloadCSVButton: true,
         },
       })
-      expect(wrapper.findAllComponents(BaseButton).length).toEqual(2)
+
+      expect(downloadCSV.attributes('href')).toBe(
+        `/api/widgets/${widgetDetails.projectId}/${widgetDetails.id}/download`
+      )
+    })
+
+    describe('when projectId and widgetId will be changed', () => {
+      it('should change href for download link', async () => {
+        await wrapper.setProps({
+          widgetDetails: {
+            ...widgetDetails,
+            id: 2,
+            projectId: 2,
+            hasDownloadCSVButton: true,
+          },
+        })
+
+        expect(wrapper.find('a').attributes('href')).toBe(
+          `/api/widgets/2/2/download`
+        )
+      })
     })
   })
 })
