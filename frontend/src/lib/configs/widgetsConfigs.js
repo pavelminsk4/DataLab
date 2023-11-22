@@ -342,6 +342,7 @@ export const widgetsConfig = {
     actionName: action.GET_TOP_AUTHORS_BY_GENDER,
     defaultChartType: 'StackedBarChart',
     availableTypes: null,
+    hasDownloadCSVButton: false,
     settingsTabs: ['General', 'Filters'],
   },
   authors_by_language: {

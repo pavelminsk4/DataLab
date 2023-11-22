@@ -56,7 +56,7 @@
       <div class="buttons">
         <a
           v-if="widgetDetails.hasDownloadCSVButton"
-          :href="`/api/widgets/${widgetDetails.projectId}/${widgetDetails.id}/download`"
+          :href="downloadLink"
           class="button button-csv"
         >
           <SaveIcon color="#e54985" />Download CSV</a
@@ -101,6 +101,11 @@ export default {
       newAggregationPeriod: '',
     }
   },
+  computed: {
+    downloadLink() {
+      return `/api/widgets/${this.widgetDetails.projectId}/${this.widgetDetails.id}/download`
+    },
+  },
   methods: {
     updateSettingPanel(val) {
       this.panelName = val
@@ -110,7 +115,7 @@ export default {
       this[optionName] = value
     },
 
-    saveChanges() {
+    saveChanges() {      
       if (this.panelName === 'General') {
         this.$emit('save-general-settings', {
           newWidgetTitle: this.newWidgetTitle,
