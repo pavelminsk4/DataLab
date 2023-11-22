@@ -53,9 +53,18 @@
         @update-chart-type="$emit('update-chart-type', $event)"
       />
 
-      <BaseButton class="button" @click="saveChanges">
-        <SaveIcon color="#ffffff" />Save
-      </BaseButton>
+      <div class="buttons">
+        <a
+          v-if="widgetDetails.hasDownloadCSVButton"
+          :href="downloadLink"
+          class="button button-csv"
+        >
+          <SaveIcon color="#e54985" />Download CSV</a
+        >
+        <BaseButton class="button" @click="saveChanges">
+          <SaveIcon color="#ffffff" />Save
+        </BaseButton>
+      </div>
     </div>
   </div>
 </template>
@@ -82,6 +91,7 @@ export default {
   },
   props: {
     widgetDetails: {type: Object, required: true},
+    isDownloadLoading: {type: Boolean, default: false},
   },
   data() {
     return {
@@ -90,6 +100,13 @@ export default {
       newWidgetDescription: '',
       newAggregationPeriod: '',
     }
+  },
+  computed: {
+    downloadLink() {
+      return `/api/${this.widgetDetails.moduleName.toLowerCase()}/${
+        this.widgetDetails.projectId
+      }/${this.widgetDetails.id}/download`
+    },
   },
   methods: {
     updateSettingPanel(val) {
@@ -178,12 +195,33 @@ export default {
       margin-top: 35px;
     }
 
-    .button {
-      gap: 6px;
-      align-self: flex-end;
+    .buttons {
+      display: flex;
+      justify-content: flex-end;
 
-      width: 84px;
+      gap: 10px;
       margin-top: 32px;
+      height: 100%;
+
+      .button-csv {
+        display: flex;
+        align-items: center;
+
+        gap: 5px;
+        height: 36px;
+        padding: 0 12px;
+
+        border-radius: 12px;
+        border: 1px solid var(--button-primary-color);
+
+        text-decoration: none;
+
+        color: var(--button-primary-color);
+      }
+      .button {
+        gap: 6px;
+        align-self: flex-end;
+      }
     }
   }
 }
