@@ -75,6 +75,29 @@ export default {
   },
   computed: {
     ...mapState(['loading', 'widgets']),
+    endOfTheDate() {
+      return {
+        Hour: (date) => {
+          date.setMinutes(59, 59)
+          return date
+        },
+        Day: (date) => {
+          date.setHours(23, 59, 59)
+          return date
+        },
+        Month: (date) => {
+          const currentMonth = date.getMonth()
+          date.setMonth(currentMonth + 1, 0)
+          date.setHours(23, 59, 59)
+          return date
+        },
+        Year: (date) => {
+          date.setMonth(11, 31)
+          date.setHours(23, 59, 59)
+          return date
+        },
+      }
+    },
   },
   methods: {
     capitalizeFirstLetter,
@@ -139,9 +162,13 @@ export default {
         moduleType: this.widgetDetails.moduleName,
       })
     },
+
     openInteractiveData(firstValue, secondValue, dataIndex) {
-      const startOfTheDay = new Date(firstValue)
+      let startOfTheDay = new Date(firstValue)
       let optimalPostWidgetData = null
+      let aggregationPeriod = this.capitalizeFirstLetter(
+        this.widgetDetails.aggregation_period
+      )
 
       if (firstValue.includes('from')) {
         optimalPostWidgetData = firstValue.split(' ').filter((value) => {
@@ -154,8 +181,12 @@ export default {
         startOfTheDay.toString() !== 'Invalid Date' &&
         !firstValue.includes('from')
       ) {
-        let endOfTheDay = new Date(firstValue)
-        endOfTheDay.setHours(23, 59, 59)
+        if (aggregationPeriod !== 'Hour') {
+          startOfTheDay.setHours(0, 0, 0)
+        }
+        let endOfTheDay = this.endOfTheDate[aggregationPeriod](
+          new Date(firstValue)
+        )
         this.showIteractiveModalData(
           {
             first_value: Array.isArray(secondValue)

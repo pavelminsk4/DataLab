@@ -9,7 +9,6 @@
 <script>
 import {action, get} from '@store/constants'
 import {createNamespacedHelpers} from 'vuex'
-import {defaultDate} from '@/lib/utilities'
 
 import SentimentForPeriodWidget from '@/components/widgets/SentimentForPeriodWidget'
 
@@ -55,7 +54,6 @@ export default {
     }
   },
   methods: {
-    defaultDate,
     ...mapActions([action.GET_SENTIMENT_FOR_PERIOD]),
   },
 }

@@ -4,6 +4,7 @@
 
 <script>
 import {Bar} from 'vue-chartjs'
+import {defaultDate} from '@/lib/utilities'
 
 import {
   Chart as ChartJS,
@@ -62,7 +63,7 @@ export default {
               label: (tooltipItem) => {
                 return this.tooltipLabels
                   ? `${this.tooltipLabels}: ${tooltipItem.formattedValue}`
-                  : tooltipItem.formattedValue
+                  : `posts: ${tooltipItem.formattedValue}`
               },
             },
             yAlign: 'bottom',
@@ -111,8 +112,15 @@ export default {
       return datasetsValue
     },
     chartData() {
+      const isDate = !isNaN(new Date(this.labels[0]))
+      let currentLabels = [...this.labels]
+      if (isDate) {
+        currentLabels = currentLabels.map((date) =>
+          defaultDate(date, this.platformLanguage)
+        )
+      }
       return {
-        labels: this.labels,
+        labels: currentLabels,
         datasets: this.chartDatasets,
       }
     },
