@@ -54,14 +54,12 @@
       />
 
       <div class="buttons">
-        <BaseButton
+        <a
           v-if="widgetDetails.hasDownloadCSVButton"
-          :is-not-background="true"
-          :button-loading="isDownloadLoading"
-          class="button"
-          @click="$emit('download-csv')"
+          :href="`/api/widgets/${widgetDetails.projectId}/${widgetDetails.id}/download`"
+          class="button button-csv"
         >
-          <SaveIcon color="#e54985" />Download CSV</BaseButton
+          <SaveIcon color="#e54985" />Download CSV</a
         >
         <BaseButton class="button" @click="saveChanges">
           <SaveIcon color="#ffffff" />Save
@@ -197,6 +195,22 @@ export default {
       gap: 10px;
       margin-top: 32px;
       height: 100%;
+
+      .button-csv {
+        display: flex;
+        align-items: center;
+
+        gap: 5px;
+        height: 36px;
+        padding: 0 12px;
+
+        border-radius: 12px;
+        border: 1px solid var(--button-primary-color);
+
+        text-decoration: none;
+
+        color: var(--button-primary-color);
+      }
       .button {
         gap: 6px;
         align-self: flex-end;

@@ -7,8 +7,6 @@
   >
     <WidgetSettingsScreen
       :widget-details="widgetDetails"
-      :is-download-loading="isDownloadCSVLoading"
-      @download-csv="downloadCSV"
       @save-general-settings="saveGeneralChanges"
       @save-filters-settings="saveFiltersChanges"
       @update-chart-type="($event) => (newChartType = $event)"
@@ -54,7 +52,6 @@ export default {
     return {
       newChartType: '',
       newAggregationPeriod: '',
-      isDownloadCSVLoading: false,
     }
   },
   computed: {
@@ -74,7 +71,6 @@ export default {
   },
   methods: {
     ...mapActions([
-      action.DOWNLOAD_CSV,
       action.UPDATE_AVAILABLE_WIDGETS,
       action.POST_FILTERS_FOR_WIDGET,
     ]),
@@ -110,26 +106,6 @@ export default {
       action.GET_SENTIMENT_TOP_KEYWORDS_WIDGET,
       action.GET_LANGUAGES_BY_COUNTRY,
     ]),
-
-    async downloadCSV() {
-      this.isDownloadCSVLoading = true
-      try {
-        const res = await this[action.DOWNLOAD_CSV]({
-          projectId: this.widgetDetails.projectId,
-          widgetId: this.widgetDetails.id,
-        })
-
-        const anchor = document.createElement('a')
-        anchor.href = res
-        anchor.download = `${this.widgetDetails.title}.csv`
-
-        document.body.appendChild(anchor)
-        anchor.click()
-        document.body.removeChild(anchor)
-      } finally {
-        this.isDownloadCSVLoading = false
-      }
-    },
 
     updateCurrentWidget(newSettings) {
       this[this.widgetDetails.actionName]({
