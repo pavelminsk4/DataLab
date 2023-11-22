@@ -7,6 +7,7 @@
   >
     <WidgetSettingsScreen
       :widget-details="widgetDetails"
+      :is-download-loading="isDownloadCSVLoading"
       @download-csv="downloadCSV"
       @save-general-settings="saveGeneralChanges"
       @save-filters-settings="saveFiltersChanges"
@@ -53,6 +54,7 @@ export default {
     return {
       newChartType: '',
       newAggregationPeriod: '',
+      isDownloadCSVLoading: false,
     }
   },
   computed: {
@@ -110,18 +112,23 @@ export default {
     ]),
 
     async downloadCSV() {
-      const res = await this[action.DOWNLOAD_CSV]({
-        projectId: this.widgetDetails.projectId,
-        widgetId: this.widgetDetails.id,
-      })
+      this.isDownloadCSVLoading = true
+      try {
+        const res = await this[action.DOWNLOAD_CSV]({
+          projectId: this.widgetDetails.projectId,
+          widgetId: this.widgetDetails.id,
+        })
 
-      const anchor = document.createElement('a')
-      anchor.href = res
-      anchor.download = `${this.widgetDetails.title}.csv`
+        const anchor = document.createElement('a')
+        anchor.href = res
+        anchor.download = `${this.widgetDetails.title}.csv`
 
-      document.body.appendChild(anchor)
-      anchor.click()
-      document.body.removeChild(anchor)
+        document.body.appendChild(anchor)
+        anchor.click()
+        document.body.removeChild(anchor)
+      } finally {
+        this.isDownloadCSVLoading = false
+      }
     },
 
     updateCurrentWidget(newSettings) {

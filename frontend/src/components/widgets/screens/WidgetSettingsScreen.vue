@@ -57,6 +57,7 @@
         <BaseButton
           v-if="widgetDetails.hasDownloadCSVButton"
           :is-not-background="true"
+          :button-loading="isDownloadLoading"
           class="button"
           @click="$emit('download-csv')"
         >
@@ -92,6 +93,7 @@ export default {
   },
   props: {
     widgetDetails: {type: Object, required: true},
+    isDownloadLoading: {type: Boolean, default: false},
   },
   data() {
     return {
