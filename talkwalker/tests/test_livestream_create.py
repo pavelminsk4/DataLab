@@ -4,11 +4,12 @@ from common.factories.speech import SpeechFactory
 from talkwalker.classes.livestream import Livestream
 from project.models import Post, Feedlinks
 from django.test import TestCase
-import httpretty
+import responses
 import re
 
 
 class LivestreamTestCase(TestCase):
+    token = 'acfaad27-3948-4e13-a617-2d33fd97552a_ZStqaRbxfzpRBT7YfbIqUPJPVwa2.QUzpFqzvPtKdHdc5UNZrYlHyk03MPxVkGKfZ6n3Y4i.meiy.FNZ621ZSmhzzb.gJAlvHtslEq7PP0B3JbDC4BS1y.hwK9fPz7vMQXvSfQFXka9.gEKovum-Pu0LYzy8GSjjSLvBdA1fV5M'
     body = '\n'.join([
         re.sub(r'\s+', '', """
         {
@@ -235,24 +236,41 @@ class LivestreamTestCase(TestCase):
         }""")
     ])
 
+    body_ending = re.sub(r'\s+', '', """
+        {
+            "chunk_type": "CT_CONTROL",
+            "chunk_control": {
+                "connection_id": "#s1ydl1qjeb9r#",
+                "resume_offset": "earliest",
+                "collector_id": "live_search-1"
+            }
+        }
+    """)
+
     def setUp(self):
         SpeechFactory(language='English (United States)')
 
-    @httpretty.activate
+    @responses.activate
     def test_livestream_read(self):
         """Livestream can trigger method read"""
         project = ProjectFactory()
-        httpretty.register_uri(
-            httpretty.GET,
-            f'https://api.talkwalker.com/api/v3/stream/c/livestream-{project.id}-onl-col/results?access_token=acfaad27-3948-4e13-a617-2d33fd97552a_ZStqaRbxfzpRBT7YfbIqUPJPVwa2.QUzpFqzvPtKdHdc5UNZrYlHyk03MPxVkGKfZ6n3Y4i.meiy.FNZ621ZSmhzzb.gJAlvHtslEq7PP0B3JbDC4BS1y.hwK9fPz7vMQXvSfQFXka9.gEKovum-Pu0LYzy8GSjjSLvBdA1fV5M&end_behaviour=stop',
+        responses.add(
+            responses.GET,
+            f'https://api.talkwalker.com/api/v3/stream/c/livestream-{project.id}-onl-col/results?access_token={self.token}&end_behaviour=stop&resume_offset=earliest',
             body=self.body
+        )
+
+        responses.add(
+            responses.GET,
+            f'https://api.talkwalker.com/api/v3/stream/c/livestream-{project.id}-onl-col/results?access_token={self.token}&end_behaviour=stop&resume_offset=EgWgsqKDAQ',
+            body=self.body_ending
         )
 
         result = Livestream(project.id, 'Project').read()
         self.assertTrue(result)
         self.assertEqual(project.posts.all().count(), 2)
 
-    @httpretty.activate
+    @responses.activate
     def test_livestream_uses_existing_feedlinks(self):
         """Creating posts uses existing feedlinks instead of creating new"""
         FeedlinkFactory(sourceurl='http://www.reddit.com/')
@@ -260,10 +278,16 @@ class LivestreamTestCase(TestCase):
         FeedlinkFactory(sourceurl='http://www.scribd.com/')
 
         project = ProjectFactory()
-        httpretty.register_uri(
-            httpretty.GET,
-            f'https://api.talkwalker.com/api/v3/stream/c/livestream-{project.id}-onl-col/results?access_token=acfaad27-3948-4e13-a617-2d33fd97552a_ZStqaRbxfzpRBT7YfbIqUPJPVwa2.QUzpFqzvPtKdHdc5UNZrYlHyk03MPxVkGKfZ6n3Y4i.meiy.FNZ621ZSmhzzb.gJAlvHtslEq7PP0B3JbDC4BS1y.hwK9fPz7vMQXvSfQFXka9.gEKovum-Pu0LYzy8GSjjSLvBdA1fV5M&end_behaviour=stop',
+        responses.add(
+            responses.GET,
+            f'https://api.talkwalker.com/api/v3/stream/c/livestream-{project.id}-onl-col/results?access_token={self.token}&end_behaviour=stop&resume_offset=earliest',
             body=self.body
+        )
+
+        responses.add(
+            responses.GET,
+            f'https://api.talkwalker.com/api/v3/stream/c/livestream-{project.id}-onl-col/results?access_token={self.token}&end_behaviour=stop&resume_offset=EgWgsqKDAQ',
+            body=self.body_ending
         )
 
         result = Livestream(project.id, 'Project').read()
@@ -271,24 +295,36 @@ class LivestreamTestCase(TestCase):
         self.assertEqual(Feedlinks.objects.all().count(), 3)
         self.assertEqual(project.posts.all().count(), 2)
 
-    @httpretty.activate
+    @responses.activate
     def test_livestream_read_twice(self):
         """Livestream can be triggered for two projects with the same results"""
         project = ProjectFactory()
-        httpretty.register_uri(
-            httpretty.GET,
-            f'https://api.talkwalker.com/api/v3/stream/c/livestream-{project.id}-onl-col/results?access_token=acfaad27-3948-4e13-a617-2d33fd97552a_ZStqaRbxfzpRBT7YfbIqUPJPVwa2.QUzpFqzvPtKdHdc5UNZrYlHyk03MPxVkGKfZ6n3Y4i.meiy.FNZ621ZSmhzzb.gJAlvHtslEq7PP0B3JbDC4BS1y.hwK9fPz7vMQXvSfQFXka9.gEKovum-Pu0LYzy8GSjjSLvBdA1fV5M&end_behaviour=stop',
+        responses.add(
+            responses.GET,
+            f'https://api.talkwalker.com/api/v3/stream/c/livestream-{project.id}-onl-col/results?access_token={self.token}&end_behaviour=stop&resume_offset=earliest',
             body=self.body
+        )
+
+        responses.add(
+            responses.GET,
+            f'https://api.talkwalker.com/api/v3/stream/c/livestream-{project.id}-onl-col/results?access_token={self.token}&end_behaviour=stop&resume_offset=EgWgsqKDAQ',
+            body=self.body_ending
         )
 
         result = Livestream(project.id, 'Project').read()
         self.assertTrue(result)
 
         project2 = ProjectFactory()
-        httpretty.register_uri(
-            httpretty.GET,
-            f'https://api.talkwalker.com/api/v3/stream/c/livestream-{project2.id}-onl-col/results?access_token=acfaad27-3948-4e13-a617-2d33fd97552a_ZStqaRbxfzpRBT7YfbIqUPJPVwa2.QUzpFqzvPtKdHdc5UNZrYlHyk03MPxVkGKfZ6n3Y4i.meiy.FNZ621ZSmhzzb.gJAlvHtslEq7PP0B3JbDC4BS1y.hwK9fPz7vMQXvSfQFXka9.gEKovum-Pu0LYzy8GSjjSLvBdA1fV5M&end_behaviour=stop',
+        responses.add(
+            responses.GET,
+            f'https://api.talkwalker.com/api/v3/stream/c/livestream-{project2.id}-onl-col/results?access_token={self.token}&end_behaviour=stop&resume_offset=earliest',
             body=self.body
+        )
+
+        responses.add(
+            responses.GET,
+            f'https://api.talkwalker.com/api/v3/stream/c/livestream-{project2.id}-onl-col/results?access_token={self.token}&end_behaviour=stop&resume_offset=EgWgsqKDAQ',
+            body=self.body_ending
         )
 
         result = Livestream(project2.id, 'Project').read()
