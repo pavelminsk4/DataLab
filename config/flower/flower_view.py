@@ -1,5 +1,6 @@
 from revproxy.views import ProxyView
+import environ
 
 
 class FlowerView(ProxyView):
-    upstream = 'http://127.0.0.1:5555/flower/'
+    upstream = environ.Env()('BACKGROUND_JOBS_PATH')
