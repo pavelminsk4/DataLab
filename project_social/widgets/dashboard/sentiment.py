@@ -8,9 +8,7 @@ import json
 
 def sentiment(request, pk, widget_pk):
     posts, widget = project_posts_filter(pk, widget_pk)
-    body = json.loads(request.body)
-    aggregation_period = body['aggregation_period']
-    results = calculate_for_sentiment(posts, aggregation_period)
+    results = calculate_for_sentiment(posts, widget.aggregation_period)
     return JsonResponse(results, safe = False)
 
 def sentiment_report(pk, widget_pk):
@@ -37,3 +35,10 @@ def calculate_for_sentiment(posts, aggregation_period):
                 positive += (count_post.get("count_positive") if count_post.get("count_positive") else 0)
         results.append({str(date_trunc): {"negative": negative, "neutral": neutral, "positive": positive}})
     return results
+
+def to_csv(request, pk, widget_pk):
+    posts, widget = project_posts_filter(pk, widget_pk)
+    result = calculate_for_sentiment(posts, widget.aggregation_period)
+    fields = ['Date', 'Negative', 'Neutral', 'Positive']
+    rows = [[*elem.keys(), dict(*elem.values())['negative'], dict(*elem.values())['neutral'], dict(*elem.values())['positive']] for elem in result]
+    return fields, rows

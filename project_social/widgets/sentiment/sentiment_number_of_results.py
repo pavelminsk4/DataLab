@@ -22,3 +22,10 @@ def calculate_for_sentiment_number_of_results(posts):
         'negative': posts.filter(sentiment='negative').count(),
         'neutral':  posts.filter(sentiment='neutral').count(),
     }
+
+def to_csv(request, pk, widget_pk):
+    posts, widget = project_posts_filter(pk, widget_pk)
+    result = calculate_for_sentiment_number_of_results(posts)
+    fields = ['Negative', 'Neutral', 'Positive']
+    rows = [[result['negative'], result['neutral'], result['positive']]]
+    return fields, rows

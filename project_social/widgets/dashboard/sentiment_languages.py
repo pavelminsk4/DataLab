@@ -30,3 +30,17 @@ def calculate_for_sentiment_languages(posts, aggregation_period, top_counts):
         for sen in sentiments:
             results[top_languages[i]].append({'sentiment_count': 0, 'sentiment': sen})
     return results
+
+def to_csv(request, pk, widget_pk):
+    posts, widget = project_posts_filter(pk, widget_pk)
+    result = calculate_for_sentiment_languages(posts, widget.aggregation_period, widget.top_counts)
+    languages = result.keys()
+    fields = ['Language', 'Negative', 'Neutral', 'Positive']
+
+    def count_of_sentiment(array, source, sentiment):
+        for elem in array[source]:
+            if elem['sentiment'] == sentiment:
+                return elem['sentiment_count']
+            
+    rows = [[elem] + [count_of_sentiment(result, elem, sen) for sen in['negative', 'neutral', 'positive']] for elem in languages]
+    return fields, rows

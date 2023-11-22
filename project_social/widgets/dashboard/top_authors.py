@@ -27,3 +27,9 @@ def calculate_for_top_authors(posts, aggregation_period, top_counts):
         if not res['user_name']:
             results.remove(res)
     return results
+
+def to_csv(request, pk, widget_pk):
+    result = precalculate_result(pk, widget_pk)
+    fields = ['Author', 'Count of posts']
+    rows = [[elem['user_name'], elem['user_count']] for elem in result]
+    return fields, rows

@@ -23,3 +23,13 @@ def calculate_for_languages_by_location(posts, top_counts):
         top_languages = posts.filter(locationString=country).values('language').annotate(posts_count=Count('id')).order_by('-posts_count')[:top_counts]
         results[country] = [{'language': language['language'], 'count': language['posts_count']} for language in top_languages]
     return results
+
+def to_csv(request, pk, widget_pk):
+    posts, widget = project_posts_filter(pk, widget_pk)
+    result = calculate_for_languages_by_location(posts, widget.top_counts)
+    fields = ['Location', 'Language', 'Count of posts']
+    countries = list(result.keys())
+    rows = []
+    for country in countries:
+        [rows.append([country, el['language'], el['count']]) for el in result[country]]
+    return fields, rows

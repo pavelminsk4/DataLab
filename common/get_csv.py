@@ -1,3 +1,4 @@
+from project_social.models import SocialWidgetDescription, ProjectSocial
 from widgets.models import WidgetDescription
 from project.models import Project
 from django.http import HttpResponse
@@ -28,6 +29,62 @@ import widgets.common_widget.top_sources as sources
 import widgets.summary.top_keywords as keywords
 import widgets.common_widget.summary as summary
 
+import project_social.widgets.dashboard.content_volume_top_locations as soc_volume_location
+import project_social.widgets.dashboard.content_volume_top_languages as soc_volume_language
+import project_social.widgets.sentiment.sentiment_number_of_results as soc_sentiment_number
+import project_social.widgets.sentiment.sentiment_top_keywords as soc_sentiment_keywords
+import project_social.widgets.demography.languages_by_location as soc_languages_location
+import project_social.widgets.dashboard.content_volume_top_authors as soc_volume_author
+import project_social.widgets.dashboard.sentiment_languages as soc_sentiment_languages
+import project_social.widgets.dashboard.sentiment_locations as soc_sentiment_locations
+import project_social.widgets.influencers.authors_by_sentiment as soc_author_sentiment
+import project_social.widgets.demography.keywords_by_location as soc_keywords_location
+import project_social.widgets.sentiment.sentiment_by_gender as soc_sentiment_gender
+import project_social.widgets.demography.authors_by_language as soc_author_language
+import project_social.widgets.demography.authors_by_location as soc_author_location
+import project_social.widgets.dashboard.sentiment_authors as soc_sentiment_authors
+import project_social.widgets.demography.gender_by_location as soc_gender_location
+import project_social.widgets.demography.authors_by_gender as soc_author_gender
+import project_social.widgets.dashboard.top_locations as soc_top_locations
+import project_social.widgets.dashboard.top_languages as soc_top_languages
+import project_social.widgets.summary.gender_volume as soc_gender_volume
+import project_social.widgets.summary.top_keywords as soc_top_keywords
+import project_social.widgets.dashboard.top_authors as soc_top_authors
+import project_social.widgets.dashboard.summary_widget as soc_summary
+import project_social.widgets.dashboard.content_volume as soc_volume
+import project_social.widgets.dashboard.sentiment as soc_sentiment
+
+
+class FactoryCSV:
+    def __init__(self, request, module_type, project_pk, widget_pk):
+        self.request = request
+        self.project_pk = project_pk
+        self.widget_pk = widget_pk
+        self.module_type = module_type
+
+    def define(self):
+        return CSV(self.request, self.project_pk, self.widget_pk).execute(self.module_type)
+
+
+class CSV:
+    def __init__(self, request, project_pk, widget_pk):
+        self.request = request
+        self.project_pk = project_pk
+        self.widget_pk = widget_pk
+
+    def execute(self, module):
+        if module == 'online':
+            title = WidgetDescription.objects.get(id=self.widget_pk).default_title
+        elif module == 'social':
+            title = SocialWidgetDescription.objects.get(id=self.widget_pk).default_title
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = f'attachment; filename="{title}.csv"'
+        writer = csv.writer(response)
+        fields, rows = widgets[title].to_csv(self.request, self.project_pk, self.widget_pk)
+        writer.writerow(fields)
+        for elem in rows:
+            writer.writerow(elem)
+        return response
 
 widgets = {
     'Summary': summary,
@@ -54,16 +111,33 @@ widgets = {
     'Authors by language': authors_language,
     'Authors by sentiment': authors_sentiment,
     'Top keywords by country': keywords_countries,
-    'Top languages by country': languages_country
+    'Top languages by country': languages_country,
 }
 
-def csv_view(request, project_pk, widget_pk):
-    title = WidgetDescription.objects.get(id=widget_pk).title
-    response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = f'attachment; filename="{Project.objects.get(id=project_pk).title}_{WidgetDescription.objects.get(id=widget_pk).title}.csv"'
-    writer = csv.writer(response)
-    fields, rows = widgets[title].to_csv(request, project_pk, widget_pk)
-    writer.writerow(fields)
-    for elem in rows:
-        writer.writerow(elem)
-    return response
+social_widgets = {
+    'Summary': soc_summary,
+    'Top locations': soc_top_locations,
+    'Top authors': soc_top_authors,
+    'Top languages': soc_top_languages,
+    'Content volume': soc_volume,
+    'Content volume by top locations': soc_volume_location,
+    'Content volume by top authors': soc_volume_author,
+    'Content volume by top languages': soc_volume_language,
+    'Sentiment': soc_sentiment,
+    'Gender volume': soc_gender_volume,
+    'Sentiment number of results': soc_sentiment_number,
+    'Sentiment authors': soc_sentiment_authors,
+    'Sentiment locations': soc_sentiment_locations,
+    'Sentiment languages': soc_sentiment_languages,
+    'Sentiment by gender': soc_sentiment_gender,
+    'Top keywords': soc_top_keywords,
+    'Sentiment top keywords': soc_sentiment_keywords,
+    'Sentiment diagram': soc_sentiment_number,
+    'Authors by language': soc_author_language,
+    'Authors by location': soc_author_location,
+    'Authors by sentiment': soc_author_sentiment,
+    'Authors by gender': soc_author_gender,
+    'Top keywords by location': soc_keywords_location,
+    'Top languages by location': soc_languages_location,
+    'Top gender by location': soc_gender_location,
+}

@@ -25,3 +25,12 @@ def calculate_for_authors_by_language(posts, top_counts):
         authors_posts = {author['user_alias']: author['posts_count'] for author in top_authors}
         results.append({language: descending_sort(authors_posts)})
     return results
+
+def to_csv(request, pk, widget_pk):
+    posts, widget = project_posts_filter(pk, widget_pk)
+    result = calculate_for_authors_by_language(posts, widget.top_counts)
+    fields = ['Language', 'Author', 'Count of posts']
+    rows = []
+    for elem in result:
+        [rows.append([*elem.keys(), el[0], el[1]]) for el in list(*elem.values())]
+    return fields, rows

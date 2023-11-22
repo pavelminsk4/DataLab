@@ -8,9 +8,7 @@ import json
 
 def content_volume(request, pk, widget_pk):
     posts, widget = project_posts_filter(pk, widget_pk)
-    body = json.loads(request.body)
-    aggregation_period = body['aggregation_period']
-    res = calculate_for_content_volume(posts, aggregation_period)
+    res = calculate_for_content_volume(posts, widget.aggregation_period)
     return JsonResponse(res, safe = False)
 
 def content_volume_report(pk, widget_pk):
@@ -34,3 +32,10 @@ def calculate_for_content_volume(posts, aggregation_period):
                 count += posts[elem]['created_count']
         list_dates.append({"date": date, "created_count": count})
     return list_dates
+
+def to_csv(request, pk, widget_pk):
+    posts, widget = project_posts_filter(pk, widget_pk)
+    result = calculate_for_content_volume(posts, widget.aggregation_period)
+    fields = ['Date', 'Count of posts']
+    rows = [[elem['date'], elem['created_count']] for elem in result]
+    return fields, rows

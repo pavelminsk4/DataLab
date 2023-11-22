@@ -28,3 +28,9 @@ def calculate_for_top_languages(posts, aggregation_period, top_counts):
         if not res['language']:
             results.remove(res)
     return results
+
+def to_csv(request, pk, widget_pk):
+    result = precalculate_result(pk, widget_pk)
+    fields = ['Language', 'Count of posts']
+    rows = [[elem['language'], elem['language_count']] for elem in result]
+    return fields, rows
