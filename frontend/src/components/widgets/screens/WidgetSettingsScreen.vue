@@ -103,7 +103,9 @@ export default {
   },
   computed: {
     downloadLink() {
-      return `/api/widgets/${this.widgetDetails.projectId}/${this.widgetDetails.id}/download`
+      return `/api/${this.widgetDetails.moduleName.toLowerCase()}/${
+        this.widgetDetails.projectId
+      }/${this.widgetDetails.id}/download`
     },
   },
   methods: {
@@ -115,7 +117,7 @@ export default {
       this[optionName] = value
     },
 
-    saveChanges() {      
+    saveChanges() {
       if (this.panelName === 'General') {
         this.$emit('save-general-settings', {
           newWidgetTitle: this.newWidgetTitle,

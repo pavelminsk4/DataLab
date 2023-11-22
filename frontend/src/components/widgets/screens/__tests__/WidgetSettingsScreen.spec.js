@@ -76,8 +76,10 @@ describe('WidgetSettingsScreen component', () => {
         },
       })
 
-      expect(downloadCSV.attributes('href')).toBe(
-        `/api/widgets/${widgetDetails.projectId}/${widgetDetails.id}/download`
+      expect(wrapper.find('a').attributes('href')).toBe(
+        `/api/${widgetDetails.moduleName.toLowerCase()}/${
+          widgetDetails.projectId
+        }/${widgetDetails.id}/download`
       )
     })
 
@@ -93,7 +95,7 @@ describe('WidgetSettingsScreen component', () => {
         })
 
         expect(wrapper.find('a').attributes('href')).toBe(
-          `/api/widgets/2/2/download`
+          `/api/online/2/2/download`
         )
       })
     })
