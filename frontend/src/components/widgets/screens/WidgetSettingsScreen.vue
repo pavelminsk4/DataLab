@@ -53,9 +53,19 @@
         @update-chart-type="$emit('update-chart-type', $event)"
       />
 
-      <BaseButton class="button" @click="saveChanges">
-        <SaveIcon color="#ffffff" />Save
-      </BaseButton>
+      <div class="buttons">
+        <BaseButton
+          v-if="widgetDetails.hasDownloadCSVButton"
+          :is-not-background="true"
+          class="button"
+          @click="$emit('download-csv')"
+        >
+          <SaveIcon color="#e54985" />Download CSV</BaseButton
+        >
+        <BaseButton class="button" @click="saveChanges">
+          <SaveIcon color="#ffffff" />Save
+        </BaseButton>
+      </div>
     </div>
   </div>
 </template>
@@ -178,12 +188,17 @@ export default {
       margin-top: 35px;
     }
 
-    .button {
-      gap: 6px;
-      align-self: flex-end;
+    .buttons {
+      display: flex;
+      justify-content: flex-end;
 
-      width: 84px;
+      gap: 10px;
       margin-top: 32px;
+      height: 100%;
+      .button {
+        gap: 6px;
+        align-self: flex-end;
+      }
     }
   }
 }

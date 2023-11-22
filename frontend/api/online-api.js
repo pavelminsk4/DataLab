@@ -38,6 +38,17 @@ export default {
     return fetch('get', `/projects/${projectId}/widgets_list`)
   },
 
+  async downloadCSV({projectId, widgetId}) {
+    const response = await $api.get(
+      `/api/widgets/${projectId}/${widgetId}/download`,
+      {
+        responseType: 'blob',
+      }
+    )
+
+    return URL.createObjectURL(response.data)
+  },
+
   async postInteractiveWidget({projectId, widgetId, data}) {
     return fetch(
       'post',

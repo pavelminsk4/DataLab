@@ -4,6 +4,7 @@ const WIDGET_DEFAULT_SETTINGS = {
   height: '350px',
   isChartShow: false,
   hasPreview: true,
+  hasDownloadCSVButton: true,
   hasAggregationPeriod: true,
   settingsTabs: ['General', 'Filters', 'Chart Layout'],
 }
@@ -98,6 +99,7 @@ export const widgetsConfig = {
     actionName: action.GET_CLIPPING_FEED_CONTENT_WIDGET,
     hasAggregationPeriod: false,
     defaultChartType: null,
+    hasDownloadCSVButton: false,
     settingsTabs: ['General'],
   },
   top_authors: {
@@ -274,6 +276,7 @@ export const widgetsConfig = {
     actionName: action.GET_OVERALL_TOP_SOURCES,
     defaultChartType: 'StackedBarChart',
     availableTypes: null,
+    hasDownloadCSVButton: false,
     settingsTabs: ['General', 'Filters'],
   },
 
@@ -307,6 +310,7 @@ export const widgetsConfig = {
     hasAggregationPeriod: false,
     defaultChartType: null,
     availableTypes: null,
+    hasDownloadCSVButton: false,
     settingsTabs: ['General', 'Filters'],
   },
   content_volume_top_locations: {
@@ -329,6 +333,7 @@ export const widgetsConfig = {
     actionName: action.GET_OVERALL_TOP_AUTHORS,
     defaultChartType: 'StackedBarChart',
     availableTypes: null,
+    hasDownloadCSVButton: false,
     settingsTabs: ['General', 'Filters'],
   },
   top_authors_by_gender: {
