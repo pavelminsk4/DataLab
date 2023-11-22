@@ -25,6 +25,7 @@ from ..serializers import ProjectDimensionsListSerializer, DimensionsSerializer,
 from ..serializers import AlertCreateSerializer, AlertsSerializer, RegisterSerializer, ProfileUserSerializer
 from ..serializers import TemplatesSerializer, RegularReportCreateSerializer
 from api.services.search_service import SearchService
+from common.get_csv import FactoryCSV
 import numpy as np
 import json
 import re
@@ -441,3 +442,6 @@ def filter_with_constructor(body, posts):
         posts = posts.filter(sentiment=sentiment)
 
     return posts
+
+def generate_csv_file(request, module, project_pk, widget_pk):
+    return FactoryCSV(request, module, project_pk, widget_pk).define()

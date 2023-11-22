@@ -43,3 +43,12 @@ def calculate_summary_widget(posts):
       'replies': replies_quantity,
       'retweets': retweets_quantity,
       }
+
+def to_csv(request, pk, widget_pk):
+    posts, widget = project_posts_filter(pk, widget_pk)
+    res = calculate_summary_widget(posts)
+    fields = ['posts', 'sources', 'authors', 'countries', 'languages', 'positive', 'negative', 'neutral', 'likes', 'replies', 'retweets']
+    row = []
+    for elem in fields:
+        row.append(res[elem])
+    return fields, [row]

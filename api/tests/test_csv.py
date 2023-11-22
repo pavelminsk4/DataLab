@@ -20,11 +20,9 @@ class CSVWidgetTests(APITestCase):
             pr.posts.add(post)
         
         widget_pk = pr.widgets_list_2.sentiment_for_period_id
-        url = reverse('widgets:csv_file', kwargs={'project_pk': pr.pk, 'widget_pk': widget_pk})
-        response = self.client.get(url)
+        response = self.client.get('/api/online/{pr.pk}/{widget_pk}',format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         widget_pk = pr.widgets_list_2.summary_id
-        url = reverse('widgets:csv_file', kwargs={'project_pk': pr.pk, 'widget_pk': widget_pk})
-        response = self.client.get(url)
+        response = self.client.get('/api/online/{pr.pk}/{widget_pk}',format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)

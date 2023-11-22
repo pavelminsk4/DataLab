@@ -24,3 +24,11 @@ def calculate_for_top_locations(posts, aggregation_period, top_counts):
         if not res['locationString']:
             results.remove(res)
     return results
+
+
+def to_csv(request, pk, widget_pk):
+    posts, widget = project_posts_filter(pk, widget_pk)
+    result = calculate_for_top_locations(posts, widget.aggregation_period, widget.top_counts)
+    fields = ['Location', 'Count of posts']
+    rows = [[elem['locationString'], elem['locations_count']] for elem in result]
+    return fields, rows

@@ -28,7 +28,6 @@ from .common_widget.summary import summary_widget
 from .common_widget.top_sources import top_sources
 from .common_widget.volume_widget import volume
 from .summary.top_keywords import top_keywords
-from common.get_csv import csv_view
 
 
 def onl_summary(request, pk, widget_pk):
@@ -123,6 +122,3 @@ def dimensions_for_each_widgets(request, project_pk, widget_pk):
 
 def interactive_data_for_widgets(request, project_pk, widget_pk):
     return interactive_widgets(request, project_pk, widget_pk)
-
-def generate_csv_file(request, project_pk, widget_pk):
-    return csv_view(request, project_pk, widget_pk)

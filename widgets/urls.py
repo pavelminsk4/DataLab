@@ -36,6 +36,4 @@ urlpatterns = [
     path('onl_languages_by_country/<int:pk>/<int:widget_pk>', views.onl_languages_by_country, name='onl_languages_by_country'),
     path('dimensions_for_each_widgets/<int:project_pk>/<int:widget_pk>', views.dimensions_for_each_widgets, name='dimensions_for_each_widgets'),
     path('interactive_widgets/<int:project_pk>/<int:widget_pk>', views.interactive_data_for_widgets, name='interactive_widgets'),
-    # CSV file
-    path('<int:project_pk>/<int:widget_pk>/download', views.generate_csv_file, name='csv_file'),
 ]

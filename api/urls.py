@@ -54,6 +54,8 @@ urlpatterns = [
     path('report_widgets_list', users.widgets_map, name='report_widgets_list'),
     path('change_online_sentiment/<int:pk>/<int:department_pk>/<str:sentiment>', users.change_online_sentiment, name='change_sent'),
     path('project_statuses/<int:pk>/', project_statuses.ProjectStatusesViewSet.as_view({'patch': 'partial_update'}), name='project_statuses-detail'),
+
+    path('<str:module>/<int:project_pk>/<int:widget_pk>/download', users.generate_csv_file, name='csv'),
 ]
 
 router.register('dimensions', users.DimensionsViewSet)
