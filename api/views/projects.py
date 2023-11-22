@@ -7,6 +7,11 @@ from api.serializers import ProjectSerializer
 from api.services.collect_service import CollectService
 
 from celery import shared_task
+import environ
+
+
+def exclude(data, keys):
+    return {k: v for k, v in data.items() if k not in keys}
 
 
 class ProjectsViewSet(viewsets.ModelViewSet):
@@ -25,7 +30,13 @@ class ProjectsViewSet(viewsets.ModelViewSet):
         creator   = User.objects.filter(id=creator_id).first() if creator_id else None
         workspace = Workspace.objects.filter(id=workspace_id).first() if workspace_id else None
 
-        project = Project.objects.create(**data, creator=creator, workspace=workspace, start_date=data['start_search_date'])
+        project = Project.objects.create(
+            **exclude(data, ['sources']),
+            creator=creator,
+            workspace=workspace,
+            start_date=data['start_search_date'],
+            sources=data['sources'] or [environ.Env()('DEFAULT_SOURCE')]
+        )
         self.collect_data.delay(project.id)
 
         return Response(ProjectSerializer(project).data, status=status.HTTP_201_CREATED)

@@ -14,7 +14,7 @@ from selenium.webdriver.common.by import By
 import time
 
 
-class CreateProjectTests(StaticLiveServerTestCase):
+class CreateRegularProjectTests(StaticLiveServerTestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -27,12 +27,13 @@ class CreateProjectTests(StaticLiveServerTestCase):
     def tearDown(self):
         self.driver.close()
 
-    def test_create_project_from_existing_workspace(self):
+    def test_create_project_for_regular_user(self):
+        """Regular user can create a project but cannot specify the sources (default is applied)"""
         dep = DepartmentFactory()
         user = User.objects.create_user(username='user', password='user')
 
         user.user_profile.department = dep
-        user.user_profile.role = Profile.ADMIN
+        user.user_profile.role = Profile.REGULAR_USER
         user.user_profile.save()
 
         ws = WorkspaceFactory(title='Sensika', department=dep)
@@ -55,7 +56,7 @@ class CreateProjectTests(StaticLiveServerTestCase):
         self.wait.until(expect.visibility_of_element_located((By.CLASS_NAME, 'input[name="keywords"]'))).send_keys('Apple')
 
         self.driver.find_element(By.CLASS_NAME, 'input[name="keywords"]').send_keys(Keys.ENTER)
-        self.wait.until(expect.element_to_be_clickable((By.NAME, 'checkbox-rss'))).click()
+        self.assertEqual(len(self.driver.find_elements(By.NAME, 'checkbox-rss')), 0)
 
         self.wait.until(expect.element_to_be_clickable((By.CLASS_NAME, 'base-button'))).click()
         self.wait.until(expect.visibility_of_element_located((By.XPATH, '//*[text()="Save confirmation"]')))
@@ -66,4 +67,4 @@ class CreateProjectTests(StaticLiveServerTestCase):
         ))
 
         self.assertEqual(Project.objects.all().count(), 1)
-        self.assertEqual(Project.objects.all().first().sources, ['rss'])
+        self.assertEqual(Project.objects.all().first().sources, ['talkwalker'])
