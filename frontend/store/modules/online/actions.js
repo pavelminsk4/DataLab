@@ -308,9 +308,7 @@ export default {
 
   async [action.DOWNLOAD_CSV]({commit}, projectId, widgetId) {
     try {
-      const response = await api.online.downloadCSV(projectId, widgetId)
-      console.log(response)
-      return response
+      await api.online.downloadCSV(projectId, widgetId)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
