@@ -13,6 +13,8 @@ import json
 
 
 class WorkspaceTests(APITestCase):
+    maxDiff = None
+
     def test_workspaces(self):
         user = UserFactory()
         department = DepartmentFactory()
@@ -112,6 +114,7 @@ class WorkspaceTests(APITestCase):
                     'report_template': None,
                     'workspace': workspace1.id,
                     'status': 'collecting_data',
+                    'synched_at': None
                 }
             ],
             'created_at': datetime.strftime(workspace1.created_at, '%Y-%m-%dT%H:%M:%S.%fZ')

@@ -1,4 +1,4 @@
-from api.services.stop_livestream_service import StopLivestreamService
+from talkwalker.classes.livestream import Livestream
 from api.serializers import ProjectSerializer
 from project.models import Project
 
@@ -22,11 +22,11 @@ class ProjectStatusesViewSet(viewsets.ModelViewSet):
         if data.get('status') != 'inactive':
             return Response(status=status.HTTP_406_NOT_ACCEPTABLE)
 
-        pr  = self.get_object()
-        pr.status = data.get('status')
-        pr.save()
+        project  = self.get_object()
+        project.status = data.get('status')
+        project.save()
 
-        StopLivestreamService().execute(pr.id)
+        Livestream(project.id, 'Project').delete()
 
-        serializer = ProjectSerializer(pr, partial=True)
+        serializer = ProjectSerializer(project, partial=True)
         return Response(serializer.data)

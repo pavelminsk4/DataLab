@@ -149,6 +149,7 @@ class Project(models.Model):
     expert_mode          = models.BooleanField(default=False)
     status               = models.CharField(max_length=20, choices=STATUS_CHOICES, default='collecting_data', blank=True)
     created_at           = models.DateTimeField(auto_now_add=True)
+    synched_at           = models.DateTimeField(blank=True, null=True)
 
     creator         = models.ForeignKey(User, related_name='creator', on_delete=models.SET_NULL, null=True)
     report_template = models.ForeignKey(Templates, related_name='template', on_delete=models.SET_NULL, null=True)

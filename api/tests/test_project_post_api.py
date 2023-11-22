@@ -50,6 +50,7 @@ class ProjectPostTests(APITestCase):
         lang  = Speech.objects.create(language='English (United States)')
 
         PostFactory(feedlink=flink, entry_title='Trump', feed_language=lang, entry_published='2023-10-30T00:00:00Z')
+        PostFactory(feedlink=flink, entry_title='Trump', feed_language=lang, entry_published='2023-09-30T00:00:00Z')
         PostFactory(feedlink=flink, entry_title='Biden', feed_language=lang, entry_published='2023-10-30T00:00:00Z')
 
         self.client.force_login(UserFactory())
