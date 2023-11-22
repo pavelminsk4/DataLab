@@ -21,28 +21,29 @@ class AskerTestCase(TestCase):
         """Collector reads posts through all chunks"""
         SpeechFactory(language='English (United States)')
         project = ProjectFactory()
+        token   = 'acfaad27-3948-4e13-a617-2d33fd97552a_ZStqaRbxfzpRBT7YfbIqUPJPVwa2.QUzpFqzvPtKdHdc5UNZrYlHyk03MPxVkGKfZ6n3Y4i.meiy.FNZ621ZSmhzzb.gJAlvHtslEq7PP0B3JbDC4BS1y.hwK9fPz7vMQXvSfQFXka9.gEKovum-Pu0LYzy8GSjjSLvBdA1fV5M'
 
         responses.add(
             responses.GET,
-            f'https://api.talkwalker.com/api/v3/stream/c/search-{project.id}-onl-col/results?access_token=acfaad27-3948-4e13-a617-2d33fd97552a_ZStqaRbxfzpRBT7YfbIqUPJPVwa2.QUzpFqzvPtKdHdc5UNZrYlHyk03MPxVkGKfZ6n3Y4i.meiy.FNZ621ZSmhzzb.gJAlvHtslEq7PP0B3JbDC4BS1y.hwK9fPz7vMQXvSfQFXka9.gEKovum-Pu0LYzy8GSjjSLvBdA1fV5M&resume_offset=earliest&end_behaviour=stop',
+            f'https://api.talkwalker.com/api/v3/stream/c/search-{project.id}-onl-col/results?access_token={token}&resume_offset=earliest&end_behaviour=stop',
             body=self.read_file('fixtures/talkwalker/collector_stream1.json')
         )
 
         responses.add(
             responses.GET,
-            f'https://api.talkwalker.com/api/v3/stream/c/search-{project.id}-onl-col/results?access_token=acfaad27-3948-4e13-a617-2d33fd97552a_ZStqaRbxfzpRBT7YfbIqUPJPVwa2.QUzpFqzvPtKdHdc5UNZrYlHyk03MPxVkGKfZ6n3Y4i.meiy.FNZ621ZSmhzzb.gJAlvHtslEq7PP0B3JbDC4BS1y.hwK9fPz7vMQXvSfQFXka9.gEKovum-Pu0LYzy8GSjjSLvBdA1fV5M&resume_offset=EgT4kpRi&end_behaviour=stop',
+            f'https://api.talkwalker.com/api/v3/stream/c/search-{project.id}-onl-col/results?access_token={token}&resume_offset=EgT4kpRi&end_behaviour=stop',
             body=self.read_file('fixtures/talkwalker/collector_stream2.json')
         )
 
         responses.add(
             responses.GET,
-            f'https://api.talkwalker.com/api/v3/stream/c/search-{project.id}-onl-col/results?access_token=acfaad27-3948-4e13-a617-2d33fd97552a_ZStqaRbxfzpRBT7YfbIqUPJPVwa2.QUzpFqzvPtKdHdc5UNZrYlHyk03MPxVkGKfZ6n3Y4i.meiy.FNZ621ZSmhzzb.gJAlvHtslEq7PP0B3JbDC4BS1y.hwK9fPz7vMQXvSfQFXka9.gEKovum-Pu0LYzy8GSjjSLvBdA1fV5M&resume_offset=EgSIlpRi&end_behaviour=stop',
+            f'https://api.talkwalker.com/api/v3/stream/c/search-{project.id}-onl-col/results?access_token={token}&resume_offset=EgSIlpRi&end_behaviour=stop',
             body=self.read_file('fixtures/talkwalker/collector_stream3.json')
         )
 
         responses.add(
             responses.GET,
-            f'https://api.talkwalker.com/api/v3/stream/c/search-{project.id}-onl-col/results?access_token=acfaad27-3948-4e13-a617-2d33fd97552a_ZStqaRbxfzpRBT7YfbIqUPJPVwa2.QUzpFqzvPtKdHdc5UNZrYlHyk03MPxVkGKfZ6n3Y4i.meiy.FNZ621ZSmhzzb.gJAlvHtslEq7PP0B3JbDC4BS1y.hwK9fPz7vMQXvSfQFXka9.gEKovum-Pu0LYzy8GSjjSLvBdA1fV5M&resume_offset=EgTslpRi&end_behaviour=stop',
+            f'https://api.talkwalker.com/api/v3/stream/c/search-{project.id}-onl-col/results?access_token={token}&resume_offset=EgTslpRi&end_behaviour=stop',
             body=self.read_file('fixtures/talkwalker/collector_stream4.json')
         )
 

@@ -125,4 +125,4 @@ def create_posts(project, lines, offset=None):
         except Exception as e:
             logger.error(e)
 
-    return resume_offset if resume_offset != offset else None
+    return resume_offset if resume_offset != offset and resume_offset != 'earliest' else None
