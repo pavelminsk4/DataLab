@@ -4,7 +4,7 @@
 
 <script>
 import {Radar} from 'vue-chartjs'
-import {defaultDate} from '@/lib/utilities'
+import {defaultDate} from '@lib/utilities'
 
 import {
   Chart as ChartJS,

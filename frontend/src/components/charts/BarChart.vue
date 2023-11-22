@@ -4,7 +4,7 @@
 
 <script>
 import {Bar} from 'vue-chartjs'
-import {defaultDate} from '@/lib/utilities'
+import {defaultDate} from '@lib/utilities'
 
 import {
   Chart as ChartJS,
