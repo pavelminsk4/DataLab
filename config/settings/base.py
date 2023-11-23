@@ -131,6 +131,7 @@ TIME_ZONE = env('SERVER_TIME_ZONE')
 STATIC_URL = '/static/'
 STATIC_ROOT = 'collectstatic/'
 STATICFILES_DIRS = [
+    os.path.join(BASE_DIR),
     os.path.join(BASE_DIR, 'static'),
 ]
 
@@ -145,7 +146,7 @@ LOGIN_REDIRECT_URL = '/'
 WEBPACK_LOADER = {
     'DEFAULT': {
         'CACHE': not DEBUG,
-        'STATS_FILE': BASE_DIR.joinpath('frontend', 'webpack-stats.json'),
+        'STATS_FILE':  os.path.join(BASE_DIR, 'webpack-stats.json'),
         'POLL_INTERVAL': 0.1,
         'IGNORE': [r'.+\.hot-update.js', r'.+\.map'],
     }

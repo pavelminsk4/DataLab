@@ -47,13 +47,13 @@
 <script>
 import {mapActions} from 'vuex'
 import {action} from '@store/constants'
-import {capitalizeFirstLetter} from '@/lib/utilities'
+import {capitalizeFirstLetter} from '@lib/utilities'
 
 import UserAvatar from '@components/UserAvatar'
 import EnIcon from '@components/icons/languages/EnIcon'
 import ArIcon from '@components/icons/languages/ArIcon'
 import LogoutIcon from '@components/icons/LogoutIcon'
-import ArrowheadIcon from '@/components/icons/ArrowheadIcon'
+import ArrowheadIcon from '@components/icons/ArrowheadIcon'
 
 export default {
   name: 'ProfileMenu',

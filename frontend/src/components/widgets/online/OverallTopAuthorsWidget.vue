@@ -10,7 +10,7 @@
 import {createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
 
-import OverallTopWidget from '@/components/widgets/OverallTopWidget'
+import OverallTopWidget from '@components/widgets/OverallTopWidget'
 
 const {mapActions, mapGetters} = createNamespacedHelpers('online/widgets')
 

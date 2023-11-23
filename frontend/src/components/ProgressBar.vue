@@ -32,10 +32,10 @@
 </template>
 
 <script>
-import CustomText from '@/components/CustomText'
+import CustomText from '@components/CustomText'
 
-import RectangleIcon from '@/components/icons/RectangleIcon'
-import TickIcon from '@/components/icons/TickIcon'
+import RectangleIcon from '@components/icons/RectangleIcon'
+import TickIcon from '@components/icons/TickIcon'
 
 export default {
   name: 'ProgressBar',

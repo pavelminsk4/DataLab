@@ -32,10 +32,10 @@
 <script>
 import {isAllFieldsEmpty} from '@lib/utilities'
 
-import CustomText from '@/components/CustomText'
-import BaseInput from '@/components/common/BaseInput'
-import BaseSelect from '@/components/BaseSelect'
-import BaseTextarea from '@/components/common/BaseTextarea'
+import CustomText from '@components/CustomText'
+import BaseInput from '@components/common/BaseInput'
+import BaseSelect from '@components/BaseSelect'
+import BaseTextarea from '@components/common/BaseTextarea'
 
 export default {
   name: 'BasicSettingsScreen',

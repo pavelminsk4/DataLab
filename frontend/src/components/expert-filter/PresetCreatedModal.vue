@@ -6,7 +6,7 @@
 
     <section class="content">
       <img
-        src="@/assets/preset-created.png"
+        src="@assets/preset-created.png"
         alt="preset created image"
         class="image"
       />
@@ -23,8 +23,8 @@
 </template>
 
 <script>
-import BaseButton from '@/components/common/BaseButton'
-import BaseModal from '@/components/modals/BaseModal'
+import BaseButton from '@components/common/BaseButton'
+import BaseModal from '@components/modals/BaseModal'
 
 export default {
   name: 'PresetCreatedModal',

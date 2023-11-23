@@ -35,9 +35,9 @@
 </template>
 
 <script>
-import CustomText from '@/components/CustomText'
-import BaseDropdown from '@/components/BaseDropdown'
-import {stringToPascalCase} from '@/lib/utilities'
+import CustomText from '@components/CustomText'
+import BaseDropdown from '@components/BaseDropdown'
+import {stringToPascalCase} from '@lib/utilities'
 
 export default {
   name: 'DropdownWithSelect',

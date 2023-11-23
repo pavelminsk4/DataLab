@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import ComparisonTopWidget from '@/components/widgets/comparison/ComparisonTopWidget'
+import ComparisonTopWidget from '@components/widgets/comparison/ComparisonTopWidget'
 
 export default {
   name: 'ComparisonTopLanguagesWidget',

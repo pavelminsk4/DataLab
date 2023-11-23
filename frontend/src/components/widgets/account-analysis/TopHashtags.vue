@@ -10,9 +10,9 @@
 <script>
 import {createNamespacedHelpers} from 'vuex'
 import {get, action} from '@store/constants'
-import translate from '@/lib/mixins/translate.js'
+import translate from '@lib/mixins/translate.js'
 
-import TopHashtagsWidget from '@/components/widgets/TopHashtagsWidget'
+import TopHashtagsWidget from '@components/widgets/TopHashtagsWidget'
 
 const {mapActions, mapGetters} = createNamespacedHelpers(
   'accountAnalysis/widgets'

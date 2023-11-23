@@ -1,20 +1,20 @@
 import store from '@store'
 
-import MainView from '@/views/MainView'
-import ReportsView from '@/views/ReportsView'
-import NotFoundPage from '@/components/NotFoundPage'
+import MainView from '@views/MainView'
+import ReportsView from '@views/ReportsView'
+import NotFoundPage from '@components/NotFoundPage'
 
-import CreateReportView from '@/views/CreateReportView'
-import CreateReportRightSide from '@/components/reports/CreateReportRightSide'
-import CreateReportName from '@/components/reports/CreateReportName'
-import CreateReportSetTime from '@/components/reports/CreateReportSetTime'
-import CreateReportAddProject from '@/components/reports/CreateReportAddProject'
-import CreateReportChooseTemplate from '@/components/reports/CreateReportChooseTemplate'
-import ReportsSettingsTemplate from '@/components/reports/ReportsSettingsTemplate'
-import ReportsProjectsList from '@/components/reports/ReportsProjectsList'
-import CreateReportEdit from '@/components/reports/CreateReportEdit'
+import CreateReportView from '@views/CreateReportView'
+import CreateReportRightSide from '@components/reports/CreateReportRightSide'
+import CreateReportName from '@components/reports/CreateReportName'
+import CreateReportSetTime from '@components/reports/CreateReportSetTime'
+import CreateReportAddProject from '@components/reports/CreateReportAddProject'
+import CreateReportChooseTemplate from '@components/reports/CreateReportChooseTemplate'
+import ReportsSettingsTemplate from '@components/reports/ReportsSettingsTemplate'
+import ReportsProjectsList from '@components/reports/ReportsProjectsList'
+import CreateReportEdit from '@components/reports/CreateReportEdit'
 
-import UserRolesScreen from '@/components/settings/UserRolesScreen'
+import UserRolesScreen from '@components/settings/UserRolesScreen'
 
 export const routes = [
   {

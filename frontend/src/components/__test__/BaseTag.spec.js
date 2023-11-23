@@ -1,7 +1,7 @@
 import {mount} from '@vue/test-utils'
 import {createNewStore, mockmixin} from '@lib/test-helpers'
 
-import BaseTag from '@/components/BaseTag'
+import BaseTag from '@components/BaseTag'
 
 describe('BaseTag component', () => {
   let store, wrapper

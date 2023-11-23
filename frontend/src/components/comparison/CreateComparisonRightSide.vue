@@ -13,15 +13,15 @@ export default {
   created() {
     this.stepsImages = {
       step1: {
-        src: require('@/assets/comparison/workspace-name.svg'),
+        src: require('@assets/comparison/workspace-name.svg'),
         alt: 'Create the Comparison workspace',
       },
       step2: {
-        src: require('@/assets/comparison/project-name.svg'),
+        src: require('@assets/comparison/project-name.svg'),
         alt: 'Create the Comparison project',
       },
       step3: {
-        src: require('@/assets/comparison/search-name.svg'),
+        src: require('@assets/comparison/search-name.svg'),
         alt: 'Define the comparison',
       },
     }

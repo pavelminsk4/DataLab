@@ -10,7 +10,7 @@
 import {action, get} from '@store/constants'
 import {createNamespacedHelpers} from 'vuex'
 
-import SentimentForPeriodWidget from '@/components/widgets/SentimentForPeriodWidget'
+import SentimentForPeriodWidget from '@components/widgets/SentimentForPeriodWidget'
 
 const {mapActions, mapGetters} = createNamespacedHelpers('online/widgets')
 

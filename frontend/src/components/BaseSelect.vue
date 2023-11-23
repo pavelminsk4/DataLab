@@ -65,11 +65,11 @@
   </div>
 </template>
 <script>
-import translate from '@/lib/mixins/translate.js'
+import translate from '@lib/mixins/translate.js'
 
-import CustomText from '@/components/CustomText'
-import ArrowDownIcon from '@/components/icons/ArrowDownIcon'
-import ErrorIcon from '@/components/icons/ErrorIcon'
+import CustomText from '@components/CustomText'
+import ArrowDownIcon from '@components/icons/ArrowDownIcon'
+import ErrorIcon from '@components/icons/ErrorIcon'
 
 export default {
   components: {ArrowDownIcon, ErrorIcon, CustomText},

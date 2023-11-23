@@ -30,9 +30,9 @@
 </template>
 
 <script>
-import OverallTopWidget from '@/components/widgets/OverallTopWidget'
-import WidgetsLayout from '@/components/layout/WidgetsLayout'
-import WidgetContainerWithSwitcher from '@/components/widgets/WidgetContainerWithSwitcher'
+import OverallTopWidget from '@components/widgets/OverallTopWidget'
+import WidgetsLayout from '@components/layout/WidgetsLayout'
+import WidgetContainerWithSwitcher from '@components/widgets/WidgetContainerWithSwitcher'
 
 export default {
   components: {OverallTopWidget, WidgetContainerWithSwitcher, WidgetsLayout},

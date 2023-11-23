@@ -36,11 +36,11 @@
 <script>
 import {action} from '@store/constants'
 
-import CustomText from '@/components/CustomText'
-import BaseSwitcher from '@/components/BaseSwitcher.vue'
-import BaseInput from '@/components/common/BaseInput'
+import CustomText from '@components/CustomText'
+import BaseSwitcher from '@components/BaseSwitcher.vue'
+import BaseInput from '@components/common/BaseInput'
 
-import createAlertMixin from '@/lib/mixins/create-alerts.js'
+import createAlertMixin from '@lib/mixins/create-alerts.js'
 
 export default {
   name: 'SetAlertTrigger',

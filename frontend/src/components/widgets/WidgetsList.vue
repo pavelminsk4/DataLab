@@ -41,16 +41,16 @@
 <script>
 import {action, get} from '@store/constants'
 import {mapActions, mapGetters, createNamespacedHelpers} from 'vuex'
-import OnlineWidgetSettingsModal from '@/components/widgets/online/modals/WidgetSettingsModal'
-import SocialWidgetSettingsModal from '@/components/widgets/social/modals/WidgetSettingsModal'
-import AccountAnalysisWidgetSettingsModal from '@/components/widgets/account-analysis/modals/WidgetSettingsModal'
+import OnlineWidgetSettingsModal from '@components/widgets/online/modals/WidgetSettingsModal'
+import SocialWidgetSettingsModal from '@components/widgets/social/modals/WidgetSettingsModal'
+import AccountAnalysisWidgetSettingsModal from '@components/widgets/account-analysis/modals/WidgetSettingsModal'
 
-import OnlineMainWidget from '@/components/widgets/online/OnlineMainWidget'
-import SocialMainWidget from '@/components/widgets/social/SocialMainWidget'
-import ComparisonMainWidget from '@/components/widgets/comparison/ComparisonMainWidget'
-import AccountAnalysisMainWidget from '@/components/widgets/account-analysis/AccountAnalysisMainWidget'
-import InteractiveWidgetModal from '@/components/modals/InteractiveWidgetModal'
-import BaseObserver from '@/components/BaseObserver'
+import OnlineMainWidget from '@components/widgets/online/OnlineMainWidget'
+import SocialMainWidget from '@components/widgets/social/SocialMainWidget'
+import ComparisonMainWidget from '@components/widgets/comparison/ComparisonMainWidget'
+import AccountAnalysisMainWidget from '@components/widgets/account-analysis/AccountAnalysisMainWidget'
+import InteractiveWidgetModal from '@components/modals/InteractiveWidgetModal'
+import BaseObserver from '@components/BaseObserver'
 
 const {mapActions: mapSocialActions} = createNamespacedHelpers('social')
 const {mapActions: mapAccounAnalysisAction} =

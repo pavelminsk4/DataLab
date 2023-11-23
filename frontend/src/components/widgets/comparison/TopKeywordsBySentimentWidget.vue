@@ -10,10 +10,10 @@
 </template>
 
 <script>
-import {COMPARISON_COLORS, SENTIMENT} from '@/lib/constants'
+import {COMPARISON_COLORS, SENTIMENT} from '@lib/constants'
 
-import WidgetContainerWithSwitcher from '@/components/widgets/WidgetContainerWithSwitcher'
-import ColoredKeywordsWidget from '@/components/widgets/ColoredKeywordsWidget'
+import WidgetContainerWithSwitcher from '@components/widgets/WidgetContainerWithSwitcher'
+import ColoredKeywordsWidget from '@components/widgets/ColoredKeywordsWidget'
 
 export default {
   name: 'TopKeywordsBySentimentWidget',

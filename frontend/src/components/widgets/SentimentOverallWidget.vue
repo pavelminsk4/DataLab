@@ -32,13 +32,13 @@
 </template>
 
 <script>
-import {sentimentOverallWidgetConfig} from '@/lib/configs/widgetsConfigs'
+import {sentimentOverallWidgetConfig} from '@lib/configs/widgetsConfigs'
 
-import CustomText from '@/components/CustomText'
-import NeutralIcon from '@/components/icons/NeutralIcon'
-import NegativeIcon from '@/components/icons/NegativeIcon'
-import PositiveIcon from '@/components/icons/PositiveIcon'
-import WidgetsLayout from '@/components/layout/WidgetsLayout'
+import CustomText from '@components/CustomText'
+import NeutralIcon from '@components/icons/NeutralIcon'
+import NegativeIcon from '@components/icons/NegativeIcon'
+import PositiveIcon from '@components/icons/PositiveIcon'
+import WidgetsLayout from '@components/layout/WidgetsLayout'
 
 export default {
   name: 'SentimentOverallWidget',

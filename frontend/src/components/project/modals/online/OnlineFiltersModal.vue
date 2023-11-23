@@ -11,7 +11,7 @@
 import {mapGetters, createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
 
-import FiltersModal from '@/components/project/modals/FiltersModal'
+import FiltersModal from '@components/project/modals/FiltersModal'
 
 const {mapActions} = createNamespacedHelpers('online')
 

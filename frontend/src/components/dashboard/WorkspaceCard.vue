@@ -54,12 +54,12 @@
 <script>
 import PlusIcon from '@components/icons/PlusIcon'
 import UsersIconsBar from '@components/UsersIconsBar'
-import BaseTooltipSettings from '@/components/BaseTooltipSettings'
-import EditIcon from '@/components/icons/EditIcon'
-import DeleteIcon from '@/components/icons/DeleteIcon'
-import AreYouSureModal from '@/components/modals/AreYouSureModal'
-import BaseButton from '@/components/common/BaseButton'
-import CustomText from '@/components/CustomText'
+import BaseTooltipSettings from '@components/BaseTooltipSettings'
+import EditIcon from '@components/icons/EditIcon'
+import DeleteIcon from '@components/icons/DeleteIcon'
+import AreYouSureModal from '@components/modals/AreYouSureModal'
+import BaseButton from '@components/common/BaseButton'
+import CustomText from '@components/CustomText'
 
 export default {
   name: 'WorkspaceCard',

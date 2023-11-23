@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import WidgetsSwitcher from '@/components/layout/WidgetsSwitcher'
+import WidgetsSwitcher from '@components/layout/WidgetsSwitcher'
 
 export default {
   name: 'WidgetContainerWithSwitcher',

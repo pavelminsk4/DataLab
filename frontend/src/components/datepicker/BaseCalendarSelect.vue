@@ -32,8 +32,8 @@
 </template>
 
 <script>
-import CustomText from '@/components/CustomText'
-import CalendarArrowDownIcon from '@/components/icons/CalendarArrowDownIcon'
+import CustomText from '@components/CustomText'
+import CalendarArrowDownIcon from '@components/icons/CalendarArrowDownIcon'
 
 export default {
   components: {CalendarArrowDownIcon, CustomText},

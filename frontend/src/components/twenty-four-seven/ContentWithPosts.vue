@@ -42,9 +42,9 @@
 </template>
 
 <script>
-import CustomText from '@/components/CustomText'
-import TFSPostCard from '@/components/TFSPostCard'
-import BaseSpinner from '@/components/BaseSpinner'
+import CustomText from '@components/CustomText'
+import TFSPostCard from '@components/TFSPostCard'
+import BaseSpinner from '@components/BaseSpinner'
 
 const PUBLISHED = 'Published'
 

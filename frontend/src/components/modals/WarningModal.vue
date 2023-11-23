@@ -5,7 +5,7 @@
     </template>
 
     <div class="warning-content">
-      <img src="@/assets/warning.svg" alt="Warning" class="warning-img" />
+      <img src="@assets/warning.svg" alt="Warning" class="warning-img" />
 
       <CustomText tag="div" class="text">
         After clicking the 'Continue' button, you will not be able to edit the
@@ -26,9 +26,9 @@
 </template>
 
 <script>
-import CustomText from '@/components/CustomText'
-import BaseButton from '@/components/common/BaseButton'
-import BaseModal from '@/components/modals/BaseModal'
+import CustomText from '@components/CustomText'
+import BaseButton from '@components/common/BaseButton'
+import BaseModal from '@components/modals/BaseModal'
 
 export default {
   name: 'WarningModal',

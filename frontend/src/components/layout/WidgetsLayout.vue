@@ -23,10 +23,10 @@
 import {mapGetters} from 'vuex'
 import {get} from '@store/constants'
 
-import CustomText from '@/components/CustomText'
-import BaseSpinner from '@/components/BaseSpinner'
-import SettingsIcon from '@/components/icons/SettingsIcon'
-import CrossIcon from '@/components/icons/CrossIcon'
+import CustomText from '@components/CustomText'
+import BaseSpinner from '@components/BaseSpinner'
+import SettingsIcon from '@components/icons/SettingsIcon'
+import CrossIcon from '@components/icons/CrossIcon'
 
 export default {
   name: 'WidgetsLayout',

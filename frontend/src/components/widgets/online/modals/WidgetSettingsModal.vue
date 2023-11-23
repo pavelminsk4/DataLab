@@ -28,9 +28,9 @@
 import {createNamespacedHelpers, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
-import WidgetSettingsScreen from '@/components/widgets/screens/WidgetSettingsScreen'
-import OnlineMainWidget from '@/components/widgets/online/OnlineMainWidget'
-import BaseModal from '@/components/modals/BaseModal'
+import WidgetSettingsScreen from '@components/widgets/screens/WidgetSettingsScreen'
+import OnlineMainWidget from '@components/widgets/online/OnlineMainWidget'
+import BaseModal from '@components/modals/BaseModal'
 
 const {mapActions} = createNamespacedHelpers('online')
 

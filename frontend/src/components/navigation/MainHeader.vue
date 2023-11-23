@@ -50,9 +50,9 @@
 <script>
 import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
-import {capitalizeFirstLetter} from '@/lib/utilities'
+import {capitalizeFirstLetter} from '@lib/utilities'
 
-import CustomText from '@/components/CustomText'
+import CustomText from '@components/CustomText'
 import UserAvatar from '@components/UserAvatar'
 import LogoIcon from '@components/icons/LogoIcon'
 import ArrowDownIcon from '@components/icons/ArrowDownIcon'

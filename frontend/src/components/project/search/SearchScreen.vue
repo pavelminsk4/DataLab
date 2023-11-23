@@ -65,16 +65,16 @@
 <script>
 import {mapGetters, mapActions} from 'vuex'
 import {get, action} from '@store/constants'
-import {expertModeFilters} from '@/lib/constants'
+import {expertModeFilters} from '@lib/constants'
 import {isAllFieldsEmpty} from '@lib/utilities'
 
-import CustomText from '@/components/CustomText'
-import MainLayoutTitleBlock from '@/components/layout/MainLayoutTitleBlock'
-import SimpleModeTab from '@/components/workspace/SimpleModeTab'
-import SearchResults from '@/components/SearchResults'
-import BaseSwitcher from '@/components/BaseSwitcher'
-import ExpertModeTab from '@/components/workspace/ExpertModeTab'
-import TotalResults from '@/components/TotalResults'
+import CustomText from '@components/CustomText'
+import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
+import SimpleModeTab from '@components/workspace/SimpleModeTab'
+import SearchResults from '@components/SearchResults'
+import BaseSwitcher from '@components/BaseSwitcher'
+import ExpertModeTab from '@components/workspace/ExpertModeTab'
+import TotalResults from '@components/TotalResults'
 
 export default {
   name: 'SearchScreen',

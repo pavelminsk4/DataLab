@@ -8,9 +8,9 @@
 <script>
 import {action, get} from '@store/constants'
 import {createNamespacedHelpers} from 'vuex'
-import {isAllFieldsEmpty} from '@/lib/utilities'
+import {isAllFieldsEmpty} from '@lib/utilities'
 
-import SentimentKeywordsWidget from '@/components/widgets/SentimentKeywordsWidget'
+import SentimentKeywordsWidget from '@components/widgets/SentimentKeywordsWidget'
 
 const {mapActions, mapGetters} = createNamespacedHelpers('social/widgets')
 

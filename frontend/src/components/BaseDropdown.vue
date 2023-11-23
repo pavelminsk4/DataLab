@@ -27,8 +27,8 @@
 </template>
 
 <script>
-import CustomText from '@/components/CustomText'
-import ArrowDownIcon from '@/components/icons/ArrowDownIcon'
+import CustomText from '@components/CustomText'
+import ArrowDownIcon from '@components/icons/ArrowDownIcon'
 
 export default {
   name: 'BaseDropdown',

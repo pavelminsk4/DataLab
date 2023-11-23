@@ -54,13 +54,13 @@ import {mapGetters} from 'vuex'
 import {get} from '@store/constants'
 
 import SortIcon from '@components/icons/SortIcon'
-import PlusIcon from '@/components/icons/PlusIcon'
+import PlusIcon from '@components/icons/PlusIcon'
 
-import CustomText from '@/components/CustomText'
-import BaseButtonWithTooltip from '@/components/BaseButtonWithTooltip'
-import BaseSpinner from '@/components/BaseSpinner'
+import CustomText from '@components/CustomText'
+import BaseButtonWithTooltip from '@components/BaseButtonWithTooltip'
+import BaseSpinner from '@components/BaseSpinner'
 import WorkspaceCard from '@components/dashboard/WorkspaceCard'
-import SettingsWorkspaceModal from '@/components/modals/SettingsWorkspaceModal'
+import SettingsWorkspaceModal from '@components/modals/SettingsWorkspaceModal'
 
 export default {
   name: 'WorkspacesScreen',
@@ -200,7 +200,7 @@ export default {
   width: 100vw;
   height: 100vh;
 
-  background: center no-repeat url(@/assets/Background.svg);
+  background: center no-repeat url(@assets/Background.svg);
   pointer-events: none;
 
   @media (max-height: 800px) {

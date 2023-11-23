@@ -50,13 +50,13 @@
 import {createNamespacedHelpers} from 'vuex'
 import {action} from '@store/constants'
 
-import CustomText from '@/components/CustomText'
-import BaseButton from '@/components/common/BaseButton'
-import BaseInput from '@/components/common/BaseInput'
-import BaseTextarea from '@/components/common/BaseTextarea'
-import SaveIcon from '@/components/icons/SaveIcon'
-import BaseSpinner from '@/components/BaseSpinner'
-import TFSLanguagesTabs from '@/components/twenty-four-seven/TFSLanguagesTabs'
+import CustomText from '@components/CustomText'
+import BaseButton from '@components/common/BaseButton'
+import BaseInput from '@components/common/BaseInput'
+import BaseTextarea from '@components/common/BaseTextarea'
+import SaveIcon from '@components/icons/SaveIcon'
+import BaseSpinner from '@components/BaseSpinner'
+import TFSLanguagesTabs from '@components/twenty-four-seven/TFSLanguagesTabs'
 
 const {mapState, mapActions} = createNamespacedHelpers('twentyFourSeven')
 

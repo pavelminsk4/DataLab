@@ -66,13 +66,13 @@
 <script>
 import {createNamespacedHelpers} from 'vuex'
 
-import CustomText from '@/components/CustomText'
-import BaseButton from '@/components/common/BaseButton'
-import PostStoryReportIcon from '@/components/icons/PostStoryReportIcon'
-import PencilIcon from '@/components/icons/PencilIcon'
-import RelatedIcon from '@/components/icons/RelatedIcon'
-import MultiSelect from '@/components/MultiSelect'
-import ErrorIcon from '@/components/icons/ErrorIcon'
+import CustomText from '@components/CustomText'
+import BaseButton from '@components/common/BaseButton'
+import PostStoryReportIcon from '@components/icons/PostStoryReportIcon'
+import PencilIcon from '@components/icons/PencilIcon'
+import RelatedIcon from '@components/icons/RelatedIcon'
+import MultiSelect from '@components/MultiSelect'
+import ErrorIcon from '@components/icons/ErrorIcon'
 
 const {mapState} = createNamespacedHelpers('twentyFourSeven')
 

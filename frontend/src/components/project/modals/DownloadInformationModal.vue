@@ -22,9 +22,9 @@
 <script>
 import {createNamespacedHelpers} from 'vuex'
 
-import BaseButton from '@/components/common/BaseButton'
-import BaseButtonSpinner from '@/components/BaseButtonSpinner'
-import BaseModal from '@/components/modals/BaseModal'
+import BaseButton from '@components/common/BaseButton'
+import BaseButtonSpinner from '@components/BaseButtonSpinner'
+import BaseModal from '@components/modals/BaseModal'
 
 const {mapState} = createNamespacedHelpers('social')
 

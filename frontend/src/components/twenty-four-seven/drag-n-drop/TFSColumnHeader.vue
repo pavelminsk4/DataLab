@@ -27,9 +27,9 @@
 </template>
 
 <script>
-import CustomText from '@/components/CustomText'
-import BaseSelect from '@/components/BaseSelect2'
-import ArrowheadIcon from '@/components/icons/ArrowheadIcon'
+import CustomText from '@components/CustomText'
+import BaseSelect from '@components/BaseSelect2'
+import ArrowheadIcon from '@components/icons/ArrowheadIcon'
 
 export default {
   name: 'TFSColumnHeader',

@@ -13,11 +13,11 @@ export default {
   created() {
     this.stepsImages = {
       step1: {
-        src: require('@/assets/reports/report-name.svg'),
+        src: require('@assets/reports/report-name.svg'),
         alt: 'Create the report',
       },
       step2: {
-        src: require('@/assets/reports/report-set-time.svg'),
+        src: require('@assets/reports/report-set-time.svg'),
         alt: 'Set send time',
       },
     }

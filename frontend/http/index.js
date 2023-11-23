@@ -1,5 +1,5 @@
 import axios from 'axios'
-import CSRF_TOKEN from '../csrf_token'
+import CSRF_TOKEN from '../../csrf_token'
 import store from '@store'
 import {action} from '@store/constants'
 

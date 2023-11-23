@@ -16,7 +16,7 @@
     />
     <div class="card__preview">
       <img
-        :src="require(`@/assets/reports/templates/${templateName}.png`)"
+        :src="require(`@assets/reports/templates/${templateName}.png`)"
         alt="Template image"
       />
     </div>
@@ -24,11 +24,11 @@
 </template>
 
 <script>
-import {capitalizeFirstLetter} from '@/lib/utilities'
+import {capitalizeFirstLetter} from '@lib/utilities'
 
-import CustomText from '@/components/CustomText'
-import BaseCheckbox from '@/components/BaseCheckbox2'
-import MultiSelect from '@/components/MultiSelect'
+import CustomText from '@components/CustomText'
+import BaseCheckbox from '@components/BaseCheckbox2'
+import MultiSelect from '@components/MultiSelect'
 
 export default {
   name: 'ReportTemplateCard',

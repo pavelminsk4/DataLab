@@ -12,9 +12,30 @@ venv
 # Project
 .env
 collectstatic
+/node_modules
+/dist
+webpack-stats.json
+/frontend/.DS_Store
+/coverage
 
 db.sqlite3
 
 # Folder for storing temporary report generation files
 tmp
 static/report_templates
+
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

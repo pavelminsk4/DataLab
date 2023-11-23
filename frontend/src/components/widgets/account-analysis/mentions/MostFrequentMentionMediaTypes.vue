@@ -11,8 +11,8 @@
 import {createNamespacedHelpers} from 'vuex'
 import {get, action} from '@store/constants'
 
-import VolumeWidget from '@/components/widgets/VolumeWidget'
-import {isAllFieldsEmpty} from '@/lib/utilities'
+import VolumeWidget from '@components/widgets/VolumeWidget'
+import {isAllFieldsEmpty} from '@lib/utilities'
 
 const {mapGetters, mapActions} = createNamespacedHelpers(
   'accountAnalysis/widgets'

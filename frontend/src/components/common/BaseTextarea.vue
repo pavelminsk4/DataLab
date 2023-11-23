@@ -25,9 +25,9 @@
 </template>
 
 <script>
-import translate from '@/lib/mixins/translate.js'
+import translate from '@lib/mixins/translate.js'
 
-import CustomText from '@/components/CustomText'
+import CustomText from '@components/CustomText'
 import ErrorIcon from '@components/icons/ErrorIcon'
 
 export default {

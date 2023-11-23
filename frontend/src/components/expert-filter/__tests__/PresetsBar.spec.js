@@ -2,7 +2,7 @@ import {mount} from '@vue/test-utils'
 import {createNewStore, mockmixin} from '@lib/test-helpers'
 
 import PresetsBar from '@components/expert-filter/PresetsBar'
-import CreateNewGroupModal from '@/components/expert-filter/CreateNewGroupModal'
+import CreateNewGroupModal from '@components/expert-filter/CreateNewGroupModal'
 
 const createWrapper = (store) =>
   mount(PresetsBar, {

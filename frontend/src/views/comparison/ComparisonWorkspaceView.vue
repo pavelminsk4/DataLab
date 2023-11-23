@@ -38,14 +38,14 @@
 <script>
 import {createNamespacedHelpers} from 'vuex'
 import {action} from '@store/constants'
-import {isAllFieldsEmpty} from '@/lib/utilities'
+import {isAllFieldsEmpty} from '@lib/utilities'
 
-import CustomText from '@/components/CustomText'
-import BaseButtonWithTooltip from '@/components/BaseButtonWithTooltip'
+import CustomText from '@components/CustomText'
+import BaseButtonWithTooltip from '@components/BaseButtonWithTooltip'
 import MainLayout from '@components/layout/MainLayout'
 import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
-import ComparisonProjectsTable from '@/components/comparison/ComparisonProjectsTable'
-import PlusIcon from '@/components/icons/PlusIcon'
+import ComparisonProjectsTable from '@components/comparison/ComparisonProjectsTable'
+import PlusIcon from '@components/icons/PlusIcon'
 
 const {mapActions, mapState} = createNamespacedHelpers('comparison')
 

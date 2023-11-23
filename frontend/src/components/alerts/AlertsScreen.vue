@@ -59,7 +59,7 @@
       </div>
     </template>
     <div v-else class="no-alerts">
-      <img src="@/assets/empty-state.svg" alt="No alerts image" />
+      <img src="@assets/empty-state.svg" alt="No alerts image" />
       <div class="no-alerts__text">No alerts created &#x1F4EC;</div>
     </div>
   </MainLayout>
@@ -69,15 +69,15 @@
 import {action, get} from '@store/constants'
 import {mapGetters, createNamespacedHelpers} from 'vuex'
 
-import CustomText from '@/components/CustomText'
-import MainLayout from '@/components/layout/MainLayout'
+import CustomText from '@components/CustomText'
+import MainLayout from '@components/layout/MainLayout'
 import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
-import BaseTable from '@/components/common/BaseTable'
-import BaseTableRow from '@/components/common/BaseTableRow'
-import BaseButton from '@/components/common/BaseButton'
+import BaseTable from '@components/common/BaseTable'
+import BaseTableRow from '@components/common/BaseTableRow'
+import BaseButton from '@components/common/BaseButton'
 import UsersIconsBar from '@components/UsersIconsBar'
 import UserAvatar from '@components/UserAvatar'
-import AreYouSureModal from '@/components/modals/AreYouSureModal'
+import AreYouSureModal from '@components/modals/AreYouSureModal'
 
 const {mapActions: mapActionsAlerts} = createNamespacedHelpers('alerts')
 

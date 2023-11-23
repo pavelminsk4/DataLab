@@ -10,12 +10,12 @@
 <script>
 import {createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
-import {PREDEFINED_COLORS} from '@/lib/constants'
+import {PREDEFINED_COLORS} from '@lib/constants'
 import {isAllFieldsEmpty} from '@lib/utilities'
 
 const {mapActions, mapGetters} = createNamespacedHelpers('online/widgets')
 
-import TopEntitiesStackedBarWidget from '@/components/widgets/TopEntitiesStackedBarWidget'
+import TopEntitiesStackedBarWidget from '@components/widgets/TopEntitiesStackedBarWidget'
 
 export default {
   name: 'LanguagesByCountryWidget',

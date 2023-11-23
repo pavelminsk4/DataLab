@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import PointsIcon from '@/components/icons/PointsIcon'
+import PointsIcon from '@components/icons/PointsIcon'
 
 export default {
   name: 'BaseTooltipSettings',

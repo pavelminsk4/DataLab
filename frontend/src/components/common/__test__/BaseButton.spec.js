@@ -2,8 +2,8 @@ import {h} from 'vue'
 import {mount} from '@vue/test-utils'
 import {createNewStore} from '@lib/test-helpers'
 
-import BaseButton from '@/components/common/BaseButton'
-import BaseButtonSpinner from '@/components/BaseButtonSpinner'
+import BaseButton from '@components/common/BaseButton'
+import BaseButtonSpinner from '@components/BaseButtonSpinner'
 
 const createWrapper = (store) =>
   mount(BaseButton, {

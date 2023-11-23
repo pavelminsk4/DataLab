@@ -63,16 +63,16 @@
 <script>
 import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
-import {expertModeFilters} from '@/lib/constants'
+import {expertModeFilters} from '@lib/constants'
 
 import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
-import ProgressBar from '@/components/workspace/WorkspaceProgressBar'
-import SimpleModeTab from '@/components/workspace/SimpleModeTab'
-import BaseSwitcher from '@/components/BaseSwitcher'
-import ExpertModeTab from '@/components/workspace/ExpertModeTab'
-import CustomText from '@/components/CustomText'
-import WarningModal from '@/components/modals/WarningModal'
-import BaseCheckbox from '@/components/BaseCheckbox2'
+import ProgressBar from '@components/workspace/WorkspaceProgressBar'
+import SimpleModeTab from '@components/workspace/SimpleModeTab'
+import BaseSwitcher from '@components/BaseSwitcher'
+import ExpertModeTab from '@components/workspace/ExpertModeTab'
+import CustomText from '@components/CustomText'
+import WarningModal from '@components/modals/WarningModal'
+import BaseCheckbox from '@components/BaseCheckbox2'
 
 export default {
   name: 'CreateSearchScreen',

@@ -19,7 +19,7 @@
 <script>
 import {mapGetters} from 'vuex'
 import {get} from '@store/constants'
-import BaseButtonSpinner from '@/components/BaseButtonSpinner'
+import BaseButtonSpinner from '@components/BaseButtonSpinner'
 
 export default {
   name: 'BaseButton',

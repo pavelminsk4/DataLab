@@ -1,4 +1,4 @@
-import LegalView from '@/views/LegalView'
+import LegalView from '@views/LegalView'
 import PrivacyScreen from '@components/legal/PrivacyScreen'
 import TermsOfUseScreen from '@components/legal/TermsOfUseScreen'
 

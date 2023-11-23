@@ -47,12 +47,12 @@
 import {createNamespacedHelpers, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
-import BaseButton from '@/components/common/BaseButton'
-import BaseModal from '@/components/modals/BaseModal'
+import BaseButton from '@components/common/BaseButton'
+import BaseModal from '@components/modals/BaseModal'
 import BaseInput from '@components/common/BaseInput'
 import BaseSelect from '@components/BaseSelect2'
-import CreateNewGroupModal from '@/components/expert-filter/CreateNewGroupModal'
-import PresetCreatedModal from '@/components/expert-filter/PresetCreatedModal'
+import CreateNewGroupModal from '@components/expert-filter/CreateNewGroupModal'
+import PresetCreatedModal from '@components/expert-filter/PresetCreatedModal'
 
 import SaveIcon from '@components/icons/SaveIcon'
 import PlusIcon from '@components/icons/PlusIcon.vue'

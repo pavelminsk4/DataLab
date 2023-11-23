@@ -34,13 +34,13 @@
 <script>
 import {createNamespacedHelpers, mapState, mapActions, mapGetters} from 'vuex'
 import {action as actionTFS, action, get} from '@store/constants'
-import {stringToPascalCase} from '@/lib/utilities'
+import {stringToPascalCase} from '@lib/utilities'
 
-import CustomText from '@/components/CustomText'
-import BaseRadio from '@/components/BaseRadio'
-import SimpleModeTab from '@/components/workspace/SimpleModeTab'
-import OnlineIcon from '@/components/icons/OnlineIcon'
-import WarningModal from '@/components/modals/WarningModal'
+import CustomText from '@components/CustomText'
+import BaseRadio from '@components/BaseRadio'
+import SimpleModeTab from '@components/workspace/SimpleModeTab'
+import OnlineIcon from '@components/icons/OnlineIcon'
+import WarningModal from '@components/modals/WarningModal'
 
 const {mapActions: mapTFSActions, mapState: mapTFSState} =
   createNamespacedHelpers('twentyFourSeven')

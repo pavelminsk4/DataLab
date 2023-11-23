@@ -1,9 +1,9 @@
 import {mount} from '@vue/test-utils'
 import {createNewStore, mockmixin} from '@lib/test-helpers'
 
-import SimpleModeTab from '@/components/workspace/SimpleModeTab'
-import ExpertModeTab from '@/components/workspace/ExpertModeTab'
-import SearchScreen from '@/components/project/search/SearchScreen'
+import SimpleModeTab from '@components/workspace/SimpleModeTab'
+import ExpertModeTab from '@components/workspace/ExpertModeTab'
+import SearchScreen from '@components/project/search/SearchScreen'
 
 const createWrapper = (store) => {
   return mount(SearchScreen, {

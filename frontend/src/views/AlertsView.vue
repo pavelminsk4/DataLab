@@ -6,7 +6,7 @@
 import {createNamespacedHelpers, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
-import AlertsScreen from '@/components/alerts/AlertsScreen'
+import AlertsScreen from '@components/alerts/AlertsScreen'
 
 const {mapActions, mapGetters: mapGettersAlerts} =
   createNamespacedHelpers('alerts')

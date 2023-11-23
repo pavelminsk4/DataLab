@@ -26,9 +26,9 @@
 import {mapGetters, mapState, createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
 
-import createAlertMixin from '@/lib/mixins/create-alerts.js'
+import createAlertMixin from '@lib/mixins/create-alerts.js'
 
-import CustomText from '@/components/CustomText'
+import CustomText from '@components/CustomText'
 import WorkspaceTableWithProjects from '@components/WorkspaceTableWithProjects'
 import BaseInput from '@components/common/BaseInput'
 

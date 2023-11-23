@@ -30,10 +30,10 @@
 
 <script>
 import VueWordCloud from 'vuewordcloud'
-import {capitalizeFirstLetter} from '@/lib/utilities'
+import {capitalizeFirstLetter} from '@lib/utilities'
 
-import BaseTooltip from '@/components/BaseTooltip'
-import BaseLegends from '@/components/charts/BaseLegends'
+import BaseTooltip from '@components/BaseTooltip'
+import BaseLegends from '@components/charts/BaseLegends'
 
 export default {
   name: 'ColoredWordCloudChart',

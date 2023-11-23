@@ -1,7 +1,7 @@
 import {mount} from '@vue/test-utils'
 import {createNewStore} from '@lib/test-helpers'
 
-import BaseChips from '@/components/BaseChips'
+import BaseChips from '@components/BaseChips'
 import ArrowheadIcon from '@components/icons/ArrowheadIcon'
 import PresetChips from '@components/expert-filter/PresetChips'
 import DropdownOptionsContainer from '@components/DropdownOptionsContainer'

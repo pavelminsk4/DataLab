@@ -20,8 +20,8 @@
 <script>
 import {mapState} from 'vuex'
 
-import CustomText from '@/components/CustomText'
-import BaseChips from '@/components/BaseChips'
+import CustomText from '@components/CustomText'
+import BaseChips from '@components/BaseChips'
 
 export default {
   name: 'ReportsProjectsList',

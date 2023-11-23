@@ -26,9 +26,9 @@
 import {mapGetters, createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
 
-import WidgetSettingsScreen from '@/components/widgets/screens/WidgetSettingsScreen'
-import BaseModal from '@/components/modals/BaseModal'
-import AccountAnalysisMainWidget from '@/components/widgets/account-analysis/AccountAnalysisMainWidget'
+import WidgetSettingsScreen from '@components/widgets/screens/WidgetSettingsScreen'
+import BaseModal from '@components/modals/BaseModal'
+import AccountAnalysisMainWidget from '@components/widgets/account-analysis/AccountAnalysisMainWidget'
 
 const {mapActions} = createNamespacedHelpers('accountAnalysis')
 

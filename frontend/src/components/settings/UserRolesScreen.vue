@@ -202,7 +202,7 @@
           </section>
         </section>
 
-        <img v-else src="@/assets/users.png" alt="users" />
+        <img v-else src="@assets/users.png" alt="users" />
       </div>
     </template>
   </MainLayout>
@@ -213,18 +213,18 @@ import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 import {isAllFieldsEmpty} from '@lib/utilities'
 
-import CustomText from '@/components/CustomText'
-import AddUserIcon from '@/components/icons/AddUserIcon'
-import AreYouSureModal from '@/components/modals/AreYouSureModal'
-import BaseButton from '@/components/common/BaseButton'
-import BaseButtonWithTooltip from '@/components/BaseButtonWithTooltip'
-import BaseDropdown from '@/components/BaseDropdown'
-import BaseInput from '@/components/common/BaseInput'
-import DeleteIcon from '@/components/icons/DeleteIcon'
-import MainLayoutTitleBlock from '@/components/layout/MainLayoutTitleBlock'
-import MainLayout from '@/components/layout/MainLayout'
-import SettingsIcon from '@/components/icons/SettingsIcon'
-import UpdateIcon from '@/components/icons/UpdateIcon'
+import CustomText from '@components/CustomText'
+import AddUserIcon from '@components/icons/AddUserIcon'
+import AreYouSureModal from '@components/modals/AreYouSureModal'
+import BaseButton from '@components/common/BaseButton'
+import BaseButtonWithTooltip from '@components/BaseButtonWithTooltip'
+import BaseDropdown from '@components/BaseDropdown'
+import BaseInput from '@components/common/BaseInput'
+import DeleteIcon from '@components/icons/DeleteIcon'
+import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
+import MainLayout from '@components/layout/MainLayout'
+import SettingsIcon from '@components/icons/SettingsIcon'
+import UpdateIcon from '@components/icons/UpdateIcon'
 import UserAvatar from '@components/UserAvatar'
 
 export default {

@@ -11,9 +11,9 @@
 import {mapGetters, createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
 import {getWidgetDetails} from '@lib/utilities'
-import {socialWidgetsList} from '@/lib/constants'
+import {socialWidgetsList} from '@lib/constants'
 
-import WidgetsList from '@/components/widgets/WidgetsList'
+import WidgetsList from '@components/widgets/WidgetsList'
 
 const {mapActions} = createNamespacedHelpers('social')
 

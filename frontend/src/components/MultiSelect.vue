@@ -29,9 +29,9 @@
 </template>
 
 <script>
-import CustomText from '@/components/CustomText'
-import BaseCheckbox from '@/components/BaseCheckbox2'
-import BaseSelect from '@/components/BaseSelect2'
+import CustomText from '@components/CustomText'
+import BaseCheckbox from '@components/BaseCheckbox2'
+import BaseSelect from '@components/BaseSelect2'
 
 export default {
   name: 'MultiSelect',

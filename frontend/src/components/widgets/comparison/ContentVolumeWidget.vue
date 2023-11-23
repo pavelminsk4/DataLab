@@ -12,7 +12,7 @@
 <script>
 import moment from 'moment'
 
-import ContentVolumeWidget from '@/components/widgets/ContentVolumeWidget'
+import ContentVolumeWidget from '@components/widgets/ContentVolumeWidget'
 import {COMPARISON_COLORS} from '@lib/constants'
 
 export default {

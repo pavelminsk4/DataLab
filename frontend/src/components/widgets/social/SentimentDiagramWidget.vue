@@ -11,7 +11,7 @@ import {action, get} from '@store/constants'
 import {createNamespacedHelpers} from 'vuex'
 import {isAllFieldsEmpty} from '@lib/utilities'
 
-import SentimentDiagram from '@/components/widgets/SentimentDiagram'
+import SentimentDiagram from '@components/widgets/SentimentDiagram'
 
 const {mapActions, mapGetters} = createNamespacedHelpers('social/widgets')
 

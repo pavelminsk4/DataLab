@@ -13,8 +13,8 @@
 </template>
 
 <script>
-import {widgetsConfig} from '@/lib/configs/widgetsConfigs'
-import BaseRadio from '@/components/BaseRadio'
+import {widgetsConfig} from '@lib/configs/widgetsConfigs'
+import BaseRadio from '@components/BaseRadio'
 
 export default {
   name: 'ChartTypesRadio',

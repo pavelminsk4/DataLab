@@ -13,11 +13,11 @@ export default {
   created() {
     this.stepsImages = {
       step1: {
-        src: require('@/assets/account-analysis/workspace-name.svg'),
+        src: require('@assets/account-analysis/workspace-name.svg'),
         alt: 'Create the account analysis workspace',
       },
       step2: {
-        src: require('@/assets/account-analysis/project-name.svg'),
+        src: require('@assets/account-analysis/project-name.svg'),
         alt: 'Create the account analysis project',
       },
     }

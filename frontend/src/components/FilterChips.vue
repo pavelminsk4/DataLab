@@ -9,8 +9,8 @@
 </template>
 
 <script>
-import CustomText from '@/components/CustomText'
-import CrossIcon from '@/components/icons/CrossIcon'
+import CustomText from '@components/CustomText'
+import CrossIcon from '@components/icons/CrossIcon'
 
 export default {
   name: 'FilterChips',

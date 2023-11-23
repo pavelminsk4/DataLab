@@ -27,11 +27,11 @@
 
 <script>
 import debounce from 'lodash/debounce'
-import translate from '@/lib/mixins/translate.js'
+import translate from '@lib/mixins/translate.js'
 
-import CustomText from '@/components/CustomText'
-import SearchIcon from '@/components/icons/SearchIcon'
-import ErrorIcon from '@/components/icons/ErrorIcon'
+import CustomText from '@components/CustomText'
+import SearchIcon from '@components/icons/SearchIcon'
+import ErrorIcon from '@components/icons/ErrorIcon'
 
 export default {
   name: 'BaseInput',

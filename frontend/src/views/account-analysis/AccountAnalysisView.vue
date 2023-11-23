@@ -9,7 +9,7 @@
 import {createNamespacedHelpers} from 'vuex'
 import {action} from '@store/constants'
 
-import AccountAnalysisFeaturesView from '@/views/account-analysis/AccountAnalysisFeaturesView'
+import AccountAnalysisFeaturesView from '@views/account-analysis/AccountAnalysisFeaturesView'
 
 const {mapState, mapActions} = createNamespacedHelpers('accountAnalysis')
 

@@ -9,7 +9,7 @@
 import {createNamespacedHelpers} from 'vuex'
 import {get, action} from '@store/constants'
 
-import AccountAnalysisSummaryWidget from '@/components/widgets/AccountAnalysisSummaryWidget'
+import AccountAnalysisSummaryWidget from '@components/widgets/AccountAnalysisSummaryWidget'
 
 import {isAllFieldsEmpty} from '@lib/utilities'
 

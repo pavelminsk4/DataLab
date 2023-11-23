@@ -35,10 +35,10 @@
 </template>
 
 <script>
-import AccountAnalysisPostCardLayout from '@/components/account-analysis/AccountAnalysisPostCardLayout'
-import UserAvatar from '@/components/UserAvatar'
-import SentimentChips from '@/components/SentimentChips'
-import BaseChips from '@/components/BaseChips'
+import AccountAnalysisPostCardLayout from '@components/account-analysis/AccountAnalysisPostCardLayout'
+import UserAvatar from '@components/UserAvatar'
+import SentimentChips from '@components/SentimentChips'
+import BaseChips from '@components/BaseChips'
 
 export default {
   name: 'MentionsPostCard',
@@ -53,7 +53,7 @@ export default {
   },
   computed: {
     postImage() {
-      const noPostsImg = require('@/assets/no-posts-image.png')
+      const noPostsImg = require('@assets/no-posts-image.png')
       return this.postDetails.images[0] || noPostsImg
     },
   },

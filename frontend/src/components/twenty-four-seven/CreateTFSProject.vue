@@ -29,12 +29,12 @@
 <script>
 import {mapActions, mapState} from 'vuex'
 import {action} from '@store/constants'
-import TFSMixin from '@/lib/mixins/twenty-four-seven.js'
+import TFSMixin from '@lib/mixins/twenty-four-seven.js'
 
-import CustomText from '@/components/CustomText'
-import BaseInput from '@/components/common/BaseInput'
-import BaseTextarea from '@/components/common/BaseTextarea'
-import ButtonWithArrow from '@/components/common/ButtonWithArrow'
+import CustomText from '@components/CustomText'
+import BaseInput from '@components/common/BaseInput'
+import BaseTextarea from '@components/common/BaseTextarea'
+import ButtonWithArrow from '@components/common/ButtonWithArrow'
 
 export default {
   name: 'CreateTFSProject',

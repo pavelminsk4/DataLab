@@ -9,8 +9,8 @@
 </template>
 
 <script>
-import CustomText from '@/components/CustomText'
-import ErrorIcon from '@/components/icons/ErrorIcon'
+import CustomText from '@components/CustomText'
+import ErrorIcon from '@components/icons/ErrorIcon'
 
 export default {
   name: 'DivWithError',

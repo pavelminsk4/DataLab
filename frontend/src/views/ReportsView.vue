@@ -11,7 +11,7 @@
 import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
-import ReportsScreen from '@/components/reports/ReportsScreen'
+import ReportsScreen from '@components/reports/ReportsScreen'
 
 export default {
   name: 'ReportsView',

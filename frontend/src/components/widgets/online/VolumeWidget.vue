@@ -21,8 +21,8 @@
 import {createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
 
-import ChartsView from '@/components/charts/ChartsView'
-import WidgetsLayout from '@/components/layout/WidgetsLayout'
+import ChartsView from '@components/charts/ChartsView'
+import WidgetsLayout from '@components/layout/WidgetsLayout'
 
 const {mapActions, mapGetters} = createNamespacedHelpers('online/widgets')
 

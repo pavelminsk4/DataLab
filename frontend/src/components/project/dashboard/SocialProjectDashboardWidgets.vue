@@ -31,11 +31,11 @@
 import {mapGetters, createNamespacedHelpers} from 'vuex'
 import {get, action} from '@store/constants'
 import {getWidgetDetails} from '@lib/utilities'
-import {widgetsConfig} from '@/lib/configs/widgetsConfigs'
+import {widgetsConfig} from '@lib/configs/widgetsConfigs'
 
-import BaseObserver from '@/components/BaseObserver'
-import SocialMainWidget from '@/components/widgets/social/SocialMainWidget'
-import WidgetSettingsModal from '@/components/widgets/social/modals/WidgetSettingsModal'
+import BaseObserver from '@components/BaseObserver'
+import SocialMainWidget from '@components/widgets/social/SocialMainWidget'
+import WidgetSettingsModal from '@components/widgets/social/modals/WidgetSettingsModal'
 
 const {mapActions, mapGetters: mapGettersSocial} =
   createNamespacedHelpers('social/widgets')

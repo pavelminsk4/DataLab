@@ -57,12 +57,12 @@ import SortIcon from '@components/icons/SortIcon'
 import OnlineIcon from '@components/icons/OnlineIcon'
 import SocialIcon from '@components/icons/SocialIcon'
 
-import BaseButtonWithTooltip from '@/components/BaseButtonWithTooltip'
-import BaseInput from '@/components/common/BaseInput'
+import BaseButtonWithTooltip from '@components/BaseButtonWithTooltip'
+import BaseInput from '@components/common/BaseInput'
 import MainLayout from '@components/layout/MainLayout'
 import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
-import ProjectsTable from '@/components/ProjectsTable'
-import CustomText from '@/components/CustomText'
+import ProjectsTable from '@components/ProjectsTable'
+import CustomText from '@components/CustomText'
 
 export default {
   name: 'WorkspaceView',

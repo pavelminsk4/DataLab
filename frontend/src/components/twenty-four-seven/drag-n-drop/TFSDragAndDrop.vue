@@ -50,8 +50,8 @@
 </template>
 
 <script>
-import TFSPostCard from '@/components/TFSPostCard'
-import TFSColumnHeader from '@/components/twenty-four-seven/drag-n-drop/TFSColumnHeader'
+import TFSPostCard from '@components/TFSPostCard'
+import TFSColumnHeader from '@components/twenty-four-seven/drag-n-drop/TFSColumnHeader'
 
 const MIN_PAGES_NUMBER = 1
 

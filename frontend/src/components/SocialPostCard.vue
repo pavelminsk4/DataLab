@@ -63,12 +63,12 @@ import {createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
 import {defaultDate} from '@lib/utilities'
 
-import LikeIcon from '@/components/icons/LikeIcon'
-import RepliesIcon from '@/components/icons/RepliesIcon'
-import RetweetIcon from '@/components/icons/RetweetIcon'
-import TwitterIcon from '@/components/icons/TwitterIcon'
-import CustomText from '@/components/CustomText'
-import PostCardLayout from '@/components/layout/PostCardLayout'
+import LikeIcon from '@components/icons/LikeIcon'
+import RepliesIcon from '@components/icons/RepliesIcon'
+import RetweetIcon from '@components/icons/RetweetIcon'
+import TwitterIcon from '@components/icons/TwitterIcon'
+import CustomText from '@components/CustomText'
+import PostCardLayout from '@components/layout/PostCardLayout'
 
 const {mapActions, mapGetters} = createNamespacedHelpers('social')
 

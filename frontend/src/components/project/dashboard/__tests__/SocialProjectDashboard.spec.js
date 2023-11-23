@@ -2,9 +2,9 @@ import {mount} from '@vue/test-utils'
 import {createNewStore, mockmixin} from '@lib/test-helpers'
 import {router} from '@router/__mocks__/router'
 
-import SearchResults from '@/components/SearchResults'
-import SocialProjectDashboard from '@/components/project/dashboard/SocialProjectDashboard'
-import SocialProjectDashboardWidgets from '@/components/project/dashboard/SocialProjectDashboardWidgets'
+import SearchResults from '@components/SearchResults'
+import SocialProjectDashboard from '@components/project/dashboard/SocialProjectDashboard'
+import SocialProjectDashboardWidgets from '@components/project/dashboard/SocialProjectDashboardWidgets'
 
 const createWrapper = (store) =>
   mount(SocialProjectDashboard, {

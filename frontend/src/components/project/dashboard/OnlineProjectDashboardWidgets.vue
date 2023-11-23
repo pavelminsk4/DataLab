@@ -30,12 +30,12 @@
 import {mapGetters, createNamespacedHelpers} from 'vuex'
 import {get, action} from '@store/constants'
 import {getWidgetDetails} from '@lib/utilities'
-import {widgetsConfig} from '@/lib/configs/widgetsConfigs'
+import {widgetsConfig} from '@lib/configs/widgetsConfigs'
 
-import BaseObserver from '@/components/BaseObserver'
+import BaseObserver from '@components/BaseObserver'
 
-import WidgetSettingsModal from '@/components/widgets/online/modals/WidgetSettingsModal'
-import OnlineMainWidget from '@/components/widgets/online/OnlineMainWidget'
+import WidgetSettingsModal from '@components/widgets/online/modals/WidgetSettingsModal'
+import OnlineMainWidget from '@components/widgets/online/OnlineMainWidget'
 
 const {mapActions, mapGetters: mapGettersOnline} =
   createNamespacedHelpers('online/widgets')

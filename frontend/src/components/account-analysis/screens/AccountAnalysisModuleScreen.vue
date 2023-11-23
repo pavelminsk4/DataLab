@@ -30,7 +30,7 @@
 
     <div v-else class="no-account-analysis-wrapper">
       <img
-        src="@/assets/account-analysis/no-account-analysis-workspaces.svg"
+        src="@assets/account-analysis/no-account-analysis-workspaces.svg"
         alt="No account analysis image"
       />
       <div>No workspaces created &#128542;</div>
@@ -42,12 +42,12 @@
 import {createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
 
-import BaseButtonWithTooltip from '@/components/BaseButtonWithTooltip'
-import WorkspacesScreen from '@/components/dashboard/WorkspacesScreen'
-import MainLayoutTitleBlock from '@/components/layout/MainLayoutTitleBlock'
+import BaseButtonWithTooltip from '@components/BaseButtonWithTooltip'
+import WorkspacesScreen from '@components/dashboard/WorkspacesScreen'
+import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
 import MainLayout from '@components/layout/MainLayout'
-import PlusIcon from '@/components/icons/PlusIcon'
-import BaseSpinner from '@/components/BaseSpinner'
+import PlusIcon from '@components/icons/PlusIcon'
+import BaseSpinner from '@components/BaseSpinner'
 
 const {mapActions, mapGetters} = createNamespacedHelpers('accountAnalysis')
 

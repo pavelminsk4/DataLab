@@ -2,8 +2,8 @@ import {mount} from '@vue/test-utils'
 import {createNewStore, mockmixin} from '@lib/test-helpers'
 
 import BaseInput from '@components/common/BaseInput'
-import BaseTextarea from '@/components/common/BaseTextarea'
-import CreateNewGroupModal from '@/components/expert-filter/CreateNewGroupModal'
+import BaseTextarea from '@components/common/BaseTextarea'
+import CreateNewGroupModal from '@components/expert-filter/CreateNewGroupModal'
 
 const createWrapper = (store) =>
   mount(CreateNewGroupModal, {

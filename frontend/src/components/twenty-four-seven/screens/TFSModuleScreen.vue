@@ -29,7 +29,7 @@
     />
 
     <div v-else class="no-tfs-wrapper">
-      <img src="@/assets/empty-state.svg" alt="No 24/7 image" />
+      <img src="@assets/empty-state.svg" alt="No 24/7 image" />
       <div>There's nothing here &#128064;</div>
     </div>
   </MainLayout>
@@ -39,12 +39,12 @@
 import {createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
 
-import BaseButtonWithTooltip from '@/components/BaseButtonWithTooltip'
-import WorkspacesScreen from '@/components/dashboard/WorkspacesScreen'
-import MainLayoutTitleBlock from '@/components/layout/MainLayoutTitleBlock'
+import BaseButtonWithTooltip from '@components/BaseButtonWithTooltip'
+import WorkspacesScreen from '@components/dashboard/WorkspacesScreen'
+import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
 import MainLayout from '@components/layout/MainLayout'
-import BaseSpinner from '@/components/BaseSpinner'
-import PlusIcon from '@/components/icons/PlusIcon'
+import BaseSpinner from '@components/BaseSpinner'
+import PlusIcon from '@components/icons/PlusIcon'
 
 const {mapActions, mapGetters} = createNamespacedHelpers('twentyFourSeven')
 

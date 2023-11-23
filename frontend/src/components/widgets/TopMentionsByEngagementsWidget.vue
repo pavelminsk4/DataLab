@@ -41,13 +41,13 @@
 </template>
 
 <script>
-import sortByMixin from '@/lib/mixins/sort-for-table.js'
+import sortByMixin from '@lib/mixins/sort-for-table.js'
 
-import ChartsView from '@/components/charts/ChartsView'
-import WidgetsLayout from '@/components/layout/WidgetsLayout'
-import BaseTable from '@/components/common/BaseTable'
-import BaseChips from '@/components/BaseChips'
-import UserAvatar from '@/components/UserAvatar'
+import ChartsView from '@components/charts/ChartsView'
+import WidgetsLayout from '@components/layout/WidgetsLayout'
+import BaseTable from '@components/common/BaseTable'
+import BaseChips from '@components/BaseChips'
+import UserAvatar from '@components/UserAvatar'
 
 export default {
   name: 'TopMentionsByEngagementsWidget',

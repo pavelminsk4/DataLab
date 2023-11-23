@@ -11,8 +11,8 @@
 </template>
 
 <script>
-import CustomText from '@/components/CustomText'
-import BaseCheckbox2 from '@/components/BaseCheckbox2'
+import CustomText from '@components/CustomText'
+import BaseCheckbox2 from '@components/BaseCheckbox2'
 
 export default {
   name: 'SetTimeCheckbox',

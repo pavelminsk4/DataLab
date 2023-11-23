@@ -16,7 +16,7 @@
 import {mapActions, mapGetters, createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
 
-import SearchScreen from '@/components/project/search/SearchScreen'
+import SearchScreen from '@components/project/search/SearchScreen'
 
 const {mapActions: mapSocialActions, mapState} =
   createNamespacedHelpers('social')

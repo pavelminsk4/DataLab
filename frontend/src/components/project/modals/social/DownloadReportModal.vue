@@ -101,15 +101,15 @@
 import {mapActions, mapGetters, mapState, createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
 
-import CustomText from '@/components/CustomText'
-import BaseRadio from '@/components/BaseRadio'
-import BaseButton from '@/components/common/BaseButton'
-import BaseSelect from '@/components/BaseSelect'
-import BaseModal from '@/components/modals/BaseModal'
-import DivWithError from '@/components/DivWithError'
-import BaseCheckbox from '@/components/BaseCheckbox2'
-import ReportsUploadIcon from '@/components/icons/ReportsUploadIcon'
-import ReportsIcon from '@/components/icons/ReportsIcon'
+import CustomText from '@components/CustomText'
+import BaseRadio from '@components/BaseRadio'
+import BaseButton from '@components/common/BaseButton'
+import BaseSelect from '@components/BaseSelect'
+import BaseModal from '@components/modals/BaseModal'
+import DivWithError from '@components/DivWithError'
+import BaseCheckbox from '@components/BaseCheckbox2'
+import ReportsUploadIcon from '@components/icons/ReportsUploadIcon'
+import ReportsIcon from '@components/icons/ReportsIcon'
 
 const {mapActions: mapSocialActions} = createNamespacedHelpers('social')
 

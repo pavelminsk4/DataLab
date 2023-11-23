@@ -18,7 +18,7 @@
 import {createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
 
-import WorkspaceView from '@/components/workspace/WorkspaceView'
+import WorkspaceView from '@components/workspace/WorkspaceView'
 
 const {mapActions, mapGetters} = createNamespacedHelpers('social')
 

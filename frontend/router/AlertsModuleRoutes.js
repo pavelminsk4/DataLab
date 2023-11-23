@@ -1,11 +1,11 @@
 import store from '@store'
 
-import AlertsView from '@/views/AlertsView'
-import CreateAlertName from '@/components/alerts/CreateAlertName'
-import CreateAlertView from '@/views/CreateAlertView'
-import CreateAlertRightSide from '@/components/alerts/CreateAlertRightSide'
-import CreateAlertAddProject from '@/components/alerts/CreateAlertAddProject'
-import SetAlertTrigger from '@/components/alerts/SetAlertTrigger'
+import AlertsView from '@views/AlertsView'
+import CreateAlertName from '@components/alerts/CreateAlertName'
+import CreateAlertView from '@views/CreateAlertView'
+import CreateAlertRightSide from '@components/alerts/CreateAlertRightSide'
+import CreateAlertAddProject from '@components/alerts/CreateAlertAddProject'
+import SetAlertTrigger from '@components/alerts/SetAlertTrigger'
 
 export default [
   {

@@ -2,8 +2,8 @@ import {mount} from '@vue/test-utils'
 import {createNewStore, mockmixin} from '@lib/test-helpers'
 import {router} from '@router/__mocks__/router'
 
-import OnlineFeaturesView from '@/views/online/OnlineFeaturesView'
-import FeaturesScreen from '@/components/project/screens/FeaturesScreen'
+import OnlineFeaturesView from '@views/online/OnlineFeaturesView'
+import FeaturesScreen from '@components/project/screens/FeaturesScreen'
 
 const createWrapper = (store) =>
   mount(OnlineFeaturesView, {

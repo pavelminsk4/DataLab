@@ -30,7 +30,7 @@
 <script>
 import MainLayout from '@components/layout/MainLayout'
 import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
-import ProgressBar from '@/components/comparison/ComparisonProgressBar'
+import ProgressBar from '@components/comparison/ComparisonProgressBar'
 
 export default {
   name: 'CreateComparisonView',

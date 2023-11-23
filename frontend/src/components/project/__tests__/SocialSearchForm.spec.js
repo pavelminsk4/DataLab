@@ -1,9 +1,9 @@
 import {mount} from '@vue/test-utils'
 import {createNewStore, mockmixin} from '@lib/test-helpers'
 
-import BaseSearchField from '@/components/BaseSearchField'
-import ProjectCalendar from '@/components/datepicker/ProjectCalendar'
-import SocialSearchForm from '@/components/project/SocialSearchForm'
+import BaseSearchField from '@components/BaseSearchField'
+import ProjectCalendar from '@components/datepicker/ProjectCalendar'
+import SocialSearchForm from '@components/project/SocialSearchForm'
 
 const createWrapper = (store) => {
   return mount(SocialSearchForm, {

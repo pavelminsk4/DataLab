@@ -16,12 +16,12 @@
 </template>
 
 <script>
-import {SENTIMENT_COLORS, SENTIMENT} from '@/lib/constants'
-import {sortSentiment} from '@/lib/utilities'
-import translate from '@/lib/mixins/translate.js'
+import {SENTIMENT_COLORS, SENTIMENT} from '@lib/constants'
+import {sortSentiment} from '@lib/utilities'
+import translate from '@lib/mixins/translate.js'
 
-import ChartsView from '@/components/charts/ChartsView'
-import WidgetsLayout from '@/components/layout/WidgetsLayout'
+import ChartsView from '@components/charts/ChartsView'
+import WidgetsLayout from '@components/layout/WidgetsLayout'
 
 export default {
   name: 'SentimentColumnsStackedBarsWidget',

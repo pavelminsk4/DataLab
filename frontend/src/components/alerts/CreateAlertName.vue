@@ -40,12 +40,12 @@
 <script>
 import {mapActions, mapState, mapGetters, createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
-import createAlertMixin from '@/lib/mixins/create-alerts.js'
+import createAlertMixin from '@lib/mixins/create-alerts.js'
 
-import CustomText from '@/components/CustomText'
-import BaseInput from '@/components/common/BaseInput'
-import BaseTextarea from '@/components/common/BaseTextarea'
-import AddUsersField from '@/components/AddUsersField'
+import CustomText from '@components/CustomText'
+import BaseInput from '@components/common/BaseInput'
+import BaseTextarea from '@components/common/BaseTextarea'
+import AddUsersField from '@components/AddUsersField'
 
 const {mapActions: mapActionsAlerts} = createNamespacedHelpers('alerts')
 

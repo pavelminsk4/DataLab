@@ -10,9 +10,9 @@
 <script>
 import {createNamespacedHelpers} from 'vuex'
 import {get, action} from '@store/constants'
-import translate from '@/lib/mixins/translate.js'
+import translate from '@lib/mixins/translate.js'
 
-import OptimalPostLengthWidget from '@/components/widgets/OptimalPostLengthWidget'
+import OptimalPostLengthWidget from '@components/widgets/OptimalPostLengthWidget'
 import {isAllFieldsEmpty} from '@lib/utilities'
 
 const {mapActions, mapGetters} = createNamespacedHelpers(

@@ -75,13 +75,13 @@
 import {mapGetters} from 'vuex'
 import {get} from '@store/constants'
 
-import CustomText from '@/components/CustomText'
-import BaseTag from '@/components/BaseTag'
-import OnlineSearchForm from '@/components/project/OnlineSearchForm'
-import SocialSearchForm from '@/components/project/SocialSearchForm'
-import BaseButton from '@/components/common/BaseButton'
-import SaveIcon from '@/components/icons/SaveIcon'
-import BaseTextarea from '@/components/common/BaseTextarea'
+import CustomText from '@components/CustomText'
+import BaseTag from '@components/BaseTag'
+import OnlineSearchForm from '@components/project/OnlineSearchForm'
+import SocialSearchForm from '@components/project/SocialSearchForm'
+import BaseButton from '@components/common/BaseButton'
+import SaveIcon from '@components/icons/SaveIcon'
+import BaseTextarea from '@components/common/BaseTextarea'
 
 export default {
   name: 'SimpleModeTab',

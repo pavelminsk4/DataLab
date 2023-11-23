@@ -1,8 +1,8 @@
 import {mount} from '@vue/test-utils'
 import {createNewStore, mockmixin} from '@lib/test-helpers'
 
-import WorkspaceCard from '@/components/dashboard/WorkspaceCard'
-import AreYouSureModal from '@/components/modals/AreYouSureModal'
+import WorkspaceCard from '@components/dashboard/WorkspaceCard'
+import AreYouSureModal from '@components/modals/AreYouSureModal'
 
 const createWrapper = (store) =>
   mount(WorkspaceCard, {

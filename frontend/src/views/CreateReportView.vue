@@ -36,7 +36,7 @@ import {get} from '@store/constants'
 
 import MainLayout from '@components/layout/MainLayout'
 import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
-import ReportProgressBar from '@/components/reports/ReportProgressBar'
+import ReportProgressBar from '@components/reports/ReportProgressBar'
 
 export default {
   name: 'CreateReportView',

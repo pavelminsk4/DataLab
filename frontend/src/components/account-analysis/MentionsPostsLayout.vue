@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import MentionsPostCard from '@/components/account-analysis/MentionsPostCard'
+import MentionsPostCard from '@components/account-analysis/MentionsPostCard'
 
 export default {
   name: 'MentionsPostsLayout',

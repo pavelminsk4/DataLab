@@ -91,16 +91,16 @@
 import {mapActions, mapGetters, createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
 
-import TotalResults from '@/components/TotalResults'
-import SearchResults from '@/components/SearchResults'
+import TotalResults from '@components/TotalResults'
+import SearchResults from '@components/SearchResults'
 import PresetsBar from '@components/expert-filter/PresetsBar'
-import WidgetsListModal from '@/components/widgets/modals/WidgetsListModal'
-import MainLayoutTitleBlock from '@/components/layout/MainLayoutTitleBlock'
-import InteractiveWidgetModal from '@/components/modals/InteractiveWidgetModal'
-import OnlineFiltersModal from '@/components/project/modals/online/OnlineFiltersModal'
-import DownloadInformationModal from '@/components/project/modals/DownloadInformationModal'
-import OnlineDashboardControlPanel from '@/components/project/dashboard/OnlineDashboardControlPanel'
-import OnlineProjectDashboardWidgets from '@/components/project/dashboard/OnlineProjectDashboardWidgets'
+import WidgetsListModal from '@components/widgets/modals/WidgetsListModal'
+import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
+import InteractiveWidgetModal from '@components/modals/InteractiveWidgetModal'
+import OnlineFiltersModal from '@components/project/modals/online/OnlineFiltersModal'
+import DownloadInformationModal from '@components/project/modals/DownloadInformationModal'
+import OnlineDashboardControlPanel from '@components/project/dashboard/OnlineDashboardControlPanel'
+import OnlineProjectDashboardWidgets from '@components/project/dashboard/OnlineProjectDashboardWidgets'
 
 const {mapActions: mapExpertFilterActions, mapState: mapExpertFilterState} =
   createNamespacedHelpers('expertFilter')
@@ -110,7 +110,7 @@ const {mapActions: mapOnlineActions, mapState} =
 
 const {mapGetters: mapOnlineWidgetsGetters} =
   createNamespacedHelpers('online/widgets')
-import ExpertFilterModal from '@/components/expert-filter/ExpertFilterModal'
+import ExpertFilterModal from '@components/expert-filter/ExpertFilterModal'
 
 export default {
   name: 'OnlineProjectDashboard',

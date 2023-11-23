@@ -35,13 +35,13 @@
 </template>
 
 <script>
-import MainLayoutTitleBlock from '@/components/layout/MainLayoutTitleBlock'
-import BaseButton from '@/components/common/BaseButton'
-import TotalResults from '@/components/TotalResults'
-import CustomText from '@/components/CustomText'
-import DownloadInformationModal from '@/components/project/modals/DownloadInformationModal'
-import BaseButtonSpinner from '@/components/BaseButtonSpinner'
-import ReportsUploadIcon from '@/components/icons/ReportsUploadIcon'
+import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
+import BaseButton from '@components/common/BaseButton'
+import TotalResults from '@components/TotalResults'
+import CustomText from '@components/CustomText'
+import DownloadInformationModal from '@components/project/modals/DownloadInformationModal'
+import BaseButtonSpinner from '@components/BaseButtonSpinner'
+import ReportsUploadIcon from '@components/icons/ReportsUploadIcon'
 
 export default {
   name: 'FeaturesScreen',

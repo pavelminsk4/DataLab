@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import OverviewTopSharingSources from '@/components/widgets/comparison/OverviewTopSharingSources'
+import OverviewTopSharingSources from '@components/widgets/comparison/OverviewTopSharingSources'
 
 export default {
   name: 'TopSharingSourcesWidget',

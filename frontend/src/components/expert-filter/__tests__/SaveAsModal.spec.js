@@ -1,9 +1,9 @@
 import {mount} from '@vue/test-utils'
 import {createNewStore, mockmixin} from '@lib/test-helpers'
 
-import SaveAsModal from '@/components/expert-filter/SaveAsModal'
-import PresetCreatedModal from '@/components/expert-filter/PresetCreatedModal'
-import CreateNewGroupModal from '@/components/expert-filter/CreateNewGroupModal'
+import SaveAsModal from '@components/expert-filter/SaveAsModal'
+import PresetCreatedModal from '@components/expert-filter/PresetCreatedModal'
+import CreateNewGroupModal from '@components/expert-filter/CreateNewGroupModal'
 
 const createWrapper = (store) =>
   mount(SaveAsModal, {

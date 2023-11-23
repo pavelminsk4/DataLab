@@ -14,8 +14,8 @@
 import {createNamespacedHelpers} from 'vuex'
 import {get, action} from '@store/constants'
 
-import VolumeWidget from '@/components/widgets/VolumeWidget'
-import WidgetsSwitcher from '@/components/layout/WidgetsSwitcher'
+import VolumeWidget from '@components/widgets/VolumeWidget'
+import WidgetsSwitcher from '@components/layout/WidgetsSwitcher'
 
 const {mapActions, mapGetters} = createNamespacedHelpers('online/widgets')
 

@@ -25,19 +25,19 @@
 </template>
 
 <script>
-import CustomText from '@/components/CustomText'
-import NewPostIcon from '@/components/icons/NewPostIcon'
-import NeutralIcon from '@/components/icons/NeutralIcon'
-import NegativeIcon from '@/components/icons/NegativeIcon'
-import PositiveIcon from '@/components/icons/PositiveIcon'
-import SourceIcon from '@/components/icons/SourceIcon'
-import PotentialReachIcon from '@/components/icons/PotentialReachIcon'
-import CountryIcon from '@/components/icons/CountryIcon'
-import AuthorIcon from '@/components/icons/AuthorIcon'
-import LikeIcon from '@/components/icons/LikeIcon'
-import RepliesIcon from '@/components/icons/RepliesIcon'
-import RetweetIcon from '@/components/icons/RetweetIcon'
-import WidgetsLayout from '@/components/layout/WidgetsLayout'
+import CustomText from '@components/CustomText'
+import NewPostIcon from '@components/icons/NewPostIcon'
+import NeutralIcon from '@components/icons/NeutralIcon'
+import NegativeIcon from '@components/icons/NegativeIcon'
+import PositiveIcon from '@components/icons/PositiveIcon'
+import SourceIcon from '@components/icons/SourceIcon'
+import PotentialReachIcon from '@components/icons/PotentialReachIcon'
+import CountryIcon from '@components/icons/CountryIcon'
+import AuthorIcon from '@components/icons/AuthorIcon'
+import LikeIcon from '@components/icons/LikeIcon'
+import RepliesIcon from '@components/icons/RepliesIcon'
+import RetweetIcon from '@components/icons/RetweetIcon'
+import WidgetsLayout from '@components/layout/WidgetsLayout'
 
 export default {
   name: 'SummaryWidget',

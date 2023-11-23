@@ -51,15 +51,15 @@
 <script>
 import {createNamespacedHelpers} from 'vuex'
 import {action} from '@store/constants'
-import {stringToPascalCase} from '@/lib/utilities'
-import {modalTabs} from '@/lib/configs/tfsStatusesConfig'
+import {stringToPascalCase} from '@lib/utilities'
+import {modalTabs} from '@lib/configs/tfsStatusesConfig'
 
-import CustomText from '@/components/CustomText'
-import BaseModal from '@/components/modals/BaseModal'
-import TFSOriginalContentTab from '@/components/twenty-four-seven/TFSOriginalContentTab'
-import TFSStoryReportTab from '@/components/twenty-four-seven/TFSStoryReportTab'
-import TFSSummaryTab from '@/components/twenty-four-seven/TFSSummaryTab'
-import ContentWithPosts from '@/components/twenty-four-seven/ContentWithPosts'
+import CustomText from '@components/CustomText'
+import BaseModal from '@components/modals/BaseModal'
+import TFSOriginalContentTab from '@components/twenty-four-seven/TFSOriginalContentTab'
+import TFSStoryReportTab from '@components/twenty-four-seven/TFSStoryReportTab'
+import TFSSummaryTab from '@components/twenty-four-seven/TFSSummaryTab'
+import ContentWithPosts from '@components/twenty-four-seven/ContentWithPosts'
 
 const {mapState, mapActions} = createNamespacedHelpers('twentyFourSeven')
 

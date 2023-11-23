@@ -42,10 +42,10 @@
 
 <script>
 import {ref, watch, nextTick, onMounted} from 'vue'
-import translate from '@/lib/mixins/translate.js'
+import translate from '@lib/mixins/translate.js'
 
-import DeleteTagButton from '@/components/icons/DeleteTagButton'
-import ErrorIcon from '@/components/icons/ErrorIcon'
+import DeleteTagButton from '@components/icons/DeleteTagButton'
+import ErrorIcon from '@components/icons/ErrorIcon'
 
 export default {
   name: 'BaseTag',

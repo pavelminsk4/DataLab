@@ -40,15 +40,15 @@ import {mapActions, mapGetters, createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
 import {action as actionSocial, get as getSocial} from '@store/constants'
 
-import BaseButtonWithTooltip from '@/components/BaseButtonWithTooltip'
-import BlankPage from '@/components/BlankPage'
+import BaseButtonWithTooltip from '@components/BaseButtonWithTooltip'
+import BlankPage from '@components/BlankPage'
 import MainLayout from '@components/layout/MainLayout'
 import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
-import WorkspacesScreen from '@/components/dashboard/WorkspacesScreen'
-import BaseSpinner from '@/components/BaseSpinner'
+import WorkspacesScreen from '@components/dashboard/WorkspacesScreen'
+import BaseSpinner from '@components/BaseSpinner'
 
 import SocialIcon from '@components/icons/SocialIcon'
-import PlusIcon from '@/components/icons/PlusIcon'
+import PlusIcon from '@components/icons/PlusIcon'
 
 const {mapActions: mapSocialActions, mapGetters: mapSocialGetters} =
   createNamespacedHelpers('social')

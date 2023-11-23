@@ -23,7 +23,7 @@ import {action} from '@store/constants'
 const {mapState, mapActions} = createNamespacedHelpers('twentyFourSeven')
 
 import MainLayout from '@components/layout/MainLayout'
-import MainLayoutTitleBlock from '@/components/layout/MainLayoutTitleBlock'
+import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
 
 export default {
   name: 'TFSDashboardView',

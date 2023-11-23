@@ -1,9 +1,9 @@
 import {mount} from '@vue/test-utils'
 import {createNewStore, mockmixin} from '@lib/test-helpers'
 
-import BaseModal from '@/components/modals/BaseModal'
-import BaseButton from '@/components/common/BaseButton'
-import PresetCreatedModal from '@/components/expert-filter/PresetCreatedModal'
+import BaseModal from '@components/modals/BaseModal'
+import BaseButton from '@components/common/BaseButton'
+import PresetCreatedModal from '@components/expert-filter/PresetCreatedModal'
 
 const createWrapper = (store) =>
   mount(PresetCreatedModal, {

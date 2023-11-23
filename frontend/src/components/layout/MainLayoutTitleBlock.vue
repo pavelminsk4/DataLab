@@ -20,8 +20,8 @@
 </template>
 
 <script>
-import CustomText from '@/components/CustomText'
-import ArrowLeftIcon from '@/components/icons/ArrowLeftIcon'
+import CustomText from '@components/CustomText'
+import ArrowLeftIcon from '@components/icons/ArrowLeftIcon'
 
 export default {
   name: 'MainLayoutTitleBlock',

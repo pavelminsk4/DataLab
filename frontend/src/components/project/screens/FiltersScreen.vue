@@ -81,12 +81,12 @@
 import {action, get} from '@store/constants'
 import {action as actionSocial, action as actionOnline} from '@store/constants'
 import {mapActions, mapGetters, createNamespacedHelpers} from 'vuex'
-import {capitalizeFirstLetter} from '@/lib/utilities'
+import {capitalizeFirstLetter} from '@lib/utilities'
 
-import CustomText from '@/components/CustomText'
-import BaseCheckbox from '@/components/BaseCheckbox2'
-import SelectWithCheckboxes from '@/components/SelectWithCheckboxes'
-import FilterChips from '@/components/FilterChips'
+import CustomText from '@components/CustomText'
+import BaseCheckbox from '@components/BaseCheckbox2'
+import SelectWithCheckboxes from '@components/SelectWithCheckboxes'
+import FilterChips from '@components/FilterChips'
 
 const {mapActions: mapOnlineActions} = createNamespacedHelpers('online')
 const {mapActions: mapSocialActions} = createNamespacedHelpers('social')

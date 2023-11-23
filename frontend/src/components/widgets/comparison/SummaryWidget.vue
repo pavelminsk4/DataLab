@@ -12,7 +12,7 @@
 import {
   socialSummaryWidgetConfig,
   summaryWidgetConfig,
-} from '@/lib/configs/widgetsConfigs'
+} from '@lib/configs/widgetsConfigs'
 
 import SummaryTableWidget from '@components/widgets/SummaryTableWidget'
 

@@ -12,7 +12,7 @@ import {createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
 import {isAllFieldsEmpty} from '@lib/utilities'
 
-import CountriesWidget from '@/components/widgets/CountriesWidget'
+import CountriesWidget from '@components/widgets/CountriesWidget'
 
 const {mapActions, mapGetters} = createNamespacedHelpers('online/widgets')
 

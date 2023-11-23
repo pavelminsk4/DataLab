@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import BaseButtonSpinner from '@/components/BaseButtonSpinner'
+import BaseButtonSpinner from '@components/BaseButtonSpinner'
 
 export default {
   name: 'ClippingIcon',

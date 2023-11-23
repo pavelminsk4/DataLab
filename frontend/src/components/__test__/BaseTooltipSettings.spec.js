@@ -1,8 +1,8 @@
 import {mount} from '@vue/test-utils'
 import {createNewStore} from '@lib/test-helpers'
 
-import PointsIcon from '@/components/icons/PointsIcon'
-import BaseTooltipSettings from '@/components/BaseTooltipSettings'
+import PointsIcon from '@components/icons/PointsIcon'
+import BaseTooltipSettings from '@components/BaseTooltipSettings'
 
 const createWrapper = (store) =>
   mount(BaseTooltipSettings, {

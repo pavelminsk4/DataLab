@@ -13,7 +13,7 @@ import {action} from '@store/constants'
 import {getWidgetDetails} from '@lib/utilities'
 import {MODES} from '@lib/constants'
 
-import WidgetsList from '@/components/widgets/WidgetsList'
+import WidgetsList from '@components/widgets/WidgetsList'
 
 export default {
   name: 'WidgetsView',

@@ -18,8 +18,8 @@
 </template>
 
 <script>
-import WidgetsLayout from '@/components/layout/WidgetsLayout'
-import ChartsView from '@/components/charts/ChartsView'
+import WidgetsLayout from '@components/layout/WidgetsLayout'
+import ChartsView from '@components/charts/ChartsView'
 
 export default {
   name: 'EngagementsTimelineWidget',

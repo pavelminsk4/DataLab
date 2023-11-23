@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import CrossIcon from '@/components/icons/CrossIcon'
+import CrossIcon from '@components/icons/CrossIcon'
 
 export default {
   name: 'BaseFlashMessage',
