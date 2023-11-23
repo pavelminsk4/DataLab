@@ -4,7 +4,7 @@ from django.db.models import Sum
 from django.http import JsonResponse
 
 def mention_summary(pk, widget_pk):
-    posts, project = filter_for_mentions_posts(pk, widget_pk)
+    posts, project, widget = filter_for_mentions_posts(pk, widget_pk)
     user_post = TweetBinderPost.objects.filter(user_alias=project.profile_handle).last()
     positive, negative, neutral = 0, 0, 0
     for post in posts:

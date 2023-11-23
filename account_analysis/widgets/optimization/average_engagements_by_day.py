@@ -1,11 +1,10 @@
 from account_analysis.widgets.filter_for_posts import filter_for_account_posts
-from django.db.models import Sum, F
 from django.http import JsonResponse
 
 
 def average_engagements_by_day(pk, widget_pk):
-    posts, project = filter_for_account_posts(pk, widget_pk)
-    return calculate(posts)
+    posts, project, widget = filter_for_account_posts(pk, widget_pk)
+    return JsonResponse(calculate(posts), safe=False)
 
 def calculate(posts):
     engagements_sunday, engagements_monday, engagements_tuesday, engagements_wednesday, engagements_thursday, engagements_friday, engagements_saturday = 0,0,0,0,0,0,0
@@ -40,4 +39,11 @@ def calculate(posts):
            'Friday': engagements_friday/posts_friday if posts_friday else 0,
            'Saturday': engagements_saturday/posts_saturday if posts_saturday else 0,
            'Sunday': engagements_sunday/posts_sunday if posts_sunday else 0}
-    return JsonResponse(res, safe=False)
+    return res
+
+def to_csv(request, pk, widget_pk):
+    posts, project, widget = filter_for_account_posts(pk, widget_pk)
+    result = calculate(posts)
+    fields = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+    rows = [[result['Monday'], result['Tuesday'], result['Wednesday'], result['Thursday'], result['Friday'], result['Saturday'], result['Sunday']]]
+    return fields, rows

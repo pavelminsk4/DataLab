@@ -4,7 +4,7 @@ from django.db.models import Q
 
 
 def most_frequent_media_types(pk, widget_pk):
-    posts, project = filter_for_account_posts(pk, widget_pk)
+    posts, project, widget = filter_for_account_posts(pk, widget_pk)
     res = post_aggregator_most_frequent_media_types(posts)
     return JsonResponse(res, safe=False)
 
@@ -29,3 +29,10 @@ def post_aggregator_most_frequent_media_types(posts):
                                      (Q(count_textlength__gt=0) & Q(videos__isnull=False)) | 
                                      (Q(count_textlength__gt=0) & Q(count_images__gt=0)) | 
                                      (Q(videos__isnull=False) & Q(count_images__gt=0))).count()}
+
+def to_csv(request, pk, widget_pk):
+    posts, project, widget = filter_for_account_posts(pk, widget_pk)
+    result = post_aggregator_most_frequent_media_types(posts)
+    fields = ['Links', 'Text', 'Video', 'Photo', 'Combination']
+    rows = [[result['count_link'], result['count_text'], result['count_video'], result['count_photo'], result['count_combination']]]
+    return fields, rows
