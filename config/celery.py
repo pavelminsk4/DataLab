@@ -12,7 +12,7 @@ env.read_env(os.path.join(BASE_DIR, '.env'))
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
 
-app = Celery('config')
+app = Celery('config', include=['project.tasks.run_livesearch', 'project.tasks.upload_posts'])
 app.config_from_object('django.conf:settings', namespace='CELERY')
 app.conf.task_always_eager = len(sys.argv) > 1 and sys.argv[1] == 'test'
 
