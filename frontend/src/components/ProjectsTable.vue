@@ -37,8 +37,8 @@
       <td>
         <UsersIconsBar :users="projectMembers(item.members)" />
       </td>
-      <td class="project-date">
-        {{ projectCreationDate(item.synched_at) }}
+      <td v-if="item.hasOwnProperty('synched_at')" class="project-date">
+        {{ synchedDate(item.synched_at) }}
       </td>
       <td class="project-date">
         {{ projectCreationDate(item.created_at) }}
@@ -117,6 +117,9 @@ export default {
     },
     projectCreationDate(date) {
       return new Date(date).toLocaleDateString('ro-RO')
+    },
+    synchedDate(date) {
+      return isNaN(date) ? new Date(date).toLocaleString() : ''
     },
     goToProject(event, id) {
       if (!event.target.closest('.checkbox-container')) {
