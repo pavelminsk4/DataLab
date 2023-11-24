@@ -6,7 +6,7 @@
     @mouseleave="hideMenu"
   >
     <div class="cart-button-wrapper">
-      <CustomText text="projects" class="number-projects">
+      <CustomText text="&nbsp;projects" class="number-projects">
         <template #before>
           {{ numberProjects }}
         </template>
