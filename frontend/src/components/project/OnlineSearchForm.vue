@@ -1,5 +1,22 @@
 <template>
   <div class="filters-wrapper">
+    <template v-if="isAdmin">
+      <CustomText text="Main sources" class="second-title" />
+
+      <div class="sources">
+        <BaseCheckbox
+          v-for="(source, index) in mainSources"
+          :key="source + index"
+          :id="`checkbox-${source.toLowerCase()}`"
+          v-model="sources"
+          :value="source.toLowerCase()"
+          class="checkbox"
+        >
+          <CustomText :text="source" />
+        </BaseCheckbox>
+      </div>
+    </template>
+
     <template v-for="{name, listName} in searchFields" :key="name">
       <CustomText :text="name" class="second-title" />
 
@@ -62,6 +79,7 @@ import {capitalizeFirstLetter, isAllFieldsEmpty} from '@lib/utilities'
 
 import CustomText from '@components/CustomText'
 import BaseRadio from '@components/BaseRadio'
+import BaseCheckbox from '@components/BaseCheckbox2'
 import BaseSearchField from '@components/BaseSearchField'
 import PositiveIcon from '@components/icons/PositiveIcon'
 import NegativeIcon from '@components/icons/NegativeIcon'
@@ -101,12 +119,15 @@ export default {
     NeutralIcon,
     CustomText,
     ProjectCalendar,
+    BaseCheckbox,
   },
   props: {
     currentProject: {type: Object, required: true},
   },
   data() {
     return {
+      selectedSources: [],
+      mainSources: ['RSS', 'Talkwalker'],
       sentiments: ['Negative', 'Neutral', 'Positive'],
       selectedValue: '',
       clearValue: false,
@@ -129,10 +150,23 @@ export default {
       searchLists: get.SEARCH_LISTS,
     }),
     ...mapGetters({
+      userInfo: get.USER_INFO,
       keywords: get.KEYWORDS,
     }),
+    isAdmin() {
+      return this.userInfo.user_profile.role === 'admin'
+    },
     isCurrentProjectCreated() {
       return !isAllFieldsEmpty(this.currentProject)
+    },
+    sources: {
+      get() {
+        return this.selectedSources || []
+      },
+      set(val) {
+        this.selectedSources = val
+        this[action.UPDATE_ADDITIONAL_FILTERS]({sources: this.selectedSources})
+      },
     },
     selectedValueProxy: {
       get() {
@@ -159,6 +193,7 @@ export default {
     this.search.language = this.currentProject?.language_filter || ''
     this.search.source = this.currentProject?.source_filter || ''
     this.search.author = this.currentProject?.author_filter || ''
+    this.selectedSources = this.currentProject.sources
 
     this[action.UPDATE_ADDITIONAL_FILTERS]({
       country: this.currentProject.country_filter,
@@ -166,6 +201,7 @@ export default {
       source: this.currentProject.source_filter,
       author: this.currentProject.author_filter,
       sentiment: this.currentProject.sentiment_filter,
+      sources: this.currentProject.sources,
     })
   },
   watch: {
@@ -242,6 +278,29 @@ export default {
   width: 408px;
 
   margin-bottom: 20px;
+}
+
+.sources {
+  display: flex;
+
+  gap: 15px;
+  margin-top: 10px;
+
+  .checkbox {
+    display: flex;
+    align-items: center;
+
+    padding: 12px;
+    gap: 10px;
+
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+  }
 }
 
 .date-picker {
