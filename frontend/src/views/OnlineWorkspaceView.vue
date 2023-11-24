@@ -50,6 +50,7 @@ export default {
       {name: 'keywords', width: '20%'},
       {name: 'creator', width: '16%'},
       {name: 'assigned user', width: '11%'},
+      {name: 'synched date', width: '11%'},
       {name: 'date', width: '11%'},
     ]
   },

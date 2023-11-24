@@ -37,7 +37,10 @@
       <td>
         <UsersIconsBar :users="projectMembers(item.members)" />
       </td>
-      <td class="project-creation-date">
+      <td class="project-date">
+        {{ projectCreationDate(item.synched_at) }}
+      </td>
+      <td class="project-date">
         {{ projectCreationDate(item.created_at) }}
       </td>
       <td>
@@ -207,7 +210,7 @@ export default {
   }
 }
 
-.project-creation-date {
+.project-date {
   font-weight: 600;
 }
 
