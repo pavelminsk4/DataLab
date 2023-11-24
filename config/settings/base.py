@@ -2,13 +2,13 @@ from pathlib import Path
 import os
 import environ
 
-DEBUG = False
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 env = environ.Env()
 env.read_env(os.path.join(BASE_DIR, '.env'))
 
+DEBUG = env('DEBUG')
 SECRET_KEY = 'django-insecure-#v!p9&1x##2u#yt)l=o5ihm(=!&(y(w4j5p-_mbm(k&bc1i!jw'
 
 ALLOWED_HOSTS = [env('ALLOWED_HOSTS')]
@@ -175,5 +175,5 @@ ROLLBAR = {
     'access_token': env('ROLLBAR_TOKEN'),
     'environment': 'development' if DEBUG else 'production',
     'code_version': '1.0',
-    'root': BASE_DIR,
+    'root': str(BASE_DIR),
 }
