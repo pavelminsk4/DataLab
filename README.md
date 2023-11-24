@@ -9,11 +9,10 @@
 # Running tests
 
 **Backend**
-1. `cd frontend`
-2. `nvm install 18` (make sure you have nvm installed)
-3. `yarn` (to install JS libraries)
-4. `yarn serve`
-5. `python3 manage.py test`
+1. `nvm install 18` (make sure you have nvm installed)
+2. `yarn` (to install JS libraries)
+3. `yarn serve`
+4. `python3 manage.py test`
 
 **Celery**
 1. `brew install redis`
@@ -22,12 +21,16 @@
 4. `celery -A config flower --url_prefix=flower` (for monitoring)
 
 **Frontend**
-1. `cd frontend`
-2. `yarn` (to install JS libraries)
-3. `yarn test`
+1. `yarn` (to install JS libraries)
+2. `yarn test`
 
 # Running the developer's environment
 
 1. `python3 manage.py createsuperuser`
 2. `yarn serve` (to run the frontend)
 3. `python3 manage.py runserver`
+
+# Setting up a server to serve static files
+
+1. `dokku storage:mount app /var/lib/dokku/data/storage/app/collectstatic:/app/collectstatic`
+2. `location /static/ {alias /var/lib/dokku/data/storage/app/collectstatic/;}` (create static.conf file with this code)
