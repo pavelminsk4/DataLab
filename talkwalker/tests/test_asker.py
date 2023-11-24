@@ -1,8 +1,12 @@
 from common.factories.project import ProjectFactory
 from talkwalker.classes.asker import Asker
-from project.models import Post
+from project.models import Post, Project
+
+from django.conf import settings
 from django.test import TestCase
+
 import responses
+import os
 import re
 from project.models import *
 
@@ -228,23 +232,27 @@ class AskerTestCase(TestCase):
             "chunk_type": "CT_CONTROL",
             "chunk_control": {
                 "connection_id": "#s1ydl1qjeb9r#",
-                "resume_offset": "earliest",
+                "resume_offset": "EgTslpRi",
                 "collector_id": "live_search-1"
             }
         }""")
     ])
 
     body2 = re.sub(r'\s+', '', """{
-                "result_tasks": {
-                    "tasks":[
-                        {
-                            "status": "result_limit_reached"
-                        }
-                    ]
-            }""")
+        "result_tasks": {
+            "tasks":[
+                {
+                    "status": "result_limit_reached"
+                }
+            ]
+    }""")
+
+    def read_file(self, name):
+        return '}\n{'.join(re.sub(r'\s+', '', open(os.path.join(settings.BASE_DIR, name)).read()).split('}{'))
 
     @responses.activate
     def test_collector_life_cycle(self):
+        """Asker class methods work in a sequence"""
         project = ProjectFactory()
         self.assertEqual(project.status, 'collecting_data')
         token = 'acfaad27-3948-4e13-a617-2d33fd97552a_ZStqaRbxfzpRBT7YfbIqUPJPVwa2.QUzpFqzvPtKdHdc5UNZrYlHyk03MPxVkGKfZ6n3Y4i.meiy.FNZ621ZSmhzzb.gJAlvHtslEq7PP0B3JbDC4BS1y.hwK9fPz7vMQXvSfQFXka9.gEKovum-Pu0LYzy8GSjjSLvBdA1fV5M'
@@ -253,39 +261,47 @@ class AskerTestCase(TestCase):
         responses.add(
             responses.PUT,
             f'https://api.talkwalker.com/api/v3/stream/c/search-{project.id}-onl-col?access_token={token}',
-            status=200,
+            status=200
         )
 
         """Mock __02_new_task_on_query request"""
         responses.add(
             responses.POST,
             f'https://api.talkwalker.com/api/v3/stream/export?access_token={token}',
-            status=200,
+            status=200
         )
 
         """Mock __03_retrieve_status_of_task request"""
         responses.add(
             responses.GET,
             f'https://api.talkwalker.com/api/v3/tasks/export/?access_token={token}',
-            body=self.body2,
+            body=self.body2
         )
 
         """Mock __04_read_collector request"""
         responses.add(
             responses.GET,
-            f'https://api.talkwalker.com/api/v3/stream/c/search-{project.id}-onl-col/results?access_token=acfaad27-3948-4e13-a617-2d33fd97552a_ZStqaRbxfzpRBT7YfbIqUPJPVwa2.QUzpFqzvPtKdHdc5UNZrYlHyk03MPxVkGKfZ6n3Y4i.meiy.FNZ621ZSmhzzb.gJAlvHtslEq7PP0B3JbDC4BS1y.hwK9fPz7vMQXvSfQFXka9.gEKovum-Pu0LYzy8GSjjSLvBdA1fV5M&resume_offset=earliest&end_behaviour=stop',
-            body=self.body,
+            f'https://api.talkwalker.com/api/v3/stream/c/search-{project.id}-onl-col/results?access_token={token}&resume_offset=earliest&end_behaviour=stop',
+            body=self.body
+        )
+
+        responses.add(
+            responses.GET,
+            f'https://api.talkwalker.com/api/v3/stream/c/search-{project.id}-onl-col/results?access_token={token}&resume_offset=EgTslpRi&end_behaviour=stop',
+            body=self.read_file('fixtures/talkwalker/collector_stream4.json')
         )
 
         """Mock _05_delete_collector request"""
         responses.add(
             responses.DELETE,
             f'https://api.talkwalker.com/api/v3/stream/c/search-{project.id}-onl-col?access_token={token}',
-            status=200,
+            status=200
         )
 
         result = Asker(project.id, 'Project').run()
         self.assertTrue(result)
         self.assertEqual(project.posts.all().count(), 2)
-        project = Project.objects.get(pk=project.pk)
-        self.assertEqual(project.status, 'active')
+
+        project.refresh_from_db()
+        self.assertEqual(project.status, Project.STATUS_ACTIVE)
+        self.assertEqual(project.resume_offset, 'EgTslpRi')
