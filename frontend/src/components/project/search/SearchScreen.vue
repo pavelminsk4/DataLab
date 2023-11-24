@@ -180,6 +180,7 @@ export default {
         english_name: '',
         creator: this.currentProject?.creator,
         source: this.currentProject?.source,
+        sources: this.additionalFilters.sources || this.currentProject.sources,
         workspace: this.currentProject?.workspace,
         start_search_date:
           this.additionalFilters?.date_range[0] ||
