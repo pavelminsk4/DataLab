@@ -46,7 +46,7 @@ class ProjectSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Project
-        exclude = ['posts']
+        exclude = ['posts', 'resume_offset']
 
 
 class WorkspaceSerializer(WritableNestedModelSerializer):

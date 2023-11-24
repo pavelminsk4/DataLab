@@ -81,7 +81,7 @@ class Asker:
         return create_posts(self.project, lines, offset)
 
     def __04_read_collector(self):
-        resume_offset = 'earliest'
+        resume_offset = self.project.resume_offset or 'earliest'
         while resume_offset:
             resume_offset = self.__read_chunk(resume_offset)
 
