@@ -75,13 +75,12 @@ export default {
       })
     },
     async createProject(projectData) {
-      const newProject = await this[actionOnline.CREATE_PROJECT](projectData)
+      await this[actionOnline.CREATE_PROJECT](projectData)
 
       await this.$router.push({
-        name: 'OnlineAnalytics',
+        name: 'OnlineWorkspace',
         params: {
           workspaceId: this.workspaceId,
-          projectId: newProject.id,
         },
       })
       await this[actionOnline.GET_WORKSPACES]()
