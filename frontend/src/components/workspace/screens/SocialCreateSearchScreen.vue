@@ -59,14 +59,14 @@ export default {
         workspaceData
       )
 
+      await this[actionSocial.GET_WORKSPACES]()
+
       await this.$router.push({
-        name: 'SocialAnalytics',
+        name: 'SocialWorkspace',
         params: {
           workspaceId: newWorkspace.id,
-          projectId: newWorkspace.projects[0].id,
         },
       })
-      await this[actionSocial.GET_WORKSPACES]()
 
       await this[action.OPEN_FLASH_MESSAGE]({
         type: 'Success',
