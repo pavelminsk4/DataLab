@@ -2,11 +2,7 @@ from project_social.social_parser import SocialParser
 
 
 class SocialExpertPresets:
-    def __init__(self, project):
-        self.project = project
-
-    def apply_presets(project):
-        posts = project.posts.all()
+    def apply_presets(self, project, posts):
         presets = project.expert_presets.all()
         for preset in presets:
             query = ''.join(preset.query)

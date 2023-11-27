@@ -27,6 +27,8 @@ from .widgets.dimensions import *
 from .serializers import *
 from .models import *
 from .widgets.interactive_widgets import interactive_widgets
+from project_social.services.social_search_service import SocialSearchService
+from project_social.models import ChangingTweetbinderSentiment
 
 
 class ProjectsAccountAnalysisViewSet(viewsets.ModelViewSet):
@@ -147,9 +149,6 @@ def average_engagements_by_day_for_mentions_widget(request, pk, widget_pk):
 def interactive_data_for_widgets(request, project_pk, widget_pk):
   return interactive_widgets(request, project_pk, widget_pk)
 
-from project_social.models import ChangingTweetbinderSentiment
-from project_social.views import change_tweet_post_sentiment
-
 def search_posts(request, project_pk):
     body = json.loads(request.body)
     posts_per_page = body['posts_per_page']
@@ -194,7 +193,7 @@ def calculate(posts, posts_per_page, page_number, dict_changing):
     posts = list(posts)
     for p in posts:
         p['link'] = f'https://twitter.com/user/status/{p["post_id"]}'
-        p = change_tweet_post_sentiment(p, dict_changing)
+        p = SocialSearchService().change_tweet_post_sentiment(p, dict_changing)
     p = Paginator(posts, posts_per_page)
     posts_list=list(p.page(page_number))
     res = { 'num_pages': p.num_pages, 'num_posts': p.count, 'posts': posts_list }
