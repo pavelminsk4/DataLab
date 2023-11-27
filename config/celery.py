@@ -49,9 +49,14 @@ app.conf.beat_schedule = {
         'schedule': crontab(hour=3, minute=0, day_of_week='*'),
         'args': ()
     },
-    'run-livesearch': {
-        'task': 'project.tasks.run_livesearch.run_livesearch',
+    'run-talkwalker-livesearch': {
+        'task': 'project.tasks.run_livesearch.run_talkwalker_livesearch',
         'schedule': crontab(hour='*', minute='*/20', day_of_week='*'),
+        'args': ()
+    },
+    'run-rss-livesearch': {
+        'task': 'project.tasks.run_livesearch.run_rss_livesearch',
+        'schedule': crontab(hour='*', minute='*/15', day_of_week='*'),
         'args': ()
     }
 }
