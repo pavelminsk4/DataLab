@@ -4,16 +4,27 @@
       <BaseDropdown name="sort-posts" class="sorting-dropdown">
         <template #selectedValue>
           <div class="sorting-dropdown-title">
-            <SortIcon class="sort-icon" />{{ capitalizeFirstLetter(sortValue) }}
+            <component
+              :is="`${sortIcon.name}Icon`"
+              :direction="sortIcon.direction"
+              class="icon"
+            />
+            {{ sortingValue }}
           </div>
         </template>
         <CustomText
           v-for="(item, index) in sortingList"
-          :key="item + index"
-          :text="snakeCaseToSentenseCase(item)"
+          :key="item.value + index"
+          :text="item.name + ' '"
           class="sorting-item"
-          @click="$emit('set-sorting-value', item)"
-        />
+          @click="setSortingValue(item)"
+        >
+          <component
+            :is="`${item.icon}Icon`"
+            :direction="item.direction"
+            class="icon"
+          />
+        </CustomText>
       </BaseDropdown>
 
       <div
@@ -49,9 +60,8 @@
 </template>
 
 <script>
-import {capitalizeFirstLetter, snakeCaseToSentenseCase} from '@lib/utilities'
-
 import CustomText from '@components/CustomText'
+import ArrowLongIcon from '@components/icons/ArrowLongIcon'
 import PlusIcon from '@components/icons/PlusIcon'
 import SortIcon from '@components/icons/SortIcon'
 import FiltersIcon from '@components/icons/FiltersIcon'
@@ -69,14 +79,20 @@ export default {
     PlusIcon,
     SortIcon,
     BaseButton,
+    ArrowLongIcon,
     BaseButtonSpinner,
     ReportsUploadIcon,
     FiltersIcon,
     ExpertFilterIcon,
   },
   props: {
-    sortValue: {type: String, required: true},
     downloadingInstantReport: {type: Boolean, default: false},
+  },
+  data() {
+    return {
+      sortIcon: {name: 'Sort', derection: ''},
+      sortingValue: 'Latest',
+    }
   },
   computed: {
     filtersList() {
@@ -99,13 +115,22 @@ export default {
     },
     sortingList() {
       return [
-        'country',
-        'language',
-        'source',
-        'potential_reach_desc',
-        'potential_reach',
-        'date_desc',
-        'date',
+        {value: 'country', name: 'Country', icon: ''},
+        {value: 'language', name: 'Language', icon: ''},
+        {value: 'source', name: 'Source', icon: ''},
+        {
+          value: 'potential_reach_desc',
+          name: 'Potential Reach',
+          icon: 'ArrowLong',
+        },
+        {
+          value: 'potential_reach',
+          name: 'Potential Reach',
+          icon: 'ArrowLong',
+          direction: 'top',
+        },
+        {value: 'date_desc', name: 'Date', icon: 'ArrowLong'},
+        {value: 'date', name: 'Date', icon: 'ArrowLong', direction: 'top'},
       ]
     },
     downloadReportButtonIcon() {
@@ -115,8 +140,11 @@ export default {
     },
   },
   methods: {
-    capitalizeFirstLetter,
-    snakeCaseToSentenseCase,
+    setSortingValue(sortValue) {
+      this.sortIcon = {name: sortValue.icon, direction: sortValue.direction}
+      this.sortingValue = sortValue.name
+      this.$emit('set-sorting-value', sortValue.value)
+    },
   },
 }
 </script>
@@ -184,10 +212,10 @@ export default {
     margin-right: 4px;
 
     color: var(--sorting-primary-color);
+  }
 
-    .sort-icon {
-      color: var(--sorting-primary-color);
-    }
+  .icon {
+    color: var(--sorting-primary-color);
   }
 
   .sorting-item {
