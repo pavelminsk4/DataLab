@@ -23,9 +23,7 @@
 
     <div class="sort-wrapper">
       <CustomText tag="span" text="Sort by" class="hint" />
-      <CustomText text="Latest" class="sort-option">
-        <SortIcon class="sort-icon" />
-      </CustomText>
+      <CustomText text="Latest" class="sort-option" />
 
       <BaseInput
         v-model="search"
@@ -53,7 +51,6 @@
 import {mapActions, mapGetters} from 'vuex'
 import {action, get} from '@store/constants'
 
-import SortIcon from '@components/icons/SortIcon'
 import OnlineIcon from '@components/icons/OnlineIcon'
 import SocialIcon from '@components/icons/SocialIcon'
 
@@ -73,7 +70,6 @@ export default {
     MainLayoutTitleBlock,
     OnlineIcon,
     ProjectsTable,
-    SortIcon,
     SocialIcon,
     CustomText,
   },

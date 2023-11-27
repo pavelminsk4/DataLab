@@ -12,19 +12,19 @@
             {{ sortingValue }}
           </div>
         </template>
-        <CustomText
+        <div
           v-for="(item, index) in sortingList"
           :key="item.value + index"
-          :text="item.name + ' '"
           class="sorting-item"
           @click="setSortingValue(item)"
         >
+          <CustomText :text="item.name" class="sorting-name" />
           <component
             :is="`${item.icon}Icon`"
             :direction="item.direction"
             class="icon"
           />
-        </CustomText>
+        </div>
       </BaseDropdown>
 
       <div
@@ -219,9 +219,17 @@ export default {
   }
 
   .sorting-item {
+    display: flex;
+    align-items: center;
+
     &:hover {
       color: var(--sorting-primary-color);
       background-color: var(--sorting-background-primary-color);
+
+      .sorting-name {
+        color: var(--sorting-primary-color);
+        background-color: var(--sorting-background-primary-color);
+      }
     }
   }
 }

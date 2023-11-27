@@ -1,6 +1,6 @@
 <template>
   <component :is="tag" :class="[`custom-text-${platformLanguage}`]">
-    <slot name="before"></slot>{{ translatedText }}<slot></slot>
+    {{ translatedText }}
   </component>
 </template>
 

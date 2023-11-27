@@ -7,11 +7,17 @@
     <div class="warning-content">
       <img src="@assets/warning.svg" alt="Warning" class="warning-img" />
 
-      <CustomText tag="div" class="text">
-        After clicking the 'Continue' button, you will not be able to edit the
-        project settings. <br />
-        Please make sure that the keywords entered are correct.
-      </CustomText>
+      <CustomText
+        tag="div"
+        text="After clicking the 'Continue' button, you will not be able to edit the
+        project settings."
+        class="text"
+      />
+      <CustomText
+        tag="div"
+        text="Please make sure that the keywords entered are correct."
+        class="text"
+      />
     </div>
 
     <div class="modal-buttons">
@@ -39,13 +45,15 @@ export default {
 <style lang="scss">
 .modal-buttons {
   display: flex;
+
   gap: 20px;
 
   justify-content: flex-end;
 }
 
 .text {
-  margin-bottom: 20px;
+  display: flex;
+  align-self: flex-start;
 
   color: var(--typography-title-color);
 }
@@ -54,6 +62,8 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  margin-bottom: 28px;
 
   .warning-img {
     width: 315px;

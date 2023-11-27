@@ -6,11 +6,10 @@
     @mouseleave="hideMenu"
   >
     <div class="cart-button-wrapper">
-      <CustomText text="&nbsp;projects" class="number-projects">
-        <template #before>
-          {{ numberProjects }}
-        </template>
-      </CustomText>
+      <div class="number-projects">
+        {{ numberProjects }}
+        <CustomText text="projects" />
+      </div>
       <UsersIconsBar :users="members" />
     </div>
 
@@ -155,6 +154,9 @@ export default {
 }
 
 .number-projects {
+  display: flex;
+
+  gap: 4px;
   padding: 6px 8px;
 
   background: var(--background-additional-color);

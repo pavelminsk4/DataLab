@@ -2,16 +2,14 @@
   <BaseModal modal-frame-style="width:90vw;">
     <template #title>
       <CustomText text="Top Results" />
-      <CustomText :text="allAvailablePosts" class="hint"> results </CustomText>
+      <CustomText :text="`${allAvailablePosts} results`" class="hint" />
     </template>
 
     <BaseSpinner v-if="loading" />
 
     <div v-else class="interactive-modal-wrapper">
       <div class="settings-panel">
-        <CustomText :text="allAvailablePosts" class="results">
-          results
-        </CustomText>
+        <CustomText :text="`${allAvailablePosts} results`" class="results" />
 
         <component
           v-for="(item, index) in displayTypes"
@@ -26,13 +24,10 @@
       </div>
 
       <NoPostsIcon v-if="!loading && !posts.length" />
-      <CustomText
-        v-if="!loading && !posts.length"
-        text="No posts here"
-        class="no-posts"
-      >
+      <div v-if="!loading && !posts.length" class="no-posts">
+        <CustomText text="No posts here" />
         &#128531;
-      </CustomText>
+      </div>
 
       <div :class="[postsDisplayType]">
         <component
@@ -172,6 +167,8 @@ export default {
   height: 100%;
 
   .no-posts {
+    display: flex;
+
     margin-top: 20px;
 
     font-size: 18px;
