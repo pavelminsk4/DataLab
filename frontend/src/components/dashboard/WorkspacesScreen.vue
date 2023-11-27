@@ -12,9 +12,7 @@
   <div v-else>
     <div class="sort-wrapper">
       <CustomText tag="span" text="Sort by" class="hint" />
-      <CustomText text="Latest" class="sort-option">
-        <SortIcon class="sort-icon" />
-      </CustomText>
+      <CustomText text="Latest" class="sort-option" />
       <BaseButtonWithTooltip
         :is-disabled="isProjectCreationAvailable"
         :has-tooltip="isProjectCreationAvailable"
@@ -53,7 +51,6 @@
 import {mapGetters} from 'vuex'
 import {get} from '@store/constants'
 
-import SortIcon from '@components/icons/SortIcon'
 import PlusIcon from '@components/icons/PlusIcon'
 
 import CustomText from '@components/CustomText'
@@ -67,7 +64,6 @@ export default {
   components: {
     BaseButtonWithTooltip,
     BaseSpinner,
-    SortIcon,
     PlusIcon,
     CustomText,
     WorkspaceCard,
@@ -148,10 +144,6 @@ export default {
   align-items: center;
 
   margin-left: 15px;
-}
-
-.sort-icon {
-  margin-left: 7px;
 }
 
 .create-new-button {

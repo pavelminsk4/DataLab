@@ -59,14 +59,14 @@ export default {
         workspaceData
       )
 
+      await this[actionOnline.GET_WORKSPACES]()
+
       await this.$router.push({
-        name: 'OnlineAnalytics',
+        name: 'OnlineWorkspace',
         params: {
           workspaceId: newWorkspace.id,
-          projectId: newWorkspace.projects[0].id,
         },
       })
-      await this[actionOnline.GET_WORKSPACES]()
 
       await this[action.OPEN_FLASH_MESSAGE]({
         type: 'Success',
@@ -75,13 +75,12 @@ export default {
       })
     },
     async createProject(projectData) {
-      const newProject = await this[actionOnline.CREATE_PROJECT](projectData)
+      await this[actionOnline.CREATE_PROJECT](projectData)
 
       await this.$router.push({
-        name: 'OnlineAnalytics',
+        name: 'OnlineWorkspace',
         params: {
           workspaceId: this.workspaceId,
-          projectId: newProject.id,
         },
       })
       await this[actionOnline.GET_WORKSPACES]()

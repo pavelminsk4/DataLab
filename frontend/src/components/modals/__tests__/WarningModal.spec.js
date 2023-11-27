@@ -1,6 +1,7 @@
 import {mount} from '@vue/test-utils'
 import {createNewStore, mockmixin} from '@lib/test-helpers'
 
+import CustomText from '@components/CustomText'
 import BaseModal from '@components/modals/BaseModal'
 import BaseButton from '@components/common/BaseButton'
 import WarningModal from '@components/modals/WarningModal'
@@ -18,8 +19,8 @@ describe('WarningModal component', () => {
   const wrapper = createWrapper(store)
 
   it('should display the text and components', () => {
+    expect(wrapper.findAllComponents(CustomText).length).toEqual(5)
     expect(wrapper.findAllComponents(BaseModal).length).toEqual(1)
     expect(wrapper.findAllComponents(BaseButton).length).toEqual(2)
-    expect(wrapper.text()).toMatch('Save confirmation')
   })
 })

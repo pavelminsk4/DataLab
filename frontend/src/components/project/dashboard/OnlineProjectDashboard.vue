@@ -53,7 +53,6 @@
     </MainLayoutTitleBlock>
 
     <OnlineDashboardControlPanel
-      :sort-value="sortValue"
       :downloading-instant-report="downloadingInstantReport"
       @open-modal="toggleWidgetsModal"
       @download-report="downloadReport"
@@ -136,7 +135,7 @@ export default {
       isOpenFilterModal: false,
       isOpenDownloadReportModal: false,
       isOpenExpertFilterModal: false,
-      sortValue: 'Latest',
+      sortValue: '',
       widgetId: null,
       page: 1,
       countPosts: 4,

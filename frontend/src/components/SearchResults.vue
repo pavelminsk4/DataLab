@@ -38,9 +38,7 @@
         tag="h3"
         text="Your search did not find any matching posts. Refine your keywords or search criteria"
         class="no-results__text"
-      >
-        &#128546;
-      </CustomText>
+      />
     </div>
   </div>
 </template>

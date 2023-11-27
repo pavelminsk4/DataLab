@@ -127,7 +127,7 @@ export default {
         {name: 'SOURCE', value: this.sourceLink},
         {name: 'LOCATION', value: this.country},
         {name: 'LANGUAGE', value: this.language},
-        {name: 'POTENTIAL REACH', value: this.potentialReach},
+        {name: 'POTENTIAL REACH', value: this.potentialReach.toLocaleString()},
       ]
     },
   },

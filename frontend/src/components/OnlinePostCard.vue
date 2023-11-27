@@ -96,7 +96,7 @@ export default {
         {name: 'LANGUAGE', value: this.postDetails.feed_language__language},
         {
           name: 'POTENTIAL REACH',
-          value: this.postDetails.feedlink__alexaglobalrank,
+          value: this.postDetails.feedlink__alexaglobalrank.toLocaleString(),
         },
       ]
     },

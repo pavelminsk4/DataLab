@@ -1,9 +1,6 @@
 <template>
-  <CustomText text="results" class="search-results-count">
-    <template #before>
-      {{ totalResults }}
-    </template>
-  </CustomText>
+  <span class="search-results-count">{{ totalResults }}</span>
+  <CustomText text="results" class="search-results-count" />
 </template>
 
 <script>

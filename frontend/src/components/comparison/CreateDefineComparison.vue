@@ -44,9 +44,8 @@
             class="select"
           />
         </DivWithError>
-        <CustomText tag="span" text="Competitor project">
-          <CustomText tag="span" text="Optional" class="hint" />
-        </CustomText>
+        <CustomText tag="span" text="Competitor project" />
+        <CustomText tag="span" text="Optional" class="hint" />
         <DropdownWithSelect
           v-model="projects.projectToCompareOptional"
           :workspaces="currentWorkspaces"

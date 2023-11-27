@@ -25,7 +25,7 @@
 
     <section v-else class="no-posts">
       <img src="@assets/account-analysis/no-posts.svg" alt="No posts image" />
-      <CustomText tag="span" text="No posts here"> &#128532; </CustomText>
+      <CustomText tag="span" text="No posts here" />&#128532;
     </section>
   </section>
 </template>
