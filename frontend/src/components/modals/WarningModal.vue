@@ -1,7 +1,7 @@
 <template>
   <BaseModal modal-frame-style="width:456px;">
     <template #title>
-      <CustomText tag="div">Save confirmation</CustomText>
+      <CustomText text="Save confirmation" tag="div" />
     </template>
 
     <div class="warning-content">
