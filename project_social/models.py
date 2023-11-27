@@ -1,10 +1,12 @@
 from django.db.models.signals import post_save, pre_delete
 from django.contrib.postgres.fields import ArrayField
 from django.core.exceptions import ValidationError
-from tweet_binder.models import TweetBinderPost
 from django.contrib.auth.models import User
 from django.dispatch import receiver
 from django.db import models
+
+from tweet_binder.models import TweetBinderPost
+from expert_filters.models import Preset
 from reports.models import Templates
 
 class WorkspaceSocial(models.Model):
@@ -46,6 +48,7 @@ class ProjectSocial(models.Model):
   report_format = models.CharField(max_length=3, default='pdf', blank=True)
   query_filter = models.CharField(max_length=5000, blank=True, null=True)
   expert_mode = models.BooleanField(default=False)
+  expert_presets  = models.ManyToManyField(Preset, blank=True)
 
   def save(self, *args, **kwargs):
     total_projects_count = 0
