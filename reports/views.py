@@ -66,7 +66,6 @@ from docx import Document
 from project_social.models import ProjectSocial, SocialWidgetsList
 from widgets.models import WidgetsList2
 from project.models import Project
-from celery import shared_task
 
 from reports.classes.social_pdf import SocialPDF
 from reports.classes.online_pdf import OnlinePDF
@@ -79,9 +78,9 @@ def filling_template(template_path, project_id):
         document, project_id)
     document.save('tmp/temp.docx')
 
+
 def report_generator(proj_pk, model):
     template_path = 'fixtures/report_templates/RSDC_Export_Template_EN.docx'
-    docx_path = 'tmp/temp.docx'
     report_path = 'tmp/temp.pdf'
     proj = model.objects.get(id=proj_pk)
     if model == Project:
@@ -111,7 +110,7 @@ class RegularReportViewSet(viewsets.ModelViewSet):
     serializer_class = RegularReportSerializer
 
     def get_queryset(self):
-        return RegularReport.objects.filter(department_id=self.request.user.user_profile.department)
+        return RegularReport.objects.filter(department_id=self.request.user.user_profile.department_id)
 
 
 def social_top_locations_screenshot(request, proj_pk):
@@ -125,6 +124,7 @@ def social_top_authors_screenshot(request, proj_pk):
     context = {'context': top_authors_report(proj_pk, wd_pk, 'top_authors')}
     return render(request, 'social_reports/base_template_screenshot.html', context)
 
+
 def social_top_languages_screenshot(request, proj_pk):
     wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).top_languages.pk
     context = {'context': top_languages_report(proj_pk, wd_pk, 'top_languages')}
@@ -135,6 +135,7 @@ def social_sentiment_diagram_screenshot(request, proj_pk):
     wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).sentiment_diagram.pk
     context = {'context': sentiment_number_of_results_report(proj_pk, wd_pk, 'sentiment_diagram')}
     return render(request, 'social_reports/base_template_screenshot.html', context)
+
 
 def social_sentiment_number_of_results_screenshot(request, proj_pk):
     wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).sentiment_number_of_results.pk
@@ -159,235 +160,282 @@ def social_content_volume_top_locations_screenshot(request, proj_pk):
     context = {'context': content_volume_top_locations_report(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)
 
+
 def social_content_volume_screenshot(request, proj_pk):
     wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).content_volume.pk
     context = {'context': content_volume_report(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)
+
 
 def social_sentiment_authors_screenshot(request, proj_pk):
     wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).sentiment_authors.pk
     context = {'context': sentiment_authors_report(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)
 
+
 def social_sentiment_languages_screenshot(request, proj_pk):
     wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).sentiment_languages.pk
     context = {'context': sentiment_languages_report(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)
+
 
 def social_sentiment_locations_screenshot(request, proj_pk):
     wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).sentiment_locations.pk
     context = {'context': sentiment_locations_report(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)
 
+
 def social_summary_screenshot(request, proj_pk):
     wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).summary.pk
     context = {'context': summary_report(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)
+
 
 def social_sentiment_gender_screenshot(request, proj_pk):
     wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).sentiment_by_gender.pk
     context = {'context': sentiment_by_gender_report(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)
 
+
 def social_sentiment_screenshot(request, proj_pk):
     wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).sentiment.pk
     context = {'context': sentiment_report(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)
+
 
 def social_top_keywords_screenshot(request, proj_pk):
     wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).top_keywords.pk
     context = {'context': top_keywords_report(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)
 
+
 def social_top_authors_by_gender_screenshot(request, proj_pk):
     wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).top_authors_by_gender.pk
     context = {'context': top_authors_by_gender_report(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)
+
 
 def social_authors_by_gender_screenshot(request, proj_pk):
     wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).authors_by_gender.pk
     context = {'context': authors_by_gender_report(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)
 
+
 def social_authors_by_language_screenshot(request, proj_pk):
     wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).authors_by_language.pk
     context = {'context': authors_by_language_report(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)
+
 
 def social_authors_by_location_screenshot(request, proj_pk):
     wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).authors_by_location.pk
     context = {'context': authors_by_location_report(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)
 
+
 def social_gender_by_location_screenshot_screenshot(request, proj_pk):
     wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).gender_by_location.pk
     context = {'context': gender_by_location_report(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)
+
 
 def social_keywords_by_location_screenshot(request, proj_pk):
     wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).keywords_by_location.pk
     context = {'context': keywords_by_location_report(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)
 
+
 def social_languages_by_location_screenshot(request, proj_pk):
     wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).languages_by_location.pk
     context = {'context': languages_by_location_report(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)
+
 
 def social_top_sharing_sources_screenshot(request, proj_pk):
     wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).top_sharing_sources.pk
     context = {'context': top_sharing_sources_report(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)
 
+
 def social_gender_volume_screenshot(request, proj_pk):
     wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).gender_volume.pk
     context = {'context': gender_volume_report(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)
+
 
 def social_sentiment_top_keywords_screenshot(request, proj_pk):
     wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).sentiment_top_keywords.pk
     context = {'context': sentiment_top_keywords_report(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)
 
+
 def social_authors_by_sentiment_screenshot(request, proj_pk):
     wd_pk = SocialWidgetsList.objects.get(project_id=proj_pk).authors_by_sentiment.pk
     context = {'context': authors_by_sentiment_report(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)
+
 
 def online_summary_screenshot(request, proj_pk):
     wd_pk = WidgetsList2.objects.get(project_id=proj_pk).summary.pk
     context = {'context': onl_summary_report(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)
 
+
 def online_volume_screenshot(request, proj_pk):
     wd_pk = WidgetsList2.objects.get(project_id=proj_pk).volume.pk
     context = {'context': onl_volume_report(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)
+
 
 def online_sentiment_screenshot(request, proj_pk):
     wd_pk = WidgetsList2.objects.get(project_id=proj_pk).sentiment_for_period.pk
     context = {'context': onl_sentiment_report(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)
 
+
 def online_top_sources_screenshot(request, proj_pk):
     wd_pk = WidgetsList2.objects.get(project_id=proj_pk).top_sources.pk
     context = {'context': onl_top_sources_report(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)
+
 
 def online_top_authors_screenshot(request, proj_pk):
     wd_pk = WidgetsList2.objects.get(project_id=proj_pk).top_authors.pk
     context = {'context': onl_top_authors_report(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)
 
+
 def online_top_keywords_screenshot(request, proj_pk):
     wd_pk = WidgetsList2.objects.get(project_id=proj_pk).top_keywords.pk
     context = {'context': onl_top_keywords_report(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)
+
 
 def online_sentiment_number_of_results_screenshot(request, proj_pk):
     wd_pk = WidgetsList2.objects.get(project_id=proj_pk).sentiment_number_of_results.pk
     context = {'context': onl_number_of_results(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)
 
+
 def online_sentiment_diagram_screenshot(request, proj_pk):
     wd_pk = WidgetsList2.objects.get(project_id=proj_pk).sentiment_diagram.pk
     context = {'context': onl_sentiment_diagram(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)
+
 
 def online_sentiment_top_sources_screenshot(request, proj_pk):
     wd_pk = WidgetsList2.objects.get(project_id=proj_pk).sentiment_top_sources.pk
     context = {'context': onl_sentiment_top_sources(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)
 
+
 def online_sentiment_top_authors_screenshot(request, proj_pk):
     wd_pk = WidgetsList2.objects.get(project_id=proj_pk).sentiment_top_authors.pk
     context = {'context': onl_sentiment_top_authors(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)
+
 
 def online_sentiment_top_countries_screenshot(request, proj_pk):
     wd_pk = WidgetsList2.objects.get(project_id=proj_pk).sentiment_top_countries.pk
     context = {'context': onl_sentiment_top_countries(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)
 
+
 def online_sentiment_top_languages_screenshot(request, proj_pk):
     wd_pk = WidgetsList2.objects.get(project_id=proj_pk).sentiment_top_languages.pk
     context = {'context': onl_sentiment_top_languages(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)
+
 
 def online_sentiment_top_keywords_screenshot(request, proj_pk):
     wd_pk = WidgetsList2.objects.get(project_id=proj_pk).sentiment_top_keywords.pk
     context = {'context': onl_sentiment_top_keywords(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)
 
+
 def online_sources_by_country_screenshot(request, proj_pk):
     wd_pk = WidgetsList2.objects.get(project_id=proj_pk).sources_by_country.pk
     context = {'context': onl_sources_by_country(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)
+
 
 def online_authors_by_country_screenshot(request, proj_pk):
     wd_pk = WidgetsList2.objects.get(project_id=proj_pk).authors_by_country.pk
     context = {'context': onl_authors_by_country(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)
 
+
 def online_languages_by_country_screenshot(request, proj_pk):
     wd_pk = WidgetsList2.objects.get(project_id=proj_pk).languages_by_country.pk
     context = {'context': onl_languages_by_country(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)
+
 
 def online_top_keywords_by_country_screenshot(request, proj_pk):
     wd_pk = WidgetsList2.objects.get(project_id=proj_pk).top_keywords_by_country.pk
     context = {'context': onl_top_keywords_by_country(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)
 
+
 def online_top_sharing_sources_screenshot(request, proj_pk):
     wd_pk = WidgetsList2.objects.get(project_id=proj_pk).top_sharing_sources.pk
     context = {'context': onl_top_sharing_sources(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)
+
 
 def online_authors_by_language_screenshot(request, proj_pk):
     wd_pk = WidgetsList2.objects.get(project_id=proj_pk).authors_by_language.pk
     context = {'context': onl_authors_by_language(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)
 
+
 def online_overall_top_sources_screenshot(request, proj_pk):
     wd_pk = WidgetsList2.objects.get(project_id=proj_pk).overall_top_sources.pk
     context = {'context': onl_overall_top_sources(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)
+
 
 def online_overall_top_authors_screenshot(request, proj_pk):
     wd_pk = WidgetsList2.objects.get(project_id=proj_pk).overall_top_authors.pk
     context = {'context': onl_overall_top_authors(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)
 
+
 def online_authors_by_sentiment_screenshot(request, proj_pk):
     wd_pk = WidgetsList2.objects.get(project_id=proj_pk).authors_by_sentiment.pk
     context = {'context': onl_authors_by_sentiment(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)
+
 
 def online_sources_by_language_screenshot(request, proj_pk):
     wd_pk = WidgetsList2.objects.get(project_id=proj_pk).sources_by_language.pk
     context = {'context': onl_sources_by_language(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)
 
+
 def online_top_countries_screenshot(request, proj_pk):
     wd_pk = WidgetsList2.objects.get(project_id=proj_pk).top_countries.pk
     context = {'context': onl_top_countries(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)
+
 
 def online_top_languages_screenshot(request, proj_pk):
     wd_pk = WidgetsList2.objects.get(project_id=proj_pk).top_languages.pk
     context = {'context': onl_top_languages(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)
 
+
 def online_content_volume_top_sources_screenshot(request, proj_pk):
     wd_pk = WidgetsList2.objects.get(project_id=proj_pk).content_volume_top_sources.pk
     context = {'context': onl_content_volume_top_sources(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)
 
+
 def online_content_volume_top_authors_screenshot(request, proj_pk):
     wd_pk = WidgetsList2.objects.get(project_id=proj_pk).content_volume_top_authors.pk
     context = {'context': onl_content_volume_top_authors(proj_pk, wd_pk)}
     return render(request, 'social_reports/base_template_screenshot.html', context)
+
 
 def online_content_volume_top_countries_screenshot(request, proj_pk):
     wd_pk = WidgetsList2.objects.get(project_id=proj_pk).content_volume_top_countries.pk

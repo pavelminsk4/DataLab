@@ -67,4 +67,4 @@ class CreateRegularProjectTests(StaticLiveServerTestCase):
         ))
 
         self.assertEqual(Project.objects.all().count(), 1)
-        self.assertEqual(Project.objects.all().first().sources, ['talkwalker'])
+        self.assertEqual(Project.objects.all().first().sources, ['rss'])

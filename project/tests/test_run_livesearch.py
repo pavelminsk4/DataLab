@@ -1,7 +1,7 @@
 from django.test import TestCase
 from common.factories.project import ProjectFactory
 from project.models import Project
-from project.tasks.run_livesearch import run_livesearch
+from project.tasks.run_livesearch import run_talkwalker_livesearch, run_rss_livesearch
 from unittest.mock import patch
 
 
@@ -12,7 +12,7 @@ class RunLivesearchTestCase(TestCase):
         ProjectFactory(status=Project.STATUS_COLLECTING, sources=['talkwalker'])
         ProjectFactory(status=Project.STATUS_INACTIVE, sources=['talkwalker'])
 
-        run_livesearch()
+        run_talkwalker_livesearch()
         livestream.assert_not_called()
 
     @patch('talkwalker.classes.livestream.Livestream.read', return_value=True)
@@ -21,7 +21,7 @@ class RunLivesearchTestCase(TestCase):
         """Livesearch checks updates for active Talkwalker projects"""
         project = ProjectFactory(status=Project.STATUS_ACTIVE, sources=['talkwalker'])
 
-        run_livesearch()
+        run_talkwalker_livesearch()
         livestream.assert_called_with(project.id, 'Project')
         read.assert_called()
 
@@ -30,5 +30,5 @@ class RunLivesearchTestCase(TestCase):
         """Livesearch checks updates for active RSS projects"""
         project = ProjectFactory(status=Project.STATUS_ACTIVE, sources=['rss'])
 
-        run_livesearch()
+        run_rss_livesearch()
         execute.assert_called_with(project.id)

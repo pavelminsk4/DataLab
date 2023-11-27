@@ -6,12 +6,10 @@ from common.factories.post import PostFactory
 from rest_framework.test import APITestCase
 from rest_framework import status
 from django.urls import reverse
-from unittest import skip
 import json
 
 
 class WidgetTests(APITestCase):
-    @skip("Don't want to test")
     def test_widgett(self):
         flink = FeedlinkFactory(country='Terra', source1='True')
         sp = SpeechFactory(language='English')
