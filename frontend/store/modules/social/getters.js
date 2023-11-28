@@ -32,17 +32,17 @@ export default {
   [get.COUNTRIES](state) {
     return state.countries.results
       .map((country) => country.user_location)
-      .filter((country) => country.trim())
+      .filter((country) => country?.trim())
   },
   [get.LANGUAGES](state) {
-    return state.languages
+    return state.languages.results
       .map((language) => language.language)
-      .filter((language) => language.trim())
+      .filter((language) => language?.trim())
   },
   [get.AUTHORS](state) {
-    return state.authors
+    return state.authors.results
       .map((author) => author.user_alias)
-      .filter((author) => author.trim())
+      .filter((author) => author?.trim())
   },
   [get.SEARCH_LISTS](state, getters) {
     return {

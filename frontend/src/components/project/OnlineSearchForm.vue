@@ -20,19 +20,22 @@
     <template v-for="{name, listName} in searchFields" :key="name">
       <CustomText :text="name" class="second-title" />
 
-      <BaseSearchField
+      <FilterChips
+        v-if="selectedFilters(name)?.length"
+        :items="selectedFilters(name)"
+        class="chips"
+        @clear-all="clearAll(name)"
+        @remove-item="removeChipsItem($event, name)"
+      />
+
+      <SelectWithCheckboxes
         v-model="search[name]"
         :name="name"
+        :is-search="true"
         :placeholder="`Enter the ${name}`"
         :list="searchLists[listName]"
-        :is-search="true"
-        :current-value="search[name]"
-        :is-reject-selection="false"
-        :is-clear-selected-value="clearValue"
-        :is-loading="isLoadingFilters[name]"
-        class="select"
-        @update:modelValue="getResult"
-        @select-option="selectItem"
+        :selected-checkboxes="selectedFilters(name)"
+        @get-selected-items="updateAdditionalFilters"
       />
     </template>
   </div>
@@ -79,11 +82,12 @@ import {capitalizeFirstLetter, isAllFieldsEmpty} from '@lib/utilities'
 
 import CustomText from '@components/CustomText'
 import BaseRadio from '@components/BaseRadio'
+import FilterChips from '@components/FilterChips'
 import BaseCheckbox from '@components/BaseCheckbox2'
-import BaseSearchField from '@components/BaseSearchField'
 import PositiveIcon from '@components/icons/PositiveIcon'
 import NegativeIcon from '@components/icons/NegativeIcon'
 import NeutralIcon from '@components/icons/NeutralIcon'
+import SelectWithCheckboxes from '@components/SelectWithCheckboxes'
 import ProjectCalendar from '@components/datepicker/ProjectCalendar'
 
 const {mapActions: mapOnlineActions, mapGetters: mapOnlineGetters} =
@@ -113,13 +117,14 @@ export default {
   inheritAttrs: false,
   components: {
     BaseRadio,
-    BaseSearchField,
     PositiveIcon,
     NegativeIcon,
     NeutralIcon,
     CustomText,
     ProjectCalendar,
     BaseCheckbox,
+    FilterChips,
+    SelectWithCheckboxes,
   },
   props: {
     currentProject: {type: Object, required: true},
@@ -152,6 +157,7 @@ export default {
     ...mapGetters({
       userInfo: get.USER_INFO,
       keywords: get.KEYWORDS,
+      additionalFilters: get.ADDITIONAL_FILTERS,
     }),
     isAdmin() {
       return this.userInfo.user_profile.role === 'admin'
@@ -187,15 +193,15 @@ export default {
       },
     },
   },
-  created() {
+  async created() {
     this.searchFields = SEARCH_FIELDS
-    this.search.country = this.currentProject?.country_filter || ''
-    this.search.language = this.currentProject?.language_filter || ''
-    this.search.source = this.currentProject?.source_filter || ''
-    this.search.author = this.currentProject?.author_filter || ''
     this.selectedSources = this.currentProject.sources
 
-    this[action.UPDATE_ADDITIONAL_FILTERS]({
+    await this[action.GET_COUNTRIES]('')
+    await this[action.GET_LANGUAGES]('')
+    await this[action.GET_AUTHORS]('')
+
+    await this[action.UPDATE_ADDITIONAL_FILTERS]({
       country: this.currentProject.country_filter,
       language: this.currentProject.language_filter,
       source: this.currentProject.source_filter,
@@ -203,18 +209,6 @@ export default {
       sentiment: this.currentProject.sentiment_filter,
       sources: this.currentProject.sources,
     })
-  },
-  watch: {
-    async keywords() {
-      if (!this.keywords.keywords?.length) {
-        this.clearValue = true
-        this.search.country = ''
-        this.search.language = ''
-        this.search.source = ''
-        this.search.author = ''
-        this.selectedValue = ''
-      }
-    },
   },
   methods: {
     ...mapActions([action.UPDATE_ADDITIONAL_FILTERS]),
@@ -224,46 +218,27 @@ export default {
       action.GET_COUNTRIES,
       action.GET_LANGUAGES,
     ]),
-    selectItem(name, val) {
-      try {
-        this.search[name] = val
-        if (val === 'Reject selection') {
-          this[action.UPDATE_ADDITIONAL_FILTERS]({[name]: null})
-        } else {
-          this[action.UPDATE_ADDITIONAL_FILTERS]({[name]: val})
-        }
-      } catch (e) {
-        console.error(e)
-      }
+    selectedFilters(name) {
+      return this.additionalFilters[name] || []
     },
 
-    async getFilterList(searchValue, name) {
-      this.isLoadingFilters[name] = true
-      try {
-        switch (name) {
-          case 'country':
-            return await this[action.GET_COUNTRIES](searchValue)
-          case 'language':
-            return await this[action.GET_LANGUAGES](searchValue)
-          case 'author':
-            return await this[action.GET_AUTHORS](searchValue)
-          case 'source':
-            return await this[action.GET_SOURCES](searchValue)
-        }
-      } finally {
-        this.isLoadingFilters[name] = false
-      }
+    isSelectedItem(item) {
+      return this.selectedValueProxy.some((el) => item === el)
     },
 
-    getResult(searchValue, name) {
-      try {
-        this[name] = searchValue
-        this[action.UPDATE_ADDITIONAL_FILTERS]({[name]: searchValue})
+    async updateAdditionalFilters(values, name) {
+      await this[action.UPDATE_ADDITIONAL_FILTERS]({[name]: values})
+    },
 
-        this.getFilterList(searchValue, name)
-      } catch (e) {
-        console.error(e)
-      }
+    async removeChipsItem(item, name) {
+      const newCollection = this.additionalFilters[name].filter(
+        (element) => element !== item
+      )
+      await this[action.UPDATE_ADDITIONAL_FILTERS]({[name]: newCollection})
+    },
+
+    async clearAll(name) {
+      await this[action.UPDATE_ADDITIONAL_FILTERS]({[name]: []})
     },
   },
 }
@@ -342,6 +317,10 @@ export default {
   .radio-icon {
     margin-right: 4px;
   }
+}
+
+.chips {
+  margin: 10px 0 15px;
 }
 
 .neutral-item {

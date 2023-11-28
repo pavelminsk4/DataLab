@@ -15,7 +15,7 @@
         type="text"
         :dir="currentDir"
         :value="modelValue"
-        :placeholder="currentPlaceholder"
+        :placeholder="placeholder"
         :class="['input', isSearch && 'input-search', 'select-search']"
         @focus="visible = true"
         @input="handleInput"
@@ -34,10 +34,10 @@
         <BaseCheckbox
           v-for="(item, index) in selectList"
           :key="item + index"
-          :id="item"
-          :model-value="isCheckedElement(item)"
+          v-model="selectedItems"
+          :id="item + index"
+          :value="item"
           class="list-item"
-          @change="onChange"
         >
           {{ item }}
         </BaseCheckbox>
@@ -57,7 +57,7 @@ import translate from '@lib/mixins/translate.js'
 import CustomText from '@components/CustomText'
 import ArrowDownIcon from '@components/icons/ArrowDownIcon'
 import ErrorIcon from '@components/icons/ErrorIcon'
-import BaseCheckbox from '@components/BaseCheckbox'
+import BaseCheckbox from '@components/BaseCheckbox2'
 
 export default {
   name: 'SelectWithCheckboxes',
@@ -69,7 +69,7 @@ export default {
     list: {type: Array, default: null},
     placeholder: {type: String, default: 'Select option'},
     name: {type: String, required: true},
-    modelValue: {type: String, required: true},
+    modelValue: {type: [String, Array], required: true},
     isSearch: {type: Boolean, default: false},
     isClearSelectedValue: {type: Boolean, default: false},
     hasError: {type: Boolean, default: false},
@@ -81,7 +81,7 @@ export default {
       value: '',
       search: '',
       visible: false,
-      selectedItems: [],
+      items: [],
     }
   },
   computed: {
@@ -98,12 +98,13 @@ export default {
       }
       return this.list
     },
-    selectedValuesProxy: {
+    selectedItems: {
       get() {
-        return this.selectedCheckboxes || this.selectedItems
+        return this.selectedCheckboxes || this.items
       },
-      set(val) {
-        this.selectedItems = val
+      set(value) {
+        this.items = value
+        this.$emit('get-selected-items', this.items, this.name)
       },
     },
   },
@@ -150,23 +151,6 @@ export default {
       if (!element.contains(target)) {
         this.close()
       }
-    },
-    isCheckedElement(item) {
-      return this.selectedValuesProxy?.some((el) => el === item)
-    },
-    onChange(args) {
-      const {id, checked} = args
-      if (checked) {
-        this.selectedValuesProxy.push(id)
-      } else {
-        let element = this.selectedValuesProxy.indexOf(id)
-        this.removeSelectedFilter(element, id)
-      }
-
-      this.$emit('get-selected-items', this.selectedValuesProxy, this.name)
-    },
-    removeSelectedFilter(index) {
-      this.selectedValuesProxy.splice(index, 1)
     },
   },
 }

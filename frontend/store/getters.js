@@ -205,13 +205,13 @@ export default {
     return {
       authors: state.dimensionAuthors
         ?.map((author) => author.user_alias)
-        .filter((author) => author.trim()),
+        .filter((author) => author?.trim()),
       countries: state.dimensionCountries
         ?.map((country) => country.user_location)
-        .filter((country) => country.trim()),
+        .filter((country) => country?.trim()),
       languages: state.dimensionLanguages
         ?.map((language) => language.language)
-        .filter((language) => language.trim()),
+        .filter((language) => language?.trim()),
     }
   },
 

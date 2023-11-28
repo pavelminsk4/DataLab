@@ -7,8 +7,8 @@ const state = {
   projects: [],
   availableWidgets: null,
   countries: {results: []},
-  languages: [],
-  authors: [],
+  languages: {results: []},
+  authors: {results: []},
 }
 
 export default state
