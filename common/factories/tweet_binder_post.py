@@ -27,7 +27,7 @@ class TweetBinderPostFactory(factory.django.DjangoModelFactory):
     language            = 'En'
     user_name           = 'First_name'
     user_followers      = '100'
-    locationString      = 'Nostramo'
+    user_location       = 'Nostramo'
     type                = ['origin']
     videos              = ['www.video.com']
     hashtags            = ['test']

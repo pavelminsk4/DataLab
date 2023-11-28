@@ -9,9 +9,9 @@ import json
 
 class TopKeywordsByLocationTests(APITestCase):
     def setUp(self):
-        TweetBinderPostFactory(text='First twitter', locationString='USA')
-        TweetBinderPostFactory(text='Second twitter post', locationString='USA')
-        TweetBinderPostFactory(text='First twitter', locationString='England')
+        TweetBinderPostFactory(text='First twitter', user_location='USA')
+        TweetBinderPostFactory(text='Second twitter post', user_location='USA')
+        TweetBinderPostFactory(text='First twitter', user_location='England')
         ProjectSocialFactory(keywords=['twitter'])
 
     def test_top_keywords_by_location(self):

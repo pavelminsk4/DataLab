@@ -29,7 +29,7 @@ class SocialParser(Parser):
 
   class _FieldToken(_Token):
     fields = {
-      'location': 'locationString__icontains',
+      'location': 'user_location__icontains',
       'author': 'user_name__iexact',
       'sentiment': 'sentiment',
       'language': 'language__icontains',

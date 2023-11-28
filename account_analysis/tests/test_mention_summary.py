@@ -22,7 +22,7 @@ class MentionSummaryWidgetTests(APITestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         res = {
-                'location': None,
+                'location': 'Nostramo',
                 'stats': {
                             'authors': 3,
                             'countries': 1,

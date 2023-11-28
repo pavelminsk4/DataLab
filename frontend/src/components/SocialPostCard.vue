@@ -102,7 +102,7 @@ export default {
           name: 'DATE',
           value: this.defaultDate(this.postDetails.date, this.platformLanguage),
         },
-        {name: 'LOCATION', value: this.postDetails.locationString},
+        {name: 'LOCATION', value: this.postDetails.user_location},
         {name: 'LANGUAGE', value: this.postDetails.language},
         {
           name: 'LikeIcon',

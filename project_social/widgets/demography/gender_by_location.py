@@ -17,11 +17,11 @@ def gender_by_location_report(pk, widget_pk):
     }
 
 def calculate_for_gender_by_location(posts, top_counts):
-    top_locations = posts.values('locationString').annotate(posts_count=Count('id')).order_by('-posts_count').values_list('locationString', flat=True)[:top_counts]
+    top_locations = posts.values('user_location').annotate(posts_count=Count('id')).order_by('-posts_count').values_list('user_location', flat=True)[:top_counts]
     results = {location: {'male': 0, 'female': 0, 'undefined': 0} for location in list(top_locations)}
     for post in posts:
-        if results.get(post.locationString):
-            results[post.locationString][post.user_gender] += 1
+        if results.get(post.user_location):
+            results[post.user_location][post.user_gender] += 1
     return results
 
 def calculate_for_gender_by_location_comparison(posts, top_counts):

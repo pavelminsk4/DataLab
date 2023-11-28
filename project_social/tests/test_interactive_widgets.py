@@ -13,11 +13,11 @@ class InteractiveWidgetsTests(APITestCase):
     def setUp(self):
         user = UserFactory(username='Pablo Escobar')
         TweetBinderPostFactory(user_name='First', text='First twitter post', language='En', date='2020-10-10T00:00:00Z',
-                               sentiment='neutral', locationString='USA', user_gender='male', user_alias='First')
+                               sentiment='neutral', user_location='USA', user_gender='male', user_alias='First')
         TweetBinderPostFactory(user_name='Second', text='Second twitter post', language='Sp', date='2020-10-10T00:00:00Z',
-                               sentiment='positive', locationString='England', user_gender='female', user_alias='First')
+                               sentiment='positive', user_location='England', user_gender='female', user_alias='First')
         TweetBinderPostFactory(user_name='Third', text='3 twitter post', language='En', date='2021-10-10T00:00:00Z',
-                               sentiment='neutral', locationString='USA', user_gender='undefined', user_alias='First')
+                               sentiment='neutral', user_location='USA', user_gender='undefined', user_alias='First')
         ProjectSocialFactory(creator=user)
 
     def test_top_languages(self):

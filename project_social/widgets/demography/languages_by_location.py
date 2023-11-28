@@ -17,10 +17,10 @@ def languages_by_location_report(pk, widget_pk):
     }
 
 def calculate_for_languages_by_location(posts, top_counts):
-    top_countries = [i['locationString'] for i in posts.values('locationString').annotate(language_count=Count('language', distinct=True)).order_by('-language_count')[:top_counts]]
+    top_countries = [i['user_location'] for i in posts.values('user_location').annotate(language_count=Count('language', distinct=True)).order_by('-language_count')[:top_counts]]
     results = {}
     for country in top_countries:
-        top_languages = posts.filter(locationString=country).values('language').annotate(posts_count=Count('id')).order_by('-posts_count')[:top_counts]
+        top_languages = posts.filter(user_location=country).values('language').annotate(posts_count=Count('id')).order_by('-posts_count')[:top_counts]
         results[country] = [{'language': language['language'], 'count': language['posts_count']} for language in top_languages]
     return results
 

@@ -49,7 +49,7 @@ def language_filter_posts(languages, posts):
 
 
 def country_filter_posts(countries, posts):
-    posts = posts.filter(reduce(lambda x, y: x | y, [Q(locationString=country) for country in countries]))
+    posts = posts.filter(reduce(lambda x, y: x | y, [Q(user_location=country) for country in countries]))
     return posts
 
 
@@ -74,7 +74,7 @@ def language_dimensions_posts(languages, posts):
 
 
 def country_dimensions_posts(countries, posts):
-    posts = posts.filter(reduce(lambda x, y: x | y, [Q(locationString=country) for country in countries]))
+    posts = posts.filter(reduce(lambda x, y: x | y, [Q(user_location=country) for country in countries]))
     return posts
 
 
@@ -154,7 +154,7 @@ def language_dimensions(languages, posts):
 
 
 def country_dimensions(countries, posts):
-    posts = posts.filter(reduce(lambda x, y: x | y, [Q(locationString=country) for country in countries]))
+    posts = posts.filter(reduce(lambda x, y: x | y, [Q(user_location=country) for country in countries]))
     return posts
 
 

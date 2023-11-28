@@ -7,13 +7,13 @@ import json
 
 class ListOfProfileHandleTests(APITestCase):
     def test_response_list(self):
-        TweetBinderPostFactory(count_totalretweets='1', count_favorites='1', count_replies='1', language='En', user_alias='First_name', locationString='USA', sentiment='neutral',
+        TweetBinderPostFactory(count_totalretweets='1', count_favorites='1', count_replies='1', language='En', user_alias='First_name', user_location='USA', sentiment='neutral',
                                text='First twitter post', type=['original', 'reply', 'retweet'], date="2022-10-10T00:00:00Z", creation_date="2022-10-10T00:00:00Z")
-        TweetBinderPostFactory(count_totalretweets='1', count_favorites='3', count_replies='1', language='En', user_alias='First_name', locationString='USA', sentiment='neutral', 
+        TweetBinderPostFactory(count_totalretweets='1', count_favorites='3', count_replies='1', language='En', user_alias='First_name', user_location='USA', sentiment='neutral', 
                               text='First twitter post', type=['original', 'reply'], date="2020-10-10T00:00:00Z", creation_date="2020-10-10T00:00:00Z")
-        TweetBinderPostFactory(count_totalretweets='1', count_favorites='3', count_replies='1', language='En', user_alias='First_name', locationString='USA', sentiment='neutral', 
+        TweetBinderPostFactory(count_totalretweets='1', count_favorites='3', count_replies='1', language='En', user_alias='First_name', user_location='USA', sentiment='neutral', 
                                text='First twitter post', type=['original'], date="2021-10-10T00:00:00Z", creation_date="2021-10-10T00:00:00Z")
-        TweetBinderPostFactory(count_totalretweets='2', count_favorites='2', count_replies='2', language='Sp', user_alias='Second_name', locationString='England', sentiment='positive', 
+        TweetBinderPostFactory(count_totalretweets='2', count_favorites='2', count_replies='2', language='Sp', user_alias='Second_name', user_location='England', sentiment='positive', 
                                text='Second twitter post', type=['original', 'reply', 'retweet'], date="2021-10-10T00:00:00Z", creation_date="2021-10-10T00:00:00Z")
         AccountAnalysisProjectFactory()
         url = reverse('account_analysis:list_of_profile_handle')

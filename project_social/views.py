@@ -139,7 +139,7 @@ def posts_values(posts):
         'text',
         'sentiment',
         'date',
-        'locationString',
+        'user_location',
         'language',
         'count_favorites',
         'count_totalretweets',
@@ -164,7 +164,7 @@ def filter_with_constructor(posts, body):
     if exceptions:
         posts = exclude_keywords_posts(posts, exceptions)
     if country:
-        posts = posts.filter(reduce(lambda x, y: x | y, [Q(locationString=c) for c in country]))
+        posts = posts.filter(reduce(lambda x, y: x | y, [Q(user_location=c) for c in country]))
     if language:
         posts = posts.filter(reduce(lambda x, y: x | y, [Q(language=lan) for lan in language]))
     if source:
@@ -183,7 +183,7 @@ def filter_with_dimensions(posts, body):
     author_dimensions = body['author_dimensions']
     sentiment_dimensions = body['sentiment_dimensions']
     if country_dimensions:
-        posts = posts.filter(reduce(lambda x, y: x | y, [Q(locationString=country) for country in country_dimensions]))
+        posts = posts.filter(reduce(lambda x, y: x | y, [Q(user_location=country) for country in country_dimensions]))
     if language_dimensions:
         posts = posts.filter(reduce(lambda x, y: x | y, [Q(language=language) for language in language_dimensions]))
     if source_dimensions:
@@ -369,10 +369,10 @@ class LimitPagination(LimitOffsetPagination):
 
 class SocialLocationList(ListAPIView):
     serializer_class = TweetBinderPostLocationSerializer
-    queryset = TweetBinderPost.objects.distinct('locationString')
+    queryset = TweetBinderPost.objects.distinct('user_location')
     pagination_class = LimitPagination
     filter_backends = [filters.SearchFilter]
-    search_fields = ['^locationString']
+    search_fields = ['^user_location']
 
 
 class SocialLanguageList(ListAPIView):
@@ -423,7 +423,7 @@ class ListLocationsInProject(generics.ListAPIView):
         pk = self.kwargs.get('pk', None)
         project = get_object_or_404(ProjectSocial, pk=pk)
         posts = posts_aggregator(project)
-        queryset = posts.values('locationString').order_by('locationString').distinct()
+        queryset = posts.values('user_location').order_by('user_location').distinct()
         return queryset
 
 

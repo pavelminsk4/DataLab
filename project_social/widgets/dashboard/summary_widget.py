@@ -21,7 +21,7 @@ def summary_report(pk, widget_pk):
 def calculate_summary_widget(posts):
     posts_quantity = posts.count()
     authors_quantity = posts.values('user_name').distinct().count()
-    countries_quantity = posts.values('locationString').distinct().count()
+    countries_quantity = posts.values('user_location').distinct().count()
     languages_quantity = posts.values('language').distinct().count()
     pos_posts = posts.filter(sentiment='positive').count()
     neg_posts = posts.filter(sentiment='negative').count()

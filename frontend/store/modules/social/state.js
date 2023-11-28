@@ -6,7 +6,7 @@ const state = {
   newProjectId: null,
   projects: [],
   availableWidgets: null,
-  countries: [],
+  countries: {results: []},
   languages: [],
   authors: [],
 }
