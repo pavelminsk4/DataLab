@@ -122,7 +122,7 @@ def interactive_widgets(request, project_pk, widget_pk):
                           'text',
                           'sentiment',
                           'date',
-                          'locationString',
+                          'user_location',
                           'language',
                           'count_favorites',
                           'count_totalretweets',

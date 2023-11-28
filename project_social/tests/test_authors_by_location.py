@@ -7,10 +7,10 @@ import json
 
 class AuthorsByLocationTests(APITestCase):
   def test_response_list(self):
-    TweetBinderPostFactory(user_alias='@first', locationString='USA')
-    TweetBinderPostFactory(user_alias='@second', locationString='England')
-    TweetBinderPostFactory(user_alias='@second', locationString='England')
-    TweetBinderPostFactory(user_alias='@new', locationString='England')
+    TweetBinderPostFactory(user_alias='@first', user_location='USA')
+    TweetBinderPostFactory(user_alias='@second', user_location='England')
+    TweetBinderPostFactory(user_alias='@second', user_location='England')
+    TweetBinderPostFactory(user_alias='@new', user_location='England')
 
     pr = ProjectSocialFactory()
     widget_pk = pr.social_widgets_list.authors_by_location_id

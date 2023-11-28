@@ -25,7 +25,7 @@ def mention_summary(pk, widget_pk):
         'stats': {
             'mention': posts.count(),
             'language': posts.values('language').distinct().count(),
-            'countries': posts.values('locationString').distinct().count(),
+            'countries': posts.values('user_location').distinct().count(),
             'authors': posts.values('user_alias').distinct().count(),
             'neutral': neutral,
             'negative': negative,

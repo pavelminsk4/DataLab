@@ -7,10 +7,10 @@ import json
 
 class GenderByLocationTests(APITestCase):
     def test_response_list(self):
-        TweetBinderPostFactory(user_gender='male', locationString='USA')
-        TweetBinderPostFactory(user_gender='male', locationString='England')
-        TweetBinderPostFactory(user_gender='female', locationString='England')
-        TweetBinderPostFactory(user_gender='undefined', locationString='England')
+        TweetBinderPostFactory(user_gender='male', user_location='USA')
+        TweetBinderPostFactory(user_gender='male', user_location='England')
+        TweetBinderPostFactory(user_gender='female', user_location='England')
+        TweetBinderPostFactory(user_gender='undefined', user_location='England')
         pr = ProjectSocialFactory()
 
         widget_pk = pr.social_widgets_list.gender_by_location_id

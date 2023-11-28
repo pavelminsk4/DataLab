@@ -8,15 +8,15 @@ import json
 
 class TopLocationWidgetTests(APITestCase):
     def test_response_list(self):
-        TweetBinderPostFactory(locationString='USA')
-        TweetBinderPostFactory(locationString='England')
+        TweetBinderPostFactory(user_location='USA')
+        TweetBinderPostFactory(user_location='England')
         pr = ProjectSocialFactory()
         widget_pk = pr.social_widgets_list.top_locations_id
         url = reverse('project_social:social_top_locations', kwargs={'pk': pr.pk, 'widget_pk': widget_pk})
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         res = [
-            {'locationString': 'England', 'locations_count': 1},
-            {'locationString': 'USA', 'locations_count': 1}
+            {'user_location': 'England', 'locations_count': 1},
+            {'user_location': 'USA', 'locations_count': 1}
         ]
         self.assertEqual(json.loads(response.content), res)

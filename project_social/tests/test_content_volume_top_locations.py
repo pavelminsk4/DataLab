@@ -8,9 +8,9 @@ import json
 
 class ContentVolumeTopLocationsWidgetTests(APITestCase):
     def test_response_list(self):
-        TweetBinderPostFactory(locationString='USA', date='2020-10-10T00:00:00Z')
-        TweetBinderPostFactory(locationString='England', date='2020-10-10T00:00:00Z')
-        TweetBinderPostFactory(locationString='USA', date='2021-10-10T00:00:00Z')
+        TweetBinderPostFactory(user_location='USA', date='2020-10-10T00:00:00Z')
+        TweetBinderPostFactory(user_location='England', date='2020-10-10T00:00:00Z')
+        TweetBinderPostFactory(user_location='USA', date='2021-10-10T00:00:00Z')
         pr = ProjectSocialFactory()
 
         widget_pk = pr.social_widgets_list.content_volume_top_locations_id

@@ -79,11 +79,11 @@ def interactive_widgets(request, project_pk, widget_pk):
   elif widget.default_title == 'Top keywords by location':
     posts = country_filter_posts(second_value, posts).filter(text__icontains=first_value[0])
   elif widget.default_title == 'Top languages by location':
-    posts = language_filter_posts(second_value, posts).filter(locationString=first_value[0])
+    posts = language_filter_posts(second_value, posts).filter(user_location=first_value[0])
   elif widget.default_title == 'Top sharing sources':
     posts = sentiment_filter_posts(second_value, posts).filter(user_alias=first_value[0])
   elif widget.default_title == 'Top gender by location':
-    posts = posts.filter(reduce(lambda x,y: x | y, [Q(user_gender=gender.lower()) for gender in second_value])).filter(locationString=first_value[0])
+    posts = posts.filter(reduce(lambda x,y: x | y, [Q(user_gender=gender.lower()) for gender in second_value])).filter(user_location=first_value[0])
   posts = posts.values(
     'id',
     'post_id',
@@ -92,7 +92,7 @@ def interactive_widgets(request, project_pk, widget_pk):
     'text',
     'sentiment',
     'date',
-    'locationString',
+    'user_location',
     'language',
     'count_favorites',
     'count_totalretweets',

@@ -20,8 +20,8 @@ def content_volume_top_locations_report(pk, widget_pk):
     }
 
 def calculate_for_content_volume_top_locations(posts, aggregation_period, top_counts):
-    top_locations = list(map(lambda x: x['locationString'], list(posts.values('locationString').annotate(country_count=Count('locationString')).order_by('-country_count')[:top_counts])))
-    results = [{location: list(posts.filter(locationString=location).annotate(date_trunc=trunc('date', aggregation_period)).values("date_trunc").annotate(created_count=Count('id')).order_by("date"))} for location in top_locations]
+    top_locations = list(map(lambda x: x['user_location'], list(posts.values('user_location').annotate(country_count=Count('user_location')).order_by('-country_count')[:top_counts])))
+    results = [{location: list(posts.filter(user_location=location).annotate(date_trunc=trunc('date', aggregation_period)).values("date_trunc").annotate(created_count=Count('id')).order_by("date"))} for location in top_locations]
     dates = set()
     for elem in range(len(results)):
         for i in range(len(results[elem][top_locations[elem]])):

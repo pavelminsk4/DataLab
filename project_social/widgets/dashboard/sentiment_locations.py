@@ -19,8 +19,8 @@ def sentiment_locations_report(pk, widget_pk):
     }
 
 def calculate_for_sentiment_locations(posts, aggregation_period, top_counts):
-    top_locations = posts.values('locationString').annotate(language_count=Count('locationString')).order_by('-language_count').values_list('locationString', flat=True)[:top_counts]
-    results = {location: list(posts.filter(locationString=location).annotate(date_trunc=trunc('date', aggregation_period)).values('sentiment').annotate(sentiment_count=Count('sentiment')).order_by('-sentiment_count')) for location in top_locations}
+    top_locations = posts.values('user_location').annotate(language_count=Count('user_location')).order_by('-language_count').values_list('user_location', flat=True)[:top_counts]
+    results = {location: list(posts.filter(user_location=location).annotate(date_trunc=trunc('date', aggregation_period)).values('sentiment').annotate(sentiment_count=Count('sentiment')).order_by('-sentiment_count')) for location in top_locations}
     for i in range(len(results)):
         sentiments = ['negative', 'neutral', 'positive']
         for j in range(len(results[top_locations[i]])):

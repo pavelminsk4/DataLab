@@ -18,8 +18,8 @@ def keywords_by_location_report(pk, widget_pk):
     }
 
 def calculate_for_keywords_by_location(posts, top_counts):
-    countries = posts.values('locationString').annotate(count=Count('locationString')).order_by('-count')[:top_counts]
-    results = list(map(lambda x: {x['locationString']: get_keywords(posts.filter(locationString=x['locationString']))}, countries))
+    countries = posts.values('user_location').annotate(count=Count('user_location')).order_by('-count')[:top_counts]
+    results = list(map(lambda x: {x['user_location']: get_keywords(posts.filter(user_location=x['user_location']))}, countries))
     return results
 
 def to_csv(request, pk, widget_pk):

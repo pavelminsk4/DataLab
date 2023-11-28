@@ -30,8 +30,8 @@ export default {
   },
 
   [get.COUNTRIES](state) {
-    return state.countries
-      .map((country) => country.locationString)
+    return state.countries.results
+      .map((country) => country.user_location)
       .filter((country) => country.trim())
   },
   [get.LANGUAGES](state) {

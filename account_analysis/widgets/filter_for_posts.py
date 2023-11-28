@@ -17,7 +17,7 @@ def language_filter_posts(languages, posts):
   return posts  
 
 def country_filter_posts(countries, posts):
-  posts = posts.filter(reduce(lambda x,y: x | y, [Q(locationString=country) for country in countries]))
+  posts = posts.filter(reduce(lambda x,y: x | y, [Q(user_location=country) for country in countries]))
   return posts  
 
 def sentiment_filter_posts(sentiments, posts):
@@ -37,7 +37,7 @@ def language_dimensions_posts(languages, posts):
   return posts  
 
 def country_dimensions_posts(countries, posts):
-  posts = posts.filter(reduce(lambda x,y: x | y, [Q(locationString=country) for country in countries]))
+  posts = posts.filter(reduce(lambda x,y: x | y, [Q(user_location=country) for country in countries]))
   return posts  
 
 def sentiment_dimensions_posts(sentiments, posts):

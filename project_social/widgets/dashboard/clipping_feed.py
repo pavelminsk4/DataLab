@@ -12,7 +12,7 @@ def clipping_feed(pk, widget_pk):
         'post__text',
         'post__sentiment',
         'post__date',
-        'post__locationString',
+        'post__user_location',
         'post__language',
         'post__count_favorites',
         'post__count_totalretweets',

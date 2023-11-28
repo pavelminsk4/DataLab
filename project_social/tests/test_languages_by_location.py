@@ -8,10 +8,10 @@ import json
 
 class LanguagesByLocationTests(APITestCase):
     def test_response_list(self):
-        TweetBinderPostFactory(language='En', locationString='USA')
-        TweetBinderPostFactory(language='Sp', locationString='Spain')
-        TweetBinderPostFactory(language='Pl', locationString='England')
-        TweetBinderPostFactory(language='En', locationString='England')
+        TweetBinderPostFactory(language='En', user_location='USA')
+        TweetBinderPostFactory(language='Sp', user_location='Spain')
+        TweetBinderPostFactory(language='Pl', user_location='England')
+        TweetBinderPostFactory(language='En', user_location='England')
         pr = ProjectSocialFactory()
 
         widget_pk = pr.social_widgets_list.languages_by_location_id
