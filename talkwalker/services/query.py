@@ -1,4 +1,4 @@
-def get_tw_query(instance):
+def query(instance):
     query = ''
     if instance.expert_mode:
         query = instance.query_filter

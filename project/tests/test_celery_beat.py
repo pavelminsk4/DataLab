@@ -7,7 +7,7 @@ class CeleryBeatTestCase(TestCase):
         """Celery has a specific set of periodic tasks"""
         tasks = list(app.conf.beat_schedule.keys())
 
-        self.assertEqual(len(tasks), 8)
+        self.assertEqual(len(tasks), 9)
         self.assertListEqual(tasks, [
             'postcreator-task-crontab',
             'alert-sender-task-crontab',
@@ -15,6 +15,7 @@ class CeleryBeatTestCase(TestCase):
             'calculate-imp-sentiment',
             'update-live-reports',
             'get-new-tweets-by-basic-searches',
+            'reset-talkwalker-collectors',
             'run-talkwalker-livesearch',
             'run-rss-livesearch'
         ])

@@ -12,6 +12,19 @@ def run_talkwalker_livesearch():
         Livestream(project.id, 'Project').read()
 
 
+@shared_task
+def reset_collectors():
+    projects = Project.objects.filter(status=Project.STATUS_ACTIVE, sources__contains=['talkwalker'])
+
+    for project in projects:
+        stream = Livestream(project.id, 'Project')
+        stream.delete()
+        stream.create()
+        project.resume_offset = 'earliest'
+        project.save()
+
+
+@shared_task
 def run_rss_livesearch():
     projects = Project.objects.filter(status=Project.STATUS_ACTIVE, sources__contains=['rss'])
 

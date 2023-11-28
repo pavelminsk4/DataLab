@@ -1,4 +1,4 @@
-from talkwalker.services.get_tw_query import get_tw_query
+from talkwalker.services.query import query
 from talkwalker.services.create_posts import create_posts
 from talkwalker.services.token import get_token
 from rest_framework import status
@@ -13,9 +13,11 @@ class Livestream:
         if module == 'Project':
             model = apps.get_model('project', 'Project')
             self.collector_id = f'livestream-{project_id}-onl-col'
+
         if module == 'ProjectTwentyFourSeven':
             model = apps.get_model('twenty_four_seven', 'ProjectTwentyFourSeven')
             self.collector_id = f'livestream-{project_id}-tfs-col'
+
         self.project = model.objects.get(id=project_id)
         self.stream_id = f'livestream-{project_id}-'
 
@@ -26,13 +28,14 @@ class Livestream:
         payload = json.dumps({
             'rules': [
                 {
-                    'rule_id': f'{self.stream_id}-rule',
-                    'query': get_tw_query(self.project)
+                    'rule_id': f'{self.stream_id}rule',
+                    'query': query(self.project)
                 }
             ]
         })
-        headers = {'Content-Type': 'application/json'}
+        headers  = {'Content-Type': 'application/json'}
         response = requests.request('PUT', url, headers=headers, data=payload)
+
         return response.status_code == status.HTTP_200_OK
 
     def __02_create_collector(self):
@@ -44,8 +47,9 @@ class Livestream:
                 ]
             }
         })
-        headers = {'Content-Type': 'application/json'}
+        headers  = {'Content-Type': 'application/json'}
         response = requests.request('PUT', url, headers=headers, data=payload)
+
         return response.status_code == status.HTTP_200_OK
 
     def __read_chunk(self, offset):
@@ -66,11 +70,13 @@ class Livestream:
     def __04_delete_collector(self):
         url = f'https://api.talkwalker.com/api/v3/stream/c/{self.collector_id}?access_token={self.token}'
         response = requests.request('DELETE', url, headers={}, data={})
+
         return response.status_code == status.HTTP_200_OK
 
     def __05_delete_stream(self):
         url = f'https://api.talkwalker.com/api/v3/stream/s/{self.stream_id}?access_token={self.token}'
         response = requests.request('DELETE', url, headers={}, data={})
+
         return response.status_code == status.HTTP_200_OK
 
     def create(self):

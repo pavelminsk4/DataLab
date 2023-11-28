@@ -1,5 +1,5 @@
 from talkwalker.services.create_posts import create_posts
-from talkwalker.services.get_tw_query import get_tw_query
+from talkwalker.services.query import query
 from talkwalker.services.token import get_token
 from rest_framework import status
 from django.apps import apps
@@ -40,7 +40,7 @@ class Asker:
             'start': self.project.start_search_date.date().isoformat(),
             'stop': self.project.end_search_date.date().isoformat(),
             'limit': environ.Env()('TALKWALKER_LIMIT'),
-            'query': get_tw_query(self.project),
+            'query': query(self.project),
         })
 
         headers  = {'Content-Type': 'application/json'}

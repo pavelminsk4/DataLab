@@ -49,6 +49,11 @@ app.conf.beat_schedule = {
         'schedule': crontab(hour=3, minute=0, day_of_week='*'),
         'args': ()
     },
+    'reset-talkwalker-collectors': {
+        'task': 'project.tasks.run_livesearch.reset_collectors',
+        'schedule': crontab(hour=4, minute=0, day_of_week='*'),
+        'args': ()
+    },
     'run-talkwalker-livesearch': {
         'task': 'project.tasks.run_livesearch.run_talkwalker_livesearch',
         'schedule': crontab(hour='*', minute='*/20', day_of_week='*'),
