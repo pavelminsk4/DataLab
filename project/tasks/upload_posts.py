@@ -18,7 +18,7 @@ logger = logging.getLogger()
 
 
 def split_links(amount_posts_in_sample):
-    all_posts = Feedlinks.objects.all().order_by('-alexaglobalrank')
+    all_posts = Feedlinks.objects.exclude(url=None).order_by('-alexaglobalrank')
     return Paginator(all_posts, amount_posts_in_sample)
 
 

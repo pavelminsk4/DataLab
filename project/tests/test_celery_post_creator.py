@@ -20,3 +20,16 @@ class PostsUploadTestCase(TestCase):
             post_creator()
 
         self.assertEqual(Post.objects.all().count(), 10)
+
+    def test_post_creator_skips_blank_urls(self):
+        """Run post_creator and skip blank urls"""
+        FeedlinkFactory(url=None)
+        SpeechFactory(language='English (United States)')
+        StatusFactory()
+
+        self.assertEquals(Post.objects.all().count(), 0)
+
+        with vcr.use_cassette('fixtures/vcr_cassettes/celery_post_creator_yaledailynews.yaml'):
+            post_creator()
+
+        self.assertEqual(Post.objects.all().count(), 0)
