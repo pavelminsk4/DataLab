@@ -2,7 +2,7 @@
   <div class="filters-wrapper">
     <template v-for="{name, listName} in searchFields" :key="name">
       <CustomText tag="span" :text="name" class="second-title" />
-
+      
       <FilterChips
         v-if="selectedFilters(name)?.length"
         :items="selectedFilters(name)"

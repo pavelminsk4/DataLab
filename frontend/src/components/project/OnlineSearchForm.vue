@@ -162,7 +162,6 @@ export default {
       additionalFilters: get.ADDITIONAL_FILTERS,
     }),
     isAdmin() {
-      console.log(this.searchLists)
       return this.userInfo.user_profile.role === 'admin'
     },
     isCurrentProjectCreated() {
@@ -242,7 +241,7 @@ export default {
         case 'country':
           return await this[action.GET_COUNTRIES]({
             word: searchValue,
-            limit: this.numItemsInList.country,
+            limit: this.numItemsInList?.country,
           })
         case 'language':
           return await this[action.GET_LANGUAGES]({
