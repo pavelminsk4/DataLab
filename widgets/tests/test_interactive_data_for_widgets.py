@@ -31,9 +31,9 @@ class InteractiveWidgetsTests(APITestCase):
             feedlink=flink, entry_title='Fourth post title', entry_summary='Fourth summary', feed_language=sp1,
             entry_published='2021-09-03T00:00:00Z', entry_author='AFP', sentiment='negative'
         )
-        pr = ProjectFactory(keywords=['post'])
+        project = ProjectFactory(keywords=['post'])
         for post in (p1, p2):
-            pr.posts.add(post)
+            project.posts.add(post)
 
     def test_top_10_interactive_widgets(self):
         pr = Project.objects.first()
@@ -130,11 +130,10 @@ class InteractiveWidgetsTests(APITestCase):
                          ['posts'][0]['id'], post_id)
 
     def test_sentiment_top_keywords(self):
-        pr = Project.objects.first()
-        post_id = Post.objects.all().get(entry_title='Second post title').pk
+        pr        = Project.objects.first()
+        post      = Post.objects.get(entry_title='Second post title')
         widget_pk = pr.widgets_list_2.sentiment_top_keywords_id
-        url = reverse('widgets:interactive_widgets', kwargs={
-                      'project_pk': pr.pk, 'widget_pk': widget_pk})
+        url = reverse('widgets:interactive_widgets', kwargs={'project_pk': pr.id, 'widget_pk': widget_pk})
         data = {
             'first_value': ['post'],
             'second_value': ['negative'],
@@ -143,10 +142,11 @@ class InteractiveWidgetsTests(APITestCase):
             'page_number': 1,
         }
         response = self.client.post(url, data, format='json')
+
         self.assertEqual(len(json.loads(response.content)['posts']), 1)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(json.loads(response.content)
-                         ['posts'][0]['id'], post_id)
+                         ['posts'][0]['id'], post.id)
 
     def test_sentiment_diagram(self):
         pr = Project.objects.first()
