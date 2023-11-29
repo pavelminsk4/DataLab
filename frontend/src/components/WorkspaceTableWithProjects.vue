@@ -108,7 +108,7 @@
 <script>
 import TagsCollapsible from '@components/TagsCollapsible'
 import BaseTable from '@components/common/BaseTable'
-import BaseCheckbox from '@components/BaseCheckbox2'
+import BaseCheckbox from '@components/BaseCheckbox'
 import BaseChips from '@components/BaseChips'
 import UserAvatar from '@components/UserAvatar'
 import UsersIconsBar from '@components/UsersIconsBar'

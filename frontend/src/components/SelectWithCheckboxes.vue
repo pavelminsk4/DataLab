@@ -63,7 +63,7 @@ import translate from '@lib/mixins/translate.js'
 import CustomText from '@components/CustomText'
 import ArrowDownIcon from '@components/icons/ArrowDownIcon'
 import ErrorIcon from '@components/icons/ErrorIcon'
-import BaseCheckbox from '@components/BaseCheckbox2'
+import BaseCheckbox from '@components/BaseCheckbox'
 import BaseObserver from '@components/BaseObserver'
 
 export default {

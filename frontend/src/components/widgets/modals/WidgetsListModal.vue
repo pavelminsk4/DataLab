@@ -32,7 +32,7 @@ import {get} from '@store/constants'
 
 import CustomText from '@components/CustomText'
 import BaseModal from '@components/modals/BaseModal'
-import BaseCheckbox from '@components/BaseCheckbox2'
+import BaseCheckbox from '@components/BaseCheckbox'
 import BaseButton from '@components/common/BaseButton'
 import WidgetsListIcon from '@components/icons/WidgetsListIcon'
 import SaveIcon from '@components/icons/SaveIcon'

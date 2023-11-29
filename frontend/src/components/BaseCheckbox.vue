@@ -1,11 +1,11 @@
 <template>
-  <label class="container container-header">
+  <label class="checkbox-container" :name="id">
     <input
+      v-model="isChecked"
       type="checkbox"
+      :checked="checked"
       :id="id"
-      v-model="checked"
-      @change="click"
-      :checked="selected"
+      :value="value || id"
     />
     <span v-if="hasIcon" class="checkmark">
       <CheckIcon class="checkmark-icon" />
@@ -20,31 +20,36 @@ export default {
   name: 'BaseCheckbox',
   components: {CheckIcon},
   props: {
-    modelValue: {type: Boolean, default: false},
-    selected: {type: Boolean, default: false},
+    modelValue: {type: [Boolean, Array], default: false},
+    checked: {type: Boolean, default: null},
     label: {type: String},
-    id: {type: [Number, String]},
+    id: {type: [Number, String], default: 'checkbox'},
     hasIcon: {type: Boolean, default: true},
+    value: {type: [String, Number, Object], default: null},
   },
-  emits: ['change'],
-  data() {
-    return {
-      checked: this.modelValue,
-    }
-  },
-  methods: {
-    click() {
-      this.$emit('change', {id: this.id, checked: this.checked})
+  emits: ['update:modelValue'],
+  computed: {
+    isChecked: {
+      get() {
+        return this.modelValue || this.checked
+      },
+      set(val) {
+        this.$emit('update:modelValue', val)
+      },
     },
   },
 }
 </script>
 
-<style scoped>
-.container {
+<style lang="scss" scoped>
+.checkbox-container {
+  --checkbox-width: 20px;
+
   position: relative;
 
   display: flex;
+
+  height: fit-content;
 
   font-size: 22px;
 
@@ -54,57 +59,54 @@ export default {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-}
 
-.container input {
-  position: absolute;
+  &:hover input ~ .checkmark {
+    border-color: var(--typography-title-color);
+  }
 
-  flex-shrink: 0;
+  input {
+    position: absolute;
 
-  height: 0;
-  width: 0;
+    height: 0;
+    width: 0;
 
-  opacity: 0;
-  cursor: pointer;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  input:checked ~ .checkmark {
+    border-color: var(--border-active-color);
+    background-color: var(--background-secondary-color);
+  }
+
+  input ~ .checkmark > .checkmark-icon {
+    display: none;
+  }
+
+  input:checked ~ .checkmark > .checkmark-icon {
+    display: block;
+    color: var(--primary-color);
+  }
+
+  input:checked ~ .checkmark:after {
+    display: block;
+    color: var(--primary-color);
+  }
 }
 
 .checkmark {
   top: 0;
   left: 0;
 
-  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
 
-  height: 20px;
-  width: 20px;
+  height: var(--checkbox-width);
+  width: var(--checkbox-width);
 
   border: 1px solid var(--typography-secondary-color);
   border-radius: 4px;
   background-color: var(--background-secondary-color);
-}
-
-.container:hover input ~ .checkmark {
-  border-color: var(--typography-title-color);
-}
-
-.container input:checked ~ .checkmark {
-  border-color: var(--border-active-color);
-  background-color: var(--background-secondary-color);
-}
-
-.container input ~ .checkmark > .checkmark-icon {
-  display: none;
-}
-
-.container input:checked ~ .checkmark > .checkmark-icon {
-  display: block;
-  color: var(--primary-color);
-}
-
-.container input:checked ~ .checkmark:after {
-  display: block;
-  color: var(--primary-color);
 }
 </style>

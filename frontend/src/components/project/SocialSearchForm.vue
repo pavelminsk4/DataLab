@@ -59,7 +59,7 @@ import {isAllFieldsEmpty} from '@lib/utilities'
 
 import CustomText from '@components/CustomText'
 import FilterChips from '@components/FilterChips'
-import BaseCheckbox from '@components/BaseCheckbox2'
+import BaseCheckbox from '@components/BaseCheckbox'
 import BaseRadio from '@components/BaseRadio'
 import PositiveIcon from '@components/icons/PositiveIcon'
 import NegativeIcon from '@components/icons/NegativeIcon'
