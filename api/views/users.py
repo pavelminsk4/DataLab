@@ -24,6 +24,7 @@ from ..serializers import FeedlinksSerializer, WidgetsListSerializer, ClippingFe
 from ..serializers import ProjectDimensionsListSerializer, DimensionsSerializer, ProjectDimensionsSerializer
 from ..serializers import AlertCreateSerializer, AlertsSerializer, RegisterSerializer, ProfileUserSerializer
 from ..serializers import TemplatesSerializer, RegularReportCreateSerializer
+from rest_framework.pagination import LimitOffsetPagination
 from api.services.search_service import SearchService
 import numpy as np
 import json
@@ -100,9 +101,14 @@ def classification(post, themes):
         return 'The post matrix was not calculated.'
 
 
+class LimitPagination(LimitOffsetPagination):
+    default_limit = 50
+
+
 class CountriesList(ListAPIView):
     serializer_class = CountrySerializer
     queryset = Country.objects.all()
+    pagination_class = LimitPagination
     filter_backends = [filters.SearchFilter]
     search_fields = ['^name']
 
@@ -110,6 +116,7 @@ class CountriesList(ListAPIView):
 class SpeechesList(ListAPIView):
     serializer_class = SpeechSerializer
     queryset = Speech.objects.all()
+    pagination_class = LimitPagination
     filter_backends = [filters.SearchFilter]
     search_fields = ['^language']
 
@@ -117,6 +124,7 @@ class SpeechesList(ListAPIView):
 class AuthorList(ListAPIView):
     serializer_class = PostsSerializer
     queryset = Post.objects.values('entry_author').distinct()
+    pagination_class = LimitPagination
     filter_backends = [filters.SearchFilter]
     search_fields = ['^entry_author']
 
@@ -124,6 +132,7 @@ class AuthorList(ListAPIView):
 class SourceList(ListAPIView):
     serializer_class = FeedlinksSerializer
     queryset = Feedlinks.objects.values('source1').distinct()
+    pagination_class = LimitPagination
     filter_backends = [filters.SearchFilter]
     search_fields = ['^source1']
 

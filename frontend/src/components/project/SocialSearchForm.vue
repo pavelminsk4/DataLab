@@ -18,6 +18,8 @@
         :placeholder="`Enter the ${name}`"
         :list="searchLists[listName]"
         :selected-checkboxes="selectedFilters(name)"
+        @update-list="updateList(searchLists[listName], name)"
+        @update:modelValue="getFilterList($event, name)"
         @get-selected-items="updateAdditionalFilters"
       />
     </template>
@@ -108,14 +110,12 @@ export default {
       search: {
         country: '',
         language: '',
-        source: '',
         author: '',
       },
-      isLoadingFilters: {
-        country: false,
-        language: false,
-        source: false,
-        author: false,
+      numItemsInList: {
+        country: 20,
+        language: 20,
+        author: 20,
       },
     }
   },
@@ -145,14 +145,22 @@ export default {
   async created() {
     this.searchFields = SEARCH_FIELDS
 
-    await this[action.GET_COUNTRIES]('')
-    await this[action.GET_LANGUAGES]('')
-    await this[action.GET_AUTHORS]('')
+    await this[action.GET_COUNTRIES]({
+      word: '',
+      limit: this.numItemsInList.country,
+    })
+    await this[action.GET_LANGUAGES]({
+      word: '',
+      limit: this.numItemsInList.language,
+    })
+    await this[action.GET_AUTHORS]({
+      word: '',
+      limit: this.numItemsInList.author,
+    })
 
     await this[action.UPDATE_ADDITIONAL_FILTERS]({
       country: this.currentProject?.country_filter,
       language: this.currentProject?.language_filter,
-      source: this.currentProject?.source_filter,
       author: this.currentProject?.author_filter,
       sentiment: this.currentProject?.sentiment_filter,
     })
@@ -173,8 +181,34 @@ export default {
       return this.selectedValueProxy.some((el) => item === el)
     },
 
+    async updateList(list, name) {
+      if (list.length < 20) return
+      this.numItemsInList[name] = this.numItemsInList[name] + 20
+      await this.getFilterList(this.search[name], name)
+    },
+
     async updateAdditionalFilters(values, name) {
       await this[action.UPDATE_ADDITIONAL_FILTERS]({[name]: values})
+    },
+
+    async getFilterList(searchValue, name) {
+      switch (name) {
+        case 'country':
+          return await this[action.GET_COUNTRIES]({
+            word: searchValue,
+            limit: this.numItemsInList.country,
+          })
+        case 'language':
+          return await this[action.GET_LANGUAGES]({
+            word: searchValue,
+            limit: this.numItemsInList.language,
+          })
+        case 'author':
+          return await this[action.GET_AUTHORS]({
+            word: searchValue,
+            limit: this.numItemsInList.author,
+          })
+      }
     },
 
     async removeChipsItem(item, name) {

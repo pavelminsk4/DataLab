@@ -29,6 +29,7 @@
     >
       <ArrowDownIcon />
     </div>
+
     <div :class="{hidden: !visible, visible}">
       <div v-if="visible" class="select-list scroll">
         <BaseCheckbox
@@ -40,6 +41,11 @@
           class="list-item"
         >
           {{ item }}
+
+          <BaseObserver
+            v-if="index + 1 === selectList.length"
+            @intersect="$emit('update-list')"
+          />
         </BaseCheckbox>
       </div>
     </div>
@@ -58,11 +64,18 @@ import CustomText from '@components/CustomText'
 import ArrowDownIcon from '@components/icons/ArrowDownIcon'
 import ErrorIcon from '@components/icons/ErrorIcon'
 import BaseCheckbox from '@components/BaseCheckbox2'
+import BaseObserver from '@components/BaseObserver'
 
 export default {
   name: 'SelectWithCheckboxes',
   mixins: [translate],
-  components: {BaseCheckbox, ErrorIcon, ArrowDownIcon, CustomText},
+  components: {
+    BaseCheckbox,
+    ErrorIcon,
+    ArrowDownIcon,
+    CustomText,
+    BaseObserver,
+  },
   emits: ['update:modelValue', 'select-option', 'get-selected-items'],
   props: {
     dir: {type: String, default: 'ltr'},

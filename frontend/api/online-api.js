@@ -82,20 +82,20 @@ export default {
     )
   },
 
-  async getCountries(word) {
-    return fetch('get', `/countries/countries?search=${word}`)
+  async getCountries(word, limit) {
+    return fetch('get', `/countries/countries?limit=${limit}&search=${word}`)
   },
 
-  async getLanguages(word) {
-    return fetch('get', `/speeches/speeches?search=${word}`)
+  async getLanguages(word, limit) {
+    return fetch('get', `/speeches/speeches?limit=${limit}&search=${word}`)
   },
 
-  async getSources(word) {
-    return fetch('get', `/sources/sources?search=${word}`)
+  async getSources(word, limit) {
+    return fetch('get', `/sources/sources?limit=${limit}&search=${word}`)
   },
 
-  async getAuthors(word) {
-    return fetch('get', `/authors/authors?search=${word}`)
+  async getAuthors(word, limit) {
+    return fetch('get', `/authors/authors?limit=${limit}&search=${word}`)
   },
 
   async getFiltersAuthors(projectId) {

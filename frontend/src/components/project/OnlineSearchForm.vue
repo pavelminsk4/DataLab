@@ -5,10 +5,10 @@
 
       <div class="sources">
         <BaseCheckbox
-          v-for="(source, index) in mainSources"
+          v-for="(source, index) in mainSourcesList"
           :key="source + index"
           :id="`checkbox-${source.toLowerCase()}`"
-          v-model="sources"
+          v-model="mainSources"
           :value="source.toLowerCase()"
           class="checkbox"
         >
@@ -35,6 +35,8 @@
         :placeholder="`Enter the ${name}`"
         :list="searchLists[listName]"
         :selected-checkboxes="selectedFilters(name)"
+        @update-list="updateList(searchLists[listName], name)"
+        @update:modelValue="getFilterList($event, name)"
         @get-selected-items="updateAdditionalFilters"
       />
     </template>
@@ -132,7 +134,7 @@ export default {
   data() {
     return {
       selectedSources: [],
-      mainSources: ['RSS', 'Talkwalker'],
+      mainSourcesList: ['RSS', 'Talkwalker'],
       sentiments: ['Negative', 'Neutral', 'Positive'],
       selectedValue: '',
       clearValue: false,
@@ -142,11 +144,11 @@ export default {
         source: '',
         author: '',
       },
-      isLoadingFilters: {
-        country: false,
-        language: false,
-        source: false,
-        author: false,
+      numItemsInList: {
+        country: 20,
+        language: 20,
+        source: 20,
+        author: 20,
       },
     }
   },
@@ -160,12 +162,13 @@ export default {
       additionalFilters: get.ADDITIONAL_FILTERS,
     }),
     isAdmin() {
+      console.log(this.searchLists)
       return this.userInfo.user_profile.role === 'admin'
     },
     isCurrentProjectCreated() {
       return !isAllFieldsEmpty(this.currentProject)
     },
-    sources: {
+    mainSources: {
       get() {
         return this.selectedSources || []
       },
@@ -197,9 +200,22 @@ export default {
     this.searchFields = SEARCH_FIELDS
     this.selectedSources = this.currentProject.sources
 
-    await this[action.GET_COUNTRIES]('')
-    await this[action.GET_LANGUAGES]('')
-    await this[action.GET_AUTHORS]('')
+    await this[action.GET_COUNTRIES]({
+      word: '',
+      limit: this.numItemsInList.country,
+    })
+    await this[action.GET_LANGUAGES]({
+      word: '',
+      limit: this.numItemsInList.language,
+    })
+    await this[action.GET_AUTHORS]({
+      word: '',
+      limit: this.numItemsInList.author,
+    })
+    await this[action.GET_SOURCES]({
+      word: '',
+      limit: this.numItemsInList.source,
+    })
 
     await this[action.UPDATE_ADDITIONAL_FILTERS]({
       country: this.currentProject.country_filter,
@@ -228,6 +244,37 @@ export default {
 
     async updateAdditionalFilters(values, name) {
       await this[action.UPDATE_ADDITIONAL_FILTERS]({[name]: values})
+    },
+
+    async updateList(list, name) {
+      if (list.length < 20) return
+      this.numItemsInList[name] = this.numItemsInList[name] + 20
+      await this.getFilterList(this.search[name], name)
+    },
+
+    async getFilterList(searchValue, name) {
+      switch (name) {
+        case 'country':
+          return await this[action.GET_COUNTRIES]({
+            word: searchValue,
+            limit: this.numItemsInList.country,
+          })
+        case 'language':
+          return await this[action.GET_LANGUAGES]({
+            word: searchValue,
+            limit: this.numItemsInList.language,
+          })
+        case 'author':
+          return await this[action.GET_AUTHORS]({
+            word: searchValue,
+            limit: this.numItemsInList.author,
+          })
+        case 'source':
+          return await this[action.GET_SOURCES]({
+            word: searchValue,
+            limit: this.numItemsInList.source,
+          })
+      }
     },
 
     async removeChipsItem(item, name) {

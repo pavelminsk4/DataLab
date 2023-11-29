@@ -49,7 +49,6 @@ export default {
       authors: getters[get.AUTHORS],
       countries: getters[get.COUNTRIES],
       languages: getters[get.LANGUAGES],
-      sources: getters[get.SOURCES],
     }
   },
 }
