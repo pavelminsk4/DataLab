@@ -29,6 +29,7 @@ import numpy as np
 import json
 import re
 import environ
+from functools import reduce
 
 env = environ.Env()
 
