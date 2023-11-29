@@ -4,7 +4,7 @@ from django.http import JsonResponse
 
 
 def most_engaging_media_types(pk, widget_pk):
-    posts, project = filter_for_account_posts(pk, widget_pk)
+    posts, project, widget = filter_for_account_posts(pk, widget_pk)
     res = post_aggregator_most_engaging_media_types(posts)
     return JsonResponse(res, safe=False)
 
@@ -32,3 +32,10 @@ def post_aggregator_most_engaging_media_types(posts):
             'video_engaging': video_engagements,
             'photo_engaging': photo_engagements,
             'combination_engaging': combination_posts.aggregate(count=engagement)['count']}
+
+def to_csv(request, pk, widget_pk):
+    posts, project, widget = filter_for_account_posts(pk, widget_pk)
+    result = post_aggregator_most_engaging_media_types(posts)
+    fields = ['Links', 'Text', 'Video', 'Photo', 'Combination']
+    rows = [[result['link_engaging'], result['text_engaging'], result['video_engaging'], result['photo_engaging'], result['combination_engaging']]]
+    return fields, rows

@@ -4,7 +4,7 @@ from django.db.models import Sum, F
 from django.http import JsonResponse
 
 def top_posts_by_engagements(pk, widget_pk):
-    posts, project = filter_for_account_posts(pk, widget_pk)
+    posts, project, widget = filter_for_account_posts(pk, widget_pk)
     widget = AccountAnalysisWidgetDescription.objects.get(id=widget_pk)
     top_posts = posts.annotate(engagement=Sum(F('count_favorites') + F('count_totalretweets'))).order_by('-engagement')[:widget.top_counts]
     results = []

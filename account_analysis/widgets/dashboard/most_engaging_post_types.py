@@ -4,7 +4,7 @@ from django.db.models import Sum, F
 
 
 def most_engaging_post_types(pk, widget_pk):
-    posts, project = filter_for_account_posts(pk, widget_pk)
+    posts, project, widget = filter_for_account_posts(pk, widget_pk)
     res = post_aggregator_most_engaging_post_types(posts)
     return JsonResponse(res, safe=False)
 
@@ -23,3 +23,10 @@ def post_aggregator_most_engaging_post_types(posts):
             'replies_engagement': replies_engagements,
             'retweets_engagement': retweets_engagements
             }
+
+def to_csv(request, pk, widget_pk):
+    posts, project, widget = filter_for_account_posts(pk, widget_pk)
+    result = post_aggregator_most_engaging_post_types(posts)
+    fields = ['Tweets engagement', 'Replies engagement', 'Retweets engagement']
+    rows = [[result['tweets_engagement'], result['replies_engagement'], result['retweets_engagement']]]
+    return fields, rows

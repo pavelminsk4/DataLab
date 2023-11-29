@@ -3,7 +3,11 @@ from django.http import JsonResponse
 
 
 def mention_sentiment(pk, widget_pk):
-    posts, project = filter_for_mentions_posts(pk, widget_pk)
+    posts, project, widget = filter_for_mentions_posts(pk, widget_pk)
+    res = calculate(posts)
+    return JsonResponse(res, safe=False)
+
+def calculate(posts):
     positive, negative, neutral = 0, 0, 0
     for post in posts:
         if post.sentiment == 'positive':
@@ -17,4 +21,11 @@ def mention_sentiment(pk, widget_pk):
             'negative': negative,
             'neutral': neutral
           }
-    return JsonResponse(res, safe=False)
+    return res
+
+def to_csv(request, pk, widget_pk):
+    posts, project, widget = filter_for_mentions_posts(pk, widget_pk)
+    result = calculate(posts)
+    fields = ['Negative', 'Neutral', 'Positive']
+    rows = [[result['negative'], result['neutral'], result['positive']]]
+    return fields, rows

@@ -1,9 +1,3 @@
-from project_social.models import SocialWidgetDescription, ProjectSocial
-from widgets.models import WidgetDescription
-from project.models import Project
-from django.http import HttpResponse
-import csv
-
 import widgets.common_widget.content_volume_top_countries as volume_countries
 import widgets.common_widget.sentiment_top_languages as sentiment_languages
 import widgets.common_widget.sentiment_top_countries as sentiment_country
@@ -54,37 +48,25 @@ import project_social.widgets.dashboard.summary_widget as soc_summary
 import project_social.widgets.dashboard.content_volume as soc_volume
 import project_social.widgets.dashboard.sentiment as soc_sentiment
 
+import account_analysis.widgets.optimization.mentions.average_engagements_by_day_for_mentions as average_engagements_by_day_for_mentions
+import account_analysis.widgets.dashboard.mentions.most_frequent_mention_media_types as most_frequent_mention_media_types
+import account_analysis.widgets.optimization.optimal_number_of_hashtags as optimal_number_of_hashtags
+import account_analysis.widgets.optimization.average_engagements_by_day as average_engagements_by_day
+import account_analysis.widgets.optimization.mentions.audience_mention_time as audience_mention_time
+import account_analysis.widgets.dashboard.most_frequent_media_types as most_frequent_media_types
+import account_analysis.widgets.dashboard.most_engaging_media_types as most_engaging_media_types
+import account_analysis.widgets.dashboard.most_frequent_post_types as most_frequent_post_types
+import account_analysis.widgets.dashboard.most_engaging_post_types as most_engaging_post_types
+import account_analysis.widgets.dashboard.mentions.mention_sentiment as mention_sentiment
+import account_analysis.widgets.dashboard.mentions.mention_timeline as mention_timeline
+import account_analysis.widgets.optimization.optimal_post_length as optimal_post_length
+import account_analysis.widgets.optimization.best_times_to_post as best_times_to_post
+import account_analysis.widgets.optimization.optimal_post_time as optimal_post_time
+import account_analysis.widgets.dashboard.profile_timeline as profile_timeline
+import account_analysis.widgets.dashboard.follower_growth as follower_growth
+import account_analysis.widgets.optimization.top_hashtags as top_hashtags
 
-class FactoryCSV:
-    def __init__(self, request, module_type, project_pk, widget_pk):
-        self.request = request
-        self.project_pk = project_pk
-        self.widget_pk = widget_pk
-        self.module_type = module_type
 
-    def define(self):
-        return CSV(self.request, self.project_pk, self.widget_pk).execute(self.module_type)
-
-
-class CSV:
-    def __init__(self, request, project_pk, widget_pk):
-        self.request = request
-        self.project_pk = project_pk
-        self.widget_pk = widget_pk
-
-    def execute(self, module):
-        if module == 'online':
-            title = WidgetDescription.objects.get(id=self.widget_pk).default_title
-        elif module == 'social':
-            title = SocialWidgetDescription.objects.get(id=self.widget_pk).default_title
-        response = HttpResponse(content_type='text/csv')
-        response['Content-Disposition'] = f'attachment; filename="{title}.csv"'
-        writer = csv.writer(response)
-        fields, rows = widgets[title].to_csv(self.request, self.project_pk, self.widget_pk)
-        writer.writerow(fields)
-        for elem in rows:
-            writer.writerow(elem)
-        return response
 
 widgets = {
     'Summary': summary,
@@ -113,7 +95,6 @@ widgets = {
     'Top keywords by country': keywords_countries,
     'Top languages by country': languages_country,
 }
-
 social_widgets = {
     'Summary': soc_summary,
     'Top locations': soc_top_locations,
@@ -140,4 +121,24 @@ social_widgets = {
     'Top keywords by location': soc_keywords_location,
     'Top languages by location': soc_languages_location,
     'Top gender by location': soc_gender_location,
+}
+
+account_analysis_widgets = {
+    'Profile timeline': profile_timeline,
+    'Follower growth': follower_growth,
+    'Most frequent post types': most_frequent_post_types,
+    'Most frequent media types': most_frequent_media_types,
+    'Most engaging post types': most_engaging_post_types,
+    'Most engaging media types': most_engaging_media_types,
+    'Mention timeline': mention_timeline,
+    'Mention sentiment': mention_sentiment,
+    'Most frequent mention media types': most_frequent_mention_media_types,
+    'Best times to post': best_times_to_post,
+    'Optimal post length': optimal_post_length,
+    'Optimal post time': optimal_post_time,
+    'Top hashtags': top_hashtags,
+    'Optimal number of hashtags': optimal_number_of_hashtags,
+    'Average engagements by day': average_engagements_by_day,
+    'Average engagements by day (mentions)': average_engagements_by_day_for_mentions,
+    'Audience mention time': audience_mention_time,
 }
