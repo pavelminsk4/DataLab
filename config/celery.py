@@ -20,7 +20,7 @@ app.autodiscover_tasks()
 
 app.conf.beat_schedule = {
     'postcreator-task-crontab': {
-        'task': 'project.tasks.post_creator',
+        'task': 'project.tasks.upload_posts.post_creator',
         'schedule': crontab(hour=15, minute=20, day_of_week='*'),
         'args': ()
     },
