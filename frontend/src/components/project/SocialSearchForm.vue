@@ -145,18 +145,7 @@ export default {
   async created() {
     this.searchFields = SEARCH_FIELDS
 
-    await this[action.GET_COUNTRIES]({
-      word: '',
-      limit: this.numItemsInList.country,
-    })
-    await this[action.GET_LANGUAGES]({
-      word: '',
-      limit: this.numItemsInList.language,
-    })
-    await this[action.GET_AUTHORS]({
-      word: '',
-      limit: this.numItemsInList.author,
-    })
+    await this.searchFields.forEach(({name}) => this.getFilterList('', name))
 
     await this[action.UPDATE_ADDITIONAL_FILTERS]({
       country: this.currentProject?.country_filter,

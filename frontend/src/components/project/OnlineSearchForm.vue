@@ -200,22 +200,7 @@ export default {
     this.searchFields = SEARCH_FIELDS
     this.selectedSources = this.currentProject.sources
 
-    await this[action.GET_COUNTRIES]({
-      word: '',
-      limit: this.numItemsInList.country,
-    })
-    await this[action.GET_LANGUAGES]({
-      word: '',
-      limit: this.numItemsInList.language,
-    })
-    await this[action.GET_AUTHORS]({
-      word: '',
-      limit: this.numItemsInList.author,
-    })
-    await this[action.GET_SOURCES]({
-      word: '',
-      limit: this.numItemsInList.source,
-    })
+    await this.searchFields.forEach(({name}) => this.getFilterList('', name))
 
     await this[action.UPDATE_ADDITIONAL_FILTERS]({
       country: this.currentProject.country_filter,
