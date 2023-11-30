@@ -68,6 +68,7 @@ export default {
     ]),
     ...mapOnlineActions([
       action.POST_SEARCH,
+      action.GET_WORKSPACES,
       action.UPDATE_PROJECT,
       action.GET_AVAILABLE_WIDGETS,
     ]),
@@ -87,6 +88,8 @@ export default {
         })
 
         this[action.CLEAR_STATE]()
+
+        this[action.GET_WORKSPACES]()
       } catch (e) {
         console.error(e)
       }
