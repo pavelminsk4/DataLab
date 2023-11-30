@@ -79,7 +79,7 @@ class InteractiveWidgetsTests(APITestCase):
         url = reverse('widgets:interactive_widgets', kwargs={
                       'project_pk': pr.pk, 'widget_pk': widget_pk})
         data = {
-            'first_value': ['negative'],
+            'first_value': ['Negative'],
             'second_value': [],
             'dates': ['2022-01-03T00:00:00Z', '2022-10-03T00:00:00Z'],
             'posts_per_page': 10,
@@ -136,7 +136,7 @@ class InteractiveWidgetsTests(APITestCase):
         url = reverse('widgets:interactive_widgets', kwargs={'project_pk': pr.id, 'widget_pk': widget_pk})
         data = {
             'first_value': ['post'],
-            'second_value': ['negative'],
+            'second_value': ['Negative'],
             'dates': [],
             'posts_per_page': 10,
             'page_number': 1,
@@ -155,7 +155,7 @@ class InteractiveWidgetsTests(APITestCase):
         url = reverse('widgets:interactive_widgets', kwargs={
                       'project_pk': pr.pk, 'widget_pk': widget_pk})
         data = {
-            'first_value': ['negative'],
+            'first_value': ['Negative'],
             'second_value': [],
             'dates': [],
             'posts_per_page': 10,
@@ -194,7 +194,7 @@ class InteractiveWidgetsTests(APITestCase):
                       'project_pk': pr.pk, 'widget_pk': widget_pk})
         data = {
             'first_value': ['AFP'],
-            'second_value': ['neutral'],
+            'second_value': ['Neutral'],
             'dates': [],
             'posts_per_page': 10,
             'page_number': 1,

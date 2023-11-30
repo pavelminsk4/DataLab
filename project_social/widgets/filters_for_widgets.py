@@ -54,7 +54,7 @@ def country_filter_posts(countries, posts):
 
 
 def author_filter_posts(authors, posts):
-    posts.filter(reduce(lambda x, y: x | y, [Q(user_name=author) for author in authors]))
+    posts = posts.filter(reduce(lambda x, y: x | y, [Q(user_name=author) for author in authors]))
     return posts
 
 
