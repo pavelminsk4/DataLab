@@ -26,16 +26,16 @@ class InteractiveDataService:
         elif widget.default_title == 'Top authors':
             posts = filter_posts([Q(entry_author=author) for author in first_value], posts)
         elif widget.default_title == 'Sentiment top sources':
-            posts = filter_posts([Q(sentiment=sentiment) for sentiment in second_value], posts)
+            posts = filter_posts([Q(sentiment=sentiment.lower()) for sentiment in second_value], posts)
             posts = filter_posts([Q(feedlink__source1=source) for source in first_value], posts)
         elif widget.default_title == 'Sentiment top countries':
-            posts = filter_posts([Q(sentiment=sentiment) for sentiment in second_value], posts)
+            posts = filter_posts([Q(sentiment=sentiment.lower()) for sentiment in second_value], posts)
             posts = filter_posts([Q(feedlink__country=country) for country in first_value], posts)
         elif widget.default_title == 'Sentiment top authors':
-            posts = filter_posts([Q(sentiment=sentiment) for sentiment in second_value], posts)
+            posts = filter_posts([Q(sentiment=sentiment.lower()) for sentiment in second_value], posts)
             posts = filter_posts([Q(entry_author=author) for author in first_value], posts)
         elif widget.default_title == 'Sentiment top languages':
-            posts = filter_posts([Q(sentiment=sentiment) for sentiment in second_value], posts)
+            posts = filter_posts([Q(sentiment=sentiment.lower()) for sentiment in second_value], posts)
             posts = filter_posts([Q(feed_language__language=language) for language in first_value], posts)
         elif widget.default_title == 'Content Volume by authors':
             posts = filter_posts([Q(entry_author=author) for author in first_value], posts)
@@ -53,7 +53,7 @@ class InteractiveDataService:
         elif widget.default_title == 'Top keywords':
             posts = posts.filter(entry_summary__icontains=first_value[0])
         elif widget.default_title == 'Sentiment top keywords':
-            posts = filter_posts([Q(sentiment=sentiment) for sentiment in second_value], posts)
+            posts = filter_posts([Q(sentiment=sentiment.lower()) for sentiment in second_value], posts)
             posts = posts.filter(entry_summary__icontains=first_value[0])
         elif widget.default_title == 'Sentiment diagram':
             posts = posts.filter(sentiment=first_value[0].lower())
@@ -64,7 +64,7 @@ class InteractiveDataService:
             posts = filter_posts([Q(feed_language__language=language) for language in second_value], posts)
             posts = posts.filter(entry_author=first_value[0])
         elif widget.default_title == 'Authors by sentiment':
-            posts = filter_posts([Q(sentiment=sentiment) for sentiment in second_value], posts)
+            posts = filter_posts([Q(sentiment=sentiment.lower()) for sentiment in second_value], posts)
             posts = posts.filter(entry_author=first_value[0])
         elif widget.default_title == 'Sources by country':
             posts = filter_posts([Q(feedlink__country=country) for country in second_value], posts)
