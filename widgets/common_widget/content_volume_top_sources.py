@@ -55,7 +55,7 @@ def aggregator_results_content_volume_top_sources(posts, aggregation_period, top
 
                 SELECT id feedlink_id, dates.value date, 0 post_count
                 FROM project_feedlinks
-                FULL JOIN (SELECT * FROM generate_series('{str(project.start_search_date)}', '{str(project.end_search_date)}', interval '1 {aggregation_period}') s(value)) dates
+                FULL JOIN (SELECT * FROM generate_series(date_trunc('{aggregation_period}','{str(project.start_search_date)}'::timestamptz), date_trunc('{aggregation_period}','{str(project.end_search_date)}'::timestamptz), interval '1 {aggregation_period}') s(value)) dates
                 ON 1 = 1
                 WHERE id IN {ids(top_sources)}
                 ) stats
