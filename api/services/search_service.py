@@ -20,7 +20,7 @@ class SearchService:
 
         if 'project_pk' in body:
             project = Project.objects.get(id=body['project_pk'])
-            if project.expert_presets != []:
+            if not project.expert_presets:
                 posts = ExpertPresets.apply_presets(project)
             else:
                 posts = project.posts
