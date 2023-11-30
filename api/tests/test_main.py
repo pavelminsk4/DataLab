@@ -245,30 +245,27 @@ class SourcesTests(APITestCase):
     def test_sources_list(self):
         self.client.force_authenticate(user=UserFactory())
         Feedlinks.objects.bulk_create([Feedlinks(source1='BBC'), Feedlinks(source1='TNT')])
-        url = '/api/sources/sources?search=B'
+        url = '/api/sources/sources?limit=20&search=B'
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(json.loads(response.content), [{'source1': 'BBC'}])
+        self.assertEqual(json.loads(response.content)['results'], [{'source1': 'BBC'}])
 
 
 class SpeechesTests(APITestCase):
     def test_speeches_list(self):
         self.client.force_authenticate(user=UserFactory())
         Speech.objects.bulk_create([Speech(language='Italy'), Speech(language='Albanian')])
-        url = '/api/speeches/speeches?search=Alb'
+        url = '/api/speeches/speeches?limit=20&search=Alb'
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(json.loads(response.content), [{'language': 'Albanian'}])
+        self.assertEqual(json.loads(response.content)['results'], [{'language': 'Albanian'}])
 
 
 class CountriesTests(APITestCase):
-    def create_country(self):
-        Country.objects.create(iso='AF', iso3='AFG', name='Afghanistan', iso_numeric=4, fips='AF', capital='Kabul', area=1, population=1, continent='AS', tld='.af', currency_code='AFN', currency_name='Afghani', phone=93, languages='fa-AF,ps,uz-AF,tk', geonameid=1149361, neighbours='TM,CN,IR,TJ,PK,UZ')
-
     def test_countries_list(self):
         self.client.force_authenticate(user=UserFactory())
-        self.create_country()
-        url = '/api/countries/countries?search=A'
+        Feedlinks.objects.bulk_create([Feedlinks(country='Belarus'), Feedlinks(country='USA')])
+        url = '/api/countries/countries?limit=20&search=U'
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(json.loads(response.content), [{'name': 'Afghanistan'}])
+        self.assertEqual(json.loads(response.content)['results'], [{'country': 'USA'}])
