@@ -19,8 +19,8 @@ from rest_framework.views import APIView
 from sentence_transformers import util
 from ml_components.models import MlCategory
 from ..serializers import UserSerializer, UserUpdateSerializer
-from ..serializers import CountrySerializer, SpeechSerializer, PostsSerializer
-from ..serializers import FeedlinksSerializer, WidgetsListSerializer, ClippingFeedContentWidgetSerializer
+from ..serializers import SpeechSerializer, PostsSerializer
+from ..serializers import FeedlinksSerializer, FeedlinksCountrySerializer, WidgetsListSerializer, ClippingFeedContentWidgetSerializer
 from ..serializers import ProjectDimensionsListSerializer, DimensionsSerializer, ProjectDimensionsSerializer
 from ..serializers import AlertCreateSerializer, AlertsSerializer, RegisterSerializer, ProfileUserSerializer
 from ..serializers import TemplatesSerializer, RegularReportCreateSerializer
@@ -106,11 +106,11 @@ class LimitPagination(LimitOffsetPagination):
 
 
 class CountriesList(ListAPIView):
-    serializer_class = CountrySerializer
-    queryset = Country.objects.all()
+    serializer_class = FeedlinksCountrySerializer
+    queryset = Feedlinks.objects.values('country').distinct()
     pagination_class = LimitPagination
     filter_backends = [filters.SearchFilter]
-    search_fields = ['^name']
+    search_fields = ['^country']
 
 
 class SpeechesList(ListAPIView):

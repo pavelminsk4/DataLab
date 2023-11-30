@@ -28,7 +28,7 @@ export default {
 
   [get.COUNTRIES](state) {
     return state.countries?.results
-      .map((country) => country.name)
+      .map((country) => country.country)
       .filter((country) => country?.trim())
   },
 
