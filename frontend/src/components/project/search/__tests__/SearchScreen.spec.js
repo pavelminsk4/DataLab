@@ -11,7 +11,10 @@ const createWrapper = (store) => {
       plugins: [store],
       mixins: [mockmixin],
     },
-    props: {currentProject: {id: 1}},
+    props: {
+      currentProject: {id: 1},
+      numberOfPosts: 10,
+    },
     data() {
       return {
         isExpertMode: false,

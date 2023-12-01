@@ -2,7 +2,7 @@ import {mount} from '@vue/test-utils'
 import {createNewStore} from '@lib/test-helpers'
 
 import BaseTableRow from '@components/common/BaseTableRow'
-import BaseCheckbox from '@components/BaseCheckbox2'
+import BaseCheckbox from '@components/BaseCheckbox'
 
 const createWrapper = (store) =>
   mount(BaseTableRow, {

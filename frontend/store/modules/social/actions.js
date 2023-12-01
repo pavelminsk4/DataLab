@@ -188,19 +188,20 @@ export default {
     }
   },
 
-  async [action.GET_AUTHORS]({commit}, word) {
+  async [action.GET_AUTHORS]({commit}, {word, limit}) {
     try {
-      const authors = await api.social.getAuthors(word)
+      const authors = await api.social.getAuthors(word, limit)
       commit(mutator.SET_AUTHORS, authors)
       return authors
     } finally {
       commit(mutator.SET_LOADING, false)
     }
   },
-  async [action.GET_COUNTRIES]({commit}, word) {
+  async [action.GET_COUNTRIES]({commit}, {word, limit}) {
     try {
       const countries = await api.social.getCountries(
-        capitalizeFirstLetter(word)
+        capitalizeFirstLetter(word),
+        limit
       )
       commit(mutator.SET_COUNTRIES, countries)
       return countries
@@ -208,10 +209,10 @@ export default {
       commit(mutator.SET_LOADING, false)
     }
   },
-  async [action.GET_LANGUAGES]({commit}, word) {
+  async [action.GET_LANGUAGES]({commit}, {word, limit}) {
     try {
       const languages = await api.social.getLanguages(
-        capitalizeFirstLetter(word)
+        capitalizeFirstLetter(word, limit)
       )
       commit(mutator.SET_LANGUAGES, languages)
       return languages

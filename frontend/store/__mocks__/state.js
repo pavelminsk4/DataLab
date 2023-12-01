@@ -14,6 +14,7 @@ export default {
     data: {},
   },
   searchData: {},
+  additionalFilters: {},
   userInfo: {user_profile: {department: {id: 1}}},
 
   //widgets

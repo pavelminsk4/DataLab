@@ -1,4 +1,5 @@
 from project.models import Project, Post, Feedlinks, Speech
+from common.factories.user import UserFactory
 from rest_framework.test import APITestCase
 from django.contrib.auth.models import User
 from accounts.models import Department
@@ -9,7 +10,7 @@ from widgets.models import *
 
 class InstantReportTests(APITestCase):
     def test_instant_reposrts(self):
-        user = User.objects.create(username='Fox')
+        user = UserFactory()
         dep = Department.objects.create(departmentname='First Dep')
         user.user_profile.department = dep
         flink = Feedlinks.objects.create(country='England')
@@ -45,5 +46,6 @@ class InstantReportTests(APITestCase):
         pr.widgets_list_2.clipping_feed_content.is_active = True
 
         url = reverse('instantly_report', kwargs={'proj_pk': pr.pk})
+        self.client.force_login(user)
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)

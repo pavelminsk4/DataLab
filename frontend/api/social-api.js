@@ -112,14 +112,23 @@ export default {
   },
 
   //filters
-  async getCountries(word) {
-    return fetch('get', `${moduleName}/social_locations_list?search=${word}`)
+  async getCountries(word, limit) {
+    return fetch(
+      'get',
+      `${moduleName}/social_locations_list?limit=${limit}&search=${word}`
+    )
   },
-  async getLanguages(word) {
-    return fetch('get', `${moduleName}/social_languages_list?search=${word}`)
+  async getLanguages(word, limit) {
+    return fetch(
+      'get',
+      `${moduleName}/social_languages_list?limit=${limit}&search=${word}`
+    )
   },
-  async getAuthors(word) {
-    return fetch('get', `${moduleName}/social_authors_list?search=${word}`)
+  async getAuthors(word, limit) {
+    return fetch(
+      'get',
+      `${moduleName}/social_authors_list?limit=${limit}&search=${word}`
+    )
   },
 
   // Widgets

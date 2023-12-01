@@ -107,7 +107,7 @@ import BaseButton from '@components/common/BaseButton'
 import BaseSelect from '@components/BaseSelect'
 import BaseModal from '@components/modals/BaseModal'
 import DivWithError from '@components/DivWithError'
-import BaseCheckbox from '@components/BaseCheckbox2'
+import BaseCheckbox from '@components/BaseCheckbox'
 import ReportsUploadIcon from '@components/icons/ReportsUploadIcon'
 import ReportsIcon from '@components/icons/ReportsIcon'
 

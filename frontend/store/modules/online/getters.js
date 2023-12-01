@@ -27,27 +27,27 @@ export default {
   },
 
   [get.COUNTRIES](state) {
-    return state.countries
-      .map((country) => country.name)
-      .filter((country) => country.trim())
+    return state.countries?.results
+      .map((country) => country.country)
+      .filter((country) => country?.trim())
   },
 
   [get.LANGUAGES](state) {
-    return state.languages
+    return state.languages.results
       .map((language) => language.language)
-      .filter((language) => language.trim())
+      .filter((language) => language?.trim())
   },
 
   [get.SOURCES](state) {
-    return state.sources
+    return state.sources.results
       .map((source) => source.source1)
-      .filter((source) => source.trim())
+      .filter((source) => source?.trim())
   },
 
   [get.AUTHORS](state) {
-    return state.authors
+    return state.authors?.results
       .map((author) => author.entry_author)
-      .filter((author) => author.trim())
+      .filter((author) => author?.trim())
   },
 
   [get.SEARCH_LISTS](state, getters) {

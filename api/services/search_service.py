@@ -1,5 +1,4 @@
 from django.core.paginator import Paginator
-from widgets.common_widget.filters_for_widgets import posts_with_filters, data_range_posts
 from project.online_parser import OnlineParser
 from project.models import Project, ChangingOnlineSentiment
 from expert_filters.services.expert_presets import ExpertPresets
@@ -10,26 +9,23 @@ class SearchService:
     def execute(self, request):
         body           = json.loads(request.body)
         department_id  = request.user.user_profile.department
-        date_range     = body['date_range']
         posts_per_page = body['posts_per_page']
         page_number    = body['page_number']
         sort_posts     = body['sort_posts']
-        query_filter   = body['query_filter']
 
-        from api.views.users import filter_with_constructor, posts_values, filter_with_dimensions, change_post_sentiment
+        from api.views.users import default_filter, filter_with_constructor, posts_values, filter_with_dimensions, change_post_sentiment
 
-        if 'project_pk' in body:
-            project = Project.objects.get(id=body['project_pk'])
-            if project.expert_presets != []:
-                posts = ExpertPresets.apply_presets(project)
-            else:
-                posts = project.posts
-                posts = posts_with_filters(project, posts)
+        project = Project.objects.get(id=body['project_pk'])
+        posts = project.posts
+
+        if project.expert_presets.exists():
+            posts = ExpertPresets(project, posts).posts
         else:
-            posts = data_range_posts(date_range[0], date_range[1])
-            parser = OnlineParser(query_filter)
-            expert_mode = parser.can_parse() & body['expert_mode']
-            posts = posts.filter(parser.get_filter_query()) if expert_mode else filter_with_constructor(body, posts)
+            if 'date_range' in body:
+                posts = posts.filter(entry_published__range=(body['date_range'][0], body['date_range'][1]))
+
+            posts = default_filter(project, posts)
+            posts = filter_with_constructor(body, posts)
             posts = filter_with_dimensions(posts, body)
 
         if sort_posts == 'source':

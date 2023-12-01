@@ -19,17 +19,19 @@ from rest_framework.views import APIView
 from sentence_transformers import util
 from ml_components.models import MlCategory
 from ..serializers import UserSerializer, UserUpdateSerializer
-from ..serializers import CountrySerializer, SpeechSerializer, PostsSerializer
-from ..serializers import FeedlinksSerializer, WidgetsListSerializer, ClippingFeedContentWidgetSerializer
+from ..serializers import SpeechSerializer, PostsSerializer
+from ..serializers import FeedlinksSerializer, FeedlinksCountrySerializer, WidgetsListSerializer, ClippingFeedContentWidgetSerializer
 from ..serializers import ProjectDimensionsListSerializer, DimensionsSerializer, ProjectDimensionsSerializer
 from ..serializers import AlertCreateSerializer, AlertsSerializer, RegisterSerializer, ProfileUserSerializer
 from ..serializers import TemplatesSerializer, RegularReportCreateSerializer
+from rest_framework.pagination import LimitOffsetPagination
 from api.services.search_service import SearchService
 import numpy as np
 import json
 import re
 import environ
 from functools import reduce
+from django.db.models import Q
 
 env = environ.Env()
 
@@ -100,16 +102,22 @@ def classification(post, themes):
         return 'The post matrix was not calculated.'
 
 
+class LimitPagination(LimitOffsetPagination):
+    default_limit = 50
+
+
 class CountriesList(ListAPIView):
-    serializer_class = CountrySerializer
-    queryset = Country.objects.all()
+    serializer_class = FeedlinksCountrySerializer
+    queryset = Feedlinks.objects.values('country').distinct()
+    pagination_class = LimitPagination
     filter_backends = [filters.SearchFilter]
-    search_fields = ['^name']
+    search_fields = ['^country']
 
 
 class SpeechesList(ListAPIView):
     serializer_class = SpeechSerializer
     queryset = Speech.objects.all()
+    pagination_class = LimitPagination
     filter_backends = [filters.SearchFilter]
     search_fields = ['^language']
 
@@ -117,6 +125,7 @@ class SpeechesList(ListAPIView):
 class AuthorList(ListAPIView):
     serializer_class = PostsSerializer
     queryset = Post.objects.values('entry_author').distinct()
+    pagination_class = LimitPagination
     filter_backends = [filters.SearchFilter]
     search_fields = ['^entry_author']
 
@@ -124,6 +133,7 @@ class AuthorList(ListAPIView):
 class SourceList(ListAPIView):
     serializer_class = FeedlinksSerializer
     queryset = Feedlinks.objects.values('source1').distinct()
+    pagination_class = LimitPagination
     filter_backends = [filters.SearchFilter]
     search_fields = ['^source1']
 
@@ -367,11 +377,11 @@ def keywords_posts(keys, posts):
 
 
 def filter_with_dimensions(posts, body):
-    country_dimensions = body['country_dimensions']
-    language_dimensions = body['language_dimensions']
-    source_dimensions = body['source_dimensions']
-    author_dimensions = body['author_dimensions']
-    sentiment_dimensions = body['sentiment_dimensions']
+    country_dimensions = body['country_dimensions'] if 'country_dimensions' in body else []
+    language_dimensions = body['language_dimensions'] if 'language_dimensions' in body else []
+    source_dimensions = body['source_dimensions'] if 'source_dimensions' in body else []
+    author_dimensions = body['author_dimensions'] if 'author_dimensions' in body else []
+    sentiment_dimensions = body['sentiment_dimensions'] if 'sentiment_dimensions' in body else []
 
     if country_dimensions:
         posts = posts.filter(reduce(lambda x, y: x | y, [Q(feedlink__country=country) for country in country_dimensions]))
@@ -416,16 +426,17 @@ def change_post_sentiment(post, dict_changing):
 
 
 def filter_with_constructor(body, posts):
-    keys = body['keywords']
-    exceptions = body['exceptions']
-    additions = body['additions']
-    country = body['country']
-    language = body['language']
-    source = body['source']
-    author = body['author']
-    sentiment = body['sentiment']
-    posts = keywords_posts(keys, posts)
+    keys = body['keywords'] if 'keywords' in body else []
+    exceptions = body['exceptions'] if 'exceptions' in body else []
+    additions = body['additions'] if 'additions' in body else []
+    country = body['country'] if 'country' in body else []
+    language = body['language'] if 'language' in body else []
+    source = body['source'] if 'source' in body else []
+    author = body['author'] if 'author' in body else []
+    sentiment = body['sentiment'] if 'sentiment' in body else []
 
+    if keys:
+        posts = keywords_posts(keys, posts)
     if additions:
         posts = additional_keywords_posts(posts, additions)
     if exceptions:
@@ -440,5 +451,19 @@ def filter_with_constructor(body, posts):
         posts = posts.filter(entry_author=author)
     if sentiment:
         posts = posts.filter(sentiment=sentiment)
+
+    return posts
+
+def default_filter(project, posts):
+    if project.country_filter:
+        posts = posts.filter(reduce(lambda x, y: x | y, [Q(feedlink__country=country) for country in project.country_filter]))
+    if project.language_filter:
+        posts = posts.filter(reduce(lambda x, y: x | y, [Q(feed_language__language=lang) for lang in project.language_filter]))
+    if project.source_filter:
+        posts = posts.filter(reduce(lambda x, y: x | y, [Q(feedlink__source1=source) for source in project.source_filter]))
+    if project.author_filter:
+        posts = posts.filter(reduce(lambda x, y: x | y, [Q(entry_author=author) for author in project.author_filter]))
+    if project.sentiment_filter:
+        posts = posts.filter(reduce(lambda x, y: x | y, [Q(sentiment=sentiment) for sentiment in project.sentiment_filter]))
 
     return posts

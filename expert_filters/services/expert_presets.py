@@ -2,14 +2,12 @@ from project.online_parser import OnlineParser
 
 
 class ExpertPresets:
-    def __init__(self, project):
+    def __init__(self, project, posts):
         self.project = project
+        self.presets = project.expert_presets
+        self.posts   = self.apply_presets(posts)
 
-    def apply_presets(project):
-        posts = project.posts.all()
-        presets = project.expert_presets.all()
-        for preset in presets:
-            query = ''.join(preset.query)
-            parser = OnlineParser(query)
-            posts = posts.filter(parser.get_filter_query())
+    def apply_presets(self, posts):
+        for preset in self.presets.all():
+            posts  = posts.filter(OnlineParser(''.join(preset.query)).get_filter_query())
         return posts

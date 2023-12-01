@@ -3,12 +3,12 @@
     <div class="widgets-list-wrapper">
       <section class="widgets-wrapper">
         <BaseCheckbox
-          v-for="(item, index) of widgetNames"
+          v-for="(item, index) of widgetsNames"
           :key="index"
           :label="item.default_title"
           :id="item.id"
-          :model-value="item.is_active"
-          @change="onChange"
+          :checked="item.is_active"
+          @update:modelValue="updateWidgetsList($event, item.id)"
           class="checkbox"
         >
           <CustomText tag="span" :text="item.default_title" class="name" />
@@ -61,69 +61,30 @@ export default {
     widgets() {
       return this.widgetList || this.availableWidgets
     },
-    widgetNames() {
+    widgetsNames() {
       if (this.widgets) {
         return Object.values(this.widgets).filter((el) => el.default_title)
       }
 
       return []
     },
-    collectionProxy: {
-      get() {
-        let collection = []
-        for (let key in this.widgets) {
-          if (this.widgets[key].is_active) {
-            collection.push(key)
-          }
-        }
-        return collection || []
-      },
-      set(val) {
-        this.collection = val
-      },
-    },
-    availableCollection() {
-      const widgetsKeys = Object.keys(this.widgets)
-      const notActiveWidgets = Object.assign(
-        {},
-        ...widgetsKeys.map((el) => ({
-          [el]: {...this.widgets[el], is_active: false},
-        }))
-      )
-      const activeWidgets = Object.assign(
-        {},
-        ...this.collectionProxy.map((el) => ({
-          [el]: {...this.widgets[el], is_active: true},
-        }))
-      )
-      return {...notActiveWidgets, ...activeWidgets}
-    },
   },
   methods: {
-    removeSelectedFilter(index) {
-      this.collectionProxy.splice(index, 1)
-    },
-    onChange({id, checked}) {
-      const item = Object.keys(this.widgets).find(
+    updateWidgetsList(checked, id) {
+      const widgetName = Object.keys(this.widgets).find(
         (widgetName) => this.widgets[widgetName].id === id
       )
 
-      if (checked) {
-        if (this.collectionProxy.indexOf(item) < 0) {
-          this.collectionProxy.push(item)
-        }
-      } else {
-        this.collectionProxy.filter((i, index) => {
-          if (i === item) {
-            this.removeSelectedFilter(index)
-          }
-        })
-      }
+      this.collection.push({name: widgetName, checked})
     },
     saveCollectionWidgets() {
+      this.collection.forEach(({name, checked}) => {
+        this.widgets[name].is_active = checked
+      })
+
       this.$emit('update-available-widgets', {
         projectId: this.projectId,
-        widgetsList: this.availableCollection,
+        widgetsList: this.widgets,
       })
     },
   },

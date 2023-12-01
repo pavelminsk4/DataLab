@@ -104,7 +104,7 @@ import BaseButton from '@components/common/BaseButton'
 import BaseModal from '@components/modals/BaseModal'
 import ExpertField from '@components/expert-filter/ExpertField'
 import BaseInput from '@components/common/BaseInput'
-import BaseCheckbox from '@components/BaseCheckbox2'
+import BaseCheckbox from '@components/BaseCheckbox'
 import ArrowheadIcon from '@components/icons/ArrowheadIcon'
 import EditIcon from '@components/icons/EditIcon'
 

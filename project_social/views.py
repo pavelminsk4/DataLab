@@ -356,15 +356,16 @@ class UpdateSocialProjectsWidgetsAPIView(UpdateAPIView):
         return SocialWidgetsList.objects.get(project_id=self.kwargs['pk'])
 
 
+class LimitPagination(LimitOffsetPagination):
+    default_limit = 50
+
+
 class SocialAuthorList(ListAPIView):
     serializer_class = TweetBinderPostAuthorSerializer
     queryset = TweetBinderPost.objects.distinct('user_alias')
+    pagination_class = LimitPagination
     filter_backends = [filters.SearchFilter]
     search_fields = ['^user_alias']
-
-
-class LimitPagination(LimitOffsetPagination):
-    default_limit = 50
 
 
 class SocialLocationList(ListAPIView):
@@ -378,6 +379,7 @@ class SocialLocationList(ListAPIView):
 class SocialLanguageList(ListAPIView):
     serializer_class = TweetBinderPostLanguageSerializer
     queryset = TweetBinderPost.objects.distinct('language')
+    pagination_class = LimitPagination
     filter_backends = [filters.SearchFilter]
     search_fields = ['^language']
 

@@ -218,32 +218,9 @@ export default {
       this.isLoadingResults = true
       try {
         await this[action.POST_SEARCH]({
-          keywords: this.currentKeywords || this.keywords?.keywords,
-          additions:
-            this.currentAdditionalKeywords ||
-            this.keywords?.additional_keywords,
-          exceptions:
-            this.currentExcludeKeywords || this.keywords?.ignore_keywords,
-          country: this.currentProject?.country_filter || [],
-          language: this.currentProject?.language_filter || [],
-          sentiment: this.currentProject?.sentiment_filter || [],
-          date_range: [
-            this.currentProject?.start_search_date,
-            this.currentProject?.end_search_date,
-          ],
-          source: this.currentProject?.source_filter || [],
-          author: this.currentProject?.author_filter || [],
           posts_per_page: numberOfPosts || 20,
           page_number: pageNumber || 1,
           sort_posts: this.sortValue || [],
-          country_dimensions: this.currentProject.country_dimensions,
-          language_dimensions: this.currentProject.language_dimensions,
-          source_dimensions: this.currentProject.source_dimensions,
-          author_dimensions: this.currentProject.author_dimensions,
-          sentiment_dimensions: this.currentProject.sentiment_dimensions,
-          query_filter: this.currentProject.query_filter,
-          department_id: this.department.id,
-          expert_mode: this.currentProject.expert_mode,
           project_pk: this.currentProject.id,
         })
       } catch (e) {

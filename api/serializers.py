@@ -203,6 +203,12 @@ class FeedlinksSerializer(WritableNestedModelSerializer):
         fields = ['source1']
 
 
+class FeedlinksCountrySerializer(WritableNestedModelSerializer):
+    class Meta:
+        model = Feedlinks
+        fields = ['country']
+
+
 class RegisterSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(
         required=True,

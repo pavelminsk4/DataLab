@@ -9,4 +9,9 @@ export default {
   [action.POST_SEARCH]: jest.fn(),
   [action.GET_PRESETS_GROUPS]: jest.fn(),
   [action.GET_FILTERS_OPTIONS]: jest.fn(),
+  [action.UPDATE_KEYWORDS_LIST]: jest.fn(),
+  [action.GET_AUTHORS]: jest.fn(),
+  [action.GET_COUNTRIES]: jest.fn(),
+  [action.GET_SOURCES]: jest.fn(),
+  [action.GET_LANGUAGES]: jest.fn(),
 }

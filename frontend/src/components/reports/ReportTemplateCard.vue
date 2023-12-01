@@ -27,7 +27,7 @@
 import {capitalizeFirstLetter} from '@lib/utilities'
 
 import CustomText from '@components/CustomText'
-import BaseCheckbox from '@components/BaseCheckbox2'
+import BaseCheckbox from '@components/BaseCheckbox'
 import MultiSelect from '@components/MultiSelect'
 
 export default {

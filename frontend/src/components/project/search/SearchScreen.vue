@@ -137,8 +137,11 @@ export default {
           this.keywords?.additional_keywords || this.currentAdditionalKeywords,
         exceptions:
           this.keywords?.ignore_keywords || this.currentExcludeKeywords,
-        country: this.additionalFilters?.country || [],
-        language: this.additionalFilters?.language || [],
+        country:
+          this.additionalFilters?.country || this.currentProject.country_filter,
+        language:
+          this.additionalFilters?.language ||
+          this.currentProject.language_filter,
         sentiment: this.additionalFilters?.sentiment || [],
         date_range: [
           this.additionalFilters?.date_range[0] ||
@@ -147,8 +150,10 @@ export default {
           this.additionalFilters?.date_range[1] ||
             this.currentProject?.end_search_date,
         ],
-        source: this.additionalFilters?.source || [],
-        author: this.additionalFilters?.author || [],
+        source:
+          this.additionalFilters?.source || this.currentProject.source_filter,
+        author:
+          this.additionalFilters?.author || this.currentProject.author_filter,
         posts_per_page: numberOfPosts || 20,
         page_number: pageNumber || 1,
         sort_posts: [],
@@ -196,11 +201,14 @@ export default {
         sort_posts: [],
         query_filter: this.query || this.currentProject?.query_filter,
         expert_mode: this.isExpertMode,
+        project_pk: this.currentProject.id,
       }
 
       this.$emit('update-project', project)
 
-      this.showResults()
+      if (this.moduleName === 'Social') {
+        this.showResults()
+      }
 
       this[action.OPEN_FLASH_MESSAGE]({
         type: 'Success',

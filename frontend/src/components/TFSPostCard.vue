@@ -100,7 +100,7 @@ import {defaultDate} from '@lib/utilities'
 import CustomText from '@components/CustomText'
 import PlusIcon from '@components/icons/PlusIcon'
 import OnlineIcon from '@components/icons/OnlineIcon'
-import BaseCheckbox from '@components/BaseCheckbox2'
+import BaseCheckbox from '@components/BaseCheckbox'
 import TFSPostCardLayout from '@components/twenty-four-seven/TFSPostCardLayout'
 import TFSCardStatuses from '@components/twenty-four-seven/TFSCardStatuses'
 

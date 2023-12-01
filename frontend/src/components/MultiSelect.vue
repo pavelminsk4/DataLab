@@ -30,7 +30,7 @@
 
 <script>
 import CustomText from '@components/CustomText'
-import BaseCheckbox from '@components/BaseCheckbox2'
+import BaseCheckbox from '@components/BaseCheckbox'
 import BaseSelect from '@components/BaseSelect2'
 
 export default {
