@@ -1,4 +1,5 @@
 from common.factories.feedlink import FeedlinkFactory
+from common.factories.project import ProjectFactory
 from common.factories.speech import SpeechFactory
 from common.factories.post import PostFactory
 from common.factories.user import UserFactory
@@ -15,26 +16,9 @@ import copy
 
 
 DATA = {
-    'keywords': [],
-    'exceptions': [],
-    'additions': [],
-    'country': [],
-    'language': [],
-    'sentiment': [],
-    'date_range': [],
-    'source': [],
-    'author': [],
     'posts_per_page': 20,
     'page_number': 1,
-    'sort_posts': [],
-    'author_dimensions': [],
-    'language_dimensions': [],
-    'country_dimensions': [],
-    'source_dimensions': [],
-    'sentiment_dimensions': [],
-    'query_filter': '',
-    'department_id': 1,
-    'expert_mode': False,
+    'sort_posts': []
 }
 
 global url, ex1, ex2, ex3, ex4
@@ -121,6 +105,8 @@ ex4 = {
 
 
 class SearchTests(APITestCase):
+    maxDiff = None
+
     def setUp(self):
         self.client.force_login(UserFactory())
         flink1 = FeedlinkFactory(country='USA', source1='BBC', sourceurl=None)
@@ -129,15 +115,17 @@ class SearchTests(APITestCase):
         sp2 = SpeechFactory(language='Lithuanian (Lithuania)')
         sp3 = SpeechFactory(language='Italian (Italy)')
         sp4 = SpeechFactory(language='Arabic')
-        PostFactory(id=1, feedlink=flink1, entry_title='First post title nikita', entry_summary='First post body', feed_language=sp1, entry_author='Elon Musk', entry_published='2022-09-03T06:37:00Z', sentiment='neutral')
-        PostFactory(id=2, feedlink=flink2, entry_title='Second post title', entry_summary='Second post body', feed_language=sp2, entry_author='Tim Cook', entry_published='2022-10-03T06:37:00Z', sentiment='neutral')
-        PostFactory(id=3, feedlink=flink2, entry_title='Third post', entry_summary='Third post body', feed_language=sp3, entry_author='Bill Gates', entry_published='2022-10-03T06:37:00Z', sentiment='neutral')
-        PostFactory(id=4, feedlink=flink2, entry_title='Fourth post', entry_summary='Fourth post body', feed_language=sp4, entry_author='Steve Jobs', entry_published='2022-10-03T06:37:00Z', sentiment='positive')
+        p1 = PostFactory(id=1, feedlink=flink1, entry_title='First post title nikita', entry_summary='First post body', feed_language=sp1, entry_author='Elon Musk', entry_published='2022-09-03T06:37:00Z', sentiment='neutral')
+        p2 = PostFactory(id=2, feedlink=flink2, entry_title='Second post title', entry_summary='Second post body', feed_language=sp2, entry_author='Tim Cook', entry_published='2022-10-03T06:37:00Z', sentiment='neutral')
+        p3 = PostFactory(id=3, feedlink=flink2, entry_title='Third post', entry_summary='Third post body', feed_language=sp3, entry_author='Bill Gates', entry_published='2022-10-03T06:37:00Z', sentiment='neutral')
+        p4 = PostFactory(id=4, feedlink=flink2, entry_title='Fourth post', entry_summary='Fourth post body', feed_language=sp4, entry_author='Steve Jobs', entry_published='2022-10-03T06:37:00Z', sentiment='positive')
+        pr = ProjectFactory(start_search_date='2022-09-02T06:44:00.000Z', end_search_date='2022-11-30T06:44:00.000Z')
+        pr.posts.set([p1, p2, p3, p4])
+        DATA['project_pk'] = pr.id
 
     def test_search_with_keywords(self):
         data = copy.deepcopy(DATA)
         data['keywords'] = ['nikita']
-        data['date_range'] = ['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z']
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(json.loads(response.content), {'num_pages': 1, 'num_posts': 1, 'posts': [ex1]})
@@ -146,7 +134,6 @@ class SearchTests(APITestCase):
         data = copy.deepcopy(DATA)
         data['keywords'] = ['post']
         data['exceptions'] = ['First']
-        data['date_range'] = ['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z']
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(json.loads(response.content), {'num_pages': 1, 'num_posts': 3, 'posts': [ex2, ex3, ex4]})
@@ -156,7 +143,6 @@ class SearchTests(APITestCase):
         data = copy.deepcopy(DATA)
         data['keywords'] = ['post']
         data['additions'] = ['Third']
-        data['date_range'] = ['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z']
         response = self.client.post(url, data, format='json')
         self.assertEqual(json.loads(response.content), {'num_pages': 1, 'num_posts': 1, 'posts': [ex3]})
         self.assertEqual(len(Post.objects.all()), 4)
@@ -166,7 +152,6 @@ class SearchTests(APITestCase):
         data['keywords'] = ['post']
         data['exceptions'] = ['First']
         data['additions'] = ['title']
-        data['date_range'] = ['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z']
         response = self.client.post(url, data, format='json')
         self.assertEqual(json.loads(response.content), {'num_pages': 1, 'num_posts': 1, 'posts': [ex2]})
         self.assertEqual(len(Post.objects.all()), 4)
@@ -175,7 +160,6 @@ class SearchTests(APITestCase):
         data = copy.deepcopy(DATA)
         data['keywords'] = ['post']
         data['country'] = 'USA'
-        data['date_range'] = ['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z']
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(json.loads(response.content), {'num_pages': 1, 'num_posts': 1, 'posts': [ex1]})
@@ -184,7 +168,6 @@ class SearchTests(APITestCase):
         data = copy.deepcopy(DATA)
         data['keywords'] = ['post']
         data['language'] = 'Arabic'
-        data['date_range'] = ['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z']
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(json.loads(response.content), {'num_pages': 1, 'num_posts': 1, 'posts': [ex4]})
@@ -193,15 +176,14 @@ class SearchTests(APITestCase):
         data = copy.deepcopy(DATA)
         data['keywords'] = ['post']
         data['sentiment'] = 'positive'
-        data['date_range'] = ['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z']
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(json.loads(response.content), {'num_pages': 1, 'num_posts': 1, 'posts': [ex4]})
 
-    def test_serarch_filtering_by_date(self):
+    def test_search_filtering_by_date(self):
         data = copy.deepcopy(DATA)
         data['keywords'] = ['post']
-        data['date_range'] = ['2022-09-02T06:44:00.000Z', '2022-09-30T06:44:00.000Z']
+        data['date_range'] = ['2022-09-02T06:00:00.000Z', '2022-09-30T06:00:00.000Z']
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(json.loads(response.content), {'num_pages': 1, 'num_posts': 1, 'posts': [ex1]})
@@ -209,7 +191,6 @@ class SearchTests(APITestCase):
     def test_search_by_source(self):
         data = copy.deepcopy(DATA)
         data['keywords'] = ['post']
-        data['date_range'] = ['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z']
         data['source'] = 'CNN'
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -218,7 +199,6 @@ class SearchTests(APITestCase):
     def test_search_by_author(self):
         data = copy.deepcopy(DATA)
         data['keywords'] = ['post']
-        data['date_range'] = ['2022-09-02T06:44:00.000Z', '2022-11-30T06:44:00.000Z']
         data['author'] = 'Elon Musk'
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)

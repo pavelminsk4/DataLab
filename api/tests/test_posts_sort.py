@@ -1,4 +1,5 @@
 from common.factories.feedlink import FeedlinkFactory
+from common.factories.project import ProjectFactory
 from common.factories.speech import SpeechFactory
 from common.factories.post import PostFactory
 from common.factories.user import UserFactory
@@ -128,10 +129,13 @@ class SearchSortPostsTests(APITestCase):
         sp2 = SpeechFactory(language='Lithuanian (Lithuania)')
         sp3 = SpeechFactory(language='Italian (Italy)')
         sp4 = SpeechFactory(language='Arabic')
-        PostFactory(id=1, feedlink=flink1, entry_title='First post title', entry_summary='First post body', feed_language=sp1, entry_author='Elon Musk', entry_published='2022-09-03T06:37:00Z', sentiment='neutral')
-        PostFactory(id=2, feedlink=flink2, entry_title='Second post title', entry_summary='Second post body', feed_language=sp2, entry_author='Tim Cook', entry_published='2022-10-03T06:37:00Z', sentiment='neutral')
-        PostFactory(id=3, feedlink=flink2, entry_title='Third post', entry_summary='Third post body', feed_language=sp3, entry_author='Bill Gates', entry_published='2022-11-03T06:37:00Z', sentiment='neutral')
-        PostFactory(id=4, feedlink=flink2, entry_title='Fourth post', entry_summary='Fourth post body', feed_language=sp4, entry_author='Steve Jobs', entry_published='2022-05-03T06:37:00Z', sentiment='positive')
+        p1 = PostFactory(id=1, feedlink=flink1, entry_title='First post title', entry_summary='First post body', feed_language=sp1, entry_author='Elon Musk', entry_published='2022-09-03T06:37:00Z', sentiment='neutral')
+        p2 = PostFactory(id=2, feedlink=flink2, entry_title='Second post title', entry_summary='Second post body', feed_language=sp2, entry_author='Tim Cook', entry_published='2022-10-03T06:37:00Z', sentiment='neutral')
+        p3 = PostFactory(id=3, feedlink=flink2, entry_title='Third post', entry_summary='Third post body', feed_language=sp3, entry_author='Bill Gates', entry_published='2022-11-03T06:37:00Z', sentiment='neutral')
+        p4 = PostFactory(id=4, feedlink=flink2, entry_title='Fourth post', entry_summary='Fourth post body', feed_language=sp4, entry_author='Steve Jobs', entry_published='2022-05-03T06:37:00Z', sentiment='positive')
+        pr = ProjectFactory()
+        pr.posts.set([p1, p2, p3, p4])
+        DATA['project_pk'] = pr.id
 
     def test_sort_by_alexaglobalrank_desc(self):
         data = copy.deepcopy(DATA)

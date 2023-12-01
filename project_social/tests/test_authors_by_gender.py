@@ -7,6 +7,8 @@ import json
 
 
 class AuthorsByGenderTests(APITestCase):
+    maxDiff = None
+
     def test_response_list(self):
         TweetBinderPostFactory(user_gender='female')
         TweetBinderPostFactory(user_name='user_2', user_gender='male')

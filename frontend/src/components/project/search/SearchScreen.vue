@@ -201,11 +201,14 @@ export default {
         sort_posts: [],
         query_filter: this.query || this.currentProject?.query_filter,
         expert_mode: this.isExpertMode,
+        project_pk: this.currentProject.id,
       }
 
       this.$emit('update-project', project)
 
-      this.showResults()
+      if (this.moduleName === 'Social') {
+        this.showResults()
+      }
 
       this[action.OPEN_FLASH_MESSAGE]({
         type: 'Success',

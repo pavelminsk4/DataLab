@@ -112,4 +112,4 @@ class TestsProjectsAPI(APITestCase):
             'synched_at': None
         }
 
-        self.assertEqual(json.loads(response.content), [res1, res2])
+        self.assertEqual(sorted(json.loads(response.content), key=lambda x: x['id']), sorted([res1, res2], key=lambda x: x['id']))

@@ -155,6 +155,12 @@ export default {
     try {
       await api.online.updateProject({projectId, data})
       await dispatch(action.GET_WORKSPACES)
+      await dispatch(action.POST_SEARCH, {
+        sort_posts: data.sort_posts,
+        project_pk: data.project_pk,
+        posts_per_page: 20,
+        page_number: 1,
+      })
     } finally {
       commit(mutator.SET_LOADING, false)
     }
