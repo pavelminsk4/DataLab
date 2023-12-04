@@ -453,17 +453,3 @@ def filter_with_constructor(body, posts):
         posts = posts.filter(sentiment=sentiment)
 
     return posts
-
-def default_filter(project, posts):
-    if project.country_filter:
-        posts = posts.filter(reduce(lambda x, y: x | y, [Q(feedlink__country=country) for country in project.country_filter]))
-    if project.language_filter:
-        posts = posts.filter(reduce(lambda x, y: x | y, [Q(feed_language__language=lang) for lang in project.language_filter]))
-    if project.source_filter:
-        posts = posts.filter(reduce(lambda x, y: x | y, [Q(feedlink__source1=source) for source in project.source_filter]))
-    if project.author_filter:
-        posts = posts.filter(reduce(lambda x, y: x | y, [Q(entry_author=author) for author in project.author_filter]))
-    if project.sentiment_filter:
-        posts = posts.filter(reduce(lambda x, y: x | y, [Q(sentiment=sentiment) for sentiment in project.sentiment_filter]))
-
-    return posts
