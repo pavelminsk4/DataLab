@@ -5,9 +5,10 @@ from project.models import Project
 from .project_pdf import ProjectPDF
 from docx import Document
 
+
 class OnlinePDF(ProjectPDF):
     def generate(self):
-        screenshots_list = ScreenDriver(self.item).get_screenshots()
+        screenshots_list = ScreenDriver(self.item).screenshots()
         document = Document(self.template_path)
         document = ReportDocument(document, self.item, screenshots_list, Project, 'widgets_list_2').fill()
         document.save(self.docx_path)
