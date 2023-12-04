@@ -6,11 +6,10 @@ from common.factories.user import UserFactory
 from project.models import Speech, Feedlinks
 from rest_framework.test import APITestCase
 from django.contrib.auth.models import User
-from countries_plus.models import Country
 from accounts.models import Department
+from project.models import Project
 from rest_framework import status
 from django.urls import reverse
-from project.models import Post
 import json
 import copy
 
@@ -123,66 +122,35 @@ class SearchTests(APITestCase):
         pr.posts.set([p1, p2, p3, p4])
         DATA['project_pk'] = pr.id
 
-    def test_search_with_keywords(self):
-        data = copy.deepcopy(DATA)
-        data['keywords'] = ['nikita']
-        response = self.client.post(url, data, format='json')
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(json.loads(response.content), {'num_pages': 1, 'num_posts': 1, 'posts': [ex1]})
-
-    def test_search_with_exclusion_words(self):
-        data = copy.deepcopy(DATA)
-        data['keywords'] = ['post']
-        data['exceptions'] = ['First']
-        response = self.client.post(url, data, format='json')
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(json.loads(response.content), {'num_pages': 1, 'num_posts': 3, 'posts': [ex2, ex3, ex4]})
-        self.assertEqual(len(Post.objects.all()), 4)
-
-    def test_search_with_additional_words(self):
-        data = copy.deepcopy(DATA)
-        data['keywords'] = ['post']
-        data['additions'] = ['Third']
-        response = self.client.post(url, data, format='json')
-        self.assertEqual(json.loads(response.content), {'num_pages': 1, 'num_posts': 1, 'posts': [ex3]})
-        self.assertEqual(len(Post.objects.all()), 4)
-
-    def test_serch_with_exclusion_and_additional_words(self):
-        data = copy.deepcopy(DATA)
-        data['keywords'] = ['post']
-        data['exceptions'] = ['First']
-        data['additions'] = ['title']
-        response = self.client.post(url, data, format='json')
-        self.assertEqual(json.loads(response.content), {'num_pages': 1, 'num_posts': 1, 'posts': [ex2]})
-        self.assertEqual(len(Post.objects.all()), 4)
-
     def test_search_by_country(self):
         data = copy.deepcopy(DATA)
-        data['keywords'] = ['post']
-        data['country'] = 'USA'
+        pr = Project.objects.get(id=DATA['project_pk'])
+        pr.country_filter = ['USA']
+        pr.save()
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(json.loads(response.content), {'num_pages': 1, 'num_posts': 1, 'posts': [ex1]})
 
     def test_search_by_language(self):
         data = copy.deepcopy(DATA)
-        data['keywords'] = ['post']
-        data['language'] = 'Arabic'
+        pr = Project.objects.get(id=DATA['project_pk'])
+        pr.language_filter = ['Arabic']
+        pr.save()
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(json.loads(response.content), {'num_pages': 1, 'num_posts': 1, 'posts': [ex4]})
 
     def test_search_filtering_by_sentiment(self):
         data = copy.deepcopy(DATA)
-        data['keywords'] = ['post']
-        data['sentiment'] = 'positive'
+        pr = Project.objects.get(id=DATA['project_pk'])
+        pr.sentiment_filter = ['positive']
+        pr.save()
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(json.loads(response.content), {'num_pages': 1, 'num_posts': 1, 'posts': [ex4]})
 
     def test_search_filtering_by_date(self):
         data = copy.deepcopy(DATA)
-        data['keywords'] = ['post']
         data['date_range'] = ['2022-09-02T06:00:00.000Z', '2022-09-30T06:00:00.000Z']
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -190,16 +158,63 @@ class SearchTests(APITestCase):
 
     def test_search_by_source(self):
         data = copy.deepcopy(DATA)
-        data['keywords'] = ['post']
-        data['source'] = 'CNN'
+        pr = Project.objects.get(id=DATA['project_pk'])
+        pr.source_filter = ['CNN']
+        pr.save()
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(json.loads(response.content), {'num_pages': 1, 'num_posts': 3, 'posts': [ex2, ex3, ex4]})
 
     def test_search_by_author(self):
         data = copy.deepcopy(DATA)
-        data['keywords'] = ['post']
-        data['author'] = 'Elon Musk'
+        pr = Project.objects.get(id=DATA['project_pk'])
+        pr.author_filter = ['Elon Musk']
+        pr.save()
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(json.loads(response.content), {'num_pages': 1, 'num_posts': 1, 'posts': [ex1]})
+
+    def test_search_by_country_dimensions(self):
+        data = copy.deepcopy(DATA)
+        pr = Project.objects.get(id=DATA['project_pk'])
+        pr.country_dimensions = ['USA']
+        pr.save()
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(json.loads(response.content), {'num_pages': 1, 'num_posts': 1, 'posts': [ex1]})
+
+    def test_search_by_language_dimensions(self):
+        data = copy.deepcopy(DATA)
+        pr = Project.objects.get(id=DATA['project_pk'])
+        pr.language_dimensions = ['Arabic']
+        pr.save()
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(json.loads(response.content), {'num_pages': 1, 'num_posts': 1, 'posts': [ex4]})
+
+    def test_search_filtering_by_sentiment_dimensions(self):
+        data = copy.deepcopy(DATA)
+        pr = Project.objects.get(id=DATA['project_pk'])
+        pr.sentiment_dimensions = ['positive']
+        pr.save()
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(json.loads(response.content), {'num_pages': 1, 'num_posts': 1, 'posts': [ex4]})
+
+    def test_search_by_source_dimensions(self):
+        data = copy.deepcopy(DATA)
+        pr = Project.objects.get(id=DATA['project_pk'])
+        pr.source_dimensions = ['CNN']
+        pr.save()
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(json.loads(response.content), {'num_pages': 1, 'num_posts': 3, 'posts': [ex2, ex3, ex4]})
+
+    def test_search_by_author_dimensions(self):
+        data = copy.deepcopy(DATA)
+        pr = Project.objects.get(id=DATA['project_pk'])
+        pr.author_dimensions = ['Elon Musk']
+        pr.save()
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(json.loads(response.content), {'num_pages': 1, 'num_posts': 1, 'posts': [ex1]})
