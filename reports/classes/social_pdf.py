@@ -5,9 +5,10 @@ from reports.classes.project_pdf import ProjectPDF
 from project_social.models import ProjectSocial
 from docx import Document
 
+
 class SocialPDF(ProjectPDF):
     def generate(self):
-        screenshots_list = ScreenDriver(self.item).get_screenshots()
+        screenshots_list = ScreenDriver(self.item).screenshots()
         document = Document(self.template_path)
         document = ReportDocument(document, self.item, screenshots_list, ProjectSocial, 'social_widgets_list').fill()
         document.save(self.docx_path)
