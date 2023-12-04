@@ -34,7 +34,7 @@ class Feedlinks(models.Model):
     alexaglobalrank = models.BigIntegerField(default=0)
 
     def __str__(self):
-        return self.url
+        return str(self.url)
 
 
 class Speech(models.Model):
