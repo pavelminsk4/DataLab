@@ -15,7 +15,7 @@ export default {
   },
   searchData: {},
   additionalFilters: {},
-  userInfo: {user_profile: {department: {id: 1}}},
+  userInfo: {user_profile: {department: {id: 1}, platform_language: 'en'}},
 
   //widgets
   widgets: {

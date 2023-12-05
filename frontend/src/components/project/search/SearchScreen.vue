@@ -1,5 +1,18 @@
 <template>
   <div v-if="currentProject">
+    <WarningModal
+      v-if="isWarningModalDisplayed"
+      @close="isWarningModalDisplayed = false"
+      @approve="() => updateProjectData(true)"
+    >
+      <CustomText tag="p" text="Recollect data for the project?" class="text" />
+      <CustomText
+        tag="p"
+        text="If you click ‘Confirm’, the existing posts will be removed and the process of collecting posts will be restarted."
+        class="text"
+      />
+    </WarningModal>
+
     <MainLayoutTitleBlock
       :title="currentProject.title"
       :description="currentProject.note"
@@ -46,7 +59,7 @@
           :is-expert-mode-set="currentProject.expert_mode"
           :is-keywords-fields-disable="true"
           @update-query-filter="updateQueryFilter"
-          @save-project="updateProjectData"
+          @save-project="saveProject"
           @show-result="showResults"
           @update-collection="updateKeywordsCollection"
         />
@@ -64,9 +77,10 @@
 
 <script>
 import {mapGetters, mapActions} from 'vuex'
+import moment from 'moment'
 import {get, action} from '@store/constants'
 import {expertModeFilters} from '@lib/constants'
-import {isAllFieldsEmpty} from '@lib/utilities'
+import {isAllFieldsEmpty, areArraysEqual} from '@lib/utilities'
 
 import CustomText from '@components/CustomText'
 import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
@@ -75,6 +89,7 @@ import SearchResults from '@components/SearchResults'
 import BaseSwitcher from '@components/BaseSwitcher'
 import ExpertModeTab from '@components/workspace/ExpertModeTab'
 import TotalResults from '@components/TotalResults'
+import WarningModal from '@components/modals/WarningModal'
 
 export default {
   name: 'SearchScreen',
@@ -86,6 +101,7 @@ export default {
     ExpertModeTab,
     TotalResults,
     CustomText,
+    WarningModal,
   },
   props: {
     moduleName: {type: String, default: 'Online'},
@@ -99,11 +115,13 @@ export default {
     return {
       query: '',
       isExpertMode: false,
+      isWarningModalDisplayed: false,
     }
   },
   computed: {
     ...mapGetters({
       department: get.DEPARTMENT,
+      user: get.USER_INFO,
     }),
     currentKeywords() {
       return this.currentProject?.keywords
@@ -150,6 +168,8 @@ export default {
           this.additionalFilters?.date_range[1] ||
             this.currentProject?.end_search_date,
         ],
+        start_date:
+          this.additionalFilters?.start_date || this.currentProject?.start_date,
         source:
           this.additionalFilters?.source || this.currentProject.source_filter,
         author:
@@ -170,7 +190,42 @@ export default {
 
       this.$emit('show-results', project)
     },
-    updateProjectData() {
+    saveProject() {
+      const isAdmin = this.user.user_profile.role === 'admin'
+      if (!isAdmin) {
+        this.updateProjectData()
+        return
+      }
+
+      const isMainKeywordsUpdated = !areArraysEqual(
+        this.keywords?.keywords,
+        this.currentKeywords
+      )
+      const isAdditionalKeywordsUpdated = !areArraysEqual(
+        this.keywords?.additional_keywords,
+        this.currentAdditionalKeywords
+      )
+      const isExcludeKeywordsUpdated = !areArraysEqual(
+        this.keywords?.ignore_keywords,
+        this.currentExcludeKeywords
+      )
+      const isKeywordsUpdated =
+        isMainKeywordsUpdated ||
+        isAdditionalKeywordsUpdated ||
+        isExcludeKeywordsUpdated
+
+      const format = 'YYYY-MM-DD'
+      const isStartDateUpdated =
+        moment(this.additionalFilters?.start_date).format(format) !==
+        moment(this.currentProject?.start_date).format(format)
+
+      if (isKeywordsUpdated || isStartDateUpdated) {
+        this.isWarningModalDisplayed = true
+      } else {
+        this.updateProjectData()
+      }
+    },
+    updateProjectData(recollect) {
       const project = {
         title: this.currentProject?.title,
         note: this.currentProject?.note || '',
@@ -187,6 +242,8 @@ export default {
         source: this.currentProject?.source,
         sources: this.additionalFilters.sources || this.currentProject.sources,
         workspace: this.currentProject?.workspace,
+        start_date:
+          this.additionalFilters?.start_date || this.currentProject?.start_date,
         start_search_date:
           this.additionalFilters?.date_range[0] ||
           this.currentProject?.start_search_date,
@@ -202,6 +259,7 @@ export default {
         query_filter: this.query || this.currentProject?.query_filter,
         expert_mode: this.isExpertMode,
         project_pk: this.currentProject.id,
+        recollect,
       }
 
       this.$emit('update-project', project)

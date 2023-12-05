@@ -1,5 +1,15 @@
 <template>
   <div class="filters-wrapper">
+    <template v-if="isAdmin">
+      <ProjectCalendar
+        v-if="isCurrentProjectCreated"
+        name="Start date"
+        :start-date="currentProject.start_date"
+        :is-enable-time-picker="false"
+        class="date-picker"
+      />
+    </template>
+
     <template v-for="{name, listName} in searchFields" :key="name">
       <CustomText tag="span" :text="name" class="second-title" />
 
@@ -31,9 +41,8 @@
     class="date-picker"
   />
 
-  <CustomText tag="span" text="Sentiment" class="second-title" />
-
   <div class="sentiments-wrapper">
+    <CustomText tag="span" text="Sentiment" class="second-title" />
     <BaseCheckbox
       v-for="(item, index) in sentiments"
       :key="item + index"
@@ -124,9 +133,13 @@ export default {
       searchLists: get.SEARCH_LISTS,
     }),
     ...mapGetters({
+      userInfo: get.USER_INFO,
       keywords: get.KEYWORDS,
       additionalFilters: get.ADDITIONAL_FILTERS,
     }),
+    isAdmin() {
+      return this.userInfo.user_profile.role === 'admin'
+    },
     isCurrentProjectCreated() {
       return !isAllFieldsEmpty(this.currentProject)
     },
@@ -221,13 +234,11 @@ export default {
   justify-content: space-between;
 
   width: 408px;
-
-  margin-bottom: 20px;
 }
 
 .date-picker {
   width: 408px;
-  margin-bottom: 60px;
+  margin-top: 20px;
 }
 
 .second-title {
@@ -260,7 +271,7 @@ export default {
   gap: 12px;
 
   width: 408px;
-  margin: 10px 0 25px;
+  margin: 40px 0 25px;
 
   .checkbox {
     display: flex;

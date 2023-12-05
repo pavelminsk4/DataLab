@@ -1,18 +1,20 @@
 <template>
   <div class="project-calendar">
-    <div>Date</div>
+    <div>{{ name }}</div>
     <VueDatePicker
       v-model="selectedDateProxy"
       placeholder="Select date"
       text-input
       :range="isRange"
       :disabled-dates="disabledDates"
+      :enable-time-picker="isEnableTimePicker"
     />
   </div>
 </template>
 
 <script>
 import {mapActions, mapGetters} from 'vuex'
+import moment from 'moment'
 import {action, get} from '@store/constants'
 
 import VueDatePicker from '@vuepic/vue-datepicker'
@@ -23,10 +25,11 @@ export default {
     VueDatePicker,
   },
   props: {
+    name: {type: String, default: 'Date'},
     startDate: {type: String, required: false},
-    isDesableAfterToday: {type: Boolean, default: true},
+    isDisableAfterToday: {type: Boolean, default: true},
     isRange: {type: Boolean, default: false},
-    isCurrentProject: {type: Boolean, default: false},
+    isEnableTimePicker: {type: Boolean, default: true},
   },
   data() {
     return {
@@ -38,7 +41,7 @@ export default {
     initialDate() {
       const date = new Date(this.startDate)
 
-      if (this.isValidDate(date)) {
+      if (this.isValidDate(date) && this.isRange) {
         return this.additionalFilters.date_range
       }
 
@@ -50,8 +53,13 @@ export default {
       },
       set(newValue) {
         this.date = newValue
+
+        const format = 'YYYY-MM-DD'
         this[action.UPDATE_ADDITIONAL_FILTERS]({
           date_range: this.isRange ? newValue : [newValue, new Date()],
+          start_date: this.isRange
+            ? moment(this.startDate).format(format)
+            : moment(newValue).format(format),
         })
       },
     },
@@ -63,7 +71,7 @@ export default {
         new Date(this.startDate).getDate() - 1
       )
 
-      return this.isRange && this.isDesableAfterToday
+      return this.isRange && this.isDisableAfterToday
         ? date < new Date(initialActiveDate)
         : date > new Date()
     },
