@@ -4,6 +4,7 @@ from widgets.models import WidgetDescription
 from project.models import Project
 from django.db.models import Q
 import json
+from common.utils.change_sentiment import ChangeSentiment
 
 
 class InteractiveDataService:
@@ -19,6 +20,8 @@ class InteractiveDataService:
         first_value = body['first_value']
         second_value = body['second_value']
         dates = body['dates']
+        dep = project.creator.user_profile.department
+        
         if widget.default_title == 'Top languages':
             posts = filter_posts([Q(feed_language__language=language) for language in first_value], posts)
         elif widget.default_title == 'Top sources':
@@ -102,5 +105,6 @@ class InteractiveDataService:
             'sentiment',
             )
         p = Paginator(posts, posts_per_page)
-        posts_list=list(p.page(page_number))
+        posts_list = list(p.page(page_number))
+        posts_list = ChangeSentiment(dep, posts_list).execute()
         return {'num_pages': p.num_pages, 'num_posts': p.count, 'posts': posts_list}

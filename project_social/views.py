@@ -34,6 +34,7 @@ from .widgets.summary.top_keywords import top_keywords
 from .widgets.dashboard.summary_widget import summary
 from .widgets.dashboard.sentiment import sentiment
 
+from common.utils.change_social_sentiment import ChangeSocialSentiment
 from .models import ChangingTweetbinderSentiment
 from tweet_binder.models import TweetBinderPost
 
@@ -82,7 +83,7 @@ class ProjectsSotialViewSet(viewsets.ModelViewSet):
 def change_social_sentiment(request, pk, department_pk, sentiment):
     try:
         updated_values = {'sentiment': sentiment}
-        ChangingTweetbinderSentiment.objects.update_or_create(tweet_post_id=pk, department_id=department_pk, defaults=updated_values)
+        ChangingTweetbinderSentiment.objects.update_or_create(post_id=pk, department_id=department_pk, defaults=updated_values)
     except:
         return HttpResponse(status=406)
     return HttpResponse(status=201)
@@ -313,9 +314,6 @@ def project_posts(request, pk):
     posts = SocialSearchService().posts_values(posts)
     p = Paginator(posts, posts_per_page)
     posts_list = list(p.page(page_number))
-    department_changing = ChangingTweetbinderSentiment.objects.filter(department_id=dep_id).values()
-    dict_changing = {x['tweet_post_id']: x['sentiment'] for x in department_changing}
-    for post in posts_list:
-        post = SocialSearchService().change_tweet_post_sentiment(post, dict_changing)
+    posts_list = ChangeSocialSentiment(dep_id, posts_list).execute()
     res = {'num_pages': p.num_pages, 'num_posts': p.count, 'posts': posts_list}
     return JsonResponse(res, safe=False)

@@ -2,7 +2,6 @@ from .project_posts_filter import project_posts_filter
 from common.utils.where_clause import where_clause
 from django.forms.models import model_to_dict
 from django.http import JsonResponse
-from project.models import Post
 import re
 
 

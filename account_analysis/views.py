@@ -29,6 +29,7 @@ from .models import *
 from .widgets.interactive_widgets import interactive_widgets
 from project_social.services.social_search_service import SocialSearchService
 from project_social.models import ChangingTweetbinderSentiment
+from common.utils.change_social_sentiment import ChangeSocialSentiment
 
 
 class ProjectsAccountAnalysisViewSet(viewsets.ModelViewSet):
@@ -193,7 +194,7 @@ def calculate(posts, posts_per_page, page_number, dict_changing):
     posts = list(posts)
     for p in posts:
         p['link'] = f'https://twitter.com/user/status/{p["post_id"]}'
-        p = SocialSearchService().change_tweet_post_sentiment(p, dict_changing)
+        p = ChangeSocialSentiment().change_sentiment(p, dict_changing)
     p = Paginator(posts, posts_per_page)
     posts_list=list(p.page(page_number))
     res = { 'num_pages': p.num_pages, 'num_posts': p.count, 'posts': posts_list }

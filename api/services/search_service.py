@@ -1,11 +1,11 @@
 from expert_filters.services.expert_presets import ExpertPresets
-from project.models import Project, ChangingOnlineSentiment
-from project.online_parser import OnlineParser
+from project.models import Project
 from django.core.paginator import Paginator
 import json
 
 from django.db.models import Q
 from functools import reduce
+from common.utils.change_sentiment import ChangeSentiment
 
 class SearchService:
     def execute(self, request):
@@ -15,7 +15,7 @@ class SearchService:
         page_number    = body.get('page_number', 1)
         sort_posts     = body.get('sort_posts', [])
 
-        from api.views.users import posts_values, change_post_sentiment
+        from api.views.users import posts_values
 
         project = Project.objects.get(id=body['project_pk'])
         posts = project.posts.exclude(projectpost__exclude=True)
@@ -47,11 +47,7 @@ class SearchService:
         posts               = posts_values(posts)
         p                   = Paginator(posts, posts_per_page)
         posts_list          = list(p.page(page_number))
-        department_changing = ChangingOnlineSentiment.objects.filter(department_id=department_id).values()
-        dict_changing       = {x['post_id']: x['sentiment'] for x in department_changing}
-
-        for post in posts_list:
-            post = change_post_sentiment(post, dict_changing)
+        posts_list          = ChangeSentiment(department_id, posts_list).execute()
 
         return {'num_pages': p.num_pages, 'num_posts': p.count, 'posts': posts_list}
 

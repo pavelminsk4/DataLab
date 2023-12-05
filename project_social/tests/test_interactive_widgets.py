@@ -1,12 +1,16 @@
+from common.factories.change_sentiment.change_social_sentiment import ChangingTweetbinderSentimentFactory
+from common.factories.tweet_binder_post import TweetBinderPostFactory
+from common.factories.project_social import ProjectSocialFactory
+from common.factories.department import DepartmentFactory
+from common.factories.user import UserFactory
+
 from tweet_binder.models import TweetBinderPost
 from project_social.models import ProjectSocial
+
 from rest_framework.test import APITestCase
 from rest_framework import status
 from django.urls import reverse
 import json
-from common.factories.tweet_binder_post import TweetBinderPostFactory
-from common.factories.project_social import ProjectSocialFactory
-from common.factories.user import UserFactory
 
 
 class InteractiveWidgetsTests(APITestCase):
@@ -307,3 +311,29 @@ class InteractiveWidgetsTests(APITestCase):
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(json.loads(response.content)['posts'][0]['id'], post_id)
+
+    def test_authors_by_gender_with_change_sentiment(self):
+        user = UserFactory()
+
+        dep = DepartmentFactory()
+        user.user_profile.department = dep
+        user.user_profile.save()
+
+        pr = ProjectSocial.objects.first()
+        pr.creator = user
+        pr.save()
+
+        widget = pr.social_widgets_list.authors_by_gender
+        url = f'/api/social/social_interactive_widgets/{pr.id}/{widget.id}'
+        post = TweetBinderPost.objects.all().get(user_name='First')
+        ChangingTweetbinderSentimentFactory(post=post, department=dep, sentiment='negative')
+        data = {
+            'first_value': ['First'],
+            'second_value': ['male'],
+            'dates': [],
+            'posts_per_page': 10,
+            'page_number': 1,
+        }
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(json.loads(response.content)['posts'][0]['sentiment'], 'negative')
