@@ -1,0 +1,1210 @@
+{
+    "pagination": {
+        "offset": 0,
+        "limit": 20,
+        "total": 10,
+        "nextResults": null
+    },
+    "data": [
+        {
+            "_id": "1731631950350385191",
+            "binders": [],
+            "bookmarks": 0,
+            "counts": {
+                "textLength": 141,
+                "sentiment": 0,
+                "retweets": 1,
+                "totalRetweets": 0,
+                "favorites": 0,
+                "hashtags": 3,
+                "images": 0,
+                "links": 0,
+                "linksAndImages": 0,
+                "mentions": 2,
+                "quotes": 0,
+                "impressions": 0,
+                "totalReplies": 0,
+                "bookmarks": 0,
+                "originals": 0,
+                "clears": 0,
+                "replies": 0,
+                "publicationScore": 0,
+                "userValue": 0.31,
+                "tweetValue": 0.15
+            },
+            "createdAt": 1701688203,
+            "favorites": 0,
+            "hashtags": [
+                "#apma",
+                "#youandme",
+                "#jennie"
+            ],
+            "images": [],
+            "impressions": 0,
+            "inReplyTo": false,
+            "inReplyToId": false,
+            "lang": "en",
+            "links": [],
+            "mentions": [
+                "@itsmooniiieee",
+                "@apmahk"
+            ],
+            "quotes": 0,
+            "rawLocation": {},
+            "retweeted": {
+                "_id": "1731630211014492577",
+                "text": "Let's do this \n\nRT and Reply for JENNIE \n\nAsian Pop Music Awards : People’s Choice Award \n#APMA #YOUANDME #JENNIE @APMAHK https://t.co/X37dGVHtbY",
+                "lang": "en",
+                "inReplyTo": false,
+                "inReplyToId": false,
+                "createdAt": 1701687789,
+                "hashtags": [
+                    "#apma",
+                    "#youandme",
+                    "#jennie"
+                ],
+                "mentions": [
+                    "@apmahk"
+                ],
+                "links": [
+                    "https://twitter.com/itsmooniiieee/status/1731630211014492577/video/1"
+                ],
+                "images": [],
+                "videos": [],
+                "favorites": 8,
+                "retweets": 8,
+                "totalReplies": 8,
+                "quotes": 0,
+                "impressions": 174,
+                "bookmarks": 0,
+                "sentiment": {
+                    "vote": "positive"
+                },
+                "user": {
+                    "id": "1477247217522020357",
+                    "name": "moonie",
+                    "alias": "itsmooniiieee",
+                    "picture": "https://pbs.twimg.com/profile_images/1668468463030140928/5SYHM98g_normal.jpg",
+                    "followers": 10551,
+                    "following": 6272,
+                    "verified": false,
+                    "bio": "fan account",
+                    "age": 1641038246,
+                    "counts": {
+                        "lists": 11,
+                        "statuses": 32369
+                    },
+                    "gender": "undefined",
+                    "protected": false,
+                    "value": 24.62
+                },
+                "rawLocation": {},
+                "type": [
+                    "original",
+                    "link"
+                ],
+                "counts": {
+                    "textLength": 122,
+                    "sentiment": 0,
+                    "retweets": 0,
+                    "totalRetweets": 8,
+                    "favorites": 8,
+                    "hashtags": 3,
+                    "images": 0,
+                    "links": 1,
+                    "linksAndImages": 1,
+                    "mentions": 1,
+                    "quotes": 0,
+                    "impressions": 174,
+                    "totalReplies": 8,
+                    "bookmarks": 0,
+                    "originals": 1,
+                    "clears": 0,
+                    "replies": 0,
+                    "publicationScore": 32,
+                    "userValue": 24.62,
+                    "tweetValue": 27.08
+                }
+            },
+            "retweets": 0,
+            "sentiment": {
+                "vote": "positive"
+            },
+            "tbin": {
+                "source": "twitter-v2-search-consumer",
+                "isStream": true
+            },
+            "text": "RT @itsmooniiieee: Let's do this \n\nRT and Reply for JENNIE \n\nAsian Pop Music Awards : People’s Choice Award \n#APMA #YOUANDME #JENNIE @APMAHK https://t.co/X37dGVHtbY",
+            "totalReplies": 0,
+            "type": [
+                "retweet"
+            ],
+            "updatedAt": 1701688217,
+            "user": {
+                "id": "100586372",
+                "name": "ppp",
+                "alias": "invincibleppp",
+                "picture": "https://pbs.twimg.com/profile_images/1728296064149856256/GM_E162K_normal.jpg",
+                "followers": 95,
+                "following": 121,
+                "verified": false,
+                "bio": "fan account",
+                "age": 1262204313,
+                "counts": {
+                    "lists": 0,
+                    "statuses": 9065
+                },
+                "location": "somewhere out there",
+                "gender": "undefined",
+                "protected": false,
+                "value": 0.31
+            },
+            "videos": []
+        },
+        {
+            "_id": "1731631949620367459",
+            "binders": [],
+            "bookmarks": 0,
+            "counts": {
+                "textLength": 140,
+                "sentiment": 0,
+                "retweets": 0,
+                "totalRetweets": 0,
+                "favorites": 0,
+                "hashtags": 0,
+                "images": 1,
+                "links": 2,
+                "linksAndImages": 1,
+                "mentions": 1,
+                "quotes": 0,
+                "impressions": 0,
+                "totalReplies": 0,
+                "bookmarks": 0,
+                "originals": 1,
+                "clears": 0,
+                "replies": 0,
+                "publicationScore": 0,
+                "userValue": 8.32,
+                "tweetValue": 10.98
+            },
+            "createdAt": 1701688203,
+            "favorites": 0,
+            "hashtags": [],
+            "images": [
+                "http://pbs.twimg.com/media/GAf-FM7WwAAwqKV.jpg"
+            ],
+            "impressions": 0,
+            "inReplyTo": false,
+            "inReplyToId": false,
+            "lang": "en",
+            "links": [
+                "https://apps.apple.com/developer/future-moments/id895157892",
+                "https://twitter.com/AudioFixApp/status/1731631949620367459/photo/1"
+            ],
+            "mentions": [
+                "@audiomasterapp"
+            ],
+            "quotes": 0,
+            "rawLocation": {},
+            "retweets": 0,
+            "sentiment": {
+                "vote": "neutral"
+            },
+            "tbin": {
+                "source": "twitter-v2-search-consumer",
+                "isStream": true
+            },
+            "text": "AudioMaster: For Podcasts &amp; Music now also on Desktop iPhone &amp; iPad! Check out the new @AudioMAsterApp, now with reverb and delay! https://t.co/f39WPGoTrG https://t.co/tHcQvWikxX",
+            "totalReplies": 0,
+            "type": [
+                "original",
+                "link",
+                "image"
+            ],
+            "updatedAt": 1701688217,
+            "user": {
+                "id": "4514568028",
+                "name": "AudioFix For Videos",
+                "alias": "AudioFixApp",
+                "picture": "https://pbs.twimg.com/profile_images/755555962765860864/ewST5cC4_normal.jpg",
+                "followers": 3187,
+                "following": 1825,
+                "verified": false,
+                "bio": "An App that Instantly improves the sound of your videos. 🎧 iOS/MacOS/Android 💥 👉https://t.co/qwNnPeqq6h",
+                "age": 1450361291,
+                "counts": {
+                    "lists": 74,
+                    "statuses": 28748
+                },
+                "location": "Brooklyn, NY",
+                "gender": "undefined",
+                "protected": false,
+                "value": 8.32
+            },
+            "videos": []
+        },
+        {
+            "_id": "1731631949125693874",
+            "binders": [],
+            "bookmarks": 0,
+            "counts": {
+                "textLength": 68,
+                "sentiment": null,
+                "retweets": 1,
+                "totalRetweets": 0,
+                "favorites": 0,
+                "hashtags": 3,
+                "images": 0,
+                "links": 1,
+                "linksAndImages": 0,
+                "mentions": 1,
+                "quotes": 0,
+                "impressions": 0,
+                "totalReplies": 0,
+                "bookmarks": 0,
+                "originals": 0,
+                "clears": 0,
+                "replies": 0,
+                "publicationScore": 0,
+                "userValue": 3.47,
+                "tweetValue": 1.74
+            },
+            "createdAt": 1701688203,
+            "favorites": 0,
+            "hashtags": [
+                "#クジラ夜の街",
+                "#月で読む絵本",
+                "#輝夜姫"
+            ],
+            "images": [],
+            "impressions": 0,
+            "inReplyTo": false,
+            "inReplyToId": false,
+            "lang": "ja",
+            "links": [
+                "https://natalie.mu/music/news/551728"
+            ],
+            "mentions": [
+                "@natalie_mu"
+            ],
+            "quotes": 0,
+            "rawLocation": {},
+            "retweeted": {
+                "_id": "1731629452155814105",
+                "text": "クジラ夜の街が日本最古のファンタジーを歌にした「輝夜姫」MV公開（動画あり）\nhttps://t.co/UMGbbiQEVR\n\n#クジラ夜の街 #月で読む絵本 #輝夜姫",
+                "lang": "ja",
+                "inReplyTo": false,
+                "inReplyToId": false,
+                "createdAt": 1701687608,
+                "hashtags": [
+                    "#クジラ夜の街",
+                    "#月で読む絵本",
+                    "#輝夜姫"
+                ],
+                "mentions": [],
+                "links": [
+                    "https://natalie.mu/music/news/551728"
+                ],
+                "images": [],
+                "videos": [],
+                "favorites": 5,
+                "retweets": 2,
+                "totalReplies": 0,
+                "quotes": 0,
+                "impressions": 7817,
+                "bookmarks": 0,
+                "sentiment": {
+                    "score": null,
+                    "comparative": 0,
+                    "vote": "undefined",
+                    "tokens": {},
+                    "words": [],
+                    "positive": [],
+                    "negative": [],
+                    "language": "ja"
+                },
+                "user": {
+                    "id": "5649672",
+                    "name": "音楽ナタリー",
+                    "alias": "natalie_mu",
+                    "picture": "https://pbs.twimg.com/profile_images/1259651927744278528/GM_aVfnj_normal.jpg",
+                    "followers": 1277279,
+                    "following": 8,
+                    "verified": true,
+                    "bio": "国内No.1の情報量を誇る音楽ニュースサイト。コミックナタリー（@comic_natalie）、お笑いナタリー（@owarai_natalie）、映画ナタリー（@eiga_natalie）、ステージナタリー（@stage_natalie）、ナタリーストア（@natalie_store）もあわせてどうぞ。",
+                    "age": 1177930809,
+                    "counts": {
+                        "lists": 18844,
+                        "statuses": 243941
+                    },
+                    "location": "東京",
+                    "gender": "undefined",
+                    "protected": false,
+                    "value": 2489.02
+                },
+                "rawLocation": {},
+                "type": [
+                    "original",
+                    "link"
+                ],
+                "counts": {
+                    "textLength": 52,
+                    "sentiment": null,
+                    "retweets": 0,
+                    "totalRetweets": 2,
+                    "favorites": 5,
+                    "hashtags": 3,
+                    "images": 0,
+                    "links": 1,
+                    "linksAndImages": 1,
+                    "mentions": 0,
+                    "quotes": 0,
+                    "impressions": 7817,
+                    "totalReplies": 0,
+                    "bookmarks": 0,
+                    "originals": 1,
+                    "clears": 0,
+                    "replies": 0,
+                    "publicationScore": 11,
+                    "userValue": 2489.02,
+                    "tweetValue": 2737.92
+                }
+            },
+            "retweets": 0,
+            "sentiment": {
+                "score": null,
+                "comparative": 0,
+                "vote": "undefined",
+                "tokens": {},
+                "words": [],
+                "positive": [],
+                "negative": [],
+                "language": "ja"
+            },
+            "tbin": {
+                "source": "twitter-v2-search-consumer",
+                "isStream": true
+            },
+            "text": "RT @natalie_mu: クジラ夜の街が日本最古のファンタジーを歌にした「輝夜姫」MV公開（動画あり）\nhttps://t.co/UMGbbiQEVR\n\n#クジラ夜の街 #月で読む絵本 #輝夜姫",
+            "totalReplies": 0,
+            "type": [
+                "retweet"
+            ],
+            "updatedAt": 1701688217,
+            "user": {
+                "id": "1644219293394165760",
+                "name": "クジラ夜の街の電波塔",
+                "alias": "Qujila_Staff",
+                "picture": "https://pbs.twimg.com/profile_images/1644284552976936961/OsHzRi37_normal.jpg",
+                "followers": 1130,
+                "following": 14,
+                "verified": false,
+                "bio": "クジラ夜の街スタッフが運営しています。FM NACK5「クジラ夜の街のメタラジオ」ほかメディア情報やライブの情報をまとめたり、リツイートしてお知らせしています。\n\nクジラ夜の街 @Qujila_band\n\n「メタラジオ」番組HP https://t.co/SEdmR3okYa…",
+                "age": 1680847419,
+                "counts": {
+                    "lists": 10,
+                    "statuses": 1074
+                },
+                "location": "クジラ夜の街",
+                "gender": "undefined",
+                "protected": false,
+                "value": 3.47
+            },
+            "videos": []
+        },
+        {
+            "_id": "1731631948978905238",
+            "binders": [],
+            "bookmarks": 0,
+            "counts": {
+                "textLength": 272,
+                "sentiment": 0,
+                "retweets": 1,
+                "totalRetweets": 0,
+                "favorites": 0,
+                "hashtags": 1,
+                "images": 0,
+                "links": 0,
+                "linksAndImages": 0,
+                "mentions": 3,
+                "quotes": 0,
+                "impressions": 0,
+                "totalReplies": 0,
+                "bookmarks": 0,
+                "originals": 0,
+                "clears": 0,
+                "replies": 0,
+                "publicationScore": 0,
+                "userValue": 1.37,
+                "tweetValue": 0.69
+            },
+            "createdAt": 1701688203,
+            "favorites": 0,
+            "hashtags": [
+                "#enhypen"
+            ],
+            "images": [],
+            "impressions": 0,
+            "inReplyTo": false,
+            "inReplyToId": false,
+            "lang": "en",
+            "links": [],
+            "mentions": [
+                "@prodbyengene",
+                "@enhypen_members",
+                "@enhypen"
+            ],
+            "quotes": 0,
+            "rawLocation": {},
+            "retweeted": {
+                "_id": "1731613153925243062",
+                "text": "ENHYPEN is nominated for the 2023 Circle Chart Music Awards' Mubeat Global Choice Award!\n\nFirst Round of Voting: December 4 until December 18 !\n🔗 https://t.co/9V5HhUc13G\n\n🚨 Top 30 positions will advance to Round 2. 🚨 Use your votes wisely!\n\n@ENHYPEN_members @ENHYPEN\n#ENHYPEN… https://t.co/XCMYte00Af https://t.co/5hY3HYXAH7",
+                "lang": "en",
+                "inReplyTo": false,
+                "inReplyToId": false,
+                "createdAt": 1701683722,
+                "hashtags": [
+                    "#enhypen"
+                ],
+                "mentions": [
+                    "@enhypen_members",
+                    "@enhypen"
+                ],
+                "links": [
+                    "http://mubeat.page.link/bGaZa",
+                    "https://twitter.com/i/web/status/1731613153925243062",
+                    "https://twitter.com/PRODBYENGENE/status/1731613153925243062/photo/1"
+                ],
+                "images": [],
+                "videos": [],
+                "favorites": 691,
+                "retweets": 538,
+                "totalReplies": 5,
+                "quotes": 8,
+                "impressions": 10173,
+                "bookmarks": 15,
+                "sentiment": {
+                    "vote": "positive"
+                },
+                "user": {
+                    "id": "1311205697535635456",
+                    "name": "PROD BY ENGENE",
+                    "alias": "PRODBYENGENE",
+                    "picture": "https://pbs.twimg.com/profile_images/1716338135385378816/R7gWQyWe_normal.jpg",
+                    "followers": 288900,
+                    "following": 78,
+                    "verified": true,
+                    "bio": "International Support Fanbase for the Future of K-POP, ENHYPEN. Turn Notifications on 🔔 @enhypenbank @enhypendigital",
+                    "age": 1601450785,
+                    "counts": {
+                        "lists": 2180,
+                        "statuses": 17241
+                    },
+                    "location": "See pinned tweet!",
+                    "gender": "undefined",
+                    "protected": false,
+                    "value": 644.41
+                },
+                "rawLocation": {},
+                "type": [
+                    "original",
+                    "link"
+                ],
+                "counts": {
+                    "textLength": 254,
+                    "sentiment": 0,
+                    "retweets": 0,
+                    "totalRetweets": 538,
+                    "favorites": 691,
+                    "hashtags": 1,
+                    "images": 0,
+                    "links": 3,
+                    "linksAndImages": 1,
+                    "mentions": 2,
+                    "quotes": 8,
+                    "impressions": 10173,
+                    "totalReplies": 5,
+                    "bookmarks": 15,
+                    "originals": 1,
+                    "clears": 0,
+                    "replies": 0,
+                    "publicationScore": 2305,
+                    "userValue": 644.41,
+                    "tweetValue": 708.85
+                }
+            },
+            "retweets": 0,
+            "sentiment": {
+                "vote": "positive"
+            },
+            "tbin": {
+                "source": "twitter-v2-search-consumer",
+                "isStream": true
+            },
+            "text": "RT @PRODBYENGENE: ENHYPEN is nominated for the 2023 Circle Chart Music Awards' Mubeat Global Choice Award!\n\nFirst Round of Voting: December 4 until December 18 !\n🔗 https://t.co/9V5HhUc13G\n\n🚨 Top 30 positions will advance to Round 2. 🚨 Use your votes wisely!\n\n@ENHYPEN_members @ENHYPEN\n#ENHYPEN… https://t.co/XCMYte00Af https://t.co/5hY3HYXAH7",
+            "totalReplies": 0,
+            "type": [
+                "retweet"
+            ],
+            "updatedAt": 1701688217,
+            "user": {
+                "id": "1551516554763767808",
+                "name": "ces.",
+                "alias": "fairyksn_",
+                "picture": "https://pbs.twimg.com/profile_images/1721543662394576896/MYKb-ojv_normal.jpg",
+                "followers": 470,
+                "following": 502,
+                "verified": false,
+                "bio": "— also @ksniconz_ , fan account.",
+                "age": 1658745393,
+                "counts": {
+                    "lists": 1,
+                    "statuses": 7642
+                },
+                "location": "bu acc.",
+                "gender": "undefined",
+                "protected": false,
+                "value": 1.37
+            },
+            "videos": []
+        },
+        {
+            "_id": "1731631948806889701",
+            "binders": [],
+            "bookmarks": 0,
+            "counts": {
+                "textLength": 34,
+                "sentiment": null,
+                "retweets": 0,
+                "totalRetweets": 0,
+                "favorites": 0,
+                "hashtags": 0,
+                "images": 0,
+                "links": 0,
+                "linksAndImages": 0,
+                "mentions": 1,
+                "quotes": 0,
+                "impressions": 0,
+                "totalReplies": 0,
+                "bookmarks": 0,
+                "originals": 1,
+                "clears": 0,
+                "replies": 1,
+                "publicationScore": 0,
+                "userValue": 1.52,
+                "tweetValue": 0.3
+            },
+            "createdAt": 1701688203,
+            "favorites": 0,
+            "hashtags": [],
+            "images": [],
+            "impressions": 0,
+            "inReplyTo": "ChibaNyan_Music",
+            "inReplyToId": "1731629823209120057",
+            "inReplyToUserId": "861869389452165120",
+            "lang": "ja",
+            "links": [],
+            "mentions": [
+                "@chibanyan_music"
+            ],
+            "quotes": 0,
+            "rawLocation": {},
+            "retweets": 0,
+            "sentiment": {
+                "score": null,
+                "comparative": 0,
+                "vote": "undefined",
+                "tokens": {},
+                "words": [],
+                "positive": [],
+                "negative": [],
+                "language": "ja"
+            },
+            "tbin": {
+                "source": "twitter-v2-search-consumer",
+                "isStream": true
+            },
+            "text": "@ChibaNyan_Music 仕事早いけんスタッフに雇おう！！w",
+            "totalReplies": 0,
+            "type": [
+                "original",
+                "reply"
+            ],
+            "updatedAt": 1701688217,
+            "user": {
+                "id": "3052323050",
+                "name": "🪬みかん🦊🌈",
+                "alias": "summer3orange2",
+                "picture": "https://pbs.twimg.com/profile_images/1631308880214106120/Oiwpf_NU_normal.jpg",
+                "followers": 531,
+                "following": 576,
+                "verified": false,
+                "bio": "虹色侍ずまくん&RepezenFoxx箱推し🦊🪬X(Twitter)はレペゼンメインです❤️Repekyo無言フォロー歓迎🥹気軽に絡んで貰えると喜びますw",
+                "age": 1425211396,
+                "counts": {
+                    "lists": 3,
+                    "statuses": 16607
+                },
+                "gender": "undefined",
+                "protected": false,
+                "value": 1.52
+            },
+            "videos": []
+        },
+        {
+            "_id": "1731631948487934265",
+            "binders": [],
+            "bookmarks": 0,
+            "counts": {
+                "textLength": 262,
+                "sentiment": 0,
+                "retweets": 0,
+                "totalRetweets": 0,
+                "favorites": 0,
+                "hashtags": 1,
+                "images": 4,
+                "links": 4,
+                "linksAndImages": 1,
+                "mentions": 0,
+                "quotes": 0,
+                "impressions": 0,
+                "totalReplies": 0,
+                "bookmarks": 0,
+                "originals": 1,
+                "clears": 0,
+                "replies": 0,
+                "publicationScore": 0,
+                "userValue": 21.95,
+                "tweetValue": 28.97
+            },
+            "createdAt": 1701688203,
+            "favorites": 0,
+            "hashtags": [
+                "#sinachconcerttoday"
+            ],
+            "images": [
+                "http://pbs.twimg.com/media/GAf-ErmXEAAZnmB.jpg",
+                "http://pbs.twimg.com/media/GAf-ErjX0AAONcl.jpg",
+                "http://pbs.twimg.com/media/GAf-ErkXQAA-dpL.jpg",
+                "http://pbs.twimg.com/media/GAf-ErhWUAA4z77.jpg"
+            ],
+            "impressions": 0,
+            "inReplyTo": false,
+            "inReplyToId": false,
+            "lang": "en",
+            "links": [
+                "https://twitter.com/only_mannie/status/1731631948487934265/photo/1",
+                "https://twitter.com/only_mannie/status/1731631948487934265/photo/1",
+                "https://twitter.com/only_mannie/status/1731631948487934265/photo/1",
+                "https://twitter.com/only_mannie/status/1731631948487934265/photo/1"
+            ],
+            "mentions": [],
+            "quotes": 0,
+            "rawLocation": {},
+            "retweets": 0,
+            "sentiment": {
+                "vote": "positive"
+            },
+            "tbin": {
+                "source": "twitter-v2-search-consumer",
+                "isStream": true
+            },
+            "text": "Chioma Jesus, Tope Alabi, Da Music, Eben, Enkay, Chris Shalom and Gospel Afro group joins Sinach on stage in Day 1 for her Annual Music Concert in Lagos, Nigeria. President of Integrity Music Worldwide and other dignitaries graced the event. #SinachConcertToday https://t.co/gzHcJlkK35",
+            "totalReplies": 0,
+            "type": [
+                "original",
+                "link",
+                "image"
+            ],
+            "updatedAt": 1701688217,
+            "user": {
+                "id": "1550116990756343816",
+                "name": "MANNIE",
+                "alias": "only_mannie",
+                "picture": "https://pbs.twimg.com/profile_images/1708011890125729792/oCIwNU7-_normal.jpg",
+                "followers": 9576,
+                "following": 7648,
+                "verified": false,
+                "bio": "Feels so good to be here.😊promos😌trends😇 @LFC 🤙🏽 YNWA 🙌🏽 Friendly🫂",
+                "age": 1658411687,
+                "counts": {
+                    "lists": 2,
+                    "statuses": 12361
+                },
+                "gender": "male",
+                "protected": false,
+                "value": 21.95
+            },
+            "videos": []
+        },
+        {
+            "_id": "1731631948181962901",
+            "binders": [],
+            "bookmarks": 0,
+            "counts": {
+                "textLength": 135,
+                "sentiment": null,
+                "retweets": 0,
+                "totalRetweets": 0,
+                "favorites": 0,
+                "hashtags": 0,
+                "images": 0,
+                "links": 1,
+                "linksAndImages": 1,
+                "mentions": 1,
+                "quotes": 0,
+                "impressions": 0,
+                "totalReplies": 0,
+                "bookmarks": 0,
+                "originals": 1,
+                "clears": 0,
+                "replies": 0,
+                "publicationScore": 0,
+                "userValue": 0.56,
+                "tweetValue": 0.62
+            },
+            "createdAt": 1701688203,
+            "favorites": 0,
+            "hashtags": [],
+            "images": [],
+            "impressions": 0,
+            "inReplyTo": false,
+            "inReplyToId": false,
+            "lang": "ja",
+            "links": [
+                "https://youtu.be/otNki5tT_7s?si=2_DcN4DBMpZGqcpn"
+            ],
+            "mentions": [
+                "@youtube"
+            ],
+            "quotes": 0,
+            "rawLocation": {},
+            "retweets": 0,
+            "sentiment": {
+                "score": null,
+                "comparative": 0,
+                "vote": "undefined",
+                "tokens": {},
+                "words": [],
+                "positive": [],
+                "negative": [],
+                "language": "ja"
+            },
+            "tbin": {
+                "source": "twitter-v2-search-consumer",
+                "isStream": true
+            },
+            "text": "Crazy Form - ATEEZ [Music Bank] | KBS WORLD TV 231201 https://t.co/HqAHWd0plj @YouTubeより CDTVで披露してた新曲だよ〜！！！！！！本当は歌激ウママンネジョンホちゃんがATEEZにはいるんだ〜！！！！！！！！😭😭😭😭😭",
+            "totalReplies": 0,
+            "type": [
+                "original",
+                "link"
+            ],
+            "updatedAt": 1701688217,
+            "user": {
+                "id": "1350273860218720258",
+                "name": "なおこ",
+                "alias": "bbbj_46",
+                "picture": "https://pbs.twimg.com/profile_images/1543582358254678016/09ufyqws_normal.jpg",
+                "followers": 157,
+                "following": 34,
+                "verified": false,
+                "bio": "🏴‍☠️🏴‍☠️🏴‍☠️🏴‍☠️🏴‍☠️🔥🔥🔥",
+                "age": 1610765365,
+                "counts": {
+                    "lists": 8,
+                    "statuses": 4990
+                },
+                "gender": "undefined",
+                "protected": false,
+                "value": 0.56
+            },
+            "videos": []
+        },
+        {
+            "_id": "1731631946697195620",
+            "binders": [],
+            "bookmarks": 0,
+            "counts": {
+                "textLength": 0,
+                "sentiment": null,
+                "retweets": 0,
+                "totalRetweets": 0,
+                "favorites": 0,
+                "hashtags": 0,
+                "images": 0,
+                "links": 1,
+                "linksAndImages": 1,
+                "mentions": 0,
+                "quotes": 0,
+                "impressions": 0,
+                "totalReplies": 0,
+                "bookmarks": 0,
+                "originals": 1,
+                "clears": 0,
+                "replies": 0,
+                "publicationScore": 0,
+                "userValue": 4.33,
+                "tweetValue": 4.76
+            },
+            "createdAt": 1701688202,
+            "favorites": 0,
+            "hashtags": [],
+            "images": [],
+            "impressions": 0,
+            "inReplyTo": false,
+            "inReplyToId": false,
+            "lang": "zxx",
+            "links": [
+                "https://music.apple.com/jp/album/%E3%83%81%E3%83%A5%E3%83%BC%E3%83%97%E3%83%AA-pvp%E7%89%88/1569265147?&i=1569265172"
+            ],
+            "mentions": [],
+            "quotes": 0,
+            "rawLocation": {},
+            "retweets": 0,
+            "sentiment": {
+                "score": null,
+                "comparative": 0,
+                "vote": "undefined",
+                "tokens": {},
+                "words": [],
+                "positive": [],
+                "negative": [],
+                "language": "zxx"
+            },
+            "tbin": {
+                "source": "twitter-v2-search-consumer",
+                "isStream": true
+            },
+            "text": "https://t.co/57lRVGzoMf",
+            "totalReplies": 0,
+            "type": [
+                "original",
+                "link"
+            ],
+            "updatedAt": 1701688217,
+            "user": {
+                "id": "1454096383938420743",
+                "name": "患者",
+                "alias": "zx_b612",
+                "picture": "https://pbs.twimg.com/profile_images/1729398441925861376/QK9_PRdH_normal.jpg",
+                "followers": 1443,
+                "following": 28,
+                "verified": false,
+                "bio": "必読 https://t.co/0tZPhVSQpl｜🌈🕒人力 @zx_b612s｜🔞@zx_bnsfw｜Skeb https://t.co/VVm5BdTRQu",
+                "age": 1635518581,
+                "counts": {
+                    "lists": 9,
+                    "statuses": 16614
+                },
+                "gender": "undefined",
+                "protected": false,
+                "value": 4.33
+            },
+            "videos": []
+        },
+        {
+            "_id": "1731631946625843536",
+            "binders": [],
+            "bookmarks": 0,
+            "counts": {
+                "textLength": 95,
+                "sentiment": 0,
+                "retweets": 1,
+                "totalRetweets": 0,
+                "favorites": 0,
+                "hashtags": 2,
+                "images": 0,
+                "links": 1,
+                "linksAndImages": 0,
+                "mentions": 2,
+                "quotes": 0,
+                "impressions": 0,
+                "totalReplies": 0,
+                "bookmarks": 0,
+                "originals": 0,
+                "clears": 0,
+                "replies": 0,
+                "publicationScore": 0,
+                "userValue": 0.06,
+                "tweetValue": 0.03
+            },
+            "createdAt": 1701688202,
+            "favorites": 0,
+            "hashtags": [
+                "#skyhixnissy",
+                "#superidol"
+            ],
+            "images": [],
+            "impressions": 0,
+            "inReplyTo": false,
+            "inReplyToId": false,
+            "lang": "en",
+            "links": [
+                "https://youtu.be/XUrR5hxfdM8"
+            ],
+            "mentions": [
+                "@nissystaff",
+                "@skyhidaka"
+            ],
+            "quotes": 0,
+            "rawLocation": {},
+            "retweeted": {
+                "_id": "1731615933494706216",
+                "text": "📣━━━━━━\nSKY-HI × Nissy\n ｢SUPER IDOL｣ \n━━━━━━📣\n\nMUSIC VIDEO公開🎬 \nhttps://t.co/fXo6StGLjH\n\n@SkyHidaka\n#SKYHIxNissy  \n#SUPERIDOL",
+                "lang": "en",
+                "inReplyTo": false,
+                "inReplyToId": false,
+                "createdAt": 1701684385,
+                "hashtags": [
+                    "#skyhixnissy",
+                    "#superidol"
+                ],
+                "mentions": [
+                    "@skyhidaka"
+                ],
+                "links": [
+                    "https://youtu.be/XUrR5hxfdM8"
+                ],
+                "images": [],
+                "videos": [],
+                "favorites": 4530,
+                "retweets": 875,
+                "totalReplies": 36,
+                "quotes": 33,
+                "impressions": 57647,
+                "bookmarks": 22,
+                "sentiment": {
+                    "vote": "positive"
+                },
+                "user": {
+                    "id": "3180211088",
+                    "name": "Nissy_staff",
+                    "alias": "NissyStaff",
+                    "picture": "https://pbs.twimg.com/profile_images/1661296724768616454/lPfMNV3J_normal.jpg",
+                    "followers": 538085,
+                    "following": 1,
+                    "verified": true,
+                    "bio": "Nissy completed 6 Major Dome Tour 2023! This accomplishment is only the 2nd solo artist in Japan history. Tickets were all sold out with 450,000 audiences",
+                    "age": 1430369428,
+                    "counts": {
+                        "lists": 1960,
+                        "statuses": 1386
+                    },
+                    "gender": "undefined",
+                    "protected": false,
+                    "value": 1134.29
+                },
+                "rawLocation": {},
+                "type": [
+                    "original",
+                    "link"
+                ],
+                "counts": {
+                    "textLength": 79,
+                    "sentiment": 0,
+                    "retweets": 0,
+                    "totalRetweets": 875,
+                    "favorites": 4530,
+                    "hashtags": 2,
+                    "images": 0,
+                    "links": 1,
+                    "linksAndImages": 1,
+                    "mentions": 1,
+                    "quotes": 33,
+                    "impressions": 57647,
+                    "totalReplies": 36,
+                    "bookmarks": 22,
+                    "originals": 1,
+                    "clears": 0,
+                    "replies": 0,
+                    "publicationScore": 7155,
+                    "userValue": 1134.29,
+                    "tweetValue": 1247.72
+                }
+            },
+            "retweets": 0,
+            "sentiment": {
+                "vote": "positive"
+            },
+            "tbin": {
+                "source": "twitter-v2-search-consumer",
+                "isStream": true
+            },
+            "text": "RT @NissyStaff: 📣━━━━━━\nSKY-HI × Nissy\n ｢SUPER IDOL｣ \n━━━━━━📣\n\nMUSIC VIDEO公開🎬 \nhttps://t.co/fXo6StGLjH\n\n@SkyHidaka\n#SKYHIxNissy  \n#SUPERIDOL",
+            "totalReplies": 0,
+            "type": [
+                "retweet"
+            ],
+            "updatedAt": 1701688217,
+            "user": {
+                "id": "980744174558326784",
+                "name": "TAKAUNO_335",
+                "alias": "ma___ntmh",
+                "picture": "https://pbs.twimg.com/profile_images/1685532514998452225/X2luhmJ2_normal.jpg",
+                "followers": 16,
+                "following": 114,
+                "verified": false,
+                "bio": "NEP会員💋🪄🎩 愛知02/AAA/SKY-HI/GENIC/TXT/Da-iCE メインInstagram",
+                "age": 1522662607,
+                "counts": {
+                    "lists": 0,
+                    "statuses": 7536
+                },
+                "gender": "undefined",
+                "protected": false,
+                "value": 0.06
+            },
+            "videos": []
+        },
+        {
+            "_id": "1731631945707085832",
+            "binders": [],
+            "bookmarks": 0,
+            "counts": {
+                "textLength": 152,
+                "sentiment": 0,
+                "retweets": 1,
+                "totalRetweets": 0,
+                "favorites": 0,
+                "hashtags": 0,
+                "images": 0,
+                "links": 0,
+                "linksAndImages": 0,
+                "mentions": 2,
+                "quotes": 0,
+                "impressions": 0,
+                "totalReplies": 0,
+                "bookmarks": 0,
+                "originals": 0,
+                "clears": 0,
+                "replies": 0,
+                "publicationScore": 0,
+                "userValue": 0.69,
+                "tweetValue": 0.34
+            },
+            "createdAt": 1701688202,
+            "favorites": 0,
+            "hashtags": [],
+            "images": [],
+            "impressions": 0,
+            "inReplyTo": false,
+            "inReplyToId": false,
+            "lang": "pt",
+            "links": [],
+            "mentions": [
+                "@btsbrasil_on",
+                "@bts_twt"
+            ],
+            "quotes": 0,
+            "rawLocation": {},
+            "retweeted": {
+                "_id": "1731630778885329026",
+                "text": "[IG] RM (@BTS_twt) fez uma atualização de story no Instagram!\n\n\"[fotos]\"\n▪️ Tradução do cartão:\n\"Amor = Namjoon\n- Big Hit Music\"\n\n➡️ https://t.co/REEopp6dQ1 https://t.co/O2V9LU6qre",
+                "lang": "pt",
+                "inReplyTo": false,
+                "inReplyToId": false,
+                "createdAt": 1701687924,
+                "hashtags": [],
+                "mentions": [
+                    "@bts_twt"
+                ],
+                "links": [
+                    "http://instagram.com/rkive",
+                    "https://twitter.com/btsbrasil_on/status/1731630778885329026/photo/1",
+                    "https://twitter.com/btsbrasil_on/status/1731630778885329026/photo/1"
+                ],
+                "images": [],
+                "videos": [],
+                "favorites": 11,
+                "retweets": 5,
+                "totalReplies": 0,
+                "quotes": 0,
+                "impressions": 56,
+                "bookmarks": 0,
+                "sentiment": {
+                    "vote": "neutral"
+                },
+                "user": {
+                    "id": "859487405971210242",
+                    "name": "BTS Brasil ON ✨ BBO⁷",
+                    "alias": "btsbrasil_on",
+                    "picture": "https://pbs.twimg.com/profile_images/1731323549158113280/ozUgnPJL_normal.jpg",
+                    "followers": 118866,
+                    "following": 229,
+                    "verified": false,
+                    "bio": "BBO, sua fanbase de conteúdos diários do grupo BTS 💜 De ARMY para ARMY 🔔 Não perca novidades: ative as notificações! 📩 btsbrasilon@gmail.com",
+                    "age": 1493752740,
+                    "counts": {
+                        "lists": 711,
+                        "statuses": 80747
+                    },
+                    "location": "btsbrasilon@gmail.com",
+                    "gender": "undefined",
+                    "protected": false,
+                    "value": 239.48
+                },
+                "rawLocation": {},
+                "type": [
+                    "original",
+                    "link"
+                ],
+                "counts": {
+                    "textLength": 134,
+                    "sentiment": 0,
+                    "retweets": 0,
+                    "totalRetweets": 5,
+                    "favorites": 11,
+                    "hashtags": 0,
+                    "images": 0,
+                    "links": 3,
+                    "linksAndImages": 1,
+                    "mentions": 1,
+                    "quotes": 0,
+                    "impressions": 56,
+                    "totalReplies": 0,
+                    "bookmarks": 0,
+                    "originals": 1,
+                    "clears": 0,
+                    "replies": 0,
+                    "publicationScore": 26,
+                    "userValue": 239.48,
+                    "tweetValue": 263.43
+                }
+            },
+            "retweets": 0,
+            "sentiment": {
+                "vote": "neutral"
+            },
+            "tbin": {
+                "source": "twitter-v2-search-consumer",
+                "isStream": true
+            },
+            "text": "RT @btsbrasil_on: [IG] RM (@BTS_twt) fez uma atualização de story no Instagram!\n\n\"[fotos]\"\n▪️ Tradução do cartão:\n\"Amor = Namjoon\n- Big Hit Music\"\n\n➡️ https://t.co/REEopp6dQ1 https://t.co/O2V9LU6qre",
+            "totalReplies": 0,
+            "type": [
+                "retweet"
+            ],
+            "updatedAt": 1701688217,
+            "user": {
+                "id": "1249525514747838464",
+                "name": "Carla's⁷ JIN DAY",
+                "alias": "CarlasSuga",
+                "picture": "https://pbs.twimg.com/profile_images/1713026976959590400/LrNrxhQd_normal.jpg",
+                "followers": 227,
+                "following": 280,
+                "verified": false,
+                "bio": "Only💜\n\nRUN BULLETPROOF RUN!!!",
+                "age": 1586745084,
+                "counts": {
+                    "lists": 1,
+                    "statuses": 192788
+                },
+                "gender": "undefined",
+                "protected": false,
+                "value": 0.69
+            },
+            "videos": []
+        }
+    ]
+}
