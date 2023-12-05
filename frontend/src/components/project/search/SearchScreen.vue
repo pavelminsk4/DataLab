@@ -3,7 +3,7 @@
     <WarningModal
       v-if="isWarningModalDisplayed"
       @close="isWarningModalDisplayed = false"
-      @approve="() => updateProjectData(true)"
+      @approve="() => updateProjectData(true, 'collecting_data')"
     >
       <CustomText tag="p" text="Recollect data for the project?" class="text" />
       <CustomText
@@ -208,7 +208,7 @@ export default {
         this.updateProjectData()
       }
     },
-    updateProjectData(recollect = false) {
+    updateProjectData(recollect = false, status) {
       const project = {
         title: this.currentProject?.title,
         note: this.currentProject?.note || '',
@@ -243,6 +243,7 @@ export default {
         expert_mode: this.isExpertMode,
         project_pk: this.currentProject.id,
         recollect,
+        status,
       }
 
       this.$emit('update-project', project)
