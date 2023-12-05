@@ -40,3 +40,39 @@ class ProjectsViewSet(viewsets.ModelViewSet):
         self.collect_data.delay(project.id)
 
         return Response(ProjectSerializer(project).data, status=status.HTTP_201_CREATED)
+
+    def update(self, request, *args, **kwargs):
+        data = request.data
+        
+        if data['recollect']:
+            project                     = Project.objects.get(pk=data['project_pk'])
+            project.keywords            = data['keywords']
+            project.start_date          = data['start_date']
+            project.start_search_date   = data['start_search_date']
+            project.additional_keywords = data['additional_keywords']
+            project.ignore_keywords     = data['ignore_keywords']
+            project.author_filter       = data['author_filter']
+            project.language_filter     = data['language_filter']
+            project.country_filter      = data['country_filter']
+            project.source_filter       = data['source_filter']
+            project.sentiment_filter    = data['sentiment_filter']
+            project.status              = data['status']
+            project.posts.all().delete()
+            project.save(update_fields=['keywords', 'start_date', 'start_search_date', 'additional_keywords', 'ignore_keywords',
+                'author_filter', 'language_filter', 'country_filter', 'source_filter', 'sentiment_filter', 'status'])
+            
+            self.collect_data.delay(project.id)
+
+            return Response(ProjectSerializer(project).data)
+
+        else:
+            partial    = kwargs.pop('partial', False)
+            instance   = self.get_object()
+            serializer = self.get_serializer(instance, data=request.data, partial=partial)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+
+        if getattr(instance, '_prefetched_objects_cache', None):
+            instance._prefetched_objects_cache = {}
+
+        return Response(serializer.data)
