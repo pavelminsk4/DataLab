@@ -1,6 +1,6 @@
 from celery import shared_task
 from datetime import datetime
-from project.models import Feedlinks, Post, Speech, Status
+from project.models import Feedlinks, Post, Speech
 from django.core.paginator import Paginator
 from langcodes import Language
 from dateutil import parser
@@ -48,11 +48,13 @@ def post_creator():
 
     for sample in split_links(10):
         for feed in sample:
-            Status.objects.filter(id=Status.objects.first().id).update(progress=1)
-
-            f = feedparser.parse(feed.url)
-            fe = f.entries
-            ff = f.feed
+            try:
+                f  = feedparser.parse(feed.url)
+                fe = f.entries
+                ff = f.feed
+            except Exception as e:
+                logger.error(e)
+                continue
 
             datas = []
             for ent in fe:
