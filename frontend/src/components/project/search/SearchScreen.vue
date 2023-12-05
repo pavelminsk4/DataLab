@@ -197,27 +197,10 @@ export default {
         return
       }
 
-      const isMainKeywordsUpdated = !areArraysEqual(
-        this.keywords?.keywords,
-        this.currentKeywords
+      const isKeywordsUpdated = this.checkKeywordUpdates(this.keywords)
+      const isStartDateUpdated = this.checkStartDateUpdates(
+        this.additionalFilters?.start_date
       )
-      const isAdditionalKeywordsUpdated = !areArraysEqual(
-        this.keywords?.additional_keywords,
-        this.currentAdditionalKeywords
-      )
-      const isExcludeKeywordsUpdated = !areArraysEqual(
-        this.keywords?.ignore_keywords,
-        this.currentExcludeKeywords
-      )
-      const isKeywordsUpdated =
-        isMainKeywordsUpdated ||
-        isAdditionalKeywordsUpdated ||
-        isExcludeKeywordsUpdated
-
-      const format = 'YYYY-MM-DD'
-      const isStartDateUpdated =
-        moment(this.additionalFilters?.start_date).format(format) !==
-        moment(this.currentProject?.start_date).format(format)
 
       if (isKeywordsUpdated || isStartDateUpdated) {
         this.isWarningModalDisplayed = true
@@ -225,7 +208,7 @@ export default {
         this.updateProjectData()
       }
     },
-    updateProjectData(recollect) {
+    updateProjectData(recollect = false) {
       const project = {
         title: this.currentProject?.title,
         note: this.currentProject?.note || '',
@@ -267,11 +250,36 @@ export default {
       if (this.moduleName === 'Social') {
         this.showResults()
       }
+      this.isWarningModalDisplayed = false
 
       this[action.OPEN_FLASH_MESSAGE]({
         type: 'Success',
         message: 'Project settings have been saved.',
       })
+    },
+
+    checkKeywordUpdates(newKeywords) {
+      if (isAllFieldsEmpty(newKeywords)) return false
+
+      const {keywords, additional_keywords, ignore_keywords} = newKeywords
+      const isMainUpdated =
+        keywords && !areArraysEqual(keywords, this.currentKeywords)
+      const isAdditionalUpdated =
+        additional_keywords &&
+        !areArraysEqual(additional_keywords, this.currentAdditionalKeywords)
+      const isExcludeUpdated =
+        ignore_keywords &&
+        !areArraysEqual(ignore_keywords, this.currentExcludeKeywords)
+      return isMainUpdated || isAdditionalUpdated || isExcludeUpdated
+    },
+    checkStartDateUpdates(newStartDate) {
+      if (!newStartDate) return false
+
+      const format = 'YYYY-MM-DD'
+      const currentStartDate = moment(this.currentProject?.start_date).format(
+        format
+      )
+      return moment(newStartDate).format(format) !== currentStartDate
     },
 
     updateKeywordsCollection(name, value) {
