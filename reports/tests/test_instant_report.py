@@ -1,25 +1,27 @@
 from project.models import Project, Post, Feedlinks, Speech
 from common.factories.user import UserFactory
+from common.factories.department import DepartmentFactory
 from rest_framework.test import APITestCase
-from django.contrib.auth.models import User
-from accounts.models import Department
+from accounts.models import Profile
 from rest_framework import status
-from django.urls import reverse
-from widgets.models import *
 
 
 class InstantReportTests(APITestCase):
-    def test_instant_reposrts(self):
+    def test_instant_top_reports(self):
         user = UserFactory()
-        dep = Department.objects.create(departmentname='First Dep')
-        user.user_profile.department = dep
-        flink = Feedlinks.objects.create(country='England')
-        sp = Speech.objects.create(language='English (United States)')
 
-        Post.objects.create(id=1, feedlink=flink, entry_title='First post title Keyword', feed_language=sp, entry_published="2022-10-11T00:00:00Z", summary_vector=[])
-        Post.objects.create(id=2, feedlink=flink, entry_title='Second post title Keyword', feed_language=sp, entry_published="2022-10-12T00:00:00Z", summary_vector=[])
-        Post.objects.create(id=3, feedlink=flink, entry_title='Third post title Keyword', feed_language=sp, entry_published="2022-10-13T00:00:00Z", summary_vector=[])
-        pr = Project.objects.create(
+        dep = DepartmentFactory()
+        user.user_profile.department = dep
+        user.user_profile.role = Profile.REGULAR_USER
+        user.user_profile.save()
+
+        flink = Feedlinks.objects.create(country='England')
+        sp    = Speech.objects.create(language='English (United States)')
+        post1 = Post.objects.create(id=1, feedlink=flink, entry_title='First post title Keyword', feed_language=sp, entry_published="2022-10-11T00:00:00Z", summary_vector=[])
+        post2 = Post.objects.create(id=2, feedlink=flink, entry_title='Second post title Keyword', feed_language=sp, entry_published="2022-10-12T00:00:00Z", summary_vector=[])
+        post3 = Post.objects.create(id=3, feedlink=flink, entry_title='Third post title Keyword', feed_language=sp, entry_published="2022-10-13T00:00:00Z", summary_vector=[])
+
+        project = Project.objects.create(
             title='Project1',
             keywords=['Keyword'],
             additional_keywords=[],
@@ -29,23 +31,14 @@ class InstantReportTests(APITestCase):
             creator=user,
         )
 
-        pr.widgets_list_2.summary.is_active = True
-        pr.widgets_list_2.volume.is_active = True
-        pr.widgets_list_2.top_authors.is_active = True
-        pr.widgets_list_2.top_sources.is_active = True
-        pr.widgets_list_2.top_countries.is_active = True
-        pr.widgets_list_2.top_languages.is_active = True
-        pr.widgets_list_2.content_volume_top_authors.is_active = True
-        pr.widgets_list_2.content_volume_top_countries.is_active = True
-        pr.widgets_list_2.content_volume_top_sources.is_active = True
-        pr.widgets_list_2.sentiment_for_period.is_active = True
-        pr.widgets_list_2.sentiment_top_authors.is_active = True
-        pr.widgets_list_2.sentiment_top_countries.is_active = True
-        pr.widgets_list_2.sentiment_top_languages.is_active = True
-        pr.widgets_list_2.sentiment_top_sources.is_active = True
-        pr.widgets_list_2.clipping_feed_content.is_active = True
+        project.posts.set([post1, post2, post3])
 
-        url = reverse('instantly_report', kwargs={'proj_pk': pr.pk})
+        project.widgets_list_2.top_authors.is_active = True
+        project.widgets_list_2.top_sources.is_active = True
+        project.widgets_list_2.top_countries.is_active = True
+        project.widgets_list_2.top_languages.is_active = True
+        project.widgets_list_2.save()
+
         self.client.force_login(user)
-        response = self.client.get(url)
+        response = self.client.get(f'/instantly_report/{project.id}/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
