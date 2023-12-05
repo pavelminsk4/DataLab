@@ -38,6 +38,7 @@ class TestSocialParser(APITestCase):
 
     def test_search_with_expert_filter(self):
         self.client.force_login(UserFactory())
+        pr = ProjectSocialFactory()
         data = {
             'keywords': ['cat'],
             'exceptions': [],
@@ -57,6 +58,7 @@ class TestSocialParser(APITestCase):
             'sentiment_dimensions': [],
             'query_filter': '(cow or wolf) and followers:>150',
             'expert_mode': True,
+            'project_pk': pr.id,
         }
         url = reverse('project_social:twitter_posts_search')
         response = self.client.post(url, data, format='json')

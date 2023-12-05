@@ -95,6 +95,7 @@ import SearchResults from '@components/SearchResults'
 import PresetsBar from '@components/expert-filter/PresetsBar'
 import WidgetsListModal from '@components/widgets/modals/WidgetsListModal'
 import MainLayoutTitleBlock from '@components/layout/MainLayoutTitleBlock'
+import ExpertFilterModal from '@components/expert-filter/ExpertFilterModal'
 import InteractiveWidgetModal from '@components/modals/InteractiveWidgetModal'
 import OnlineFiltersModal from '@components/project/modals/online/OnlineFiltersModal'
 import DownloadInformationModal from '@components/project/modals/DownloadInformationModal'
@@ -109,7 +110,6 @@ const {mapActions: mapOnlineActions, mapState} =
 
 const {mapGetters: mapOnlineWidgetsGetters} =
   createNamespacedHelpers('online/widgets')
-import ExpertFilterModal from '@components/expert-filter/ExpertFilterModal'
 
 export default {
   name: 'OnlineProjectDashboard',

@@ -34,7 +34,6 @@ from .widgets.summary.top_keywords import top_keywords
 from .widgets.dashboard.summary_widget import summary
 from .widgets.dashboard.sentiment import sentiment
 
-from project_social.social_parser import SocialParser
 from .models import ChangingTweetbinderSentiment
 from tweet_binder.models import TweetBinderPost
 
@@ -42,11 +41,11 @@ from django.shortcuts import get_object_or_404
 from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.http import HttpResponse
-from django.db.models import Q
 
-from functools import reduce
 from .serializers import *
 import json
+
+from project_social.services.social_search_service import SocialSearchService
 
 
 class WorkspaceSocialList(ListAPIView):
@@ -79,41 +78,6 @@ class ProjectsSotialViewSet(viewsets.ModelViewSet):
     queryset = ProjectSocial.objects.all()
     serializer_class = ProjectSocialSerializer
 
-
-def keywords_posts(keys, posts):
-    keys = [f'%%{key.upper()}%%' for key in keys]
-    posts = posts.extra(where=[
-        "UPPER(user_alias) LIKE ANY(%s) OR \
-        UPPER(text) LIKE ANY(%s) OR \
-        UPPER(user_name) LIKE ANY(%s)"],
-        params=[keys, keys, keys]
-    )
-    return posts
-
-
-def exclude_keywords_posts(posts, exceptions):
-    to_be_removed = []
-    for post in posts:
-        for word in exceptions:
-            if word in post.text:
-                to_be_removed.append(post.id)
-                break
-    posts = posts.exclude(id__in=to_be_removed)
-    return posts
-
-
-def additional_keywords_posts(posts, additions):
-    for word in additions:
-        posts = posts.filter(text__icontains=word)
-    return posts
-
-
-def data_range_posts(start_date, end_date):
-    interval = [start_date, end_date]
-    posts = TweetBinderPost.objects.filter(date__range=interval)
-    return posts
-
-
 def change_social_sentiment(request, pk, department_pk, sentiment):
     try:
         updated_values = {'sentiment': sentiment}
@@ -122,99 +86,8 @@ def change_social_sentiment(request, pk, department_pk, sentiment):
         return HttpResponse(status=406)
     return HttpResponse(status=201)
 
-
-def change_tweet_post_sentiment(post, dict_changing):
-    if post['id'] in dict_changing:
-        new_sentiment = dict_changing[post['id']]
-        post['sentiment'] = new_sentiment
-    return post
-
-
-def posts_values(posts):
-    return posts.values(
-        'id',
-        'post_id',
-        'user_name',
-        'user_alias',
-        'text',
-        'sentiment',
-        'date',
-        'user_location',
-        'language',
-        'count_favorites',
-        'count_totalretweets',
-        'count_replies',
-        'user_picture',
-        'images'
-    )
-
-
-def filter_with_constructor(posts, body):
-    keys = body['keywords']
-    exceptions = body['exceptions']
-    additions = body['additions']
-    country = body['country']
-    language = body['language']
-    source = body['source']
-    author = body['author']
-    sentiment = body['sentiment']
-    posts = keywords_posts(keys, posts)
-    if additions:
-        posts = additional_keywords_posts(posts, additions)
-    if exceptions:
-        posts = exclude_keywords_posts(posts, exceptions)
-    if country:
-        posts = posts.filter(reduce(lambda x, y: x | y, [Q(user_location=c) for c in country]))
-    if language:
-        posts = posts.filter(reduce(lambda x, y: x | y, [Q(language=lan) for lan in language]))
-    if source:
-        posts = posts.filter(reduce(lambda x, y: x | y, [Q(source=s) for s in source]))
-    if author:
-        posts = posts.filter(reduce(lambda x, y: x | y, [Q(user_name=a) for a in author]))
-    if sentiment:
-        posts = posts.filter(reduce(lambda x, y: x | y, [Q(sentiment=sen) for sen in sentiment]))
-    return posts
-
-
-def filter_with_dimensions(posts, body):
-    country_dimensions = body['country_dimensions']
-    language_dimensions = body['language_dimensions']
-    source_dimensions = body['source_dimensions']
-    author_dimensions = body['author_dimensions']
-    sentiment_dimensions = body['sentiment_dimensions']
-    if country_dimensions:
-        posts = posts.filter(reduce(lambda x, y: x | y, [Q(user_location=country) for country in country_dimensions]))
-    if language_dimensions:
-        posts = posts.filter(reduce(lambda x, y: x | y, [Q(language=language) for language in language_dimensions]))
-    if source_dimensions:
-        posts = posts.filter(reduce(lambda x, y: x | y, [Q(source=source) for source in source_dimensions]))
-    if author_dimensions:
-        posts = posts.filter(reduce(lambda x, y: x | y, [Q(user_name=author) for author in author_dimensions]))
-    if sentiment_dimensions:
-        posts = posts.filter(reduce(lambda x, y: x | y, [Q(sentiment=sentiment) for sentiment in sentiment_dimensions]))
-    return posts
-
-
 def twitter_posts_search(request):
-    body = json.loads(request.body)
-    date_range = body['date_range']
-    posts_per_page = body['posts_per_page']
-    page_number = body['page_number']
-    department_id = request.user.user_profile.department
-    posts = data_range_posts(date_range[0], date_range[1]).order_by('-creation_date')
-    parser = SocialParser(body['query_filter'])
-    expert_mode = parser.can_parse() and body['expert_mode']
-    posts = posts.filter(parser.get_filter_query()) if expert_mode else filter_with_constructor(posts, body)
-    posts = filter_with_dimensions(posts, body)
-    posts = posts_values(posts)
-    p = Paginator(posts, posts_per_page)
-    posts_list = list(p.page(page_number))
-    department_changing = ChangingTweetbinderSentiment.objects.filter(department_id=department_id).values()
-    dict_changing = {x['tweet_post_id']: x['sentiment'] for x in department_changing}
-    for post in posts_list:
-        post['link'] = f'https://twitter.com/user/status/{post["post_id"]}'
-        post = change_tweet_post_sentiment(post, dict_changing)
-    res = {'num_pages': p.num_pages, 'num_posts': p.count, 'posts': posts_list}
+    res = SocialSearchService().execute(request)
     return JsonResponse(res, safe=False)
 
 
@@ -435,12 +308,12 @@ def project_posts(request, pk):
     page_number = body['page_number']
     dep_id = body['department_id']
     posts = post_agregator_with_dimensions(ProjectSocial.objects.get(id=pk)).order_by('-creation_date')
-    posts = posts_values(posts)
+    posts = SocialSearchService().posts_values(posts)
     p = Paginator(posts, posts_per_page)
     posts_list = list(p.page(page_number))
     department_changing = ChangingTweetbinderSentiment.objects.filter(department_id=dep_id).values()
     dict_changing = {x['tweet_post_id']: x['sentiment'] for x in department_changing}
     for post in posts_list:
-        post = change_tweet_post_sentiment(post, dict_changing)
+        post = SocialSearchService().change_tweet_post_sentiment(post, dict_changing)
     res = {'num_pages': p.num_pages, 'num_posts': p.count, 'posts': posts_list}
     return JsonResponse(res, safe=False)
