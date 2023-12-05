@@ -53,12 +53,7 @@ class ScreenDriver:
             os.makedirs(storage_folder)
 
         widgets = model_to_dict(self.item, exclude=['module_type', 'module_project_id', 'id'])
-
-        res = reduce(
-            lambda acc, w: {**acc, **{w: self.screenshot(widget)}} if widgets[w] else acc,
-            widgets,
-            {}
-        )
+        result  = reduce(lambda acc, w: {**acc, **{w: self.screenshot(w)}} if widgets[w] else acc, widgets, {})
 
         self.driver.quit()
-        return res
+        return result
