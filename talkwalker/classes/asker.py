@@ -1,6 +1,7 @@
 from talkwalker.services.create_posts import create_posts
 from talkwalker.services.query import query
 from talkwalker.services.token import get_token
+from project.models import Project
 from rest_framework import status
 from django.apps import apps
 from django.utils import timezone

@@ -35,6 +35,8 @@ class RssSearchServiceTests(TestCase):
         self.assertEqual(project.posts.first().entry_title, 'Saudi Initial')
 
         project.synched_at = '2023-11-02T00:00:00Z'
+        project.start_search_date='2023-10-24T00:00:00Z'
+        project.end_search_date = '2023-12-06T00:00:00Z'
         project.save()
 
         RssSearchService().execute(project.id)

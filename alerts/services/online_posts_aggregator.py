@@ -30,7 +30,7 @@ def additional_keywords_posts(posts, additions):
     return posts
 
 
-def posts_aggregator(project_id):
+def posts_aggregator(project_id, start_date=None, end_date=None):
     project  = get_object_or_404(Project, pk=project_id)
 
     interval = [project.start_search_date, project.end_search_date]
