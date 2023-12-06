@@ -114,7 +114,6 @@ export default {
   computed: {
     ...mapGetters({
       searchData: get.SEARCH_DATA,
-      user: get.USER_INFO,
     }),
     exprtModeTest: {
       get() {

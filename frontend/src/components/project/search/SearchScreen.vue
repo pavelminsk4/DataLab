@@ -56,7 +56,7 @@
           :current-project="currentProject"
           :is-disabled-button="!currentKeywords?.length"
           :expert-mode-test-test="currentProject?.query_filter"
-          :is-expert-mode-set="currentProject.expert_mode"
+          :is-expert-mode-set="currentProject.expert_mode && !isAdmin"
           :is-keywords-fields-disable="!isAdmin"
           @update-query-filter="updateQueryFilter"
           @save-project="saveProject"
