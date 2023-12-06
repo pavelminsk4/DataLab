@@ -34,7 +34,6 @@ class ProjectsViewSet(viewsets.ModelViewSet):
             **exclude(data, ['sources']),
             creator=creator,
             workspace=workspace,
-            start_date=data['start_date'],
             sources=data['sources'] or [environ.Env()('DEFAULT_SOURCE')]
         )
         self.collect_data.delay(project.id)
@@ -45,26 +44,16 @@ class ProjectsViewSet(viewsets.ModelViewSet):
         data = request.data
         
         if data['recollect']:
-            project                     = Project.objects.get(pk=data['project_pk'])
-            project.keywords            = data['keywords']
-            project.start_date          = data['start_date']
-            project.start_search_date   = data['start_search_date']
-            project.additional_keywords = data['additional_keywords']
-            project.ignore_keywords     = data['ignore_keywords']
-            project.author_filter       = data['author_filter']
-            project.language_filter     = data['language_filter']
-            project.country_filter      = data['country_filter']
-            project.source_filter       = data['source_filter']
-            project.sentiment_filter    = data['sentiment_filter']
-            project.status              = Project.STATUS_COLLECTING
+            Project.objects.filter(id=data['project_pk']).update(
+                **exclude(data, ['sort_posts', 'project_pk', 'recollect']),
+            )
+      
+            project = Project.objects.get(id=data['project_pk'])
             project.posts.all().delete()
-            project.save(update_fields=['keywords', 'start_date', 'start_search_date', 'additional_keywords', 'ignore_keywords',
-                'author_filter', 'language_filter', 'country_filter', 'source_filter', 'sentiment_filter', 'status'])
-            
+
             self.collect_data.delay(project.id)
 
             return Response(ProjectSerializer(project).data)
-
         else:
             partial    = kwargs.pop('partial', False)
             instance   = self.get_object()
