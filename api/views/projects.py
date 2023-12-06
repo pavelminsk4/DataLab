@@ -3,6 +3,7 @@ from rest_framework import viewsets
 from rest_framework import status
 
 from api.services.collect_service import CollectService
+from talkwalker.classes.livestream import Livestream
 from project.models import Project, User, Workspace
 from api.serializers import ProjectSerializer
 
@@ -50,6 +51,9 @@ class ProjectsViewSet(viewsets.ModelViewSet):
       
             project = Project.objects.get(id=data['project_pk'])
             project.posts.all().delete()
+            
+            if 'talkwalker' in project.source:
+                Livestream(project.pk, 'Online').delete()
 
             self.collect_data.delay(project.id)
 
