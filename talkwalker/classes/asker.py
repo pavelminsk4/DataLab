@@ -3,7 +3,7 @@ from talkwalker.services.query import query
 from talkwalker.services.token import get_token
 from rest_framework import status
 from django.apps import apps
-from project.models import Project
+from django.utils import timezone
 
 import requests
 import environ
@@ -38,7 +38,7 @@ class Asker:
         payload = json.dumps({
             'target': self.collector_id,
             'start': self.project.start_date.date().isoformat(),
-            'stop': self.project.today().date().isoformat(),
+            'stop': timezone.now().date().isoformat(),
             'limit': environ.Env()('TALKWALKER_LIMIT'),
             'query': query(self.project),
         })

@@ -16,8 +16,7 @@ class RssSearchServiceTests(TestCase):
 
         project = ProjectFactory(
             status=Project.STATUS_ACTIVE,
-            start_search_date='2023-10-24T00:00:00Z',
-            end_search_date='2023-10-30T00:00:00Z',
+            start_date='2023-10-24T00:00:00Z',
             sources=['rss'],
             keywords=['Saudi']
         )
@@ -32,8 +31,8 @@ class RssSearchServiceTests(TestCase):
         project.refresh_from_db()
 
         self.assertIsNotNone(project.synched_at)
-        self.assertEqual(project.posts.count(), 1)
-        self.assertEqual(project.posts.last().entry_title, 'Saudi Initial')
+        self.assertEqual(project.posts.count(), 2)
+        self.assertEqual(project.posts.first().entry_title, 'Saudi Initial')
 
         project.synched_at = '2023-11-02T00:00:00Z'
         project.save()
