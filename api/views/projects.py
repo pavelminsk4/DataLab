@@ -1,10 +1,10 @@
+from rest_framework.response import Response
 from rest_framework import viewsets
 from rest_framework import status
-from rest_framework.response import Response
 
+from api.services.collect_service import CollectService
 from project.models import Project, User, Workspace
 from api.serializers import ProjectSerializer
-from api.services.collect_service import CollectService
 
 from celery import shared_task
 import environ
@@ -56,7 +56,7 @@ class ProjectsViewSet(viewsets.ModelViewSet):
             project.country_filter      = data['country_filter']
             project.source_filter       = data['source_filter']
             project.sentiment_filter    = data['sentiment_filter']
-            project.status              = data['status']
+            project.status              = Project.STATUS_COLLECTING
             project.posts.all().delete()
             project.save(update_fields=['keywords', 'start_date', 'start_search_date', 'additional_keywords', 'ignore_keywords',
                 'author_filter', 'language_filter', 'country_filter', 'source_filter', 'sentiment_filter', 'status'])
