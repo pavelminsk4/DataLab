@@ -3,7 +3,7 @@
     <WarningModal
       v-if="isWarningModalDisplayed"
       @close="isWarningModalDisplayed = false"
-      @approve="() => updateProjectData(true, 'collecting_data')"
+      @approve="() => updateProjectData(true)"
     >
       <CustomText tag="p" text="Recollect data for the project?" class="text" />
       <CustomText
@@ -39,10 +39,10 @@
           :default-query="currentProject.query_filter"
           :start-date="startDate"
           :filters="filters"
-          :is-keywords-fields-disable="true"
+          :is-keywords-fields-disable="!isAdmin"
           :module-name="moduleName"
           :is-current-project-created="isCurrentProjectCreated"
-          @save-project="updateProjectData"
+          @save-project="saveProject"
           @show-result="showResults"
           @update-query-filter="updateQueryFilter"
           class="expert-mode"
@@ -57,7 +57,7 @@
           :is-disabled-button="!currentKeywords?.length"
           :expert-mode-test-test="currentProject?.query_filter"
           :is-expert-mode-set="currentProject.expert_mode"
-          :is-keywords-fields-disable="true"
+          :is-keywords-fields-disable="!isAdmin"
           @update-query-filter="updateQueryFilter"
           @save-project="saveProject"
           @show-result="showResults"
@@ -123,6 +123,9 @@ export default {
       department: get.DEPARTMENT,
       user: get.USER_INFO,
     }),
+    isAdmin() {
+      return this.user.user_profile.role === 'admin'
+    },
     currentKeywords() {
       return this.currentProject?.keywords
     },
@@ -191,8 +194,7 @@ export default {
       this.$emit('show-results', project)
     },
     saveProject() {
-      const isAdmin = this.user.user_profile.role === 'admin'
-      if (!isAdmin) {
+      if (!this.isAdmin) {
         this.updateProjectData()
         return
       }
@@ -201,14 +203,16 @@ export default {
       const isStartDateUpdated = this.checkStartDateUpdates(
         this.additionalFilters?.start_date
       )
+      const isExpertQueryUpdated =
+        this.query && this.query !== this.currentProject?.query_filter
 
-      if (isKeywordsUpdated || isStartDateUpdated) {
+      if (isKeywordsUpdated || isStartDateUpdated || isExpertQueryUpdated) {
         this.isWarningModalDisplayed = true
       } else {
         this.updateProjectData()
       }
     },
-    updateProjectData(recollect = false, status) {
+    updateProjectData(recollect = false) {
       const project = {
         title: this.currentProject?.title,
         note: this.currentProject?.note || '',
@@ -243,7 +247,6 @@ export default {
         expert_mode: this.isExpertMode,
         project_pk: this.currentProject.id,
         recollect,
-        status,
       }
 
       this.$emit('update-project', project)

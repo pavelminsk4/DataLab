@@ -1,3 +1,7 @@
+export const userInfo = {
+  user_profile: {department: {id: 1}, platform_language: 'en'},
+}
+
 export default {
   loading: false,
   loadingWidgets: {
@@ -15,7 +19,7 @@ export default {
   },
   searchData: {},
   additionalFilters: {},
-  userInfo: {user_profile: {department: {id: 1}, platform_language: 'en'}},
+  userInfo,
 
   //widgets
   widgets: {

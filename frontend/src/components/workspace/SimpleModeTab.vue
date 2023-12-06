@@ -1,7 +1,7 @@
 <template>
   <section class="key-words-settings">
     <div :class="['settings-wrapper', isExpertModeSet && 'disable']">
-      <div :class="[isDisabledKeywords && 'disable']">
+      <div :class="[isKeywordsFieldsDisable && 'disable']">
         <CustomText text="Define the main keywords (OR)" class="second-title" />
         <BaseTag
           name="keywords"
@@ -116,12 +116,6 @@ export default {
       searchData: get.SEARCH_DATA,
       user: get.USER_INFO,
     }),
-    isAdmin() {
-      return this.user.user_profile.role === 'admin'
-    },
-    isDisabledKeywords() {
-      return this.isAdmin ? false : this.isKeywordsFieldsDisable
-    },
     exprtModeTest: {
       get() {
         if (this.newExprtModeTest === '') return this.newExprtModeTest
