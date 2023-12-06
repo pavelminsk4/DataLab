@@ -34,7 +34,7 @@ class ProjectsViewSet(viewsets.ModelViewSet):
             **exclude(data, ['sources']),
             creator=creator,
             workspace=workspace,
-            start_date=data['start_search_date'],
+            start_date=data['start_date'],
             sources=data['sources'] or [environ.Env()('DEFAULT_SOURCE')]
         )
         self.collect_data.delay(project.id)
