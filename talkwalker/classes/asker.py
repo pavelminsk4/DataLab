@@ -37,8 +37,8 @@ class Asker:
 
         payload = json.dumps({
             'target': self.collector_id,
-            'start': self.project.start_search_date.date().isoformat(),
-            'stop': self.project.end_search_date.date().isoformat(),
+            'start': self.project.start_date.date().isoformat(),
+            'stop': self.project.today().date().isoformat(),
             'limit': environ.Env()('TALKWALKER_LIMIT'),
             'query': query(self.project),
         })
