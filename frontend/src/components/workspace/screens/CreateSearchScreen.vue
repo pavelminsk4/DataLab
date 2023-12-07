@@ -180,6 +180,7 @@ export default {
           keywords: this.keywords?.keywords,
           additional_keywords: this.keywords?.additional_keywords,
           ignore_keywords: this.keywords?.ignore_keywords,
+          start_date: this.additionalFilters?.start_date,
           start_search_date: this.additionalFilters?.date_range[0],
           end_search_date: this.additionalFilters?.date_range[1],
           source_filter: this.additionalFilters?.source || null,

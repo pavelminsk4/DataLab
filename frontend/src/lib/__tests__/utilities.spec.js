@@ -95,3 +95,17 @@ describe('snakeCaseToSentenseCase', () => {
     })
   })
 })
+
+describe('areArraysEqual', () => {
+  it('returns true when arrays are equal', () => {
+    expect(utils.areArraysEqual([1, '2', 3], [1, '2', 3])).toBe(true)
+  })
+
+  it('returns false when arrays are not equal', () => {
+    expect(utils.isAllFieldsEmpty([1, '2', 3], [1, '2'])).toBe(false)
+  })
+
+  it('returns false when length of arrays are equal, but arrays are not equal', () => {
+    expect(utils.isAllFieldsEmpty([1, '2', 3], [1, '2', 5])).toBe(false)
+  })
+})

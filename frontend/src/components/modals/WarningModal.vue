@@ -7,17 +7,21 @@
     <div class="warning-content">
       <img src="@assets/warning.svg" alt="Warning" class="warning-img" />
 
-      <CustomText
-        tag="div"
-        text="After clicking the 'Continue' button, you will not be able to edit the
-        project settings."
-        class="text"
-      />
-      <CustomText
-        tag="div"
-        text="Please make sure that the keywords entered are correct."
-        class="text"
-      />
+      <div class="text-container">
+        <slot>
+          <CustomText
+            tag="div"
+            text="After clicking the 'Continue' button, you will not be able to edit the
+            project settings."
+            class="text"
+          />
+          <CustomText
+            tag="div"
+            text="Please make sure that the keywords entered are correct."
+            class="text"
+          />
+        </slot>
+      </div>
     </div>
 
     <div class="modal-buttons">
@@ -43,31 +47,36 @@ export default {
 </script>
 
 <style lang="scss">
+.warning-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+
+  margin-bottom: 28px;
+
+  .warning-img {
+    width: 315px;
+  }
+}
+
+.text-container {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+
+  & > * {
+    margin: 0;
+    color: var(--typography-title-color);
+  }
+}
+
 .modal-buttons {
   display: flex;
 
   gap: 20px;
 
   justify-content: flex-end;
-}
-
-.text {
-  display: flex;
-  align-self: flex-start;
-
-  color: var(--typography-title-color);
-}
-
-.warning-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  margin-bottom: 28px;
-
-  .warning-img {
-    width: 315px;
-    margin-bottom: 28px;
-  }
 }
 </style>

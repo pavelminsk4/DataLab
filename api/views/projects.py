@@ -1,10 +1,11 @@
+from rest_framework.response import Response
 from rest_framework import viewsets
 from rest_framework import status
-from rest_framework.response import Response
 
+from api.services.collect_service import CollectService
+from talkwalker.classes.livestream import Livestream
 from project.models import Project, User, Workspace
 from api.serializers import ProjectSerializer
-from api.services.collect_service import CollectService
 
 from celery import shared_task
 import environ
@@ -34,9 +35,37 @@ class ProjectsViewSet(viewsets.ModelViewSet):
             **exclude(data, ['sources']),
             creator=creator,
             workspace=workspace,
-            start_date=data['start_search_date'],
             sources=data['sources'] or [environ.Env()('DEFAULT_SOURCE')]
         )
         self.collect_data.delay(project.id)
 
         return Response(ProjectSerializer(project).data, status=status.HTTP_201_CREATED)
+
+    def update(self, request, *args, **kwargs):
+        data = request.data
+        
+        if data['recollect']:
+            Project.objects.filter(id=data['project_pk']).update(
+                **exclude(data, ['sort_posts', 'project_pk', 'recollect']),
+            )
+      
+            project = Project.objects.get(id=data['project_pk'])
+            project.posts.all().delete()
+            
+            if 'talkwalker' in project.source:
+                Livestream(project.pk, 'Online').delete()
+
+            self.collect_data.delay(project.id)
+
+            return Response(ProjectSerializer(project).data)
+        else:
+            partial    = kwargs.pop('partial', False)
+            instance   = self.get_object()
+            serializer = self.get_serializer(instance, data=request.data, partial=partial)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+
+        if getattr(instance, '_prefetched_objects_cache', None):
+            instance._prefetched_objects_cache = {}
+
+        return Response(serializer.data)

@@ -1,7 +1,7 @@
-from project.models import Project
+from alerts.services.online_posts_aggregator import collect_posts
 from talkwalker.classes.livestream import Livestream
 from talkwalker.classes.asker import Asker
-from alerts.services.online_posts_aggregator import posts_aggregator
+from project.models import Project
 from django.utils import timezone
 import environ
 
@@ -34,5 +34,5 @@ class CollectService:
         Livestream(self.id, 'Project').create()
 
     def rss(self):
-        for post in posts_aggregator(self.id):
+        for post in collect_posts(self.id):
             self.project.posts.add(post)

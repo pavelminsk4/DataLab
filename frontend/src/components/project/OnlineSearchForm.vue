@@ -15,6 +15,14 @@
           <CustomText :text="source" />
         </BaseCheckbox>
       </div>
+
+      <ProjectCalendar
+        v-if="isCurrentProjectCreated"
+        name="Start date"
+        :start-date="currentProject.start_date"
+        :is-enable-time-picker="false"
+        class="date-picker"
+      />
     </template>
 
     <template v-for="{name, listName} in searchFields" :key="name">
@@ -41,15 +49,15 @@
       />
     </template>
   </div>
+
   <ProjectCalendar
     :is-range="isCurrentProjectCreated"
     :start-date="currentProject.start_date"
     class="date-picker"
   />
 
-  <CustomText tag="span" text="Sentiment" class="second-title" />
-
   <div class="radio-wrapper">
+    <CustomText tag="div" text="Sentiment" class="second-title" />
     <BaseRadio
       v-for="(item, index) in sentiments"
       :key="item + index"
@@ -282,8 +290,6 @@ export default {
   justify-content: space-between;
 
   width: 408px;
-
-  margin-bottom: 20px;
 }
 
 .sources {
@@ -311,7 +317,7 @@ export default {
 
 .date-picker {
   width: 408px;
-  margin-bottom: 60px;
+  margin-top: 20px;
 }
 
 .second-title {
@@ -343,7 +349,7 @@ export default {
   justify-content: space-between;
 
   width: 408px;
-  margin: 10px 0 25px;
+  margin: 40px 0 25px;
 
   .radio-icon {
     margin-right: 4px;
