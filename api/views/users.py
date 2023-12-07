@@ -453,3 +453,12 @@ def filter_with_constructor(body, posts):
         posts = posts.filter(sentiment=sentiment)
 
     return posts
+
+
+def delete_post(request, project_id, post_id):
+    try:
+        project = Project.objects.get(id=project_id)
+        project.posts.remove(Post.objects.get(id=post_id))
+    except:
+        pass
+    return HttpResponse(status=200)
