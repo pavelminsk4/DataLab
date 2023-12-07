@@ -68,7 +68,10 @@ def post_creator():
                     continue
 
                 my_feedlink = feed
-                my_sentiment = add_sentiment_score(ent.title)
+                try:
+                    my_sentiment = add_sentiment_score(ent.title)
+                except:
+                    my_sentiment = 'neutral'
                 try:
                     my_title = ent.title
                 except:
