@@ -22,7 +22,7 @@ app.autodiscover_tasks()
 app.conf.beat_schedule = {
     'postcreator-task-crontab': {
         'task': 'project.tasks.upload_posts.post_creator',
-        'schedule': crontab(hour=15, minute=20, day_of_week='*'),
+        'schedule': crontab(hour=14, minute=00, day_of_week='*'),
         'args': ()
     },
     'alert-sender-task-crontab': {
@@ -57,7 +57,7 @@ app.conf.beat_schedule = {
     },
     'run-talkwalker-livesearch': {
         'task': 'project.tasks.run_livesearch.run_talkwalker_livesearch',
-        'schedule': crontab(hour='*', minute='*/20', day_of_week='*'),
+        'schedule': crontab(hour='*', minute='0', day_of_week='*'),
         'args': ()
     },
     'run-rss-livesearch': {

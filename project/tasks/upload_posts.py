@@ -8,6 +8,7 @@ from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from bs4 import BeautifulSoup
 from ftlangdetect import detect
 from transformers import pipeline
+from datetime import date
 import ssl
 import socket
 import feedparser
@@ -58,7 +59,12 @@ def post_creator():
 
             datas = []
             for ent in fe:
-                if Post.objects.filter(entry_title=ent.title):
+                try:
+                    published = parser.parse(ent.published)
+                except:
+                    published = date.today()
+
+                if Post.objects.filter(entry_title=ent.title, entry_published=published):
                     continue
 
                 my_feedlink = feed
