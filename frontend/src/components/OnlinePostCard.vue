@@ -138,7 +138,10 @@ export default {
     },
     removePostFromProject() {
       console.log(this.postDetails.id)
-      this[action.REMOVE_POST_FROM_PROJECT]({postId: this.postDetails.id})
+      this[action.REMOVE_POST_FROM_PROJECT]({
+        postId: this.postDetails.id,
+        projectId: this.projectId,
+      })
     },
   },
 }

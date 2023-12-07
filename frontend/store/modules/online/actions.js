@@ -215,8 +215,17 @@ export default {
     }
   },
 
-  async [action.REMOVE_POST_FROM_PROJECT](_context, {postId}) {
-    console.log('ACTION: REMOVE POST', postId)
+  async [action.REMOVE_POST_FROM_PROJECT]({dispatch}, {postId, projectId}) {
+    await api.online.removePostFromProject({postId, projectId})
+
+    dispatch(
+      action.OPEN_FLASH_MESSAGE,
+      {
+        type: 'Success',
+        message: 'The Post removed from this project',
+      },
+      {root: true}
+    )
   },
 
   async [action.GET_FILTERS_OPTIONS]({commit, dispatch}, projectId) {
