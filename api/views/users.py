@@ -377,11 +377,11 @@ def keywords_posts(keys, posts):
 
 
 def filter_with_dimensions(posts, body):
-    country_dimensions = body['country_dimensions'] if 'country_dimensions' in body else []
-    language_dimensions = body['language_dimensions'] if 'language_dimensions' in body else []
-    source_dimensions = body['source_dimensions'] if 'source_dimensions' in body else []
-    author_dimensions = body['author_dimensions'] if 'author_dimensions' in body else []
-    sentiment_dimensions = body['sentiment_dimensions'] if 'sentiment_dimensions' in body else []
+    country_dimensions   = body.get('country_dimensions', [])
+    language_dimensions  = body.get('language_dimensions', [])
+    source_dimensions    = body.get('source_dimensions', [])
+    author_dimensions    = body.get('author_dimensions', [])
+    sentiment_dimensions = body.get('sentiment_dimensions', [])
 
     if country_dimensions:
         posts = posts.filter(reduce(lambda x, y: x | y, [Q(feedlink__country=country) for country in country_dimensions]))
@@ -426,14 +426,14 @@ def change_post_sentiment(post, dict_changing):
 
 
 def filter_with_constructor(body, posts):
-    keys = body['keywords'] if 'keywords' in body else []
-    exceptions = body['exceptions'] if 'exceptions' in body else []
-    additions = body['additions'] if 'additions' in body else []
-    country = body['country'] if 'country' in body else []
-    language = body['language'] if 'language' in body else []
-    source = body['source'] if 'source' in body else []
-    author = body['author'] if 'author' in body else []
-    sentiment = body['sentiment'] if 'sentiment' in body else []
+    keys       = body.get('keywords', [])
+    exceptions = body.get('exceptions', [])
+    additions  = body.get('additions', [])
+    country    = body.get('country', [])
+    language   = body.get('language', [])
+    source     = body.get('source', [])
+    author     = body.get('author', [])
+    sentiment  = body.get('sentiment', [])
 
     if keys:
         posts = keywords_posts(keys, posts)

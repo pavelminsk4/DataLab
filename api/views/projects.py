@@ -43,15 +43,15 @@ class ProjectsViewSet(viewsets.ModelViewSet):
 
     def update(self, request, *args, **kwargs):
         data = request.data
-        
-        if data['recollect']:
+
+        if data.get('recollect', False):
             Project.objects.filter(id=data['project_pk']).update(
                 **exclude(data, ['sort_posts', 'project_pk', 'recollect']),
             )
-      
+
             project = Project.objects.get(id=data['project_pk'])
             project.posts.all().delete()
-            
+
             if 'talkwalker' in project.source:
                 Livestream(project.pk, 'Online').delete()
 
