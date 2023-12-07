@@ -199,7 +199,6 @@ export default {
       commit(mutator.SET_LOADING_WIDGETS, {clippingWidget: false}, {root: true})
     }
   },
-
   async [action.DELETE_CLIPPING_FEED_CONTENT](
     {commit, dispatch},
     {projectId, postId, widgetId}
@@ -214,6 +213,10 @@ export default {
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {clippingWidget: false}, {root: true})
     }
+  },
+
+  async [action.REMOVE_POST_FROM_PROJECT](_context, {postId}) {
+    console.log('ACTION: REMOVE POST', postId)
   },
 
   async [action.GET_FILTERS_OPTIONS]({commit, dispatch}, projectId) {

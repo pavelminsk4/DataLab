@@ -33,13 +33,26 @@
             <CustomText tag="span" :text="category" />
           </div>
 
-          <div v-if="!isClippingWidget" class="clipping-wrapper">
-            <ClippingIcon
-              :is-clipping-post="isClippingPost"
-              :is-loading="isLoadingClippingWidget"
-              @click="addPost"
-            />
-            <BaseTooltip class="tooltip">{{ clippingTooltip }}</BaseTooltip>
+          <div class="actions-wrapper">
+            <div class="remove-post-wrapper">
+              <DeleteIcon
+                v-if="hasRemoveAction"
+                @click="$emit('remove-post')"
+              />
+              <BaseTooltip class="remove-tooltip">
+                <CustomText text="Remove this post from this project" />
+              </BaseTooltip>
+            </div>
+
+            <div class="clipping-wrapper">
+              <ClippingIcon
+                v-if="!isClippingWidget"
+                :is-clipping-post="isClippingPost"
+                :is-loading="isLoadingClippingWidget"
+                @click="addPost"
+              />
+              <BaseTooltip class="tooltip">{{ clippingTooltip }}</BaseTooltip>
+            </div>
           </div>
         </div>
       </div>
@@ -63,23 +76,25 @@ import {get} from '@store/constants'
 import {capitalizeFirstLetter} from '@lib/utilities'
 
 import CustomText from '@components/CustomText'
-import ClippingIcon from '@components/icons/ClippingIcon'
 import BaseTooltip from '@components/BaseTooltip'
+import SentimentChips from '@components/SentimentChips'
+import ClippingIcon from '@components/icons/ClippingIcon'
 import NoImageIcon from '@components/icons/NoImageIcon'
 import CloseIcon from '@components/icons/CloseIcon'
 import HashtagIcon from '@components/icons/HashtagIcon'
-import SentimentChips from '@components/SentimentChips'
+import DeleteIcon from '@components/icons/DeleteIcon'
 
 export default {
   name: 'PostCardLayout',
   components: {
-    SentimentChips,
-    CloseIcon,
-    NoImageIcon,
     BaseTooltip,
     ClippingIcon,
-    HashtagIcon,
+    CloseIcon,
     CustomText,
+    DeleteIcon,
+    HashtagIcon,
+    NoImageIcon,
+    SentimentChips,
   },
   props: {
     isClippingWidget: {type: Boolean, default: false},
@@ -88,6 +103,7 @@ export default {
     sentiment: {type: String},
     category: {type: String},
     isClippingPost: {type: Boolean, default: false},
+    hasRemoveAction: {type: Boolean, default: false},
   },
   data() {
     return {
@@ -216,23 +232,40 @@ export default {
           background-color: transparent;
         }
 
+        .actions-wrapper {
+          position: relative;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 20px;
+
+          margin-left: auto;
+        }
+
+        .remove-post-wrapper,
         .clipping-wrapper {
           position: relative;
           display: flex;
           justify-content: center;
+        }
 
-          margin-left: auto;
-
-          &:hover {
-            .tooltip {
-              visibility: visible;
-            }
+        .remove-post-wrapper:hover {
+          cursor: pointer;
+          .remove-tooltip {
+            visibility: visible;
           }
+        }
 
+        .clipping-wrapper:hover {
           .tooltip {
-            right: 28px;
-            visibility: hidden;
+            visibility: visible;
           }
+        }
+
+        .tooltip,
+        .remove-tooltip {
+          right: 28px;
+          visibility: hidden;
         }
       }
     }
