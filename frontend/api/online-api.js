@@ -81,7 +81,7 @@ export default {
   },
 
   async removePostFromProject({postId, projectId}) {
-    return fetch('get', `api/project/${projectId}/${postId}/delete`)
+    return fetch('get', `/project/${projectId}/${postId}/delete`)
   },
 
   async getCountries(word, limit) {
