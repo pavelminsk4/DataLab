@@ -33,7 +33,7 @@ def additional_keywords_posts(posts, additions):
 def posts_aggregator(project_id, start_date=None, end_date=None):
     project  = get_object_or_404(Project, pk=project_id)
 
-    interval = [project.start_search_date, project.end_search_date]
+    interval = [start_date, end_date] if start_date else [project.start_search_date, project.end_search_date] 
     posts    = Post.objects.filter(entry_published__range=interval)
     posts    = keywords_posts(project.keywords, posts)
 
