@@ -25,10 +25,10 @@ def define_sentiment(value):
     return sent
 
 
-def create_posts(project, lines, offset=None):
+def create_posts(project, response, offset=None):
     resume_offset = None
 
-    for line in lines:
+    for line in response.iter_lines():
         try:
             resume_offset = json.loads(line)['chunk_control']['resume_offset']
             continue
