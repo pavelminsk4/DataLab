@@ -100,6 +100,7 @@ class Post(models.Model):
         ]
 
 
+
 class Project(models.Model):
     STATUS_COLLECTING = 'collecting_data'
     STATUS_ACTIVE     = 'active'
@@ -156,7 +157,7 @@ class Project(models.Model):
     report_template = models.ForeignKey(Templates, related_name='template', on_delete=models.SET_NULL, null=True)
     workspace       = models.ForeignKey(Workspace, related_name='projects', blank=True, null=True, on_delete=models.CASCADE)
     members         = models.ManyToManyField(User, related_name='members', blank=True)
-    posts           = models.ManyToManyField(Post, blank=True)
+    posts           = models.ManyToManyField(Post, through='ProjectPost', blank=True)
     expert_presets  = models.ManyToManyField(Preset, blank=True)
 
     def save(self, *args, **kwargs):
@@ -172,6 +173,14 @@ class Project(models.Model):
 
     def __str__(self):
         return self.title
+
+class ProjectPost(models.Model):
+    project = models.ForeignKey(Project, blank=True, on_delete=models.CASCADE)
+    post    = models.ForeignKey(Post, blank=True, on_delete=models.CASCADE)
+    exclude = models.BooleanField(default=False)
+
+    class Meta:
+        db_table = 'project_project_posts'
 
 
 @receiver(post_save, sender=Project)
