@@ -6,6 +6,8 @@
     :post-id="postDetails.id"
     :is-clipping-widget="isClippingWidget"
     :is-clipping-post="isClippingPost"
+    :has-remove-action="true"
+    @remove-post="removePostFromProject"
     @add-clipping-post="addClippingFeedPost"
     @delete-clipping-post="deleteClippingFeedPost"
   >
@@ -109,6 +111,7 @@ export default {
     ...mapActions([
       action.CREATE_CLIPPING_FEED_CONTENT_WIDGET,
       action.DELETE_CLIPPING_FEED_CONTENT,
+      action.REMOVE_POST_FROM_PROJECT,
     ]),
     async addClippingFeedPost() {
       await this[action.CREATE_CLIPPING_FEED_CONTENT_WIDGET]({
@@ -132,6 +135,12 @@ export default {
     getUrl(source) {
       if (!source) return ''
       return source.includes('http') ? source : `http://${source}`
+    },
+    removePostFromProject() {
+      this[action.REMOVE_POST_FROM_PROJECT]({
+        postId: this.postDetails.id,
+        projectId: this.projectId,
+      })
     },
   },
 }

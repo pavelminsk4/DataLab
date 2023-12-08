@@ -105,7 +105,7 @@ def post_agregetor_for_each_widget(widget, posts):
         posts = filter_posts([Q(feed_language__language=language) for language in widget.language_dim_pivot], posts)
     if widget.sentiment_dim_pivot:
         posts = filter_posts([Q(sentiment=sentiment) for sentiment in widget.sentiment_dim_pivot], posts)
-    return posts.all()
+    return posts.exclude(projectpost__exclude=True)
 
 
 def missing_authors_filter(posts):

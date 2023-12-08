@@ -126,6 +126,7 @@ export default {
   channelType: '',
   keywords: {},
   searchData: [],
+  sortPosts: 'Latest',
   isSearchPerformed: false,
   numberOfPages: 0,
   numberOfPosts: 0,

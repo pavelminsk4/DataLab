@@ -17,7 +17,11 @@ export default {
     commit(mutator.SET_LOADING, true)
     try {
       const response = await api.online.postSearch(data)
-      commit(mutator.SET_SEARCH_DATA, response.posts, {root: true})
+      commit(
+        mutator.SET_SEARCH_DATA,
+        {posts: response.posts, sortPosts: data.sort_posts},
+        {root: true}
+      )
       commit(mutator.SET_NUMBER_OF_POSTS, response.num_posts, {root: true})
       commit(mutator.SET_NUMBER_OF_PAGES, response.num_pages, {root: true})
     } finally {
@@ -199,7 +203,6 @@ export default {
       commit(mutator.SET_LOADING_WIDGETS, {clippingWidget: false}, {root: true})
     }
   },
-
   async [action.DELETE_CLIPPING_FEED_CONTENT](
     {commit, dispatch},
     {projectId, postId, widgetId}
@@ -214,6 +217,28 @@ export default {
     } finally {
       commit(mutator.SET_LOADING_WIDGETS, {clippingWidget: false}, {root: true})
     }
+  },
+
+  async [action.REMOVE_POST_FROM_PROJECT](
+    {rootState, dispatch},
+    {postId, projectId}
+  ) {
+    await api.online.removePostFromProject({postId, projectId})
+    await dispatch(action.POST_SEARCH, {
+      sort_posts: rootState.sortPosts,
+      project_pk: projectId,
+      posts_per_page: 20,
+      page_number: 1,
+    })
+
+    await dispatch(
+      action.OPEN_FLASH_MESSAGE,
+      {
+        type: 'Success',
+        message: 'The Post removed from this project',
+      },
+      {root: true}
+    )
   },
 
   async [action.GET_FILTERS_OPTIONS]({commit, dispatch}, projectId) {

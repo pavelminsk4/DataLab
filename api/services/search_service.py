@@ -11,14 +11,14 @@ class SearchService:
     def execute(self, request):
         body           = json.loads(request.body)
         department_id  = request.user.user_profile.department
-        posts_per_page = body['posts_per_page']
-        page_number    = body['page_number']
-        sort_posts     = body['sort_posts']
+        posts_per_page = body.get('posts_per_page', 20)
+        page_number    = body.get('page_number', 1)
+        sort_posts     = body.get('sort_posts', [])
 
         from api.views.users import posts_values, change_post_sentiment
 
         project = Project.objects.get(id=body['project_pk'])
-        posts = project.posts
+        posts = project.posts.exclude(projectpost__exclude=True)
 
         if project.expert_presets.exists():
             posts = ExpertPresets(project, posts).posts

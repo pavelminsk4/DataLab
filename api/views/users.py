@@ -8,13 +8,12 @@ from rest_framework import viewsets, generics, filters, status
 from rest_framework.response import Response
 from rest_framework.generics import ListAPIView, CreateAPIView, DestroyAPIView, UpdateAPIView, RetrieveAPIView, ListCreateAPIView, RetrieveUpdateAPIView
 from widgets.models import ClippingFeedContentWidget, WidgetsList2, Dimensions, ProjectDimensions
-from project.models import Project, Post, Speech, Feedlinks, ChangingOnlineSentiment
+from project.models import Project, Post, Speech, Feedlinks, ChangingOnlineSentiment, ProjectPost
 from reports.models import Templates, RegularReport
 from widgets.common_widget.filters_for_widgets import posts_aggregator, post_agregator_with_dimensions
 from alerts.models import Alert
 from accounts.models import Profile
 from deep_translator import GoogleTranslator
-from countries_plus.models import Country
 from rest_framework.views import APIView
 from sentence_transformers import util
 from ml_components.models import MlCategory
@@ -453,3 +452,12 @@ def filter_with_constructor(body, posts):
         posts = posts.filter(sentiment=sentiment)
 
     return posts
+
+def delete_post(request, project_id, post_id):
+    try:
+        project_post = ProjectPost.objects.get(project_id=project_id, post_id=post_id)
+        project_post.exclude = True
+        project_post.save()
+    except:
+        pass
+    return HttpResponse(status=200)

@@ -46,7 +46,8 @@ export default {
   },
 
   [mutator.SET_SEARCH_DATA](state, data) {
-    state.searchData = [...data]
+    state.searchData = [...data.posts]
+    state.sortPosts = data.sortPosts
     state.isSearchPerformed = true
   },
 

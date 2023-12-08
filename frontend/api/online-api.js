@@ -67,19 +67,21 @@ export default {
   async createClippingFeedContent(data) {
     return fetch('post', '/clipping_feed_content_widget/create', data)
   },
-
   async deleteClippingFeedContentPost(projectId, postId) {
     return fetch(
       'delete',
       `/projects/${projectId}/clipping_feed_content_widget/delete/${postId}`
     )
   },
-
   async getClippingFeedContentWidget(projectId, widgetId) {
     return fetch(
       'get',
       `/widgets/onl_clipping_feed_content/${projectId}/${widgetId}`
     )
+  },
+
+  async removePostFromProject({postId, projectId}) {
+    return fetch('get', `/project/${projectId}/${postId}/delete`)
   },
 
   async getCountries(word, limit) {
