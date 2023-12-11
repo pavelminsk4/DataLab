@@ -1,19 +1,9 @@
 <template>
-  <WarningModal
+  <CreateProjectWarningModal
     v-if="isWarningModalDisplayed"
     @close="toggleWarningModal"
     @approve="createWorkspaceAndProject"
-  >
-    <CustomText
-      tag="div"
-      text="After clicking the 'Continue' button, you will not be able to edit the
-            project settings."
-    />
-    <CustomText
-      tag="div"
-      text="Please make sure that the keywords entered are correct."
-    />
-  </WarningModal>
+  />
 
   <MainLayoutTitleBlock
     title="Define the search"
@@ -65,7 +55,7 @@ import SimpleModeTab from '@components/workspace/SimpleModeTab'
 import BaseSwitcher from '@components/BaseSwitcher'
 import ExpertModeTab from '@components/workspace/ExpertModeTab'
 import CustomText from '@components/CustomText'
-import WarningModal from '@components/modals/WarningModal'
+import CreateProjectWarningModal from '@components/modals/CreateProjectWarningModal'
 
 export default {
   name: 'CreateSearchScreen',
@@ -76,7 +66,7 @@ export default {
     BaseSwitcher,
     ExpertModeTab,
     CustomText,
-    WarningModal,
+    CreateProjectWarningModal,
   },
   emits: ['create-project', 'create-workspace', 'show-results'],
   props: {

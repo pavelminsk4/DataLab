@@ -8,7 +8,7 @@
       <img src="@assets/warning.svg" alt="Warning" class="warning-img" />
 
       <div class="text-container">
-        <slot> </slot>
+        <slot></slot>
       </div>
     </div>
 
