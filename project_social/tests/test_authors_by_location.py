@@ -11,6 +11,8 @@ class AuthorsByLocationTests(APITestCase):
     TweetBinderPostFactory(user_alias='@second', user_location='England')
     TweetBinderPostFactory(user_alias='@second', user_location='England')
     TweetBinderPostFactory(user_alias='@new', user_location='England')
+    TweetBinderPostFactory(user_alias='@new', user_location=None)
+    TweetBinderPostFactory(user_alias='@first', user_location=None)
 
     pr = ProjectSocialFactory()
     widget_pk = pr.social_widgets_list.authors_by_location_id
