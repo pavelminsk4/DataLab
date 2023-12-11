@@ -92,28 +92,15 @@ export default {
     commit(mutator.SET_LOADING, true)
     try {
       const response = await api.social.postSearch(data)
-      commit(mutator.SET_SEARCH_DATA, response.posts, {root: true})
-      commit(mutator.SET_NUMBER_OF_POSTS, response.num_posts, {
-        root: true,
-      })
-      commit(mutator.SET_NUMBER_OF_PAGES, response.num_pages, {
-        root: true,
-      })
+      commit(
+        mutator.SET_SEARCH_DATA,
+        {posts: response.posts, sortPosts: data.sort_posts},
+        {root: true}
+      )
+      commit(mutator.SET_NUMBER_OF_POSTS, response.num_posts, {root: true})
+      commit(mutator.SET_NUMBER_OF_PAGES, response.num_pages, {root: true})
     } finally {
       commit(mutator.SET_LOADING, false)
-    }
-  },
-
-  async [action.CREATE_CLIPPING_FEED_CONTENT_WIDGET]({commit, dispatch}, data) {
-    commit(mutator.SET_LOADING_WIDGETS, {clippingWidget: true}, {root: true})
-    try {
-      await api.social.createClippingFeedContent(data.posts)
-      await dispatch(action.GET_CLIPPING_FEED_CONTENT_WIDGET, {
-        projectId: data.projectId,
-        widgetId: data.widgetId,
-      })
-    } finally {
-      commit(mutator.SET_LOADING_WIDGETS, {clippingWidget: false}, {root: true})
     }
   },
 
@@ -212,7 +199,8 @@ export default {
   async [action.GET_LANGUAGES]({commit}, {word, limit}) {
     try {
       const languages = await api.social.getLanguages(
-        capitalizeFirstLetter(word, limit)
+        capitalizeFirstLetter(word),
+        limit
       )
       commit(mutator.SET_LANGUAGES, languages)
       return languages

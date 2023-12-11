@@ -1,5 +1,5 @@
 <template>
-  <WarningModal
+  <CreateProjectWarningModal
     v-if="isWarningModalDisplayed"
     @close="toggleWarningModal"
     @approve="createWorkspaceAndProject"
@@ -55,7 +55,7 @@ import SimpleModeTab from '@components/workspace/SimpleModeTab'
 import BaseSwitcher from '@components/BaseSwitcher'
 import ExpertModeTab from '@components/workspace/ExpertModeTab'
 import CustomText from '@components/CustomText'
-import WarningModal from '@components/modals/WarningModal'
+import CreateProjectWarningModal from '@components/modals/CreateProjectWarningModal'
 
 export default {
   name: 'CreateSearchScreen',
@@ -66,7 +66,7 @@ export default {
     BaseSwitcher,
     ExpertModeTab,
     CustomText,
-    WarningModal,
+    CreateProjectWarningModal,
   },
   emits: ['create-project', 'create-workspace', 'show-results'],
   props: {

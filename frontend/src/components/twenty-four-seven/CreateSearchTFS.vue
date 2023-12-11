@@ -1,5 +1,5 @@
 <template>
-  <WarningModal
+  <CreateProjectWarningModal
     v-if="isWarningModalDisplayed"
     @close="toggleWarningModal"
     @approve="saveChanges"
@@ -40,7 +40,7 @@ import CustomText from '@components/CustomText'
 import BaseRadio from '@components/BaseRadio'
 import SimpleModeTab from '@components/workspace/SimpleModeTab'
 import OnlineIcon from '@components/icons/OnlineIcon'
-import WarningModal from '@components/modals/WarningModal'
+import CreateProjectWarningModal from '@components/modals/CreateProjectWarningModal'
 
 const {mapActions: mapTFSActions, mapState: mapTFSState} =
   createNamespacedHelpers('twentyFourSeven')
@@ -54,7 +54,7 @@ export default {
     SimpleModeTab,
     OnlineIcon,
     CustomText,
-    WarningModal,
+    CreateProjectWarningModal,
   },
   props: {
     workspaceId: {type: String, default: null},
