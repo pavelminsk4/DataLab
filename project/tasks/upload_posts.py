@@ -60,11 +60,16 @@ def post_creator():
             datas = []
             for ent in fe:
                 try:
+                    title = ent.title
+                except:
+                    continue
+
+                try:
                     published = parser.parse(ent.published)
                 except:
                     published = date.today()
 
-                if Post.objects.filter(entry_title=ent.title, entry_published=published):
+                if Post.objects.filter(entry_title=title, entry_published=published):
                     continue
 
                 my_feedlink = feed
