@@ -11,6 +11,8 @@ class GenderByLocationTests(APITestCase):
         TweetBinderPostFactory(user_gender='male', user_location='England')
         TweetBinderPostFactory(user_gender='female', user_location='England')
         TweetBinderPostFactory(user_gender='undefined', user_location='England')
+        TweetBinderPostFactory(user_gender='undefined', user_location=None)
+        TweetBinderPostFactory(user_gender='female', user_location=None)
         pr = ProjectSocialFactory()
 
         widget_pk = pr.social_widgets_list.gender_by_location_id

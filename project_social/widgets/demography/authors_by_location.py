@@ -18,6 +18,7 @@ def authors_by_location_report(pk, widget_pk):
     }
 
 def calculate_for_authors_by_location(posts, top_counts):
+    posts = posts.exclude(user_location=None)
     results =  list(posts.values('user_location').annotate(user_count=Count('user_alias', distinct=True)).order_by('-user_count')[:top_counts])
     top_countries = [i['user_location'] for i in posts.values('user_location').annotate(author_count=Count('user_alias', distinct=True)).order_by('-author_count')[:5]]
     results = []

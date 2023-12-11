@@ -12,6 +12,7 @@ class LanguagesByLocationTests(APITestCase):
         TweetBinderPostFactory(language='Sp', user_location='Spain')
         TweetBinderPostFactory(language='Pl', user_location='England')
         TweetBinderPostFactory(language='En', user_location='England')
+        TweetBinderPostFactory(language='En', user_location=None)
         pr = ProjectSocialFactory()
 
         widget_pk = pr.social_widgets_list.languages_by_location_id
