@@ -307,7 +307,6 @@ export default {
     try {
       const sources = await api.online.getSources(word, limit)
       commit(mutator.SET_SOURCES, sources)
-      console.log(sources)
       return sources
     } finally {
       commit(mutator.SET_LOADING, false)

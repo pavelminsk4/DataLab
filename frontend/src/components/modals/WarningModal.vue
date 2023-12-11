@@ -8,19 +8,7 @@
       <img src="@assets/warning.svg" alt="Warning" class="warning-img" />
 
       <div class="text-container">
-        <slot>
-          <CustomText
-            tag="div"
-            text="After clicking the 'Continue' button, you will not be able to edit the
-            project settings."
-            class="text"
-          />
-          <CustomText
-            tag="div"
-            text="Please make sure that the keywords entered are correct."
-            class="text"
-          />
-        </slot>
+        <slot> </slot>
       </div>
     </div>
 

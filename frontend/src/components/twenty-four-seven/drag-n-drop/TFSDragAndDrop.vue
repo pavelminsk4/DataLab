@@ -21,7 +21,7 @@
         :status="itemStatus.status"
         :status-color="itemStatus.color"
         :number-of-pages="numberOfPages(itemStatus.status)"
-        :number-of-results="this.cardResults[itemStatus.status]?.count"
+        :number-of-results="cardResults[itemStatus.status]?.count"
         @update-page="updatePage"
         @decrease-arrow="decrease(index, itemStatus.status)"
         @increase-arrow="increase(index, itemStatus.status)"
@@ -31,7 +31,7 @@
         <TFSPostCard
           v-for="postInfo in getCardInformation(itemStatus.status)"
           :key="postInfo.id"
-          :postDetails="postInfo.online_post"
+          :postDetails="postInfo.post"
           :is-back="postInfo.is_back"
           :card-status="postInfo.status"
           :item-id="postInfo.id"

@@ -3,7 +3,17 @@
     v-if="isWarningModalDisplayed"
     @close="toggleWarningModal"
     @approve="saveChanges"
-  />
+  >
+    <CustomText
+      tag="div"
+      text="After clicking the 'Continue' button, you will not be able to edit the
+            project settings."
+    />
+    <CustomText
+      tag="div"
+      text="Please make sure that the keywords entered are correct."
+    />
+  </WarningModal>
 
   <SimpleModeTab
     :module-name="selectedModuleType"
