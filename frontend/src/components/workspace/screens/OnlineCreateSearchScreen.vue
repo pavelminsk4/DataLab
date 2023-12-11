@@ -2,14 +2,14 @@
   <CreateSearchScreen
     :workspaceId="workspaceId"
     :moduleName="moduleName"
-    @show-results="showResults"
+    @show-results="preview"
     @create-workspace="createWorkspace"
     @create-project="createProject"
   />
 </template>
 
 <script>
-import {createNamespacedHelpers, mapState, mapActions} from 'vuex'
+import {createNamespacedHelpers, mapActions} from 'vuex'
 import {action, action as actionOnline} from '@store/constants'
 
 import CreateSearchScreen from '@components/workspace/screens/CreateSearchScreen'
@@ -25,20 +25,6 @@ export default {
     workspaceId: {type: String, default: null},
     moduleName: {type: String, default: ''},
   },
-  computed: {
-    ...mapState(['newProject']),
-    searchFilters() {
-      return this.newProject.searchFilters
-    },
-  },
-  watch: {
-    'newProject.searchFilters.page_number'() {
-      this.showResults(this.searchFilters)
-    },
-    'newProject.searchFilters.posts_per_page'() {
-      this.showResults(this.searchFilters)
-    },
-  },
   methods: {
     ...mapActions([action.OPEN_FLASH_MESSAGE]),
     ...mapOnlineActions([
@@ -46,10 +32,11 @@ export default {
       actionOnline.CREATE_WORKSPACE,
       actionOnline.CREATE_PROJECT,
       actionOnline.GET_WORKSPACES,
+      actionOnline.POSTS_PREVIEW,
     ]),
-    showResults(data) {
+    preview(filters) {
       try {
-        this[actionOnline.POST_SEARCH](data)
+        this[actionOnline.POSTS_PREVIEW](filters)
       } catch (e) {
         console.error(e)
       }

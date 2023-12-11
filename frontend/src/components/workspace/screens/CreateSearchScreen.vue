@@ -37,6 +37,7 @@
   <SimpleModeTab
     v-else
     :module-name="moduleName"
+    :has-preview-posts="true"
     class="mode-section"
     @show-result="showResults"
     @update-collection="updateCollection"
@@ -131,36 +132,24 @@ export default {
 
       return new Date(now.getFullYear(), now.getMonth(), now.getDate() - 6)
     },
-    showResults(pageNumber, numberOfPosts) {
+    showResults() {
       try {
         this.searchLoading = true
 
-        const project = {
+        const filters = {
           keywords: this.keywords?.keywords,
-          additions: this.keywords?.additional_keywords,
-          exceptions: this.keywords?.ignore_keywords || [],
+          additional: this.keywords?.additional_keywords,
+          exclude: this.keywords?.ignore_keywords || [],
           country: this.additionalFilters?.country || [],
           language: this.additionalFilters?.language || [],
           sentiment: this.additionalFilters?.sentiment || [],
-          date_range: this.additionalFilters?.date_range,
           source: this.additionalFilters?.source || [],
           author: this.additionalFilters?.author || [],
-          posts_per_page: numberOfPosts || 20,
-          page_number: pageNumber || 1,
-          sort_posts: [],
-          country_dimensions: [],
-          language_dimensions: [],
-          source_dimensions: [],
-          author_dimensions: [],
-          sentiment_dimensions: [],
-          department_id: this.department.id,
-          query_filter: this.expertModeQuery,
-          expert_mode: this.isExpertMode,
         }
 
-        this[action.UPDATE_PROJECT_STATE]({searchFilters: project})
+        this[action.UPDATE_PROJECT_STATE]({searchFilters: filters})
 
-        this.$emit('show-results', project)
+        this.$emit('show-results', filters)
       } catch (e) {
         console.error(e)
       } finally {
