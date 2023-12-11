@@ -86,15 +86,11 @@ class Post(models.Model):
             models.Index(fields=['feedlink']),
             models.Index(fields=['feed_language']),
             models.Index(fields=['sentiment']),
+            models.Index(fields=['entry_author']),
 
             GinIndex(
                 name='entry_title_gin_index',
                 fields=['entry_title'],
-                opclasses=['gin_trgm_ops'],
-            ),
-            GinIndex(
-                name='entry_author_gin_index',
-                fields=['entry_author'],
                 opclasses=['gin_trgm_ops'],
             ),
         ]
