@@ -1,5 +1,5 @@
 <template>
-  <WarningModal @close="$emit('close')" @approve="$emit('approve')">
+  <WarningModal>
     <CustomText
       tag="div"
       text="After clicking the 'Continue' button, you will not be able to edit the

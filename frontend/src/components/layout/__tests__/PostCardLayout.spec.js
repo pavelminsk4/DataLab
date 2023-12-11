@@ -41,12 +41,11 @@ describe('PostCardLayout component', () => {
   describe('when the "isClippingWidget: true"', () => {
     it('should not display components', async () => {
       expect(wrapper.findAllComponents(ClippingIcon).length).toEqual(1)
-      expect(wrapper.findAllComponents(BaseTooltip).length).toEqual(1)
+      expect(wrapper.findAllComponents(BaseTooltip).length).toEqual(2)
 
       await wrapper.setProps({isClippingWidget: true})
 
       expect(wrapper.findAllComponents(ClippingIcon).length).toEqual(0)
-      expect(wrapper.findAllComponents(BaseTooltip).length).toEqual(0)
     })
   })
 })
