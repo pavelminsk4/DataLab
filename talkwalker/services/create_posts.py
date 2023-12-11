@@ -27,10 +27,16 @@ def define_sentiment(value):
 def create_posts(project, response, offset=None):
     resume_offset = None
 
-    try:
-        lines = response.iter_lines()
-    except:
-        lines = []
+    for i in range(5):
+        try:
+            lines = response.iter_lines()
+        except Exception as e:
+            logger.error(e)
+            continue
+        else:
+            break
+    else:
+        return None
 
     for line in lines:
         try:
