@@ -3,7 +3,6 @@ from datetime import datetime
 from project.models import Speech, Post, Feedlinks
 from django.utils import timezone
 from django.db import transaction
-from ftlangdetect import detect
 
 import json
 import logging
@@ -28,7 +27,12 @@ def define_sentiment(value):
 def create_posts(project, response, offset=None):
     resume_offset = None
 
-    for line in response.iter_lines():
+    try:
+        lines = response.iter_lines()
+    except:
+        lines = []
+
+    for line in lines:
         try:
             resume_offset = json.loads(line)['chunk_control']['resume_offset']
             continue
@@ -65,10 +69,7 @@ def create_posts(project, response, offset=None):
         try:
             afeed_language = language(data['lang'])
         except:
-            try:
-                afeed_language = language(detect(data['title']))
-            except:
-                afeed_language = Speech.objects.filter(language='English (United States)').first()
+            afeed_language = Speech.objects.filter(language='English (United States)').first()
         try:
             aentry_media_content_url = data['images'][0]['url']
         except:

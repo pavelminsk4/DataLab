@@ -87,20 +87,9 @@ def attach_online_posts(id):
         'author_dimensions': instance.author_dimensions,
         'sentiment_dimensions': instance.sentiment_dimensions,
     }
-    posts = filter_with_constructor(body, posts)
-    for post in posts:
-        try:
-            item = Item.objects.create(post=post)
-            item.save()
-            instance.tfs_project_items.add(item)
-            if post.full_text is None:
-                try:
-                    post.full_text = get_full_text(post.entry_links_href)
-                except:
-                    post.full_text = 'Please follow the link for the full text of the news.'
-                post.save()
-        except:
-            pass
+
+    for post in filter_with_constructor(body, posts):
+        Item.objects.create(post=post, project=instance)
 
 
 @receiver(post_save, sender=ProjectTwentyFourSeven)

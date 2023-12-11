@@ -6,7 +6,6 @@ from langcodes import Language
 from dateutil import parser
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from bs4 import BeautifulSoup
-from ftlangdetect import detect
 from transformers import pipeline
 from datetime import date
 import ssl
@@ -23,9 +22,11 @@ def split_links(amount_posts_in_sample):
     return Paginator(all_posts, amount_posts_in_sample)
 
 
-def add_language(language_code):
-    title = Language.get(language_code).display_name()
-    return Speech.objects.get_or_create(language=title)[0]
+def language(code):
+    if code is None:
+        return Speech.objects.filter(language='English (United States)').first()
+
+    return Speech.objects.get_or_create(language=Language.get(code).display_name())[0]
 
 
 def get_string_from_score(sentiments):
@@ -62,7 +63,7 @@ def post_creator():
                 try:
                     title = ent.title
                 except:
-                    continue
+                    title = 'None'
 
                 try:
                     published = parser.parse(ent.published)
@@ -72,15 +73,10 @@ def post_creator():
                 if Post.objects.filter(entry_title=title, entry_published=published):
                     continue
 
-                my_feedlink = feed
                 try:
-                    my_sentiment = add_sentiment_score(ent.title)
+                    my_sentiment = add_sentiment_score(title)
                 except:
                     my_sentiment = 'neutral'
-                try:
-                    my_title = ent.title
-                except:
-                    my_title = 'None'
                 try:
                     my_links_href = ent.links[0].href
                 except:
@@ -117,13 +113,10 @@ def post_creator():
                     my_feed_image_link = ff['image']['link']
                 except:
                     my_feed_image_link = 'None'
-                try:
-                    my_feed_language = add_language(detect(ent.title)['lang'])
-                except:
-                    my_feed_language = Speech.objects.filter(language='English (United States)').first()
+
                 snippet = {
-                    'feedlink': my_feedlink,
-                    'entry_title': my_title,
+                    'feedlink': feed,
+                    'entry_title': title,
                     'sentiment': my_sentiment,
                     'entry_links_href': my_links_href,
                     'entry_summary': my_summary,
@@ -134,7 +127,7 @@ def post_creator():
                     'feed_title': my_feed_title,
                     'feed_image_href': my_feed_image_href,
                     'feed_image_link': my_feed_image_link,
-                    'feed_language': my_feed_language,
+                    'feed_language': language(ent['summary_detail'].get('language', None)),
                     'is_sentiment': True,
                     'summary_vector': [],
                     'source_type': 'rss'
