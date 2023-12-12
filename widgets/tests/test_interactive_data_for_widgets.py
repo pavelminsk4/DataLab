@@ -6,7 +6,6 @@ from rest_framework.test import APITestCase
 from project.models import Project
 from rest_framework import status
 from project.models import Post
-from django.urls import reverse
 import json
 
 
@@ -15,32 +14,31 @@ class InteractiveWidgetsTests(APITestCase):
         flink = FeedlinkFactory(country='England', source1='Time')
         sp1 = SpeechFactory(language='English')
         sp2 = SpeechFactory(language='Georgian')
-        p1 = PostFactory(
+        self.post1 = PostFactory(
             feedlink=flink, entry_title='First post title', entry_summary='First', feed_language=sp1,
             entry_published='2021-09-03T00:00:00Z', entry_author='AFP', sentiment='neutral'
         )
-        p2 = PostFactory(
+        self.post2 = PostFactory(
             feedlink=flink, entry_title='Second post title', entry_summary='Second post post title', feed_language=sp2,
             entry_published='2022-09-03T00:00:00Z', entry_author='AFP', sentiment='negative'
         )
-        PostFactory(
+        self.post3 = PostFactory(
             feedlink=flink, entry_title='Third post title', entry_summary='Third summary', feed_language=sp1,
             entry_published='2021-09-03T00:00:00Z', entry_author='AFP', sentiment='neutral'
         )
-        PostFactory(
+        self.post4 = PostFactory(
             feedlink=flink, entry_title='Fourth post title', entry_summary='Fourth summary', feed_language=sp1,
             entry_published='2021-09-03T00:00:00Z', entry_author='AFP', sentiment='negative'
         )
-        project = ProjectFactory(keywords=['post'])
-        for post in (p1, p2):
-            project.posts.add(post)
+        self.project = ProjectFactory(keywords=['post'])
+        self.project.posts.set([self.post1, self.post2])
+        self.url = f'/api/widgets/interactive_widgets/{self.project.id}/'
+        self.widget_list = self.project.widgets_list_2    
+        
 
     def test_top_10_interactive_widgets(self):
-        pr = Project.objects.first()
-        widget_pk = pr.widgets_list_2.top_languages_id
-        url = reverse('widgets:interactive_widgets', kwargs={
-                      'project_pk': pr.pk, 'widget_pk': widget_pk})
-        post1 = Post.objects.all().get(entry_title='First post title').pk
+        project = self.project
+        widget = self.widget_list.top_languages_id
         data = {
             'first_value': ['English'],
             'second_value': [],
@@ -48,17 +46,15 @@ class InteractiveWidgetsTests(APITestCase):
             'posts_per_page': 10,
             'page_number': 1,
         }
-        response = self.client.post(url, data, format='json')
+        
+        response = self.client.post(f'{self.url}{widget}', data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(json.loads(response.content)['posts']), 1)
-        self.assertEqual(json.loads(response.content)['posts'][0]['id'], post1)
+        self.assertEqual(json.loads(response.content)['posts'][0]['id'], self.post1.id)
 
     def test_sentiment_top_10_interactive_widgets(self):
-        pr = Project.objects.first()
-        post_id = Post.objects.all().get(entry_title='Second post title').pk
-        widget_pk = pr.widgets_list_2.sentiment_top_languages_id
-        url = reverse('widgets:interactive_widgets', kwargs={
-                      'project_pk': pr.pk, 'widget_pk': widget_pk})
+        project = self.project
+        widget = self.widget_list.sentiment_top_languages_id
         data = {
             'second_value': ['negative'],
             'first_value': ['Georgian'],
@@ -66,18 +62,15 @@ class InteractiveWidgetsTests(APITestCase):
             'posts_per_page': 10,
             'page_number': 1,
         }
-        response = self.client.post(url, data, format='json')
+        
+        response = self.client.post(f'{self.url}{widget}', data, format='json')
         self.assertEqual(len(json.loads(response.content)['posts']), 1)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(json.loads(response.content)
-                         ['posts'][0]['id'], post_id)
+        self.assertEqual(json.loads(response.content)['posts'][0]['id'], self.post2.id)
 
     def test_sentiment(self):
-        pr = Project.objects.first()
-        post_id = Post.objects.all().get(entry_title='Second post title').pk
-        widget_pk = pr.widgets_list_2.sentiment_for_period_id
-        url = reverse('widgets:interactive_widgets', kwargs={
-                      'project_pk': pr.pk, 'widget_pk': widget_pk})
+        project = self.project
+        widget = self.widget_list.sentiment_for_period_id
         data = {
             'first_value': ['Negative'],
             'second_value': [],
@@ -85,18 +78,15 @@ class InteractiveWidgetsTests(APITestCase):
             'posts_per_page': 10,
             'page_number': 1,
         }
-        response = self.client.post(url, data, format='json')
+        
+        response = self.client.post(f'{self.url}{widget}', data, format='json')
         self.assertEqual(len(json.loads(response.content)['posts']), 1)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(json.loads(response.content)
-                         ['posts'][0]['id'], post_id)
+        self.assertEqual(json.loads(response.content)['posts'][0]['id'], self.post2.id)
 
     def test_content_volume(self):
-        pr = Project.objects.first()
-        post_id = Post.objects.all().get(entry_title='Second post title').pk
-        widget_pk = pr.widgets_list_2.volume_id
-        url = reverse('widgets:interactive_widgets', kwargs={
-                      'project_pk': pr.pk, 'widget_pk': widget_pk})
+        project = self.project
+        widget = self.widget_list.volume_id
         data = {
             'first_value': [],
             'second_value': [],
@@ -104,18 +94,15 @@ class InteractiveWidgetsTests(APITestCase):
             'posts_per_page': 10,
             'page_number': 1,
         }
-        response = self.client.post(url, data, format='json')
+        
+        response = self.client.post(f'{self.url}{widget}', data, format='json')
         self.assertEqual(len(json.loads(response.content)['posts']), 1)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(json.loads(response.content)
-                         ['posts'][0]['id'], post_id)
+        self.assertEqual(json.loads(response.content)['posts'][0]['id'], self.post2.id)
 
     def test_top_keywords(self):
-        pr = Project.objects.first()
-        post_id = Post.objects.all().get(entry_title='Second post title').pk
-        widget_pk = pr.widgets_list_2.top_keywords_id
-        url = reverse('widgets:interactive_widgets', kwargs={
-                      'project_pk': pr.pk, 'widget_pk': widget_pk})
+        project = self.project
+        widget = self.widget_list.top_keywords_id
         data = {
             'first_value': ['post'],
             'second_value': [],
@@ -123,17 +110,15 @@ class InteractiveWidgetsTests(APITestCase):
             'posts_per_page': 10,
             'page_number': 1,
         }
-        response = self.client.post(url, data, format='json')
+        
+        response = self.client.post(f'{self.url}{widget}', data, format='json')
         self.assertEqual(len(json.loads(response.content)['posts']), 1)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(json.loads(response.content)
-                         ['posts'][0]['id'], post_id)
+        self.assertEqual(json.loads(response.content)['posts'][0]['id'], self.post2.id)
 
     def test_sentiment_top_keywords(self):
-        pr        = Project.objects.first()
-        post      = Post.objects.get(entry_title='Second post title')
-        widget_pk = pr.widgets_list_2.sentiment_top_keywords_id
-        url = reverse('widgets:interactive_widgets', kwargs={'project_pk': pr.id, 'widget_pk': widget_pk})
+        project = self.project
+        widget = self.widget_list.sentiment_top_keywords_id
         data = {
             'first_value': ['post'],
             'second_value': ['Negative'],
@@ -141,19 +126,15 @@ class InteractiveWidgetsTests(APITestCase):
             'posts_per_page': 10,
             'page_number': 1,
         }
-        response = self.client.post(url, data, format='json')
-
+        
+        response = self.client.post(f'{self.url}{widget}', data, format='json')
         self.assertEqual(len(json.loads(response.content)['posts']), 1)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(json.loads(response.content)
-                         ['posts'][0]['id'], post.id)
+        self.assertEqual(json.loads(response.content)['posts'][0]['id'], self.post2.id)
 
     def test_sentiment_diagram(self):
-        pr = Project.objects.first()
-        post_id = Post.objects.all().get(entry_title='Second post title').pk
-        widget_pk = pr.widgets_list_2.sentiment_diagram_id
-        url = reverse('widgets:interactive_widgets', kwargs={
-                      'project_pk': pr.pk, 'widget_pk': widget_pk})
+        project = self.project
+        widget = self.widget_list.sentiment_diagram_id
         data = {
             'first_value': ['Negative'],
             'second_value': [],
@@ -161,18 +142,15 @@ class InteractiveWidgetsTests(APITestCase):
             'posts_per_page': 10,
             'page_number': 1,
         }
-        response = self.client.post(url, data, format='json')
+        
+        response = self.client.post(f'{self.url}{widget}', data, format='json')
         self.assertEqual(len(json.loads(response.content)['posts']), 1)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(json.loads(response.content)
-                         ['posts'][0]['id'], post_id)
+        self.assertEqual(json.loads(response.content)['posts'][0]['id'],  self.post2.id)
 
     def test_authors_by_country(self):
-        pr = Project.objects.first()
-        post_id = Post.objects.all().get(entry_title='First post title').pk
-        widget_pk = pr.widgets_list_2.authors_by_country_id
-        url = reverse('widgets:interactive_widgets', kwargs={
-                      'project_pk': pr.pk, 'widget_pk': widget_pk})
+        project = self.project
+        widget = self.widget_list.authors_by_country_id
         data = {
             'first_value': ['AFP'],
             'second_value': ['England'],
@@ -180,18 +158,15 @@ class InteractiveWidgetsTests(APITestCase):
             'posts_per_page': 10,
             'page_number': 1,
         }
-        response = self.client.post(url, data, format='json')
+        
+        response = self.client.post(f'{self.url}{widget}', data, format='json')
         self.assertEqual(len(json.loads(response.content)['posts']), 2)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(json.loads(response.content)
-                         ['posts'][0]['id'], post_id)
+        self.assertEqual(json.loads(response.content)['posts'][0]['id'], self.post1.id)
 
     def test_authors_by_sentiment(self):
-        pr = Project.objects.first()
-        post_id = Post.objects.all().get(entry_title='First post title').pk
-        widget_pk = pr.widgets_list_2.authors_by_sentiment_id
-        url = reverse('widgets:interactive_widgets', kwargs={
-                      'project_pk': pr.pk, 'widget_pk': widget_pk})
+        project = self.project
+        widget = self.widget_list.authors_by_sentiment_id
         data = {
             'first_value': ['AFP'],
             'second_value': ['Neutral'],
@@ -199,18 +174,15 @@ class InteractiveWidgetsTests(APITestCase):
             'posts_per_page': 10,
             'page_number': 1,
         }
-        response = self.client.post(url, data, format='json')
+        
+        response = self.client.post(f'{self.url}{widget}', data, format='json')
         self.assertEqual(len(json.loads(response.content)['posts']), 1)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(json.loads(response.content)
-                         ['posts'][0]['id'], post_id)
+        self.assertEqual(json.loads(response.content) ['posts'][0]['id'], self.post1.id)
 
     def test_sources_by_country(self):
-        pr = Project.objects.first()
-        post_id = Post.objects.all().get(entry_title='First post title').pk
-        widget_pk = pr.widgets_list_2.sources_by_country_id
-        url = reverse('widgets:interactive_widgets', kwargs={
-                      'project_pk': pr.pk, 'widget_pk': widget_pk})
+        project = self.project
+        widget = self.widget_list.sources_by_country_id
         data = {
             'first_value': ['Time'],
             'second_value': ['England'],
@@ -218,18 +190,15 @@ class InteractiveWidgetsTests(APITestCase):
             'posts_per_page': 10,
             'page_number': 1,
         }
-        response = self.client.post(url, data, format='json')
+        
+        response = self.client.post(f'{self.url}{widget}', data, format='json')
         self.assertEqual(len(json.loads(response.content)['posts']), 2)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(json.loads(response.content)
-                         ['posts'][0]['id'], post_id)
+        self.assertEqual(json.loads(response.content)['posts'][0]['id'], self.post1.id)
 
     def test_sources_by_language(self):
-        pr = Project.objects.first()
-        post_id = Post.objects.all().get(entry_title='First post title').pk
-        widget_pk = pr.widgets_list_2.sources_by_language_id
-        url = reverse('widgets:interactive_widgets', kwargs={
-                      'project_pk': pr.pk, 'widget_pk': widget_pk})
+        project = self.project
+        widget = self.widget_list.sources_by_language_id
         data = {
             'first_value': ['Time'],
             'second_value': ['English'],
@@ -237,18 +206,17 @@ class InteractiveWidgetsTests(APITestCase):
             'posts_per_page': 10,
             'page_number': 1,
         }
-        response = self.client.post(url, data, format='json')
+        
+        response = self.client.post(f'{self.url}{widget}', data, format='json')
         self.assertEqual(len(json.loads(response.content)['posts']), 1)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(json.loads(response.content)
-                         ['posts'][0]['id'], post_id)
+        self.assertEqual(json.loads(response.content)['posts'][0]['id'], self.post1.id)
 
     def test_with_date_interval(self):
-        pr = Project.objects.first()
-        pr.start_search_date = '2022-09-03T00:00:00Z'
-        pr.save()
-        widget_pk = pr.widgets_list_2.sources_by_language_id
-        url = reverse('widgets:interactive_widgets', kwargs={'project_pk': pr.pk, 'widget_pk': widget_pk})
+        project = self.project
+        project.start_search_date = '2022-09-03T00:00:00Z'
+        project.save()
+        widget = self.widget_list.sources_by_language_id
         data = {
             'first_value': ['Time'],
             'second_value': ['English'],
@@ -256,13 +224,11 @@ class InteractiveWidgetsTests(APITestCase):
             'posts_per_page': 10,
             'page_number': 1,
         }
-        post_id = Post.objects.all().get(entry_title='First post title').pk
-        
-        response = self.client.post(url, data, format='json')
+      
+        response = self.client.post(f'{self.url}{widget}', data, format='json')
         self.assertEqual(len(json.loads(response.content)['posts']), 0)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-        post_id = Post.objects.all().get(entry_title='Second post title').pk
         data = {
             'first_value': ['Time'],
             'second_value': ['Georgian'],
@@ -271,7 +237,7 @@ class InteractiveWidgetsTests(APITestCase):
             'page_number': 1,
         }
         
-        response = self.client.post(url, data, format='json')
+        response = self.client.post(f'{self.url}{widget}', data, format='json')
         self.assertEqual(len(json.loads(response.content)['posts']), 1)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(json.loads(response.content)['posts'][0]['id'], post_id)
+        self.assertEqual(json.loads(response.content)['posts'][0]['id'], self.post2.id)
