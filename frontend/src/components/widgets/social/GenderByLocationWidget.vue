@@ -53,7 +53,7 @@ export default {
       this.currentWidgetData.forEach((el) => {
         femalesData.push(el.female)
         malesData.push(el.male)
-        noGenderTypeData.push(el.female)
+        noGenderTypeData.push(el.undefined)
       })
 
       return [
