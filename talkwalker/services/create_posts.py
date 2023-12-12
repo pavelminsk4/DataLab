@@ -27,18 +27,7 @@ def define_sentiment(value):
 def create_posts(project, response, offset=None):
     resume_offset = None
 
-    for i in range(5):
-        try:
-            lines = response.iter_lines()
-        except Exception as e:
-            logger.error(e)
-            continue
-        else:
-            break
-    else:
-        return None
-
-    for line in lines:
+    for line in response.iter_lines():
         try:
             resume_offset = json.loads(line)['chunk_control']['resume_offset']
             continue

@@ -76,7 +76,7 @@ class Asker:
     def __read_chunk(self, offset):
         url = f'https://api.talkwalker.com/api/v3/stream/c/{self.collector_id}/results?access_token={self.token}&resume_offset={offset}&end_behaviour=stop'
 
-        return create_posts(self.project, requests.get(url, stream=True), offset)
+        return create_posts(self.project, requests.get(url), offset)
 
     def __04_read_collector(self):
         resume_offset = self.project.resume_offset or 'earliest'
