@@ -127,7 +127,7 @@ def post_creator():
                     'feed_title': my_feed_title,
                     'feed_image_href': my_feed_image_href,
                     'feed_image_link': my_feed_image_link,
-                    'feed_language': language(ent['summary_detail'].get('language', None)),
+                    'feed_language': language(ent.get('summary_detail', {'language': 'en'}).get('language', None)),
                     'is_sentiment': True,
                     'summary_vector': [],
                     'source_type': 'rss'
