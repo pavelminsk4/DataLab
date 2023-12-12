@@ -41,11 +41,11 @@ export default {
     initialDate() {
       const date = new Date(this.startDate)
 
-      if (this.isValidDate(date) && this.isRange) {
+      if (this.isRange) {
         return this.additionalFilters.date_range
       }
 
-      return new Date()
+      return this.isValidDate(date) ? date : new Date()
     },
     selectedDateProxy: {
       get() {
