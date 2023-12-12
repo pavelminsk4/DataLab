@@ -242,3 +242,36 @@ class InteractiveWidgetsTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(json.loads(response.content)
                          ['posts'][0]['id'], post_id)
+
+    def test_with_date_interval(self):
+        pr = Project.objects.first()
+        pr.start_search_date = '2022-09-03T00:00:00Z'
+        pr.save()
+        widget_pk = pr.widgets_list_2.sources_by_language_id
+        url = reverse('widgets:interactive_widgets', kwargs={'project_pk': pr.pk, 'widget_pk': widget_pk})
+        data = {
+            'first_value': ['Time'],
+            'second_value': ['English'],
+            'dates': [],
+            'posts_per_page': 10,
+            'page_number': 1,
+        }
+        post_id = Post.objects.all().get(entry_title='First post title').pk
+        
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(len(json.loads(response.content)['posts']), 0)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        post_id = Post.objects.all().get(entry_title='Second post title').pk
+        data = {
+            'first_value': ['Time'],
+            'second_value': ['Georgian'],
+            'dates': [],
+            'posts_per_page': 10,
+            'page_number': 1,
+        }
+        
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(len(json.loads(response.content)['posts']), 1)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(json.loads(response.content)['posts'][0]['id'], post_id)
