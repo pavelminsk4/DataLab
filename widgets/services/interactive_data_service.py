@@ -11,6 +11,8 @@ class InteractiveDataService:
         project = Project.objects.get(id=project_pk)
         widget = WidgetDescription.objects.get(id=widget_pk)
         posts = project.posts.exclude(projectpost__exclude=True)
+        interval = [project.start_search_date, project.end_search_date]
+        posts = posts.filter(entry_published__range=interval).order_by('entry_published')
         body = json.loads(request.body)
         posts_per_page = body['posts_per_page']
         page_number = body['page_number']
