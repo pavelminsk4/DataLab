@@ -60,6 +60,8 @@ urlpatterns = [
     path('accountanalysis/<int:project_pk>/<int:widget_pk>/download', widgets.get_csv_acc_analysis, name='csv_acc_analysis'),
     # Delete post from project.posts
     path('project/<int:project_id>/<int:post_id>/delete', users.delete_post, name='delete_post'),
+    #Preview posts
+    path('project/preview', users.preview, name='preview_post'),
 ]
 
 router.register('dimensions', users.DimensionsViewSet)

@@ -396,27 +396,6 @@ def filter_with_dimensions(posts, body):
     return posts
 
 
-def posts_values(posts):
-    return posts.values(
-        'id',
-        'entry_title',
-        'entry_published',
-        'entry_summary',
-        'entry_media_thumbnail_url',
-        'entry_media_content_url',
-        'feed_image_href',
-        'feed_image_link',
-        'feed_language__language',
-        'entry_author', 'entry_links_href',
-        'feedlink__country',
-        'feedlink__source1',
-        'feedlink__sourceurl',
-        'feedlink__alexaglobalrank',
-        'sentiment',
-        'category',
-    )
-
-
 def change_post_sentiment(post, dict_changing):
     if post['id'] in dict_changing:
         new_sentiment = dict_changing[post['id']]
@@ -461,3 +440,42 @@ def delete_post(request, project_id, post_id):
     except:
         pass
     return HttpResponse(status=200)
+
+
+from django.utils.timezone import now
+from datetime import timedelta
+
+def preview(request):
+    body = json.loads(request.body)
+    keywords = body['keywords']
+    exclude = body['exclude']
+    additional = body['additional']
+    country = body['country']
+    language = body['language']
+    source = body['source']
+    author = body['author']
+    sentiment = body['sentiment']
+
+    posts = Post.objects.filter(entry_published__date=now()-timedelta(days=1))
+    if additional:
+        posts = additional_keywords_posts(posts, additional + keywords)
+    else:
+        posts = keywords_posts(keywords, posts)
+    if exclude:
+        posts = exclude_keywords_posts(posts, exclude)
+    if source:
+        posts = filter_posts([Q(feedlink__source1=source) for source in source], posts)
+    if language:
+        posts = filter_posts([Q(feed_language__language=language) for language in language], posts)
+    if country:
+        posts = filter_posts([Q(feedlink__country=country) for country in country], posts)
+    if author:
+        posts = filter_posts([Q(entry_author=author) for author in author], posts)
+    if sentiment:
+        posts = filter_posts([Q(sentiment=sentiment) for sentiment in sentiment], posts)
+    
+    result =  {'posts': list(posts_values(posts))}
+    return JsonResponse(result, safe=False)
+
+def filter_posts(filter_list, posts):
+    return posts.filter(reduce(lambda x, y: x | y, filter_list))
