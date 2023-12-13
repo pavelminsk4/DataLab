@@ -11,6 +11,15 @@ export default {
   [get.WORKSPACES](state) {
     return state.workspaces
   },
+
+  [get.CURRENT_PROJECT](state) {
+    return state.currentProject
+  },
+
+  [get.CURRENT_WORKSPACE](state) {
+    return state.currentWorkspace
+  },
+
   [get.NEW_WORKSPACE_ID](state) {
     return state.newWorkspaceId
   },

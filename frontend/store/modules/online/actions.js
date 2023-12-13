@@ -13,6 +13,26 @@ export default {
     }
   },
 
+  async [action.GET_WORKSPACE]({commit}, id) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const workspace = await api.online.getWorkspace(id)
+      commit(mutator.SET_WORKSPACE, workspace)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
+  async [action.GET_PROJECT]({commit}, id) {
+    commit(mutator.SET_LOADING, true)
+    try {
+      const project = await api.online.getProject(id)
+      commit(mutator.SET_PROJECT, project)
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
+
   async [action.POST_SEARCH]({commit}, data) {
     commit(mutator.SET_LOADING, true)
     try {

@@ -12,6 +12,14 @@ export default {
     state.workspaces = workspaces
   },
 
+  [mutator.SET_PROJECT](state, project) {
+    state.currentProject = project
+  },
+
+  [mutator.SET_WORKSPACE](state, workspace) {
+    state.currentWorkspace = workspace
+  },
+
   [mutator.SET_NEW_WORKSPACE_ID](state, id) {
     state.newWorkspaceId = id
   },

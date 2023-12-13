@@ -78,9 +78,15 @@ export default {
       )
     },
   },
+  created() {
+    if (!this.workspaces.length) {
+      this[actionOnline.GET_WORKSPACES]()
+    }
+  },
   methods: {
     ...mapActions([action.UPDATE_CURRENT_STEP]),
     ...mapOnlineActions([
+      actionOnline.GET_WORKSPACES,
       actionOnline.UPDATE_WORKSPACE,
       actionOnline.DELETE_WORKSPACE,
     ]),

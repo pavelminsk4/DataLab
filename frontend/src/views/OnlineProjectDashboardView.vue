@@ -1,5 +1,5 @@
 <template>
-  <MainLayout v-if="workspaces.length">
+  <MainLayout v-if="currentProject">
     <SideBar :nav-urls="navUrls" @open-tab="openTab" />
 
     <div class="project-wrapper">
@@ -10,12 +10,12 @@
 
 <script>
 import {createNamespacedHelpers} from 'vuex'
-import {action} from '@store/constants'
+import {get, action} from '@store/constants'
 
 import SideBar from '@components/navigation/SideBar'
 import MainLayout from '@components/layout/MainLayout'
 
-const {mapActions, mapState} = createNamespacedHelpers('online')
+const {mapActions, mapState, mapGetters} = createNamespacedHelpers('online')
 
 export default {
   name: 'OnlineProjectDashboardView',
@@ -25,6 +25,7 @@ export default {
   },
   computed: {
     ...mapState(['workspaces', 'loading']),
+    ...mapGetters({project: get.CURRENT_PROJECT}),
     workspaceId() {
       return this.$route.params.workspaceId
     },
@@ -35,7 +36,11 @@ export default {
       const existingWorkspace = this.workspaces.find(
         (el) => el.id === +this.workspaceId
       )
-      if (!existingWorkspace && !this.loading) return this.goToNotFoundPage()
+
+      const isWorkspaceNotExist =
+        !existingWorkspace && !this.project && !this.loading
+
+      if (isWorkspaceNotExist) return this.goToNotFoundPage()
 
       return existingWorkspace
     },
@@ -43,12 +48,20 @@ export default {
       const existingProject = this.currentWorkspace?.projects.find(
         (el) => el.id === +this.projectId
       )
-      if (!existingProject && !this.loading) return this.goToNotFoundPage()
 
-      return existingProject
+      const isProjectNotExist =
+        !existingProject && !this.project && !this.loading
+
+      if (isProjectNotExist) return this.goToNotFoundPage()
+
+      return this.project || existingProject
     },
   },
   async created() {
+    if (this.projectId && !this.workspaces.length) {
+      this[action.GET_PROJECT](this.projectId)
+    }
+
     this.navUrls = [
       'Analytics',
       'Search',
@@ -62,13 +75,9 @@ export default {
     }))
 
     await this[action.GET_AVAILABLE_WIDGETS](this.projectId)
-
-    if (!this.workspaces.length) {
-      this[action.GET_WORKSPACES]()
-    }
   },
   methods: {
-    ...mapActions([action.GET_WORKSPACES, action.GET_AVAILABLE_WIDGETS]),
+    ...mapActions([action.GET_PROJECT, action.GET_AVAILABLE_WIDGETS]),
     openTab(pathName) {
       this.$router.push({
         name: pathName,
