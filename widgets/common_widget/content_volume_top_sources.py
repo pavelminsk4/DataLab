@@ -28,49 +28,50 @@ def aggregator_results_content_volume_top_sources(posts, aggregation_period, top
     top_sources = posts.raw(
         re.sub(
             r'\s+', ' ', f"""
-            SELECT f.id id, f.url url, COUNT(p.feedlink_id) post_count
+            SELECT 1 as id, f.source1 source1, COUNT(f.source1) post_count
             FROM project_post p
             JOIN project_project_posts ON p.id = project_project_posts.post_id
             JOIN project_feedlinks f ON p.feedlink_id = f.id
             WHERE {where_clause(posts)}
-            GROUP BY f.id
-            ORDER BY COUNT(f.id) DESC
+            GROUP BY f.source1
+            ORDER BY COUNT(f.source1) DESC
             LIMIT {top_counts}
             """
         )
     )
 
-    top_sources = tuple(source.id for source in top_sources)
+    top_sources = tuple(top.source1 for top in top_sources)
     content_volume = posts.raw(
         re.sub(
             r'\s+', ' ', f"""
-                SELECT feedlink_id id, date, SUM(post_count) FROM (
-                SELECT p.feedlink_id, date_trunc('{aggregation_period}', p.entry_published) date, COUNT(p.feedlink_id) post_count
+                SELECT 1 as id, source1, date, SUM(post_count) FROM (
+                SELECT f.source1 source1, date_trunc('{aggregation_period}', p.entry_published) date, COUNT(f.source1) post_count
                 FROM project_post p
+                JOIN project_feedlinks f ON p.feedlink_id = f.id
                 JOIN project_project_posts ON p.id = project_project_posts.post_id
-                WHERE feedlink_id IN {ids(top_sources)} AND {where_clause(posts)}
-                GROUP BY p.feedlink_id, date_trunc('{aggregation_period}', p.entry_published)
+                WHERE source1 IN {ids(top_sources)} AND {where_clause(posts)}
+                GROUP BY f.source1, date_trunc('{aggregation_period}', p.entry_published)
 
                 UNION
 
-                SELECT id feedlink_id, dates.value date, 0 post_count
+                SELECT source1 feedlink_source1, dates.value date, 0 post_count
                 FROM project_feedlinks
                 FULL JOIN (SELECT * FROM generate_series(date_trunc('{aggregation_period}','{str(project.start_search_date)}'::timestamptz), date_trunc('{aggregation_period}','{str(project.end_search_date)}'::timestamptz), interval '1 {aggregation_period}') s(value)) dates
                 ON 1 = 1
-                WHERE id IN {ids(top_sources)}
+                WHERE source1 IN {ids(top_sources)}
                 ) stats
-                GROUP BY feedlink_id, date
-                ORDER BY feedlink_id, date
+                GROUP BY source1, date
+                ORDER BY source1, date
                 """
         )
     )
 
-    result = [{Feedlinks.objects.get(id=source).source1: []} for source in top_sources]
+    result = [{Feedlinks.objects.filter(source1=source).first().source1: []} for source in top_sources]
     for line in content_volume:
-        for source in top_sources:
-            if line.id == source:
-                index = top_sources.index(source)
-                result[index][Feedlinks.objects.get(id=source).source1].append({'date': str(line.date), 'post_count': int(line.sum)})
+        for source1 in top_sources:
+            if line.source1 == source1:
+                index = top_sources.index(source1)
+                result[index][source1].append({'date': str(line.date), 'post_count': int(line.sum)})
     
     return result
 

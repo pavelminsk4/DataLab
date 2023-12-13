@@ -26,49 +26,50 @@ def aggregator_results_content_volume_top_countries(posts, aggregation_period, t
     top_countries = posts.raw(
         re.sub(
             r'\s+', ' ', f"""
-            SELECT f.id id, f.url url, COUNT(p.feedlink_id) post_count
+            SELECT 1 as id, f.country country, COUNT(f.country) post_count
             FROM project_post p
             JOIN project_project_posts ON p.id = project_project_posts.post_id
             JOIN project_feedlinks f ON p.feedlink_id = f.id
             WHERE {where_clause(posts)}
-            GROUP BY f.id
-            ORDER BY COUNT(f.id) DESC
+            GROUP BY f.country
+            ORDER BY COUNT(f.country) DESC
             LIMIT {top_counts}
             """
         )
     )
 
-    top_countries = tuple(country.id for country in top_countries)
+    top_countries = tuple(top.country for top in top_countries)
     content_volume = posts.raw(
         re.sub(
             r'\s+', ' ', f"""
-                SELECT feedlink_id id, date, SUM(post_count) FROM (
-                SELECT p.feedlink_id, date_trunc('{aggregation_period}', p.entry_published) date, COUNT(p.feedlink_id) post_count
+                SELECT 1 as id, country, date, SUM(post_count) FROM (
+                SELECT f.country country, date_trunc('{aggregation_period}', p.entry_published) date, COUNT(f.country) post_count
                 FROM project_post p
+                JOIN project_feedlinks f ON p.feedlink_id = f.id
                 JOIN project_project_posts ON p.id = project_project_posts.post_id
-                WHERE feedlink_id IN {ids(top_countries)} AND {where_clause(posts)}
-                GROUP BY p.feedlink_id, date_trunc('{aggregation_period}', p.entry_published)
+                WHERE country IN {ids(top_countries)} AND {where_clause(posts)}
+                GROUP BY f.country, date_trunc('{aggregation_period}', p.entry_published)
 
                 UNION
 
-                SELECT id feedlink_id, dates.value date, 0 post_count
+                SELECT country feedlink_country, dates.value date, 0 post_count
                 FROM project_feedlinks
                 FULL JOIN (SELECT * FROM generate_series(date_trunc('{aggregation_period}','{str(project.start_search_date)}'::timestamptz), date_trunc('{aggregation_period}','{str(project.end_search_date)}'::timestamptz), interval '1 {aggregation_period}') s(value)) dates
                 ON 1 = 1
-                WHERE id IN {ids(top_countries)}
+                WHERE country IN {ids(top_countries)}
                 ) stats
-                GROUP BY feedlink_id, date
-                ORDER BY feedlink_id, date
+                GROUP BY country, date
+                ORDER BY country, date
                 """
         )
     )
 
-    result = [{Feedlinks.objects.get(id=country).country: []} for country in top_countries]
+    result = [{Feedlinks.objects.filter(country=country).first().country: []} for country in top_countries]
     for line in content_volume:
         for country in top_countries:
-            if line.id == country:
+            if line.country == country:
                 index = top_countries.index(country)
-                result[index][Feedlinks.objects.get(id=country).country].append({'date': str(line.date), 'post_count': int(line.sum)})
+                result[index][country].append({'date': str(line.date), 'post_count': int(line.sum)})
 
     return result
 
