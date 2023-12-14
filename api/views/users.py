@@ -456,7 +456,7 @@ def preview(request):
     author = body['author']
     sentiment = body['sentiment']
 
-    posts = Post.objects.filter(entry_published__date=now()-timedelta(days=1))
+    posts = Post.objects.filter(entry_published__date=now()-timedelta(days=1)).order_by('-entry_published')
     if additional:
         posts = additional_keywords_posts(posts, additional + keywords)
     else:
@@ -474,7 +474,7 @@ def preview(request):
     if sentiment:
         posts = filter_posts([Q(sentiment=sentiment) for sentiment in sentiment], posts)
     
-    result =  {'posts': list(posts_values(posts))}
+    result =  {'posts': list(posts_values(posts[:25]))}
     return JsonResponse(result, safe=False)
 
 def filter_posts(filter_list, posts):
