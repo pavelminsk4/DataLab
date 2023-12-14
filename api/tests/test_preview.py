@@ -15,7 +15,7 @@ class PreviewTests(APITestCase):
         
     def test_preview(self):
         data = {
-            'keywords': ['USA'],
+            'keywords': ['USA', 'CANADA'],
             'exclude': [],
             'additional': [],
             'country': ['USA'],
@@ -26,6 +26,6 @@ class PreviewTests(APITestCase):
         }
         
         url = '/api/project/preview'
-        response = self.client.post(url, data, format='json')
+        response = self.client.get(url, data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(json.loads(response.content)['posts'][0]['id'], self.post1.id)
