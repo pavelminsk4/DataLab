@@ -37,10 +37,9 @@ export default {
         (el) => el.id === +this.workspaceId
       )
 
-      const isWorkspaceNotExist =
-        !existingWorkspace && !this.project && !this.loading
+      const workspaceExists = existingWorkspace || this.project || this.loading
 
-      if (isWorkspaceNotExist) return this.goToNotFoundPage()
+      if (!workspaceExists) return this.goToNotFoundPage()
 
       return existingWorkspace
     },
@@ -49,10 +48,9 @@ export default {
         (el) => el.id === +this.projectId
       )
 
-      const isProjectNotExist =
-        !existingProject && !this.project && !this.loading
+      const projectExists = existingProject || this.project || this.loading
 
-      if (isProjectNotExist) return this.goToNotFoundPage()
+      if (!projectExists) return this.goToNotFoundPage()
 
       return this.project || existingProject
     },

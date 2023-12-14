@@ -40,10 +40,10 @@ export default {
         (el) => el.id === +this.workspaceId
       )
 
-      const isWorkspaceNotExist =
-        !existingWorkspace && !this.currentWorkspace && !this.loading
+      const workspaceExists =
+        existingWorkspace || this.currentWorkspace || this.loading
 
-      if (isWorkspaceNotExist) return this.goToNotFoundPage()
+      if (!workspaceExists) return this.goToNotFoundPage()
 
       return this.currentWorkspace || existingWorkspace
     },
