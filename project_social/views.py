@@ -78,6 +78,7 @@ class ProjectsSotialViewSet(viewsets.ModelViewSet):
     queryset = ProjectSocial.objects.all()
     serializer_class = ProjectSocialSerializer
 
+
 def change_social_sentiment(request, pk, department_pk, sentiment):
     try:
         updated_values = {'sentiment': sentiment}
@@ -85,6 +86,7 @@ def change_social_sentiment(request, pk, department_pk, sentiment):
     except:
         return HttpResponse(status=406)
     return HttpResponse(status=201)
+
 
 def twitter_posts_search(request):
     res = SocialSearchService().execute(request)
