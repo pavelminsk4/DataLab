@@ -6,6 +6,14 @@ export default {
     return fetch('get', '/workspaces/')
   },
 
+  async getWorkspace(workspaceId) {
+    return fetch('get', `/workspace/${workspaceId}`)
+  },
+
+  async getProject(projectId) {
+    return fetch('get', `/projects/${projectId}/`)
+  },
+
   async postSearch(request) {
     return fetch('post', '/search', request)
   },

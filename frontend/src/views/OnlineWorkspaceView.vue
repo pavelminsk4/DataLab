@@ -30,6 +30,7 @@ export default {
     ...mapGetters({
       loading: get.LOADING,
       workspaces: get.WORKSPACES,
+      currentWorkspace: get.CURRENT_WORKSPACE,
     }),
     workspaceId() {
       return this.$route.params.workspaceId
@@ -38,9 +39,13 @@ export default {
       const existingWorkspace = this.workspaces.find(
         (el) => el.id === +this.workspaceId
       )
-      if (!existingWorkspace && !this.loading) return this.goToNotFoundPage()
 
-      return existingWorkspace
+      const workspaceExists =
+        existingWorkspace || this.currentWorkspace || this.loading
+
+      if (!workspaceExists) return this.goToNotFoundPage()
+
+      return this.currentWorkspace || existingWorkspace
     },
   },
   created() {
@@ -53,9 +58,14 @@ export default {
       {name: 'updated', width: '11%'},
       {name: 'date', width: '11%'},
     ]
+
+    if (!this.workspaces.length && !this.currentWorkspace) {
+      this[action.GET_WORKSPACE](this.workspaceId)
+    }
   },
   methods: {
     ...mapActions([
+      action.GET_WORKSPACE,
       action.DELETE_PROJECT,
       action.UPDATE_STATUS_COLLECTING_DATA,
     ]),
