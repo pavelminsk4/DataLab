@@ -32,3 +32,4 @@ class TweetBinderPostFactory(factory.django.DjangoModelFactory):
     videos              = ['www.video.com']
     hashtags            = ['test']
     user_value          = '100'
+    country             = 'United States'

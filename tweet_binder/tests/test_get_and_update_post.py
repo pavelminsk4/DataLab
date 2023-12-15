@@ -1,4 +1,6 @@
-from tweet_binder.models import add_post_to_database, TweetBinderPost
+from common.factories.speech import SpeechFactory
+from project.models import Speech
+from tweet_binder.models import add_posts, TweetBinderPost
 from tweet_binder.services.get_publications import get_publications
 from django.test import TestCase
 from django.conf import settings
@@ -16,7 +18,7 @@ class TweetsTestCase(TestCase):
     @responses.activate
     def test_get_publications(self):
         auth_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzY29wZXMiOlsidXNlciIsInR3aXR0ZXIiXSwiaXNBZG1pbiI6ZmFsc2UsIm5hbWUiOiJrcm9uc29mdCIsImVtYWlsIjoiYWhtZWQuc3VsaW1hbkBkYXRhbGFiLm5ldCIsImludGVyY29tIjp7InVzZXJIYXNoIjoiMmRiMGE0MjFjNmEwMjVmMjZjNmVkOTJhN2M4ZmQyYzRiYmJkODUxYjBiYTZmZTkzZGJiMmQzNDMwNmEyNzNmMyJ9LCJwcm9maWxlcyI6eyJ0d2l0dGVyIjp7ImlkIjoidW5kZWZpbmVkIiwiYWNjb3VudCI6eyJpZF9zdHIiOiJ1bmRlZmluZWQiLCJuYW1lIjoiVHdlZXQgQ2F0ZWdvcnkgRGF0YSIsInNjcmVlbl9uYW1lIjoia3JvbnNvZnQtdGVzdCIsInByb2ZpbGVfaW1hZ2VfdXJsIjoiaHR0cDovL3Bicy50d2ltZy5jb20vcHJvZmlsZV9pbWFnZXMvMjk2MzM0MjU2OS9lMzkyYmI2NzRkNjliOTNiY2FkNzhiYzgxMjhmNWRjMV9ub3JtYWwuanBlZyIsInByb2ZpbGVfaW1hZ2VfdXJsX2h0dHBzIjoiaHR0cHM6Ly9wYnMudHdpbWcuY29tL3Byb2ZpbGVfaW1hZ2VzLzI5NjMzNDI1NjkvZTM5MmJiNjc0ZDY5YjkzYmNhZDc4YmM4MTI4ZjVkYzFfbm9ybWFsLmpwZWciLCJsb2NhdGlvbiI6IldoZXJlIGEgVHdlZXQgaXMgVHdlZXRlZCIsImZvbGxvd2Vyc19jb3VudCI6MTczLCJlbWFpbCI6ImNhdGVnLm9yeXR3ZWV0c0BnbWFpbC5jb20ifX19LCJpYXQiOjE3MDE2NzQ5NzEsImV4cCI6MTcwNDI2Njk3MSwiYXVkIjoidXNlciIsInN1YiI6IjcxMjk3YzZlLTIxZGUtNDE0Ni1iZDhlLWFjNmQyYjc1ZGY3NyJ9.LMcnLHa39QH6LtpixrwSlkY_Rb1H5qZaNhs9I7xv0A8'
-       
+
         responses.add(
             responses.GET,
             'https://api2.tweetbinder.com/reports/2b56b10d-411e-4704-a044-d7bd31cd741d/output',
@@ -28,9 +30,23 @@ class TweetsTestCase(TestCase):
         self.assertTrue(result)
         self.assertEqual(len(tweets), 10)
 
-        add_post_to_database(tweets)
+        SpeechFactory(language='English', country='United States')
+        SpeechFactory(language='Japanese', country='Japan')
+        SpeechFactory(language='Portuguese', country='Portugal')
+
+        add_posts(tweets)
 
         self.assertEqual(TweetBinderPost.objects.all().count(), 10)
+        self.assertEqual(Speech.objects.all().count(), 4)
+
+        for gender in TweetBinderPost.objects.values_list('user_gender', flat=True):
+            self.assertTrue(gender == 'male')
+
+        for language in TweetBinderPost.objects.values_list('language', flat=True):
+            self.assertIn(language, Speech.objects.all().values_list('language', flat=True))
+
+        for country in TweetBinderPost.objects.values_list('country', flat=True):
+            self.assertIn(country, Speech.objects.all().values_list('country', flat=True))
 
         responses.add(
             responses.GET,
@@ -43,7 +59,7 @@ class TweetsTestCase(TestCase):
         self.assertTrue(result)
         self.assertEqual(len(tweets), 10)
 
-        add_post_to_database(tweets)
+        add_posts(tweets)
 
         self.assertEqual(TweetBinderPost.objects.all().count(), 11)
 

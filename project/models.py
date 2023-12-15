@@ -39,6 +39,7 @@ class Feedlinks(models.Model):
 
 class Speech(models.Model):
     language = models.CharField('language', max_length=50)
+    country  = models.CharField('country', max_length=200, null=True, blank=True, default='USA')
 
     def __str__(self):
         return self.language
@@ -94,7 +95,6 @@ class Post(models.Model):
                 opclasses=['gin_trgm_ops'],
             ),
         ]
-
 
 
 class Project(models.Model):
@@ -169,6 +169,7 @@ class Project(models.Model):
 
     def __str__(self):
         return self.title
+
 
 class ProjectPost(models.Model):
     project = models.ForeignKey(Project, blank=True, on_delete=models.CASCADE)
