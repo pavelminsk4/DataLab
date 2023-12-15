@@ -34,7 +34,7 @@ from .widgets.summary.top_keywords import top_keywords
 from .widgets.dashboard.summary_widget import summary
 from .widgets.dashboard.sentiment import sentiment
 
-from common.utils.change_social_sentiment import ChangeSocialSentiment
+from common.utils.change_sentiment import ChangeSentiment
 from .models import ChangingTweetbinderSentiment
 from tweet_binder.models import TweetBinderPost
 
@@ -314,6 +314,6 @@ def project_posts(request, pk):
     posts = SocialSearchService().posts_values(posts)
     p = Paginator(posts, posts_per_page)
     posts_list = list(p.page(page_number))
-    posts_list = ChangeSocialSentiment(dep_id, posts_list).execute()
+    posts_list = ChangeSentiment(dep_id, posts_list, ChangingTweetbinderSentiment).execute()
     res = {'num_pages': p.num_pages, 'num_posts': p.count, 'posts': posts_list}
     return JsonResponse(res, safe=False)

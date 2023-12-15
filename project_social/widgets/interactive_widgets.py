@@ -1,4 +1,5 @@
-from common.utils.change_social_sentiment import ChangeSocialSentiment
+from project_social.models import ChangingTweetbinderSentiment
+from common.utils.change_sentiment import ChangeSentiment
 from project_social.models import SocialWidgetDescription
 from project_social.models import ProjectSocial
 from django.core.paginator import Paginator
@@ -108,6 +109,6 @@ def interactive_widgets(request, project_pk, widget_pk):
         p['link'] = f'https://twitter.com/user/status/{p["post_id"]}'
     p = Paginator(posts, posts_per_page)
     posts_list = list(p.page(page_number))
-    posts_list = ChangeSocialSentiment(department_id, posts_list).execute()
+    posts_list = ChangeSentiment(department_id, posts_list, ChangingTweetbinderSentiment).execute()
     res = { 'num_pages': p.num_pages, 'num_posts': p.count, 'posts': posts_list }
     return JsonResponse(res, safe = False)

@@ -6,6 +6,7 @@ import json
 from django.db.models import Q
 from functools import reduce
 from common.utils.change_sentiment import ChangeSentiment
+from project.models import ChangingOnlineSentiment
 
 class SearchService:
     def execute(self, request):
@@ -47,7 +48,7 @@ class SearchService:
         posts               = posts_values(posts)
         p                   = Paginator(posts, posts_per_page)
         posts_list          = list(p.page(page_number))
-        posts_list          = ChangeSentiment(department_id, posts_list).execute()
+        posts_list          = ChangeSentiment(department_id, posts_list, ChangingOnlineSentiment).execute()
 
         return {'num_pages': p.num_pages, 'num_posts': p.count, 'posts': posts_list}
 

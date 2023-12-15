@@ -1,5 +1,6 @@
 from expert_filters.services.social_expert_presets import SocialExpertPresets
-from common.utils.change_social_sentiment import ChangeSocialSentiment
+from project_social.models import ChangingTweetbinderSentiment
+from common.utils.change_sentiment import ChangeSentiment
 from project_social.social_parser import SocialParser
 from project_social.models import ProjectSocial
 from tweet_binder.models import TweetBinderPost
@@ -128,7 +129,7 @@ class SocialSearchService:
         posts               = self.posts_values(posts)
         p                   = Paginator(posts, posts_per_page)
         posts_list          = list(p.page(page_number))
-        posts_list          = ChangeSocialSentiment(department_id, posts_list).execute()
+        posts_list          = ChangeSentiment(department_id, posts_list, ChangingTweetbinderSentiment).execute()
         for post in posts_list:
             post['link'] = f'https://twitter.com/user/status/{post["post_id"]}'
 

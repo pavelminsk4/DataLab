@@ -1,10 +1,11 @@
 from widgets.common_widget.filters_for_widgets import filter_posts
+from common.utils.change_sentiment import ChangeSentiment
+from project.models import ChangingOnlineSentiment
 from django.core.paginator import Paginator
 from widgets.models import WidgetDescription
 from project.models import Project
 from django.db.models import Q
 import json
-from common.utils.change_sentiment import ChangeSentiment
 
 
 class InteractiveDataService:
@@ -106,5 +107,5 @@ class InteractiveDataService:
             )
         p = Paginator(posts, posts_per_page)
         posts_list = list(p.page(page_number))
-        posts_list = ChangeSentiment(dep, posts_list).execute()
+        posts_list = ChangeSentiment(dep, posts_list, ChangingOnlineSentiment).execute()
         return {'num_pages': p.num_pages, 'num_posts': p.count, 'posts': posts_list}
