@@ -52,9 +52,9 @@ export default {
     commit(mutator.SET_LOADING, true)
 
     const strFilters = Object.keys(filters)
-      .reduce((result, element) => {
-        return [...result, ...filters[element].map((f) => `${element}=${f}`)]
-      }, [])
+      .map((element) => {
+        return [...filters[element].map((f) => `${element}=${f}`)]
+      })
       .join('&')
 
     try {
