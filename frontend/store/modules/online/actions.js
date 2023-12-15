@@ -53,15 +53,23 @@ export default {
 
     const strFilters = Object.keys(filters)
       .reduce((result, element) => {
-        return filters[element].length
-          ? [...result, `${element}=${JSON.stringify(filters[element])}`]
-          : result
+        if (filters[element].length) {
+          const queryElements = []
+
+          filters[element].forEach((filter) => {
+            queryElements.push(`${element}=${filter}`)
+          })
+
+          return [...result, ...queryElements]
+        } else {
+          return result
+        }
       }, [])
       .join('&')
 
     try {
       const response = await api.online.postsPreview(strFilters)
-      commit(mutator.SET_SEARCH_DATA, response.posts, {root: true})
+      commit(mutator.SET_SEARCH_DATA, {posts: response.posts}, {root: true})
     } finally {
       commit(mutator.SET_LOADING, false)
     }

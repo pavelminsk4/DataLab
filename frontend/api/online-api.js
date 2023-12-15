@@ -18,7 +18,7 @@ export default {
     return fetch('post', '/search', request)
   },
   async postsPreview(filters) {
-    return fetch('get', `/projects/preview?${filters}`)
+    return fetch('get', `/project/preview?${filters}`)
   },
 
   async createWorkspace(workspace) {

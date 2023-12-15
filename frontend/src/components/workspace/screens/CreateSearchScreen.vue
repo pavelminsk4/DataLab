@@ -147,8 +147,6 @@ export default {
           author: this.additionalFilters?.author || [],
         }
 
-        this[action.UPDATE_PROJECT_STATE]({searchFilters: filters})
-
         this.$emit('show-results', filters)
       } catch (e) {
         console.error(e)

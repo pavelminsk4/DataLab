@@ -21,7 +21,10 @@
       />
     </div>
 
-    <div v-if="!loading && searchData?.length" class="pagination-wrapper">
+    <div
+      v-if="!loading && searchData?.length && numberOfPages"
+      class="pagination-wrapper"
+    >
       <PaginationControlPanel
         v-model="currentPage"
         :pages="numberOfPages"
