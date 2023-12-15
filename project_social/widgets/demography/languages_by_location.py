@@ -6,7 +6,8 @@ from django.db.models import Count
 
 def languages_by_location(pk, widget_pk):
     posts, widget = project_posts_filter(pk, widget_pk)
-    return JsonResponse(calculate_for_languages_by_location(posts, widget.top_counts), safe = False)
+    return JsonResponse(calculate_for_languages_by_location(posts, widget.top_counts), safe=False)
+
 
 def languages_by_location_report(pk, widget_pk):
     posts, widget = project_posts_filter(pk, widget_pk)
@@ -16,14 +17,15 @@ def languages_by_location_report(pk, widget_pk):
         'module_name': 'Social'
     }
 
+
 def calculate_for_languages_by_location(posts, top_counts):
-    posts = posts.exclude(user_location=None)
-    top_countries = [i['user_location'] for i in posts.values('user_location').annotate(language_count=Count('language', distinct=True)).order_by('-language_count')[:top_counts]]
+    top_countries = [i['country'] for i in posts.values('country').annotate(language_count=Count('language', distinct=True)).order_by('-language_count')[:top_counts]]
     results = {}
     for country in top_countries:
-        top_languages = posts.filter(user_location=country).values('language').annotate(posts_count=Count('id')).order_by('-posts_count')[:top_counts]
+        top_languages = posts.filter(country=country).values('language').annotate(posts_count=Count('id')).order_by('-posts_count')[:top_counts]
         results[country] = [{'language': language['language'], 'count': language['posts_count']} for language in top_languages]
     return results
+
 
 def to_csv(request, pk, widget_pk):
     posts, widget = project_posts_filter(pk, widget_pk)

@@ -7,12 +7,13 @@ import json
 
 
 class LanguagesByLocationTests(APITestCase):
+    maxDiff = None
+
     def test_response_list(self):
-        TweetBinderPostFactory(language='En', user_location='USA')
-        TweetBinderPostFactory(language='Sp', user_location='Spain')
-        TweetBinderPostFactory(language='Pl', user_location='England')
-        TweetBinderPostFactory(language='En', user_location='England')
-        TweetBinderPostFactory(language='En', user_location=None)
+        TweetBinderPostFactory(language='En', country='USA')
+        TweetBinderPostFactory(language='Sp', country='Spain')
+        TweetBinderPostFactory(language='Pl', country='England')
+        TweetBinderPostFactory(language='En', country='England')
         pr = ProjectSocialFactory()
 
         widget_pk = pr.social_widgets_list.languages_by_location_id
@@ -20,8 +21,8 @@ class LanguagesByLocationTests(APITestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         res = {
-                'England': [{'language': 'En', 'count': 1}, {'language': 'Pl', 'count': 1}], 
-                'Spain': [{'language': 'Sp', 'count': 1}], 
-                'USA': [{'language': 'En', 'count': 1}]
-              }
+            'England': [{'language': 'En', 'count': 1}, {'language': 'Pl', 'count': 1}],
+            'Spain': [{'language': 'Sp', 'count': 1}],
+            'USA': [{'language': 'En', 'count': 1}]
+        }
         self.assertEqual(json.loads(response.content), res)

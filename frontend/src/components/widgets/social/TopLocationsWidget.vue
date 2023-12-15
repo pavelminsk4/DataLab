@@ -31,7 +31,7 @@ export default {
       )
     },
     labels() {
-      return this.topLocations.map((el) => el.user_location)
+      return this.topLocations.map((el) => el.country)
     },
     chartValues() {
       return [

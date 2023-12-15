@@ -246,10 +246,10 @@ class SocialAuthorList(ListAPIView):
 
 class SocialLocationList(ListAPIView):
     serializer_class = TweetBinderPostLocationSerializer
-    queryset = TweetBinderPost.objects.distinct('user_location')
+    queryset = TweetBinderPost.objects.distinct('country')
     pagination_class = LimitPagination
     filter_backends = [filters.SearchFilter]
-    search_fields = ['^user_location']
+    search_fields = ['^country']
 
 
 class SocialLanguageList(ListAPIView):
@@ -301,7 +301,7 @@ class ListLocationsInProject(generics.ListAPIView):
         pk = self.kwargs.get('pk', None)
         project = get_object_or_404(ProjectSocial, pk=pk)
         posts = posts_aggregator(project)
-        queryset = posts.values('user_location').order_by('user_location').distinct()
+        queryset = posts.values('country').order_by('country').distinct()
         return queryset
 
 

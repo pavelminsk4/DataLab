@@ -13,14 +13,14 @@ class TestSocialExpertFilters(APITestCase):
         TweetBinderPostFactory(text='bird', sentiment='positive')
         TweetBinderPostFactory(text='bird dog', sentiment='negative')
         TweetBinderPostFactory(text='dog cat', sentiment='positive')
-        TweetBinderPostFactory(text='bird', user_location='Scotland')
-        TweetBinderPostFactory(text='wolf cat bear', user_location='Scotland')
+        TweetBinderPostFactory(text='bird', country='Scotland')
+        TweetBinderPostFactory(text='wolf cat bear', country='Scotland')
         TweetBinderPostFactory(text='wolf', sentiment='positive')
         TweetBinderPostFactory(text='cat bear cow', user_followers=100)
         TweetBinderPostFactory(text='bear bird wolf cat', user_followers=200)
         TweetBinderPostFactory(text='dog bird wolf', user_followers=200)
         aim = TweetBinderPostFactory(post_id=41111111, user_name='Elon', user_alias='Musk', text='cat fish', sentiment='negative',
-                                     date='2022-09-02T06:44:00.000Z', user_location='USA', language='Arabic', count_favorites=11, count_totalretweets=13, count_replies=1994)
+                                     date='2022-09-02T06:44:00.000Z', country='USA', language='Arabic', count_favorites=11, count_totalretweets=13, count_replies=1994)
 
         pr = ProjectSocialFactory()
         ps = PresetFactory(query=['cat AND fish'])
@@ -64,7 +64,7 @@ class TestSocialExpertFilters(APITestCase):
                         'text': 'cat fish',
                         'sentiment': 'negative',
                         'date': '2022-09-02T06:44:00Z',
-                        'user_location': 'USA',
+                        'country': 'USA',
                         'link': 'https://twitter.com/user/status/41111111',
                         'language': 'Arabic',
                         'count_favorites': 11,
