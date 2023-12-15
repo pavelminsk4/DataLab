@@ -53,17 +53,7 @@ export default {
 
     const strFilters = Object.keys(filters)
       .reduce((result, element) => {
-        if (filters[element].length) {
-          const queryElements = []
-
-          filters[element].forEach((filter) => {
-            queryElements.push(`${element}=${filter}`)
-          })
-
-          return [...result, ...queryElements]
-        } else {
-          return result
-        }
+        return [...result, ...filters[element].map((f) => `${element}=${f}`)]
       }, [])
       .join('&')
 
