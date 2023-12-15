@@ -7,3 +7,4 @@ class SpeechFactory(factory.django.DjangoModelFactory):
         model = Speech
 
     language = 'English (United States)'
+    country  = 'United States'
