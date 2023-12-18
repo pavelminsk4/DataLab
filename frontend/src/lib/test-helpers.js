@@ -17,10 +17,13 @@ import socialWidgetsGetters from '@store/modules/social/widgets/getters'
 import accountAnalysisState from '@store/modules/account-analysis/state'
 import accountAnalysisGetters from '@store/modules/account-analysis/getters'
 
+import twentyFourSevenState from '@store/modules/twenty-four-seven/state'
+import twentyFourSevenGetters from '@store/modules/twenty-four-seven/getters'
+
 import expertFilterState from '@store/modules/expert-filter/state'
 import expertFilterGetters from '@store/modules/expert-filter/getters'
 
-export const createNewStore = (newState) => {
+export const createNewStore = (newState, newStore) => {
   return createStore({
     modules: {
       online: {
@@ -57,6 +60,12 @@ export const createNewStore = (newState) => {
         getters: accountAnalysisGetters,
         state: accountAnalysisState,
       },
+      twentyFourSeven: {
+        namespaced: true,
+        actions,
+        getters: twentyFourSevenGetters,
+        state: twentyFourSevenState,
+      },
       expertFilter: {
         namespaced: true,
         actions,
@@ -69,6 +78,7 @@ export const createNewStore = (newState) => {
     getters,
     actions,
     dispatch: jest.fn(),
+    ...newStore,
   })
 }
 

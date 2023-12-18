@@ -8,6 +8,7 @@ export default {
     loading: false,
     clippingWidget: false,
   },
+  workspaces: [],
   translation: {},
   platformLanguage: 'ar',
   translatedText: {header: '', text: ''},
