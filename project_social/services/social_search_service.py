@@ -43,14 +43,14 @@ class SocialSearchService:
         return posts
 
     def filter_with_constructor(self, posts, body):
-        keys = body['keywords']
-        exceptions = body['exceptions']
-        additions = body['additions']
-        country = body['country']
-        language = body['language']
-        source = body['source']
-        author = body['author']
-        sentiment = body['sentiment']
+        keys = body.get('keywords', [])
+        exceptions = body.get('exceptions', [])
+        additions = body.get('additions', [])
+        country = body.get('country', [])
+        language = body.get('language', [])
+        source = body.get('source', [])
+        author = body.get('author', [])
+        sentiment = body.get('sentiment', [])
         posts = self.keywords_posts(keys, posts)
         if additions:
             posts = self.additional_keywords_posts(posts, additions)
@@ -69,11 +69,11 @@ class SocialSearchService:
         return posts
 
     def filter_with_dimensions(self, posts, body):
-        country_dimensions = body['country_dimensions']
-        language_dimensions = body['language_dimensions']
-        source_dimensions = body['source_dimensions']
-        author_dimensions = body['author_dimensions']
-        sentiment_dimensions = body['sentiment_dimensions']
+        country_dimensions = body.get('country_dimensions', [])
+        language_dimensions = body.get('language_dimensions', [])
+        source_dimensions = body.get('source_dimensions', [])
+        author_dimensions = body.get('author_dimensions', [])
+        sentiment_dimensions = body.get('sentiment_dimensions', [])
         if country_dimensions:
             posts = posts.filter(reduce(lambda x, y: x | y, [Q(country=country) for country in country_dimensions]))
         if language_dimensions:
@@ -106,25 +106,34 @@ class SocialSearchService:
             'count_totalretweets',
             'count_replies',
             'user_picture',
-            'images'
+            'images',
+            'count_tweetvalue'
         )
 
     def execute(self, request):
         body = json.loads(request.body)
-        date_range = body['date_range']
-        posts_per_page = body['posts_per_page']
-        page_number = body['page_number']
+        date_range = body.get('date_range')
+        posts_per_page = body.get('posts_per_page')
+        page_number = body.get('page_number')
+        sort_posts = body.get('sort_posts')
         department_id = request.user.user_profile.department
-        project = ProjectSocial.objects.get(id=body['project_pk'])
+        project = ProjectSocial.objects.get(id=body.get('project_pk'))
 
         posts = self.data_range_posts(date_range[0], date_range[1]).order_by('-creation_date')
-        parser = SocialParser(body['query_filter'])
+        parser = SocialParser(body.get('query_filter'))
         expert_mode = parser.can_parse() and body['expert_mode']
         posts = posts.filter(parser.get_filter_query()) if expert_mode else self.filter_with_constructor(posts, body)
 
         if project.expert_presets != []:
             posts = SocialExpertPresets().apply_presets(project, posts)
 
+        if sort_posts == 'potential_reach':
+            posts = posts.order_by('-count_tweetvalue')
+        elif sort_posts == 'potential_reach_desc':
+            posts = posts.order_by('count_tweetvalue')
+        else:
+            posts = posts.order_by('-creation_date')
+        
         posts               = self.filter_with_dimensions(posts, body)
         posts               = self.posts_values(posts)
         p                   = Paginator(posts, posts_per_page)

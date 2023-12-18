@@ -31,6 +31,7 @@ class SearchTwitterPostsTests(APITestCase):
         'sentiment_dimensions': [],
         'expert_mode': False,
         'query_filter': '',
+        'sort_posts': '',
     }
     ex1 = {
         'id': 1,
@@ -47,7 +48,8 @@ class SearchTwitterPostsTests(APITestCase):
         'count_totalretweets': 1,
         'count_replies': 2,
         'user_picture': None,
-        'images': None
+        'images': None,
+        'count_tweetvalue': 1
     }
     ex2 = {
         'id': 2,
@@ -64,7 +66,8 @@ class SearchTwitterPostsTests(APITestCase):
         'count_totalretweets': 1,
         'count_replies': 2,
         'user_picture': None,
-        'images': None
+        'images': None,
+        'count_tweetvalue': 10
     }
     ex3 = {
         'id': 3,
@@ -81,7 +84,8 @@ class SearchTwitterPostsTests(APITestCase):
         'count_totalretweets': 1,
         'count_replies': 2,
         'user_picture': None,
-        'images': None
+        'images': None,
+        'count_tweetvalue': 5
     }
     ex4 = {
         'id': 4,
@@ -98,7 +102,8 @@ class SearchTwitterPostsTests(APITestCase):
         'count_totalretweets': 1,
         'count_replies': 2,
         'user_picture': None,
-        'images': None
+        'images': None,
+        'count_tweetvalue': 3
     }
 
     def setUp(self):
@@ -106,14 +111,14 @@ class SearchTwitterPostsTests(APITestCase):
 
     def db_seeder(self):
         TweetBinderPostFactory(id=1, post_id=11111111, user_name='11111111', user_alias='11111111', text='first 11111111', sentiment='positive',
-                               date='2022-09-02T06:44:00.00Z', country='USA', language='En', count_favorites=1, count_totalretweets=1, count_replies=2)
+                               date='2022-09-02T06:44:00.00Z', country='USA', language='En', count_favorites=1, count_totalretweets=1, count_replies=2, count_tweetvalue=1)
         TweetBinderPostFactory(id=2, post_id=21111111, user_name='11111111', user_alias='11111111', text='second 11111111', sentiment='positive',
-                               date='2022-09-02T06:44:00.000Z', country='USA', language='Ru', count_favorites=1, count_totalretweets=1, count_replies=2)
+                               date='2022-09-02T06:44:00.000Z', country='USA', language='Ru', count_favorites=1, count_totalretweets=1, count_replies=2, count_tweetvalue=10)
         TweetBinderPostFactory(id=3, post_id=31111111, user_name='11111111', user_alias='11111111', text='third 11111111', sentiment='neutral',
-                               date='2023-09-02T06:44:00.000Z', country='Canada', language='En', count_favorites=1, count_totalretweets=1, count_replies=2)
+                               date='2023-09-02T06:44:00.000Z', country='Canada', language='En', count_favorites=1, count_totalretweets=1, count_replies=2, count_tweetvalue=5)
         TweetBinderPostFactory(id=4, post_id=41111111, user_name='41111111', user_alias='41111111', text='4', sentiment='negative',
-                               date='2022-09-02T06:44:00.000Z', country='USA', language='Arabic', count_favorites=1, count_totalretweets=1, count_replies=2)
-        ProjectSocialFactory()
+                               date='2022-09-02T06:44:00.000Z', country='USA', language='Arabic', count_favorites=1, count_totalretweets=1, count_replies=2, count_tweetvalue=3)
+        self.project = ProjectSocialFactory()
 
     def test_search_with_keywords(self):
         self.db_seeder()
@@ -127,7 +132,7 @@ class SearchTwitterPostsTests(APITestCase):
     def test_search_by_country(self):
         self.db_seeder()
         data = copy.deepcopy(load)
-        data['project_pk'] = ProjectSocial.objects.first().id
+        data['project_pk'] = self.project.id
         data['keywords'] = ['first']
         data['country'] = ['USA']
         response = self.client.post(url, data, format='json')
@@ -137,7 +142,7 @@ class SearchTwitterPostsTests(APITestCase):
     def test_search_by_language(self):
         self.db_seeder()
         data = copy.deepcopy(load)
-        data['project_pk'] = ProjectSocial.objects.first().id
+        data['project_pk'] =self.project.id
         data['keywords'] = ['4']
         data['language'] = ['Arabic']
         response = self.client.post(url, data, format='json')
@@ -147,7 +152,7 @@ class SearchTwitterPostsTests(APITestCase):
     def test_search_filtering_by_sentiment(self):
         self.db_seeder()
         data = copy.deepcopy(load)
-        data['project_pk'] = ProjectSocial.objects.first().id
+        data['project_pk'] = self.project.id
         data['keywords'] = ['4']
         data['sentiment'] = ['negative']
         response = self.client.post(url, data, format='json')
@@ -157,7 +162,7 @@ class SearchTwitterPostsTests(APITestCase):
     def test_serarch_filtering_by_date(self):
         self.db_seeder()
         data = copy.deepcopy(load)
-        data['project_pk'] = ProjectSocial.objects.first().id
+        data['project_pk'] = self.project.id
         data['keywords'] = ['third']
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -166,9 +171,19 @@ class SearchTwitterPostsTests(APITestCase):
     def test_search_by_author(self):
         self.db_seeder()
         data = copy.deepcopy(load)
-        data['project_pk'] = ProjectSocial.objects.first().id
+        data['project_pk'] = self.project.id
         data['keywords'] = ['first']
         data['author'] = ['11111111']
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(json.loads(response.content), {'num_pages': 1, 'num_posts': 1, 'posts': [ex1]})
+
+    def test_search_with_sort(self):
+        self.db_seeder()
+        data = copy.deepcopy(load)
+        data['project_pk'] = self.project.id
+        data['keywords'] = ['first', 'second', 'third', '4']
+        data['sort_posts'] = 'potential_reach'
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(json.loads(response.content), {'num_pages': 1, 'num_posts': 4, 'posts': [ex2, ex3, ex4, ex1]})
