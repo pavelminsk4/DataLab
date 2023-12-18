@@ -31,7 +31,7 @@ export default {
 
   [get.COUNTRIES](state) {
     return state.countries.results
-      .map((country) => country.user_location)
+      .map((country) => country.country)
       .filter((country) => country?.trim())
   },
   [get.LANGUAGES](state) {

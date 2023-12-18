@@ -5,22 +5,23 @@ from rest_framework import status
 from django.urls import reverse
 import json
 
+
 class GenderByLocationTests(APITestCase):
+    maxDiff = None
+
     def test_response_list(self):
-        TweetBinderPostFactory(user_gender='male', user_location='USA')
-        TweetBinderPostFactory(user_gender='male', user_location='England')
-        TweetBinderPostFactory(user_gender='female', user_location='England')
-        TweetBinderPostFactory(user_gender='undefined', user_location='England')
-        TweetBinderPostFactory(user_gender='undefined', user_location=None)
-        TweetBinderPostFactory(user_gender='female', user_location=None)
+        TweetBinderPostFactory(user_gender='male', country='USA')
+        TweetBinderPostFactory(user_gender='male', country='England')
+        TweetBinderPostFactory(user_gender='female', country='England')
+        TweetBinderPostFactory(user_gender='undefined', country='England')
         pr = ProjectSocialFactory()
 
         widget_pk = pr.social_widgets_list.gender_by_location_id
-        url = reverse('project_social:social_gender_by_location', kwargs={'pk':pr.pk, 'widget_pk':widget_pk})
+        url = reverse('project_social:social_gender_by_location', kwargs={'pk': pr.pk, 'widget_pk': widget_pk})
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         res = {
-                'England': {'male': 1, 'female': 1, 'undefined': 1}, 
-                'USA': {'male': 1, 'female': 0, 'undefined': 0}
-            }
+            'England': {'male': 1, 'female': 1, 'undefined': 1},
+            'USA': {'male': 1, 'female': 0, 'undefined': 0}
+        }
         self.assertEqual(json.loads(response.content), res)

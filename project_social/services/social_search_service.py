@@ -11,7 +11,7 @@ from django.db.models import Q
 import json
 
 
-class SocialSearchService:    
+class SocialSearchService:
     def keywords_posts(self, keys, posts):
         keys = [f'%%{key.upper()}%%' for key in keys]
         posts = posts.extra(where=[
@@ -57,7 +57,7 @@ class SocialSearchService:
         if exceptions:
             posts = self.exclude_keywords_posts(posts, exceptions)
         if country:
-            posts = posts.filter(reduce(lambda x, y: x | y, [Q(user_location=c) for c in country]))
+            posts = posts.filter(reduce(lambda x, y: x | y, [Q(country=c) for c in country]))
         if language:
             posts = posts.filter(reduce(lambda x, y: x | y, [Q(language=lan) for lan in language]))
         if source:
@@ -67,7 +67,7 @@ class SocialSearchService:
         if sentiment:
             posts = posts.filter(reduce(lambda x, y: x | y, [Q(sentiment=sen) for sen in sentiment]))
         return posts
-    
+
     def filter_with_dimensions(self, posts, body):
         country_dimensions = body['country_dimensions']
         language_dimensions = body['language_dimensions']
@@ -75,7 +75,7 @@ class SocialSearchService:
         author_dimensions = body['author_dimensions']
         sentiment_dimensions = body['sentiment_dimensions']
         if country_dimensions:
-            posts = posts.filter(reduce(lambda x, y: x | y, [Q(user_location=country) for country in country_dimensions]))
+            posts = posts.filter(reduce(lambda x, y: x | y, [Q(country=country) for country in country_dimensions]))
         if language_dimensions:
             posts = posts.filter(reduce(lambda x, y: x | y, [Q(language=language) for language in language_dimensions]))
         if source_dimensions:
@@ -85,12 +85,12 @@ class SocialSearchService:
         if sentiment_dimensions:
             posts = posts.filter(reduce(lambda x, y: x | y, [Q(sentiment=sentiment) for sentiment in sentiment_dimensions]))
         return posts
-    
+
     def data_range_posts(self, start_date, end_date):
         interval = [start_date, end_date]
         posts = TweetBinderPost.objects.filter(date__range=interval)
         return posts
-    
+
     def posts_values(self, posts):
         return posts.values(
             'id',
@@ -100,7 +100,7 @@ class SocialSearchService:
             'text',
             'sentiment',
             'date',
-            'user_location',
+            'country',
             'language',
             'count_favorites',
             'count_totalretweets',

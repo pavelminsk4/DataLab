@@ -56,7 +56,7 @@ def social_posts_aggregator(project_id):
     if exceptions:
         posts = exclude_keywords_posts(posts, exceptions)
     if country:
-        posts = posts.filter(user_location=country)
+        posts = posts.filter(country=country)
     if language:
         posts = posts.filter(language=language)
     if source:
@@ -66,7 +66,7 @@ def social_posts_aggregator(project_id):
     if sentiment:
         posts = posts.filter(sentiment=sentiment)
     if country_dimensions:
-        posts = posts.filter(reduce(lambda x, y: x | y, [Q(user_location=x) for x in country_dimensions]))
+        posts = posts.filter(reduce(lambda x, y: x | y, [Q(country=x) for x in country_dimensions]))
     if language_dimensions:
         posts = posts.filter(reduce(lambda x, y: x | y, [Q(language=x) for x in language_dimensions]))
     if source_dimensions:

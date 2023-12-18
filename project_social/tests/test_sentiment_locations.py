@@ -8,9 +8,9 @@ import json
 
 class SentimentLocationWidgetTests(APITestCase):
     def test_response_list(self):
-        TweetBinderPostFactory(user_location='USA', sentiment='neutral')
-        TweetBinderPostFactory(user_location='England', sentiment='positive')
-        TweetBinderPostFactory(user_location='England', sentiment='negative')
+        TweetBinderPostFactory(country='USA', sentiment='neutral')
+        TweetBinderPostFactory(country='England', sentiment='positive')
+        TweetBinderPostFactory(country='England', sentiment='negative')
         pr = ProjectSocialFactory()
 
         widget_pk = pr.social_widgets_list.sentiment_locations_id

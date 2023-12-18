@@ -5,6 +5,7 @@ from django.http import JsonResponse
 from .filter_for_posts import *
 import json
 
+
 def interactive_widgets(request, project_pk, widget_pk):
     project = ProjectAccountAnalysis.objects.get(id=project_pk)
     posts_account = posts_aggregator(project).filter(user_alias=project.profile_handle)
@@ -16,24 +17,24 @@ def interactive_widgets(request, project_pk, widget_pk):
     first_value = body['first_value']
     second_value = body['second_value']
     dates = body['dates']
-    weekDays={'Sunday': 1, 'Monday': 2, 'Tuesday': 3, 'Wednesday': 4, 'Thursday': 5, 'Friday': 6, 'Saturday': 7}
+    weekDays = {'Sunday': 1, 'Monday': 2, 'Tuesday': 3, 'Wednesday': 4, 'Thursday': 5, 'Friday': 6, 'Saturday': 7}
     if widget.default_title == 'Profile timeline':
         posts = posts_account.filter(date__range=dates)
     elif widget.default_title == 'Most frequent post types':
         if first_value[0] == 'tweets':
-            first_value=['original']
+            first_value = ['original']
         elif first_value[0] == 'replies':
-            first_value=['reply']
+            first_value = ['reply']
         elif first_value[0] == 'retweets':
-            first_value=['retweet']
+            first_value = ['retweet']
         posts = posts_account.filter(type__contains=first_value)
     elif widget.default_title == 'Most engaging post types':
         if first_value[0] == 'tweets':
-            first_value=['original']
+            first_value = ['original']
         elif first_value[0] == 'replies':
-            first_value=['reply']
+            first_value = ['reply']
         elif first_value[0] == 'retweets':
-            first_value=['retweet']
+            first_value = ['retweet']
         posts = posts_account.filter(type__contains=first_value)
     elif widget.default_title == 'Most frequent media types':
         if first_value[0] == 'text':
@@ -46,13 +47,13 @@ def interactive_widgets(request, project_pk, widget_pk):
             posts = posts_account.filter(count_images__gt=0)
         elif first_value[0] == 'combination':
             posts = posts_account.filter(
-                                              (Q(count_links__gt=0) & Q(count_textlength__gt=0)) | 
-                                              (Q(count_links__gt=0) & Q(videos__isnull=False)) | 
-                                              (Q(count_links__gt=0) & Q(count_images__gt=0)) | 
-                                              (Q(count_textlength__gt=0) & Q(videos__isnull=False)) | 
-                                              (Q(count_textlength__gt=0) & Q(count_images__gt=0)) | 
-                                              (Q(videos__isnull=False) & Q(count_images__gt=0))
-                                            )
+                (Q(count_links__gt=0) & Q(count_textlength__gt=0)) |
+                (Q(count_links__gt=0) & Q(videos__isnull=False)) |
+                (Q(count_links__gt=0) & Q(count_images__gt=0)) |
+                (Q(count_textlength__gt=0) & Q(videos__isnull=False)) |
+                (Q(count_textlength__gt=0) & Q(count_images__gt=0)) |
+                (Q(videos__isnull=False) & Q(count_images__gt=0))
+            )
     elif widget.default_title == 'Most engaging media types':
         if first_value[0] == 'text':
             posts = posts_account.filter(count_textlength__gt=0)
@@ -64,13 +65,13 @@ def interactive_widgets(request, project_pk, widget_pk):
             posts = posts_account.filter(count_images__gt=0)
         elif first_value[0] == 'combination':
             posts = posts_account.filter(
-                                              (Q(count_links__gt=0) & Q(count_textlength__gt=0)) | 
-                                              (Q(count_links__gt=0) & Q(videos__isnull=False)) | 
-                                              (Q(count_links__gt=0) & Q(count_images__gt=0)) | 
-                                              (Q(count_textlength__gt=0) & Q(videos__isnull=False)) | 
-                                              (Q(count_textlength__gt=0) & Q(count_images__gt=0)) | 
-                                              (Q(videos__isnull=False) & Q(count_images__gt=0))
-                                            )
+                (Q(count_links__gt=0) & Q(count_textlength__gt=0)) |
+                (Q(count_links__gt=0) & Q(videos__isnull=False)) |
+                (Q(count_links__gt=0) & Q(count_images__gt=0)) |
+                (Q(count_textlength__gt=0) & Q(videos__isnull=False)) |
+                (Q(count_textlength__gt=0) & Q(count_images__gt=0)) |
+                (Q(videos__isnull=False) & Q(count_images__gt=0))
+            )
     elif widget.default_title == 'Mention timeline':
         posts = posts_mentions.filter(date__range=dates)
     elif widget.default_title == 'Most frequent mention media types':
@@ -84,13 +85,13 @@ def interactive_widgets(request, project_pk, widget_pk):
             posts = posts_mentions.filter(count_images__gt=0)
         elif first_value[0] == 'combination':
             posts = posts_mentions.filter(
-                                              (Q(count_links__gt=0) & Q(count_textlength__gt=0)) | 
-                                              (Q(count_links__gt=0) & Q(videos__isnull=False)) | 
-                                              (Q(count_links__gt=0) & Q(count_images__gt=0)) | 
-                                              (Q(count_textlength__gt=0) & Q(videos__isnull=False)) | 
-                                              (Q(count_textlength__gt=0) & Q(count_images__gt=0)) | 
-                                              (Q(videos__isnull=False) & Q(count_images__gt=0))
-                                            )
+                (Q(count_links__gt=0) & Q(count_textlength__gt=0)) |
+                (Q(count_links__gt=0) & Q(videos__isnull=False)) |
+                (Q(count_links__gt=0) & Q(count_images__gt=0)) |
+                (Q(count_textlength__gt=0) & Q(videos__isnull=False)) |
+                (Q(count_textlength__gt=0) & Q(count_images__gt=0)) |
+                (Q(videos__isnull=False) & Q(count_images__gt=0))
+            )
     elif widget.default_title == 'Optimal post length':
         posts = posts_account.filter(Q(count_textlength__gte=first_value[0]) & Q(count_textlength__lte=(first_value[1] if first_value[0] != '140' else 10000)))
     elif widget.default_title == 'Optimal post time':
@@ -105,7 +106,7 @@ def interactive_widgets(request, project_pk, widget_pk):
         elif first_value[0] == '3-4 hashtags':
             posts = posts_account.filter(Q(count_hashtags=3) | Q(count_hashtags=4))
         elif first_value[0] == '5+ hashtags':
-            posts = posts_account.filter(count_hashtags_gte=5) 
+            posts = posts_account.filter(count_hashtags_gte=5)
     elif widget.default_title == 'Mention sentiment':
         posts = posts_mentions.filter(sentiment=first_value[0].lower())
     elif widget.default_title == 'Average engagements by day':
@@ -115,25 +116,25 @@ def interactive_widgets(request, project_pk, widget_pk):
     elif widget.default_title == 'Audience mention time':
         posts = posts_mentions.filter(date__week_day=weekDays[first_value[0]]).filter(date__hour=second_value[0])
     posts = posts.values(
-                          'id',
-                          'post_id',
-                          'user_name',
-                          'user_alias',
-                          'text',
-                          'sentiment',
-                          'date',
-                          'user_location',
-                          'language',
-                          'count_favorites',
-                          'count_totalretweets',
-                          'count_replies',
-                          'user_picture',
-                          'images',
-                        )
+        'id',
+        'post_id',
+        'user_name',
+        'user_alias',
+        'text',
+        'sentiment',
+        'date',
+        'country',
+        'language',
+        'count_favorites',
+        'count_totalretweets',
+        'count_replies',
+        'user_picture',
+        'images',
+    )
     posts = list(posts)
     for p in posts:
         p['link'] = f'https://twitter.com/user/status/{p["post_id"]}'
     p = Paginator(posts, posts_per_page)
-    posts_list=list(p.page(page_number))
-    res = { 'num_pages': p.num_pages, 'num_posts': p.count, 'posts': posts_list }
-    return JsonResponse(res, safe = False)
+    posts_list = list(p.page(page_number))
+    res = {'num_pages': p.num_pages, 'num_posts': p.count, 'posts': posts_list}
+    return JsonResponse(res, safe=False)

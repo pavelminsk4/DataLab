@@ -28,7 +28,7 @@ export default {
         .map((project) => project.data)
         .flat()
 
-      return getUniqueColors(locations, 'user_location')
+      return getUniqueColors(locations, 'country')
     },
     widgetData() {
       const {widgetData} = this.widgetDetails
@@ -48,10 +48,10 @@ export default {
                 Math.trunc((location.locations_count / totalValues) * 100),
               ],
               tooltipValue: location.locations_count,
-              backgroundColor: this.itemsColors.get(location.user_location),
+              backgroundColor: this.itemsColors.get(location.country),
               borderRadius: 12,
               barThickness: 'flex',
-              label: location.user_location || 'No location',
+              label: location.country || 'USA',
             }
           })
         )

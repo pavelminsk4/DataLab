@@ -3,6 +3,7 @@ from tweet_binder.models import TweetBinderPost
 from django.db.models import Sum
 from django.http import JsonResponse
 
+
 def mention_summary(pk, widget_pk):
     posts, project, widget = filter_for_mentions_posts(pk, widget_pk)
     user_post = TweetBinderPost.objects.filter(user_alias=project.profile_handle).last()
@@ -13,7 +14,7 @@ def mention_summary(pk, widget_pk):
         elif post.sentiment == 'negative':
             negative += 1
         elif post.sentiment == 'neutral':
-            neutral += 1 
+            neutral += 1
     res = {
         'user_name': user_post.user_name,
         'user_picture': user_post.user_picture,
@@ -21,11 +22,11 @@ def mention_summary(pk, widget_pk):
         'user_bio': user_post.user_bio,
         'user_value': user_post.user_value,
         'verified': user_post.user_verified,
-        'location': user_post.user_location,
+        'location': user_post.country,
         'stats': {
             'mention': posts.count(),
             'language': posts.values('language').distinct().count(),
-            'countries': posts.values('user_location').distinct().count(),
+            'countries': posts.values('country').distinct().count(),
             'authors': posts.values('user_alias').distinct().count(),
             'neutral': neutral,
             'negative': negative,

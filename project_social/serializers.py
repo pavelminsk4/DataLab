@@ -95,7 +95,7 @@ class TweetBinderPostAuthorSerializer(serializers.ModelSerializer):
 class TweetBinderPostLocationSerializer(serializers.ModelSerializer):
     class Meta:
         model  = TweetBinderPost
-        fields = ['user_location']
+        fields = ['country']
 
 
 class TweetBinderPostLanguageSerializer(serializers.ModelSerializer):

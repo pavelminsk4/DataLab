@@ -8,7 +8,8 @@ from django.db.models import Count
 def top_locations(pk, widget_pk):
     posts, widget = project_posts_filter(pk, widget_pk)
     res = calculate_for_top_locations(posts, widget.aggregation_period, widget.top_counts)
-    return JsonResponse(res, safe = False)
+    return JsonResponse(res, safe=False)
+
 
 def top_locations_report(pk, widget_pk, name_widget):
     posts, widget = project_posts_filter(pk, widget_pk)
@@ -18,10 +19,11 @@ def top_locations_report(pk, widget_pk, name_widget):
         'module_name': 'Social'
     }
 
+
 def calculate_for_top_locations(posts, aggregation_period, top_counts):
-    results = list(posts.annotate(date_trunc=trunc('date', aggregation_period)).values('user_location').annotate(locations_count=Count('user_location')).order_by('-locations_count')[:top_counts])
+    results = list(posts.annotate(date_trunc=trunc('date', aggregation_period)).values('country').annotate(locations_count=Count('country')).order_by('-locations_count')[:top_counts])
     for res in results:
-        if not res['user_location']:
+        if not res['country']:
             results.remove(res)
     return results
 
@@ -30,5 +32,5 @@ def to_csv(request, pk, widget_pk):
     posts, widget = project_posts_filter(pk, widget_pk)
     result = calculate_for_top_locations(posts, widget.aggregation_period, widget.top_counts)
     fields = ['Location', 'Count of posts']
-    rows = [[elem['user_location'], elem['locations_count']] for elem in result]
+    rows = [[elem['country'], elem['locations_count']] for elem in result]
     return fields, rows

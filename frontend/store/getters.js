@@ -207,7 +207,7 @@ export default {
         ?.map((author) => author.user_alias)
         .filter((author) => author?.trim()),
       countries: state.dimensionCountries
-        ?.map((country) => country.user_location)
+        ?.map((country) => country.country)
         .filter((country) => country?.trim()),
       languages: state.dimensionLanguages
         ?.map((language) => language.language)

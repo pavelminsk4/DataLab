@@ -8,7 +8,8 @@ from django.db.models import Count
 def sentiment_locations(pk, widget_pk):
     posts, widget = project_posts_filter(pk, widget_pk)
     res = calculate_for_sentiment_locations(posts, widget.aggregation_period, widget.top_counts)
-    return JsonResponse(res, safe = False)
+    return JsonResponse(res, safe=False)
+
 
 def sentiment_locations_report(pk, widget_pk):
     posts, widget = project_posts_filter(pk, widget_pk)
@@ -18,9 +19,10 @@ def sentiment_locations_report(pk, widget_pk):
         'module_name': 'Social'
     }
 
+
 def calculate_for_sentiment_locations(posts, aggregation_period, top_counts):
-    top_locations = posts.values('user_location').annotate(language_count=Count('user_location')).order_by('-language_count').values_list('user_location', flat=True)[:top_counts]
-    results = {location: list(posts.filter(user_location=location).annotate(date_trunc=trunc('date', aggregation_period)).values('sentiment').annotate(sentiment_count=Count('sentiment')).order_by('-sentiment_count')) for location in top_locations}
+    top_locations = posts.values('country').annotate(language_count=Count('country')).order_by('-language_count').values_list('country', flat=True)[:top_counts]
+    results = {location: list(posts.filter(country=location).annotate(date_trunc=trunc('date', aggregation_period)).values('sentiment').annotate(sentiment_count=Count('sentiment')).order_by('-sentiment_count')) for location in top_locations}
     for i in range(len(results)):
         sentiments = ['negative', 'neutral', 'positive']
         for j in range(len(results[top_locations[i]])):
@@ -30,6 +32,7 @@ def calculate_for_sentiment_locations(posts, aggregation_period, top_counts):
         for sen in sentiments:
             results[top_locations[i]].append({'sentiment_count': 0, 'sentiment': sen})
     return results
+
 
 def to_csv(request, pk, widget_pk):
     posts, widget = project_posts_filter(pk, widget_pk)
@@ -41,6 +44,6 @@ def to_csv(request, pk, widget_pk):
         for elem in array[source]:
             if elem['sentiment'] == sentiment:
                 return elem['sentiment_count']
-            
+
     rows = [[elem] + [count_of_sentiment(result, elem, sen) for sen in['negative', 'neutral', 'positive']] for elem in sources]
     return fields, rows
