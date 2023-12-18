@@ -33,7 +33,7 @@ class PreviewPosts:
         if sentiment:
             posts = self.filter_posts([Q(sentiment=sentiment) for sentiment in sentiment], posts)
         
-        return  {'posts': list(self.posts_values(posts[:25]))}
+        return  {'posts': list(self.posts_values(posts[:20]))}
     
     def filter_posts(self, filter_list, posts):
         return posts.filter(reduce(lambda x, y: x | y, filter_list))

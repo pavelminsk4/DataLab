@@ -55,7 +55,7 @@
 
     <div class="buttons">
       <BaseButton
-        v-if="moduleName === 'Social'"
+        v-if="hasPreviewPosts"
         :is-not-background="true"
         class="apply-settings"
         @click="showResults"
@@ -104,6 +104,7 @@ export default {
     moduleName: {type: String, default: 'Online'},
     isKeywordsFieldsDisable: {type: Boolean, default: false},
     isExpertModeSet: {type: Boolean, default: false},
+    hasPreviewPosts: {type: Boolean, default: false},
   },
   data() {
     return {

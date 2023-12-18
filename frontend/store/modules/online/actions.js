@@ -48,6 +48,21 @@ export default {
       commit(mutator.SET_LOADING, false)
     }
   },
+  async [action.POSTS_PREVIEW]({commit}, filters) {
+    commit(mutator.SET_LOADING, true)
+
+    const strFilters = Object.keys(filters)
+      .map((e) => filters[e].map((f) => `${e}=${f}`))
+      .filter((e) => e.length > 0)
+      .join('&')
+
+    try {
+      const response = await api.online.postsPreview(strFilters)
+      commit(mutator.SET_SEARCH_DATA, {posts: response.posts}, {root: true})
+    } finally {
+      commit(mutator.SET_LOADING, false)
+    }
+  },
 
   async [action.CREATE_WORKSPACE]({commit}, workspace) {
     commit(mutator.SET_LOADING, true)

@@ -58,7 +58,7 @@ class CreateAdminProjectTests(StaticLiveServerTestCase):
         self.driver.find_element(By.CLASS_NAME, 'input[name="keywords"]').send_keys(Keys.ENTER)
         self.wait.until(expect.element_to_be_clickable((By.NAME, 'checkbox-rss'))).click()
 
-        self.wait.until(expect.element_to_be_clickable((By.CLASS_NAME, 'base-button'))).click()
+        self.wait.until(expect.element_to_be_clickable((By.XPATH, '//div[text()="Save Project"]'))).click()
         self.wait.until(expect.visibility_of_element_located((By.XPATH, '//*[text()="Save confirmation"]')))
         self.wait.until(expect.element_to_be_clickable((By.XPATH, '//div[text()="Continue"]'))).click()
 

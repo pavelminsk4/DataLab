@@ -56,39 +56,30 @@
     class="date-picker"
   />
 
-  <div class="radio-wrapper">
-    <CustomText tag="div" text="Sentiment" class="second-title" />
-    <BaseRadio
+  <div class="sentiments-wrapper">
+    <CustomText tag="span" text="Sentiment" class="second-title" />
+    <BaseCheckbox
       v-for="(item, index) in sentiments"
       :key="item + index"
       v-model="selectedValueProxy"
-      :checked="item"
-      :id="item + index"
       :value="item"
-      :label="item"
-      class="radio-btn"
+      :has-icon="false"
+      :id="item"
+      :class="['checkbox', isSelectedItem(item) && 'active']"
     >
       <component
         :is="item + 'Icon'"
-        :class="['radio-icon', selectedValueProxy === item && item + '-item']"
+        :class="['sentiment-icon', isSelectedItem(item) && item + '-item']"
       />
-    </BaseRadio>
-
-    <BaseRadio
-      v-model="selectedValueProxy"
-      checked="All sentiments"
-      id="allSentiments"
-      value="All sentiments"
-      label="All sentiments"
-      class="radio-btn"
-    />
+      <CustomText :text="item" />
+    </BaseCheckbox>
   </div>
 </template>
 
 <script>
 import {mapActions, mapGetters, createNamespacedHelpers} from 'vuex'
 import {action, get} from '@store/constants'
-import {capitalizeFirstLetter, isAllFieldsEmpty} from '@lib/utilities'
+import {isAllFieldsEmpty} from '@lib/utilities'
 
 import CustomText from '@components/CustomText'
 import BaseRadio from '@components/BaseRadio'
@@ -143,8 +134,8 @@ export default {
     return {
       selectedSources: [],
       mainSourcesList: ['RSS', 'Talkwalker'],
-      sentiments: ['Negative', 'Neutral', 'Positive'],
-      selectedValue: '',
+      sentiments: ['negative', 'neutral', 'positive'],
+      selectedValue: null,
       clearValue: false,
       search: {
         country: '',
@@ -186,20 +177,13 @@ export default {
     },
     selectedValueProxy: {
       get() {
-        return (
-          this.selectedValue ||
-          capitalizeFirstLetter(this.currentProject.sentiment_filter)
-        )
+        return this.selectedValue || this.currentProject?.sentiment_filter || []
       },
-      set(sentiment) {
-        this.selectedValue = sentiment
-        if (sentiment === 'All sentiments') {
-          this[action.UPDATE_ADDITIONAL_FILTERS]({sentiment: null})
-        } else {
-          this[action.UPDATE_ADDITIONAL_FILTERS]({
-            sentiment: this.selectedValue?.toLocaleLowerCase(),
-          })
-        }
+      set(value) {
+        this.selectedValue = value
+        this[action.UPDATE_ADDITIONAL_FILTERS]({
+          sentiment: this.selectedValue,
+        })
       },
     },
   },
@@ -343,15 +327,35 @@ export default {
   color: var(--typography-primary-color);
 }
 
-.radio-wrapper {
+.sentiments-wrapper {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  gap: 12px;
 
   width: 408px;
   margin: 40px 0 25px;
 
-  .radio-icon {
+  .checkbox {
+    display: flex;
+    align-items: center;
+
+    padding: 12px;
+
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .active {
+    background: #fcedf3;
+    border: 1px solid var(--border-active-color);
+  }
+  .sentiment-icon {
     margin-right: 4px;
   }
 }
