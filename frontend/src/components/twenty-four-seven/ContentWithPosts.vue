@@ -1,7 +1,7 @@
 <template>
   <section class="view-content-wrapper scroll">
     <TFSPostCard
-      :postDetails="post.online_post"
+      :postDetails="post.post"
       :is-back="post.is_back"
       :card-status="post.status"
       :item-id="post.id"
@@ -24,7 +24,7 @@
         v-else
         v-for="(item, index) in relatedContent"
         :key="'related' + index"
-        :postDetails="item.online_post"
+        :postDetails="item.post"
         :is-back="item.is_back"
         :card-status="item.status"
         :item-id="item.id"
