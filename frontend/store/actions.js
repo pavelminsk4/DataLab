@@ -105,7 +105,6 @@ export default {
   },
 
   async [action.CHANGE_ONLINE_POST_SENTIMENT](
-    _context,
     {commit},
     {postId, departmentId, newSentiment}
   ) {
@@ -122,7 +121,6 @@ export default {
   },
 
   async [action.CHANGE_SOCIAL_POST_SENTIMENT](
-    _context,
     {commit},
     {postId, departmentId, newSentiment}
   ) {

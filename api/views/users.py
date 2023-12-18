@@ -31,6 +31,7 @@ import re
 import environ
 from functools import reduce
 from django.db.models import Q
+from common.utils.change_sentiment import ChangeSentiment
 
 env = environ.Env()
 
@@ -300,14 +301,6 @@ def change_online_sentiment(request, pk, department_pk, sentiment):
         return HttpResponse(status=406)
     return HttpResponse(status=201)
 
-
-def change_post_sentiment(post, dict_changing):
-    if post['id'] in dict_changing:
-        new_sentiment = dict_changing[post['id']]
-        post['sentiment'] = new_sentiment
-    return post
-
-
 def change_post_source_name(post):
     src = post['feedlink__source1']
     post['feedlink__source1'] = src if '<img' not in str(src) else re.findall('alt="(.*)"', src)[0]
@@ -355,11 +348,9 @@ def project_posts(request, pk):
     posts = posts_values(posts)
     p = Paginator(posts, posts_per_page)
     posts_list = list(p.page(page_number))
-    department_changing = ChangingOnlineSentiment.objects.filter(department_id=dep_id).values()
-    dict_changing = {x['post_id']: x['sentiment'] for x in department_changing}
     themes = MlCategory.objects.all()
+    posts_list = ChangeSentiment(dep_id, posts_list).execute()
     for post in posts_list:
-        post = change_post_sentiment(post, dict_changing)
         post = change_post_source_name(post)
         post = add_post_category(post, themes)
     res = {'num_pages': p.num_pages, 'num_posts': p.count, 'posts': posts_list}
@@ -394,13 +385,6 @@ def filter_with_dimensions(posts, body):
         posts = posts.filter(reduce(lambda x, y: x | y, [Q(sentiment=sentiment) for sentiment in sentiment_dimensions]))
 
     return posts
-
-
-def change_post_sentiment(post, dict_changing):
-    if post['id'] in dict_changing:
-        new_sentiment = dict_changing[post['id']]
-        post['sentiment'] = new_sentiment
-    return post
 
 
 def filter_with_constructor(body, posts):

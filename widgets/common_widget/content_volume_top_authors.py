@@ -3,7 +3,6 @@ from .project_posts_filter import project_posts_filter
 from django.forms.models import model_to_dict
 from django.http import JsonResponse
 from project.models import Project
-import json
 import re
 
 

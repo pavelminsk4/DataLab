@@ -1,7 +1,8 @@
 from expert_filters.services.social_expert_presets import SocialExpertPresets
+from project_social.models import ChangingTweetbinderSentiment
+from common.utils.change_sentiment import ChangeSentiment
 from project_social.social_parser import SocialParser
 from project_social.models import ProjectSocial
-from project_social.models import ChangingTweetbinderSentiment
 from tweet_binder.models import TweetBinderPost
 
 from django.core.paginator import Paginator
@@ -10,13 +11,7 @@ from django.db.models import Q
 import json
 
 
-class SocialSearchService:
-    def change_tweet_post_sentiment(self, post, dict_changing):
-        if post['id'] in dict_changing:
-            new_sentiment = dict_changing[post['id']]
-            post['sentiment'] = new_sentiment
-        return post
-    
+class SocialSearchService:    
     def keywords_posts(self, keys, posts):
         keys = [f'%%{key.upper()}%%' for key in keys]
         posts = posts.extra(where=[
@@ -134,11 +129,8 @@ class SocialSearchService:
         posts               = self.posts_values(posts)
         p                   = Paginator(posts, posts_per_page)
         posts_list          = list(p.page(page_number))
-        department_changing = ChangingTweetbinderSentiment.objects.filter(department_id=department_id).values()
-        dict_changing       = {x['tweet_post_id']: x['sentiment'] for x in department_changing}
-
+        posts_list          = ChangeSentiment(department_id, posts_list, ChangingTweetbinderSentiment).execute()
         for post in posts_list:
             post['link'] = f'https://twitter.com/user/status/{post["post_id"]}'
-            post = self.change_tweet_post_sentiment(post, dict_changing)
 
         return {'num_pages': p.num_pages, 'num_posts': p.count, 'posts': posts_list}

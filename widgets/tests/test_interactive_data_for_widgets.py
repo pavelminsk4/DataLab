@@ -1,3 +1,5 @@
+from common.factories.change_sentiment.change_sentiment import ChangingOnlineSentimentFactory
+from common.factories.department import DepartmentFactory
 from common.factories.feedlink import FeedlinkFactory
 from common.factories.project import ProjectFactory
 from common.factories.speech import SpeechFactory
@@ -7,6 +9,7 @@ from project.models import Project
 from rest_framework import status
 from project.models import Post
 import json
+from common.factories.user import UserFactory
 
 
 class InteractiveWidgetsTests(APITestCase):

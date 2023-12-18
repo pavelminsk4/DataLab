@@ -195,7 +195,7 @@ class SocialClippingWidget(models.Model):
 class ChangingTweetbinderSentiment(models.Model):
     sentiment  = models.CharField('sentiment', max_length=10)
     department = models.ForeignKey('accounts.department', on_delete=models.CASCADE)
-    tweet_post = models.ForeignKey(TweetBinderPost, on_delete=models.CASCADE)
+    post = models.ForeignKey(TweetBinderPost, on_delete=models.CASCADE)
 
     def ___str__(self):
         return self.sentiment
