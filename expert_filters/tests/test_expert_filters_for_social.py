@@ -71,7 +71,8 @@ class TestSocialExpertFilters(APITestCase):
                         'count_totalretweets': 13,
                         'count_replies': 1994,
                         'user_picture': None,
-                        'images': None
+                        'images': None,
+                        'count_tweetvalue': None,
                     }
                 ]
         }
