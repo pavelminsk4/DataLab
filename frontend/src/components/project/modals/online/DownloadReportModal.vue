@@ -213,13 +213,11 @@ export default {
 
       try {
         this[action.UPDATE_PROJECT]({
-          projectId: this.projectId,
-          data: {
-            report_template: this.template.id,
-            report_format: this.selectedFormatProxy,
-            report_language: this.selectedLanguageProxy,
-            ...this.layoutKeys,
-          },
+          project_pk: this.projectId,
+          report_template: this.template.id,
+          report_format: this.selectedFormatProxy,
+          report_language: this.selectedLanguageProxy,
+          ...this.layoutKeys,
         })
       } catch (e) {
         console.error(e)

@@ -83,8 +83,8 @@ export default {
     updateProject(data) {
       try {
         this[action.UPDATE_PROJECT]({
-          projectId: this.currentProject?.id,
-          data,
+          project_pk: this.currentProject?.id,
+          ...data,
         })
 
         this[action.CLEAR_STATE]()

@@ -254,8 +254,8 @@ export default {
 
     async addExpertFilterToProject(presets) {
       await this[action.UPDATE_PROJECT]({
-        projectId: this.currentProject?.id,
-        data: {expert_presets: presets},
+        expert_presets: presets,
+        project_pk: this.currentProject?.id,
       })
 
       this.toggleWidgetsModal('isOpenExpertFilterModal')
@@ -263,8 +263,8 @@ export default {
 
     async clearAllPresets() {
       await this[action.UPDATE_PROJECT]({
-        projectId: this.currentProject?.id,
-        data: {expert_presets: []},
+        expert_presets: [],
+        project_pk: this.currentProject?.id,
       })
     },
 
@@ -273,8 +273,8 @@ export default {
       const remainingPresets = presetsIds.filter((id) => id !== presetId)
 
       await this[action.UPDATE_PROJECT]({
-        projectId: this.currentProject?.id,
-        data: {expert_presets: remainingPresets},
+        expert_presets: remainingPresets,
+        project_pk: this.currentProject?.id,
       })
     },
 

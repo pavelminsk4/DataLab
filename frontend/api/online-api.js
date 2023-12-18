@@ -41,8 +41,8 @@ export default {
     return fetch('post', '/projects/', newProject)
   },
 
-  async updateProject({projectId, data}) {
-    return fetch('patch', `/projects/${projectId}/`, data)
+  async updateProject(data) {
+    return fetch('patch', `/projects/${data.project_pk}/`, data)
   },
 
   async getListOfDisplayedWidgets(projectId) {

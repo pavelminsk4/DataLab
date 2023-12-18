@@ -189,13 +189,13 @@ export default {
     }
   },
 
-  async [action.UPDATE_PROJECT]({dispatch, commit}, {projectId, data}) {
+  async [action.UPDATE_PROJECT]({dispatch, commit}, data) {
     commit(mutator.SET_LOADING, true)
     try {
-      await api.online.updateProject({projectId, data})
-      await dispatch(action.GET_WORKSPACES)
+      await api.online.updateProject(data)
+      await dispatch(action.GET_PROJECT, data.project_pk)
       await dispatch(action.POST_SEARCH, {
-        sort_posts: data.sort_posts,
+        sort_posts: data.sort_posts || [],
         project_pk: data.project_pk,
         posts_per_page: 20,
         page_number: 1,
