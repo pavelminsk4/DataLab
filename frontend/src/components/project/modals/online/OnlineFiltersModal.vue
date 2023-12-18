@@ -32,14 +32,12 @@ export default {
     async saveChanges() {
       try {
         await this[action.UPDATE_PROJECT]({
-          projectId: this.projectId,
-          data: {
-            sentiment_dimensions: this.selectedFilters.sentiments,
-            author_dimensions: this.selectedFilters.authors,
-            country_dimensions: this.selectedFilters.countries,
-            language_dimensions: this.selectedFilters.languages,
-            source_dimensions: this.selectedFilters.sources,
-          },
+          project_pk: this.projectId,
+          sentiment_dimensions: this.selectedFilters.sentiments,
+          author_dimensions: this.selectedFilters.authors,
+          country_dimensions: this.selectedFilters.countries,
+          language_dimensions: this.selectedFilters.languages,
+          source_dimensions: this.selectedFilters.sources,
         })
 
         this.$emit('update-search-results')
