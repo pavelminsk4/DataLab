@@ -1,6 +1,32 @@
 <template>
   <div class="control-panel">
     <div class="filter-buttons">
+      <BaseDropdown name="sort-posts" class="sorting-dropdown">
+        <template #selectedValue>
+          <div class="sorting-dropdown-title">
+            <component
+              :is="`${sortIcon.name}Icon`"
+              :direction="sortIcon.direction"
+              class="icon"
+            />
+            {{ sortingValue }}
+          </div>
+        </template>
+        <div
+          v-for="(item, index) in sortingList"
+          :key="item.value + index"
+          class="sorting-item"
+          @click="setSortingValue(item)"
+        >
+          <CustomText :text="item.name" class="sorting-name" />
+          <component
+            :is="`${item.icon}Icon`"
+            :direction="item.direction"
+            class="icon"
+          />
+        </div>
+      </BaseDropdown>
+
       <div
         v-for="(item, index) in filtersList"
         :key="item + index"
@@ -43,6 +69,7 @@ import ExpertFilterIcon from '@components/icons/ExpertFilterIcon'
 import BaseButton from '@components/common/BaseButton'
 import BaseButtonSpinner from '@components/BaseButtonSpinner'
 import ReportsUploadIcon from '@components/icons/ReportsUploadIcon'
+import BaseDropdown from '@components/BaseDropdown'
 
 export default {
   name: 'SocialDashboardControlPanel',
@@ -56,9 +83,16 @@ export default {
     ReportsUploadIcon,
     FiltersIcon,
     ExpertFilterIcon,
+    BaseDropdown,
   },
   props: {
     downloadingInstantReport: {type: Boolean, default: false},
+  },
+  data() {
+    return {
+      sortIcon: {name: 'Sort', derection: ''},
+      sortingValue: 'Latest',
+    }
   },
   computed: {
     filtersList() {
@@ -79,10 +113,32 @@ export default {
         },
       ]
     },
+    sortingList() {
+      return [
+        {
+          value: 'potential_reach_desc',
+          name: 'Potential Reach',
+          icon: 'ArrowLong',
+        },
+        {
+          value: 'potential_reach',
+          name: 'Potential Reach',
+          icon: 'ArrowLong',
+          direction: 'top',
+        },
+      ]
+    },
     downloadReportButtonIcon() {
       return this.downloadingInstantReport
         ? 'BaseButtonSpinner'
         : 'ReportsUploadIcon'
+    },
+  },
+  methods: {
+    setSortingValue(sortValue) {
+      this.sortIcon = {name: sortValue.icon, direction: sortValue.direction}
+      this.sortingValue = sortValue.name
+      this.$emit('set-sorting-value', sortValue.value)
     },
   },
 }
@@ -134,6 +190,50 @@ export default {
         margin-right: 10px;
       }
     }
+  }
+}
+.sorting-dropdown {
+  padding: 4px 8px;
+
+  border-radius: 12px;
+  background-color: var(--sorting-background-primary-color);
+
+  .sorting-dropdown-title {
+    display: flex;
+    align-items: center;
+
+    gap: 4px;
+    margin-right: 4px;
+
+    color: var(--sorting-primary-color);
+  }
+
+  .icon {
+    color: var(--sorting-primary-color);
+  }
+
+  .sorting-item {
+    display: flex;
+    align-items: center;
+
+    &:hover {
+      color: var(--sorting-primary-color);
+      background-color: var(--sorting-background-primary-color);
+
+      .sorting-name {
+        color: var(--sorting-primary-color);
+        background-color: var(--sorting-background-primary-color);
+      }
+    }
+  }
+}
+</style>
+
+<style lang="scss">
+.sorting-dropdown .container-placeholder {
+  .title,
+  .arrow-down {
+    color: var(--sorting-primary-color);
   }
 }
 </style>

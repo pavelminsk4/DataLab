@@ -123,7 +123,7 @@ class SearchTwitterPostsTests(APITestCase):
     def test_search_with_keywords(self):
         self.db_seeder()
         data = copy.deepcopy(load)
-        data['project_pk'] = ProjectSocial.objects.first().id
+        data['project_pk'] = self.project.id
         data['keywords'] = ['second']
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -142,7 +142,7 @@ class SearchTwitterPostsTests(APITestCase):
     def test_search_by_language(self):
         self.db_seeder()
         data = copy.deepcopy(load)
-        data['project_pk'] =self.project.id
+        data['project_pk'] = self.project.id
         data['keywords'] = ['4']
         data['language'] = ['Arabic']
         response = self.client.post(url, data, format='json')
