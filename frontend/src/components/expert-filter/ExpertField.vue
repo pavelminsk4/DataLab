@@ -134,6 +134,10 @@ export default {
         return
       }
 
+      if (event.keyCode === 8 && !rowLength && rowNumber === 1) {
+        event.preventDefault()
+      }
+
       if (event.keyCode === 46) {
         const endOffset = window.getSelection().getRangeAt(0).endOffset
         const nextRowLength = event.target.querySelector(
