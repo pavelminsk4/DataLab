@@ -7,6 +7,6 @@ from django.urls import reverse
 class AISummaryTests(APITestCase):
     def test_ai_summary_endpoint(self):
         item = ItemFactory()
-        url = reverse('twenty_four_seven:summary', kwargs={'item_pk': item.pk})
-        response = self.client.get(url)
+        response = self.client.get(f'/api/twenty_four_seven/summary/{item.id}/')
+
         self.assertEqual(response.status_code, status.HTTP_200_OK)

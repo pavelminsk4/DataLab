@@ -2,7 +2,7 @@ from deep_translator import GoogleTranslator
 import nltk
 
 
-def translate_long_text(text, target):
+def translate(text, target):
     if len(text) >= 5000:
         sentences = nltk.tokenize.sent_tokenize(text)
         text = ''
