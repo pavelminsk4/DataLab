@@ -109,6 +109,9 @@ class TweetBinderPost(models.Model):
 
     class Meta:
         indexes = [
+            models.Index(fields=['user_alias']),
+            models.Index(fields=['country']),
+            models.Index(fields=['language']),
             models.Index(fields=['date']),
             GinIndex(
                 OpClass(Upper('text'), name='gin_trgm_ops'),
