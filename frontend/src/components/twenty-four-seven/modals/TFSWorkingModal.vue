@@ -98,7 +98,7 @@ export default {
       return this.activeTab === 'Summary' || this.activeTab === 'Q&A Check'
     },
     phoneNumbers() {
-      return this.currentProject.wa_recipient
+      return this.currentProject?.wa_recipient
     },
   },
   created() {

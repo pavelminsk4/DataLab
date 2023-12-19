@@ -3,7 +3,7 @@
     <div class="item">
       <div class="title"><PostStoryReportIcon /><CustomText text="Post" /></div>
       <div class="post-title">
-        {{ post.online_post.entry_title }}
+        {{ post.post.entry_title }}
       </div>
     </div>
 
@@ -15,12 +15,8 @@
       </div>
     </div>
 
-    <a
-      class="summary link"
-      :href="post.online_post.entry_links_href"
-      target="_blank"
-    >
-      {{ post.online_post.feedlink__sourceurl }}
+    <a class="summary link" :href="post.post.entry_links_href" target="_blank">
+      {{ post.post.feedlink__sourceurl }}
     </a>
 
     <div class="item">
@@ -114,17 +110,15 @@ export default {
 
       return linkedItems.map((element) => {
         return {
-          link: element.online_post.entry_links_href,
-          linkName: element.online_post.feedlink__sourceurl,
+          link: element.post.entry_links_href,
+          linkName: element.post.feedlink__sourceurl,
         }
       })
     },
     messageContent() {
-      return `${this.post.online_post.feedlink__sourceurl} ${
-        this.post?.header
-      } ${this.post?.text} ${this.relatedLinks
-        .map((link) => link.link)
-        .join(' ')}`
+      return `${this.post.post.feedlink__sourceurl} ${this.post?.header} ${
+        this.post?.text
+      } ${this.relatedLinks.map((link) => link.link).join(' ')}`
     },
     isWhatsappFieldsShow() {
       return this.post.status === PUBLISHING

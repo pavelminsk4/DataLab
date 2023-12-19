@@ -94,7 +94,7 @@ export default {
       newText: null,
       isFieldClear: true,
       loadingTranslation: false,
-      newSelectedLanguage: this.post.online_post.feed_language__language,
+      newSelectedLanguage: this.post.post.feed_language__language,
     }
   },
   computed: {
@@ -112,11 +112,7 @@ export default {
     header: {
       get() {
         if (this.newHeader === '') return this.newHeader
-        return (
-          this.newHeader ||
-          this.post.header ||
-          this.post.online_post.entry_title
-        )
+        return this.newHeader || this.post.header || this.post.post.entry_title
       },
       set(value) {
         this.newHeader = value
@@ -125,7 +121,7 @@ export default {
     text: {
       get() {
         if (this.newText === '') return this.newText
-        return this.newText || this.post.text || this.post.online_post.full_text
+        return this.newText || this.post.text || this.post.post.full_text
       },
       set(value) {
         this.newText = value

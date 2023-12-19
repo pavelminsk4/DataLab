@@ -53,19 +53,18 @@ export default {
   computed: {
     ...mapState(['textTranslation']),
     title() {
-      return this.textTranslation?.title || this.post.online_post.entry_title
+      return this.textTranslation?.title || this.post.post.entry_title
     },
     description() {
       return (
         this.textTranslation?.text ||
-        this.post.online_post.full_text ||
+        this.post.post.full_text ||
         'Original content is available via link in post!'
       )
     },
     isArabicLanguage() {
       if (
-        this.post.online_post.feed_language__language ===
-          LANGUAGES_NAMES.ARABIC &&
+        this.post.post.feed_language__language === LANGUAGES_NAMES.ARABIC &&
         this.selectedLanguage !== LANGUAGES_NAMES.ENGLISH
       )
         return true

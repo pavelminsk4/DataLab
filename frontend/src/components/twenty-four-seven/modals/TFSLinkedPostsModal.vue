@@ -8,7 +8,7 @@
       <TFSPostCard
         v-for="postInfo in publishingPosts"
         :key="postInfo.id"
-        :postDetails="postInfo.online_post"
+        :postDetails="postInfo.post"
         :is-back="postInfo.is_back"
         :card-status="postInfo.status"
         :item-id="postInfo.id"

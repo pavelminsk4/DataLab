@@ -1,5 +1,5 @@
 <template>
-  <MainLayout>
+  <MainLayout v-if="workspaces.length">
     <div class="features">
       <div class="features__header">
         <MainLayoutTitleBlock
@@ -59,7 +59,7 @@ export default {
   async created() {
     this[action.CLEAR_TFS_ITEMS]()
 
-    if (!this.workspaces?.length) {
+    if (!this.workspaces.length) {
       await this[action.GET_WORKSPACES]()
     }
   },

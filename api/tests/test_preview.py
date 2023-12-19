@@ -81,5 +81,5 @@ class PreviewButtonTests(StaticLiveServerTestCase):
         self.wait.until(expect.element_to_be_clickable((By.CLASS_NAME, 'base-button'))).click()
         self.wait.until(expect.element_to_be_clickable((By.XPATH, '//*[text()="Preview"]'))).click()
 
-        expect.presence_of_element_located((By.XPATH, '//a[text()="USA lalalala"]'))
+        self.wait.until(expect.presence_of_element_located((By.XPATH, '//a[text()="USA lalalala"]')))
         self.assertEqual(len(self.driver.find_elements(By.XPATH, '//a[text()="USA lalalala"]')), 1)
