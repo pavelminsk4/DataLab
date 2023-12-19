@@ -104,6 +104,7 @@ export default {
         },
         {name: 'LOCATION', value: this.postDetails.country},
         {name: 'LANGUAGE', value: this.postDetails.language},
+        {name: 'POTENTIAL REACH', value: this.postDetails.count_tweetvalue},
         {
           name: 'LikeIcon',
           value: this.postDetails.count_favorites,
