@@ -21,17 +21,14 @@ urlpatterns = [
     path('workspace/update/<int:pk>/', workspaces.WorkspaceUpdate.as_view(), name='workspace_update'),
     path('workspace/delete/<int:pk>/', workspaces.WorkspaceDelete.as_view(), name='workspace_delete'),
     path('workspace/<int:pk>', workspaces.SingleWorkspace.as_view(), name='single_workspace'),
-    # Search
+    # Search|Filters
     path('search', users.search, name='search'),
     path('projects/<int:pk>/posts', users.project_posts, name='project_posts'),
-    # Countries
-    path('countries/<str:frst_letters>', users.CountriesList.as_view(), name='countries_list'),
-    # Speeches
-    path('speeches/<str:frst_letters>', users.SpeechesList.as_view(), name='speeches_list'),
-    # Sources
-    path('sources/<str:frst_letters>', users.SourceList.as_view(), name='sources_list'),
+    path('countries', preview.CountriesList.as_view(), name='countries_list'),
+    path('speeches', preview.SpeechesList.as_view(), name='speeches_list'),
+    path('sources', preview.SourceList.as_view(), name='sources_list'),
     # Authors
-    path('authors/<str:frst_letters>', users.AuthorList.as_view(), name='authors_list'),
+    path('authors', preview.AuthorList.as_view(), name='authors_list'),
     # ClippingFeedContentWidget
     path('clipping_feed_content_widget/create', users.ClippingFeedContentWidgetCreate.as_view(), name='cl_fd_cont_widg_create'),
     path('projects/<int:proj_pk>/clipping_feed_content_widget/delete/<int:post_pk>', users.ClippingFeedContentWidgetDelete.as_view(), name='cl_fd_cont_widg_delete'),

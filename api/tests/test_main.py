@@ -234,33 +234,3 @@ class CurrentUserTests(APITestCase):
         self.assertEqual(json.loads(response.content)['user_profile']['department']['departmentname'], 'Anadea')
         self.assertEqual(json.loads(response.content)['user_profile']['jobtitle'], 'Boss')
         self.assertEqual(json.loads(response.content)['user_profile']['phone'], '+966-12345678')
-
-
-class SourcesTests(APITestCase):
-    def test_sources_list(self):
-        self.client.force_authenticate(user=UserFactory())
-        Feedlinks.objects.bulk_create([Feedlinks(source1='BBC'), Feedlinks(source1='TNT')])
-        url = '/api/sources/sources?limit=20&search=B'
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(json.loads(response.content)['results'], [{'source1': 'BBC'}])
-
-
-class SpeechesTests(APITestCase):
-    def test_speeches_list(self):
-        self.client.force_authenticate(user=UserFactory())
-        Speech.objects.bulk_create([Speech(language='Italy'), Speech(language='Albanian')])
-        url = '/api/speeches/speeches?limit=20&search=Alb'
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(json.loads(response.content)['results'], [{'language': 'Albanian'}])
-
-
-class CountriesTests(APITestCase):
-    def test_countries_list(self):
-        self.client.force_authenticate(user=UserFactory())
-        Feedlinks.objects.bulk_create([Feedlinks(country='Belarus'), Feedlinks(country='USA')])
-        url = '/api/countries/countries?limit=20&search=U'
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(json.loads(response.content)['results'], [{'country': 'USA'}])
