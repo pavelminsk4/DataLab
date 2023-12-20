@@ -58,4 +58,8 @@ export default {
   [mutator.SET_CLIPPING_FEED_CONTENT_WIDGET](state, {widgetId, data}) {
     state.clippingFeedContent = {id: widgetId, data}
   },
+
+  [mutator.RESET_PROJECT_STATE](state) {
+    state.currentProject = null
+  },
 }
