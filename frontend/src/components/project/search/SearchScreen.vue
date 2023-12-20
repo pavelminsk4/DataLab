@@ -191,7 +191,18 @@ export default {
         project_pk: this.currentProject.id,
       }
 
-      this.$emit('show-results', project)
+      if (this.moduleName === 'Social') {
+        this.$emit('show-results', project)
+      }
+
+      if (this.moduleName === 'Online') {
+        this.$emit('show-results', {
+          posts_per_page: numberOfPosts || 20,
+          page_number: pageNumber || 1,
+          project_pk: this.currentProject.id,
+          sort_posts: [],
+        })
+      }
     },
     saveProject() {
       if (!this.isAdmin) {
