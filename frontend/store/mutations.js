@@ -141,7 +141,7 @@ export default {
 
   [mutator.RESET_INTERACTIVE_DATA](state) {
     state.interactiveData = []
-    state.inreractiveDataModal = {isShow: false}
+    state.interactiveDataModal = {isShow: false, areResultsUpdated: false}
   },
 
   [mutator.SET_DISPLAY_CALENDAR](state, value) {
@@ -156,7 +156,7 @@ export default {
     state.interactiveData = posts
   },
   [mutator.SET_INTERACTIVE_DATA_MODAL](state, data) {
-    state.inreractiveDataModal = {...state.inreractiveDataModal, ...data}
+    state.interactiveDataModal = {...state.interactiveDataModal, ...data}
   },
 
   // Reports

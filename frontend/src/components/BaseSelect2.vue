@@ -9,7 +9,7 @@
       @click="toggle"
     >
       <div class="select__placeholder">
-        <span>{{ selectedValues || placeholder }}</span>
+        <span>{{ currentPlaceholder }}</span>
         <ArrowDownIcon />
       </div>
     </button>
@@ -47,6 +47,7 @@ export default {
     selectName: {type: String, required: true},
     itemName: {type: String, default: 'item'},
     placeholder: {type: String, default: ''},
+    isCustomSelect: {type: Boolean, default: false},
   },
   data() {
     return {
@@ -61,6 +62,11 @@ export default {
       set(val) {
         this.$emit('update:modelValue', val)
       },
+    },
+    currentPlaceholder() {
+      return this.isCustomSelect
+        ? this.placeholder
+        : this.selectedValues || this.placeholder
     },
   },
   created() {

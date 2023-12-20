@@ -38,6 +38,7 @@
           :post-details="item"
           :is-clipping-post="isClippingPost(item.id)"
           class="clipping-card"
+          @update-interactive-data="updateInteractiveData"
         />
       </div>
     </div>
@@ -56,8 +57,8 @@
 </template>
 
 <script>
-import {mapGetters, mapState} from 'vuex'
-import {get} from '@store/constants'
+import {mapGetters, mapState, mapActions} from 'vuex'
+import {get, action} from '@store/constants'
 import {capitalizeFirstLetter} from '@lib/utilities'
 
 import CustomText from '@components/CustomText'
@@ -105,6 +106,7 @@ export default {
     ...mapState(['loading']),
     ...mapGetters({
       interactiveWidgets: get.INTERACTIVE_DATA,
+      inretactiveDataModal: get.INTERACTIVE_DATA_MODAL,
     }),
     postCard() {
       if (this.moduleName === 'Comparison')
@@ -124,6 +126,7 @@ export default {
     },
   },
   methods: {
+    ...mapActions([action.UPDATE_INTERACTIVE_DATA]),
     cardImg(item) {
       let images = [
         item.entry_media_content_url,
@@ -142,6 +145,9 @@ export default {
     },
     isClippingPost(id) {
       return this.clippingContent.some((el) => el.post__id === id)
+    },
+    updateInteractiveData() {
+      this[action.UPDATE_INTERACTIVE_DATA](true)
     },
   },
 }

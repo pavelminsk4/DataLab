@@ -373,4 +373,8 @@ export default {
       commit(mutator.SET_LOADING, false)
     }
   },
+
+  async [action.CLEAR_CURRENT_PROJECT]({commit}) {
+    commit(mutator.RESET_PROJECT_STATE)
+  },
 }

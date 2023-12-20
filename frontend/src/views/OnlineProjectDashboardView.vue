@@ -56,7 +56,9 @@ export default {
     },
   },
   async created() {
-    if (this.projectId && !this.workspaces.length) {
+    this[action.CLEAR_CURRENT_PROJECT]()
+
+    if (this.projectId !== this.project?.id || !this.workspaces.length) {
       this[action.GET_PROJECT](this.projectId)
     }
 
@@ -75,7 +77,11 @@ export default {
     await this[action.GET_AVAILABLE_WIDGETS](this.projectId)
   },
   methods: {
-    ...mapActions([action.GET_PROJECT, action.GET_AVAILABLE_WIDGETS]),
+    ...mapActions([
+      action.GET_PROJECT,
+      action.GET_AVAILABLE_WIDGETS,
+      action.CLEAR_CURRENT_PROJECT,
+    ]),
     openTab(pathName) {
       this.$router.push({
         name: pathName,

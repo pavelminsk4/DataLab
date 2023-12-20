@@ -26,7 +26,11 @@
     </template>
 
     <template v-for="{name, listName} in searchFields" :key="name">
-      <CustomText :text="name" class="second-title" />
+      <CustomText
+        v-if="!isCurrentProjectCreated"
+        :text="name"
+        class="second-title"
+      />
 
       <FilterChips
         v-if="selectedFilters(name)?.length"
@@ -37,6 +41,7 @@
       />
 
       <SelectWithCheckboxes
+        v-if="!isCurrentProjectCreated"
         v-model="search[name]"
         :name="name"
         :is-search="true"

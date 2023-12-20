@@ -252,7 +252,7 @@ export default {
   },
 
   [get.INTERACTIVE_DATA_MODAL](state) {
-    return state.inreractiveDataModal
+    return state.interactiveDataModal
   },
 
   [get.ALL_WORKSPACES](state) {

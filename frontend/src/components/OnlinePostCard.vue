@@ -141,6 +141,8 @@ export default {
         postId: this.postDetails.id,
         projectId: this.projectId,
       })
+
+      this.$emit('update-interactive-data')
     },
   },
 }

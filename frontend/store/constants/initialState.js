@@ -151,8 +151,9 @@ export default {
   newProject: {...newProjectInitialState},
 
   isShowCalendarContents: false,
-  inreractiveDataModal: {
+  interactiveDataModal: {
     isShow: false,
+    areResultsUpdated: false,
   },
   companyUsers: [],
   interactiveData: [],

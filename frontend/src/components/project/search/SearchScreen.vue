@@ -193,6 +193,7 @@ export default {
 
       this.$emit('show-results', project)
     },
+
     saveProject() {
       if (!this.isAdmin) {
         this.updateProjectData()

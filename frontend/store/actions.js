@@ -278,6 +278,10 @@ export default {
     }
   },
 
+  async [action.UPDATE_INTERACTIVE_DATA]({commit}, areResultsUpdated) {
+    commit(mutator.SET_INTERACTIVE_DATA_MODAL, {areResultsUpdated})
+  },
+
   async [action.UPDATE_PROJECT_STATE]({commit}, newProject) {
     commit(mutator.SET_NEW_PROJECT, newProject)
   },

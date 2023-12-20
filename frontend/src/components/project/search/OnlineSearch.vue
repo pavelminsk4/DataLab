@@ -75,7 +75,12 @@ export default {
     ...mapOnlineWidgetsActions([action.GET_CLIPPING_FEED_CONTENT_WIDGET]),
     showResults(filters) {
       try {
-        this[action.POST_SEARCH](filters)
+        this[action.POST_SEARCH]({
+          posts_per_page: filters.numberOfPosts || 20,
+          page_number: filters.pageNumber || 1,
+          project_pk: this.currentProject.id,
+          sort_posts: [],
+        })
       } catch (e) {
         console.error(e)
       }

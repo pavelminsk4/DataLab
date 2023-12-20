@@ -73,8 +73,13 @@ export default {
     projectId: {type: [Number, String], required: false},
     widgetId: {type: [Number, String], required: false},
   },
+  data() {
+    return {
+      interactiveDetails: {},
+    }
+  },
   computed: {
-    ...mapState(['loading', 'widgets']),
+    ...mapState(['loading', 'widgets', 'interactiveDataModal']),
     endOfTheDate() {
       return {
         Hour: (date) => {
@@ -102,10 +107,11 @@ export default {
   methods: {
     capitalizeFirstLetter,
     ...mapActions([
+      action.UPDATE_INTERACTIVE_DATA,
       action.SHOW_INTERACTIVE_DATA_MODAL,
       action.POST_INTERACTIVE_WIDGETS,
     ]),
-    showIteractiveModalData(data, dataIndex) {
+    showInteractiveModalData(data, dataIndex) {
       const pages = {page_number: 1, posts_per_page: 4}
 
       if (this.widgetDetails.currentModule === 'Comparison') {
@@ -187,8 +193,8 @@ export default {
         let endOfTheDay = this.endOfTheDate[aggregationPeriod](
           new Date(firstValue)
         )
-        this.showIteractiveModalData(
-          {
+        const data = {
+          data: {
             first_value: Array.isArray(secondValue)
               ? secondValue
               : [secondValue],
@@ -198,20 +204,34 @@ export default {
               endOfTheDay.toLocaleString('sv-SE'),
             ],
           },
-          dataIndex
-        )
+          dataIndex,
+        }
+        this.interactiveDetails = data
+        this.showInteractiveModalData(data.data, data.dataIndex)
       } else {
-        this.showIteractiveModalData(
-          {
+        const data = {
+          data: {
             first_value: optimalPostWidgetData || [
               firstValue.replace(/ posts/gi, ''),
             ],
             second_value: [secondValue],
             dates: [],
           },
-          dataIndex
-        )
+          dataIndex,
+        }
+        this.interactiveDetails = data
+        this.showInteractiveModalData(data.data, data.dataIndex)
       }
+    },
+  },
+  watch: {
+    'interactiveDataModal.areResultsUpdated'() {
+      this.showInteractiveModalData(
+        this.interactiveDetails.data,
+        this.interactiveDetails.dataIndex
+      )
+
+      this[action.UPDATE_INTERACTIVE_DATA](false)
     },
   },
 }
