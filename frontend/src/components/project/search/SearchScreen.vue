@@ -191,19 +191,9 @@ export default {
         project_pk: this.currentProject.id,
       }
 
-      if (this.moduleName === 'Social') {
-        this.$emit('show-results', project)
-      }
-
-      if (this.moduleName === 'Online') {
-        this.$emit('show-results', {
-          posts_per_page: numberOfPosts || 20,
-          page_number: pageNumber || 1,
-          project_pk: this.currentProject.id,
-          sort_posts: [],
-        })
-      }
+      this.$emit('show-results', project)
     },
+
     saveProject() {
       if (!this.isAdmin) {
         this.updateProjectData()
