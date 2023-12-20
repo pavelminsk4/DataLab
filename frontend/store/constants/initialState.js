@@ -153,6 +153,7 @@ export default {
   isShowCalendarContents: false,
   inreractiveDataModal: {
     isShow: false,
+    areResultsUpdated: false,
   },
   companyUsers: [],
   interactiveData: [],

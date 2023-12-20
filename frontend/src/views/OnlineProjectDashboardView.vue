@@ -52,11 +52,11 @@ export default {
 
       if (!projectExists) return this.goToNotFoundPage()
 
-      return existingProject || this.project
+      return this.project || existingProject
     },
   },
   async created() {
-    if (this.projectId && !this.workspaces.length) {
+    if (this.projectId !== this.project?.id || !this.workspaces.length) {
       this[action.GET_PROJECT](this.projectId)
     }
 

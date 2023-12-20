@@ -48,12 +48,10 @@ export default {
 
       let femalesData = []
       let malesData = []
-      let noGenderTypeData = []
 
       this.currentWidgetData.forEach((el) => {
         femalesData.push(el.female)
         malesData.push(el.male)
-        noGenderTypeData.push(el.undefined)
       })
 
       return [
@@ -66,11 +64,6 @@ export default {
           label: this.translatedText('Female'),
           color: '#FD7271',
           data: femalesData,
-        },
-        {
-          label: this.translatedText('Undefined'),
-          color: '#B0B5B8',
-          data: noGenderTypeData,
         },
       ]
     },
