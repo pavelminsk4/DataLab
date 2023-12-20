@@ -14,7 +14,7 @@ export default {
   translatedText: {header: '', text: ''},
   flashMessages: [],
   flashMessagesCount: 0,
-  inreractiveDataModal: {
+  interactiveDataModal: {
     isShow: false,
     data: {},
   },

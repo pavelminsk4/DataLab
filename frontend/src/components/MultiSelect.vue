@@ -4,6 +4,7 @@
     v-bind="$attrs"
     :options="options"
     :has-error="hasError"
+    :is-custom-select="true"
     :placeholder="selectPlaceholder"
   >
     <li>

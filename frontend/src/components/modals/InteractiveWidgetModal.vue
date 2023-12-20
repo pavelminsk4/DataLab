@@ -106,7 +106,7 @@ export default {
     ...mapState(['loading']),
     ...mapGetters({
       interactiveWidgets: get.INTERACTIVE_DATA,
-      inreractiveDataModal: get.INTERACTIVE_DATA_MODAL,
+      inretactiveDataModal: get.INTERACTIVE_DATA_MODAL,
     }),
     postCard() {
       if (this.moduleName === 'Comparison')

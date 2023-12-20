@@ -1,7 +1,7 @@
 <template>
   <InteractiveWidgetModal
-    v-if="inreractiveDataModal.isShow"
-    :widget-id="inreractiveDataModal.widgetId"
+    v-if="interactiveDataModal.isShow"
+    :widget-id="interactiveDataModal.widgetId"
     :current-project="currentProject"
     :module-name="moduleName"
     :widget-details="selectedWidgets[currentWidgetIndex].widgetDetails"
@@ -88,7 +88,7 @@ export default {
   computed: {
     ...mapGetters({
       availableWidgets: get.AVAILABLE_WIDGETS,
-      inreractiveDataModal: get.INTERACTIVE_DATA_MODAL,
+      interactiveDataModal: get.INTERACTIVE_DATA_MODAL,
     }),
     displayedWidgets() {
       if (this.moduleName === 'Comparison') return this.selectedWidgets
@@ -127,10 +127,10 @@ export default {
 
     updatePageAndCountPosts(page, countPosts) {
       const interactiveValues = {
-        projectId: this.inreractiveDataModal.projectId,
-        widgetId: this.inreractiveDataModal.widgetId,
+        projectId: this.interactiveDataModal.projectId,
+        widgetId: this.interactiveDataModal.widgetId,
         data: {
-          ...this.inreractiveDataModal.data,
+          ...this.interactiveDataModal.data,
           page_number: page,
           posts_per_page: countPosts,
         },

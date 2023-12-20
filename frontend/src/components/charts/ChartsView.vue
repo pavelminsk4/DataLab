@@ -79,7 +79,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['loading', 'widgets', 'inreractiveDataModal']),
+    ...mapState(['loading', 'widgets', 'interactiveDataModal']),
     endOfTheDate() {
       return {
         Hour: (date) => {
@@ -111,7 +111,7 @@ export default {
       action.SHOW_INTERACTIVE_DATA_MODAL,
       action.POST_INTERACTIVE_WIDGETS,
     ]),
-    showIteractiveModalData(data, dataIndex) {
+    showInteractiveModalData(data, dataIndex) {
       const pages = {page_number: 1, posts_per_page: 4}
 
       if (this.widgetDetails.currentModule === 'Comparison') {
@@ -207,7 +207,7 @@ export default {
           dataIndex,
         }
         this.interactiveDetails = data
-        this.showIteractiveModalData(data.data, data.dataIndex)
+        this.showInteractiveModalData(data.data, data.dataIndex)
       } else {
         const data = {
           data: {
@@ -220,13 +220,13 @@ export default {
           dataIndex,
         }
         this.interactiveDetails = data
-        this.showIteractiveModalData(data.data, data.dataIndex)
+        this.showInteractiveModalData(data.data, data.dataIndex)
       }
     },
   },
   watch: {
-    'inreractiveDataModal.areResultsUpdated'() {
-      this.showIteractiveModalData(
+    'interactiveDataModal.areResultsUpdated'() {
+      this.showInteractiveModalData(
         this.interactiveDetails.data,
         this.interactiveDetails.dataIndex
       )
