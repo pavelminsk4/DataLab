@@ -52,7 +52,7 @@ export default {
 
       if (!projectExists) return this.goToNotFoundPage()
 
-      return this.project || existingProject
+      return existingProject || this.project
     },
   },
   async created() {

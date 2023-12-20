@@ -45,7 +45,7 @@ export default {
 
       if (!workspaceExists) return this.goToNotFoundPage()
 
-      return this.currentWorkspace || existingWorkspace
+      return existingWorkspace || this.currentWorkspace
     },
   },
   created() {
