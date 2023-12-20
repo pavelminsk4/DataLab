@@ -23,6 +23,5 @@ class AuthorsByGenderTests(APITestCase):
         res = {
                 'female': [['First_name', 1]],
                 'male': [['user_2', 1], ['user_4', 1]],
-                'undefined': []
               }
         self.assertEqual(json.loads(response.content), res)

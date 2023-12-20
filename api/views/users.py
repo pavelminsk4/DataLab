@@ -1,37 +1,41 @@
-from .. import variables
+from ..serializers import ProjectDimensionsListSerializer, DimensionsSerializer, ProjectDimensionsSerializer
+from ..serializers import AlertCreateSerializer, AlertsSerializer, RegisterSerializer, ProfileUserSerializer
+from ..serializers import WidgetsListSerializer, ClippingFeedContentWidgetSerializer
+from ..serializers import TemplatesSerializer, RegularReportCreateSerializer
+from ..serializers import UserSerializer, UserUpdateSerializer
+from ..serializers import PostsSerializer
+
 from django.shortcuts import get_object_or_404
 from django.core.paginator import Paginator
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.http import JsonResponse
-from rest_framework import viewsets, generics, filters, status
-from rest_framework.response import Response
+from django.db.models import Q
+
 from rest_framework.generics import ListAPIView, CreateAPIView, DestroyAPIView, UpdateAPIView, RetrieveAPIView, ListCreateAPIView, RetrieveUpdateAPIView
-from widgets.models import ClippingFeedContentWidget, WidgetsList2, Dimensions, ProjectDimensions
-from project.models import Project, Post, Speech, Feedlinks, ChangingOnlineSentiment, ProjectPost
-from reports.models import Templates, RegularReport
-from widgets.common_widget.filters_for_widgets import posts_aggregator, post_agregator_with_dimensions
-from alerts.models import Alert
-from accounts.models import Profile
-from deep_translator import GoogleTranslator
+from rest_framework import viewsets, generics, status
+from rest_framework.response import Response
 from rest_framework.views import APIView
-from sentence_transformers import util
-from ml_components.models import MlCategory
-from ..serializers import UserSerializer, UserUpdateSerializer
-from ..serializers import SpeechSerializer, PostsSerializer
-from ..serializers import FeedlinksSerializer, FeedlinksCountrySerializer, WidgetsListSerializer, ClippingFeedContentWidgetSerializer
-from ..serializers import ProjectDimensionsListSerializer, DimensionsSerializer, ProjectDimensionsSerializer
-from ..serializers import AlertCreateSerializer, AlertsSerializer, RegisterSerializer, ProfileUserSerializer
-from ..serializers import TemplatesSerializer, RegularReportCreateSerializer
-from rest_framework.pagination import LimitOffsetPagination
+
+from widgets.common_widget.filters_for_widgets import posts_aggregator, post_agregator_with_dimensions
+from widgets.models import ClippingFeedContentWidget, WidgetsList2, Dimensions, ProjectDimensions
+from project.models import Project, Post, ChangingOnlineSentiment, ProjectPost
+from common.utils.change_sentiment import ChangeSentiment
 from api.services.search_service import SearchService
+from reports.models import Templates, RegularReport
+from deep_translator import GoogleTranslator
+from ml_components.models import MlCategory
+from sentence_transformers import util
+from accounts.models import Profile
+from alerts.models import Alert
+from .. import variables
+
+from functools import reduce
 import numpy as np
+import environ
 import json
 import re
-import environ
-from functools import reduce
-from django.db.models import Q
-from common.utils.change_sentiment import ChangeSentiment
+
 
 env = environ.Env()
 
@@ -100,42 +104,6 @@ def classification(post, themes):
         return categories_list[int(answer)]
     else:
         return 'The post matrix was not calculated.'
-
-
-class LimitPagination(LimitOffsetPagination):
-    default_limit = 50
-
-
-class CountriesList(ListAPIView):
-    serializer_class = FeedlinksCountrySerializer
-    queryset = Feedlinks.objects.values('country').distinct()
-    pagination_class = LimitPagination
-    filter_backends = [filters.SearchFilter]
-    search_fields = ['^country']
-
-
-class SpeechesList(ListAPIView):
-    serializer_class = SpeechSerializer
-    queryset = Speech.objects.all()
-    pagination_class = LimitPagination
-    filter_backends = [filters.SearchFilter]
-    search_fields = ['^language']
-
-
-class AuthorList(ListAPIView):
-    serializer_class = PostsSerializer
-    queryset = Post.objects.values('entry_author').distinct()
-    pagination_class = LimitPagination
-    filter_backends = [filters.SearchFilter]
-    search_fields = ['^entry_author']
-
-
-class SourceList(ListAPIView):
-    serializer_class = FeedlinksSerializer
-    queryset = Feedlinks.objects.values('source1').distinct()
-    pagination_class = LimitPagination
-    filter_backends = [filters.SearchFilter]
-    search_fields = ['^source1']
 
 
 class ProjectWidgetsAPIView(RetrieveAPIView):

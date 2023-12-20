@@ -18,7 +18,7 @@ def authors_by_gender_report(pk, widget_pk):
     }
 
 def calculate_for_authors_by_gender(posts, top_counts):
-    genders = ['male', 'female', 'undefined']
+    genders = ['male', 'female']
     results = {}
     for gender in genders:
         top_authors = list(posts.filter(user_gender=gender).values('user_name').annotate(author_post=Count('id')).order_by('-author_post')[:top_counts])
@@ -30,7 +30,7 @@ def to_csv(request, pk, widget_pk):
     result = calculate_for_authors_by_gender(posts, widget.top_counts)
     fields = ['Gender', 'Author', 'Count of posts']
     rows = []
-    for sen in ['male', 'female', 'undefined']:
+    for sen in ['male', 'female']:
         for elem in result[sen]:
             rows.append([sen, elem[0], elem[1]])
     return fields, rows
