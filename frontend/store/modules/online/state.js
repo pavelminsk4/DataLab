@@ -7,10 +7,10 @@ const state = {
   newWorkspaceId: null,
   newProjectId: null,
   availableWidgets: null,
-  countries: {results: []},
-  languages: {results: []},
-  sources: {results: []},
-  authors: {results: []},
+  countries: [],
+  languages: [],
+  sources: [],
+  authors: [],
 }
 
 export default state

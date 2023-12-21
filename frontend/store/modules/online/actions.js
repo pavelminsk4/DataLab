@@ -328,9 +328,9 @@ export default {
     }
   },
 
-  async [action.GET_AUTHORS]({commit}, {word, limit}) {
+  async [action.GET_AUTHORS]({commit}, {word}) {
     try {
-      const authors = await api.online.getAuthors(word, limit)
+      const authors = await api.online.getAuthors(word)
       commit(mutator.SET_AUTHORS, authors)
       return authors
     } finally {
@@ -338,9 +338,9 @@ export default {
     }
   },
 
-  async [action.GET_SOURCES]({commit}, {word, limit}) {
+  async [action.GET_SOURCES]({commit}, {word}) {
     try {
-      const sources = await api.online.getSources(word, limit)
+      const sources = await api.online.getSources(word)
       commit(mutator.SET_SOURCES, sources)
       return sources
     } finally {
@@ -348,11 +348,10 @@ export default {
     }
   },
 
-  async [action.GET_LANGUAGES]({commit}, {word, limit}) {
+  async [action.GET_LANGUAGES]({commit}, {word}) {
     try {
       const languages = await api.online.getLanguages(
-        capitalizeFirstLetter(word),
-        limit
+        capitalizeFirstLetter(word)
       )
       commit(mutator.SET_LANGUAGES, languages)
       return languages
@@ -361,11 +360,10 @@ export default {
     }
   },
 
-  async [action.GET_COUNTRIES]({commit}, {word, limit}) {
+  async [action.GET_COUNTRIES]({commit}, {word}) {
     try {
       const countries = await api.online.getCountries(
-        capitalizeFirstLetter(word),
-        limit
+        capitalizeFirstLetter(word)
       )
       commit(mutator.SET_COUNTRIES, countries)
       return countries

@@ -15,14 +15,13 @@ import json
 class FilterTests(APITestCase):
     def test_author_filter(self):
         [PostFactory(entry_author=f'a{i}', entry_published=now()-timedelta(days=1)) for i in range(30)]
-
-        url = '/api/authors?author=a'
-        response = self.client.get(url)
+        PostFactory(entry_author=f'a1', entry_published=now()-timedelta(days=1))
+        
+        response = self.client.get('/api/authors?author=a')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(json.loads(response.content)), 20)
 
-        url = '/api/authors?author=a2'
-        response = self.client.get(url)
+        response = self.client.get('/api/authors?author=a2')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(json.loads(response.content)), 11)
 
@@ -32,13 +31,11 @@ class FilterTests(APITestCase):
         PostFactory(feed_language=language1, entry_published=now()-timedelta(days=1))
         PostFactory(feed_language=language2, entry_published=now()-timedelta(days=1))
 
-        url = '/api/speeches?language=L'
-        response = self.client.get(url)
+        response = self.client.get('/api/speeches?language=L')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(json.loads(response.content)), 2)
 
-        url = '/api/speeches?language=Latv'
-        response = self.client.get(url)
+        response = self.client.get('/api/speeches?language=Latv')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(json.loads(response.content)), 1)
         self.assertEqual(json.loads(response.content), [{'language': 'Latvian'}])
@@ -46,16 +43,16 @@ class FilterTests(APITestCase):
     def test_country_filter(self):
         country1 = FeedlinkFactory(country='USA')
         country2 = FeedlinkFactory(country='UK')
+        country3 = FeedlinkFactory(country='UK')
         PostFactory(feedlink=country1, entry_published=now()-timedelta(days=1))
         PostFactory(feedlink=country2, entry_published=now()-timedelta(days=1))
+        PostFactory(feedlink=country3, entry_published=now()-timedelta(days=1))
 
-        url = '/api/countries?country=U'
-        response = self.client.get(url)
+        response = self.client.get('/api/countries?country=U')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(json.loads(response.content)), 2)
 
-        url = '/api/countries?country=UK'
-        response = self.client.get(url)
+        response = self.client.get('/api/countries?country=UK')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(json.loads(response.content)), 1)
         self.assertEqual(json.loads(response.content), [{'country': 'UK'}])
@@ -66,13 +63,11 @@ class FilterTests(APITestCase):
         PostFactory(feedlink=source1, entry_published=now()-timedelta(days=1))
         PostFactory(feedlink=source2, entry_published=now()-timedelta(days=1))
 
-        url = '/api/sources?source=B'
-        response = self.client.get(url)
+        response = self.client.get('/api/sources?source=B')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(json.loads(response.content)), 2)
 
-        url = '/api/sources?source=BB'
-        response = self.client.get(url)
+        response = self.client.get('/api/sources?source=BB')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(json.loads(response.content)), 1)
         self.assertEqual(json.loads(response.content), [{'source1': 'BBC'}])
