@@ -1,14 +1,14 @@
 from django.urls import path
 from rest_framework_nested import routers
-from .views import items, others
+from .views import items, translator, others
 
 
 app_name = 'twenty_four_seven'
 
 urlpatterns = [
-    path('translator/', others.translator, name='translator'),
+    path('translator/', translator.translator, name='translator'),
     path('whatsapp/', others.whatsapp, name='whatsapp'),
-    path('summary/<int:item_pk>/', others.summary, name='summary'),
+    path('summary/<int:item_pk>/', translator.summary, name='summary'),
 ]
 
 router = routers.SimpleRouter()
