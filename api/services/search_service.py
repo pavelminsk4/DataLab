@@ -53,6 +53,7 @@ class SearchService:
         return {'num_pages': p.num_pages, 'num_posts': p.count, 'posts': posts_list}
 
 def default_filter(project, posts):
+    posts = posts.filter(entry_published__range=[project.start_search_date, project.end_search_date])
     if project.country_filter:
         posts = posts.filter(reduce(lambda x, y: x | y, [Q(feedlink__country=country) for country in project.country_filter]))
     if project.language_filter:

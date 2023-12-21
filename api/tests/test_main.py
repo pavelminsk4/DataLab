@@ -218,6 +218,17 @@ class SearchTests(APITestCase):
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(json.loads(response.content), {'num_pages': 1, 'num_posts': 1, 'posts': [ex1]})
+        
+
+    def test_date_range(self):
+        data = copy.deepcopy(DATA)
+        pr = Project.objects.get(id=DATA['project_pk'])
+        pr.start_search_date = '2022-09-03T06:37:00Z'
+        pr.end_search_date = '2022-09-03T23:59:59Z'
+        pr.save()
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(json.loads(response.content), {'num_pages': 1, 'num_posts': 1, 'posts': [ex1]})
 
 
 class CurrentUserTests(APITestCase):
