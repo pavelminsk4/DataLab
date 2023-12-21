@@ -54,7 +54,8 @@ export default {
     const strFilters = Object.keys(filters)
       .map((e) => filters[e].map((f) => `${e}[]=${f}`))
       .filter((e) => e.length > 0)
-      .reduce((res, e) => res + e.join('&'), '')
+      .map((e) => e.join('&'))
+      .join('&')
 
     try {
       const response = await api.online.postsPreview(strFilters)
