@@ -70,24 +70,6 @@ class TalkwalkerPost(models.Model):
 
 
 @receiver(post_save, sender='twenty_four_seven.ProjectTwentyFourSeven')
-def create_periodic_task(sender, instance, created, **kwargs):
-    if ALLOWED_HOSTS[0] != 'localhost' and created:
-        Livestream(instance.id, sender.__name__).create()
-        crontab_schedule = CrontabSchedule.objects.create(
-            minute='*/20',
-            hour='*',
-            day_of_week='*',
-            day_of_month='*',
-        )
-        PeriodicTask.objects.create(
-            crontab=crontab_schedule,
-            name=f'LiveSearch_project_{instance.id}',
-            task='talkwalker.tasks.livesearch_sender',
-            args=json.dumps([instance.id, sender.__name__]),
-        )
-
-
-@receiver(post_save, sender='twenty_four_seven.ProjectTwentyFourSeven')
 def tfs_items(sender, instance, created, **kwargs):
     if ALLOWED_HOSTS[0] != 'localhost' and created:
         crontab_schedule = CrontabSchedule.objects.create(
@@ -104,29 +86,8 @@ def tfs_items(sender, instance, created, **kwargs):
         )
 
 
-@receiver(post_save, sender='twenty_four_seven.ProjectTwentyFourSeven')
-def fetch_talkwalker_posts(sender, instance, created, **kwargs):
-    if ALLOWED_HOSTS[0] != 'localhost' and created:
-        Asker(instance.id, sender.__name__).run()
-
-
-@receiver(pre_delete, sender=Project)
-@receiver(pre_delete, sender='twenty_four_seven.ProjectTwentyFourSeven')
-def delete_livestream(sender, instance, **kwargs):
-    if ALLOWED_HOSTS[0] != 'localhost':
-        Livestream(instance.id, sender.__name__).delete()
-
-
 @receiver(pre_delete, sender='twenty_four_seven.ProjectTwentyFourSeven')
 def delete_periodic_tasks(sender, instance, **kwargs):
     if ALLOWED_HOSTS[0] != 'localhost':
         tasks = PeriodicTask.objects.filter(name=f'Attach_items_tfs_{instance.id}')
-        tasks.delete()
-
-
-@receiver(pre_delete, sender=Project)
-@receiver(pre_delete, sender='twenty_four_seven.ProjectTwentyFourSeven')
-def delete_live_search_periodic_tasks(sender, instance, **kwargs):
-    if ALLOWED_HOSTS[0] != 'localhost':
-        tasks = PeriodicTask.objects.filter(name=f'LiveSearch_project_{instance.id}')
         tasks.delete()

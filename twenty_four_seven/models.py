@@ -89,7 +89,7 @@ def attach_online_posts(id):
 
     for post in filter_with_constructor(body, posts):
         with transaction.atomic():
-            item = project.objects.filter(post=post).first()
+            item = project.tfs_project_items.filter(post=post).first()
             if item is None:
                 project.tfs_project_items.create(post=post, project=project)
 
