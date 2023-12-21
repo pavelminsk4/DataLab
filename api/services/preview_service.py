@@ -15,7 +15,7 @@ class PreviewPosts:
         source = request.GET.getlist('source')
         author = request.GET.getlist('author')
         sentiment = request.GET.getlist('sentiment')
-        posts = Post.objects.filter(entry_published__date=now()-timedelta(days=1)).order_by('-entry_published')
+        posts = Post.objects.extra(where=["entry_published BETWEEN (NOW() - interval '2 days') AND NOW()"]).order_by('-entry_published')
         if additional:
             posts = self.additional_keywords_posts(posts, additional + keywords)
         else:
