@@ -52,9 +52,7 @@ export default {
     commit(mutator.SET_LOADING, true)
 
     const strFilters = Object.keys(filters)
-      .map((e) => filters[e].map((f) => `${e}[]=${f}`))
-      .filter((e) => e.length > 0)
-      .map((e) => e.join('&'))
+      .flatMap((e) => filters[e].map((f) => `${e}[]=${f}`))
       .join('&')
 
     try {
