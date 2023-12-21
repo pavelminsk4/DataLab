@@ -37,7 +37,9 @@
       </BaseButton>
       <BaseButton
         :button-loading="buttonSaveLoading"
-        @click="$emit('save-summary', header, text)"
+        @click="
+          $emit('save-summary', newHeader, newHeaderAr, newText, newTextAr)
+        "
       >
         <SaveIcon color="#ffffff" />
         <CustomText text="Save" />
@@ -91,7 +93,9 @@ export default {
   data() {
     return {
       newHeader: null,
+      newHeaderAr: null,
       newText: null,
+      newTextAr: null,
       isFieldClear: true,
       loadingTranslation: false,
       newSelectedLanguage: this.post.post.feed_language__language,
@@ -112,7 +116,16 @@ export default {
     header: {
       get() {
         if (this.newHeader === '') return this.newHeader
-        return this.newHeader || this.post.header || this.post.post.entry_title
+        const header =
+          this.selectedLanguage === LANGUAGES_NAMES.ARABIC
+            ? this.post.header_ar
+            : this.post.header
+
+        const currentHeader =
+          this.selectedLanguage === LANGUAGES_NAMES.ARABIC
+            ? this.newHeaderAr
+            : this.newHeader
+        return currentHeader || header || this.post.post.entry_title
       },
       set(value) {
         this.newHeader = value
@@ -121,7 +134,16 @@ export default {
     text: {
       get() {
         if (this.newText === '') return this.newText
-        return this.newText || this.post.text || this.post.post.full_text
+        const text =
+          this.selectedLanguage === LANGUAGES_NAMES.ARABIC
+            ? this.post.text_ar
+            : this.post.text
+
+        const currentText =
+          this.selectedLanguage === LANGUAGES_NAMES.ARABIC
+            ? this.newTextAr
+            : this.newText
+        return currentText || text || this.post.post.full_text
       },
       set(value) {
         this.newText = value
@@ -138,23 +160,23 @@ export default {
     this.languagesTabs = Object.values(LANGUAGES_NAMES)
   },
   methods: {
-    ...mapActions([
-      action.CLEAR_TFS_AI_SUMMARY,
-      action.UPDATE_AI_SUMMARY_LANGUAGE,
-    ]),
+    ...mapActions([action.CLEAR_TFS_AI_SUMMARY, action.CHANGE_HEADER_LANGUAGE]),
     async changeLanguage(newLanguage) {
       this.loadingTranslation = true
       this.selectedLanguage = newLanguage
 
       try {
-        await this[action.UPDATE_AI_SUMMARY_LANGUAGE]({
-          newLanguage: newLanguage.toLowerCase(),
-          header: this.header || '',
-          text: this.text || '',
-        })
+        if (
+          this.selectedLanguage === LANGUAGES_NAMES.ARABIC &&
+          !this.newHeaderAr
+        ) {
+          await this[action.CHANGE_HEADER_LANGUAGE]({
+            newLanguage: newLanguage.toLowerCase(),
+            header: this.header || '',
+          })
 
-        this.newHeader = this.translatedText.header
-        this.newText = this.translatedText.text
+          this.newHeaderAr = this.translatedText.header
+        }
       } finally {
         this.loadingTranslation = false
       }
@@ -169,7 +191,8 @@ export default {
   },
   watch: {
     aiSummary() {
-      this.newText = this.aiSummary
+      this.newText = this.aiSummary.summary
+      this.newTextAr = this.aiSummary.summary_ar
     },
   },
 }

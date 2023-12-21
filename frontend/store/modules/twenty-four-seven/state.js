@@ -7,7 +7,7 @@ const state = {
   newWorkspaceId: null,
   statusMessage: null,
   textTranslation: {title: '', text: ''},
-  aiSummary: '',
+  aiSummary: {},
   translatedText: {header: '', text: ''},
   sortType: {label: 'Latest', value: 'asc_date'},
 }

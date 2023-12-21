@@ -59,6 +59,7 @@ export default {
       return (
         this.textTranslation?.text ||
         this.post.post.full_text ||
+        this.post.post.entry_summary ||
         'Original content is available via link in post!'
       )
     },

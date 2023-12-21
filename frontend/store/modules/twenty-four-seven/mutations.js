@@ -44,7 +44,7 @@ export default {
     state.textTranslation.text = text
   },
 
-  [mutator.SET_TRANSLATED_AI_SUMMARY](state, {header, text}) {
+  [mutator.SET_HEADER_TRANSLATED](state, {header, text}) {
     state.translatedText.header = header
     state.translatedText.text = text
   },

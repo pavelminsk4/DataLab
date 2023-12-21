@@ -43,6 +43,7 @@
       template-title="Phone numbers"
       select-name="phone-numbers"
       class="phone-numbers-select"
+      style="--options-container-height: 100px"
     />
     <div class="whatsapp-button">
       <BaseButton
