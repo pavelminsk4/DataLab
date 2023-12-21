@@ -2,14 +2,12 @@ from twenty_four_seven.serializers import ProjectTwentyFourSevenPostSerializer
 from twenty_four_seven.serializers import ProjectTwentyFourSevenSerializer
 from twenty_four_seven.serializers import WorkspaceTwentyFourSevenPostSerializer
 from twenty_four_seven.serializers import WorkspaceTwentyFourSevenSerializer
-from common.translator.translate_long_text import translate
 from twenty_four_seven.serializers import ItemSerializer
 from twenty_four_seven.models import WorkspaceTwentyFourSeven
 from twenty_four_seven.models import ProjectTwentyFourSeven
 from twenty_four_seven.models import Item
 from twenty_four_seven.whatsapp import whatsappp_sender
 from ml_components.models import RelatedThreshold
-from common.ai_summary import ai_summary
 from sentence_transformers import util
 from django.http import JsonResponse
 from rest_framework import viewsets
@@ -129,19 +127,3 @@ def top_similar(item_id, threshold=0.5):
         return items
     except:
         return Item.objects.none()
-
-
-def translator(request):
-    data = json.loads(request.body)
-    text = data['text']
-    target_lang = data['target_lang']
-    return JsonResponse({'translated_text': translate(text, target_lang)}, safe=False)
-
-
-def summary(request, item_pk):
-    item = Item.objects.get(id=item_pk)
-    post = item.post
-    text = post.full_text or post.entry_summary or post.entry_title
-    lang = item.post.feed_language.language
-    summary = ai_summary(text, lang)
-    return JsonResponse({'summary': summary}, safe=False)

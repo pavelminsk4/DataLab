@@ -1,10 +1,10 @@
 from rest_framework.test import APITestCase
 from rest_framework import status
 from django.urls import reverse
-import json
 from common.factories.twenty_four_seven.tfs_project import ProjectTwentyFourSevenFactory
 from common.factories.twenty_four_seven.tfs_item import ItemFactory
 from common.factories.post import PostFactory
+import json
 
 
 def exclude(data, keys):
