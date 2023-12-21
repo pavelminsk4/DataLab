@@ -1,9 +1,8 @@
-from rest_framework.generics import ListAPIView, CreateAPIView, DestroyAPIView, UpdateAPIView
 from twenty_four_seven.serializers import ProjectTwentyFourSevenPostSerializer
 from twenty_four_seven.serializers import ProjectTwentyFourSevenSerializer
 from twenty_four_seven.serializers import WorkspaceTwentyFourSevenPostSerializer
 from twenty_four_seven.serializers import WorkspaceTwentyFourSevenSerializer
-from common.translator.translate_long_text import translate_long_text
+from common.translator.translate_long_text import translate
 from rest_framework.pagination import PageNumberPagination
 from twenty_four_seven.serializers import ItemPatchSerializer
 from twenty_four_seven.serializers import ItemSerializer
@@ -12,7 +11,6 @@ from twenty_four_seven.models import ProjectTwentyFourSeven
 from twenty_four_seven.models import Item
 from twenty_four_seven.whatsapp import whatsappp_sender
 from ml_components.models import RelatedThreshold
-from deep_translator import GoogleTranslator
 from common.ai_summary import ai_summary
 from sentence_transformers import util
 from django.http import JsonResponse
@@ -24,6 +22,7 @@ from django.db.models import Case, When
 
 from sklearn.metrics.pairwise import linear_kernel
 from sklearn.feature_extraction.text import TfidfVectorizer
+
 
 class StandardResultsSetPagination(PageNumberPagination):
     page_size = 100
@@ -45,7 +44,7 @@ class ItemViewSet(viewsets.ModelViewSet):
             field = order_choices[order]
             return Item.objects.filter(project__pk=self.kwargs['project_pk'], status=status).order_by(field)
         return Item.objects.all()
-    
+
     def get_serializer_class(self):
         if self.request.method == 'PATCH':
             return ItemPatchSerializer
@@ -93,14 +92,16 @@ def whatsapp(request):
 class RelatedContentViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         item_id = self.request.GET['item']
-        defaults = {'is_active':True,
-                    'description':'threshold',
-                    'threshold':0.3,
-                    'tf_idf_method':True}
-        threshold_item, _ = RelatedThreshold.objects.get_or_create(is_active=True,defaults=defaults)
+        defaults = {
+            'is_active': True,
+            'description': 'threshold',
+            'threshold': 0.3,
+            'tf_idf_method': True
+        }
+        threshold_item, _ = RelatedThreshold.objects.get_or_create(is_active=True, defaults=defaults)
         threshold = threshold_item.threshold
         method = threshold_item.tf_idf_method
-        return tfidf_top_similar(item_id,threshold) if method else top_similar(item_id,threshold) 
+        return tfidf_top_similar(item_id, threshold) if method else top_similar(item_id, threshold)
 
     serializer_class = ItemSerializer
 
@@ -115,7 +116,7 @@ def tfidf_top_similar(item_id, threshold):
         titles = np.array([i['post__entry_title'] for i in vectors])
         item_title = (item.post.id, item.post.entry_title)
         titles_series = pd.Series(titles)
-        index_series = pd.Series([(id_list[i],titles[i]) for i in range(len(titles))])
+        index_series = pd.Series([(id_list[i], titles[i]) for i in range(len(titles))])
         tfidf = TfidfVectorizer()
         tfidf_matrix = tfidf.fit_transform(titles)
         cosine_sim = linear_kernel(tfidf_matrix, tfidf_matrix)
@@ -137,7 +138,7 @@ def tfidf_top_similar(item_id, threshold):
         return Item.objects.none()
 
 
-def top_similar(item_id,threshold=0.5):
+def top_similar(item_id, threshold=0.5):
     try:
         item = Item.objects.get(id=item_id)
         project = item.project
@@ -145,12 +146,12 @@ def top_similar(item_id,threshold=0.5):
         vectors = items.values('post__id', 'post__summary_vector')
         id_list = np.array([i['post__id'] for i in vectors])
         posts_vector = np.array([i['post__summary_vector'] for i in vectors])
-        cosine_scores = util.cos_sim(np.array([item.post.summary_vector[0]]), posts_vector.reshape(len(items),384))
-        cosine_scores = cosine_scores.reshape(1,-1)[0]
+        cosine_scores = util.cos_sim(np.array([item.post.summary_vector[0]]), posts_vector.reshape(len(items), 384))
+        cosine_scores = cosine_scores.reshape(1, -1)[0]
         result = cosine_scores.argsort(descending=True)
         items = items.filter(post__pk__in=id_list[result])
         result_cosine = cosine_scores[result]
-        result_id = id_list[result[:len(result_cosine[result_cosine>threshold])]]
+        result_id = id_list[result[:len(result_cosine[result_cosine > threshold])]]
         if result_id.shape == ():
             return Item.objects.none()
         result_id = result_id[1:]
@@ -159,15 +160,13 @@ def top_similar(item_id,threshold=0.5):
         return items
     except:
         return Item.objects.none()
-    
 
 
 def translator(request):
     data = json.loads(request.body)
     text = data['text']
     target_lang = data['target_lang']
-    translated_text = translate_long_text(text, target_lang)
-    return JsonResponse({'translated_text': translated_text}, safe=False)
+    return JsonResponse({'translated_text': translate(text, target_lang)}, safe=False)
 
 
 def summary(request, item_pk):
