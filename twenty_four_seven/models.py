@@ -6,9 +6,8 @@ from django.db.models.signals import post_save
 from django.contrib.auth.models import User
 from django.dispatch import receiver
 from celery import shared_task
-from bs4 import BeautifulSoup
 from django.db import models
-import requests
+from django.db import transaction
 
 
 class WorkspaceTwentyFourSeven(models.Model):
@@ -70,26 +69,29 @@ class ProjectTwentyFourSeven(models.Model):
 
 @shared_task
 def attach_online_posts(id):
-    instance = ProjectTwentyFourSeven.objects.get(id=id)
-    posts = data_range_posts_for_24(instance.start_search_date, instance.end_search_date)
+    project = ProjectTwentyFourSeven.objects.get(id=id)
+    posts   = data_range_posts_for_24(project.start_search_date, project.end_search_date)
     body = {
-        'keywords': instance.keywords,
-        'exceptions': instance.ignore_keywords,
-        'additions': instance.additional_keywords,
-        'country': instance.country_filter,
-        'language': instance.language_filter,
-        'source': instance.source_filter,
-        'author': instance.author_filter,
-        'sentiment': instance.sentiment_filter,
-        'country_dimensions': instance.country_dimensions,
-        'language_dimensions': instance.language_dimensions,
-        'source_dimensions': instance.source_dimensions,
-        'author_dimensions': instance.author_dimensions,
-        'sentiment_dimensions': instance.sentiment_dimensions,
+        'keywords': project.keywords,
+        'exceptions': project.ignore_keywords,
+        'additions': project.additional_keywords,
+        'country': project.country_filter,
+        'language': project.language_filter,
+        'source': project.source_filter,
+        'author': project.author_filter,
+        'sentiment': project.sentiment_filter,
+        'country_dimensions': project.country_dimensions,
+        'language_dimensions': project.language_dimensions,
+        'source_dimensions': project.source_dimensions,
+        'author_dimensions': project.author_dimensions,
+        'sentiment_dimensions': project.sentiment_dimensions,
     }
 
     for post in filter_with_constructor(body, posts):
-        Item.objects.create(post=post, project=instance)
+        with transaction.atomic():
+            item = project.objects.filter(post=post).first()
+            if item is None:
+                project.tfs_project_items.create(post=post, project=project)
 
 
 @receiver(post_save, sender=ProjectTwentyFourSeven)
@@ -109,16 +111,22 @@ class Item(models.Model):
         ('Irrelevant', 'Irrelevant'),
     ]
 
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, blank=True, null=True)
-    social_post = models.ForeignKey(TweetBinderPost, on_delete=models.CASCADE, blank=True, null=True)
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Picking')
-    header = models.CharField(default='', max_length=1000, blank=True, null=True)
-    text = models.CharField(default='', max_length=10000, blank=True, null=True)
+    project          = models.ForeignKey(ProjectTwentyFourSeven, on_delete=models.CASCADE, related_name='tfs_project_items', blank=True, null=True)
+    post             = models.ForeignKey(Post, on_delete=models.CASCADE, blank=True, null=True)
+    social_post      = models.ForeignKey(TweetBinderPost, on_delete=models.CASCADE, blank=True, null=True)
+
     original_content = models.TextField(blank=True, null=True)
-    in_work = models.BooleanField(default=False)
-    is_back = models.BooleanField(default=False)
-    project = models.ForeignKey(ProjectTwentyFourSeven, on_delete=models.CASCADE, related_name='tfs_project_items', blank=True, null=True)
-    linked_items = models.ManyToManyField(to='self', related_name='attached_items', symmetrical=False, blank=True)
+
+    status           = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Picking')
+    header           = models.CharField(default='', max_length=1000, blank=True, null=True)
+    text             = models.CharField(default='', max_length=10000, blank=True, null=True)
+    header_ar        = models.CharField(default='', max_length=1000, blank=True, null=True)
+    text_ar          = models.CharField(default='', max_length=10000, blank=True, null=True)
+
+    in_work          = models.BooleanField(default=False)
+    is_back          = models.BooleanField(default=False)
+
+    linked_items     = models.ManyToManyField(to='self', related_name='attached_items', symmetrical=False, blank=True)
 
     class Meta:
         constraints = [
@@ -128,27 +136,3 @@ class Item(models.Model):
 
     def __str__(self):
         return str(self.project)
-
-
-def find_tags(tags):
-    result_tags = []
-    for tag in tags:
-        if tag.find('a') is None and tag.parent.name != 'a' and not tag.has_attr('class'):
-            result_tags.append(tag.get_text().strip())
-    return result_tags
-
-
-@shared_task
-def get_full_text(url):
-    resp = requests.get(url)
-    if resp.status_code != 200:
-        return None
-    else:
-        page = resp.text
-        soup = BeautifulSoup(page, 'html.parser')
-        p_tags = soup.find_all('p')
-        p_tags_text = find_tags(p_tags)
-        sentence_list = [sentence for sentence in p_tags_text if '\n' not in sentence]
-        sentence_list = [sentence for sentence in sentence_list if '.' in sentence]
-        full_text = '\n'.join(sentence_list)
-        return full_text

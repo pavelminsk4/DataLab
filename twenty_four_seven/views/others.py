@@ -3,8 +3,6 @@ from twenty_four_seven.serializers import ProjectTwentyFourSevenSerializer
 from twenty_four_seven.serializers import WorkspaceTwentyFourSevenPostSerializer
 from twenty_four_seven.serializers import WorkspaceTwentyFourSevenSerializer
 from common.translator.translate_long_text import translate
-from rest_framework.pagination import PageNumberPagination
-from twenty_four_seven.serializers import ItemPatchSerializer
 from twenty_four_seven.serializers import ItemSerializer
 from twenty_four_seven.models import WorkspaceTwentyFourSeven
 from twenty_four_seven.models import ProjectTwentyFourSeven
@@ -22,35 +20,6 @@ from django.db.models import Case, When
 
 from sklearn.metrics.pairwise import linear_kernel
 from sklearn.feature_extraction.text import TfidfVectorizer
-
-
-class StandardResultsSetPagination(PageNumberPagination):
-    page_size = 100
-    page_size_query_param = 'page_size'
-    max_page_size = 1000
-
-
-class ItemViewSet(viewsets.ModelViewSet):
-    def get_queryset(self):
-        if self.request.GET:
-            status = self.request.GET.get('status')
-            order = self.request.GET.get('order')
-            order_choices = {
-                'asc_date': 'post__entry_published',
-                'desc_date': '-post__entry_published',
-                'asc_reach': 'post__feedlink__alexaglobalrank',
-                'desc_reach': '-post__feedlink__alexaglobalrank',
-            }
-            field = order_choices[order]
-            return Item.objects.filter(project__pk=self.kwargs['project_pk'], status=status).order_by(field)
-        return Item.objects.all()
-
-    def get_serializer_class(self):
-        if self.request.method == 'PATCH':
-            return ItemPatchSerializer
-        return ItemSerializer
-
-    pagination_class = StandardResultsSetPagination
 
 
 class TwentyFourSevenProjectViewSet(viewsets.ModelViewSet):
