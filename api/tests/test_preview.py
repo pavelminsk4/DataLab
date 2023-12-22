@@ -24,14 +24,14 @@ class PreviewTests(APITestCase):
         
     def test_preview(self):
         data = {
-            'keywords': ['USA', 'CANADA'],
-            'exclude': [],
-            'additional': [],
-            'country': ['USA'],
-            'language': [],
-            'source': ['TIMES'],
-            'author': ['BBC'],
-            'sentiment': ['positive']
+            'keywords[]': ['USA', 'CANADA'],
+            'exclude[]': [],
+            'additional[]': [],
+            'country[]': ['USA'],
+            'language[]': [],
+            'source[]': ['TIMES'],
+            'author[]': ['BBC'],
+            'sentiment[]': ['positive']
         }
         
         url = '/api/project/preview'
