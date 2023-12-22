@@ -36,10 +36,15 @@ export default {
     ]),
     preview(filters) {
       try {
-        this[actionOnline.POSTS_PREVIEW](filters)
+        this[actionOnline.POSTS_PREVIEW](this.strFilters(filters))
       } catch (e) {
         console.error(e)
       }
+    },
+    strFilters(filters) {
+      return Object.keys(filters)
+        .flatMap((e) => filters[e].map((f) => `${e}[]=${f}`))
+        .join('&')
     },
     async createWorkspace(workspaceData) {
       const newWorkspace = await this[actionOnline.CREATE_WORKSPACE](

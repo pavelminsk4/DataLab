@@ -172,23 +172,15 @@ export default {
     }
   },
 
-  async [action.UPDATE_AI_SUMMARY_LANGUAGE](
-    {commit},
-    {newLanguage, text, header}
-  ) {
+  async [action.CHANGE_HEADER_LANGUAGE]({commit}, {newLanguage, header}) {
     commit(mutator.SET_LOADING, true)
     try {
       const translatedHeader = await api.twentyFourSeven.translateLanguage(
         newLanguage,
         header
       )
-      const translatedText = await api.twentyFourSeven.translateLanguage(
-        newLanguage,
-        text
-      )
-      commit(mutator.SET_TRANSLATED_AI_SUMMARY, {
+      commit(mutator.SET_HEADER_TRANSLATED, {
         header: translatedHeader.translated_text,
-        text: translatedText.translated_text,
       })
       return
     } finally {
@@ -200,7 +192,7 @@ export default {
     commit(mutator.SET_LOADING, true)
     try {
       const response = await api.twentyFourSeven.createAISummary(postId)
-      commit(mutator.SET_TFS_AI_SUMMARY, response.summary)
+      commit(mutator.SET_TFS_AI_SUMMARY, response)
     } finally {
       commit(mutator.SET_LOADING, false)
     }
@@ -231,7 +223,7 @@ export default {
 
   async [action.CLEAR_TFS_AI_SUMMARY]({commit}) {
     commit(mutator.SET_TFS_AI_SUMMARY, '')
-    commit(mutator.SET_TRANSLATED_AI_SUMMARY, {
+    commit(mutator.SET_HEADER_TRANSLATED, {
       header: '',
       text: '',
     })

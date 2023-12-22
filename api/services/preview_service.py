@@ -7,14 +7,14 @@ import json
 
 class PreviewPosts:
     def get(self, request):
-        keywords = request.GET.getlist('keywords')
-        exclude = request.GET.getlist('exclude')
-        additional = request.GET.getlist('additional')
-        country = request.GET.getlist('country')
-        language = request.GET.getlist('language')
-        source = request.GET.getlist('source')
-        author = request.GET.getlist('author')
-        sentiment = request.GET.getlist('sentiment')
+        keywords = request.GET.getlist('keywords[]')
+        exclude = request.GET.getlist('exclude[]')
+        additional = request.GET.getlist('additional[]')
+        country = request.GET.getlist('country[]')
+        language = request.GET.getlist('language[]')
+        source = request.GET.getlist('source[]')
+        author = request.GET.getlist('author[]')
+        sentiment = request.GET.getlist('sentiment[]')
         posts = Post.objects.extra(where=["entry_published BETWEEN (NOW() - interval '2 days') AND NOW()"]).order_by('-entry_published')
         if additional:
             posts = self.additional_keywords_posts(posts, additional + keywords)

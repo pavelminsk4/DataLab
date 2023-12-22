@@ -128,14 +128,20 @@ export default {
         this.relatedContentLoading = false
       }
     },
-    async saveSummary(header, text) {
+    async saveSummary(header, headerAr, text, textAr) {
       this.saveLoading = true
 
       try {
         await this[action.UPDATE_TFS_ITEM_DATA]({
           projectId: this.post.project,
           postId: this.post.id,
-          value: {header, text, status: this.post.status},
+          value: {
+            header,
+            header_ar: headerAr,
+            text,
+            text_ar: textAr,
+            status: this.post.status,
+          },
           page: 1,
         })
       } finally {
