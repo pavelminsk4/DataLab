@@ -50,13 +50,8 @@ export default {
   },
   async [action.POSTS_PREVIEW]({commit}, filters) {
     commit(mutator.SET_LOADING, true)
-
-    const strFilters = Object.keys(filters)
-      .flatMap((e) => filters[e].map((f) => `${e}[]=${f}`))
-      .join('&')
-
     try {
-      const response = await api.online.postsPreview(strFilters)
+      const response = await api.online.postsPreview(filters)
       commit(mutator.SET_SEARCH_DATA, {posts: response.posts}, {root: true})
     } finally {
       commit(mutator.SET_LOADING, false)
